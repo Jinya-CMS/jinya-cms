@@ -2,8 +2,8 @@ language: php
 php:
   - '7.1'
 before_script:
-  - echo "repo_token: $REPO_TOKEN" >> ".coveralls.yml"
-  - echo "service_name: travis-ci" >> ".coveralls.yml"
+  - "echo repo_token: $REPO_TOKEN > .coveralls.yml"
+  - "echo service_name: travis-ci >> .coveralls.yml"
 install:
   - composer install --dev --no-interaction
 script:
