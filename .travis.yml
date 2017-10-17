@@ -7,7 +7,7 @@ before_script:
 install:
   - composer install --dev --no-interaction
 script:
-  - php codecept run
+  - php ./vendor/bin/codecept run
 after_success:
   - travis_retry php vendor/bin/coveralls
 env:
