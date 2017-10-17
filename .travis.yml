@@ -1,0 +1,15 @@
+language: php
+php:
+  - '7.1'
+before_script:
+  - echo "repo_token: $REPO_TOKEN" >> ".coveralls.yml"
+  - echo "service_name: travis-ci" >> ".coveralls.yml"
+install:
+  - composer install --dev --no-interaction
+script:
+  - php codecept run
+after_success:
+  - travis_retry php vendor/bin/coveralls
+env:
+  global:
+    secure: Jlj0Tqgo/ktf8KL7wjNdlEvR6mhbfsIgYGHSdIrl61DH/x3cmDhygLW3bISBJryKU43XahVgsTzUTt/BH8jIlFtSFfOtaxkAD/BbJf/OS0jwfQ5Q9pt7171PCLkkLqp/y5GQNYp5pF8Oq5BcSqbUt95tiOoqcRVYwVruUqN+7Haa7PEGBtq1GwfkvJrKfYu2FfSrrAzsvJkqqUWxn4z6tpzbMUP+Z0aYMfoOeZeuXGXNwMzRNpSeDgSso5KOuqGh7XMIx79I7enEbuPqbXpKhFY8+9TE+nt5O1DWkOu83grmmmxTU8smWc3j3Yd3ZrQ8+xUfWcIfdbRfi4pFQcs25XJptIsJ05MPGXBOXUka36arMTXlsSR9r3inzsFx73uOM9IMRz7pTe/NC2s+HbKeKb5/TyIiqc4ebRWGvasK7dehAuFGej7BCk+nmRwkNdSWDKmo02PETFuaH/QrJY/MmmmQFos2+7kXYBeJ5NdEtVcs97MNLKEG5GEAPENg1XkNCDOivHs9vmVRZGsXYj+5i3sTQ7/jWhVKrN4zGr6+1oLMQZ3SKTnobiO8Pjrt2CbEdCzYHqm5pvCHrsmwaQH4nhuAyQpeMZu+DIXqcNuPjhpvw8W6SKGXM8Rko84K4nMYxiKXCzchfipjWmvTEDlGpqBFjeHqawFrEjikQrihag0=
