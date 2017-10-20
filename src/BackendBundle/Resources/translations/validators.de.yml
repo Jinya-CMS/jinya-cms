@@ -1,0 +1,3 @@
+login.email.required: Die Emailadresse ist erforderlich
+login.email.not_valid: Die Emailadresse ist ungültig
+login.password.required: Das Passwort ist erforderlich

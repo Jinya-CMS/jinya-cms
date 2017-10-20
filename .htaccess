@@ -113,8 +113,3 @@ DirectoryIndex jinya-gallery-cms.php
 <IfModule mod_headers.c>
     Header append X-Frame-Options SAMEORIGIN
 </IfModule>
-
-AuthType Basic
-AuthName "Jenny Jinya Beta Site"
-AuthUserFile .htpasswd
-Require valid-user

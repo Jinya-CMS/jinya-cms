@@ -1,0 +1,8 @@
+account:
+  login:
+    label:
+      email: Email
+      password: Password
+      remember_me: Remember me
+    button:
+      login: Login
