@@ -51,25 +51,24 @@
                 <div class="sidebar {{ menu_bg }}">
                     <nav class="nav flex-column">
                         {% block sidebar_items %}
-                            <a class="nav-link active" href="#">Active</a>
-                            <a class="nav-link" href="#">Link</a>
-                            <a class="nav-link" href="#">Link</a>
                         {% endblock %}
                     </nav>
                 </div>
             {% endblock %}
-            <div class="container-fluid page" data-role="content">
-            <div class="content">
+            <div class="container-fluid page">
+            <div class="content" data-role="content">
         {% endif %}
         {% block content %}
         {% endblock %}
         {% if not ajax %}
             </div>
             {% block content_loader %}
+            <script type="text/html" id="spinner">
                 <div class="spinner">
                     <div class="double-bounce1"></div>
                     <div class="double-bounce2"></div>
                 </div>
+            </script>
             {% endblock %}
             </div>
         {% endif %}

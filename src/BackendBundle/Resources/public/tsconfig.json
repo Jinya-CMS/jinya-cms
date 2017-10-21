@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es5"
+    ],
+    "inlineSourceMap": true,
+    "pretty": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": true
+}

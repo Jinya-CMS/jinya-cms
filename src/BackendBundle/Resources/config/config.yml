@@ -12,7 +12,6 @@ assetic:
     backendcss:
       inputs:
         - '@BackendBundle/Resources/public/scss/spinner.scss'
-        - '@BackendBundle/Resources/public/scss/loading.scss'
         - '@BackendBundle/Resources/public/scss/sidebar.scss'
     backendjs:
       inputs:
