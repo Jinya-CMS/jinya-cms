@@ -1,7 +1,12 @@
 <html>
 <head>
-    <title>{{ 'app.name'|trans() }} - {% block title %}{% endblock %}</title>
+    <title>{{ 'app.name'|trans() }}{% block title %}{% endblock %}</title>
     {% block styles %}{% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+    {% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}

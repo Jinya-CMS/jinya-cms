@@ -1,3 +1,67 @@
 {% extends 'base_layout.html.twig' %}
 
-{% block title %}{{ 'layout.backend.title'|trans() }}{% endblock %}
+{% block title %} - {{ 'layout.backend.title'|trans() }}{% endblock %}
+
+{% block body %}
+    <nav class="ui primary inverted top fixed menu">
+        <a class="open item">
+            <i class="sidebar icon"></i>
+            {{ 'app.name'|trans }}
+        </a>
+        {% block search %}{% endblock %}
+    </nav>
+    <div class="pushable">
+        <div class="ui left vertical inverted sidebar labeled icon menu">
+            {% block menu %}
+            {% endblock %}
+        </div>
+        <div class="pusher">
+            <div class="ui container">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    {% block scripts_jquery %}
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_popperjs %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+                crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_bootstrap %}
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+                crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_messenger %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/js/messenger.min.js"
+                integrity="sha256-BnQeGKS32Pt/mkLkk742fNXjfLN5/4OOd3L9PAf5d3s=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block custom_scripts %}{% endblock %}
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    {% block styles_bootstrap %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+              crossorigin="anonymous">
+    {% endblock %}
+    {% block styles_messenger %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger.css"
+              integrity="sha256-7dEoLRnA1sJLZWNfRMKeEeVKRIlXencFe30wZOPE3SY=" crossorigin="anonymous"/>
+    {% endblock %}
+    {% block styles_messenger_theme %}
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger-theme-air.min.css"
+              integrity="sha256-2gEgUC2/7S2VYfjORqxZQm5SIhsQpFyIPkUGjpuyVuw=" crossorigin="anonymous"/>
+    {% endblock %}
+    {% block custom_styles %}{% endblock %}
+{% endblock %}

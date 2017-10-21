@@ -1,34 +1,8 @@
 {% extends "::base_backend_layout.html.twig" %}
 
+{% block title %} - {{ 'layout.backend.login.title'|trans() }}{% endblock %}
+
 {% block body %}
     {{ parent() }}
     {% block fos_user_content %}{% endblock %}
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-    <script src="{{ asset('public/node_modules/jquery/dist/jquery.js') }}"></script>
-    <script src="{{ asset('public/semantic/dist/semantic.js') }}"></script>
-{% endblock %}
-
-{% block styles %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('public/semantic/dist/semantic.css') }}">
-    <style type="text/css">
-        body {
-            background-color: #DADADA;
-        }
-
-        body > .grid {
-            height: 100%;
-        }
-
-        .image {
-            margin-top: -100px;
-        }
-
-        .column {
-            max-width: 450px;
-        }
-    </style>
 {% endblock %}
