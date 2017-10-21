@@ -2,25 +2,65 @@
 
 {% block title %} - {{ 'layout.backend.title'|trans() }}{% endblock %}
 
+{% block custom_meta %}
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+{% endblock %}
+
 {% block body %}
-    <nav class="ui primary inverted top fixed menu">
-        <a class="open item">
-            <i class="sidebar icon"></i>
-            {{ 'app.name'|trans }}
-        </a>
-        {% block search %}{% endblock %}
-    </nav>
-    <div class="pushable">
-        <div class="ui left vertical inverted sidebar labeled icon menu">
-            {% block menu %}
+    {% if error is not defined %}
+        {% set menu_bg = 'bg-primary' %}
+    {% elseif error is defined and error|length == 0 %}
+        {% set menu_bg = 'bg-success' %}
+    {% else %}
+        {% set menu_bg = 'bg-danger' %}
+    {% endif %}
+    {% block menu %}
+        <nav class="navbar navbar-expand-lg navbar-dark {{ menu_bg }}">
+            {% block brand %}
+                <a class="navbar-brand" href="{{ url('backend_default_index') }}">
+                    <img src="{{ asset('favicon.ico') }}" width="30" height="30" alt="">
+                </a>
             {% endblock %}
-        </div>
-        <div class="pusher">
-            <div class="ui container">
-                {% block content %}{% endblock %}
+            {% block toggler %}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            {% endblock %}
+            {% block menu_items %}
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-nav">
+                        {% block menu_users %}
+                            <a href="{{ url('backend_users_index') }}"
+                               class="nav-item nav-link {% if menu_users_active %}active{% endif %}">
+                                {{ 'layout.backend.menu.users'|trans }}
+                            </a>
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </nav>
+    {% endblock %}
+    {% block container %}
+        {% block sidebar %}
+            <div class="sidebar {{ menu_bg }}">
+                <nav class="nav flex-column">
+                    {% block sidebar_items %}
+                        <a class="nav-link active" href="#">Active</a>
+                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Link</a>
+                    {% endblock %}
+                </nav>
+            </div>
+        {% endblock %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
-    </div>
+    {% endblock %}
 {% endblock %}
 
 {% block scripts %}
@@ -62,6 +102,9 @@
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger-theme-air.min.css"
               integrity="sha256-2gEgUC2/7S2VYfjORqxZQm5SIhsQpFyIPkUGjpuyVuw=" crossorigin="anonymous"/>
+    {% endblock %}
+    {% block styles_sidebar %}
+        <link rel="stylesheet" href="{{ asset('public/css/backend/sidebar.css') }}"/>
     {% endblock %}
     {% block custom_styles %}{% endblock %}
 {% endblock %}
