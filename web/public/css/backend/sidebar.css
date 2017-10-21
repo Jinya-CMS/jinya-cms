@@ -18,3 +18,7 @@ body {
 .sidebar .nav-link.active {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+.page-content-wrapper {
+    padding-left: 250px;
+}

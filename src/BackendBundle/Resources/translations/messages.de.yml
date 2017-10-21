@@ -1,11 +1,12 @@
-account:
-  login:
-    label:
-      email: Email
-      password: Passwort
-      remember_me: Anmeldung speichern
-    button:
-      login: Anmelden
 layout:
   backend:
     title: Backend
+    menu:
+      users: Benutzer
+sidebar:
+  users:
+    overview: Überblick
+    add: Neuer Benutzer
+    edit: Benutzer bearbeiten
+    details: Benutzer Details
+    delete: Benutzer löschen

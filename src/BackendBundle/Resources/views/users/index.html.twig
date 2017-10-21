@@ -1,0 +1,4 @@
+{% extends 'BackendBundle:users:users_base.html.twig' %}
+{% block page_content %}
+    {% include '@Backend/users/overview.html.twig' with {'ajax': true} %}
+{% endblock %}

@@ -1,3 +1,4 @@
+{% if not ajax %}
 <html>
 <head>
     <title>{{ 'app.name'|trans() }}{% block title %}{% endblock %}</title>
@@ -11,7 +12,10 @@
     {% endblock %}
 </head>
 <body>
+{% endif %}
 {% block body %}{% endblock %}
+{% if not ajax %}
 {% block scripts %}{% endblock %}
 </body>
 </html>
+{% endif %}

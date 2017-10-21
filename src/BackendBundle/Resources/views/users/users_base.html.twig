@@ -1,0 +1,12 @@
+{% extends 'BackendBundle::base.html.twig' %}
+
+{% set menu_users_active = true %}
+{% block sidebar_items %}
+    {% include 'BackendBundle:sidebar:users.html.twig' with {'active': 'overview'} %}
+{% endblock %}
+{% block content %}
+    <div id="content">
+        {% block page_content %}
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,8 +1,11 @@
-account:
-  login:
-    label:
-      email: Email
-      password: Password
-      remember_me: Remember me
-    button:
-      login: Login
+layout:
+  backend:
+    menu:
+      users: Users
+sidebar:
+  users:
+    overview: Overview
+    add: Add user
+    edit: Edit user
+    details: Userdetails
+    delete: Delete user

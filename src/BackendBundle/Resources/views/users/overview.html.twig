@@ -1,0 +1,9 @@
+{% extends 'BackendBundle:users:users_base.html.twig' %}
+{% if ajax == false %}
+    {% block sidebar_items %}
+        {% include 'BackendBundle:sidebar:users.html.twig' with {'active': 'overview'} %}
+    {% endblock %}
+{% endif %}
+{% block content %}
+    <h2>{{ 'sidebar.users.overview'|trans }}</h2>
+{% endblock %}

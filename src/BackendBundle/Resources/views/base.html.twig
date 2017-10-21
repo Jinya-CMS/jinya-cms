@@ -8,58 +8,65 @@
 {% endblock %}
 
 {% block body %}
-    {% if error is not defined %}
-        {% set menu_bg = 'bg-primary' %}
-    {% elseif error is defined and error|length == 0 %}
-        {% set menu_bg = 'bg-success' %}
-    {% else %}
-        {% set menu_bg = 'bg-danger' %}
-    {% endif %}
-    {% block menu %}
-        <nav class="navbar navbar-expand-lg navbar-dark {{ menu_bg }}">
-            {% block brand %}
-                <a class="navbar-brand" href="{{ url('backend_default_index') }}">
-                    <img src="{{ asset('favicon.ico') }}" width="30" height="30" alt="">
-                </a>
-            {% endblock %}
-            {% block toggler %}
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            {% endblock %}
-            {% block menu_items %}
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="navbar-nav">
-                        {% block menu_users %}
-                            <a href="{{ url('backend_users_index') }}"
-                               class="nav-item nav-link {% if menu_users_active %}active{% endif %}">
-                                {{ 'layout.backend.menu.users'|trans }}
-                            </a>
-                        {% endblock %}
+    {% if not ajax %}
+        {% if error is not defined %}
+            {% set menu_bg = 'bg-primary' %}
+        {% elseif error is defined and error|length == 0 %}
+            {% set menu_bg = 'bg-success' %}
+        {% else %}
+            {% set menu_bg = 'bg-danger' %}
+        {% endif %}
+        {% block menu %}
+            <nav class="navbar navbar-expand-lg navbar-dark {{ menu_bg }}">
+                {% block brand %}
+                    <a class="navbar-brand" href="{{ url('backend_default_index') }}">
+                        <img src="{{ asset('favicon.ico') }}" width="30" height="30" class="d-inline-block align-top"/>
+                        {{ 'app.name'|trans }}
+                    </a>
+                {% endblock %}
+                {% block toggler %}
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                {% endblock %}
+                {% block menu_items %}
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <div class="navbar-nav">
+                            {% block menu_users %}
+                                <a href="{{ url('backend_users_index') }}"
+                                   class="nav-item nav-link {% if menu_users_active is defined and menu_users_active %}active{% endif %}">
+                                    {{ 'layout.backend.menu.users'|trans }}
+                                </a>
+                            {% endblock %}
+                        </div>
                     </div>
+                {% endblock %}
+            </nav>
+        {% endblock %}
+    {% endif %}
+    {% block container %}
+        {% if not ajax %}
+            {% block sidebar %}
+                <div class="sidebar {{ menu_bg }}">
+                    <nav class="nav flex-column">
+                        {% block sidebar_items %}
+                            <a class="nav-link active" href="#">Active</a>
+                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Link</a>
+                        {% endblock %}
+                    </nav>
                 </div>
             {% endblock %}
-        </nav>
-    {% endblock %}
-    {% block container %}
-        {% block sidebar %}
-            <div class="sidebar {{ menu_bg }}">
-                <nav class="nav flex-column">
-                    {% block sidebar_items %}
-                        <a class="nav-link active" href="#">Active</a>
-                        <a class="nav-link" href="#">Link</a>
-                        <a class="nav-link" href="#">Link</a>
-                    {% endblock %}
-                </nav>
-            </div>
-        {% endblock %}
-        <div class="page-content-wrapper">
+            <div class="page-content-wrapper">
             <div class="container-fluid">
-                {% block content %}
-                {% endblock %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+        {% if not ajax %}
             </div>
-        </div>
+            </div>
+        {% endif %}
     {% endblock %}
 {% endblock %}
 
