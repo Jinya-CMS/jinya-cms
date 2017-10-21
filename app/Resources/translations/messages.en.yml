@@ -1,2 +1,6 @@
 app:
   name: Jinya Gallery CMS
+layout:
+  backend:
+    login:
+      title: Login
