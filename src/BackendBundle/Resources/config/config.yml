@@ -1,3 +1,5 @@
+imports:
+    - { resource: ../../../../app/config/parameters.yml }
 fos_user:
     db_driver: orm
     firewall_name: backend

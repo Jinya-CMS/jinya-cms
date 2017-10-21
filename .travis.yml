@@ -2,7 +2,7 @@ language: php
 php:
 - '7.1'
 install:
-- composer install --dev --no-interaction
+- composer install --no-interaction
 script:
 - sonar-scanner -Dsonar.branch=$TRAVIS_BRANCH
 after_success:
