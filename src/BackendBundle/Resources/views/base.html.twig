@@ -58,13 +58,19 @@
                     </nav>
                 </div>
             {% endblock %}
-            <div class="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container-fluid page" data-role="content">
+            <div class="content">
         {% endif %}
         {% block content %}
         {% endblock %}
         {% if not ajax %}
             </div>
+            {% block content_loader %}
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            {% endblock %}
             </div>
         {% endif %}
     {% endblock %}
@@ -73,9 +79,7 @@
 {% block scripts %}
     {{ parent() }}
     {% block scripts_jquery %}
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     {% endblock %}
     {% block scripts_popperjs %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
@@ -90,6 +94,11 @@
     {% block scripts_messenger %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/js/messenger.min.js"
                 integrity="sha256-BnQeGKS32Pt/mkLkk742fNXjfLN5/4OOd3L9PAf5d3s=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block assetic_scripts %}
+        {% javascripts filter='jsqueeze' '@backendjs' output='public/js/backend.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     {% endblock %}
     {% block custom_scripts %}{% endblock %}
 {% endblock %}
@@ -110,8 +119,10 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger-theme-air.min.css"
               integrity="sha256-2gEgUC2/7S2VYfjORqxZQm5SIhsQpFyIPkUGjpuyVuw=" crossorigin="anonymous"/>
     {% endblock %}
-    {% block styles_sidebar %}
-        <link rel="stylesheet" href="{{ asset('public/css/backend/sidebar.css') }}"/>
+    {% block assetic_styles %}
+        {% stylesheets filter='scssphp' '@backendcss' output='public/css/custom.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
     {% endblock %}
     {% block custom_styles %}{% endblock %}
 {% endblock %}

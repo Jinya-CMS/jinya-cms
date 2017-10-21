@@ -140,3 +140,7 @@ $RECYCLE.BIN/
 *.lnk
 
 .idea/
+node_modules/
+*.js
+*.css
+*.map
