@@ -1,3 +1,14 @@
-login.email.required: The email address is required
-login.email.not_valid: The email address is not valid
-login.password.required: The password is required
+backend:
+  users:
+    password:
+      repeat: The passwords don't match
+      not_blank: The password is required
+    firstname:
+      not_blank: The firstname is required
+    lastname:
+      not_blank: The lastname is required
+    username:
+      not_blank: The username is required
+    email:
+      invalid: The email address is invalid
+      not_blank: The email address is required

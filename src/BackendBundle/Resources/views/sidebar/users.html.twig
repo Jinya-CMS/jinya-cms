@@ -2,12 +2,12 @@
    data-target="#content" data-action="nav">{{ 'sidebar.users.overview'|trans }}</a>
 <a class="nav-link {% if active == 'add' %}active{% endif %}" href="{{ url('backend_users_add') }}"
    data-target="#content" data-action="nav">{{ 'sidebar.users.add'|trans }}</a>
-<a class="nav-link overview {% if active == 'edit' %}active{% endif %}"
+<a class="nav-link {% if active == 'edit' %}active{% else %}overview{% endif %}"
    href="{{ url('backend_users_edit', {'id': '#temp#'}) }}" data-action-type="edit"
    data-target="#content" data-action="nav">{{ 'sidebar.users.edit'|trans }}</a>
-<a class="nav-link overview {% if active == 'details' %}active{% endif %}"
+<a class="nav-link {% if active == 'details' %}active{% else %}overview{% endif %}"
    href="{{ url('backend_users_details', {'id': '#temp#'}) }}" data-action-type="details"
    data-target="#content" data-action="nav">{{ 'sidebar.users.details'|trans }}</a>
-<a class="nav-link overview {% if active == 'delete' %}active{% endif %}"
+<a class="nav-link {% if active == 'delete' %}active{% else %}overview{% endif %}"
    href="{{ url('backend_users_delete', {'id': '#temp#'}) }}" data-action-type="delete"
    data-target="#content" data-action="nav">{{ 'sidebar.users.delete'|trans }}</a>

@@ -1,5 +1,6 @@
 layout:
   backend:
+    title: Backend
     menu:
       users: Users
 sidebar:
@@ -9,3 +10,17 @@ sidebar:
     edit: Edit user
     details: Userdetails
     delete: Delete user
+backend:
+  users:
+    email: Email address
+    firstname: Firstname
+    lastname: Lastname
+    username: Username
+    password: Password
+    password_repeat: Repeat password
+    active: Active
+    superadmin: Superadmin
+    admin: Admin
+    editor: Editor
+    save: Save
+    cancel: Cancel

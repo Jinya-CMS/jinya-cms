@@ -10,3 +10,17 @@ sidebar:
     edit: Benutzer bearbeiten
     details: Benutzer Details
     delete: Benutzer löschen
+backend:
+  users:
+    email: Emailadresse
+    firstname: Vorname
+    lastname: Nachname
+    username: Benutzername
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    active: Aktiv
+    superadmin: Superadmin
+    admin: Admin
+    editor: Schreiber
+    save: Speichern
+    cancel: Abbrechen

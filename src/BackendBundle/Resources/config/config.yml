@@ -15,6 +15,7 @@ assetic:
       inputs:
         - '@BackendBundle/Resources/public/scss/spinner.scss'
         - '@BackendBundle/Resources/public/scss/sidebar.scss'
+        - '@BackendBundle/Resources/public/scss/contentarea.scss'
     backendjs:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'

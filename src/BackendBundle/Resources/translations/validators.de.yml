@@ -1,3 +1,14 @@
-login.email.required: Die Emailadresse ist erforderlich
-login.email.not_valid: Die Emailadresse ist ungültig
-login.password.required: Das Passwort ist erforderlich
+backend:
+  users:
+    password:
+      repeat: Die Passwörter müssen übereinstimmen
+      not_blank: Das Passwort ist erforderlich
+    firstname:
+      not_blank: Der Vorname ist erforderlich
+    lastname:
+      not_blank: Der Nachname ist erforderlich
+    username:
+      not_blank: Der Benutzername ist erforderlich
+    email:
+      invalid: Die Emailadresse ist nicht gültig
+      not_blank: Die Emailadresse ist erforderlich

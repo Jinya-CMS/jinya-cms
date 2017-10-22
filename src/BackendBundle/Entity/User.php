@@ -17,6 +17,8 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_WRITER = 'ROLE_WRITER';
 
     /**
      * @ORM\Id
@@ -25,6 +27,50 @@ class User extends BaseUser
      * @var int
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $lastname;
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname(string $firstname)
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname(string $lastname)
+    {
+        $this->lastname = $lastname;
+    }
 
     /**
      * @return int
