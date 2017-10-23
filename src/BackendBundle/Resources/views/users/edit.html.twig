@@ -1,6 +1,5 @@
 {% extends 'BackendBundle:users:users_base.html.twig' %}
 
-{% set sidebar_active = 'edit' %}
 {% block content %}
     {% form_theme form with ['bootstrap_4_horizontal_layout.html.twig', '@Backend/form/themes/jinya_gallery.html.twig'] %}
     {{ form_errors(form) }}

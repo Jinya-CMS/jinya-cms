@@ -2,14 +2,14 @@ layout:
   backend:
     title: Backend
     menu:
-      users: Benutzer
+      users: Künstler
 sidebar:
   users:
     overview: Überblick
-    add: Neuer Benutzer
-    edit: Benutzer bearbeiten
-    details: Benutzer Details
-    delete: Benutzer löschen
+    add: Neuer Künstler
+    edit: Künstler bearbeiten
+    details: Künstlerdetails
+    delete: Künstler löschen
 backend:
   users:
     email: Emailadresse
@@ -24,3 +24,4 @@ backend:
     editor: Schreiber
     save: Speichern
     cancel: Abbrechen
+    profilepicture: Profilbild

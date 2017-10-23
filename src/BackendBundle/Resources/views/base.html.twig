@@ -16,6 +16,9 @@
         {% else %}
             {% set menu_bg = 'bg-danger' %}
         {% endif %}
+        {% if get_action_name(app.request.attributes) == 'overview' or get_action_name(app.request.attributes) == 'add' %}
+            {% set menu_bg = "#{menu_bg} no-edit" %}
+        {% endif %}
         {% block menu %}
             <nav class="navbar navbar-expand-lg navbar-dark {{ menu_bg }}">
                 {% block brand %}

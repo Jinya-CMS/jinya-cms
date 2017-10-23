@@ -5,6 +5,7 @@ namespace BackendBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,6 +34,10 @@ class UserType extends AbstractType
                 'invalid_message' => 'backend.users.password.repeat',
                 'first_options' => ['label' => 'backend.users.password'],
                 'second_options' => ['label' => 'backend.users.password_repeat']
+            ])
+            ->add('profilePicture', FileType::class, [
+                'label' => 'backend.users.profilepicture',
+                'required' => false
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'backend.users.active',

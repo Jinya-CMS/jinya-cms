@@ -100,14 +100,15 @@ class UsersController extends Controller
         $form->handleRequest($request);
         $viewData = [
             'ajax' => $request->isXmlHttpRequest(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'id' => $id
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $model */
             $model = $form->getData();
 
-            return $this->redirectToRoute('backend_users_details');
+            return $this->redirectToRoute('backend_users_details', ['id' => $id]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $viewData['error'] = !$form->isValid();
         }
@@ -123,7 +124,10 @@ class UsersController extends Controller
      */
     public function deleteAction(Request $request, int $id): Response
     {
-        return $this->render('@Backend/users/delete.html.twig', ['ajax' => $request->isXmlHttpRequest()]);
+        return $this->render('@Backend/users/delete.html.twig', [
+            'ajax' => $request->isXmlHttpRequest(),
+            'id' => $id
+        ]);
     }
 
     /**
@@ -134,6 +138,9 @@ class UsersController extends Controller
      */
     public function detailsAction(Request $request, int $id): Response
     {
-        return $this->render('@Backend/users/details.html.twig', ['ajax' => $request->isXmlHttpRequest()]);
+        return $this->render('@Backend/users/details.html.twig', [
+            'ajax' => $request->isXmlHttpRequest(),
+            'id' => $id
+        ]);
     }
 }

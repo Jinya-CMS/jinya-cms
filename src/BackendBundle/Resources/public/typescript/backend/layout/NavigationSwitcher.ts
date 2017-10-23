@@ -14,13 +14,12 @@ class NavigationSwitcher {
         let href = $this.attr('href');
         let $container = $('[data-role=content]');
         let spinnerHtml = $('#spinner').html();
+        let $sidebar = $('.sidebar');
         $container.html(spinnerHtml);
-        let actionType = $this.data('action-type');
 
-        if (actionType == 'edit' || actionType == 'details' || actionType == 'delete'
-        ) {
-            href = href.replace('#temp#', $this.data('id'));
-        }
+        let actionType = $this.data('action-type');
+        let responseHasId = $this.data('response-has-id');
+        href = href.replace(encodeURIComponent('#temp#'), $this.data('id'));
 
         $container.load(href, (response, status, xhr) => {
             if (xhr.status !== 200) {
@@ -29,6 +28,11 @@ class NavigationSwitcher {
                 history.pushState('', document.title, href);
                 $('.sidebar a.active').removeClass('active');
                 $this.addClass('active');
+                if (responseHasId as boolean) {
+                    $sidebar.removeClass('no-edit');
+                } else {
+                    $sidebar.addClass('no-edit');
+                }
             }
         });
     }

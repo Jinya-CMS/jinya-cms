@@ -5,3 +5,7 @@ services:
   jinya_gallery.service_user.user_creator:
       class: BackendBundle\Service\Users\UserCreator
       arguments: ['@fos_user.user_manager']
+  backend.twig_extension.controller_utils:
+      class: BackendBundle\Twig\Extension\ControllerUtils
+      tags:
+          - { name: twig.extension }

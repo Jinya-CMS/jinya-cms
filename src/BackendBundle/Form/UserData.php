@@ -56,6 +56,24 @@ class UserData
      */
     private $writer;
 
+    private $profilePicture;
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param mixed $profilePicture
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+    }
+
     /**
      * @return bool
      */
