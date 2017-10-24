@@ -10,16 +10,19 @@ class NavigationSwitcher {
     loadContent() {
         event.preventDefault();
         let $this = $(this);
+        let $body = $('body');
         let target = $this.data('target');
         let href = $this.attr('href');
         let $container = $('[data-role=content]');
         let spinnerHtml = $('#spinner').html();
         let $sidebar = $('.sidebar');
-        $container.html(spinnerHtml);
-
         let actionType = $this.data('action-type');
         let responseHasId = $this.data('response-has-id');
-        href = href.replace(encodeURIComponent('#temp#'), $this.data('id'));
+        let bodyId = $body.data(TableElementSelector.selectedIdAttribute);
+        let id = bodyId ? bodyId : $this.data('id');
+
+        $container.html(spinnerHtml);
+        href = href.replace(encodeURIComponent('#temp#'), id);
 
         $container.load(href, (response, status, xhr) => {
             if (xhr.status !== 200) {
@@ -33,6 +36,8 @@ class NavigationSwitcher {
                 } else {
                     $sidebar.addClass('no-edit');
                 }
+
+                TableElementSelector.init();
             }
         });
     }
