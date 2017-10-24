@@ -9,16 +9,27 @@
 namespace BackendBundle\Controller;
 
 
-use BackendBundle\Entity\User;
 use BackendBundle\Form\UserData;
 use BackendBundle\Form\UserType;
+use BackendBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use const PHP_INT_MAX;
 
 class UsersController extends Controller
 {
+    /** @var UserServiceInterface */
+    private $userService;
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        parent::setContainer($container);
+        $this->userService = $this->get('jinya_gallery.services.user_service');
+    }
+
     /**
      * @Route("/users", name="backend_users_index")
      * @param Request $request
@@ -36,7 +47,12 @@ class UsersController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        return $this->render('@Backend/users/overview.html.twig', ['ajax' => $request->isXmlHttpRequest()]);
+        $allUsers = $this->userService->getAllUsers(0, PHP_INT_MAX);
+
+        return $this->render('@Backend/users/overview.html.twig', [
+            'ajax' => $request->isXmlHttpRequest(),
+            'users' => $allUsers
+        ]);
     }
 
     /**
@@ -57,9 +73,7 @@ class UsersController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UserData $model */
             $model = $form->getData();
-
-            $manipulator = $this->get('jinya_gallery.service_user.user_creator');
-            $user = $manipulator->create($model);
+            $user = $this->userService->createUser($model);
 
             return $this->redirectToRoute('backend_users_details', [
                 'id' => $user->getId()
@@ -79,23 +93,8 @@ class UsersController extends Controller
      */
     public function editAction(Request $request, int $id): Response
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $userRepository = $em->getRepository(User::class);
-        /** @var User $user */
-        $user = $userRepository->find($id);
-
-        $userData = new UserData();
-        $userData->setEmail($user->getEmail());
-        $userData->setFirstname($user->getFirstname());
-        $userData->setLastname($user->getLastname());
-        $userData->setUsername($user->getUsername());
-        $userData->setAdmin($user->hasRole(User::ROLE_ADMIN));
-        $userData->setWriter($user->hasRole(User::ROLE_WRITER));
-        $userData->setSuperAdmin($user->isSuperAdmin());
-        $userData->setActive($user->isEnabled());
-
         $form = $this->createForm(UserType::class);
-        $form->setData($userData);
+        $form->setData($this->userService->getUser($id));
 
         $form->handleRequest($request);
         $viewData = [
@@ -105,8 +104,9 @@ class UsersController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $model */
+            /** @var UserData $model */
             $model = $form->getData();
+            $this->userService->updateUser($id, $model);
 
             return $this->redirectToRoute('backend_users_details', ['id' => $id]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
@@ -126,7 +126,8 @@ class UsersController extends Controller
     {
         return $this->render('@Backend/users/delete.html.twig', [
             'ajax' => $request->isXmlHttpRequest(),
-            'id' => $id
+            'id' => $id,
+            'user' => $this->userService->getUser($id)
         ]);
     }
 
@@ -140,7 +141,8 @@ class UsersController extends Controller
     {
         return $this->render('@Backend/users/details.html.twig', [
             'ajax' => $request->isXmlHttpRequest(),
-            'id' => $id
+            'id' => $id,
+            'user' => $this->userService->getUser($id)
         ]);
     }
 }

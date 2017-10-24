@@ -145,3 +145,4 @@ node_modules/
 *.css
 *.map
 web/bundles/
+/web/profilepictures/

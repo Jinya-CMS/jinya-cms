@@ -9,6 +9,7 @@
 namespace BackendBundle\Form;
 
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UserData
@@ -56,10 +57,30 @@ class UserData
      */
     private $writer;
 
+    /** @var UploadedFile */
     private $profilePicture;
 
+    /** @var int */
+    private $id;
+
     /**
-     * @return mixed
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return UploadedFile
      */
     public function getProfilePicture()
     {

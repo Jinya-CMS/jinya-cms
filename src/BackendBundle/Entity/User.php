@@ -41,6 +41,28 @@ class User extends BaseUser
     private $lastname;
 
     /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $profilePicture;
+
+    /**
+     * @return string
+     */
+    public function getProfilePicture(): string
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param string $profilePicture
+     */
+    public function setProfilePicture(string $profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+    }
+
+    /**
      * @return string
      */
     public function getFirstname(): string
