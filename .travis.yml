@@ -3,7 +3,9 @@ php:
 - '7.1'
 install:
 - composer install --no-interaction
+- php vendor/bin/codecept build
 script:
+- php vendor/bin/codecept run --steps --coverage --coverage-xml
 - sonar-scanner -Dsonar.branch=$TRAVIS_BRANCH
 after_success:
 - bash <(curl -s https://codecov.io/bash)

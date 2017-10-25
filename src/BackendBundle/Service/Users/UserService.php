@@ -11,8 +11,10 @@ namespace BackendBundle\Service\Users;
 
 use AppKernel;
 use BackendBundle\Entity\User;
+use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
 use Doctrine\ORM\EntityManager;
+use Exception;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\UserManipulator;
 use const DIRECTORY_SEPARATOR;
@@ -106,7 +108,6 @@ class UserService implements UserServiceInterface
     {
         $user->setUsername($userData->getUsername());
         $user->setEmail($userData->getEmail());
-        $user->setPlainPassword($userData->getPassword());
         $user->setEnabled($userData->isActive());
         $user->setSuperAdmin($userData->isSuperAdmin());
         $user->setFirstname($userData->getFirstname());
@@ -128,16 +129,22 @@ class UserService implements UserServiceInterface
     {
         $rootPath = $this->kernel->getProjectDir();
         $file = $userData->getProfilePicture();
-        $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
 
-        return $movedFile->getFilename();
+        try {
+            $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
+
+            return $movedFile->getFilename();
+        } catch (Exception $ex) {
+            return '';
+        }
     }
 
-    public function createUser(UserData $userData): User
+    public function createUser(AddUserData $userData): User
     {
         /** @var User $user */
         $user = $this->userManager->createUser();
         $this->fillUserFromUserData($userData, $user);
+        $user->setPlainPassword($userData->getPassword());
         $this->userManager->updateUser($user);
 
         return $user;
@@ -195,7 +202,9 @@ class UserService implements UserServiceInterface
     {
         $this->userManipulator->removeRole($this->getUsernameById($userId), $role);
     }
+
+    public function changePassword(int $id, string $newPassword)
+    {
+        $this->userManipulator->changePassword($this->getUsernameById($id), $newPassword);
+    }
 }
-
-
-

@@ -9,8 +9,8 @@
 namespace BackendBundle\Controller;
 
 
-use BackendBundle\Form\UserData;
-use BackendBundle\Form\UserType;
+use BackendBundle\Form\AddUserData;
+use BackendBundle\Form\AddUserType;
 use BackendBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,7 +62,7 @@ class UsersController extends Controller
      */
     public function addAction(Request $request): Response
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(AddUserType::class);
 
         $form->handleRequest($request);
         $viewData = [
@@ -71,7 +71,7 @@ class UsersController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UserData $model */
+            /** @var AddUserData $model */
             $model = $form->getData();
             $user = $this->userService->createUser($model);
 
@@ -93,7 +93,7 @@ class UsersController extends Controller
      */
     public function editAction(Request $request, int $id): Response
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(AddUserType::class);
         $form->setData($this->userService->getUser($id));
 
         $form->handleRequest($request);
@@ -104,7 +104,7 @@ class UsersController extends Controller
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UserData $model */
+            /** @var AddUserData $model */
             $model = $form->getData();
             $this->userService->updateUser($id, $model);
 

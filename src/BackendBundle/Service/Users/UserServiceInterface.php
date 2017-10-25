@@ -10,6 +10,7 @@ namespace BackendBundle\Service\Users;
 
 
 use BackendBundle\Entity\User;
+use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
 
 interface UserServiceInterface
@@ -22,7 +23,9 @@ interface UserServiceInterface
 
     public function updateUser(int $id, UserData $userData);
 
-    public function createUser(UserData $userData): User;
+    public function changePassword(int $id, string $newPassword);
+
+    public function createUser(AddUserData $userData): User;
 
     public function activateUser(int $id);
 

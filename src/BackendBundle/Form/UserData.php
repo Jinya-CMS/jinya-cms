@@ -2,15 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: imanu
- * Date: 22.10.2017
- * Time: 20:21
+ * Date: 25.10.2017
+ * Time: 18:24
  */
 
 namespace BackendBundle\Form;
 
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class UserData
 {
@@ -39,11 +38,6 @@ class UserData
      * @Assert\NotBlank(message="backend.users.username.not_blank")
      */
     private $username;
-    /**
-     * @var string
-     * @Assert\NotBlank(message="backend.users.password.not_blank")
-     */
-    private $password;
     /**
      * @var bool
      */
@@ -82,15 +76,15 @@ class UserData
     /**
      * @return UploadedFile
      */
-    public function getProfilePicture()
+    public function getProfilePicture(): UploadedFile
     {
         return $this->profilePicture;
     }
 
     /**
-     * @param mixed $profilePicture
+     * @param UploadedFile $profilePicture
      */
-    public function setProfilePicture($profilePicture)
+    public function setProfilePicture(UploadedFile $profilePicture)
     {
         $this->profilePicture = $profilePicture;
     }
@@ -173,22 +167,6 @@ class UserData
     public function setUsername(string $username)
     {
         $this->username = $username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = $password;
     }
 
     /**
