@@ -15,13 +15,18 @@ use BackendBundle\Form\UserData;
 
 interface UserServiceInterface
 {
-    public function getUser(int $id);
+    public function getUser(int $id): UserData;
 
-    public function getAllUsers(int $offset, int $count = 10);
+    /**
+     * @param int $offset
+     * @param int $count
+     * @return UserData[]
+     */
+    public function getAllUsers(int $offset, int $count = 10): array;
 
     public function deleteUser(int $id);
 
-    public function updateUser(int $id, UserData $userData);
+    public function updateUser(int $id, UserData $userData): User;
 
     public function changePassword(int $id, string $newPassword);
 

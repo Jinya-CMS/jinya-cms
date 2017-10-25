@@ -76,7 +76,7 @@ class UserData
     /**
      * @return UploadedFile
      */
-    public function getProfilePicture(): UploadedFile
+    public function getProfilePicture(): ?UploadedFile
     {
         return $this->profilePicture;
     }

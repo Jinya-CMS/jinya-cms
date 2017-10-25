@@ -106,22 +106,37 @@ class UserService implements UserServiceInterface
      */
     private function fillUserFromUserData(UserData $userData, User $user)
     {
-        $user->setUsername($userData->getUsername());
-        $user->setEmail($userData->getEmail());
-        $user->setEnabled($userData->isActive());
-        $user->setSuperAdmin($userData->isSuperAdmin());
-        $user->setFirstname($userData->getFirstname());
-        $user->setLastname($userData->getLastname());
-
+        if ($userData->getUsername() !== null) {
+            $user->setUsername($userData->getUsername());
+        }
+        if ($userData->getEmail() !== null) {
+            $user->setEmail($userData->getEmail());
+        }
+        if ($userData->isActive() !== null) {
+            $user->setEnabled($userData->isActive());
+        }
+        if ($userData->isSuperAdmin() !== null) {
+            $user->setSuperAdmin($userData->isSuperAdmin());
+        }
+        if ($userData->getFirstname() !== null) {
+            $user->setFirstname($userData->getFirstname());
+        }
+        if ($userData->getLastname() !== null) {
+            $user->setLastname($userData->getLastname());
+        }
         if ($userData->getProfilePicture()) {
             $user->setProfilePicture($this->moveProfilePicture($userData));
         }
 
         if ($userData->isWriter()) {
             $user->addRole(User::ROLE_WRITER);
+        } elseif ($userData->isWriter() === false) {
+            $user->removeRole(User::ROLE_WRITER);
         }
         if ($userData->isAdmin()) {
             $user->addRole(User::ROLE_ADMIN);
+        } elseif ($userData->isAdmin() === false) {
+            $user->removeRole(User::ROLE_ADMIN);
         }
     }
 
