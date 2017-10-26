@@ -62,7 +62,7 @@ class UserServiceInterfaceTest extends \Codeception\Test\Unit
         try {
             $userService->getUser($user->getId());
 
-            $this->fail("The user wasn't get deleted");
+            $this->fail("The user wasn't deleted");
         } catch (Throwable $ex) {
             $this->assertTrue(true);
         }

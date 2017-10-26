@@ -124,6 +124,11 @@ class UsersController extends Controller
      */
     public function deleteAction(Request $request, int $id): Response
     {
+        if ($request->getMethod() == 'POST') {
+            $this->userService->deleteUser($id);
+
+            return $this->redirectToRoute('backend_users_overview');
+        }
         return $this->render('@Backend/users/delete.html.twig', [
             'ajax' => $request->isXmlHttpRequest(),
             'id' => $id,
