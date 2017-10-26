@@ -52,7 +52,7 @@ class UsersController extends Controller
         $allUsers = $this->userService->getAllUsers(0, PHP_INT_MAX);
 
         return $this->render('@Backend/users/overview.html.twig', [
-            'ajax'  => $request->isXmlHttpRequest(),
+            'ajax' => $request->isXmlHttpRequest(),
             'users' => $allUsers,
         ]);
     }
@@ -106,7 +106,7 @@ class UsersController extends Controller
         $viewData = [
             'ajax' => $request->isXmlHttpRequest(),
             'form' => $form->createView(),
-            'id'   => $id,
+            'id' => $id,
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -140,7 +140,7 @@ class UsersController extends Controller
 
         return $this->render('@Backend/users/delete.html.twig', [
             'ajax' => $request->isXmlHttpRequest(),
-            'id'   => $id,
+            'id' => $id,
             'user' => $this->userService->getUser($id),
         ]);
     }
@@ -157,7 +157,7 @@ class UsersController extends Controller
     {
         return $this->render('@Backend/users/details.html.twig', [
             'ajax' => $request->isXmlHttpRequest(),
-            'id'   => $id,
+            'id' => $id,
             'user' => $this->userService->getUser($id),
         ]);
     }

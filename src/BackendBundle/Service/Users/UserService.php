@@ -146,7 +146,7 @@ class UserService implements UserServiceInterface
         $file = $userData->getProfilePicture();
 
         try {
-            $movedFile = $file->move($rootPath.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'profilepictures');
+            $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
 
             return $movedFile->getFilename();
         } catch (Exception $ex) {
