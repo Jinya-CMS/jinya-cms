@@ -8,8 +8,8 @@
 
 namespace BackendBundle\Form;
 
-
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserData
 {

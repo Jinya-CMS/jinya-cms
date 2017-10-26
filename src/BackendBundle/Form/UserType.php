@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddUserType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,13 +28,16 @@ class AddUserType extends AbstractType
             ])
             ->add('username', TextType::class, [
                 'label' => 'backend.users.username'
-            ])
-            ->add('password', RepeatedType::class, [
+            ]);
+        if ($builder->getData() instanceof AddUserData) {
+            $builder->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'backend.users.password.repeat',
                 'first_options' => ['label' => 'backend.users.password'],
                 'second_options' => ['label' => 'backend.users.password_repeat']
-            ])
+            ]);
+        }
+        $builder
             ->add('profilePicture', FileType::class, [
                 'label' => 'backend.users.profilepicture',
                 'required' => false
@@ -59,7 +62,7 @@ class AddUserType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class', AddUserData::class);
+        $resolver->setDefault('data_class', UserData::class);
     }
 
     public function getBlockPrefix()
