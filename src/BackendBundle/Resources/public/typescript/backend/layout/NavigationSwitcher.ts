@@ -25,20 +25,33 @@ class NavigationSwitcher {
         href = href.replace(encodeURIComponent('#temp#'), id);
 
         $container.load(href, (response, status, xhr) => {
-            if (xhr.status !== 200) {
-                alert(response);
-            } else {
+            if (xhr.getResponseHeader('login') === '1') {
+                location.href = href;
+            } else if (xhr.status === 200) {
                 history.pushState('', document.title, href);
-                $('.sidebar a.active').removeClass('active');
-                $this.addClass('active');
-                if (responseHasId as boolean) {
-                    $sidebar.removeClass('no-edit');
-                } else {
-                    $sidebar.addClass('no-edit');
-                }
-
-                TableElementSelector.init();
+                $('.sidebar.bg-danger')
+                    .removeClass('bg-danger')
+                    .addClass('bg-primary');
+                $('.navbar.bg-danger')
+                    .removeClass('bg-danger')
+                    .addClass('bg-primary');
+            } else {
+                $('.sidebar.bg-primary')
+                    .removeClass('bg-primary')
+                    .addClass('bg-danger');
+                $('.navbar.bg-primary')
+                    .removeClass('bg-primary')
+                    .addClass('bg-danger');
             }
+            $('.sidebar a.active').removeClass('active');
+            $this.addClass('active');
+            if (responseHasId as boolean) {
+                $sidebar.removeClass('no-edit');
+            } else {
+                $sidebar.addClass('no-edit');
+            }
+
+            TableElementSelector.init();
         });
     }
 }

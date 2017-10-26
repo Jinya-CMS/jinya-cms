@@ -16,7 +16,7 @@ security:
     backend:
       pattern: ^/
       form_login:
-        login_path: fos_user_security_login
+        login_path: backend_login_route
         check_path: fos_user_security_check
         provider: fos_userbundle
         csrf_token_generator: security.csrf.token_manager
@@ -27,6 +27,6 @@ security:
       anonymous: true
   access_control:
     - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/backend/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/backend/fos/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/, role: ROLE_ADMIN }

@@ -5,7 +5,7 @@ backend:
 
 fos_user_security:
   resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-  prefix: /backend
+  prefix: /backend/fos
 
 fos_user_profile:
   resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
