@@ -29,7 +29,7 @@ class UserServiceInterfaceTest extends \Codeception\Test\Unit
     private function generateDummyUserData(int $amount): array
     {
         $data = [];
-        for ($i = 0; $i < $amount; $i++) {
+        for ($i = 0; $i < $amount; ++$i) {
             $uploadedFile = new UploadedFile(__FILE__, 'test.php');
             $userData = new AddUserData();
             $randomValue = md5(uniqid(rand(), true));
