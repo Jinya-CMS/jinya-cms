@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 set_time_limit(0);
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(['--env', '-e'], getenv('SYMFONY_ENV') ?: 'prod');

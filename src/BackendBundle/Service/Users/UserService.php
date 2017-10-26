@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 24.10.2017
- * Time: 18:09
+ * Time: 18:09.
  */
 
 namespace BackendBundle\Service\Users;
-
 
 use AppKernel;
 use BackendBundle\Entity\User;
@@ -17,11 +16,9 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\UserManipulator;
-use const DIRECTORY_SEPARATOR;
 
 class UserService implements UserServiceInterface
 {
-
     /** @var UserManagerInterface */
     private $userManager;
 
@@ -36,10 +33,11 @@ class UserService implements UserServiceInterface
 
     /**
      * UserService constructor.
+     *
      * @param UserManagerInterface $userManager
-     * @param EntityManager $entityManager
-     * @param UserManipulator $userManipulator
-     * @param AppKernel $kernel
+     * @param EntityManager        $entityManager
+     * @param UserManipulator      $userManipulator
+     * @param AppKernel            $kernel
      */
     public function __construct(UserManagerInterface $userManager, EntityManager $entityManager, UserManipulator $userManipulator, $kernel)
     {
@@ -52,6 +50,7 @@ class UserService implements UserServiceInterface
     /**
      * @param int $offset
      * @param int $count
+     *
      * @return array
      */
     public function getAllUsers(int $offset, int $count = 10): array
@@ -65,6 +64,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @param User $user
+     *
      * @return UserData
      */
     private function convertUserToUserData(User $user): UserData
@@ -102,7 +102,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @param UserData $userData
-     * @param User $user
+     * @param User     $user
      */
     private function fillUserFromUserData(UserData $userData, User $user)
     {
@@ -146,7 +146,7 @@ class UserService implements UserServiceInterface
         $file = $userData->getProfilePicture();
 
         try {
-            $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
+            $movedFile = $file->move($rootPath.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'profilepictures');
 
             return $movedFile->getFilename();
         } catch (Exception $ex) {

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 24.10.2017
- * Time: 18:08
+ * Time: 18:08.
  */
 
 namespace BackendBundle\Service\Users;
-
 
 use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
@@ -20,6 +19,7 @@ interface UserServiceInterface
     /**
      * @param int $offset
      * @param int $count
+     *
      * @return UserData[]
      */
     public function getAllUsers(int $offset, int $count = 10): array;
