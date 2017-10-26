@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.10.2017
- * Time: 11:44
+ * Time: 11:44.
  */
 
 namespace BackendBundle\Entity;
@@ -24,24 +24,28 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $profilePicture;
@@ -104,11 +108,13 @@ class User extends BaseUser
 
     /**
      * @param int $id
+     *
      * @return User
      */
     public function setId(int $id): User
     {
         $this->id = $id;
+
         return $this;
     }
 }

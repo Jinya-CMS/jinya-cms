@@ -18,45 +18,45 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'backend.users.firstname'
+                'label' => 'backend.users.firstname',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'backend.users.lastname'
+                'label' => 'backend.users.lastname',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'backend.users.email'
+                'label' => 'backend.users.email',
             ])
             ->add('username', TextType::class, [
-                'label' => 'backend.users.username'
+                'label' => 'backend.users.username',
             ]);
         if ($builder->getData() instanceof AddUserData) {
             $builder->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
+                'type'            => PasswordType::class,
                 'invalid_message' => 'backend.users.password.repeat',
-                'first_options' => ['label' => 'backend.users.password'],
-                'second_options' => ['label' => 'backend.users.password_repeat']
+                'first_options'   => ['label' => 'backend.users.password'],
+                'second_options'  => ['label' => 'backend.users.password_repeat'],
             ]);
         }
         $builder
             ->add('profilePicture', FileType::class, [
-                'label' => 'backend.users.profilepicture',
-                'required' => false
+                'label'    => 'backend.users.profilepicture',
+                'required' => false,
             ])
             ->add('active', CheckboxType::class, [
-                'label' => 'backend.users.active',
-                'required' => false
+                'label'    => 'backend.users.active',
+                'required' => false,
             ])
             ->add('superadmin', CheckboxType::class, [
-                'label' => 'backend.users.superadmin',
-                'required' => false
+                'label'    => 'backend.users.superadmin',
+                'required' => false,
             ])
             ->add('admin', CheckboxType::class, [
-                'label' => 'backend.users.admin',
-                'required' => false
+                'label'    => 'backend.users.admin',
+                'required' => false,
             ])
             ->add('writer', CheckboxType::class, [
-                'label' => 'backend.users.editor',
-                'required' => false
+                'label'    => 'backend.users.editor',
+                'required' => false,
             ]);
     }
 
