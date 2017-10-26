@@ -1,6 +1,7 @@
 <?php
 
 
+use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
 use BackendBundle\Service\Database\SchemaToolInterface;
@@ -286,6 +287,90 @@ class UserServiceInterfaceTest extends \Codeception\Test\Unit
         } catch (Throwable $ex) {
             $this->assertTrue(true, 'The user does not exist');
         }
+    }
+
+    public function testGrantRoleWriter()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setWriter(false);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->grantRole($user->getId(), User::ROLE_WRITER);
+
+        $this->assertTrue($userService->getUser($user->getId())->isWriter());
+    }
+
+    public function testGrantRoleAdmin()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setAdmin(false);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->grantRole($user->getId(), User::ROLE_ADMIN);
+
+        $this->assertTrue($userService->getUser($user->getId())->isAdmin());
+    }
+
+    public function testGrantRoleSuperAdmin()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setSuperAdmin(false);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->grantRole($user->getId(), User::ROLE_SUPER_ADMIN);
+
+        $this->assertTrue($userService->getUser($user->getId())->isSuperAdmin());
+    }
+
+    public function testRevokeRoleWriter()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setWriter(true);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->revokeRole($user->getId(), User::ROLE_WRITER);
+
+        $this->assertFalse($userService->getUser($user->getId())->isWriter());
+    }
+
+    public function testRevokeRoleAdmin()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setAdmin(true);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->revokeRole($user->getId(), User::ROLE_ADMIN);
+
+        $this->assertFalse($userService->getUser($user->getId())->isAdmin());
+    }
+
+    public function testRevokeRoleSuperAdmin()
+    {
+        /** @var AddUserData $dummyUserData */
+        $dummyUserData = $this->generateDummyUserData(1)[0];
+        $dummyUserData->setSuperAdmin(true);
+        $userService = $this->getUserService();
+
+        /** @var UserManagerInterface $userManager */
+        $user = $userService->createUser($dummyUserData);
+        $userService->revokeRole($user->getId(), User::ROLE_SUPER_ADMIN);
+
+        $this->assertFalse($userService->getUser($user->getId())->isSuperAdmin());
     }
 
     protected function _before()

@@ -144,7 +144,7 @@ node_modules/
 *.js
 *.css
 *.map
-web/bundles/
 /web/profilepictures/
 /tests/_support/_generated/
 /tests/_output/
+/var/
