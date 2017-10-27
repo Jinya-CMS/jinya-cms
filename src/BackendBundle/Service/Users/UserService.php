@@ -35,9 +35,9 @@ class UserService implements UserServiceInterface
      * UserService constructor.
      *
      * @param UserManagerInterface $userManager
-     * @param EntityManager        $entityManager
-     * @param UserManipulator      $userManipulator
-     * @param AppKernel            $kernel
+     * @param EntityManager $entityManager
+     * @param UserManipulator $userManipulator
+     * @param AppKernel $kernel
      */
     public function __construct(UserManagerInterface $userManager, EntityManager $entityManager, UserManipulator $userManipulator, $kernel)
     {
@@ -102,7 +102,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @param UserData $userData
-     * @param User     $user
+     * @param User $user
      */
     private function fillUserFromUserData(UserData $userData, User $user)
     {
@@ -146,7 +146,7 @@ class UserService implements UserServiceInterface
         $file = $userData->getProfilePicture();
 
         try {
-            $movedFile = $file->move($rootPath.DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'profilepictures');
+            $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
 
             return $movedFile->getFilename();
         } catch (Exception $ex) {

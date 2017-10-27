@@ -11,7 +11,7 @@ class ControllerUtils extends \Twig_Extension
     {
         return [
             'get_controller_name' => new \Twig_Function('get_controller_name', [$this, 'getControllerName']),
-            'get_action_name'     => new \Twig_Function('get_action_name', [$this, 'getActionName']),
+            'get_action_name' => new \Twig_Function('get_action_name', [$this, 'getActionName']),
         ];
     }
 
