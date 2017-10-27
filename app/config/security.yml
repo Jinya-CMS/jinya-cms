@@ -1,24 +1,32 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+  encoders:
+    FOS\UserBundle\Model\UserInterface: bcrypt
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory: ~
+  role_hierarchy:
+    ROLE_ADMIN: ROLE_USER
+    ROLE_SUPER_ADMIN: ROLE_ADMIN
 
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+  providers:
+    fos_userbundle:
+      id: fos_user.user_provider.username_email
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
+  firewalls:
+    backend:
+      pattern: ^/
+      form_login:
+        login_path: backend_login_route
+        check_path: fos_user_security_check
+        provider: fos_userbundle
+        csrf_token_generator: security.csrf.token_manager
+        default_target_path: /backend/
+        always_use_default_target_path: false
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+      logout: true
+      anonymous: true
+  access_control:
+    - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/backend/fos/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/backend/, role: ROLE_ADMIN }

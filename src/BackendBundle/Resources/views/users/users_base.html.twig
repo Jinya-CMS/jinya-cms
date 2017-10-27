@@ -1,0 +1,6 @@
+{% extends 'BackendBundle::base.html.twig' %}
+
+{% set menu_users_active = true %}
+{% block sidebar_items %}
+    {% include 'BackendBundle:sidebar:users.html.twig' %}
+{% endblock %}

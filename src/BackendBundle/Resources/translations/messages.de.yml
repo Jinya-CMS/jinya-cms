@@ -1,0 +1,32 @@
+layout:
+  backend:
+    title: Backend
+    menu:
+      users: Künstler
+sidebar:
+  users:
+    overview: Überblick
+    add: Neuer Künstler
+    edit: Künstler bearbeiten
+    details: Künstlerdetails
+    delete: Künstler löschen
+generic:
+  save: Speichern
+  cancel: Abbrechen
+  delete: Löschen
+backend:
+  users:
+    email: Emailadresse
+    firstname: Vorname
+    lastname: Nachname
+    username: Benutzername
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    active: Aktiv
+    superadmin: Superadmin
+    admin: Admin
+    editor: Schreiber
+    profilepicture: Profilbild
+    delete:
+      title: Wollen Sie den Künstler %firstname% %lastname% wirklich löschen?
+      content: Wenn Sie den Künstler %firstname% %lastname% löschen, ist es nicht mehr möglich die Inhalte dieses Künstlers aufzurufen und diese anzuzeigen.<br/>Weiterhin ist es dem Künstler anschließend nicht mehr möglich sich anzumelden.

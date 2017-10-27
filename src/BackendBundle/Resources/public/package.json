@@ -1,0 +1,9 @@
+{
+  "name": "jinya-gallery-cms",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jquery": "^3.2.15",
+    "@types/messenger": "^1.4.28"
+  }
+}

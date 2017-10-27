@@ -1,0 +1,16 @@
+{% set active = get_action_name(app.request.attributes) %}
+<a class="nav-link {% if active == 'overview' %}active{% endif %}" href="{{ url('backend_users_overview') }}"
+   data-target="#content" data-action="nav" data-response-has-id="false">{{ 'sidebar.users.overview'|trans }}</a>
+<a class="nav-link {% if active == 'add' %}active{% endif %}" href="{{ url('backend_users_add') }}"
+   data-target="#content" data-action="nav" data-response-has-id="false">{{ 'sidebar.users.add'|trans }}</a>
+<a class="nav-link {% if active == 'edit' %}active{% endif %} overview"
+   href="{{ url('backend_users_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+   data-action-type="edit" data-target="#content" data-action="nav"
+   data-response-has-id="true">{{ 'sidebar.users.edit'|trans }}</a>
+<a class="nav-link {% if active == 'details' %}active{% endif %} overview"
+   href="{{ url('backend_users_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}" data-action-type="details"
+   data-target="#content"
+   data-action="nav" data-response-has-id="true">{{ 'sidebar.users.details'|trans }}</a>
+<a class="nav-link {% if active == 'delete' %}active{% endif %} overview" data-id="{{ id|default('') }}"
+   href="{{ url('backend_users_delete', {'id': '#temp#'}) }}" data-action-type="delete" data-target="#content"
+   data-action="nav" data-response-has-id="true">{{ 'sidebar.users.delete'|trans }}</a>
