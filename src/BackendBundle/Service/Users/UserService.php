@@ -79,6 +79,7 @@ class UserService implements UserServiceInterface
         $userData->setSuperAdmin($user->isSuperAdmin());
         $userData->setActive($user->isEnabled());
         $userData->setId($user->getId());
+        $userData->setProfilePicture($user->getProfilePicture());
 
         return $userData;
     }

@@ -51,7 +51,7 @@ class UserData
      */
     private $writer;
 
-    /** @var UploadedFile */
+    /** @var UploadedFile|string */
     private $profilePicture;
 
     /** @var int */
@@ -74,17 +74,17 @@ class UserData
     }
 
     /**
-     * @return UploadedFile
+     * @return UploadedFile|string
      */
-    public function getProfilePicture(): ?UploadedFile
+    public function getProfilePicture()
     {
         return $this->profilePicture;
     }
 
     /**
-     * @param UploadedFile $profilePicture
+     * @param UploadedFile|string $profilePicture
      */
-    public function setProfilePicture(UploadedFile $profilePicture)
+    public function setProfilePicture($profilePicture)
     {
         $this->profilePicture = $profilePicture;
     }
