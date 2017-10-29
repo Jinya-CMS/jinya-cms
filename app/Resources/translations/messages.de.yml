@@ -4,3 +4,15 @@ layout:
   backend:
     login:
       title: Login
+  install:
+    general:
+      title: Ersteinrichtung
+    admin:
+      title: Erster Administrator
+
+generic:
+  setup: Einrichten
+  save: Speichern
+  cancel: Abbrechen
+  delete: Löschen
+  next: Weiter

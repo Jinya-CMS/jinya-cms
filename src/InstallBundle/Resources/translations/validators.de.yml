@@ -1,0 +1,21 @@
+install:
+  database:
+    host:
+      not_blank: Der Host muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden
+    name:
+      not_blank: Der Name der Datenbank muss angegeben werden
+  mailer:
+    transport:
+      not_blank: Das Transportprotokoll muss angegeben werden
+    host:
+      not_blank: Der Emailserver muss angegeben werden
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden

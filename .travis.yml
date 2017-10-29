@@ -6,22 +6,8 @@ install:
 - php vendor/bin/codecept build
 script:
 - php vendor/bin/codecept run --steps --coverage --coverage-xml --env=test
-- sonar-scanner -Dsonar.branch=$TRAVIS_BRANCH
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 sudo: required
-addons:
-  sonarcloud:
-    organization: derknerd-github
-    token:
-      secure: JvD7e0n6xDI4z9zz5IT0+Vhbqw1UwxAoCqcog4TMwss/SGBEZ6XgPec2QV9eNo3cWn2QvHkQdzGHz/Ne2hiRVYSW7G7CndpydBjMOfnlT6JUx+Dyqvlb7c2UndmsCES2ZU36q3ZZG29Z2a+n8tsnaegRp+Db3fKkfN+R/lsgs6tQMZk2LJn3ZVWIbq+YL/SlGbMtFS7BG8JGWvMRj3xFx1XkownCVBAJUEMhMIcTJQnj0GXSZYLJxbPIS0ONH6DUS01JkPTeq7mSKVVYk+G4RNAC8ohs2OA0xx5wJeg4+HFl78Z7FnF6juR7R28KDArEPSAC6LzbMp9NOGA+e0/OY7R5R4CaX7fhiwUzdTWl+jHqgkJVqWTDSkpSmHPYFPRKxIK8bwJbKZpR8Ln88qc/nyvA/Eh1cy7dAQ7TO+uRQoofBpP9WnGpQwVJEBumNmTDPeiuG/DLmrRf6QbuQOrXDnhAqBsmhYY3UTOCWXW0l2Y6zFawIu3hrblhIqY2e7b09bXT0n1gkZXo/Ffd+0VGYfktFsseHKpbd+eUKrQuZyGkgNUlw15nWM2Os1lWjksk2MvMQwNfrRqI8+Md5P40F7CRBr6rZWhy14FOOpwCIhvbtlIdLpdOEmLMIb1ClShpX3mVIhZWOtGyYxf8EhLsAVN4x7BOZRzzgFi6rPZ0Cz4=
-    branches:
-      - master
-      - develop
-jdk:
-- oraclejdk8
-cache:
-  directories:
-    - "$HOME/.sonar/cache"
 env:
   - SYMFONY_DEPRECATIONS_HELPER=weak
