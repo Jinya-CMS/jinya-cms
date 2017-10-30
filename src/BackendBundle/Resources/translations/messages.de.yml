@@ -10,6 +10,7 @@ layout:
         title: Cache
         clear: Cache leeren
         warmup: Cache erzeugen
+      tools: Tools
 sidebar:
   users:
     overview: Überblick
