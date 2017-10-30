@@ -67,6 +67,21 @@
                                     </div>
                                 </div>
                             {% endblock %}
+                            {% block menu_assets %}
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">{{ 'layout.backend.menu.asset.title'|trans }}</a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="{{ url('backend_asset_dump') }}" data-ajax="true"
+                                           data-ajax-method="POST"
+                                           data-ajax-success-message="{{ 'backend.asset.dump.success'|trans }}"
+                                           data-ajax-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
+                                           data-ajax-error-message="{{ 'backend.asset.dump.error'|trans }}"
+                                           class="dropdown-item">{{ 'layout.backend.menu.asset.dump'|trans }}</a>
+                                    </div>
+                                </div>
+                            {% endblock %}
                         </div>
                     {% endblock %}
                 </div>

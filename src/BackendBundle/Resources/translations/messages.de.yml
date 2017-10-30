@@ -3,6 +3,9 @@ layout:
     title: Backend
     menu:
       users: Künstler
+      asset:
+        title: Skripte und Styles
+        dump: Skripte und Styles erzeugen
       cache:
         title: Cache
         clear: Cache leeren
@@ -40,3 +43,8 @@ backend:
       success: Cache erfolgreich erzeugt
       progress: Cache wird erzeugt
       error: Fehler beim Erzeugen des Caches
+  asset:
+      dump:
+        success: Skripte und Styles erfolgreich erzeugt
+        progress: Skripte und Styles werden erzeugt
+        error: Fehler beim Erzeugen der Skripte und Styles
