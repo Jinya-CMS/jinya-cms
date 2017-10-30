@@ -31,6 +31,10 @@ class AppKernel extends Kernel
             }
         }
 
+        if (!file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'config/parameters.yml.dist')) {
+            $bundles[] = new InstallBundle\InstallBundle();
+        }
+
         return $bundles;
     }
 

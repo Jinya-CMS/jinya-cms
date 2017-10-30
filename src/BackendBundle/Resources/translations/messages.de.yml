@@ -10,10 +10,6 @@ sidebar:
     edit: Künstler bearbeiten
     details: Künstlerdetails
     delete: Künstler löschen
-generic:
-  save: Speichern
-  cancel: Abbrechen
-  delete: Löschen
 backend:
   users:
     email: Emailadresse

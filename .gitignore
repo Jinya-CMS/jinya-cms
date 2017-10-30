@@ -148,3 +148,5 @@ node_modules/
 /tests/_support/_generated/
 /tests/_output/
 /var/
+/app/config/install.lock
+/web/assetic/

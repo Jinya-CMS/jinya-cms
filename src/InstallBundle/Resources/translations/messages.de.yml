@@ -1,0 +1,23 @@
+install:
+  database:
+    title: Datenbank
+    host:
+      label: Host
+    port:
+      label: Port
+    user:
+      label: Benutzer
+    password:
+      label: Passwort
+    name:
+      label: Datenbankname
+  mailer:
+    title: Mailer
+    transport:
+      label: Transportprotokoll
+    host:
+      label: Emailserver
+    user:
+      label: Benutzer
+    password:
+      label: Passwort
