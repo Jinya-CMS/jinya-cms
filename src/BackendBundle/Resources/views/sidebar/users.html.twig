@@ -7,6 +7,10 @@
    href="{{ url('backend_users_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
    data-action-type="edit" data-target="#content" data-action="nav"
    data-response-has-id="true">{{ 'sidebar.users.edit'|trans }}</a>
+<a class="nav-link {% if active == 'changepassword' %}active{% endif %} overview"
+   href="{{ url('backend_users_changepassword', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+   data-action-type="changepassword" data-target="#content" data-action="nav"
+   data-response-has-id="true">{{ 'sidebar.users.changepassword'|trans }}</a>
 <a class="nav-link {% if active == 'details' %}active{% endif %} overview"
    href="{{ url('backend_users_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}" data-action-type="details"
    data-target="#content"

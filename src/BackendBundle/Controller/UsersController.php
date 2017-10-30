@@ -9,6 +9,8 @@
 namespace BackendBundle\Controller;
 
 use BackendBundle\Form\AddUserData;
+use BackendBundle\Form\ChangePasswordData;
+use BackendBundle\Form\ChangePasswordType;
 use BackendBundle\Form\UserType;
 use BackendBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -160,5 +162,37 @@ class UsersController extends Controller
             'id' => $id,
             'user' => $this->userService->getUser($id),
         ]);
+    }
+
+    /**
+     * @Route("/users/changepassword/{id}", name="backend_users_changepassword")
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function changePasswordAction(Request $request, int $id): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class);
+
+        $form->handleRequest($request);
+        $viewData = [
+            'ajax' => $request->isXmlHttpRequest(),
+            'form' => $form->createView(),
+            'id' => $id,
+        ];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ChangePasswordData $formData */
+            $formData = $form->getData();
+
+            $this->userService->changePassword($id, $formData->getPassword());
+
+            return $this->redirectToRoute('backend_users_details', ['id' => $id]);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $viewData['error'] = !$form->isValid();
+        }
+
+        return $this->render('@Backend/users/changePassword.html.twig', $viewData);
     }
 }

@@ -10,6 +10,7 @@ sidebar:
     edit: Künstler bearbeiten
     details: Künstlerdetails
     delete: Künstler löschen
+    changepassword: Passwort ändern
 backend:
   users:
     email: Emailadresse
