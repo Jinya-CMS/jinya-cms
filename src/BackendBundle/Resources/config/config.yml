@@ -20,6 +20,7 @@ assetic:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/AjaxExecutor.js'
   filters:
       jsqueeze: ~
       scssphp:
