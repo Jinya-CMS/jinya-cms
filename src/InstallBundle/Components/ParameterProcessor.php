@@ -9,6 +9,8 @@
 namespace InstallBundle\Components;
 
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
 
@@ -20,6 +22,12 @@ class ParameterProcessor
         $parsedParameters = $yamlParser->parseFile($rootPath . '/config/parameters.yml');
 
         $mergedParameters = array_merge($parsedParameters, $parameters);
-        Yaml::dump($rootPath . '/config/parameters.yml', $mergedParameters);
+        $fileSystem = new FileSystem();
+        $fileSystem->touch($rootPath . '/config/parameters.yml');
+
+        $file = new File($rootPath . '/config/parameters.yml');
+        $fileStream = $file->openFile('w');
+        $fileStream->fwrite(Yaml::dump($mergedParameters));
+        $fileStream->fflush();
     }
 }

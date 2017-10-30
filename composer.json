@@ -6,7 +6,8 @@
     "psr-4": {
       "BackendBundle\\": "src/BackendBundle",
       "InstallBundle\\": "src/InstallBundle",
-      "EventSubscriber\\": "src/EventSubscriber"
+      "EventSubscriber\\": "src/EventSubscriber",
+      "Helper\\": "src/Helper"
     },
     "classmap": [
       "app/AppKernel.php",

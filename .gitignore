@@ -149,3 +149,4 @@ node_modules/
 /tests/_output/
 /var/
 /app/config/install.lock
+/web/assetic/
