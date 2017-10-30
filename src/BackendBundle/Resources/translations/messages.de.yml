@@ -3,6 +3,10 @@ layout:
     title: Backend
     menu:
       users: Künstler
+      cache:
+        title: Cache
+        clear: Cache leeren
+        warmup: Cache erzeugen
 sidebar:
   users:
     overview: Überblick
@@ -27,3 +31,12 @@ backend:
     delete:
       title: Wollen Sie den Künstler %firstname% %lastname% wirklich löschen?
       content: Wenn Sie den Künstler %firstname% %lastname% löschen, ist es nicht mehr möglich die Inhalte dieses Künstlers aufzurufen und diese anzuzeigen.<br/>Weiterhin ist es dem Künstler anschließend nicht mehr möglich sich anzumelden.
+  cache:
+    clear:
+      success: Cache erfolgreich gelöscht
+      progress: Cache wird gelöscht
+      error: Fehler beim Leeren des Caches
+    warmup:
+      success: Cache erfolgreich erzeugt
+      progress: Cache wird erzeugt
+      error: Fehler beim Erzeugen des Caches
