@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: imanu
+ * Date: 31.10.2017
+ * Time: 17:38
+ */
+
+namespace HelperBundle\Services\Log;
+
+
+use Doctrine\ORM\EntityManager;
+use HelperBundle\Entity\AccessLogEntry;
+
+class AccessLogService implements AccessLogServiceInterface
+{
+    /** @var EntityManager */
+    private $entityManager;
+
+    /**
+     * LogService constructor.
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function getAll(int $offset = 0, int $count = 20): array
+    {
+        return $this->entityManager->getRepository(AccessLogEntry::class)->findBy([], null, $count, $offset);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function get(int $id): AccessLogEntry
+    {
+        return $this->entityManager->find(AccessLogEntry::class, $id);
+    }
+}
