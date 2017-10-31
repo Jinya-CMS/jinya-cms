@@ -27,6 +27,10 @@ services:
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@monolog.logger.logging'
+  jinya_gallery.monolog.access_log_handler:
+      class: HelperBundle\Logging\AccessLogHandler
+      arguments:
+        - '@doctrine.orm.entity_manager'
 
   jinya_gallery.event_subscriber.request_event_subscriber:
       class: HelperBundle\EventSubscriber\RequestEventSubscriber
@@ -35,3 +39,9 @@ services:
         - '@router.default'
       tags:
           - { name: kernel.event_subscriber }
+  jinya_gallery.monolog.request_processor:
+      class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
+      arguments:
+        - '@request_stack'
+      tags:
+        - { name: monolog.processor, method: processRecord, handler: accesslog }

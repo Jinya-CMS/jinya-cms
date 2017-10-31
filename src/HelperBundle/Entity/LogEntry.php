@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="log")
  * @ORM\HasLifecycleCallbacks
  */
-class LogMessage
+class LogEntry
 {
     /**
      * @ORM\Id

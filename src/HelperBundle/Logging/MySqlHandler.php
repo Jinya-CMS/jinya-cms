@@ -11,7 +11,7 @@ namespace HelperBundle\Logging;
 
 use Doctrine\ORM\EntityManager;
 use Exception;
-use HelperBundle\Entity\LogMessage;
+use HelperBundle\Entity\LogEntry;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -44,7 +44,7 @@ class MySqlHandler extends AbstractProcessingHandler
     protected function write(array $record)
     {
         try {
-            $logEntry = new LogMessage();
+            $logEntry = new LogEntry();
             $logEntry->setMessage($record['message']);
             $logEntry->setLevel($record['level']);
             $logEntry->setLevelName($record['level_name']);
