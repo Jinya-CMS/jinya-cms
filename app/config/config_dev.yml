@@ -18,6 +18,7 @@ monolog:
             path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
             channels: ['!event']
+            handler: db
         console:
             type: console
             process_psr_3_messages: false

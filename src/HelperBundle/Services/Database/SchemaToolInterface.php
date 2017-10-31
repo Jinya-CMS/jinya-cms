@@ -6,7 +6,7 @@
  * Time: 19:24.
  */
 
-namespace BackendBundle\Service\Database;
+namespace HelperBundle\Services\Database;
 
 interface SchemaToolInterface
 {

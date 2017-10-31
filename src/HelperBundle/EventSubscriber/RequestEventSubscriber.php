@@ -6,7 +6,7 @@
  * Time: 23:52
  */
 
-namespace EventSubscriber;
+namespace HelperBundle\EventSubscriber;
 
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

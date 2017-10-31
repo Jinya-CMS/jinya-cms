@@ -88,7 +88,7 @@ class DefaultController extends Controller
             $fs = new Filesystem();
             $fs->touch($this->getParameter('kernel.root_dir') . '/config/install.lock');
 
-            $assetDumper = $this->get('helper.asset_dumper');
+            $assetDumper = $this->get('jinya_gallery.components.asset_dumper');
             $assetDumper->dumpAssets();
 
             return $this->redirectToRoute('backend_default_index');

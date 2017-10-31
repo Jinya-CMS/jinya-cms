@@ -1,0 +1,37 @@
+services:
+#    backend.example:
+#        class: BackendBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  jinya_gallery.services.user_service:
+      public: true
+      class: BackendBundle\Service\Users\UserService
+      arguments:
+        - '@fos_user.user_manager'
+        - '@doctrine.orm.entity_manager'
+        - '@fos_user.util.user_manipulator'
+        - '@kernel'
+
+  jinya_gallery.services.schema_tool:
+      public: true
+      class: HelperBundle\Services\Database\SchemaTool
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.components.asset_dumper:
+      class: HelperBundle\Components\AssetDumper
+      arguments:
+        - '@assetic.asset_manager'
+        - '%assetic.variables%'
+        - '%assetic.write_to%'
+  jinya_gallery.monolog.my_sql_handler:
+      class: HelperBundle\Logging\MySqlHandler
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@monolog.logger.logging'
+
+  jinya_gallery.event_subscriber.request_event_subscriber:
+      class: HelperBundle\EventSubscriber\RequestEventSubscriber
+      arguments:
+        - '%kernel.root_dir%'
+        - '@router.default'
+      tags:
+          - { name: kernel.event_subscriber }

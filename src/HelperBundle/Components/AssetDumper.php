@@ -6,7 +6,7 @@
  * Time: 16:27
  */
 
-namespace Helper;
+namespace HelperBundle\Components;
 
 
 use Assetic\Asset\AssetInterface;

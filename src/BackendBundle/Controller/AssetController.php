@@ -5,7 +5,6 @@ namespace BackendBundle\Controller;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,7 +20,7 @@ class AssetController extends Controller
     {
         try {
             $success = true;
-            $assetDumper = $this->get('helper.asset_dumper');
+            $assetDumper = $this->get('jinya_gallery.components.asset_dumper');
             $assetDumper->dumpAssets();
         } catch (Exception $exception) {
             $logger = $this->get('logger');

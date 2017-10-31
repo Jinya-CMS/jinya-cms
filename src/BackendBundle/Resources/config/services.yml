@@ -11,12 +11,6 @@ services:
         - '@fos_user.util.user_manipulator'
         - '@kernel'
 
-  jinya_gallery.services.schema_tool:
-      public: true
-      class: BackendBundle\Service\Database\SchemaTool
-      arguments:
-        - '@doctrine.orm.entity_manager'
-
   backend.twig_extension.controller_utils:
       class: BackendBundle\Twig\Extension\ControllerUtils
       tags:
