@@ -4,9 +4,9 @@
 use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
-use BackendBundle\Service\Database\SchemaToolInterface;
 use BackendBundle\Service\Users\UserServiceInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use HelperBundle\Services\Database\SchemaToolInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserServiceInterfaceTest extends \Codeception\Test\Unit
