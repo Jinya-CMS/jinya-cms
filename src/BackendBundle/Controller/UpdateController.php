@@ -9,30 +9,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AssetController extends Controller
+class UpdateController extends Controller
 {
     /**
-     * @Route("/asset/dump", name="backend_asset_dump")
-     * @Security("has_role('ROLE_ADMIN')")
-     *
+     * @Route("/update/schema", name="backend_update_schema")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @param Request $request
      * @return Response
      */
-    public function dumpAction(): Response
+    public function schemaAction(Request $request): Response
     {
         try {
+            $schemaTool = $this->get('jinya_gallery.services.schema_tool');
+            $schemaTool->updateSchema();
             $success = true;
-            $assetDumper = $this->get('helper.asset_dumper');
-            $assetDumper->dumpAssets();
         } catch (Exception $exception) {
             $logger = $this->get('logger');
-            $logger->error('Asset dump failed');
+            $logger->error("Couldn't update database schema");
             $logger->error($exception->getMessage());
             $logger->error($exception->getTraceAsString());
             $success = false;
         }
 
-        return $this->json([
-            'success' => $success
-        ], $success ? 200 : 500);
+        return $this->json(['success' => $success], $success ? 200 : 500);
     }
 }

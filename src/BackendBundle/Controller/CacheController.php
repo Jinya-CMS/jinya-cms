@@ -4,6 +4,7 @@ namespace BackendBundle\Controller;
 
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,9 +13,8 @@ class CacheController extends Controller
 
     /**
      * @Route("/cache/clear", name="backend_cache_clear")
+     * @Security("has_role('ROLE_ADMIN')")
      * @return Response
-     * @internal param Request $request
-     *
      */
     public function clearAction(): Response
     {
@@ -38,8 +38,8 @@ class CacheController extends Controller
 
     /**
      * @Route("/cache/warmup", name="backend_cache_warmup")
+     * @Security("has_role('ROLE_ADMIN')")
      * @return Response
-     * @internal param Request $request
      */
     public function warmupAction(): Response
     {

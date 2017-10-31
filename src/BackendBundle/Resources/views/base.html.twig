@@ -45,41 +45,54 @@
                         </div>
                     {% endblock %}
                     {% block menu_items_end %}
-                        <div class="navbar-nav">
-                            {% block menu_tools %}
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-                                       aria-haspopup="true"
-                                       aria-expanded="false">{{ 'layout.backend.menu.tools'|trans }}</a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        {% block menu_cache %}
-                                            <span class="h6 dropdown-header">{{ 'layout.backend.menu.cache.title'|trans }}</span>
-                                            <a href="{{ url('backend_cache_clear') }}" data-ajax="true"
-                                               data-ajax-method="POST"
-                                               data-ajax-success-message="{{ 'backend.cache.clear.success'|trans }}"
-                                               data-ajax-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
-                                               data-ajax-error-message="{{ 'backend.cache.clear.error'|trans }}"
-                                               class="dropdown-item">{{ 'layout.backend.menu.cache.clear'|trans }}</a>
-                                            <a href="{{ url('backend_cache_warmup') }}" data-ajax="true"
-                                               data-ajax-method="POST"
-                                               data-ajax-success-message="{{ 'backend.cache.warmup.success'|trans }}"
-                                               data-ajax-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
-                                               data-ajax-error-message="{{ 'backend.cache.warmup.error'|trans }}"
-                                               class="dropdown-item">{{ 'layout.backend.menu.cache.warmup'|trans }}</a>
-                                        {% endblock %}
-                                        {% block menu_assets %}
-                                            <span class="h6 dropdown-header">{{ 'layout.backend.menu.asset.title'|trans }}</span>
-                                            <a href="{{ url('backend_asset_dump') }}" data-ajax="true"
-                                               data-ajax-method="POST"
-                                               data-ajax-success-message="{{ 'backend.asset.dump.success'|trans }}"
-                                               data-ajax-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
-                                               data-ajax-error-message="{{ 'backend.asset.dump.error'|trans }}"
-                                               class="dropdown-item">{{ 'layout.backend.menu.asset.dump'|trans }}</a>
-                                        {% endblock %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="navbar-nav">
+                                {% block menu_tools %}
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                           aria-haspopup="true"
+                                           aria-expanded="false">{{ 'layout.backend.menu.tools'|trans }}</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            {% block menu_cache %}
+                                                <span class="h6 dropdown-header">{{ 'layout.backend.menu.cache.title'|trans }}</span>
+                                                <a href="{{ url('backend_cache_clear') }}" data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.cache.clear.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.cache.clear.error'|trans }}"
+                                                   class="dropdown-item">{{ 'layout.backend.menu.cache.clear'|trans }}</a>
+                                                <a href="{{ url('backend_cache_warmup') }}" data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.cache.warmup.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.cache.warmup.error'|trans }}"
+                                                   class="dropdown-item">{{ 'layout.backend.menu.cache.warmup'|trans }}</a>
+                                            {% endblock %}
+                                            {% block menu_assets %}
+                                                <span class="h6 dropdown-header">{{ 'layout.backend.menu.asset.title'|trans }}</span>
+                                                <a href="{{ url('backend_asset_dump') }}" data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.asset.dump.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.asset.dump.error'|trans }}"
+                                                   class="dropdown-item">{{ 'layout.backend.menu.asset.dump'|trans }}</a>
+                                            {% endblock %}
+                                            {% block menu_maintenance %}
+                                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                                    <span class="h6 dropdown-header">{{ 'layout.backend.menu.maintenance.title'|trans }}</span>
+                                                    <a href="{{ url('backend_update_schema') }}" data-ajax="true"
+                                                       data-ajax-method="POST"
+                                                       data-ajax-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
+                                                       data-ajax-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
+                                                       data-ajax-error-message="{{ 'backend.maintenance.schema.update.error'|trans }}"
+                                                       class="dropdown-item">{{ 'layout.backend.menu.maintenance.schema.update'|trans }}</a>
+                                                {% endif %}
+                                            {% endblock %}
+                                        </div>
                                     </div>
-                                </div>
-                            {% endblock %}
-                        </div>
+                                {% endblock %}
+                            </div>
+                        {% endif %}
                     {% endblock %}
                 </div>
             </nav>

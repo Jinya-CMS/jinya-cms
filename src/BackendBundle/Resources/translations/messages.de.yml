@@ -11,6 +11,10 @@ layout:
         clear: Cache leeren
         warmup: Cache erzeugen
       tools: Tools
+      maintenance:
+        schema:
+          update: Datenbankschema aktualisieren
+        title: Wartung
 sidebar:
   users:
     overview: Überblick
@@ -49,3 +53,9 @@ backend:
         success: Skripte und Styles erfolgreich erzeugt
         progress: Skripte und Styles werden erzeugt
         error: Fehler beim Erzeugen der Skripte und Styles
+  maintenance:
+    schema:
+      update:
+        success: Das Datenbankschema wurde erfolgreich aktualisiert
+        progress: Das Datenbankschema wird aktualisiert
+        error: Das Datenbankschema konnte nicht aktualisiert werden
