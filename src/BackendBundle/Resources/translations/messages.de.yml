@@ -27,8 +27,6 @@ sidebar:
     details: Künstlerdetails
     delete: Künstler löschen
     changepassword: Passwort ändern
-  logs:
-    search: Suchen
 backend:
   users:
     email: Emailadresse
