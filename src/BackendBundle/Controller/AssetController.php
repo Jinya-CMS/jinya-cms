@@ -3,6 +3,7 @@
 namespace BackendBundle\Controller;
 
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,8 @@ class AssetController extends Controller
 {
     /**
      * @Route("/asset/dump", name="backend_asset_dump")
+     * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param Request $request
      * @return Response
      */
     public function dumpAction(): Response

@@ -14,6 +14,7 @@ use BackendBundle\Form\ChangePasswordType;
 use BackendBundle\Form\UserType;
 use BackendBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,7 @@ class UsersController extends Controller
 
     /**
      * @Route("/users/add", name="backend_users_add")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      *
      * @param Request $request
      *
@@ -93,6 +95,7 @@ class UsersController extends Controller
 
     /**
      * @Route("/users/edit/{id}", name="backend_users_edit")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      *
      * @param Request $request
      * @param int $id
@@ -128,6 +131,7 @@ class UsersController extends Controller
 
     /**
      * @Route("/users/delete/{id}", name="backend_users_delete")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      *
      * @param Request $request
      * @param int $id
@@ -168,6 +172,7 @@ class UsersController extends Controller
 
     /**
      * @Route("/users/changepassword/{id}", name="backend_users_changepassword")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
      * @param int $id

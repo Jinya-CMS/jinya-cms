@@ -28,4 +28,4 @@ security:
     - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/fos/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/backend/, role: ROLE_ADMIN }
+    - { path: ^/backend/, role: IS_AUTHENTICATED_FULLY }
