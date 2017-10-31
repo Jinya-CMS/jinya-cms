@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6952fe640462d39710fdc01a05727d6f",
+    "content-hash": "87f0fc1874653fd04cf61edc1c8015d5",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1793,21 +1793,21 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v4.1.5",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "55553c3ad6ae2121c1b1475d4c880d71b31b8f68"
+                "reference": "387b6a3b723ba35588b33d5f8d14e28ed608bd30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/55553c3ad6ae2121c1b1475d4c880d71b31b8f68",
-                "reference": "55553c3ad6ae2121c1b1475d4c880d71b31b8f68",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/387b6a3b723ba35588b33d5f8d14e28ed608bd30",
+                "reference": "387b6a3b723ba35588b33d5f8d14e28ed608bd30",
                 "shasum": ""
             },
             "require": {
                 "composer/ca-bundle": "^1.0",
-                "symfony/console": "~2.7|~3.0"
+                "symfony/console": "~2.7|~3.0|~4.0"
             },
             "bin": [
                 "security-checker"
@@ -1834,7 +1834,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2017-08-22T22:18:16+00:00"
+            "time": "2017-10-29T18:48:08+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2425,16 +2425,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.0-BETA1",
+            "version": "v3.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "44e3c8bfcf1527172c8d826f0cb5a3894003fe92"
+                "reference": "837878f16949f2b18ca35ae784606fccb2e19c0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/44e3c8bfcf1527172c8d826f0cb5a3894003fe92",
-                "reference": "44e3c8bfcf1527172c8d826f0cb5a3894003fe92",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/837878f16949f2b18ca35ae784606fccb2e19c0c",
+                "reference": "837878f16949f2b18ca35ae784606fccb2e19c0c",
                 "shasum": ""
             },
             "require": {
@@ -2521,6 +2521,7 @@
             },
             "require-dev": {
                 "cache/integration-tests": "dev-master",
+                "doctrine/annotations": "~1.0",
                 "doctrine/cache": "~1.6",
                 "doctrine/data-fixtures": "1.0.*",
                 "doctrine/dbal": "~2.4",
@@ -2575,7 +2576,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-10-18T21:46:31+00:00"
+            "time": "2017-10-30T22:31:30+00:00"
         },
         {
             "name": "twig/twig",
@@ -4490,16 +4491,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.4.0-BETA1",
+            "version": "v3.4.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "b11459c7e0af9e8eb10c29352521878a0a0045b0"
+                "reference": "9128796e0cc46f17973e7e9345eb34696aafe00b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b11459c7e0af9e8eb10c29352521878a0a0045b0",
-                "reference": "b11459c7e0af9e8eb10c29352521878a0a0045b0",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/9128796e0cc46f17973e7e9345eb34696aafe00b",
+                "reference": "9128796e0cc46f17973e7e9345eb34696aafe00b",
                 "shasum": ""
             },
             "require": {
@@ -4548,7 +4549,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-10-13T16:56:07+00:00"
+            "time": "2017-10-28T16:49:05+00:00"
         },
         {
             "name": "theseer/tokenizer",

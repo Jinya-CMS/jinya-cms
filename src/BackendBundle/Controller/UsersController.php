@@ -102,7 +102,9 @@ class UsersController extends Controller
     public function editAction(Request $request, int $id): Response
     {
         $form = $this->createForm(UserType::class);
-        $form->setData($this->userService->getUser($id));
+        $user = $this->userService->getUser($id);
+        $user->setProfilePicture(null);
+        $form->setData($user);
 
         $form->handleRequest($request);
         $viewData = [

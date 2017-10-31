@@ -76,6 +76,17 @@
                                                data-ajax-error-message="{{ 'backend.asset.dump.error'|trans }}"
                                                class="dropdown-item">{{ 'layout.backend.menu.asset.dump'|trans }}</a>
                                         {% endblock %}
+                                        {% block menu_maintenance %}
+                                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                                <span class="h6 dropdown-header">{{ 'layout.backend.menu.maintenance.title'|trans }}</span>
+                                                <a href="{{ url('backend_update_schema') }}" data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.maintenance.schema.update.error'|trans }}"
+                                                   class="dropdown-item">{{ 'layout.backend.menu.maintenance.schema.update'|trans }}</a>
+                                            {% endif %}
+                                        {% endblock %}
                                     </div>
                                 </div>
                             {% endblock %}
