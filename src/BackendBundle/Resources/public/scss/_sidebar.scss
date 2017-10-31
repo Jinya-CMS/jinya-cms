@@ -1,5 +1,6 @@
 body {
   overflow-x: hidden;
+  padding-top: 56px;
 }
 
 .sidebar {
@@ -9,7 +10,6 @@ body {
   overflow-y: auto;
   width: 250px;
   list-style: none;
-  padding-top: 60px;
   .nav-link {
     color: #ffffff;
     &.nav-link.active {

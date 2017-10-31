@@ -4,7 +4,6 @@
   "license": "MIT",
   "dependencies": {
     "@types/jquery": "^3.2.15",
-    "@types/messenger": "^1.4.28",
-    "bootstrap": "^4.0.0-beta.2"
+    "@types/messenger": "^1.4.28"
   }
 }
