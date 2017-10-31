@@ -9,6 +9,7 @@ body {
   overflow-y: auto;
   width: 250px;
   list-style: none;
+  padding-top: 60px;
   .nav-link {
     color: #ffffff;
     &.nav-link.active {
@@ -17,6 +18,10 @@ body {
   }
   &.no-edit .overview {
     display: none;
+  }
+
+  .btn-outline-primary {
+    color: white;
   }
 
   .overview {

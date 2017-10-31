@@ -1,0 +1,11 @@
+.sidebar {
+  .form-control {
+    background: transparent;
+    border: none;
+    color: white;
+
+    &::placeholder {
+      color: $secondary;
+    }
+  }
+}
