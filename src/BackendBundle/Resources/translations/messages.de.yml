@@ -15,6 +15,10 @@ layout:
         schema:
           update: Datenbankschema aktualisieren
         title: Wartung
+      log:
+        title: Protokolle
+        application: Anwendungsprotokoll
+        access: Zugriffsprotokoll
 sidebar:
   users:
     overview: Überblick
@@ -23,6 +27,8 @@ sidebar:
     details: Künstlerdetails
     delete: Künstler löschen
     changepassword: Passwort ändern
+  logs:
+    search: Suchen
 backend:
   users:
     email: Emailadresse
@@ -59,3 +65,12 @@ backend:
         success: Das Datenbankschema wurde erfolgreich aktualisiert
         progress: Das Datenbankschema wird aktualisiert
         error: Das Datenbankschema konnte nicht aktualisiert werden
+  log:
+    created_at: Geschrieben am
+    level: Level
+    message: Nachricht
+  accesslog:
+    ip: Client IP
+    method: HTTP Methode
+    created_at: Zugriff am
+    uri: URL

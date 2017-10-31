@@ -32,7 +32,7 @@ class AccessLogService implements AccessLogServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 20): array
     {
-        return $this->entityManager->getRepository(AccessLogEntry::class)->findBy([], null, $count, $offset);
+        return $this->entityManager->getRepository(AccessLogEntry::class)->findBy([], ['createdAt' => 'DESC'], $count, $offset);
     }
 
     /**

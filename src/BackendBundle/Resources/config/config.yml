@@ -13,9 +13,7 @@ assetic:
   assets:
     backendcss:
       inputs:
-        - '@BackendBundle/Resources/public/scss/spinner.scss'
-        - '@BackendBundle/Resources/public/scss/sidebar.scss'
-        - '@BackendBundle/Resources/public/scss/contentarea.scss'
+        - '@BackendBundle/Resources/public/scss/jinya-gallery.scss'
     backendjs:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'

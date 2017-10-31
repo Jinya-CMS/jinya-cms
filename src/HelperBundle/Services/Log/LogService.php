@@ -30,13 +30,15 @@ class LogService implements LogServiceInterface
     /**
      * @inheritdoc
      */
-    public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $filter = ''): array
+    public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array
     {
         $repo = $this->entityManager->getRepository(LogEntry::class);
         $query = $repo->createQueryBuilder('log_entry')
             ->where("log_entry.message like :filter")
-            ->orderBy(new OrderBy('log_entry' . $sortBy, $sortOrder))
-            ->setParameter('filter', $filter)
+            ->andWhere('log_entry.levelName = :level')
+            ->orderBy(new OrderBy('log_entry.' . $sortBy, $sortOrder))
+            ->setParameter('filter', '%' . $filter . '%')
+            ->setParameter('level', strtoupper($level))
             ->setMaxResults($count)
             ->setFirstResult($offset)
             ->getQuery();

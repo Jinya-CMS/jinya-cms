@@ -2,11 +2,11 @@ services:
   jinya_gallery.services.log_service:
       class: HelperBundle\Services\Log\LogService
       arguments:
-        - '@doctrine.orm.entity_manager.abstract'
+        - '@doctrine.orm.entity_manager'
   jinya_gallery.services.access_log_service:
       class: HelperBundle\Services\Log\AccessLogService
       arguments:
-        - '@doctrine.orm.entity_manager.abstract'
+        - '@doctrine.orm.entity_manager'
 
   jinya_gallery.services.schema_tool:
       public: true
@@ -42,3 +42,8 @@ services:
         - '@request_stack'
       tags:
         - { name: monolog.processor, method: processRecord, handler: accesslog }
+
+  twig_extensions.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
