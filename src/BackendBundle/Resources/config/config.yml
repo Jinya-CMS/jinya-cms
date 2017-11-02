@@ -19,6 +19,7 @@ assetic:
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/AjaxExecutor.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/DatatablesActivator.js'
   filters:
       jsqueeze: ~
       scssphp:

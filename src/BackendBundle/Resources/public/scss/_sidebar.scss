@@ -27,6 +27,14 @@ body {
   .overview {
     display: block;
   }
+
+  .form-control {
+    background: transparent;
+    border: none;
+    color: white;
+
+    @include placeholder(white, 0.8);
+  }
 }
 
 .page {

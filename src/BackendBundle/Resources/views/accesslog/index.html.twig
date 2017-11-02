@@ -3,7 +3,7 @@
 {% set menu_access_log_active = true %}
 {% block content %}
     <div class="table-responsive">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped" data-tables="true">
             <thead>
             <tr>
                 <th>{{ 'backend.accesslog.ip'|trans }}</th>
@@ -27,4 +27,9 @@
 {% endblock %}
 {% block sidebar_items %}
     {% include 'BackendBundle:sidebar:log.html.twig' %}
+{% endblock %}
+{% block custom_scripts %}
+    <script>
+        getServiceUrl = '{{ url('backend_accesslog_getlist') }}';
+    </script>
 {% endblock %}
