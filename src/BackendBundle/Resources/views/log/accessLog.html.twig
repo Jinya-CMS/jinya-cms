@@ -2,26 +2,28 @@
 
 {% set menu_access_log_active = true %}
 {% block content %}
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th>{{ 'backend.accesslog.ip'|trans }}</th>
-            <th>{{ 'backend.accesslog.uri'|trans }}</th>
-            <th>{{ 'backend.accesslog.method'|trans }}</th>
-            <th>{{ 'backend.accesslog.created_at'|trans }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entry in logs %}
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
             <tr>
-                <td>{{ entry.clientIp }}</td>
-                <td>{{ entry.uri }}</td>
-                <td>{{ entry.method }}</td>
-                <td>{{ entry.createdAt|localizeddate('long') }}</td>
+                <th>{{ 'backend.accesslog.ip'|trans }}</th>
+                <th>{{ 'backend.accesslog.uri'|trans }}</th>
+                <th>{{ 'backend.accesslog.method'|trans }}</th>
+                <th>{{ 'backend.accesslog.created_at'|trans }}</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for entry in logs %}
+                <tr data-id="{{ entry.id }}">
+                    <td>{{ entry.clientIp }}</td>
+                    <td>{{ entry.uri }}</td>
+                    <td>{{ entry.method }}</td>
+                    <td>{{ entry.createdAt|localizeddate('long') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 {% block sidebar_items %}
     {% include 'BackendBundle:sidebar:log.html.twig' %}
