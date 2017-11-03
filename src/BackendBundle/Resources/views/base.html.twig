@@ -55,7 +55,7 @@
                                                class="dropdown-item {% if menu_log_active is defined and menu_log_active %}active{% endif %}">
                                                 {{ 'layout.backend.menu.log.application'|trans }}
                                             </a>
-                                            <a href="{{ url('backend_log_access') }}"
+                                            <a href="{{ url('backend_accesslog_index') }}"
                                                class="dropdown-item {% if menu_access_log_active is defined and menu_access_log_active %}active{% endif %}">
                                                 {{ 'layout.backend.menu.log.access'|trans }}
                                             </a>
@@ -175,7 +175,7 @@
         </script>
     {% endblock %}
     {% block datatables_scripts %}
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     {% endblock %}
     {% block assetic_scripts %}

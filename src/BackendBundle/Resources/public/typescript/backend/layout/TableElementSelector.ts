@@ -4,7 +4,7 @@ class TableElementSelector {
     public static readonly selectedIdAttribute = 'selectedId';
 
     public static init() {
-        $('tr[data-id]').click(this.trClicked);
+        $('.table tbody').on('click', 'tr[data-id]', this.trClicked);
     }
 
     private static trClicked() {
