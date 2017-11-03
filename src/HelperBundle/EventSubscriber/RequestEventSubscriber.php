@@ -47,7 +47,7 @@ class RequestEventSubscriber implements EventSubscriberInterface
 
     public function onSymfonyRequest(GetResponseEvent $event)
     {
-        if (strpos(strtolower($event->getRequest()->getPathInfo()), '/install') !== 0) {
+        if (stripos($event->getRequest()->getPathInfo(), '/install') !== 0) {
             $fs = new FileSystem();
             try {
                 $installLock = new File($this->rootDir . DIRECTORY_SEPARATOR . 'config/install.lock');

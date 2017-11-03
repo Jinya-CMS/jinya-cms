@@ -55,7 +55,6 @@ class UsersController extends Controller
         $allUsers = $this->userService->getAllUsers(0, PHP_INT_MAX);
 
         return $this->render('@Backend/users/overview.html.twig', [
-            'ajax' => $request->isXmlHttpRequest(),
             'users' => $allUsers,
         ]);
     }
@@ -74,7 +73,6 @@ class UsersController extends Controller
 
         $form->handleRequest($request);
         $viewData = [
-            'ajax' => $request->isXmlHttpRequest(),
             'form' => $form->createView(),
         ];
 
@@ -111,7 +109,6 @@ class UsersController extends Controller
 
         $form->handleRequest($request);
         $viewData = [
-            'ajax' => $request->isXmlHttpRequest(),
             'form' => $form->createView(),
             'id' => $id,
         ];
@@ -147,7 +144,6 @@ class UsersController extends Controller
         }
 
         return $this->render('@Backend/users/delete.html.twig', [
-            'ajax' => $request->isXmlHttpRequest(),
             'id' => $id,
             'user' => $this->userService->getUser($id),
         ]);
@@ -164,7 +160,6 @@ class UsersController extends Controller
     public function detailsAction(Request $request, int $id): Response
     {
         return $this->render('@Backend/users/details.html.twig', [
-            'ajax' => $request->isXmlHttpRequest(),
             'id' => $id,
             'user' => $this->userService->getUser($id),
         ]);
@@ -184,7 +179,6 @@ class UsersController extends Controller
 
         $form->handleRequest($request);
         $viewData = [
-            'ajax' => $request->isXmlHttpRequest(),
             'form' => $form->createView(),
             'id' => $id,
         ];

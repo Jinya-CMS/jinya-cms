@@ -36,6 +36,7 @@ services:
         - '@router.default'
       tags:
           - { name: kernel.event_subscriber }
+
   jinya_gallery.monolog.request_processor:
       class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
       arguments:
