@@ -32,7 +32,7 @@ class AccessLogsController extends Controller
     }
 
     /**
-     * @Route("/accesslog/details/{$id}", name="backend_accesslog_details")
+     * @Route("/accesslog/details/{id}", name="backend_accesslog_details")
      *
      * @param int $id
      * @param Request $request
@@ -42,7 +42,7 @@ class AccessLogsController extends Controller
     {
         $accessLogService = $this->get('jinya_gallery.services.access_log_service');
         $accessLog = $accessLogService->get($id);
-        return $this->render('@Backend/accesslog/details.html.twig', $accessLog);
+        return $this->render('@Backend/accesslog/details.html.twig', ['entry' => $accessLog]);
     }
 
     /**

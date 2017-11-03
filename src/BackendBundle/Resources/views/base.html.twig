@@ -76,13 +76,15 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             {% block menu_cache %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.cache.title'|trans }}</span>
-                                                <a href="{{ url('backend_cache_clear') }}" data-app.request.xmlHttpRequest="true"
+                                                <a href="{{ url('backend_cache_clear') }}"
+                                                   data-app.request.xmlHttpRequest="true"
                                                    data-app.request.xmlHttpRequest-method="POST"
                                                    data-app.request.xmlHttpRequest-success-message="{{ 'backend.cache.clear.success'|trans }}"
                                                    data-app.request.xmlHttpRequest-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
                                                    data-app.request.xmlHttpRequest-error-message="{{ 'backend.cache.clear.error'|trans }}"
                                                    class="dropdown-item">{{ 'layout.backend.menu.cache.clear'|trans }}</a>
-                                                <a href="{{ url('backend_cache_warmup') }}" data-app.request.xmlHttpRequest="true"
+                                                <a href="{{ url('backend_cache_warmup') }}"
+                                                   data-app.request.xmlHttpRequest="true"
                                                    data-app.request.xmlHttpRequest-method="POST"
                                                    data-app.request.xmlHttpRequest-success-message="{{ 'backend.cache.warmup.success'|trans }}"
                                                    data-app.request.xmlHttpRequest-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
@@ -91,7 +93,8 @@
                                             {% endblock %}
                                             {% block menu_assets %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.asset.title'|trans }}</span>
-                                                <a href="{{ url('backend_asset_dump') }}" data-app.request.xmlHttpRequest="true"
+                                                <a href="{{ url('backend_asset_dump') }}"
+                                                   data-app.request.xmlHttpRequest="true"
                                                    data-app.request.xmlHttpRequest-method="POST"
                                                    data-app.request.xmlHttpRequest-success-message="{{ 'backend.asset.dump.success'|trans }}"
                                                    data-app.request.xmlHttpRequest-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
@@ -101,7 +104,8 @@
                                             {% block menu_maintenance %}
                                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                                     <span class="h6 dropdown-header">{{ 'layout.backend.menu.maintenance.title'|trans }}</span>
-                                                    <a href="{{ url('backend_update_schema') }}" data-app.request.xmlHttpRequest="true"
+                                                    <a href="{{ url('backend_update_schema') }}"
+                                                       data-app.request.xmlHttpRequest="true"
                                                        data-app.request.xmlHttpRequest-method="POST"
                                                        data-app.request.xmlHttpRequest-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
                                                        data-app.request.xmlHttpRequest-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
@@ -155,7 +159,7 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     {% endblock %}
     {% block scripts_popperjs %}
-        <script src="https://cdnjs.cloudflare.com/app.request.xmlHttpRequest/libs/popper.js/1.12.3/umd/popper.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
                 integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
                 crossorigin="anonymous"></script>
     {% endblock %}
@@ -165,7 +169,7 @@
                 crossorigin="anonymous"></script>
     {% endblock %}
     {% block scripts_messenger %}
-        <script src="https://cdnjs.cloudflare.com/app.request.xmlHttpRequest/libs/messenger/1.5.0/js/messenger.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/js/messenger.min.js"
                 integrity="sha256-BnQeGKS32Pt/mkLkk742fNXjfLN5/4OOd3L9PAf5d3s=" crossorigin="anonymous"></script>
         <script>
             Messenger.options = {
@@ -194,7 +198,8 @@
               crossorigin="anonymous">
     {% endblock %}
     {% block styles_messenger %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/app.request.xmlHttpRequest/libs/messenger/1.5.0/css/messenger.css"
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/app.request.xmlHttpRequest/libs/messenger/1.5.0/css/messenger.css"
               integrity="sha256-7dEoLRnA1sJLZWNfRMKeEeVKRIlXencFe30wZOPE3SY=" crossorigin="anonymous"/>
     {% endblock %}
     {% block styles_messenger_theme %}

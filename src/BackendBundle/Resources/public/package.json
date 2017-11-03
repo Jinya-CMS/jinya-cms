@@ -4,7 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/datatables.net": "^1.10.7",
-    "@types/jquery": "^3.2.15",
+    "@types/jquery": "^3.2.16",
     "@types/messenger": "^1.4.28"
   }
 }
