@@ -17,7 +17,32 @@ class AccessLogsController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        return $this->render('@Backend/accesslog/index.html.twig');
+        return $this->redirectToRoute('backend_accesslog_overview');
+    }
+
+    /**
+     * @Route("/accesslog/overview", name="backend_accesslog_overview")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function overviewAction(Request $request): Response
+    {
+        return $this->render('@Backend/accesslog/overview.html.twig');
+    }
+
+    /**
+     * @Route("/accesslog/details/{$id}", name="backend_accesslog_details")
+     *
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     */
+    public function detailsAction(int $id, Request $request): Response
+    {
+        $accessLogService = $this->get('jinya_gallery.services.access_log_service');
+        $accessLog = $accessLogService->get($id);
+        return $this->render('@Backend/accesslog/details.html.twig', $accessLog);
     }
 
     /**

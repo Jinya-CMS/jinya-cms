@@ -27,6 +27,9 @@ sidebar:
     details: Künstlerdetails
     delete: Künstler löschen
     changepassword: Passwort ändern
+  accesslog:
+    details: Zugriffsdetails
+    overview: Überblick
 backend:
   users:
     email: Emailadresse
@@ -72,3 +75,6 @@ backend:
     method: HTTP Methode
     created_at: Zugriff am
     uri: URL
+    details:
+      title: Zugriff am %s
+    userAgent: User Agent
