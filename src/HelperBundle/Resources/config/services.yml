@@ -19,6 +19,9 @@ services:
         - '@assetic.asset_manager'
         - '%assetic.variables%'
         - '%assetic.write_to%'
+  jinya_gallery.components.datatables_request_parser:
+      class: HelperBundle\Components\DatatablesRequestParser
+
   jinya_gallery.monolog.my_sql_handler:
       class: HelperBundle\Logging\MySqlHandler
       arguments:
