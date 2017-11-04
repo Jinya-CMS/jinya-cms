@@ -7,9 +7,10 @@
                data-sort-order="desc" data-service-url="{{ url('backend_accesslog_getlist') }}" cellspacing="0">
             <thead>
             <tr>
-                <th data-name="ip" data-data="ip">{{ 'backend.accesslog.ip'|trans }}</th>
-                <th data-name="uri" data-data="uri">{{ 'backend.accesslog.uri'|trans }}</th>
-                <th data-name="method" data-data="method">{{ 'backend.accesslog.method'|trans }}</th>
+                <th data-sortable="false" data-name="ip" data-data="ip">{{ 'backend.accesslog.ip'|trans }}</th>
+                <th data-sortable="false" data-name="uri" data-data="uri">{{ 'backend.accesslog.uri'|trans }}</th>
+                <th data-sortable="false" data-name="method"
+                    data-data="method">{{ 'backend.accesslog.method'|trans }}</th>
                 <th data-name="created_at" data-data="createdAt"
                     data-format="dateTimeFormat">{{ 'backend.accesslog.created_at'|trans }}</th>
             </tr>

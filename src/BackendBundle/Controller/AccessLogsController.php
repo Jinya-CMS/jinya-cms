@@ -54,14 +54,13 @@ class AccessLogsController extends Controller
     public function getListAction(Request $request): Response
     {
         $accessLogService = $this->get('jinya_gallery.services.access_log_service');
-        $sortBy = 'createdAt';
-        $sortOrder = 'desc';
-        if (!empty($request->get('order'))) {
-            $order = $request->get('order')[0];
-            $sortOrder = $order['dir'];
-            $sortBy = $this->mapColumnIdToName($order['column']);
-        }
-        $items = $accessLogService->getAll($request->get('start'), $request->get('length'), $sortBy, $sortOrder);
+        $datatablesRequestParser = $this->get('jinya_gallery.components.datatables_request_parser');
+
+        $datatablesRequest = $datatablesRequestParser->parseRequest($request);
+        $orders = $datatablesRequest->getOrder();
+        $order = array_shift($orders);
+
+        $items = $accessLogService->getAll($datatablesRequest->getStart(), $datatablesRequest->getLength(), $order->getColumn(), $order->getDir());
         $count = $accessLogService->countAll();
         return $this->json([
             'draw' => uniqid('', true),
@@ -69,16 +68,5 @@ class AccessLogsController extends Controller
             'recordsFiltered' => $count,
             'data' => $items
         ]);
-    }
-
-    private function mapColumnIdToName($id)
-    {
-        $columns = [
-            0 => 'clientIp',
-            1 => 'uri',
-            2 => 'method',
-            3 => 'createdAt'
-        ];
-        return $columns[(int)$id];
     }
 }
