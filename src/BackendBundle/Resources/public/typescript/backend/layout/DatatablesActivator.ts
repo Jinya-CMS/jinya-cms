@@ -20,7 +20,8 @@ class DatatablesActivator {
             let $this = $(element);
             columns.push({
                 name: $this.data('name'),
-                data: $this.data('data')
+                data: $this.data('data'),
+                sortable: $this.data('sortable') != false
             });
             if (this[$this.data('format')]) {
                 columnDefs.push({

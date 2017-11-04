@@ -2,7 +2,7 @@
 
 namespace BackendBundle\Controller;
 
-use HelperBundle\Services\Log\LogServiceInterface;
+use HelperBundle\Components\DatatablesRequestParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,42 +14,59 @@ class LogsController extends Controller
      * @Route("/log", name="backend_log_index")
      *
      * @param Request $request
-     * @param LogServiceInterface $logService
      * @return Response
      */
     public function indexAction(Request $request): Response
     {
-        $logService = $this->get('jinya_gallery.services.log_service');
-        $filter = $request->get('filter', '');
-        $level = $request->get('level', 'info');
-        $sortBy = $request->get('sortBy', 'createdAt');
-        $sortOrder = $request->get('sortOrder', 'DESC');
-        $offset = $request->get('offset', 0);
-        $count = $request->get('count', 20);
-
-        $logs = $logService->getAll($offset, $count, $sortBy, $sortOrder, $level, $filter);
-
-        return $this->render('@Backend/log/index.html.twig', [
-            'logs' => $logs
-        ]);
+        return $this->redirectToRoute('backend_log_overview');
     }
 
     /**
-     * @Route("/log/access", name="backend_log_access")
+     * @Route("/log/overview", name="backend_log_overview")
      *
      * @param Request $request
      * @return Response
      */
-    public function accessLogAction(Request $request): Response
+    public function overviewAction(Request $request): Response
     {
-        $accessLogService = $this->get('jinya_gallery.services.access_log_service');
-        $offset = $request->get('offset', 0);
-        $count = $request->get('count', 20);
+        return $this->render('@Backend/log/overview.html.twig');
+    }
 
-        $logs = $accessLogService->getAll($offset, $count);
+    /**
+     * @Route("/log/list/", name="backend_log_getlist", methods={"POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function getListAction(Request $request): Response
+    {
+        $logService = $this->get('jinya_gallery.services.log_service');
+        $requestParser = $this->get('jinya_gallery.components.datatables_request_parser');
+        $datatables = $requestParser->parseRequest($request);
+        $sortBy = $datatables->getOrder()[0]->getColumn();
+        $sortOrder = $datatables->getOrder()[0]->getDir();
+        $levelColumn = $datatables->getColumn('level');
 
-        return $this->render('@Backend/log/accessLog.html.twig', [
-            'logs' => $logs
+        $items = $logService->getAll($datatables->getStart(), $datatables->getLength(), $sortBy, $sortOrder, $levelColumn->getSearch()->getValue(), $datatables->getSearch()->getValue());
+        $count = $logService->countAll();
+        $filteredCount = $logService->countFiltered($levelColumn->getSearch()->getValue(), $datatables->getSearch()->getValue());
+
+        return $this->json([
+            'draw' => uniqid('', true),
+            'recordsTotal' => $count,
+            'recordsFiltered' => $filteredCount,
+            'data' => $items
         ]);
+    }
+
+    private function mapColumnIdToName($id)
+    {
+        $columns = [
+            0 => 'clientIp',
+            1 => 'uri',
+            2 => 'method',
+            3 => 'createdAt'
+        ];
+        return $columns[(int)$id];
     }
 }

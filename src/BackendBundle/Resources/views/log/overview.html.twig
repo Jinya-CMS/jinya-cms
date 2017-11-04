@@ -1,0 +1,18 @@
+{% extends '@Backend/log/log_base.html.twig' %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-hover table-striped" data-tables="true" data-sort-by="created_at"
+               data-sort-order="desc" data-service-url="{{ url('backend_log_getlist') }}" cellspacing="0">
+            <thead>
+            <tr>
+                <th data-sortable="false" data-name="message" data-data="message">{{ 'backend.log.message'|trans }}</th>
+                <th data-name="level" data-data="level">{{ 'backend.log.level'|trans }}</th>
+                <th data-name="created_at" data-data="createdAt"
+                    data-format="dateTimeFormat">{{ 'backend.log.created_at'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -31,4 +31,19 @@ interface LogServiceInterface
      * @return LogEntry
      */
     public function get(int $id): LogEntry;
+
+    /**
+     * Counts all elements
+     * @return int
+     */
+    public function countAll(): int;
+
+    /**
+     * Counts all elements based on the filters
+     *
+     * @param string $level
+     * @param string $filter
+     * @return int
+     */
+    public function countFiltered(string $level, string $filter): int;
 }

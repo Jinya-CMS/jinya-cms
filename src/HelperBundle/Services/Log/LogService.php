@@ -10,7 +10,6 @@ namespace HelperBundle\Services\Log;
 
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\Expr\OrderBy;
 use HelperBundle\Entity\LogEntry;
 
 class LogService implements LogServiceInterface
@@ -32,18 +31,28 @@ class LogService implements LogServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array
     {
-        $repo = $this->entityManager->getRepository(LogEntry::class);
-        $query = $repo->createQueryBuilder('log_entry')
-            ->where("log_entry.message like :filter")
-            ->andWhere('log_entry.levelName = :level')
-            ->orderBy(new OrderBy('log_entry.' . $sortBy, $sortOrder))
-            ->setParameter('filter', '%' . $filter . '%')
-            ->setParameter('level', strtoupper($level))
+        $queryBuilder = $this->getFilterQueryBuilder($level, $filter)
             ->setMaxResults($count)
-            ->setFirstResult($offset)
-            ->getQuery();
+            ->setFirstResult($offset);
+        if ($sortOrder === 'asc') {
+            $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->asc('le.' . $sortBy));
+        } else {
+            $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->desc('le.' . $sortBy));
+        }
+        $query = $queryBuilder->getQuery();
 
         return $query->getResult();
+    }
+
+    private function getFilterQueryBuilder(string $level, string $filter)
+    {
+        $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
+
+        return $queryBuilder
+            ->where($queryBuilder->expr()->like('le.message', ':filter'))
+            ->andWhere($queryBuilder->expr()->like('le.levelName', $queryBuilder->expr()->upper(':level')))
+            ->setParameter('filter', "%$filter%")
+            ->setParameter('level', "%$level%");
     }
 
     /**
@@ -52,5 +61,34 @@ class LogService implements LogServiceInterface
     public function get(int $id): LogEntry
     {
         return $this->entityManager->find(LogEntry::class, $id);
+    }
+
+    /**
+     * Counts all elements
+     * @return int
+     */
+    public function countAll(): int
+    {
+        $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
+        return $queryBuilder
+            ->select($queryBuilder->expr()->count('le'))
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Counts all elements based on the filters
+     *
+     * @param string $level
+     * @param string $filter
+     * @return int
+     */
+    public function countFiltered(string $level, string $filter): int
+    {
+        $queryBuilder = $this->getFilterQueryBuilder($level, $filter);
+        return $queryBuilder
+            ->select($queryBuilder->expr()->count('le'))
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
