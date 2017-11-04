@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "@types/jquery": "^3.2.15",
+    "@types/datatables.net": "^1.10.7",
+    "@types/jquery": "^3.2.16",
     "@types/messenger": "^1.4.28"
   }
 }

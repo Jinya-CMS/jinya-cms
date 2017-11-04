@@ -1,29 +1,23 @@
 class NavigationSwitcher {
 
-    public init = () => {
+    public static init = () => {
         let $sidebar = $('.sidebar');
         let $sidebarItems = $sidebar.find('[data-action=nav]');
 
-        $sidebarItems.click(this.loadContent);
+        $sidebarItems.off('click', NavigationSwitcher.loadContent);
+        $sidebarItems.click(NavigationSwitcher.loadContent);
     };
 
-    loadContent() {
-        event.preventDefault();
-        let $this = $(this);
+    public static navigate(url: string, $source: JQuery, responseHasId?: boolean, id?: string) {
         let $body = $('body');
-        let target = $this.data('target');
-        let href = $this.attr('href');
+        let bodyId = $body.data(TableElementSelector.selectedIdAttribute);
+        let targetId = bodyId ? bodyId : id;
         let $container = $('[data-role=content]');
         let spinnerHtml = $('#spinner').html();
         let $sidebar = $('.sidebar');
-        let actionType = $this.data('action-type');
-        let responseHasId = $this.data('response-has-id');
-        let bodyId = $body.data(TableElementSelector.selectedIdAttribute);
-        let id = bodyId ? bodyId : $this.data('id');
+        let href = url.replace(encodeURIComponent('#temp#'), targetId);
 
         $container.html(spinnerHtml);
-        href = href.replace(encodeURIComponent('#temp#'), id);
-
         $container.load(href, (response, status, xhr) => {
             if (xhr.getResponseHeader('login') === '1') {
                 location.href = href;
@@ -44,17 +38,31 @@ class NavigationSwitcher {
                     .addClass('bg-danger');
             }
             $('.sidebar a.active').removeClass('active');
-            $this.addClass('active');
+            $source.addClass('active');
             if (responseHasId as boolean) {
                 $sidebar.removeClass('no-edit');
             } else {
                 $sidebar.addClass('no-edit');
             }
 
+            currentTable = null;
+            DatatablesActivator.init();
             TableElementSelector.init();
+            Searcher.init();
+            AjaxExecutor.init();
+            NavigationSwitcher.init();
         });
+    }
+
+    private static loadContent() {
+        event.preventDefault();
+        let $this = $(this);
+        let href = $this.attr('href');
+        let responseHasId = $this.data('response-has-id');
+        let $source = $this.data('source') ? $($this.data('source')) : $this;
+
+        NavigationSwitcher.navigate(href, $source, responseHasId, $this.data('id'));
     }
 }
 
-let navSwitcher = new NavigationSwitcher();
-navSwitcher.init();
+NavigationSwitcher.init();

@@ -1,5 +1,6 @@
 body {
   overflow-x: hidden;
+  padding-top: 56px;
 }
 
 .sidebar {
@@ -19,8 +20,20 @@ body {
     display: none;
   }
 
+  .btn-outline-primary {
+    color: white;
+  }
+
   .overview {
     display: block;
+  }
+
+  .form-control {
+    background: transparent;
+    border: none;
+    color: white;
+
+    @include placeholder(white, 0.8);
   }
 }
 

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if not ajax %}
+    {% if not app.request.xmlHttpRequest %}
         {% if error is not defined %}
             {% set menu_bg = 'bg-primary' %}
         {% elseif error is defined and error|length == 0 %}
@@ -16,11 +16,11 @@
         {% else %}
             {% set menu_bg = 'bg-danger' %}
         {% endif %}
-        {% if get_action_name(app.request.attributes) == 'overview' or get_action_name(app.request.attributes) == 'add' %}
+        {% if get_action_name(app.request.attributes) == 'overview' or get_action_name(app.request.attributes) == 'add' or get_action_name(app.request.attributes) == 'clear' %}
             {% set menu_bg = "#{menu_bg} no-edit" %}
         {% endif %}
         {% block menu %}
-            <nav class="navbar navbar-expand-lg navbar-dark {{ menu_bg }}">
+            <nav class="navbar navbar-expand-lg fixed-top navbar-dark {{ menu_bg }}">
                 {% block brand %}
                     <a class="navbar-brand" href="{{ url('backend_default_index') }}">
                         <img src="{{ asset('favicon.ico') }}" width="30" height="30" class="d-inline-block align-top"/>
@@ -42,6 +42,27 @@
                                     {{ 'layout.backend.menu.users'|trans }}
                                 </a>
                             {% endblock %}
+                            {% block menu_log %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle
+{% if menu_log_active is defined and menu_log_active %}active{% endif %}
+{% if menu_access_log_active is defined and menu_access_log_active %}active{% endif %}"
+                                           data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">{{ 'layout.backend.menu.log.title'|trans }}</a>
+                                        <div class="dropdown-menu">
+                                            <a href="{{ url('backend_log_index') }}"
+                                               class="dropdown-item {% if menu_log_active is defined and menu_log_active %}active{% endif %}">
+                                                {{ 'layout.backend.menu.log.application'|trans }}
+                                            </a>
+                                            <a href="{{ url('backend_accesslog_index') }}"
+                                               class="dropdown-item {% if menu_access_log_active is defined and menu_access_log_active %}active{% endif %}">
+                                                {{ 'layout.backend.menu.log.access'|trans }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endblock %}
                         </div>
                     {% endblock %}
                     {% block menu_items_end %}
@@ -55,13 +76,15 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             {% block menu_cache %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.cache.title'|trans }}</span>
-                                                <a href="{{ url('backend_cache_clear') }}" data-ajax="true"
+                                                <a href="{{ url('backend_cache_clear') }}"
+                                                   data-ajax="true"
                                                    data-ajax-method="POST"
                                                    data-ajax-success-message="{{ 'backend.cache.clear.success'|trans }}"
                                                    data-ajax-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
                                                    data-ajax-error-message="{{ 'backend.cache.clear.error'|trans }}"
                                                    class="dropdown-item">{{ 'layout.backend.menu.cache.clear'|trans }}</a>
-                                                <a href="{{ url('backend_cache_warmup') }}" data-ajax="true"
+                                                <a href="{{ url('backend_cache_warmup') }}"
+                                                   data-ajax="true"
                                                    data-ajax-method="POST"
                                                    data-ajax-success-message="{{ 'backend.cache.warmup.success'|trans }}"
                                                    data-ajax-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
@@ -70,7 +93,8 @@
                                             {% endblock %}
                                             {% block menu_assets %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.asset.title'|trans }}</span>
-                                                <a href="{{ url('backend_asset_dump') }}" data-ajax="true"
+                                                <a href="{{ url('backend_asset_dump') }}"
+                                                   data-ajax="true"
                                                    data-ajax-method="POST"
                                                    data-ajax-success-message="{{ 'backend.asset.dump.success'|trans }}"
                                                    data-ajax-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
@@ -80,7 +104,8 @@
                                             {% block menu_maintenance %}
                                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                                     <span class="h6 dropdown-header">{{ 'layout.backend.menu.maintenance.title'|trans }}</span>
-                                                    <a href="{{ url('backend_update_schema') }}" data-ajax="true"
+                                                    <a href="{{ url('backend_update_schema') }}"
+                                                       data-ajax="true"
                                                        data-ajax-method="POST"
                                                        data-ajax-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
                                                        data-ajax-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
@@ -99,7 +124,7 @@
         {% endblock %}
     {% endif %}
     {% block container %}
-        {% if not ajax %}
+        {% if not app.request.xmlHttpRequest %}
             {% block sidebar %}
                 <div class="sidebar {{ menu_bg }}">
                     <nav class="nav flex-column">
@@ -113,7 +138,7 @@
         {% endif %}
         {% block content %}
         {% endblock %}
-        {% if not ajax %}
+        {% if not app.request.xmlHttpRequest %}
             </div>
             {% block content_loader %}
             <script type="text/html" id="spinner">
@@ -153,6 +178,10 @@
             }
         </script>
     {% endblock %}
+    {% block datatables_scripts %}
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    {% endblock %}
     {% block assetic_scripts %}
         {% javascripts filter='jsqueeze' '@backendjs' output='public/js/backend.js' %}
         <script src="{{ asset_url }}"></script>
@@ -163,19 +192,14 @@
 
 {% block styles %}
     {{ parent() }}
-    {% block styles_bootstrap %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-              crossorigin="anonymous">
-    {% endblock %}
     {% block styles_fontawesome %}
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
               integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
               crossorigin="anonymous">
     {% endblock %}
-    {% block styles_bootstrap_theme %}{% endblock %}
     {% block styles_messenger %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger.css"
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger.css"
               integrity="sha256-7dEoLRnA1sJLZWNfRMKeEeVKRIlXencFe30wZOPE3SY=" crossorigin="anonymous"/>
     {% endblock %}
     {% block styles_messenger_theme %}
@@ -187,6 +211,9 @@
         {% stylesheets filter='scssphp' '@backendcss' output='public/css/custom.css' %}
         <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
+    {% endblock %}
+    {% block datatables_styles %}
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     {% endblock %}
     {% block custom_styles %}{% endblock %}
 {% endblock %}

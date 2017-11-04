@@ -1,0 +1,10 @@
+@mixin placeholder($color, $opacity) {
+  &::-webkit-input-placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+  &::placeholder {
+    color: $color;
+    opacity: $opacity;
+  }
+}

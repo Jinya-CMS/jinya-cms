@@ -1,10 +1,11 @@
 class AjaxExecutor {
-    public init = () => {
+    public static init = () => {
         let $items = $('[data-ajax=true]');
-        $items.click(this.callAjax);
+        $items.off('click', AjaxExecutor.callAjax);
+        $items.click(AjaxExecutor.callAjax);
     };
 
-    callAjax() {
+    private static callAjax() {
         event.preventDefault();
         let $this = $(this);
         let msg: any = Messenger();
@@ -14,10 +15,14 @@ class AjaxExecutor {
             errorMessage: $this.data('ajax-error-message')
         }, {
             url: $this.attr('href'),
-            method: $this.data('ajax-method')
+            method: $this.data('ajax-method'),
+            success: () => {
+                if ($this.data('redirect-target')) {
+                    NavigationSwitcher.navigate($this.data('redirect-target'), $($this.data('redirect-active-selector')));
+                }
+            }
         });
     };
 }
 
-let ajaxExecutor = new AjaxExecutor();
-ajaxExecutor.init();
+AjaxExecutor.init();

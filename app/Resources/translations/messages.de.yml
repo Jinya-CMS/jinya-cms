@@ -16,3 +16,5 @@ generic:
   cancel: Abbrechen
   delete: Löschen
   next: Weiter
+  search: Suchen
+  clear: Leeren

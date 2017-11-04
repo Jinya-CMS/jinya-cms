@@ -3,9 +3,11 @@ class TableElementSelector {
     public static readonly selectedClass = 'table-primary';
     public static readonly selectedIdAttribute = 'selectedId';
 
-    public static init() {
-        $('tr[data-id]').click(this.trClicked);
-    }
+    public static init = () => {
+        let $table = $('.table tbody');
+        $table.off('click', 'tr[data-id]', TableElementSelector.trClicked);
+        $table.on('click', 'tr[data-id]', TableElementSelector.trClicked);
+    };
 
     private static trClicked() {
         let $this = $(this);

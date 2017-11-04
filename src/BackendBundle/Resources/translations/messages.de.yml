@@ -15,6 +15,10 @@ layout:
         schema:
           update: Datenbankschema aktualisieren
         title: Wartung
+      log:
+        title: Protokolle
+        application: Anwendungsprotokoll
+        access: Zugriffsprotokoll
 sidebar:
   users:
     overview: Überblick
@@ -23,6 +27,13 @@ sidebar:
     details: Künstlerdetails
     delete: Künstler löschen
     changepassword: Passwort ändern
+  accesslog:
+    details: Zugriffsdetails
+    overview: Überblick
+  log:
+    overview: Überblick
+    details: Eintragdetails
+    clear: Protokoll löschen
 backend:
   users:
     email: Emailadresse
@@ -59,3 +70,23 @@ backend:
         success: Das Datenbankschema wurde erfolgreich aktualisiert
         progress: Das Datenbankschema wird aktualisiert
         error: Das Datenbankschema konnte nicht aktualisiert werden
+  log:
+    created_at: Geschrieben am
+    level: Level
+    message: Nachricht
+    extra: Zusätzliche Daten
+    context: Kontext
+    clear:
+      title: Protokoll löschen
+      content: Wenn sie das Protokoll leeren, werden alle Einträge in der Datenbank, sowie die Protokolldatei auf dem Server gelöscht.
+      success: Das Protokoll wurde erfolgreich gelöscht
+      processing: Das Protokoll wird gelöscht
+      error: Das Protokoll konnte nicht gelöscht werden
+  accesslog:
+    ip: Client IP
+    method: HTTP Methode
+    created_at: Zugriff am
+    uri: URL
+    details:
+      title: Zugriff am %s
+    userAgent: User Agent
