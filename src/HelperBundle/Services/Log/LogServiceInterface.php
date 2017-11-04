@@ -53,4 +53,11 @@ interface LogServiceInterface
      * @return array
      */
     public function getUsedLevels(): array;
+
+    /**
+     * Removes all log entries from the database and deletes the log files
+     *
+     * @return void
+     */
+    public function clear();
 }

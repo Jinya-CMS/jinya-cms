@@ -16,7 +16,7 @@
         {% else %}
             {% set menu_bg = 'bg-danger' %}
         {% endif %}
-        {% if get_action_name(app.request.attributes) == 'overview' or get_action_name(app.request.attributes) == 'add' %}
+        {% if get_action_name(app.request.attributes) == 'overview' or get_action_name(app.request.attributes) == 'add' or get_action_name(app.request.attributes) == 'clear' %}
             {% set menu_bg = "#{menu_bg} no-edit" %}
         {% endif %}
         {% block menu %}
@@ -77,39 +77,39 @@
                                             {% block menu_cache %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.cache.title'|trans }}</span>
                                                 <a href="{{ url('backend_cache_clear') }}"
-                                                   data-app.request.xmlHttpRequest="true"
-                                                   data-app.request.xmlHttpRequest-method="POST"
-                                                   data-app.request.xmlHttpRequest-success-message="{{ 'backend.cache.clear.success'|trans }}"
-                                                   data-app.request.xmlHttpRequest-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
-                                                   data-app.request.xmlHttpRequest-error-message="{{ 'backend.cache.clear.error'|trans }}"
+                                                   data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.cache.clear.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.cache.clear.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.cache.clear.error'|trans }}"
                                                    class="dropdown-item">{{ 'layout.backend.menu.cache.clear'|trans }}</a>
                                                 <a href="{{ url('backend_cache_warmup') }}"
-                                                   data-app.request.xmlHttpRequest="true"
-                                                   data-app.request.xmlHttpRequest-method="POST"
-                                                   data-app.request.xmlHttpRequest-success-message="{{ 'backend.cache.warmup.success'|trans }}"
-                                                   data-app.request.xmlHttpRequest-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
-                                                   data-app.request.xmlHttpRequest-error-message="{{ 'backend.cache.warmup.error'|trans }}"
+                                                   data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.cache.warmup.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.cache.warmup.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.cache.warmup.error'|trans }}"
                                                    class="dropdown-item">{{ 'layout.backend.menu.cache.warmup'|trans }}</a>
                                             {% endblock %}
                                             {% block menu_assets %}
                                                 <span class="h6 dropdown-header">{{ 'layout.backend.menu.asset.title'|trans }}</span>
                                                 <a href="{{ url('backend_asset_dump') }}"
-                                                   data-app.request.xmlHttpRequest="true"
-                                                   data-app.request.xmlHttpRequest-method="POST"
-                                                   data-app.request.xmlHttpRequest-success-message="{{ 'backend.asset.dump.success'|trans }}"
-                                                   data-app.request.xmlHttpRequest-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
-                                                   data-app.request.xmlHttpRequest-error-message="{{ 'backend.asset.dump.error'|trans }}"
+                                                   data-ajax="true"
+                                                   data-ajax-method="POST"
+                                                   data-ajax-success-message="{{ 'backend.asset.dump.success'|trans }}"
+                                                   data-ajax-progress-message="{{ 'backend.asset.dump.progress'|trans }}"
+                                                   data-ajax-error-message="{{ 'backend.asset.dump.error'|trans }}"
                                                    class="dropdown-item">{{ 'layout.backend.menu.asset.dump'|trans }}</a>
                                             {% endblock %}
                                             {% block menu_maintenance %}
                                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                                     <span class="h6 dropdown-header">{{ 'layout.backend.menu.maintenance.title'|trans }}</span>
                                                     <a href="{{ url('backend_update_schema') }}"
-                                                       data-app.request.xmlHttpRequest="true"
-                                                       data-app.request.xmlHttpRequest-method="POST"
-                                                       data-app.request.xmlHttpRequest-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
-                                                       data-app.request.xmlHttpRequest-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
-                                                       data-app.request.xmlHttpRequest-error-message="{{ 'backend.maintenance.schema.update.error'|trans }}"
+                                                       data-ajax="true"
+                                                       data-ajax-method="POST"
+                                                       data-ajax-success-message="{{ 'backend.maintenance.schema.update.success'|trans }}"
+                                                       data-ajax-progress-message="{{ 'backend.maintenance.schema.update.progress'|trans }}"
+                                                       data-ajax-error-message="{{ 'backend.maintenance.schema.update.error'|trans }}"
                                                        class="dropdown-item">{{ 'layout.backend.menu.maintenance.schema.update'|trans }}</a>
                                                 {% endif %}
                                             {% endblock %}

@@ -3,6 +3,7 @@ services:
       class: HelperBundle\Services\Log\LogService
       arguments:
         - '@doctrine.orm.entity_manager'
+        - '@logger'
   jinya_gallery.services.access_log_service:
       class: HelperBundle\Services\Log\AccessLogService
       arguments:

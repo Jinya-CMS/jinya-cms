@@ -33,6 +33,7 @@ sidebar:
   log:
     overview: Überblick
     details: Eintragdetails
+    clear: Protokoll löschen
 backend:
   users:
     email: Emailadresse
@@ -75,6 +76,12 @@ backend:
     message: Nachricht
     extra: Zusätzliche Daten
     context: Kontext
+    clear:
+      title: Protokoll löschen
+      content: Wenn sie das Protokoll leeren, werden alle Einträge in der Datenbank, sowie die Protokolldatei auf dem Server gelöscht.
+      success: Das Protokoll wurde erfolgreich gelöscht
+      processing: Das Protokoll wird gelöscht
+      error: Das Protokoll konnte nicht gelöscht werden
   accesslog:
     ip: Client IP
     method: HTTP Methode

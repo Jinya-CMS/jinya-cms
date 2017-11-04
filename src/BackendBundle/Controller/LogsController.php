@@ -2,6 +2,7 @@
 
 namespace BackendBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ class LogsController extends Controller
 
     /**
      * @Route("/log/overview", name="backend_log_overview")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
      * @return Response
@@ -38,6 +40,7 @@ class LogsController extends Controller
 
     /**
      * @Route("/log/list/", name="backend_log_getlist", methods={"POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
      * @return Response
@@ -65,6 +68,7 @@ class LogsController extends Controller
 
     /**
      * @Route("/log/details/{id}", name="backend_log_details")
+     * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
      * @param int $id
@@ -77,5 +81,22 @@ class LogsController extends Controller
         return $this->render('@Backend/log/details.html.twig', [
             'entry' => $logService->get($id)
         ]);
+    }
+
+    /**
+     * @Route("/log/clear", name="backend_log_clear")
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function clearAction(Request $request): Response
+    {
+        if ($request->isMethod('POST')) {
+            $logService = $this->get('jinya_gallery.services.log_service');
+            $logService->clear();
+        }
+
+        return $this->render('@Backend/log/clear.html.twig');
     }
 }

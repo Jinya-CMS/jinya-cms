@@ -10,20 +10,30 @@ namespace HelperBundle\Services\Log;
 
 
 use Doctrine\ORM\EntityManager;
+use Exception;
 use HelperBundle\Entity\LogEntry;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Symfony\Component\Filesystem\Filesystem;
 
 class LogService implements LogServiceInterface
 {
     /** @var EntityManager */
     private $entityManager;
 
+    /** @var Logger */
+    private $log;
+
     /**
      * LogService constructor.
      * @param EntityManager $entityManager
+     * @param Logger $log
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, Logger $log)
     {
         $this->entityManager = $entityManager;
+        $this->log = $log;
     }
 
     /**
@@ -108,5 +118,47 @@ class LogService implements LogServiceInterface
         return $queryBuilder
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Removes all log entries from the database and deletes the log files
+     *
+     * @return void
+     */
+    public function clear()
+    {
+        $connection = $this->entityManager->getConnection();
+        $connection->beginTransaction();
+        try {
+            $connection->query('SET FOREIGN_KEY_CHECKS=0');
+            $truncate = $connection->getDatabasePlatform()->getTruncateTableSQL($this->entityManager->getClassMetadata(LogEntry::class)->getTableName());
+            $connection->executeUpdate($truncate);
+            $connection->query('SET FOREIGN_KEY_CHECKS=1');
+            $connection->commit();
+            $repository = $this->entityManager->getRepository(LogEntry::class);
+            $repository->clear();
+        } catch (Exception $exception) {
+            $connection->rollBack();
+            $this->log->error('Could not clear database log');
+            $this->log->error($exception->getMessage());
+            $this->log->error($exception->getTraceAsString());
+        }
+
+        $fs = new Filesystem();
+        foreach ($this->log->getHandlers() as $handler) {
+            try {
+                if ($handler instanceof StreamHandler) {
+                    $fs->remove($handler->getUrl());
+                } elseif ($handler instanceof RotatingFileHandler) {
+                    $fs->remove($handler->getUrl());
+                }
+            } catch (Exception $exception) {
+                $this->log->error('Could not delete log files');
+                $this->log->error($exception->getMessage());
+                $this->log->error($exception->getTraceAsString());
+            }
+        }
+
+        $this->log->info('Successfully cleared log');
     }
 }

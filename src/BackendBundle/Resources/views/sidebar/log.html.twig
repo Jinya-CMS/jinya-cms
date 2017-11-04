@@ -8,14 +8,14 @@
                 value="{{ search }}"
                     {% endif %}>
             <span class="input-group-btn">
-        <button class="btn btn-outline-primary" type="button"><i class="fa fa-search"></i></button>
+        <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i></button>
       </span>
         </div>
     </form>
 {% endblock %}
 {% block backend_log_sidebar_overview %}
-    <a class="nav-link {% if active == 'overview' %}active{% endif %}"
-       href="{{ url('backend_log_overview') }}" data-action-type="details" data-target="#content"
+    <a class="nav-link {% if active == 'overview' %}active{% endif %}" data-action-type="overview"
+       href="{{ url('backend_log_overview') }}" data-target="#content"
        data-action="nav">{{ 'sidebar.log.overview'|trans }}</a>
 {% endblock %}
 {% block backend_log_sidebar_details %}
@@ -24,3 +24,9 @@
        data-action-type="details" data-target="#content" data-action="nav"
        data-response-has-id="true">{{ 'sidebar.log.details'|trans }}</a>
 {% endblock %}
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    {% block backend_log_sidebar_clear %}
+        <a class="nav-link {% if active == 'clear' %}active{% endif %}" href="{{ url('backend_log_clear') }}"
+           data-target="#content" data-action-type="clear" data-action="nav">{{ 'sidebar.log.clear'|trans }}</a>
+    {% endblock %}
+{% endif %}
