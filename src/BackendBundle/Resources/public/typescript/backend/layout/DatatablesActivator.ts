@@ -1,3 +1,5 @@
+let currentTable: DataTables.Api = null;
+
 class DatatablesActivator {
     dateTimeFormat = (data, type, row) => {
         // Split timestamp into [ Y, M, D, h, m, s ]
@@ -9,12 +11,13 @@ class DatatablesActivator {
         return date.toLocaleString();
     };
 
-    public init = () => {
+    public static init = () => {
         let $table = $('table[data-tables=true]');
         let $columns = $table.find('thead th');
         let getServiceUrl = $table.data('service-url');
         let columns = [];
         let columnDefs = [];
+        let activator = new DatatablesActivator();
 
         $columns.each((idx, element) => {
             let $this = $(element);
@@ -23,9 +26,9 @@ class DatatablesActivator {
                 data: $this.data('data'),
                 sortable: $this.data('sortable') != false
             });
-            if (this[$this.data('format')]) {
+            if (activator[$this.data('format')]) {
                 columnDefs.push({
-                    render: this[$this.data('format')],
+                    render: activator[$this.data('format')],
                     targets: idx
                 });
             }
@@ -34,8 +37,13 @@ class DatatablesActivator {
         let sortBy = columns.indexOf(columns.find((value, index, obj) => {
             return value['name'] == $table.data('sort-by')
         }));
-        $table.DataTable({
+        currentTable = $table.DataTable({
             dom: 'trip',
+            search: {
+                search: $table.data('filter'),
+                regex: false
+            },
+            searching: true,
             processing: true,
             serverSide: true,
             ajax: {
@@ -54,6 +62,5 @@ class DatatablesActivator {
 }
 
 $(() => {
-    let datatablesActivator = new DatatablesActivator();
-    datatablesActivator.init();
+    DatatablesActivator.init();
 });

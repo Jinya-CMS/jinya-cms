@@ -51,10 +51,10 @@ class NavigationSwitcher {
                 $sidebar.addClass('no-edit');
             }
 
-            let datatablesActivator = new DatatablesActivator();
-            datatablesActivator.init();
-
+            currentTable = null;
+            DatatablesActivator.init();
             TableElementSelector.init();
+            Searcher.init();
         });
     }
 }

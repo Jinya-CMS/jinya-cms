@@ -1,9 +1,24 @@
-<form class="nav-item" method="post" data-table-search="true">
-    <div class="input-group">
-        <input type="search" class="form-control" placeholder="{{ 'generic.search'|trans }}"
-               aria-label="{{ 'generic.search'|trans }}">
-        <span class="input-group-btn">
+{% set active = get_action_name(app.request.attributes) %}
+{% block backend_log_sidebar_search %}
+    <form class="nav-item" method="get" action="{{ url('backend_log_overview') }}">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="{{ 'generic.search'|trans }}"
+                   aria-label="{{ 'generic.search'|trans }}" name="search" data-table-search="true"
+                   value="{{ search }}">
+            <span class="input-group-btn">
         <button class="btn btn-outline-primary" type="button"><i class="fa fa-search"></i></button>
       </span>
-    </div>
-</form>
+        </div>
+    </form>
+{% endblock %}
+{% block backend_log_sidebar_overview %}
+    <a class="nav-link {% if active == 'overview' %}active{% endif %}"
+       href="{{ url('backend_log_overview') }}" data-action-type="details" data-target="#content"
+       data-action="nav">{{ 'sidebar.log.overview'|trans }}</a>
+{% endblock %}
+{% block backend_log_sidebar_details %}
+    <a class="nav-link {% if active == 'details' %}active{% endif %} overview"
+       href="{{ url('backend_log_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       data-action-type="details" data-target="#content" data-action="nav"
+       data-response-has-id="true">{{ 'sidebar.log.details'|trans }}</a>
+{% endblock %}

@@ -46,4 +46,11 @@ interface LogServiceInterface
      * @return int
      */
     public function countFiltered(string $level, string $filter): int;
+
+    /**
+     * Gets a list of all used log levels
+     *
+     * @return array
+     */
+    public function getUsedLevels(): array;
 }

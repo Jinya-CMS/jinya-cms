@@ -30,6 +30,9 @@ sidebar:
   accesslog:
     details: Zugriffsdetails
     overview: Überblick
+  log:
+    overview: Überblick
+    details: Eintragdetails
 backend:
   users:
     email: Emailadresse

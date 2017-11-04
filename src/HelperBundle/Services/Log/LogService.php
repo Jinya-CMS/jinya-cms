@@ -91,4 +91,22 @@ class LogService implements LogServiceInterface
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    /**
+     * Gets a list of all used log levels
+     *
+     * @return array
+     */
+    public function getUsedLevels(): array
+    {
+        $queryBuilder = $this->entityManager
+            ->getRepository(LogEntry::class)
+            ->createQueryBuilder('le')
+            ->select(['le.level', 'le.levelName'])
+            ->distinct(true);
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace BackendBundle\Controller;
 
-use HelperBundle\Components\DatatablesRequestParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,12 @@ class LogsController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        return $this->render('@Backend/log/overview.html.twig');
+        $logService = $this->get('jinya_gallery.services.log_service');
+
+        return $this->render('@Backend/log/overview.html.twig', [
+            'levels' => $logService->getUsedLevels(),
+            'search' => $request->get('search')
+        ]);
     }
 
     /**
@@ -52,21 +56,26 @@ class LogsController extends Controller
         $filteredCount = $logService->countFiltered($levelColumn->getSearch()->getValue(), $datatables->getSearch()->getValue());
 
         return $this->json([
-            'draw' => uniqid('', true),
+            'draw' => time(),
             'recordsTotal' => $count,
             'recordsFiltered' => $filteredCount,
             'data' => $items
         ]);
     }
 
-    private function mapColumnIdToName($id)
+    /**
+     * @Route("/log/details/{id}", name="backend_log_details")
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function detailsAction(Request $request, int $id): Response
     {
-        $columns = [
-            0 => 'clientIp',
-            1 => 'uri',
-            2 => 'method',
-            3 => 'createdAt'
-        ];
-        return $columns[(int)$id];
+        $logService = $this->get('jinya_gallery.services.log_service');
+
+        return $this->render('@Backend/log/details.html.twig', [
+            'entry' => $logService->get($id)
+        ]);
     }
 }
