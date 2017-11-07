@@ -9,7 +9,7 @@
 namespace BackendBundle\Service\Users;
 
 use AppKernel;
-use BackendBundle\Entity\User;
+use DataBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
 use Doctrine\ORM\EntityManager;

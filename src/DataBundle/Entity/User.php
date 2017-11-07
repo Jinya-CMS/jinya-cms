@@ -6,7 +6,7 @@
  * Time: 11:44.
  */
 
-namespace BackendBundle\Entity;
+namespace DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
