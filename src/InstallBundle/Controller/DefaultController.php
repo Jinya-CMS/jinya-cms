@@ -40,6 +40,7 @@ class DefaultController extends Controller
                     'secret' => uniqid(),
                     'mailer_transport' => $formData->getMailerTransport(),
                     'mailer_host' => $formData->getMailerHost(),
+                    'mailer_port' => $formData->getMailerPort(),
                     'mailer_user' => $formData->getMailerUser(),
                     'mailer_password' => $formData->getMailerPassword()
                 ]

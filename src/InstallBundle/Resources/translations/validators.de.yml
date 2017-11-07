@@ -19,3 +19,5 @@ install:
       not_blank: Der Benutzer muss angegeben werden
     password:
       not_blank: Das Passwort muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen

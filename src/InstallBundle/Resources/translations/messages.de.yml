@@ -17,6 +17,8 @@ install:
       label: Transportprotokoll
     host:
       label: Emailserver
+    port:
+      label: Port
     user:
       label: Benutzer
     password:

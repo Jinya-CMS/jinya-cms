@@ -22,7 +22,7 @@ class SetupData
      * @InstallAssert\Port(message="install.database.port.invalid")
      * @var int
      */
-    private $databasePort;
+    private $databasePort = 3306;
     /**
      * @Assert\NotBlank(message="install.database.user.not_blank")
      * @var string
@@ -48,6 +48,11 @@ class SetupData
      * @var string
      */
     private $mailerHost;
+    /**
+     * @InstallAssert\Port(message="install.mailer.port.invalid")
+     * @var int
+     */
+    private $mailerPort = 25;
     /**
      * @Assert\NotBlank(message="install.mailer.user.not_blank")
      * @var string
@@ -201,5 +206,21 @@ class SetupData
     public function setDatabaseName(string $databaseName)
     {
         $this->databaseName = $databaseName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMailerPort(): ?int
+    {
+        return $this->mailerPort;
+    }
+
+    /**
+     * @param int $mailerPort
+     */
+    public function setMailerPort(int $mailerPort)
+    {
+        $this->mailerPort = $mailerPort;
     }
 }

@@ -18,7 +18,8 @@ class SetupType extends AbstractType
                 'label' => 'install.database.host.label'
             ])
             ->add('databasePort', NumberType::class, [
-                'label' => 'install.database.port.label'
+                'label' => 'install.database.port.label',
+                'data' => 3306
             ])
             ->add('databaseName', TextType::class, [
                 'label' => 'install.database.name.label'
@@ -34,6 +35,10 @@ class SetupType extends AbstractType
             ])
             ->add('mailerHost', TextType::class, [
                 'label' => 'install.mailer.host.label'
+            ])
+            ->add('mailerPort', NumberType::class, [
+                'label' => 'install.mailer.port.label',
+                'data' => 25
             ])
             ->add('mailerUser', TextType::class, [
                 'label' => 'install.mailer.user.label'
