@@ -8,6 +8,13 @@ services:
       class: HelperBundle\Services\Log\AccessLogService
       arguments:
         - '@doctrine.orm.entity_manager'
+  jinya_gallery.services_slug.slug_service:
+      class: HelperBundle\Services\Slug\SlugService
+  jinya_gallery.services_media.media_service:
+      class: HelperBundle\Services\Media\MediaService
+      arguments:
+        - '%base_url%'
+        - '%kernel.root_dir%'
 
   jinya_gallery.services.schema_tool:
       public: true
