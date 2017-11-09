@@ -32,7 +32,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
     /**
      * @inheritdoc
      */
-    public function get($idOrSlug): Gallery
+    public function get($idOrSlug): ?Gallery
     {
         if (is_numeric($idOrSlug)) {
             return $this->getById($idOrSlug);
@@ -43,7 +43,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
     /**
      * @inheritdoc
      */
-    public function getById(int $id): Gallery
+    public function getById(int $id): ?Gallery
     {
         return $this->entityManager->find(Gallery::class, $id);
     }
@@ -51,7 +51,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
     /**
      * @inheritdoc
      */
-    public function getBySlug(string $slug): Gallery
+    public function getBySlug(string $slug): ?Gallery
     {
         $queryBuilder = $this->getQueryBuilder();
 
@@ -98,7 +98,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
                 $queryBuilder->expr()->like('g.description', ':keyword'),
                 $queryBuilder->expr()->like('g.name', ':keyword')
             ))
-            ->setParameter('keyword', $keyword);
+            ->setParameter('keyword', "%$keyword%");
     }
 
     /**

@@ -19,7 +19,7 @@ interface GalleryServiceInterface
      * @param string|int $idOrSlug
      * @return Gallery
      */
-    public function get($idOrSlug): Gallery;
+    public function get($idOrSlug): ?Gallery;
 
     /**
      * Gets the specified gallery by id
@@ -27,7 +27,7 @@ interface GalleryServiceInterface
      * @param int $id
      * @return Gallery
      */
-    public function getById(int $id): Gallery;
+    public function getById(int $id): ?Gallery;
 
     /**
      * Gets the specified gallery by slug
@@ -35,7 +35,7 @@ interface GalleryServiceInterface
      * @param string $slug
      * @return Gallery,
      */
-    public function getBySlug(string $slug): Gallery;
+    public function getBySlug(string $slug): ?Gallery;
 
     /**
      * Gets all galleries by the given parameters
