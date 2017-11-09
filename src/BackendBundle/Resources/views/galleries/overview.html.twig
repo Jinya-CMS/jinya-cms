@@ -1,0 +1,23 @@
+{% extends '@Backend/galleries/galleries_base.html.twig' %}
+
+{% block content %}
+    <div class="galleries" data-get-list-url="{{ url('backend_galleries_getAll') }}"
+         data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}">
+        <!-- ko ifnot: loading -->
+        <!-- ko foreach: galleries -->
+        <div data-bind="text: $data"></div>
+        <!-- /ko -->
+        <!-- ko if: galleries().length === 0 -->
+        <div class="alert alert-info">
+            {{ 'backend.galleries.empty.message'|trans }}
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: loading -->
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+{% endblock %}

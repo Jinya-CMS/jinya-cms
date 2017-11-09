@@ -19,6 +19,7 @@ layout:
         title: Protokolle
         application: Anwendungsprotokoll
         access: Zugriffsprotokoll
+      galleries: Gallerien
 sidebar:
   users:
     overview: Überblick
@@ -34,6 +35,12 @@ sidebar:
     overview: Überblick
     details: Eintragdetails
     clear: Protokoll löschen
+  galleries:
+    overview: Überblick
+    add: Gallerie hinzufügen
+    edit: Gallerie bearbeiten
+    details: Galleriedetails
+    delete: Gallerie löschen
 backend:
   users:
     email: Emailadresse
@@ -90,3 +97,12 @@ backend:
     details:
       title: Zugriff am %s
     userAgent: User Agent
+  galleries:
+    load:
+      failure: Die Gallerien konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Gallerien gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    background: Hintergrundbild

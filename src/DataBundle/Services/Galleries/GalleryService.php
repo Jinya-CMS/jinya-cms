@@ -13,20 +13,30 @@ use DataBundle\Entity\Gallery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use HelperBundle\Services\Media\MediaServiceInterface;
+use HelperBundle\Services\Slug\SlugServiceInterface;
 
 class GalleryService extends BaseService implements GalleryServiceInterface
 {
 
     /** @var EntityRepository */
     private $repository;
+    /** @var MediaServiceInterface */
+    private $mediaService;
+    /** @var SlugServiceInterface */
+    private $slugService;
 
     /**
-     * GalleriesService constructor.
+     * GalleryService constructor.
      * @param EntityManager $entityManager
+     * @param MediaServiceInterface $mediaService
+     * @param SlugServiceInterface $slugService
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
     {
         $this->entityManager = $entityManager;
+        $this->mediaService = $mediaService;
+        $this->slugService = $slugService;
     }
 
     /**
@@ -119,6 +129,14 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      */
     public function saveOrUpdate(Gallery $gallery): Gallery
     {
+        $background = $gallery->getBackgroundResource();
+        if ($background !== null) {
+            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
+        }
+        if ($gallery->getSlug() === null) {
+            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
+        }
+
         return parent::save($gallery);
     }
 

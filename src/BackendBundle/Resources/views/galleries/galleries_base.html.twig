@@ -1,0 +1,13 @@
+{% extends 'BackendBundle::base.html.twig' %}
+
+{% set menu_galleries_active = true %}
+{% block sidebar_items %}
+    {% include 'BackendBundle:sidebar:galleries.html.twig' %}
+{% endblock %}
+{% block custom_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
+            integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+    {% javascripts filter='jsqueeze' '@backend_galleries_overview_js' output='public/js/galleries.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

@@ -10,11 +10,15 @@ namespace DataBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="gallery")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity("name", message="backend.galleries.name.not_unique")
+ * @UniqueEntity("slug", message="backend.galleries.slug.not_unique")
  */
 class Gallery extends HistoryEnabledEntity
 {
@@ -45,11 +49,31 @@ class Gallery extends HistoryEnabledEntity
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
     private $slug;
+    /**
+     * @var UploadedFile
+     */
+    private $backgroundResource;
+
+    /**
+     * @return UploadedFile
+     */
+    public function getBackgroundResource():?UploadedFile
+    {
+        return $this->backgroundResource;
+    }
+
+    /**
+     * @param UploadedFile $backgroundResource
+     */
+    public function setBackgroundResource(UploadedFile $backgroundResource)
+    {
+        $this->backgroundResource = $backgroundResource;
+    }
 
     /**
      * @return string
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -81,7 +105,7 @@ class Gallery extends HistoryEnabledEntity
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -97,7 +121,7 @@ class Gallery extends HistoryEnabledEntity
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -113,7 +137,7 @@ class Gallery extends HistoryEnabledEntity
     /**
      * @return string
      */
-    public function getBackground(): string
+    public function getBackground(): ?string
     {
         return $this->background;
     }
