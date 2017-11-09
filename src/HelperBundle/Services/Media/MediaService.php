@@ -41,15 +41,15 @@ class MediaService implements MediaServiceInterface
     public function saveMedia(UploadedFile $file, string $type): string
     {
         $savedFile = $file->move($this->rootDir . DIRECTORY_SEPARATOR . '../var/tmp');
-        $savedFile = $savedFile->move($this->getFilePath(hash_file('sha256', $savedFile->getRealPath()), $type));
+        $savedFile = $savedFile->move($this->getFilePath($type), hash_file('sha256', $savedFile->getRealPath()));
         $filename = $savedFile->getFilename();
 
         return "$this->baseUrl/public/$type/${filename}";
     }
 
-    private function getFilePath(string $filename, string $type): string
+    private function getFilePath(string $type): string
     {
-        return $this->rootDir . DIRECTORY_SEPARATOR . '../web/public/' . $type . DIRECTORY_SEPARATOR . $filename;
+        return $this->rootDir . DIRECTORY_SEPARATOR . '../web/public/' . $type . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -64,6 +64,6 @@ class MediaService implements MediaServiceInterface
         $parts = array_reverse($parts);
         $filename = $parts[0];
         $type = $parts[1];
-        unlink($this->getFilePath($filename, $type));
+        unlink($this->getFilePath($type) . $filename);
     }
 }

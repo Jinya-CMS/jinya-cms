@@ -73,6 +73,7 @@ class GalleriesController extends Controller
             $data = $form->getData();
             $galleryService = $this->get('jinya_gallery.services.gallery_service');
             $galleryService->saveOrUpdate($data);
+            return $this->redirectToRoute('backend_galleries_index');
         }
 
         return $this->render('@Backend/galleries/add.html.twig', [
