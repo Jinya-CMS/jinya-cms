@@ -13,11 +13,12 @@ class NavigationSwitcher {
         let bodyId = $body.data(TableElementSelector.selectedIdAttribute);
         let targetId = bodyId ? bodyId : id;
         let $container = $('[data-role=content]');
-        let spinnerHtml = $('#spinner').html();
         let $sidebar = $('.sidebar');
         let href = url.replace(encodeURIComponent('#temp#'), targetId);
+        let afterSuccessAction = $source.data('after-success');
+        let afterFailureAction = $source.data('after-failure');
 
-        $container.html(spinnerHtml);
+        Loader.display($container);
         $container.load(href, (response, status, xhr) => {
             if (xhr.getResponseHeader('login') === '1') {
                 location.href = href;
@@ -29,6 +30,12 @@ class NavigationSwitcher {
                 $('.navbar.bg-danger')
                     .removeClass('bg-danger')
                     .addClass('bg-primary');
+                DatatablesActivator.init();
+                TableElementSelector.init();
+                Searcher.init();
+                AjaxExecutor.init();
+                NavigationSwitcher.init();
+                eval(afterSuccessAction);
             } else {
                 $('.sidebar.bg-primary')
                     .removeClass('bg-primary')
@@ -36,6 +43,7 @@ class NavigationSwitcher {
                 $('.navbar.bg-primary')
                     .removeClass('bg-primary')
                     .addClass('bg-danger');
+                eval(afterFailureAction);
             }
             $('.sidebar a.active').removeClass('active');
             $source.addClass('active');
@@ -46,11 +54,6 @@ class NavigationSwitcher {
             }
 
             currentTable = null;
-            DatatablesActivator.init();
-            TableElementSelector.init();
-            Searcher.init();
-            AjaxExecutor.init();
-            NavigationSwitcher.init();
         });
     }
 

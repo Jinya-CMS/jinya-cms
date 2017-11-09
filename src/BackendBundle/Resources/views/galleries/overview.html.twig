@@ -1,15 +1,26 @@
 {% extends '@Backend/galleries/galleries_base.html.twig' %}
 
 {% block content %}
-    <div class="galleries" data-get-list-url="{{ url('backend_galleries_getAll') }}"
+    <div class="galleries row" data-get-list-url="{{ url('backend_galleries_getAll') }}"
          data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}">
         <!-- ko ifnot: loading -->
-        <!-- ko foreach: galleries -->
-        <div data-bind="text: $data"></div>
+        <!-- ko foreach: { data: galleries, afterRender: matchHeight } -->
+        <div class="col-sm-3">
+            <div data-bind="click: $root.select, css: { selected: $root.selectedGallery().id === id }"
+                 class="card">
+                <img class="card-img-top" data-bind="attr: { src: background }"/>
+                <div class="card-body">
+                    <h4 class="card-title" data-bind="text: name"></h4>
+                    <p class="card-text" data-bind="text: description"></p>
+                </div>
+            </div>
+        </div>
         <!-- /ko -->
         <!-- ko if: galleries().length === 0 -->
-        <div class="alert alert-info">
-            {{ 'backend.galleries.empty.message'|trans }}
+        <div class="col-sm-12">
+            <div class="alert alert-info">
+                {{ 'backend.galleries.empty.message'|trans }}
+            </div>
         </div>
         <!-- /ko -->
         <!-- /ko -->

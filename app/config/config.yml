@@ -24,7 +24,7 @@ framework:
     validation: { enable_annotations: true }
     #serializer: { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ['twig', 'php']
     default_locale: '%locale%'
     trusted_hosts: ~
     session:

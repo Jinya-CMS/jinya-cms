@@ -106,3 +106,4 @@ backend:
     description: Beschreibung
     slug: Slug
     background: Hintergrundbild
+    select: Gallerie auswählen

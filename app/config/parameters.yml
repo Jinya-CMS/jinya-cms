@@ -10,3 +10,4 @@ parameters:
     mailer_port: 25
     mailer_user: start@jinya.com
     mailer_password: start
+    base_url: http://localhost:8000/

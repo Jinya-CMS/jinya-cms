@@ -1,0 +1,11 @@
+.galleries {
+  .card {
+    cursor: pointer;
+    margin-bottom: $grid-gutter-width;
+
+    &.selected {
+      background: $primary;
+      color: $white;
+    }
+  }
+}

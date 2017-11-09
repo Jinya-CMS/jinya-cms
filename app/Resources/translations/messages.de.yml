@@ -18,3 +18,4 @@ generic:
   next: Weiter
   search: Suchen
   clear: Leeren
+  auto_generated: Wird bei leerer Eingabe autogeneriert
