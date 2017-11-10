@@ -40,6 +40,7 @@ sidebar:
     add: Gallerie hinzufügen
     edit: Gallerie bearbeiten
     details: Galleriedetails
+    delete_background: Hintegrundbild löschen
     delete: Gallerie löschen
 backend:
   users:

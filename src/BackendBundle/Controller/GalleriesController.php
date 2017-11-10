@@ -98,7 +98,9 @@ class GalleriesController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $galleryService->saveOrUpdate($data);
-            return $this->redirectToRoute('backend_galleries_index');
+            return $this->redirectToRoute('backend_galleries_details', [
+                'id' => $data->getId()
+            ]);
         }
 
         return $this->render('@Backend/galleries/edit.html.twig', [
@@ -108,24 +110,51 @@ class GalleriesController extends Controller
     }
 
     /**
-     * @Route("/galleries/details", name="backend_galleries_details")
+     * @Route("/galleries/details/{id}", name="backend_galleries_details")
      *
      * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function detailsAction(Request $request): Response
+    public function detailsAction(Request $request, int $id): Response
     {
-        return $this->render('@Backend/galleries/details.html.twig');
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $gallery = $galleryService->get($id);
+        return $this->render('@Backend/galleries/details.html.twig', [
+            'gallery' => $gallery
+        ]);
     }
 
     /**
-     * @Route("/galleries/delete", name="backend_galleries_delete")
+     * @Route("/galleries/delete/{id}", name="backend_galleries_delete")
      *
      * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function deleteAction(Request $request): Response
+    public function deleteAction(Request $request, int $id): Response
     {
-        return $this->render('@Backend/galleries/delete.html.twig');
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $gallery = $galleryService->get($id);
+        return $this->render('@Backend/galleries/delete.html.twig', [
+            'gallery' => $gallery
+        ]);
+    }
+
+    /**
+     * @Route("/galleries/background/delete/{id}", methods={"DELETE"}, name="backend_galleries_background_delete")
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function deleteBackgroundImage(Request $request, int $id): Response
+    {
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $gallery = $galleryService->get($id);
+        $gallery->setBackground(null);
+        $galleryService->saveOrUpdate($gallery);
+
+        return $this->json(true);
     }
 }

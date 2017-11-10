@@ -15,6 +15,7 @@
         <a class="nav-link {% if active == 'edit' %}active{% endif %} overview"
            href="{{ url('backend_galleries_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
            data-action-type="edit" data-target="#content" data-action="nav"
+           data-after-success="DeleteBackgroundImage.init()"
            data-response-has-id="true">{{ 'sidebar.galleries.edit'|trans }}</a>
     {% endif %}
 {% endblock %}

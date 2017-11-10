@@ -145,7 +145,7 @@ class Gallery extends HistoryEnabledEntity
     /**
      * @param string $background
      */
-    public function setBackground(string $background)
+    public function setBackground(?string $background)
     {
         $this->background = $background;
     }

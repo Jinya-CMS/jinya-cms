@@ -1,6 +1,9 @@
 {% extends 'BackendBundle::base.html.twig' %}
 
 {% set menu_galleries_active = true %}
+{% if gallery is defined %}
+    {% set id = gallery.id %}
+{% endif %}
 {% block sidebar_items %}
     {% include 'BackendBundle:sidebar:galleries.html.twig' %}
 {% endblock %}
