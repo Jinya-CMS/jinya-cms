@@ -11,7 +11,13 @@ services:
         - '@fos_user.util.user_manipulator'
         - '@kernel'
 
-  backend.twig_extension.controller_utils:
+  jinya_gallery.twig_extension.controller_utils:
       class: BackendBundle\Twig\Extension\ControllerUtils
+      tags:
+          - { name: twig.extension }
+  jinya_gallery.twig_extension.translation_utils:
+      class: BackendBundle\Twig\Extension\TranslationUtils
+      arguments:
+        - '@translator.default'
       tags:
           - { name: twig.extension }

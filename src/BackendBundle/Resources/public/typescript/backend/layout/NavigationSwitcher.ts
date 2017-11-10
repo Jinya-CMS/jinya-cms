@@ -30,11 +30,14 @@ class NavigationSwitcher {
                 $('.navbar.bg-danger')
                     .removeClass('bg-danger')
                     .addClass('bg-primary');
+
                 DatatablesActivator.init();
                 TableElementSelector.init();
                 Searcher.init();
                 AjaxExecutor.init();
                 NavigationSwitcher.init();
+                FilePickerActivator.init();
+
                 eval(afterSuccessAction);
             } else {
                 $('.sidebar.bg-primary')

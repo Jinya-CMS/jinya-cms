@@ -111,3 +111,5 @@ backend:
     delete:
       title: Wollen Sie die Gallerie %name% wirklich löschen?
       content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
+      background:
+        title: Soll das Hintergrundbild wirklich gelöscht werden?

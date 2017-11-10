@@ -1,13 +1,15 @@
 class DeleteBackgroundImage {
     public static init() {
-        let $galleryThumbnailContainer = $('.gallery-thumbnail-container');
-        $galleryThumbnailContainer.click(() => {
-            let url = $galleryThumbnailContainer.data('delete-url');
-            $.ajax(url, {
-                method: 'DELETE'
+        let $ajaxDelete = $('[data-ajax]');
+        $ajaxDelete.click(() => {
+            event.preventDefault();
+            $ajaxDelete.parents('.row').hide();
+            $.ajax($ajaxDelete.data('action'), {
+                method: $ajaxDelete.data('method')
             }).then(() => {
-                $galleryThumbnailContainer.parent('.row').hide();
-            })
+            }, () => {
+                $ajaxDelete.parents('.row').show();
+            });
         });
     }
 }

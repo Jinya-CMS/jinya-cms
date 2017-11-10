@@ -196,6 +196,9 @@
         {% endjavascripts %}
     {% endblock %}
     {% block custom_scripts %}{% endblock %}
+    {% block translations %}
+        <script>{{ include('@Backend/genericjsfields.js.twig') }}</script>
+    {% endblock %}
 {% endblock %}
 
 {% block styles %}

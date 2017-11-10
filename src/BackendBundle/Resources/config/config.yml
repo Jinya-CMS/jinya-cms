@@ -22,6 +22,7 @@ assetic:
         - '@BackendBundle/Resources/public/typescript/backend/layout/AjaxExecutor.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/DatatablesActivator.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/Searcher.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/FilePickerActivator.js'
     backend_galleries_overview_js:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/galleries/OverviewViewModel.js'

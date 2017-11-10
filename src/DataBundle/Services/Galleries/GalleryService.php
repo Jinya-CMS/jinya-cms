@@ -99,12 +99,6 @@ class GalleryService extends BaseService implements GalleryServiceInterface
         $background = $gallery->getBackgroundResource();
         if ($background !== null) {
             $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
-        } else {
-            $this->entityManager->getUnitOfWork()->computeChangeSet($this->entityManager->getClassMetadata(Gallery::class), $gallery);
-            $changeSet = $this->entityManager->getUnitOfWork()->getEntityChangeSet($gallery);
-            if (!empty($changeSet['background'][0])) {
-                $this->mediaService->deleteMedia($changeSet['background'][0]);
-            }
         }
         if ($gallery->getSlug() === null) {
             $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));

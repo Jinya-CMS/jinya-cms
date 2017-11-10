@@ -19,3 +19,5 @@ generic:
   search: Suchen
   clear: Leeren
   auto_generated: Wird bei leerer Eingabe autogeneriert
+  file:
+    pick: Datei suchen
