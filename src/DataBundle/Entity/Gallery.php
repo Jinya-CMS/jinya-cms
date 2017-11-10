@@ -164,7 +164,8 @@ class Gallery extends HistoryEnabledEntity
             'creator' => $this->getCreator(),
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
-            'updatedBy' => $this->getUpdatedBy()
+            'updatedBy' => $this->getUpdatedBy(),
+            'slug' => $this->slug
         ];
     }
 }

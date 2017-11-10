@@ -55,7 +55,7 @@ class User extends BaseUser implements JsonSerializable
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="DataBundle\Entity\Gallery", mappedBy="creator")
      */
-//    private $createdGalleries;
+    private $createdGalleries;
 
     /**
      * User constructor.

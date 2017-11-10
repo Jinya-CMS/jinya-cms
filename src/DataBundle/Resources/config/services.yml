@@ -12,6 +12,10 @@ services:
       # if you need to do this, you can override this setting on individual services
       public: true
   jinya_gallery.services.gallery_service:
-      class: DataBundle\Services\Galleries\GalleryService
-      arguments:
-        - '@doctrine.orm.entity_manager'
+    class: DataBundle\Services\Galleries\GalleryService
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@jinya_gallery.services_media.media_service'
+      - '@jinya_gallery.services_slug.slug_service'
+      - '@security.token_storage'
+      - '@fos_user.user_manager.default'

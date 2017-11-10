@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GalleriesController extends Controller
 {
-
     /**
      * @Route("/galleries", name="backend_galleries_index")
      *
@@ -161,5 +160,24 @@ class GalleriesController extends Controller
         $galleryService->saveOrUpdate($gallery);
 
         return $this->json(true);
+    }
+
+    /**
+     * @Route("/galleries/history/{id}", name="backend_galleries_history")
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function historyAction(Request $request, int $id): Response
+    {
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $gallery = $galleryService->get($id);
+
+        return $this->render('@Backend/generic/history.html.twig', [
+            'history' => $gallery->getHistory(),
+            'gallery' => $gallery,
+            'base_layout' => '@Backend/galleries/galleries_base.html.twig'
+        ]);
     }
 }

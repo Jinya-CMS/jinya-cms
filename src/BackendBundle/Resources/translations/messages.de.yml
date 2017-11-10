@@ -42,6 +42,7 @@ sidebar:
     details: Galleriedetails
     delete_background: Hintegrundbild löschen
     delete: Gallerie löschen
+    history: Galleriehistorie
 backend:
   users:
     email: Emailadresse

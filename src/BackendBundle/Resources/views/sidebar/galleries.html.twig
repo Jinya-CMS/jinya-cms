@@ -26,6 +26,13 @@
        data-target="#content"
        data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.details'|trans }}</a>
 {% endblock %}
+{% block backend_galleries_sidebar_history %}
+    <a class="nav-link {% if active == 'history' %}active{% endif %} overview"
+       href="{{ url('backend_galleries_history', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       data-action-type="history"
+       data-target="#content"
+       data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.history'|trans }}</a>
+{% endblock %}
 {% block backend_galleries_sidebar_delete %}
     {% if is_granted('ROLE_WRITER') %}
         <a class="nav-link {% if active == 'delete' %}active{% endif %} overview" data-id="{{ id|default('') }}"

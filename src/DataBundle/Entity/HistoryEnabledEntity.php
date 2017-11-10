@@ -48,7 +48,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     private $updatedBy;
 
     /**
-     * @return Gallery[]
+     * @return array[]
      */
     public function getHistory(): ?array
     {
@@ -117,8 +117,18 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      */
     public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
+        $changeSet = $eventArgs->getEntityChangeSet();
+        if (count($changeSet) > 1) {
+            $this->history[] = $eventArgs->getEntityChangeSet();
+        }
+    }
+
+    /**
+     * @ORM\PostLoad
+     */
+    public function postLoad()
+    {
         $this->lastUpdatedAt = new DateTime();
-        $this->history[] = $eventArgs->getEntityChangeSet();
     }
 
     /**
@@ -126,13 +136,13 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      */
     public function prePersist()
     {
+        $this->createdAt = new DateTime();
+        $this->lastUpdatedAt = new DateTime();
         $historyEntry = $this->jsonSerialize();
         $historyEntry = array_map(function ($item) {
             return [null, $item];
         }, $historyEntry);
         unset($historyEntry['history']);
         $this->history[] = $historyEntry;
-        $this->createdAt = new DateTime();
-        $this->lastUpdatedAt = new DateTime();
     }
 }

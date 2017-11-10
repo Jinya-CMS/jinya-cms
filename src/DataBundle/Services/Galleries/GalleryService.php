@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class GalleryService extends BaseService implements GalleryServiceInterface
 {
@@ -31,10 +32,11 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      * @param EntityManager $entityManager
      * @param MediaServiceInterface $mediaService
      * @param SlugServiceInterface $slugService
+     * @param TokenStorage $tokenStorage
      */
-    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
+    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService, TokenStorage $tokenStorage)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager, $tokenStorage);
         $this->mediaService = $mediaService;
         $this->slugService = $slugService;
     }
