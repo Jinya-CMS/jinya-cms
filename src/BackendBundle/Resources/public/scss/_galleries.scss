@@ -4,8 +4,11 @@
     margin-bottom: $grid-gutter-width;
 
     &.selected {
-      background: $primary;
+      background: lighten($primary, 20%);
       color: $white;
+      border-color: lighten($primary, 20%);
+      $enable-shadows: true;
+      box-shadow: $btn-box-shadow, 0 0 0 $input-btn-focus-width rgba(lighten($primary, 20%), .5);
     }
   }
 }

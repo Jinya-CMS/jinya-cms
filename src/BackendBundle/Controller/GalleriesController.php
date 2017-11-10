@@ -82,14 +82,29 @@ class GalleriesController extends Controller
     }
 
     /**
-     * @Route("/galleries/edit", name="backend_galleries_edit")
+     * @Route("/galleries/edit/{id}", name="backend_galleries_edit")
      *
      * @param Request $request
+     * @param int $id
      * @return Response
      */
-    public function editAction(Request $request): Response
+    public function editAction(Request $request, int $id): Response
     {
-        return $this->render('@Backend/galleries/edit.html.twig');
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $gallery = $galleryService->get($id);
+        $form = $this->createForm(GalleryType::class, $gallery);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $galleryService->saveOrUpdate($data);
+            return $this->redirectToRoute('backend_galleries_index');
+        }
+
+        return $this->render('@Backend/galleries/edit.html.twig', [
+            'form' => $form->createView(),
+            'gallery' => $gallery
+        ]);
     }
 
     /**

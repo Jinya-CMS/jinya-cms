@@ -26,6 +26,7 @@ assetic:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/galleries/OverviewViewModel.js'
         - '@BackendBundle/Resources/public/typescript/backend/galleries/Overview.js'
+        - '@BackendBundle/Resources/public/typescript/backend/galleries/DeleteBackgroundImage.js'
   filters:
       jsqueeze: ~
       scssphp:
