@@ -135,6 +135,11 @@ class GalleriesController extends Controller
     public function deleteAction(Request $request, int $id): Response
     {
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        if ($request->isMethod('POST')) {
+            $galleryService->delete($id);
+            return $this->redirectToRoute('backend_galleries_overview');
+        }
+
         $gallery = $galleryService->get($id);
         return $this->render('@Backend/galleries/delete.html.twig', [
             'gallery' => $gallery

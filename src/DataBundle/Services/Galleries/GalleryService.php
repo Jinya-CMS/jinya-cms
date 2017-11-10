@@ -42,6 +42,98 @@ class GalleryService extends BaseService implements GalleryServiceInterface
     /**
      * @inheritdoc
      */
+    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array
+    {
+        return $this->getFilteredQueryBuilder($keyword)
+            ->setFirstResult($offset)
+            ->setMaxResults($count)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Gets a querybuilder with a keyword filter
+     *
+     * @param string $keyword
+     * @return QueryBuilder
+     */
+    private function getFilteredQueryBuilder(string $keyword)
+    {
+        $queryBuilder = $this->getQueryBuilder();
+
+        return $queryBuilder
+            ->where($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('g.description', ':keyword'),
+                $queryBuilder->expr()->like('g.name', ':keyword')
+            ))
+            ->setParameter('keyword', "%$keyword%");
+    }
+
+    private function getQueryBuilder(): QueryBuilder
+    {
+        if ($this->repository === null) {
+            $this->repository = $this->entityManager->getRepository(Gallery::class);
+        }
+
+        return $this->repository->createQueryBuilder('g');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countAll(string $keyword = ''): int
+    {
+        $queryBuilder = $this->getFilteredQueryBuilder($keyword);
+
+        return $queryBuilder
+            ->select($queryBuilder->expr()->count('g'))
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function saveOrUpdate(Gallery $gallery): Gallery
+    {
+        $background = $gallery->getBackgroundResource();
+        if ($background !== null) {
+            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
+        } else {
+            $this->entityManager->getUnitOfWork()->computeChangeSet($this->entityManager->getClassMetadata(Gallery::class), $gallery);
+            $changeSet = $this->entityManager->getUnitOfWork()->getEntityChangeSet($gallery);
+            if (!empty($changeSet['background'][0])) {
+                $this->mediaService->deleteMedia($changeSet['background'][0]);
+            }
+        }
+        if ($gallery->getSlug() === null) {
+            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
+        }
+
+        return parent::save($gallery);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(int $id)
+    {
+        $gallery = $this->get($id);
+        if ($gallery->getBackground()) {
+            $this->mediaService->deleteMedia($gallery->getBackground());
+        }
+
+        $this->getQueryBuilder()
+            ->delete('DataBundle:Gallery', 'g')
+            ->where('g.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function get($idOrSlug): ?Gallery
     {
         if (is_numeric($idOrSlug)) {
@@ -70,86 +162,5 @@ class GalleryService extends BaseService implements GalleryServiceInterface
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getSingleResult();
-    }
-
-    private function getQueryBuilder(): QueryBuilder
-    {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository(Gallery::class);
-        }
-
-        return $this->repository->createQueryBuilder('g');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array
-    {
-        return $this->getFilteredQueryBuilder($keyword)
-            ->setFirstResult($offset)
-            ->setMaxResults($count)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
-     */
-    private function getFilteredQueryBuilder(string $keyword)
-    {
-        $queryBuilder = $this->getQueryBuilder();
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('g.description', ':keyword'),
-                $queryBuilder->expr()->like('g.name', ':keyword')
-            ))
-            ->setParameter('keyword', "%$keyword%");
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function countAll(string $keyword = ''): int
-    {
-        $queryBuilder = $this->getFilteredQueryBuilder($keyword);
-
-        return $queryBuilder
-            ->select($queryBuilder->expr()->count('g'))
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function saveOrUpdate(Gallery $gallery): Gallery
-    {
-        $background = $gallery->getBackgroundResource();
-        if ($background !== null) {
-            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
-        }
-        if ($gallery->getSlug() === null) {
-            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
-        }
-
-        return parent::save($gallery);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(int $id)
-    {
-        $this->getQueryBuilder()
-            ->delete('DataBundle:Gallery')
-            ->where('g.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
     }
 }

@@ -108,3 +108,6 @@ backend:
     slug: Slug
     background: Hintergrundbild
     select: Gallerie auswählen
+    delete:
+      title: Wollen Sie die Gallerie %name% wirklich löschen?
+      content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.

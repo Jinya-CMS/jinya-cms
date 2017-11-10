@@ -60,7 +60,7 @@ class MediaService implements MediaServiceInterface
      */
     public function deleteMedia(string $url)
     {
-        $parts = preg_split('/\\//g', $url);
+        $parts = preg_split('/\\//', $url);
         $parts = array_reverse($parts);
         $filename = $parts[0];
         $type = $parts[1];
