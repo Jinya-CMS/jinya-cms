@@ -3,8 +3,8 @@
 {% block content %}
     <div class="card" style="width: 20rem;">
         <img class="card-img-top"
-             src="{{ asset("profilepictures/#{user.profilePicture == '' ? 'default.png' : user.profilePicture}") }}"
-             alt="Card image cap">
+             src="{{ user.profilePicture }}"
+             alt="{{ user.username }}">
         <div class="card-body">
             <h4 class="card-title">{{ user.firstname }} {{ user.lastname }}</h4>
             <p class="card-text">

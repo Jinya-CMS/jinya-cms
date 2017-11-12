@@ -9,7 +9,7 @@ services:
         - '@fos_user.user_manager'
         - '@doctrine.orm.entity_manager'
         - '@fos_user.util.user_manipulator'
-        - '@kernel'
+        - '@jinya_gallery.services_media.media_service'
 
   jinya_gallery.twig_extension.controller_utils:
       class: BackendBundle\Twig\Extension\ControllerUtils
