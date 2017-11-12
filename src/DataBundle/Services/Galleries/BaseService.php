@@ -9,24 +9,19 @@
 namespace DataBundle\Services\Galleries;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 abstract class BaseService
 {
     /** @var EntityManager */
     protected $entityManager;
-    /** @var TokenStorage */
-    private $tokenStorage;
 
     /**
      * BaseService constructor.
      * @param EntityManager $entityManager
-     * @param TokenStorage $tokenStorage
      */
-    public function __construct(EntityManager $entityManager, TokenStorage $tokenStorage)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -37,14 +32,10 @@ abstract class BaseService
      */
     protected function save($item)
     {
-        $currentUser = $this->tokenStorage->getToken()->getUser();
         if ($item->getId() !== null) {
             $entity = $this->getById($item->getId());
             $item = $this->mergeEntities($entity, $item);
-        } else {
-            $item->setCreator($currentUser);
         }
-        $item->setUpdatedBy($currentUser);
 
         $item = $this->entityManager->merge($item);
         $this->entityManager->flush();

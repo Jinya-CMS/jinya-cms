@@ -17,5 +17,9 @@ services:
       - '@doctrine.orm.default_entity_manager'
       - '@jinya_gallery.services_media.media_service'
       - '@jinya_gallery.services_slug.slug_service'
+  jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
+    class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
+    arguments:
       - '@security.token_storage'
-      - '@fos_user.user_manager.default'
+    tags:
+        - { name: doctrine.event_subscriber }

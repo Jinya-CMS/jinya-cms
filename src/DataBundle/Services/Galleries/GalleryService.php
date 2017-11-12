@@ -32,11 +32,10 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      * @param EntityManager $entityManager
      * @param MediaServiceInterface $mediaService
      * @param SlugServiceInterface $slugService
-     * @param TokenStorage $tokenStorage
      */
-    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService, TokenStorage $tokenStorage)
+    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
     {
-        parent::__construct($entityManager, $tokenStorage);
+        parent::__construct($entityManager);
         $this->mediaService = $mediaService;
         $this->slugService = $slugService;
     }

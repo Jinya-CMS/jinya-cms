@@ -41,7 +41,7 @@ class Gallery extends HistoryEnabledEntity
     private $description;
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $background;
     /**
