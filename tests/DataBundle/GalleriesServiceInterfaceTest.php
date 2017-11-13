@@ -7,6 +7,8 @@ use DataBundle\Entity\Gallery;
 use DataBundle\Services\Galleries\GalleryServiceInterface;
 use HelperBundle\Services\Database\SchemaToolInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
 {
@@ -33,6 +35,10 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
     {
         $dummyUser = $this->generateDummyUser();
         $user = $this->getUserService()->createUser($dummyUser);
+        /** @var TokenStorage $tokenStorage */
+        $tokenStorage = $this->tester->grabService('security.token_storage');
+
+        $tokenStorage->setToken(new UsernamePasswordToken($user, $dummyUser->getPassword(), 'fos_user'));
 
         $dummyData = [];
         for ($i = 0; $i < $count; $i++) {
@@ -84,10 +90,10 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
 
         $history = $gallery->getHistory();
         $this->assertEquals(2, count($history));
-        $this->assertNull($history[0]['name'][0]);
-        $this->assertEquals($originalName, $history[0]['name'][1]);
-        $this->assertEquals($originalName, $history[1]['name'][0]);
-        $this->assertEquals('Test', $history[1]['name'][1]);
+        $this->assertNull($history[0]['entry']['name'][0]);
+        $this->assertEquals($originalName, $history[0]['entry']['name'][1]);
+        $this->assertEquals($originalName, $history[1]['entry']['name'][0]);
+        $this->assertEquals('Test', $history[1]['entry']['name'][1]);
     }
 
     public function testUpdateDetachedGallery()
@@ -108,10 +114,10 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
 
         $history = $gallery->getHistory();
         $this->assertEquals(2, count($history));
-        $this->assertNull($history[0]['name'][0]);
-        $this->assertEquals($originalName, $history[0]['name'][1]);
-        $this->assertEquals($originalName, $history[1]['name'][0]);
-        $this->assertEquals('Test', $history[1]['name'][1]);
+        $this->assertNull($history[0]['entry']['name'][0]);
+        $this->assertEquals($originalName, $history[0]['entry']['name'][1]);
+        $this->assertEquals($originalName, $history[1]['entry']['name'][0]);
+        $this->assertEquals('Test', $history[1]['entry']['name'][1]);
     }
 
     public function testGetGalleryByIdExists()
