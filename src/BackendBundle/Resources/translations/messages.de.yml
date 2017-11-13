@@ -19,6 +19,7 @@ layout:
         title: Protokolle
         application: Anwendungsprotokoll
         access: Zugriffsprotokoll
+      galleries: Gallerien
 sidebar:
   users:
     overview: Überblick
@@ -34,6 +35,14 @@ sidebar:
     overview: Überblick
     details: Eintragdetails
     clear: Protokoll löschen
+  galleries:
+    overview: Überblick
+    add: Gallerie hinzufügen
+    edit: Gallerie bearbeiten
+    details: Galleriedetails
+    delete_background: Hintegrundbild löschen
+    delete: Gallerie löschen
+    history: Galleriehistorie
 backend:
   users:
     email: Emailadresse
@@ -90,3 +99,18 @@ backend:
     details:
       title: Zugriff am %s
     userAgent: User Agent
+  galleries:
+    load:
+      failure: Die Gallerien konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Gallerien gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    background: Hintergrundbild
+    select: Gallerie auswählen
+    delete:
+      title: Wollen Sie die Gallerie %name% wirklich löschen?
+      content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
+      background:
+        title: Soll das Hintergrundbild wirklich gelöscht werden?

@@ -6,7 +6,9 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
 {% endblock %}
-
+{% if form is defined %}
+    {% form_theme form with ['bootstrap_4_horizontal_layout.html.twig', '@Backend/form/themes/jinya_gallery.html.twig'] %}
+{% endif %}
 {% block body %}
     {% if not app.request.xmlHttpRequest %}
         {% if error is not defined %}
@@ -40,6 +42,12 @@
                                 <a href="{{ url('backend_users_index') }}"
                                    class="nav-item nav-link {% if menu_users_active is defined and menu_users_active %}active{% endif %}">
                                     {{ 'layout.backend.menu.users'|trans }}
+                                </a>
+                            {% endblock %}
+                            {% block menu_galleries %}
+                                <a href="{{ url('backend_galleries_index') }}"
+                                   class="nav-item nav-link {% if menu_galleries_active is defined and menu_galleries_active %}active{% endif %}">
+                                    {{ 'layout.backend.menu.galleries'|trans }}
                                 </a>
                             {% endblock %}
                             {% block menu_log %}
@@ -188,6 +196,9 @@
         {% endjavascripts %}
     {% endblock %}
     {% block custom_scripts %}{% endblock %}
+    {% block translations %}
+        <script>{{ include('@Backend/genericjsfields.js.twig') }}</script>
+    {% endblock %}
 {% endblock %}
 
 {% block styles %}

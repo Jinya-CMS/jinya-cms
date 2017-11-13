@@ -8,9 +8,9 @@
 
 namespace BackendBundle\Service\Users;
 
-use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
+use DataBundle\Entity\User;
 
 interface UserServiceInterface
 {

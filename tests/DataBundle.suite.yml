@@ -1,0 +1,5 @@
+actor: DataBundleTester
+modules:
+    enabled:
+        - \Helper\DataBundle
+        - Symfony

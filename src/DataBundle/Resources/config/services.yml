@@ -1,0 +1,25 @@
+services:
+#    data.example:
+#        class: DataBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    # default configuration for services in *this* file
+  _defaults:
+      # automatically injects dependencies in your services
+      autowire: true
+      # automatically registers your services as commands, event subscribers, etc.
+      autoconfigure: true
+      # this means you cannot fetch services directly from the container via $container->get()
+      # if you need to do this, you can override this setting on individual services
+      public: true
+  jinya_gallery.services.gallery_service:
+    class: DataBundle\Services\Galleries\GalleryService
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@jinya_gallery.services_media.media_service'
+      - '@jinya_gallery.services_slug.slug_service'
+  jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
+    class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
+    arguments:
+      - '@security.token_storage'
+    tags:
+        - { name: doctrine.event_subscriber }

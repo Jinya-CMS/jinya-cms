@@ -8,14 +8,14 @@
 
 namespace BackendBundle\Service\Users;
 
-use AppKernel;
-use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
+use DataBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\UserManipulator;
+use HelperBundle\Services\Media\MediaServiceInterface;
 
 class UserService implements UserServiceInterface
 {
@@ -28,23 +28,22 @@ class UserService implements UserServiceInterface
     /** @var UserManipulator */
     private $userManipulator;
 
-    /** @var AppKernel */
-    private $kernel;
+    /** @var MediaServiceInterface */
+    private $mediaService;
 
     /**
      * UserService constructor.
-     *
      * @param UserManagerInterface $userManager
      * @param EntityManager $entityManager
      * @param UserManipulator $userManipulator
-     * @param AppKernel $kernel
+     * @param MediaServiceInterface $mediaService
      */
-    public function __construct(UserManagerInterface $userManager, EntityManager $entityManager, UserManipulator $userManipulator, $kernel)
+    public function __construct(UserManagerInterface $userManager, EntityManager $entityManager, UserManipulator $userManipulator, MediaServiceInterface $mediaService)
     {
         $this->userManager = $userManager;
         $this->entityManager = $entityManager;
         $this->userManipulator = $userManipulator;
-        $this->kernel = $kernel;
+        $this->mediaService = $mediaService;
     }
 
     /**
@@ -143,13 +142,10 @@ class UserService implements UserServiceInterface
 
     private function moveProfilePicture(UserData $userData): string
     {
-        $rootPath = $this->kernel->getProjectDir();
         $file = $userData->getProfilePicture();
 
         try {
-            $movedFile = $file->move($rootPath . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'profilepictures');
-
-            return $movedFile->getFilename();
+            return $this->mediaService->saveMedia($file, MediaServiceInterface::PROFILE_PICTURE);
         } catch (Exception $ex) {
             return '';
         }

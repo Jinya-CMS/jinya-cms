@@ -3,7 +3,7 @@ imports:
 fos_user:
     db_driver: orm
     firewall_name: backend
-    user_class: BackendBundle\Entity\User
+    user_class: DataBundle\Entity\User
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
@@ -16,11 +16,19 @@ assetic:
         - '@BackendBundle/Resources/public/scss/jinya-gallery.scss'
     backendjs:
       inputs:
+        - '@BackendBundle/Resources/public/typescript/backend/layout/Loader.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/AjaxExecutor.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/DatatablesActivator.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/Searcher.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/FilePickerActivator.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/TabTools.js'
+    backend_galleries_overview_js:
+      inputs:
+        - '@BackendBundle/Resources/public/typescript/backend/galleries/OverviewViewModel.js'
+        - '@BackendBundle/Resources/public/typescript/backend/galleries/Overview.js'
+        - '@BackendBundle/Resources/public/typescript/backend/galleries/DeleteBackgroundImage.js'
   filters:
       jsqueeze: ~
       scssphp:

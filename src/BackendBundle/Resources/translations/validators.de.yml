@@ -12,3 +12,8 @@ backend:
     email:
       invalid: Die Emailadresse ist nicht gültig
       not_blank: Die Emailadresse ist erforderlich
+  galleries:
+    name:
+      not_unique: Der Name wurde bereits verwendet
+    slug:
+      not_unique: Der Slug wurde bereits verwendet

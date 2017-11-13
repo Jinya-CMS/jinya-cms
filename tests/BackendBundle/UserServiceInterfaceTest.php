@@ -1,10 +1,10 @@
 <?php
 
 
-use BackendBundle\Entity\User;
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
 use BackendBundle\Service\Users\UserServiceInterface;
+use DataBundle\Entity\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 use HelperBundle\Services\Database\SchemaToolInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

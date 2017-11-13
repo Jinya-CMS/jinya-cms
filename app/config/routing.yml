@@ -1,3 +1,8 @@
+data:
+    resource: "@DataBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 install:
     resource: "@InstallBundle/Controller/"
     type: annotation
