@@ -70,4 +70,14 @@ interface GalleryServiceInterface
      * @return void
      */
     public function delete(int $id);
+
+    /**
+     * Updates the given field
+     *
+     * @param string $key
+     * @param string $value
+     * @param int $id
+     * @return void
+     */
+    public function updateField(string $key, string $value, int $id);
 }

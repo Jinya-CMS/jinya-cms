@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class GalleryService extends BaseService implements GalleryServiceInterface
 {
@@ -95,22 +94,6 @@ class GalleryService extends BaseService implements GalleryServiceInterface
     /**
      * @inheritdoc
      */
-    public function saveOrUpdate(Gallery $gallery): Gallery
-    {
-        $background = $gallery->getBackgroundResource();
-        if ($background !== null) {
-            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
-        }
-        if ($gallery->getSlug() === null) {
-            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
-        }
-
-        return parent::save($gallery);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function delete(int $id)
     {
         $gallery = $this->get($id);
@@ -157,5 +140,32 @@ class GalleryService extends BaseService implements GalleryServiceInterface
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function updateField(string $key, string $value, int $id)
+    {
+        $gallery = $this->getById($id);
+        $gallery->{"set$key"}($value);
+
+        $this->saveOrUpdate($gallery);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function saveOrUpdate(Gallery $gallery): Gallery
+    {
+        $background = $gallery->getBackgroundResource();
+        if ($background !== null) {
+            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
+        }
+        if ($gallery->getSlug() === null) {
+            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
+        }
+
+        return parent::save($gallery);
     }
 }

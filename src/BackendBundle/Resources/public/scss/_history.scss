@@ -1,0 +1,10 @@
+.history {
+  .nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    .nav-item {
+      flex-wrap: wrap;
+    }
+  }
+}

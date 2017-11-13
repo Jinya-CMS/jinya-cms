@@ -1,0 +1,58 @@
+<div class="row">
+    <span class="h4 col-12">
+        {% set updatedBy = item.updatedBy|last.firstname ~ ' ' ~ item.updatedBy|last.lastname %}
+        {% set lastUpdatedAt = item.lastUpdatedAt|last.date|localizeddate %}
+        {{ lastUpdatedAt }} &mdash; {{ updatedBy }}
+    </span>
+</div>
+<dl class="row">
+    {% for key, item in item if item|last is not null and key not in ['updatedBy', 'lastUpdatedAt', 'creator', 'createdAt'] %}
+        {% set newValue = '' %}
+        {% set oldValue = '' %}
+
+        {% if key == 'updatedBy' or key == 'creator' %}
+            {% set oldValue = item|first.username %}
+        {% elseif item|first.date is defined %}
+            {% set oldValue = item|first.date|localizeddate %}
+        {% elseif item|first is iterable and not item|first matches '/.*/' %}
+            {% set oldValue = item|first.id %}
+        {% elseif not item is iterable and item matches '/.*/' %}
+            {% set oldValue = item %}
+        {% else %}
+            {% set oldValue = item|first %}
+        {% endif %}
+
+        {% if key == 'updatedBy' or key == 'creator' %}
+            {% set newValue = item|last.username %}
+        {% elseif item|last.date is defined %}
+            {% set newValue = item|last.date|localizeddate %}
+        {% elseif item|last is iterable and not item|last matches '/.*/' %}
+            {% set newValue = item|last.id %}
+        {% elseif not item is iterable and item matches '/.*/' %}
+            {% set newValue = item %}
+        {% else %}
+            {% set newValue = item|last %}
+        {% endif %}
+
+        <dt class="col-2">
+            {{ key }}
+            {% if key != 'updatedBy' and key != 'creator' and key != 'createdAt' and key != 'lastUpdatedAt' %}
+                <form method="post"
+                      action="{{ url(reset_route, { 'id': id, 'origin': app.request.requestUri ~ '#' ~ entry.timestamp.timestamp }) }}"
+                      class="pull-right mb-0">
+                    <input type="hidden" name="key" value="{{ key }}"/>
+                    <input type="hidden" name="value" value="{{ oldValue }}"/>
+                    <button type="submit" class="btn btn-link">
+                        <i class="fa fa-repeat"></i>
+                    </button>
+                </form>
+            {% endif %}
+        </dt>
+        <dd class="col-2">{{ oldValue }}</dd>
+        <dd class="col-1">
+            <i class="fa fa-arrow-right"></i>
+        </dd>
+        <dd class="col-2">{{ newValue }}</dd>
+        <dd class="col-5"></dd>
+    {% endfor %}
+</dl>

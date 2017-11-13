@@ -56,7 +56,11 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
                 $history = $entity->getHistory();
                 $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
                 $changeSet['updatedBy'] = [$lastUpdatedBy, $entity->getUpdatedBy()];
-                $history[] = $changeSet;
+                $history[] = [
+                    'entry' => $changeSet,
+                    'timestamp' => $entity->getLastUpdatedAt()->format('c'),
+                    'initial' => false
+                ];
                 $entity->setHistory($history);
             }
         }
@@ -94,7 +98,11 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
                 return [null, $item];
             }, $historyEntry);
             unset($historyEntry['history']);
-            $entity->setHistory([$historyEntry]);
+            $entity->setHistory([
+                'entry' => $historyEntry,
+                'timestamp' => $entity->getLastUpdatedAt()->format('c'),
+                'initial' => true
+            ]);
         }
     }
 }

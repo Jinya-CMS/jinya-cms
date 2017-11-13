@@ -3,6 +3,7 @@
 namespace BackendBundle\Controller;
 
 use BackendBundle\Form\GalleryType;
+use DataBundle\Entity\Gallery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -171,13 +172,29 @@ class GalleriesController extends Controller
      */
     public function historyAction(Request $request, int $id): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
-        $gallery = $galleryService->get($id);
-
-        return $this->render('@Backend/generic/history.html.twig', [
-            'history' => $gallery->getHistory(),
-            'gallery' => $gallery,
-            'base_layout' => '@Backend/galleries/galleries_base.html.twig'
+        return $this->forward('BackendBundle:History:index', [
+            'class' => Gallery::class,
+            'id' => $id,
+            'resetRoute' => 'backend_galleries_reset',
+            'layout' => '@Backend/galleries/galleries_base.html.twig'
         ]);
+    }
+
+    /**
+     * @Route("/galleries/history/{id}/reset", name="backend_galleries_reset", methods={"POST"})
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function resetAction(Request $request, int $id): Response
+    {
+        $origin = $request->get('origin');
+        $galleryService = $this->get('jinya_gallery.services.gallery_service');
+        $key = $request->get('key');
+        $value = $request->get('value');
+
+        $galleryService->updateField($key, $value, $id);
+
+        return $this->redirect($origin);
     }
 }
