@@ -20,39 +20,82 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @UniqueEntity("name", message="backend.galleries.name.not_unique")
  * @UniqueEntity("slug", message="backend.galleries.slug.not_unique")
  */
-class Gallery extends HistoryEnabledEntity
+class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
 {
     /**
-     * @var int
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @var ArtworkPosition[]
+     * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery")
      */
-    private $id;
-    /**
-     * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    private $name;
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $description;
+    private $artworks;
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
     private $background;
     /**
-     * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @var bool
+     * @ORM\Column(type="boolean")
      */
-    private $slug;
+    private $vertical = false;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $horizontal = true;
     /**
      * @var UploadedFile
      */
     private $backgroundResource;
+
+    /**
+     * @return mixed
+     */
+    public function getVertical()
+    {
+        return $this->vertical;
+    }
+
+    /**
+     * @param mixed $vertical
+     */
+    public function setVertical($vertical)
+    {
+        $this->vertical = $vertical;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHorizontal()
+    {
+        return $this->horizontal;
+    }
+
+    use BaseArtEntity;
+
+    /**
+     * @param mixed $horizontal
+     */
+    public function setHorizontal($horizontal)
+    {
+        $this->horizontal = $horizontal;
+    }
+
+    /**
+     * @return ArtworkPosition[]
+     */
+    public function getArtworks(): array
+    {
+        return $this->artworks;
+    }
+
+    /**
+     * @param ArtworkPosition[] $artworks
+     */
+    public function setArtworks(array $artworks)
+    {
+        $this->artworks = $artworks;
+    }
 
     /**
      * @return UploadedFile
@@ -68,70 +111,6 @@ class Gallery extends HistoryEnabledEntity
     public function setBackgroundResource(UploadedFile $backgroundResource)
     {
         $this->backgroundResource = $backgroundResource;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
     }
 
     /**

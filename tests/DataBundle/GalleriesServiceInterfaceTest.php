@@ -4,6 +4,7 @@
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Service\Users\UserServiceInterface;
 use DataBundle\Entity\Gallery;
+use DataBundle\Services\Galleries\GalleryService;
 use DataBundle\Services\Galleries\GalleryServiceInterface;
 use HelperBundle\Services\Database\SchemaToolInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -26,7 +27,7 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         $this->assertNotEmpty($gallery->getId());
     }
 
-    private function getGalleryService(): GalleryServiceInterface
+    private function getGalleryService(): GalleryService
     {
         return $this->tester->grabService('jinya_gallery.services.gallery_service');
     }
