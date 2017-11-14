@@ -29,7 +29,9 @@ class ArtworkController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        return $this->render('@Backend/artworks/overview.html.twig');
+        return $this->render('@Backend/artworks/overview.html.twig', [
+            'search' => $request->get('keyword', '')
+        ]);
     }
 
     /**

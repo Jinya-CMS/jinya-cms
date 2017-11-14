@@ -4,7 +4,13 @@ class Overview {
         if (overview) {
             let getListUrl = overview.getAttribute('data-get-list-url');
             let loadFailureMessage = overview.getAttribute('data-load-failure-message');
-            ko.applyBindings(new OverviewViewModel(getListUrl, loadFailureMessage), overview);
+            let viewModel = new OverviewViewModel(getListUrl, loadFailureMessage);
+            let search = document.querySelector('[data-search=overview]');
+            viewModel.search(search.querySelector('input[type=search]').getAttribute('value'));
+            ko.cleanNode(overview);
+            ko.cleanNode(search);
+            ko.applyBindings(viewModel, overview);
+            ko.applyBindings(viewModel, search);
         }
     }
 }

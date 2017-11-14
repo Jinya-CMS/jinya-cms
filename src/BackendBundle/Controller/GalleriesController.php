@@ -29,7 +29,9 @@ class GalleriesController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        return $this->render('@Backend/galleries/overview.html.twig');
+        return $this->render('@Backend/galleries/overview.html.twig', [
+            'search' => $request->get('keyword', '')
+        ]);
     }
 
     /**
