@@ -101,7 +101,8 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
             'updatedBy' => $this->getUpdatedBy(),
-            'slug' => $this->slug
+            'slug' => $this->slug,
+            'picture' => $this->picture
         ];
     }
 }

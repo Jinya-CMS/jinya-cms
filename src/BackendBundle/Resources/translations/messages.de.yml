@@ -20,6 +20,7 @@ layout:
         application: Anwendungsprotokoll
         access: Zugriffsprotokoll
       galleries: Gallerien
+      artworks: Kunstwerke
 sidebar:
   users:
     overview: Überblick
@@ -43,6 +44,13 @@ sidebar:
     delete_background: Hintegrundbild löschen
     delete: Gallerie löschen
     history: Galleriehistorie
+  artworks:
+    overview: Überblick
+    add: Kunstwerk hinzufügen
+    edit: Kunstwerk bearbeiten
+    details: Kunstwerkdetails
+    delete: Kunstwerk löschen
+    history: Kunstwerkhistorie
 backend:
   users:
     email: Emailadresse
@@ -114,3 +122,16 @@ backend:
       content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
       background:
         title: Soll das Hintergrundbild wirklich gelöscht werden?
+  artworks:
+    load:
+      failure: Die Kunstwerke konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Kunstwerke gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    picture: Bild
+    select: Kunstwerk auswählen
+    delete:
+      title: Wollen Sie das Kunstwerk %name% wirklich löschen?
+      content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.

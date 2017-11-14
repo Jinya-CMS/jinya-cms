@@ -5,22 +5,22 @@ class OverviewViewModel {
             $('.card').matchHeight();
         });
     };
-    public select = (gallery) => {
-        let $this = $(event.srcElement);
-        this.selectedGallery(gallery);
+    public select = (item) => {
+        this.selectedItem(item);
 
-        $('body').data(TableElementSelector.selectedIdAttribute, gallery.id);
+        $('body').data(TableElementSelector.selectedIdAttribute, item.id);
         $('.sidebar').removeClass('no-edit');
     };
     private getListUrl: string;
     private loadFailureMessage: string;
-    private galleries = ko.observableArray();
+    private items = ko.observableArray();
     private more = ko.observable<boolean>(true);
     private loading = ko.observable<boolean>(false);
-    private selectedGallery = ko.observable({});
+    private selectedItem = ko.observable({});
 
     public constructor(getListUrl: string, loadFailureMessage: string) {
         this.getListUrl = getListUrl;
+        this.loadFailureMessage = loadFailureMessage;
         this.loadData();
     }
 
@@ -29,7 +29,7 @@ class OverviewViewModel {
         $.getJSON(this.getListUrl).done(() => {
             this.loading(false);
         }).then((data) => {
-            this.galleries(data.data);
+            this.items(data.data);
             this.more(data.more);
             this.getListUrl = data.moreLink;
         }, () => {

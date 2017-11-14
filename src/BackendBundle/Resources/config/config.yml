@@ -24,11 +24,13 @@ assetic:
         - '@BackendBundle/Resources/public/typescript/backend/layout/Searcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/FilePickerActivator.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TabTools.js'
-    backend_galleries_overview_js:
+    backend_galleries_js:
       inputs:
-        - '@BackendBundle/Resources/public/typescript/backend/galleries/OverviewViewModel.js'
-        - '@BackendBundle/Resources/public/typescript/backend/galleries/Overview.js'
         - '@BackendBundle/Resources/public/typescript/backend/galleries/DeleteBackgroundImage.js'
+    backend_artworks_and_galleries_js:
+      inputs:
+        - '@BackendBundle/Resources/public/typescript/backend/art/OverviewViewModel.js'
+        - '@BackendBundle/Resources/public/typescript/backend/art/Overview.js'
   filters:
       jsqueeze: ~
       scssphp:

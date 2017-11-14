@@ -1,6 +1,6 @@
 class Overview {
     public static init = () => {
-        let overview = document.querySelector('.galleries');
+        let overview = document.querySelector('.overview-list');
         if (overview) {
             let getListUrl = overview.getAttribute('data-get-list-url');
             let loadFailureMessage = overview.getAttribute('data-load-failure-message');
