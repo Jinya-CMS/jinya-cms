@@ -17,3 +17,8 @@ backend:
       not_unique: Der Name wurde bereits verwendet
     slug:
       not_unique: Der Slug wurde bereits verwendet
+  artworks:
+    name:
+      not_unique: Der Name wurde bereits verwendet
+    slug:
+      not_unique: Der Slug wurde bereits verwendet
