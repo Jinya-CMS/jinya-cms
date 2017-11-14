@@ -4,7 +4,6 @@
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Service\Users\UserServiceInterface;
 use DataBundle\Entity\Gallery;
-use DataBundle\Services\Galleries\GalleryService;
 use DataBundle\Services\Galleries\GalleryServiceInterface;
 use HelperBundle\Services\Database\SchemaToolInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -27,7 +26,7 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         $this->assertNotEmpty($gallery->getId());
     }
 
-    private function getGalleryService(): GalleryService
+    private function getGalleryService(): GalleryServiceInterface
     {
         return $this->tester->grabService('jinya_gallery.services.gallery_service');
     }
@@ -163,7 +162,7 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         /** @var Gallery $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
         $galleryService = $this->getGalleryService();
-        $dummyEntity = $galleryService->saveOrUpdate($dummyEntity);
+        $galleryService->saveOrUpdate($dummyEntity);
 
         try {
             $entity = $galleryService->get('Testslug');
