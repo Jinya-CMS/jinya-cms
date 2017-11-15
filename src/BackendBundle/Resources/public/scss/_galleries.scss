@@ -1,18 +1,3 @@
-.galleries {
-  .card {
-    cursor: pointer;
-    margin-bottom: $grid-gutter-width;
-
-    &.selected {
-      background: lighten($primary, 20%);
-      color: $white;
-      border-color: lighten($primary, 20%);
-      $enable-shadows: true;
-      box-shadow: $btn-box-shadow, 0 0 0 $input-btn-focus-width rgba(lighten($primary, 20%), .5);
-    }
-  }
-}
-
 .gallery-details {
   margin-left: -1em;
   margin-top: -1em;

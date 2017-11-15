@@ -2,40 +2,39 @@
 /**
  * Created by PhpStorm.
  * User: imanu
- * Date: 08.11.2017
- * Time: 17:06
+ * Date: 14.11.2017
+ * Time: 18:03
  */
 
-namespace DataBundle\Services\Galleries;
+namespace DataBundle\Services\Base;
 
-use DataBundle\Entity\Gallery;
-use DataBundle\Services\Base\BaseArtServiceInterface;
+use DataBundle\Entity\ArtEntityInterface;
 
-interface GalleryServiceInterface extends BaseArtServiceInterface
+interface BaseArtServiceInterface
 {
     /**
-     * Gets the specified gallery, either by slug or id
+     * Gets the specified ArtEntityInterface, either by slug or id
      *
      * @param string|int $idOrSlug
-     * @return Gallery
+     * @return ArtEntityInterface
      */
-    public function get($idOrSlug): ?Gallery;
+    public function get($idOrSlug);
 
     /**
-     * Gets the specified gallery by id
+     * Gets the specified ArtEntityInterface by id
      *
      * @param int $id
-     * @return Gallery
+     * @return ArtEntityInterface
      */
-    public function getById(int $id): ?Gallery;
+    public function getById(int $id);
 
     /**
-     * Gets the specified gallery by slug
+     * Gets the specified ArtEntityInterface by slug
      *
      * @param string $slug
-     * @return Gallery,
+     * @return ArtEntityInterface,
      */
-    public function getBySlug(string $slug): ?Gallery;
+    public function getBySlug(string $slug);
 
     /**
      * Gets all galleries by the given parameters
@@ -43,7 +42,7 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @return Gallery[]
+     * @return ArtEntityInterface[]
      */
     public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array;
 
@@ -56,15 +55,15 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or updates the given gallery
+     * Saves or updates the given ArtEntityInterface
      *
-     * @param Gallery $gallery
-     * @return Gallery
+     * @param ArtEntityInterface $ArtEntityInterface
+     * @return ArtEntityInterface
      */
-    public function saveOrUpdate(Gallery $gallery): Gallery;
+    function save($ArtEntityInterface);
 
     /**
-     * Deletes the given gallery
+     * Deletes the given ArtEntityInterface
      *
      * @param int $id
      * @return void

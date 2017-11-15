@@ -29,7 +29,9 @@ class GalleriesController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        return $this->render('@Backend/galleries/overview.html.twig');
+        return $this->render('@Backend/galleries/overview.html.twig', [
+            'search' => $request->get('keyword', '')
+        ]);
     }
 
     /**
@@ -66,7 +68,7 @@ class GalleriesController extends Controller
      */
     public function addAction(Request $request): Response
     {
-        $form = $this->createForm(GalleryType::class);
+        $form = $this->createForm(GalleryType::class, new Gallery());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

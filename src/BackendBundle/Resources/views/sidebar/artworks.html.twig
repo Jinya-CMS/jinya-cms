@@ -1,6 +1,5 @@
 {% set active = get_action_name(app.request.attributes) %}
-{% set active = get_action_name(app.request.attributes) %}
-{% block backend_galleries_sidebar_search %}
+{% block backend_artworks_sidebar_search %}
     <div class="nav-item" data-search="overview">
         <div class="input-group">
             <input type="search" class="form-control" placeholder="{{ 'generic.search'|trans }}"
@@ -16,43 +15,42 @@
         </div>
     </div>
 {% endblock %}
-{% block backend_galleries_sidebar_overview %}
-    <a class="nav-link {% if active == 'overview' %}active{% endif %}" href="{{ url('backend_galleries_overview') }}"
+{% block backend_artworks_sidebar_overview %}
+    <a class="nav-link {% if active == 'overview' %}active{% endif %}" href="{{ url('backend_artworks_overview') }}"
        data-target="#content" data-action="nav" data-after-success="Overview.init()"
-       data-response-has-id="false">{{ 'sidebar.galleries.overview'|trans }}</a>
+       data-response-has-id="false">{{ 'sidebar.artworks.overview'|trans }}</a>
 {% endblock %}
-{% block backend_galleries_sidebar_add %}
+{% block backend_artworks_sidebar_add %}
     {% if is_granted('ROLE_WRITER') %}
-        <a class="nav-link {% if active == 'add' %}active{% endif %}" href="{{ url('backend_galleries_add') }}"
-           data-target="#content" data-action="nav" data-response-has-id="false">{{ 'sidebar.galleries.add'|trans }}</a>
+        <a class="nav-link {% if active == 'add' %}active{% endif %}" href="{{ url('backend_artworks_add') }}"
+           data-target="#content" data-action="nav" data-response-has-id="false">{{ 'sidebar.artworks.add'|trans }}</a>
     {% endif %}
 {% endblock %}
-{% block backend_galleries_sidebar_edit %}
+{% block backend_artworks_sidebar_edit %}
     {% if is_granted('ROLE_WRITER') %}
         <a class="nav-link {% if active == 'edit' %}active{% endif %} overview"
-           href="{{ url('backend_galleries_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+           href="{{ url('backend_artworks_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
            data-action-type="edit" data-target="#content" data-action="nav"
-           data-after-success="DeleteBackgroundImage.init()"
-           data-response-has-id="true">{{ 'sidebar.galleries.edit'|trans }}</a>
+           data-response-has-id="true">{{ 'sidebar.artworks.edit'|trans }}</a>
     {% endif %}
 {% endblock %}
-{% block backend_galleries_sidebar_details %}
+{% block backend_artworks_sidebar_details %}
     <a class="nav-link {% if active == 'details' %}active{% endif %} overview"
-       href="{{ url('backend_galleries_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       href="{{ url('backend_artworks_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
        data-action-type="details" data-target="#content" data-action="nav"
-       data-response-has-id="true">{{ 'sidebar.galleries.details'|trans }}</a>
+       data-response-has-id="true">{{ 'sidebar.artworks.details'|trans }}</a>
 {% endblock %}
-{% block backend_galleries_sidebar_history %}
+{% block backend_artworks_sidebar_history %}
     <a class="nav-link {% if active == 'history' %}active{% endif %} overview"
-       href="{{ url('backend_galleries_history', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       href="{{ url('backend_artworks_history', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
        data-action-type="history" data-target="#content" data-after-success="TabTools.init()"
-       data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.history'|trans }}</a>
+       data-action="nav" data-response-has-id="true">{{ 'sidebar.artworks.history'|trans }}</a>
 {% endblock %}
-{% block backend_galleries_sidebar_delete %}
+{% block backend_artworks_sidebar_delete %}
     {% if is_granted('ROLE_WRITER') %}
         <a class="nav-link {% if active == 'delete' %}active{% endif %} overview" data-id="{{ id|default('') }}"
-           href="{{ url('backend_galleries_delete', {'id': '#temp#'}) }}" data-action-type="delete"
-           data-target="#content"
-           data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.delete'|trans }}</a>
+           href="{{ url('backend_artworks_delete', {'id': '#temp#'}) }}" data-action-type="delete"
+           data-target="#content" data-action="nav"
+           data-response-has-id="true">{{ 'sidebar.artworks.delete'|trans }}</a>
     {% endif %}
 {% endblock %}

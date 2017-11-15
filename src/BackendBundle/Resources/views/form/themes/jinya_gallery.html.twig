@@ -25,14 +25,12 @@
 {%- endblock %}
 
 {% block radio_widget -%}
-    <div class="col-sm-9 offset-sm-3">
-        <div class="radio">
-            <label class="custom-control custom-checkbox">
-                <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}
-                       class="custom-control-input"/>
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description">{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
-            </label>
-        </div>
+    <div class="radio">
+        <label class="custom-control custom-checkbox">
+            <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}
+                   class="custom-control-input"/>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+        </label>
     </div>
 {%- endblock %}

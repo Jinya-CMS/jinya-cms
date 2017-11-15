@@ -50,6 +50,12 @@
                                     {{ 'layout.backend.menu.galleries'|trans }}
                                 </a>
                             {% endblock %}
+                            {% block menu_artworks %}
+                                <a href="{{ url('backend_artworks_index') }}"
+                                   class="nav-item nav-link {% if menu_artworks_active is defined and menu_artworks_active %}active{% endif %}">
+                                    {{ 'layout.backend.menu.artworks'|trans }}
+                                </a>
+                            {% endblock %}
                             {% block menu_log %}
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="nav-item dropdown">

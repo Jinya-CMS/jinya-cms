@@ -3,32 +3,31 @@
 
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Service\Users\UserServiceInterface;
-use DataBundle\Entity\Gallery;
-use DataBundle\Services\Galleries\GalleryServiceInterface;
-use HelperBundle\Services\Database\SchemaToolInterface;
+use DataBundle\Entity\Artwork;
+use DataBundle\Services\Artworks\ArtworkServiceInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
+class ArtworkServiceInterfaceTest extends \Codeception\Test\Unit
 {
     /**
      * @var \DataBundleTester
      */
     protected $tester;
 
-    public function testAddGallery()
+    public function testAddArtwork()
     {
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         $dummyData = $this->generateDummyData(1);
 
-        $gallery = $galleryService->saveOrUpdate($dummyData[0]);
-        $this->assertNotEmpty($gallery->getId());
+        $artwork = $artworkService->saveOrUpdate($dummyData[0]);
+        $this->assertNotEmpty($artwork->getId());
     }
 
-    private function getGalleryService(): GalleryServiceInterface
+    private function getArtworkService(): ArtworkServiceInterface
     {
-        return $this->tester->grabService('jinya_gallery.services.gallery_service');
+        return $this->tester->grabService('jinya_gallery.services.artwork_service');
     }
 
     private function generateDummyData(int $count = 10): array
@@ -42,10 +41,10 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
 
         $dummyData = [];
         for ($i = 0; $i < $count; $i++) {
-            $dummy = new Gallery();
-            $dummy->setName("Dummy Gallery $i");
-            $dummy->setBackground('#fff');
-            $dummy->setDescription("Dummy Gallery description $i");
+            $dummy = new Artwork();
+            $dummy->setName("Dummy Artwork $i");
+            $dummy->setDescription("Dummy Artwork description $i");
+            $dummy->setPicture('http://rndimg.com/ImageStore/OilPaintingBlueReal/192x108_OilPaintingBlueReal_65a5b97ddeaf4856a2294818178cd6c0.jpg');
             $dummy->setSlug("dummy_gallery_$i");
             $dummy->setCreator($user);
             $dummyData[] = $dummy;
@@ -75,20 +74,20 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         return $this->tester->grabService('jinya_gallery.services.user_service');
     }
 
-    public function testUpdateAttachedGallery()
+    public function testUpdateAttachedArtwork()
     {
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         $dummyData = $this->generateDummyData(1)[0];
-        $gallery = $galleryService->saveOrUpdate($dummyData);
+        $artwork = $artworkService->saveOrUpdate($dummyData);
 
-        $originalName = $gallery->getName();
+        $originalName = $artwork->getName();
 
-        $gallery->setName('Test');
-        $gallery = $galleryService->saveOrUpdate($gallery);
+        $artwork->setName('Test');
+        $artwork = $artworkService->saveOrUpdate($artwork);
 
-        $this->assertEquals('Test', $gallery->getName());
+        $this->assertEquals('Test', $artwork->getName());
 
-        $history = $gallery->getHistory();
+        $history = $artwork->getHistory();
         $this->assertEquals(2, count($history));
         $this->assertNull($history[0]['entry']['name'][0]);
         $this->assertEquals($originalName, $history[0]['entry']['name'][1]);
@@ -96,23 +95,23 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         $this->assertEquals('Test', $history[1]['entry']['name'][1]);
     }
 
-    public function testUpdateDetachedGallery()
+    public function testUpdateDetachedArtwork()
     {
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         $dummyData = $this->generateDummyData(1)[0];
-        $originalGallery = $galleryService->saveOrUpdate($dummyData);
-        $id = $originalGallery->getId();
+        $originalArtwork = $artworkService->saveOrUpdate($dummyData);
+        $id = $originalArtwork->getId();
 
-        $originalName = $originalGallery->getName();
+        $originalName = $originalArtwork->getName();
 
-        $gallery = new Gallery();
-        $gallery->setId($id);
-        $gallery->setName('Test');
-        $gallery = $galleryService->saveOrUpdate($gallery);
+        $artwork = new Artwork();
+        $artwork->setId($id);
+        $artwork->setName('Test');
+        $artwork = $artworkService->saveOrUpdate($artwork);
 
-        $this->assertEquals('Test', $gallery->getName());
+        $this->assertEquals('Test', $artwork->getName());
 
-        $history = $gallery->getHistory();
+        $history = $artwork->getHistory();
         $this->assertEquals(2, count($history));
         $this->assertNull($history[0]['entry']['name'][0]);
         $this->assertEquals($originalName, $history[0]['entry']['name'][1]);
@@ -120,52 +119,52 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         $this->assertEquals('Test', $history[1]['entry']['name'][1]);
     }
 
-    public function testGetGalleryByIdExists()
+    public function testGetArtworkByIdExists()
     {
-        /** @var Gallery $dummyEntity */
+        /** @var Artwork $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
-        $galleryService = $this->getGalleryService();
-        $dummyEntity = $galleryService->saveOrUpdate($dummyEntity);
+        $artworkService = $this->getArtworkService();
+        $dummyEntity = $artworkService->saveOrUpdate($dummyEntity);
 
-        $entity = $galleryService->get($dummyEntity->getId());
+        $entity = $artworkService->get($dummyEntity->getId());
         $this->assertNotNull($entity);
     }
 
-    public function testGetGalleryByIdNotExists()
+    public function testGetArtworkByIdNotExists()
     {
-        /** @var Gallery $dummyEntity */
+        /** @var Artwork $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
-        $galleryService = $this->getGalleryService();
-        $dummyEntity = $galleryService->saveOrUpdate($dummyEntity);
+        $artworkService = $this->getArtworkService();
+        $dummyEntity = $artworkService->saveOrUpdate($dummyEntity);
 
         try {
-            $entity = $galleryService->get($dummyEntity->getId() + 10);
+            $entity = $artworkService->get($dummyEntity->getId() + 10);
             $this->assertNull($entity);
         } catch (Exception $exception) {
             $this->assertTrue(true);
         }
     }
 
-    public function testGetGalleryBySlugExists()
+    public function testGetArtworkBySlugExists()
     {
-        /** @var Gallery $dummyEntity */
+        /** @var Artwork $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
-        $galleryService = $this->getGalleryService();
-        $dummyEntity = $galleryService->saveOrUpdate($dummyEntity);
+        $artworkService = $this->getArtworkService();
+        $dummyEntity = $artworkService->saveOrUpdate($dummyEntity);
 
-        $entity = $galleryService->get($dummyEntity->getSlug());
+        $entity = $artworkService->get($dummyEntity->getSlug());
         $this->assertNotNull($entity);
     }
 
-    public function testGetGalleryBySlugNotExists()
+    public function testGetArtworkBySlugNotExists()
     {
-        /** @var Gallery $dummyEntity */
+        /** @var Artwork $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
-        $galleryService = $this->getGalleryService();
-        $galleryService->saveOrUpdate($dummyEntity);
+        $artworkService = $this->getArtworkService();
+        $dummyEntity = $artworkService->saveOrUpdate($dummyEntity);
 
         try {
-            $entity = $galleryService->get('Testslug');
+            $entity = $artworkService->get('Testslug');
             $this->assertNull($entity);
         } catch (Exception $exception) {
             $this->assertTrue(true);
@@ -175,60 +174,60 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
     public function testGetAllWithoutKeyword()
     {
         $dummies = $this->generateDummyData(12);
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         foreach ($dummies as $dummy) {
-            $galleryService->saveOrUpdate($dummy);
+            $artworkService->saveOrUpdate($dummy);
         }
 
-        $data = $galleryService->getAll(0, 12, '');
+        $data = $artworkService->getAll(0, 12, '');
         $this->assertCount(12, $data);
     }
 
     public function testGetAllWithKeyword()
     {
         $dummies = $this->generateDummyData(12);
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         foreach ($dummies as $dummy) {
-            $galleryService->saveOrUpdate($dummy);
+            $artworkService->saveOrUpdate($dummy);
         }
 
-        $data = $galleryService->getAll(0, 12, '5');
+        $data = $artworkService->getAll(0, 12, '5');
         $this->assertCount(1, $data);
     }
 
     public function testGetAllWithoutResults()
     {
         $dummies = $this->generateDummyData(15);
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         foreach ($dummies as $dummy) {
-            $galleryService->saveOrUpdate($dummy);
+            $artworkService->saveOrUpdate($dummy);
         }
 
-        $data = $galleryService->getAll(16, 12);
+        $data = $artworkService->getAll(16, 12);
         $this->assertCount(0, $data);
     }
 
     public function testCountAllWithoutKeyword()
     {
         $dummies = $this->generateDummyData(12);
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         foreach ($dummies as $dummy) {
-            $galleryService->saveOrUpdate($dummy);
+            $artworkService->saveOrUpdate($dummy);
         }
 
-        $data = $galleryService->countAll();
+        $data = $artworkService->countAll();
         $this->assertEquals(12, $data);
     }
 
     public function testCountAllWithKeyword()
     {
         $dummies = $this->generateDummyData(12);
-        $galleryService = $this->getGalleryService();
+        $artworkService = $this->getArtworkService();
         foreach ($dummies as $dummy) {
-            $galleryService->saveOrUpdate($dummy);
+            $artworkService->saveOrUpdate($dummy);
         }
 
-        $data = $galleryService->countAll('5');
+        $data = $artworkService->countAll('5');
         $this->assertEquals(1, $data);
     }
 

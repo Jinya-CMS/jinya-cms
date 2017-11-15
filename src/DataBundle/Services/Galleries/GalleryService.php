@@ -10,21 +10,16 @@ namespace DataBundle\Services\Galleries;
 
 
 use DataBundle\Entity\Gallery;
+use DataBundle\Services\Base\BaseArtService;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
 
-class GalleryService extends BaseService implements GalleryServiceInterface
+class GalleryService extends BaseArtService implements GalleryServiceInterface
 {
 
-    /** @var EntityRepository */
-    private $repository;
     /** @var MediaServiceInterface */
     private $mediaService;
-    /** @var SlugServiceInterface */
-    private $slugService;
 
     /**
      * GalleryService constructor.
@@ -34,61 +29,8 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      */
     public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
     {
-        parent::__construct($entityManager);
+        parent::__construct($entityManager, $slugService, Gallery::class);
         $this->mediaService = $mediaService;
-        $this->slugService = $slugService;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array
-    {
-        return $this->getFilteredQueryBuilder($keyword)
-            ->setFirstResult($offset)
-            ->setMaxResults($count)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
-     */
-    private function getFilteredQueryBuilder(string $keyword)
-    {
-        $queryBuilder = $this->getQueryBuilder();
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('g.description', ':keyword'),
-                $queryBuilder->expr()->like('g.name', ':keyword')
-            ))
-            ->setParameter('keyword', "%$keyword%");
-    }
-
-    private function getQueryBuilder(): QueryBuilder
-    {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository(Gallery::class);
-        }
-
-        return $this->repository->createQueryBuilder('g');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function countAll(string $keyword = ''): int
-    {
-        $queryBuilder = $this->getFilteredQueryBuilder($keyword);
-
-        return $queryBuilder
-            ->select($queryBuilder->expr()->count('g'))
-            ->getQuery()
-            ->getSingleScalarResult();
     }
 
     /**
@@ -100,13 +42,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
         if ($gallery->getBackground()) {
             $this->mediaService->deleteMedia($gallery->getBackground());
         }
-
-        $this->getQueryBuilder()
-            ->delete('DataBundle:Gallery', 'g')
-            ->where('g.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
+        parent::delete($id);
     }
 
     /**
@@ -114,18 +50,7 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      */
     public function get($idOrSlug): ?Gallery
     {
-        if (is_numeric($idOrSlug)) {
-            return $this->getById($idOrSlug);
-        }
-        return $this->getBySlug($idOrSlug);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getById(int $id): ?Gallery
-    {
-        return $this->entityManager->find(Gallery::class, $id);
+        return parent::get($idOrSlug);
     }
 
     /**
@@ -133,24 +58,16 @@ class GalleryService extends BaseService implements GalleryServiceInterface
      */
     public function getBySlug(string $slug): ?Gallery
     {
-        $queryBuilder = $this->getQueryBuilder();
-
-        return $queryBuilder
-            ->where('g.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getSingleResult();
+        return parent::getBySlug($slug);
     }
+
 
     /**
      * @inheritdoc
      */
-    public function updateField(string $key, string $value, int $id)
+    public function getById(int $id): ?Gallery
     {
-        $gallery = $this->getById($id);
-        $gallery->{"set$key"}($value);
-
-        $this->saveOrUpdate($gallery);
+        return parent::getById($id);
     }
 
     /**
@@ -162,10 +79,8 @@ class GalleryService extends BaseService implements GalleryServiceInterface
         if ($background !== null) {
             $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
         }
-        if ($gallery->getSlug() === null) {
-            $gallery->setSlug($this->slugService->generateSlug($gallery->getName()));
-        }
 
         return parent::save($gallery);
     }
+
 }
