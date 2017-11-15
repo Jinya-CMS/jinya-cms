@@ -4,6 +4,7 @@ namespace BackendBundle\Form;
 
 use DataBundle\Entity\Gallery;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,6 +31,17 @@ class GalleryType extends AbstractType
                 'attr' => [
                     'placeholder' => 'generic.auto_generated'
                 ]
+            ])
+            ->add('orientation', ChoiceType::class, [
+                'required' => true,
+                'expanded' => true,
+                'label' => 'backend.galleries.orientation.label',
+                'choices' => [
+                    'backend.galleries.orientation.horizontal' => Gallery::HORIZONTAL,
+                    'backend.galleries.orientation.vertical' => Gallery::VERTICAL
+                ],
+                'data' => Gallery::HORIZONTAL,
+                'placeholder' => false
             ])
             ->add('backgroundResource', FileType::class, [
                 'required' => false,

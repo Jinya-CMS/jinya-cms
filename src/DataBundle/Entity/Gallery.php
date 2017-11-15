@@ -22,6 +22,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
 {
+    use BaseArtEntity;
+
+    public const VERTICAL = 'vertical';
+    public const HORIZONTAL = 'horizontal';
+
     /**
      * @var ArtworkPosition[]
      * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery")
@@ -33,52 +38,29 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
      */
     private $background;
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @var string
+     * @ORM\Column(type="string")
      */
-    private $vertical = false;
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $horizontal = true;
+    private $orientation = Gallery::HORIZONTAL;
     /**
      * @var UploadedFile
      */
     private $backgroundResource;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getVertical()
+    public function getOrientation(): string
     {
-        return $this->vertical;
+        return $this->orientation;
     }
 
     /**
-     * @param mixed $vertical
+     * @param string $orientation
      */
-    public function setVertical($vertical)
+    public function setOrientation(string $orientation)
     {
-        $this->vertical = $vertical;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHorizontal()
-    {
-        return $this->horizontal;
-    }
-
-    use BaseArtEntity;
-
-    /**
-     * @param mixed $horizontal
-     */
-    public function setHorizontal($horizontal)
-    {
-        $this->horizontal = $horizontal;
+        $this->orientation = $orientation;
     }
 
     /**

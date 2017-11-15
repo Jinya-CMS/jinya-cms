@@ -122,6 +122,10 @@ backend:
       content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
       background:
         title: Soll das Hintergrundbild wirklich gelöscht werden?
+    orientation:
+      label: Ausrichtung
+      horizontal: Horizontal
+      vertical: Vertical
   artworks:
     load:
       failure: Die Kunstwerke konnten nicht geladen werden

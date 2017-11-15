@@ -68,7 +68,7 @@ class GalleriesController extends Controller
      */
     public function addAction(Request $request): Response
     {
-        $form = $this->createForm(GalleryType::class);
+        $form = $this->createForm(GalleryType::class, new Gallery());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
