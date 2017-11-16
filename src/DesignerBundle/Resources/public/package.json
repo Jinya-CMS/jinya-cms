@@ -1,0 +1,8 @@
+{
+  "name": "jinya-gallery-cms-designer",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/knockout": "^3.4.46"
+  }
+}

@@ -1,0 +1,12 @@
+layout:
+  designer:
+    gallery:
+      header: Willkommen im Designer für die Gallerien
+      title: Gallerie Designer
+    general: Allgemeines
+    theme: Theme
+    galleries: Gallerien
+    artworks: Kunstwerke
+    forms: Formulare
+    menus: Menüs
+    backend: Backend

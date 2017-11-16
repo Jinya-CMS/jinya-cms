@@ -1,0 +1,14 @@
+imports:
+    - { resource: ../../../../app/config/parameters.yml }
+assetic:
+  assets:
+    designer_css:
+      inputs:
+        - '@DesignerBundle/Resources/public/scss/designer.scss'
+    designer_js:
+      inputs:
+        - '@DesignerBundle/Resources/public/typescript/designer.js'
+  filters:
+      jsqueeze: ~
+      scssphp:
+          formatter: 'Leafo\ScssPhp\Formatter\Compressed'

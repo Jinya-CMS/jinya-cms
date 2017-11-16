@@ -1,0 +1,122 @@
+.menu-wrap a {
+  color: $secondary;
+  &:hover, &:focus {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.menu-button {
+  cursor: pointer;
+  position: fixed;
+  z-index: 1000;
+  margin: 1em;
+  padding: 0;
+  width: 2.5em;
+  height: 2.25em;
+  border: none;
+  text-indent: 2.5em;
+  font-size: 1.5em;
+  color: transparent;
+  background: transparent;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  &::before {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    bottom: 0.5em;
+    left: 0.5em;
+    background: linear-gradient($primary 20%, transparent 20%, transparent 40%, $primary 40%, $primary 60%, transparent 60%, transparent 80%, $primary 80%);
+    content: '';
+  }
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+/* Menu */
+
+.menu-wrap {
+  position: absolute;
+  font-weight: 700;
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+  display: none;
+}
+
+.menu-top {
+  line-height: 58px;
+  .profile {
+    display: inline-block;
+    padding: 8px 10px;
+    line-height: 42px;
+    width: 300px;
+  }
+}
+
+.menu-side {
+  width: 300px;
+}
+
+.menu-top .profile {
+  span {
+    color: $white;
+  }
+  img {
+    float: left;
+    margin-right: 1em;
+    object-fit: cover;
+    height: 42px;
+    width: 42px;
+  }
+}
+
+.icon-list {
+  display: inline-block;
+  font-size: 1.25em;
+  a {
+    margin: 0 1em 0 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 32em) {
+  .icon-list {
+    padding-left: 1em;
+  }
+}
+
+.menu-side a {
+  display: block;
+  padding: 1.2em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  &:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  &.selected {
+    color: $white;
+  }
+}
+
+/* Shown menu */
+
+.show-menu {
+  .menu-wrap {
+    opacity: 1;
+    display: block;
+  }
+  .content-wrap, .menu-button {
+    -webkit-transform: translate3d(300px, 60px, 0);
+    transform: translate3d(300px, 60px, 0);
+  }
+  .content-wrap::before,
+  .content::before {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
