@@ -1,4 +1,15 @@
 {% extends '@Designer/base.html.twig' %}
-{% block header %}
-    <h1>{{ 'layout.designer.gallery.header'|trans }}</h1>
+{% block header %}{{ 'layout.designer.gallery.header'|trans }}{% endblock %}
+{% block content %}
+    <div class="list">
+        {% for gallery in galleries %}
+            <div class="card">
+                <img class="card-img-top" src="{{ gallery.background }}"/>
+                <div class="card-body">
+                    <h4 class="card-title">{{ gallery.name }}</h4>
+                    <p class="card-text">{{ gallery.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

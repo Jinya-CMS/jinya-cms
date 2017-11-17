@@ -5,7 +5,7 @@
 {% endblock %}
 {% set active = get_controller_name(app.request.attributes) %}
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="menu-wrap">
             <nav class="menu-top">
                 <div class="profile">
@@ -22,8 +22,8 @@
                     {% block designer_sidebar_items %}
                         <a href="{{ url('backend_default_index') }}"><i
                                     class="fa fa-arrow-left"></i> {{ 'layout.designer.backend'|trans }}</a>
-                        <a class="{% if active == "General" %}selected{% endif %}"
-                           href="#">{{ 'layout.designer.general'|trans }}</a>
+                        <a class="{% if active == "Default" %}selected{% endif %}"
+                           href="{{ url('designer_default_index') }}">{{ 'layout.designer.general'|trans }}</a>
                         <a class="{% if active == "Theme" %}selected{% endif %}"
                            href="#">{{ 'layout.designer.theme'|trans }}</a>
                         <a class="{% if active == "Menus" %}selected{% endif %}"
@@ -41,6 +41,7 @@
         <button class="menu-button" id="open-button"></button>
         <div class="content-wrap">
             <div class="content">
+                <div class="menu-header">{% block header %}{% endblock %}</div>
                 {% block content %}
                 {% endblock %}
             </div>
