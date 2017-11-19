@@ -3,13 +3,13 @@
 {% block content %}
     <div class="list">
         {% for gallery in galleries %}
-            <div class="card">
+            <a class="card" href="{{ url('designer_gallery_details', { 'gallerySlug': gallery.slug }) }}">
                 <img class="card-img-top" src="{{ gallery.background }}"/>
                 <div class="card-body">
                     <h4 class="card-title">{{ gallery.name }}</h4>
                     <p class="card-text">{{ gallery.description }}</p>
                 </div>
-            </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}

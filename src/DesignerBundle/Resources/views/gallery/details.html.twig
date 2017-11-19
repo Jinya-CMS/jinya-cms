@@ -1,5 +1,36 @@
 {% extends '@Designer/base.html.twig' %}
-
+{% block container %}
+    <div class="designer-menu-wrap">
+        <nav class="designer-menu">
+            <div class="designer-icon-list">
+                <a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
+                <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
+                <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
+                <a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
+                <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
+                <a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
+            </div>
+        </nav>
+        <button class="close-button" id="designer-close-button"></button>
+        <div class="morph-shape" id="morph-shape"
+             data-morph-open="M0,100h1000V0c0,0-136.938,0-224,0C583,0,610.924,0,498,0C387,0,395,0,249,0C118,0,0,0,0,0V100z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1000 100"
+                 preserveAspectRatio="none">
+                <path d="M0,100h1000l0,0c0,0-136.938,0-224,0c-193,0-170.235-1.256-278-35C399,34,395,0,249,0C118,0,0,100,0,100L0,100z"></path>
+            </svg>
+        </div>
+    </div>
+    <button class="designer-menu-button" id="designer-open-button"></button>
+    {{ parent() }}
+{% endblock %}
 {% block content %}
-    <img src="{{ gallery.background }}" alt="{{ gallery.name }}">
+    <img class="background-image" src="{{ gallery.background }}" alt="{{ gallery.name }}">
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"
+            integrity="sha256-oI+elz+sIm+jpn8F/qEspKoKveTc5uKeFHNNVexe6d8=" crossorigin="anonymous"></script>
+    {% javascripts filter='jsqueeze' '@gallery_designer_js' output='public/js/gallery-designer.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -8,6 +8,9 @@ assetic:
     designer_js:
       inputs:
         - '@DesignerBundle/Resources/public/typescript/designer.js'
+    gallery_designer_js:
+      inputs:
+        - '@DesignerBundle/Resources/public/typescript/gallery-designer.js'
   filters:
       jsqueeze: ~
       scssphp:

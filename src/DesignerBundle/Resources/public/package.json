@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "@types/knockout": "^3.4.46"
+    "@types/knockout": "^3.4.46",
+    "@types/snapsvg": "^0.4.29"
   }
 }

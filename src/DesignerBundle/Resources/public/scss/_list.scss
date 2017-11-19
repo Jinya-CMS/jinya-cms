@@ -5,8 +5,19 @@
   @import "../../../../BackendBundle/Resources/public/scss/bootstrap/card";
 
   .card {
-    flex: 0 0 23%;
-    max-width: 23%;
+    flex: 0 0 46%;
+    max-width: 46%;
     margin: 1em;
+    text-decoration: none;
+    color: #000;
+  }
+}
+
+@media (min-width: 1025px) {
+  .list {
+    .card {
+      flex: 0 0 23%;
+      max-width: 23%;
+    }
   }
 }
