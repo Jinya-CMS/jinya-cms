@@ -8,22 +8,18 @@
     <div class="container">
         {% block container %}
             <div class="menu-wrap">
-                <nav class="menu-top">
+                <nav class="menu">
                     <div class="profile">
+                        {% block designer_layout_backend %}
+                            <a class="backend" href="{{ url('backend_default_index') }}"><i
+                                        class="fa fa-arrow-left"></i></a>
+                        {% endblock %}
                         <img src="{{ app.user.profilePicture }}"
                              alt="{{ app.user.firstname }} {{ app.user.lastname }}"/>
                         <span>{{ app.user.firstname }} {{ app.user.lastname }}</span>
                     </div>
-                    <div class="icon-list">
-                        {% block designer_layout_icons %}
-                        {% endblock %}
-                    </div>
-                </nav>
-                {% block designer_sidebar %}
-                    <nav class="menu-side">
+                    <div class="link-list">
                         {% block designer_sidebar_items %}
-                            <a href="{{ url('backend_default_index') }}"><i
-                                        class="fa fa-arrow-left"></i> {{ 'layout.designer.backend'|trans }}</a>
                             <a class="{% if active == "Default" %}selected{% endif %}"
                                href="{{ url('designer_default_index') }}">{{ 'layout.designer.general'|trans }}</a>
                             <a class="{% if active == "Theme" %}selected{% endif %}"
@@ -37,10 +33,12 @@
                             <a class="{% if active == "Form" %}selected{% endif %}"
                                href="#">{{ 'layout.designer.forms'|trans }}</a>
                         {% endblock %}
-                    </nav>
-                {% endblock %}
+                    </div>
+                    <div class="icon-list">
+                    </div>
+                </nav>
             </div>
-            <button class="menu-button" id="open-button"></button>
+            <button class="menu-button" id="open-button"><i class="fa fa-fw fa-bars"></i></button>
             <div class="content-wrap">
                 <div class="content">
                     <div class="menu-header">{% block header %}{% endblock %}</div>

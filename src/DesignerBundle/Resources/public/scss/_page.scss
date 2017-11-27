@@ -4,6 +4,14 @@ html, body, .container, .content-wrap {
   height: 100%;
 }
 
+button,
+input[type=button],
+input[type=submit],
+input[type=reset],
+a {
+  cursor: pointer;
+}
+
 .container {
   background: $primary;
 }
@@ -36,12 +44,7 @@ html, body, .container, .content-wrap {
 }
 
 .background-image {
-  background-size: cover;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
   opacity: 0.2;
   width: 100%;
   height: 100%;
