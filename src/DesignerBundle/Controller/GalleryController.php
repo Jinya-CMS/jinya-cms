@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use const PHP_INT_MAX;
-use function sort;
+use function array_values;
 
 class GalleryController extends Controller
 {
@@ -80,13 +80,16 @@ class GalleryController extends Controller
                 'source' => $currentArtwork->getPicture(),
                 'name' => $currentArtwork->getName(),
                 'description' => $currentArtwork->getDescription(),
-                'slug' => $currentArtwork->getSlug()
+                'slug' => $currentArtwork->getSlug(),
+                'position' => $artwork->getPosition()
             ];
         }
 
-        sort($result);
+        uasort($result, function ($a, $b) {
+            return ($a['position'] < $b['position']) ? -1 : 1;
+        });
 
-        return $this->json($result);
+        return $this->json(array_values($result));
     }
 
     /**

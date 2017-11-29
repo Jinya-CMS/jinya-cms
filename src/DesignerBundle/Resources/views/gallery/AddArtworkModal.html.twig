@@ -1,0 +1,13 @@
+<div class="md-modal" id="add-modal" data-source-url="{{ url('designer_artwork_list_all') }}"
+     data-save-url="{{ url('designer_gallery_images_position_save', { 'gallerySlug': gallery.slug, 'artworkSlug': '#tempslug#' }) }}">
+    <div class="md-content">
+        <span class="md-title">{{ 'designer.gallery.add.modal.title'|trans }}</span>
+        {% include '@Designer/gallery/ArtworkModificationModalContent.html.twig' %}
+        <div class="md-footer">
+            <button data-bind="click: save"
+                    class="button button-round-s button-border-medium primary">{{ 'designer.gallery.add.modal.save'|trans }}</button>
+            <button data-action="close"
+                    class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</button>
+        </div>
+    </div>
+</div>

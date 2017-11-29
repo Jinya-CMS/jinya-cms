@@ -12,14 +12,17 @@ class Ajax {
         return this.send('GET');
     };
     send = (method: string, data?: any) => {
-        return new Promise((resolve: (any) => void, reject: (any, message) => void) => {
+        return new Promise((resolve: (data) => void, reject: (data) => void) => {
             this.xhr.open(method, this.url, true);
             this.xhr.setRequestHeader('Content-Type', 'application/json');
             this.xhr.onreadystatechange = () => {
                 if (this.xhr.readyState === 4 && this.xhr.status === 200) {
                     resolve(JSON.parse(this.xhr.responseText));
                 } else if (this.xhr.readyState === 4) {
-                    reject(JSON.parse(this.xhr.responseText), this.xhr.statusText);
+                    reject({
+                        details: this.xhr.responseText,
+                        message: this.xhr.statusText
+                    });
                 }
             };
 

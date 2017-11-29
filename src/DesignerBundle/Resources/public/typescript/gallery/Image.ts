@@ -1,5 +1,35 @@
 namespace Gallery {
     export class Image {
+        private _slug;
+
+        get slug() {
+            return this._slug;
+        }
+
+        set slug(value) {
+            this._slug = value;
+        }
+
+        private _position;
+
+        get position() {
+            return this._position;
+        }
+
+        set position(value) {
+            this._position = value;
+        }
+
+        private _id;
+
+        get id() {
+            return this._id;
+        }
+
+        set id(value) {
+            this._id = value;
+        }
+
         private _source: string;
 
         get source(): string {

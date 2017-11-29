@@ -10,3 +10,15 @@ layout:
     forms: Formulare
     menus: Menüs
     backend: Backend
+designer:
+  gallery:
+    add:
+      modal:
+        title: Kunstwerk hinzufügen
+        save: Einfügen
+    edit:
+      modal:
+        title: Kunstwerk ändern
+        save: Speichern
+    modification:
+      select: Auswählen
