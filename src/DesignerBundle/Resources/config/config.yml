@@ -9,6 +9,12 @@ assetic:
       inputs:
         - '@DesignerBundle/Resources/public/typescript/designer.js'
         - '@DesignerBundle/Resources/public/typescript/horizontalScroll.js'
+        - '@DesignerBundle/Resources/public/typescript/modal.js'
+        - '@DesignerBundle/Resources/public/typescript/ajax.js'
+    designer_gallery_js:
+      inputs:
+        - '@DesignerBundle/Resources/public/typescript/gallery/Image.js'
+        - '@DesignerBundle/Resources/public/typescript/gallery/DesignerViewModel.js'
   filters:
       jsqueeze: ~
       scssphp:

@@ -60,6 +60,13 @@
 {% endblock %}
 
 {% block scripts %}
+    {% block scripts_knockout %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
+                integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_promise %}
+        <script src="https://www.promisejs.org/polyfills/promise-done-7.0.4.min.js"></script>
+    {% endblock %}
     {% block scripts_classie %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
                 integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
@@ -68,5 +75,7 @@
         {% javascripts filter='jsqueeze' '@designer_js' output='public/js/designer.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+    {% endblock %}
+    {% block scripts_custom %}
     {% endblock %}
 {% endblock %}
