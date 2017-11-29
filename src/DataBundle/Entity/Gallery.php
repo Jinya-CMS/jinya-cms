@@ -9,6 +9,8 @@
 namespace DataBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -27,9 +29,10 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     public const VERTICAL = 'vertical';
     public const HORIZONTAL = 'horizontal';
 
+
     /**
-     * @var ArtworkPosition[]
-     * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $artworks;
     /**
@@ -48,6 +51,14 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     private $backgroundResource;
 
     /**
+     * Gallery constructor.
+     */
+    public function __construct()
+    {
+        $this->artworks = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function getOrientation(): string
@@ -64,17 +75,17 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     }
 
     /**
-     * @return ArtworkPosition[]
+     * @return Collection
      */
-    public function getArtworks(): array
+    public function getArtworks(): Collection
     {
         return $this->artworks;
     }
 
     /**
-     * @param ArtworkPosition[] $artworks
+     * @param Collection $artworks
      */
-    public function setArtworks(array $artworks)
+    public function setArtworks(Collection $artworks)
     {
         $this->artworks = $artworks;
     }

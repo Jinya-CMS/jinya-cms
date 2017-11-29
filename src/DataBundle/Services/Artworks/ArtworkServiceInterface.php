@@ -9,6 +9,7 @@
 namespace DataBundle\Services\Artworks;
 
 use DataBundle\Entity\Artwork;
+use DataBundle\Entity\ArtworkPosition;
 use DataBundle\Services\Base\BaseArtServiceInterface;
 
 interface ArtworkServiceInterface extends BaseArtServiceInterface

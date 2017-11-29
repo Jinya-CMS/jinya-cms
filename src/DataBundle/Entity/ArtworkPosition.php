@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="artwork_position")
- * @UniqueEntity(fields={"gallery", "x", "y"})
+ * @UniqueEntity(fields={"gallery", "position"})
  */
 class ArtworkPosition implements JsonSerializable
 {
@@ -29,29 +29,14 @@ class ArtworkPosition implements JsonSerializable
     private $gallery;
     /**
      * @var Artwork
-     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Artwork", inversedBy="positions")
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Artwork", inversedBy="positions", cascade={"persist"})
      */
     private $artwork;
     /**
-     * @var float
-     * @ORM\Column(type="float")
+     * @var integer
+     * @ORM\Column(type="integer")
      */
-    private $x;
-    /**
-     * @var float
-     * @ORM\Column(type="float")
-     */
-    private $y;
-    /**
-     * @var float
-     * @ORM\Column(type="float")
-     */
-    private $width;
-    /**
-     * @var float
-     * @ORM\Column(type="float")
-     */
-    private $height;
+    private $position;
 
     /**
      * @inheritdoc
@@ -59,45 +44,10 @@ class ArtworkPosition implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'x' => $this->getX(),
-            'y' => $this->getY(),
             'artwork' => $this->getArtwork(),
             'gallery' => $this->getGallery(),
-            'width' => $this->getWidth(),
-            'height' => $this->getHeight()
+            'position' => $this->getPosition()
         ];
-    }
-
-    /**
-     * @return float
-     */
-    public function getX(): float
-    {
-        return $this->x;
-    }
-
-    /**
-     * @param float $x
-     */
-    public function setX(float $x)
-    {
-        $this->x = $x;
-    }
-
-    /**
-     * @return float
-     */
-    public function getY(): float
-    {
-        return $this->y;
-    }
-
-    /**
-     * @param float $y
-     */
-    public function setY(float $y)
-    {
-        $this->y = $y;
     }
 
     /**
@@ -133,34 +83,18 @@ class ArtworkPosition implements JsonSerializable
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getWidth(): float
+    public function getPosition(): int
     {
-        return $this->width;
+        return $this->position;
     }
 
     /**
-     * @param float $width
+     * @param int $position
      */
-    public function setWidth(float $width)
+    public function setPosition(int $position)
     {
-        $this->width = $width;
-    }
-
-    /**
-     * @return float
-     */
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    /**
-     * @param float $height
-     */
-    public function setHeight(float $height)
-    {
-        $this->height = $height;
+        $this->position = $position;
     }
 }
