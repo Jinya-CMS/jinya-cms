@@ -71,6 +71,11 @@
       border-radius: 3px 3px 0 0;
       color: $gray-100;
       display: block;
+
+      > img {
+        height: 1.5em;
+        float: left;
+      }
     }
 
     > div {

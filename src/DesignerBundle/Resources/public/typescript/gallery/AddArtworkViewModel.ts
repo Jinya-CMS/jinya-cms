@@ -11,7 +11,7 @@ class AddArtworkViewModel extends ArtworkModificationViewModel {
         let selectedItem = this.selectedItem();
         let slug = selectedItem.slug;
         let saveUrl = `${this.saveUrl.replace('%23tempslug%23', slug)}?position=${this.position}`;
-        let ajax = new Ajax(saveUrl);
+        let ajax = new Ajax.Request(saveUrl);
         ajax.post({}).then(() => {
             let modal = Modal.get(this.element);
             modal.hide();

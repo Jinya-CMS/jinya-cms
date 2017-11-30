@@ -65,6 +65,24 @@
       color: $secondary;
     }
   }
+  &.danger {
+    background: $danger;
+    color: $white;
+    border-color: $danger;
+
+    &:hover {
+      background: $white;
+      color: $danger;
+    }
+  }
+}
+
+.button-left {
+  float: left;
+}
+
+.button-right {
+  float: right;
 }
 
 .button-size-s {

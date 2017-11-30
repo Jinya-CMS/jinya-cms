@@ -112,4 +112,54 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
         $this->entityManager->flush();
     }
+
+    /**
+     * Deletes the given artwork position
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deletePosition(int $id)
+    {
+        $this->entityManager
+            ->getRepository(ArtworkPosition::class)
+            ->createQueryBuilder('e')
+            ->delete()
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * Gets the artwork position for the given id
+     *
+     * @param int $id
+     * @return ArtworkPosition
+     */
+    public function getPosition(int $id): ArtworkPosition
+    {
+        return $this->entityManager->find(ArtworkPosition::class, $id);
+    }
+
+    /**
+     * Sets the artwork of the given artwork position to the new slug
+     *
+     * @param int $id
+     * @param string $artworkSlug
+     * @return void
+     */
+    public function updateArtwork(int $id, string $artworkSlug)
+    {
+        $artwork = $this->artworkService->get($artworkSlug);
+        $this->entityManager
+            ->getRepository(ArtworkPosition::class)
+            ->createQueryBuilder('e')
+            ->update()
+            ->set('e.artwork', $artwork->getId())
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
+    }
 }

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 use const PHP_INT_MAX;
 use function array_values;
 
@@ -62,34 +63,51 @@ class GalleryController extends Controller
      */
     public function galleryImagesAction(Request $request, string $gallerySlug): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
-        $gallery = $galleryService->get($gallerySlug);
+        try {
+            $galleryService = $this->get('jinya_gallery.services.gallery_service');
+            $gallery = $galleryService->get($gallerySlug);
 
-        if ($gallery === null) {
-            throw $this->createNotFoundException();
+            if ($gallery === null) {
+                throw $this->createNotFoundException();
+            }
+
+            $artworks = $gallery->getArtworks();
+            $result = [];
+
+            /** @var ArtworkPosition $artwork */
+            foreach ($artworks as $artwork) {
+                /** @var Artwork $currentArtwork */
+                $currentArtwork = $artwork->getArtwork();
+                $result[$artwork->getPosition()] = [
+                    'source' => $currentArtwork->getPicture(),
+                    'name' => $currentArtwork->getName(),
+                    'description' => $currentArtwork->getDescription(),
+                    'slug' => $currentArtwork->getSlug(),
+                    'position' => $artwork->getPosition(),
+                    'id' => $artwork->getId()
+                ];
+            }
+
+            uasort($result, function ($a, $b) {
+                return ($a['position'] < $b['position']) ? -1 : 1;
+            });
+
+            return $this->json(array_values($result));
+        } catch (Throwable $exception) {
+            return $this->jsonError($exception);
         }
+    }
 
-        $artworks = $gallery->getArtworks();
-        $result = [];
-
-        /** @var ArtworkPosition $artwork */
-        foreach ($artworks as $artwork) {
-            /** @var Artwork $currentArtwork */
-            $currentArtwork = $artwork->getArtwork();
-            $result[$artwork->getPosition()] = [
-                'source' => $currentArtwork->getPicture(),
-                'name' => $currentArtwork->getName(),
-                'description' => $currentArtwork->getDescription(),
-                'slug' => $currentArtwork->getSlug(),
-                'position' => $artwork->getPosition()
-            ];
-        }
-
-        uasort($result, function ($a, $b) {
-            return ($a['position'] < $b['position']) ? -1 : 1;
-        });
-
-        return $this->json(array_values($result));
+    /**
+     * @param $exception
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    private function jsonError($exception): \Symfony\Component\HttpFoundation\JsonResponse
+    {
+        return $this->json([
+            'message' => $exception->getMessage(),
+            'success' => false
+        ], 500);
     }
 
     /**
@@ -102,29 +120,76 @@ class GalleryController extends Controller
      */
     public function saveGalleryImageAction(Request $request, string $gallerySlug, string $artworkSlug): Response
     {
-        $position = $request->get('position', -1);
+        try {
+            $position = $request->get('position', -1);
 
-        $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
-        $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
+            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
+            $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
 
-        return $this->json(['success' => true]);
+            return $this->json(['success' => true]);
+        } catch (Throwable $exception) {
+            return $this->jsonError($exception);
+        }
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/images/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
+     * @Route("/gallery/{gallerySlug}/images/{artworkSlug}", name="designer_gallery_images_position_change_image", methods={"PUT"})
+     *
+     * @param Request $request
+     * @param string $artworkSlug
+     * @return Response
+     */
+    public function updateGalleryImageAction(Request $request, string $artworkSlug): Response
+    {
+        try {
+            $id = (int)$request->get('id');
+
+            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
+            $artworkPositionService->updateArtwork($id, $artworkSlug);
+
+            return $this->json(['success' => true]);
+        } catch (Throwable $exception) {
+            return $this->jsonError($exception);
+        }
+    }
+
+    /**
+     * @Route("/gallery/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
      *
      * @param Request $request
      * @param string $gallerySlug
      * @param int $artworkPositionId
      * @return Response
      */
-    public function updateGalleryImageAction(Request $request, string $gallerySlug, int $artworkPositionId): Response
+    public function updateGalleryImagePositionAction(Request $request, string $gallerySlug, int $artworkPositionId): Response
     {
-        $newPosition = $request->get('newPosition', -1);
+        try {
+            $newPosition = $request->get('newPosition', -1);
 
-        $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
-        $artworkPositionService->updatePosition($gallerySlug, $artworkPositionId, $newPosition);
+            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
+            $artworkPositionService->updatePosition($gallerySlug, $artworkPositionId, $newPosition);
 
-        return $this->json(['success' => true]);
+            return $this->json(['success' => true]);
+        } catch (Throwable $exception) {
+            return $this->jsonError($exception);
+        }
+    }
+
+    /**
+     * @Route("/gallery/{gallerySlug}/images/{id}", name="designer_gallery_images_position_delete")
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function deleteGalleryImageAction(int $id): Response
+    {
+        try {
+            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
+            $artworkPositionService->deletePosition($id);
+
+            return $this->json(['success' => true]);
+        } catch (Throwable $exception) {
+            return $this->jsonError($exception);
+        }
     }
 }

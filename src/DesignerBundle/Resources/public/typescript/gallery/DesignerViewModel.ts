@@ -12,6 +12,7 @@ class DesignerViewModel {
         let modal = document.createElement('div');
         modal.innerHTML = template;
         this.body.appendChild(modal);
+
         let element = document.querySelector('#add-modal');
         let picker = new Modal(element);
         picker.show();
@@ -23,18 +24,23 @@ class DesignerViewModel {
             this.body.removeChild(modal);
         });
     };
-    editImage = () => {
+    editImage = (item) => {
+        let template = document.querySelector('#edit-modal-template').innerHTML;
+        let modal = document.createElement('div');
+        modal.innerHTML = template;
+        this.body.appendChild(modal);
+
         let element = document.querySelector('#edit-modal');
         let picker = new Modal(element);
         picker.show();
 
-        let vm = EditArtworkViewModel.init(element, 0);
+        let vm = EditArtworkViewModel.init(element, item.id, this, item.source);
         picker.on('closed', () => {
-
+            this.body.removeChild(modal);
         });
     };
     load = () => {
-        let ajax = new Ajax(this.sourceUrl);
+        let ajax = new Ajax.Request(this.sourceUrl);
         ajax.get().then((data) => {
             this.images(data);
         });

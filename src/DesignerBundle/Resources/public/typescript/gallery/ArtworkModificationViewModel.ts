@@ -14,7 +14,7 @@ abstract class ArtworkModificationViewModel {
         }
         if (this.more) {
             this.more = false;
-            let ajax = new Ajax(this.sourceUrl);
+            let ajax = new Ajax.Request(this.sourceUrl);
             ajax.get().then((data) => {
                 ko.utils.arrayPushAll(this.artworks, data.data);
                 this.sourceUrl = data.moreLink;
