@@ -17,8 +17,8 @@ class AddArtworkViewModel extends ArtworkModificationViewModel {
             modal.hide();
 
             this.parentVm.load();
-        }, (data) => {
-            alert(data.message);
+        }, (data: Ajax.Error) => {
+            Modal.alert(data.message, data.details.message);
         });
     };
 

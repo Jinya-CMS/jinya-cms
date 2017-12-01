@@ -9,6 +9,7 @@ assetic:
         - '@BackendBundle/Resources/public/scss/jinya-gallery.scss'
     backendjs:
       inputs:
+        - '../app/Resources/public/typescript/util.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/Loader.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'

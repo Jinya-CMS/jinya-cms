@@ -86,6 +86,18 @@ abstract class ArtworkModificationViewModel {
         this._position = value;
     }
 
+    private _canSave = ko.pureComputed(() => {
+        return this.selectedItem().id;
+    });
+
+    get canSave(): KnockoutComputed<Gallery.Image> {
+        return this._canSave;
+    }
+
+    set canSave(value: KnockoutComputed<Gallery.Image>) {
+        this._canSave = value;
+    }
+
     private _sourceUrl: string;
 
     protected get sourceUrl(): string {

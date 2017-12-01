@@ -22,3 +22,7 @@ designer:
         save: Speichern
     modification:
       select: Auswählen
+    delete:
+      image:
+        title: Soll das Bild aus der Gallerie entfernt werden?
+        message: Soll das gezeigt Bild wirklich aus der Gallerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.

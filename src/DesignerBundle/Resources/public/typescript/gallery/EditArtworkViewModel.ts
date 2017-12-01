@@ -16,20 +16,25 @@ class EditArtworkViewModel extends ArtworkModificationViewModel {
             modal.hide();
 
             this.parentVm.load();
-        }, (data) => {
-            alert(data.message);
+        }, (data: Ajax.Error) => {
+            Modal.alert(data.message, data.details.message);
         });
     };
     deleteImage = () => {
-        let deleteUrl = this.deleteUrl.replace('%23tempid%23', this.id.toString());
-        let ajax = new Ajax.Request(deleteUrl);
-        ajax.delete().then(() => {
-            let modal = Modal.get(this.element);
-            modal.hide();
+        let confirmMessage = `<img src="${this.initialSource()}" /><p>${texts['designer.gallery.delete.image.message']}</p>`;
+        Modal.confirm(texts['designer.gallery.delete.image.title'], confirmMessage, texts['generic.delete'], texts['generic.dont.delete']).then((result) => {
+            if (result) {
+                let deleteUrl = this.deleteUrl.replace('%23tempid%23', this.id.toString());
+                let ajax = new Ajax.Request(deleteUrl);
+                ajax.delete().then(() => {
+                    let modal = Modal.get(this.element);
+                    modal.hide();
 
-            this.parentVm.load();
-        }, (data) => {
-            alert(data.message);
+                    this.parentVm.load();
+                }, (data) => {
+                    Modal.alert(data.message, data.details.message);
+                });
+            }
         });
     };
     private saveUrl: string;

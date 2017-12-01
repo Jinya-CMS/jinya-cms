@@ -54,6 +54,17 @@
       background: $white;
       color: $primary;
     }
+
+    &.inverse {
+      background: $white;
+      color: $primary;
+      border-color: $primary;
+
+      &:hover {
+        background: $primary;
+        color: $white;
+      }
+    }
   }
   &.secondary {
     background: $secondary;
@@ -64,6 +75,17 @@
       background: $white;
       color: $secondary;
     }
+
+    &.inverse {
+      background: $white;
+      color: $secondary;
+      border-color: $secondary;
+
+      &:hover {
+        background: $secondary;
+        color: $white;
+      }
+    }
   }
   &.danger {
     background: $danger;
@@ -73,6 +95,28 @@
     &:hover {
       background: $white;
       color: $danger;
+    }
+  }
+
+  &[disabled] {
+    background: $gray-500 !important;
+    color: $gray-100 !important;
+    border-color: $gray-500 !important;
+
+    &:hover {
+      background: $gray-500 !important;
+      color: $gray-100 !important;
+    }
+
+    &.inverse {
+      background: $gray-100 !important;
+      color: $gray-500 !important;
+      border-color: $gray-100 !important;
+
+      &:hover {
+        background: $gray-100 !important;
+        color: $gray-500 !important;
+      }
     }
   }
 }

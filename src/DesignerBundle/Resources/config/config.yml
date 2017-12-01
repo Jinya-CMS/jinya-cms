@@ -8,6 +8,7 @@ assetic:
     designer_js:
       inputs:
         - '../app/Resources/public/typescript/util.js'
+        - '@DesignerBundle/Resources/public/typescript/blockingLoader.js'
         - '@DesignerBundle/Resources/public/typescript/classiex.js'
         - '@DesignerBundle/Resources/public/typescript/designer.js'
         - '@DesignerBundle/Resources/public/typescript/horizontalScroll.js'

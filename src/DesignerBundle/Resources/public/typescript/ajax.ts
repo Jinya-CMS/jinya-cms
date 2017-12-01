@@ -57,8 +57,6 @@ namespace Ajax {
         };
         send = (method: string, data?: any) => {
             return new Promise((resolve: (data) => void, reject: (data: Ajax.Error) => void) => {
-                this.xhr.open(method, this.url, true);
-                this.xhr.setRequestHeader('Content-Type', 'application/json');
                 this.xhr.onreadystatechange = () => {
                     if (this.xhr.readyState === 4 && this.xhr.status === 200) {
                         resolve(JSON.parse(this.xhr.responseText));
@@ -70,6 +68,8 @@ namespace Ajax {
                     }
                 };
 
+                this.xhr.open(method, this.url, true);
+                this.xhr.setRequestHeader('Content-Type', 'application/json');
                 this.xhr.send(JSON.stringify(data));
             });
         };
