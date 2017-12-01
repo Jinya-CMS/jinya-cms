@@ -54,7 +54,7 @@
     {{ parent() }}
     {% block assetic_styles %}
         {% stylesheets filter='scssphp' '@designer_css' output='public/css/designer.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}">
+            <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
     {% endblock %}
 {% endblock %}
@@ -73,9 +73,12 @@
     {% endblock %}
     {% block assetic_scripts %}
         {% javascripts filter='jsqueeze' '@designer_js' output='public/js/designer.js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}
     {% block scripts_custom %}
+    {% endblock %}
+    {% block translations %}
+        <script>{{ include('genericjsfields.js.twig') }}</script>
     {% endblock %}
 {% endblock %}

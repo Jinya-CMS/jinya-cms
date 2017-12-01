@@ -13,7 +13,8 @@
     "node_modules"
   ],
   "include": [
-    "typescript/**/*"
+    "typescript/**/*",
+    "../../../../app/Resources/public/typescript/**/*"
   ],
   "compileOnSave": true
 }

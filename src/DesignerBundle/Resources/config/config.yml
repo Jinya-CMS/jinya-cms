@@ -7,6 +7,8 @@ assetic:
         - '@DesignerBundle/Resources/public/scss/designer.scss'
     designer_js:
       inputs:
+        - '../app/Resources/public/typescript/util.js'
+        - '@DesignerBundle/Resources/public/typescript/classiex.js'
         - '@DesignerBundle/Resources/public/typescript/designer.js'
         - '@DesignerBundle/Resources/public/typescript/horizontalScroll.js'
         - '@DesignerBundle/Resources/public/typescript/modal.js'
