@@ -21,6 +21,15 @@ namespace Ajax {
     }
 
     export class Error {
+        private _statusCode: number;
+        get statusCode(): number {
+            return this._statusCode;
+        }
+
+        set statusCode(value: number) {
+            this._statusCode = value;
+        }
+
         private _details: Ajax.ErrorDetails;
 
         get details(): Ajax.ErrorDetails {
@@ -57,21 +66,27 @@ namespace Ajax {
         };
         send = (method: string, data?: any) => {
             return new Promise((resolve: (data) => void, reject: (data: Ajax.Error) => void) => {
-                this.xhr.onreadystatechange = () => {
-                    if (this.xhr.readyState === 4 && this.xhr.status === 200) {
-                        resolve(JSON.parse(this.xhr.responseText));
-                    } else if (this.xhr.readyState === 4) {
-                        let error = new Ajax.Error();
-                        error.message = this.xhr.statusText;
-                        error.details = JSON.parse(this.xhr.responseText);
-                        reject(error);
-                    }
-                };
+                    BlockingLoader.show();
+                    this.xhr.onreadystatechange = () => {
+                        if (this.xhr.readyState === 4) {
+                            BlockingLoader.hide();
+                            if (this.xhr.status === 200) {
+                                resolve(JSON.parse(this.xhr.responseText));
+                            } else {
+                                let error = new Ajax.Error();
+                                error.statusCode = this.xhr.status;
+                                error.message = this.xhr.statusText;
+                                error.details = JSON.parse(this.xhr.responseText);
+                                reject(error);
+                            }
+                        }
+                    };
 
-                this.xhr.open(method, this.url, true);
-                this.xhr.setRequestHeader('Content-Type', 'application/json');
-                this.xhr.send(JSON.stringify(data));
-            });
+                    this.xhr.open(method, this.url, true);
+                    this.xhr.setRequestHeader('Content-Type', 'application/json');
+                    this.xhr.send(JSON.stringify(data));
+                }
+            );
         };
         private xhr: XMLHttpRequest;
         private url: string;

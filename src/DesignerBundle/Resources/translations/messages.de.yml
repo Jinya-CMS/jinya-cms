@@ -1,11 +1,11 @@
 layout:
   designer:
     gallery:
-      header: Willkommen im Designer für die Gallerien
-      title: Gallerie Designer
+      header: Willkommen im Designer für die Galerien
+      title: Galerie Designer
     general: Allgemeines
     theme: Theme
-    galleries: Gallerien
+    galleries: Galerien
     artworks: Kunstwerke
     forms: Formulare
     menus: Menüs
@@ -24,5 +24,5 @@ designer:
       select: Auswählen
     delete:
       image:
-        title: Soll das Bild aus der Gallerie entfernt werden?
-        message: Soll das gezeigt Bild wirklich aus der Gallerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
+        title: Soll das Bild aus der Galerie entfernt werden?
+        message: Soll das gezeigt Bild wirklich aus der Galerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
