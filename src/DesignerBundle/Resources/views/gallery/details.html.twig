@@ -2,19 +2,40 @@
 {% block content %}
     <img class="background-image" src="{{ gallery.background }}" alt="{{ gallery.name }}">
     <div class="gallery-images {{ gallery.orientation }}-scroll"
-         data-source="{{ url('designer_gallery_images', { 'gallerySlug': gallery.slug }) }}">
+         data-source="{{ url('designer_gallery_images', { 'gallerySlug': gallery.slug }) }}"
+         data-move="{{ url('designer_gallery_images_position_update', { 'gallerySlug': gallery.slug, 'artworkPositionId': '#tempid#' }) }}">
         <!-- ko foreach: images -->
-        <div class="gallery-image gallery-image-action">
-            <div class="gallery-image-add" role="button" data-bind="click: $root.addImage">
+        <div class="gallery-image">
+            <div class="gallery-image-content">
+                <div class="gallery-image-action">
+                    <div class="gallery-image-add" role="button" data-bind="click: $root.addImage">
+                    </div>
+                </div>
+                <div class="gallery-image-image">
+                    <div class="gallery-image-edit-button" role="button" data-bind="click: $root.editImage"></div>
+                    <img data-bind="attr: { src: source }" class="gallery-image-edit"/>
+                </div>
+            </div>
+            <div class="gallery-image-action-bar">
+                <div class="button-bar">
+                    <!-- ko if: $index() !== 0 -->
+                    <button class="button-action-left" data-bind="click: $root.moveLeft"><i
+                                class="fa fa-arrow-left"></i></button>
+                    <!-- /ko -->
+                    <!-- ko if: $index() !== ($parent.images().length - 1) -->
+                    <button class="button-action-right" data-bind="click: $root.moveRight"><i
+                                class="fa fa-arrow-right"></i></button>
+                    <!-- /ko -->
+                </div>
             </div>
         </div>
-        <div class="gallery-image">
-            <div class="gallery-image-edit-button" role="button" data-bind="click: $root.editImage"></div>
-            <img data-bind="attr: { src: source }" class="gallery-image-edit"/>
-        </div>
         <!-- /ko -->
-        <div class="gallery-image gallery-image-action">
-            <div class="gallery-image-add" role="button" data-bind="click: addImage">
+        <div class="gallery-image">
+            <div class="gallery-image-content">
+                <div class="gallery-image-action">
+                    <div class="gallery-image-add" role="button" data-bind="click: addImage">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -25,9 +46,9 @@
         {% include 'DesignerBundle:gallery:EditArtworkModal.html.twig' %}
     </script>
 {% endblock %}
-{% block scripts_custom %}
-    {{ parent() }}
-    {% javascripts filter='jsqueeze' '@designer_gallery_js' output='public/js/gallery.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+    {% block scripts_custom %}
+        {{ parent() }}
+        {% javascripts filter='jsqueeze' '@designer_gallery_js' output='public/js/gallery.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}

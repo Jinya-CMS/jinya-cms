@@ -154,7 +154,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
+     * @Route("/gallery/{gallerySlug}/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
      *
      * @param Request $request
      * @param string $gallerySlug

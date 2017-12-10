@@ -26,3 +26,7 @@ designer:
       image:
         title: Soll das Bild aus der Galerie entfernt werden?
         message: Soll das gezeigt Bild wirklich aus der Galerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
+    move:
+      error:
+        title: Fehler beim verschieben
+        body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.
