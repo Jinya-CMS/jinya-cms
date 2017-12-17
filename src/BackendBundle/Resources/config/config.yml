@@ -1,12 +1,5 @@
 imports:
     - { resource: ../../../../app/config/parameters.yml }
-fos_user:
-    db_driver: orm
-    firewall_name: backend
-    user_class: DataBundle\Entity\User
-    from_email:
-        address: "%mailer_user%"
-        sender_name: "%mailer_user%"
 assetic:
   debug: '%kernel.debug%'
   use_controller: '%kernel.debug%'
@@ -16,6 +9,7 @@ assetic:
         - '@BackendBundle/Resources/public/scss/jinya-gallery.scss'
     backendjs:
       inputs:
+        - '../app/Resources/public/typescript/util.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/Loader.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
         - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'

@@ -7,7 +7,8 @@
       "BackendBundle\\": "src/BackendBundle",
       "InstallBundle\\": "src/InstallBundle",
       "HelperBundle\\": "src/HelperBundle",
-      "DataBundle\\": "src/DataBundle"
+      "DataBundle\\": "src/DataBundle",
+      "DesignerBundle\\": "src/DesignerBundle"
     },
     "classmap": [
       "app/AppKernel.php",
@@ -22,7 +23,6 @@
       "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
     ]
   },
-  "minimum-stability": "beta",
   "require": {
     "php": ">=7.1",
     "doctrine/doctrine-bundle": "^1.7",

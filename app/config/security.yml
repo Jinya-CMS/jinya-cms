@@ -24,8 +24,28 @@ security:
 
       logout: true
       anonymous: true
+    designer:
+      pattern: ^/
+      form_login:
+        login_path: backend_login_route
+        check_path: fos_user_security_check
+        provider: fos_userbundle
+        csrf_token_generator: security.csrf.token_manager
+        default_target_path: /designer/
+        always_use_default_target_path: false
+
+      logout: true
+      anonymous: true
   access_control:
     - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/fos/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/backend/, role: IS_AUTHENTICATED_FULLY }
+    - { path: ^/designer/, role: ROLE_WRITER }
+fos_user:
+    db_driver: orm
+    firewall_name: backend
+    user_class: DataBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"

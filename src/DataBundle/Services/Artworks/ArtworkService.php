@@ -9,6 +9,7 @@
 namespace DataBundle\Services\Artworks;
 
 use DataBundle\Entity\Artwork;
+use DataBundle\Entity\ArtworkPosition;
 use DataBundle\Services\Base\BaseArtService;
 use Doctrine\ORM\EntityManager;
 use HelperBundle\Services\Media\MediaServiceInterface;

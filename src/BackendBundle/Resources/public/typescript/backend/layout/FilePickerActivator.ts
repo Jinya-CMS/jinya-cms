@@ -1,5 +1,3 @@
-declare let texts: any;
-
 class FilePickerActivator {
     public static init() {
         let $fileInputs = $('input[type=file]');
@@ -23,7 +21,7 @@ class FilePickerActivator {
             let $button = $('<button/>', {
                 'class': 'btn btn-secondary',
                 'type': 'button',
-                'text': texts['generic.file.pick']
+                'text': Util.getText('generic.file.pick')
             });
             $element.hide();
             $parent.append(
