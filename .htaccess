@@ -5,13 +5,14 @@ RewriteEngine on
 
 #RewriteBase /jinya-gallery-cms/
 
-# Https config for the backend
-#RewriteCond %{HTTPS} !=on
-#RewriteRule backend/(.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
 RewriteRule jinya-gallery-cms.dll jinya-gallery-cms.php
 
+RewriteRule ^(.*)\.(png|jpg|gif|css|js|ico)$ web/%{REQUEST_URI}
+RewriteRule ^public/profile_picture/(.*)$ web/%{REQUEST_URI}
+RewriteRule ^public/gallery_background/(.*)$ web/%{REQUEST_URI}
+RewriteRule ^public/content_image/(.*)$ web/%{REQUEST_URI}
 RewriteCond %{REQUEST_FILENAME} !-f
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ jinya-gallery-cms.php
 
@@ -32,7 +33,7 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
 # Development environment
 #SetEnvIf Host "dev.jinya-gallery-cms.in" jinya-gallery-cms_ENV=dev
-#SetEnv jinya-gallery-cms_ENV dev
+#SetEnv SYMFONY_ENV dev
 
 DirectoryIndex index.html
 DirectoryIndex index.php

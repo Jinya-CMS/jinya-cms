@@ -6,7 +6,7 @@
  * Time: 17:00
  */
 
-namespace DataBundle\Services\Galleries;
+namespace DataBundle\Services\Base;
 
 use Doctrine\ORM\EntityManager;
 
@@ -23,6 +23,23 @@ abstract class BaseService
     {
         $this->entityManager = $entityManager;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function updateField(string $key, string $value, int $id)
+    {
+        $entity = $this->getById($id);
+        $entity->{"set$key"}($value);
+
+        $this->save($entity);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public abstract function getById(int $id);
 
     /**
      * Saves the given entity
@@ -42,8 +59,6 @@ abstract class BaseService
 
         return $item;
     }
-
-    public abstract function getById(int $id);
 
     /**
      * Merges the set properties of new into original and returns original

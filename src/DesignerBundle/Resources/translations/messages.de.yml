@@ -1,0 +1,32 @@
+layout:
+  designer:
+    gallery:
+      header: Willkommen im Designer für die Galerien
+      title: Galerie Designer
+    general: Allgemeines
+    theme: Theme
+    galleries: Galerien
+    artworks: Kunstwerke
+    forms: Formulare
+    menus: Menüs
+    backend: Backend
+designer:
+  gallery:
+    add:
+      modal:
+        title: Kunstwerk hinzufügen
+        save: Einfügen
+    edit:
+      modal:
+        title: Kunstwerk ändern
+        save: Speichern
+    modification:
+      select: Auswählen
+    delete:
+      image:
+        title: Soll das Bild aus der Galerie entfernt werden?
+        message: Soll das gezeigt Bild wirklich aus der Galerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
+    move:
+      error:
+        title: Fehler beim verschieben
+        body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.

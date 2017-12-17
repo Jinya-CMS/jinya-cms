@@ -8,10 +8,10 @@
 
 namespace DataBundle\Services\Galleries;
 
-
 use DataBundle\Entity\Gallery;
+use DataBundle\Services\Base\BaseArtServiceInterface;
 
-interface GalleryServiceInterface
+interface GalleryServiceInterface extends BaseArtServiceInterface
 {
     /**
      * Gets the specified gallery, either by slug or id

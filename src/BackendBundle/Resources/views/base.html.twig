@@ -50,6 +50,12 @@
                                     {{ 'layout.backend.menu.galleries'|trans }}
                                 </a>
                             {% endblock %}
+                            {% block menu_artworks %}
+                                <a href="{{ url('backend_artworks_index') }}"
+                                   class="nav-item nav-link {% if menu_artworks_active is defined and menu_artworks_active %}active{% endif %}">
+                                    {{ 'layout.backend.menu.artworks'|trans }}
+                                </a>
+                            {% endblock %}
                             {% block menu_log %}
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="nav-item dropdown">
@@ -197,17 +203,12 @@
     {% endblock %}
     {% block custom_scripts %}{% endblock %}
     {% block translations %}
-        <script>{{ include('@Backend/genericjsfields.js.twig') }}</script>
+        <script>{{ include('genericjsfields.js.twig') }}</script>
     {% endblock %}
 {% endblock %}
 
 {% block styles %}
     {{ parent() }}
-    {% block styles_fontawesome %}
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-              integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-              crossorigin="anonymous">
-    {% endblock %}
     {% block styles_messenger %}
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/messenger/1.5.0/css/messenger.css"
@@ -219,7 +220,7 @@
               integrity="sha256-2gEgUC2/7S2VYfjORqxZQm5SIhsQpFyIPkUGjpuyVuw=" crossorigin="anonymous"/>
     {% endblock %}
     {% block assetic_styles %}
-        {% stylesheets filter='scssphp' '@backendcss' output='public/css/custom.css' %}
+        {% stylesheets filter='scssphp' '@backendcss' output='public/css/backend.css' %}
         <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
     {% endblock %}

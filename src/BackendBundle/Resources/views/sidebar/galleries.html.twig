@@ -1,4 +1,21 @@
 {% set active = get_action_name(app.request.attributes) %}
+{% set active = get_action_name(app.request.attributes) %}
+{% block backend_galleries_sidebar_search %}
+    <div class="nav-item" data-search="overview">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="{{ 'generic.search'|trans }}"
+                   aria-label="{{ 'generic.search'|trans }}" name="search"
+                    {% if search is defined %}
+                        value="{{ search }}"
+                    {% endif %}
+                   data-bind="value: search, valueUpdate: 'keyup'"/>
+            <span class="input-group-btn">
+                <button class="btn btn-outline-primary" type="button" data-bind="click: loadData"><i
+                            class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+{% endblock %}
 {% block backend_galleries_sidebar_overview %}
     <a class="nav-link {% if active == 'overview' %}active{% endif %}" href="{{ url('backend_galleries_overview') }}"
        data-target="#content" data-action="nav" data-after-success="Overview.init()"

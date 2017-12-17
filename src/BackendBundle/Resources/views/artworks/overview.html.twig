@@ -1,0 +1,33 @@
+{% extends '@Backend/artworks/artworks_base.html.twig' %}
+
+{% block content %}
+    <div class="artworks overview-list row" data-get-list-url="{{ url('backend_artworks_getAll') }}"
+         data-load-failure-message="{{ 'backend.artworks.load.failure'|trans }}"
+         data-bind="event: { scroll: scrolled }">
+        <!-- ko foreach: { data: items, afterRender: matchHeight } -->
+        <div class="col-sm-3">
+            <div data-bind="click: $root.select, css: { selected: $root.selectedItem().id === id }"
+                 class="card">
+                <img class="card-img-top" data-bind="attr: { src: picture }"/>
+                <div class="card-body">
+                    <h4 class="card-title" data-bind="text: name"></h4>
+                    <p class="card-text" data-bind="text: description"></p>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: items().length === 0 && loading() === false -->
+        <div class="col-sm-12">
+            <div class="alert alert-info">
+                {{ 'backend.artworks.empty.message'|trans }}
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: loading -->
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+{% endblock %}

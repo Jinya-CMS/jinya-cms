@@ -1,12 +1,12 @@
 {% extends '@Backend/galleries/galleries_base.html.twig' %}
 
 {% block content %}
-    <div class="galleries row" data-get-list-url="{{ url('backend_galleries_getAll') }}"
-         data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}">
-        <!-- ko ifnot: loading -->
-        <!-- ko foreach: { data: galleries, afterRender: matchHeight } -->
+    <div class="galleries overview-list row" data-get-list-url="{{ url('backend_galleries_getAll') }}"
+         data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}"
+         data-bind="event: { scroll: scrolled }">
+        <!-- ko foreach: { data: items, afterRender: matchHeight } -->
         <div class="col-sm-3">
-            <div data-bind="click: $root.select, css: { selected: $root.selectedGallery().id === id }"
+            <div data-bind="click: $root.select, css: { selected: $root.selectedItem().id === id }"
                  class="card">
                 <img class="card-img-top" data-bind="attr: { src: background }"/>
                 <div class="card-body">
@@ -16,13 +16,12 @@
             </div>
         </div>
         <!-- /ko -->
-        <!-- ko if: galleries().length === 0 -->
+        <!-- ko if: items().length === 0 && loading() === false -->
         <div class="col-sm-12">
             <div class="alert alert-info">
                 {{ 'backend.galleries.empty.message'|trans }}
             </div>
         </div>
-        <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: loading -->
         <div class="spinner">

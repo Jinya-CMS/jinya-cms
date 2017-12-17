@@ -18,6 +18,11 @@ generic:
   next: Weiter
   search: Suchen
   clear: Leeren
+  close: Schließen
+  yes: Ja
+  no: Nein
   auto_generated: Wird bei leerer Eingabe autogeneriert
   file:
     pick: Datei suchen
+  dont:
+    delete: Nicht löschen

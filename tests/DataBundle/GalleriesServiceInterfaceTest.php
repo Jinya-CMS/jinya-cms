@@ -162,7 +162,7 @@ class GalleriesServiceInterfaceTest extends \Codeception\Test\Unit
         /** @var Gallery $dummyEntity */
         $dummyEntity = $this->generateDummyData(1)[0];
         $galleryService = $this->getGalleryService();
-        $dummyEntity = $galleryService->saveOrUpdate($dummyEntity);
+        $galleryService->saveOrUpdate($dummyEntity);
 
         try {
             $entity = $galleryService->get('Testslug');

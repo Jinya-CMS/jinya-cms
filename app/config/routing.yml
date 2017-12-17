@@ -1,7 +1,7 @@
-data:
-    resource: "@DataBundle/Controller/"
+designer:
+    resource: "@DesignerBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /designer
 
 install:
     resource: "@InstallBundle/Controller/"

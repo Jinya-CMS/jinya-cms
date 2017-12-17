@@ -19,7 +19,8 @@ layout:
         title: Protokolle
         application: Anwendungsprotokoll
         access: Zugriffsprotokoll
-      galleries: Gallerien
+      galleries: Galerien
+      artworks: Kunstwerke
 sidebar:
   users:
     overview: Überblick
@@ -37,12 +38,19 @@ sidebar:
     clear: Protokoll löschen
   galleries:
     overview: Überblick
-    add: Gallerie hinzufügen
-    edit: Gallerie bearbeiten
+    add: Galerie hinzufügen
+    edit: Galerie bearbeiten
     details: Galleriedetails
     delete_background: Hintegrundbild löschen
-    delete: Gallerie löschen
+    delete: Galerie löschen
     history: Galleriehistorie
+  artworks:
+    overview: Überblick
+    add: Kunstwerk hinzufügen
+    edit: Kunstwerk bearbeiten
+    details: Kunstwerkdetails
+    delete: Kunstwerk löschen
+    history: Kunstwerkhistorie
 backend:
   users:
     email: Emailadresse
@@ -101,16 +109,33 @@ backend:
     userAgent: User Agent
   galleries:
     load:
-      failure: Die Gallerien konnten nicht geladen werden
+      failure: Die Galerien konnten nicht geladen werden
     empty:
-      message: Aktuell sind keine Gallerien gepflegt
+      message: Aktuell sind keine Galerien gepflegt
     name: Name
     description: Beschreibung
     slug: Slug
     background: Hintergrundbild
-    select: Gallerie auswählen
+    select: Galerie auswählen
     delete:
-      title: Wollen Sie die Gallerie %name% wirklich löschen?
-      content: Wenn Sie die Gallerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
+      title: Wollen Sie die Galerie %name% wirklich löschen?
+      content: Wenn Sie die Galerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
       background:
         title: Soll das Hintergrundbild wirklich gelöscht werden?
+    orientation:
+      label: Ausrichtung
+      horizontal: Horizontal
+      vertical: Vertical
+  artworks:
+    load:
+      failure: Die Kunstwerke konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Kunstwerke gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    picture: Bild
+    select: Kunstwerk auswählen
+    delete:
+      title: Wollen Sie das Kunstwerk %name% wirklich löschen?
+      content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.

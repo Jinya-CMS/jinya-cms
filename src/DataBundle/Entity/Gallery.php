@@ -9,6 +9,8 @@
 namespace DataBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -20,25 +22,19 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @UniqueEntity("name", message="backend.galleries.name.not_unique")
  * @UniqueEntity("slug", message="backend.galleries.slug.not_unique")
  */
-class Gallery extends HistoryEnabledEntity
+class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
 {
+    use BaseArtEntity;
+
+    public const VERTICAL = 'vertical';
+    public const HORIZONTAL = 'horizontal';
+
+
     /**
-     * @var int
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
-    private $id;
-    /**
-     * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    private $name;
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $description;
+    private $artworks;
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -46,13 +42,53 @@ class Gallery extends HistoryEnabledEntity
     private $background;
     /**
      * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string")
      */
-    private $slug;
+    private $orientation = Gallery::HORIZONTAL;
     /**
      * @var UploadedFile
      */
     private $backgroundResource;
+
+    /**
+     * Gallery constructor.
+     */
+    public function __construct()
+    {
+        $this->artworks = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrientation(): string
+    {
+        return $this->orientation;
+    }
+
+    /**
+     * @param string $orientation
+     */
+    public function setOrientation(string $orientation)
+    {
+        $this->orientation = $orientation;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getArtworks(): Collection
+    {
+        return $this->artworks;
+    }
+
+    /**
+     * @param Collection $artworks
+     */
+    public function setArtworks(Collection $artworks)
+    {
+        $this->artworks = $artworks;
+    }
 
     /**
      * @return UploadedFile
@@ -68,70 +104,6 @@ class Gallery extends HistoryEnabledEntity
     public function setBackgroundResource(UploadedFile $backgroundResource)
     {
         $this->backgroundResource = $backgroundResource;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
     }
 
     /**
