@@ -9,8 +9,22 @@ layout:
     artworks: Kunstwerke
     forms: Formulare
     menus: Menüs
+    pages: Seiten
     backend: Backend
+    page:
+      edit: Seite title bearbeiten
+      header:
+        index: Seitenübersicht
+        add: Seite hinzufügen
+        edit: Seite title bearbeiten
 designer:
+  page:
+    title: Seitentitel
+    slug: Seitenslug
+    content: Seiteninhalt
+    delete:
+      title: Wirklich löschen?
+      content: Soll die Seite title wirklich gelöscht werden?
   gallery:
     add:
       modal:

@@ -1,6 +1,6 @@
 .menu-header {
-  font-size: 1.5em;
-  padding: 2.2rem;
+  font-size: 2em;
+  padding: 2.2rem 2.2rem 0;
 
   &:empty {
     padding: unset;
@@ -21,6 +21,9 @@
   background: transparent;
   &:hover {
     opacity: 0.6;
+  }
+  &:focus {
+    outline: none;
   }
 
   span {
@@ -134,7 +137,7 @@
   }
   .menu-wrap {
     width: 280px;
-    height: 430px;
+    height: 470px;
     -webkit-animation: anim-jelly 0.8s linear forwards;
     animation: anim-jelly 0.8s linear forwards;
   }

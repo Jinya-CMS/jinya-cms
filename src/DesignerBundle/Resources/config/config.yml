@@ -21,6 +21,10 @@ assetic:
         - '@DesignerBundle/Resources/public/typescript/gallery/ArtworkModificationViewModel.js'
         - '@DesignerBundle/Resources/public/typescript/gallery/AddArtworkViewModel.js'
         - '@DesignerBundle/Resources/public/typescript/gallery/EditArtworkViewModel.js'
+    designer_page_js:
+      inputs:
+        - '@DesignerBundle/Resources/public/typescript/page/editor.js'
+        - '@DesignerBundle/Resources/public/typescript/page/delete.js'
   filters:
       jsqueeze: ~
       scssphp:

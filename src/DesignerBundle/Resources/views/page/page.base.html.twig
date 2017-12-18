@@ -1,0 +1,24 @@
+{% extends '@Designer/base.html.twig' %}
+{% if form is defined %}
+    {% form_theme form '@Designer/form/themes/jinya_gallery.html.twig' %}
+{% endif %}
+{% block menu_bottom_links %}
+    <a href="{{ url('designer_page_add') }}" title="{{ 'layout.designer.page.header.add'|trans }}"><i
+                class="fa fa-plus"></i></a>
+    {% block menu_bottom_links_page_specific %}
+    {% endblock %}
+{% endblock %}
+
+{% block scripts_custom %}
+    {% block quilljs %}
+        <script src="//cdn.quilljs.com/1.3.4/quill.min.js"></script>
+        {% javascripts filter='jsqueeze' '@designer_page_js' output='public/js/designer/page.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+{% endblock %}
+{% block styles_custom %}
+    {% block quillcss %}
+        <link href="//cdn.quilljs.com/1.3.4/quill.snow.css" rel="stylesheet">
+    {% endblock %}
+{% endblock %}

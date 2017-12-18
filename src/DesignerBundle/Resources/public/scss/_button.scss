@@ -13,6 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-transition: background-color 0.3s, color 0.3s;
   transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  text-decoration: none;
 
   &:focus {
     outline: none;

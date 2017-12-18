@@ -11,7 +11,7 @@ namespace DataBundle\Entity;
 
 trait BaseArtEntity
 {
-    use BaseEntity;
+    use SlugEntity;
 
     /**
      * @var string
@@ -23,27 +23,6 @@ trait BaseArtEntity
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;
-    /**
-     * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     */
-    private $slug;
-
-    /**
-     * @return string
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
-    }
 
     /**
      * @return string

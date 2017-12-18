@@ -1,0 +1,24 @@
+{% block content %}
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <div data-html-editor="true" data-input-target="[data-html-input]">
+            {% if page is defined %}
+                {{ page.content|raw }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="buttons">
+        <button type="submit"
+                class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
+        {% if page is defined %}
+            {% set target = url('designer_page_details', { 'slug': page.slug }) %}
+        {% else %}
+            {% set target = url('designer_page_index') %}
+        {% endif %}
+        <a href="{{ target }}"
+           class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

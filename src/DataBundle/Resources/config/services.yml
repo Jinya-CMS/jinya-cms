@@ -12,27 +12,32 @@ services:
       # if you need to do this, you can override this setting on individual services
       public: true
   jinya_gallery.services.gallery_service:
-    class: DataBundle\Services\Galleries\GalleryService
-    arguments:
-      - '@doctrine.orm.default_entity_manager'
-      - '@jinya_gallery.services_media.media_service'
-      - '@jinya_gallery.services_slug.slug_service'
+      class: DataBundle\Services\Galleries\GalleryService
+      arguments:
+        - '@doctrine.orm.default_entity_manager'
+        - '@jinya_gallery.services_media.media_service'
+        - '@jinya_gallery.services_slug.slug_service'
   jinya_gallery.services.artwork_service:
       class: DataBundle\Services\Artworks\ArtworkService
       arguments:
-       - '@doctrine.orm.default_entity_manager'
-       - '@jinya_gallery.services_media.media_service'
-       - '@jinya_gallery.services_slug.slug_service'
+        - '@doctrine.orm.default_entity_manager'
+        - '@jinya_gallery.services_media.media_service'
+        - '@jinya_gallery.services_slug.slug_service'
   jinya_gallery.services.artwork_position_service:
       class: DataBundle\Services\Artworks\ArtworkPositionService
       arguments:
-       - '@jinya_gallery.services.gallery_service'
-       - '@jinya_gallery.services.artwork_service'
-       - '@doctrine.orm.default_entity_manager'
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@doctrine.orm.default_entity_manager'
+  jinya_gallery.services.page_service:
+      class: DataBundle\Services\Pages\PageService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services_slug.slug_service'
 
   jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
-    class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
-    arguments:
-      - '@security.token_storage'
-    tags:
-        - { name: doctrine.event_subscriber }
+      class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
+      arguments:
+        - '@security.token_storage'
+      tags:
+          - { name: doctrine.event_subscriber }

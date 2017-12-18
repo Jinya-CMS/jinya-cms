@@ -32,9 +32,13 @@
                                href="#">{{ 'layout.designer.artworks'|trans }}</a>
                             <a class="{% if active == "Form" %}selected{% endif %}"
                                href="#">{{ 'layout.designer.forms'|trans }}</a>
+                            <a class="{% if active == "Page" %}selected{% endif %}"
+                               href="{{ url('designer_page_index') }}">{{ 'layout.designer.pages'|trans }}</a>
                         {% endblock %}
                     </div>
                     <div class="icon-list">
+                        {% block menu_bottom_links %}
+                        {% endblock %}
                     </div>
                 </nav>
             </div>
@@ -56,6 +60,8 @@
         {% stylesheets filter='scssphp' '@designer_css' output='public/css/designer.css' %}
             <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
+    {% endblock %}
+    {% block styles_custom %}
     {% endblock %}
 {% endblock %}
 

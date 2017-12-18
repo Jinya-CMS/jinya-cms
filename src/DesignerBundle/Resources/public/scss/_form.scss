@@ -1,0 +1,45 @@
+.form {
+  padding: 2.2rem;
+  overflow: auto;
+  height: 80%;
+
+  .buttons {
+    display: block;
+    float: right;
+    margin-right: -0.5em;
+  }
+
+  .form-group {
+    display: block;
+
+    .ql-toolbar {
+      margin-top: 1em;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      padding-top: 1em;
+      margin-bottom: 0;
+    }
+
+    input[type=text],
+    textarea {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid $primary;
+      padding: 0.2em 0.5em;
+      outline: none;
+
+      &:focus {
+        -webkit-box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
+        -moz-box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
+        box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
+      }
+    }
+
+    textarea {
+      height: 80%;
+    }
+  }
+}

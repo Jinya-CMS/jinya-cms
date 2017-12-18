@@ -1,9 +1,12 @@
 @import "../../../../BackendBundle/Resources/public/scss/bootstrap/bootstrap-reboot";
 @import "../../../../BackendBundle/Resources/public/scss/variables";
-@import "page";
+@import "reset";
+@import "generic";
 @import "menu";
 @import "list";
 @import "modal";
 @import "button";
 @import "gallery-designer";
 @import "loader";
+@import "form";
+@import "page";
