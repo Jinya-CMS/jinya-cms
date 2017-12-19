@@ -31,7 +31,7 @@
                             <a class="{% if active == "Artwork" %}selected{% endif %}"
                                href="#">{{ 'layout.designer.artworks'|trans }}</a>
                             <a class="{% if active == "Form" %}selected{% endif %}"
-                               href="#">{{ 'layout.designer.forms'|trans }}</a>
+                               href="{{ url('designer_form_index') }}">{{ 'layout.designer.forms'|trans }}</a>
                             <a class="{% if active == "Page" %}selected{% endif %}"
                                href="{{ url('designer_page_index') }}">{{ 'layout.designer.pages'|trans }}</a>
                         {% endblock %}

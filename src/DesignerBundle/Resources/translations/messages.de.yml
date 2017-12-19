@@ -17,6 +17,10 @@ layout:
         index: Seitenübersicht
         add: Seite hinzufügen
         edit: Seite title bearbeiten
+    form:
+      header:
+        add: 'messages'
+      edit: 'messages'
 designer:
   page:
     title: Seitentitel
@@ -44,3 +48,7 @@ designer:
       error:
         title: Fehler beim verschieben
         body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.
+  form:
+    delete:
+      content: 'messages'
+      title: 'messages'

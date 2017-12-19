@@ -1,0 +1,13 @@
+{% extends '@Designer/base.html.twig' %}
+{% if form is defined %}
+    {% form_theme form '@Designer/form/themes/jinya_gallery.html.twig' %}
+{% endif %}
+{% block menu_bottom_links %}
+    <a href="{{ url('designer_form_add') }}" title="{{ 'layout.designer.form.header.add'|trans }}"><i
+                class="fa fa-plus"></i></a>
+    {% block menu_bottom_links_page_specific %}
+    {% endblock %}
+{% endblock %}
+
+{% block scripts_custom %}
+{% endblock %}
