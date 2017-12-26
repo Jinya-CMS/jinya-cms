@@ -23,8 +23,30 @@
       margin-bottom: 0;
     }
 
+    input[type=checkbox] {
+      display: none;
+      margin-top: 1em;
+      font-size: 1.5em;
+
+      + label {
+        display: inline-block;
+        &:before {
+          font-family: FontAwesome;
+          content: "\f096";
+          letter-spacing: 10px;
+          color: $primary;
+        }
+      }
+      &:checked + label:before {
+        content: "\f046";
+        letter-spacing: 5px;
+      }
+    }
+
     input[type=text],
-    textarea {
+    input[type=email],
+    textarea,
+    select {
       width: 100%;
       border-radius: 5px;
       border: 1px solid $primary;
@@ -32,14 +54,8 @@
       outline: none;
 
       &:focus {
-        -webkit-box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
-        -moz-box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
-        box-shadow: 1px 1px 5px 1px transparentize($primary, 0.75);
+        box-shadow: 0 0 10px 0 transparentize($primary, 0.75);
       }
-    }
-
-    textarea {
-      height: 80%;
     }
   }
 }

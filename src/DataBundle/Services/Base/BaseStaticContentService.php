@@ -152,7 +152,7 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      */
     public function save($entity)
     {
-        if ($entity->getSlug() === null) {
+        if ($entity->getSlug() === null || $entity->getSlug() === '') {
             $slugBase = '';
 
             if (method_exists($entity, 'getTitle')) {

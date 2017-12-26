@@ -143,6 +143,17 @@
   font-size: 18px;
 }
 
+.button-full-screen {
+  width: 100%;
+  margin: 0;
+  max-width: 100%;
+}
+
+.button-size-input {
+  padding: calc(0.2em - 2px);
+  height: unset;
+}
+
 .button-text-upper {
   letter-spacing: 2px;
   text-transform: uppercase;

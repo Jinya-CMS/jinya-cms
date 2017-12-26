@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% if form is defined %}
+    {% form_theme form '@Designer/themes/form/jinya_gallery.html.twig' %}
+{% endif %}
 {% block title %}
     - {{ 'layout.designer.gallery.title'|trans }}
 {% endblock %}

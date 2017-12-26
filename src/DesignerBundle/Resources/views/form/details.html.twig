@@ -1,10 +1,15 @@
-{% extends '@Designer/base.html.twig' %}
+{% extends '@Designer/form/form.base.html.twig' %}
 
-{% block scripts_custom %}
-
+{% block header %}
+    {{ formModel.title }}
 {% endblock %}
 
 {% block content %}
-
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}
 
+{% block menu_bottom_links_page_specific %}
+    {% include '@Designer/page/additionalLinks.html.twig' %}
+{% endblock %}

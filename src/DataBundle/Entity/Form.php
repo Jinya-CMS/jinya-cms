@@ -9,7 +9,6 @@
 namespace DataBundle\Entity;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,7 +23,7 @@ class Form extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\ManyToOne(inversedBy="", targetEntity="DataBundle\Entity\FormItem")
+     * @ORM\OneToMany(mappedBy="form", targetEntity="DataBundle\Entity\FormItem")
      */
     private $items;
 
@@ -37,16 +36,59 @@ class Form extends HistoryEnabledEntity
 
     /**
      * @var string
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @var string
      * @ORM\Column(type="text")
      */
-    private $emailTemplate;
+    private $description;
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $emailTemplate = '';
 
     /**
      * Form constructor.
      */
     public function __construct()
     {
-        $this->items = new ArrayCollection();
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
     /**

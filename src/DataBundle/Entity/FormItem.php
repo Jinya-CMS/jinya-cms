@@ -44,6 +44,27 @@ class FormItem extends HistoryEnabledEntity
      * @var string
      */
     private $helpText;
+    /**
+     * @ORM\ManyToOne(inversedBy="items", targetEntity="DataBundle\Entity\Form")
+     * @var Form
+     */
+    private $form;
+
+    /**
+     * @return Form
+     */
+    public function getForm(): Form
+    {
+        return $this->form;
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function setForm(Form $form): void
+    {
+        $this->form = $form;
+    }
 
     /**
      * @return int

@@ -19,8 +19,9 @@ layout:
         edit: Seite title bearbeiten
     form:
       header:
-        add: 'messages'
-      edit: 'messages'
+        add: Formular hinzufügen
+        index: Formularübersicht
+      edit: Formular title bearbeiten
 designer:
   page:
     title: Seitentitel
@@ -50,5 +51,25 @@ designer:
         body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.
   form:
     delete:
-      content: 'messages'
-      title: 'messages'
+      content: Soll das Formular title wirklich gelöscht werden?
+      title: Formular löschen?
+    editor:
+      title: Titel
+      slug: Slug
+      description: Beschreibung
+      toaddress: Empfängeradresse
+      options: Optionen
+      items: Elemente
+      add:
+        item: Element hinzufügen
+        modal:
+          title: Element hinzufügen
+      label: Label
+      helpText: Hilfetext
+      type: Typ
+      types:
+        singlelinetext: Textbox
+        multilinetext: Textfeld
+        dropdown: Auswahl
+        email: Emailadresse
+        checkbox: Checkbox

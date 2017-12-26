@@ -1,10 +1,13 @@
 class Modal {
-    static get = (element: Element) => {
-        let modal = Modal.modals[element.id];
-        if (modal) {
-            return modal;
+    static get = (element: Element, cache: boolean = true): Modal => {
+        if (cache) {
+            let modal = Modal.modals[element.id];
+            if (modal) {
+                return modal;
+            }
         }
-        return new Modal(element);
+
+        return new Modal(element, cache);
     };
     static activate = () => {
         let triggers = document.querySelectorAll('[data-toggle=modal]');
@@ -147,13 +150,7 @@ class Modal {
         this.subscriber[event] = this.subscriber[event] || [];
         this.subscriber[event].push(callback);
     };
-    private showOverlay = () => {
-        Modal.body.appendChild(Modal.overlay);
-        setTimeout(() => {
-            classie.add(Modal.body, 'md-show');
-        }, 300);
-    };
-    private trigger = (event: string, data?: any) => {
+    trigger = (event: string, data?: any) => {
         let callbacks = this.subscriber[event] || [];
         for (let i = 0; i < callbacks.length; i++) {
             callbacks[i]({
@@ -163,12 +160,17 @@ class Modal {
             });
         }
     };
-
+    private showOverlay = () => {
+        Modal.body.appendChild(Modal.overlay);
+        setTimeout(() => {
+            classie.add(Modal.body, 'md-show');
+        }, 300);
+    };
     private modalElement: Element;
     private subscriber = {};
 
-    constructor(selector: string | Element) {
-        if (selector instanceof String) {
+    constructor(selector: string | Element, cache: boolean = true) {
+        if (typeof(selector) === 'string') {
             this.modalElement = document.querySelector(selector);
         } else {
             this.modalElement = selector;
@@ -188,7 +190,9 @@ class Modal {
             });
         }
 
-        Modal.modals[this.modalElement.id] = this;
+        if (cache) {
+            Modal.modals[this.modalElement.id] = this;
+        }
     }
 
     private _canHide: boolean;

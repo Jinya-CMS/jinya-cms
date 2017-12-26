@@ -1,11 +1,11 @@
-{% extends '@Designer/page/page.base.html.twig' %}
-{% block header %}{{ 'layout.designer.page.header.index'|trans }}{% endblock %}
+{% extends '@Designer/form/form.base.html.twig' %}
+{% block header %}{{ 'layout.designer.form.header.index'|trans }}{% endblock %}
 {% block content %}
     <div class="list">
-        {% for page in pages %}
-            <a class="card" href="{{ url('designer_form_details', { 'slug': page.slug }) }}">
+        {% for form in forms %}
+            <a class="card" href="{{ url('designer_form_details', { 'slug': form.slug }) }}">
                 <div class="card-body">
-                    <h4 class="card-title">{{ page.title }}</h4>
+                    <h4 class="card-title">{{ form.title }}</h4>
                 </div>
             </a>
         {% endfor %}

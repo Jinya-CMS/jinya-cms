@@ -2,6 +2,8 @@
 
 namespace DesignerBundle\Controller;
 
+use DataBundle\Entity\Form;
+use DataBundle\Entity\FormItem;
 use DataBundle\Services\Form\FormServiceInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,7 +42,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/{slug}", name="designer_form_details")
+     * @Route("/form/{slug}", name="designer_form_details", methods={"GET"})
      *
      * @param Request $request
      * @return Response
@@ -49,9 +51,11 @@ class FormController extends Controller
     {
         $formService = $this->get('jinya_gallery.services.form_service');
         $form = $formService->get($slug);
+        $formGenerator = $this->get('jinya_gallery.services.form_generator');
 
         return $this->render('@Designer/form/details.html.twig', [
-            'form' => $form
+            'formModel' => $form,
+            'form' => $formGenerator->generateForm($form)
         ]);
     }
 
@@ -66,7 +70,7 @@ class FormController extends Controller
         $formService = $this->get('jinya_gallery.services.form_service');
         $form = $formService->get($slug);
 
-        return $this->render('@Designer/form/details.html.twig', [
+        return $this->render('@Designer/form/edit.html.twig', [
             'form' => $form
         ]);
     }
@@ -91,5 +95,73 @@ class FormController extends Controller
                 'message' => $exception->getMessage()
             ]);
         }
+    }
+
+    /**
+     * @Route("/form/api", name="designer_form_save_form_without_id", methods={"POST"})
+     * @Route("/form/api/{id}", name="designer_form_save_form_with_id", methods={"PUT"})
+     *
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     */
+    public function saveFormAction(int $id = -1, Request $request): Response
+    {
+        $formService = $this->get('jinya_gallery.services.form_service');
+        if ($id > -1) {
+            $form = $formService->get($id);
+        } else {
+            $form = new Form();
+        }
+
+        $postedForm = json_decode($request->getContent(), true);
+
+        $items = [];
+        foreach ($postedForm['items'] as $item) {
+            $formItem = new FormItem();
+            $formItem->setHelpText(array_key_exists('helpText', $item) ? $item['helpText'] : '');
+            $formItem->setOptions(array_key_exists('options', $item) ? $item['options'] : []);
+            $formItem->setLabel(array_key_exists('label', $item) ? $item['label'] : '');
+            $formItem->setType(array_key_exists('type', $item) ? $item['type'] : '');
+            $items[] = $formItem;
+        }
+
+        $form->setTitle($postedForm['title']);
+        $form->setDescription(array_key_exists('description', $postedForm) ? $postedForm['description'] : '');
+        $form->setToAddress($postedForm['toAddress']);
+        $form->setSlug(array_key_exists('slug', $postedForm) ? $postedForm['slug'] : '');
+
+        foreach ($items as $item) {
+            $form->getItems()->add($item);
+        }
+
+        try {
+            $form = $formService->save($form);
+            $router = $this->get('router');
+
+            return $this->json([
+                'success' => true,
+                'redirectTarget' => $router->generate('designer_form_details', ['slug' => $form->getSlug()])
+            ]);
+        } catch (Exception $exception) {
+            return $this->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
+    }
+
+    /**
+     * @Route("/form/api/{id}", name="designer_form_load_form", methods={"GET"})
+     *
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     */
+    public function loadFormAction(int $id, Request $request): Response
+    {
+        $formService = $this->get('jinya_gallery.services.form_service');
+
+        return $this->json($formService->get($id));
     }
 }

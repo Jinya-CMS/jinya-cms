@@ -46,6 +46,7 @@ abstract class BaseService
      *
      * @param $item
      * @return mixed
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function save($item)
     {

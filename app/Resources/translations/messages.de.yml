@@ -26,3 +26,5 @@ generic:
     pick: Datei suchen
   dont:
     delete: Nicht löschen
+  add: Hinzufügen
+  required: Erforderlich

@@ -1,0 +1,8 @@
+{% extends '@Designer/form/form.base.html.twig' %}
+
+{% block content %}
+    <div data-form-editor="true" data-submit-url="{{ url('designer_form_save_form_with_id',{ 'id': form.id }) }}"
+         data-load-url="{{ url('designer_form_load_form', { 'id': form.id }) }}" data-form-id="{{ form.id }}">
+        {% include '@Designer/form/editor.html.twig' %}
+    </div>
+{% endblock %}

@@ -29,7 +29,6 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     public const VERTICAL = 'vertical';
     public const HORIZONTAL = 'horizontal';
 
-
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
