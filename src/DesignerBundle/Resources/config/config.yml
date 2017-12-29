@@ -24,7 +24,13 @@ assetic:
     designer_page_js:
       inputs:
         - '@DesignerBundle/Resources/public/typescript/page/editor.js'
-        - '@DesignerBundle/Resources/public/typescript/page/delete.js'
+        - '@DesignerBundle/Resources/public/typescript/static/delete.js'
+    designer_form_js:
+      inputs:
+        - '@DesignerBundle/Resources/public/typescript/form/FormItem.js'
+        - '@DesignerBundle/Resources/public/typescript/form/FormItemModalViewModel.js'
+        - '@DesignerBundle/Resources/public/typescript/form/FormEditor.js'
+        - '@DesignerBundle/Resources/public/typescript/static/delete.js'
   filters:
       jsqueeze: ~
       scssphp:

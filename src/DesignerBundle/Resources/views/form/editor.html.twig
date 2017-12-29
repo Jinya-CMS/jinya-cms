@@ -1,0 +1,55 @@
+<div class="form grid">
+    <div class="half">
+        <div class="form-group">
+            <label for="title">{{ 'designer.form.editor.title'|trans }}</label>
+            <input id="title" type="text" data-bind="value: title">
+        </div>
+        <div class="form-group">
+            <label for="slug">{{ 'designer.form.editor.slug'|trans }}</label>
+            <input id="slug" placeholder="{{ 'generic.auto_generated'|trans }}" type="text" data-bind="value: slug">
+        </div>
+        <div class="form-group">
+            <label for="toaddress">{{ 'designer.form.editor.toaddress'|trans }}</label>
+            <input id="toaddress" type="email" data-bind="value: toAddress">
+        </div>
+        <div class="form-group">
+            <label for="description">{{ 'designer.form.editor.description'|trans }}</label>
+            <textarea id="description" data-bind="value: description" rows="15"></textarea>
+        </div>
+    </div>
+    <div class="half">
+        <div class="form-group list">
+            <label>{{ 'designer.form.editor.items'|trans }}</label>
+            <!-- ko foreach: items -->
+            <div class="card full">
+                <span class="h4" data-bind="text: label"></span>
+                <p data-bind="text: helpText"></p>
+                <!-- ko if: selectOptions -->
+                <label>{{ 'designer.form.editor.options'|trans }}</label>
+                <span data-bind="text: selectOptions" style="white-space: pre;"></span>
+                <!-- /ko -->
+                <button data-bind="click: $root.editItem"
+                        class="button button primary inverse button-square button-top-right"><i
+                            class="fa fa-pencil"></i></button>
+            </div>
+            <!-- /ko -->
+            <button class="button button-round-s button-border-medium primary button-full-screen button-size-input"
+                    type="button" data-bind="click: addItem">
+                {{ 'designer.form.editor.add.item'|trans }}
+            </button>
+        </div>
+    </div>
+    <div class="full">
+        <div class="buttons">
+            <button type="button" data-bind="click: submit"
+                    class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
+            {% if form is defined %}
+                {% set target = url('designer_form_details', { 'slug': form.slug }) %}
+            {% else %}
+                {% set target = url('designer_form_index') %}
+            {% endif %}
+            <a href="{{ target }}"
+               class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</a>
+        </div>
+    </div>
+</div>

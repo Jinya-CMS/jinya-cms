@@ -54,6 +54,10 @@ services:
         - '@request_stack'
       tags:
         - { name: monolog.processor, method: processRecord, handler: accesslog }
+  jinya_gallery.services.form_generator:
+      class: HelperBundle\Services\Form\FormGenerator
+      arguments:
+        - '@form.factory'
 
   twig_extensions.intl:
     class: Twig_Extensions_Extension_Intl

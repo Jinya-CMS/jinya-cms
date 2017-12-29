@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% if form is defined %}
+    {% form_theme form '@Designer/themes/form/jinya_gallery.html.twig' %}
+{% endif %}
 {% block title %}
     - {{ 'layout.designer.gallery.title'|trans }}
 {% endblock %}
@@ -31,7 +34,7 @@
                             <a class="{% if active == "Artwork" %}selected{% endif %}"
                                href="#">{{ 'layout.designer.artworks'|trans }}</a>
                             <a class="{% if active == "Form" %}selected{% endif %}"
-                               href="#">{{ 'layout.designer.forms'|trans }}</a>
+                               href="{{ url('designer_form_index') }}">{{ 'layout.designer.forms'|trans }}</a>
                             <a class="{% if active == "Page" %}selected{% endif %}"
                                href="{{ url('designer_page_index') }}">{{ 'layout.designer.pages'|trans }}</a>
                         {% endblock %}
@@ -69,6 +72,8 @@
     {% block scripts_knockout %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
                 integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"
+                integrity="sha256-gaGobNk1cPaj0abcVmyZxUYgCPsueCJwN5i4DjC4BS0=" crossorigin="anonymous"></script>
     {% endblock %}
     {% block scripts_promise %}
         <script src="https://www.promisejs.org/polyfills/promise-done-7.0.4.min.js"></script>

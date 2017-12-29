@@ -46,15 +46,19 @@ abstract class BaseService
      *
      * @param $item
      * @return mixed
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function save($item)
     {
         if ($item->getId() !== null) {
             $entity = $this->getById($item->getId());
             $item = $this->mergeEntities($entity, $item);
+
+            $item = $this->entityManager->merge($item);
+        } else {
+            $this->entityManager->persist($item);
         }
 
-        $item = $this->entityManager->merge($item);
         $this->entityManager->flush();
 
         return $item;
