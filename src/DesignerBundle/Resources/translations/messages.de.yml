@@ -1,8 +1,8 @@
 layout:
   designer:
     gallery:
-      header: Willkommen im Designer für die Galerien
-      title: Galerie Designer
+      header: Galerien
+      title: Galerien
     general: Allgemeines
     theme: Theme
     galleries: Galerien
