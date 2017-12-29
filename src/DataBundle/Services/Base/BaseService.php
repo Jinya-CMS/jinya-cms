@@ -53,9 +53,12 @@ abstract class BaseService
         if ($item->getId() !== null) {
             $entity = $this->getById($item->getId());
             $item = $this->mergeEntities($entity, $item);
+
+            $item = $this->entityManager->merge($item);
+        } else {
+            $this->entityManager->persist($item);
         }
 
-        $item = $this->entityManager->merge($item);
         $this->entityManager->flush();
 
         return $item;

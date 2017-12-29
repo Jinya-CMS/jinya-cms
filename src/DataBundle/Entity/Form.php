@@ -23,7 +23,7 @@ class Form extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(mappedBy="form", targetEntity="DataBundle\Entity\FormItem")
+     * @ORM\OneToMany(mappedBy="form", targetEntity="DataBundle\Entity\FormItem", cascade={"persist", "remove"})
      */
     private $items;
 
@@ -149,9 +149,12 @@ class Form extends HistoryEnabledEntity
     public function jsonSerialize()
     {
         return [
-            'items' => $this->items,
+            'items' => $this->items->toArray(),
             'toAddress' => $this->toAddress,
-            'emailTemplate' => $this->emailTemplate
+            'emailTemplate' => $this->emailTemplate,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'description' => $this->description
         ];
     }
 }

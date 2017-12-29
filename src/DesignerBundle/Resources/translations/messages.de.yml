@@ -21,6 +21,7 @@ layout:
       header:
         add: Formular hinzufügen
         index: Formularübersicht
+        edit: Formular title bearbeiten
       edit: Formular title bearbeiten
 designer:
   page:

@@ -44,8 +44,14 @@ class FormController extends Controller
     /**
      * @Route("/form/{slug}", name="designer_form_details", methods={"GET"})
      *
+     * @param string $slug
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function detailsAction(string $slug, Request $request): Response
     {
@@ -55,15 +61,21 @@ class FormController extends Controller
 
         return $this->render('@Designer/form/details.html.twig', [
             'formModel' => $form,
-            'form' => $formGenerator->generateForm($form)
+            'form' => $formGenerator->generateForm($form)->createView()
         ]);
     }
 
     /**
      * @Route("/form/{slug}/edit", name="designer_form_edit")
      *
+     * @param string $slug
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function editAction(string $slug, Request $request): Response
     {
@@ -71,7 +83,7 @@ class FormController extends Controller
         $form = $formService->get($slug);
 
         return $this->render('@Designer/form/edit.html.twig', [
-            'form' => $form
+            'formModel' => $form
         ]);
     }
 
@@ -104,6 +116,11 @@ class FormController extends Controller
      * @param int $id
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function saveFormAction(int $id = -1, Request $request): Response
     {
@@ -132,6 +149,7 @@ class FormController extends Controller
         $form->setSlug(array_key_exists('slug', $postedForm) ? $postedForm['slug'] : '');
 
         foreach ($items as $item) {
+            $item->setForm($form);
             $form->getItems()->add($item);
         }
 
@@ -157,6 +175,11 @@ class FormController extends Controller
      * @param int $id
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function loadFormAction(int $id, Request $request): Response
     {

@@ -12,7 +12,9 @@ namespace HelperBundle\Services\Form;
 use DataBundle\Entity\Form;
 use DataBundle\Entity\FormItem;
 use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\FormView;
+use function array_key_exists;
+use function strpos;
+use Symfony\Component\Form\FormInterface;
 
 class FormGenerator implements FormGeneratorInterface
 {
@@ -30,16 +32,31 @@ class FormGenerator implements FormGeneratorInterface
         $this->formFactory = $formFactory;
     }
 
-    function generateForm(Form $form): FormView
+    public function generateForm(Form $form): FormInterface
     {
         $formBuilder = $this->formFactory->createBuilder();
         /** @var FormItem $item */
         foreach ($form->getItems() as $item) {
             $options = $item->getOptions();
             $options['label'] = $item->getLabel();
+            if (array_key_exists('choices', $options)) {
+                $choices = [];
+                foreach ($options['choices'] as $choice) {
+                    $choices[$choice] = $choice;
+                }
+
+                $options['choices'] = $choices;
+            }
+
+            if (strpos($item->getType(), 'TextareaType') != -1) {
+                $options['attr'] = [
+                    'rows' => 10
+                ];
+            }
+
             $formBuilder->add($item->getLabel(), $item->getType(), $options);
         }
 
-        return $formBuilder->getForm()->createView();
+        return $formBuilder->getForm();
     }
 }

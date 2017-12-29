@@ -10,6 +10,8 @@ namespace DataBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use function array_key_exists;
+use function implode;
 
 /**
  * @ORM\Entity
@@ -45,7 +47,7 @@ class FormItem extends HistoryEnabledEntity
      */
     private $helpText;
     /**
-     * @ORM\ManyToOne(inversedBy="items", targetEntity="DataBundle\Entity\Form")
+     * @ORM\ManyToOne(inversedBy="items", targetEntity="DataBundle\Entity\Form", cascade={"persist", "remove"})
      * @var Form
      */
     private $form;
@@ -155,12 +157,20 @@ class FormItem extends HistoryEnabledEntity
      */
     public function jsonSerialize()
     {
+        if (array_key_exists('choices', $this->options)) {
+            $selectOptions = implode("\r\n", $this->options['choices']);
+        } else {
+            $selectOptions = '';
+        }
+
         return [
             'id' => $this->id,
             'type' => $this->type,
             'label' => $this->label,
             'helpText' => $this->helpText,
-            'options' => $this->options
+            'options' => $this->options,
+            'required' => $this->options['required'],
+            'selectOptions' => $selectOptions
         ];
     }
 }

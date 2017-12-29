@@ -10,9 +10,9 @@ namespace HelperBundle\Services\Form;
 
 
 use DataBundle\Entity\Form;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 interface FormGeneratorInterface
 {
-    function generateForm(Form $form): FormView;
+    public function generateForm(Form $form): FormInterface;
 }

@@ -97,17 +97,19 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      */
     public function delete(int $id)
     {
-        $this->getQueryBuilder()
-            ->delete($this->entityType, 'entity')
-            ->where('entity.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
+        $item = $this->get($id);
+        $this->entityManager->remove($item);
+        $this->entityManager->flush();
     }
 
     /**
      * @param $idOrSlug int|string
      * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function get($idOrSlug)
     {
@@ -122,6 +124,9 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      *
      * @param int $id
      * @return mixed
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function getById(int $id)
     {
@@ -133,6 +138,8 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      *
      * @param string $slug
      * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getBySlug(string $slug)
     {
@@ -149,12 +156,11 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      * @param SlugEntity $entity
      * @return mixed
      * @throws EmptySlugException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save($entity)
     {
         if ($entity->getSlug() === null || $entity->getSlug() === '') {
-            $slugBase = '';
-
             if (method_exists($entity, 'getTitle')) {
                 $slugBase = $entity->getTitle();
             } else if (method_exists($entity, 'getName')) {

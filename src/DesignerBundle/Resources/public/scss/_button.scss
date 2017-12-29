@@ -194,3 +194,16 @@
 .button-border-thick {
   border: 3px solid;
 }
+
+.button-square {
+  width: 2em;
+  min-width: 2em;
+  padding: 0;
+  min-height: 2em;
+}
+
+.button-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

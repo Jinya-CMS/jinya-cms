@@ -18,16 +18,33 @@ class FormEditorViewModel {
         });
         modal.show();
     };
+    editItem = (item: FormItem) => {
+        let modalNode = document.querySelector('#modal');
+        modalNode.innerHTML = document.querySelector('#add-modal').innerHTML;
+        let injectedModal = modalNode.firstElementChild;
+
+        let modal = Modal.get(injectedModal, false);
+        let vm = new FormItemModalViewModel(modal, item);
+        ko.applyBindings(vm, injectedModal);
+        modal.on('closed', () => {
+            ko.cleanNode(injectedModal);
+            modalNode.innerHTML = '<div id="modal" />';
+        });
+        modal.on('save', () => {
+            item = vm.item();
+        });
+        modal.show();
+    };
     submit = () => {
         let call = new Ajax.Request(this.submitUrl);
         let dfd: Promise<any> = null;
         let data = ko.toJS(this);
         for (let i = 0; i < data.items.length; i++) {
             data.items[i].options = {
-                required: data.required || false
+                required: data.items[i].required || false
             };
             if (data.items[i].selectOptions) {
-                data.items[i].options.choices = data.items[i].selectOptions.split(/\r\n/g);
+                data.items[i].options.choices = data.items[i].selectOptions.split(/\r?\n/g);
             }
             delete data.items[i].selectOptions;
             delete data.items[i].required;
@@ -47,11 +64,21 @@ class FormEditorViewModel {
     private loadForm = (loadUrl: string) => {
         let call = new Ajax.Request(loadUrl);
         call.get().then((data) => {
-            let formItems: FormItem[] = data.items;
-            this.items(formItems);
+            for (let i = 0; i < data.items.length; i++) {
+                let item = data.items[i];
+                let formItem = new FormItem();
+                formItem.options(item.options);
+                formItem.helpText(item.helpText);
+                formItem.label(item.label);
+                formItem.required(item.required);
+                formItem.selectOptions(item.selectOptions);
+                formItem.type(item.type);
+                this.items.push(formItem);
+            }
             this.slug(data.slug);
             this.title(data.title);
             this.description(data.description);
+            this.toAddress(data.toAddress);
         }, (error) => {
             Modal.alert(error.message, error.details.message);
         });
@@ -120,7 +147,9 @@ class FormEditorViewModel {
 class FormEditor {
     static init = (() => {
         let editor = document.querySelector('[data-form-editor]');
-        let vm = new FormEditorViewModel(editor);
-        ko.applyBindings(vm, editor);
+        if (editor) {
+            let vm = new FormEditorViewModel(editor);
+            ko.applyBindings(vm, editor);
+        }
     })();
 }

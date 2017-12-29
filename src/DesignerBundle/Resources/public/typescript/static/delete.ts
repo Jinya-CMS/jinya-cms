@@ -1,6 +1,6 @@
 class Delete {
     static init = () => {
-        let buttons = document.querySelectorAll('[data-page-delete]');
+        let buttons = document.querySelectorAll('[data-delete]');
         for (let i = 0; i < buttons.length; i++) {
             let item = buttons[i];
             let title = item.getAttribute('data-delete-title');
