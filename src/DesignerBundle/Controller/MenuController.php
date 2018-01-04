@@ -3,6 +3,9 @@
 namespace DesignerBundle\Controller;
 
 use DataBundle\Entity\Menu;
+use DataBundle\Entity\MenuItem;
+use DataBundle\Entity\RoutingEntry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,20 +44,61 @@ class MenuController extends Controller
      * @Route("/menu/api/{id}", name="designer_menu_save_with_id", methods={"PUT"})
      * @Route("/menu/api/", name="designer_menu_save_without_id", methods={"POST"})
      *
+     * @param int $id
      * @param Request $request
      * @return Response
      */
-    public function saveMenuAction(Request $request): Response
+    public function saveMenuAction(int $id = -1, Request $request): Response
     {
-        $router = $this->get('router');
-        $menu = new Menu();
         $menuService = $this->get('jinya_gallery.services.menu_service');
-        $menu = $menuService->save($menu);
+        if ($id != -1) {
+            $menu = $menuService->get($id);
+            $menu->getMenuItems()->clear();
+            $menuService->save($menu);
+        } else {
+            $menu = new Menu();
+        }
+        $postedMenu = json_decode($request->getContent(), true)['menu'];
 
-        return $this->json([
-            'success' => true,
-            'redirectTarget' => $router->generate('designer_menu_details', ['id' => $menu->getId()])
-        ]);
+        $menu->setName($postedMenu['name']);
+        $menu->setMenuItems($this->prepareMenuChildren($postedMenu['children'], $menu));
+
+        try {
+            $menu = $menuService->save($menu);
+            $router = $this->get('router');
+
+            return $this->json([
+                'success' => true,
+                'redirectTarget' => $router->generate('designer_menu_details', ['id' => $menu->getId()])
+            ]);
+        } catch (Exception $exception) {
+            return $this->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 400);
+        }
+    }
+
+    private function prepareMenuChildren(array $children, ?Menu $menu = null, ?MenuItem $parent = null): ArrayCollection
+    {
+        $items = [];
+        foreach ($children as $child) {
+            $item = new MenuItem();
+            $route = new RoutingEntry();
+            $route->setRouteName($child['route']['name']);
+            $route->setRouteParameter($child['route']['parameter']);
+            $route->setUrl($child['route']['url']);
+
+            $item->setTitle($child['title']);
+            $item->setMenu($menu);
+            $item->setParent($parent);
+            $item->setRoute($route);
+            $item->setChildren($this->prepareMenuChildren($child['children'], null, $item));
+
+            $items[] = $item;
+        }
+
+        return new ArrayCollection($items);
     }
 
     /**

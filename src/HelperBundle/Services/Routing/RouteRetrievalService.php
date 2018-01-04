@@ -88,12 +88,10 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     {
         return function ($item) use ($route) {
             return [
-                'route' => [
-                    'name' => $route,
-                    'displayName' => $this->router->generate($route, ['slug' => $item->getSlug()]),
-                    'parameter' => [
-                        'slug' => $item->getSlug()
-                    ]
+                'name' => $route,
+                'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),
+                'parameter' => [
+                    'slug' => $item->getSlug()
                 ]
             ];
         };

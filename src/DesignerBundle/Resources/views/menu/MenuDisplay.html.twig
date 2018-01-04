@@ -1,43 +1,53 @@
 <script type="text/html" id="menuItemDisplayTemplate">
-    <!-- ko if: $root.edit -->
     <li>
-        <button data-bind="click: addItemBeginning"
-                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
-    </li>
-    <!-- /ko -->
-    <li>
-        <p data-bind="text: title"></p>
-        <small>
-            <span data-bind="text: route().name"></span> &mdash; <span data-bind="text: route().parameter"></span>
-        </small>
         <!-- ko if: $root.edit -->
-        <div class="button-top-right">
-            <button data-bind="click: editItem" class="button primary inverse button-square">
-                <i class="fa fa-pencil"></i>
-            </button>
-            <button data-bind="click: deleteItem" class="button danger inverse button-square">
-                <i class="fa fa-trash"></i>
-            </button>
-        </div>
+        <button data-bind="click: $parent.addItemBefore"
+                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
         <!-- /ko -->
     </li>
-    <!-- ko if: $root.edit -->
     <li>
-        <button data-bind="click: addItem"
-                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+        <div class="item">
+            <!-- ko if: $root.edit -->
+            <button data-bind="click: addItemBefore"
+                    class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+            <!-- /ko -->
+            <div class="item-content">
+                <p data-bind="text: title"></p>
+                <small>
+                    <span data-bind="text: route().name"></span> &mdash; <span
+                            data-bind="html: MenuTools.formatJson(route().parameter())"></span>
+                </small>
+                <!-- ko if: $root.edit -->
+                <div class="button-top-right">
+                    <button data-bind="click: editItem" class="button primary inverse button-square">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button data-bind="click: deleteItem" class="button danger inverse button-square">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- ko if: $root.edit -->
+            <button data-bind="click: addItemAfter"
+                    class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+            <!-- /ko -->
+            <ul data-bind="template: { name: 'menuItemDisplayTemplate', foreach: children }"></ul>
+        </div>
     </li>
-    <!-- /ko -->
+    <li>
+        <!-- ko if: $root.edit -->
+        <button data-bind="click: $parent.addItemAfter"
+                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+        <!-- /ko -->
+    </li>
 </script>
 <script type="text/html" id="menuDisplayTemplate">
-    <ul class="jinya-menu">
+    <div class="jinya-menu">
+        <ul class="jinya-menu" data-bind="template: { name: 'menuItemDisplayTemplate', foreach: menu().children }"></ul>
         <!-- ko if: $root.edit && menu().children().length === 0 -->
-        <li>
-            <button data-bind="click: menu().addItem"
-                    class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
-        </li>
+        <button data-bind="click: menu().addItemAfter"
+                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
         <!-- /ko -->
-        <li>
-            <ul data-bind="template: { name: 'menuItemDisplayTemplate', foreach: menu().children }"></ul>
-        </li>
-    </ul>
+    </div>
 </script>

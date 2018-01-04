@@ -1,16 +1,25 @@
 class Route {
-    private routeKey = ko.pureComputed(() => {
-        return this.name() + this.parameter();
-    });
-
     constructor(data: any | string) {
         if (data instanceof String) {
             data = JSON.parse(data.toString());
         }
+        if (data) {
+            this.name(data.name);
+            this.parameter(data.parameter);
+            this.url(data.url);
+        }
+    }
 
-        this.name(data.name);
-        this.parameter(data.parameter);
-        this.url(data.url);
+    private _valid = ko.pureComputed(() => {
+        return this.name() && this.url();
+    });
+
+    get valid(): KnockoutComputed<any> {
+        return this._valid;
+    }
+
+    set valid(value: KnockoutComputed<any>) {
+        this._valid = value;
     }
 
     private _url = ko.observable<string>();
@@ -45,15 +54,24 @@ class Route {
 }
 
 class MenuItem {
-    addItem = (selectedItem: MenuItem) => {
+    addItemAfter = (selectedItem: MenuItem) => {
         MenuTools.addItem().then((item: MenuItem) => {
-            let currentItemIndex = this.children.indexOf(selectedItem);
-            this.children.splice(currentItemIndex, 0, item);
+            let currentItemIndex = this.children.indexOf(selectedItem) + 1;
+            if (currentItemIndex === -1) {
+                this.children.push(item);
+            } else {
+                this.children.splice(currentItemIndex, 0, item);
+            }
         });
     };
-    addItemBeginning = () => {
+    addItemBefore = (selectedItem: MenuItem) => {
         MenuTools.addItem().then((item: MenuItem) => {
-            this.children.splice(0, 0, item);
+            let currentItemIndex = this.children.indexOf(selectedItem);
+            if (currentItemIndex === -1) {
+                this.children.push(item);
+            } else {
+                this.children.splice(currentItemIndex, 0, item);
+            }
         });
     };
     editItem = (item: MenuItem) => {
@@ -70,22 +88,42 @@ class MenuItem {
         if (data instanceof String) {
             data = JSON.parse(data.toString());
         }
+        if (data) {
+            let route = new Route(data.route);
+            let parent = new MenuItem(data.parent);
 
-        let route = new Route(data.route);
-        let parent = new MenuItem(data.parent);
+            this.id(data.id);
+            this.title(data.title);
+            this.parent(parent);
+            this.route(route);
 
-        this.id(data.id);
-        this.title(data.title);
-        this.parent(parent);
-        this.route(route);
-
-        if (data.children) {
-            for (let i = 0; i < data.children.length; i++) {
-                let child = data.children[i];
-                let menuItem = new MenuItem(child);
-                this.children.push(menuItem);
+            if (data.children) {
+                for (let i = 0; i < data.children.length; i++) {
+                    let child = data.children[i];
+                    let menuItem = new MenuItem(child);
+                    this.children.push(menuItem);
+                }
             }
         }
+    }
+
+    private _valid = ko.pureComputed(() => {
+        let valid = this.route() && this.route().valid() && this.title();
+
+        for (let i = 0; i < this.children.length; i++) {
+            let child = this.children()[i];
+            valid = valid && child.valid();
+        }
+
+        return valid;
+    });
+
+    get valid(): KnockoutComputed<any> {
+        return this._valid;
+    }
+
+    set valid(value: KnockoutComputed<any>) {
+        this._valid = value;
     }
 
     private _id = ko.observable<number>();
@@ -169,7 +207,6 @@ class MenuTools {
             modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
             let injectedModal = modalNode.firstElementChild;
 
-            let item = new MenuItem({});
             let modal = Modal.get(injectedModal, false);
             let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
             ko.applyBindings(vm, injectedModal);
@@ -188,21 +225,40 @@ class MenuTools {
 
     static deleteItem = (item: MenuItem): Promise<MenuItem> => {
         return new Promise((resolve, reject) => {
-
         });
+    };
+
+    static formatJson = (json: any) => {
+        let result = '';
+        let keys = Object.keys(json);
+
+        for (let i = 0; i < keys.length; i++) {
+            result += `${keys[i]} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ${json[keys[i]]}`;
+        }
+
+        return result;
     };
 }
 
 class Menu {
-    addItem = (selectedItem: MenuItem) => {
+    addItemAfter = (selectedItem: MenuItem) => {
         MenuTools.addItem().then((item: MenuItem) => {
-            let currentItemIndex = this.children.indexOf(selectedItem);
-            this.children.splice(currentItemIndex, 0, item);
+            let currentItemIndex = this.children.indexOf(selectedItem) + 1;
+            if (currentItemIndex === -1) {
+                this.children.push(item);
+            } else {
+                this.children.splice(currentItemIndex, 0, item);
+            }
         });
     };
-    addItemBeginning = () => {
+    addItemBefore = (selectedItem: MenuItem) => {
         MenuTools.addItem().then((item: MenuItem) => {
-            this.children.splice(0, 0, item);
+            let currentItemIndex = this.children.indexOf(selectedItem) - 1;
+            if (currentItemIndex === -1) {
+                this.children.push(item);
+            } else {
+                this.children.splice(currentItemIndex, 0, item);
+            }
         });
     };
 
@@ -212,7 +268,7 @@ class Menu {
         }
 
         this.id(data.id);
-        this.title(data.title);
+        this.name(data.name);
 
         if (data.children) {
             for (let i = 0; i < data.children.length; i++) {
@@ -223,13 +279,13 @@ class Menu {
         }
     }
 
-    private _title = ko.observable<string>();
-    get title(): KnockoutObservable<string> {
-        return this._title;
+    private _name = ko.observable<string>();
+    get name(): KnockoutObservable<string> {
+        return this._name;
     }
 
-    set title(value: KnockoutObservable<string>) {
-        this._title = value;
+    set name(value: KnockoutObservable<string>) {
+        this._name = value;
     }
 
     private _id = ko.observable<number>();

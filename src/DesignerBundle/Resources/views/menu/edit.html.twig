@@ -1,4 +1,17 @@
-{% extends '@Designer/base.html.twig' %}
+{% extends '@Designer/menu/menu.base.html.twig' %}
+
+{% block header %}
+    {{ 'layout.designer.menu.header.edit'|trans({ 'title': menu.name }) }}
+{% endblock %}
+
+{% block content %}
+    <div data-menu-editor="" data-submit-url="{{ url('designer_menu_save_with_id', { 'id': menu.id }) }}"
+         data-menu-id="{{ menu.id }}" data-load-url="{{ url('designer_menu_load_menu', { 'id': menu.id }) }}">
+        {% include '@Designer/menu/editor.html.twig' %}
+    </div>
+    {% include '@Designer/menu/ElementModal.html.twig' %}
+    <div id="modal"></div>
+{% endblock %}
 
 {% block menu_bottom_links_menu_specific %}
     {% include '@Designer/menu/additionalLinks.html.twig' %}

@@ -27,6 +27,7 @@ layout:
       header:
         add: Menü hinzufügen
         index: Menüübersicht
+        edit: Menü title bearbeiten
       edit: Menü title bearbeiten
 designer:
   page:
@@ -85,12 +86,14 @@ designer:
       content: Soll das Menü title wirklich gelöscht werden?
     editor:
       title: Menüeditor
+      name: Menüname
       item:
         add: Menüelement hinzufügen
         modal:
           title: Menüelementdaten
         type: Typ
+        title: Text
+        displayUrl: Anzeige URL
+        route: Ziel
       items:
         header: Menüelemente
-      route: Ziel
-      displayUrl: Anzeige URL

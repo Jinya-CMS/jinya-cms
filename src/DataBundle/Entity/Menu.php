@@ -32,7 +32,7 @@ class Menu implements JsonSerializable
      */
     private $name;
     /**
-     * @ORM\OneToMany(targetEntity="DataBundle\Entity\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="DataBundle\Entity\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
      * @var Collection
      */
     private $menuItems;
@@ -97,7 +97,7 @@ class Menu implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'items' => $this->menuItems->toArray()
+            'children' => $this->menuItems->toArray()
         ];
     }
 }

@@ -35,12 +35,13 @@ class MenuService implements MenuServiceInterface
      */
     public function save(Menu $menu): Menu
     {
-        if ($menu->getId() !== null) {
+        if ($menu->getId() === null) {
             $this->entityManager->persist($menu);
         } else {
             $this->entityManager->merge($menu);
         }
         $this->entityManager->flush();
+        $this->entityManager->refresh($menu);
 
         return $menu;
     }

@@ -1,14 +1,14 @@
-<script type="text/html" id="item-modal">
+<script type="text/html" id="element-modal">
     <div class="md-modal" data-fetch-url="{{ url('designer_route_retrieve') }}">
         <div class="md-content">
             <span class="md-title">{{ 'designer.menu.editor.item.modal.title'|trans }}</span>
             <div class="form">
                 <div class="form-group">
-                    <label for="title">{{ 'designer.menu.editor.title'|trans }}</label>
+                    <label for="title">{{ 'designer.menu.editor.item.title'|trans }}</label>
                     <input data-bind="value: item().title" type="text" id="title">
                 </div>
                 <div class="form-group">
-                    <label for="displayUrl">{{ 'designer.menu.editor.displayUrl'|trans }}</label>
+                    <label for="displayUrl">{{ 'designer.menu.editor.item.displayUrl'|trans }}</label>
                     <input data-bind="value: item().route().url" type="text" id="displayUrl">
                 </div>
                 <div class="form-group">
@@ -21,13 +21,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="route">{{ 'designer.menu.editor.route'|trans }}</label>
+                    <label for="route">{{ 'designer.menu.editor.item.route'|trans }}</label>
                     <select data-bind="enabled: selectedType(), options: routes, value: selectedRoute, optionsText: 'url'"
                             id="route"></select>
                 </div>
             </div>
             <div class="md-footer">
-                <button data-bind="click: save"
+                <button data-bind="click: save, enable: canSave"
                         class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
                 <button data-action="close"
                         class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</button>

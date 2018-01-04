@@ -1,6 +1,6 @@
 class MenuEditorViewModel {
     submit = () => {
-        let data = ko.toJS(this);
+        let data = JSON.parse(ko.toJSON(this));
         let call = new Ajax.Request(this.submitUrl);
         let dfd: Promise<any>;
 
@@ -13,7 +13,7 @@ class MenuEditorViewModel {
         dfd.then(value => {
             location.href = value.redirectUrl;
         }, (reason: Ajax.Error) => {
-            Modal.alert(reason.message, reason.details.message)
+            Modal.alert(reason.message, reason.details.message);
         });
     };
     private loadMenu = (loadUrl: string) => {

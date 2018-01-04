@@ -89,7 +89,7 @@ class MenuItem implements JsonSerializable
     /**
      * @param MenuItem $parent
      */
-    public function setParent(MenuItem $parent): void
+    public function setParent(?MenuItem $parent): void
     {
         $this->parent = $parent;
     }
@@ -121,7 +121,7 @@ class MenuItem implements JsonSerializable
     /**
      * @param Menu $menu
      */
-    public function setMenu(Menu $menu): void
+    public function setMenu(?Menu $menu): void
     {
         $this->menu = $menu;
     }
@@ -151,18 +151,25 @@ class MenuItem implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        $result = [
             'id' => $this->id,
             'title' => $this->title,
             'route' => $this->route,
-            'menu' => [
-                'id' => $this->menu->getId()
-            ],
-            'parent' => [
-                'id' => $this->parent->getId()
-            ],
             'children' => $this->children->toArray()
         ];
+
+        if ($this->parent !== null) {
+            $result['parent'] = [
+                'id' => $this->parent->getId()
+            ];
+        }
+        if ($this->menu !== null) {
+            $result['menu'] = [
+                'id' => $this->menu->getId()
+            ];
+        }
+
+        return $result;
     }
 
     /**

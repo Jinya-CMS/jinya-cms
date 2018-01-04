@@ -1,7 +1,7 @@
 <a href="{{ url("designer_menu_edit", { "id": menu.id }) }}"
-   title="{{ 'layout.designer.menu.edit'|trans({ 'title': menu.title }) }}"><i class="fa fa-edit"></i></a>
+   title="{{ 'layout.designer.menu.edit'|trans({ 'title': menu.name }) }}"><i class="fa fa-edit"></i></a>
 <a href="#" data-delete="true" data-delete-title="{{ 'designer.menu.delete.title'|trans }}"
-   data-delete-content="{{ 'designer.menu.delete.content'|trans({ 'title': menu.title }) }}"
+   data-delete-content="{{ 'designer.menu.delete.content'|trans({ 'title': menu.name }) }}"
    data-delete-positive-button="{{ 'generic.delete'|trans }}"
    data-delete-negative-button="{{ 'generic.dont.delete'|trans }}"
    data-delete-url="{{ url('designer_menu_delete', { 'id': menu.id }) }}"

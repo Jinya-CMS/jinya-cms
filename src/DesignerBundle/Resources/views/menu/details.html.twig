@@ -1,5 +1,13 @@
 {% extends '@Designer/menu/menu.base.html.twig' %}
 
+{% block header %}
+    {{ menu.name }}
+{% endblock %}
+
+{% block content %}
+    {% include '@Designer/menu/MenuDisplay.html.twig' %}
+{% endblock %}
+
 {% block menu_bottom_links_menu_specific %}
     {% include '@Designer/menu/additionalLinks.html.twig' %}
 {% endblock %}

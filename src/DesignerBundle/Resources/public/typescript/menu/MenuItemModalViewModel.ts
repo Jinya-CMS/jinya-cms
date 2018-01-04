@@ -21,6 +21,18 @@ class MenuItemModalViewModel {
         });
     }
 
+    private _canSave = ko.pureComputed(() => {
+        return this.item().valid();
+    });
+
+    get canSave(): KnockoutComputed<any> {
+        return this._canSave;
+    }
+
+    set canSave(value: KnockoutComputed<any>) {
+        this._canSave = value;
+    }
+
     private _item = ko.observable<MenuItem>();
 
     get item(): KnockoutObservable<MenuItem> {
