@@ -18,13 +18,9 @@ class RouteController extends Controller
     public function retrieveAction(Request $request): Response
     {
         $type = $request->get('type', -1);
+        $routeRetrievalService = $this->get('jinya_gallery.services_routing.route_retrieval_service');
+        $items = $routeRetrievalService->retrieveRoutesByType($type);
 
-        if ($type === -1) {
-            return $this->json([]);
-        } else {
-            $items = [];
-
-            return $this->json($items);
-        }
+        return $this->json($items);
     }
 }
