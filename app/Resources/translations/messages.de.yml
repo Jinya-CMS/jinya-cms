@@ -28,3 +28,7 @@ generic:
     delete: Nicht löschen
   add: Hinzufügen
   required: Erforderlich
+  gallery: Galerie
+  artwork: Kunstwerk
+  form: Formular
+  page: Seite

@@ -1,0 +1,28 @@
+<div class="form grid">
+    <div class="half">
+        <div class="form-group">
+            <label for="title">{{ 'designer.menu.editor.title'|trans }}</label>
+            <input id="title" type="text" data-bind="value: menu().title">
+        </div>
+    </div>
+    <div class="half">
+        <div class="form-group">
+            <label>{{ 'designer.menu.editor.items.header'|trans }}</label>
+            {% include '@Designer/menu/MenuDisplay.html.twig' %}
+            <div data-bind="template: { name: 'menuDisplayTemplate' }"></div>
+        </div>
+    </div>
+    <div class="full">
+        <div class="buttons">
+            <button type="button" data-bind="click: submit"
+                    class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
+            {% if menu is defined %}
+                {% set target = url('designer_menu_details', { 'id': menu.id }) %}
+            {% else %}
+                {% set target = url('designer_menu_index') %}
+            {% endif %}
+            <a href="{{ target }}"
+               class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</a>
+        </div>
+    </div>
+</div>

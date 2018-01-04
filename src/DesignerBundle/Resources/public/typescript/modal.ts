@@ -130,8 +130,10 @@ class Modal {
         Modal.current = this;
         this.trigger('opened');
     };
-    hide = (removeOverlay = true) => {
-        this.trigger('closing');
+    hide = (removeOverlay = true, noEvents = false) => {
+        if (!noEvents) {
+            this.trigger('closing');
+        }
         classie.remove(this.modalElement, 'md-show');
         if (removeOverlay) {
             classie.remove(Modal.body, 'md-show');
@@ -144,7 +146,9 @@ class Modal {
                 }
             }, 300);
         }
-        this.trigger('closed');
+        if (!noEvents) {
+            this.trigger('closed');
+        }
     };
     on = (event: string, callback: (args) => void) => {
         this.subscriber[event] = this.subscriber[event] || [];

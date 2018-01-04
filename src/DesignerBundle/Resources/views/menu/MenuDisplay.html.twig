@@ -1,0 +1,43 @@
+<script type="text/html" id="menuItemDisplayTemplate">
+    <!-- ko if: $root.edit -->
+    <li>
+        <button data-bind="click: addItemBeginning"
+                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+    </li>
+    <!-- /ko -->
+    <li>
+        <p data-bind="text: title"></p>
+        <small>
+            <span data-bind="text: route().name"></span> &mdash; <span data-bind="text: route().parameter"></span>
+        </small>
+        <!-- ko if: $root.edit -->
+        <div class="button-top-right">
+            <button data-bind="click: editItem" class="button primary inverse button-square">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <button data-bind="click: deleteItem" class="button danger inverse button-square">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
+        <!-- /ko -->
+    </li>
+    <!-- ko if: $root.edit -->
+    <li>
+        <button data-bind="click: addItem"
+                class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+    </li>
+    <!-- /ko -->
+</script>
+<script type="text/html" id="menuDisplayTemplate">
+    <ul class="jinya-menu">
+        <!-- ko if: $root.edit && menu().children().length === 0 -->
+        <li>
+            <button data-bind="click: menu().addItem"
+                    class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
+        </li>
+        <!-- /ko -->
+        <li>
+            <ul data-bind="template: { name: 'menuItemDisplayTemplate', foreach: menu().children }"></ul>
+        </li>
+    </ul>
+</script>
