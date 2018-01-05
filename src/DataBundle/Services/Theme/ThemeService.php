@@ -17,6 +17,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
 use const DIRECTORY_SEPARATOR;
+use function array_key_exists;
+use function is_array;
 use function realpath;
 
 class ThemeService implements ThemeServiceInterface
@@ -56,13 +58,14 @@ class ThemeService implements ThemeServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $configFiles = $finder->directories()
-            ->in(realpath($this->kernelRootDir . DIRECTORY_SEPARATOR . $this->themeDirectory))
+        $themeDirectory = realpath($this->kernelRootDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory);
+        $configFiles = $finder->files()
+            ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
 
         foreach ($configFiles as $configFile) {
             /** @var $configFile SplFileInfo */
-            $this->saveTheme($configFile->getContents());
+            $this->saveTheme($configFile->getContents(), $configFile->getRelativePath());
         }
     }
 
@@ -70,16 +73,23 @@ class ThemeService implements ThemeServiceInterface
      * @param string $configString
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function saveTheme(string $configString)
+    private function saveTheme(string $configString, string $name)
     {
         $config = Yaml::parse($configString, Yaml::PARSE_OBJECT);
-        $theme = $this->getThemeOrNewTheme($config['name']);
-        $theme->setName($config['name']);
-        $theme->setDescription($config['description']);
-        $theme->setConfiguration($config['defaultConfig']);
-        $theme->setPreviewImage($config['previewImage']);
+        $theme = $this->getThemeOrNewTheme($name);
+        $theme->setName($name);
+        $theme->setDisplayName($config['displayName']);
+        $theme->setDescription(array_key_exists('description', $config) ? $config['description'] : '');
+        if (array_key_exists('defaultConfig', $config)) {
+            $themeConfig = $theme->getConfiguration();
+            $defaultConfig = $config['defaultConfig'];
+            if (is_array($defaultConfig)) {
+                $theme->setConfiguration(array_replace_recursive($defaultConfig, $themeConfig));
+            }
+        }
+        $theme->setPreviewImage(array_key_exists('previewImage', $config) ? $config['previewImage'] : '');
 
-        if ($this->entityManager->getUnitOfWork()->getEntityState($theme) === UnitOfWork::STATE_DETACHED) {
+        if ($this->entityManager->getUnitOfWork()->getEntityState($theme) === UnitOfWork::STATE_NEW) {
             $this->entityManager->persist($theme);
         }
 
@@ -92,7 +102,6 @@ class ThemeService implements ThemeServiceInterface
      */
     private function getThemeOrNewTheme(string $name): Theme
     {
-
         try {
             $theme = $this->getTheme($name);
         } catch (Exception $e) {

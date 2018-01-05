@@ -43,7 +43,7 @@ class FrontendConfigurationService implements FrontendConfigurationServiceInterf
     public function getConfig(): FrontendConfiguration
     {
         try {
-            return $this->entityManager->getRepository(FrontendConfiguration::class)->findOneBy(['id >= 0']);
+            return $this->entityManager->getRepository(FrontendConfiguration::class)->findAll()[0];
         } catch (Exception $exception) {
             $config = new FrontendConfiguration();
             $config->setCurrentTheme($this->themeService->getDefaultJinyaTheme());

@@ -33,7 +33,7 @@ class Theme
      * @ORM\Column(type="json_array")
      * @var array
      */
-    private $configuration;
+    private $configuration = [];
     /**
      * @ORM\Column(type="string")
      * @var string
@@ -44,6 +44,27 @@ class Theme
      * @var string
      */
     private $name;
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $displayName;
+
+    /**
+     * @return string
+     */
+    public function getDisplayName(): string
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @param string $displayName
+     */
+    public function setDisplayName(string $displayName): void
+    {
+        $this->displayName = $displayName;
+    }
 
     /**
      * @return string
