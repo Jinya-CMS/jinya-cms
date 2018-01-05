@@ -95,5 +95,8 @@ designer:
         title: Text
         displayUrl: Anzeige URL
         route: Ziel
+        delete:
+          title: Eintrag löschen?
+          content: Soll der Menüeintrag title wirklich gelöscht werden?
       items:
         header: Menüelemente

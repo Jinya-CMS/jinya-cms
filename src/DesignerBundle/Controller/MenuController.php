@@ -58,10 +58,10 @@ class MenuController extends Controller
         } else {
             $menu = new Menu();
         }
-        $postedMenu = json_decode($request->getContent(), true)['menu'];
+        $postedMenu = json_decode($request->getContent(), true)['_menu'];
 
-        $menu->setName($postedMenu['name']);
-        $menu->setMenuItems($this->prepareMenuChildren($postedMenu['children'], $menu));
+        $menu->setName($postedMenu['_name']);
+        $menu->setMenuItems($this->prepareMenuChildren($postedMenu['_children'], $menu));
 
         try {
             $menu = $menuService->save($menu);
@@ -85,15 +85,15 @@ class MenuController extends Controller
         foreach ($children as $child) {
             $item = new MenuItem();
             $route = new RoutingEntry();
-            $route->setRouteName($child['route']['name']);
-            $route->setRouteParameter($child['route']['parameter']);
-            $route->setUrl($child['route']['url']);
+            $route->setRouteName($child['_route']['_name']);
+            $route->setRouteParameter($child['_route']['_parameter']);
+            $route->setUrl($child['_route']['_url']);
 
-            $item->setTitle($child['title']);
+            $item->setTitle($child['_title']);
             $item->setMenu($menu);
             $item->setParent($parent);
             $item->setRoute($route);
-            $item->setChildren($this->prepareMenuChildren($child['children'], null, $item));
+            $item->setChildren($this->prepareMenuChildren($child['_children'], null, $item));
 
             $items[] = $item;
         }

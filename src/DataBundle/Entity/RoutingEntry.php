@@ -11,10 +11,12 @@ namespace DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
+use function strpos;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="route")
+ * @ORM\HasLifecycleCallbacks
  */
 class RoutingEntry implements JsonSerializable
 {
@@ -121,5 +123,16 @@ class RoutingEntry implements JsonSerializable
             'parameter' => $this->routeParameter,
             'url' => $this->url
         ];
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function correctUrl()
+    {
+        if (strpos($this->url, '/') !== 0 && strpos($this->url, 'http') !== 0) {
+            $this->url = '/' . $this->url;
+        }
     }
 }

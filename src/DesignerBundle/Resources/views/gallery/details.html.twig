@@ -48,7 +48,7 @@
 {% endblock %}
     {% block scripts_custom %}
         {{ parent() }}
-        {% javascripts filter='jsqueeze' '@designer_gallery_js' output='public/js/gallery.js' %}
+        {% javascripts filter='jsqueeze' '@designer_gallery_js' output='public/js/designer/gallery.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}

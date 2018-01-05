@@ -1,6 +1,6 @@
 class MenuEditorViewModel {
     submit = () => {
-        let data = JSON.parse(ko.toJSON(this));
+        let data = JSON.parse(Util.jsonStringifyWithoutCycle(ko.toJS(this)));
         let call = new Ajax.Request(this.submitUrl);
         let dfd: Promise<any>;
 
@@ -11,10 +11,16 @@ class MenuEditorViewModel {
         }
 
         dfd.then(value => {
-            location.href = value.redirectUrl;
+            location.href = value.redirectTarget;
         }, (reason: Ajax.Error) => {
             Modal.alert(reason.message, reason.details.message);
         });
+    };
+    addItemAfter = (selectedItem: MenuItem) => {
+        this.menu().addItemAfter(selectedItem);
+    };
+    addItemBefore = (selectedItem: MenuItem) => {
+        this.menu().addItemBefore(selectedItem);
     };
     private loadMenu = (loadUrl: string) => {
         let call = new Ajax.Request(loadUrl);

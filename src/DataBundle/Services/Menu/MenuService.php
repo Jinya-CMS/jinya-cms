@@ -37,11 +37,9 @@ class MenuService implements MenuServiceInterface
     {
         if ($menu->getId() === null) {
             $this->entityManager->persist($menu);
-        } else {
-            $this->entityManager->merge($menu);
         }
+
         $this->entityManager->flush();
-        $this->entityManager->refresh($menu);
 
         return $menu;
     }

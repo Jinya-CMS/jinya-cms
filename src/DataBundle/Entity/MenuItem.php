@@ -32,7 +32,7 @@ class MenuItem implements JsonSerializable
      */
     private $title;
     /**
-     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Menu", inversedBy="menuItems", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Menu", inversedBy="menuItems", cascade={"persist"})
      * @var Menu
      */
     private $menu;
@@ -43,7 +43,7 @@ class MenuItem implements JsonSerializable
      */
     private $route;
     /**
-     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\MenuItem", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\MenuItem", inversedBy="children", cascade={"persist"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      * @var MenuItem
      */

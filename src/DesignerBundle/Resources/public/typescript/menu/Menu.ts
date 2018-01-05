@@ -55,7 +55,7 @@ class Route {
 
 class MenuItem {
     addItemAfter = (selectedItem: MenuItem) => {
-        MenuTools.addItem().then((item: MenuItem) => {
+        MenuTools.addItem(this).then((item: MenuItem) => {
             let currentItemIndex = this.children.indexOf(selectedItem) + 1;
             if (currentItemIndex === -1) {
                 this.children.push(item);
@@ -65,7 +65,7 @@ class MenuItem {
         });
     };
     addItemBefore = (selectedItem: MenuItem) => {
-        MenuTools.addItem().then((item: MenuItem) => {
+        MenuTools.addItem(this).then((item: MenuItem) => {
             let currentItemIndex = this.children.indexOf(selectedItem);
             if (currentItemIndex === -1) {
                 this.children.push(item);
@@ -80,31 +80,43 @@ class MenuItem {
     };
     deleteItem = (item: MenuItem) => {
         MenuTools.deleteItem(item).then((item: MenuItem) => {
-            this.children.remove(item);
+            this.parent().children.remove(item);
         });
     };
 
-    constructor(data: any | string) {
+    constructor(data: any | string, parent: MenuItem | Menu) {
         if (data instanceof String) {
             data = JSON.parse(data.toString());
         }
         if (data) {
             let route = new Route(data.route);
-            let parent = new MenuItem(data.parent);
-
-            this.id(data.id);
+            this.id(data.id || Date.now());
             this.title(data.title);
-            this.parent(parent);
+            if (parent instanceof MenuItem) {
+                this.parent(parent);
+            } else if (parent instanceof Menu) {
+                this.menu(parent);
+            }
             this.route(route);
 
             if (data.children) {
                 for (let i = 0; i < data.children.length; i++) {
                     let child = data.children[i];
-                    let menuItem = new MenuItem(child);
+                    let menuItem = new MenuItem(child, this);
                     this.children.push(menuItem);
                 }
             }
         }
+    }
+
+    private _menu = ko.observable<Menu>();
+
+    get menu(): KnockoutObservable<Menu> {
+        return this._menu;
+    }
+
+    set menu(value: KnockoutObservable<Menu>) {
+        this._menu = value;
     }
 
     private _valid = ko.pureComputed(() => {
@@ -178,13 +190,13 @@ class MenuItem {
 }
 
 class MenuTools {
-    static addItem = (): Promise<MenuItem> => {
+    static addItem = (parent: MenuItem | Menu): Promise<MenuItem> => {
         return new Promise<MenuItem>((resolve, reject) => {
             let modalNode = document.querySelector('#modal');
             modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
             let injectedModal = modalNode.firstElementChild;
 
-            let item = new MenuItem({});
+            let item = new MenuItem({}, parent);
             let modal = Modal.get(injectedModal, false);
             let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
             ko.applyBindings(vm, injectedModal);
@@ -225,6 +237,9 @@ class MenuTools {
 
     static deleteItem = (item: MenuItem): Promise<MenuItem> => {
         return new Promise((resolve, reject) => {
+            Modal.confirm(texts['designer.menu.editor.item.delete.title'], texts['designer.menu.editor.item.delete.content'].replace('title', item.title()))
+                .then(value => value ? resolve(item) : reject())
+                .catch(reason => reject());
         });
     };
 
@@ -242,7 +257,7 @@ class MenuTools {
 
 class Menu {
     addItemAfter = (selectedItem: MenuItem) => {
-        MenuTools.addItem().then((item: MenuItem) => {
+        MenuTools.addItem(this).then((item: MenuItem) => {
             let currentItemIndex = this.children.indexOf(selectedItem) + 1;
             if (currentItemIndex === -1) {
                 this.children.push(item);
@@ -252,7 +267,7 @@ class Menu {
         });
     };
     addItemBefore = (selectedItem: MenuItem) => {
-        MenuTools.addItem().then((item: MenuItem) => {
+        MenuTools.addItem(this).then((item: MenuItem) => {
             let currentItemIndex = this.children.indexOf(selectedItem) - 1;
             if (currentItemIndex === -1) {
                 this.children.push(item);
@@ -273,7 +288,7 @@ class Menu {
         if (data.children) {
             for (let i = 0; i < data.children.length; i++) {
                 let child = data.children[i];
-                let menuItem = new MenuItem(child);
+                let menuItem = new MenuItem(child, this);
                 this.children.push(menuItem);
             }
         }

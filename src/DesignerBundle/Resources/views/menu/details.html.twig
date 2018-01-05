@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    {% include '@Designer/menu/MenuDisplay.html.twig' %}
+    <div class="jinya-menu-display">
+        <ul class="jinya-menu">
+            {% for child in menu.menuItems %}
+                {% include '@Designer/menu/MenuItem.html.twig' with { 'item': child } %}
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 {% block menu_bottom_links_menu_specific %}

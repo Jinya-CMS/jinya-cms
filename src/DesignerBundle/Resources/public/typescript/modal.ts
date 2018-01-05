@@ -98,19 +98,19 @@ class Modal {
                 let positiveButton = modalElement.querySelector('[data-action=positive]');
                 positiveButton.addEventListener('click', () => {
                     resolve(true);
-                    modal.hide(false);
+                    modal.hide(openModals.length === 0);
                 });
 
                 let negativeButton = modalElement.querySelector('[data-action=negative]');
                 negativeButton.addEventListener('click', () => {
                     resolve(false);
-                    modal.hide(false);
+                    modal.hide(openModals.length === 0);
                 });
 
                 let ignoreButton = modalElement.querySelector('[data-action=ignore]');
                 ignoreButton.addEventListener('click', () => {
                     reject();
-                    modal.hide(false);
+                    modal.hide(openModals.length === 0);
                 });
             });
             modal.show();

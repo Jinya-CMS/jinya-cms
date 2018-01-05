@@ -35,6 +35,6 @@ class RouteService implements RouteServiceInterface
     public function findByUrl(string $url): RoutingEntry
     {
         return $this->entityManager->getRepository(RoutingEntry::class)
-            ->findOneBy(['routeName' => $url]);
+            ->findOneBy(['url' => $url]);
     }
 }

@@ -8,13 +8,15 @@ class Delete {
             let positiveButton = item.getAttribute('data-delete-positive-button');
             let negativeButton = item.getAttribute('data-delete-negative-button');
             item.addEventListener('click', () => {
-                Modal.confirm(title, message, positiveButton, negativeButton).then(() => {
-                    let call = new Ajax.Request(item.getAttribute('data-delete-url'));
-                    call.delete().then(() => {
-                        window.location.href = item.getAttribute('data-redirect-target');
-                    }, (data: Ajax.Error) => {
-                        Modal.alert(data.message, data.details.message);
-                    });
+                Modal.confirm(title, message, positiveButton, negativeButton).then((value) => {
+                    if (value) {
+                        let call = new Ajax.Request(item.getAttribute('data-delete-url'));
+                        call.delete().then(() => {
+                            window.location.href = item.getAttribute('data-redirect-target');
+                        }, (data: Ajax.Error) => {
+                            Modal.alert(data.message, data.details.message);
+                        });
+                    }
                 });
             });
         }
