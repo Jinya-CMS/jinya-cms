@@ -1,0 +1,35 @@
+.jinya-menu {
+  padding: 0;
+
+  &:empty {
+    display: none;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+
+    .item {
+      border-radius: 5px;
+      border: 2px solid $primary;
+      margin-bottom: 0.2em;
+      padding: 1em;
+
+      .item-content {
+        position: relative;
+      }
+    }
+  }
+
+  .button {
+    margin-bottom: 0.2em;
+  }
+}
+
+.jinya-menu-display {
+  margin-left: 2em;
+  margin-right: 2em;
+}

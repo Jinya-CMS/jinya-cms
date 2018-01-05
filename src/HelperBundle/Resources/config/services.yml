@@ -15,6 +15,14 @@ services:
       arguments:
         - '%base_url%'
         - '%kernel.root_dir%'
+  jinya_gallery.services_routing.route_retrieval_service:
+      class: HelperBundle\Services\Routing\RouteRetrievalService
+      arguments:
+        - '@jinya_gallery.services.page_service'
+        - '@jinya_gallery.services.form_service'
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@router'
 
   jinya_gallery.services.schema_tool:
       public: true

@@ -37,6 +37,8 @@
   }
 
   &:hover {
+    text-decoration: none;
+
     &::before {
       -webkit-transform: scale3d(1, 1, 1);
       transform: scale3d(1, 1, 1);
@@ -97,6 +99,17 @@
     &:hover {
       background: $white;
       color: $danger;
+    }
+
+    &.inverse {
+      background: $white;
+      color: $danger;
+      border-color: $danger;
+
+      &:hover {
+        background: $danger;
+        color: $white;
+      }
     }
   }
 

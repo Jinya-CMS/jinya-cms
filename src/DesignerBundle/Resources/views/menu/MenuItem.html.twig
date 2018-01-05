@@ -1,0 +1,15 @@
+<li>
+    <div class="item">
+        <div class="item-content">
+            <span>{{ item.title }}</span><br/>
+            <small><a target="_blank" href="{{ item.route.url }}">{{ item.route.url }}</a></small>
+        </div>
+        {% if item.children|length > 0 %}
+            <ul>
+                {% for child in item.children %}
+                    {% include '@Designer/menu/MenuItem.html.twig' with { 'item': child } %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</li>

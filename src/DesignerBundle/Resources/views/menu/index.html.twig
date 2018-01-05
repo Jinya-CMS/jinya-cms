@@ -1,0 +1,13 @@
+{% extends '@Designer/menu/menu.base.html.twig' %}
+{% block header %}{{ 'layout.designer.menu.header.index'|trans }}{% endblock %}
+{% block content %}
+    <div class="list">
+        {% for menu in menus %}
+            <a class="card" href="{{ url('designer_menu_details', { 'id': menu.id }) }}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ menu.name }}</h4>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

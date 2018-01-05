@@ -39,6 +39,14 @@ services:
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services_slug.slug_service'
+  jinya_gallery.services.menu_service:
+      class: DataBundle\Services\Menu\MenuService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.services.route_service:
+      class: DataBundle\Services\Routing\RouteService
+      arguments:
+        - '@doctrine.orm.entity_manager'
 
   jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
       class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber

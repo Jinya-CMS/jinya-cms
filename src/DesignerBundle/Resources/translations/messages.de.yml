@@ -23,6 +23,12 @@ layout:
         index: Formularübersicht
         edit: Formular title bearbeiten
       edit: Formular title bearbeiten
+    menu:
+      header:
+        add: Menü hinzufügen
+        index: Menüübersicht
+        edit: Menü title bearbeiten
+      edit: Menü title bearbeiten
 designer:
   page:
     title: Seitentitel
@@ -74,3 +80,23 @@ designer:
         dropdown: Auswahl
         email: Emailadresse
         checkbox: Checkbox
+  menu:
+    delete:
+      title: Menü löschen?
+      content: Soll das Menü title wirklich gelöscht werden?
+    editor:
+      title: Menüeditor
+      name: Menüname
+      item:
+        add: Menüelement hinzufügen
+        modal:
+          title: Menüelementdaten
+        type: Typ
+        title: Text
+        displayUrl: Anzeige URL
+        route: Ziel
+        delete:
+          title: Eintrag löschen?
+          content: Soll der Menüeintrag title wirklich gelöscht werden?
+      items:
+        header: Menüelemente
