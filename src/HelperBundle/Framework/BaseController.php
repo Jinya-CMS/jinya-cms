@@ -28,6 +28,8 @@ abstract class BaseController extends Controller
         $activeTheme = $themeService->getActiveTheme();
         $themeViewPath = $themeService->getThemeNamespace($activeTheme) . str_replace('@', '/', $view);
 
+        $parameters['themeConfig'] = $activeTheme->getConfiguration();
+
         return parent::render($themeViewPath, $parameters, $response);
     }
 

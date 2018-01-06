@@ -47,6 +47,8 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
       ajax: false
+    paths:
+      '%kernel.project_dir%/themes': Theme
 
 # Doctrine Configuration
 doctrine:
