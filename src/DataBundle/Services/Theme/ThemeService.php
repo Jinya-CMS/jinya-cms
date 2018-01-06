@@ -21,7 +21,6 @@ use Twig\Loader\FilesystemLoader;
 use const DIRECTORY_SEPARATOR;
 use function array_key_exists;
 use function is_array;
-use function realpath;
 
 class ThemeService implements ThemeServiceInterface
 {
@@ -72,7 +71,7 @@ class ThemeService implements ThemeServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = realpath($this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory);
+        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory;
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);

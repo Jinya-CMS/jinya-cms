@@ -77,6 +77,11 @@
                                     </div>
                                 {% endif %}
                             {% endblock %}
+                            {% block menu_designer %}
+                                <a href="{{ url('designer_default_index') }}" target="_blank" class="nav-item nav-link">
+                                    {{ 'layout.backend.menu.designer'|trans }}
+                                </a>
+                            {% endblock %}
                         </div>
                     {% endblock %}
                     {% block menu_items_end %}
@@ -198,7 +203,7 @@
     {% endblock %}
     {% block assetic_scripts %}
         {% javascripts filter='jsqueeze' '@backendjs' output='public/js/backend.js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}
     {% block custom_scripts %}{% endblock %}
@@ -221,7 +226,7 @@
     {% endblock %}
     {% block assetic_styles %}
         {% stylesheets filter='scssphp' '@backendcss' output='public/css/backend.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}">
+            <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
     {% endblock %}
     {% block datatables_styles %}
