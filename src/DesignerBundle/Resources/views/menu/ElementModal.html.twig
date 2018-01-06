@@ -14,17 +14,20 @@
                 <div class="form-group">
                     <label for="type">{{ 'designer.menu.editor.item.type'|trans }}</label>
                     <select id="type" data-bind="value: selectedType">
+                        <option value="empty">{{ 'generic.empty'|trans }}</option>
                         <option value="gallery">{{ 'generic.gallery'|trans }}</option>
                         <option value="artwork">{{ 'generic.artwork'|trans }}</option>
                         <option value="form">{{ 'generic.form'|trans }}</option>
                         <option value="menu">{{ 'generic.page'|trans }}</option>
                     </select>
                 </div>
+                <!-- ko if: selectedType() !== 'empty' -->
                 <div class="form-group">
                     <label for="route">{{ 'designer.menu.editor.item.route'|trans }}</label>
                     <select data-bind="enabled: selectedType(), options: routes, value: selectedRoute, optionsText: 'url'"
                             id="route"></select>
                 </div>
+                <!-- /ko -->
             </div>
             <div class="md-footer">
                 <button data-bind="click: save, enable: canSave"

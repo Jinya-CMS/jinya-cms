@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function is_array;
 
 class MenuController extends Controller
 {
@@ -86,7 +87,12 @@ class MenuController extends Controller
             $item = new MenuItem();
             $route = new RoutingEntry();
             $route->setRouteName($child['_route']['_name']);
-            $route->setRouteParameter($child['_route']['_parameter']);
+            if (is_array($child['_route']['_parameter'])) {
+                $route->setRouteParameter($child['_route']['_parameter']);
+            } else {
+                $route->setRouteParameter([]);
+            }
+
             $route->setUrl($child['_route']['_url']);
 
             $item->setTitle($child['_title']);

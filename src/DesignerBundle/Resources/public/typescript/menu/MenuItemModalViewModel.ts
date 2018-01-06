@@ -10,10 +10,14 @@ class MenuItemModalViewModel {
         this.modal = modal;
 
         this.selectedType.subscribe(newValue => {
-            let call = new Ajax.Request(`${fetchUrl}?type=${newValue}`);
-            call.get().then(value => {
-                this.routes(value.routes);
-            });
+            if (newValue !== 'empty') {
+                let call = new Ajax.Request(`${fetchUrl}?type=${newValue}`);
+                call.get().then(value => {
+                    this.routes(value.routes);
+                });
+            } else {
+                this.selectedRoute({parameter: '', name: '#'});
+            }
         });
         this.selectedRoute.subscribe(newValue => {
             this.item().route().parameter(newValue.parameter);

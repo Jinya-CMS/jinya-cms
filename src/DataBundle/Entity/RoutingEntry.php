@@ -131,7 +131,7 @@ class RoutingEntry implements JsonSerializable
      */
     public function correctUrl()
     {
-        if (strpos($this->url, '/') !== 0 && strpos($this->url, 'http') !== 0) {
+        if (strpos($this->url, '/') !== 0 && strpos($this->url, 'http') !== 0 && $this->url !== '#') {
             $this->url = '/' . $this->url;
         }
     }

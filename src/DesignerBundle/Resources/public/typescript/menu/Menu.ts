@@ -11,6 +11,9 @@ class Route {
     }
 
     private _valid = ko.pureComputed(() => {
+        if (this.url() === '#') {
+            return true;
+        }
         return this.name() && this.url();
     });
 

@@ -4,3 +4,5 @@ layout:
   backend:
     login:
       title: Login
+generic:
+  empty: 'messages'
