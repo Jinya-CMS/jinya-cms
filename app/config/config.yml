@@ -14,7 +14,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: de
-    jinya_gallery.theme.directory: themes/
+    jinya_gallery.theme.directory: themes
 
 framework:
     #esi: ~

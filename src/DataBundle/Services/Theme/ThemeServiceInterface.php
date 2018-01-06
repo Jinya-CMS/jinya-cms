@@ -47,4 +47,31 @@ interface ThemeServiceInterface
      * @return Theme[]
      */
     public function getAllThemes(): array;
+
+    /**
+     * Gets the currently active theme
+     *
+     * @return Theme
+     */
+    public function getActiveTheme(): Theme;
+
+    /**
+     * Gets the namespace for the given theme
+     *
+     * @param Theme $theme
+     * @return string
+     */
+    public function getThemeNamespace(Theme $theme): string;
+
+    /**
+     * Gets the directory where the themes are stored
+     *
+     * @return string
+     */
+    public function getThemeDirectory(): string;
+
+    /**
+     * Registers the themes in twig
+     */
+    public function registerThemes(): void;
 }

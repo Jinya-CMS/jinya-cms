@@ -10,12 +10,14 @@ namespace DataBundle\Services\Theme;
 
 
 use DataBundle\Entity\Theme;
+use DataBundle\Services\Configuration\FrontendConfigurationServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
+use Twig\Loader\FilesystemLoader;
 use const DIRECTORY_SEPARATOR;
 use function array_key_exists;
 use function is_array;
@@ -31,25 +33,37 @@ class ThemeService implements ThemeServiceInterface
      */
     private $entityManager;
     /**
+     * @var FrontendConfigurationServiceInterface
+     */
+    private $frontendConfigurationService;
+    /**
      * @var string
      */
     private $themeDirectory;
     /**
      * @var string
      */
-    private $kernelRootDir;
+    private $kernelProjectDir;
+    /**
+     * @var FilesystemLoader
+     */
+    private $twigLoader;
 
     /**
      * ThemeService constructor.
      * @param EntityManager $entityManager
+     * @param FrontendConfigurationServiceInterface $frontendConfigurationService
      * @param string $themeDirectory
-     * @param string $kernelRootDir
+     * @param string $kernelProjectDir
+     * @param FilesystemLoader $twigLoader
      */
-    public function __construct(EntityManager $entityManager, string $themeDirectory, string $kernelRootDir)
+    public function __construct(EntityManager $entityManager, FrontendConfigurationServiceInterface $frontendConfigurationService, string $themeDirectory, string $kernelProjectDir, FilesystemLoader $twigLoader)
     {
         $this->entityManager = $entityManager;
+        $this->frontendConfigurationService = $frontendConfigurationService;
         $this->themeDirectory = $themeDirectory;
-        $this->kernelRootDir = $kernelRootDir;
+        $this->kernelProjectDir = $kernelProjectDir;
+        $this->twigLoader = $twigLoader;
     }
 
     /**
@@ -58,7 +72,7 @@ class ThemeService implements ThemeServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = realpath($this->kernelRootDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory);
+        $themeDirectory = realpath($this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory);
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
@@ -72,6 +86,7 @@ class ThemeService implements ThemeServiceInterface
     /**
      * @param string $configString
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\ORMException
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -149,5 +164,37 @@ class ThemeService implements ThemeServiceInterface
     public function getDefaultJinyaTheme(): Theme
     {
         return $this->getTheme(ThemeService::JINYA_GALLERY_DEFAULT_THEME_NAME);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getActiveTheme(): Theme
+    {
+        return $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getThemeNamespace(Theme $theme): string
+    {
+        return '@Themes/' . $theme->getName();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function registerThemes(): void
+    {
+        $this->twigLoader->addPath($this->getThemeDirectory(), 'Themes');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getThemeDirectory(): string
+    {
+        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
     }
 }

@@ -2,11 +2,11 @@
 
 namespace FrontendBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use HelperBundle\Framework\BaseController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": ".*"})
@@ -18,15 +18,9 @@ class DefaultController extends Controller
     {
         $routeService = $this->get('jinya_gallery.services.route_service');
 
-        $routeEntry = $routeService->findByUrl($route);
+        $routeEntry = $routeService->findByUrl('/' . $route);
 
-        return $this->forward($this->routeToControllerName($routeEntry->getRouteName()), $routeEntry->getRouteParameter());
-    }
-
-    private function routeToControllerName(string $routeName)
-    {
-        $routes = $this->get('router')->getRouteCollection();
-        return $routes->get($routeName)->getDefaults()['_controller'];
+        return $this->forwardToRoute($routeEntry);
     }
 
     /**

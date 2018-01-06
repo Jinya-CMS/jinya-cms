@@ -51,13 +51,17 @@ services:
       class: DataBundle\Services\Theme\ThemeService
       arguments:
         - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services.frontend_configuration_service'
         - '%jinya_gallery.theme.directory%'
-        - '%kernel.root_dir%'
+        - '%kernel.project_dir%'
+        - '@twig.loader'
+      lazy: true
   jinya_gallery.services.frontend_configuration_service:
       class: DataBundle\Services\Configuration\FrontendConfigurationService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services.theme_service'
+      lazy: true
 
   jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
       class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
