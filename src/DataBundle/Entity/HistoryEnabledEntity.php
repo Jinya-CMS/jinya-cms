@@ -120,8 +120,10 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param User $updatedBy
      */
-    function setUpdatedBy(User $updatedBy)
+    function setUpdatedBy($updatedBy)
     {
-        $this->updatedBy = $updatedBy;
+        if ($updatedBy instanceof User) {
+            $this->updatedBy = $updatedBy;
+        }
     }
 }
