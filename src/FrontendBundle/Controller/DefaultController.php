@@ -2,11 +2,10 @@
 
 namespace FrontendBundle\Controller;
 
-use HelperBundle\Framework\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends BaseController
+class DefaultController extends BaseFrontendController
 {
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": ".*"})

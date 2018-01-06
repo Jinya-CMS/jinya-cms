@@ -1,0 +1,11 @@
+.menu {
+  position: absolute;
+  left: 5em;
+  top: 5em;
+  max-height: calc(100vh - 10em);
+  width: 20em;
+  background: transparentize($primary, 0.9);
+  overflow-y: auto;
+  border-radius: 5px;
+  padding: 1em;
+}

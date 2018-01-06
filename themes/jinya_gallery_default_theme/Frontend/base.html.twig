@@ -8,7 +8,11 @@
                   integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
                   crossorigin="anonymous">
         {% endblock %}
-        {% block customstyles %}
+        {% block styles_theme %}
+            <link rel="stylesheet"
+                  href="{{ asset('public/Frontend/styles/jinya_gallery_default_theme.css') }}">
+        {% endblock %}
+        {% block styles_custom %}
         {% endblock %}
     {% endblock %}
     {% block meta %}

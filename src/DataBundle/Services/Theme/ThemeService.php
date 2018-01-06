@@ -14,6 +14,7 @@ use DataBundle\Services\Configuration\FrontendConfigurationServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
@@ -168,14 +169,6 @@ class ThemeService implements ThemeServiceInterface
     /**
      * @inheritdoc
      */
-    public function getActiveTheme(): Theme
-    {
-        return $this->frontendConfigurationService->getConfig()->getCurrentTheme();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getThemeNamespace(Theme $theme): string
     {
         return '@Themes/' . $theme->getName();
@@ -195,5 +188,52 @@ class ThemeService implements ThemeServiceInterface
     public function getThemeDirectory(): string
     {
         return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+    }
+
+    /**
+     * Compiles the scss and javascript of the given @see Theme
+     *
+     * @param Theme $theme
+     */
+    public function compileTheme(Theme $theme): void
+    {
+        $activeTheme = $this->getActiveTheme();
+        $stylesPath = $this->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR . 'Frontend/public/scss/';
+        $sass = new \Leafo\ScssPhp\Compiler();
+        $sass->addImportPath($stylesPath);
+        $result = $sass->compile(file_get_contents($stylesPath . 'all.scss'));
+
+        $fs = new Filesystem();
+        $fs->dumpFile($this->getThemePublicCssPath($activeTheme), $result);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getActiveTheme(): Theme
+    {
+        return $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+    }
+
+    /**
+     * @param Theme $activeTheme
+     * @return string
+     */
+    private function getThemePublicCssPath($activeTheme): string
+    {
+        return $this->kernelProjectDir . '/web/public/Frontend/styles/' . $activeTheme->getName() . '.css';
+    }
+
+    /**
+     * Checks whether the given theme is compiled
+     *
+     * @param Theme $theme
+     * @return bool
+     */
+    public function isCompiled(Theme $theme): bool
+    {
+        $activeTheme = $this->getActiveTheme();
+        $fs = new Filesystem();
+        return $fs->exists($this->getThemePublicCssPath($activeTheme));
     }
 }

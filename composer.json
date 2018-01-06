@@ -9,7 +9,8 @@
       "HelperBundle\\": "src/HelperBundle",
       "DataBundle\\": "src/DataBundle",
       "DesignerBundle\\": "src/DesignerBundle",
-      "FrontendBundle\\": "src/FrontendBundle"
+      "FrontendBundle\\": "src/FrontendBundle",
+      "ThemeBundle\\": "themes"
     },
     "classmap": [
       "app/AppKernel.php",
