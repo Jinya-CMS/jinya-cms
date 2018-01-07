@@ -91,7 +91,7 @@ class DefaultController extends BaseFrontendController
         $pageService = $this->get('jinya_gallery.services.page_service');
         $page = $pageService->get($slug);
 
-        return $this->render('@Frontend/Artwork/detail.html.twig', [
+        return $this->render('@Frontend/Page/detail.html.twig', [
             'page' => $page
         ]);
     }

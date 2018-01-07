@@ -1,11 +1,100 @@
+@mixin menuItemBackgroundGradient() {
+  background: linear-gradient(to right, transparentize($primary, 100%), $primary);
+}
+
+@mixin menuItemTextColorGradient() {
+  color: linear-gradient(to right, $primary, transparentize($primary, 90%));
+}
+
+@mixin menuBlurred() {
+  color: transparent;
+  text-shadow: 0 0 10px #fff;
+  @include menuItemBackgroundGradient();
+}
+
+@mixin menuUnblurred() {
+  background: transparent;
+  text-shadow: 1px 1px 10px transparentize($primary, 0.4);
+  color: $primary;
+}
+
 .menu {
-  position: absolute;
+  position: fixed;
   left: 5em;
   top: 5em;
   max-height: calc(100vh - 10em);
   width: 20em;
-  background: transparentize($primary, 0.9);
-  overflow-y: auto;
+  background: transparentize($primary, 90%);
   border-radius: 5px;
-  padding: 1em;
+  color: $primary;
+
+  .title {
+    font-weight: normal;
+    padding-right: 1.2rem;
+    padding-left: 1.2rem;
+  }
+  > ul {
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  ul {
+    list-style: none;
+
+    &:hover li {
+      a,
+      a.active {
+        @include menuBlurred();
+      }
+    }
+
+    a {
+      display: block;
+      text-transform: uppercase;
+      color: $primary;
+      padding: 0.3rem 1.2rem;
+      background: rgba(255, 255, 255, 0.2);
+      letter-spacing: 1px;
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      -ms-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    li {
+      &.active,
+      &.open {
+        > ul {
+          display: block;
+        }
+      }
+
+      a {
+        @include menuItemBackgroundGradient();
+
+        &.active {
+          background: transparent;
+
+          &:hover {
+            @include menuUnblurred();
+          }
+        }
+
+        &:hover {
+          @include menuUnblurred();
+        }
+      }
+
+      > ul {
+        list-style: none;
+        display: none;
+      }
+    }
+  }
 }
