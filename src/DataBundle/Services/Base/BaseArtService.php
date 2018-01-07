@@ -10,10 +10,13 @@ namespace DataBundle\Services\Base;
 
 
 use DataBundle\Entity\ArtEntityInterface;
+use DataBundle\Entity\Label;
+use DataBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use HelperBundle\Services\Slug\SlugServiceInterface;
+use function method_exists;
 
 abstract class BaseArtService extends BaseService implements BaseArtServiceInterface
 {
@@ -26,30 +29,29 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     /** @var SlugServiceInterface */
     private $slugService;
 
+    /** @var LabelServiceInterface */
+    private $labelService;
+
     /**
      * BaseArtworkService constructor.
      * @param EntityManager $entityManager
      * @param SlugServiceInterface $slugService
      * @param string $entityType
      */
-    public function __construct(EntityManager $entityManager, SlugServiceInterface $slugService, string $entityType)
+    public function __construct(EntityManager $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, string $entityType)
     {
         parent::__construct($entityManager);
         $this->entityType = $entityType;
         $this->slugService = $slugService;
+        $this->labelService = $labelService;
     }
 
     /**
-     * Gets all items in the given range filtered by the keyword
-     *
-     * @param int $offset
-     * @param int $count
-     * @param string $keyword
-     * @return array
+     * @inheritdoc
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array
+    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array
     {
-        return $this->getFilteredQueryBuilder($keyword)
+        return $this->getFilteredQueryBuilder($keyword, $label)
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->getQuery()
@@ -60,18 +62,25 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
      * Gets a querybuilder with a keyword filter
      *
      * @param string $keyword
+     * @param Label|null $label
      * @return QueryBuilder
      */
-    protected function getFilteredQueryBuilder(string $keyword)
+    protected function getFilteredQueryBuilder(string $keyword, Label $label = null): QueryBuilder
     {
         $queryBuilder = $this->getQueryBuilder();
 
-        return $queryBuilder
+        $queryBuilder = $queryBuilder
             ->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->like('entity.description', ':keyword'),
                 $queryBuilder->expr()->like('entity.name', ':keyword')
             ))
             ->setParameter('keyword', "%$keyword%");
+
+        if ($label !== null) {
+            $queryBuilder->andWhere(':label_id MEMBER OF entity.labels')->setParameter('label_id', $label->getId());
+        }
+
+        return $queryBuilder;
     }
 
     protected function getQueryBuilder(): QueryBuilder
@@ -86,9 +95,9 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     /**
      * @inheritdoc
      */
-    public function countAll(string $keyword = ''): int
+    public function countAll(string $keyword = '', Label $label = null): int
     {
-        $queryBuilder = $this->getFilteredQueryBuilder($keyword);
+        $queryBuilder = $this->getFilteredQueryBuilder($keyword, $label);
 
         return $queryBuilder
             ->select($queryBuilder->expr()->count('entity'))
@@ -157,6 +166,16 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     {
         if ($entity->getSlug() === null) {
             $entity->setSlug($this->slugService->generateSlug($entity->getName()));
+        }
+
+        if (method_exists($entity, 'getLabels')) {
+            $labels = $entity->getLabelsChoice();
+            $this->labelService->createMissingLabels($labels);
+
+            foreach ($labels as $label) {
+                $entity->getLabels()->clear();
+                $entity->getLabels()->add($this->labelService->getLabel($label->getName()));
+            }
         }
 
         return parent::save($entity);

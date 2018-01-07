@@ -11,6 +11,7 @@ namespace DataBundle\Services\Galleries;
 
 use DataBundle\Entity\Gallery;
 use DataBundle\Services\Base\BaseArtService;
+use DataBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
@@ -26,10 +27,11 @@ class GalleryService extends BaseArtService implements GalleryServiceInterface
      * @param EntityManager $entityManager
      * @param MediaServiceInterface $mediaService
      * @param SlugServiceInterface $slugService
+     * @param LabelServiceInterface $labelService
      */
-    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
+    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
-        parent::__construct($entityManager, $slugService, Gallery::class);
+        parent::__construct($entityManager, $slugService, $labelService, Gallery::class);
         $this->mediaService = $mediaService;
     }
 

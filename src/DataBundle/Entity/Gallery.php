@@ -35,6 +35,11 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
      */
     private $artworks;
     /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="DataBundle\Entity\Label", inversedBy="galleries", cascade={"persist"})
+     */
+    private $labels;
+    /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
@@ -55,6 +60,23 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
+        $this->labels = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param Collection $labels
+     */
+    public function setLabels(Collection $labels): void
+    {
+        $this->labels = $labels;
     }
 
     /**
@@ -92,7 +114,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return UploadedFile
      */
-    public function getBackgroundResource():?UploadedFile
+    public function getBackgroundResource(): ?UploadedFile
     {
         return $this->backgroundResource;
     }

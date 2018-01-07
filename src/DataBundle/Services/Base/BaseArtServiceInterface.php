@@ -9,6 +9,7 @@
 namespace DataBundle\Services\Base;
 
 use DataBundle\Entity\ArtEntityInterface;
+use DataBundle\Entity\Label;
 
 interface BaseArtServiceInterface
 {
@@ -42,17 +43,19 @@ interface BaseArtServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     * @param Label|null $label
      * @return ArtEntityInterface[]
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array;
+    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
 
     /**
      * Counts all galleries
      *
      * @param string $keyword
+     * @param Label|null $label
      * @return int
      */
-    public function countAll(string $keyword = ''): int;
+    public function countAll(string $keyword = '', Label $label = null): int;
 
     /**
      * Saves or updates the given ArtEntityInterface

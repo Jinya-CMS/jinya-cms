@@ -8,6 +8,8 @@
 
 namespace DataBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -30,7 +32,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     private $picture;
 
     /**
-     * @var ArtworkPosition[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity="DataBundle\Entity\ArtworkPosition", mappedBy="artwork")
      */
     private $positions;
@@ -40,17 +42,72 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     private $pictureResource;
 
     /**
-     * @return ArtworkPosition[]
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="DataBundle\Entity\Label", inversedBy="artworks", cascade={"persist"})
      */
-    public function getPositions(): array
+    private $labels;
+    /**
+     * @var array
+     */
+    private $labelsChoice;
+
+    /**
+     * Artwork constructor.
+     */
+    public function __construct()
+    {
+        $this->labels = new ArrayCollection();
+        $this->positions = new ArrayCollection();
+    }
+
+    /**
+     * @return array
+     */
+    public function getLabelsChoice(): ?array
+    {
+        return $this->labelsChoice;
+    }
+
+    /**
+     * @param array $labelsChoice
+     */
+    public function setLabelsChoice(array $labelsChoice): void
+    {
+        $this->labelsChoice = $labelsChoice;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param Collection $labels
+     */
+    public function setLabels(Collection $labels): void
+    {
+        $this->labels = $labels;
+        $this->labelsChoice = [];
+        foreach ($labels as $label) {
+            $this->labelsChoice[] = $label->getName();
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPositions(): Collection
     {
         return $this->positions;
     }
 
     /**
-     * @param ArtworkPosition[] $positions
+     * @param Collection $positions
      */
-    public function setPositions(array $positions)
+    public function setPositions(Collection $positions)
     {
         $this->positions = $positions;
     }

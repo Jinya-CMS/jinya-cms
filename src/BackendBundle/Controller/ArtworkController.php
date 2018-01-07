@@ -29,9 +29,20 @@ class ArtworkController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
+
         return $this->render('@Backend/artworks/overview.html.twig', [
             'search' => $request->get('keyword', '')
         ]);
+    }
+
+    protected function render($view, array $parameters = array(), Response $response = null)
+    {
+        $labelService = $this->get('jinya_gallery.services.label_service');
+        $labels = $labelService->getAllLabelsWithArtworks();
+
+        $parameters['labels'] = $labels;
+
+        return parent::render($view, $parameters, $response);
     }
 
     /**
@@ -43,11 +54,20 @@ class ArtworkController extends Controller
     public function getArtworks(Request $request): Response
     {
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
+        $labelService = $this->get('jinya_gallery.services.label_service');
         $offset = $request->get('offset', 0);
         $count = $request->get('count', 12);
         $keyword = $request->get('keyword', '');
-        $allData = $artworkService->getAll($offset, $count, $keyword);
-        $allCount = $artworkService->countAll($keyword);
+        $labelName = $request->get('label', null);
+
+        if ($labelName !== null) {
+            $label = $labelService->getLabel($labelName);
+        } else {
+            $label = null;
+        }
+
+        $allData = $artworkService->getAll($offset, $count, $keyword, $label);
+        $allCount = $artworkService->countAll($keyword, $label);
 
         return $this->json([
             'data' => $allData,
@@ -68,7 +88,10 @@ class ArtworkController extends Controller
      */
     public function addAction(Request $request): Response
     {
-        $form = $this->createForm(ArtworkType::class);
+        $labelService = $this->get('jinya_gallery.services.label_service');
+        $allLabels = $labelService->getAllLabelNames();
+
+        $form = $this->createForm(ArtworkType::class, null, ['all_labels' => $allLabels]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,17 +116,23 @@ class ArtworkController extends Controller
     public function editAction(Request $request, int $id): Response
     {
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
+        $labelService = $this->get('jinya_gallery.services.label_service');
+        $allLabels = $labelService->getAllLabels();
+
         $artwork = $artworkService->get($id);
-        $form = $this->createForm(ArtworkType::class, $artwork);
+        $form = $this->createForm(ArtworkType::class, $artwork, ['all_labels' => $allLabels]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $artworkService->saveOrUpdate($data);
+
             return $this->redirectToRoute('backend_artworks_details', [
                 'id' => $data->getId()
             ]);
         }
+
 
         return $this->render('@Backend/artworks/edit.html.twig', [
             'form' => $form->createView(),

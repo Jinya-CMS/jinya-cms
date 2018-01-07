@@ -6,3 +6,4 @@ layout:
       title: Login
 generic:
   empty: 'messages'
+  labels: 'messages'

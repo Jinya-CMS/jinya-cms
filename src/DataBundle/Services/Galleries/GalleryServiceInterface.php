@@ -9,6 +9,7 @@
 namespace DataBundle\Services\Galleries;
 
 use DataBundle\Entity\Gallery;
+use DataBundle\Entity\Label;
 use DataBundle\Services\Base\BaseArtServiceInterface;
 
 interface GalleryServiceInterface extends BaseArtServiceInterface
@@ -43,17 +44,19 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     * @param Label|null $label
      * @return Gallery[]
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array;
+    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
 
     /**
      * Counts all galleries
      *
      * @param string $keyword
+     * @param Label|null $label
      * @return int
      */
-    public function countAll(string $keyword = ''): int;
+    public function countAll(string $keyword = '', Label $label = null): int;
 
     /**
      * Saves or updates the given gallery

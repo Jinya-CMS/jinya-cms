@@ -9,7 +9,7 @@
 namespace DataBundle\Services\Artworks;
 
 use DataBundle\Entity\Artwork;
-use DataBundle\Entity\ArtworkPosition;
+use DataBundle\Entity\Label;
 use DataBundle\Services\Base\BaseArtServiceInterface;
 
 interface ArtworkServiceInterface extends BaseArtServiceInterface
@@ -28,17 +28,19 @@ interface ArtworkServiceInterface extends BaseArtServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     * @param Label|null $label
      * @return Artwork[]
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array;
+    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
 
     /**
      * Counts all artworks filtered by the given keyword
      *
      * @param string $keyword
+     * @param Label|null $label
      * @return int
      */
-    public function countAll(string $keyword = ''): int;
+    public function countAll(string $keyword = '', Label $label = null): int;
 
     /**
      * Saves or update the given artwork

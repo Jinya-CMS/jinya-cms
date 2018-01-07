@@ -7,6 +7,7 @@ class Overview {
             let viewModel = new OverviewViewModel(getListUrl, loadFailureMessage);
             let search = document.querySelector('[data-search=overview]');
             viewModel.search(search.querySelector('input[type=search]').getAttribute('value'));
+            viewModel.label($('[data-label].active').data('label'));
             ko.cleanNode(overview);
             ko.cleanNode(search);
             ko.applyBindings(viewModel, overview);

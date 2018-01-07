@@ -9,8 +9,8 @@
 namespace DataBundle\Services\Artworks;
 
 use DataBundle\Entity\Artwork;
-use DataBundle\Entity\ArtworkPosition;
 use DataBundle\Services\Base\BaseArtService;
+use DataBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
@@ -25,10 +25,11 @@ class ArtworkService extends BaseArtService implements ArtworkServiceInterface
      * @param EntityManager $entityManager
      * @param MediaServiceInterface $mediaService
      * @param SlugServiceInterface $slugService
+     * @param LabelServiceInterface $labelService
      */
-    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService)
+    public function __construct(EntityManager $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
-        parent::__construct($entityManager, $slugService, Artwork::class);
+        parent::__construct($entityManager, $slugService, $labelService, Artwork::class);
         $this->mediaService = $mediaService;
     }
 

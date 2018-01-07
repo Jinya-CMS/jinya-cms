@@ -25,6 +25,7 @@ assetic:
       inputs:
         - '@BackendBundle/Resources/public/typescript/backend/art/OverviewViewModel.js'
         - '@BackendBundle/Resources/public/typescript/backend/art/Overview.js'
+        - '@BackendBundle/Resources/public/typescript/backend/art/LabelFilter.js'
   filters:
       jsqueeze: ~
       scssphp:
