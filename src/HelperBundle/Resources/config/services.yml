@@ -71,3 +71,12 @@ services:
     class: Twig_Extensions_Extension_Intl
     tags:
       - { name: twig.extension }
+
+  jinya_gallery.commands.compile_themes_command:
+      class: HelperBundle\Command\CompileThemesCommand
+      arguments:
+        - '@jinya_gallery.services.theme_service'
+      calls:
+          - [setContainer, ['@service_container']]
+      tags:
+          - { name: console.command }
