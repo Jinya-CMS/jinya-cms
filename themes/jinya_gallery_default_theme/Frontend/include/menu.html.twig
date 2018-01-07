@@ -1,0 +1,8 @@
+<div class="menu">
+    <h1 class="title">{{ menu.name }}</h1>
+    <ul>
+        {% for item in menu.menuItems %}
+            {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menuitem.html.twig' %}
+        {% endfor %}
+    </ul>
+</div>

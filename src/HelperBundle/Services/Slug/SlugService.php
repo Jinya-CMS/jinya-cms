@@ -8,6 +8,9 @@
 
 namespace HelperBundle\Services\Slug;
 
+use Behat\Transliterator\Transliterator;
+use function function_exists;
+use function transliterator_transliterate;
 
 class SlugService implements SlugServiceInterface
 {
@@ -17,8 +20,12 @@ class SlugService implements SlugServiceInterface
      */
     public function generateSlug(string $name): string
     {
-        $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $name);
-        $slug = preg_replace('/[-\s]+/', '-', $slug);
+        if (function_exists('transliterator_transliterate')) {
+            $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $name);
+            $slug = preg_replace('/[-\s]+/', '-', $slug);
+        } else {
+            $slug = Transliterator::transliterate($name, '-');
+        }
         return trim($slug, '-');
     }
 }

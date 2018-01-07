@@ -21,6 +21,7 @@ layout:
         access: Zugriffsprotokoll
       galleries: Galerien
       artworks: Kunstwerke
+      designer: Designer
 sidebar:
   users:
     overview: Überblick

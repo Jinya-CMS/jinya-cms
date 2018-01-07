@@ -1,0 +1,47 @@
+{% if not app.request.xmlHttpRequest %}
+<html>
+<head>
+    <title>{% block head_title %}{{ themeConfig.title }}{% endblock %}</title>
+    {% block styles %}
+        {% block styles_fontawesome %}
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+                  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+                  crossorigin="anonymous">
+        {% endblock %}
+        {% block styles_theme %}
+            <link rel="stylesheet"
+                  href="{{ asset('public/jinya_gallery_default_theme/styles/all.css') }}">
+        {% endblock %}
+        {% block styles_custom %}
+        {% endblock %}
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {% block custom_meta %}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% endif %}
+{% block body %}
+    {% block menu %}
+        {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menu.html.twig' %}
+    {% endblock %}
+    {% block maincontent %}
+    {% endblock %}
+{% endblock %}
+{% if not app.request.xmlHttpRequest %}
+{% block scripts %}
+{% block scripts_classie %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
+            integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
+{% endblock %}
+{% block scripts_theme %}
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/scripts.js') }}"></script>
+{% endblock %}
+{% endblock %}
+</body>
+</html>
+{% endif %}

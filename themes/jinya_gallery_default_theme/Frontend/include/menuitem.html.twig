@@ -1,0 +1,10 @@
+<li class="{% if isChildActiveMenuItem(item) %}open{% endif %}">
+    <a class="{% if isActiveMenuItem(item) %}active{% endif %}" href="{{ item.route.url }}">{{ item.title }}</a>
+    {% if item.children is not empty %}
+        <ul>
+            {% for child in item.children %}
+                {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menuitem.html.twig' with {'item': child} %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

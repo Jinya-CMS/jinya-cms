@@ -1,6 +1,17 @@
 imports:
     - { resource: config.yml }
 
+assetic:
+  debug: '%kernel.debug%'
+  use_controller: '%kernel.debug%'
+  bundles:
+    - 'ThemeBundle'
+    - 'BackendBundle'
+    - 'DataBundle'
+    - 'DesignerBundle'
+    - 'FrontendBundle'
+    - 'HelperBundle'
+    - 'InstallBundle'
 framework:
     router:
         resource: '%kernel.project_dir%/app/config/routing_dev.yml'

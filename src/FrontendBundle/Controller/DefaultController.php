@@ -2,11 +2,10 @@
 
 namespace FrontendBundle\Controller;
 
-use HelperBundle\Framework\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends BaseController
+class DefaultController extends BaseFrontendController
 {
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": ".*"})
@@ -92,7 +91,7 @@ class DefaultController extends BaseController
         $pageService = $this->get('jinya_gallery.services.page_service');
         $page = $pageService->get($slug);
 
-        return $this->render('@Frontend/Artwork/detail.html.twig', [
+        return $this->render('@Frontend/Page/detail.html.twig', [
             'page' => $page
         ]);
     }

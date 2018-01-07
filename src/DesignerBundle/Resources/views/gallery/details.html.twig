@@ -1,6 +1,8 @@
 {% extends '@Designer/base.html.twig' %}
 {% block content %}
-    <img class="background-image" src="{{ gallery.background }}" alt="{{ gallery.name }}">
+    {% if gallery.background is not empty %}
+        <img class="background-image" src="{{ gallery.background }}" alt="{{ gallery.name }}">
+    {% endif %}
     <div class="gallery-images {{ gallery.orientation }}-scroll"
          data-source="{{ url('designer_gallery_images', { 'gallerySlug': gallery.slug }) }}"
          data-move="{{ url('designer_gallery_images_position_update', { 'gallerySlug': gallery.slug, 'artworkPositionId': '#tempid#' }) }}">

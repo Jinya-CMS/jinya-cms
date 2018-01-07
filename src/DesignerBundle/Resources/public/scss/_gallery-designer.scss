@@ -13,7 +13,6 @@
     .gallery-image-image,
     .gallery-image-action {
       display: flex;
-      //height: 80%;
 
       > img {
         height: 100%;
@@ -50,6 +49,7 @@
     .gallery-image-content {
       display: flex;
       flex: 0 0 100%;
+      height: 100%;
 
       .gallery-image-action {
         width: 8em;

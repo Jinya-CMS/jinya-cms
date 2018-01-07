@@ -1,3 +1,9 @@
 displayName: Jinya Gallery Theme
 description: Das Standardtheme für das Jinya Gallery CMS
 defaultConfig:
+styles_base: Frontend/public/scss/
+scripts_base: Frontend/public/ts/
+styles:
+  - all.scss
+scripts:
+  - Menu.js

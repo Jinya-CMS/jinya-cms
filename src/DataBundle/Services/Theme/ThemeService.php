@@ -14,19 +14,25 @@ use DataBundle\Services\Configuration\FrontendConfigurationServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
+use Patchwork\JSqueeze;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Loader\FilesystemLoader;
 use const DIRECTORY_SEPARATOR;
 use function array_key_exists;
+use function file_get_contents;
 use function is_array;
-use function realpath;
+use function md5;
+use function str_replace;
+use function strcmp;
 
 class ThemeService implements ThemeServiceInterface
 {
     private const THEME_CONFIG_YML = 'theme.yml';
     private const JINYA_GALLERY_DEFAULT_THEME_NAME = 'jinya_gallery_default_theme';
+    private const THEME_COMPILATION_STATE = 'theme.compilation';
 
     /**
      * @var EntityManager
@@ -72,7 +78,7 @@ class ThemeService implements ThemeServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = realpath($this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory);
+        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory;
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
@@ -169,14 +175,6 @@ class ThemeService implements ThemeServiceInterface
     /**
      * @inheritdoc
      */
-    public function getActiveTheme(): Theme
-    {
-        return $this->frontendConfigurationService->getConfig()->getCurrentTheme();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getThemeNamespace(Theme $theme): string
     {
         return '@Themes/' . $theme->getName();
@@ -196,5 +194,198 @@ class ThemeService implements ThemeServiceInterface
     public function getThemeDirectory(): string
     {
         return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+    }
+
+    /**
+     * Compiles the scss and javascript of the given @see Theme
+     *
+     * @param Theme $theme
+     */
+    public function compileTheme(Theme $theme): void
+    {
+        $this->compileStyles($theme);
+        $this->concatScripts($theme);
+    }
+
+    /**
+     * @param Theme $theme
+     */
+    private function compileStyles(Theme $theme): void
+    {
+        $themeConfig = $this->getThemeConfig($theme);
+        $scssCompiler = new \Leafo\ScssPhp\Compiler();
+
+        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+
+        $scssCompiler->addImportPath($this->getStylesPath($theme));
+        $fs = new Filesystem();
+
+        foreach ($themeConfig['styles'] as $style) {
+            $scssCode = $this->getScssCodeForStyle($style, $theme);
+            $result = $scssCompiler->compile($scssCode);
+            $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
+            $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
+
+            $fs->dumpFile($webStylesPath, $result);
+            $fs->dumpFile($compilationCheckPath, md5($scssCode));
+        }
+    }
+
+    private function getThemeConfig(Theme $theme): array
+    {
+        return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+    }
+
+    /**
+     * @param Theme $theme
+     * @return string
+     */
+    private function getStylesPath(Theme $theme): string
+    {
+        $themeConfig = $this->getThemeConfig($theme);
+        $stylesBasePath = 'public/scss/';
+        if (array_key_exists('styles_base', $themeConfig)) {
+            $stylesBasePath = $themeConfig['styles_base'];
+        }
+
+        $stylesPath = $this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $stylesBasePath;
+        return $stylesPath;
+    }
+
+    /**
+     * @param string $style
+     * @param Theme $theme
+     * @return string
+     */
+    private function getScssCodeForStyle(string $style, Theme $theme): string
+    {
+        $stylesPath = $this->getStylesPath($theme);
+        $scssCode = file_get_contents($stylesPath . '/' . $style);
+
+        return $scssCode;
+    }
+
+    /**
+     * @param Theme $theme
+     * @param string $filename
+     * @return string
+     */
+    private function getCompilationCheckPathStyles(Theme $theme, string $filename): string
+    {
+        $webScriptsBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+        $compilationCheckPath = $webScriptsBasePath . ThemeService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
+        return $compilationCheckPath;
+    }
+
+    /**
+     * @param Theme $theme
+     */
+    private function concatScripts(Theme $theme): void
+    {
+        $jsQueeze = new JSqueeze();
+        $source = $this->getJavaScriptSource($theme);
+
+        $code = $jsQueeze->squeeze($source);
+
+        $webScriptsBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/scripts/';
+
+        $fs = new Filesystem();
+        $fs->dumpFile($webScriptsBasePath . 'scripts.js', $code);
+        $fs->dumpFile($this->getCompilationCheckPathScripts($theme, 'scripts.js'), md5($source));
+    }
+
+    /**
+     * @param Theme $theme
+     * @return string
+     */
+    private function getJavaScriptSource(Theme $theme): string
+    {
+        $themeConfig = $this->getThemeConfig($theme);
+        $scriptsBasePath = $this->getScriptsPath($theme);
+
+        $source = '';
+
+        foreach ($themeConfig['scripts'] as $script) {
+            $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . ';';
+        }
+
+        return $source;
+    }
+
+    /**
+     * @param Theme $theme
+     * @return string
+     */
+    private function getScriptsPath(Theme $theme): string
+    {
+        $themeConfig = $this->getThemeConfig($theme);
+        $scriptsBasePath = 'public/javascripts/';
+        if (array_key_exists('scripts_base', $themeConfig)) {
+            $scriptsBasePath = $themeConfig['scripts_base'];
+        }
+
+        $scriptsPath = $this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
+        return $scriptsPath;
+    }
+
+    /**
+     * @param Theme $theme
+     * @param string $filename
+     * @return string
+     */
+    private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
+    {
+        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/scripts/';
+        $compilationCheckPath = $webStylesBasePath . ThemeService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
+        return $compilationCheckPath;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getActiveTheme(): Theme
+    {
+        return $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+    }
+
+    /**
+     * Checks whether the given theme is compiled
+     *
+     * @param Theme $theme
+     * @return bool
+     */
+    public function isCompiled(Theme $theme): bool
+    {
+        return $this->isStylesCompiled($theme) && $this->isScriptsCompiled($theme);
+    }
+
+    /**
+     * @param Theme $theme
+     * @return bool
+     */
+    private function isStylesCompiled(Theme $theme): bool
+    {
+        $themeConfig = $this->getThemeConfig($theme);
+        $isCompiled = true;
+        $fs = new Filesystem();
+        foreach ($themeConfig['styles'] as $style) {
+            $scssCode = $this->getScssCodeForStyle($style, $theme);
+            $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
+
+            $isCompiled &= $fs->exists($compilationCheckPath) && strcmp(file_get_contents($compilationCheckPath), md5($scssCode)) == 0;
+        }
+        return $isCompiled;
+    }
+
+    /**
+     * @param Theme $theme
+     * @return bool
+     */
+    private function isScriptsCompiled(Theme $theme): bool
+    {
+        $fs = new Filesystem();
+        $source = md5($this->getJavaScriptSource($theme));
+        $scripts = $this->getCompilationCheckPathScripts($theme, 'scripts.js');
+        return $fs->exists($scripts) && strcmp($source, file_get_contents($scripts)) === 0;
     }
 }

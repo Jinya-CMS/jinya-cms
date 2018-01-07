@@ -9,9 +9,12 @@
 namespace HelperBundle\Framework;
 
 
+use Assetic\Asset\FileAsset;
 use DataBundle\Entity\RoutingEntry;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
+use const DIRECTORY_SEPARATOR;
 use function str_replace;
 
 abstract class BaseController extends Controller
@@ -27,6 +30,8 @@ abstract class BaseController extends Controller
         $themeService->registerThemes();
         $activeTheme = $themeService->getActiveTheme();
         $themeViewPath = $themeService->getThemeNamespace($activeTheme) . str_replace('@', '/', $view);
+
+        $parameters['themeConfig'] = $activeTheme->getConfiguration();
 
         return parent::render($themeViewPath, $parameters, $response);
     }

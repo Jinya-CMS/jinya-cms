@@ -74,4 +74,19 @@ interface ThemeServiceInterface
      * Registers the themes in twig
      */
     public function registerThemes(): void;
+
+    /**
+     * Compiles the scss and javascript of the given @see Theme
+     *
+     * @param Theme $theme
+     */
+    public function compileTheme(Theme $theme): void;
+
+    /**
+     * Checks whether the given theme is compiled
+     *
+     * @param Theme $theme
+     * @return bool
+     */
+    public function isCompiled(Theme $theme): bool;
 }
