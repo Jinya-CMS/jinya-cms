@@ -5,7 +5,7 @@ class AjaxExecutor {
         $items.click(AjaxExecutor.callAjax);
     };
 
-    private static callAjax() {
+    private static callAjax(event) {
         event.preventDefault();
         let $this = $(this);
         let msg: any = Messenger();

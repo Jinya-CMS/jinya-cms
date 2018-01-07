@@ -60,7 +60,7 @@ class NavigationSwitcher {
         });
     }
 
-    private static loadContent() {
+    private static loadContent(event) {
         event.preventDefault();
         let $this = $(this);
         let href = $this.attr('href');
