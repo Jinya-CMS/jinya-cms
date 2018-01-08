@@ -45,7 +45,7 @@ class Label implements JsonSerializable
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

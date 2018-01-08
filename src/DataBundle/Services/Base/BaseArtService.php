@@ -10,6 +10,7 @@ namespace DataBundle\Services\Base;
 
 
 use DataBundle\Entity\ArtEntityInterface;
+use DataBundle\Entity\Artwork;
 use DataBundle\Entity\Label;
 use DataBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
@@ -161,6 +162,8 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     /**
      * @param ArtEntityInterface $entity
      * @return mixed
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save($entity)
     {
@@ -168,13 +171,26 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
             $entity->setSlug($this->slugService->generateSlug($entity->getName()));
         }
 
-        if (method_exists($entity, 'getLabels')) {
+        if (method_exists($entity, 'getLabelsChoice')) {
+            /** @var Label[] $labels */
             $labels = $entity->getLabelsChoice();
-            $this->labelService->createMissingLabels($labels);
 
             foreach ($labels as $label) {
-                $entity->getLabels()->clear();
-                $entity->getLabels()->add($this->labelService->getLabel($label->getName()));
+                $label = $this->labelService->getLabel($label->getName());
+
+                if ($entity instanceof Artwork) {
+                    if (!$label->getArtworks()->contains($entity)) {
+                        $label->getArtworks()->add($entity);
+                    }
+                } else {
+                    if (!$label->getGalleries()->contains($entity)) {
+                        $label->getGalleries()->add($entity);
+                    }
+                }
+
+                if (!$entity->getLabels()->contains($label)) {
+                    $entity->getLabels()->add($label);
+                }
             }
         }
 

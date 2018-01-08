@@ -109,13 +109,18 @@ class LabelService implements LabelServiceInterface
     /**
      * @inheritdoc
      */
-    public function createMissingLabels(array $labels): void
+    public function createMissingLabels(array $labels): array
     {
+        $newLabels = [];
         foreach ($labels as $label) {
-            if (!$this->labelExists($label)) {
-                $this->addLabel($label);
+            $newLabel = new Label();
+            $newLabel->setName($label);
+            if (!$this->labelExists($newLabel)) {
+                $newLabels[] = $this->addLabel($label);
             }
         }
+
+        return $newLabels;
     }
 
     /**

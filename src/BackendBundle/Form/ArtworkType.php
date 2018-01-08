@@ -42,7 +42,7 @@ class ArtworkType extends AbstractType
                 'expanded' => false,
                 'choice_label' => 'name',
                 'choices' => $options['all_labels'],
-                'choice_name' => 'name'
+                'choice_value' => 'name'
             ]);
     }
 

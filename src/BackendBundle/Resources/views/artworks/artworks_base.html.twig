@@ -4,36 +4,6 @@
 {% if artwork is defined %}
     {% set id = artwork.id %}
 {% endif %}
-{% block container %}
-    {{ parent() }}
-    {% block backend_artworks_labels_add_modal %}
-        <div class="modal" tabindex="-1" role="dialog" id="addLabel">
-            <form method="post" class="modal-dialog" action="{{ url('backend_label_add') }}">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ 'sidebar.generic.label.add'|trans }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label" for="name">{{ 'backend.art.label.name'|trans }}</label>
-                                <input type="text" name="name" id="name" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">{{ 'generic.save'|trans }}</button>
-                        <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ 'generic.cancel'|trans }}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    {% endblock %}
-{% endblock %}
 {% block sidebar_items %}
     {% include 'BackendBundle:sidebar:artworks.html.twig' %}
 {% endblock %}
@@ -47,23 +17,10 @@
             integrity="sha256-+oeQRyZyY2StGafEsvKyDuEGNzJWAbWqiO2L/ctxF6c=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     {% block scripts_selectize %}
-        {% if form is defined and form.labelsChoice is defined %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"
-                    integrity="sha256-HyBiZFJAMvxOhZoWOc5LWIWaN1gcFi8LjS75BZF4afg=" crossorigin="anonymous"></script>
-            <script>
-                $(function () {
-                    $('#{{ form.labelsChoice.vars.id }}').selectize({
-                        persist: true,
-                        create: function (input) {
-                            return {
-                                value: input,
-                                text: input
-                            }
-                        }
-                    })
-                });
-            </script>
-        {% endif %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"
+                integrity="sha256-HyBiZFJAMvxOhZoWOc5LWIWaN1gcFi8LjS75BZF4afg=" crossorigin="anonymous"></script>
+        {% block scripts_selectize_init %}
+        {% endblock %}
     {% endblock %}
 {% endblock %}
 {% block custom_styles %}

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function array_merge;
 
 class ArtworkController extends Controller
 {
@@ -89,7 +90,18 @@ class ArtworkController extends Controller
     public function addAction(Request $request): Response
     {
         $labelService = $this->get('jinya_gallery.services.label_service');
-        $allLabels = $labelService->getAllLabelNames();
+        $allLabels = $labelService->getAllLabels();
+
+        if ($request->isMethod("POST")) {
+            $bundle = $request->get('backend_bundle_artwork_type');
+            $selectedLabels = $bundle['labelsChoice'];
+            $labels = [];
+            foreach ($selectedLabels as $selectedLabel) {
+                $labels[] = ['name' => $selectedLabel];
+            }
+            $missingLabels = $labelService->createMissingLabels($selectedLabels);
+            $allLabels = array_merge($allLabels, $missingLabels);
+        }
 
         $form = $this->createForm(ArtworkType::class, null, ['all_labels' => $allLabels]);
         $form->handleRequest($request);
@@ -119,7 +131,19 @@ class ArtworkController extends Controller
         $labelService = $this->get('jinya_gallery.services.label_service');
         $allLabels = $labelService->getAllLabels();
 
+        if ($request->isMethod("POST")) {
+            $bundle = $request->get('backend_bundle_artwork_type');
+            $selectedLabels = $bundle['labelsChoice'];
+            $labels = [];
+            foreach ($selectedLabels as $selectedLabel) {
+                $labels[] = ['name' => $selectedLabel];
+            }
+            $missingLabels = $labelService->createMissingLabels($selectedLabels);
+            $allLabels = array_merge($allLabels, $missingLabels);
+        }
+
         $artwork = $artworkService->get($id);
+        $artwork->setLabelsChoice($artwork->getLabels()->toArray());
         $form = $this->createForm(ArtworkType::class, $artwork, ['all_labels' => $allLabels]);
 
         $form->handleRequest($request);

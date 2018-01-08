@@ -90,10 +90,6 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     public function setLabels(Collection $labels): void
     {
         $this->labels = $labels;
-        $this->labelsChoice = [];
-        foreach ($labels as $label) {
-            $this->labelsChoice[] = $label->getName();
-        }
     }
 
     /**

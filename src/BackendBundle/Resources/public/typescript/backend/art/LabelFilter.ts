@@ -7,7 +7,3 @@ class LabelFilter {
         });
     }
 }
-
-$(() => {
-    LabelFilter.init();
-});

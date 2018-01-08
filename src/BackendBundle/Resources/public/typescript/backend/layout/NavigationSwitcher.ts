@@ -1,3 +1,5 @@
+declare function initSelectize(): void;
+
 class NavigationSwitcher {
 
     public static init = () => {
@@ -19,26 +21,30 @@ class NavigationSwitcher {
         let afterFailureAction = $source.data('after-failure');
 
         Loader.display($container);
-        $container.load(href, (response, status, xhr) => {
+        $.get(href).then((response, status, xhr) => {
             if (xhr.getResponseHeader('login') === '1') {
                 location.href = href;
             } else if (xhr.status === 200) {
-                history.pushState('', document.title, href);
-                $('.sidebar.bg-danger')
-                    .removeClass('bg-danger')
-                    .addClass('bg-primary');
-                $('.navbar.bg-danger')
-                    .removeClass('bg-danger')
-                    .addClass('bg-primary');
+                $container.html(response).after(() => {
+                    history.pushState('', document.title, href);
+                    $('.sidebar.bg-danger')
+                        .removeClass('bg-danger')
+                        .addClass('bg-primary');
+                    $('.navbar.bg-danger')
+                        .removeClass('bg-danger')
+                        .addClass('bg-primary');
 
-                DatatablesActivator.init();
-                TableElementSelector.init();
-                Searcher.init();
-                AjaxExecutor.init();
-                NavigationSwitcher.init();
-                FilePickerActivator.init();
+                    DatatablesActivator.init();
+                    TableElementSelector.init();
+                    Searcher.init();
+                    AjaxExecutor.init();
+                    NavigationSwitcher.init();
+                    FilePickerActivator.init();
 
-                eval(afterSuccessAction);
+                    eval(afterSuccessAction);
+
+                    return $container;
+                });
             } else {
                 $('.sidebar.bg-primary')
                     .removeClass('bg-primary')

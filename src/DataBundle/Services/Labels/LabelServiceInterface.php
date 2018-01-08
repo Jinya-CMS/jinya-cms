@@ -77,5 +77,5 @@ interface LabelServiceInterface
      *
      * @param array $labels
      */
-    public function createMissingLabels(array $labels): void;
+    public function createMissingLabels(array $labels): array;
 }
