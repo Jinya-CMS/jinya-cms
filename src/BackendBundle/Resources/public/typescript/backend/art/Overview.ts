@@ -11,6 +11,7 @@ class Overview {
             ko.cleanNode(search);
             ko.applyBindings(viewModel, overview);
             ko.applyBindings(viewModel, search);
+            LabelFilter.init();
         }
     }
 }

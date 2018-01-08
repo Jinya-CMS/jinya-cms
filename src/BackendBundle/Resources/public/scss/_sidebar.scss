@@ -16,6 +16,15 @@ body {
       background-color: rgba(255, 255, 255, 0.2);
     }
   }
+  .nav-header {
+    color: #ffffff;
+    font-weight: bold;
+    font-variant: all-small-caps;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    display: block;
+    padding: 0.5rem 1rem;
+  }
   &.no-edit .overview {
     display: none;
   }

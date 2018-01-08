@@ -2,6 +2,7 @@ import jqXHR = JQuery.jqXHR;
 
 class OverviewViewModel {
     static selectedClass: string = 'selected';
+    public static CurrentVm: OverviewViewModel = null;
     public matchHeight = () => {
         $('.card img').imagesLoaded((data) => {
             let scrollPosition = this.$container.scrollTop();
@@ -22,7 +23,8 @@ class OverviewViewModel {
             }
             this.loading(true);
             this.xhr = $.getJSON(this.getListUrl, {
-                keyword: this.search()
+                keyword: this.search(),
+                label: this.label()
             });
 
             this.xhr.done(() => {
@@ -33,7 +35,12 @@ class OverviewViewModel {
                 });
                 this.more(data.more);
                 this.getListUrl = data.moreLink;
-                window.history.pushState([], $('title').text(), location.origin + location.pathname + '?' + $.param({keyword: this.search()}));
+                window.history.pushState([], $('title').text(), location.origin + location.pathname + '?' + $.param({
+                    keyword: this.search(),
+                    label: this.label()
+                }));
+                $('[data-label]').removeClass('active');
+                $(`[data-label=${this.label()}`).addClass('active');
             }, (data) => {
                 if (data.readyState != 0) {
                     Messenger().post({
@@ -51,6 +58,7 @@ class OverviewViewModel {
         }
     };
     public search = ko.observable('');
+    public label = ko.observable(null);
     private xhr: jqXHR;
     private originalGetListUrl = '';
     private searchTriggered = (newValue: string) => {
@@ -61,6 +69,13 @@ class OverviewViewModel {
             this.loading(false);
             this.loadData();
         }
+    };
+    private labelTriggered = (newValue: string) => {
+        this.items([]);
+        this.getListUrl = this.originalGetListUrl;
+        this.more(true);
+        this.loading(false);
+        this.loadData();
     };
     private $container = $('.overview-list');
     private getListUrl: string;
@@ -75,5 +90,7 @@ class OverviewViewModel {
         this.loadFailureMessage = loadFailureMessage;
         this.loadData();
         this.search.subscribe(this.searchTriggered);
+        this.label.subscribe(this.labelTriggered);
+        OverviewViewModel.CurrentVm = this;
     }
 }

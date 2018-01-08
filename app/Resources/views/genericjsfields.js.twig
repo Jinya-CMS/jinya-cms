@@ -1,1 +1,6 @@
 var texts = texts || {{ get_translation_catalogue()|json_encode|raw }}
+;var evalTag = function (selector) {
+    var item = document.querySelector(selector);
+    var toEval = item.innerHTML;
+    eval(toEval);
+}

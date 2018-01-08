@@ -52,6 +52,9 @@ sidebar:
     details: Kunstwerkdetails
     delete: Kunstwerk löschen
     history: Kunstwerkhistorie
+  generic:
+    label:
+      add: Label hinzufügen
 backend:
   users:
     email: Emailadresse
@@ -137,6 +140,11 @@ backend:
     slug: Slug
     picture: Bild
     select: Kunstwerk auswählen
+    labels: Labels
     delete:
       title: Wollen Sie das Kunstwerk %name% wirklich löschen?
       content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.
+  art:
+    label:
+      name: Name
+      add: Label hinzufügen

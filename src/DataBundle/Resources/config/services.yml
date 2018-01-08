@@ -17,12 +17,14 @@ services:
         - '@doctrine.orm.default_entity_manager'
         - '@jinya_gallery.services_media.media_service'
         - '@jinya_gallery.services_slug.slug_service'
+        - '@jinya_gallery.services.label_service'
   jinya_gallery.services.artwork_service:
       class: DataBundle\Services\Artworks\ArtworkService
       arguments:
         - '@doctrine.orm.default_entity_manager'
         - '@jinya_gallery.services_media.media_service'
         - '@jinya_gallery.services_slug.slug_service'
+        - '@jinya_gallery.services.label_service'
   jinya_gallery.services.artwork_position_service:
       class: DataBundle\Services\Artworks\ArtworkPositionService
       arguments:
@@ -62,6 +64,10 @@ services:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services.theme_service'
       lazy: true
+  jinya_gallery.services.label_service:
+      class: DataBundle\Services\Labels\LabelService
+      arguments:
+        - '@doctrine.orm.entity_manager'
 
   jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
       class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber

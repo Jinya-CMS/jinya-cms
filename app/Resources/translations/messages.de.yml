@@ -33,3 +33,4 @@ generic:
   form: Formular
   page: Seite
   empty: Keine Verknüpfung
+  labels: Label
