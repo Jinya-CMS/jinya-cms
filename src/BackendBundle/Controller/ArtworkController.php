@@ -61,7 +61,7 @@ class ArtworkController extends Controller
         $keyword = $request->get('keyword', '');
         $labelName = $request->get('label', null);
 
-        if ($labelName !== null) {
+        if ($labelName) {
             $label = $labelService->getLabel($labelName);
         } else {
             $label = null;
