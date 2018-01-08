@@ -1,7 +1,8 @@
 .galleries,
 .artworks {
-  overflow-y: scroll;
-  max-height: 100vh;
+  overflow-y: auto;
+  max-height: 100%;
+  padding-top: 1em;
   .card {
     cursor: pointer;
     margin-bottom: $grid-gutter-width;
@@ -14,8 +15,4 @@
       box-shadow: $btn-box-shadow, 0 0 0 $input-btn-focus-width rgba(lighten($primary, 20%), .5);
     }
   }
-}
-
-body {
-  max-height: 100vh;
 }
