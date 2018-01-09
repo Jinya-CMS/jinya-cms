@@ -9,19 +9,22 @@ class MenuItemModalViewModel {
         this.item(menuItem);
         this.modal = modal;
 
-        this.selectedType.subscribe(newValue => {
-            if (newValue !== 'empty') {
+        this.item().pageType.subscribe(newValue => {
+            if (newValue !== 'empty' && newValue !== 'external') {
                 let call = new Ajax.Request(`${fetchUrl}?type=${newValue}`);
                 call.get().then(value => {
-                    this.routes(value.routes);
+                    this.item().routes.removeAll();
+                    for (let i = 0; i < value.routes.length; i++) {
+                        let route = new Route(value.routes[i]);
+                        this.item().routes.push(route);
+                    }
                 });
             } else {
-                this.selectedRoute({parameter: '', name: '#'});
+                this.item().route(new Route({url: '#', name: '#', parameter: '#'}));
+                if (newValue === 'empty') {
+                    this.item().displayUrl('');
+                }
             }
-        });
-        this.selectedRoute.subscribe(newValue => {
-            this.item().route().parameter(newValue.parameter);
-            this.item().route().name(newValue.name);
         });
     }
 
@@ -45,35 +48,5 @@ class MenuItemModalViewModel {
 
     set item(value: KnockoutObservable<MenuItem>) {
         this._item = value;
-    }
-
-    private _selectedType = ko.observable<string>();
-
-    get selectedType(): KnockoutObservable<string> {
-        return this._selectedType;
-    }
-
-    set selectedType(value: KnockoutObservable<string>) {
-        this._selectedType = value;
-    }
-
-    private _routes = ko.observableArray();
-
-    get routes(): KnockoutObservableArray<any> {
-        return this._routes;
-    }
-
-    set routes(value: KnockoutObservableArray<any>) {
-        this._routes = value;
-    }
-
-    private _selectedRoute = ko.observable();
-
-    get selectedRoute(): KnockoutObservable<any> {
-        return this._selectedRoute;
-    }
-
-    set selectedRoute(value: KnockoutObservable<any>) {
-        this._selectedRoute = value;
     }
 }

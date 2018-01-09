@@ -43,6 +43,27 @@ class RoutingEntry implements JsonSerializable
      * @ORM\Column(type="object")
      */
     private $routeParameter;
+    /**
+     * @ORM\OneToOne(targetEntity="DataBundle\Entity\MenuItem", inversedBy="route", cascade={"persist", "remove"})
+     * @var MenuItem
+     */
+    private $menuItem;
+
+    /**
+     * @return MenuItem
+     */
+    public function getMenuItem(): MenuItem
+    {
+        return $this->menuItem;
+    }
+
+    /**
+     * @param MenuItem $menuItem
+     */
+    public function setMenuItem(MenuItem $menuItem): void
+    {
+        $this->menuItem = $menuItem;
+    }
 
     /**
      * @return string

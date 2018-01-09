@@ -34,3 +34,4 @@ generic:
   page: Seite
   empty: Keine Verknüpfung
   labels: Label
+  external: Extern

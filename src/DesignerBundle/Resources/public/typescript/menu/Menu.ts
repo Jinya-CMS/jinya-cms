@@ -11,9 +11,6 @@ class Route {
     }
 
     private _valid = ko.pureComputed(() => {
-        if (this.url() === '#') {
-            return true;
-        }
         return this.name() && this.url();
     });
 
@@ -25,16 +22,6 @@ class Route {
         this._valid = value;
     }
 
-    private _url = ko.observable<string>();
-
-    get url(): KnockoutObservable<string> {
-        return this._url;
-    }
-
-    set url(value: KnockoutObservable<string>) {
-        this._url = value;
-    }
-
     private _name = ko.observable<string>();
 
     get name(): KnockoutObservable<string> {
@@ -43,6 +30,16 @@ class Route {
 
     set name(value: KnockoutObservable<string>) {
         this._name = value;
+    }
+
+    private _url = ko.observable<string>();
+
+    get url(): KnockoutObservable<string> {
+        return this._url;
+    }
+
+    set url(value: KnockoutObservable<string>) {
+        this._url = value;
     }
 
     private _parameter = ko.observableArray<string>();
@@ -70,11 +67,7 @@ class MenuItem {
     addItemBefore = (selectedItem: MenuItem) => {
         MenuTools.addItem(this).then((item: MenuItem) => {
             let currentItemIndex = this.children.indexOf(selectedItem);
-            if (currentItemIndex === -1) {
-                this.children.push(item);
-            } else {
-                this.children.splice(currentItemIndex, 0, item);
-            }
+            this.children.splice(currentItemIndex, 0, item);
         });
     };
     editItem = (item: MenuItem) => {
@@ -91,10 +84,15 @@ class MenuItem {
         if (data instanceof String) {
             data = JSON.parse(data.toString());
         }
+
+        this.route(new Route(null));
+
         if (data) {
             let route = new Route(data.route);
             this.id(data.id || Date.now());
             this.title(data.title);
+            this.pageType(data.pageType);
+            this.displayUrl(data.displayUrl);
             if (parent instanceof MenuItem) {
                 this.parent(parent);
             } else if (parent instanceof Menu) {
@@ -112,6 +110,16 @@ class MenuItem {
         }
     }
 
+    private _displayUrl = ko.observable<string>();
+
+    get displayUrl(): KnockoutObservable<string> {
+        return this._displayUrl;
+    }
+
+    set displayUrl(value: KnockoutObservable<string>) {
+        this._displayUrl = value;
+    }
+
     private _menu = ko.observable<Menu>();
 
     get menu(): KnockoutObservable<Menu> {
@@ -120,6 +128,26 @@ class MenuItem {
 
     set menu(value: KnockoutObservable<Menu>) {
         this._menu = value;
+    }
+
+    private _pageType = ko.observable<string>();
+
+    get pageType(): KnockoutObservable<string> {
+        return this._pageType;
+    }
+
+    set pageType(value: KnockoutObservable<string>) {
+        this._pageType = value;
+    }
+
+    private _routes = ko.observableArray<Route>();
+
+    get routes(): KnockoutObservableArray<Route> {
+        return this._routes;
+    }
+
+    set routes(value: KnockoutObservableArray<Route>) {
+        this._routes = value;
     }
 
     private _valid = ko.pureComputed(() => {
@@ -161,7 +189,7 @@ class MenuItem {
         this._title = value;
     }
 
-    private _route = ko.observable<Route>();
+    private _route = ko.observable<Route>(new Route(null));
 
     get route(): KnockoutObservable<Route> {
         return this._route;
@@ -210,6 +238,7 @@ class MenuTools {
             });
             modal.on('save', () => {
                 item = vm.item();
+                item.route().url(item.displayUrl());
                 resolve(item);
             });
             modal.show();
@@ -232,6 +261,7 @@ class MenuTools {
             });
             modal.on('save', () => {
                 item = vm.item();
+                item.route().url(item.displayUrl());
                 resolve(item);
             });
             modal.show();
@@ -271,12 +301,8 @@ class Menu {
     };
     addItemBefore = (selectedItem: MenuItem) => {
         MenuTools.addItem(this).then((item: MenuItem) => {
-            let currentItemIndex = this.children.indexOf(selectedItem) - 1;
-            if (currentItemIndex === -1) {
-                this.children.push(item);
-            } else {
-                this.children.splice(currentItemIndex, 0, item);
-            }
+            let currentItemIndex = this.children.indexOf(selectedItem);
+            this.children.splice(currentItemIndex, 0, item);
         });
     };
 

@@ -37,8 +37,7 @@ class MenuItem implements JsonSerializable
      */
     private $menu;
     /**
-     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\RoutingEntry", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="route_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="DataBundle\Entity\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
      * @var RoutingEntry
      */
     private $route;
@@ -53,6 +52,11 @@ class MenuItem implements JsonSerializable
      * @var Collection
      */
     private $children;
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $pageType;
 
     /**
      * MenuItem constructor.
@@ -60,6 +64,22 @@ class MenuItem implements JsonSerializable
     public function __construct()
     {
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageType(): string
+    {
+        return $this->pageType;
+    }
+
+    /**
+     * @param string $pageType
+     */
+    public function setPageType(string $pageType): void
+    {
+        $this->pageType = $pageType;
     }
 
     /**
@@ -155,7 +175,9 @@ class MenuItem implements JsonSerializable
             'id' => $this->id,
             'title' => $this->title,
             'route' => $this->route,
-            'children' => $this->children->toArray()
+            'children' => $this->children->toArray(),
+            'pageType' => $this->pageType,
+            'displayUrl' => $this->route->getUrl()
         ];
 
         if ($this->parent !== null) {

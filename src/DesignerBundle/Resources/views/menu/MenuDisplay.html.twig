@@ -13,10 +13,7 @@
             <!-- /ko -->
             <div class="item-content">
                 <p data-bind="text: title"></p>
-                <small>
-                    <span data-bind="text: route().name"></span> &mdash; <span
-                            data-bind="html: MenuTools.formatJson(route().parameter())"></span>
-                </small>
+                <small data-bind="text: displayUrl"></small>
                 <!-- ko if: $root.edit -->
                 <div class="button-top-right">
                     <button data-bind="click: editItem" class="button primary inverse button-square">
