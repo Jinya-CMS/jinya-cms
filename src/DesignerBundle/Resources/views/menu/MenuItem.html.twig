@@ -1,6 +1,9 @@
 <li>
     <div class="item">
         <div class="item-content">
+            {% if item.highlighted %}
+                <i class="fa fa-asterisk" aria-hidden="true"></i>
+            {% endif %}
             <span>{{ item.title }}</span><br/>
             <small><a target="_blank" href="{{ item.route.url }}">{{ item.route.url }}</a></small>
         </div>

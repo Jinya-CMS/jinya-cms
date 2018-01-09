@@ -94,12 +94,14 @@ class MenuController extends Controller
             }
 
             $route->setUrl($child['_displayUrl']);
+            $route->setMenuItem($item);
 
             $item->setTitle($child['_title']);
             $item->setMenu($menu);
             $item->setParent($parent);
             $item->setRoute($route);
             $item->setPageType($child['_pageType']);
+            $item->setHighlighted($child['_highlighted']);
             $item->setChildren($this->prepareMenuChildren($child['_children'], null, $item));
 
             $items[] = $item;

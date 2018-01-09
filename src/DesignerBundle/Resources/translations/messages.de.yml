@@ -98,5 +98,6 @@ designer:
         delete:
           title: Eintrag löschen?
           content: Soll der Menüeintrag title wirklich gelöscht werden?
+        highlighted: Hervorgehoben
       items:
         header: Menüelemente

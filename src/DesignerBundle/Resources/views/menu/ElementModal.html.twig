@@ -18,6 +18,10 @@
                         <option value="external">{{ 'generic.external'|trans }}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <input data-bind="checked: item().highlighted" type="checkbox" id="required">
+                    <label for="required">{{ 'designer.menu.editor.item.highlighted'|trans }}</label>
+                </div>
                 <!-- ko if: item().pageType() !== 'empty' -->
                 <div class="form-group">
                     <label for="displayUrl">{{ 'designer.menu.editor.item.displayUrl'|trans }}</label>

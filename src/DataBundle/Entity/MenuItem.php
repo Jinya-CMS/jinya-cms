@@ -57,6 +57,11 @@ class MenuItem implements JsonSerializable
      * @ORM\Column(type="string")
      */
     private $pageType;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $highlighted = false;
 
     /**
      * MenuItem constructor.
@@ -64,6 +69,22 @@ class MenuItem implements JsonSerializable
     public function __construct()
     {
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHighlighted(): bool
+    {
+        return $this->highlighted;
+    }
+
+    /**
+     * @param bool $highlighted
+     */
+    public function setHighlighted(bool $highlighted): void
+    {
+        $this->highlighted = $highlighted;
     }
 
     /**
@@ -177,7 +198,8 @@ class MenuItem implements JsonSerializable
             'route' => $this->route,
             'children' => $this->children->toArray(),
             'pageType' => $this->pageType,
-            'displayUrl' => $this->route->getUrl()
+            'displayUrl' => $this->route->getUrl(),
+            'hightlighted' => $this->highlighted
         ];
 
         if ($this->parent !== null) {

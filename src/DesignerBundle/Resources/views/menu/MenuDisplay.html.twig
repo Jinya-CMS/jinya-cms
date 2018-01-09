@@ -12,7 +12,12 @@
                     class="button button-round-s button-border-medium primary button-full-screen button-size-input">{{ 'designer.menu.editor.item.add'|trans }}</button>
             <!-- /ko -->
             <div class="item-content">
-                <p data-bind="text: title"></p>
+                <p>
+                    <!-- ko if: highlighted -->
+                    <i class="fa fa-asterisk" aria-hidden="true"></i>
+                    <!-- /ko -->
+                    <span data-bind="text: title"></span>
+                </p>
                 <small data-bind="text: displayUrl"></small>
                 <!-- ko if: $root.edit -->
                 <div class="button-top-right">

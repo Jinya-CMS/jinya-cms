@@ -93,6 +93,7 @@ class MenuItem {
             this.title(data.title);
             this.pageType(data.pageType);
             this.displayUrl(data.displayUrl);
+            this.highlighted(data.hightlighted);
             if (parent instanceof MenuItem) {
                 this.parent(parent);
             } else if (parent instanceof Menu) {
@@ -108,6 +109,16 @@ class MenuItem {
                 }
             }
         }
+    }
+
+    private _highlighted = ko.observable<boolean>();
+
+    get highlighted(): KnockoutObservable<boolean> {
+        return this._highlighted;
+    }
+
+    set highlighted(value: KnockoutObservable<boolean>) {
+        this._highlighted = value;
     }
 
     private _displayUrl = ko.observable<string>();
