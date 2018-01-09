@@ -1,4 +1,4 @@
-<li class="{% if isChildActiveMenuItem(item) %}open{% endif %}">
+<li class="{% if isChildActiveMenuItem(item) %}open{% endif %} {% if item.highlighted %}highlight{% endif %}">
     <a class="{% if isActiveMenuItem(item) %}active{% endif %}" href="{{ item.route.url }}"
             {% if item.pageType == 'external' %}
                 target="_blank"

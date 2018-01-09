@@ -75,6 +75,16 @@
         }
       }
 
+      &.highlight {
+        font-weight: bold;
+        font-size: 1.2em;
+
+        li:not(.highlight) {
+          font-weight: normal;
+          font-size: 1rem;
+        }
+      }
+
       a {
         @include menuItemBackgroundGradient();
 
