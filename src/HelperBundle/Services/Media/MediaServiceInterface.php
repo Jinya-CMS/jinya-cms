@@ -16,6 +16,7 @@ interface MediaServiceInterface
     public const GALLERY_BACKGROUND = 'gallery_background';
     public const CONTENT_IMAGE = 'content_image';
     public const PROFILE_PICTURE = 'profile_picture';
+    public const MENU_LOGO = 'menu_logo';
 
     /**
      * Saves the media to the storage and return the http url

@@ -7,7 +7,9 @@ use DataBundle\Entity\MenuItem;
 use DataBundle\Entity\RoutingEntry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
+use HelperBundle\Services\Media\MediaServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,7 +44,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/api/{id}", name="designer_menu_save_with_id", methods={"PUT"})
+     * @Route("/menu/api/{id}", name="designer_menu_save_with_id", methods={"PUT", "POST"})
      * @Route("/menu/api/", name="designer_menu_save_without_id", methods={"POST"})
      *
      * @param int $id
@@ -59,7 +61,15 @@ class MenuController extends Controller
         } else {
             $menu = new Menu();
         }
-        $postedMenu = json_decode($request->getContent(), true)['_menu'];
+        $postedMenu = json_decode($request->get('_menu'), true);
+
+        if ($request->files->has('logo')) {
+            /** @var UploadedFile $logoFile */
+            $logoFile = $request->files->get('logo');
+            $mediaService = $this->get('jinya_gallery.services_media.media_service');
+            $logo = $mediaService->saveMedia($logoFile, MediaServiceInterface::MENU_LOGO);
+            $menu->setLogo($logo);
+        }
 
         $menu->setName($postedMenu['_name']);
         $menu->setMenuItems($this->prepareMenuChildren($postedMenu['_children'], $menu));

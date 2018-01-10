@@ -1,35 +1,55 @@
-.jinya-menu {
-  padding: 0;
-
-  &:empty {
-    display: none;
-  }
-
-  ul {
-    padding: 0;
-  }
-
-  li {
-    list-style: none;
-
-    .item {
-      border-radius: 5px;
-      border: 2px solid $primary;
-      margin-bottom: 0.2em;
-      padding: 1em;
-
-      .item-content {
-        position: relative;
-      }
-    }
-  }
-
-  .button {
-    margin-bottom: 0.2em;
-  }
-}
-
 .jinya-menu-display {
   margin-left: 2em;
   margin-right: 2em;
+  display: flex;
+  height: calc(100% - 2.25em - 4.2em);
+
+  .logo {
+    max-width: 29%;
+    flex: 0 0 29%;
+    margin-right: 0.3em;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
+
+  .jinya-menu {
+    overflow-y: auto;
+    height: 100%;
+    padding: 0;
+    flex: 0 0 69%;
+    max-width: 69%;
+    margin-left: 0.3em;
+
+    &:empty {
+      display: none;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+
+      .item {
+        border-radius: 5px;
+        border: 2px solid $primary;
+        margin-bottom: 0.2em;
+        padding: 1em;
+
+        .item-content {
+          position: relative;
+        }
+      }
+    }
+
+    .button {
+      margin-bottom: 0.2em;
+    }
+  }
 }

@@ -23,6 +23,12 @@
       margin-bottom: 0;
     }
 
+    img {
+      margin-top: 0.2rem;
+      max-width: 100%;
+      margin-bottom: 0.2rem;
+    }
+
     input[type=checkbox] {
       display: none;
       margin-top: 1em;
@@ -43,6 +49,10 @@
       }
     }
 
+    input[type=file] {
+      display: none;
+    }
+
     input[type=text],
     input[type=email],
     textarea,
@@ -55,6 +65,25 @@
 
       &:focus {
         box-shadow: 0 0 10px 0 transparentize($primary, 0.75);
+      }
+
+      &.input-with-addon {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: calc(100% - 10rem);
+        margin-right: 0;
+        float: left;
+
+        + .input-addon-after {
+          width: 10rem;
+          max-width: 10rem;
+          font-size: 1rem;
+          padding: 0.2em 0.5em;
+          border-radius: 0 5px 5px 0;
+          margin: 0;
+          border-left: none;
+          float: left;
+        }
       }
     }
   }

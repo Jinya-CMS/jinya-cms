@@ -6,6 +6,11 @@
 
 {% block content %}
     <div class="jinya-menu-display">
+        {% if menu.logo %}
+            <div class="logo">
+                <img src="{{ menu.logo }}" alt="{{ menu.name }}">
+            </div>
+        {% endif %}
         <ul class="jinya-menu">
             {% for child in menu.menuItems %}
                 {% include '@Designer/menu/MenuItem.html.twig' with { 'item': child } %}

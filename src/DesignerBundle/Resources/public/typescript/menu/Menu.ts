@@ -1,3 +1,71 @@
+class MenuTools {
+    static addItem = (parent: MenuItem | Menu): Promise<MenuItem> => {
+        return new Promise<MenuItem>((resolve, reject) => {
+            let modalNode = document.querySelector('#modal');
+            modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
+            let injectedModal = modalNode.firstElementChild;
+
+            let item = new MenuItem({}, parent);
+            let modal = Modal.get(injectedModal, false);
+            let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
+            ko.applyBindings(vm, injectedModal);
+            modal.on('closed', () => {
+                ko.cleanNode(injectedModal);
+                modalNode.innerHTML = '<div id="modal" />';
+                reject();
+            });
+            modal.on('save', () => {
+                item = vm.item();
+                item.route().url(item.displayUrl());
+                resolve(item);
+            });
+            modal.show();
+        });
+    };
+
+    static editItem = (item: MenuItem): Promise<MenuItem> => {
+        return new Promise((resolve, reject) => {
+            let modalNode = document.querySelector('#modal');
+            modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
+            let injectedModal = modalNode.firstElementChild;
+
+            let modal = Modal.get(injectedModal, false);
+            let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
+            ko.applyBindings(vm, injectedModal);
+            modal.on('closed', () => {
+                ko.cleanNode(injectedModal);
+                modalNode.innerHTML = '<div id="modal" />';
+                reject();
+            });
+            modal.on('save', () => {
+                item = vm.item();
+                item.route().url(item.displayUrl());
+                resolve(item);
+            });
+            modal.show();
+        });
+    };
+
+    static deleteItem = (item: MenuItem): Promise<MenuItem> => {
+        return new Promise((resolve, reject) => {
+            Modal.confirm(texts['designer.menu.editor.item.delete.title'], texts['designer.menu.editor.item.delete.content'].replace('title', item.title()))
+                .then(value => value ? resolve(item) : reject())
+                .catch(reason => reject());
+        });
+    };
+
+    static formatJson = (json: any) => {
+        let result = '';
+        let keys = Object.keys(json);
+
+        for (let i = 0; i < keys.length; i++) {
+            result += `${keys[i]} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ${json[keys[i]]}`;
+        }
+
+        return result;
+    };
+}
+
 class Route {
     constructor(data: any | string) {
         if (data instanceof String) {
@@ -231,74 +299,6 @@ class MenuItem {
     }
 }
 
-class MenuTools {
-    static addItem = (parent: MenuItem | Menu): Promise<MenuItem> => {
-        return new Promise<MenuItem>((resolve, reject) => {
-            let modalNode = document.querySelector('#modal');
-            modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
-            let injectedModal = modalNode.firstElementChild;
-
-            let item = new MenuItem({}, parent);
-            let modal = Modal.get(injectedModal, false);
-            let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
-            ko.applyBindings(vm, injectedModal);
-            modal.on('closed', () => {
-                ko.cleanNode(injectedModal);
-                modalNode.innerHTML = '<div id="modal" />';
-                reject();
-            });
-            modal.on('save', () => {
-                item = vm.item();
-                item.route().url(item.displayUrl());
-                resolve(item);
-            });
-            modal.show();
-        });
-    };
-
-    static editItem = (item: MenuItem): Promise<MenuItem> => {
-        return new Promise((resolve, reject) => {
-            let modalNode = document.querySelector('#modal');
-            modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
-            let injectedModal = modalNode.firstElementChild;
-
-            let modal = Modal.get(injectedModal, false);
-            let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
-            ko.applyBindings(vm, injectedModal);
-            modal.on('closed', () => {
-                ko.cleanNode(injectedModal);
-                modalNode.innerHTML = '<div id="modal" />';
-                reject();
-            });
-            modal.on('save', () => {
-                item = vm.item();
-                item.route().url(item.displayUrl());
-                resolve(item);
-            });
-            modal.show();
-        });
-    };
-
-    static deleteItem = (item: MenuItem): Promise<MenuItem> => {
-        return new Promise((resolve, reject) => {
-            Modal.confirm(texts['designer.menu.editor.item.delete.title'], texts['designer.menu.editor.item.delete.content'].replace('title', item.title()))
-                .then(value => value ? resolve(item) : reject())
-                .catch(reason => reject());
-        });
-    };
-
-    static formatJson = (json: any) => {
-        let result = '';
-        let keys = Object.keys(json);
-
-        for (let i = 0; i < keys.length; i++) {
-            result += `${keys[i]} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ${json[keys[i]]}`;
-        }
-
-        return result;
-    };
-}
-
 class Menu {
     addItemAfter = (selectedItem: MenuItem) => {
         MenuTools.addItem(this).then((item: MenuItem) => {
@@ -324,6 +324,7 @@ class Menu {
 
         this.id(data.id);
         this.name(data.name);
+        this.logo(data.logo);
 
         if (data.children) {
             for (let i = 0; i < data.children.length; i++) {
@@ -332,6 +333,16 @@ class Menu {
                 this.children.push(menuItem);
             }
         }
+    }
+
+    private _logo = ko.observable<string>();
+
+    get logo(): KnockoutObservable<string> {
+        return this._logo;
+    }
+
+    set logo(value: KnockoutObservable<string>) {
+        this._logo = value;
     }
 
     private _name = ko.observable<string>();

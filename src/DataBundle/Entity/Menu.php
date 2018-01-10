@@ -36,6 +36,27 @@ class Menu implements JsonSerializable
      * @var Collection
      */
     private $menuItems;
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $logo;
+
+    /**
+     * @return string
+     */
+    public function getLogo(): string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     */
+    public function setLogo(string $logo): void
+    {
+        $this->logo = $logo;
+    }
 
     /**
      * @return int
@@ -97,6 +118,7 @@ class Menu implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'logo' => $this->logo,
             'children' => $this->menuItems->toArray()
         ];
     }

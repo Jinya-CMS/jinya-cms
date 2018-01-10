@@ -83,8 +83,11 @@ namespace Ajax {
                     };
 
                     this.xhr.open(method, this.url, true);
-                    this.xhr.setRequestHeader('Content-Type', 'application/json');
-                    this.xhr.send(JSON.stringify(data));
+                    if (!(data instanceof FormData)) {
+                        this.xhr.setRequestHeader('Content-Type', 'application/json');
+                        data = JSON.stringify(data);
+                    }
+                    this.xhr.send(data);
                 }
             );
         };

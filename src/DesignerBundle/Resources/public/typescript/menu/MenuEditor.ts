@@ -1,14 +1,19 @@
 class MenuEditorViewModel {
     submit = () => {
-        let data = JSON.parse(Util.jsonStringifyWithoutCycle(ko.toJS(this)));
+        let data = Util.jsonStringifyWithoutCycle(ko.toJS(this.menu()));
         let call = new Ajax.Request(this.submitUrl);
         let dfd: Promise<any>;
 
-        if (this.menuId) {
-            dfd = call.put(data);
-        } else {
-            dfd = call.post(data);
+        let formData = new FormData();
+        formData.append('_menu', data);
+
+        let logoUpload: HTMLInputElement = document.querySelector('[data-logo-upload]');
+
+        if (logoUpload.files.length > 0) {
+            formData.append('_logo', logoUpload.files[0]);
         }
+
+        dfd = call.post(formData);
 
         dfd.then(value => {
             location.href = value.redirectTarget;
@@ -41,6 +46,38 @@ class MenuEditorViewModel {
             this.menuId = parseInt(element.getAttribute('data-menu-id'));
             this.loadMenu(element.getAttribute('data-load-url'));
         }
+    }
+
+    private _logo = ko.observable<string>();
+
+    get logo(): KnockoutObservable<string> {
+        return this._logo;
+    }
+
+    set logo(value: KnockoutObservable<string>) {
+        this._logo = value;
+    }
+
+    private _triggerFileInput = () => {
+        let input: HTMLInputElement = document.querySelector('[data-logo-upload]');
+        input.addEventListener('change', (event: Event) => {
+            this.logo(input.value);
+            let file = input.files[0];
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.addEventListener('load', (data) => {
+                this.menu().logo(fileReader.result);
+            });
+        });
+        input.click();
+    };
+
+    get triggerFileInput(): () => void {
+        return this._triggerFileInput;
+    }
+
+    set triggerFileInput(value: () => void) {
+        this._triggerFileInput = value;
     }
 
     private _edit = ko.observable<boolean>(true);
