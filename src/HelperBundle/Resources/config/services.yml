@@ -66,6 +66,8 @@ services:
       class: HelperBundle\Services\Form\FormGenerator
       arguments:
         - '@form.factory'
+  jinya_gallery.services.scss_compiler_service:
+      class: HelperBundle\Services\Scss\ScssCompilerService
 
   twig_extensions.intl:
     class: Twig_Extensions_Extension_Intl

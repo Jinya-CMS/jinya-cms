@@ -63,9 +63,9 @@ class MenuController extends Controller
         }
         $postedMenu = json_decode($request->get('_menu'), true);
 
-        if ($request->files->has('logo')) {
+        if ($request->files->has('_logo')) {
             /** @var UploadedFile $logoFile */
-            $logoFile = $request->files->get('logo');
+            $logoFile = $request->files->get('_logo');
             $mediaService = $this->get('jinya_gallery.services_media.media_service');
             $logo = $mediaService->saveMedia($logoFile, MediaServiceInterface::MENU_LOGO);
             $menu->setLogo($logo);

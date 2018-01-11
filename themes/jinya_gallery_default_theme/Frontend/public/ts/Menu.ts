@@ -6,7 +6,8 @@ class Menu {
         for (let i = 0; i < menuItems.length; i++) {
             let menuItem = menuItems[i];
             if (menuItem.querySelectorAll('ul').length > 0) {
-                menuItem.addEventListener('click', (event) => {
+                let link = menuItem.querySelector('li > a');
+                link.addEventListener('click', (event) => {
                     event.preventDefault();
                     let openMenuItems = menu.querySelectorAll('li.open');
 

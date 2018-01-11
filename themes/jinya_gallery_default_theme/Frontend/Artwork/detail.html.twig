@@ -2,3 +2,13 @@
 {% block head_title %}
     {{ artwork.name }}
 {% endblock %}
+
+{% block maincontent %}
+    <figure class="artwork">
+        <img src="{{ artwork.picture }}" alt="{{ artwork.name }}"/>
+        <figcaption>
+            <strong>{{ artwork.name }}</strong>
+            <p>{{ artwork.description }}</p>
+        </figcaption>
+    </figure>
+{% endblock %}

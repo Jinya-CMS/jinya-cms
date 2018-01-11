@@ -1,33 +1,23 @@
-@mixin menuItemBackgroundGradient() {
-  background: linear-gradient(to right, transparentize($primary, 100%), $primary);
-}
-
-@mixin menuItemTextColorGradient() {
-  color: linear-gradient(to right, $primary, transparentize($primary, 90%));
-}
-
-@mixin menuBlurred() {
-  color: transparent;
-  text-shadow: 0 0 10px #fff;
-  @include menuItemBackgroundGradient();
-}
-
-@mixin menuUnblurred() {
-  background: transparent;
-  text-shadow: 1px 1px 10px transparentize($primary, 0.4);
-  color: $primary;
-}
-
 .menu {
   position: fixed;
-  left: 5em;
-  top: 5em;
-  max-height: calc(100vh - 10em);
-  width: 20em;
+  max-height: calc(100vh - #{$menuMarginTop});
   background: transparentize($primary, 90%);
-  border-radius: 5px;
+  border-radius: 1em;
   color: $primary;
+  left: $menuMarginLeft;
+  top: $menuMarginTop;
+  width: $menuWidth;
+  overflow-y: auto;
 
+  .logo {
+    &.circular {
+      margin: $menuLogoMargin;
+      object-fit: cover;
+      border-radius: 50%;
+      height: $menuLogoSize;
+      width: $menuLogoSize;
+    }
+  }
   .title {
     font-weight: normal;
     padding-right: 1.2rem;
@@ -38,7 +28,6 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
-
   ul {
     list-style: none;
 
@@ -106,5 +95,28 @@
         display: none;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .menu {
+    position: relative;
+    width: 100%;
+    max-height: unset;
+    padding: 0;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+
+    .logo {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 1024px) {
+  .menu {
+    top: $menuMarginTop / 2;
+    left: $menuMarginLeft / 2;
   }
 }

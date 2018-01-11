@@ -14,6 +14,7 @@ use DataBundle\Services\Configuration\FrontendConfigurationServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
+use HelperBundle\Services\Scss\ScssCompilerServiceInterface;
 use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -54,6 +55,10 @@ class ThemeService implements ThemeServiceInterface
      * @var FilesystemLoader
      */
     private $twigLoader;
+    /**
+     * @var ScssCompilerServiceInterface
+     */
+    private $scssCompilerService;
 
     /**
      * ThemeService constructor.
@@ -62,14 +67,16 @@ class ThemeService implements ThemeServiceInterface
      * @param string $themeDirectory
      * @param string $kernelProjectDir
      * @param FilesystemLoader $twigLoader
+     * @param ScssCompilerServiceInterface $scssCompilerService
      */
-    public function __construct(EntityManager $entityManager, FrontendConfigurationServiceInterface $frontendConfigurationService, string $themeDirectory, string $kernelProjectDir, FilesystemLoader $twigLoader)
+    public function __construct(EntityManager $entityManager, FrontendConfigurationServiceInterface $frontendConfigurationService, string $themeDirectory, string $kernelProjectDir, FilesystemLoader $twigLoader, ScssCompilerServiceInterface $scssCompilerService)
     {
         $this->entityManager = $entityManager;
         $this->frontendConfigurationService = $frontendConfigurationService;
         $this->themeDirectory = $themeDirectory;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->twigLoader = $twigLoader;
+        $this->scssCompilerService = $scssCompilerService;
     }
 
     /**
@@ -78,7 +85,7 @@ class ThemeService implements ThemeServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
@@ -213,27 +220,40 @@ class ThemeService implements ThemeServiceInterface
     private function compileStyles(Theme $theme): void
     {
         $themeConfig = $this->getThemeConfig($theme);
-        $scssCompiler = new \Leafo\ScssPhp\Compiler();
-
         $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
 
-        $scssCompiler->addImportPath($this->getStylesPath($theme));
         $fs = new Filesystem();
+        $variables = $themeConfig['styles']['variables'];
 
-        foreach ($themeConfig['styles'] as $style) {
+        foreach ($themeConfig['styles']['files'] as $style) {
             $scssCode = $this->getScssCodeForStyle($style, $theme);
-            $result = $scssCompiler->compile($scssCode);
+            $result = $this->scssCompilerService->compileScss($scssCode, $this->getStylesPath($theme), $variables);
             $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
             $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
             $fs->dumpFile($webStylesPath, $result);
             $fs->dumpFile($compilationCheckPath, md5($scssCode));
         }
+
+        $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
     }
 
     private function getThemeConfig(Theme $theme): array
     {
         return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+    }
+
+    /**
+     * @param string $style
+     * @param Theme $theme
+     * @return string
+     */
+    private function getScssCodeForStyle(string $style, Theme $theme): string
+    {
+        $stylesPath = $this->getStylesPath($theme);
+        $scssCode = file_get_contents($stylesPath . '/' . $style);
+
+        return $scssCode;
     }
 
     /**
@@ -253,19 +273,6 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @param string $style
-     * @param Theme $theme
-     * @return string
-     */
-    private function getScssCodeForStyle(string $style, Theme $theme): string
-    {
-        $stylesPath = $this->getStylesPath($theme);
-        $scssCode = file_get_contents($stylesPath . '/' . $style);
-
-        return $scssCode;
-    }
-
-    /**
      * @param Theme $theme
      * @param string $filename
      * @return string
@@ -275,6 +282,13 @@ class ThemeService implements ThemeServiceInterface
         $webScriptsBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
         $compilationCheckPath = $webScriptsBasePath . ThemeService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
         return $compilationCheckPath;
+    }
+
+    private function getScssVariablesCompilationCheckPath(Theme $theme)
+    {
+        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+
+        return $webStylesBasePath . 'variables';
     }
 
     /**
@@ -366,9 +380,12 @@ class ThemeService implements ThemeServiceInterface
     private function isStylesCompiled(Theme $theme): bool
     {
         $themeConfig = $this->getThemeConfig($theme);
-        $isCompiled = true;
         $fs = new Filesystem();
-        foreach ($themeConfig['styles'] as $style) {
+
+        $variables = $themeConfig['styles']['variables'];
+        $isCompiled = $fs->exists($this->getScssVariablesCompilationCheckPath($theme)) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
+
+        foreach ($themeConfig['styles']['files'] as $style) {
             $scssCode = $this->getScssCodeForStyle($style, $theme);
             $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 

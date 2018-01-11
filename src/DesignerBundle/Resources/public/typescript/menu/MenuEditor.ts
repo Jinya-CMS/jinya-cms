@@ -1,6 +1,6 @@
 class MenuEditorViewModel {
     submit = () => {
-        let data = Util.jsonStringifyWithoutCycle(ko.toJS(this.menu()));
+        let data = this.stringifyMenu();
         let call = new Ajax.Request(this.submitUrl);
         let dfd: Promise<any>;
 
@@ -26,6 +26,15 @@ class MenuEditorViewModel {
     };
     addItemBefore = (selectedItem: MenuItem) => {
         this.menu().addItemBefore(selectedItem);
+    };
+    private stringifyMenu = () => {
+        return JSON.stringify(ko.toJS(this.menu()), (key, value) => {
+            if (key === 'menu' || key === 'parent' || key === '_menu' || key === '_parent') {
+                return value ? value.id : '';
+            } else {
+                return value;
+            }
+        });
     };
     private loadMenu = (loadUrl: string) => {
         let call = new Ajax.Request(loadUrl);

@@ -18,38 +18,41 @@
   }
 
   .jinya-menu {
-    overflow-y: auto;
-    height: 100%;
-    padding: 0;
     flex: 0 0 69%;
     max-width: 69%;
     margin-left: 0.3em;
+    overflow-y: auto;
+  }
+}
 
-    &:empty {
-      display: none;
-    }
+.jinya-menu {
+  height: 100%;
+  padding: 0;
 
-    ul {
-      padding: 0;
-    }
+  &:empty {
+    display: none;
+  }
 
-    li {
-      list-style: none;
+  ul {
+    padding: 0;
+  }
 
-      .item {
-        border-radius: 5px;
-        border: 2px solid $primary;
-        margin-bottom: 0.2em;
-        padding: 1em;
+  li {
+    list-style: none;
 
-        .item-content {
-          position: relative;
-        }
+    .item {
+      border-radius: 5px;
+      border: 2px solid $primary;
+      margin-bottom: 0.2em;
+      padding: 1em;
+
+      .item-content {
+        position: relative;
       }
     }
+  }
 
-    .button {
-      margin-bottom: 0.2em;
-    }
+  .button {
+    margin-bottom: 0.2em;
   }
 }
