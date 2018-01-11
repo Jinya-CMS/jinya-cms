@@ -1,9 +1,9 @@
-$primary: #da9c8a;
-$secondary: lighten($primary, 20%);
-$white: #fff;
-$black: #000;
-$menuWidth: 20em;
-$menuMarginTop: 5em;
-$menuMarginLeft: 5em;
-$menuLogoMargin: 1em;
-$menuLogoSize: $menuWidth - $menuLogoMargin * 2;
+$primary: #177 !default;
+$secondary: lighten($primary, 20%) !default;
+$white: #fff !default;
+$black: #000 !default;
+$menuWidth: 20em !default;
+$menuMarginTop: 5em !default;
+$menuMarginLeft: 5em !default;
+$menuLogoMargin: 1em !default;
+$menuLogoSize: $menuWidth - $menuLogoMargin * 2 !default;
