@@ -8,7 +8,7 @@
 
 @mixin menuBlurred() {
   color: transparent;
-  text-shadow: 0 0 10px #fff;
+  text-shadow: 0 0 10px $white;
   @include menuItemBackgroundGradient();
 }
 
@@ -20,13 +20,23 @@
 
 .menu {
   position: fixed;
-  left: 5em;
-  top: 5em;
-  max-height: calc(100vh - 10em);
-  width: 20em;
+  left: $menuMarginLeft;
+  top: $menuMarginTop;
+  max-height: calc(100vh - #{$menuMarginTop * 2});
+  width: $menuWidth;
   background: transparentize($primary, 90%);
   border-radius: 5px;
   color: $primary;
+
+  .logo {
+    &.circular {
+      width: $menuLogoSize;
+      height: $menuLogoSize;
+      margin: $menuLogoMargin;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
 
   .title {
     font-weight: normal;

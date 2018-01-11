@@ -1,5 +1,12 @@
 <div class="menu">
-    <h1 class="title">{{ menu.name }}</h1>
+    {% if themeConfig.menu.name.display %}
+        <h1 class="title">{{ menu.name }}</h1>
+    {% endif %}
+    {% if menu.logo %}
+        <a href="/">
+            <img src="{{ menu.logo }}" alt="" class="circular logo">
+        </a>
+    {% endif %}
     <ul>
         {% for item in menu.menuItems %}
             {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menuitem.html.twig' %}

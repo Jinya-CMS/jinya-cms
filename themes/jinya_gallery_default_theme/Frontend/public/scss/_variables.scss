@@ -2,3 +2,8 @@ $primary: #da9c8a;
 $secondary: lighten($primary, 20%);
 $white: #fff;
 $black: #000;
+$menuWidth: 20em;
+$menuMarginTop: 5em;
+$menuMarginLeft: 5em;
+$menuLogoMargin: 1em;
+$menuLogoSize: $menuWidth - $menuLogoMargin * 2;
