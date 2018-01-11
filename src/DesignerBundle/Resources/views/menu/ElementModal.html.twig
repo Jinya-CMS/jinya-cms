@@ -31,7 +31,7 @@
                 <!-- ko if: item().pageType() !== 'empty' && item().pageType() !== 'external' -->
                 <div class="form-group">
                     <label for="route">{{ 'designer.menu.editor.item.route'|trans }}</label>
-                    <select data-bind="enabled: item().route(), options: item().routes, value: item().route, optionsText: 'url'"
+                    <select data-bind="options: item().routes, value: item().route, optionsText: 'url'"
                             id="route"></select>
                 </div>
                 <!-- /ko -->

@@ -6,9 +6,9 @@ class MenuItemModalViewModel {
     private modal: Modal;
 
     constructor(modal: Modal, menuItem: MenuItem, fetchUrl: string) {
+        let pageType = menuItem.pageType();
+        menuItem.pageType('');
         this.item(menuItem);
-        this.modal = modal;
-
         this.item().pageType.subscribe(newValue => {
             if (newValue !== 'empty' && newValue !== 'external') {
                 let call = new Ajax.Request(`${fetchUrl}?type=${newValue}`);
@@ -26,6 +26,8 @@ class MenuItemModalViewModel {
                 }
             }
         });
+        this.item().pageType(pageType);
+        this.modal = modal;
     }
 
     private _canSave = ko.pureComputed(() => {
