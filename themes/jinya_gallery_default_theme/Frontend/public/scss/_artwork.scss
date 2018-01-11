@@ -1,0 +1,27 @@
+.artwork {
+  width: 50%;
+  height: calc(100% - #{$menuMarginTop});
+  margin: $menuMarginTop auto 0;
+  overflow-y: hidden;
+
+  img {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .artwork {
+    height: unset;
+    width: calc(100% - 2em);
+    margin: 1em;
+    overflow-y: auto;
+  }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 1024px) {
+  .artwork {
+    margin-right: 5em;
+    margin-top: $menuMarginTop / 2;
+    overflow-y: auto;
+  }
+}
