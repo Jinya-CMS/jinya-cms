@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function array_key_exists;
 use function array_merge;
 
 class ArtworkController extends Controller
@@ -94,13 +95,16 @@ class ArtworkController extends Controller
 
         if ($request->isMethod("POST")) {
             $bundle = $request->get('backend_bundle_artwork_type');
-            $selectedLabels = $bundle['labelsChoice'];
-            $labels = [];
-            foreach ($selectedLabels as $selectedLabel) {
-                $labels[] = ['name' => $selectedLabel];
+
+            if (array_key_exists('labelsChoice', $bundle)) {
+                $selectedLabels = $bundle['labelsChoice'];
+                $labels = [];
+                foreach ($selectedLabels as $selectedLabel) {
+                    $labels[] = ['name' => $selectedLabel];
+                }
+                $missingLabels = $labelService->createMissingLabels($selectedLabels);
+                $allLabels = array_merge($allLabels, $missingLabels);
             }
-            $missingLabels = $labelService->createMissingLabels($selectedLabels);
-            $allLabels = array_merge($allLabels, $missingLabels);
         }
 
         $form = $this->createForm(ArtworkType::class, null, ['all_labels' => $allLabels]);
@@ -133,13 +137,16 @@ class ArtworkController extends Controller
 
         if ($request->isMethod("POST")) {
             $bundle = $request->get('backend_bundle_artwork_type');
-            $selectedLabels = $bundle['labelsChoice'];
-            $labels = [];
-            foreach ($selectedLabels as $selectedLabel) {
-                $labels[] = ['name' => $selectedLabel];
+
+            if (array_key_exists('labelsChoice', $bundle)) {
+                $selectedLabels = $bundle['labelsChoice'];
+                $labels = [];
+                foreach ($selectedLabels as $selectedLabel) {
+                    $labels[] = ['name' => $selectedLabel];
+                }
+                $missingLabels = $labelService->createMissingLabels($selectedLabels);
+                $allLabels = array_merge($allLabels, $missingLabels);
             }
-            $missingLabels = $labelService->createMissingLabels($selectedLabels);
-            $allLabels = array_merge($allLabels, $missingLabels);
         }
 
         $artwork = $artworkService->get($id);
