@@ -33,6 +33,10 @@ body {
   padding-top: $margin-top;
 }
 
+div {
+  position: relative;
+}
+
 @include breakpoint-ultra-mobile {
   body {
     padding-top: 0;

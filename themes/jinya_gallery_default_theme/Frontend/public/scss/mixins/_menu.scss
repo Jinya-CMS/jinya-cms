@@ -4,13 +4,13 @@
 
 @mixin menu-blurred() {
   color: transparent;
-  text-shadow: 0 0 $menu-item-blurred-text-shadow-blurr-radius $menu-item-blurred-text-shadow-color;
+  text-shadow: 0 0 $menu-item-blurred-text-shadow-blur-radius $menu-item-blurred-text-shadow-color;
   @include menu-item-hover-background-gradient();
 }
 
 @mixin menu-unblurred() {
   background: transparent;
-  text-shadow: 1px 1px $menu-item-unblurred-text-shadow-blurr-radius $menu-item-unblurred-text-shadow-color;
+  text-shadow: 1px 1px $menu-item-unblurred-text-shadow-blur-radius $menu-item-unblurred-text-shadow-color;
   color: $menu-item-unblurred-text-color;
 }
 
