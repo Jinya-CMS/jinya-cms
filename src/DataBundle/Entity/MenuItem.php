@@ -199,7 +199,7 @@ class MenuItem implements JsonSerializable
             'children' => $this->children->toArray(),
             'pageType' => $this->pageType,
             'displayUrl' => $this->route->getUrl(),
-            'hightlighted' => $this->highlighted
+            'highlighted' => $this->highlighted
         ];
 
         if ($this->parent !== null) {
