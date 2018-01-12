@@ -1,6 +1,7 @@
-@import "reboot_bootstrap";
-@import "base";
 @import "variables";
-@import "mixins";
+@import "mixins/menu";
+@import "mixins/breakpoints";
+@import "base";
+@import "typography";
 @import "menu";
 @import "artwork";

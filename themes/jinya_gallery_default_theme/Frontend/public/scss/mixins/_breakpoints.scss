@@ -1,0 +1,28 @@
+@mixin breakpoint-desktop {
+  @media only screen and (min-width: $breakpoint-desktop-min-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet-landscape {
+  @media only screen and (min-width: $breakpoint-tablet-landscape-min-width) and (max-width: $breakpoint-tablet-landscape-max-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet-portrait {
+  @media only screen and (min-width: $breakpoint-tablet-portrait-min-width) and (max-width: $breakpoint-tablet-portrait-max-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-mobile {
+  @media only screen and (min-width: $breakpoint-mobile-min-width) and (max-width: $breakpoint-mobile-max-width) {
+    @content;
+  }
+}
+@mixin breakpoint-ultra-mobile {
+  @media only screen and (max-width: $breakpoint-ultra-mobile-max-width) {
+    @content;
+  }
+}

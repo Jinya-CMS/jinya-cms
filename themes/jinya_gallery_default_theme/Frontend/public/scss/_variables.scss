@@ -1,11 +1,104 @@
+/**
+ * Colors
+ */
+$color-lighter-percentage: 25% !default;
+$color-darker-percentage: 25% !default;
 $primary: #177 !default;
-$secondary: lighten($primary, 20%) !default;
+$secondary: #711 !default;
+
+$primary-lighter: lighten($primary, $color-lighter-percentage);
+$primary-darker: darken($primary, $color-darker-percentage);
+
+$secondary-lighter: lighten($secondary, $color-lighter-percentage);
+$secondary-darker: darken($secondary, $color-darker-percentage);
+
 $white: #fff !default;
 $black: #000 !default;
 
-/** menu **/
-$menuLogoMargin: 1em !default;
-$menuWidth: 20em;
-$menuLogoSize: $menuWidth - $menuLogoMargin * 2 !default;
-$menuMarginTop: 5em !default;
-$menuMarginLeft: 5em !default;
+/**
+ + Typography
+ */
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-size-desktop: 16px;
+$font-size-tablet-landscape: 14px;
+$font-size-tablet-portrait: 12px;
+$font-size-mobile: 10px;
+$font-size-ultra-mobile: 10px;
+
+/**
+ + Breakpoints
+ */
+$breakpoint-ultra-mobile-max-width: 639px;
+$breakpoint-mobile-min-width: 640px;
+$breakpoint-mobile-max-width: 1023px;
+$breakpoint-tablet-portrait-min-width: 1024px;
+$breakpoint-tablet-portrait-max-width: 1439px;
+$breakpoint-tablet-landscape-min-width: 1440px;
+$breakpoint-tablet-landscape-max-width: 1919px;
+$breakpoint-desktop-min-width: 1920px;
+
+/**
+ * Margins
+ */
+$margin-top: 5rem !default;
+
+$margin-top-mobile: $margin-top / 2 !default;
+
+$margin-top-tablet-portrait: $margin-top / 2 !default;
+
+/**
+ * Menu
+ */
+$menu-width: 20rem !default;
+$menu-margin-top: $margin-top;
+$menu-margin-left: 5rem !default;
+$menu-border-radius: 1rem !default;
+
+$menu-margin-top-mobile: $menu-margin-top / 2;
+$menu-margin-left-mobile: $menu-margin-left / 2;
+
+$menu-margin-top-tablet-portrait: $menu-margin-top / 2;
+$menu-margin-left-tablet-portrait: $menu-margin-left / 2;
+
+/** Title **/
+$menu-title-padding: 0 1.2rem !default;
+
+/** Logo **/
+$menu-logo-margin: 1rem !default;
+$menu-logo-size: $menu-width !default;
+
+/** Menu items **/
+$menu-item-uppercase: true;
+$menu-item-padding-left: 3rem !default;
+
+$menu-item-link-padding: 0.3rem 1.2rem !default;
+$menu-item-link-background: rgba(255, 255, 255, 0.2) !default;
+$menu-item-link-letter-spacing: 1px !default;
+
+$menu-item-highlighted-font-size: 1.2em !default;
+$menu-item-highlighted-font-weight: bold !default;
+$menu-item-highlighted-font-style: normal !default;
+
+$menu-item-blurred-text-shadow-color: $white;
+$menu-item-blurred-text-shadow-blurr-radius: 0.625em;
+
+$menu-item-unblurred-text-shadow-color: transparentize($primary, 0.4);
+$menu-item-unblurred-text-color: $primary;
+$menu-item-unblurred-text-shadow-blurr-radius: 0.625em;
+
+/**
+ * Artworks
+ */
+$artwork-content-width-ultra-mobile: 100%;
+$artwork-content-width-mobile: 50%;
+$artwork-content-width-tablet-portrait: 50%;
+$artwork-content-width-tablet-landscape: 50%;
+$artwork-content-width-desktop: 50%;
+
+$artwork-content-margin-top-ultra-mobile: 1rem;
+$artwork-content-margin-left-ultra-mobile: 0;
+
+$artwork-content-margin-left-mobile: 25rem;
+$artwork-content-margin-left-tablet-portrait: 25rem;
+$artwork-content-margin-left-tablet-landscape: 27.5rem;
+$artwork-content-margin-left-desktop: 27.5rem;

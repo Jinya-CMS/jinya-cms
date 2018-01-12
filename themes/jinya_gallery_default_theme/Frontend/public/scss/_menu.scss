@@ -1,32 +1,35 @@
 .menu {
   position: fixed;
-  max-height: calc(100vh - #{$menuMarginTop});
-  background: transparentize($primary, 90%);
-  border-radius: 1em;
-  color: $primary;
-  left: $menuMarginLeft;
-  top: $menuMarginTop;
-  width: $menuWidth;
+  max-height: calc(100vh - #{$menu-margin-top});
+  background: $primary-lighter;
+  border-radius: $menu-border-radius;
+  color: $primary-darker;
+  left: $menu-margin-left;
+  top: $menu-margin-top;
+  width: $menu-width;
   overflow-y: auto;
 
   .logo {
-    &.circular {
-      margin: $menuLogoMargin;
-      object-fit: cover;
-      border-radius: 50%;
-      height: $menuLogoSize;
-      width: $menuLogoSize;
+    img {
+      width: $menu-logo-size;
     }
   }
   .title {
     font-weight: normal;
-    padding-right: 1.2rem;
-    padding-left: 1.2rem;
+    padding: $menu-title-padding;
   }
   > ul {
     padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
+
+    ul {
+      padding: 0;
+
+      a {
+        padding-left: $menu-item-padding-left;
+      }
+    }
   }
   ul {
     list-style: none;
@@ -34,21 +37,20 @@
     &:hover li {
       a,
       a.active {
-        @include menuBlurred();
+        @include menu-blurred();
       }
     }
 
     a {
       display: block;
-      text-transform: uppercase;
+      @if ($menu-item-uppercase) {
+        text-transform: uppercase;
+      }
+      text-decoration: none;
       color: $primary;
-      padding: 0.3rem 1.2rem;
-      background: rgba(255, 255, 255, 0.2);
-      letter-spacing: 1px;
-      -webkit-transition: all 0.4s ease-in-out;
-      -moz-transition: all 0.4s ease-in-out;
-      -o-transition: all 0.4s ease-in-out;
-      -ms-transition: all 0.4s ease-in-out;
+      padding: $menu-item-link-padding;
+      background: $menu-item-link-background;
+      letter-spacing: $menu-item-link-letter-spacing;
       transition: all 0.4s ease-in-out;
 
       &:hover {
@@ -65,8 +67,9 @@
       }
 
       &.highlight {
-        font-weight: bold;
-        font-size: 1.2em;
+        font-weight: $menu-item-highlighted-font-weight;
+        font-size: $menu-item-highlighted-font-size;
+        font-style: $menu-item-highlighted-font-style;
 
         li:not(.highlight) {
           font-weight: normal;
@@ -75,18 +78,18 @@
       }
 
       a {
-        @include menuItemBackgroundGradient();
+        background: transparent;
 
         &.active {
-          background: transparent;
+          @include menu-item-hover-background-gradient();
 
           &:hover {
-            @include menuUnblurred();
+            @include menu-unblurred();
           }
         }
 
         &:hover {
-          @include menuUnblurred();
+          @include menu-unblurred();
         }
       }
 
@@ -98,7 +101,7 @@
   }
 }
 
-@media only screen and (max-width: 425px) {
+@include breakpoint-ultra-mobile {
   .menu {
     position: relative;
     width: 100%;
@@ -114,9 +117,16 @@
   }
 }
 
-@media only screen and (min-width: 640px) and (max-width: 1024px) {
+@include breakpoint-mobile {
   .menu {
-    top: $menuMarginTop / 2;
-    left: $menuMarginLeft / 2;
+    left: $menu-margin-left-mobile;
+    top: $menu-margin-top-mobile;
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  .menu {
+    left: $menu-margin-left-tablet-portrait;
+    top: $menu-margin-top-tablet-portrait;
   }
 }

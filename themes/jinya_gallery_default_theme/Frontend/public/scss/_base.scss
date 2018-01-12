@@ -1,23 +1,52 @@
-@media only screen and (min-width: 1920px) {
+@include breakpoint-desktop {
   :root {
-    font-size: 16px;
+    font-size: $font-size-desktop;
   }
 }
 
-@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+@include breakpoint-tablet-landscape {
   :root {
-    font-size: 14px;
+    font-size: $font-size-tablet-landscape;
   }
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+@include breakpoint-tablet-portrait {
   :root {
-    font-size: 12px;
+    font-size: $font-size-tablet-portrait;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@include breakpoint-mobile {
   :root {
-    font-size: 10px;
+    font-size: $font-size-mobile;
+  }
+}
+
+@include breakpoint-ultra-mobile {
+  :root {
+    font-size: $font-size-ultra-mobile;
+  }
+}
+
+body {
+  margin: 0;
+  padding-top: $margin-top;
+}
+
+@include breakpoint-ultra-mobile {
+  body {
+    padding-top: 0;
+  }
+}
+
+@include breakpoint-mobile {
+  body {
+    padding-top: $margin-top-mobile;
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  body {
+    padding-top: $margin-top-tablet-portrait;
   }
 }

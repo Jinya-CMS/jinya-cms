@@ -1,27 +1,45 @@
 .artwork {
-  width: 50%;
-  height: calc(100% - #{$menuMarginTop});
-  margin: $menuMarginTop auto 0;
-  overflow-y: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow-y: auto;
 
   img {
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 425px) {
+@include breakpoint-ultra-mobile {
   .artwork {
-    height: unset;
-    width: calc(100% - 2em);
-    margin: 1em;
-    overflow-y: auto;
+    width: $artwork-content-width-ultra-mobile;
+    margin-top: $artwork-content-margin-top-ultra-mobile;
+    margin-left: $artwork-content-margin-left-ultra-mobile;
   }
 }
 
-@media only screen and (min-width: 640px) and (max-width: 1024px) {
+@include breakpoint-mobile {
   .artwork {
-    margin-right: 5em;
-    margin-top: $menuMarginTop / 2;
-    overflow-y: auto;
+    width: $artwork-content-width-mobile;
+    margin-left: $artwork-content-margin-left-mobile;
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  .artwork {
+    width: $artwork-content-width-tablet-portrait;
+    margin-left: $artwork-content-margin-left-tablet-portrait;
+  }
+}
+
+@include breakpoint-tablet-landscape {
+  .artwork {
+    width: $artwork-content-width-tablet-portrait;
+    margin-left: $artwork-content-margin-left-tablet-landscape;
+  }
+}
+
+@include breakpoint-desktop {
+  .artwork {
+    width: $artwork-content-width-desktop;
+    margin-left: $artwork-content-margin-left-desktop;
   }
 }

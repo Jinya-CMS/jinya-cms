@@ -1,0 +1,12 @@
+body {
+  font-family: $font-family;
+  box-sizing: border-box;
+}
+
+a {
+  color: $primary;
+
+  &:hover {
+    color: $primary-darker;
+  }
+}
