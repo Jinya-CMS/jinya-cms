@@ -20,8 +20,18 @@
 
 @include breakpoint-ultra-mobile {
   .gallery {
-    padding-left: $gallery-content-padding-left-ultra-mobile;
-    padding-right: $gallery-content-padding-right-ultra-mobile;
+    &.horizontal {
+      padding-top: $gallery-margin-top-ultra-mobile;
+      padding-left: $gallery-content-padding-left-ultra-mobile;
+      padding-right: $gallery-content-padding-right-ultra-mobile;
+      white-space: normal;
+
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
+      }
+    }
   }
 }
 

@@ -11,5 +11,6 @@ styles:
     - all.scss
   variables:
     $primary: '#da9c8a'
+    $font-family: 'Lato'
 scripts:
   - Menu.js
