@@ -18,7 +18,7 @@ $black: #000 !default;
 /**
  + Typography
  */
-$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-desktop: 16px;
 $font-size-tablet-landscape: 14px;
 $font-size-tablet-portrait: 12px;
@@ -80,11 +80,11 @@ $menu-item-highlighted-font-weight: bold !default;
 $menu-item-highlighted-font-style: normal !default;
 
 $menu-item-blurred-text-shadow-color: $white;
-$menu-item-blurred-text-shadow-blurr-radius: 0.625em;
+$menu-item-blurred-text-shadow-blur-radius: 0.625em;
 
 $menu-item-unblurred-text-shadow-color: transparentize($primary, 0.4);
 $menu-item-unblurred-text-color: $primary;
-$menu-item-unblurred-text-shadow-blurr-radius: 0.625em;
+$menu-item-unblurred-text-shadow-blur-radius: 0.625em;
 
 /**
  * Artworks
@@ -102,3 +102,35 @@ $artwork-content-margin-left-mobile: 25rem;
 $artwork-content-margin-left-tablet-portrait: 25rem;
 $artwork-content-margin-left-tablet-landscape: 27.5rem;
 $artwork-content-margin-left-desktop: 27.5rem;
+
+/**
+ * Gallery
+ */
+$gallery-background-opacity: 0.3;
+
+$gallery-content-width: 100%;
+
+$gallery-margin-top-ultra-mobile: 1em;
+$gallery-margin-top-mobile: 2.5em;
+
+$gallery-content-figure-margin-top: 0;
+$gallery-content-figure-margin-bottom: 0;
+$gallery-content-figure-margin-left: 1.25rem;
+$gallery-content-figure-margin-right: 1.25rem;
+
+$gallery-content-figure-width-mobile: 100%;
+$gallery-content-figure-width-tablet-portrait: 100%;
+$gallery-content-figure-width-tablet-landscape: 100%;
+$gallery-content-figure-width-desktop: 100%;
+
+$gallery-content-padding-left-ultra-mobile: 1rem;
+$gallery-content-padding-left-mobile: 22.5rem;
+$gallery-content-padding-left-tablet-portrait: 22.5rem;
+$gallery-content-padding-left-tablet-landscape: 27.5rem;
+$gallery-content-padding-left-desktop: 27.5rem;
+
+$gallery-content-padding-right-ultra-mobile: 1rem;
+$gallery-content-padding-right-mobile: 5rem;
+$gallery-content-padding-right-tablet-portrait: 5rem;
+$gallery-content-padding-right-tablet-landscape: 5rem;
+$gallery-content-padding-right-desktop: 5rem;

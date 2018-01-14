@@ -2,3 +2,24 @@
 {% block head_title %}
     {{ gallery.name }}
 {% endblock %}
+
+{% block background %}
+    {% if gallery.background %}
+        <img src="{{ gallery.background }}" class="gallery background">
+    {% endif %}
+{% endblock %}
+
+{% block maincontent %}
+    <div class="gallery {{ gallery.orientation }}">
+        {% for artworkPosition in gallery.artworks %}
+            {% set artwork = artworkPosition.artwork %}
+            <figure class="artwork">
+                <img src="{{ artwork.picture }}" alt="{{ artwork.name }}">
+                <figcaption>
+                    <h5>{{ artwork.name }}</h5>
+                    <p>{{ artwork.description }}</p>
+                </figcaption>
+            </figure>
+        {% endfor %}
+    </div>
+{% endblock %}

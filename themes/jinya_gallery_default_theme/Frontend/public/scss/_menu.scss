@@ -8,6 +8,7 @@
   top: $menu-margin-top;
   width: $menu-width;
   overflow-y: auto;
+  z-index: 9999;
 
   .logo {
     img {

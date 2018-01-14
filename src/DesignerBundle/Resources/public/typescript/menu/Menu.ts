@@ -5,7 +5,7 @@ class MenuTools {
             modalNode.innerHTML = document.querySelector('#element-modal').innerHTML;
             let injectedModal = modalNode.firstElementChild;
 
-            let item = new MenuItem({}, parent);
+            let item = new MenuItem({highlighted: false}, parent);
             let modal = Modal.get(injectedModal, false);
             let vm = new MenuItemModalViewModel(modal, item, injectedModal.getAttribute('data-fetch-url'));
             ko.applyBindings(vm, injectedModal);
@@ -161,7 +161,7 @@ class MenuItem {
             this.title(data.title);
             this.pageType(data.pageType);
             this.displayUrl(data.displayUrl);
-            this.highlighted(data.hightlighted);
+            this.highlighted(data.highlighted);
             if (parent instanceof MenuItem) {
                 this.parent(parent);
             } else if (parent instanceof Menu) {

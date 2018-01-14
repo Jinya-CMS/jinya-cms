@@ -26,6 +26,8 @@
 <body>
 {% endif %}
 {% block body %}
+    {% block background %}
+    {% endblock %}
     {% block menu %}
         {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menu.html.twig' %}
     {% endblock %}

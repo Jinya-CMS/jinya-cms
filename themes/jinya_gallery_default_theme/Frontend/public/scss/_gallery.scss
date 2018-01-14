@@ -1,0 +1,92 @@
+.gallery {
+  &.horizontal {
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 100%;
+
+    .artwork {
+      display: inline-block;
+      white-space: normal;
+      vertical-align: top;
+      margin: $gallery-content-figure-margin-top $gallery-content-figure-margin-right $gallery-content-figure-margin-bottom $gallery-content-figure-margin-left;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@include breakpoint-ultra-mobile {
+  .gallery {
+    &.horizontal {
+      padding-top: $gallery-margin-top-ultra-mobile;
+      padding-left: $gallery-content-padding-left-ultra-mobile;
+      padding-right: $gallery-content-padding-right-ultra-mobile;
+      white-space: normal;
+
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@include breakpoint-mobile {
+  .gallery {
+    padding-left: $gallery-content-padding-left-mobile;
+    padding-right: $gallery-content-padding-right-mobile;
+
+    &.horizontal {
+      .artwork {
+        width: $gallery-content-figure-width-mobile;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  .gallery {
+    padding-left: $gallery-content-padding-left-tablet-portrait;
+    padding-right: $gallery-content-padding-right-tablet-portrait;
+
+    &.horizontal {
+      .artwork {
+        width: $gallery-content-figure-width-tablet-portrait;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+@include breakpoint-tablet-landscape {
+  .gallery {
+    padding-left: $gallery-content-padding-left-tablet-landscape;
+    padding-right: $gallery-content-padding-right-tablet-landscape;
+
+    &.horizontal {
+      .artwork {
+        width: $gallery-content-figure-width-tablet-landscape;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+@include breakpoint-desktop {
+  .gallery {
+    padding-left: $gallery-content-padding-left-desktop;
+    padding-right: $gallery-content-padding-right-desktop;
+
+    &.horizontal {
+      .artwork {
+        width: $gallery-content-figure-width-desktop;
+        max-height: 100%;
+      }
+    }
+  }
+}
