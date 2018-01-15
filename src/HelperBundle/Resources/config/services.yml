@@ -55,6 +55,12 @@ services:
         - '@router.default'
       tags:
           - { name: kernel.event_subscriber }
+  jinya_gallery.event_subscriber.kernel_exception_subscriber:
+      class: HelperBundle\EventSubscriber\KernelExceptionSubscriber
+      arguments:
+        - '@router.default'
+      tags:
+          - { name: kernel.event_subscriber }
 
   jinya_gallery.monolog.request_processor:
       class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
