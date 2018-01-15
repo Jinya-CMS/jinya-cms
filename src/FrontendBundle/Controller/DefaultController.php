@@ -4,6 +4,7 @@ namespace FrontendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 class DefaultController extends BaseFrontendController
 {
@@ -12,14 +13,27 @@ class DefaultController extends BaseFrontendController
      *
      * @param string $route
      * @return Response
+     * @throws Throwable
      */
     public function indexAction(string $route): Response
     {
         $routeService = $this->get('jinya_gallery.services.route_service');
+        try {
+            $routeEntry = $routeService->findByUrl('/' . $route);
 
-        $routeEntry = $routeService->findByUrl('/' . $route);
+            return $this->forwardToRoute($routeEntry);
+        } catch (Throwable $throwable) {
+            if (empty($route)) {
+                return $this->render('@Frontend/Default/index.html.twig');
+            } else {
+                $logger = $this->get('logger');
+                $logger->error("Failed to load route $route");
+                $logger->error($throwable->getMessage());
+                $logger->error($throwable->getTraceAsString());
 
-        return $this->forwardToRoute($routeEntry);
+                throw $throwable;
+            }
+        }
     }
 
     /**

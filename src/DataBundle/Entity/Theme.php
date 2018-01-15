@@ -49,6 +49,27 @@ class Theme
      * @var string
      */
     private $displayName;
+    /**
+     * @var array
+     * @ORM\Column(type="json")
+     */
+    private $scssVariables;
+
+    /**
+     * @return array
+     */
+    public function getScssVariables(): array
+    {
+        return $this->scssVariables;
+    }
+
+    /**
+     * @param array $scssVariables
+     */
+    public function setScssVariables(array $scssVariables): void
+    {
+        $this->scssVariables = $scssVariables;
+    }
 
     /**
      * @return string
