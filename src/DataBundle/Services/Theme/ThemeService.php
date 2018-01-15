@@ -223,7 +223,7 @@ class ThemeService implements ThemeServiceInterface
         $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
 
         $fs = new Filesystem();
-        $variables = $themeConfig['styles']['variables'];
+        $variables = $theme->getScssVariables();
 
         foreach ($themeConfig['styles']['files'] as $style) {
             $scssCode = $this->getScssCodeForStyle($style, $theme);
@@ -382,7 +382,7 @@ class ThemeService implements ThemeServiceInterface
         $themeConfig = $this->getThemeConfig($theme);
         $fs = new Filesystem();
 
-        $variables = $themeConfig['styles']['variables'];
+        $variables = $theme->getScssVariables();
         $isCompiled = $fs->exists($this->getScssVariablesCompilationCheckPath($theme)) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
 
         foreach ($themeConfig['styles']['files'] as $style) {
