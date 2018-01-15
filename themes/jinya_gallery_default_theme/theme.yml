@@ -4,12 +4,14 @@ defaultConfig:
   menu:
     name:
       display: false
+  startpage:
+    background:
+      image: http://c1.staticflickr.com/4/3804/33589584740_b4bb597b73_h.jpg
+    title: Jinya Gallery CMS
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
   files:
     - all.scss
-  variables:
-    $primary: '#da9c8a'
 scripts:
   - Menu.js
