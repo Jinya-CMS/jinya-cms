@@ -29,12 +29,16 @@ $font-size-ultra-mobile: 10px;
  + Breakpoints
  */
 $breakpoint-ultra-mobile-max-width: 639px;
+
 $breakpoint-mobile-min-width: 640px;
 $breakpoint-mobile-max-width: 1023px;
+
 $breakpoint-tablet-portrait-min-width: 1024px;
 $breakpoint-tablet-portrait-max-width: 1439px;
+
 $breakpoint-tablet-landscape-min-width: 1440px;
 $breakpoint-tablet-landscape-max-width: 1919px;
+
 $breakpoint-desktop-min-width: 1920px;
 
 /**
@@ -134,3 +138,18 @@ $gallery-content-padding-right-mobile: 5rem;
 $gallery-content-padding-right-tablet-portrait: 5rem;
 $gallery-content-padding-right-tablet-landscape: 5rem;
 $gallery-content-padding-right-desktop: 5rem;
+
+/**
+ + Pages
+ */
+$page-content-margin-left-ultra-mobile: 1rem;
+$page-content-margin-left-mobile: 25rem;
+$page-content-margin-left-tablet-portrait: 25rem;
+$page-content-margin-left-tablet-landscape: 27.5rem;
+$page-content-margin-left-desktop: 27.5rem;
+
+$page-content-margin-right-ultra-mobile: 1rem;
+$page-content-margin-right-mobile: 2.5rem;
+$page-content-margin-right-tablet-portrait: 2.5rem;
+$page-content-margin-right-tablet-landscape: 5rem;
+$page-content-margin-right-desktop: 27.5rem;
