@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/menu";
 @import "mixins/breakpoints";
+@import "functions/colors";
 @import "base";
 @import "typography";
 @import "menu";
@@ -8,3 +9,4 @@
 @import "artwork";
 @import "gallery";
 @import "page";
+@import "socialicons";

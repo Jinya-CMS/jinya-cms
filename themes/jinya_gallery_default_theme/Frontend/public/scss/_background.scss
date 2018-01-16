@@ -8,6 +8,7 @@
   left: 0;
   object-fit: cover;
   object-position: 0 0;
+  opacity: $background-opacity;
 
   &.gallery {
     opacity: $gallery-background-opacity;

@@ -43,7 +43,8 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $route = $this->router->getRouteCollection()->get($request->get('_route'));
-        if ($route->getPath() === '/{route}') {
+        if ($request->getPathInfo() === '/') {
+        } elseif ($route->getPath() === '/{route}') {
             $event->setResponse(new RedirectResponse('/'));
         }
     }
