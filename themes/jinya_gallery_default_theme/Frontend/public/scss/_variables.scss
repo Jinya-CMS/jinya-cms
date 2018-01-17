@@ -71,8 +71,9 @@ $menu-margin-left-tablet-portrait: $menu-margin-left / 2;
 $menu-title-padding: 0 1.2rem !default;
 
 /** Logo **/
-$menu-logo-margin: 1rem !default;
-$menu-logo-size: $menu-width !default;
+$menu-logo-margin: 1.7rem !default;
+$menu-logo-opacity: 0.8 !default;
+$menu-logo-size: $menu-width - $menu-logo-margin * 2 !default;
 
 /** Social bar **/
 $menu-social-bar-padding: 0.5rem 1.2rem !default;

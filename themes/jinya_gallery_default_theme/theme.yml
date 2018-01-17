@@ -23,4 +23,3 @@ styles:
   files:
     - all.scss
 scripts:
-  - Menu.js

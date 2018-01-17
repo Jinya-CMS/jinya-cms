@@ -13,6 +13,8 @@
   .logo {
     img {
       width: $menu-logo-size;
+      margin: $menu-logo-margin;
+      opacity: $menu-logo-opacity;
     }
   }
   .title {
@@ -61,7 +63,7 @@
 
     li {
       &.active,
-      &.open {
+      &:target {
         > ul {
           display: block;
         }
