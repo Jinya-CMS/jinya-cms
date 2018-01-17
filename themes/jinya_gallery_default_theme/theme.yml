@@ -16,7 +16,7 @@ defaultConfig:
     tumblr:
     youtube:
   fundme:
-    patreon: http://patreon.com
+    patreon:
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
