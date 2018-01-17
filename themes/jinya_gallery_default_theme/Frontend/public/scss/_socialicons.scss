@@ -1,0 +1,47 @@
+.social-bar {
+  margin-top: $menu-social-bar-margin-top;
+  padding: $menu-social-bar-padding;
+  background: pastelize($primary-lighter);
+  text-align: center;
+
+  a {
+    text-decoration: none;
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .social-icon {
+    width: 2em;
+    height: 2em;
+
+    &.facebook {
+      fill: pastelize($social-button-facebook-color);
+    }
+    &.twitter {
+      fill: pastelize($social-button-twitter-color);
+    }
+    &.deviantart {
+      fill: pastelize($social-button-deviant-art-color);
+    }
+    &.patreon {
+      margin: 4px;
+      width: calc(2em - 8px);
+      height: calc(2em - 8px);
+      fill: pastelize($social-button-patreon-color);
+    }
+    &.pinterest {
+      fill: pastelize($social-button-pinterest-color);
+    }
+    &.tumblr {
+      fill: pastelize($social-button-tumblr-color);
+    }
+    &.youtube {
+      fill: pastelize($social-button-youtube-color);
+    }
+    &.instagram {
+      fill: pastelize($social-button-instagram-color);
+    }
+  }
+}

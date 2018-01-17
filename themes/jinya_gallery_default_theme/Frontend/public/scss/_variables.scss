@@ -15,6 +15,9 @@ $secondary-darker: darken($secondary, $color-darker-percentage);
 $white: #fff !default;
 $black: #000 !default;
 
+$pastelize-enabled: true !default;
+$background-opacity: 1 !default;
+
 /**
  + Typography
  */
@@ -70,6 +73,10 @@ $menu-title-padding: 0 1.2rem !default;
 /** Logo **/
 $menu-logo-margin: 1rem !default;
 $menu-logo-size: $menu-width !default;
+
+/** Social bar **/
+$menu-social-bar-padding: 0.5rem 1.2rem !default;
+$menu-social-bar-margin-top: 1rem !default;
 
 /** Menu items **/
 $menu-item-uppercase: true;
@@ -153,3 +160,15 @@ $page-content-margin-right-mobile: 2.5rem;
 $page-content-margin-right-tablet-portrait: 2.5rem;
 $page-content-margin-right-tablet-landscape: 5rem;
 $page-content-margin-right-desktop: 27.5rem;
+
+/**
+ * Social buttons
+ */
+$social-button-facebook-color: #3b5998 !default;
+$social-button-twitter-color: #1da1f2 !default;
+$social-button-pinterest-color: #bd081c !default;
+$social-button-tumblr-color: #35465c !default;
+$social-button-deviant-art-color: #c5d200 !default;
+$social-button-patreon-color: #f96854 !default;
+$social-button-youtube-color: #ff0000 !default;
+$social-button-instagram-color: #f56040 !default;
