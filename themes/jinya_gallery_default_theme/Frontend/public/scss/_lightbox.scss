@@ -1,0 +1,64 @@
+.lightbox {
+  width: 0;
+  height: 0;
+  position: fixed;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  padding: 0;
+  z-index: 99999;
+  text-align: center;
+  @if ($lightbox-overlay-background-gradient) {
+    background: radial-gradient(ellipse at center, $lightbox-overlay-background-zero-percent 0%, $lightbox-overlay-background-hundred-percent 100%);
+  } @else {
+    background: $lightbox-overlay-background-hundred-percent;
+  }
+  display: block;
+
+  a.close {
+    position: absolute;
+    top: $lightbox-close-button-top;
+    right: $lightbox-close-button-right;
+    text-decoration: none;
+    color: $lightbox-close-button-color;
+
+    &:after {
+      content: $lightbox-close-button-icon-glyph;
+      font-size: $lightbox-close-button-icon-size;
+    }
+  }
+
+  > div {
+    position: relative;
+    color: $lightbox-content-color;
+    width: 100%;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+
+    h4 {
+      padding: 0 1.5rem;
+      font-size: 250%;
+      margin: 1rem 0;
+      font-weight: $lightbox-content-font-weight;
+    }
+  }
+  img {
+    max-height: 100%;
+    width: auto;
+    position: relative;
+    opacity: 0;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s linear;
+  }
+  &:target {
+    width: auto;
+    height: auto;
+    bottom: 0;
+    right: 0;
+    padding: $lightbox-padding-top $lightbox-padding-right $lightbox-padding-bottom $lightbox-padding-left;
+
+    img,
+    a.close {
+      opacity: 1;
+    }
+  }
+}

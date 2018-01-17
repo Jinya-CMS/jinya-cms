@@ -4,6 +4,9 @@ defaultConfig:
   menu:
     name:
       display: false
+  gallery:
+    artwork:
+      show_description: false
   startpage:
     background:
       image: http://c1.staticflickr.com/4/3804/33589584740_b4bb597b73_h.jpg
@@ -23,4 +26,3 @@ styles:
   files:
     - all.scss
 scripts:
-  - Menu.js

@@ -225,14 +225,16 @@ class ThemeService implements ThemeServiceInterface
         $fs = new Filesystem();
         $variables = $theme->getScssVariables();
 
-        foreach ($themeConfig['styles']['files'] as $style) {
-            $scssCode = $this->getScssCodeForStyle($style, $theme);
-            $result = $this->scssCompilerService->compileScss($scssCode, $this->getStylesPath($theme), $variables);
-            $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
-            $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
+        if ($themeConfig['styles']['files']) {
+            foreach ($themeConfig['styles']['files'] as $style) {
+                $scssCode = $this->getScssCodeForStyle($style, $theme);
+                $result = $this->scssCompilerService->compileScss($scssCode, $this->getStylesPath($theme), $variables);
+                $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
+                $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
-            $fs->dumpFile($webStylesPath, $result);
-            $fs->dumpFile($compilationCheckPath, md5($scssCode));
+                $fs->dumpFile($webStylesPath, $result);
+                $fs->dumpFile($compilationCheckPath, md5($scssCode));
+            }
         }
 
         $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
@@ -319,8 +321,10 @@ class ThemeService implements ThemeServiceInterface
 
         $source = '';
 
-        foreach ($themeConfig['scripts'] as $script) {
-            $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . ';';
+        if (!empty($themeConfig['scripts'])) {
+            foreach ($themeConfig['scripts'] as $script) {
+                $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . ';';
+            }
         }
 
         return $source;
@@ -385,12 +389,15 @@ class ThemeService implements ThemeServiceInterface
         $variables = $theme->getScssVariables();
         $isCompiled = $fs->exists($this->getScssVariablesCompilationCheckPath($theme)) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
 
-        foreach ($themeConfig['styles']['files'] as $style) {
-            $scssCode = $this->getScssCodeForStyle($style, $theme);
-            $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
+        if ($themeConfig['styles']['files']) {
+            foreach ($themeConfig['styles']['files'] as $style) {
+                $scssCode = $this->getScssCodeForStyle($style, $theme);
+                $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
-            $isCompiled &= $fs->exists($compilationCheckPath) && strcmp(file_get_contents($compilationCheckPath), md5($scssCode)) == 0;
+                $isCompiled &= $fs->exists($compilationCheckPath) && strcmp(file_get_contents($compilationCheckPath), md5($scssCode)) == 0;
+            }
         }
+
         return $isCompiled;
     }
 

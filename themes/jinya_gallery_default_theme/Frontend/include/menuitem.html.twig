@@ -1,5 +1,11 @@
-<li class="{% if isChildActiveMenuItem(item) %}open{% endif %} {% if item.highlighted %}highlight{% endif %}">
-    <a class="{% if isActiveMenuItem(item) %}active{% endif %}" href="{{ item.route.url }}"
+<li class="{% if isChildActiveMenuItem(item) %}active{% endif %} {% if item.highlighted %}highlight{% endif %}"
+    id="menu-{{ item.id }}">
+    <a class="{% if isActiveMenuItem(item) %}active{% endif %}" href="
+    {% if item.route.url is not empty and item.route.url != '/#' %}
+        {{ item.route.url }}
+    {% else %}
+        #menu-{{ item.id }}
+    {% endif %}"
             {% if item.pageType == 'external' %}
                 target="_blank"
             {% endif %}

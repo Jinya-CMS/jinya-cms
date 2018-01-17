@@ -71,8 +71,9 @@ $menu-margin-left-tablet-portrait: $menu-margin-left / 2;
 $menu-title-padding: 0 1.2rem !default;
 
 /** Logo **/
-$menu-logo-margin: 1rem !default;
-$menu-logo-size: $menu-width !default;
+$menu-logo-margin: 1.7rem !default;
+$menu-logo-opacity: 0.8 !default;
+$menu-logo-size: $menu-width - $menu-logo-margin * 2 !default;
 
 /** Social bar **/
 $menu-social-bar-padding: 0.5rem 1.2rem !default;
@@ -172,3 +173,25 @@ $social-button-deviant-art-color: #c5d200 !default;
 $social-button-patreon-color: #f96854 !default;
 $social-button-youtube-color: #ff0000 !default;
 $social-button-instagram-color: #f56040 !default;
+
+/**
+ * Lightbox
+ */
+$lightbox-overlay-background-zero-percent: $white !default;
+$lightbox-overlay-background-hundred-percent: transparentize($black, 30%) !default;
+$lightbox-overlay-background-gradient: true;
+
+$lightbox-close-button-top: 1rem !default;
+$lightbox-close-button-right: 2.5rem !default;
+$lightbox-close-button-color: $primary-lighter !default;
+
+$lightbox-close-button-icon-glyph: '\00D7';
+$lightbox-close-button-icon-size: 300%;
+
+$lightbox-content-color: $primary-lighter;
+$lightbox-content-font-weight: 200;
+
+$lightbox-padding-left: 5rem;
+$lightbox-padding-right: 5rem;
+$lightbox-padding-top: 5rem;
+$lightbox-padding-bottom: 10rem;

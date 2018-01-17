@@ -15,8 +15,8 @@
                     <div class="form-group">
                         {{ 'backend.galleries.delete.background.title'|trans }}
                     </div>
-                    <button type="button" data-ajax="true" class="btn btn-primary" data-method="DELETE"
-                            data-action="{{ url('backend_galleries_background_delete', {'id': gallery.id}) }}">{{ 'generic.delete'|trans }}</button>
+                    <a data-ajax="true" class="btn btn-primary" data-ajax-method="DELETE"
+                       href="{{ url('backend_galleries_background_delete', {'id': gallery.id}) }}">{{ 'generic.delete'|trans }}</a>
                 </div>
             </div>
         </div>
