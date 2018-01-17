@@ -10,14 +10,28 @@
 {% endblock %}
 
 {% block maincontent %}
-    <div class="gallery {{ gallery.orientation }}">
+    <div class="gallery {{ gallery.orientation }}" id="gallery">
         {% for artworkPosition in gallery.artworks %}
             {% set artwork = artworkPosition.artwork %}
             <figure class="artwork">
-                <img src="{{ artwork.picture }}" alt="{{ artwork.name }}">
+                <a href="#{{ artwork.slug }}">
+                    <img src="{{ artwork.picture }}" alt="{{ artwork.name }}">
+                </a>
+                <div class="lightbox" id="{{ artwork.slug }}">
+                    <img src="{{ artwork.picture }}" alt="{{ artwork.name }}"/>
+                    <div>
+                        <h4>{{ artwork.name }}</h4>
+                        {% if themeConfig.gallery.artwork.show_description %}
+                            <p>{{ artwork.description }}</p>
+                        {% endif %}
+                    </div>
+                    <a class="close" href="#gallery"></a>
+                </div>
                 <figcaption>
-                    <h5>{{ artwork.name }}</h5>
-                    <p>{{ artwork.description }}</p>
+                    <h4>{{ artwork.name }}</h4>
+                    {% if themeConfig.gallery.artwork.show_description %}
+                        <p>{{ artwork.description }}</p>
+                    {% endif %}
                 </figcaption>
             </figure>
         {% endfor %}
