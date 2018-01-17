@@ -9,9 +9,12 @@
 namespace DataBundle\Services\Galleries;
 
 
+use ArrayIterator;
+use DataBundle\Entity\ArtworkPosition;
 use DataBundle\Entity\Gallery;
 use DataBundle\Services\Base\BaseArtService;
 use DataBundle\Services\Labels\LabelServiceInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use HelperBundle\Services\Media\MediaServiceInterface;
 use HelperBundle\Services\Slug\SlugServiceInterface;
@@ -52,7 +55,18 @@ class GalleryService extends BaseArtService implements GalleryServiceInterface
      */
     public function get($idOrSlug): ?Gallery
     {
-        return parent::get($idOrSlug);
+        $gallery = parent::get($idOrSlug);
+
+        $artworks = $gallery->getArtworks();
+        /** @var ArrayIterator $iterator */
+        $iterator = $artworks->getIterator();
+        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+        });
+
+        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
+
+        return $gallery;
     }
 
     /**

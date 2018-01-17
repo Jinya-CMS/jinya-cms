@@ -2,9 +2,13 @@
 
 namespace FrontendBundle\Controller;
 
+use ArrayIterator;
+use DataBundle\Entity\ArtworkPosition;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
+use function iterator_to_array;
 
 class DefaultController extends BaseFrontendController
 {
