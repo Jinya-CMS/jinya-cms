@@ -26,6 +26,33 @@
                         {% endif %}
                     </div>
                     <a class="close" href="#gallery"></a>
+                    <div class="share-bar">
+                        {% set shareUrl = (get_url() ~ '#' ~ artwork.slug)|url_encode %}
+                        {% if themeConfig.share.enable.facebook == true and themeConfig.share.facebook_app_id is not empty %}
+                            <a href="https://www.facebook.com/dialog/share?app_id={{ themeConfig.share.facebook_app_id }}&display=popup&href={{ shareUrl }}"
+                               target="_blank" class="share-button facebook">
+                                {{ inline(theme.path ~ 'Frontend/assets/icons/facebook.svg')|raw }}
+                            </a>
+                        {% endif %}
+                        {% if themeConfig.share.enable.twitter == true %}
+                            <a href="https://twitter.com/home?status={{ shareUrl }}" target="_blank"
+                               class="share-button twitter">
+                                {{ inline(theme.path ~ 'Frontend/assets/icons/twitter.svg')|raw }}
+                            </a>
+                        {% endif %}
+                        {% if themeConfig.share.enable.pinterest == true %}
+                            <a href="https://pinterest.com/pin/create/link/?url={{ shareUrl }}&media={{ artwork.picture|url_encode }}&description="
+                               target="_blank" class="share-button pinterest">
+                                {{ inline(theme.path ~ 'Frontend/assets/icons/pinterest.svg')|raw }}
+                            </a>
+                        {% endif %}
+                        {% if themeConfig.share.enable.tumblr == true %}
+                            <a href="http://tumblr.com/widgets/share/tool?canonicalUrl={{ shareUrl }}" target="_blank"
+                               class="share-button tumblr">
+                                {{ inline(theme.path ~ 'Frontend/assets/icons/tumblr.svg')|raw }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
                 <figcaption>
                     <h4>{{ artwork.name }}</h4>

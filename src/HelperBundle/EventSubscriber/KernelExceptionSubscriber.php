@@ -9,6 +9,7 @@
 namespace HelperBundle\EventSubscriber;
 
 
+use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -18,14 +19,18 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
 {
     /** @var Router */
     private $router;
+    /** @var Logger */
+    private $logger;
 
     /**
      * KernelExceptionSubscriber constructor.
      * @param Router $router
+     * @param Logger $logger
      */
-    public function __construct(Router $router)
+    public function __construct(Router $router, Logger $logger)
     {
         $this->router = $router;
+        $this->logger = $logger;
     }
 
     /**
@@ -41,6 +46,8 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
     public function onException(GetResponseForExceptionEvent $event)
     {
         $request = $event->getRequest();
+        $this->logger->warning($event->getException()->getMessage());
+        $this->logger->warning($event->getException()->getTraceAsString());
 
         $route = $this->router->getRouteCollection()->get($request->get('_route'));
         if ($request->getPathInfo() === '/') {

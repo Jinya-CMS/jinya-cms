@@ -17,9 +17,17 @@ defaultConfig:
     instagram:
     deviantart:
     tumblr:
+    pinterest:
     youtube:
   fundme:
     patreon:
+  share:
+    facebook_app_id:
+    enable:
+      facebook: true
+      tumblr: true
+      twitter: true
+      pinterest: true
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:

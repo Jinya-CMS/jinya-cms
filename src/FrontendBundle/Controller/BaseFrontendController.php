@@ -11,6 +11,7 @@ namespace FrontendBundle\Controller;
 
 use HelperBundle\Framework\BaseController;
 use Symfony\Component\HttpFoundation\Response;
+use const DIRECTORY_SEPARATOR;
 
 abstract class BaseFrontendController extends BaseController
 {
@@ -25,6 +26,8 @@ abstract class BaseFrontendController extends BaseController
         }
 
         $parameters['menu'] = $menuService->getAll()[0];
+        $parameters['theme']['active'] = $activeTheme;
+        $parameters['theme']['path'] = $themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
 
         return parent::render($view, $parameters, $response);
     }

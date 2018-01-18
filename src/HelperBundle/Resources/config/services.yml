@@ -59,6 +59,7 @@ services:
       class: HelperBundle\EventSubscriber\KernelExceptionSubscriber
       arguments:
         - '@router.default'
+        - '@logger'
       tags:
           - { name: kernel.event_subscriber }
 

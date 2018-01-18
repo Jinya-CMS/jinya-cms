@@ -15,6 +15,16 @@ $secondary-darker: darken($secondary, $color-darker-percentage);
 $white: #fff !default;
 $black: #000 !default;
 
+/** Social **/
+$color-facebook: #3b5998;
+$color-twitter: #1da1f2;
+$color-pinterest: #bd081c;
+$color-tumblr: #35465c;
+$color-deviant-art: #c5d200;
+$color-patreon: #f96854;
+$color-youtube: #ff0000;
+$color-instagram: #f46040;
+
 $pastelize-enabled: true !default;
 $background-opacity: 1 !default;
 
@@ -163,16 +173,27 @@ $page-content-margin-right-tablet-landscape: 5rem;
 $page-content-margin-right-desktop: 27.5rem;
 
 /**
- * Social buttons
+ + Social
  */
-$social-button-facebook-color: #3b5998 !default;
-$social-button-twitter-color: #1da1f2 !default;
-$social-button-pinterest-color: #bd081c !default;
-$social-button-tumblr-color: #35465c !default;
-$social-button-deviant-art-color: #c5d200 !default;
-$social-button-patreon-color: #f96854 !default;
-$social-button-youtube-color: #ff0000 !default;
-$social-button-instagram-color: #f56040 !default;
+/** Icons */
+$social-icon-facebook-color: $color-facebook !default;
+$social-icon-twitter-color: $color-twitter !default;
+$social-icon-pinterest-color: $color-pinterest !default;
+$social-icon-tumblr-color: $color-tumblr !default;
+$social-icon-deviant-art-color: $color-deviant-art !default;
+$social-icon-patreon-color: $color-patreon !default;
+$social-icon-youtube-color: $color-youtube !default;
+$social-icon-instagram-color: $color-instagram !default;
+
+/** Buttons */
+$social-button-facebook-color: $color-facebook !default;
+$social-button-twitter-color: $color-twitter !default;
+$social-button-pinterest-color: $color-pinterest !default;
+$social-button-tumblr-color: $color-tumblr !default;
+$social-button-deviant-art-color: $color-deviant-art !default;
+$social-button-patreon-color: $color-patreon !default;
+$social-button-youtube-color: $color-youtube !default;
+$social-button-instagram-color: $color-instagram !default;
 
 /**
  * Lightbox
