@@ -3,6 +3,12 @@
     {{ artwork.name }}
 {% endblock %}
 
+{% block custom_meta %}
+    {% if gallery.description is not empty %}
+        <meta name="Description" content="{{ artwork.description }}">
+    {% endif %}
+{% endblock %}
+
 {% block maincontent %}
     <figure class="artwork">
         <img src="{{ artwork.picture }}" alt="{{ artwork.name }}"/>

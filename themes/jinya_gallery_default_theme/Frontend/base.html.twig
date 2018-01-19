@@ -1,4 +1,3 @@
-{% if not app.request.xmlHttpRequest %}
 <html>
 <head>
     <title>{% block head_title %}{{ themeConfig.title }}{% endblock %}</title>
@@ -19,7 +18,6 @@
     {% endblock %}
 </head>
 <body>
-{% endif %}
 {% block body %}
     {% block background %}
     {% endblock %}
@@ -32,15 +30,11 @@
         {% include '@Theme/jinya_gallery_default_theme/Frontend/include/shop_logo.html.twig' %}
     {% endblock %}
 {% endblock %}
-{% if not app.request.xmlHttpRequest %}
 {% block scripts %}
     {% block scripts_classie %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
-                integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
     {% endblock %}
     {% block scripts_theme %}
     {% endblock %}
 {% endblock %}
 </body>
 </html>
-{% endif %}

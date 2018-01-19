@@ -3,6 +3,12 @@
     {{ gallery.name }}
 {% endblock %}
 
+{% block custom_meta %}
+    {% if gallery.description is not empty %}
+        <meta name="Description" content="{{ gallery.description }}">
+    {% endif %}
+{% endblock %}
+
 {% block background %}
     {% if gallery.background %}
         <img src="{{ gallery.background }}" class="gallery background">
