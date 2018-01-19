@@ -3,17 +3,9 @@
 <head>
     <title>{% block head_title %}{{ themeConfig.title }}{% endblock %}</title>
     {% block styles %}
-        {% block styles_fontawesome %}
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-                  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-                  crossorigin="anonymous">
-        {% endblock %}
         {% block styles_theme %}
             <link rel="stylesheet"
                   href="{{ asset('public/jinya_gallery_default_theme/styles/all.css') }}">
-        {% endblock %}
-        {% block styles_socicon %}
-            <link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh">
         {% endblock %}
         {% block styles_custom %}
         {% endblock %}
@@ -36,16 +28,18 @@
     {% endblock %}
     {% block maincontent %}
     {% endblock %}
+    {% block shop_logo %}
+        {% include '@Theme/jinya_gallery_default_theme/Frontend/include/shop_logo.html.twig' %}
+    {% endblock %}
 {% endblock %}
 {% if not app.request.xmlHttpRequest %}
 {% block scripts %}
-{% block scripts_classie %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
-            integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
-{% endblock %}
-{% block scripts_theme %}
-    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/scripts.js') }}"></script>
-{% endblock %}
+    {% block scripts_classie %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
+                integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_theme %}
+    {% endblock %}
 {% endblock %}
 </body>
 </html>

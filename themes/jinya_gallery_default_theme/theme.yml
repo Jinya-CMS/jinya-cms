@@ -28,6 +28,10 @@ defaultConfig:
       tumblr: true
       twitter: true
       pinterest: true
+  shop:
+    logo:
+    link:
+    enabled: false
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
