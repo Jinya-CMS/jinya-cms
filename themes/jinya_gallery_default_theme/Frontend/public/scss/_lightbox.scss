@@ -1,3 +1,13 @@
+@mixin breakpoint-resizing-lightbox($padding) {
+  padding: $padding;
+  background: $lightbox-overlay-background-hundred-percent;
+
+  img {
+    width: 100%;
+    max-height: unset;
+  }
+}
+
 .lightbox {
   width: 0;
   height: 0;
@@ -106,6 +116,16 @@
     .share-bar {
       opacity: 1;
       visibility: visible;
+    }
+    //
+    //@include breakpoint-tablet-portrait {
+    //  @include breakpoint-resizing-lightbox(1rem);
+    //}
+    @include breakpoint-mobile {
+      @include breakpoint-resizing-lightbox(0);
+    }
+    @include breakpoint-ultra-mobile {
+      @include breakpoint-resizing-lightbox(0);
     }
   }
 }

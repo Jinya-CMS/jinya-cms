@@ -3,7 +3,7 @@ parameters:
     database_port: 3306
     database_name: jinya-gallery-cms
     database_user: root
-    database_password: root
+    database_password: start
     secret: 5a01ee9c3b46b
     mailer_transport: smtp
     mailer_host: localhost
