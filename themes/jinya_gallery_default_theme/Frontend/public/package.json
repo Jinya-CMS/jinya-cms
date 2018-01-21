@@ -1,11 +1,9 @@
 {
-  "name": "public",
-  "version": "1.0.0",
+  "name": "jinya-gallery-cms-default-theme",
+  "author": "Imanuel Ulbricht",
+  "license": "MIT",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@types/perfect-scrollbar": "^1.3.0"
+  }
 }

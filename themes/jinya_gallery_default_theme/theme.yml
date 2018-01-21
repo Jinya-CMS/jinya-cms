@@ -38,3 +38,5 @@ styles:
   files:
     - all.scss
 scripts:
+  - perfect-scrollbar.js
+  - scrollhelper.js

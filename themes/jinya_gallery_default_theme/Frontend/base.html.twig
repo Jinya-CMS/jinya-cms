@@ -16,6 +16,13 @@
         {% block custom_meta %}
         {% endblock %}
     {% endblock %}
+    <noscript>
+        <style>
+            [data-simplebar] {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
 </head>
 <body>
 {% block body %}
@@ -31,9 +38,14 @@
     {% endblock %}
 {% endblock %}
 {% block scripts %}
-    {% block scripts_classie %}
-    {% endblock %}
-    {% block scripts_theme %}
+{% block polyfills %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js"
+            integrity="sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4=" crossorigin="anonymous"></script>
+{% endblock %}
+{% block scripts_theme %}
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/scripts.js') }}"></script>
+{% endblock %}
+    {% block scripts_custom %}
     {% endblock %}
 {% endblock %}
 </body>

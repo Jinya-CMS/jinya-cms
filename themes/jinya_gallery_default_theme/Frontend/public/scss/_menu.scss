@@ -9,6 +9,7 @@
   width: $menu-width;
   overflow-y: auto;
   z-index: 9999;
+  overflow-x: hidden;
 
   .logo {
     img {

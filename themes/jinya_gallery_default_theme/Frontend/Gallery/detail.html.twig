@@ -16,10 +16,10 @@
 {% endblock %}
 
 {% block maincontent %}
-    <div class="gallery {{ gallery.orientation }}" id="gallery">
+    <div data-scroll class="gallery {{ gallery.orientation }}" id="gallery">
         {% for artworkPosition in gallery.artworks %}
             {% set artwork = artworkPosition.artwork %}
-            <figure class="artwork">
+            <figure data-simplebar class="artwork">
                 <a href="#{{ artwork.slug }}">
                     <img src="{{ artwork.picture }}" alt="{{ artwork.name }}">
                 </a>
