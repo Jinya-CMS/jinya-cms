@@ -89,4 +89,12 @@ interface ThemeServiceInterface
      * @return bool
      */
     public function isCompiled(Theme $theme): bool;
+
+    /**
+     * Gets the config form for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getConfigForm(string $name): array;
 }

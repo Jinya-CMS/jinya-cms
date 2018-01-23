@@ -1,0 +1,23 @@
+{% extends '@Designer/theme/theme.base.html.twig' %}
+
+{% block header %}
+    {{ theme.displayName }}
+{% endblock %}
+
+{% block content %}
+    <nav class="tab-menu">
+        <ul class="list">
+            {% for group in configForm.groups %}
+                <li class="item">
+                    <a href="#{{ group.name }}">{{ group.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <div class="tab-content">
+        {% for group in configForm.groups %}
+            <div class="page"></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

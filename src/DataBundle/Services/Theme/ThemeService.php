@@ -97,9 +97,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @param string $configString
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\ORMException
+     * @inheritdoc
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -411,5 +409,28 @@ class ThemeService implements ThemeServiceInterface
         $source = md5($this->getJavaScriptSource($theme));
         $scripts = $this->getCompilationCheckPathScripts($theme, 'scripts.js');
         return $fs->exists($scripts) && strcmp($source, file_get_contents($scripts)) === 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConfigForm(string $name): array
+    {
+        return $this->getForms($name)['config'];
+    }
+
+    /**
+     * Gets the forms for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getForms(string $name): array
+    {
+        $themeYml = $this->getThemeDirectory() . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML;
+
+        $themeData = Yaml::parseFile($themeYml);
+
+        return $themeData['form'];
     }
 }

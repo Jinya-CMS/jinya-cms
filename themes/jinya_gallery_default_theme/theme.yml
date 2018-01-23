@@ -40,3 +40,102 @@ styles:
 scripts:
   - perfect-scrollbar.js
   - scrollhelper.js
+form:
+  config:
+    title: Jinya Gallery Theme konfigurieren
+    groups:
+      - name: menu
+        title: Menü
+        groups:
+          - name: name
+            title: Name
+            fields:
+              - name: display
+                type: boolean
+                label: Name anzeigen
+      - name: gallery
+        title: Galerie
+        groups:
+          - name: artwork
+            title: Kunstwerk
+            fields:
+              - name: show_description
+                type: boolean
+                label: Beschreibung anzeigen
+      - name: startpage
+        title: Startseite
+        fields:
+          - name: title
+            type: string
+            label: Titel
+        groups:
+          - name: background
+            title: Hintergrund
+            fields:
+              - name: image
+                type: file
+                label: Hintergrundbild
+      - name: socialmedia
+        title: Soziale Medien
+        fields:
+          - name: facebook
+            type: string
+            label: Facebookseite
+          - name: twitter
+            type: string
+            label: Twitterseite
+          - name: instagram
+            type: string
+            label: Instagramseite
+          - name: deviantart
+            type: string
+            label: Deviant Art Seite
+          - name: tumblr
+            type: string
+            label: Tumblrblog
+          - name: pinterest
+            type: string
+            label: Pinterestseite
+          - name: youtube
+            type: string
+            label: Youtubekanal
+      - name: fundme
+        title: Spenden und co.
+        fields:
+          - name: patreon
+            type: string
+            label: Patreon
+      - name: share
+        title: Teilen
+        fields:
+          - name: facebook_app_id
+            type: string
+            label: Facebook App ID
+        groups:
+          - name: enable
+            title: Teilen aktiv
+            fields:
+              - name: facebook
+                type: boolean
+                label: Facebook
+              - name: tumblr
+                type: boolean
+                label: Tumblr
+              - name: twitter
+                type: boolean
+                label: Twitter
+              - name: pinterest
+                type: boolean
+                label: Pinterest
+      - name: shop
+        title: Shop
+        fields:
+          - name: logo
+            type: file
+            label: Logo
+          - name: link
+            type: string
+            label: Link
+          - name: enabled
+            type: booelean
+            label: Aktiviert

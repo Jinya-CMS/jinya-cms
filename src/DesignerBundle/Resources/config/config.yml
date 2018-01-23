@@ -37,6 +37,8 @@ assetic:
         - '@DesignerBundle/Resources/public/typescript/menu/MenuItemModalViewModel.js'
         - '@DesignerBundle/Resources/public/typescript/menu/MenuEditor.js'
         - '@DesignerBundle/Resources/public/typescript/static/delete.js'
+    designer_theme_js:
+      inputs:
   filters:
       jsqueeze: ~
       scssphp:
