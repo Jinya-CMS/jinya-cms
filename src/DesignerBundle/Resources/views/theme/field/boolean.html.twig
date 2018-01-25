@@ -1,0 +1,6 @@
+<input type="checkbox" name="{{ fullname }}" id="{{ field.name }}"
+        {% if configuration %}
+            checked
+        {% endif %}
+>
+<label for="{{ field.name }}">{{ field.label }}</label>

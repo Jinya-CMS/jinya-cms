@@ -10,12 +10,12 @@ class classiex extends classie {
         }
     }
 
-    public static remove(element: NodeListOf<Element> | Element, clazz: string) {
+    public static remove(element: NodeListOf<Element> | Array<Element> | Element, clazz: string) {
         if (element instanceof Element) {
             classie.remove(element, clazz);
         } else {
             for (let i = 0; i < element.length; i++) {
-                classie.remove(element.item(i), clazz);
+                classie.remove(element[i], clazz);
             }
         }
     }

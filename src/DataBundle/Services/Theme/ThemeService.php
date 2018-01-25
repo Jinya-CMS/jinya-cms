@@ -157,8 +157,28 @@ class ThemeService implements ThemeServiceInterface
     public function saveConfig(array $config, string $themeName): void
     {
         $theme = $this->getThemeOrNewTheme($themeName);
-        $theme->setConfiguration($config);
+        $themeConfig = $this->getThemeConfig($theme);
+
+        if (array_key_exists('defaultConfig', $themeConfig)) {
+            $defaultConfig = $themeConfig['defaultConfig'];
+            if (is_array($defaultConfig)) {
+                $theme->setConfiguration(array_replace_recursive($defaultConfig, $config));
+            }
+        }
         $this->entityManager->flush();
+    }
+
+    private function getThemeConfig(Theme $theme): array
+    {
+        return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getThemeDirectory(): string
+    {
+        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
     }
 
     /**
@@ -191,14 +211,6 @@ class ThemeService implements ThemeServiceInterface
     public function registerThemes(): void
     {
         $this->twigLoader->addPath($this->getThemeDirectory(), 'Themes');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getThemeDirectory(): string
-    {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
     }
 
     /**
@@ -236,11 +248,6 @@ class ThemeService implements ThemeServiceInterface
         }
 
         $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
-    }
-
-    private function getThemeConfig(Theme $theme): array
-    {
-        return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
     }
 
     /**

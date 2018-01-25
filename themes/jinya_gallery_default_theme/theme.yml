@@ -137,5 +137,5 @@ form:
             type: string
             label: Link
           - name: enabled
-            type: booelean
+            type: boolean
             label: Aktiviert
