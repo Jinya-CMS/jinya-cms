@@ -42,8 +42,10 @@ styles:
   files:
     - all.scss
 scripts:
+  - lic.js
   - perfect-scrollbar.js
   - scrollhelper.js
+  - selectFx.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren

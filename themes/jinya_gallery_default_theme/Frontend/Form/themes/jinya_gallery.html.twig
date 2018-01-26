@@ -8,7 +8,24 @@
 {%- endblock hidden_widget -%}
 
 {%- block choice_widget -%}
-    {{- block('choice_widget_collapsed') -}}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+    <div class="choice">
+        <select class="cs-select cs-skin-underline" {{ block('widget_attributes') }}>
+            <option value="" disabled selected="selected">{{ label }}</option>
+            {%- if preferred_choices|length > 0 -%}
+                {% set options = preferred_choices %}
+                {{- block('choice_widget_options') -}}
+                {%- if choices|length > 0 and separator is not none -%}
+                    <option disabled="disabled">{{ separator }}</option>
+                {%- endif -%}
+            {%- endif -%}
+            {%- set options = choices -%}
+            {{- block('choice_widget_options') -}}
+        </select>
+    </div>
+    {{- form_errors(form) -}}
 {%- endblock choice_widget -%}
 
 {%- block checkbox_widget -%}

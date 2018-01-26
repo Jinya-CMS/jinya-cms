@@ -9,6 +9,7 @@
         <h1>{{ formEntity.title }}</h1>
         {{ form_start(form) }}
         {{ form_row(form) }}
+        <button type="submit">{{ 'generic.submit'|trans }}</button>
         {{ form_end(form) }}
     </div>
 
@@ -44,6 +45,9 @@
                 // events:
                 inputEl.addEventListener('focus', onInputFocus);
                 inputEl.addEventListener('blur', onInputBlur);
+            });
+            [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+                new SelectFx(el);
             });
 
             function onInputFocus(ev) {

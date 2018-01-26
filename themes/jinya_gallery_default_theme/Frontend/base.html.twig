@@ -2,6 +2,11 @@
 <head>
     <title>{{ themeConfig.page.title }} {% block head_title %}{% endblock %}</title>
     {% block styles %}
+        {% block styles_fontawesome %}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+        {% endblock %}
         {% block styles_theme %}
             <link rel="stylesheet"
                   href="{{ asset('public/jinya_gallery_default_theme/styles/all.css') }}">

@@ -37,16 +37,20 @@
   }
 }
 
+.choice {
+  margin: -0.5em 0 1em;
+}
+
 .textarea {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin: 0 0 1em;
 
   textarea {
     width: 100%;
     display: inline-block;
     border-style: none;
-    border-bottom: solid 7px $form-underline-color;
-    border-top: solid 0 $form-underline-color;
-    transition: border-bottom-width 0.3s, border-top-width 0.3s;
+    border-bottom: solid 3px $form-underline-color;
+    transition: border-bottom-width 0.3s;
     font-family: $font-family;
     font-size: 90%;
 
@@ -55,8 +59,7 @@
     &:not(:empty) {
       outline: none;
       border-bottom-width: 2px;
-      border-top-width: 2px;
-      transition: border-bottom-width 0.3s, border-top-width 0.3s;
+      transition: border-bottom-width 0.3s;
     }
   }
 
@@ -72,8 +75,8 @@
   max-width: 100%;
   width: 100%;
   vertical-align: top;
-  font-size: 1.2rem;
-  margin: 1em 0;
+  font-size: 1rem;
+  margin: 0 0 1em;
 
   &.filled {
     label {
@@ -92,7 +95,6 @@
     width: 100%;
     background: transparent;
     padding: 0.5em 0;
-    margin-bottom: 2em;
     color: $form-text-color;
     font-size: 100%;
     line-height: normal;
@@ -117,13 +119,13 @@
     position: absolute;
     text-align: left;
     font-size: 1em;
-    padding: 10px 0 5px;
     pointer-events: none;
+    padding: 0 0 5px;
     &::after {
       content: '';
       position: absolute;
       width: 100%;
-      height: 7px;
+      height: 3px;
       background: $form-underline-color;
       left: 0;
       top: 100%;
