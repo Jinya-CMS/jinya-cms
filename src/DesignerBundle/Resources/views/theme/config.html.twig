@@ -1,0 +1,34 @@
+{% extends '@Designer/theme/theme.base.html.twig' %}
+
+{% block header %}
+    {{ theme.displayName }}
+{% endblock %}
+
+{% block content %}
+    {% set configuration = theme.configuration %}
+    <form enctype="multipart/form-data" method="post" class="theme-config form"
+          action="{{ url('designer_theme_config', { 'name': theme.name }) }}">
+        <nav class="tab-menu">
+            <ul class="list">
+                {% for group in configForm.groups %}
+                    <li class="item">
+                        <a data-toggle="tab" href="#{{ group.name }}">{{ group.title }}</a>
+                    </li>
+                {% endfor %}
+                <li class="item">
+                    <a data-toggle="tab" href="#scss_variables">{{ 'designer.theme.variables.tab.label'|trans }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="tab-content">
+            {% set basefullname = 'configuration' %}
+            {% for group in configForm.groups %}
+                {% include '@Designer/theme/config/tab_group.html.twig' with { 'basefullname': basefullname, 'configuration': attribute(configuration, group.name) } %}
+            {% endfor %}
+            {% include '@Designer/theme/variables/tab.html.twig' %}
+        </div>
+        <button type="submit"
+                class="primary button button-size-m button-round-s button-border-medium right">{{ 'generic.save'|trans }}</button>
+    </form>
+{% endblock %}
+

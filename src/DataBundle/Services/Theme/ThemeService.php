@@ -23,9 +23,14 @@ use Symfony\Component\Yaml\Yaml;
 use Twig\Loader\FilesystemLoader;
 use const DIRECTORY_SEPARATOR;
 use function array_key_exists;
+use function explode;
+use function fclose;
 use function file_get_contents;
+use function fopen;
 use function is_array;
 use function md5;
+use function preg_match;
+use function preg_replace;
 use function str_replace;
 use function strcmp;
 
@@ -97,9 +102,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @param string $configString
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\ORMException
+     * @inheritdoc
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -159,8 +162,28 @@ class ThemeService implements ThemeServiceInterface
     public function saveConfig(array $config, string $themeName): void
     {
         $theme = $this->getThemeOrNewTheme($themeName);
-        $theme->setConfiguration($config);
+        $themeConfig = $this->getThemeConfig($theme);
+
+        if (array_key_exists('defaultConfig', $themeConfig)) {
+            $defaultConfig = $themeConfig['defaultConfig'];
+            if (is_array($defaultConfig)) {
+                $theme->setConfiguration(array_replace_recursive($defaultConfig, $config));
+            }
+        }
         $this->entityManager->flush();
+    }
+
+    private function getThemeConfig(Theme $theme): array
+    {
+        return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getThemeDirectory(): string
+    {
+        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
     }
 
     /**
@@ -193,14 +216,6 @@ class ThemeService implements ThemeServiceInterface
     public function registerThemes(): void
     {
         $this->twigLoader->addPath($this->getThemeDirectory(), 'Themes');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getThemeDirectory(): string
-    {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
     }
 
     /**
@@ -238,11 +253,6 @@ class ThemeService implements ThemeServiceInterface
         }
 
         $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
-    }
-
-    private function getThemeConfig(Theme $theme): array
-    {
-        return Yaml::parse(file_get_contents($this->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
     }
 
     /**
@@ -411,5 +421,60 @@ class ThemeService implements ThemeServiceInterface
         $source = md5($this->getJavaScriptSource($theme));
         $scripts = $this->getCompilationCheckPathScripts($theme, 'scripts.js');
         return $fs->exists($scripts) && strcmp($source, file_get_contents($scripts)) === 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConfigForm(string $name): array
+    {
+        return $this->getForms($name)['config'];
+    }
+
+    /**
+     * Gets the forms for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getForms(string $name): array
+    {
+        $themeYml = $this->getThemeDirectory() . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML;
+
+        $themeData = Yaml::parseFile($themeYml);
+
+        return $themeData['form'];
+    }
+
+    /**
+     * Gets the variables for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getVariables(string $name): array
+    {
+        $theme = $this->getTheme($name);
+        $stylesPath = $this->getStylesPath($theme);
+        $themeConfig = $this->getThemeConfig($theme);
+
+        $variablesPath = $stylesPath . DIRECTORY_SEPARATOR . $themeConfig['styles']['variables']['file'];
+        $handle = fopen($variablesPath, "r");
+        $variables = [];
+
+        try {
+            if ($handle) {
+                while (($line = fgets($handle)) !== false) {
+                    if (preg_match('/^\$.*!default;\s$/', $line)) {
+                        $replaced = preg_replace('/ !default;$/', '', $line);
+                        $variables[] = explode(':', $replaced);
+                    }
+                }
+            }
+        } finally {
+            fclose($handle);
+        }
+
+        return $variables;
     }
 }

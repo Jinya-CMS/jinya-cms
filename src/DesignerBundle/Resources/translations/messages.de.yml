@@ -102,3 +102,7 @@ designer:
       items:
         header: Menüelemente
       logo: Logo
+  theme:
+    variables:
+      tab:
+        label: Template Variablen

@@ -14,6 +14,8 @@ assetic:
         - '@DesignerBundle/Resources/public/typescript/horizontalScroll.js'
         - '@DesignerBundle/Resources/public/typescript/modal.js'
         - '@DesignerBundle/Resources/public/typescript/ajax.js'
+        - '@DesignerBundle/Resources/public/typescript/tabs.js'
+        - '@DesignerBundle/Resources/public/typescript/filepicker.js'
     designer_gallery_js:
       inputs:
         - '@DesignerBundle/Resources/public/typescript/gallery/Image.js'
@@ -37,6 +39,8 @@ assetic:
         - '@DesignerBundle/Resources/public/typescript/menu/MenuItemModalViewModel.js'
         - '@DesignerBundle/Resources/public/typescript/menu/MenuEditor.js'
         - '@DesignerBundle/Resources/public/typescript/static/delete.js'
+    designer_theme_js:
+      inputs:
   filters:
       jsqueeze: ~
       scssphp:
