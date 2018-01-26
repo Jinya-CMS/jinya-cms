@@ -24,15 +24,18 @@
         {% block custom_meta %}
         {% endblock %}
     {% endblock %}
-    <noscript>
-        <style>
-            [data-simplebar] {
-                overflow: auto;
-            }
-        </style>
-    </noscript>
 </head>
 <body>
+{% block licenses %}
+    <!-- Many thanks to the team from Codrops (https://tympanus.net/codrops/), I used many inspirations from you and they all work great. -->
+    <!--
+    Like most sites Jinya Gallery CMS uses open source libraries, here are the licenses
+    Codrops: https://tympanus.net/codrops/licensing/
+    FontAwesome: http://fontawesome.io/license/
+    Perfect Scrollbar: https://github.com/utatti/perfect-scrollbar/blob/master/LICENSE
+    classie: https://desandro.mit-license.org/
+    -->
+{% endblock %}
 {% block body %}
     {% block background %}
     {% endblock %}
