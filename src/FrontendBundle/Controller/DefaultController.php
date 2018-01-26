@@ -2,13 +2,10 @@
 
 namespace FrontendBundle\Controller;
 
-use ArrayIterator;
-use DataBundle\Entity\ArtworkPosition;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
-use function iterator_to_array;
 
 class DefaultController extends BaseFrontendController
 {
@@ -76,6 +73,7 @@ class DefaultController extends BaseFrontendController
      * @Route("/form/{slug}", name="frontend_form_details")
      *
      * @param string $slug
+     * @param Request $request
      * @return Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -83,13 +81,24 @@ class DefaultController extends BaseFrontendController
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function formDetailAction(string $slug): Response
+    public function formDetailAction(string $slug, Request $request): Response
     {
         $formService = $this->get('jinya_gallery.services.form_service');
-        $form = $formService->get($slug);
+        $formEntity = $formService->get($slug);
+
+        $formGenerator = $this->get('jinya_gallery.services.form_generator');
+        $form = $formGenerator->generateForm($formEntity);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $swift = $this->get('swiftmailer.mailer');
+
+        }
 
         return $this->render('@Frontend/Form/detail.html.twig', [
-            'form' => $form
+            'formEntity' => $formEntity,
+            'form' => $form->createView()
         ]);
     }
 

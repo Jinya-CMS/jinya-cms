@@ -1,0 +1,143 @@
+@mixin filled-or-focus() {
+  &::after {
+    background: $form-underline-color;
+    transform: scale3d(1, 0.25, 1);
+  }
+
+  .content {
+    color: $form-label-floated-color;
+    transform: translate3d(0, 2em, 0) scale3d(0.655, 0.655, 1);
+  }
+}
+
+.form-content {
+  @include breakpoint-desktop {
+    margin-left: $page-content-margin-left-desktop;
+    margin-right: $page-content-margin-right-desktop;
+  }
+
+  @include breakpoint-tablet-landscape {
+    margin-left: $page-content-margin-left-tablet-landscape;
+    margin-right: $page-content-margin-right-tablet-landscape;
+  }
+
+  @include breakpoint-tablet-portrait {
+    margin-left: $page-content-margin-left-tablet-portrait;
+    margin-right: $page-content-margin-right-tablet-portrait;
+  }
+
+  @include breakpoint-mobile {
+    margin-left: $page-content-margin-left-mobile;
+    margin-right: $page-content-margin-right-mobile;
+  }
+
+  @include breakpoint-ultra-mobile {
+    margin-left: $page-content-margin-left-ultra-mobile;
+    margin-right: $page-content-margin-right-ultra-mobile;
+  }
+}
+
+.textarea {
+  font-size: 1.2rem;
+
+  textarea {
+    width: 100%;
+    display: inline-block;
+    border-style: none;
+    border-bottom: solid 7px $form-underline-color;
+    border-top: solid 0 $form-underline-color;
+    transition: border-bottom-width 0.3s, border-top-width 0.3s;
+    font-family: $font-family;
+    font-size: 90%;
+
+    &:focus,
+    &.filled,
+    &:not(:empty) {
+      outline: none;
+      border-bottom-width: 2px;
+      border-top-width: 2px;
+      transition: border-bottom-width 0.3s, border-top-width 0.3s;
+    }
+  }
+
+  label {
+    display: inline-block;
+  }
+}
+
+.input {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  vertical-align: top;
+  font-size: 1.2rem;
+  margin: 1em 0;
+
+  &.filled {
+    label {
+      @include filled-or-focus;
+    }
+  }
+
+  .field {
+    position: relative;
+    display: block;
+    float: right;
+    border: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    /* for box shadows to show on iOS */
+    width: 100%;
+    background: transparent;
+    padding: 0.5em 0;
+    margin-bottom: 2em;
+    color: $form-text-color;
+    font-size: 100%;
+    line-height: normal;
+
+    &:focus {
+      outline: none;
+
+      + label {
+        @include filled-or-focus;
+      }
+    }
+  }
+  label {
+    display: inline-block;
+    float: right;
+    color: $form-text-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    user-select: none;
+    width: 100%;
+    position: absolute;
+    text-align: left;
+    font-size: 1em;
+    padding: 10px 0 5px;
+    pointer-events: none;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 7px;
+      background: $form-underline-color;
+      left: 0;
+      top: 100%;
+      transform-origin: 50% 100%;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .content {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      transform-origin: 0 0;
+      transition: transform 0.3s, color 0.3s;
+    }
+  }
+}
