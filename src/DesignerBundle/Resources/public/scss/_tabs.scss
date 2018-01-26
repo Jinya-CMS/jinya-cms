@@ -19,7 +19,7 @@
 
     .item {
       display: block;
-      margin: 1em 0;
+      margin: 1em 0 0;
       position: relative;
 
       &.active {
@@ -96,6 +96,8 @@
 .tab-content {
   .page {
     display: none;
+    height: 600px;
+    overflow-y: auto;
 
     &.active {
       display: block;

@@ -35,6 +35,8 @@ defaultConfig:
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
+  variables:
+    file: _variables.scss
   files:
     - all.scss
 scripts:

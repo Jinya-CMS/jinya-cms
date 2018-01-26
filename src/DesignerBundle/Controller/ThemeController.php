@@ -64,16 +64,23 @@ class ThemeController extends Controller
                 }
             }
 
+            $variables = $request->get('scss_variables');
+            $theme = $themeService->getTheme($name);
+            $theme->setScssVariables(array_filter($variables));
             $themeService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
         }
 
         $configForm = $themeService->getConfigForm($name);
-        $config = $themeService->getTheme($name)->getConfiguration();
+        $theme = $themeService->getTheme($name);
+        $config = $theme->getConfiguration();
+
+        $variables = $themeService->getVariables($name);
 
         return $this->render('@Designer/theme/config.html.twig', [
             'configForm' => $configForm,
             'config' => $config,
-            'theme' => $themeService->getTheme($name)
+            'theme' => $theme,
+            'variables' => $variables
         ]);
     }
 

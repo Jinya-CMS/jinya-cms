@@ -97,4 +97,12 @@ interface ThemeServiceInterface
      * @return array
      */
     public function getConfigForm(string $name): array;
+
+    /**
+     * Gets the variables for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getVariables(string $name): array;
 }
