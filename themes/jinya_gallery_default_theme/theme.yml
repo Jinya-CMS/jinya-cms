@@ -34,6 +34,9 @@ defaultConfig:
     logo:
     link:
     enabled: false
+  form:
+    buttons:
+      submit: Submit
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
@@ -46,6 +49,7 @@ scripts:
   - perfect-scrollbar.js
   - scrollhelper.js
   - selectFx.js
+  - initForm.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren
@@ -150,3 +154,12 @@ form:
           - name: enabled
             type: boolean
             label: Aktiviert
+      - name: form
+        title: Formulare
+        groups:
+          - name: buttons
+            title: Schaltflächen Beschriftungen
+            fields:
+              - name: submit
+                type: text
+                label: Abschicken

@@ -12,8 +12,9 @@
         {% set required = false %}
     {%- endif -%}
     <div class="choice">
-        <select class="cs-select cs-skin-underline" {{ block('widget_attributes') }}>
-            <option value="" disabled selected="selected">{{ label }}</option>
+        <select class="cs-select cs-skin-underline {% if value is not empty %}cs-selected{% endif %}" {{ block('widget_attributes') }}>
+            <option value="" disabled
+                    {% if value is empty %}selected="selected"{% endif %}>{{ label }}</option>
             {%- if preferred_choices|length > 0 -%}
                 {% set options = preferred_choices %}
                 {{- block('choice_widget_options') -}}

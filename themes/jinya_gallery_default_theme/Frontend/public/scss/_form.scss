@@ -1,7 +1,8 @@
 @mixin filled-or-focus() {
   &::after {
     background: $form-underline-color;
-    transform: scale3d(1, 0.25, 1);
+    //transform: scale3d(1, 0.25, 1);
+    height: 2px;
   }
 
   .content {

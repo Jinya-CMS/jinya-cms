@@ -125,33 +125,34 @@ div.cs-skin-underline {
 .cs-skin-underline > span {
   padding: 0.5em 3em 0.5em 0;
   border-bottom: 3px solid $primary;
+  transition: border-bottom-width 0.3s;
+}
+
+.cs-skin-underline.cs-selected > span {
+  border-bottom: 2px solid $primary;
+  transition: border-bottom-width 0.3s;
 }
 
 .cs-skin-underline > span::after {
   font-family: 'FontAwesome';
   content: '\f067';
   right: 0.25em;
-  -webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, 45deg);
   transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, 45deg);
-  -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
 }
 
 .cs-skin-underline.cs-active > span::after {
-  -webkit-transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, 270deg);
   transform: translate3d(0, -50%, 0) rotate3d(0, 0, 1, 270deg);
 }
 
 .cs-skin-underline .cs-options {
   background: $primary-lighter;
   opacity: 0;
-  -webkit-transition: opacity 0.3s 0.4s, visibility 0s 0.7s;
   transition: opacity 0.3s 0.4s, visibility 0s 0.7s;
 }
 
 .cs-skin-underline.cs-active .cs-options {
   opacity: 1;
-  -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
 
@@ -189,16 +190,13 @@ div.cs-skin-underline {
   height: 3px;
   width: 100%;
   background-color: #fff;
-  -webkit-transform: translate3d(200%, 0, 0);
   transform: translate3d(200%, 0, 0);
-  -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
 }
 
 .cs-skin-underline.cs-active ul span,
 .cs-skin-underline.cs-active ul span::before {
   opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
@@ -206,7 +204,6 @@ div.cs-skin-underline {
 .cs-skin-underline li:nth-child(5) span::before,
 .cs-skin-underline.cs-active li:first-child span,
 .cs-skin-underline.cs-active li:first-child span::before {
-  -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
 
@@ -214,13 +211,11 @@ div.cs-skin-underline {
 .cs-skin-underline li:nth-child(4) span::before,
 .cs-skin-underline.cs-active li:nth-child(2) span,
 .cs-skin-underline.cs-active li:nth-child(2) span::before {
-  -webkit-transition-delay: 0.05s;
   transition-delay: 0.05s;
 }
 
 .cs-skin-underline li:nth-child(3) span,
 .cs-skin-underline li:nth-child(3) span::before {
-  -webkit-transition-delay: 0.1s;
   transition-delay: 0.1s;
 }
 
@@ -228,7 +223,6 @@ div.cs-skin-underline {
 .cs-skin-underline li:nth-child(2) span::before,
 .cs-skin-underline.cs-active li:nth-child(4) span,
 .cs-skin-underline.cs-active li:nth-child(4) span::before {
-  -webkit-transition-delay: 0.15s;
   transition-delay: 0.15s;
 }
 
@@ -236,7 +230,6 @@ div.cs-skin-underline {
 .cs-skin-underline li:first-child span::before,
 .cs-skin-underline.cs-active li:nth-child(5) span,
 .cs-skin-underline.cs-active li:nth-child(5) span::before {
-  -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
 }
 
