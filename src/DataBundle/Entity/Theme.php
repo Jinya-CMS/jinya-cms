@@ -124,7 +124,7 @@ class Theme
     /**
      * @return array
      */
-    public function getScssVariables(): array
+    public function getScssVariables(): ?array
     {
         return $this->scssVariables;
     }
