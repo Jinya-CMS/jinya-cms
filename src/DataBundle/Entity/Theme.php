@@ -54,6 +54,72 @@ class Theme
      * @ORM\Column(type="json")
      */
     private $scssVariables;
+    /**
+     * @var Menu
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Menu")
+     * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
+     */
+    private $primaryMenu;
+    /**
+     * @var Menu
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Menu")
+     * @ORM\JoinColumn(name="secondary_menu_id", referencedColumnName="id", nullable=true)
+     */
+    private $secondaryMenu;
+    /**
+     * @var Menu
+     * @ORM\ManyToOne(targetEntity="DataBundle\Entity\Menu")
+     * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
+     */
+    private $footerMenu;
+
+    /**
+     * @return Menu
+     */
+    public function getPrimaryMenu(): ?Menu
+    {
+        return $this->primaryMenu;
+    }
+
+    /**
+     * @param Menu $primaryMenu
+     */
+    public function setPrimaryMenu(Menu $primaryMenu): void
+    {
+        $this->primaryMenu = $primaryMenu;
+    }
+
+    /**
+     * @return Menu
+     */
+    public function getSecondaryMenu(): ?Menu
+    {
+        return $this->secondaryMenu;
+    }
+
+    /**
+     * @param Menu $secondaryMenu
+     */
+    public function setSecondaryMenu(Menu $secondaryMenu): void
+    {
+        $this->secondaryMenu = $secondaryMenu;
+    }
+
+    /**
+     * @return Menu
+     */
+    public function getFooterMenu(): ?Menu
+    {
+        return $this->footerMenu;
+    }
+
+    /**
+     * @param Menu $footerMenu
+     */
+    public function setFooterMenu(Menu $footerMenu): void
+    {
+        $this->footerMenu = $footerMenu;
+    }
 
     /**
      * @return array

@@ -2,10 +2,10 @@
 
 namespace DesignerBundle\Controller;
 
-use function array_walk_recursive;
 use DataBundle\Services\Theme\ThemeServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,35 +41,14 @@ class ThemeController extends Controller
     public function configAction(string $name, Request $request): Response
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
+        $menuService = $this->get('jinya_gallery.services.menu_service');
 
         if ($request->isMethod('POST')) {
-            $oldConfiguration = $themeService->getTheme($name)->getConfiguration();
-            $configuration = $request->get('configuration');
-            $files = $request->files;
-            $mediaService = $this->get('jinya_gallery.services_media.media_service');
-
-            foreach ($files->get('configuration') as $aKey => $file) {
-                list($result, $key, $uploadedFile) = $this->getKeyAndFile($file);
-                if ($result) {
-                    $path = $mediaService->saveMedia($uploadedFile, 'themeconfig-' . $name);
-
-                    $temp = &$configuration;
-                    $temp = &$temp[$aKey];
-                    preg_match_all('/\[(.*?)\]/', $key, $exploded);
-                    foreach ($exploded[1] as $elem) {
-                        $temp = &$temp[$elem];
-                    }
-                    $temp = $path;
-                    unset($temp);
-
-                    $configuration[$key] = $path;
-                }
-            }
-
             $variables = $request->get('scss_variables');
-            $theme = $themeService->getTheme($name);
-            $theme->setScssVariables(array_filter($variables));
-            $themeService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
+            $themeService->setVariables($name, array_filter($variables));
+
+            $this->postThemeConfig($name, $request->get('configuration'), $request->files);
+            $themeService->setMenus($name, $request->get('menu'));
         }
 
         $configForm = $themeService->getConfigForm($name);
@@ -78,12 +57,48 @@ class ThemeController extends Controller
 
         $variables = $themeService->getVariables($name);
 
+        $menus = $menuService->getAll();
+
         return $this->render('@Designer/theme/config.html.twig', [
             'configForm' => $configForm,
             'config' => $config,
             'theme' => $theme,
-            'variables' => $variables
+            'variables' => $variables,
+            'menus' => $menus
         ]);
+    }
+
+    /**
+     * @param string $name
+     * @param array $configuration
+     * @param FileBag $files
+     * @return void
+     */
+    private function postThemeConfig(string $name, array $configuration, FileBag $files): void
+    {
+        $themeService = $this->get('jinya_gallery.services.theme_service');
+
+        $oldConfiguration = $themeService->getTheme($name)->getConfiguration();
+        $mediaService = $this->get('jinya_gallery.services_media.media_service');
+
+        foreach ($files->get('configuration') as $aKey => $file) {
+            list($result, $key, $uploadedFile) = $this->getKeyAndFile($file);
+            if ($result) {
+                $path = $mediaService->saveMedia($uploadedFile, 'themeconfig-' . $name);
+
+                $temp = &$configuration;
+                $temp = &$temp[$aKey];
+                preg_match_all('/\[(.*?)\]/', $key, $exploded);
+                foreach ($exploded[1] as $elem) {
+                    $temp = &$temp[$elem];
+                }
+                $temp = $path;
+                unset($temp);
+
+                $configuration[$key] = $path;
+            }
+        }
+        $themeService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
     }
 
     private function getKeyAndFile(array $data = null, string $key = ''): array

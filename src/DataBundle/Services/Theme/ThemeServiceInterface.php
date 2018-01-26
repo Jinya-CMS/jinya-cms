@@ -105,4 +105,21 @@ interface ThemeServiceInterface
      * @return array
      */
     public function getVariables(string $name): array;
+
+    /**
+     * Saves the given variables
+     *
+     * @param string $name
+     * @param array $variables
+     * @return void
+     */
+    public function setVariables(string $name, array $variables): void;
+
+    /**
+     * Sets the menus for the given theme
+     *
+     * @param string $name
+     * @param array $menus
+     */
+    public function setMenus(string $name, array $menus): void;
 }

@@ -10,6 +10,9 @@
           action="{{ url('designer_theme_config', { 'name': theme.name }) }}">
         <nav class="tab-menu">
             <ul class="list">
+                <li class="item">
+                    <a data-toggle="tab" href="#menus">{{ 'designer.theme.general.tab.label'|trans }}</a>
+                </li>
                 {% for group in configForm.groups %}
                     <li class="item">
                         <a data-toggle="tab" href="#{{ group.name }}">{{ group.title }}</a>
@@ -21,6 +24,7 @@
             </ul>
         </nav>
         <div class="tab-content">
+            {% include '@Designer/theme/general/tab.html.twig' %}
             {% set basefullname = 'configuration' %}
             {% for group in configForm.groups %}
                 {% include '@Designer/theme/config/tab_group.html.twig' with { 'basefullname': basefullname, 'configuration': attribute(configuration, group.name) } %}

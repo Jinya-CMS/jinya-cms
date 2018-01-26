@@ -7,3 +7,4 @@ layout:
 generic:
   empty: 'messages'
   labels: 'messages'
+  please_choose: 'messages'

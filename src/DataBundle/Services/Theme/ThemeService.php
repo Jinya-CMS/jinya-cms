@@ -11,6 +11,7 @@ namespace DataBundle\Services\Theme;
 
 use DataBundle\Entity\Theme;
 use DataBundle\Services\Configuration\FrontendConfigurationServiceInterface;
+use DataBundle\Services\Menu\MenuServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
@@ -64,6 +65,10 @@ class ThemeService implements ThemeServiceInterface
      * @var ScssCompilerServiceInterface
      */
     private $scssCompilerService;
+    /**
+     * @var MenuServiceInterface
+     */
+    private $menuService;
 
     /**
      * ThemeService constructor.
@@ -74,7 +79,7 @@ class ThemeService implements ThemeServiceInterface
      * @param FilesystemLoader $twigLoader
      * @param ScssCompilerServiceInterface $scssCompilerService
      */
-    public function __construct(EntityManager $entityManager, FrontendConfigurationServiceInterface $frontendConfigurationService, string $themeDirectory, string $kernelProjectDir, FilesystemLoader $twigLoader, ScssCompilerServiceInterface $scssCompilerService)
+    public function __construct(EntityManager $entityManager, FrontendConfigurationServiceInterface $frontendConfigurationService, string $themeDirectory, string $kernelProjectDir, FilesystemLoader $twigLoader, ScssCompilerServiceInterface $scssCompilerService, MenuServiceInterface $menuService)
     {
         $this->entityManager = $entityManager;
         $this->frontendConfigurationService = $frontendConfigurationService;
@@ -82,6 +87,7 @@ class ThemeService implements ThemeServiceInterface
         $this->kernelProjectDir = $kernelProjectDir;
         $this->twigLoader = $twigLoader;
         $this->scssCompilerService = $scssCompilerService;
+        $this->menuService = $menuService;
     }
 
     /**
@@ -476,5 +482,39 @@ class ThemeService implements ThemeServiceInterface
         }
 
         return $variables;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setVariables(string $name, array $variables): void
+    {
+        $theme = $this->getTheme($name);
+        $theme->setScssVariables(array_filter($variables));
+        $this->entityManager->flush($theme);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setMenus(string $name, array $menus): void
+    {
+        $theme = $this->getTheme($name);
+
+        $primaryMenu = $menus['primary'];
+        $secondaryMenu = $menus['secondary'];
+        $footerMenu = $menus['footer'];
+
+        if ($primaryMenu) {
+            $theme->setPrimaryMenu($this->menuService->get($primaryMenu));
+        }
+        if ($secondaryMenu) {
+            $theme->setSecondaryMenu($this->menuService->get($secondaryMenu));
+        }
+        if ($footerMenu) {
+            $theme->setFooterMenu($this->menuService->get($footerMenu));
+        }
+
+        $this->entityManager->flush($theme);
     }
 }

@@ -58,6 +58,7 @@ services:
         - '%kernel.project_dir%'
         - '@twig.loader'
         - '@jinya_gallery.services.scss_compiler_service'
+        - '@jinya_gallery.services.menu_service'
       lazy: true
   jinya_gallery.services.frontend_configuration_service:
       class: DataBundle\Services\Configuration\FrontendConfigurationService

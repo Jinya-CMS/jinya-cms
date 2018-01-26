@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>{% block head_title %}{{ themeConfig.title }}{% endblock %}</title>
+    <title>{{ themeConfig.page.title }} {% block head_title %}{% endblock %}</title>
     {% block styles %}
         {% block styles_theme %}
             <link rel="stylesheet"
@@ -8,6 +8,9 @@
         {% endblock %}
         {% block styles_custom %}
         {% endblock %}
+    {% endblock %}
+    {% block favicon %}
+        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
     {% endblock %}
     {% block meta %}
         <meta charset="utf-8"/>

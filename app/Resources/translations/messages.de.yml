@@ -36,3 +36,4 @@ generic:
   labels: Label
   external: Extern
   edit: Bearbeiten
+  please_choose: Bitte wählen...

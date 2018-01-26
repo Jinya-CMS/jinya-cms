@@ -106,3 +106,14 @@ designer:
     variables:
       tab:
         label: Template Variablen
+    menus:
+      form:
+        primary:
+          label: Primär Menü
+        secondary:
+          label: Sekundär Menü
+        footer:
+          label: Footer Menü
+    general:
+      tab:
+        label: Allgemeines

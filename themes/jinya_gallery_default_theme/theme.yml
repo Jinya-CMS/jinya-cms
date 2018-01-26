@@ -1,6 +1,9 @@
 displayName: Jinya Gallery Theme
 description: Das Standardtheme für das Jinya Gallery CMS
 defaultConfig:
+  page:
+    favicon:
+    title: Jinya Gallery CMS
   menu:
     name:
       display: false
@@ -10,7 +13,6 @@ defaultConfig:
   startpage:
     background:
       image: http://c1.staticflickr.com/4/3804/33589584740_b4bb597b73_h.jpg
-    title: Jinya Gallery CMS
   socialmedia:
     facebook:
     twitter:
@@ -46,6 +48,15 @@ form:
   config:
     title: Jinya Gallery Theme konfigurieren
     groups:
+      - name: page
+        title: Seite
+        fields:
+          - name: title
+            type: string
+            label: Titel
+          - name: favicon
+            type: file
+            label: Favicon
       - name: menu
         title: Menü
         groups:
@@ -66,10 +77,6 @@ form:
                 label: Beschreibung anzeigen
       - name: startpage
         title: Startseite
-        fields:
-          - name: title
-            type: string
-            label: Titel
         groups:
           - name: background
             title: Hintergrund
