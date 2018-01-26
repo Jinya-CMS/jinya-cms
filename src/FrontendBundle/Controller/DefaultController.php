@@ -2,13 +2,11 @@
 
 namespace FrontendBundle\Controller;
 
-use ArrayIterator;
-use DataBundle\Entity\ArtworkPosition;
-use Doctrine\Common\Collections\ArrayCollection;
+use DataBundle\Entity\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
-use function iterator_to_array;
 
 class DefaultController extends BaseFrontendController
 {
@@ -76,6 +74,7 @@ class DefaultController extends BaseFrontendController
      * @Route("/form/{slug}", name="frontend_form_details")
      *
      * @param string $slug
+     * @param Request $request
      * @return Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -83,14 +82,29 @@ class DefaultController extends BaseFrontendController
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function formDetailAction(string $slug): Response
+    public function formDetailAction(string $slug, Request $request): Response
     {
         $formService = $this->get('jinya_gallery.services.form_service');
-        $form = $formService->get($slug);
+        /** @var Form $formEntity */
+        $formEntity = $formService->get($slug);
 
-        return $this->render('@Frontend/Form/detail.html.twig', [
-            'form' => $form
-        ]);
+        $formGenerator = $this->get('jinya_gallery.services.form_generator');
+        $form = $formGenerator->generateForm($formEntity);
+
+        $form->handleRequest($request);
+
+        $viewData = [
+            'formEntity' => $formEntity,
+            'form' => $form->createView()
+        ];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $mailer = $this->get('jinya_gallery.services.mailer_service');
+            $mailer->sendMail($formEntity, $form->getData());
+            $viewData['mail_sent'] = true;
+        }
+
+        return $this->render('@Frontend/Form/detail.html.twig', $viewData);
     }
 
     /**

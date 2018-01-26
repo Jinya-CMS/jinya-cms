@@ -30,6 +30,8 @@ abstract class BaseController extends Controller
 
         $parameters['themeConfig'] = $activeTheme->getConfiguration();
 
+        $this->get('twig')->addGlobal('themeConfig', $activeTheme->getConfiguration());
+
         return parent::render($themeViewPath, $parameters, $response);
     }
 

@@ -1,0 +1,51 @@
+.form-content {
+  @include breakpoint-desktop {
+    margin-left: $page-content-margin-left-desktop;
+    margin-right: $page-content-margin-right-desktop;
+  }
+
+  @include breakpoint-tablet-landscape {
+    margin-left: $page-content-margin-left-tablet-landscape;
+    margin-right: $page-content-margin-right-tablet-landscape;
+  }
+
+  @include breakpoint-tablet-portrait {
+    margin-left: $page-content-margin-left-tablet-portrait;
+    margin-right: $page-content-margin-right-tablet-portrait;
+  }
+
+  @include breakpoint-mobile {
+    margin-left: $page-content-margin-left-mobile;
+    margin-right: $page-content-margin-right-mobile;
+  }
+
+  @include breakpoint-ultra-mobile {
+    margin-left: $page-content-margin-left-ultra-mobile;
+    margin-right: $page-content-margin-right-ultra-mobile;
+  }
+}
+
+.choice {
+  margin: -0.5em 0 1em;
+}
+
+.input {
+  font-size: 1rem;
+  margin: 0 0 1em;
+
+  .field {
+    padding: 0.15em 0;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+    border-style: none;
+    border-bottom: solid 3px $form-underline-color;
+    transition: border-bottom-width 0.3s;
+    font-family: $font-family;
+    font-size: 90%;
+  }
+
+  label {
+    display: inline-block;
+  }
+}

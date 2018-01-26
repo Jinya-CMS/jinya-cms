@@ -1,15 +1,11 @@
 @function pastelize($color) {
-  @if ($pastelize-enabled) {
-    $red: red($color);
-    $green: green($color);
-    $blue: blue($color);
+  $red: red($color);
+  $green: green($color);
+  $blue: blue($color);
 
-    $red: ($red + 255) / 2;
-    $green: ($green + 255) / 2;
-    $blue: ($blue + 255) / 2;
+  $red: ($red + 255) / 2;
+  $green: ($green + 255) / 2;
+  $blue: ($blue + 255) / 2;
 
-    @return rgb($red, $green, $blue);
-  } @else {
-    @return $color;
-  }
+  @return rgb($red, $green, $blue);
 }

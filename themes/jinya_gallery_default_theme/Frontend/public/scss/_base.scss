@@ -58,3 +58,11 @@ div {
 img {
   border: 0 solid transparent;
 }
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+textarea {
+  padding: 0;
+}

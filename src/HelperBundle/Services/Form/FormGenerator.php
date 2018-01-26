@@ -11,10 +11,11 @@ namespace HelperBundle\Services\Form;
 
 use DataBundle\Entity\Form;
 use DataBundle\Entity\FormItem;
+use DataBundle\Services\Theme\ThemeServiceInterface;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormInterface;
 use function array_key_exists;
 use function strpos;
-use Symfony\Component\Form\FormInterface;
 
 class FormGenerator implements FormGeneratorInterface
 {
@@ -24,12 +25,18 @@ class FormGenerator implements FormGeneratorInterface
     private $formFactory;
 
     /**
+     * @var ThemeServiceInterface
+     */
+    private $themeService;
+
+    /**
      * FormService constructor.
      * @param FormFactory $formFactory
      */
-    public function __construct(FormFactory $formFactory)
+    public function __construct(FormFactory $formFactory, ThemeServiceInterface $themeService)
     {
         $this->formFactory = $formFactory;
+        $this->themeService = $themeService;
     }
 
     public function generateForm(Form $form): FormInterface
@@ -46,6 +53,7 @@ class FormGenerator implements FormGeneratorInterface
                 }
 
                 $options['choices'] = $choices;
+                $options['placeholder'] = $this->themeService->getActiveTheme()->getConfiguration()['form']['dropdowns']['placeholder'];
             }
 
             if (strpos($item->getType(), 'TextareaType') != -1) {

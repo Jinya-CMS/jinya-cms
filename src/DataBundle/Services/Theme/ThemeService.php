@@ -339,7 +339,7 @@ class ThemeService implements ThemeServiceInterface
 
         if (!empty($themeConfig['scripts'])) {
             foreach ($themeConfig['scripts'] as $script) {
-                $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . ';';
+                $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . "\n";
             }
         }
 

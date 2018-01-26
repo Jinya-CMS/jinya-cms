@@ -34,6 +34,13 @@ defaultConfig:
     logo:
     link:
     enabled: false
+  form:
+    buttons:
+      submit: Submit
+    dropdowns:
+      placeholder: Please choose...
+    messages:
+      mail_sent_message: Mail was sent successfully
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
@@ -148,3 +155,24 @@ form:
           - name: enabled
             type: boolean
             label: Aktiviert
+      - name: form
+        title: Formulare
+        groups:
+          - name: buttons
+            title: Schaltflächen Beschriftungen
+            fields:
+              - name: submit
+                type: string
+                label: Abschicken
+          - name: dropdowns
+            title: Dropdowns
+            fields:
+              - name: placeholder
+                type: string
+                label: Standardtext
+          - name: messages
+            title: Meldungen
+            fields:
+              - name: mail_sent_message
+                type: string
+                label: Email gesendet
