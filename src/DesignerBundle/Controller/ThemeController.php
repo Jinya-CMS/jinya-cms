@@ -2,6 +2,7 @@
 
 namespace DesignerBundle\Controller;
 
+use function array_walk_recursive;
 use DataBundle\Services\Theme\ThemeServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -47,12 +48,13 @@ class ThemeController extends Controller
             $files = $request->files;
             $mediaService = $this->get('jinya_gallery.services_media.media_service');
 
-            foreach ($files as $file) {
+            foreach ($files->get('configuration') as $aKey => $file) {
                 list($result, $key, $uploadedFile) = $this->getKeyAndFile($file);
                 if ($result) {
                     $path = $mediaService->saveMedia($uploadedFile, 'themeconfig-' . $name);
 
                     $temp = &$configuration;
+                    $temp = &$temp[$aKey];
                     preg_match_all('/\[(.*?)\]/', $key, $exploded);
                     foreach ($exploded[1] as $elem) {
                         $temp = &$temp[$elem];
