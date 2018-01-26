@@ -78,6 +78,7 @@ services:
       class: HelperBundle\Services\Form\FormGenerator
       arguments:
         - '@form.factory'
+        - '@jinya_gallery.services.theme_service'
   jinya_gallery.services.scss_compiler_service:
       class: HelperBundle\Services\Scss\ScssCompilerService
 

@@ -37,6 +37,8 @@ defaultConfig:
   form:
     buttons:
       submit: Submit
+    dropdowns:
+      placeholder: Please choose...
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
@@ -161,5 +163,11 @@ form:
             title: Schaltflächen Beschriftungen
             fields:
               - name: submit
-                type: text
+                type: string
                 label: Abschicken
+          - name: dropdowns
+            title: Dropdowns
+            fields:
+              - name: placeholder
+                type: string
+                label: Standardtext

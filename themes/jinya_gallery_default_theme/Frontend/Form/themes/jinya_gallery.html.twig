@@ -11,10 +11,17 @@
     {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
         {% set required = false %}
     {%- endif -%}
-    <div class="choice">
-        <select class="cs-select cs-skin-underline {% if value is not empty %}cs-selected{% endif %}" {{ block('widget_attributes') }}>
+    <div class="input">
+        {{ form_label(form) }}
+        <select id="{{ id }}" class="field" {{ block('widget_attributes') }}>
             <option value="" disabled
-                    {% if value is empty %}selected="selected"{% endif %}>{{ label }}</option>
+                    {% if value is empty %}selected="selected"{% endif %}>
+                {% if placeholder is defined %}
+                    {{ placeholder }}
+                {% else %}
+                    {{ label }}
+                {% endif %}
+            </option>
             {%- if preferred_choices|length > 0 -%}
                 {% set options = preferred_choices %}
                 {{- block('choice_widget_options') -}}
@@ -34,28 +41,26 @@
 {%- endblock checkbox_widget -%}
 
 {%- block textarea_widget -%}
-    <div class="textarea">
-        <label>{{ label }}</label>
-        <textarea
-                class="field {% if value is not empty %}filled{% endif %}" {{ block('widget_attributes') }}>{{ value }}</textarea>
+    <div class="input">
+        {{ form_label(form) }}
+        <textarea id="{{ id }}"
+                  class="field {% if value is not empty %}filled{% endif %}" {{ block('widget_attributes') }}>{{ value }}</textarea>
         {{- form_errors(form) -}}
     </div>
 {%- endblock textarea_widget -%}
 
 {% block form_widget_simple -%}
-    <span class="input {% if value is not empty %}filled{% endif %}">
+    <div class="input">
         {%- set type = type|default('text') -%}
-        <input class="field"
-               type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
         {{- form_label(form) -}}
+        <input id="{{ id }}" class="field {% if value is not empty %}filled{% endif %}"
+               type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
         {{- form_errors(form) -}}
-    </span>
+    </div>
 {% endblock -%}
 
 {% block form_label -%}
-    <label {% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-        <span class="content">{{ label }}</span>
-    </label>
+    <label for="{{ id }}" {% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>{{ label }}</label>
 {%- endblock %}
 
 {%- block form_start -%}

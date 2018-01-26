@@ -58,7 +58,7 @@
     transition: transform 0.3s, opacity 0.3s;
     transition-delay: 0.3s;
   }
-  &:hover {
+  &:focus {
     &::before {
       transform: translate3d(0, 0, 0);
     }
