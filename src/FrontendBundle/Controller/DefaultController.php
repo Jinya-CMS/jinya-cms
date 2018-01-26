@@ -2,6 +2,9 @@
 
 namespace FrontendBundle\Controller;
 
+use data;
+use DataBundle\Entity\Form;
+use Swift_Message;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,6 +87,7 @@ class DefaultController extends BaseFrontendController
     public function formDetailAction(string $slug, Request $request): Response
     {
         $formService = $this->get('jinya_gallery.services.form_service');
+        /** @var Form $formEntity */
         $formEntity = $formService->get($slug);
 
         $formGenerator = $this->get('jinya_gallery.services.form_generator');
@@ -92,8 +96,8 @@ class DefaultController extends BaseFrontendController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $swift = $this->get('swiftmailer.mailer');
-
+            $mailer = $this->get('jinya_gallery.services.mailer_service');
+            $mailer->sendMail($formEntity, $form->getData());
         }
 
         return $this->render('@Frontend/Form/detail.html.twig', [

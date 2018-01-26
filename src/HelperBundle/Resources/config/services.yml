@@ -23,6 +23,11 @@ services:
         - '@jinya_gallery.services.gallery_service'
         - '@jinya_gallery.services.artwork_service'
         - '@router'
+  jinya_gallery.services.mailer_service:
+      class: HelperBundle\Services\Mailing\MailerService
+      arguments:
+        - '@mailer'
+        - '%mailer_sender%'
 
   jinya_gallery.services.schema_tool:
       public: true
