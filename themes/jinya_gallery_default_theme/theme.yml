@@ -39,6 +39,8 @@ defaultConfig:
       submit: Submit
     dropdowns:
       placeholder: Please choose...
+    messages:
+      mail_sent_message: Mail was sent successfully
 styles_base: Frontend/public/scss/
 scripts_base: Frontend/public/ts/
 styles:
@@ -168,3 +170,9 @@ form:
               - name: placeholder
                 type: string
                 label: Standardtext
+          - name: messages
+            title: Meldungen
+            fields:
+              - name: mail_sent_message
+                type: string
+                label: Email gesendet

@@ -2,9 +2,7 @@
 
 namespace FrontendBundle\Controller;
 
-use data;
 use DataBundle\Entity\Form;
-use Swift_Message;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,15 +93,18 @@ class DefaultController extends BaseFrontendController
 
         $form->handleRequest($request);
 
+        $viewData = [
+            'formEntity' => $formEntity,
+            'form' => $form->createView()
+        ];
+
         if ($form->isSubmitted() && $form->isValid()) {
             $mailer = $this->get('jinya_gallery.services.mailer_service');
             $mailer->sendMail($formEntity, $form->getData());
+            $viewData['mail_sent'] = true;
         }
 
-        return $this->render('@Frontend/Form/detail.html.twig', [
-            'formEntity' => $formEntity,
-            'form' => $form->createView()
-        ]);
+        return $this->render('@Frontend/Form/detail.html.twig', $viewData);
     }
 
     /**

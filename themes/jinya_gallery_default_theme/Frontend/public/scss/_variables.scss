@@ -15,6 +15,10 @@ $secondary-darker: darken($secondary, $color-darker-percentage);
 $white: #fff !default;
 $black: #000 !default;
 
+$success-color: #009400 !default;
+$success-text-color: $success-color !default;
+$success-background-color: pastelize($success-color) !default;
+
 /** Social **/
 $color-facebook: #3b5998;
 $color-twitter: #1da1f2;
