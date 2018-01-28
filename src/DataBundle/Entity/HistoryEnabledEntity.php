@@ -56,7 +56,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param array[] $history
      */
-    function setHistory(array $history)
+    function setHistory(array $history): void
     {
         $this->history = $history;
     }
@@ -72,7 +72,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param DateTime $createdAt
      */
-    function setCreatedAt(DateTime $createdAt)
+    function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -88,7 +88,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param User $creator
      */
-    function setCreator(User $creator)
+    function setCreator(User $creator): void
     {
         $this->creator = $creator;
     }
@@ -104,7 +104,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param DateTime $lastUpdatedAt
      */
-    function setLastUpdatedAt(DateTime $lastUpdatedAt)
+    function setLastUpdatedAt(DateTime $lastUpdatedAt): void
     {
         $this->lastUpdatedAt = $lastUpdatedAt;
     }
@@ -120,7 +120,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param User $updatedBy
      */
-    function setUpdatedBy($updatedBy)
+    function setUpdatedBy($updatedBy): void
     {
         if ($updatedBy instanceof User) {
             $this->updatedBy = $updatedBy;

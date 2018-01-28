@@ -77,7 +77,7 @@ class User extends BaseUser implements JsonSerializable
     /**
      * @param ArrayCollection $createdGalleries
      */
-    public function setCreatedGalleries(ArrayCollection $createdGalleries)
+    public function setCreatedGalleries(ArrayCollection $createdGalleries): void
     {
         $this->createdGalleries = $createdGalleries;
     }
@@ -93,7 +93,7 @@ class User extends BaseUser implements JsonSerializable
     /**
      * @param string $profilePicture
      */
-    public function setProfilePicture(string $profilePicture)
+    public function setProfilePicture(string $profilePicture): void
     {
         $this->profilePicture = $profilePicture;
     }
@@ -109,7 +109,7 @@ class User extends BaseUser implements JsonSerializable
     /**
      * @param string $firstname
      */
-    public function setFirstname(string $firstname)
+    public function setFirstname(string $firstname): void
     {
         $this->firstname = $firstname;
     }
@@ -125,7 +125,7 @@ class User extends BaseUser implements JsonSerializable
     /**
      * @param string $lastname
      */
-    public function setLastname(string $lastname)
+    public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
     }

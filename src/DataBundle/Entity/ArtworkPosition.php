@@ -61,7 +61,7 @@ class ArtworkPosition implements JsonSerializable
     /**
      * @param Artwork $artwork
      */
-    public function setArtwork(Artwork $artwork)
+    public function setArtwork(Artwork $artwork): void
     {
         $this->artwork = $artwork;
     }
@@ -77,7 +77,7 @@ class ArtworkPosition implements JsonSerializable
     /**
      * @param Gallery $gallery
      */
-    public function setGallery(Gallery $gallery)
+    public function setGallery(Gallery $gallery): void
     {
         $this->gallery = $gallery;
     }
@@ -93,7 +93,7 @@ class ArtworkPosition implements JsonSerializable
     /**
      * @param int $position
      */
-    public function setPosition(int $position)
+    public function setPosition(int $position): void
     {
         $this->position = $position;
     }

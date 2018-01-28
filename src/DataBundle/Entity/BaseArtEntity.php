@@ -35,7 +35,7 @@ trait BaseArtEntity
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -51,7 +51,7 @@ trait BaseArtEntity
     /**
      * @param string $description
      */
-    public function setDescription(?string $description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
