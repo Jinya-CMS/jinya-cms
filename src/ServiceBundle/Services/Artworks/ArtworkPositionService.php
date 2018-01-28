@@ -9,8 +9,10 @@
 namespace ServiceBundle\Services\Artworks;
 
 
+use ArrayIterator;
 use DataBundle\Entity\ArtworkPosition;
 use DataBundle\Entity\Gallery;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use ServiceBundle\Services\Galleries\GalleryServiceInterface;
 
@@ -92,6 +94,15 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
                 $artworkPosition->setPosition($artworkPosition->getPosition() + 1);
             }
         }
+
+        $artworks = $gallery->getArtworks();
+
+        /** @var ArrayIterator $iterator */
+        $iterator = $artworks->getIterator();
+        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+        });
+        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
         return $position;
     }
