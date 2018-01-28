@@ -81,6 +81,7 @@
         font-weight: $menu-item-highlighted-font-weight;
         font-size: $menu-item-highlighted-font-size;
         font-style: $menu-item-highlighted-font-style;
+        font-family: $menu-item-highlighted-font-family;
 
         li:not(.highlight) {
           font-weight: normal;

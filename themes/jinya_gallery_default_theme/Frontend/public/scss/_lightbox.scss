@@ -44,6 +44,8 @@
     color: $lightbox-content-color;
     width: 100%;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+    font-family: $lightbox-content-font-family;
+    font-style: $lightbox-content-font-style;
 
     h4 {
       padding: 0 1.5rem;

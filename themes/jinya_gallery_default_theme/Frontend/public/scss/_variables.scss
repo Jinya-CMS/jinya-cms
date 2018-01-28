@@ -113,6 +113,7 @@ $menu-item-link-letter-spacing: 1px !default;
 $menu-item-highlighted-font-size: 120% !default;
 $menu-item-highlighted-font-weight: bold !default;
 $menu-item-highlighted-font-style: normal !default;
+$menu-item-highlighted-font-family: $menu-font-family !default;
 
 $menu-item-blurred-text-shadow-color: $white !default;
 $menu-item-blurred-text-shadow-blur-radius: 0.625em !default;
@@ -261,11 +262,14 @@ $lightbox-close-button-icon-font: "FontAwesome" !default;
 
 $lightbox-content-color: $primary-lighter !default;
 $lightbox-content-font-weight: 200 !default;
+$lightbox-content-font-family: $font-family;
+$lightbox-content-font-style: normal;
 
 $lightbox-padding-left: 5rem !default;
 $lightbox-padding-right: 5rem !default;
 $lightbox-padding-top: 5rem !default;
 $lightbox-padding-bottom: 10rem !default;
+
 
 /**
  * Scrollbar
