@@ -10,6 +10,7 @@
       "DataBundle\\": "src/DataBundle",
       "DesignerBundle\\": "src/DesignerBundle",
       "FrontendBundle\\": "src/FrontendBundle",
+      "ServiceBundle\\": "src/ServiceBundle",
       "ThemeBundle\\": "themes"
     },
     "classmap": [

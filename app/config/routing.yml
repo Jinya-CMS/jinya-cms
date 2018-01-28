@@ -1,3 +1,8 @@
+service:
+    resource: "@ServiceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 designer:
     resource: "@DesignerBundle/Controller/"
     type:     annotation
