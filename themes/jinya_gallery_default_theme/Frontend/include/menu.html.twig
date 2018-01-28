@@ -1,5 +1,5 @@
 <a class="menu-bar" href="#jinya-menu">
-    <img src="{{ menu.logo }}" alt="">
+    <img src="{{ theme.active.primaryMenu.logo }}" alt="">
     <span class="claim">{{ themeConfig.page.title }}</span>
     {% if themeConfig.menu.mobile.showBurger %}
         <span class="burger">
@@ -12,16 +12,16 @@
 <div data-scroll class="menu" id="jinya-menu">
     <a href="#" class="close"></a>
     {% if themeConfig.menu.name.display %}
-        <h1 class="title">{{ menu.name }}</h1>
+        <h1 class="title">{{ theme.active.primaryMenu.name }}</h1>
     {% endif %}
-    {% if menu.logo %}
+    {% if theme.active.primaryMenu.logo %}
         <a class="logo" href="/">
-            <img src="{{ menu.logo }}" alt="">
+            <img src="{{ theme.active.primaryMenu.logo }}" alt="">
         </a>
     {% endif %}
     {% include "@Theme/jinya_gallery_default_theme/Frontend/include/socialbar.html.twig" %}
     <ul>
-        {% for item in menu.menuItems %}
+        {% for item in theme.active.primaryMenu.menuItems %}
             {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menuitem.html.twig' %}
         {% endfor %}
     </ul>
