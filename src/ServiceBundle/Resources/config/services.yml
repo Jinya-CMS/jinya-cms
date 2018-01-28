@@ -6,7 +6,7 @@ services:
       autoconfigure: true
       # this means you cannot fetch services directly from the container via $container->get()
       # if you need to do this, you can override this setting on individual services
-      public: false
+      public: true
   jinya_gallery.services.gallery_service:
       class: ServiceBundle\Services\Galleries\GalleryService
       arguments:
@@ -66,3 +66,34 @@ services:
       class: ServiceBundle\Services\Labels\LabelService
       arguments:
         - '@doctrine.orm.entity_manager'
+  jinya_gallery.services.log_service:
+      class: ServiceBundle\Services\Log\LogService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@logger'
+  jinya_gallery.services.access_log_service:
+      class: ServiceBundle\Services\Log\AccessLogService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.services_slug.slug_service:
+      class: ServiceBundle\Services\Slug\SlugService
+  jinya_gallery.services_media.media_service:
+      class: ServiceBundle\Services\Media\MediaService
+      arguments:
+        - '%base_url%'
+        - '%kernel.root_dir%'
+  jinya_gallery.services_routing.route_retrieval_service:
+      class: ServiceBundle\Services\Routing\RouteRetrievalService
+      arguments:
+        - '@jinya_gallery.services.page_service'
+        - '@jinya_gallery.services.form_service'
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@router'
+  jinya_gallery.services.mailer_service:
+      class: ServiceBundle\Services\Mailing\MailerService
+      arguments:
+        - '@mailer'
+        - '%mailer_sender%'
+  jinya_gallery.services.scss_compiler_service:
+      class: ServiceBundle\Services\Scss\ScssCompilerService

@@ -15,7 +15,7 @@ use ServiceBundle\Services\Menu\MenuServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
-use HelperBundle\Services\Scss\ScssCompilerServiceInterface;
+use ServiceBundle\Services\Scss\ScssCompilerServiceInterface;
 use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

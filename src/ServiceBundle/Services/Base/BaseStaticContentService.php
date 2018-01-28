@@ -14,7 +14,7 @@ use DataBundle\Exceptions\EmptySlugException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use HelperBundle\Services\Slug\SlugServiceInterface;
+use ServiceBundle\Services\Slug\SlugServiceInterface;
 use function method_exists;
 
 abstract class BaseStaticContentService extends BaseService implements BaseStaticContentServiceInterface

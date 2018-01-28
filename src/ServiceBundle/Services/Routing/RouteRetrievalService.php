@@ -6,7 +6,7 @@
  * Time: 20:55
  */
 
-namespace HelperBundle\Services\Routing;
+namespace ServiceBundle\Services\Routing;
 
 
 use DataBundle\Services\Artworks\ArtworkServiceInterface;

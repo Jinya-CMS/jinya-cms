@@ -6,7 +6,7 @@
  * Time: 19:02
  */
 
-namespace HelperBundle\Services\Mailing;
+namespace ServiceBundle\Services\Mailing;
 
 
 use DataBundle\Entity\Form;

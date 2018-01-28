@@ -6,7 +6,7 @@
  * Time: 18:49
  */
 
-namespace HelperBundle\Services\Scss;
+namespace ServiceBundle\Services\Scss;
 
 
 use Leafo\ScssPhp\Compiler;

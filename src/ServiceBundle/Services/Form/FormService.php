@@ -11,7 +11,7 @@ namespace ServiceBundle\Services\Form;
 use DataBundle\Entity\Form;
 use ServiceBundle\Services\Base\BaseStaticContentService;
 use Doctrine\ORM\EntityManager;
-use HelperBundle\Services\Slug\SlugServiceInterface;
+use ServiceBundle\Services\Slug\SlugServiceInterface;
 
 class FormService extends BaseStaticContentService implements FormServiceInterface
 {

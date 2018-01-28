@@ -6,7 +6,7 @@
  * Time: 19:32
  */
 
-namespace HelperBundle\Services\Media;
+namespace ServiceBundle\Services\Media;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use const DIRECTORY_SEPARATOR;

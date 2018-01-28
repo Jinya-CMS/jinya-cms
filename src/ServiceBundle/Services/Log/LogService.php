@@ -6,12 +6,12 @@
  * Time: 17:27
  */
 
-namespace HelperBundle\Services\Log;
+namespace ServiceBundle\Services\Log;
 
 
 use Doctrine\ORM\EntityManager;
 use Exception;
-use HelperBundle\Entity\LogEntry;
+use ServiceBundle\Entity\LogEntry;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

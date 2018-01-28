@@ -6,10 +6,10 @@
  * Time: 17:38
  */
 
-namespace HelperBundle\Services\Log;
+namespace ServiceBundle\Services\Log;
 
 
-use HelperBundle\Entity\AccessLogEntry;
+use ServiceBundle\Entity\AccessLogEntry;
 
 interface AccessLogServiceInterface
 {

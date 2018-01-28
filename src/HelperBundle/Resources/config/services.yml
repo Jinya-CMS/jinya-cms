@@ -1,37 +1,7 @@
 services:
-  jinya_gallery.services.log_service:
-      class: HelperBundle\Services\Log\LogService
-      arguments:
-        - '@doctrine.orm.entity_manager'
-        - '@logger'
-  jinya_gallery.services.access_log_service:
-      class: HelperBundle\Services\Log\AccessLogService
-      arguments:
-        - '@doctrine.orm.entity_manager'
-  jinya_gallery.services_slug.slug_service:
-      class: HelperBundle\Services\Slug\SlugService
-  jinya_gallery.services_media.media_service:
-      class: HelperBundle\Services\Media\MediaService
-      arguments:
-        - '%base_url%'
-        - '%kernel.root_dir%'
-  jinya_gallery.services_routing.route_retrieval_service:
-      class: HelperBundle\Services\Routing\RouteRetrievalService
-      arguments:
-        - '@jinya_gallery.services.page_service'
-        - '@jinya_gallery.services.form_service'
-        - '@jinya_gallery.services.gallery_service'
-        - '@jinya_gallery.services.artwork_service'
-        - '@router'
-  jinya_gallery.services.mailer_service:
-      class: HelperBundle\Services\Mailing\MailerService
-      arguments:
-        - '@mailer'
-        - '%mailer_sender%'
-
-  jinya_gallery.services.schema_tool:
+  jinya_gallery.components.schema_tool:
       public: true
-      class: HelperBundle\Services\Database\SchemaTool
+      class: HelperBundle\Components\Database\SchemaTool
       arguments:
         - '@doctrine.orm.entity_manager'
   jinya_gallery.components.asset_dumper:
@@ -74,13 +44,11 @@ services:
         - '@request_stack'
       tags:
         - { name: monolog.processor, method: processRecord, handler: accesslog }
-  jinya_gallery.services.form_generator:
-      class: HelperBundle\Services\Form\FormGenerator
+  jinya_gallery.components.form_generator:
+      class: HelperBundle\Components\Form\FormGenerator
       arguments:
         - '@form.factory'
         - '@jinya_gallery.services.theme_service'
-  jinya_gallery.services.scss_compiler_service:
-      class: HelperBundle\Services\Scss\ScssCompilerService
 
   twig_extensions.intl:
     class: Twig_Extensions_Extension_Intl

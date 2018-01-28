@@ -6,7 +6,7 @@
  * Time: 21:07
  */
 
-namespace HelperBundle\Services\Form;
+namespace HelperBundle\Components\Form;
 
 
 use DataBundle\Entity\Form;
@@ -14,5 +14,11 @@ use Symfony\Component\Form\FormInterface;
 
 interface FormGeneratorInterface
 {
+    /**
+     * Generates a @see FormInterface based on the given @see Form
+     *
+     * @param Form $form
+     * @return FormInterface
+     */
     public function generateForm(Form $form): FormInterface;
 }

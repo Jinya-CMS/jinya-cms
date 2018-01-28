@@ -12,8 +12,8 @@ use DataBundle\Entity\Artwork;
 use ServiceBundle\Services\Base\BaseArtService;
 use ServiceBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
-use HelperBundle\Services\Media\MediaServiceInterface;
-use HelperBundle\Services\Slug\SlugServiceInterface;
+use ServiceBundle\Services\Media\MediaServiceInterface;
+use ServiceBundle\Services\Slug\SlugServiceInterface;
 
 class ArtworkService extends BaseArtService implements ArtworkServiceInterface
 {

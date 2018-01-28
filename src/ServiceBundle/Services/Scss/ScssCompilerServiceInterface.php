@@ -6,7 +6,7 @@
  * Time: 18:48
  */
 
-namespace HelperBundle\Services\Scss;
+namespace ServiceBundle\Services\Scss;
 
 
 interface ScssCompilerServiceInterface

@@ -12,7 +12,7 @@ namespace ServiceBundle\Services\Pages;
 use DataBundle\Entity\Page;
 use ServiceBundle\Services\Base\BaseStaticContentService;
 use Doctrine\ORM\EntityManager;
-use HelperBundle\Services\Slug\SlugServiceInterface;
+use ServiceBundle\Services\Slug\SlugServiceInterface;
 
 class PageService extends BaseStaticContentService implements PageServiceInterface
 {

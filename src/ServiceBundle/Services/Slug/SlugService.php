@@ -6,7 +6,7 @@
  * Time: 19:37
  */
 
-namespace HelperBundle\Services\Slug;
+namespace ServiceBundle\Services\Slug;
 
 use Behat\Transliterator\Transliterator;
 use function function_exists;

@@ -6,7 +6,7 @@
  * Time: 19:24.
  */
 
-namespace HelperBundle\Services\Database;
+namespace HelperBundle\Components\Database;
 
 use Doctrine\ORM\EntityManager;
 
@@ -25,7 +25,10 @@ class SchemaTool implements SchemaToolInterface
         $this->entityManager = $entityManager;
     }
 
-    public function updateSchema()
+    /**
+     * @inheritdoc
+     */
+    public function updateSchema(): void
     {
         $metadatas = $this->entityManager->getMetadataFactory()->getAllMetadata();
 

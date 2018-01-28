@@ -6,7 +6,7 @@
  * Time: 19:36
  */
 
-namespace HelperBundle\Services\Slug;
+namespace ServiceBundle\Services\Slug;
 
 
 interface SlugServiceInterface
