@@ -20,7 +20,7 @@ class UpdateController extends Controller
     public function schemaAction(Request $request): Response
     {
         try {
-            $schemaTool = $this->get('jinya_gallery.services.schema_tool');
+            $schemaTool = $this->get('jinya_gallery.components.schema_tool');
             $schemaTool->updateSchema();
             $success = true;
         } catch (Exception $exception) {

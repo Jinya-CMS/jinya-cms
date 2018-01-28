@@ -12,6 +12,11 @@ services:
         - '%assetic.write_to%'
   jinya_gallery.components.datatables_request_parser:
       class: HelperBundle\Components\DatatablesRequestParser
+  jinya_gallery.components.form_generator:
+      class: HelperBundle\Components\Form\FormGenerator
+      arguments:
+        - '@form.factory'
+        - '@jinya_gallery.services.theme_service'
 
   jinya_gallery.monolog.my_sql_handler:
       class: HelperBundle\Logging\MySqlHandler
@@ -22,6 +27,12 @@ services:
       class: HelperBundle\Logging\AccessLogHandler
       arguments:
         - '@doctrine.orm.entity_manager'
+  jinya_gallery.monolog.request_processor:
+      class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
+      arguments:
+        - '@request_stack'
+      tags:
+        - { name: monolog.processor, method: processRecord, handler: accesslog }
 
   jinya_gallery.event_subscriber.request_event_subscriber:
       class: HelperBundle\EventSubscriber\RequestEventSubscriber
@@ -37,18 +48,6 @@ services:
         - '@logger'
       tags:
           - { name: kernel.event_subscriber }
-
-  jinya_gallery.monolog.request_processor:
-      class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
-      arguments:
-        - '@request_stack'
-      tags:
-        - { name: monolog.processor, method: processRecord, handler: accesslog }
-  jinya_gallery.components.form_generator:
-      class: HelperBundle\Components\Form\FormGenerator
-      arguments:
-        - '@form.factory'
-        - '@jinya_gallery.services.theme_service'
 
   twig_extensions.intl:
     class: Twig_Extensions_Extension_Intl

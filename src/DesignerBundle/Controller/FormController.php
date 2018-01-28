@@ -55,7 +55,7 @@ class FormController extends Controller
     {
         $formService = $this->get('jinya_gallery.services.form_service');
         $form = $formService->get($slug);
-        $formGenerator = $this->get('jinya_gallery.services.form_generator');
+        $formGenerator = $this->get('jinya_gallery.components.form_generator');
 
         return $this->render('@Designer/form/details.html.twig', [
             'formModel' => $form,
