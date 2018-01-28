@@ -1,15 +1,16 @@
 .menu {
   position: fixed;
   max-height: calc(100vh - #{$menu-margin-top});
-  background: $primary-lighter;
+  background: $menu-background-color;
   border-radius: $menu-border-radius;
-  color: $primary-darker;
+  color: $menu-text-color;
   left: $menu-margin-left;
   top: $menu-margin-top;
   width: $menu-width;
   overflow-y: auto;
   z-index: 9999;
   overflow-x: hidden;
+  font-family: $menu-font-family;
 
   .close {
     display: none;

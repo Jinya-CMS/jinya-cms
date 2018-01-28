@@ -1,5 +1,5 @@
 @mixin menu-item-hover-background-gradient() {
-  background: linear-gradient(to right, transparent, $primary);
+  background: linear-gradient(to right, transparent, $menu-item-hover-background);
 }
 
 @mixin menu-blurred() {

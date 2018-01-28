@@ -36,6 +36,7 @@ $background-opacity: 1 !default;
  + Typography
  */
 $font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-heading: $font-family !default;
 $font-size-desktop: 16px;
 $font-size-tablet-landscape: 14px;
 $font-size-tablet-portrait: 12px;
@@ -71,10 +72,16 @@ $margin-top-tablet-portrait: $margin-top / 2 !default;
  * Menu
  */
 $menu-width: 20rem !default;
+$menu-border-radius: 1rem !default;
+$menu-font-family: $font-family !default;
+
+/** Colors **/
+$menu-background-color: $primary-lighter !default;
+$menu-text-color: $primary-darker !default;
+
+/** Margins **/
 $menu-margin-top: $margin-top;
 $menu-margin-left: 5rem !default;
-$menu-border-radius: 1rem !default;
-
 $menu-margin-top-mobile: $menu-margin-top / 2;
 $menu-margin-left-mobile: $menu-margin-left / 2;
 
@@ -97,6 +104,8 @@ $menu-social-bar-margin-top: 1rem !default;
 $menu-item-uppercase: true;
 $menu-item-padding-left: 3rem !default;
 
+$menu-item-hover-background: $primary !default;
+
 $menu-item-link-padding: 0.3rem 1.2rem !default;
 $menu-item-link-background: rgba(255, 255, 255, 0.2) !default;
 $menu-item-link-letter-spacing: 1px !default;
@@ -112,6 +121,7 @@ $menu-item-unblurred-text-shadow-color: transparentize($primary, 0.4) !default;
 $menu-item-unblurred-text-color: $primary !default;
 $menu-item-unblurred-text-shadow-blur-radius: 0.625em !default;
 
+/** Ultra mobile full screen menu **/
 $menu-ultra-mobile-claim-color: $white !default;
 $menu-ultra-mobile-claim-font-family: $font-family !default;
 $menu-ultra-mobile-claim-font-size: 3em !default;
@@ -202,6 +212,14 @@ $page-content-margin-right-mobile: 2.5rem;
 $page-content-margin-right-tablet-portrait: 2.5rem;
 $page-content-margin-right-tablet-landscape: 5rem;
 $page-content-margin-right-desktop: 27.5rem;
+
+$page-font-family: $font-family !default;
+$page-font-family-heading1: $font-family-heading !default;
+$page-font-family-heading2: $font-family-heading !default;
+$page-font-family-heading3: $font-family-heading !default;
+$page-font-family-heading4: $font-family-heading !default;
+$page-font-family-heading5: $font-family-heading !default;
+$page-font-family-heading6: $font-family-heading !default;
 
 /**
  + Social
