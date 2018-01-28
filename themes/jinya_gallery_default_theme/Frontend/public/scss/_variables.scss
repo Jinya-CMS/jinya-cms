@@ -101,16 +101,40 @@ $menu-item-link-padding: 0.3rem 1.2rem !default;
 $menu-item-link-background: rgba(255, 255, 255, 0.2) !default;
 $menu-item-link-letter-spacing: 1px !default;
 
-$menu-item-highlighted-font-size: 1.2em !default;
+$menu-item-highlighted-font-size: 120% !default;
 $menu-item-highlighted-font-weight: bold !default;
 $menu-item-highlighted-font-style: normal !default;
 
-$menu-item-blurred-text-shadow-color: $white;
-$menu-item-blurred-text-shadow-blur-radius: 0.625em;
+$menu-item-blurred-text-shadow-color: $white !default;
+$menu-item-blurred-text-shadow-blur-radius: 0.625em !default;
 
-$menu-item-unblurred-text-shadow-color: transparentize($primary, 0.4);
-$menu-item-unblurred-text-color: $primary;
-$menu-item-unblurred-text-shadow-blur-radius: 0.625em;
+$menu-item-unblurred-text-shadow-color: transparentize($primary, 0.4) !default;
+$menu-item-unblurred-text-color: $primary !default;
+$menu-item-unblurred-text-shadow-blur-radius: 0.625em !default;
+
+$menu-ultra-mobile-claim-color: $white !default;
+$menu-ultra-mobile-claim-font-family: $font-family !default;
+$menu-ultra-mobile-claim-font-size: 3em !default;
+
+$menu-ultra-mobile-close-bar-color: $primary !default;
+$menu-ultra-mobile-close-bar-height: 0.4rem !default;
+$menu-ultra-mobile-close-bar-width: 3rem !default;
+$menu-ultra-mobile-close-bar-left: 3rem !default;
+
+$menu-ultra-mobile-menu-bar-logo-height: 5em !default;
+$menu-ultra-mobile-menu-bar-logo-margin-top: 0.2em !default;
+$menu-ultra-mobile-menu-bar-logo-margin-bottom: 0.2em !default;
+$menu-ultra-mobile-menu-bar-logo-margin-left: 0.2em !default;
+$menu-ultra-mobile-menu-bar-logo-margin-right: 0.2em !default;
+$menu-ultra-mobile-menu-bar-logo-margin: $menu-ultra-mobile-menu-bar-logo-margin-top $menu-ultra-mobile-menu-bar-logo-margin-right $menu-ultra-mobile-menu-bar-logo-margin-bottom $menu-ultra-mobile-menu-bar-logo-margin-left !default;
+
+$menu-ultra-mobile-menu-bar-height: $menu-ultra-mobile-menu-bar-logo-height + $menu-ultra-mobile-menu-bar-logo-margin-top + $menu-ultra-mobile-menu-bar-logo-margin-bottom;
+
+$menu-ultra-mobile-menu-bar-hamburger-bar-height: 0.4em !default;
+$menu-ultra-mobile-menu-bar-hamburger-bar-width: 3em !default;
+$menu-ultra-mobile-menu-bar-hamburger-bar-margin-bottom: 0.4em !default;
+$menu-ultra-mobile-menu-bar-hamburger-top: ($menu-ultra-mobile-menu-bar-height - ($menu-ultra-mobile-menu-bar-hamburger-bar-height * 3 + $menu-ultra-mobile-menu-bar-hamburger-bar-margin-bottom * 3)) / 2 !default;
+$menu-ultra-mobile-menu-bar-hamburger-right: $menu-ultra-mobile-menu-bar-hamburger-top !default;
 
 /**
  * Artworks
@@ -210,16 +234,16 @@ $lightbox-close-button-top: 1rem !default;
 $lightbox-close-button-right: 2.5rem !default;
 $lightbox-close-button-color: $primary-lighter !default;
 
-$lightbox-close-button-icon-glyph: '\00D7';
-$lightbox-close-button-icon-size: 300%;
+$lightbox-close-button-icon-glyph: '\00D7' !default;
+$lightbox-close-button-icon-size: 300% !default;
 
-$lightbox-content-color: $primary-lighter;
-$lightbox-content-font-weight: 200;
+$lightbox-content-color: $primary-lighter !default;
+$lightbox-content-font-weight: 200 !default;
 
-$lightbox-padding-left: 5rem;
-$lightbox-padding-right: 5rem;
-$lightbox-padding-top: 5rem;
-$lightbox-padding-bottom: 10rem;
+$lightbox-padding-left: 5rem !default;
+$lightbox-padding-right: 5rem !default;
+$lightbox-padding-top: 5rem !default;
+$lightbox-padding-bottom: 10rem !default;
 
 /**
  * Scrollbar

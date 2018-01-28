@@ -117,15 +117,12 @@
       opacity: 1;
       visibility: visible;
     }
-    //
-    //@include breakpoint-tablet-portrait {
-    //  @include breakpoint-resizing-lightbox(1rem);
-    //}
+
     @include breakpoint-mobile {
-      @include breakpoint-resizing-lightbox(0);
+      @include breakpoint-resizing-lightbox(5em);
     }
     @include breakpoint-ultra-mobile {
-      @include breakpoint-resizing-lightbox(0);
+      @include breakpoint-resizing-lightbox(5em);
     }
   }
 }
