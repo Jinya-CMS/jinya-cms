@@ -4,6 +4,7 @@ defaultConfig:
   page:
     favicon:
     title: Jinya Gallery CMS
+    fontlink:
   menu:
     name:
       display: false
@@ -64,6 +65,9 @@ form:
           - name: favicon
             type: file
             label: Favicon
+          - name: fontlink
+            type: string
+            label: Zusätzliche Schriftarten
       - name: menu
         title: Menü
         groups:

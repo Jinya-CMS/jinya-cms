@@ -11,6 +11,11 @@
             <link rel="stylesheet"
                   href="{{ asset('public/jinya_gallery_default_theme/styles/all.css') }}">
         {% endblock %}
+        {% block styles_additional_fonts %}
+            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+            {% endif %}
+        {% endblock %}
         {% block styles_custom %}
         {% endblock %}
     {% endblock %}
