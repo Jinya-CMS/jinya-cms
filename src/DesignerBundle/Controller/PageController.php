@@ -2,7 +2,6 @@
 
 namespace DesignerBundle\Controller;
 
-use DataBundle\Services\Pages\PageServiceInterface;
 use DesignerBundle\Form\PageType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +19,6 @@ class PageController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        /** @var PageServiceInterface $pageService */
         $pageService = $this->get('jinya_gallery.services.page_service');
         $pages = $pageService->getAll(0, PHP_INT_MAX, '');
 

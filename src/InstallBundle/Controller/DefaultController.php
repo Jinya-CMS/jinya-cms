@@ -47,7 +47,7 @@ class DefaultController extends Controller
             ];
             ParameterProcessor::processParameters($parameters, $this->getParameter('kernel.root_dir'));
 
-            $schemaTool = $this->get('jinya_gallery.services.schema_tool');
+            $schemaTool = $this->get('jinya_gallery.components.schema_tool');
             $schemaTool->updateSchema();
 
             return $this->redirectToRoute('install_admin_create');

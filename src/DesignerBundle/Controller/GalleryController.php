@@ -4,7 +4,6 @@ namespace DesignerBundle\Controller;
 
 use DataBundle\Entity\Artwork;
 use DataBundle\Entity\ArtworkPosition;
-use DataBundle\Services\Galleries\GalleryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +22,6 @@ class GalleryController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        /** @var GalleryServiceInterface $galleryService */
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $galleries = $galleryService->getAll(0, PHP_INT_MAX, '');
 

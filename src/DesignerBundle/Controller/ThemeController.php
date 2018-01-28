@@ -2,7 +2,6 @@
 
 namespace DesignerBundle\Controller;
 
-use DataBundle\Services\Theme\ThemeServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -22,7 +21,6 @@ class ThemeController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        /** @var ThemeServiceInterface $themeService */
         $themeService = $this->get('jinya_gallery.services.theme_service');
         $themes = $themeService->getAllThemes();
 
