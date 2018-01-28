@@ -10,8 +10,9 @@ namespace ServiceBundle\Services\Log;
 
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Exception;
-use ServiceBundle\Entity\LogEntry;
+use HelperBundle\Entity\LogEntry;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -54,6 +55,13 @@ class LogService implements LogServiceInterface
         return $query->getResult();
     }
 
+    /**
+     * Gets a @see QueryBuilder filtered by level and filter
+     *
+     * @param string $level
+     * @param string $filter
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     private function getFilterQueryBuilder(string $level, string $filter)
     {
         $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
@@ -74,8 +82,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * Counts all elements
-     * @return int
+     * @inheritdoc
      */
     public function countAll(): int
     {
@@ -87,11 +94,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * Counts all elements based on the filters
-     *
-     * @param string $level
-     * @param string $filter
-     * @return int
+     * @inheritdoc
      */
     public function countFiltered(string $level, string $filter): int
     {
@@ -103,9 +106,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * Gets a list of all used log levels
-     *
-     * @return array
+     * @inheritdoc
      */
     public function getUsedLevels(): array
     {
@@ -121,9 +122,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * Removes all log entries from the database and deletes the log files
-     *
-     * @return void
+     * @inheritdoc
      */
     public function clear()
     {

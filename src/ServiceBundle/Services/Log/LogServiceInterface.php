@@ -9,7 +9,7 @@
 namespace ServiceBundle\Services\Log;
 
 
-use ServiceBundle\Entity\LogEntry;
+use HelperBundle\Entity\LogEntry;
 
 interface LogServiceInterface
 {
