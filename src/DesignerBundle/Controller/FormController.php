@@ -4,7 +4,6 @@ namespace DesignerBundle\Controller;
 
 use DataBundle\Entity\Form;
 use DataBundle\Entity\FormItem;
-use DataBundle\Services\Form\FormServiceInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,6 @@ class FormController extends Controller
      */
     public function indexAction(Request $request): Response
     {
-        /** @var FormServiceInterface $formService */
         $formService = $this->get('jinya_gallery.services.form_service');
         $forms = $formService->getAll(0, PHP_INT_MAX, '');
 
