@@ -20,6 +20,9 @@
 
 @include breakpoint-ultra-mobile {
   .gallery {
+    position: relative;
+    overflow-y: auto;
+
     &.horizontal {
       padding-top: $gallery-margin-top-ultra-mobile;
       padding-left: $gallery-content-padding-left-ultra-mobile;

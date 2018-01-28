@@ -8,6 +8,8 @@ defaultConfig:
   menu:
     name:
       display: false
+    mobile:
+      showBurger: true
   gallery:
     artwork:
       show_description: false
@@ -77,6 +79,12 @@ form:
               - name: display
                 type: boolean
                 label: Name anzeigen
+          - name: mobile
+            title: Mobiles Menü
+            fields:
+              - name: showBurger
+                type: boolean
+                label: Hamburgerbutton anzeigen
       - name: gallery
         title: Galerie
         groups:

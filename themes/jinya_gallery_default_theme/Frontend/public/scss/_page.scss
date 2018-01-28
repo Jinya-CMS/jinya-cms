@@ -1,4 +1,25 @@
 .page {
+  font-family: $page-font-family;
+
+  h1 {
+    font-family: $page-font-family-heading1;
+  }
+  h2 {
+    font-family: $page-font-family-heading2;
+  }
+  h3 {
+    font-family: $page-font-family-heading3;
+  }
+  h4 {
+    font-family: $page-font-family-heading4;
+  }
+  h5 {
+    font-family: $page-font-family-heading5;
+  }
+  h6 {
+    font-family: $page-font-family-heading6;
+  }
+
   @include breakpoint-desktop {
     margin-left: $page-content-margin-left-desktop;
     margin-right: $page-content-margin-right-desktop;

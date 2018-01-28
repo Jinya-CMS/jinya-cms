@@ -1,7 +1,6 @@
 .background {
   min-height: 100%;
-  min-width: 1024px;
-  width: 100%;
+  min-width: 100%;
   height: auto;
   position: fixed;
   top: 0;
@@ -9,6 +8,7 @@
   object-fit: cover;
   object-position: 0 0;
   opacity: $background-opacity;
+  width: 100%;
 
   &.gallery {
     opacity: $gallery-background-opacity;

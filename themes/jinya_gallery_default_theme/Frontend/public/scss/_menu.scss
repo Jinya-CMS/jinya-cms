@@ -1,15 +1,20 @@
 .menu {
   position: fixed;
   max-height: calc(100vh - #{$menu-margin-top});
-  background: $primary-lighter;
+  background: $menu-background-color;
   border-radius: $menu-border-radius;
-  color: $primary-darker;
+  color: $menu-text-color;
   left: $menu-margin-left;
   top: $menu-margin-top;
   width: $menu-width;
   overflow-y: auto;
   z-index: 9999;
   overflow-x: hidden;
+  font-family: $menu-font-family;
+
+  .close {
+    display: none;
+  }
 
   .logo {
     img {
@@ -107,20 +112,127 @@
   }
 }
 
+.menu-bar {
+  display: none;
+}
+
 @include breakpoint-ultra-mobile {
+  body {
+    padding-top: 6em;
+  }
+
   .menu {
-    position: relative;
-    width: 100%;
-    max-height: unset;
-    padding: 0;
-    left: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s, z-index 0.3s;
+    font-size: 150%;
+    position: fixed;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border: none;
     border-radius: 0;
+    height: 100%;
+    max-height: 100%;
 
     .logo {
-      display: none;
+      text-align: center;
+      display: block;
+    }
+
+    ul {
+      li {
+        font-size: 100%;
+
+        &.highlight {
+          font-size: calc(1em + 50%);
+
+          li {
+            &:not(.highlight) {
+              font-size: 60%;
+            }
+          }
+        }
+
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    .close {
+      position: fixed;
+      top: $menu-ultra-mobile-close-button-top;
+      right: $menu-ultra-mobile-close-button-right;
+      text-decoration: none;
+      color: $menu-ultra-mobile-close-button-color;
+      display: block;
+
+      &:after {
+        content: $menu-ultra-mobile-close-button-icon-glyph;
+        font-size: $menu-ultra-mobile-close-button-icon-size;
+        font-family: $menu-ultra-mobile-close-button-icon-font;
+      }
+    }
+
+    &:target {
+      opacity: 1;
+      z-index: 9999;
+      transition: opacity 0.3s;
+    }
+
+  }
+
+  .menu-bar {
+    display: block;
+    height: $menu-ultra-mobile-menu-bar-height;
+    width: 100%;
+    background: $primary;
+    position: fixed;
+    top: 0;
+
+    .burger {
+      position: fixed;
+      top: $menu-ultra-mobile-menu-bar-hamburger-top;
+      right: $menu-ultra-mobile-menu-bar-hamburger-right;
+
+      span {
+        display: block;
+        width: $menu-ultra-mobile-menu-bar-hamburger-bar-width;
+        height: $menu-ultra-mobile-menu-bar-hamburger-bar-height;
+        margin-bottom: $menu-ultra-mobile-menu-bar-hamburger-bar-margin-bottom;
+        position: relative;
+
+        background: $menu-ultra-mobile-claim-color;
+        border-radius: 3px;
+      }
+    }
+
+    .claim {
+      font-size: $menu-ultra-mobile-claim-font-size;
+      text-align: center;
+      width: 100%;
+      text-decoration: none;
+      color: $menu-ultra-mobile-claim-color;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: $menu-ultra-mobile-claim-font-family;
+      display: block;
+    }
+
+    img {
+      height: $menu-ultra-mobile-menu-bar-logo-height;
+      margin: $menu-ultra-mobile-menu-bar-logo-margin;
+      position: fixed;
+      top: 0;
+      left: 0;
     }
   }
+
 }
 
 @include breakpoint-mobile {
