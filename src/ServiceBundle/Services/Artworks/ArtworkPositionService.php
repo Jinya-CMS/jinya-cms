@@ -44,6 +44,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param int $position
      * @return bool
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\ORMException
      */
     public function savePosition(string $gallerySlug, string $artworkSlug, int $position): bool
     {
