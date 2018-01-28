@@ -114,6 +114,12 @@ designer:
           label: Sekundär Menü
         footer:
           label: Footer Menü
+      fieldset:
+        label: Menüs
     general:
       tab:
         label: Allgemeines
+      active:
+        label: Aktiviert
+        frontend:
+          label: Aktives Frontend Theme

@@ -40,10 +40,17 @@ class ThemeController extends Controller
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
         $menuService = $this->get('jinya_gallery.services.menu_service');
+        $frontendService = $this->get('jinya_gallery.services.frontend_configuration_service');
+        $frontendConfiguration = $frontendService->getConfig();
 
         if ($request->isMethod('POST')) {
             $variables = $request->get('scss_variables');
             $themeService->setVariables($name, array_filter($variables));
+
+            if ($request->get('general')['active']['frontend']) {
+                $frontendConfiguration->setCurrentTheme($themeService->getTheme($name));
+            }
+            $frontendService->writeConfig($frontendConfiguration);
 
             $this->postThemeConfig($name, $request->get('configuration'), $request->files);
             $themeService->setMenus($name, $request->get('menu'));
@@ -62,7 +69,8 @@ class ThemeController extends Controller
             'config' => $config,
             'theme' => $theme,
             'variables' => $variables,
-            'menus' => $menus
+            'menus' => $menus,
+            'frontend' => $frontendConfiguration
         ]);
     }
 

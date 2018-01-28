@@ -1,41 +1,57 @@
-<div class="page" id="menus">
-    <div class="form-group">
-        <label for="menu[primary]">{{ 'designer.theme.menus.form.primary.label'|trans }}</label>
-        <select name="menu[primary]" id="menu[primary]">
-            <option value="">{{ 'generic.please_choose'|trans }}</option>
-            {% for menu in menus %}
-                <option value="{{ menu.id }}"
-                        {% if theme.primaryMenu is not null and theme.primaryMenu.id == menu.id %}
-                            selected
-                        {% endif %}
-                >{{ menu.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="menu[secondary]">{{ 'designer.theme.menus.form.secondary.label'|trans }}</label>
-        <select name="menu[secondary]" id="menu[secondary]">
-            <option value="">{{ 'generic.please_choose'|trans }}</option>
-            {% for menu in menus %}
-                <option value="{{ menu.id }}"
-                        {% if theme.secondaryMenu is not null and theme.secondaryMenu.id == menu.id %}
-                            selected
-                        {% endif %}
-                >{{ menu.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="menu[footer]">{{ 'designer.theme.menus.form.footer.label'|trans }}</label>
-        <select name="menu[footer]" id="menu[footer]">
-            <option value="">{{ 'generic.please_choose'|trans }}</option>
-            {% for menu in menus %}
-                <option value="{{ menu.id }}"
-                        {% if theme.footerMenu is not null and theme.footerMenu.id == menu.id %}
-                            selected
-                        {% endif %}
-                >{{ menu.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
+<div class="page" id="general">
+    <fieldset>
+        <legend>{{ 'designer.theme.general.active.label'|trans }}</legend>
+        <div class="form-group">
+            <input type="hidden" name="general[active][frontend]" value="0">
+            <input type="checkbox" name="general[active][frontend]" id="general[active][frontend]"
+                    {% if frontend.currentTheme.id == theme.id %}
+                        checked
+                        disabled
+                    {% endif %}
+            >
+            <label for="general[active][frontend]">{{ 'designer.theme.general.active.frontend.label'|trans }}</label>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>{{ 'designer.theme.menus.fieldset.label'|trans }}</legend>
+        <div class="form-group">
+            <label for="menu[primary]">{{ 'designer.theme.menus.form.primary.label'|trans }}</label>
+            <select name="menu[primary]" id="menu[primary]">
+                <option value="">{{ 'generic.please_choose'|trans }}</option>
+                {% for menu in menus %}
+                    <option value="{{ menu.id }}"
+                            {% if theme.primaryMenu is not null and theme.primaryMenu.id == menu.id %}
+                                selected
+                            {% endif %}
+                    >{{ menu.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="menu[secondary]">{{ 'designer.theme.menus.form.secondary.label'|trans }}</label>
+            <select name="menu[secondary]" id="menu[secondary]">
+                <option value="">{{ 'generic.please_choose'|trans }}</option>
+                {% for menu in menus %}
+                    <option value="{{ menu.id }}"
+                            {% if theme.secondaryMenu is not null and theme.secondaryMenu.id == menu.id %}
+                                selected
+                            {% endif %}
+                    >{{ menu.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="menu[footer]">{{ 'designer.theme.menus.form.footer.label'|trans }}</label>
+            <select name="menu[footer]" id="menu[footer]">
+                <option value="">{{ 'generic.please_choose'|trans }}</option>
+                {% for menu in menus %}
+                    <option value="{{ menu.id }}"
+                            {% if theme.footerMenu is not null and theme.footerMenu.id == menu.id %}
+                                selected
+                            {% endif %}
+                    >{{ menu.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
 </div>

@@ -25,7 +25,6 @@ abstract class BaseFrontendController extends BaseController
             $themeService->compileTheme($activeTheme);
         }
 
-        $parameters['menu'] = $menuService->getAll()[0];
         $parameters['theme']['active'] = $activeTheme;
         $parameters['theme']['path'] = $themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
 
