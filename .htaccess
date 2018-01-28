@@ -8,9 +8,7 @@ RewriteEngine on
 RewriteRule jinya-gallery-cms.dll jinya-gallery-cms.php
 
 RewriteRule ^(.*)\.(png|jpg|gif|css|js|ico)$ web/%{REQUEST_URI}
-RewriteRule ^public/profile_picture/(.*)$ web/%{REQUEST_URI}
-RewriteRule ^public/gallery_background/(.*)$ web/%{REQUEST_URI}
-RewriteRule ^public/content_image/(.*)$ web/%{REQUEST_URI}
+RewriteRule ^public/(.*)$ web/%{REQUEST_URI}
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteCond %{REQUEST_FILENAME} !-d
