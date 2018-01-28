@@ -116,10 +116,13 @@ $menu-ultra-mobile-claim-color: $white !default;
 $menu-ultra-mobile-claim-font-family: $font-family !default;
 $menu-ultra-mobile-claim-font-size: 3em !default;
 
-$menu-ultra-mobile-close-bar-color: $primary !default;
-$menu-ultra-mobile-close-bar-height: 0.4rem !default;
-$menu-ultra-mobile-close-bar-width: 3rem !default;
-$menu-ultra-mobile-close-bar-left: 3rem !default;
+$menu-ultra-mobile-close-button-color: $primary !default;
+$menu-ultra-mobile-close-button-height: 0.4rem !default;
+$menu-ultra-mobile-close-button-right: 1em !default;
+$menu-ultra-mobile-close-button-top: 0 !default;
+$menu-ultra-mobile-close-button-icon-glyph: '\00D7' !default;
+$menu-ultra-mobile-close-button-icon-size: 300% !default;
+$menu-ultra-mobile-close-button-icon-font: "FontAwesome" !default;
 
 $menu-ultra-mobile-menu-bar-logo-height: 5em !default;
 $menu-ultra-mobile-menu-bar-logo-margin-top: 0.2em !default;
@@ -236,6 +239,7 @@ $lightbox-close-button-color: $primary-lighter !default;
 
 $lightbox-close-button-icon-glyph: '\00D7' !default;
 $lightbox-close-button-icon-size: 300% !default;
+$lightbox-close-button-icon-font: "FontAwesome" !default;
 
 $lightbox-content-color: $primary-lighter !default;
 $lightbox-content-font-weight: 200 !default;

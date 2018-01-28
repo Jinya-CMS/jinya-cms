@@ -162,31 +162,17 @@
     }
 
     .close {
-      display: block;
       position: fixed;
-      top: 0.5em;
-      right: 1em;
-      font-size: 300%;
+      top: $menu-ultra-mobile-close-button-top;
+      right: $menu-ultra-mobile-close-button-right;
       text-decoration: none;
-      width: $menu-ultra-mobile-close-bar-width;
-      height: $menu-ultra-mobile-close-bar-height;
+      color: $menu-ultra-mobile-close-button-color;
+      display: block;
 
-      &:before,
       &:after {
-        position: absolute;
-        left: $menu-ultra-mobile-close-bar-left;
-        content: ' ';
-        height: $menu-ultra-mobile-close-bar-height;
-        width: $menu-ultra-mobile-close-bar-width;
-        background-color: $menu-ultra-mobile-close-bar-color;
-        border-radius: 5px;
-      }
-      &::after {
-        transform: rotate(-45deg);
-      }
-
-      &::before {
-        transform: rotate(45deg);
+        content: $menu-ultra-mobile-close-button-icon-glyph;
+        font-size: $menu-ultra-mobile-close-button-icon-size;
+        font-family: $menu-ultra-mobile-close-button-icon-font;
       }
     }
 
@@ -195,7 +181,9 @@
       z-index: 9999;
       transition: opacity 0.3s;
     }
+
   }
+
   .menu-bar {
     display: block;
     height: $menu-ultra-mobile-menu-bar-height;
@@ -243,6 +231,7 @@
       left: 0;
     }
   }
+
 }
 
 @include breakpoint-mobile {
