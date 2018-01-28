@@ -9,19 +9,27 @@
 namespace ServiceBundle\Services\Base;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 abstract class BaseService
 {
     /** @var EntityManager */
     protected $entityManager;
 
+    /** @var EntityRepository */
+    private $repository;
+    /** @var string */
+    private $entityType;
+
     /**
      * BaseService constructor.
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, string $entityType)
     {
         $this->entityManager = $entityManager;
+        $this->entityType = $entityType;
     }
 
     /**
@@ -36,10 +44,18 @@ abstract class BaseService
     }
 
     /**
+     * Gets the entity by id
+     *
      * @param int $id
      * @return mixed
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public abstract function getById(int $id);
+    public function getById(int $id)
+    {
+        return $this->entityManager->find($this->entityType, $id);
+    }
 
     /**
      * Saves the given entity
@@ -85,5 +101,32 @@ abstract class BaseService
         }
 
         return $original;
+    }
+
+    /**
+     * Deletes the entity with the given id
+     *
+     * @param int $id
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function delete(int $id)
+    {
+        $item = $this->getById($id);
+        $this->entityManager->remove($item);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Gets a @see QueryBuilder for the current entity type
+     *
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilder(): QueryBuilder
+    {
+        if ($this->repository === null) {
+            $this->repository = $this->entityManager->getRepository($this->entityType);
+        }
+
+        return $this->repository->createQueryBuilder('entity');
     }
 }
