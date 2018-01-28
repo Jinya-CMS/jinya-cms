@@ -1,0 +1,100 @@
+.not {
+  &.ultra-mobile {
+    @include breakpoint-ultra-mobile {
+      display: none;
+    }
+  }
+  &.mobile {
+    @include breakpoint-mobile {
+      display: none;
+    }
+  }
+  &.tablet-landscape {
+    @include breakpoint-tablet-landscape {
+      display: none;
+    }
+  }
+  &.tablet-portrait {
+    @include breakpoint-tablet-portrait {
+      display: none;
+    }
+  }
+  &.desktop {
+    @include breakpoint-desktop {
+      display: none;
+    }
+  }
+}
+
+.only {
+  &.ultra-mobile {
+    @include breakpoint-desktop {
+      display: none;
+    }
+    @include breakpoint-tablet-portrait {
+      display: none;
+    }
+    @include breakpoint-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-landscape {
+      display: none;
+    }
+  }
+  &.mobile {
+    @include breakpoint-ultra-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-landscape {
+      display: none;
+    }
+    @include breakpoint-desktop {
+      display: none;
+    }
+    @include breakpoint-tablet-portrait {
+      display: none;
+    }
+  }
+  &.tablet-landscape {
+    @include breakpoint-ultra-mobile {
+      display: none;
+    }
+    @include breakpoint-desktop {
+      display: none;
+    }
+    @include breakpoint-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-portrait {
+      display: none;
+    }
+  }
+  &.tablet-portrait {
+    @include breakpoint-ultra-mobile {
+      display: none;
+    }
+    @include breakpoint-desktop {
+      display: none;
+    }
+    @include breakpoint-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-landscape {
+      display: none;
+    }
+  }
+  &.desktop {
+    @include breakpoint-ultra-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-portrait {
+      display: none;
+    }
+    @include breakpoint-mobile {
+      display: none;
+    }
+    @include breakpoint-tablet-landscape {
+      display: none;
+    }
+  }
+}
