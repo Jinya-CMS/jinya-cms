@@ -19,6 +19,8 @@ abstract class BaseFrontendController extends BaseController
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
         $themeCompilerService = $this->get('jinya_gallery.services.theme_compiler_service');
+        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
+
         $activeTheme = $themeService->getActiveTheme();
 
         if (!$themeCompilerService->isCompiled($activeTheme)) {
@@ -26,7 +28,7 @@ abstract class BaseFrontendController extends BaseController
         }
 
         $parameters['theme']['active'] = $activeTheme;
-        $parameters['theme']['path'] = $themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
+        $parameters['theme']['path'] = $themeConfigService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
 
         return parent::render($view, $parameters, $response);
     }

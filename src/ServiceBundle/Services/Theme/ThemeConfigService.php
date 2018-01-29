@@ -51,7 +51,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     public function saveConfig(array $config, string $themeName): void
     {
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeConfig = $this->getThemeConfig($theme);
+        $themeConfig = $this->getThemeConfig($theme->getName());
 
         if (array_key_exists('defaultConfig', $themeConfig)) {
             $defaultConfig = $themeConfig['defaultConfig'];
@@ -115,7 +115,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     {
         $theme = $this->themeService->getTheme($name);
         $stylesPath = $this->getStylesPath($theme);
-        $themeConfig = $this->getThemeConfig($theme);
+        $themeConfig = $this->getThemeConfig($theme->getName());
 
         $variablesPath = $stylesPath . DIRECTORY_SEPARATOR . $themeConfig['styles']['variables']['file'];
         $handle = fopen($variablesPath, "r");
@@ -142,7 +142,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function getStylesPath(Theme $theme): string
     {
-        $themeConfig = $this->getThemeConfig($theme);
+        $themeConfig = $this->getThemeConfig($theme->getName());
         $stylesBasePath = 'public/scss/';
         if (array_key_exists('styles_base', $themeConfig)) {
             $stylesBasePath = $themeConfig['styles_base'];

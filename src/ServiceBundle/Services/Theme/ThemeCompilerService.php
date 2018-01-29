@@ -54,7 +54,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function compileStyles(Theme $theme): void
     {
-        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
         $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
 
         $fs = new Filesystem();
@@ -131,7 +131,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getJavaScriptSource(Theme $theme): string
     {
-        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
         $scriptsBasePath = $this->getScriptsPath($theme);
 
         $source = '';
@@ -151,7 +151,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getScriptsPath(Theme $theme): string
     {
-        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
         $scriptsBasePath = 'public/javascripts/';
         if (array_key_exists('scripts_base', $themeConfig)) {
             $scriptsBasePath = $themeConfig['scripts_base'];
@@ -188,7 +188,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function isStylesCompiled(Theme $theme): bool
     {
-        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
         $fs = new Filesystem();
 
         $variables = $theme->getScssVariables();
