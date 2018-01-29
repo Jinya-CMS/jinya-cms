@@ -9,23 +9,16 @@
 namespace ServiceBundle\Services\Base;
 
 
-use DataBundle\Entity\ArtEntityInterface;
 use DataBundle\Entity\Artwork;
 use DataBundle\Entity\Label;
-use ServiceBundle\Services\Labels\LabelServiceInterface;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use ServiceBundle\Services\Labels\LabelServiceInterface;
 use ServiceBundle\Services\Slug\SlugServiceInterface;
 use function method_exists;
 
 abstract class BaseArtService extends BaseService implements BaseArtServiceInterface
 {
-    /** @var string */
-    private $entityType;
-
-    /** @var EntityRepository */
-    private $repository;
 
     /** @var SlugServiceInterface */
     private $slugService;
@@ -37,12 +30,12 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
      * BaseArtworkService constructor.
      * @param EntityManager $entityManager
      * @param SlugServiceInterface $slugService
+     * @param LabelServiceInterface $labelService
      * @param string $entityType
      */
     public function __construct(EntityManager $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, string $entityType)
     {
-        parent::__construct($entityManager);
-        $this->entityType = $entityType;
+        parent::__construct($entityManager, $entityType);
         $this->slugService = $slugService;
         $this->labelService = $labelService;
     }
@@ -60,7 +53,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     }
 
     /**
-     * Gets a querybuilder with a keyword filter
+     * Gets a @see QueryBuilder with a keyword filter
      *
      * @param string $keyword
      * @param Label|null $label
@@ -84,15 +77,6 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
         return $queryBuilder;
     }
 
-    protected function getQueryBuilder(): QueryBuilder
-    {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository($this->entityType);
-        }
-
-        return $this->repository->createQueryBuilder('entity');
-    }
-
     /**
      * @inheritdoc
      */
@@ -109,20 +93,6 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     /**
      * @inheritdoc
      */
-    public function delete(int $id)
-    {
-        $this->getQueryBuilder()
-            ->delete($this->entityType, 'entity')
-            ->where('entity.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
-    }
-
-    /**
-     * @param $idOrSlug int|string
-     * @return mixed
-     */
     public function get($idOrSlug)
     {
         if (is_numeric($idOrSlug)) {
@@ -132,21 +102,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     }
 
     /**
-     * Gets the entity by id
-     *
-     * @param int $id
-     * @return mixed
-     */
-    public function getById(int $id)
-    {
-        return $this->entityManager->find($this->entityType, $id);
-    }
-
-    /**
-     * Gets the entity by slug
-     *
-     * @param string $slug
-     * @return mixed
+     * @inheritdoc
      */
     public function getBySlug(string $slug)
     {
@@ -160,10 +116,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     }
 
     /**
-     * @param ArtEntityInterface $entity
-     * @return mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @inheritdoc
      */
     public function save($entity)
     {

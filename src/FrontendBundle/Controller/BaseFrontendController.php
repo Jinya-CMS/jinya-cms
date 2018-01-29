@@ -18,15 +18,17 @@ abstract class BaseFrontendController extends BaseController
     public function render($view, array $parameters = array(), Response $response = null)
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
-        $menuService = $this->get('jinya_gallery.services.menu_service');
+        $themeCompilerService = $this->get('jinya_gallery.services.theme_compiler_service');
+        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
+
         $activeTheme = $themeService->getActiveTheme();
 
-        if (!$themeService->isCompiled($activeTheme)) {
-            $themeService->compileTheme($activeTheme);
+        if (!$themeCompilerService->isCompiled($activeTheme)) {
+            $themeCompilerService->compileTheme($activeTheme);
         }
 
         $parameters['theme']['active'] = $activeTheme;
-        $parameters['theme']['path'] = $themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
+        $parameters['theme']['path'] = $themeConfigService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
 
         return parent::render($view, $parameters, $response);
     }

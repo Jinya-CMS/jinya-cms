@@ -46,6 +46,9 @@ class ArtworkService extends BaseArtService implements ArtworkServiceInterface
         parent::delete($id);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function get($idOrSlug): ?Artwork
     {
         return parent::get($idOrSlug);

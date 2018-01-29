@@ -10,7 +10,7 @@ namespace ServiceBundle\Services\Log;
 
 
 use Doctrine\ORM\EntityManager;
-use ServiceBundle\Entity\AccessLogEntry;
+use HelperBundle\Entity\AccessLogEntry;
 
 class AccessLogService implements AccessLogServiceInterface
 {

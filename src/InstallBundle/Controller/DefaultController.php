@@ -20,7 +20,7 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request): Response
     {
@@ -52,7 +52,7 @@ class DefaultController extends Controller
 
             return $this->redirectToRoute('install_admin_create');
         }
-        return $this->render('InstallBundle:Default:index.html.twig', [
+        return $this->render('@Install/Default/index.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -95,7 +95,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute('backend_default_index');
         }
 
-        return $this->render('InstallBundle:Default:createAdmin.html.twig', [
+        return $this->render('@Install/Default/createAdmin.html.twig', [
             'form' => $form->createView()
         ]);
     }

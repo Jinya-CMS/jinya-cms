@@ -13,10 +13,10 @@ class FrontendBundle extends Bundle
     public function boot()
     {
         try {
-            $themeService = $this->container->get('jinya_gallery.services.theme_service');
+            $themeSyncService = $this->container->get('jinya_gallery.services.theme_sync_service');
             $frontendConfigurationService = $this->container->get('jinya_gallery.services.frontend_configuration_service');
 
-            $themeService->syncThemes();
+            $themeSyncService->syncThemes();
             $this->container->set('jinya_gallery.frontend_configuration', $frontendConfigurationService->getConfig());
         } catch (Exception $e) {
             $logger = $this->container->get('logger');

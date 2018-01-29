@@ -9,10 +9,11 @@
 namespace ServiceBundle\Services\Routing;
 
 
-use DataBundle\Services\Artworks\ArtworkServiceInterface;
-use DataBundle\Services\Form\FormServiceInterface;
-use DataBundle\Services\Galleries\GalleryServiceInterface;
-use DataBundle\Services\Pages\PageServiceInterface;
+use DataBundle\Entity\SlugEntity;
+use ServiceBundle\Services\Artworks\ArtworkServiceInterface;
+use ServiceBundle\Services\Form\FormServiceInterface;
+use ServiceBundle\Services\Galleries\GalleryServiceInterface;
+use ServiceBundle\Services\Pages\PageServiceInterface;
 use Symfony\Component\Routing\Router;
 use const PHP_INT_MAX;
 use function array_map;
@@ -86,7 +87,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function ($item) use ($route) {
+        return function (/** @var $item SlugEntity */$item) use ($route) {
             return [
                 'name' => $route,
                 'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),

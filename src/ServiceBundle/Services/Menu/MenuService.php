@@ -96,6 +96,7 @@ class MenuService implements MenuServiceInterface
      */
     public function updateItem(MenuItem $item): MenuItem
     {
+        /** @var MenuItem $item */
         $item = $this->entityManager->merge($item);
         $this->entityManager->flush();
 

@@ -16,10 +16,9 @@ class ThemeController extends Controller
     /**
      * @Route("/theme/", name="designer_theme_index")
      *
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
         $themes = $themeService->getAllThemes();
@@ -39,13 +38,15 @@ class ThemeController extends Controller
     public function configAction(string $name, Request $request): Response
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
+        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
         $menuService = $this->get('jinya_gallery.services.menu_service');
         $frontendService = $this->get('jinya_gallery.services.frontend_configuration_service');
+
         $frontendConfiguration = $frontendService->getConfig();
 
         if ($request->isMethod('POST')) {
             $variables = $request->get('scss_variables');
-            $themeService->setVariables($name, array_filter($variables));
+            $themeConfigService->setVariables($name, array_filter($variables));
 
             if ($request->get('general')['active']['frontend']) {
                 $frontendConfiguration->setCurrentTheme($themeService->getTheme($name));
@@ -53,14 +54,14 @@ class ThemeController extends Controller
             $frontendService->writeConfig($frontendConfiguration);
 
             $this->postThemeConfig($name, $request->get('configuration'), $request->files);
-            $themeService->setMenus($name, $request->get('menu'));
+            $themeConfigService->setMenus($name, $request->get('menu'));
         }
 
-        $configForm = $themeService->getConfigForm($name);
+        $configForm = $themeConfigService->getConfigForm($name);
         $theme = $themeService->getTheme($name);
         $config = $theme->getConfiguration();
 
-        $variables = $themeService->getVariables($name);
+        $variables = $themeConfigService->getVariablesForm($name);
 
         $menus = $menuService->getAll();
 
@@ -83,6 +84,7 @@ class ThemeController extends Controller
     private function postThemeConfig(string $name, array $configuration, FileBag $files): void
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
+        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
 
         $oldConfiguration = $themeService->getTheme($name)->getConfiguration();
         $mediaService = $this->get('jinya_gallery.services_media.media_service');
@@ -104,7 +106,7 @@ class ThemeController extends Controller
                 $configuration[$key] = $path;
             }
         }
-        $themeService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
+        $themeConfigService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
     }
 
     private function getKeyAndFile(array $data = null, string $key = ''): array

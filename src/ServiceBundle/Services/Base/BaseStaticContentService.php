@@ -9,22 +9,14 @@
 namespace ServiceBundle\Services\Base;
 
 
-use DataBundle\Entity\SlugEntity;
 use DataBundle\Exceptions\EmptySlugException;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use ServiceBundle\Services\Slug\SlugServiceInterface;
 use function method_exists;
 
 abstract class BaseStaticContentService extends BaseService implements BaseStaticContentServiceInterface
 {
-    /** @var string */
-    private $entityType;
-
-    /** @var EntityRepository */
-    private $repository;
-
     /** @var SlugServiceInterface */
     private $slugService;
 
@@ -36,8 +28,7 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
      */
     public function __construct(EntityManager $entityManager, SlugServiceInterface $slugService, string $entityType)
     {
-        parent::__construct($entityManager);
-        $this->entityType = $entityType;
+        parent::__construct($entityManager, $entityType);
         $this->slugService = $slugService;
     }
 
@@ -70,15 +61,6 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
             ->setParameter('keyword', "%$keyword%");
     }
 
-    protected function getQueryBuilder(): QueryBuilder
-    {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository($this->entityType);
-        }
-
-        return $this->repository->createQueryBuilder('entity');
-    }
-
     /**
      * @inheritdoc
      */
@@ -90,16 +72,6 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
             ->select($queryBuilder->expr()->count('entity'))
             ->getQuery()
             ->getSingleScalarResult();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(int $id)
-    {
-        $item = $this->get($id);
-        $this->entityManager->remove($item);
-        $this->entityManager->flush();
     }
 
     /**
@@ -117,20 +89,6 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
             return $this->getById($idOrSlug);
         }
         return $this->getBySlug($idOrSlug);
-    }
-
-    /**
-     * Gets the entity by id
-     *
-     * @param int $id
-     * @return mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     */
-    public function getById(int $id)
-    {
-        return $this->entityManager->find($this->entityType, $id);
     }
 
     /**
@@ -153,10 +111,7 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
     }
 
     /**
-     * @param SlugEntity $entity
-     * @return mixed
-     * @throws EmptySlugException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @inheritdoc
      */
     public function save($entity)
     {
