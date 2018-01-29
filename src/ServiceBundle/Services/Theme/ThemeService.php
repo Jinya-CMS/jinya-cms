@@ -1,6 +1,4 @@
 <?php
-// TODO: Refactor this, create a separate ThemeCompilerService
-
 /**
  * Created by PhpStorm.
  * User: imanu
