@@ -53,8 +53,22 @@ services:
         - '%jinya_gallery.theme.directory%'
         - '%kernel.project_dir%'
         - '@twig.loader'
-        - '@jinya_gallery.services.menu_service'
+        - '@jiyna_gallery.services.theme_config_service'
       lazy: true
+  jiyna_gallery.services.theme_config_service:
+      class: ServiceBundle\Services\Theme\ThemeConfigService
+      arguments:
+        - '@jinya_gallery.services.theme_service'
+        - '@jinya_gallery.services.menu_service'
+        - '@doctrine.orm.entity_manager'
+        - '%jinya_gallery.theme.directory%'
+        - '%kernel.project_dir%'
+  jinya_gallery.services.theme_compiler_service:
+      class: ServiceBundle\Services\Theme\ThemeCompilerService
+      arguments:
+        - '@jiyna_gallery.services.theme_config_service'
+        - '@jinya_gallery.services.scss_compiler_service'
+        - '%kernel.project_dir%'
   jinya_gallery.services.frontend_configuration_service:
       class: ServiceBundle\Services\Configuration\FrontendConfigurationService
       arguments:
@@ -96,9 +110,3 @@ services:
         - '%mailer_sender%'
   jinya_gallery.services.scss_compiler_service:
       class: ServiceBundle\Services\Scss\ScssCompilerService
-  jinya_gallery.services.theme_compiler_service:
-      class: ServiceBundle\Services\Theme\ThemeCompilerService
-      arguments:
-        - '@jinya_gallery.services.theme_service'
-        - '@jinya_gallery.services.scss_compiler_service'
-        - '%kernel.project_dir%'

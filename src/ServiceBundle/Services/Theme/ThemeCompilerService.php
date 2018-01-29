@@ -18,8 +18,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 {
     private const THEME_COMPILATION_STATE = 'theme.compilation';
 
-    /** @var ThemeServiceInterface */
-    private $themeService;
+    /** @var ThemeConfigServiceInterface */
+    private $themeConfigService;
     /** @var ScssCompilerServiceInterface */
     private $scssCompilerService;
     /** @var string */
@@ -27,13 +27,13 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
     /**
      * ThemeCompilerService constructor.
-     * @param ThemeServiceInterface $themeService
+     * @param ThemeConfigServiceInterface $themeConfigService
      * @param ScssCompilerServiceInterface $scssCompilerService
      * @param string $kernelProjectDir
      */
-    public function __construct(ThemeServiceInterface $themeService, ScssCompilerServiceInterface $scssCompilerService, string $kernelProjectDir)
+    public function __construct(ThemeConfigServiceInterface $themeConfigService, ScssCompilerServiceInterface $scssCompilerService, string $kernelProjectDir)
     {
-        $this->themeService = $themeService;
+        $this->themeConfigService = $themeConfigService;
         $this->scssCompilerService = $scssCompilerService;
         $this->kernelProjectDir = $kernelProjectDir;
     }
@@ -54,7 +54,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function compileStyles(Theme $theme): void
     {
-        $themeConfig = $this->themeService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
         $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
 
         $fs = new Filesystem();
@@ -63,7 +63,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         if ($themeConfig['styles']['files']) {
             foreach ($themeConfig['styles']['files'] as $style) {
                 $scssCode = $this->getScssCodeForStyle($style, $theme);
-                $result = $this->scssCompilerService->compileScss($scssCode, $this->themeService->getStylesPath($theme), $variables);
+                $result = $this->scssCompilerService->compileScss($scssCode, $this->themeConfigService->getStylesPath($theme), $variables);
                 $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
                 $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
@@ -82,7 +82,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getScssCodeForStyle(string $style, Theme $theme): string
     {
-        $stylesPath = $this->themeService->getStylesPath($theme);
+        $stylesPath = $this->themeConfigService->getStylesPath($theme);
         $scssCode = file_get_contents($stylesPath . '/' . $style);
 
         return $scssCode;
@@ -131,7 +131,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getJavaScriptSource(Theme $theme): string
     {
-        $themeConfig = $this->themeService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
         $scriptsBasePath = $this->getScriptsPath($theme);
 
         $source = '';
@@ -151,13 +151,13 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getScriptsPath(Theme $theme): string
     {
-        $themeConfig = $this->themeService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
         $scriptsBasePath = 'public/javascripts/';
         if (array_key_exists('scripts_base', $themeConfig)) {
             $scriptsBasePath = $themeConfig['scripts_base'];
         }
 
-        $scriptsPath = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
+        $scriptsPath = $this->themeConfigService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
 
         return $scriptsPath;
     }
@@ -188,7 +188,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function isStylesCompiled(Theme $theme): bool
     {
-        $themeConfig = $this->themeService->getThemeConfig($theme);
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme);
         $fs = new Filesystem();
 
         $variables = $theme->getScssVariables();
