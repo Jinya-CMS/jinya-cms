@@ -10,6 +10,7 @@ namespace ServiceBundle\Services\Scss;
 
 
 use Leafo\ScssPhp\Compiler;
+use Leafo\ScssPhp\Formatter\Compressed;
 
 class ScssCompilerService implements ScssCompilerServiceInterface
 {
@@ -27,6 +28,7 @@ class ScssCompilerService implements ScssCompilerServiceInterface
         $scssCompiler = new Compiler();
         $scssCompiler->setVariables($variables);
         $scssCompiler->addImportPath($importPath);
+        $scssCompiler->setFormatter(Compressed::class);
 
         return $scssCompiler->compile($code);
     }

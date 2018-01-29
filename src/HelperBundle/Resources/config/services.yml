@@ -58,6 +58,7 @@ services:
       class: HelperBundle\Command\CompileThemesCommand
       arguments:
         - '@jinya_gallery.services.theme_service'
+        - '@jinya_gallery.services.theme_compiler_service'
       calls:
           - [setContainer, ['@service_container']]
       tags:
