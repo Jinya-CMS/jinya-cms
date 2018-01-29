@@ -76,21 +76,6 @@ interface ThemeServiceInterface
     public function registerThemes(): void;
 
     /**
-     * Compiles the scss and javascript of the given @see Theme
-     *
-     * @param Theme $theme
-     */
-    public function compileTheme(Theme $theme): void;
-
-    /**
-     * Checks whether the given theme is compiled
-     *
-     * @param Theme $theme
-     * @return bool
-     */
-    public function isCompiled(Theme $theme): bool;
-
-    /**
      * Gets the config form for the given theme
      *
      * @param string $name
@@ -122,4 +107,20 @@ interface ThemeServiceInterface
      * @param array $menus
      */
     public function setMenus(string $name, array $menus): void;
+
+    /**
+     * Gets the configuration for the given theme
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getThemeConfig(string $name): array;
+
+    /**
+     * Gets the path for the styles
+     *
+     * @param Theme $theme
+     * @return string
+     */
+    public function getStylesPath(Theme $theme): string;
 }

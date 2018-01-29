@@ -2,7 +2,8 @@
 
 namespace HelperBundle\Command;
 
-use DataBundle\Services\Theme\ThemeServiceInterface;
+use ServiceBundle\Services\Theme\ThemeCompilerServiceInterface;
+use ServiceBundle\Services\Theme\ThemeServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,15 +12,19 @@ class CompileThemesCommand extends ContainerAwareCommand
 {
     /** @var ThemeServiceInterface */
     private $themeService;
+    /** @var ThemeCompilerServiceInterface */
+    private $themeCompilerService;
 
     /**
      * CompileThemesCommand constructor.
      * @param ThemeServiceInterface $themeService
+     * @param ThemeCompilerServiceInterface $themeCompilerService
      */
-    public function __construct(ThemeServiceInterface $themeService)
+    public function __construct(ThemeServiceInterface $themeService, ThemeCompilerServiceInterface $themeCompilerService)
     {
         parent::__construct();
         $this->themeService = $themeService;
+        $this->themeCompilerService = $themeCompilerService;
     }
 
     /**
@@ -40,7 +45,7 @@ class CompileThemesCommand extends ContainerAwareCommand
         $themes = $this->themeService->getAllThemes();
         foreach ($themes as $theme) {
             $output->writeln('Compiling theme ' . $theme->getName());
-            $this->themeService->compileTheme($theme);
+            $this->themeCompilerService->compileTheme($theme);
             $output->writeln('Compiled theme ' . $theme->getName());
         }
 
