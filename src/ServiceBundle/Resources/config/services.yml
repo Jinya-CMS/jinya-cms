@@ -7,6 +7,14 @@ services:
       # this means you cannot fetch services directly from the container via $container->get()
       # if you need to do this, you can override this setting on individual services
       public: true
+  jinya_gallery.services.user_service:
+      class: ServiceBundle\Services\Users\UserService
+      arguments:
+        - '@fos_user.user_manager'
+        - '@doctrine.orm.entity_manager'
+        - '@fos_user.util.user_manipulator'
+        - '@jinya_gallery.services_media.media_service'
+
   jinya_gallery.services.gallery_service:
       class: ServiceBundle\Services\Galleries\GalleryService
       arguments:

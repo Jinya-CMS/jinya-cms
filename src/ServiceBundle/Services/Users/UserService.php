@@ -6,7 +6,7 @@
  * Time: 18:09.
  */
 
-namespace BackendBundle\Service\Users;
+namespace ServiceBundle\Services\Users;
 
 use BackendBundle\Form\AddUserData;
 use BackendBundle\Form\UserData;
@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\UserManipulator;
-use HelperBundle\Services\Media\MediaServiceInterface;
+use ServiceBundle\Services\Media\MediaServiceInterface;
 
 class UserService implements UserServiceInterface
 {
@@ -47,10 +47,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param int $offset
-     * @param int $count
-     *
-     * @return array
+     * @inheritdoc
      */
     public function getAllUsers(int $offset, int $count = 10): array
     {
@@ -62,9 +59,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param User $user
-     *
-     * @return UserData
+     * @inheritdoc
      */
     private function convertUserToUserData(User $user): UserData
     {
@@ -83,13 +78,19 @@ class UserService implements UserServiceInterface
         return $userData;
     }
 
-    public function deleteUser(int $id)
+    /**
+     * @inheritdoc
+     */
+    public function deleteUser(int $id): void
     {
         $user = $this->entityManager->find(User::class, $id);
         $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function updateUser(int $id, UserData $userData): User
     {
         /** @var User $user */
@@ -151,6 +152,9 @@ class UserService implements UserServiceInterface
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function createUser(AddUserData $userData): User
     {
         /** @var User $user */
@@ -162,6 +166,9 @@ class UserService implements UserServiceInterface
         return $user;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function activateUser(int $id): User
     {
         /** @var User $user */
@@ -174,6 +181,9 @@ class UserService implements UserServiceInterface
         return $user;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function deactivateUser(int $id): User
     {
         /** @var User $user */
@@ -186,6 +196,9 @@ class UserService implements UserServiceInterface
         return $user;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getUser(int $id): UserData
     {
         /** @var User $user */
@@ -194,11 +207,19 @@ class UserService implements UserServiceInterface
         return $this->convertUserToUserData($user);
     }
 
-    public function grantRole(int $userId, string $role)
+    /**
+     * @inheritdoc
+     */
+    public function grantRole(int $userId, string $role): void
     {
         $this->userManipulator->addRole($this->getUsernameById($userId), $role);
     }
 
+    /**
+     * @param int $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     private function getUsernameById(int $userId)
     {
         return $this->entityManager->createQueryBuilder()
@@ -210,12 +231,18 @@ class UserService implements UserServiceInterface
             ->getSingleScalarResult();
     }
 
-    public function revokeRole(int $userId, string $role)
+    /**
+     * @inheritdoc
+     */
+    public function revokeRole(int $userId, string $role): void
     {
         $this->userManipulator->removeRole($this->getUsernameById($userId), $role);
     }
 
-    public function changePassword(int $id, string $newPassword)
+    /**
+     * @inheritdoc
+     */
+    public function changePassword(int $id, string $newPassword): void
     {
         $this->userManipulator->changePassword($this->getUsernameById($id), $newPassword);
     }
