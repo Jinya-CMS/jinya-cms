@@ -61,7 +61,7 @@ class ThemeController extends Controller
         $theme = $themeService->getTheme($name);
         $config = $theme->getConfiguration();
 
-        $variables = $themeConfigService->getVariables($name);
+        $variables = $themeConfigService->getVariablesForm($name);
 
         $menus = $menuService->getAll();
 

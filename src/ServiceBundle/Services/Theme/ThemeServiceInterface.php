@@ -14,11 +14,6 @@ use DataBundle\Entity\Theme;
 interface ThemeServiceInterface
 {
     /**
-     * Synchronizes the themes from the filesystem
-     */
-    public function syncThemes(): void;
-
-    /**
      * Gets the theme by the given name
      *
      * @param string $name

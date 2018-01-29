@@ -24,7 +24,7 @@ abstract class BaseFrontendController extends BaseController
         $activeTheme = $themeService->getActiveTheme();
 
         if (!$themeCompilerService->isCompiled($activeTheme)) {
-            $themeCompilerService->isCcompileTheme($activeTheme);
+            $themeCompilerService->compileTheme($activeTheme);
         }
 
         $parameters['theme']['active'] = $activeTheme;

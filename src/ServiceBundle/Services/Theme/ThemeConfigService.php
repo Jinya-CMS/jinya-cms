@@ -111,7 +111,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     /**
      * @inheritdoc
      */
-    public function getVariables(string $name): array
+    public function getVariablesForm(string $name): array
     {
         $theme = $this->themeService->getTheme($name);
         $stylesPath = $this->getStylesPath($theme);

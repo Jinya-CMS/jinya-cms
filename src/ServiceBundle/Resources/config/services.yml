@@ -14,6 +14,7 @@ services:
         - '@jinya_gallery.services_media.media_service'
         - '@jinya_gallery.services_slug.slug_service'
         - '@jinya_gallery.services.label_service'
+
   jinya_gallery.services.artwork_service:
       class: ServiceBundle\Services\Artworks\ArtworkService
       arguments:
@@ -21,37 +22,49 @@ services:
         - '@jinya_gallery.services_media.media_service'
         - '@jinya_gallery.services_slug.slug_service'
         - '@jinya_gallery.services.label_service'
+
   jinya_gallery.services.artwork_position_service:
       class: ServiceBundle\Services\Artworks\ArtworkPositionService
       arguments:
         - '@jinya_gallery.services.gallery_service'
         - '@jinya_gallery.services.artwork_service'
         - '@doctrine.orm.default_entity_manager'
+
   jinya_gallery.services.page_service:
       class: ServiceBundle\Services\Pages\PageService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services_slug.slug_service'
+
   jinya_gallery.services.form_service:
       class: ServiceBundle\Services\Form\FormService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services_slug.slug_service'
+
   jinya_gallery.services.menu_service:
       class: ServiceBundle\Services\Menu\MenuService
       arguments:
         - '@doctrine.orm.entity_manager'
+
+  jinya_gallery.services_routing.route_retrieval_service:
+      class: ServiceBundle\Services\Routing\RouteRetrievalService
+      arguments:
+        - '@jinya_gallery.services.page_service'
+        - '@jinya_gallery.services.form_service'
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@router'
   jinya_gallery.services.route_service:
       class: ServiceBundle\Services\Routing\RouteService
       arguments:
         - '@doctrine.orm.entity_manager'
+
   jinya_gallery.services.theme_service:
       class: ServiceBundle\Services\Theme\ThemeService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services.frontend_configuration_service'
-        - '%jinya_gallery.theme.directory%'
-        - '%kernel.project_dir%'
         - '@twig.loader'
         - '@jiyna_gallery.services.theme_config_service'
       lazy: true
@@ -69,44 +82,51 @@ services:
         - '@jiyna_gallery.services.theme_config_service'
         - '@jinya_gallery.services.scss_compiler_service'
         - '%kernel.project_dir%'
+  jinya_gallery.services.theme_sync_service:
+      class: ServiceBundle\Services\Theme\ThemeSyncService
+      arguments:
+        - '@jinya_gallery.services.theme_service'
+        - '@doctrine.orm.entity_manager'
+        - '%kernel.project_dir%'
+        - '%jinya_gallery.theme.directory%'
+
   jinya_gallery.services.frontend_configuration_service:
       class: ServiceBundle\Services\Configuration\FrontendConfigurationService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@jinya_gallery.services.theme_service'
       lazy: true
+
   jinya_gallery.services.label_service:
       class: ServiceBundle\Services\Labels\LabelService
       arguments:
         - '@doctrine.orm.entity_manager'
+
   jinya_gallery.services.log_service:
       class: ServiceBundle\Services\Log\LogService
       arguments:
         - '@doctrine.orm.entity_manager'
         - '@logger'
+
   jinya_gallery.services.access_log_service:
       class: ServiceBundle\Services\Log\AccessLogService
       arguments:
         - '@doctrine.orm.entity_manager'
+
   jinya_gallery.services_slug.slug_service:
       class: ServiceBundle\Services\Slug\SlugService
+
   jinya_gallery.services_media.media_service:
       class: ServiceBundle\Services\Media\MediaService
       arguments:
         - '%base_url%'
         - '%kernel.root_dir%'
-  jinya_gallery.services_routing.route_retrieval_service:
-      class: ServiceBundle\Services\Routing\RouteRetrievalService
-      arguments:
-        - '@jinya_gallery.services.page_service'
-        - '@jinya_gallery.services.form_service'
-        - '@jinya_gallery.services.gallery_service'
-        - '@jinya_gallery.services.artwork_service'
-        - '@router'
+
   jinya_gallery.services.mailer_service:
       class: ServiceBundle\Services\Mailing\MailerService
       arguments:
         - '@mailer'
         - '%mailer_sender%'
+
   jinya_gallery.services.scss_compiler_service:
       class: ServiceBundle\Services\Scss\ScssCompilerService

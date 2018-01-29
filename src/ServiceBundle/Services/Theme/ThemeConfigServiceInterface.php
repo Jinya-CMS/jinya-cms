@@ -67,7 +67,7 @@ interface ThemeConfigServiceInterface
      * @param string $name
      * @return array
      */
-    public function getVariables(string $name): array;
+    public function getVariablesForm(string $name): array;
 
     /**
      * Saves the given variables
