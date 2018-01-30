@@ -6,7 +6,7 @@
  * Time: 00:20
  */
 
-namespace HelperBundle\Components;
+namespace HelperBundle\Components\DataTables;
 
 
 use Symfony\Component\HttpFoundation\Request;

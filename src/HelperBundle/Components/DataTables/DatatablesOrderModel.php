@@ -6,7 +6,7 @@
  * Time: 00:34
  */
 
-namespace HelperBundle\Components;
+namespace HelperBundle\Components\DataTables;
 
 
 class DatatablesOrderModel

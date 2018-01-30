@@ -6,7 +6,7 @@
  * Time: 00:28
  */
 
-namespace HelperBundle\Components;
+namespace HelperBundle\Components\DataTables;
 
 
 class DatatablesModel

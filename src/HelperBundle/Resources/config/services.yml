@@ -11,7 +11,7 @@ services:
         - '%assetic.variables%'
         - '%assetic.write_to%'
   jinya_gallery.components.datatables_request_parser:
-      class: HelperBundle\Components\DatatablesRequestParser
+      class: HelperBundle\Components\DataTables\DatatablesRequestParser
   jinya_gallery.components.form_generator:
       class: HelperBundle\Components\Form\FormGenerator
       arguments:
