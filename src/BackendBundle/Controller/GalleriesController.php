@@ -4,6 +4,7 @@ namespace BackendBundle\Controller;
 
 use BackendBundle\Form\GalleryType;
 use DataBundle\Entity\Gallery;
+use const PHP_INT_MAX;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,7 @@ class GalleriesController extends Controller
     {
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $offset = $request->get('offset', 0);
-        $count = $request->get('count', 12);
+        $count = PHP_INT_MAX;
         $keyword = $request->get('keyword', '');
         $allData = $galleryService->getAll($offset, $count, $keyword);
         $allCount = $galleryService->countAll($keyword);

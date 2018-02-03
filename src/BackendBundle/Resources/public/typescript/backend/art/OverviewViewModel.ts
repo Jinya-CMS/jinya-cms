@@ -5,9 +5,7 @@ class OverviewViewModel {
     public static CurrentVm: OverviewViewModel = null;
     public matchHeight = () => {
         $('.card img').imagesLoaded((data) => {
-            let scrollPosition = this.$container.scrollTop();
             $('.card').matchHeight();
-            this.$container.scrollTop(scrollPosition);
         });
     };
     public select = (item) => {
