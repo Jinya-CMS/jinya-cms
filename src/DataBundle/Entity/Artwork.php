@@ -79,7 +79,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return Collection
      */
-    public function getLabels(): Collection
+    public function getLabels(): ?Collection
     {
         return $this->labels;
     }
@@ -95,7 +95,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return Collection
      */
-    public function getPositions(): Collection
+    public function getPositions(): ?Collection
     {
         return $this->positions;
     }
@@ -111,7 +111,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
