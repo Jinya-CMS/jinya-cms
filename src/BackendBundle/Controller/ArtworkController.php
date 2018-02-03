@@ -58,7 +58,7 @@ class ArtworkController extends Controller
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
         $labelService = $this->get('jinya_gallery.services.label_service');
         $offset = $request->get('offset', 0);
-        $count = $request->get('count', 12);
+        $count = PHP_INT_MAX;
         $keyword = $request->get('keyword', '');
         $labelName = $request->get('label', null);
 

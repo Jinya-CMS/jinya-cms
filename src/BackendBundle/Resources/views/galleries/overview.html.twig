@@ -2,8 +2,7 @@
 
 {% block content %}
     <div class="galleries overview-list row" data-get-list-url="{{ url('backend_galleries_getAll') }}"
-         data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}"
-         data-bind="event: { scroll: scrolled }">
+         data-load-failure-message="{{ 'backend.galleries.load.failure'|trans }}">
         <!-- ko foreach: { data: items, afterRender: matchHeight } -->
         <div class="col-sm-3">
             <div data-bind="click: $root.select, css: { selected: $root.selectedItem().id === id }"
