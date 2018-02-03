@@ -66,7 +66,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return Collection
      */
-    public function getLabels(): Collection
+    public function getLabels(): ?Collection
     {
         return $this->labels;
     }
@@ -82,7 +82,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return string
      */
-    public function getOrientation(): string
+    public function getOrientation(): ?string
     {
         return $this->orientation;
     }
@@ -98,7 +98,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     /**
      * @return Collection
      */
-    public function getArtworks(): Collection
+    public function getArtworks(): ?Collection
     {
         return $this->artworks;
     }
