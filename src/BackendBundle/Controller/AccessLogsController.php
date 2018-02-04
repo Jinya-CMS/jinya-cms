@@ -50,6 +50,8 @@ class AccessLogsController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getListAction(Request $request): Response
     {
