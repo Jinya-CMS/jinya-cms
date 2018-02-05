@@ -109,6 +109,11 @@ class ThemeController extends Controller
         $themeConfigService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
     }
 
+    /**
+     * @param array|null $data
+     * @param string $key
+     * @return array
+     */
     private function getKeyAndFile(array $data = null, string $key = ''): array
     {
         if ($data) {
