@@ -90,6 +90,30 @@ class ArtworkController extends Controller
      */
     public function addAction(Request $request): Response
     {
+        $allLabels = $this->createMissingLabels($request);
+
+        $form = $this->createForm(ArtworkType::class, null, ['all_labels' => $allLabels]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $artworkService = $this->get('jinya_gallery.services.artwork_service');
+            $artworkService->saveOrUpdate($data);
+
+            return $this->redirectToRoute('backend_artworks_index');
+        }
+
+        return $this->render('@Backend/artworks/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function createMissingLabels(Request $request): array
+    {
         $labelService = $this->get('jinya_gallery.services.label_service');
         $allLabels = $labelService->getAllLabels();
 
@@ -106,20 +130,7 @@ class ArtworkController extends Controller
                 $allLabels = array_merge($allLabels, $missingLabels);
             }
         }
-
-        $form = $this->createForm(ArtworkType::class, null, ['all_labels' => $allLabels]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $artworkService = $this->get('jinya_gallery.services.artwork_service');
-            $artworkService->saveOrUpdate($data);
-            return $this->redirectToRoute('backend_artworks_index');
-        }
-
-        return $this->render('@Backend/artworks/add.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $allLabels;
     }
 
     /**
@@ -132,22 +143,8 @@ class ArtworkController extends Controller
     public function editAction(Request $request, int $id): Response
     {
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
-        $labelService = $this->get('jinya_gallery.services.label_service');
-        $allLabels = $labelService->getAllLabels();
 
-        if ($request->isMethod("POST")) {
-            $bundle = $request->get('backend_bundle_artwork_type');
-
-            if (array_key_exists('labelsChoice', $bundle)) {
-                $selectedLabels = $bundle['labelsChoice'];
-                $labels = [];
-                foreach ($selectedLabels as $selectedLabel) {
-                    $labels[] = ['name' => $selectedLabel];
-                }
-                $missingLabels = $labelService->createMissingLabels($selectedLabels);
-                $allLabels = array_merge($allLabels, $missingLabels);
-            }
-        }
+        $allLabels = $this->createMissingLabels($request);
 
         $artwork = $artworkService->get($id);
         $artwork->setLabelsChoice($artwork->getLabels()->toArray());
@@ -174,11 +171,10 @@ class ArtworkController extends Controller
     /**
      * @Route("/artworks/details/{id}", name="backend_artworks_details")
      *
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function detailsAction(Request $request, int $id): Response
+    public function detailsAction(int $id): Response
     {
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
         $artwork = $artworkService->get($id);
@@ -199,10 +195,12 @@ class ArtworkController extends Controller
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
         if ($request->isMethod('POST')) {
             $artworkService->delete($id);
+
             return $this->redirectToRoute('backend_artworks_overview');
         }
 
         $artwork = $artworkService->get($id);
+
         return $this->render('@Backend/artworks/delete.html.twig', [
             'artwork' => $artwork
         ]);
@@ -211,11 +209,10 @@ class ArtworkController extends Controller
     /**
      * @Route("/artworks/history/{id}", name="backend_artworks_history")
      *
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function historyAction(Request $request, int $id): Response
+    public function historyAction(int $id): Response
     {
         return $this->forward('BackendBundle:History:index', [
             'class' => Artwork::class,
