@@ -1,5 +1,5 @@
 class FilePicker {
-    static init = () => {
+    private static init = (() => {
         let buttons = document.querySelectorAll<HTMLButtonElement>('[data-toggle=file]');
         for (let i = 0; i < buttons.length; i++) {
             let button = buttons.item(i);
@@ -13,9 +13,5 @@ class FilePicker {
 
             button.addEventListener('click', evt => fileInput.click());
         }
-    }
+    })();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    FilePicker.init();
-});
