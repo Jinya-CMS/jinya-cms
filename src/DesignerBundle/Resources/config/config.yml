@@ -10,7 +10,7 @@ assetic:
         - '../app/Resources/public/typescript/util.js'
         - '@DesignerBundle/Resources/public/typescript/blockingLoader.js'
         - '@DesignerBundle/Resources/public/typescript/classiex.js'
-        - '@DesignerBundle/Resources/public/typescript/designer.js'
+        - '@DesignerBundle/Resources/public/typescript/designer-menu.js'
         - '@DesignerBundle/Resources/public/typescript/horizontalScroll.js'
         - '@DesignerBundle/Resources/public/typescript/modal.js'
         - '@DesignerBundle/Resources/public/typescript/ajax.js'
