@@ -9,18 +9,6 @@ class Modal {
 
         return new Modal(element, cache);
     };
-    static activate = () => {
-        let triggers = document.querySelectorAll('[data-toggle=modal]');
-
-        for (let i = 0; i < triggers.length; i++) {
-            let trigger = triggers.item(i);
-            let target = trigger.getAttribute('data-target');
-            let modal = new Modal(target);
-            trigger.addEventListener(trigger.getAttribute('data-trigger') || 'click', () => {
-                modal.show();
-            });
-        }
-    };
     static alert = (title: string, message: string, okButton: string = texts['generic.close']) => {
         return new Promise((resolve, reject) => {
             let id = Math.random();
@@ -116,6 +104,18 @@ class Modal {
             modal.show();
         });
     };
+    private static activate = (() => {
+        let triggers = document.querySelectorAll('[data-toggle=modal]');
+
+        for (let i = 0; i < triggers.length; i++) {
+            let trigger = triggers.item(i);
+            let target = trigger.getAttribute('data-target');
+            let modal = new Modal(target);
+            trigger.addEventListener(trigger.getAttribute('data-trigger') || 'click', () => {
+                modal.show();
+            });
+        }
+    })();
     private static modals = {};
     private static overlay: Element = document.createElement('div');
     private static current: Modal;
@@ -209,5 +209,3 @@ class Modal {
         this._canHide = value;
     }
 }
-
-Modal.activate();

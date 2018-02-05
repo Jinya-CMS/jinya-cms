@@ -1,5 +1,5 @@
 class Tabs {
-    static init = () => {
+    private static init = (() => {
         let tabs = document.querySelectorAll<HTMLAnchorElement>('[data-toggle=tab]');
         let parents = [];
         for (let i = 0; i < tabs.length; i++) {
@@ -29,7 +29,5 @@ class Tabs {
         if (tab) {
             tab.click();
         }
-    }
+    })();
 }
-
-Tabs.init();

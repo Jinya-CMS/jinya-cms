@@ -4,7 +4,7 @@ enum Direction {
 }
 
 class DesignerViewModel {
-    static activate = () => {
+    private static activate = (() => {
         let target = document.querySelector('.gallery-images');
         let vm = new DesignerViewModel();
         ko.applyBindings(vm, target);
@@ -12,7 +12,7 @@ class DesignerViewModel {
         vm._sourceUrl = target.getAttribute('data-source');
         vm._moveUrl = target.getAttribute('data-move');
         vm.load();
-    };
+    })();
     moveRight = (item: Gallery.Image) => {
         this.moveImage(item, Direction.RIGHT);
     };
@@ -121,5 +121,3 @@ class DesignerViewModel {
         return this._body;
     }
 }
-
-DesignerViewModel.activate();
