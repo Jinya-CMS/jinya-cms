@@ -101,6 +101,7 @@ class GalleriesController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $galleryService->saveOrUpdate($data);
+
             return $this->redirectToRoute('backend_galleries_details', [
                 'id' => $data->getId()
             ]);
@@ -115,14 +116,14 @@ class GalleriesController extends Controller
     /**
      * @Route("/galleries/details/{id}", name="backend_galleries_details")
      *
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function detailsAction(Request $request, int $id): Response
+    public function detailsAction(int $id): Response
     {
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($id);
+
         return $this->render('@Backend/galleries/details.html.twig', [
             'gallery' => $gallery
         ]);
@@ -140,10 +141,12 @@ class GalleriesController extends Controller
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         if ($request->isMethod('POST')) {
             $galleryService->delete($id);
+
             return $this->redirectToRoute('backend_galleries_overview');
         }
 
         $gallery = $galleryService->get($id);
+
         return $this->render('@Backend/galleries/delete.html.twig', [
             'gallery' => $gallery
         ]);
@@ -152,11 +155,10 @@ class GalleriesController extends Controller
     /**
      * @Route("/galleries/background/delete/{id}", methods={"DELETE"}, name="backend_galleries_background_delete")
      *
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function deleteBackgroundImage(Request $request, int $id): Response
+    public function deleteBackgroundImage(int $id): Response
     {
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($id);
@@ -169,11 +171,10 @@ class GalleriesController extends Controller
     /**
      * @Route("/galleries/history/{id}", name="backend_galleries_history")
      *
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function historyAction(Request $request, int $id): Response
+    public function historyAction(int $id): Response
     {
         return $this->forward('BackendBundle:History:index', [
             'class' => Gallery::class,
