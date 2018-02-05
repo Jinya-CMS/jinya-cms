@@ -7,7 +7,7 @@ use DataBundle\Entity\MenuItem;
 use DataBundle\Entity\RoutingEntry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
-use HelperBundle\Services\Media\MediaServiceInterface;
+use ServiceBundle\Services\Media\MediaServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,10 +35,9 @@ class MenuController extends Controller
     /**
      * @Route("/menu/add", name="designer_menu_add")
      *
-     * @param Request $request
      * @return Response
      */
-    public function addAction(Request $request): Response
+    public function addAction(): Response
     {
         return $this->render('@Designer/menu/add.html.twig');
     }
@@ -54,6 +53,7 @@ class MenuController extends Controller
     public function saveMenuAction(int $id = -1, Request $request): Response
     {
         $menuService = $this->get('jinya_gallery.services.menu_service');
+
         if ($id != -1) {
             $menu = $menuService->get($id);
             $menu->getMenuItems()->clear();
@@ -61,6 +61,7 @@ class MenuController extends Controller
         } else {
             $menu = new Menu();
         }
+
         $postedMenu = json_decode($request->get('_menu'), true);
 
         if ($request->files->has('_logo')) {
@@ -90,6 +91,12 @@ class MenuController extends Controller
         }
     }
 
+    /**
+     * @param array $children
+     * @param Menu|null $menu
+     * @param MenuItem|null $parent
+     * @return ArrayCollection
+     */
     private function prepareMenuChildren(array $children, ?Menu $menu = null, ?MenuItem $parent = null): ArrayCollection
     {
         $items = [];
@@ -124,10 +131,9 @@ class MenuController extends Controller
      * @Route("/menu/{id}", name="designer_menu_details", methods={"GET"})
      *
      * @param int $id
-     * @param Request $request
      * @return Response
      */
-    public function detailsAction(int $id, Request $request): Response
+    public function detailsAction(int $id): Response
     {
         $menuService = $this->get('jinya_gallery.services.menu_service');
         $menu = $menuService->get($id);
@@ -141,10 +147,9 @@ class MenuController extends Controller
      * @Route("/menu/{id}/edit", name="designer_menu_edit")
      *
      * @param int $id
-     * @param Request $request
      * @return Response
      */
-    public function editAction(int $id, Request $request): Response
+    public function editAction(int $id): Response
     {
         $menuService = $this->get('jinya_gallery.services.menu_service');
         $menu = $menuService->get($id);
@@ -179,10 +184,9 @@ class MenuController extends Controller
      * @Route("/menu/api/{id}", name="designer_menu_load_menu", methods={"GET"})
      *
      * @param int $id
-     * @param Request $request
      * @return Response
      */
-    public function loadAction(int $id, Request $request): Response
+    public function loadAction(int $id): Response
     {
         $menuService = $this->get('jinya_gallery.services.menu_service');
         try {
