@@ -1,18 +1,26 @@
-.gallery-images {
-  text-align: center;
-  position: relative;
+@mixin gallery-button() {
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, opacity 0.3s;
+  transform: scale3d(1, 1, 1);
+
+  &:hover {
+    background: darken($gray-100, 6%);
+    transform: scale3d(0.95, 0.95, 1);
+  }
+}
+
+.gallery {
+  display: flex;
+  height: 100%;
 
   &.horizontal-scroll {
     overflow-x: auto;
     overflow-y: hidden;
-    padding-top: 7.5%;
     padding-left: 2em;
-    height: 100%;
-    text-align: unset;
-    display: flex;
+    padding-top: 7.5%;
     flex-wrap: nowrap;
 
-    .gallery-image {
+    .gallery-item {
       display: inline-grid;
       grid-template-columns: 8em 1fr;
       grid-template-rows: 35em 2em;
@@ -21,48 +29,50 @@
       margin: 0.5em;
       padding-bottom: 20%;
 
-      .gallery-image-add {
+      .gallery-button-add {
         grid-column: #{unquote("1/2")};
         grid-row: #{unquote("1/2")};
         text-align: center;
         border: none;
       }
-      .gallery-image-edit-button {
+      .gallery-button-edit {
         z-index: 10;
         text-align: center;
-        position: unset;
-        grid-column: #{unquote("2/3")};
-        grid-row: #{unquote("1/2")};
-        border: none;
       }
-      .gallery-image-image {
-        grid-column: #{unquote("2/3")};
-        grid-row: #{unquote("1/2")};
+
+      .gallery-image-wrapper {
         display: inline;
-        border: none;
-        position: unset;
         height: 35em;
         width: auto;
 
-        .gallery-image-edit {
+        .gallery-image {
           height: 100%;
           width: auto;
         }
       }
-      .button-action-left {
+
+      .gallery-button-edit,
+      .gallery-image-wrapper {
         grid-column: #{unquote("2/3")};
-        grid-row: #{unquote("2/3")};
-        margin: 0;
-        left: 0;
-        position: absolute;
+        grid-row: #{unquote("1/2")};
       }
 
-      .button-action-right {
+      .gallery-footer-button-left {
+        left: 0;
+      }
+
+      .gallery-footer-button-right {
+        right: 0;
+      }
+
+      .gallery-footer-button-left,
+      .gallery-footer-button-right {
+        @extend .button;
+        @extend .button.primary;
         grid-column: #{unquote("2/3")};
         grid-row: #{unquote("2/3")};
-        right: 0;
-        position: absolute;
         margin: 0;
+        position: absolute;
       }
     }
   }
@@ -73,9 +83,8 @@
     padding-left: 7.5%;
     padding-right: 7.5%;
     padding-top: 2em;
-    height: 100%;
 
-    .gallery-image {
+    .gallery-item {
       display: block;
       flex: unset;
       position: relative;
@@ -90,11 +99,11 @@
         .gallery-image-action {
           height: 8em;
         }
-        .gallery-image-image {
+        .gallery-image-wrapper {
           border-bottom: none;
           border-top: none;
         }
-        .gallery-image-image,
+        .gallery-image-wrapper,
         .gallery-image-action {
           width: 100%;
 
@@ -104,7 +113,7 @@
         }
       }
 
-      .button-action-move {
+      .gallery-side-button-move {
         @extend .button.primary;
         min-width: calc(100% - 1.2em);
         max-width: calc(100% - 1.2em);
@@ -117,76 +126,15 @@
     }
   }
 
-  .gallery-image {
-    .gallery-image-image,
-    .gallery-image-action {
-      position: relative;
-      border: 10px solid transparent;
-
-    }
-
-    .gallery-image-edit,
-    .gallery-image-add,
-    .gallery-image-edit-button {
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s, opacity 0.3s;
-      transform: scale3d(1, 1, 1);
-
-      &:hover {
-        background: darken($gray-100, 6%);
-        transform: scale3d(0.95, 0.95, 1);
-      }
-    }
-    .gallery-image-edit-button {
-      background: $gray-100;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      z-index: 10;
-
-      &:hover {
-        opacity: 0.8;
-        border-radius: 4px;
-
-        + .gallery-image-image {
-          > .gallery-image-edit {
-            background: darken($gray-100, 6%);
-            transform: scale3d(0.95, 0.95, 1);
-            border-radius: 4px;
-          }
-        }
-      }
-      &::before, &::after {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        margin-top: -0.35em;
-        width: 100%;
-        color: $primary;
-        font-size: 1.5em;
-        font-family: FontAwesome;
-        pointer-events: none;
-      }
-      &::before {
-        content: '\f040';
-      }
-      &::after {
-        margin-top: -0.5em;
-        color: $primary;
-        content: '\f040';
-        font-size: 3em;
-        opacity: 0;
-        transition: opacity 0.3s, transform 0.3s;
-        transform: scale3d(2, 2, 1);
-      }
-    }
-    .gallery-image-edit {
+  .gallery-item {
+    .gallery-image {
       opacity: 1;
       z-index: 8;
+      transition: opacity 0.3s, transform 0.3s, background 0.3s;
     }
 
-    .gallery-image-add {
+    .gallery-button-add {
+      @include gallery-button;
       border-radius: 4px;
       background: darken($gray-100, 2%);
 
@@ -214,13 +162,51 @@
         transform: scale3d(2, 2, 1);
       }
     }
-    .button-action-left {
-      @extend .button;
-      @extend .button.primary;
-    }
-    .button-action-right {
-      @extend .button;
-      @extend .button.primary;
+    .gallery-button-edit {
+      @include gallery-button;
+      width: 100%;
+      height: 100%;
+      background: $gray-100;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 10;
+
+      &:hover {
+        opacity: 0.8;
+        border-radius: 4px;
+
+        + .gallery-image-wrapper {
+          > .gallery-image {
+            background: darken($gray-100, 6%);
+            transform: scale3d(0.95, 0.95, 1);
+            border-radius: 4px;
+          }
+        }
+      }
+      &::before,
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -0.35em;
+        width: 100%;
+        color: $primary;
+        font-size: 1.5em;
+        font-family: FontAwesome;
+        pointer-events: none;
+        content: '\f040';
+      }
+      &::after {
+        margin-top: -0.5em;
+        color: $primary;
+        content: '\f040';
+        font-size: 3em;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        transform: scale3d(2, 2, 1);
+      }
     }
   }
 }
