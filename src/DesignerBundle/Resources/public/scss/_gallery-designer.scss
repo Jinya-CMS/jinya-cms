@@ -8,55 +8,61 @@
     padding-top: 7.5%;
     padding-left: 2em;
     height: 100%;
+    text-align: unset;
     display: flex;
+    flex-wrap: nowrap;
 
     .gallery-image {
-      height: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      flex: 0 0 0;
+      display: inline-grid;
+      grid-template-columns: 8em 1fr;
+      grid-template-rows: 35em 2em;
+      grid-column-gap: 1em;
+      position: relative;
+      margin: 0.5em;
+      padding-bottom: 20%;
 
-      .gallery-image-content {
-        display: flex;
-        flex: 0 0 100%;
+      .gallery-image-add {
+        grid-column: #{unquote("1/2")};
+        grid-row: #{unquote("1/2")};
+        text-align: center;
+        border: none;
+      }
+      .gallery-image-edit-button {
+        z-index: 10;
+        text-align: center;
+        position: unset;
+        grid-column: #{unquote("2/3")};
+        grid-row: #{unquote("1/2")};
+        border: none;
+      }
+      .gallery-image-image {
+        grid-column: #{unquote("2/3")};
+        grid-row: #{unquote("1/2")};
+        display: inline;
+        border: none;
+        position: unset;
+        height: 35em;
+        width: auto;
 
-        .gallery-image-action {
-          width: 8em;
-        }
-
-        .gallery-image-content {
+        .gallery-image-edit {
           height: 100%;
-        }
-
-        .gallery-image-image,
-        .gallery-image-action {
-          display: flex;
-          height: 100%;
-
-          > img {
-            height: 100%;
-          }
+          width: auto;
         }
       }
-      .gallery-image-action-bar {
-        flex: 0 0 100%;
-        padding-right: 10px;
-        padding-left: 10px;
-        margin-top: -18px;
-        .button-bar {
-          margin-left: 7.5em;
-          text-align: left;
-          padding-right: 2px;
+      .button-action-left {
+        grid-column: #{unquote("2/3")};
+        grid-row: #{unquote("2/3")};
+        margin: 0;
+        left: 0;
+        position: absolute;
+      }
 
-          .button-action-left {
-            float: left;
-          }
-
-          .button-action-right {
-            float: right;
-            margin-right: -2px;
-          }
-        }
+      .button-action-right {
+        grid-column: #{unquote("2/3")};
+        grid-row: #{unquote("2/3")};
+        right: 0;
+        position: absolute;
+        margin: 0;
       }
     }
   }
@@ -76,6 +82,10 @@
 
       .gallery-image-content {
         width: 100%;
+        > div {
+          height: 100%;
+          width: 100%;
+        }
 
         .gallery-image-action {
           height: 8em;
@@ -108,116 +118,109 @@
   }
 
   .gallery-image {
-    .gallery-image-content {
-      .gallery-image-image,
-      .gallery-image-action {
-        position: relative;
-        border: 10px solid transparent;
+    .gallery-image-image,
+    .gallery-image-action {
+      position: relative;
+      border: 10px solid transparent;
 
-        .gallery-image-edit,
-        .gallery-image-add,
-        .gallery-image-edit-button {
-          cursor: pointer;
-          transition: transform 0.3s, background 0.3s, opacity 0.3s;
-          transform: scale3d(1, 1, 1);
+    }
 
-          &:hover {
-            background: darken($gray-100, 6%);
-            transform: scale3d(0.95, 0.95, 1);
-          }
-        }
-        .gallery-image-edit-button {
-          background: $gray-100;
-          position: absolute;
-          top: 0;
-          left: 0;
-          opacity: 0;
-          z-index: 10;
+    .gallery-image-edit,
+    .gallery-image-add,
+    .gallery-image-edit-button {
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s, opacity 0.3s;
+      transform: scale3d(1, 1, 1);
 
-          &:hover {
-            opacity: 0.8;
-            border-radius: 4px;
-
-            + .gallery-image-edit {
-              background: darken($gray-100, 6%);
-              transform: scale3d(0.95, 0.95, 1);
-              border-radius: 4px;
-            }
-          }
-          &::before, &::after {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            margin-top: -0.35em;
-            width: 100%;
-            color: $primary;
-            font-size: 1.5em;
-            font-family: FontAwesome;
-            pointer-events: none;
-          }
-          &::before {
-            content: '\f040';
-          }
-          &::after {
-            margin-top: -0.5em;
-            color: $primary;
-            content: '\f040';
-            font-size: 3em;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: scale3d(2, 2, 1);
-          }
-        }
-        .gallery-image-edit {
-          opacity: 1;
-          z-index: 8;
-        }
-        > div {
-          width: 100%;
-          height: 100%;
-
-          &.gallery-image-add {
-            border-radius: 4px;
-            background: darken($gray-100, 2%);
-
-            &::before, &::after {
-              position: absolute;
-              top: 50%;
-              left: 0;
-              margin-top: -0.35em;
-              width: 100%;
-              color: $primary;
-              font-size: 1.5em;
-              font-family: FontAwesome;
-              pointer-events: none;
-            }
-            &::before {
-              content: '\f067';
-            }
-            &::after {
-              margin-top: -0.5em;
-              color: $primary;
-              content: '\f00c';
-              font-size: 3em;
-              opacity: 0;
-              transition: opacity 0.3s, transform 0.3s;
-              transform: scale3d(2, 2, 1);
-            }
-          }
-        }
+      &:hover {
+        background: darken($gray-100, 6%);
+        transform: scale3d(0.95, 0.95, 1);
       }
     }
-    .gallery-image-action-bar {
-      .button-bar {
-        .button-action-left {
-          @extend .button;
-          @extend .button.primary;
-        }
-        .button-action-right {
-          @extend .button;
-          @extend .button.primary;
+    .gallery-image-edit-button {
+      background: $gray-100;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 10;
+
+      &:hover {
+        opacity: 0.8;
+        border-radius: 4px;
+
+        + .gallery-image-image {
+          > .gallery-image-edit {
+            background: darken($gray-100, 6%);
+            transform: scale3d(0.95, 0.95, 1);
+            border-radius: 4px;
+          }
         }
       }
+      &::before, &::after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -0.35em;
+        width: 100%;
+        color: $primary;
+        font-size: 1.5em;
+        font-family: FontAwesome;
+        pointer-events: none;
+      }
+      &::before {
+        content: '\f040';
+      }
+      &::after {
+        margin-top: -0.5em;
+        color: $primary;
+        content: '\f040';
+        font-size: 3em;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        transform: scale3d(2, 2, 1);
+      }
+    }
+    .gallery-image-edit {
+      opacity: 1;
+      z-index: 8;
+    }
+
+    .gallery-image-add {
+      border-radius: 4px;
+      background: darken($gray-100, 2%);
+
+      &::before, &::after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -0.35em;
+        width: 100%;
+        color: $primary;
+        font-size: 1.5em;
+        font-family: FontAwesome;
+        pointer-events: none;
+      }
+      &::before {
+        content: '\f067';
+      }
+      &::after {
+        margin-top: -0.5em;
+        color: $primary;
+        content: '\f00c';
+        font-size: 3em;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        transform: scale3d(2, 2, 1);
+      }
+    }
+    .button-action-left {
+      @extend .button;
+      @extend .button.primary;
+    }
+    .button-action-right {
+      @extend .button;
+      @extend .button.primary;
     }
   }
 }
