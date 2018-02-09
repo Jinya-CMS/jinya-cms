@@ -1,62 +1,118 @@
-.gallery-images {
-  text-align: center;
-  position: relative;
+@mixin gallery-button($icon) {
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, opacity 0.3s;
+  transform: scale3d(1, 1, 1);
+  border-radius: 4px;
+
+  &:hover {
+    background: darken($gray-100, 6%);
+    transform: scale3d(0.95, 0.95, 1);
+    opacity: 0.8;
+  }
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: $primary;
+    font-family: FontAwesome;
+    pointer-events: none;
+    content: $icon;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: scale3d(2, 2, 1);
+  }
+}
+
+@mixin gallery-move-button($mode, $direction, $icon) {
+  @extend .button;
+  @extend .button.primary;
+  margin: 0;
+  height: 2em;
+  transition: all 0.3s;
+
+  @if $mode == horizontal {
+    grid-column: #{unquote("2/3")};
+    grid-row: #{unquote("2/3")};
+    #{$direction}: 0;
+    position: absolute;
+  } @else if $mode == vertical {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &::before {
+    content: $icon;
+    top: 0;
+    font-family: FontAwesome;
+    color: $white;
+    opacity: 1;
+    transform: unset;
+    font-size: 1.3em;
+    transition: all 0.3s;
+    text-align: center;
+  }
+
+  &:hover {
+    transition: all 0.3s;
+    &::before {
+      transition: all 0.3s;
+      color: $primary;
+    }
+  }
+}
+
+.gallery {
+  height: 100%;
 
   &.horizontal-scroll {
     overflow-x: auto;
     overflow-y: hidden;
-    padding-top: 7.5%;
     padding-left: 2em;
-    height: 100%;
+    padding-top: 7.5%;
+    flex-wrap: nowrap;
     display: flex;
 
-    .gallery-image {
-      height: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      flex: 0 0 0;
+    .gallery-item {
+      display: inline-grid;
+      grid-template-columns: 8em 1fr;
+      grid-template-rows: 35em 2em;
+      grid-column-gap: 1em;
+      margin: 0.5em;
+      padding-bottom: 20%;
 
-      .gallery-image-content {
-        display: flex;
-        flex: 0 0 100%;
+      .gallery-button-add {
+        grid-column: #{unquote("1/2")};
+        grid-row: #{unquote("1/2")};
+        border: none;
+      }
+      .gallery-button-edit {
+        z-index: 10;
+      }
 
-        .gallery-image-action {
-          width: 8em;
-        }
+      .gallery-image-wrapper {
+        height: 35em;
+        width: auto;
 
-        .gallery-image-content {
+        .gallery-image {
           height: 100%;
-        }
-
-        .gallery-image-image,
-        .gallery-image-action {
-          display: flex;
-          height: 100%;
-
-          > img {
-            height: 100%;
-          }
+          width: auto;
         }
       }
-      .gallery-image-action-bar {
-        flex: 0 0 100%;
-        padding-right: 10px;
-        padding-left: 10px;
-        margin-top: -18px;
-        .button-bar {
-          margin-left: 7.5em;
-          text-align: left;
-          padding-right: 2px;
 
-          .button-action-left {
-            float: left;
-          }
+      .gallery-button-edit,
+      .gallery-image-wrapper {
+        grid-column: #{unquote("2/3")};
+        grid-row: #{unquote("1/2")};
+      }
 
-          .button-action-right {
-            float: right;
-            margin-right: -2px;
-          }
-        }
+      .gallery-footer-button-left {
+        @include gallery-move-button(horizontal, left, '\f060');
+      }
+
+      .gallery-footer-button-right {
+        @include gallery-move-button(horizontal, right, '\f061');
       }
     }
   }
@@ -67,155 +123,104 @@
     padding-left: 7.5%;
     padding-right: 7.5%;
     padding-top: 2em;
-    height: 100%;
 
-    .gallery-image {
-      display: block;
-      flex: unset;
-      position: relative;
+    .gallery-item {
+      display: grid;
+      grid-template-rows: 10em 2em 100% 2em;
+      grid-template-columns: 100%;
+      width: 100%;
 
-      .gallery-image-content {
-        width: 100%;
-
-        .gallery-image-action {
-          height: 8em;
+      &:first-of-type {
+        grid-template-rows: 10em 100% 2em;
+        .gallery-image-wrapper {
+          grid-row: #{unquote('2/3')};
         }
-        .gallery-image-image {
-          border-bottom: none;
-          border-top: none;
+        .gallery-button-edit {
+          grid-row: #{unquote('2/3')};
         }
-        .gallery-image-image,
-        .gallery-image-action {
-          width: 100%;
-
-          > img {
-            width: 100%;
-          }
+        .gallery-side-button-down {
+          @include gallery-move-button(vertical, down, '\f063');
+          grid-row: #{unquote('3/4')};
         }
       }
 
-      .button-action-move {
-        @extend .button.primary;
-        min-width: calc(100% - 1.2em);
-        max-width: calc(100% - 1.2em);
-        border: none;
-        padding: 0.5em;
-        margin-left: 0.6em;
-        margin-right: 0.6em;
-        outline: none;
+      &:nth-last-of-type(2) {
+        grid-template-rows: 10em 2em 100%;
+      }
+
+      .gallery-image-action {
+        height: 8em;
+      }
+      .gallery-image-wrapper {
+        grid-row: #{unquote('3/4')};
+        width: 100%;
+        height: auto;
+
+        .gallery-image {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .gallery-button-add {
+        margin: 1em 0;
+
+        &::before {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      .gallery-button-edit {
+        grid-row: #{unquote('3/4')};
+
+        &::before {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      .gallery-side-button-up {
+        @include gallery-move-button(vertical, up, '\f062');
+        grid-row: #{unquote('2/3')};
+      }
+      .gallery-side-button-down {
+        @include gallery-move-button(vertical, down, '\f063');
+        grid-row: #{unquote('4/5')};
       }
     }
   }
 
-  .gallery-image {
-    .gallery-image-content {
-      .gallery-image-image,
-      .gallery-image-action {
-        position: relative;
-        border: 10px solid transparent;
+  .gallery-item {
+    position: relative;
 
-        .gallery-image-edit,
-        .gallery-image-add,
-        .gallery-image-edit-button {
-          cursor: pointer;
-          transition: transform 0.3s, background 0.3s, opacity 0.3s;
-          transform: scale3d(1, 1, 1);
+    .gallery-image {
+      opacity: 1;
+      z-index: 8;
+      transition: opacity 0.3s, transform 0.3s, background 0.3s;
+    }
+    .gallery-image-wrapper {
+      display: inline;
+    }
+    .gallery-button-add {
+      @include gallery-button('\f067');
+      background: darken($gray-100, 2%);
+    }
+    .gallery-button-edit {
+      @include gallery-button('\f040');
+      width: 100%;
+      height: 100%;
+      background: $gray-100;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 10;
 
-          &:hover {
+      &:hover {
+        + .gallery-image-wrapper {
+          > .gallery-image {
             background: darken($gray-100, 6%);
             transform: scale3d(0.95, 0.95, 1);
-          }
-        }
-        .gallery-image-edit-button {
-          background: $gray-100;
-          position: absolute;
-          top: 0;
-          left: 0;
-          opacity: 0;
-          z-index: 10;
-
-          &:hover {
-            opacity: 0.8;
             border-radius: 4px;
-
-            + .gallery-image-edit {
-              background: darken($gray-100, 6%);
-              transform: scale3d(0.95, 0.95, 1);
-              border-radius: 4px;
-            }
           }
-          &::before, &::after {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            margin-top: -0.35em;
-            width: 100%;
-            color: $primary;
-            font-size: 1.5em;
-            font-family: FontAwesome;
-            pointer-events: none;
-          }
-          &::before {
-            content: '\f040';
-          }
-          &::after {
-            margin-top: -0.5em;
-            color: $primary;
-            content: '\f040';
-            font-size: 3em;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: scale3d(2, 2, 1);
-          }
-        }
-        .gallery-image-edit {
-          opacity: 1;
-          z-index: 8;
-        }
-        > div {
-          width: 100%;
-          height: 100%;
-
-          &.gallery-image-add {
-            border-radius: 4px;
-            background: darken($gray-100, 2%);
-
-            &::before, &::after {
-              position: absolute;
-              top: 50%;
-              left: 0;
-              margin-top: -0.35em;
-              width: 100%;
-              color: $primary;
-              font-size: 1.5em;
-              font-family: FontAwesome;
-              pointer-events: none;
-            }
-            &::before {
-              content: '\f067';
-            }
-            &::after {
-              margin-top: -0.5em;
-              color: $primary;
-              content: '\f00c';
-              font-size: 3em;
-              opacity: 0;
-              transition: opacity 0.3s, transform 0.3s;
-              transform: scale3d(2, 2, 1);
-            }
-          }
-        }
-      }
-    }
-    .gallery-image-action-bar {
-      .button-bar {
-        .button-action-left {
-          @extend .button;
-          @extend .button.primary;
-        }
-        .button-action-right {
-          @extend .button;
-          @extend .button.primary;
         }
       }
     }

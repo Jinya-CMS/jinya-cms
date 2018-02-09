@@ -3,57 +3,39 @@
     {% if gallery.background is not empty %}
         <img class="background-image" src="{{ gallery.background }}" alt="{{ gallery.name }}">
     {% endif %}
-    <div class="gallery-images {{ gallery.orientation }}-scroll"
+    <div class="gallery {{ gallery.orientation }}-scroll"
          data-source="{{ url('designer_gallery_images', { 'gallerySlug': gallery.slug }) }}"
          data-move="{{ url('designer_gallery_images_position_update', { 'gallerySlug': gallery.slug, 'artworkPositionId': '#tempid#' }) }}">
         <!-- ko foreach: images -->
-        <div class="gallery-image">
-            <div class="gallery-image-content">
-                <div class="gallery-image-action">
-                    <div class="gallery-image-add" role="button" data-bind="click: $root.addImage">
-                    </div>
-                </div>
-                {% if gallery.orientation == 'vertical' %}
-                    <!-- ko if: $index() !== 0 -->
-                    <button class="button-action-move" data-bind="click: $root.moveLeft">
-                        <i class="fa fa-arrow-up"></i>
-                    </button>
-                    <!-- /ko -->
-                {% endif %}
-                <div class="gallery-image-image">
-                    <div class="gallery-image-edit-button" role="button" data-bind="click: $root.editImage"></div>
-                    <img data-bind="attr: { src: source }" class="gallery-image-edit"/>
-                </div>
-                {% if gallery.orientation == 'vertical' %}
-                    <!-- ko if: $index() !== ($parent.images().length - 1) -->
-                    <button class="button-action-move" data-bind="click: $root.moveRight">
-                        <i class="fa fa-arrow-down"></i>
-                    </button>
-                    <!-- /ko -->
-                {% endif %}
+        <div class="gallery-item">
+            <div class="gallery-button-add" role="button" data-bind="click: $root.addImage">
             </div>
+            {% if gallery.orientation == 'vertical' %}
+                <!-- ko if: $index() !== 0 -->
+                <button class="gallery-side-button-up" data-bind="click: $root.moveLeft"></button>
+                <!-- /ko -->
+            {% endif %}
+            <div class="gallery-button-edit" role="button" data-bind="click: $root.editImage"></div>
+            <div class="gallery-image-wrapper">
+                <img data-bind="attr: { src: source }" class="gallery-image"/>
+            </div>
+            {% if gallery.orientation == 'vertical' %}
+                <!-- ko if: $index() !== ($parent.images().length - 1) -->
+                <button class="gallery-side-button-down" data-bind="click: $root.moveRight"></button>
+                <!-- /ko -->
+            {% endif %}
             {% if gallery.orientation == 'horizontal' %}
-                <div class="gallery-image-action-bar">
-                    <div class="button-bar">
-                        <!-- ko if: $index() !== 0 -->
-                        <button class="button-action-left" data-bind="click: $root.moveLeft"><i
-                                    class="fa fa-arrow-left"></i></button>
-                        <!-- /ko -->
-                        <!-- ko if: $index() !== ($parent.images().length - 1) -->
-                        <button class="button-action-right" data-bind="click: $root.moveRight"><i
-                                    class="fa fa-arrow-right"></i></button>
-                        <!-- /ko -->
-                    </div>
-                </div>
+                <!-- ko if: $index() !== 0 -->
+                <button class="gallery-footer-button-left" data-bind="click: $root.moveLeft"></button>
+                <!-- /ko -->
+                <!-- ko if: $index() !== ($parent.images().length - 1) -->
+                <button class="gallery-footer-button-right" data-bind="click: $root.moveRight"></button>
+                <!-- /ko -->
             {% endif %}
         </div>
         <!-- /ko -->
-        <div class="gallery-image">
-            <div class="gallery-image-content">
-                <div class="gallery-image-action">
-                    <div class="gallery-image-add" role="button" data-bind="click: addImage">
-                    </div>
-                </div>
+        <div class="gallery-item">
+            <div class="gallery-button-add" role="button" data-bind="click: addImage">
             </div>
         </div>
     </div>

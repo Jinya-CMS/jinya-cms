@@ -5,7 +5,7 @@ enum Direction {
 
 class DesignerViewModel {
     private static activate = (() => {
-        let target = document.querySelector('.gallery-images');
+        let target = document.querySelector('.gallery');
         let vm = new DesignerViewModel();
         ko.applyBindings(vm, target);
 
