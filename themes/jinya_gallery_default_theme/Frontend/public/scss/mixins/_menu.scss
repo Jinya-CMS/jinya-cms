@@ -1,0 +1,35 @@
+@mixin menu-item-hover-background-gradient() {
+  background: linear-gradient(to right, transparent, $menu-item-hover-background);
+}
+
+@mixin menu-blurred() {
+  color: transparent;
+  text-shadow: 0 0 $menu-item-blurred-text-shadow-blur-radius $menu-item-blurred-text-shadow-color;
+  @include menu-item-hover-background-gradient();
+}
+
+@mixin menu-unblurred() {
+  background: transparent;
+  text-shadow: 1px 1px $menu-item-unblurred-text-shadow-blur-radius $menu-item-unblurred-text-shadow-color;
+  color: $menu-item-unblurred-text-color;
+}
+
+@mixin menu-size($menuMarginLeft, $menuMarginTop,$menuWidth, $menu-logo-margin, $menuLogoSize) {
+  .menu {
+    left: $menuMarginLeft;
+    top: $menuMarginTop;
+    width: $menuWidth;
+    max-height: calc(100vh - #{$menuMarginTop});
+
+    .logo {
+      img {
+        height: $menuLogoSize;
+        width: $menuLogoSize;
+      }
+      div {
+        height: $menuLogoSize;
+        width: $menuLogoSize;
+      }
+    }
+  }
+}

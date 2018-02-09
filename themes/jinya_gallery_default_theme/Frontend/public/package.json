@@ -1,0 +1,9 @@
+{
+  "name": "jinya-gallery-cms-default-theme",
+  "author": "Imanuel Ulbricht",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@types/perfect-scrollbar": "^1.3.0"
+  }
+}

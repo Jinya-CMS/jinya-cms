@@ -1,0 +1,23 @@
+services:
+#    backend.example:
+#        class: BackendBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  jinya_gallery.services.user_service:
+      public: true
+      class: BackendBundle\Service\Users\UserService
+      arguments:
+        - '@fos_user.user_manager'
+        - '@doctrine.orm.entity_manager'
+        - '@fos_user.util.user_manipulator'
+        - '@jinya_gallery.services_media.media_service'
+
+  jinya_gallery.twig_extension.controller_utils:
+      class: BackendBundle\Twig\Extension\ControllerUtils
+      tags:
+          - { name: twig.extension }
+  jinya_gallery.twig_extension.translation_utils:
+      class: BackendBundle\Twig\Extension\TranslationUtils
+      arguments:
+        - '@translator.default'
+      tags:
+          - { name: twig.extension }

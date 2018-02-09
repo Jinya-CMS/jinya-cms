@@ -1,0 +1,20 @@
+services:
+#    frontend.example:
+#        class: FrontendBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  twig_extension.active_menu_item_check:
+      class: FrontendBundle\Twig\Extension\ActiveMenuItemCheck
+      arguments:
+        - '@router.request_context'
+      tags:
+          - { name: twig.extension }
+  twig_extension.inline:
+      class: FrontendBundle\Twig\Extension\Inline
+      tags:
+          - { name: twig.extension }
+  twig_extension.routing_helper:
+      class: FrontendBundle\Twig\Extension\RoutingHelper
+      arguments:
+        - '@router.request_context'
+      tags:
+          - { name: twig.extension }

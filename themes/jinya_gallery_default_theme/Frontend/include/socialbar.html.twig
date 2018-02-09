@@ -1,0 +1,42 @@
+<div class="social-bar">
+    {% if themeConfig.socialmedia.facebook is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.facebook }}" class="social-icon facebook">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/facebook-box.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.twitter is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.twitter }}" class="social-icon twitter">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/twitter-box.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.tumblr is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.tumblr }}" class="social-icon tumblr">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/tumblr-box.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.instagram is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.instagram }}" class="social-icon instagram">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/instagram.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.deviantart is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.deviantart }}" class="social-icon deviantart">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/deviantart.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.youtube is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.youtube }}" class="social-icon youtube">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/youtube.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.socialmedia.pinterest is not empty %}
+        <a target="_blank" href="{{ themeConfig.socialmedia.pinterest }}" class="social-icon pinterest">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/pinterest.svg')|raw }}
+        </a>
+    {% endif %}
+    {% if themeConfig.fundme.patreon is not empty %}
+        <a target="_blank" href="{{ themeConfig.fundme.patreon }}" class="social-icon patreon">
+            {{ inline(theme.path ~ 'Frontend/assets/icons/patreon.svg')|raw }}
+        </a>
+    {% endif %}
+</div>

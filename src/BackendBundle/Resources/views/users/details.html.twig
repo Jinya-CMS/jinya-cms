@@ -1,0 +1,30 @@
+{% extends 'BackendBundle:users:users_base.html.twig' %}
+
+{% block content %}
+    <div class="card" style="width: 20rem;">
+        <img class="card-img-top"
+             src="{{ user.profilePicture }}"
+             alt="{{ user.username }}">
+        <div class="card-body">
+            <h4 class="card-title">{{ user.firstname }} {{ user.lastname }}</h4>
+            <p class="card-text">
+            <ul class="list-unstyled">
+                <li>{{ user.email }}</li>
+                <li>{{ user.username }}</li>
+                {% if user.active %}
+                    <li>{{ 'backend.users.active'|trans }}</li>
+                {% endif %}
+                {% if user.superAdmin %}
+                    <li>{{ 'backend.users.superadmin'|trans }}</li>
+                {% endif %}
+                {% if user.admin %}
+                    <li>{{ 'backend.users.admin'|trans }}</li>
+                {% endif %}
+                {% if user.writer %}
+                    <li>{{ 'backend.users.editor'|trans }}</li>
+                {% endif %}
+            </ul>
+            </p>
+        </div>
+    </div>
+{% endblock %}

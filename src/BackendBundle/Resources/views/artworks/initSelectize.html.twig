@@ -1,0 +1,17 @@
+<script id="init-selectize">
+    var initSelectize = function () {
+        $('#{{ form.labelsChoice.vars.id }}').selectize({
+            persist: true,
+            create: function (input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            }
+        });
+    };
+
+    $(function () {
+        initSelectize();
+    });
+</script>

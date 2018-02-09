@@ -1,0 +1,11 @@
+{% extends '@Theme/jinya_gallery_default_theme/Frontend/base.html.twig' %}
+
+{% block head_title %}
+    &mdash; {{ page.title }}
+{% endblock %}
+
+{% block maincontent %}
+    <div class="page" data-scroll>
+        {{ page.content|raw }}
+    </div>
+{% endblock %}

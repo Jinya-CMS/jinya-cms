@@ -1,0 +1,79 @@
+services:
+#    data.example:
+#        class: DataBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    # default configuration for services in *this* file
+  _defaults:
+      # automatically injects dependencies in your services
+      autowire: true
+      # automatically registers your services as commands, event subscribers, etc.
+      autoconfigure: true
+      # this means you cannot fetch services directly from the container via $container->get()
+      # if you need to do this, you can override this setting on individual services
+      public: true
+  jinya_gallery.services.gallery_service:
+      class: DataBundle\Services\Galleries\GalleryService
+      arguments:
+        - '@doctrine.orm.default_entity_manager'
+        - '@jinya_gallery.services_media.media_service'
+        - '@jinya_gallery.services_slug.slug_service'
+        - '@jinya_gallery.services.label_service'
+  jinya_gallery.services.artwork_service:
+      class: DataBundle\Services\Artworks\ArtworkService
+      arguments:
+        - '@doctrine.orm.default_entity_manager'
+        - '@jinya_gallery.services_media.media_service'
+        - '@jinya_gallery.services_slug.slug_service'
+        - '@jinya_gallery.services.label_service'
+  jinya_gallery.services.artwork_position_service:
+      class: DataBundle\Services\Artworks\ArtworkPositionService
+      arguments:
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@doctrine.orm.default_entity_manager'
+  jinya_gallery.services.page_service:
+      class: DataBundle\Services\Pages\PageService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services_slug.slug_service'
+  jinya_gallery.services.form_service:
+      class: DataBundle\Services\Form\FormService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services_slug.slug_service'
+  jinya_gallery.services.menu_service:
+      class: DataBundle\Services\Menu\MenuService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.services.route_service:
+      class: DataBundle\Services\Routing\RouteService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.services.theme_service:
+      class: DataBundle\Services\Theme\ThemeService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services.frontend_configuration_service'
+        - '%jinya_gallery.theme.directory%'
+        - '%kernel.project_dir%'
+        - '@twig.loader'
+        - '@jinya_gallery.services.scss_compiler_service'
+        - '@jinya_gallery.services.menu_service'
+      lazy: true
+  jinya_gallery.services.frontend_configuration_service:
+      class: DataBundle\Services\Configuration\FrontendConfigurationService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@jinya_gallery.services.theme_service'
+      lazy: true
+  jinya_gallery.services.label_service:
+      class: DataBundle\Services\Labels\LabelService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+
+  jinya_gallery.event_subscriber.history_enabled_entity_subscriber:
+      class: DataBundle\EventSubscriber\HistoryEnabledEntitySubscriber
+      arguments:
+        - '@security.token_storage'
+      tags:
+          - { name: doctrine.event_subscriber }

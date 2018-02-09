@@ -1,0 +1,13 @@
+{% extends 'BackendBundle:users:users_base.html.twig' %}
+
+{% block content %}
+    <form method="POST">
+        <h1>{{ 'backend.users.delete.title'|trans({'%firstname%': user.firstname, '%lastname%': user.lastname}) }}</h1>
+        <p>{{ 'backend.users.delete.content'|trans({'%firstname%': user.firstname, '%lastname%': user.lastname})|raw }}</p>
+        <p>
+            <button class="btn btn-danger" type="submit">{{ 'generic.delete'|trans }}</button>
+            <a class="btn btn-secondary" href="{{ url('backend_users_overview') }}" data-target="#content"
+               data-action="nav">{{ 'generic.cancel'|trans }}</a>
+        </p>
+    </form>
+{% endblock %}

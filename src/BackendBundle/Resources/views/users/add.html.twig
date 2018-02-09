@@ -1,0 +1,15 @@
+{% extends 'BackendBundle:users:users_base.html.twig' %}
+
+{% block content %}
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">{{ 'generic.save'|trans }}</button>
+            <a class="btn btn-secondary" href="{{ url('backend_users_overview') }}" data-target="#content"
+               data-action="nav">{{ 'generic.cancel'|trans }}</a>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

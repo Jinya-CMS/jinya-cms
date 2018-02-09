@@ -1,0 +1,150 @@
+layout:
+  backend:
+    title: Backend
+    menu:
+      users: Künstler
+      asset:
+        title: Skripte und Styles
+        dump: Skripte und Styles erzeugen
+      cache:
+        title: Cache
+        clear: Cache leeren
+        warmup: Cache erzeugen
+      tools: Tools
+      maintenance:
+        schema:
+          update: Datenbankschema aktualisieren
+        title: Wartung
+      log:
+        title: Protokolle
+        application: Anwendungsprotokoll
+        access: Zugriffsprotokoll
+      galleries: Galerien
+      artworks: Kunstwerke
+      designer: Designer
+sidebar:
+  users:
+    overview: Überblick
+    add: Neuer Künstler
+    edit: Künstler bearbeiten
+    details: Künstlerdetails
+    delete: Künstler löschen
+    changepassword: Passwort ändern
+  accesslog:
+    details: Zugriffsdetails
+    overview: Überblick
+  log:
+    overview: Überblick
+    details: Eintragdetails
+    clear: Protokoll löschen
+  galleries:
+    overview: Überblick
+    add: Galerie hinzufügen
+    edit: Galerie bearbeiten
+    details: Galleriedetails
+    delete_background: Hintegrundbild löschen
+    delete: Galerie löschen
+    history: Galleriehistorie
+  artworks:
+    overview: Überblick
+    add: Kunstwerk hinzufügen
+    edit: Kunstwerk bearbeiten
+    details: Kunstwerkdetails
+    delete: Kunstwerk löschen
+    history: Kunstwerkhistorie
+  generic:
+    label:
+      add: Label hinzufügen
+backend:
+  users:
+    email: Emailadresse
+    firstname: Vorname
+    lastname: Nachname
+    username: Benutzername
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    active: Aktiv
+    superadmin: Superadmin
+    admin: Admin
+    editor: Schreiber
+    profilepicture: Profilbild
+    delete:
+      title: Wollen Sie den Künstler %firstname% %lastname% wirklich löschen?
+      content: Wenn Sie den Künstler %firstname% %lastname% löschen, ist es nicht mehr möglich die Inhalte dieses Künstlers aufzurufen und diese anzuzeigen.<br/>Weiterhin ist es dem Künstler anschließend nicht mehr möglich sich anzumelden.
+  cache:
+    clear:
+      success: Cache erfolgreich gelöscht
+      progress: Cache wird gelöscht
+      error: Fehler beim Leeren des Caches
+    warmup:
+      success: Cache erfolgreich erzeugt
+      progress: Cache wird erzeugt
+      error: Fehler beim Erzeugen des Caches
+  asset:
+      dump:
+        success: Skripte und Styles erfolgreich erzeugt
+        progress: Skripte und Styles werden erzeugt
+        error: Fehler beim Erzeugen der Skripte und Styles
+  maintenance:
+    schema:
+      update:
+        success: Das Datenbankschema wurde erfolgreich aktualisiert
+        progress: Das Datenbankschema wird aktualisiert
+        error: Das Datenbankschema konnte nicht aktualisiert werden
+  log:
+    created_at: Geschrieben am
+    level: Level
+    message: Nachricht
+    extra: Zusätzliche Daten
+    context: Kontext
+    clear:
+      title: Protokoll löschen
+      content: Wenn sie das Protokoll leeren, werden alle Einträge in der Datenbank, sowie die Protokolldatei auf dem Server gelöscht.
+      success: Das Protokoll wurde erfolgreich gelöscht
+      processing: Das Protokoll wird gelöscht
+      error: Das Protokoll konnte nicht gelöscht werden
+  accesslog:
+    ip: Client IP
+    method: HTTP Methode
+    created_at: Zugriff am
+    uri: URL
+    details:
+      title: Zugriff am %s
+    userAgent: User Agent
+  galleries:
+    load:
+      failure: Die Galerien konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Galerien gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    background: Hintergrundbild
+    select: Galerie auswählen
+    delete:
+      title: Wollen Sie die Galerie %name% wirklich löschen?
+      content: Wenn Sie die Galerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
+      background:
+        title: Soll das Hintergrundbild wirklich gelöscht werden?
+    orientation:
+      label: Ausrichtung
+      horizontal: Horizontal
+      vertical: Vertical
+  artworks:
+    load:
+      failure: Die Kunstwerke konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Kunstwerke gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    picture: Bild
+    select: Kunstwerk auswählen
+    labels: Labels
+    delete:
+      title: Wollen Sie das Kunstwerk %name% wirklich löschen?
+      content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.
+  art:
+    label:
+      name: Name
+      add: Label hinzufügen

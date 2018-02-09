@@ -1,0 +1,17 @@
+{% extends '@Designer/base.html.twig' %}
+{% block header %}{{ 'layout.designer.gallery.header'|trans }}{% endblock %}
+{% block content %}
+    <div class="list">
+        {% for gallery in galleries %}
+            <a class="card" href="{{ url('designer_gallery_details', { 'gallerySlug': gallery.slug }) }}">
+                {% if gallery.background is not empty %}
+                    <img class="card-img-top" src="{{ gallery.background }}"/>
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ gallery.name }}</h4>
+                    <p class="card-text">{{ gallery.description }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

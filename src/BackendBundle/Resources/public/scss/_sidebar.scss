@@ -1,0 +1,52 @@
+body {
+  overflow-x: hidden;
+  padding-top: 56px;
+}
+
+.sidebar {
+  z-index: 1000;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  width: 250px;
+  list-style: none;
+  .nav-link {
+    color: #ffffff;
+    &.nav-link.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+  .nav-header {
+    color: #ffffff;
+    font-weight: bold;
+    font-variant: all-small-caps;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+  &.no-edit .overview {
+    display: none;
+  }
+
+  .btn-outline-primary {
+    color: white;
+  }
+
+  .overview {
+    display: block;
+  }
+
+  .form-control {
+    background: transparent;
+    border: none;
+    color: white;
+
+    @include placeholder(white, 0.8);
+  }
+}
+
+.page {
+  padding-left: 250px;
+  padding-right: 0;
+}

@@ -1,0 +1,14 @@
+parameters:
+    database_host: localhost
+    database_port: 3306
+    database_name: jinya-gallery-cms
+    database_user: root
+    database_password: start
+    secret: 5a01ee9c3b46b
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_port: 1025
+    mailer_user:
+    mailer_password:
+    base_url: http://localhost:8000/
+    mailer_sender: noreply@localhost

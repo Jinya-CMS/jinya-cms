@@ -1,0 +1,42 @@
+<div class="grid">
+    <div class="form grid full">
+        <div class="half">
+            <div class="form-group">
+                <label for="name">{{ 'designer.menu.editor.name'|trans }}</label>
+                <input id="name" type="text" data-bind="value: menu().name">
+            </div>
+            <div class="form-group">
+                <label for="logo">{{ 'designer.menu.editor.logo'|trans }}</label>
+                <!-- ko if: menu().logo -->
+                <img data-bind="attr: { src: menu().logo }">
+                <!-- /ko -->
+                <input id="logo" type="file" data-logo-upload>
+                <input readonly type="text" data-bind="value: menu().logo" class="input-with-addon">
+                <button data-bind="click: triggerFileInput" class="button primary button-border-thin button-input-height input-addon-after"
+                        type="button">
+                    {{ 'generic.search'|trans }}
+                </button>
+            </div>
+        </div>
+        <div class="half">
+            <div class="form-group">
+                <label>{{ 'designer.menu.editor.items.header'|trans }}</label>
+                {% include '@Designer/menu/MenuDisplay.html.twig' %}
+                <div data-bind="template: { name: 'menuDisplayTemplate' }"></div>
+            </div>
+        </div>
+    </div>
+    <div class="full">
+        <div class="buttons right">
+            <button type="button" data-bind="click: submit"
+                    class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
+            {% if menu is defined %}
+                {% set target = url('designer_menu_details', { 'id': menu.id }) %}
+            {% else %}
+                {% set target = url('designer_menu_index') %}
+            {% endif %}
+            <a href="{{ target }}"
+               class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</a>
+        </div>
+    </div>
+</div>

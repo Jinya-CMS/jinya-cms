@@ -1,0 +1,7 @@
+<input type="hidden" name="{{ fullname }}" value="0">
+<input type="checkbox" name="{{ fullname }}" id="{{ fullname }}"
+        {% if configuration == 'on' %}
+            checked
+        {% endif %}
+>
+<label for="{{ fullname }}">{{ field.label }}</label>

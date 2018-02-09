@@ -1,0 +1,32 @@
+{% extends '@Backend/log/log_base.html.twig' %}
+
+{% if entry.level > 0 and entry.level <= 200 %}
+    {% set levelClass = 'info' %}
+{% elseif entry.level > 200 and entry.level <= 300 %}
+    {% set levelClass = 'warning' %}
+{% else %}
+    {% set levelClass = 'danger' %}
+{% endif %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="h4 card-title">
+                <span class="badge badge-{{ levelClass }}">{{ entry.levelName }}</span> {{ entry.createdAt|localizeddate }}
+                &mdash; {{ entry.message }}
+            </div>
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="h5">{{ 'backend.log.context'|trans }}</span>
+                        <pre>{{ dump(entry.context) }}</pre>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="h5">{{ 'backend.log.extra'|trans }}</span>
+                        <pre>{{ dump(entry.extra) }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

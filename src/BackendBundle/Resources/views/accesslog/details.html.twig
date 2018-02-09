@@ -1,0 +1,23 @@
+{% extends '@Backend/accesslog/accesslog_base.html.twig' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <span class="h4 card-title">
+                <span class="badge badge-info">{{ entry.method }}</span> {{ entry.uri }} &mdash; {{ entry.clientIp }}
+            </span>
+            <p class="card-text">
+            <dl>
+                <dt>{{ 'backend.accesslog.ip'|trans }}</dt>
+                <dd>{{ entry.clientIp }}</dd>
+                <dt>{{ 'backend.accesslog.created_at'|trans }}</dt>
+                <dd>{{ entry.createdAt.date }}</dd>
+                <dt>{{ 'backend.accesslog.userAgent'|trans }}</dt>
+                <dd>{{ entry.userAgent }}</dd>
+                <dt>{{ 'backend.accesslog.method'|trans }}</dt>
+                <dd>{{ entry.method }}</dd>
+            </dl>
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<a class="menu-bar" href="#jinya-menu">
+    <img src="{{ theme.active.primaryMenu.logo }}" alt="">
+    <span class="claim">{{ themeConfig.page.title }}</span>
+    {% if themeConfig.menu.mobile.showBurger %}
+        <span class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    {% endif %}
+</a>
+<div data-scroll class="menu" id="jinya-menu">
+    <a href="#" class="close"></a>
+    {% if themeConfig.menu.name.display %}
+        <h1 class="title">{{ theme.active.primaryMenu.name }}</h1>
+    {% endif %}
+    {% if theme.active.primaryMenu.logo %}
+        <a class="logo" href="/">
+            <img src="{{ theme.active.primaryMenu.logo }}" alt="">
+        </a>
+    {% endif %}
+    {% include "@Theme/jinya_gallery_default_theme/Frontend/include/socialbar.html.twig" %}
+    <ul>
+        {% for item in theme.active.primaryMenu.menuItems %}
+            {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menuitem.html.twig' %}
+        {% endfor %}
+    </ul>
+</div>

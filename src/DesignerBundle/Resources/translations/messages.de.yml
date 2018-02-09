@@ -1,0 +1,125 @@
+layout:
+  designer:
+    gallery:
+      header: Galerien
+      title: Galerien
+    general: Allgemeines
+    theme: Theme
+    galleries: Galerien
+    artworks: Kunstwerke
+    forms: Formulare
+    menus: Menüs
+    pages: Seiten
+    backend: Backend
+    page:
+      edit: Seite title bearbeiten
+      header:
+        index: Seitenübersicht
+        add: Seite hinzufügen
+        edit: Seite title bearbeiten
+    form:
+      header:
+        add: Formular hinzufügen
+        index: Formularübersicht
+        edit: Formular title bearbeiten
+      edit: Formular title bearbeiten
+    menu:
+      header:
+        add: Menü hinzufügen
+        index: Menüübersicht
+        edit: Menü title bearbeiten
+      edit: Menü title bearbeiten
+designer:
+  page:
+    title: Seitentitel
+    slug: Seitenslug
+    content: Seiteninhalt
+    delete:
+      title: Wirklich löschen?
+      content: Soll die Seite title wirklich gelöscht werden?
+  gallery:
+    add:
+      modal:
+        title: Kunstwerk hinzufügen
+        save: Einfügen
+    edit:
+      modal:
+        title: Kunstwerk ändern
+        save: Speichern
+    modification:
+      select: Auswählen
+    delete:
+      image:
+        title: Soll das Bild aus der Galerie entfernt werden?
+        message: Soll das gezeigt Bild wirklich aus der Galerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
+    move:
+      error:
+        title: Fehler beim verschieben
+        body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.
+  form:
+    delete:
+      content: Soll das Formular title wirklich gelöscht werden?
+      title: Formular löschen?
+    editor:
+      title: Titel
+      slug: Slug
+      description: Beschreibung
+      toaddress: Empfängeradresse
+      options: Optionen
+      items: Elemente
+      add:
+        item: Element hinzufügen
+        modal:
+          title: Element hinzufügen
+      label: Label
+      helpText: Hilfetext
+      type: Typ
+      types:
+        singlelinetext: Textbox
+        multilinetext: Textfeld
+        dropdown: Auswahl
+        email: Emailadresse
+        checkbox: Checkbox
+  menu:
+    delete:
+      title: Menü löschen?
+      content: Soll das Menü title wirklich gelöscht werden?
+    editor:
+      title: Menüeditor
+      name: Menüname
+      item:
+        add: Menüelement hinzufügen
+        modal:
+          title: Menüelementdaten
+        type: Typ
+        title: Text
+        displayUrl: Anzeige URL
+        route: Ziel
+        delete:
+          title: Eintrag löschen?
+          content: Soll der Menüeintrag title wirklich gelöscht werden?
+        highlighted: Hervorgehoben
+      items:
+        header: Menüelemente
+      logo: Logo
+  theme:
+    variables:
+      tab:
+        label: Template Variablen
+    menus:
+      form:
+        primary:
+          label: Primär Menü
+        secondary:
+          label: Sekundär Menü
+        footer:
+          label: Footer Menü
+      fieldset:
+        label: Menüs
+    general:
+      tab:
+        label: Allgemeines
+      active:
+        label: Aktiviert
+        frontend:
+          label: Aktives Frontend Theme

@@ -1,9 +1,13 @@
 language: php
 php:
-  - '7.1'
+- '7.1'
 install:
-  - composer install --dev --no-interaction
+- composer install --no-interaction
+- php vendor/bin/codecept build
 script:
-  - php ./vendor/bin/codecept run
+- php vendor/bin/codecept run --steps --coverage --coverage-xml --env=test
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+sudo: required
+env:
+  - SYMFONY_DEPRECATIONS_HELPER=weak

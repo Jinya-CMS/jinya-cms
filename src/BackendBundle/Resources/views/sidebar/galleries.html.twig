@@ -1,0 +1,58 @@
+{% set active = get_action_name(app.request.attributes) %}
+{% set active = get_action_name(app.request.attributes) %}
+{% block backend_galleries_sidebar_search %}
+    <div class="nav-item" data-search="overview">
+        <div class="input-group">
+            <input type="search" class="form-control" placeholder="{{ 'generic.search'|trans }}"
+                   aria-label="{{ 'generic.search'|trans }}" name="search"
+                    {% if search is defined %}
+                        value="{{ search }}"
+                    {% endif %}
+                   data-bind="value: search, valueUpdate: 'keyup'"/>
+            <span class="input-group-btn">
+                <button class="btn btn-outline-primary" type="button" data-bind="click: loadData"><i
+                            class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+{% endblock %}
+{% block backend_galleries_sidebar_overview %}
+    <a class="nav-link {% if active == 'overview' %}active{% endif %}" href="{{ url('backend_galleries_overview') }}"
+       data-target="#content" data-action="nav" data-after-success="Overview.init()"
+       data-response-has-id="false">{{ 'sidebar.galleries.overview'|trans }}</a>
+{% endblock %}
+{% block backend_galleries_sidebar_add %}
+    {% if is_granted('ROLE_WRITER') %}
+        <a class="nav-link {% if active == 'add' %}active{% endif %}" href="{{ url('backend_galleries_add') }}"
+           data-target="#content" data-action="nav" data-response-has-id="false">{{ 'sidebar.galleries.add'|trans }}</a>
+    {% endif %}
+{% endblock %}
+{% block backend_galleries_sidebar_edit %}
+    {% if is_granted('ROLE_WRITER') %}
+        <a class="nav-link {% if active == 'edit' %}active{% endif %} overview"
+           href="{{ url('backend_galleries_edit', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+           data-action-type="edit" data-target="#content" data-action="nav"
+           data-after-success="DeleteBackgroundImage.init()"
+           data-response-has-id="true">{{ 'sidebar.galleries.edit'|trans }}</a>
+    {% endif %}
+{% endblock %}
+{% block backend_galleries_sidebar_details %}
+    <a class="nav-link {% if active == 'details' %}active{% endif %} overview"
+       href="{{ url('backend_galleries_details', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       data-action-type="details" data-target="#content" data-action="nav"
+       data-response-has-id="true">{{ 'sidebar.galleries.details'|trans }}</a>
+{% endblock %}
+{% block backend_galleries_sidebar_history %}
+    <a class="nav-link {% if active == 'history' %}active{% endif %} overview"
+       href="{{ url('backend_galleries_history', {'id': '#temp#'}) }}" data-id="{{ id|default('') }}"
+       data-action-type="history" data-target="#content" data-after-success="TabTools.init()"
+       data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.history'|trans }}</a>
+{% endblock %}
+{% block backend_galleries_sidebar_delete %}
+    {% if is_granted('ROLE_WRITER') %}
+        <a class="nav-link {% if active == 'delete' %}active{% endif %} overview" data-id="{{ id|default('') }}"
+           href="{{ url('backend_galleries_delete', {'id': '#temp#'}) }}" data-action-type="delete"
+           data-target="#content"
+           data-action="nav" data-response-has-id="true">{{ 'sidebar.galleries.delete'|trans }}</a>
+    {% endif %}
+{% endblock %}

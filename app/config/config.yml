@@ -2,15 +2,23 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@BackendBundle/Resources/config/services.yml" }
+    - { resource: "@BackendBundle/Resources/config/config.yml" }
+    - { resource: "@HelperBundle/Resources/config/services.yml" }
+    - { resource: "@DataBundle/Resources/config/services.yml" }
+    - { resource: "@DesignerBundle/Resources/config/services.yml" }
+    - { resource: "@DesignerBundle/Resources/config/config.yml" }
+    - { resource: "@FrontendBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: de
+    jinya_gallery.theme.directory: themes
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -20,7 +28,7 @@ framework:
     validation: { enable_annotations: true }
     #serializer: { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ['twig', 'php']
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -37,6 +45,10 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+      ajax: false
+    paths:
+      '%kernel.project_dir%/themes': Theme
 
 # Doctrine Configuration
 doctrine:
@@ -66,4 +78,16 @@ swiftmailer:
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+    port: '%mailer_port%'
     spool: { type: memory }
+monolog:
+    channels: ['logging']
+    handlers:
+        db:
+            type: service
+            id: jinya_gallery.monolog.my_sql_handler
+            channels: ['!doctrine', '!logging']
+        accesslog:
+            type: service
+            id: jinya_gallery.monolog.access_log_handler
+            channels: ['request']

@@ -1,0 +1,32 @@
+imports:
+    - { resource: ../../../../app/config/parameters.yml }
+assetic:
+  debug: '%kernel.debug%'
+  use_controller: '%kernel.debug%'
+  assets:
+    backendcss:
+      inputs:
+        - '@BackendBundle/Resources/public/scss/jinya-gallery.scss'
+    backendjs:
+      inputs:
+        - '../app/Resources/public/typescript/util.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/Loader.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/NavigationSwitcher.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/TableElementSelector.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/AjaxExecutor.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/DatatablesActivator.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/Searcher.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/FilePickerActivator.js'
+        - '@BackendBundle/Resources/public/typescript/backend/layout/TabTools.js'
+    backend_galleries_js:
+      inputs:
+        - '@BackendBundle/Resources/public/typescript/backend/galleries/DeleteBackgroundImage.js'
+    backend_artworks_and_galleries_js:
+      inputs:
+        - '@BackendBundle/Resources/public/typescript/backend/art/OverviewViewModel.js'
+        - '@BackendBundle/Resources/public/typescript/backend/art/Overview.js'
+        - '@BackendBundle/Resources/public/typescript/backend/art/LabelFilter.js'
+  filters:
+      jsqueeze: ~
+      scssphp:
+          formatter: 'Leafo\ScssPhp\Formatter\Compressed'

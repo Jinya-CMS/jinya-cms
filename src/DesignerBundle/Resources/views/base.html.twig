@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% if form is defined %}
+    {% form_theme form '@Designer/themes/form/jinya_gallery.html.twig' %}
+{% endif %}
+{% block title %}
+    - {{ 'layout.designer.gallery.title'|trans }}
+{% endblock %}
+{% set active = get_controller_name(app.request.attributes) %}
+{% block body %}
+    <div class="container">
+        {% block container %}
+            <div class="menu-wrap">
+                <nav class="menu">
+                    <div class="profile">
+                        {% block designer_layout_backend %}
+                            <a class="backend" href="{{ url('backend_default_index') }}"><i
+                                        class="fa fa-arrow-left"></i></a>
+                        {% endblock %}
+                        <img src="{{ app.user.profilePicture }}"
+                             alt="{{ app.user.firstname }} {{ app.user.lastname }}"/>
+                        <span>{{ app.user.firstname }} {{ app.user.lastname }}</span>
+                    </div>
+                    <div class="link-list">
+                        {% block designer_sidebar_items %}
+                            <a class="{% if active == "Default" %}selected{% endif %}"
+                               href="{{ url('designer_default_index') }}">{{ 'layout.designer.general'|trans }}</a>
+                            <a class="{% if active == "Theme" %}selected{% endif %}"
+                               href="{{ url('designer_theme_index') }}">{{ 'layout.designer.theme'|trans }}</a>
+                            <a class="{% if active == "Menus" %}selected{% endif %}"
+                               href="{{ url('designer_menu_index') }}">{{ 'layout.designer.menus'|trans }}</a>
+                            <a class="{% if active == "Gallery" %}selected{% endif %}"
+                               href="{{ url('designer_gallery_index') }}">{{ 'layout.designer.galleries'|trans }}</a>
+                            <a class="{% if active == "Form" %}selected{% endif %}"
+                               href="{{ url('designer_form_index') }}">{{ 'layout.designer.forms'|trans }}</a>
+                            <a class="{% if active == "Page" %}selected{% endif %}"
+                               href="{{ url('designer_page_index') }}">{{ 'layout.designer.pages'|trans }}</a>
+                        {% endblock %}
+                    </div>
+                    <div class="icon-list">
+                        {% block menu_bottom_links %}
+                        {% endblock %}
+                    </div>
+                </nav>
+            </div>
+            <button class="menu-button" id="open-button"><i class="fa fa-fw fa-bars"></i></button>
+            <div class="content-wrap">
+                <div class="content">
+                    <div class="menu-header">{% block header %}{% endblock %}</div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block styles %}
+    {{ parent() }}
+    {% block assetic_styles %}
+        {% stylesheets filter='scssphp' '@designer_css' output='public/css/designer.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+    {% endblock %}
+    {% block styles_custom %}
+    {% endblock %}
+{% endblock %}
+
+{% block scripts %}
+    {% block scripts_knockout %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
+                integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"
+                integrity="sha256-gaGobNk1cPaj0abcVmyZxUYgCPsueCJwN5i4DjC4BS0=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block scripts_promise %}
+        <script src="https://www.promisejs.org/polyfills/promise-done-7.0.4.min.js"></script>
+    {% endblock %}
+    {% block scripts_classie %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"
+                integrity="sha256-6O5DljdGA6AiaEVC/Zn8pNLNbQGparYTI9091fGX64k=" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block assetic_scripts %}
+        {% javascripts filter='jsqueeze' '@designer_js' output='public/js/designer.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    {% block scripts_custom %}
+    {% endblock %}
+    {% block translations %}
+        <script>{{ include('genericjsfields.js.twig') }}</script>
+    {% endblock %}
+{% endblock %}

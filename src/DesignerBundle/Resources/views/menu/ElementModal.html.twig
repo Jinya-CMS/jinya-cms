@@ -1,0 +1,47 @@
+<script type="text/html" id="element-modal">
+    <div class="md-modal" data-fetch-url="{{ url('designer_route_retrieve') }}">
+        <div class="md-content">
+            <span class="md-title">{{ 'designer.menu.editor.item.modal.title'|trans }}</span>
+            <div class="form">
+                <div class="form-group">
+                    <label for="title">{{ 'designer.menu.editor.item.title'|trans }}</label>
+                    <input data-bind="value: item().title" type="text" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="type">{{ 'designer.menu.editor.item.type'|trans }}</label>
+                    <select id="type" data-bind="value: item().pageType">
+                        <option value="empty">{{ 'generic.empty'|trans }}</option>
+                        <option value="gallery">{{ 'generic.gallery'|trans }}</option>
+                        <option value="artwork">{{ 'generic.artwork'|trans }}</option>
+                        <option value="form">{{ 'generic.form'|trans }}</option>
+                        <option value="page">{{ 'generic.page'|trans }}</option>
+                        <option value="external">{{ 'generic.external'|trans }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input data-bind="checked: item().highlighted" type="checkbox" id="required">
+                    <label for="required">{{ 'designer.menu.editor.item.highlighted'|trans }}</label>
+                </div>
+                <!-- ko if: item().pageType() !== 'empty' -->
+                <div class="form-group">
+                    <label for="displayUrl">{{ 'designer.menu.editor.item.displayUrl'|trans }}</label>
+                    <input data-bind="value: item().displayUrl" type="text" id="displayUrl">
+                </div>
+                <!-- /ko -->
+                <!-- ko if: item().pageType() !== 'empty' && item().pageType() !== 'external' -->
+                <div class="form-group">
+                    <label for="route">{{ 'designer.menu.editor.item.route'|trans }}</label>
+                    <select data-bind="options: item().routes, value: item().route, optionsText: 'url'"
+                            id="route"></select>
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="md-footer">
+                <button data-bind="click: save, enable: canSave"
+                        class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
+                <button data-action="close"
+                        class="button button-round-s button-border-medium secondary">{{ 'generic.cancel'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</script>

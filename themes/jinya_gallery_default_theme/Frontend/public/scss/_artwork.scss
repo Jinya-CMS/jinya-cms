@@ -1,0 +1,45 @@
+.artwork {
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow-y: auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+@include breakpoint-ultra-mobile {
+  .artwork {
+    width: $artwork-content-width-ultra-mobile;
+    margin-top: $artwork-content-margin-top-ultra-mobile;
+    margin-left: $artwork-content-margin-left-ultra-mobile;
+  }
+}
+
+@include breakpoint-mobile {
+  .artwork {
+    width: $artwork-content-width-mobile;
+    margin-left: $artwork-content-margin-left-mobile;
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  .artwork {
+    width: $artwork-content-width-tablet-portrait;
+    margin-left: $artwork-content-margin-left-tablet-portrait;
+  }
+}
+
+@include breakpoint-tablet-landscape {
+  .artwork {
+    width: $artwork-content-width-tablet-portrait;
+    margin-left: $artwork-content-margin-left-tablet-landscape;
+  }
+}
+
+@include breakpoint-desktop {
+  .artwork {
+    width: $artwork-content-width-desktop;
+    margin-left: $artwork-content-margin-left-desktop;
+  }
+}

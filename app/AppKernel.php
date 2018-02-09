@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -15,7 +15,14 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new DataBundle\DataBundle(),
+            new HelperBundle\HelperBundle(),
+            new BackendBundle\BackendBundle(),
+            new DesignerBundle\DesignerBundle(),
+            new FrontendBundle\FrontendBundle(),
+            new ThemeBundle\ThemeBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -29,26 +36,30 @@ class AppKernel extends Kernel
             }
         }
 
+        if (!file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'config/parameters.yml.dist')) {
+            $bundles[] = new InstallBundle\InstallBundle();
+        }
+
         return $bundles;
+    }
+
+    public function getCacheDir()
+    {
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
+    }
+
+    public function getLogDir()
+    {
+        return dirname(__DIR__) . '/var/logs';
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
     public function getRootDir()
     {
         return __DIR__;
-    }
-
-    public function getCacheDir()
-    {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
-    }
-
-    public function getLogDir()
-    {
-        return dirname(__DIR__).'/var/logs';
-    }
-
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

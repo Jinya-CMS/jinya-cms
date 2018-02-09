@@ -1,0 +1,97 @@
+services:
+  jinya_gallery.services.log_service:
+      class: HelperBundle\Services\Log\LogService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@logger'
+  jinya_gallery.services.access_log_service:
+      class: HelperBundle\Services\Log\AccessLogService
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.services_slug.slug_service:
+      class: HelperBundle\Services\Slug\SlugService
+  jinya_gallery.services_media.media_service:
+      class: HelperBundle\Services\Media\MediaService
+      arguments:
+        - '%base_url%'
+        - '%kernel.root_dir%'
+  jinya_gallery.services_routing.route_retrieval_service:
+      class: HelperBundle\Services\Routing\RouteRetrievalService
+      arguments:
+        - '@jinya_gallery.services.page_service'
+        - '@jinya_gallery.services.form_service'
+        - '@jinya_gallery.services.gallery_service'
+        - '@jinya_gallery.services.artwork_service'
+        - '@router'
+  jinya_gallery.services.mailer_service:
+      class: HelperBundle\Services\Mailing\MailerService
+      arguments:
+        - '@mailer'
+        - '%mailer_sender%'
+
+  jinya_gallery.services.schema_tool:
+      public: true
+      class: HelperBundle\Services\Database\SchemaTool
+      arguments:
+        - '@doctrine.orm.entity_manager'
+  jinya_gallery.components.asset_dumper:
+      class: HelperBundle\Components\AssetDumper
+      arguments:
+        - '@assetic.asset_manager'
+        - '%assetic.variables%'
+        - '%assetic.write_to%'
+  jinya_gallery.components.datatables_request_parser:
+      class: HelperBundle\Components\DatatablesRequestParser
+
+  jinya_gallery.monolog.my_sql_handler:
+      class: HelperBundle\Logging\MySqlHandler
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@monolog.logger.logging'
+  jinya_gallery.monolog.access_log_handler:
+      class: HelperBundle\Logging\AccessLogHandler
+      arguments:
+        - '@doctrine.orm.entity_manager'
+
+  jinya_gallery.event_subscriber.request_event_subscriber:
+      class: HelperBundle\EventSubscriber\RequestEventSubscriber
+      arguments:
+        - '%kernel.root_dir%'
+        - '@router.default'
+      tags:
+          - { name: kernel.event_subscriber }
+  jinya_gallery.event_subscriber.kernel_exception_subscriber:
+      class: HelperBundle\EventSubscriber\KernelExceptionSubscriber
+      arguments:
+        - '@router.default'
+        - '@logger'
+      tags:
+          - { name: kernel.event_subscriber }
+
+  jinya_gallery.monolog.request_processor:
+      class: HelperBundle\EventSubscriber\Monolog\RequestProcessor
+      arguments:
+        - '@request_stack'
+      tags:
+        - { name: monolog.processor, method: processRecord, handler: accesslog }
+  jinya_gallery.services.form_generator:
+      class: HelperBundle\Services\Form\FormGenerator
+      arguments:
+        - '@form.factory'
+        - '@jinya_gallery.services.theme_service'
+  jinya_gallery.services.scss_compiler_service:
+      class: HelperBundle\Services\Scss\ScssCompilerService
+
+  twig_extensions.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
+
+  jinya_gallery.commands.compile_themes_command:
+      class: HelperBundle\Command\CompileThemesCommand
+      arguments:
+        - '@jinya_gallery.services.theme_service'
+      calls:
+          - [setContainer, ['@service_container']]
+      tags:
+          - { name: console.command }

@@ -1,0 +1,29 @@
+{% extends '@Theme/jinya_gallery_default_theme/Frontend/base.html.twig' %}
+{% block head_title %}
+    &mdash; {{ formEntity.title }}
+{% endblock %}
+
+{% block maincontent %}
+    {% form_theme form '@Theme/jinya_gallery_default_theme/Frontend/Form/themes/jinya_gallery.html.twig' %}
+    <svg class="hidden" display="none">
+        <defs>
+            <clipPath id="clipBox" clipPathUnits="objectBoundingBox">
+                <polygon points="0,0 0,1 0.35,1 0.35,0.6 0.65,0.6 0.65,1 1,1 1,0"/>
+            </clipPath>
+        </defs>
+    </svg>
+    <div class="form-content">
+        <h1>{{ formEntity.title }}</h1>
+        {% if mail_sent is defined and mail_sent == true %}
+            <div class="message success">
+                {{ themeConfig.form.messages.mail_sent_message }}
+            </div>
+        {% endif %}
+        {{ form_start(form) }}
+        {{ form_row(form) }}
+        <button class="button" type="submit"><i
+                    class="icon envelope"></i><span>{{ themeConfig.form.buttons.submit }}</span>
+        </button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -140,3 +140,14 @@ $RECYCLE.BIN/
 *.lnk
 
 .idea/
+node_modules/
+*.js
+*.css
+*.map
+/web/profilepictures/
+/tests/_support/_generated/
+/tests/_output/
+/var/
+/app/config/install.lock
+/web/assetic/
+/web/public/

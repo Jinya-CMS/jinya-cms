@@ -1,3 +1,35 @@
-app:
-    resource: '@AppBundle/Controller/'
+designer:
+    resource: "@DesignerBundle/Controller/"
+    type:     annotation
+    prefix:   /designer
+
+install:
+    resource: "@InstallBundle/Controller/"
     type: annotation
+    prefix: /install
+
+backend:
+  resource: "@BackendBundle/Controller/"
+  type: annotation
+  prefix: /backend
+
+fos_user_security:
+  resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+  prefix: /backend/fos
+
+fos_user_profile:
+  resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+  prefix: /backend/profile
+
+fos_user_resetting:
+  resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+  prefix: /backend/profile
+
+fos_user_change_password:
+  resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+  prefix: /backend
+
+frontend:
+    resource: "@FrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
