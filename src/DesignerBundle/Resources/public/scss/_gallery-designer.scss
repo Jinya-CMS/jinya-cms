@@ -1,16 +1,69 @@
-@mixin gallery-button() {
+@mixin gallery-button($icon) {
   cursor: pointer;
   transition: transform 0.3s, background 0.3s, opacity 0.3s;
   transform: scale3d(1, 1, 1);
+  border-radius: 4px;
 
   &:hover {
     background: darken($gray-100, 6%);
     transform: scale3d(0.95, 0.95, 1);
+    opacity: 0.8;
+  }
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: $primary;
+    font-family: FontAwesome;
+    pointer-events: none;
+    content: $icon;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: scale3d(2, 2, 1);
+  }
+}
+
+@mixin gallery-move-button($mode, $direction, $icon) {
+  @extend .button;
+  @extend .button.primary;
+  margin: 0;
+  height: 2em;
+  transition: all 0.3s;
+
+  @if $mode == horizontal {
+    grid-column: #{unquote("2/3")};
+    grid-row: #{unquote("2/3")};
+    #{$direction}: 0;
+    position: absolute;
+  } @else if $mode == vertical {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &::before {
+    content: $icon;
+    top: 0;
+    font-family: FontAwesome;
+    color: $white;
+    opacity: 1;
+    transform: unset;
+    font-size: 1.3em;
+    transition: all 0.3s;
+    text-align: center;
+  }
+
+  &:hover {
+    transition: all 0.3s;
+    &::before {
+      transition: all 0.3s;
+      color: $primary;
+    }
   }
 }
 
 .gallery {
-  display: flex;
   height: 100%;
 
   &.horizontal-scroll {
@@ -19,29 +72,26 @@
     padding-left: 2em;
     padding-top: 7.5%;
     flex-wrap: nowrap;
+    display: flex;
 
     .gallery-item {
       display: inline-grid;
       grid-template-columns: 8em 1fr;
       grid-template-rows: 35em 2em;
       grid-column-gap: 1em;
-      position: relative;
       margin: 0.5em;
       padding-bottom: 20%;
 
       .gallery-button-add {
         grid-column: #{unquote("1/2")};
         grid-row: #{unquote("1/2")};
-        text-align: center;
         border: none;
       }
       .gallery-button-edit {
         z-index: 10;
-        text-align: center;
       }
 
       .gallery-image-wrapper {
-        display: inline;
         height: 35em;
         width: auto;
 
@@ -58,21 +108,11 @@
       }
 
       .gallery-footer-button-left {
-        left: 0;
+        @include gallery-move-button(horizontal, left, '\f060');
       }
 
       .gallery-footer-button-right {
-        right: 0;
-      }
-
-      .gallery-footer-button-left,
-      .gallery-footer-button-right {
-        @extend .button;
-        @extend .button.primary;
-        grid-column: #{unquote("2/3")};
-        grid-row: #{unquote("2/3")};
-        margin: 0;
-        position: absolute;
+        @include gallery-move-button(horizontal, right, '\f061');
       }
     }
   }
@@ -85,85 +125,86 @@
     padding-top: 2em;
 
     .gallery-item {
-      display: block;
-      flex: unset;
-      position: relative;
+      display: grid;
+      grid-template-rows: 10em 2em 100% 2em;
+      grid-template-columns: 100%;
+      width: 100%;
 
-      .gallery-image-content {
-        width: 100%;
-        > div {
-          height: 100%;
-          width: 100%;
-        }
-
-        .gallery-image-action {
-          height: 8em;
-        }
+      &:first-of-type {
+        grid-template-rows: 10em 100% 2em;
         .gallery-image-wrapper {
-          border-bottom: none;
-          border-top: none;
+          grid-row: #{unquote('2/3')};
         }
-        .gallery-image-wrapper,
-        .gallery-image-action {
-          width: 100%;
-
-          > img {
-            width: 100%;
-          }
+        .gallery-button-edit {
+          grid-row: #{unquote('2/3')};
+        }
+        .gallery-side-button-down {
+          @include gallery-move-button(vertical, down, '\f063');
+          grid-row: #{unquote('3/4')};
         }
       }
 
-      .gallery-side-button-move {
-        @extend .button.primary;
-        min-width: calc(100% - 1.2em);
-        max-width: calc(100% - 1.2em);
-        border: none;
-        padding: 0.5em;
-        margin-left: 0.6em;
-        margin-right: 0.6em;
-        outline: none;
+      &:nth-last-of-type(2) {
+        grid-template-rows: 10em 2em 100%;
+      }
+
+      .gallery-image-action {
+        height: 8em;
+      }
+      .gallery-image-wrapper {
+        grid-row: #{unquote('3/4')};
+        width: 100%;
+        height: auto;
+
+        .gallery-image {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .gallery-button-add {
+        margin: 1em 0;
+
+        &::before {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      .gallery-button-edit {
+        grid-row: #{unquote('3/4')};
+
+        &::before {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      .gallery-side-button-up {
+        @include gallery-move-button(vertical, up, '\f062');
+        grid-row: #{unquote('2/3')};
+      }
+      .gallery-side-button-down {
+        @include gallery-move-button(vertical, down, '\f063');
+        grid-row: #{unquote('4/5')};
       }
     }
   }
 
   .gallery-item {
+    position: relative;
+
     .gallery-image {
       opacity: 1;
       z-index: 8;
       transition: opacity 0.3s, transform 0.3s, background 0.3s;
     }
-
+    .gallery-image-wrapper {
+      display: inline;
+    }
     .gallery-button-add {
-      @include gallery-button;
-      border-radius: 4px;
+      @include gallery-button('\f067');
       background: darken($gray-100, 2%);
-
-      &::before, &::after {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        margin-top: -0.35em;
-        width: 100%;
-        color: $primary;
-        font-size: 1.5em;
-        font-family: FontAwesome;
-        pointer-events: none;
-      }
-      &::before {
-        content: '\f067';
-      }
-      &::after {
-        margin-top: -0.5em;
-        color: $primary;
-        content: '\f00c';
-        font-size: 3em;
-        opacity: 0;
-        transition: opacity 0.3s, transform 0.3s;
-        transform: scale3d(2, 2, 1);
-      }
     }
     .gallery-button-edit {
-      @include gallery-button;
+      @include gallery-button('\f040');
       width: 100%;
       height: 100%;
       background: $gray-100;
@@ -174,9 +215,6 @@
       z-index: 10;
 
       &:hover {
-        opacity: 0.8;
-        border-radius: 4px;
-
         + .gallery-image-wrapper {
           > .gallery-image {
             background: darken($gray-100, 6%);
@@ -184,28 +222,6 @@
             border-radius: 4px;
           }
         }
-      }
-      &::before,
-      &::after {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        margin-top: -0.35em;
-        width: 100%;
-        color: $primary;
-        font-size: 1.5em;
-        font-family: FontAwesome;
-        pointer-events: none;
-        content: '\f040';
-      }
-      &::after {
-        margin-top: -0.5em;
-        color: $primary;
-        content: '\f040';
-        font-size: 3em;
-        opacity: 0;
-        transition: opacity 0.3s, transform 0.3s;
-        transform: scale3d(2, 2, 1);
       }
     }
   }

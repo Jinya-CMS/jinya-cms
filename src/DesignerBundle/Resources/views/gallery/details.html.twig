@@ -12,9 +12,8 @@
             </div>
             {% if gallery.orientation == 'vertical' %}
                 <!-- ko if: $index() !== 0 -->
-                <button class="gallery-side-button-move" data-bind="click: $root.moveLeft">
-                    <i class="fa fa-arrow-up"></i>
-                </button>
+                <button class="gallery-side-button-up" data-bind="click: $root.moveLeft"></button>
+                <!-- /ko -->
             {% endif %}
             <div class="gallery-button-edit" role="button" data-bind="click: $root.editImage"></div>
             <div class="gallery-image-wrapper">
@@ -22,19 +21,15 @@
             </div>
             {% if gallery.orientation == 'vertical' %}
                 <!-- ko if: $index() !== ($parent.images().length - 1) -->
-                <button class="gallery-side-button-move" data-bind="click: $root.moveRight">
-                    <i class="fa fa-arrow-down"></i>
-                </button>
+                <button class="gallery-side-button-down" data-bind="click: $root.moveRight"></button>
                 <!-- /ko -->
             {% endif %}
             {% if gallery.orientation == 'horizontal' %}
                 <!-- ko if: $index() !== 0 -->
-                <button class="gallery-footer-button-left" data-bind="click: $root.moveLeft"><i
-                            class="fa fa-arrow-left"></i></button>
+                <button class="gallery-footer-button-left" data-bind="click: $root.moveLeft"></button>
                 <!-- /ko -->
                 <!-- ko if: $index() !== ($parent.images().length - 1) -->
-                <button class="gallery-footer-button-right" data-bind="click: $root.moveRight"><i
-                            class="fa fa-arrow-right"></i></button>
+                <button class="gallery-footer-button-right" data-bind="click: $root.moveRight"></button>
                 <!-- /ko -->
             {% endif %}
         </div>
