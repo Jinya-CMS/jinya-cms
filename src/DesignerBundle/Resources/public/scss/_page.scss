@@ -2,3 +2,15 @@
   padding: 0 2.2rem 2.2rem;
   overflow-y: auto;
 }
+
+.ql-youtube {
+  position: relative;
+
+  &:before {
+    font-family: FontAwesome;
+    content: '\f16a';
+    position: absolute;
+    top: 0;
+    left: 6px;
+  }
+}
