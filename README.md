@@ -19,6 +19,13 @@ The CMS is based on PHP and Symfony. The frontend code is written in TypeScript 
 # Deploy
 If you want to deploy the CMS just extract the release ZIP and navigate to the desired URL. After that the setup wizard starts and guides you through the installation.
 
+# Update
+To update the CMS just copy everything in the folder src, bin and themes to your webserver. After that delete the folder `var/cache` and then open the website.
+
+Please see the changelog for the changes, in the case of database changes update the database via Symfony CLI with the command `php bin/console doctrine:schema:update --force`.
+
+After that the site should be updated. 
+
 # Contribute
 If you want to contribute just fork the repository and create a pull request.
 
