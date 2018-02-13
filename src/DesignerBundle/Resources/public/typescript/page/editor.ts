@@ -16,7 +16,7 @@ class Editor {
             [{'color': []}, {'background': []}],
             [{'align': []}],
 
-            ['video'],
+            ['video', 'image'],
 
             ['clean']
         ];
