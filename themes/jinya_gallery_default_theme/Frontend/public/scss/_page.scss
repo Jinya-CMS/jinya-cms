@@ -20,6 +20,11 @@
     font-family: $page-font-family-heading6;
   }
 
+  .ql-video {
+    width: 100%;
+    height: 59%;
+  }
+
   @include breakpoint-desktop {
     margin-left: $page-content-margin-left-desktop;
     margin-right: $page-content-margin-right-desktop;

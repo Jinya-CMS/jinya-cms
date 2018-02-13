@@ -13,7 +13,7 @@
         {{ form_end(form) }}
         <div class="full">
             <div class="buttons right">
-                <button type="submit"
+                <button type="submit" form="{{ form.vars.full_name }}"
                         class="button button-round-s button-border-medium primary">{{ 'generic.save'|trans }}</button>
                 {% if page is defined %}
                     {% set target = url('designer_page_details', { 'slug': page.slug }) %}
