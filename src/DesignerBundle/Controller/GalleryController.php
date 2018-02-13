@@ -4,12 +4,12 @@ namespace DesignerBundle\Controller;
 
 use DataBundle\Entity\Artwork;
 use DataBundle\Entity\ArtworkPosition;
-use DataBundle\Services\Galleries\GalleryServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use ServiceBundle\Services\Galleries\GalleryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
+use Symfony\Component\Routing\Annotation\Route;
+use \Throwable;
 use const PHP_INT_MAX;
 use function array_values;
 
@@ -18,12 +18,10 @@ class GalleryController extends Controller
     /**
      * @Route("/gallery/", name="designer_gallery_index")
      *
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
-        /** @var GalleryServiceInterface $galleryService */
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $galleries = $galleryService->getAll(0, PHP_INT_MAX, '');
 
@@ -35,11 +33,10 @@ class GalleryController extends Controller
     /**
      * @Route("/gallery/{gallerySlug}", name="designer_gallery_details")
      *
-     * @param Request $request
      * @param string $gallerySlug
      * @return Response
      */
-    public function detailsAction(Request $request, string $gallerySlug): Response
+    public function detailsAction(string $gallerySlug): Response
     {
         /** @var GalleryServiceInterface $galleryService */
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
@@ -57,11 +54,10 @@ class GalleryController extends Controller
     /**
      * @Route("/gallery/{gallerySlug}/images", name="designer_gallery_images", methods={"GET"})
      *
-     * @param Request $request
      * @param string $gallerySlug
      * @return Response
      */
-    public function galleryImagesAction(Request $request, string $gallerySlug): Response
+    public function galleryImagesAction(string $gallerySlug): Response
     {
         try {
             $galleryService = $this->get('jinya_gallery.services.gallery_service');
@@ -100,9 +96,9 @@ class GalleryController extends Controller
 
     /**
      * @param $exception
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Response
      */
-    private function jsonError($exception): \Symfony\Component\HttpFoundation\JsonResponse
+    private function jsonError(Throwable $exception): Response
     {
         return $this->json([
             'message' => $exception->getMessage(),

@@ -145,7 +145,7 @@ class FormEditorViewModel {
 }
 
 class FormEditor {
-    static init = (() => {
+    private static init = (() => {
         let editor = document.querySelector('[data-form-editor]');
         if (editor) {
             let vm = new FormEditorViewModel(editor);

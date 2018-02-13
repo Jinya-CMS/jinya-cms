@@ -10,10 +10,32 @@
       white-space: normal;
       vertical-align: top;
       margin: $gallery-content-figure-margin-top $gallery-content-figure-margin-right $gallery-content-figure-margin-bottom $gallery-content-figure-margin-left;
+      width: auto;
+
+      > a {
+        display: inline;
+        height: 100%;
+        width: auto;
+
+        > img {
+          height: 80%;
+          width: auto;
+        }
+      }
 
       &:last-child {
         margin-right: 0;
       }
+    }
+  }
+
+  &.vertical {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+
+    .artwork {
+      width: 100%;
     }
   }
 }
@@ -28,6 +50,23 @@
       padding-left: $gallery-content-padding-left-ultra-mobile;
       padding-right: $gallery-content-padding-right-ultra-mobile;
       white-space: normal;
+
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
+
+        > a {
+          > img {
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    &.vertical {
+      height: 100%;
 
       .artwork {
         display: block;
@@ -49,6 +88,14 @@
         max-height: 100%;
       }
     }
+
+    &.vertical {
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -61,6 +108,14 @@
       .artwork {
         width: $gallery-content-figure-width-tablet-portrait;
         max-height: 100%;
+      }
+    }
+
+    &.vertical {
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
       }
     }
   }
@@ -77,6 +132,14 @@
         max-height: 100%;
       }
     }
+
+    &.vertical {
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -87,8 +150,15 @@
 
     &.horizontal {
       .artwork {
-        width: $gallery-content-figure-width-desktop;
         max-height: 100%;
+      }
+    }
+
+    &.vertical {
+      .artwork {
+        display: block;
+        vertical-align: initial;
+        margin: 0;
       }
     }
   }

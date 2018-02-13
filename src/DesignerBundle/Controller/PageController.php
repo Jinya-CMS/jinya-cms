@@ -2,7 +2,6 @@
 
 namespace DesignerBundle\Controller;
 
-use DataBundle\Services\Pages\PageServiceInterface;
 use DesignerBundle\Form\PageType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,12 +14,10 @@ class PageController extends Controller
     /**
      * @Route("/page", name="designer_page_index")
      *
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
-        /** @var PageServiceInterface $pageService */
         $pageService = $this->get('jinya_gallery.services.page_service');
         $pages = $pageService->getAll(0, PHP_INT_MAX, '');
 
@@ -61,6 +58,11 @@ class PageController extends Controller
      * @param Request $request
      * @return Response
      * @throws \DataBundle\Exceptions\EmptySlugException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function editAction(string $slug, Request $request): Response
     {
@@ -87,10 +89,14 @@ class PageController extends Controller
      * @Route("/page/{slug}", name="designer_page_details", methods={"GET"})
      *
      * @param string $slug
-     * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function detailsAction(string $slug, Request $request): Response
+    public function detailsAction(string $slug): Response
     {
         $pageService = $this->get('jinya_gallery.services.page_service');
         $page = $pageService->get($slug);
@@ -104,10 +110,9 @@ class PageController extends Controller
      * @Route("/page/{id}", name="designer_page_delete", methods={"DELETE"})
      *
      * @param string $id
-     * @param Request $request
      * @return Response
      */
-    public function deleteAction(string $id, Request $request): Response
+    public function deleteAction(string $id): Response
     {
         $pageService = $this->get('jinya_gallery.services.page_service');
         try {

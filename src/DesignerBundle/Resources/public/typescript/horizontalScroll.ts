@@ -1,17 +1,15 @@
-class HorizontalScroll {
-    static init = () => {
+class scrollhelper {
+    private static init = (() => {
         let scrollItem = document.querySelector('.horizontal-scroll');
         if (scrollItem) {
             scrollItem.addEventListener('wheel', (e) => {
                 if (!e.deltaX) {
-                    scrollItem.scrollTo({
+                    scrollItem.scrollBy({
                         behavior: 'auto',
-                        left: scrollItem.scrollLeft + e.deltaY
+                        left: e.deltaY > 0 ? 100 : -100
                     });
                 }
             });
         }
-    }
+    })();
 }
-
-HorizontalScroll.init();

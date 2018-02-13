@@ -1,5 +1,5 @@
 class Delete {
-    static init = () => {
+    private static init = (() => {
         let buttons = document.querySelectorAll('[data-delete]');
         for (let i = 0; i < buttons.length; i++) {
             let item = buttons[i];
@@ -20,7 +20,5 @@ class Delete {
                 });
             });
         }
-    }
+    })();
 }
-
-Delete.init();

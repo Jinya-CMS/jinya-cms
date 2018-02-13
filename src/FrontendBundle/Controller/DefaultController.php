@@ -88,7 +88,7 @@ class DefaultController extends BaseFrontendController
         /** @var Form $formEntity */
         $formEntity = $formService->get($slug);
 
-        $formGenerator = $this->get('jinya_gallery.services.form_generator');
+        $formGenerator = $this->get('jinya_gallery.components.form_generator');
         $form = $formGenerator->generateForm($formEntity);
 
         $form->handleRequest($request);

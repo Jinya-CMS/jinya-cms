@@ -18,7 +18,7 @@
     {%- else -%}
         {% set form_method = "POST" %}
     {%- endif -%}
-    <form class="form"
+    <form class="form full" id="{{ name }}"
           name="{{ name }}" method="{{ form_method|lower }}"{% if action != '' %} action="{{ action }}"{% endif %}{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
     {%- if form_method != method -%}
         <input type="hidden" name="_method" value="{{ method }}"/>

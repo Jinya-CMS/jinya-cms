@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtworkController extends Controller
 {
     /**
-     * @Route("/artwork", name="designer_artwork_list_all", methods={"GET"})
+     * @Route("/artwork/api", name="designer_artwork_list_all", methods={"GET"})
      *
      * @param Request $request
      * @return Response
      */
-    public function listAllAction(Request $request): Response
+    public function apiListAllAction(Request $request): Response
     {
         $artworkService = $this->get('jinya_gallery.services.artwork_service');
         $offset = $request->get('offset', 0);

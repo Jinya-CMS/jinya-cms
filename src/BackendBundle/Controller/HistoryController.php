@@ -5,6 +5,7 @@ namespace BackendBundle\Controller;
 use DataBundle\Entity\HistoryEnabledEntity;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HistoryController extends Controller
@@ -16,14 +17,18 @@ class HistoryController extends Controller
      * @param string $class
      * @param string $resetRoute
      * @param string $layout
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function indexAction(int $id, string $class, string $resetRoute, string $layout)
+    public function indexAction(int $id, string $class, string $resetRoute, string $layout): Response
     {
         $entityManager = $this->get('doctrine.orm.entity_manager');
         /** @var HistoryEnabledEntity $entity */
         $entity = $entityManager->find($class, $id);
         $history = $entity->getHistory();
+
         foreach ($history as $key => $item) {
             $date = new DateTime($item['timestamp']);
             $item['timestamp'] = $date;

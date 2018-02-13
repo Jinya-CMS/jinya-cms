@@ -1,7 +1,7 @@
 parameters:
     database_host: localhost
     database_port: 3306
-    database_name: jinya-gallery-cms
+    database_name: jinya-gallery-cms-v1.1
     database_user: root
     database_password: start
     secret: 5a01ee9c3b46b

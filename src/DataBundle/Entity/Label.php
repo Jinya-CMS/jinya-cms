@@ -9,6 +9,7 @@
 namespace DataBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
@@ -41,6 +42,15 @@ class Label implements JsonSerializable
      * @ORM\ManyToMany(targetEntity="DataBundle\Entity\Gallery", mappedBy="labels", cascade={"persist"})
      */
     private $galleries;
+
+    /**
+     * Label constructor.
+     */
+    public function __construct()
+    {
+        $this->galleries = new ArrayCollection();
+        $this->artworks = new ArrayCollection();
+    }
 
     /**
      * @return int

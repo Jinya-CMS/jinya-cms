@@ -111,7 +111,7 @@ class MenuEditorViewModel {
 }
 
 class MenuEditor {
-    static init = (() => {
+    private static init = (() => {
         let element = document.querySelector('[data-menu-editor]');
         if (element) {
             let vm = new MenuEditorViewModel(element);

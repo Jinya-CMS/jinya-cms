@@ -23,10 +23,11 @@ abstract class BaseController extends Controller
     public function render($view, array $parameters = array(), Response $response = null)
     {
         $themeService = $this->get('jinya_gallery.services.theme_service');
+        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
 
         $themeService->registerThemes();
         $activeTheme = $themeService->getActiveTheme();
-        $themeViewPath = $themeService->getThemeNamespace($activeTheme) . str_replace('@', '/', $view);
+        $themeViewPath = $themeConfigService->getThemeNamespace($activeTheme) . str_replace('@', '/', $view);
 
         $parameters['themeConfig'] = $activeTheme->getConfiguration();
 

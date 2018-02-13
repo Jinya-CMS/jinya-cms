@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid editor">
     <div class="form grid full">
         <div class="half">
             <div class="form-group">
@@ -12,7 +12,8 @@
                 <!-- /ko -->
                 <input id="logo" type="file" data-logo-upload>
                 <input readonly type="text" data-bind="value: menu().logo" class="input-with-addon">
-                <button data-bind="click: triggerFileInput" class="button primary button-border-thin button-input-height input-addon-after"
+                <button data-bind="click: triggerFileInput"
+                        class="button primary button-border-thin button-input-height input-addon-after"
                         type="button">
                     {{ 'generic.search'|trans }}
                 </button>
