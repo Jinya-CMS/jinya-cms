@@ -10,8 +10,8 @@ namespace Jinya\Services\Theme;
 
 
 use Jinya\Entity\Theme;
-use Patchwork\JSqueeze;
 use Jinya\Services\Scss\ScssCompilerServiceInterface;
+use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ThemeCompilerService implements ThemeCompilerServiceInterface
@@ -30,12 +30,14 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     /**
      * ThemeCompilerService constructor.
      * @param ThemeConfigServiceInterface $themeConfigService
+     * @param ThemeServiceInterface $themeService
      * @param ScssCompilerServiceInterface $scssCompilerService
      * @param string $kernelProjectDir
      */
-    public function __construct(ThemeConfigServiceInterface $themeConfigService, ScssCompilerServiceInterface $scssCompilerService, string $kernelProjectDir)
+    public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ScssCompilerServiceInterface $scssCompilerService, string $kernelProjectDir)
     {
         $this->themeConfigService = $themeConfigService;
+        $this->themeService = $themeService;
         $this->scssCompilerService = $scssCompilerService;
         $this->kernelProjectDir = $kernelProjectDir;
     }
