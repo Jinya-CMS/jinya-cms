@@ -43,14 +43,15 @@ defaultConfig:
     dropdowns:
       placeholder: Please choose...
     messages:
-      mail_sent_message: Mail was sent successfully
-styles_base: Frontend/public/scss/
-scripts_base: Frontend/public/ts/
+    mail_sent_message: Mail was sent successfully
+styles_base: public/scss/
+scripts_base: public/ts/
 styles:
   variables:
-    file: _variables.scss
+    file: frontend/_variables.scss
   files:
-    - all.scss
+    - frontend.scss
+    - designer.scss
 scripts:
   - perfect-scrollbar.js
   - scrollhelper.js

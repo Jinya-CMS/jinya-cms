@@ -1,0 +1,31 @@
+.jinya-login-page {
+  img {
+    z-index: -1;
+  }
+}
+
+.jinya-login {
+  margin: 10% 40% auto;
+  padding: 1.5em 3em;
+  height: auto;
+  background-color: transparentize($gray-200, 20%);
+
+  @include breakpoint-ultra-mobile {
+    margin: 0;
+  }
+
+  @include breakpoint-tablet-landscape {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+
+  @include breakpoint-tablet-portrait {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
+  @include breakpoint-mobile {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}

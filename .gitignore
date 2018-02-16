@@ -39,8 +39,8 @@ composer.phar
 !var/sessions/.gitkeep
 
 # Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
+/config/parameters.yml
+/config/parameters.ini
 
 # Managed by Composer
 /app/bootstrap.php.cache
@@ -148,6 +148,29 @@ node_modules/
 /tests/_support/_generated/
 /tests/_output/
 /var/
-/app/config/install.lock
+/config/install.lock
 /web/assetic/
 /web/public/
+/.env
+!/bin/phpunit
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+.web-server-pid
+###< symfony/web-server-bundle ###
+/assets
+!/assets/.htaccess
+!/public/apple-touch-icon.png
+!/public/favicon.ico
+!/public/robots.txt
+/public/public/

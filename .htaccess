@@ -5,14 +5,14 @@ RewriteEngine on
 
 #RewriteBase /jinya-gallery-cms/
 
-RewriteRule jinya-gallery-cms.dll jinya-gallery-cms.php
+RewriteRule jinya-gallery-cms.dll public/index.php
 
-RewriteRule ^(.*)\.(png|jpg|gif|css|js|ico)$ web/%{REQUEST_URI}
-RewriteRule ^public/(.*)$ web/%{REQUEST_URI}
+RewriteRule ^(.*)\.(png|jpg|gif|css|js|ico)$ assets/%{REQUEST_URI}
+RewriteRule ^public/(.*)$ public/%{REQUEST_URI}
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ jinya-gallery-cms.php
+RewriteRule ^(.*)$ public/index.php
 
 # Fix missing authorization-header on fast_cgi installations
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
