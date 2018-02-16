@@ -62,11 +62,11 @@ $breakpoint-desktop-min-width: 1920px;
 /**
  * Margins
  */
-$margin-top: 5rem !default;
+$body-frontend-margin-top: 5rem !default;
 
-$margin-top-mobile: $margin-top / 2 !default;
+$body-frontend-margin-top-mobile: $body-frontend-margin-top / 2 !default;
 
-$margin-top-tablet-portrait: $margin-top / 2 !default;
+$body-frontend-margin-top-tablet-portrait: $body-frontend-margin-top / 2 !default;
 
 /**
  * Menu
@@ -80,7 +80,7 @@ $menu-background-color: $primary-lighter !default;
 $menu-text-color: $primary-darker !default;
 
 /** Margins **/
-$menu-margin-top: $margin-top;
+$menu-margin-top: $body-frontend-margin-top;
 $menu-margin-left: 5rem !default;
 $menu-margin-top-mobile: $menu-margin-top / 2;
 $menu-margin-left-mobile: $menu-margin-left / 2;
@@ -281,7 +281,6 @@ $lightbox-padding-left: 5rem !default;
 $lightbox-padding-right: 5rem !default;
 $lightbox-padding-top: 5rem !default;
 $lightbox-padding-bottom: 10rem !default;
-
 
 /**
  * Scrollbar

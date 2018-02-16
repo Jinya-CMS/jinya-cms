@@ -18,6 +18,7 @@ security:
       pattern: ^/
       form_login:
         login_path: jinya_account_login
+        check_path: jinya_account_login
         provider: jinya_db_provider
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /designer/

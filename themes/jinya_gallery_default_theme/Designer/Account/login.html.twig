@@ -1,8 +1,49 @@
 <html>
 <head>
     <title>{{ 'app.name'|trans }} - {{ 'layout.account.login.title'|trans }}</title>
+    {% block favicon %}
+        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {% block custom_meta %}
+        {% endblock %}
+    {% endblock %}
+    {% block styles %}
+        {% block styles_fontawesome %}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+        {% endblock %}
+        {% block styles_theme %}
+            <link rel="stylesheet"
+                  href="{{ asset('public/jinya_gallery_default_theme/styles/designer.css') }}">
+        {% endblock %}
+        {% block styles_additional_fonts %}
+            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+            {% endif %}
+        {% endblock %}
+        {% block styles_custom %}
+        {% endblock %}
+    {% endblock %}
 </head>
-<body>
-
+<body class="jinya-login-page">
+<img src="{{ themeConfig.startpage.background.image }}" class="background" alt="">
+<form method="post" class="jinya-login">
+    <h1>{{ 'layout.account.login.title'|trans }}</h1>
+    <div class="input">
+        <label for="email">{{ 'account.login.email'|trans }}</label>
+        <input id="email" class="field" type="email" name="_username" required="required">
+    </div>
+    <div class="input">
+        <label for="password">{{ 'account.login.password'|trans }}</label>
+        <input id="password" class="field " type="password" name="_password" required="required">
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <button class="button primary button-border-medium" type="submit">{{ 'account.login.submit'|trans }}</button>
+</form>
 </body>
 </html>

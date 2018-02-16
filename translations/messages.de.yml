@@ -338,3 +338,8 @@ install:
     title: Allgemeines
     environment:
       label: Umgebung
+account:
+  login:
+    email: Email
+    password: Passwort
+    submit: Anmelden

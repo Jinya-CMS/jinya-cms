@@ -4,8 +4,7 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "Jinya\\": "src/",
-      "ThemeBundle\\": "themes"
+      "Jinya\\": "src/"
     }
   },
   "require": {
@@ -32,6 +31,7 @@
     "symfony/polyfill-apcu": "^1.6",
     "symfony/process": "^4.0",
     "symfony/security-bundle": "^4.0",
+    "symfony/security-csrf": "^4.0",
     "symfony/serializer-pack": "*",
     "symfony/swiftmailer-bundle": "^3.1",
     "symfony/templating": "^4.0",

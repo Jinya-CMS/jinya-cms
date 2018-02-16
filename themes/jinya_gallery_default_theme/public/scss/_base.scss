@@ -30,29 +30,10 @@
 
 body {
   margin: 0;
-  padding-top: $margin-top;
 }
 
 div {
   position: relative;
-}
-
-@include breakpoint-ultra-mobile {
-  body {
-    padding-top: 0;
-  }
-}
-
-@include breakpoint-mobile {
-  body {
-    padding-top: $margin-top-mobile;
-  }
-}
-
-@include breakpoint-tablet-portrait {
-  body {
-    padding-top: $margin-top-tablet-portrait;
-  }
 }
 
 img {

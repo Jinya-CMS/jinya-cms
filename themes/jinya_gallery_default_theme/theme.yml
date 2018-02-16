@@ -51,6 +51,7 @@ styles:
     file: frontend/_variables.scss
   files:
     - frontend.scss
+    - designer.scss
 scripts:
   - perfect-scrollbar.js
   - scrollhelper.js

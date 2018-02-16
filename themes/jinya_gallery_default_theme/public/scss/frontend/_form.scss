@@ -24,28 +24,3 @@
     margin-right: $page-content-margin-right-ultra-mobile;
   }
 }
-
-.choice {
-  margin: -0.5em 0 1em;
-}
-
-.input {
-  font-size: 1rem;
-  margin: 0 0 1em;
-
-  .field {
-    padding: 0.15em 0;
-    outline: none;
-    width: 100%;
-    display: inline-block;
-    border-style: none;
-    border-bottom: solid 3px $form-underline-color;
-    transition: border-bottom-width 0.3s;
-    font-family: $font-family;
-    font-size: 90%;
-  }
-
-  label {
-    display: inline-block;
-  }
-}

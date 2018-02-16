@@ -1,0 +1,15 @@
+body {
+  padding-top: $body-frontend-margin-top;
+
+  @include breakpoint-ultra-mobile {
+    padding-top: 0;
+  }
+
+  @include breakpoint-mobile {
+    padding-top: $body-frontend-margin-top-mobile;
+  }
+
+  @include breakpoint-tablet-portrait {
+    padding-top: $body-frontend-margin-top-tablet-portrait;
+  }
+}

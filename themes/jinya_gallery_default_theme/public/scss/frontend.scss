@@ -1,11 +1,14 @@
+$frontend: true;
 @import "functions/colors";
 @import "variables";
-@import "frontend/mixins/menu";
-@import "frontend/mixins/breakpoints";
+@import "mixins/breakpoints";
 @import "base";
 @import "typography";
+@import "input";
+
+@import "frontend/mixins/menu";
 @import "frontend/menu";
-@import "frontend/background";
+@import "background";
 @import "frontend/artwork";
 @import "frontend/gallery";
 @import "frontend/page";
