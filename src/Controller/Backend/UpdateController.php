@@ -3,9 +3,10 @@
 namespace Jinya\Controller\Backend;
 
 use Exception;
+use Jinya\Components\Database\SchemaToolInterface;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,17 +15,16 @@ class UpdateController extends Controller
     /**
      * @Route("/update/schema", name="backend_update_schema")
      * @Security("has_role('ROLE_SUPER_ADMIN')")
-     * @param Request $request
+     * @param SchemaToolInterface $schemaTool
+     * @param LoggerInterface $logger
      * @return Response
      */
-    public function schemaAction(Request $request): Response
+    public function schemaAction(SchemaToolInterface $schemaTool, LoggerInterface $logger): Response
     {
         try {
-            $schemaTool = $this->get('jinya_gallery.components.schema_tool');
             $schemaTool->updateSchema();
             $success = true;
         } catch (Exception $exception) {
-            $logger = $this->get('logger');
             $logger->error("Couldn't update database schema");
             $logger->error($exception->getMessage());
             $logger->error($exception->getTraceAsString());

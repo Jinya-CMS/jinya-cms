@@ -12,11 +12,10 @@ use Jinya\Form\Backend\AddUserData;
 use Jinya\Form\Backend\ChangePasswordData;
 use Jinya\Form\Backend\ChangePasswordType;
 use Jinya\Form\Backend\UserType;
+use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,10 +24,13 @@ class UsersController extends Controller
     /** @var UserServiceInterface */
     private $userService;
 
-    public function setContainer(ContainerInterface $container = null)
+    /**
+     * UsersController constructor.
+     * @param UserServiceInterface $userService
+     */
+    public function __construct(UserServiceInterface $userService)
     {
-        parent::setContainer($container);
-        $this->userService = $this->get('jinya_gallery.services.user_service');
+        $this->userService = $userService;
     }
 
     /**

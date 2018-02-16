@@ -2,6 +2,7 @@
 
 namespace Jinya\Controller\Backend;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\HistoryEnabledEntity;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,14 +18,11 @@ class HistoryController extends Controller
      * @param string $class
      * @param string $resetRoute
      * @param string $layout
+     * @param EntityManagerInterface $entityManager
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function indexAction(int $id, string $class, string $resetRoute, string $layout): Response
+    public function indexAction(int $id, string $class, string $resetRoute, string $layout, EntityManagerInterface $entityManager): Response
     {
-        $entityManager = $this->get('doctrine.orm.entity_manager');
         /** @var HistoryEnabledEntity $entity */
         $entity = $entityManager->find($class, $id);
         $history = $entity->getHistory();

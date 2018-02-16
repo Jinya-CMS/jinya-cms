@@ -4,6 +4,8 @@ namespace Jinya\Controller\Backend;
 
 use Jinya\Entity\Artwork;
 use Jinya\Form\Backend\ArtworkType;
+use Jinya\Services\Artworks\ArtworkServiceInterface;
+use Jinya\Services\Labels\LabelServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,18 @@ use function array_merge;
 
 class ArtworkController extends Controller
 {
+    /** @var LabelServiceInterface */
+    private $labelService;
+
+    /**
+     * ArtworkController constructor.
+     * @param LabelServiceInterface $labelService
+     */
+    public function __construct(LabelServiceInterface $labelService)
+    {
+        $this->labelService = $labelService;
+    }
+
     /**
      * @Route("/artworks", name="backend_artworks_index")
      *
@@ -39,8 +53,7 @@ class ArtworkController extends Controller
 
     protected function render(string $view, array $parameters = array(), Response $response = null): Response
     {
-        $labelService = $this->get('jinya_gallery.services.label_service');
-        $labels = $labelService->getAllLabelsWithArtworks();
+        $labels = $this->labelService->getAllLabelsWithArtworks();
 
         $parameters['labels'] = $labels;
 
@@ -51,12 +64,12 @@ class ArtworkController extends Controller
      * @Route("/artworks/get", name="backend_artworks_getAll")
      *
      * @param Request $request
+     * @param LabelServiceInterface $labelService
+     * @param ArtworkServiceInterface $artworkService
      * @return Response
      */
-    public function getArtworks(Request $request): Response
+    public function getArtworks(Request $request, LabelServiceInterface $labelService, ArtworkServiceInterface $artworkService): Response
     {
-        $artworkService = $this->get('jinya_gallery.services.artwork_service');
-        $labelService = $this->get('jinya_gallery.services.label_service');
         $offset = $request->get('offset', 0);
         $count = PHP_INT_MAX;
         $keyword = $request->get('keyword', '');
@@ -88,7 +101,7 @@ class ArtworkController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function addAction(Request $request): Response
+    public function addAction(Request $request, ArtworkServiceInterface $artworkService): Response
     {
         $allLabels = $this->createMissingLabels($request);
 
@@ -97,7 +110,6 @@ class ArtworkController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $artworkService = $this->get('jinya_gallery.services.artwork_service');
             $artworkService->saveOrUpdate($data);
 
             return $this->redirectToRoute('backend_artworks_index');
@@ -114,8 +126,7 @@ class ArtworkController extends Controller
      */
     private function createMissingLabels(Request $request): array
     {
-        $labelService = $this->get('jinya_gallery.services.label_service');
-        $allLabels = $labelService->getAllLabels();
+        $allLabels = $this->labelService->getAllLabels();
 
         if ($request->isMethod("POST")) {
             $bundle = $request->get('backend_bundle_artwork_type');
@@ -126,7 +137,7 @@ class ArtworkController extends Controller
                 foreach ($selectedLabels as $selectedLabel) {
                     $labels[] = ['name' => $selectedLabel];
                 }
-                $missingLabels = $labelService->createMissingLabels($selectedLabels);
+                $missingLabels = $this->labelService->createMissingLabels($selectedLabels);
                 $allLabels = array_merge($allLabels, $missingLabels);
             }
         }
@@ -140,10 +151,8 @@ class ArtworkController extends Controller
      * @param int $id
      * @return Response
      */
-    public function editAction(Request $request, int $id): Response
+    public function editAction(Request $request, int $id, ArtworkServiceInterface $artworkService): Response
     {
-        $artworkService = $this->get('jinya_gallery.services.artwork_service');
-
         $allLabels = $this->createMissingLabels($request);
 
         $artwork = $artworkService->get($id);
@@ -172,11 +181,11 @@ class ArtworkController extends Controller
      * @Route("/artworks/details/{id}", name="backend_artworks_details")
      *
      * @param int $id
+     * @param ArtworkServiceInterface $artworkService
      * @return Response
      */
-    public function detailsAction(int $id): Response
+    public function detailsAction(int $id, ArtworkServiceInterface $artworkService): Response
     {
-        $artworkService = $this->get('jinya_gallery.services.artwork_service');
         $artwork = $artworkService->get($id);
         return $this->render('@Backend/artworks/details.html.twig', [
             'artwork' => $artwork
@@ -188,11 +197,11 @@ class ArtworkController extends Controller
      *
      * @param Request $request
      * @param int $id
+     * @param ArtworkServiceInterface $artworkService
      * @return Response
      */
-    public function deleteAction(Request $request, int $id): Response
+    public function deleteAction(Request $request, int $id, ArtworkServiceInterface $artworkService): Response
     {
-        $artworkService = $this->get('jinya_gallery.services.artwork_service');
         if ($request->isMethod('POST')) {
             $artworkService->delete($id);
 
@@ -226,12 +235,12 @@ class ArtworkController extends Controller
      * @Route("/artworks/history/{id}/reset", name="backend_artworks_reset", methods={"POST"})
      * @param Request $request
      * @param int $id
+     * @param ArtworkServiceInterface $artworkService
      * @return Response
      */
-    public function resetAction(Request $request, int $id): Response
+    public function resetAction(Request $request, int $id, ArtworkServiceInterface $artworkService): Response
     {
         $origin = $request->get('origin');
-        $artworkService = $this->get('jinya_gallery.services.artwork_service');
         $key = $request->get('key');
         $value = $request->get('value');
 

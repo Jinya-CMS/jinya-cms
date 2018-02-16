@@ -2,6 +2,8 @@
 
 namespace Jinya\Controller\Backend;
 
+use Jinya\Components\DataTables\DatatablesRequestParserInterface;
+use Jinya\Services\Log\LogServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +15,9 @@ class LogsController extends Controller
     /**
      * @Route("/log", name="backend_log_index")
      *
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
         return $this->redirectToRoute('backend_log_overview');
     }
@@ -26,12 +27,11 @@ class LogsController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
+     * @param LogServiceInterface $logService
      * @return Response
      */
-    public function overviewAction(Request $request): Response
+    public function overviewAction(Request $request, LogServiceInterface $logService): Response
     {
-        $logService = $this->get('jinya_gallery.services.log_service');
-
         return $this->render('@Backend/log/overview.html.twig', [
             'levels' => $logService->getUsedLevels(),
             'search' => $request->get('search')
@@ -43,13 +43,13 @@ class LogsController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
+     * @param LogServiceInterface $logService
+     * @param DatatablesRequestParserInterface $datatablesRequestParser
      * @return Response
      */
-    public function getListAction(Request $request): Response
+    public function getListAction(Request $request, LogServiceInterface $logService, DatatablesRequestParserInterface $datatablesRequestParser): Response
     {
-        $logService = $this->get('jinya_gallery.services.log_service');
-        $requestParser = $this->get('jinya_gallery.components.datatables_request_parser');
-        $datatables = $requestParser->parseRequest($request);
+        $datatables = $datatablesRequestParser->parseRequest($request);
         $sortBy = $datatables->getOrder()[0]->getColumn();
         $sortOrder = $datatables->getOrder()[0]->getDir();
         $levelColumn = $datatables->getColumn('level');
@@ -72,12 +72,11 @@ class LogsController extends Controller
      *
      * @param Request $request
      * @param int $id
+     * @param LogServiceInterface $logService
      * @return Response
      */
-    public function detailsAction(Request $request, int $id): Response
+    public function detailsAction(Request $request, int $id, LogServiceInterface $logService): Response
     {
-        $logService = $this->get('jinya_gallery.services.log_service');
-
         return $this->render('@Backend/log/details.html.twig', [
             'entry' => $logService->get($id)
         ]);
@@ -88,12 +87,12 @@ class LogsController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      *
      * @param Request $request
+     * @param LogServiceInterface $logService
      * @return Response
      */
-    public function clearAction(Request $request): Response
+    public function clearAction(Request $request, LogServiceInterface $logService): Response
     {
         if ($request->isMethod('POST')) {
-            $logService = $this->get('jinya_gallery.services.log_service');
             $logService->clear();
         }
 

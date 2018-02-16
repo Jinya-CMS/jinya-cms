@@ -4,6 +4,7 @@ namespace Jinya\Controller\Backend;
 
 use Jinya\Form\Backend\GalleryType;
 use Jinya\Entity\Gallery;
+use Jinya\Services\Galleries\GalleryServiceInterface;
 use const PHP_INT_MAX;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +40,11 @@ class GalleriesController extends Controller
      * @Route("/galleries/get", name="backend_galleries_getAll")
      *
      * @param Request $request
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function getGalleries(Request $request): Response
+    public function getGalleries(Request $request, GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $offset = $request->get('offset', 0);
         $count = PHP_INT_MAX;
         $keyword = $request->get('keyword', '');
@@ -65,16 +66,16 @@ class GalleriesController extends Controller
      * @Route("/galleries/add", name="backend_galleries_add")
      *
      * @param Request $request
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function addAction(Request $request): Response
+    public function addAction(Request $request, GalleryServiceInterface $galleryService): Response
     {
         $form = $this->createForm(GalleryType::class, new Gallery());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $galleryService = $this->get('jinya_gallery.services.gallery_service');
             $galleryService->saveOrUpdate($data);
             return $this->redirectToRoute('backend_galleries_index');
         }
@@ -89,11 +90,11 @@ class GalleriesController extends Controller
      *
      * @param Request $request
      * @param int $id
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function editAction(Request $request, int $id): Response
+    public function editAction(Request $request, int $id, GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($id);
         $form = $this->createForm(GalleryType::class, $gallery);
         $form->handleRequest($request);
@@ -117,11 +118,11 @@ class GalleriesController extends Controller
      * @Route("/galleries/details/{id}", name="backend_galleries_details")
      *
      * @param int $id
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function detailsAction(int $id): Response
+    public function detailsAction(int $id, GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($id);
 
         return $this->render('@Backend/galleries/details.html.twig', [
@@ -134,11 +135,11 @@ class GalleriesController extends Controller
      *
      * @param Request $request
      * @param int $id
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function deleteAction(Request $request, int $id): Response
+    public function deleteAction(Request $request, int $id, GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         if ($request->isMethod('POST')) {
             $galleryService->delete($id);
 
@@ -156,11 +157,11 @@ class GalleriesController extends Controller
      * @Route("/galleries/background/delete/{id}", methods={"DELETE"}, name="backend_galleries_background_delete")
      *
      * @param int $id
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function deleteBackgroundImage(int $id): Response
+    public function deleteBackgroundImage(int $id, GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($id);
         $gallery->setBackground(null);
         $galleryService->saveOrUpdate($gallery);
@@ -188,12 +189,12 @@ class GalleriesController extends Controller
      * @Route("/galleries/history/{id}/reset", name="backend_galleries_reset", methods={"POST"})
      * @param Request $request
      * @param int $id
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function resetAction(Request $request, int $id): Response
+    public function resetAction(Request $request, int $id, GalleryServiceInterface $galleryService): Response
     {
         $origin = $request->get('origin');
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $key = $request->get('key');
         $value = $request->get('value');
 
