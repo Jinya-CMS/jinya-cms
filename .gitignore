@@ -141,7 +141,6 @@ $RECYCLE.BIN/
 
 .idea/
 node_modules/
-*.js
 *.css
 *.map
 /web/profilepictures/

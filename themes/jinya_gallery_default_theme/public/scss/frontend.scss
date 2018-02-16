@@ -5,10 +5,11 @@ $frontend: true;
 @import "base";
 @import "typography";
 @import "input";
+@import "background";
 
 @import "frontend/mixins/menu";
 @import "frontend/menu";
-@import "background";
+@import "frontend/base";
 @import "frontend/artwork";
 @import "frontend/gallery";
 @import "frontend/page";
