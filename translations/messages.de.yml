@@ -64,8 +64,6 @@ layout:
         edit: Menü title bearbeiten
       edit: Menü title bearbeiten
   backend:
-    login:
-      title: Login
     title: Backend
     menu:
       users: Künstler
@@ -88,6 +86,9 @@ layout:
       galleries: Galerien
       artworks: Kunstwerke
       designer: Designer
+  account:
+    login:
+      title: Anmelden
 sidebar:
   users:
     overview: Überblick

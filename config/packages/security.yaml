@@ -1,6 +1,8 @@
 security:
   role_hierarchy:
     ROLE_SUPER_ADMIN: ROLE_ADMIN
+    ROLE_ADMIN: ROLE_WRITER
+
   encoders:
     Jinya\Entity\User:
       algorithm: bcrypt
@@ -12,21 +14,10 @@ security:
         property: email
 
   firewalls:
-    backend:
-      pattern: ^/
-      form_login:
-        provider: jinya_db_provider
-        login_path: backend_login_route
-        csrf_token_generator: security.csrf.token_manager
-        default_target_path: /backend/
-        always_use_default_target_path: false
-
-      logout: true
-      anonymous: true
     designer:
       pattern: ^/
       form_login:
-        login_path: backend_login_route
+        login_path: jinya_account_login
         provider: jinya_db_provider
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /designer/
@@ -35,8 +26,5 @@ security:
       logout: true
       anonymous: true
   access_control:
-    - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/backend/fos/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/backend/, role: IS_AUTHENTICATED_FULLY }
+    - { path: ^/account/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/designer/, role: ROLE_WRITER }

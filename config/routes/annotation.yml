@@ -1,8 +1,3 @@
-jinya:
-    resource: "../src/Controller/"
-    type: annotation
-    prefix: /
-
 designer:
     resource: "../src/Controller/Designer"
     type: annotation
@@ -12,3 +7,8 @@ backend:
     resource: "../src/Controller/Backend"
     type: annotation
     prefix: /backend
+
+jinya:
+    resource: "../src/Controller/"
+    type: annotation
+    prefix: /

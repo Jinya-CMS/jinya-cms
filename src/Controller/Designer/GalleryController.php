@@ -16,7 +16,7 @@ use function array_values;
 class GalleryController extends Controller
 {
     /**
-     * @Route("/gallery/", name="designer_gallery_index")
+     * @Route("/designer/gallery/", name="designer_gallery_index")
      *
      * @return Response
      */
@@ -31,7 +31,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}", name="designer_gallery_details")
+     * @Route("/designer/gallery/{gallerySlug}", name="designer_gallery_details")
      *
      * @param string $gallerySlug
      * @return Response
@@ -52,7 +52,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/images", name="designer_gallery_images", methods={"GET"})
+     * @Route("/designer/gallery/{gallerySlug}/images", name="designer_gallery_images", methods={"GET"})
      *
      * @param string $gallerySlug
      * @return Response
@@ -107,7 +107,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/images/{artworkSlug}", name="designer_gallery_images_position_save", methods={"POST"})
+     * @Route("/designer/gallery/{gallerySlug}/images/{artworkSlug}", name="designer_gallery_images_position_save", methods={"POST"})
      *
      * @param Request $request
      * @param string $gallerySlug
@@ -129,7 +129,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/images/{artworkSlug}", name="designer_gallery_images_position_change_image", methods={"PUT"})
+     * @Route("/designer/gallery/{gallerySlug}/images/{artworkSlug}", name="designer_gallery_images_position_change_image", methods={"PUT"})
      *
      * @param Request $request
      * @param string $artworkSlug
@@ -150,7 +150,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
+     * @Route("/designer/gallery/{gallerySlug}/{artworkPositionId}", name="designer_gallery_images_position_update", methods={"PUT"})
      *
      * @param Request $request
      * @param string $gallerySlug
@@ -172,7 +172,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * @Route("/gallery/{gallerySlug}/images/{id}", name="designer_gallery_images_position_delete")
+     * @Route("/designer/gallery/{gallerySlug}/images/{id}", name="designer_gallery_images_position_delete")
      *
      * @param int $id
      * @return Response

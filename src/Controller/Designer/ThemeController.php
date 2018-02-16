@@ -14,7 +14,7 @@ use function preg_match_all;
 class ThemeController extends Controller
 {
     /**
-     * @Route("/theme/", name="designer_theme_index")
+     * @Route("/designer/theme/", name="designer_theme_index")
      *
      * @return Response
      */
@@ -29,7 +29,7 @@ class ThemeController extends Controller
     }
 
     /**
-     * @Route("/theme/{name}", name="designer_theme_config")
+     * @Route("/designer/theme/{name}", name="designer_theme_config")
      *
      * @param string $name
      * @param Request $request

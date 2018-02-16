@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RouteController extends Controller
 {
     /**
-     * @Route("/route/api/", name="designer_route_retrieve")
+     * @Route("/designer/route/api/", name="designer_route_retrieve")
      *
      * @param Request $request
      * @return Response

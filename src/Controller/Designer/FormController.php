@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormController extends Controller
 {
     /**
-     * @Route("/form", name="designer_form_index")
+     * @Route("/designer/form", name="designer_form_index")
      *
      * @param Request $request
      * @return Response
@@ -29,7 +29,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/add", name="designer_form_add")
+     * @Route("/designer/form/add", name="designer_form_add")
      *
      * @param Request $request
      * @return Response
@@ -40,7 +40,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/{slug}", name="designer_form_details", methods={"GET"})
+     * @Route("/designer/form/{slug}", name="designer_form_details", methods={"GET"})
      *
      * @param string $slug
      * @param Request $request
@@ -64,7 +64,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/{slug}/edit", name="designer_form_edit")
+     * @Route("/designer/form/{slug}/edit", name="designer_form_edit")
      *
      * @param string $slug
      * @param Request $request
@@ -86,7 +86,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/{id}", name="designer_form_delete", methods={"DELETE"})
+     * @Route("/designer/form/{id}", name="designer_form_delete", methods={"DELETE"})
      *
      * @param int $id
      * @param Request $request
@@ -108,8 +108,8 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/api", name="designer_form_save_form_without_id", methods={"POST"})
-     * @Route("/form/api/{id}", name="designer_form_save_form_with_id", methods={"PUT"})
+     * @Route("/designer/form/api", name="designer_form_save_form_without_id", methods={"POST"})
+     * @Route("/designer/form/api/{id}", name="designer_form_save_form_with_id", methods={"PUT"})
      *
      * @param int $id
      * @param Request $request
@@ -168,7 +168,7 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/form/api/{id}", name="designer_form_load_form", methods={"GET"})
+     * @Route("/designer/form/api/{id}", name="designer_form_load_form", methods={"GET"})
      *
      * @param int $id
      * @param Request $request

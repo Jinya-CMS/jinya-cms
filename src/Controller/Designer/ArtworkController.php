@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtworkController extends Controller
 {
     /**
-     * @Route("/artwork/api", name="designer_artwork_list_all", methods={"GET"})
+     * @Route("/designer/artwork/api", name="designer_artwork_list_all", methods={"GET"})
      *
      * @param Request $request
      * @return Response

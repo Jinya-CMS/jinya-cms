@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends Controller
 {
     /**
-     * @Route("/page", name="designer_page_index")
+     * @Route("/designer/page", name="designer_page_index")
      *
      * @return Response
      */
@@ -27,7 +27,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/page/add", name="designer_page_add")
+     * @Route("/designer/page/add", name="designer_page_add")
      *
      * @param Request $request
      * @return Response
@@ -52,7 +52,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/page/{slug}/edit", name="designer_page_edit")
+     * @Route("/designer/page/{slug}/edit", name="designer_page_edit")
      *
      * @param string $slug
      * @param Request $request
@@ -86,7 +86,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/page/{slug}", name="designer_page_details", methods={"GET"})
+     * @Route("/designer/page/{slug}", name="designer_page_details", methods={"GET"})
      *
      * @param string $slug
      * @return Response
@@ -107,7 +107,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/page/{id}", name="designer_page_delete", methods={"DELETE"})
+     * @Route("/designer/page/{id}", name="designer_page_delete", methods={"DELETE"})
      *
      * @param string $id
      * @return Response

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="designer_default_index")
+     * @Route("/designer", name="designer_default_index")
      *
      * @param Request $request
      * @return Response

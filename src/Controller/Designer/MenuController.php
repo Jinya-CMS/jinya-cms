@@ -18,7 +18,7 @@ use function is_array;
 class MenuController extends Controller
 {
     /**
-     * @Route("/menu", name="designer_menu_index")
+     * @Route("/designer/menu", name="designer_menu_index")
      *
      * @return Response
      */
@@ -33,7 +33,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/add", name="designer_menu_add")
+     * @Route("/designer/menu/add", name="designer_menu_add")
      *
      * @return Response
      */
@@ -43,8 +43,8 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/api/{id}", name="designer_menu_save_with_id", methods={"PUT", "POST"})
-     * @Route("/menu/api/", name="designer_menu_save_without_id", methods={"POST"})
+     * @Route("/designer/menu/api/{id}", name="designer_menu_save_with_id", methods={"PUT", "POST"})
+     * @Route("/designer/menu/api/", name="designer_menu_save_without_id", methods={"POST"})
      *
      * @param int $id
      * @param Request $request
@@ -128,7 +128,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/{id}", name="designer_menu_details", methods={"GET"})
+     * @Route("/designer/menu/{id}", name="designer_menu_details", methods={"GET"})
      *
      * @param int $id
      * @return Response
@@ -144,7 +144,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/{id}/edit", name="designer_menu_edit")
+     * @Route("/designer/menu/{id}/edit", name="designer_menu_edit")
      *
      * @param int $id
      * @return Response
@@ -160,7 +160,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/{id}", name="designer_menu_delete", methods={"DELETE"})
+     * @Route("/designer/menu/{id}", name="designer_menu_delete", methods={"DELETE"})
      *
      * @param int $id
      * @return Response
@@ -181,7 +181,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @Route("/menu/api/{id}", name="designer_menu_load_menu", methods={"GET"})
+     * @Route("/designer/menu/api/{id}", name="designer_menu_load_menu", methods={"GET"})
      *
      * @param int $id
      * @return Response
