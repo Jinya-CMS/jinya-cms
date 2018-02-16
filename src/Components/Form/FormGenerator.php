@@ -11,7 +11,7 @@ namespace Jinya\Components\Form;
 
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
-use Jinya\Services\Configuration\FrontendConfigurationServiceInterface;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use function array_key_exists;
@@ -24,15 +24,15 @@ class FormGenerator implements FormGeneratorInterface
      */
     private $formFactory;
 
-    /** @var FrontendConfigurationServiceInterface */
+    /** @var ConfigurationServiceInterface */
     private $frontendConfigurationService;
 
     /**
      * FormGenerator constructor.
      * @param FormFactoryInterface $formFactory
-     * @param FrontendConfigurationServiceInterface $frontendConfigurationService
+     * @param ConfigurationServiceInterface $frontendConfigurationService
      */
-    public function __construct(FormFactoryInterface $formFactory, FrontendConfigurationServiceInterface $frontendConfigurationService)
+    public function __construct(FormFactoryInterface $formFactory, ConfigurationServiceInterface $frontendConfigurationService)
     {
         $this->formFactory = $formFactory;
         $this->frontendConfigurationService = $frontendConfigurationService;
@@ -53,7 +53,7 @@ class FormGenerator implements FormGeneratorInterface
                 }
 
                 $options['choices'] = $choices;
-                $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+                $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentFrontendTheme();
                 $options['placeholder'] = $activeTheme->getConfiguration()['form']['dropdowns']['placeholder'];
             }
 

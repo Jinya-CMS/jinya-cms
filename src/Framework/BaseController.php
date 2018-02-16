@@ -10,22 +10,24 @@ namespace Jinya\Framework;
 
 
 use Jinya\Entity\RoutingEntry;
-use Jinya\Services\Configuration\FrontendConfigurationServiceInterface;
+use Jinya\Entity\Theme;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use function str_replace;
+use function strpos;
 
-abstract class BaseController extends Controller
+abstract class BaseController extends AbstractController
 {
     /** @var ThemeConfigServiceInterface */
     private $themeConfigService;
     /** @var ThemeServiceInterface */
     private $themeService;
-    /** @var FrontendConfigurationServiceInterface */
-    private $frontendConfigurationService;
+    /** @var ConfigurationServiceInterface */
+    private $configurationService;
     /** @var ThemeCompilerServiceInterface */
     private $themeCompilerService;
 
@@ -33,14 +35,14 @@ abstract class BaseController extends Controller
      * BaseController constructor.
      * @param ThemeConfigServiceInterface $themeConfigService
      * @param ThemeServiceInterface $themeService
-     * @param FrontendConfigurationServiceInterface $frontendConfigurationService
+     * @param ConfigurationServiceInterface $configurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      */
-    public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, FrontendConfigurationServiceInterface $frontendConfigurationService, ThemeCompilerServiceInterface $themeCompilerService)
+    public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService)
     {
         $this->themeConfigService = $themeConfigService;
         $this->themeService = $themeService;
-        $this->frontendConfigurationService = $frontendConfigurationService;
+        $this->configurationService = $configurationService;
         $this->themeCompilerService = $themeCompilerService;
     }
 
@@ -49,24 +51,41 @@ abstract class BaseController extends Controller
      */
     public function render(string $view, array $parameters = array(), Response $response = null): Response
     {
-        $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+        $activeFrontendTheme = $this->configurationService->getConfig()->getCurrentFrontendTheme();
+        $activeDesignerTheme = $this->configurationService->getConfig()->getCurrentDesignerTheme();
 
-        if (!$this->themeCompilerService->isCompiled($activeTheme)) {
-            $this->themeCompilerService->compileTheme($activeTheme);
+        $themeViewPath = $view;
+        if (strpos($view, '@Frontend') === 0) {
+            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $activeFrontendTheme);
+        } elseif (strpos($view, '@Designer') === 0) {
+            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $activeDesignerTheme);
         }
 
-        $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentTheme();
+        return parent::render($themeViewPath, $parameters, $response);
+    }
+
+    /**
+     * @param string $view
+     * @param array $parameters
+     * @param $theme
+     * @return array
+     */
+    private function includeTheme(string $view, array $parameters, Theme $theme): array
+    {
+        if (!$this->themeCompilerService->isCompiled($theme)) {
+            $this->themeCompilerService->compileTheme($theme);
+        }
 
         $this->themeService->registerThemes();
-        $themeViewPath = $this->themeConfigService->getThemeNamespace($activeTheme) . str_replace('@', '/', $view);
+        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme) . str_replace('@', '/', $view);
 
-        $parameters['themeConfig'] = $activeTheme->getConfiguration();
-        $parameters['theme']['active'] = $activeTheme;
-        $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $activeTheme->getName() . DIRECTORY_SEPARATOR;
+        $parameters['themeConfig'] = $theme->getConfiguration();
+        $this->get('twig')->addGlobal('themeConfig', $theme->getConfiguration());
 
-        $this->get('twig')->addGlobal('themeConfig', $activeTheme->getConfiguration());
+        $parameters['theme']['active'] = $theme;
+        $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR;
 
-        return parent::render($themeViewPath, $parameters, $response);
+        return array($themeViewPath, $parameters);
     }
 
     /**

@@ -49,7 +49,7 @@ class ThemeController extends Controller
             $themeConfigService->setVariables($name, array_filter($variables));
 
             if ($request->get('general')['active']['frontend']) {
-                $frontendConfiguration->setCurrentTheme($themeService->getTheme($name));
+                $frontendConfiguration->setCurrentFrontendTheme($themeService->getTheme($name));
             }
             $frontendService->writeConfig($frontendConfiguration);
 

@@ -10,12 +10,12 @@ namespace Jinya\Services\Configuration;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\FrontendConfiguration;
+use Jinya\Entity\Configuration;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Exception;
 
-class FrontendConfigurationService implements FrontendConfigurationServiceInterface
+class ConfigurationService implements ConfigurationServiceInterface
 {
 
     /**
@@ -42,13 +42,14 @@ class FrontendConfigurationService implements FrontendConfigurationServiceInterf
     /**
      * @inheritdoc
      */
-    public function getConfig(): FrontendConfiguration
+    public function getConfig(): Configuration
     {
         try {
-            return $this->entityManager->getRepository(FrontendConfiguration::class)->findAll()[0];
+            return $this->entityManager->getRepository(Configuration::class)->findAll()[0];
         } catch (Exception $exception) {
-            $config = new FrontendConfiguration();
-            $config->setCurrentTheme($this->themeService->getDefaultJinyaTheme());
+            $config = new Configuration();
+            $config->setCurrentFrontendTheme($this->themeService->getDefaultJinyaTheme());
+            $config->setCurrentDesignerTheme($this->themeService->getDefaultJinyaTheme());
 
             $this->entityManager->persist($config);
             $this->entityManager->flush();
@@ -60,7 +61,7 @@ class FrontendConfigurationService implements FrontendConfigurationServiceInterf
     /**
      * @inheritdoc
      */
-    public function writeConfig(FrontendConfiguration $configuration): void
+    public function writeConfig(Configuration $configuration): void
     {
         $this->entityManager->flush($configuration);
     }

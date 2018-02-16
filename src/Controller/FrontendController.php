@@ -6,7 +6,7 @@ use Jinya\Components\Form\FormGeneratorInterface;
 use Jinya\Entity\Form;
 use Jinya\Framework\BaseController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
-use Jinya\Services\Configuration\FrontendConfigurationServiceInterface;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
@@ -54,11 +54,11 @@ class FrontendController extends BaseController
      * @param MailerServiceInterface $mailerService
      * @param ThemeConfigServiceInterface $themeConfigService
      * @param ThemeServiceInterface $themeService
-     * @param FrontendConfigurationServiceInterface $frontendConfigurationService
+     * @param ConfigurationServiceInterface $frontendConfigurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param string $kernelProjectDir
      */
-    public function __construct(RouteServiceInterface $routeService, LoggerInterface $logger, ArtworkServiceInterface $artworkService, GalleryServiceInterface $galleryService, FormServiceInterface $formService, PageServiceInterface $pageService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, FrontendConfigurationServiceInterface $frontendConfigurationService, ThemeCompilerServiceInterface $themeCompilerService, string $kernelProjectDir)
+    public function __construct(RouteServiceInterface $routeService, LoggerInterface $logger, ArtworkServiceInterface $artworkService, GalleryServiceInterface $galleryService, FormServiceInterface $formService, PageServiceInterface $pageService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $frontendConfigurationService, ThemeCompilerServiceInterface $themeCompilerService, string $kernelProjectDir)
     {
         parent::__construct($themeConfigService, $themeService, $frontendConfigurationService, $themeCompilerService);
         $this->routeService = $routeService;
