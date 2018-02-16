@@ -22,17 +22,17 @@ class MediaService implements MediaServiceInterface
     private $baseUrl;
 
     /** @var string */
-    private $rootDir;
+    private $kernelProjectDir;
 
     /**
      * MediaService constructor.
      * @param string $baseUrl
-     * @param string $rootDir
+     * @param string $kernelProjectDir
      */
-    public function __construct($baseUrl, $rootDir)
+    public function __construct(string $baseUrl, string $kernelProjectDir)
     {
         $this->baseUrl = $baseUrl;
-        $this->rootDir = $rootDir;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     /**
@@ -40,7 +40,7 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia(UploadedFile $file, string $type): string
     {
-        $savedFile = $file->move($this->rootDir . DIRECTORY_SEPARATOR . '../var/tmp');
+        $savedFile = $file->move($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'var/tmp');
         $savedFile = $savedFile->move($this->getFilePath($type), hash_file('sha256', $savedFile->getRealPath()));
         $filename = $savedFile->getFilename();
 
@@ -49,7 +49,7 @@ class MediaService implements MediaServiceInterface
 
     private function getFilePath(string $type): string
     {
-        return $this->rootDir . DIRECTORY_SEPARATOR . '../web/public/' . $type . DIRECTORY_SEPARATOR;
+        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public/public/' . $type . DIRECTORY_SEPARATOR;
     }
 
     /**

@@ -59,7 +59,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function compileStyles(Theme $theme): void
     {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
-        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
 
         $fs = new Filesystem();
         $variables = $theme->getScssVariables();
@@ -99,7 +99,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getCompilationCheckPathStyles(Theme $theme, string $filename): string
     {
-        $webScriptsBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+        $webScriptsBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
         $compilationCheckPath = $webScriptsBasePath . ThemeCompilerService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
 
         return $compilationCheckPath;
@@ -107,7 +107,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
     private function getScssVariablesCompilationCheckPath(Theme $theme)
     {
-        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/styles/';
+        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
 
         return $webStylesBasePath . 'variables';
     }
@@ -122,7 +122,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
         $code = $jsQueeze->squeeze($source);
 
-        $webScriptsBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/scripts/';
+        $webScriptsBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/scripts/';
 
         $fs = new Filesystem();
         $fs->dumpFile($webScriptsBasePath . 'scripts.js', $code);
@@ -173,7 +173,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
     {
-        $webStylesBasePath = $this->kernelProjectDir . '/web/public/' . $theme->getName() . '/scripts/';
+        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/scripts/';
         $compilationCheckPath = $webStylesBasePath . ThemeCompilerService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
         return $compilationCheckPath;
     }

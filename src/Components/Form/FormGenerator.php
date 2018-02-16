@@ -12,7 +12,7 @@ namespace Jinya\Components\Form;
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
 use Jinya\Services\Configuration\FrontendConfigurationServiceInterface;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use function array_key_exists;
 use function strpos;
@@ -20,7 +20,7 @@ use function strpos;
 class FormGenerator implements FormGeneratorInterface
 {
     /**
-     * @var FormFactory
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -29,14 +29,15 @@ class FormGenerator implements FormGeneratorInterface
 
     /**
      * FormGenerator constructor.
-     * @param FormFactory $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param FrontendConfigurationServiceInterface $frontendConfigurationService
      */
-    public function __construct(FormFactory $formFactory, FrontendConfigurationServiceInterface $frontendConfigurationService)
+    public function __construct(FormFactoryInterface $formFactory, FrontendConfigurationServiceInterface $frontendConfigurationService)
     {
         $this->formFactory = $formFactory;
         $this->frontendConfigurationService = $frontendConfigurationService;
     }
+
 
     public function generateForm(Form $form): FormInterface
     {

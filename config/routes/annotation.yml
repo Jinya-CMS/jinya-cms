@@ -12,8 +12,3 @@ backend:
     resource: "../src/Controller/Backend"
     type: annotation
     prefix: /backend
-
-frontend:
-    resource: "../src/Controller/Frontend"
-    type: annotation
-    prefix: /frontend

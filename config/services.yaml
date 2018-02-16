@@ -51,9 +51,16 @@ services:
     Jinya\Services\Media\MediaService:
       arguments:
         $baseUrl: '%base_url%'
-        $rootDir: '%kernel.root_dir%'
+        $kernelProjectDir: '%kernel.root_dir%'
+
+    Jinya\Services\Mailing\MailerService:
+      arguments:
+        $mailerSender: '%mailer_sender%'
 
     Jinya\Controller\InstallController:
+        arguments:
+          $kernelProjectDir: '%kernel.project_dir%'
+    Jinya\Controller\FrontendController:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
 
