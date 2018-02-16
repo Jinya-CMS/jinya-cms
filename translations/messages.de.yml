@@ -1,0 +1,338 @@
+app:
+  name: Jinya Gallery CMS
+layout:
+  backend:
+    login:
+      title: Login
+  install:
+    general:
+      title: Ersteinrichtung
+    admin:
+      title: Erster Administrator
+
+generic:
+  setup: Einrichten
+  save: Speichern
+  cancel: Abbrechen
+  delete: Löschen
+  next: Weiter
+  search: Suchen
+  clear: Leeren
+  close: Schließen
+  yes: Ja
+  no: Nein
+  auto_generated: Wird bei leerer Eingabe autogeneriert
+  file:
+    pick: Datei suchen
+  dont:
+    delete: Nicht löschen
+  add: Hinzufügen
+  required: Erforderlich
+  gallery: Galerie
+  artwork: Kunstwerk
+  form: Formular
+  page: Seite
+  empty: Keine Verknüpfung
+  labels: Label
+  external: Extern
+  edit: Bearbeiten
+  please_choose: Bitte wählen...
+layout:
+  designer:
+    gallery:
+      header: Galerien
+      title: Galerien
+    general: Allgemeines
+    theme: Theme
+    galleries: Galerien
+    artworks: Kunstwerke
+    forms: Formulare
+    menus: Menüs
+    pages: Seiten
+    backend: Backend
+    page:
+      edit: Seite title bearbeiten
+      header:
+        index: Seitenübersicht
+        add: Seite hinzufügen
+        edit: Seite title bearbeiten
+    form:
+      header:
+        add: Formular hinzufügen
+        index: Formularübersicht
+        edit: Formular title bearbeiten
+      edit: Formular title bearbeiten
+    menu:
+      header:
+        add: Menü hinzufügen
+        index: Menüübersicht
+        edit: Menü title bearbeiten
+      edit: Menü title bearbeiten
+  backend:
+    title: Backend
+    menu:
+      users: Künstler
+      asset:
+        title: Skripte und Styles
+        dump: Skripte und Styles erzeugen
+      cache:
+        title: Cache
+        clear: Cache leeren
+        warmup: Cache erzeugen
+      tools: Tools
+      maintenance:
+        schema:
+          update: Datenbankschema aktualisieren
+        title: Wartung
+      log:
+        title: Protokolle
+        application: Anwendungsprotokoll
+        access: Zugriffsprotokoll
+      galleries: Galerien
+      artworks: Kunstwerke
+      designer: Designer
+sidebar:
+  users:
+    overview: Überblick
+    add: Neuer Künstler
+    edit: Künstler bearbeiten
+    details: Künstlerdetails
+    delete: Künstler löschen
+    changepassword: Passwort ändern
+  accesslog:
+    details: Zugriffsdetails
+    overview: Überblick
+  log:
+    overview: Überblick
+    details: Eintragdetails
+    clear: Protokoll löschen
+  galleries:
+    overview: Überblick
+    add: Galerie hinzufügen
+    edit: Galerie bearbeiten
+    details: Galleriedetails
+    delete_background: Hintegrundbild löschen
+    delete: Galerie löschen
+    history: Galleriehistorie
+  artworks:
+    overview: Überblick
+    add: Kunstwerk hinzufügen
+    edit: Kunstwerk bearbeiten
+    details: Kunstwerkdetails
+    delete: Kunstwerk löschen
+    history: Kunstwerkhistorie
+  generic:
+    label:
+      add: Label hinzufügen
+backend:
+  users:
+    email: Emailadresse
+    firstname: Vorname
+    lastname: Nachname
+    username: Benutzername
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    active: Aktiv
+    superadmin: Superadmin
+    admin: Admin
+    editor: Schreiber
+    profilepicture: Profilbild
+    delete:
+      title: Wollen Sie den Künstler %firstname% %lastname% wirklich löschen?
+      content: Wenn Sie den Künstler %firstname% %lastname% löschen, ist es nicht mehr möglich die Inhalte dieses Künstlers aufzurufen und diese anzuzeigen.<br/>Weiterhin ist es dem Künstler anschließend nicht mehr möglich sich anzumelden.
+  cache:
+    clear:
+      success: Cache erfolgreich gelöscht
+      progress: Cache wird gelöscht
+      error: Fehler beim Leeren des Caches
+    warmup:
+      success: Cache erfolgreich erzeugt
+      progress: Cache wird erzeugt
+      error: Fehler beim Erzeugen des Caches
+  asset:
+      dump:
+        success: Skripte und Styles erfolgreich erzeugt
+        progress: Skripte und Styles werden erzeugt
+        error: Fehler beim Erzeugen der Skripte und Styles
+  maintenance:
+    schema:
+      update:
+        success: Das Datenbankschema wurde erfolgreich aktualisiert
+        progress: Das Datenbankschema wird aktualisiert
+        error: Das Datenbankschema konnte nicht aktualisiert werden
+  log:
+    created_at: Geschrieben am
+    level: Level
+    message: Nachricht
+    extra: Zusätzliche Daten
+    context: Kontext
+    clear:
+      title: Protokoll löschen
+      content: Wenn sie das Protokoll leeren, werden alle Einträge in der Datenbank, sowie die Protokolldatei auf dem Server gelöscht.
+      success: Das Protokoll wurde erfolgreich gelöscht
+      processing: Das Protokoll wird gelöscht
+      error: Das Protokoll konnte nicht gelöscht werden
+  accesslog:
+    ip: Client IP
+    method: HTTP Methode
+    created_at: Zugriff am
+    uri: URL
+    details:
+      title: Zugriff am %s
+    userAgent: User Agent
+  galleries:
+    load:
+      failure: Die Galerien konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Galerien gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    background: Hintergrundbild
+    select: Galerie auswählen
+    delete:
+      title: Wollen Sie die Galerie %name% wirklich löschen?
+      content: Wenn Sie die Galerie %name% löschen, wird die Zuordnung in den Menüs sowie die Zuordnung der Inhalte zurückgesetzt.
+      background:
+        title: Soll das Hintergrundbild wirklich gelöscht werden?
+    orientation:
+      label: Ausrichtung
+      horizontal: Horizontal
+      vertical: Vertical
+  artworks:
+    load:
+      failure: Die Kunstwerke konnten nicht geladen werden
+    empty:
+      message: Aktuell sind keine Kunstwerke gepflegt
+    name: Name
+    description: Beschreibung
+    slug: Slug
+    picture: Bild
+    select: Kunstwerk auswählen
+    labels: Labels
+    delete:
+      title: Wollen Sie das Kunstwerk %name% wirklich löschen?
+      content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.
+  art:
+    label:
+      name: Name
+      add: Label hinzufügen
+designer:
+  page:
+    title: Seitentitel
+    slug: Seitenslug
+    content: Seiteninhalt
+    delete:
+      title: Wirklich löschen?
+      content: Soll die Seite title wirklich gelöscht werden?
+  gallery:
+    add:
+      modal:
+        title: Kunstwerk hinzufügen
+        save: Einfügen
+    edit:
+      modal:
+        title: Kunstwerk ändern
+        save: Speichern
+    modification:
+      select: Auswählen
+    delete:
+      image:
+        title: Soll das Bild aus der Galerie entfernt werden?
+        message: Soll das gezeigt Bild wirklich aus der Galerie entfernt werden? Es kann jeder Zeit wiederhergestellt werden.
+    move:
+      error:
+        title: Fehler beim verschieben
+        body: Das Kunstwerke konnte nicht verschoben werden, bitte laden Sie den Browser neu und versuchen es erneut.
+  form:
+    delete:
+      content: Soll das Formular title wirklich gelöscht werden?
+      title: Formular löschen?
+    editor:
+      title: Titel
+      slug: Slug
+      description: Beschreibung
+      toaddress: Empfängeradresse
+      options: Optionen
+      items: Elemente
+      add:
+        item: Element hinzufügen
+        modal:
+          title: Element hinzufügen
+      label: Label
+      helpText: Hilfetext
+      type: Typ
+      types:
+        singlelinetext: Textbox
+        multilinetext: Textfeld
+        dropdown: Auswahl
+        email: Emailadresse
+        checkbox: Checkbox
+  menu:
+    delete:
+      title: Menü löschen?
+      content: Soll das Menü title wirklich gelöscht werden?
+    editor:
+      title: Menüeditor
+      name: Menüname
+      item:
+        add: Menüelement hinzufügen
+        modal:
+          title: Menüelementdaten
+        type: Typ
+        title: Text
+        displayUrl: Anzeige URL
+        route: Ziel
+        delete:
+          title: Eintrag löschen?
+          content: Soll der Menüeintrag title wirklich gelöscht werden?
+        highlighted: Hervorgehoben
+      items:
+        header: Menüelemente
+      logo: Logo
+  theme:
+    variables:
+      tab:
+        label: Template Variablen
+    menus:
+      form:
+        primary:
+          label: Primär Menü
+        secondary:
+          label: Sekundär Menü
+        footer:
+          label: Footer Menü
+      fieldset:
+        label: Menüs
+    general:
+      tab:
+        label: Allgemeines
+      active:
+        label: Aktiviert
+        frontend:
+          label: Aktives Frontend Theme
+install:
+  database:
+    title: Datenbank
+    host:
+      label: Host
+    port:
+      label: Port
+    user:
+      label: Benutzer
+    password:
+      label: Passwort
+    name:
+      label: Datenbankname
+  mailer:
+    title: Mailer
+    transport:
+      label: Transportprotokoll
+    host:
+      label: Emailserver
+    port:
+      label: Port
+    user:
+      label: Benutzer
+    password:
+      label: Passwort

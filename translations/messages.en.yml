@@ -1,0 +1,38 @@
+app:
+  name: Jinya Gallery CMS
+layout:
+  backend:
+    login:
+      title: Login
+generic:
+  empty: 'messages'
+  labels: 'messages'
+  please_choose: 'messages'
+  submit: Submit
+layout:
+  backend:
+    title: Backend
+    menu:
+      users: Artists
+sidebar:
+  users:
+    overview: Overview
+    add: Add artist
+    edit: Edit artist
+    details: Artistdetails
+    delete: Delete artist
+backend:
+  users:
+    email: Email address
+    firstname: Firstname
+    lastname: Lastname
+    username: Username
+    password: Password
+    password_repeat: Repeat password
+    active: Active
+    superadmin: Superadmin
+    admin: Admin
+    editor: Editor
+    save: Save
+    cancel: Cancel
+    profilepicture: Profile picture

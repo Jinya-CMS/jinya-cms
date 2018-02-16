@@ -1,0 +1,47 @@
+backend:
+  users:
+    password:
+      repeat: Die Passwörter müssen übereinstimmen
+      not_blank: Das Passwort ist erforderlich
+    firstname:
+      not_blank: Der Vorname ist erforderlich
+    lastname:
+      not_blank: Der Nachname ist erforderlich
+    username:
+      not_blank: Der Benutzername ist erforderlich
+    email:
+      invalid: Die Emailadresse ist nicht gültig
+      not_blank: Die Emailadresse ist erforderlich
+  galleries:
+    name:
+      not_unique: Der Name wurde bereits verwendet
+    slug:
+      not_unique: Der Slug wurde bereits verwendet
+  artworks:
+    name:
+      not_unique: Der Name wurde bereits verwendet
+    slug:
+      not_unique: Der Slug wurde bereits verwendet
+install:
+  database:
+    host:
+      not_blank: Der Host muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden
+    name:
+      not_blank: Der Name der Datenbank muss angegeben werden
+  mailer:
+    transport:
+      not_blank: Das Transportprotokoll muss angegeben werden
+    host:
+      not_blank: Der Emailserver muss angegeben werden
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen
