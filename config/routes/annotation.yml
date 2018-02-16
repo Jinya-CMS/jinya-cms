@@ -1,7 +1,7 @@
-install:
+jinya:
     resource: "../src/Controller/"
     type: annotation
-    prefix: /install
+    prefix: /
 
 designer:
     resource: "../src/Controller/Designer"
@@ -16,4 +16,4 @@ backend:
 frontend:
     resource: "../src/Controller/Frontend"
     type: annotation
-    prefix: /
+    prefix: /frontend

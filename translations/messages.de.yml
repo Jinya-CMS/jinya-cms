@@ -333,3 +333,7 @@ install:
       label: Benutzer
     password:
       label: Passwort
+  generic:
+    title: Allgemeines
+    environment:
+      label: Umgebung

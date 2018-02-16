@@ -19,18 +19,18 @@ use Symfony\Component\Routing\RouterInterface;
 class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
-    private $rootDir;
+    private $kernelProjectDir;
     /** @var RouterInterface */
     private $router;
 
     /**
      * RequestEventSubscriber constructor.
-     * @param string $rootDir
+     * @param string $kernelProjectDir
      * @param RouterInterface $router
      */
-    public function __construct(string $rootDir, RouterInterface $router)
+    public function __construct(string $kernelProjectDir, RouterInterface $router)
     {
-        $this->rootDir = $rootDir;
+        $this->kernelProjectDir = $kernelProjectDir;
         $this->router = $router;
     }
 
@@ -46,7 +46,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 
     public function onSymfonyRequest(GetResponseEvent $event)
     {
-        $installLock = $this->rootDir . DIRECTORY_SEPARATOR . 'config/install.lock';
+        $installLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/install.lock';
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 

@@ -45,6 +45,10 @@ class SetupType extends AbstractType
             ])
             ->add('mailerPassword', PasswordType::class, [
                 'label' => 'install.mailer.password.label'
+            ])
+            ->add('environment', TextType::class, [
+                'label' => 'install.generic.environment.label',
+                'data' => 'prod'
             ]);
     }
 

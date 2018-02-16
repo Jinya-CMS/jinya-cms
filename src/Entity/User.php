@@ -8,20 +8,82 @@
 
 namespace Jinya\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
 use JsonSerializable;
+use Symfony\Component\Security\Core\User\UserInterface;
+use function in_array;
+use function uniqid;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User extends BaseUser implements JsonSerializable
+class User implements JsonSerializable, UserInterface
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_WRITER = 'ROLE_WRITER';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
+    /**
+     * @var string
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $email;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
+    /**
+     * The salt to use for hashing.
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $salt;
+
+    /**
+     * Encrypted password. Must be persisted.
+     *
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $password;
+
+    /**
+     * Plain password. Used for model validation. Must not be persisted.
+     *
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * Random string sent to the user email address in order to verify it.
+     *
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $roles;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,7 +91,7 @@ class User extends BaseUser implements JsonSerializable
      *
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
@@ -46,40 +108,164 @@ class User extends BaseUser implements JsonSerializable
     private $lastname;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $profilePicture;
-    /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="creator")
-     */
-    private $createdGalleries;
 
     /**
      * User constructor.
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->createdGalleries = new ArrayCollection();
+        $this->enabled = false;
+        $this->roles = [];
+        $this->salt = uniqid();
     }
 
     /**
-     * @return ArrayCollection
+     * @return string
      */
-    public function getCreatedGalleries(): ArrayCollection
+    public function getEmail(): string
     {
-        return $this->createdGalleries;
+        return $this->email;
     }
 
     /**
-     * @param ArrayCollection $createdGalleries
+     * @param string $email
      */
-    public function setCreatedGalleries(ArrayCollection $createdGalleries): void
+    public function setEmail(string $email): void
     {
-        $this->createdGalleries = $createdGalleries;
+        $this->email = $email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled): void
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt(): string
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt(string $salt): void
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword(): string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastLogin(): ?\DateTime
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime|null $lastLogin
+     */
+    public function setLastLogin(?\DateTime $lastLogin): void
+    {
+        $this->lastLogin = $lastLogin;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param null|string $confirmationToken
+     */
+    public function setConfirmationToken(?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPasswordRequestedAt(): ?\DateTime
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /**
+     * @param \DateTime|null $passwordRequestedAt
+     */
+    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): void
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -165,8 +351,47 @@ class User extends BaseUser implements JsonSerializable
             'lastname' => $this->lastname,
             'profilepicture' => $this->profilePicture,
             'email' => $this->email,
-            'username' => $this->username,
             'roles' => $this->roles
         ];
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = '';
+    }
+
+    public function hasRole(string $role)
+    {
+        return in_array($role, $this->roles);
+    }
+
+    public function addRole(string $role)
+    {
+        if (($key = array_search($role, $this->roles)) === false) {
+            $this->roles[] = $role;
+        }
+    }
+
+    public function removeRole(string $role)
+    {
+        if (($key = array_search($role, $this->roles)) !== false) {
+            unset($this->roles[$key]);
+        }
     }
 }

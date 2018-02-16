@@ -4,6 +4,10 @@
     {{ form_start(form) }}
     <h1>{{ 'layout.install.general.title'|trans }}</h1>
     <fieldset>
+        <legend>{{ 'install.generic.title'|trans }}</legend>
+        {{ form_row(form.environment) }}
+    </fieldset>
+    <fieldset>
         <legend>{{ 'install.database.title'|trans }}</legend>
         {{ form_row(form.databaseHost) }}
         {{ form_row(form.databasePort) }}

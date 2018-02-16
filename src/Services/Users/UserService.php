@@ -8,43 +8,36 @@
 
 namespace Jinya\Services\Users;
 
-use Jinya\Entity\User;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-//use FOS\UserBundle\Model\UserManagerInterface;
-//use FOS\UserBundle\Util\UserManipulator;
+use Jinya\Entity\User;
 use Jinya\Form\Backend\AddUserData;
 use Jinya\Form\Backend\UserData;
 use Jinya\Services\Media\MediaServiceInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService implements UserServiceInterface
 {
-    /** @var UserManagerInterface */
-    private $userManager;
 
-    /** @var EntityManager */
+    /** @var EntityManagerInterface */
     private $entityManager;
-
-    /** @var UserManipulator */
-    private $userManipulator;
-
+    /** @var UserPasswordEncoderInterface */
+    private $userPasswordEncoder;
     /** @var MediaServiceInterface */
     private $mediaService;
 
-//    /**
-//     * UserService constructor.
-//     * @param UserManagerInterface $userManager
-//     * @param EntityManager $entityManager
-//     * @param UserManipulator $userManipulator
-//     * @param MediaServiceInterface $mediaService
-//     */
-//    public function __construct(UserManagerInterface $userManager, EntityManager $entityManager, UserManipulator $userManipulator, MediaServiceInterface $mediaService)
-//    {
-//        $this->userManager = $userManager;
-//        $this->entityManager = $entityManager;
-//        $this->userManipulator = $userManipulator;
-//        $this->mediaService = $mediaService;
-//    }
+    /**
+     * UserService constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param MediaServiceInterface $mediaService
+     */
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, MediaServiceInterface $mediaService)
+    {
+        $this->entityManager = $entityManager;
+        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->mediaService = $mediaService;
+    }
 
     /**
      * @inheritdoc
@@ -67,10 +60,9 @@ class UserService implements UserServiceInterface
         $userData->setEmail($user->getEmail());
         $userData->setFirstname($user->getFirstname());
         $userData->setLastname($user->getLastname());
-        $userData->setUsername($user->getUsername());
         $userData->setAdmin($user->hasRole(User::ROLE_ADMIN));
         $userData->setWriter($user->hasRole(User::ROLE_WRITER));
-        $userData->setSuperAdmin($user->isSuperAdmin());
+        $userData->setSuperAdmin($user->hasRole(User::ROLE_SUPER_ADMIN));
         $userData->setActive($user->isEnabled());
         $userData->setId($user->getId());
         $userData->setProfilePicture($user->getProfilePicture());
@@ -94,9 +86,9 @@ class UserService implements UserServiceInterface
     public function updateUser(int $id, UserData $userData): User
     {
         /** @var User $user */
-        $user = $this->userManager->findUserBy(['id' => $id]);
+        $user = $this->entityManager->find(User::class, $id);
         $this->fillUserFromUserData($userData, $user);
-        $this->userManager->updateUser($user);
+        $this->entityManager->flush();
 
         return $user;
     }
@@ -107,17 +99,11 @@ class UserService implements UserServiceInterface
      */
     private function fillUserFromUserData(UserData $userData, User $user)
     {
-        if ($userData->getUsername() !== null) {
-            $user->setUsername($userData->getUsername());
-        }
         if ($userData->getEmail() !== null) {
             $user->setEmail($userData->getEmail());
         }
         if ($userData->isActive() !== null) {
             $user->setEnabled($userData->isActive());
-        }
-        if ($userData->isSuperAdmin() !== null) {
-            $user->setSuperAdmin($userData->isSuperAdmin());
         }
         if ($userData->getFirstname() !== null) {
             $user->setFirstname($userData->getFirstname());
@@ -139,6 +125,11 @@ class UserService implements UserServiceInterface
         } elseif ($userData->isAdmin() === false) {
             $user->removeRole(User::ROLE_ADMIN);
         }
+        if ($userData->isSuperAdmin()) {
+            $user->addRole(User::ROLE_SUPER_ADMIN);
+        } elseif ($userData->isSuperAdmin() === false) {
+            $user->removeRole(User::ROLE_SUPER_ADMIN);
+        }
     }
 
     private function moveProfilePicture(UserData $userData): string
@@ -158,10 +149,12 @@ class UserService implements UserServiceInterface
     public function createUser(AddUserData $userData): User
     {
         /** @var User $user */
-        $user = $this->userManager->createUser();
+        $user = new User();
         $this->fillUserFromUserData($userData, $user);
-        $user->setPlainPassword($userData->getPassword());
-        $this->userManager->updateUser($user);
+        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $userData->getPassword()));
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
         return $user;
     }
@@ -212,7 +205,29 @@ class UserService implements UserServiceInterface
      */
     public function grantRole(int $userId, string $role): void
     {
-        $this->userManipulator->addRole($this->getUsernameById($userId), $role);
+        $user = $this->entityManager->find(User::class, $userId);
+        $user->addRole($role);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function revokeRole(int $userId, string $role): void
+    {
+        $user = $this->entityManager->find(User::class, $userId);
+        $user->removeRole($role);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function changePassword(int $id, string $newPassword): void
+    {
+        $user = $this->entityManager->find(User::class, $id);
+        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $newPassword));
+        $this->entityManager->flush();
     }
 
     /**
@@ -229,21 +244,5 @@ class UserService implements UserServiceInterface
             ->setParameter('userId', $userId)
             ->getQuery()
             ->getSingleScalarResult();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function revokeRole(int $userId, string $role): void
-    {
-        $this->userManipulator->removeRole($this->getUsernameById($userId), $role);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function changePassword(int $id, string $newPassword): void
-    {
-        $this->userManipulator->changePassword($this->getUsernameById($id), $newPassword);
     }
 }

@@ -25,9 +25,6 @@ class AdminType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'backend.users.email',
             ])
-            ->add('username', TextType::class, [
-                'label' => 'backend.users.username',
-            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'backend.users.password.repeat',

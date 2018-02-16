@@ -34,11 +34,6 @@ class UserData
      */
     private $email;
     /**
-     * @var string
-     * @Assert\NotBlank(message="backend.users.username.not_blank")
-     */
-    private $username;
-    /**
      * @var bool
      */
     private $admin;
@@ -151,22 +146,6 @@ class UserData
     public function setEmail(string $email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     */
-    public function setUsername(string $username)
-    {
-        $this->username = $username;
     }
 
     /**

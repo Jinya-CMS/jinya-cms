@@ -25,9 +25,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    # Parameter injection
     Jinya\EventSubscriber\RedirectToInstallWizardEventSubscriber:
       arguments:
-        $rootDir: '%kernel.root_dir%'
+        $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Theme\ThemeSyncService:
       arguments:
@@ -46,6 +47,15 @@ services:
         $twigLoader: '@twig.loader.filesystem'
         $kernelProjectDir: '%kernel.project_dir%'
         $themeDirectory: '%jinya_gallery.theme.directory%'
+
+    Jinya\Services\Media\MediaService:
+      arguments:
+        $baseUrl: '%base_url%'
+        $rootDir: '%kernel.root_dir%'
+
+    Jinya\Controller\InstallController:
+        arguments:
+          $kernelProjectDir: '%kernel.project_dir%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

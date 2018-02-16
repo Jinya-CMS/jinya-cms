@@ -1,15 +1,21 @@
 security:
   role_hierarchy:
     ROLE_SUPER_ADMIN: ROLE_ADMIN
+  encoders:
+    Jinya\Entity\User:
+      algorithm: bcrypt
 
   providers:
-    in_memory: { memory: ~ }
+    jinya_db_provider:
+      entity:
+        class: Jinya\Entity\User
+        property: email
 
   firewalls:
     backend:
       pattern: ^/
       form_login:
-        provider: in_memory
+        provider: jinya_db_provider
         login_path: backend_login_route
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /backend/
@@ -21,7 +27,7 @@ security:
       pattern: ^/
       form_login:
         login_path: backend_login_route
-        provider: in_memory
+        provider: jinya_db_provider
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /designer/
         always_use_default_target_path: false

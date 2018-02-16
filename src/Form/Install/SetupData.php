@@ -65,6 +65,27 @@ class SetupData
     private $mailerPassword;
 
     /**
+     * @var string
+     */
+    private $environment = 'prod';
+
+    /**
+     * @return string
+     */
+    public function getEnvironment(): ?string
+    {
+        return $this->environment;
+    }
+
+    /**
+     * @param string $environment
+     */
+    public function setEnvironment(?string $environment): void
+    {
+        $this->environment = $environment;
+    }
+
+    /**
      * @return string
      */
     public function getMailerTransport(): ?string
