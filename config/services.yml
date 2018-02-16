@@ -1,7 +1,6 @@
-# Learn more about services, parameters and containers at
-# https://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+    locale: 'de'
+    jinya_gallery.theme.directory: themes
 
 services:
     # default configuration for services in *this* file
@@ -12,4 +11,11 @@ services:
         autoconfigure: true
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
-        public: true
+        public: false
+    Jinya\:
+        resource: '../src/*'
+        exclude: '../src/{Entity,Migrations,Test,Kernel.php}'
+
+    Jinya\Controllers:
+        resource: '../src/*'
+        tags: ['controller.service_arguments']

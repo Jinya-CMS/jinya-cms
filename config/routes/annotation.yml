@@ -1,17 +1,12 @@
 designer:
-    resource: "@DesignerBundle/Controller/"
+    resource: "../src/Controller/Designer"
     type:     annotation
     prefix:   /designer
 
 install:
-    resource: "@InstallBundle/Controller/"
+    resource: "../src/Controller/Install"
     type: annotation
     prefix: /install
-
-backend:
-  resource: "@BackendBundle/Controller/"
-  type: annotation
-  prefix: /backend
 
 fos_user_security:
   resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -30,6 +25,6 @@ fos_user_change_password:
   prefix: /backend
 
 frontend:
-    resource: "@FrontendBundle/Controller/"
+    resource: "../src/Controller/Frontend"
     type:     annotation
     prefix:   /

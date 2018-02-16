@@ -1,0 +1,11 @@
+monolog:
+    channels: ['logging']
+    handlers:
+        db:
+            type: service
+            id: jinya_gallery.monolog.my_sql_handler
+            channels: ['!doctrine', '!logging']
+        accesslog:
+            type: service
+            id: jinya_gallery.monolog.access_log_handler
+            channels: ['request']
