@@ -45,7 +45,7 @@ defaultConfig:
     messages:
     mail_sent_message: Mail was sent successfully
 styles_base: public/scss/
-scripts_base: public/ts/
+scripts_base: public/js/
 styles:
   variables:
     file: frontend/_variables.scss
@@ -53,8 +53,12 @@ styles:
     - frontend.scss
     - designer.scss
 scripts:
-  - perfect-scrollbar.js
-  - scrollhelper.js
+  files:
+    frontend.js:
+      - frontend/perfect-scrollbar.js
+      - frontend/scrollhelper.js
+    designer.js:
+      - designer/designer.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren

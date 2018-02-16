@@ -13,6 +13,7 @@ use Jinya\Entity\Theme;
 use Jinya\Services\Scss\ScssCompilerServiceInterface;
 use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
+use const DIRECTORY_SEPARATOR;
 
 class ThemeCompilerService implements ThemeCompilerServiceInterface
 {
@@ -59,7 +60,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function compileStyles(Theme $theme): void
     {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
-        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
+        $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
 
         $fs = new Filesystem();
         $variables = $theme->getScssVariables();
@@ -77,6 +78,15 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         }
 
         $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
+    }
+
+    /**
+     * @param Theme $theme
+     * @return string
+     */
+    private function getTargetBasePath(Theme $theme): string
+    {
+        return $this->kernelProjectDir . '/public/public/' . $theme->getName();
     }
 
     /**
@@ -99,54 +109,38 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      */
     private function getCompilationCheckPathStyles(Theme $theme, string $filename): string
     {
-        $webScriptsBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
-        $compilationCheckPath = $webScriptsBasePath . ThemeCompilerService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
+        $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
+        $compilationCheckPath = $webStylesBasePath . ThemeCompilerService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
 
         return $compilationCheckPath;
     }
 
     private function getScssVariablesCompilationCheckPath(Theme $theme)
     {
-        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/styles/';
+        $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
 
         return $webStylesBasePath . 'variables';
     }
 
-    /**
-     * @param Theme $theme
-     */
-    private function concatScripts(Theme $theme): void
+    private function concatScripts(Theme $theme)
     {
-        $jsQueeze = new JSqueeze();
-        $source = $this->getJavaScriptSource($theme);
-
-        $code = $jsQueeze->squeeze($source);
-
-        $webScriptsBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/scripts/';
-
         $fs = new Filesystem();
-        $fs->dumpFile($webScriptsBasePath . 'scripts.js', $code);
-        $fs->dumpFile($this->getCompilationCheckPathScripts($theme, 'scripts.js'), md5($source));
-    }
-
-    /**
-     * @param Theme $theme
-     * @return string
-     */
-    private function getJavaScriptSource(Theme $theme): string
-    {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
         $scriptsBasePath = $this->getScriptsPath($theme);
+        $webStylesBasePath = $this->getTargetBasePath($theme) . '/scripts/';
+        $jsQueeze = new JSqueeze();
 
-        $source = '';
+        if ($themeConfig['scripts']['files']) {
+            foreach ($themeConfig['scripts']['files'] as $key => $scripts) {
+                $source = $this->getJavaScriptSource($scriptsBasePath, $scripts);
+                $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
+                $targetPath = $webStylesBasePath . $key;
+                $compiled = $jsQueeze->squeeze($source);
 
-        if (!empty($themeConfig['scripts'])) {
-            foreach ($themeConfig['scripts'] as $script) {
-                $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . "\n";
+                $fs->dumpFile($targetPath, $compiled);
+                $fs->dumpFile($compilationCheckPath, md5($compiled));
             }
         }
-
-        return $source;
     }
 
     /**
@@ -167,13 +161,31 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
+     * @param string $scriptsBasePath
+     * @param array $scripts
+     * @return string
+     */
+    private function getJavaScriptSource(string $scriptsBasePath, array $scripts): string
+    {
+        $source = '';
+
+        if (!empty($scripts)) {
+            foreach ($scripts as $script) {
+                $source .= file_get_contents($scriptsBasePath . DIRECTORY_SEPARATOR . $script) . "\n";
+            }
+        }
+
+        return $source;
+    }
+
+    /**
      * @param Theme $theme
      * @param string $filename
      * @return string
      */
     private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
     {
-        $webStylesBasePath = $this->kernelProjectDir . '/public/public/' . $theme->getName() . '/scripts/';
+        $webStylesBasePath = $this->getTargetBasePath($theme) . '/scripts/';
         $compilationCheckPath = $webStylesBasePath . ThemeCompilerService::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
         return $compilationCheckPath;
     }
@@ -217,9 +229,20 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function isScriptsCompiled(Theme $theme): bool
     {
         $fs = new Filesystem();
-        $source = md5($this->getJavaScriptSource($theme));
-        $scripts = $this->getCompilationCheckPathScripts($theme, 'scripts.js');
+        $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
 
-        return $fs->exists($scripts) && strcmp($source, file_get_contents($scripts)) === 0;
+        $isCompiled = true;
+        $scriptsBasePath = $this->getScriptsPath($theme);
+
+        if ($themeConfig['scripts']['files']) {
+            foreach ($themeConfig['scripts']['files'] as $key => $scripts) {
+                $source = $this->getJavaScriptSource($scriptsBasePath, $scripts);
+                $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
+
+                $isCompiled &= $fs->exists($compilationCheckPath) && strcmp(file_get_contents($compilationCheckPath), md5($source)) == 0;
+            }
+        }
+
+        return $isCompiled;
     }
 }
