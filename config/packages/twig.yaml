@@ -1,8 +1,8 @@
 twig:
-    paths: ['%kernel.project_dir%/templates']
+    paths:
+      - '%kernel.project_dir%/templates'
+      - '%kernel.project_dir%/themes': Theme
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
       ajax: false
-    paths:
-      '%kernel.project_dir%/themes': Theme
