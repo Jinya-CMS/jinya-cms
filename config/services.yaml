@@ -25,7 +25,7 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Jinya\EventSubscriber\RequestEventSubscriber:
+    Jinya\EventSubscriber\RedirectToInstallWizardEventSubscriber:
       arguments:
         $rootDir: '%kernel.root_dir%'
 

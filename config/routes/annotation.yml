@@ -1,14 +1,19 @@
-designer:
-    resource: "../src/Controller/Designer"
-    type:     annotation
-    prefix:   /designer
-
 install:
-    resource: "../src/Controller/Install"
+    resource: "../src/Controller/"
     type: annotation
     prefix: /install
 
+designer:
+    resource: "../src/Controller/Designer"
+    type: annotation
+    prefix: /designer
+
+backend:
+    resource: "../src/Controller/Backend"
+    type: annotation
+    prefix: /backend
+
 frontend:
     resource: "../src/Controller/Frontend"
-    type:     annotation
-    prefix:   /
+    type: annotation
+    prefix: /

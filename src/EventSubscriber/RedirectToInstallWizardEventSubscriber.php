@@ -11,13 +11,12 @@ namespace Jinya\EventSubscriber;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents as SymfonyKernelEvents;
 use Symfony\Component\Routing\RouterInterface;
 
-class RequestEventSubscriber implements EventSubscriberInterface
+class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
     private $rootDir;
@@ -47,16 +46,21 @@ class RequestEventSubscriber implements EventSubscriberInterface
 
     public function onSymfonyRequest(GetResponseEvent $event)
     {
+        $installLock = $this->rootDir . DIRECTORY_SEPARATOR . 'config/install.lock';
+        $fs = new FileSystem();
+        $installed = $fs->exists($installLock);
 
         if (stripos($event->getRequest()->getPathInfo(), '/install') !== 0) {
-            $fs = new FileSystem();
             try {
-                $installLock = new File($this->rootDir . DIRECTORY_SEPARATOR . 'config/install.lock');
-                if (!$fs->exists($installLock) && $installLock->getSize() > 0) {
+                if (!$installed) {
                     $event->setResponse(new RedirectResponse($this->router->generate('install_default_index')));
                 }
             } catch (Exception $ex) {
                 $event->setResponse(new RedirectResponse($this->router->generate('install_default_index')));
+            }
+        } else {
+            if ($installed) {
+                $event->setResponse(new RedirectResponse($this->router->generate('designer_default_index')));
             }
         }
     }

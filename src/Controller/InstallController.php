@@ -1,6 +1,6 @@
 <?php
 
-namespace Jinya\Controller\Install;
+namespace Jinya\Controller;
 
 use Jinya\Components\Install\ParameterProcessor;
 use Jinya\Form\Backend\AddUserData;
@@ -14,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class InstallController extends Controller
 {
 
     /**
