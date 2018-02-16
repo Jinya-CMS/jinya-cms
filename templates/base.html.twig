@@ -1,4 +1,3 @@
-{% if not app.request.xmlHttpRequest %}
 <html>
 <head>
     <title>{{ 'app.name'|trans() }}{% block title %}{% endblock %}</title>
@@ -18,10 +17,7 @@
     {% endblock %}
 </head>
 <body>
-{% endif %}
 {% block body %}{% endblock %}
-{% if not app.request.xmlHttpRequest %}
 {% block scripts %}{% endblock %}
 </body>
 </html>
-{% endif %}

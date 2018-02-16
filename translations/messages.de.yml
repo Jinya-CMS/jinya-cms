@@ -1,15 +1,5 @@
 app:
   name: Jinya Gallery CMS
-layout:
-  backend:
-    login:
-      title: Login
-  install:
-    general:
-      title: Ersteinrichtung
-    admin:
-      title: Erster Administrator
-
 generic:
   setup: Einrichten
   save: Speichern
@@ -38,6 +28,11 @@ generic:
   edit: Bearbeiten
   please_choose: Bitte wählen...
 layout:
+  install:
+    general:
+      title: Ersteinrichtung
+    admin:
+      title: Erster Administrator
   designer:
     gallery:
       header: Galerien
@@ -69,6 +64,8 @@ layout:
         edit: Menü title bearbeiten
       edit: Menü title bearbeiten
   backend:
+    login:
+      title: Login
     title: Backend
     menu:
       users: Künstler

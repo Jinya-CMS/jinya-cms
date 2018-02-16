@@ -2,10 +2,14 @@ security:
   role_hierarchy:
     ROLE_SUPER_ADMIN: ROLE_ADMIN
 
+  providers:
+    in_memory: { memory: ~ }
+
   firewalls:
     backend:
       pattern: ^/
       form_login:
+        provider: in_memory
         login_path: backend_login_route
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /backend/
@@ -17,8 +21,7 @@ security:
       pattern: ^/
       form_login:
         login_path: backend_login_route
-        check_path: fos_user_security_check
-        provider: fos_userbundle
+        provider: in_memory
         csrf_token_generator: security.csrf.token_manager
         default_target_path: /designer/
         always_use_default_target_path: false
