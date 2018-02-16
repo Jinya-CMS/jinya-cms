@@ -1,16 +1,16 @@
 <?php
 
-namespace Jinya\Controller\Designer;
+namespace Jinya\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Jinya\Framework\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends Controller
+class DesignerController extends BaseController
 {
     /**
-     * @Route("/designer", name="designer_default_index")
+     * @Route("/designer", name="designer_home_index")
      *
      * @param Request $request
      * @return Response

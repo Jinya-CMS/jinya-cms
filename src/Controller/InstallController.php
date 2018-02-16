@@ -116,7 +116,7 @@ class InstallController extends AbstractController
             $fs = new Filesystem();
             $fs->touch($this->kernelProjectDir . '/config/install.lock');
 
-            return $this->redirectToRoute('designer_default_index');
+            return $this->redirectToRoute('designer_home_index');
         }
 
         return $this->render('@Jinya_Install/Default/createAdmin.html.twig', [

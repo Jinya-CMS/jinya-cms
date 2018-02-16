@@ -4,25 +4,26 @@ namespace Jinya\Controller\Designer;
 
 use Jinya\Entity\Artwork;
 use Jinya\Entity\ArtworkPosition;
+use Jinya\Framework\BaseController;
+use Jinya\Services\Artworks\ArtworkPositionServiceInterface;
 use Jinya\Services\Galleries\GalleryServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Throwable;
+use Throwable;
 use const PHP_INT_MAX;
 use function array_values;
 
-class GalleryController extends Controller
+class GalleryController extends BaseController
 {
     /**
      * @Route("/designer/gallery/", name="designer_gallery_index")
      *
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(GalleryServiceInterface $galleryService): Response
     {
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $galleries = $galleryService->getAll(0, PHP_INT_MAX, '');
 
         return $this->render('@Designer/gallery/index.html.twig', [
@@ -34,12 +35,11 @@ class GalleryController extends Controller
      * @Route("/designer/gallery/{gallerySlug}", name="designer_gallery_details")
      *
      * @param string $gallerySlug
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function detailsAction(string $gallerySlug): Response
+    public function detailsAction(string $gallerySlug, GalleryServiceInterface $galleryService): Response
     {
-        /** @var GalleryServiceInterface $galleryService */
-        $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($gallerySlug);
 
         if ($gallery === null) {
@@ -55,12 +55,12 @@ class GalleryController extends Controller
      * @Route("/designer/gallery/{gallerySlug}/images", name="designer_gallery_images", methods={"GET"})
      *
      * @param string $gallerySlug
+     * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function galleryImagesAction(string $gallerySlug): Response
+    public function galleryImagesAction(string $gallerySlug, GalleryServiceInterface $galleryService): Response
     {
         try {
-            $galleryService = $this->get('jinya_gallery.services.gallery_service');
             $gallery = $galleryService->get($gallerySlug);
 
             if ($gallery === null) {
@@ -112,14 +112,13 @@ class GalleryController extends Controller
      * @param Request $request
      * @param string $gallerySlug
      * @param string $artworkSlug
+     * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function saveGalleryImageAction(Request $request, string $gallerySlug, string $artworkSlug): Response
+    public function saveGalleryImageAction(Request $request, string $gallerySlug, string $artworkSlug, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
         try {
             $position = $request->get('position', -1);
-
-            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
             $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
 
             return $this->json(['success' => true]);
@@ -133,14 +132,14 @@ class GalleryController extends Controller
      *
      * @param Request $request
      * @param string $artworkSlug
+     * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function updateGalleryImageAction(Request $request, string $artworkSlug): Response
+    public function updateGalleryImageAction(Request $request, string $artworkSlug, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
         try {
             $id = (int)$request->get('id');
 
-            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
             $artworkPositionService->updateArtwork($id, $artworkSlug);
 
             return $this->json(['success' => true]);
@@ -155,14 +154,13 @@ class GalleryController extends Controller
      * @param Request $request
      * @param string $gallerySlug
      * @param int $artworkPositionId
+     * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function updateGalleryImagePositionAction(Request $request, string $gallerySlug, int $artworkPositionId): Response
+    public function updateGalleryImagePositionAction(Request $request, string $gallerySlug, int $artworkPositionId, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
         try {
             $newPosition = $request->get('newPosition', -1);
-
-            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
             $artworkPositionService->updatePosition($gallerySlug, $artworkPositionId, $newPosition);
 
             return $this->json(['success' => true]);
@@ -175,12 +173,12 @@ class GalleryController extends Controller
      * @Route("/designer/gallery/{gallerySlug}/images/{id}", name="designer_gallery_images_position_delete")
      *
      * @param int $id
+     * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function deleteGalleryImageAction(int $id): Response
+    public function deleteGalleryImageAction(int $id, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
         try {
-            $artworkPositionService = $this->get('jinya_gallery.services.artwork_position_service');
             $artworkPositionService->deletePosition($id);
 
             return $this->json(['success' => true]);

@@ -2,6 +2,11 @@
 
 namespace Jinya\Controller\Designer;
 
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
+use Jinya\Services\Media\MediaServiceInterface;
+use Jinya\Services\Menu\MenuServiceInterface;
+use Jinya\Services\Theme\ThemeConfigServiceInterface;
+use Jinya\Services\Theme\ThemeServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -16,15 +21,13 @@ class ThemeController extends Controller
     /**
      * @Route("/designer/theme/", name="designer_theme_index")
      *
+     * @param ThemeServiceInterface $themeService
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(ThemeServiceInterface $themeService): Response
     {
-        $themeService = $this->get('jinya_gallery.services.theme_service');
-        $themes = $themeService->getAllThemes();
-
         return $this->render('@Designer/theme/index.html.twig', [
-            'themes' => $themes
+            'themes' => $themeService->getAllThemes()
         ]);
     }
 
@@ -33,25 +36,29 @@ class ThemeController extends Controller
      *
      * @param string $name
      * @param Request $request
+     * @param ThemeServiceInterface $themeService
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param ConfigurationServiceInterface $configurationService
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function configAction(string $name, Request $request): Response
+    public function configAction(string $name, Request $request, ThemeServiceInterface $themeService, ThemeConfigServiceInterface $themeConfigService, ConfigurationServiceInterface $configurationService, MenuServiceInterface $menuService): Response
     {
-        $themeService = $this->get('jinya_gallery.services.theme_service');
-        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
-        $menuService = $this->get('jinya_gallery.services.menu_service');
-        $frontendService = $this->get('jinya_gallery.services.frontend_configuration_service');
 
-        $frontendConfiguration = $frontendService->getConfig();
+        $configuration = $configurationService->getConfig();
 
         if ($request->isMethod('POST')) {
             $variables = $request->get('scss_variables');
             $themeConfigService->setVariables($name, array_filter($variables));
 
             if ($request->get('general')['active']['frontend']) {
-                $frontendConfiguration->setCurrentFrontendTheme($themeService->getTheme($name));
+                $configuration->setCurrentFrontendTheme($themeService->getTheme($name));
             }
-            $frontendService->writeConfig($frontendConfiguration);
+
+            if ($request->get('general')['active']['designer']) {
+                $configuration->setCurrentDesignerTheme($themeService->getTheme($name));
+            }
+            $configurationService->writeConfig($configuration);
 
             $this->postThemeConfig($name, $request->get('configuration'), $request->files);
             $themeConfigService->setMenus($name, $request->get('menu'));
@@ -71,7 +78,7 @@ class ThemeController extends Controller
             'theme' => $theme,
             'variables' => $variables,
             'menus' => $menus,
-            'frontend' => $frontendConfiguration
+            'frontend' => $configuration
         ]);
     }
 
@@ -79,15 +86,14 @@ class ThemeController extends Controller
      * @param string $name
      * @param array $configuration
      * @param FileBag $files
+     * @param ThemeServiceInterface $themeService
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param MediaServiceInterface $mediaService
      * @return void
      */
-    private function postThemeConfig(string $name, array $configuration, FileBag $files): void
+    private function postThemeConfig(string $name, array $configuration, FileBag $files, ThemeServiceInterface $themeService, ThemeConfigServiceInterface $themeConfigService, MediaServiceInterface $mediaService): void
     {
-        $themeService = $this->get('jinya_gallery.services.theme_service');
-        $themeConfigService = $this->get('jiyna_gallery.services.theme_config_service');
-
         $oldConfiguration = $themeService->getTheme($name)->getConfiguration();
-        $mediaService = $this->get('jinya_gallery.services_media.media_service');
 
         foreach ($files->get('configuration') as $aKey => $file) {
             list($result, $key, $uploadedFile) = $this->getKeyAndFile($file);

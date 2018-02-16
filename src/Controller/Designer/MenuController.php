@@ -2,29 +2,30 @@
 
 namespace Jinya\Controller\Designer;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Exception;
 use Jinya\Entity\Menu;
 use Jinya\Entity\MenuItem;
 use Jinya\Entity\RoutingEntry;
-use Doctrine\Common\Collections\ArrayCollection;
-use Exception;
+use Jinya\Framework\BaseController;
 use Jinya\Services\Media\MediaServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function is_array;
 
-class MenuController extends Controller
+class MenuController extends BaseController
 {
     /**
      * @Route("/designer/menu", name="designer_menu_index")
      *
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(MenuServiceInterface $menuService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
         $menus = $menuService->getAll();
 
         return $this->render('@Designer/menu/index.html.twig', [
@@ -48,12 +49,12 @@ class MenuController extends Controller
      *
      * @param int $id
      * @param Request $request
+     * @param MenuServiceInterface $menuService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function saveMenuAction(int $id = -1, Request $request): Response
+    public function saveMenuAction(int $id = -1, Request $request, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
-
         if ($id != -1) {
             $menu = $menuService->get($id);
             $menu->getMenuItems()->clear();
@@ -67,7 +68,7 @@ class MenuController extends Controller
         if ($request->files->has('_logo')) {
             /** @var UploadedFile $logoFile */
             $logoFile = $request->files->get('_logo');
-            $mediaService = $this->get('jinya_gallery.services_media.media_service');
+
             $logo = $mediaService->saveMedia($logoFile, MediaServiceInterface::MENU_LOGO);
             $menu->setLogo($logo);
         }
@@ -131,15 +132,13 @@ class MenuController extends Controller
      * @Route("/designer/menu/{id}", name="designer_menu_details", methods={"GET"})
      *
      * @param int $id
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function detailsAction(int $id): Response
+    public function detailsAction(int $id, MenuServiceInterface $menuService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
-        $menu = $menuService->get($id);
-
         return $this->render('@Designer/menu/details.html.twig', [
-            'menu' => $menu
+            'menu' => $menuService->get($id)
         ]);
     }
 
@@ -149,13 +148,10 @@ class MenuController extends Controller
      * @param int $id
      * @return Response
      */
-    public function editAction(int $id): Response
+    public function editAction(int $id, MenuServiceInterface $menuService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
-        $menu = $menuService->get($id);
-
         return $this->render('@Designer/menu/edit.html.twig', [
-            'menu' => $menu
+            'menu' => $menuService->get($id)
         ]);
     }
 
@@ -163,11 +159,11 @@ class MenuController extends Controller
      * @Route("/designer/menu/{id}", name="designer_menu_delete", methods={"DELETE"})
      *
      * @param int $id
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function deleteAction(int $id): Response
+    public function deleteAction(int $id, MenuServiceInterface $menuService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
         try {
             $menuService->delete($id);
 
@@ -184,15 +180,13 @@ class MenuController extends Controller
      * @Route("/designer/menu/api/{id}", name="designer_menu_load_menu", methods={"GET"})
      *
      * @param int $id
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function loadAction(int $id): Response
+    public function loadAction(int $id, MenuServiceInterface $menuService): Response
     {
-        $menuService = $this->get('jinya_gallery.services.menu_service');
         try {
-            $menu = $menuService->get($id);
-
-            return $this->json($menu);
+            return $this->json($menuService->get($id));
         } catch (Exception $exception) {
             return $this->json([
                 'success' => false,

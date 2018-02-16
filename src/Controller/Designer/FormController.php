@@ -2,25 +2,25 @@
 
 namespace Jinya\Controller\Designer;
 
+use Exception;
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
-use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Jinya\Framework\BaseController;
+use Jinya\Services\Form\FormServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FormController extends Controller
+class FormController extends BaseController
 {
     /**
      * @Route("/designer/form", name="designer_form_index")
      *
-     * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
         $forms = $formService->getAll(0, PHP_INT_MAX, '');
 
         return $this->render('@Designer/form/index.html.twig', [
@@ -31,10 +31,9 @@ class FormController extends Controller
     /**
      * @Route("/designer/form/add", name="designer_form_add")
      *
-     * @param Request $request
      * @return Response
      */
-    public function addAction(Request $request): Response
+    public function addAction(): Response
     {
         return $this->render('@Designer/form/add.html.twig');
     }
@@ -43,17 +42,11 @@ class FormController extends Controller
      * @Route("/designer/form/{slug}", name="designer_form_details", methods={"GET"})
      *
      * @param string $slug
-     * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function detailsAction(string $slug, Request $request): Response
+    public function detailsAction(string $slug, FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
         $form = $formService->get($slug);
         $formGenerator = $this->get('jinya_gallery.components.form_generator');
 
@@ -67,17 +60,11 @@ class FormController extends Controller
      * @Route("/designer/form/{slug}/edit", name="designer_form_edit")
      *
      * @param string $slug
-     * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function editAction(string $slug, Request $request): Response
+    public function editAction(string $slug, FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
         $form = $formService->get($slug);
 
         return $this->render('@Designer/form/edit.html.twig', [
@@ -89,12 +76,11 @@ class FormController extends Controller
      * @Route("/designer/form/{id}", name="designer_form_delete", methods={"DELETE"})
      *
      * @param int $id
-     * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
      */
-    public function deleteAction(int $id, Request $request): Response
+    public function deleteAction(int $id, FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
         try {
             $formService->delete($id);
 
@@ -113,16 +99,11 @@ class FormController extends Controller
      *
      * @param int $id
      * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function saveFormAction(int $id = -1, Request $request): Response
+    public function saveFormAction(int $id = -1, Request $request, FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
         if ($id > -1) {
             $form = $formService->get($id);
         } else {
@@ -171,18 +152,11 @@ class FormController extends Controller
      * @Route("/designer/form/api/{id}", name="designer_form_load_form", methods={"GET"})
      *
      * @param int $id
-     * @param Request $request
+     * @param FormServiceInterface $formService
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function loadFormAction(int $id, Request $request): Response
+    public function loadFormAction(int $id, FormServiceInterface $formService): Response
     {
-        $formService = $this->get('jinya_gallery.services.form_service');
-
         return $this->json($formService->get($id));
     }
 }

@@ -2,23 +2,24 @@
 
 namespace Jinya\Controller\Designer;
 
-use Jinya\Form\PageType;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Jinya\Form\Designer\PageType;
+use Jinya\Framework\BaseController;
+use Jinya\Services\Pages\PageServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PageController extends Controller
+class PageController extends BaseController
 {
     /**
      * @Route("/designer/page", name="designer_page_index")
      *
+     * @param PageServiceInterface $pageService
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(PageServiceInterface $pageService): Response
     {
-        $pageService = $this->get('jinya_gallery.services.page_service');
         $pages = $pageService->getAll(0, PHP_INT_MAX, '');
 
         return $this->render('@Designer/page/index.html.twig', [
@@ -31,16 +32,15 @@ class PageController extends Controller
      *
      * @param Request $request
      * @return Response
-     * @throws \Jinya\Exceptions\EmptySlugException
      */
-    public function addAction(Request $request): Response
+    public function addAction(Request $request, PageServiceInterface $pageService): Response
     {
         $form = $this->createForm(PageType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $pageService = $this->get('jinya_gallery.services.page_service');
+
             $pageService->save($data);
 
             return $this->redirectToRoute('designer_page_index');
@@ -56,17 +56,11 @@ class PageController extends Controller
      *
      * @param string $slug
      * @param Request $request
+     * @param PageServiceInterface $pageService
      * @return Response
-     * @throws \Jinya\Exceptions\EmptySlugException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function editAction(string $slug, Request $request): Response
+    public function editAction(string $slug, Request $request, PageServiceInterface $pageService): Response
     {
-        $pageService = $this->get('jinya_gallery.services.page_service');
         $page = $pageService->get($slug);
 
         $form = $this->createForm(PageType::class, $page);
@@ -89,20 +83,13 @@ class PageController extends Controller
      * @Route("/designer/page/{slug}", name="designer_page_details", methods={"GET"})
      *
      * @param string $slug
+     * @param PageServiceInterface $pageService
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function detailsAction(string $slug): Response
+    public function detailsAction(string $slug, PageServiceInterface $pageService): Response
     {
-        $pageService = $this->get('jinya_gallery.services.page_service');
-        $page = $pageService->get($slug);
-
         return $this->render('@Designer/page/details.html.twig', [
-            'page' => $page
+            'page' => $pageService->get($slug)
         ]);
     }
 
@@ -110,11 +97,11 @@ class PageController extends Controller
      * @Route("/designer/page/{id}", name="designer_page_delete", methods={"DELETE"})
      *
      * @param string $id
+     * @param PageServiceInterface $pageService
      * @return Response
      */
-    public function deleteAction(string $id): Response
+    public function deleteAction(string $id, PageServiceInterface $pageService): Response
     {
-        $pageService = $this->get('jinya_gallery.services.page_service');
         try {
             $pageService->delete($id);
 
