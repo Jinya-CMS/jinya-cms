@@ -65,4 +65,4 @@ api:
         missing: Das Feld Name muss ausgefüllt werden
   generic:
     headers:
-      contenttype: Der Content Type $contentType ist nicht zugelassen
+      contenttype: Der Content Type contentType ist nicht zugelassen

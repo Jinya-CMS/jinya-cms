@@ -8,12 +8,16 @@
 
 namespace Jinya\Framework;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseArtServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -150,7 +154,7 @@ abstract class BaseApiController extends AbstractController
      * @param int $successStatusCode
      * @return array
      */
-    protected function tryExecute(callable $function, int $successStatusCode = 200)
+    protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
         try {
             return [$function(), $successStatusCode];
@@ -164,22 +168,36 @@ abstract class BaseApiController extends AbstractController
                 $data['validation'][$key] = $this->translator->trans($message, [], 'validators');
             }
 
-            return [$data, 400];
+            return [$data, Response::HTTP_BAD_REQUEST];
+        } catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
+            return [$this->jsonFormatException($exception), Response::HTTP_NOT_FOUND];
+        } catch (UniqueConstraintViolationException $exception) {
+            return [$this->jsonFormatException($exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
-            $data = [
-                'success' => false,
-                'error' => [
-                    'message' => $throwable->getMessage()
-                ]
-            ];
-            if ($this->isDebug()) {
-                $data['error']['file'] = $throwable->getFile();
-                $data['error']['stack'] = $throwable->getTraceAsString();
-                $data['error']['line'] = $throwable->getLine();
-            }
-
-            return [$data, 500];
+            return [$this->jsonFormatException($throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
+    }
+
+    /**
+     * Formats the given @see Throwable as array
+     *
+     * @param Throwable $throwable
+     * @return array
+     */
+    protected function jsonFormatException(Throwable $throwable): array
+    {
+        $data = [
+            'success' => false,
+            'error' => [
+                'message' => $throwable->getMessage()
+            ]
+        ];
+        if ($this->isDebug()) {
+            $data['error']['file'] = $throwable->getFile();
+            $data['error']['stack'] = $throwable->getTraceAsString();
+            $data['error']['line'] = $throwable->getLine();
+        }
+        return $data;
     }
 
     /**

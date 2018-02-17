@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api;
 
-
 use Jinya\Entity\Gallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\BaseApiController;
@@ -65,6 +64,7 @@ class GalleryController extends BaseApiController
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
+            $slug = $this->getValue('slug', null);
             $labels = $this->getValue('labels', []);
 
             if (!$name) {
@@ -73,6 +73,7 @@ class GalleryController extends BaseApiController
 
             $gallery = new Gallery();
             $gallery->setName($name);
+            $gallery->setSlug($slug);
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
 
@@ -85,31 +86,37 @@ class GalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{slug}/background", methods={"PUT"}, name="api_gallery_put_background")
+     * @Route("/api/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function putBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $slug) {
-            $background = $request->getContent(true);
-            $backgroundPath = $mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND);
-
+        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService) {
             $gallery = $galleryService->get($slug);
 
-            if ($background) {
-                $gallery->setBackground($backgroundPath);
+            $name = $this->getValue('name', $gallery->getName());
+            $description = $this->getValue('description', $gallery->getDescription());
+            $orientation = $this->getValue('orientation', $gallery->getOrientation());
+            $slug = $this->getValue('slug', $gallery->getSlug());
+
+            if (!$name) {
+                throw new MissingFieldsException(['name' => 'api.gallery.field.name.missing']);
             }
 
-            $galleryService->saveOrUpdate($gallery);
+            $gallery->setName($name);
+            $gallery->setSlug($slug);
+            $gallery->setDescription($description);
+            $gallery->setOrientation($orientation);
 
-            return $backgroundPath;
-        }, 201);
+            $gallery = $galleryService->saveOrUpdate($gallery);
+
+            return $gallery;
+        });
 
         return $this->json($data, $status);
     }
