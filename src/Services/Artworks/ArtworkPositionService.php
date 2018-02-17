@@ -12,9 +12,11 @@ namespace Jinya\Services\Artworks;
 use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Jinya\Entity\Artwork;
 use Jinya\Entity\ArtworkPosition;
 use Jinya\Entity\Gallery;
 use Jinya\Services\Galleries\GalleryServiceInterface;
+use function array_values;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
@@ -66,7 +68,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /**
      * @param int $position
-     * @param $gallery
+     * @param Gallery $gallery
      * @return int
      */
     private function rearrangeArtworks(int $position, Gallery $gallery): int
@@ -77,17 +79,19 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             /** @var ArtworkPosition $b */
             return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
         });
-        array_map(function ($item) {
-            /** @var ArtworkPosition $item */
-            return $item->getPosition();
-        }, $positions);
+
+        $positions = array_values($positions);
 
         if ($position === -1) {
             $position = array_shift($positions)->getPosition() + 1;
         }
 
         /** @var ArtworkPosition $artworkPosition */
-        foreach ($gallery->getArtworks() as $artworkPosition) {
+        foreach ($positions as $key => $artworkPosition) {
+            $artworkPosition->setPosition($key);
+        }
+
+        foreach ($positions as $artworkPosition) {
             if ($artworkPosition->getPosition() >= $position) {
                 $artworkPosition->setPosition($artworkPosition->getPosition() + 1);
             }
@@ -98,7 +102,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         /** @var ArrayIterator $iterator */
         $iterator = $artworks->getIterator();
         $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
-            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+            return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
         });
         $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
@@ -172,5 +176,29 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             ->setParameter('id', $id)
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * Gets all artworks for the given @see Gallery slug
+     *
+     * @param string $slug
+     * @return Artwork[]
+     */
+    public function getArtworks(string $slug): array
+    {
+        $gallery = $this->galleryService->get($slug);
+        $artworkPositions = $gallery->getArtworks()->toArray();
+        uasort($artworkPositions, function (ArtworkPosition $a, ArtworkPosition $b) {
+            return $a->getPosition() > $b->getPosition();
+        });
+
+        $artworks = array_values(array_map(function (ArtworkPosition $item) {
+            return [
+                'artwork' => $item->getArtwork(),
+                'id' => $item->getId()
+            ];
+        }, $artworkPositions));
+
+        return $artworks;
     }
 }
