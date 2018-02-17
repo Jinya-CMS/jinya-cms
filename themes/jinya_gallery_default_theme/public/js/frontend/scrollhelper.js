@@ -1,7 +1,7 @@
 (function () {
-    var scrollItem = document.querySelector('.horizontal');
+    const scrollItem = document.querySelector('.horizontal');
     if (scrollItem) {
-        scrollItem.addEventListener('wheel', function (e) {
+        scrollItem.addEventListener('wheel', (e) => {
             if (!e.deltaX) {
                 scrollItem.scrollBy({
                     behavior: 'auto',
@@ -10,8 +10,9 @@
             }
         });
     }
-    var scrolls = document.querySelectorAll('[data-scroll]');
-    for (var i = 0; i < scrolls.length; i++) {
-        new PerfectScrollbar(scrolls[i]);
-    }
+
+    const scrolls = document.querySelectorAll('[data-scroll]');
+    scrolls.forEach((item) => {
+        new PerfectScrollbar(item);
+    });
 }());
