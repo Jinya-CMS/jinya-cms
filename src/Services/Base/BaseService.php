@@ -49,13 +49,50 @@ abstract class BaseService
      *
      * @param int $id
      * @return mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getById(int $id)
     {
-        return $this->entityManager->find($this->entityType, $id);
+        return $this->getQueryBuilder()
+            ->where('entity.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    /**
+     * Gets a @see QueryBuilder for the current entity type
+     *
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilder(): QueryBuilder
+    {
+        if ($this->repository === null) {
+            $this->repository = $this->entityManager->getRepository($this->entityType);
+        }
+
+        return $this->repository->createQueryBuilder('entity');
+    }
+
+    /**
+     * Gets all fields excluding the clutter, like history
+     *
+     * @return array
+     */
+    protected function getFieldsWithoutClutter(): array
+    {
+        $fieldsInEntity = $this->entityManager->getClassMetadata($this->entityType)->getFieldNames();
+        $fields = [];
+
+        foreach ($fieldsInEntity as $key => $field) {
+            if ($field !== 'history') {
+                $fields[$key] = "entity.$field";
+            } else {
+                $fields[$key] = "entity.history = ''";
+            }
+        }
+        return $fields;
     }
 
     /**
@@ -63,10 +100,9 @@ abstract class BaseService
      *
      * @param $item
      * @return mixed
-     * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\ORMException
      */
-    protected function save($item)
+    public function save($item)
     {
         if ($item->getId() !== null) {
             $entity = $this->getById($item->getId());
@@ -115,19 +151,5 @@ abstract class BaseService
         $item = $this->getById($id);
         $this->entityManager->remove($item);
         $this->entityManager->flush();
-    }
-
-    /**
-     * Gets a @see QueryBuilder for the current entity type
-     *
-     * @return QueryBuilder
-     */
-    protected function getQueryBuilder(): QueryBuilder
-    {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository($this->entityType);
-        }
-
-        return $this->repository->createQueryBuilder('entity');
     }
 }

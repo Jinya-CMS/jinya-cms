@@ -44,6 +44,7 @@ interface BaseArtServiceInterface
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
+     * @param bool $includeHistory
      * @return ArtEntityInterface[]
      */
     public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;

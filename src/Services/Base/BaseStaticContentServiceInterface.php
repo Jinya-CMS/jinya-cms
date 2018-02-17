@@ -42,6 +42,7 @@ interface BaseStaticContentServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     * @param bool $includeHistory
      * @return SlugEntity[]
      */
     public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array;

@@ -83,4 +83,13 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
      * @return void
      */
     public function updateField(string $key, string $value, int $id);
+
+    /**
+     * Adds the given labels to the given gallery
+     *
+     * @param Gallery $gallery
+     * @param array $labels
+     * @return Gallery
+     */
+    public function setLabels(Gallery $gallery, array $labels): Gallery;
 }
