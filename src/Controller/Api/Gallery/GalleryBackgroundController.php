@@ -6,7 +6,7 @@
  * Time: 20:57
  */
 
-namespace Jinya\Controller\Api;
+namespace Jinya\Controller\Api\Gallery;
 
 
 use Jinya\Entity\Gallery;

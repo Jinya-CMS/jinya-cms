@@ -6,14 +6,13 @@
  * Time: 17:39
  */
 
-namespace Jinya\Controller\Api;
+namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Entity\Gallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
-use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
