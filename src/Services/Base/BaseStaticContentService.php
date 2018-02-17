@@ -32,6 +32,11 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
         $this->slugService = $slugService;
     }
 
+    public function delete(int $id)
+    {
+        // TODO: Implement delete() method.
+    }
+
     /**
      * @inheritdoc
      */

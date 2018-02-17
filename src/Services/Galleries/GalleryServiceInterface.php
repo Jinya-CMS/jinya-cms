@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Galleries;
 
+use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Gallery;
 use Jinya\Entity\Label;
 use Jinya\Services\Base\BaseArtServiceInterface;
@@ -69,10 +70,10 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
     /**
      * Deletes the given gallery
      *
-     * @param int $id
+     * @param ArtEntityInterface $artEntity
      * @return void
      */
-    public function delete(int $id);
+    public function delete(ArtEntityInterface $artEntity);
 
     /**
      * Updates the given field

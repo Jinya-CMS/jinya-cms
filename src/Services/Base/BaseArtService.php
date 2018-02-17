@@ -11,6 +11,7 @@ namespace Jinya\Services\Base;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -96,29 +97,6 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     /**
      * @inheritdoc
      */
-    public function get($idOrSlug)
-    {
-        if (is_numeric($idOrSlug)) {
-            return $this->getById($idOrSlug);
-        }
-        return $this->getBySlug($idOrSlug);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getBySlug(string $slug)
-    {
-        return $this->getQueryBuilder()
-            ->where('entity.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getSingleResult();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function save($entity)
     {
         if (empty($entity->getSlug())) {
@@ -149,5 +127,37 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
         }
 
         return parent::save($entity);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(ArtEntityInterface $artEntity)
+    {
+        $this->entityManager->remove($artEntity);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function get($idOrSlug)
+    {
+        if (is_numeric($idOrSlug)) {
+            return $this->getById($idOrSlug);
+        }
+        return $this->getBySlug($idOrSlug);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getBySlug(string $slug)
+    {
+        return $this->getQueryBuilder()
+            ->where('entity.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getSingleResult();
     }
 }

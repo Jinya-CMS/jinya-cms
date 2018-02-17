@@ -44,7 +44,6 @@ interface BaseArtServiceInterface
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
-     * @param bool $includeHistory
      * @return ArtEntityInterface[]
      */
     public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
@@ -69,10 +68,10 @@ interface BaseArtServiceInterface
     /**
      * Deletes the given ArtEntityInterface
      *
-     * @param int $id
+     * @param ArtEntityInterface $artEntity
      * @return void
      */
-    public function delete(int $id);
+    public function delete(ArtEntityInterface $artEntity);
 
     /**
      * Updates the given field

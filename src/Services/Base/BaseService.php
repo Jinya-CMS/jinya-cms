@@ -146,7 +146,7 @@ abstract class BaseService
      * @param int $id
      * @throws \Doctrine\ORM\ORMException
      */
-    public function delete(int $id)
+    public function deleteById(int $id)
     {
         $item = $this->getById($id);
         $this->entityManager->remove($item);
