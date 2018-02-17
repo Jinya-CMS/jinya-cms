@@ -26,7 +26,7 @@ class GalleryController extends BaseController
     {
         $galleries = $galleryService->getAll(0, PHP_INT_MAX, '');
 
-        return $this->render('@Designer/gallery/index.html.twig', [
+        return $this->render('@Designer/Gallery/index.html.twig', [
             'galleries' => $galleries
         ]);
     }
@@ -46,7 +46,7 @@ class GalleryController extends BaseController
             throw $this->createNotFoundException();
         }
 
-        return $this->render('@Designer/gallery/details.html.twig', [
+        return $this->render('@Designer/Gallery/details.html.twig', [
             'gallery' => $gallery
         ]);
     }
