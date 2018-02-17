@@ -55,10 +55,13 @@ styles:
 scripts:
   files:
     frontend.js:
-      - frontend/perfect-scrollbar.js
-      - frontend/scrollhelper.js
+      - frontend.js
+    frontend.min.js:
+      - frontend.min.js
     designer.js:
-      - designer/designer.js
+      - designer.js
+    designer.min.js:
+      - designer.min.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren
