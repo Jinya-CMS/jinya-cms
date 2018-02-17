@@ -14,13 +14,10 @@ security:
         property: email
 
   firewalls:
-    api:
+    designer:
       pattern: ^/
       http_basic:
         provider: jinya_db_provider
-      anonymous: true
-    designer:
-      pattern: ^/
       form_login:
         login_path: jinya_account_login
         check_path: jinya_account_login
@@ -34,3 +31,4 @@ security:
   access_control:
     - { path: ^/account/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/designer/, role: ROLE_WRITER }
+    - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }

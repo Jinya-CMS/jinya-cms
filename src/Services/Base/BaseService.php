@@ -90,8 +90,6 @@ class BaseService
         foreach ($fieldsInEntity as $key => $field) {
             if ($field !== 'history') {
                 $fields[$key] = "entity.$field";
-            } else {
-                $fields[$key] = "entity.history = ''";
             }
         }
         return $fields;

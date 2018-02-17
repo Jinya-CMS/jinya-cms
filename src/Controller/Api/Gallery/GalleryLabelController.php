@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -20,7 +19,7 @@ class GalleryLabelController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{slug}/label", methods={"GET"}, name="api_gallery_label_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
+     * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService

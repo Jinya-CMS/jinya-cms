@@ -50,9 +50,7 @@ class BaseSlugEntityService extends BaseService
             $entity->setSlug($this->slugService->generateSlug($slugBase));
         }
 
-        $this->entityManager->flush();
-
-        return $entity;
+        return parent::saveOrUpdate($entity);
     }
 
     /**
