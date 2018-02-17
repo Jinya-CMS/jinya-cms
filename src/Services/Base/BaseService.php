@@ -11,27 +11,16 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Jinya\Entity\BaseEntity;
 
-abstract class BaseService
+trait BaseService
 {
     /** @var EntityManagerInterface */
     protected $entityManager;
-
     /** @var EntityRepository */
     private $repository;
     /** @var string */
     private $entityType;
-
-    /**
-     * BaseService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param string $entityType
-     */
-    public function __construct(EntityManagerInterface $entityManager, string $entityType)
-    {
-        $this->entityManager = $entityManager;
-        $this->entityType = $entityType;
-    }
 
     /**
      * @inheritdoc
@@ -41,7 +30,7 @@ abstract class BaseService
         $entity = $this->getById($id);
         $entity->{"set$key"}($value);
 
-        $this->save($entity);
+        $this->saveOrUpdate($entity);
     }
 
     /**
@@ -52,7 +41,7 @@ abstract class BaseService
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getById(int $id)
+    private function getById(int $id)
     {
         return $this->getQueryBuilder()
             ->where('entity.id = :id')
@@ -76,33 +65,13 @@ abstract class BaseService
     }
 
     /**
-     * Gets all fields excluding the clutter, like history
-     *
-     * @return array
-     */
-    protected function getFieldsWithoutClutter(): array
-    {
-        $fieldsInEntity = $this->entityManager->getClassMetadata($this->entityType)->getFieldNames();
-        $fields = [];
-
-        foreach ($fieldsInEntity as $key => $field) {
-            if ($field !== 'history') {
-                $fields[$key] = "entity.$field";
-            } else {
-                $fields[$key] = "entity.history = ''";
-            }
-        }
-        return $fields;
-    }
-
-    /**
      * Saves the given entity
      *
      * @param $item
      * @return mixed
      * @throws \Doctrine\ORM\ORMException
      */
-    public function save($item)
+    public function saveOrUpdate(BaseEntity $item)
     {
         if ($item->getId() !== null) {
             $entity = $this->getById($item->getId());
@@ -141,15 +110,34 @@ abstract class BaseService
     }
 
     /**
-     * Deletes the entity with the given id
+     * Deletes the given @see BaseEntity
      *
-     * @param int $id
-     * @throws \Doctrine\ORM\ORMException
+     * @param BaseEntity $entity
+     * @return void
      */
-    public function deleteById(int $id)
+    public function delete(BaseEntity $entity): void
     {
-        $item = $this->getById($id);
-        $this->entityManager->remove($item);
+        $this->entityManager->remove($entity);
         $this->entityManager->flush();
+    }
+
+    /**
+     * Gets all fields excluding the clutter, like history
+     *
+     * @return array
+     */
+    protected function getFieldsWithoutClutter(): array
+    {
+        $fieldsInEntity = $this->entityManager->getClassMetadata($this->entityType)->getFieldNames();
+        $fields = [];
+
+        foreach ($fieldsInEntity as $key => $field) {
+            if ($field !== 'history') {
+                $fields[$key] = "entity.$field";
+            } else {
+                $fields[$key] = "entity.history = ''";
+            }
+        }
+        return $fields;
     }
 }

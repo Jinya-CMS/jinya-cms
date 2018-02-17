@@ -14,6 +14,7 @@ use Doctrine\ORM\NoResultException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseArtServiceInterface;
+use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Labels\LabelServiceInterface;
 use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,12 +96,12 @@ abstract class BaseApiController extends AbstractController
      * Gets all arts from the given service
      *
      * @param Request $request
-     * @param BaseArtServiceInterface $baseService
+     * @param BaseSlugEntityService $baseService
      * @param RouterInterface $router
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    protected function getAllArt(Request $request, BaseArtServiceInterface $baseService, RouterInterface $router, LabelServiceInterface $labelService): Response
+    protected function getAllArt(Request $request, BaseSlugEntityService $baseService, RouterInterface $router, LabelServiceInterface $labelService): Response
     {
         list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $router, $request, $baseService) {
             $offset = $request->get('offset', 0);
@@ -217,10 +218,10 @@ abstract class BaseApiController extends AbstractController
      * Gets the art for the given slug
      *
      * @param string $slug
-     * @param BaseArtServiceInterface $baseService
+     * @param BaseSlugEntityService $baseService
      * @return Response
      */
-    protected function getArt(string $slug, BaseArtServiceInterface $baseService): Response
+    protected function getArt(string $slug, BaseSlugEntityService $baseService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $baseService) {
             return [
