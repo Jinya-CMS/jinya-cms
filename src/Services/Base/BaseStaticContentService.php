@@ -119,7 +119,7 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
     /**
      * @inheritdoc
      */
-    public function save($entity)
+    public function saveOrUpdate($entity)
     {
         if ($entity->getSlug() === null || $entity->getSlug() === '') {
             if (method_exists($entity, 'getTitle')) {
@@ -133,6 +133,6 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
             $entity->setSlug($this->slugService->generateSlug($slugBase));
         }
 
-        return parent::save($entity);
+        return parent::saveOrUpdate($entity);
     }
 }

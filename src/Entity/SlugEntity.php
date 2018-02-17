@@ -20,6 +20,28 @@ trait SlugEntity
     private $slug;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return string
      */
     public function getSlug(): ?string
