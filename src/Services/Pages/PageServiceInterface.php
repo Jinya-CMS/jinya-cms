@@ -8,9 +8,59 @@
 
 namespace Jinya\Services\Pages;
 
+use Jinya\Entity\Page;
 
-use Jinya\Services\Base\BaseStaticContentServiceInterface;
-
-interface PageServiceInterface extends BaseStaticContentServiceInterface
+interface PageServiceInterface
 {
+    /**
+     * Gets the specified @see Page by slug
+     *
+     * @param string $slug
+     * @return Page
+     */
+    public function get(string $slug);
+
+    /**
+     * Gets all entities by the given parameters
+     *
+     * @param int $offset
+     * @param int $count
+     * @param string $keyword
+     * @return Page[]
+     */
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
+
+    /**
+     * Counts all entities
+     *
+     * @param string $keyword
+     * @return int
+     */
+    public function countAll(string $keyword = ''): int;
+
+    /**
+     * Saves or updates the given @see Page
+     *
+     * @param Page $form
+     * @return Page
+     */
+    public function saveOrUpdate($form);
+
+    /**
+     * Deletes the given @see Page
+     *
+     * @param Page $entity
+     * @return void
+     */
+    public function delete($entity): void;
+
+    /**
+     * Updates the given field
+     *
+     * @param string $key
+     * @param string $value
+     * @param int $id
+     * @return void
+     */
+    public function updateField(string $key, string $value, int $id);
 }

@@ -13,10 +13,8 @@ use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
 
-trait BaseLabelEntityService
+trait LabelEntityServiceTrait
 {
-    use BaseService;
-
     /** @var LabelServiceInterface */
     protected $labelService;
 

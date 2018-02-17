@@ -8,16 +8,17 @@
 
 namespace Jinya\Services\Galleries;
 
-
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Gallery;
-use Jinya\Services\Base\BaseArtService;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
-class GalleryService extends BaseArtService implements GalleryServiceInterface
+class GalleryService extends BaseSlugEntityService implements GalleryServiceInterface
 {
+    use LabelEntityServiceTrait;
+
     /**
      * GalleryService constructor.
      * @param EntityManagerInterface $entityManager
@@ -26,47 +27,7 @@ class GalleryService extends BaseArtService implements GalleryServiceInterface
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
-        parent::__construct($entityManager, $slugService, $labelService, Gallery::class);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(ArtEntityInterface $artEntity)
-    {
-        parent::delete($artEntity);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function get($idOrSlug): ?Gallery
-    {
-        return parent::get($idOrSlug);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getBySlug(string $slug): ?Gallery
-    {
-        return parent::getBySlug($slug);
-    }
-
-
-    /**
-     * @inheritdoc
-     */
-    public function getById(int $id): ?Gallery
-    {
-        return parent::getById($id);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function saveOrUpdate(Gallery $gallery): Gallery
-    {
-        return parent::save($gallery);
+        parent::__construct($entityManager, $slugService, Gallery::class);
+        $this->labelService = $labelService;
     }
 }
