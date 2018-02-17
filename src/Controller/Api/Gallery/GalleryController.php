@@ -13,6 +13,7 @@ use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
+use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -116,6 +117,29 @@ class GalleryController extends BaseApiController
 
             return $gallery;
         });
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @param string $slug
+     * @param GalleryServiceInterface $galleryService
+     * @param MediaServiceInterface $mediaService
+     * @return Response
+     */
+    public function deleteAction(string $slug, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
+            $gallery = $galleryService->get($slug);
+            if (!empty($gallery->getBackground())) {
+                $mediaService->deleteMedia($gallery->getBackground());
+            }
+
+            $galleryService->delete($gallery);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

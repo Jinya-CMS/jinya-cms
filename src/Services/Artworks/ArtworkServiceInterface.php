@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Artworks;
 
+use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
 use Jinya\Services\Base\BaseArtServiceInterface;
@@ -29,7 +30,6 @@ interface ArtworkServiceInterface extends BaseArtServiceInterface
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
-     * @param bool $includeHistory
      * @return Artwork[]
      */
     public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
@@ -54,9 +54,10 @@ interface ArtworkServiceInterface extends BaseArtServiceInterface
     /**
      * Deletes the given artwork
      *
-     * @param int $id
+     * @param ArtEntityInterface $artEntity
+     * @return
      */
-    public function delete(int $id): void;
+    public function delete(ArtEntityInterface $artEntity);
 
     /**
      * Gets the artwork for the given slug

@@ -10,41 +10,33 @@ namespace Jinya\Services\Galleries;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Gallery;
 use Jinya\Services\Base\BaseArtService;
 use Jinya\Services\Labels\LabelServiceInterface;
-use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
 class GalleryService extends BaseArtService implements GalleryServiceInterface
 {
 
-    /** @var MediaServiceInterface */
-    private $mediaService;
 
     /**
      * GalleryService constructor.
      * @param EntityManagerInterface $entityManager
-     * @param MediaServiceInterface $mediaService
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService
      */
-    public function __construct(EntityManagerInterface $entityManager, MediaServiceInterface $mediaService, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
         parent::__construct($entityManager, $slugService, $labelService, Gallery::class);
-        $this->mediaService = $mediaService;
     }
 
     /**
      * @inheritdoc
      */
-    public function delete(int $id)
+    public function delete(ArtEntityInterface $artEntity)
     {
-        $gallery = $this->get($id);
-        if ($gallery->getBackground()) {
-            $this->mediaService->deleteMedia($gallery->getBackground());
-        }
-        parent::delete($id);
+        parent::delete($artEntity);
     }
 
     /**

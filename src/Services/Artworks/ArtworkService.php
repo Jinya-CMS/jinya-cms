@@ -36,19 +36,6 @@ class ArtworkService extends BaseArtService implements ArtworkServiceInterface
     /**
      * @inheritdoc
      */
-    public function delete(int $id): void
-    {
-        $artwork = $this->get($id);
-        if ($artwork->getPicture()) {
-            $this->mediaService->deleteMedia($artwork->getPicture());
-        }
-
-        parent::delete($id);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function get($idOrSlug): ?Artwork
     {
         return parent::get($idOrSlug);
