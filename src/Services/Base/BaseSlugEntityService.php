@@ -8,28 +8,51 @@
 
 namespace Jinya\Services\Base;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\SlugEntity;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Services\Slug\SlugServiceInterface;
 
-trait BaseSlugEntityService
+class BaseSlugEntityService extends BaseService
 {
-    use BaseService {
-        saveOrUpdate as protected baseSaveOrUpdate;
-    }
 
     /** @var SlugServiceInterface */
     protected $slugService;
 
     /**
-     * @inheritdoc
+     * BaseSlugEntityService constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param SlugServiceInterface $slugService
+     * @param string $entityType
      */
-    public function saveOrUpdate(SlugEntity $entity)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, string $entityType)
     {
-        if (empty($entity->getSlug())) {
-            $entity->setSlug($this->slugService->generateSlug($entity->getName()));
+        parent::__construct($entityManager, $entityType);
+        $this->slugService = $slugService;
+    }
+
+    /**
+     * @param SlugEntity $entity
+     * @return SlugEntity
+     * @throws EmptySlugException
+     */
+    public function saveOrUpdate($entity)
+    {
+        if ($entity->getSlug() === null || $entity->getSlug() === '') {
+            if (method_exists($entity, 'getTitle')) {
+                $slugBase = $entity->getTitle();
+            } else if (method_exists($entity, 'getName')) {
+                $slugBase = $entity->getName();
+            } else {
+                throw new EmptySlugException();
+            }
+
+            $entity->setSlug($this->slugService->generateSlug($slugBase));
         }
 
-        return $this->baseSaveOrUpdate($entity);
+        $this->entityManager->flush();
+
+        return $entity;
     }
 
     /**

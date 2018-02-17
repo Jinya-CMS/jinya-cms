@@ -11,11 +11,14 @@ namespace Jinya\Services\Pages;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Page;
-use Jinya\Services\Base\BaseStaticContentService;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Base\StaticContentServiceTrait;
 use Jinya\Services\Slug\SlugServiceInterface;
 
-class PageService extends BaseStaticContentService implements PageServiceInterface
+class PageService extends BaseSlugEntityService implements PageServiceInterface
 {
+    use StaticContentServiceTrait;
+
     /**
      * PageService constructor.
      * @param EntityManagerInterface $entityManager

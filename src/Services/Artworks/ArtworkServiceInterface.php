@@ -8,20 +8,11 @@
 
 namespace Jinya\Services\Artworks;
 
-use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
-use Jinya\Services\Base\BaseArtServiceInterface;
 
-interface ArtworkServiceInterface extends BaseArtServiceInterface
+interface ArtworkServiceInterface
 {
-    /**
-     * Gets an artwork by the given id
-     *
-     * @param int $id
-     * @return Artwork
-     */
-    public function getById(int $id): ?Artwork;
 
     /**
      * Gets a list of artworks in the given range and filtered by the given keyword
@@ -32,7 +23,7 @@ interface ArtworkServiceInterface extends BaseArtServiceInterface
      * @param Label|null $label
      * @return Artwork[]
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array;
 
     /**
      * Counts all artworks filtered by the given keyword
@@ -49,29 +40,21 @@ interface ArtworkServiceInterface extends BaseArtServiceInterface
      * @param Artwork $artwork
      * @return Artwork
      */
-    public function saveOrUpdate(Artwork $artwork): ?Artwork;
+    public function saveOrUpdate($artwork);
 
     /**
-     * Deletes the given artwork
+     * Deletes the given gallery
      *
-     * @param ArtEntityInterface $artEntity
-     * @return
+     * @param Artwork $artwork
+     * @return void
      */
-    public function delete(ArtEntityInterface $artEntity);
-
-    /**
-     * Gets the artwork for the given slug
-     *
-     * @param string $slug
-     * @return Artwork
-     */
-    public function getBySlug(string $slug): ?Artwork;
+    public function delete($artwork): void;
 
     /**
      * Gets the artwork by slug or id
      *
-     * @param $idOrSlug string|int
+     * @param string $slug
      * @return Artwork
      */
-    public function get($idOrSlug): ?Artwork;
+    public function get(string $slug): ?Artwork;
 }
