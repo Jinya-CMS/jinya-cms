@@ -136,8 +136,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
             'updatedBy' => $this->getUpdatedBy(),
-            'slug' => $this->slug,
-            'labels' => $this->labels
+            'slug' => $this->slug
         ];
     }
 }
