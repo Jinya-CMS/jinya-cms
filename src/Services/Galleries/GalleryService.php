@@ -73,16 +73,28 @@ class GalleryService extends BaseArtService implements GalleryServiceInterface
     }
 
     /**
+     * Adds the given labels to the given gallery
+     *
+     * @param Gallery $gallery
+     * @param array $labels
+     * @return Gallery
+     */
+    public function setLabels(Gallery $gallery, array $labels): Gallery
+    {
+        $this->labelService->createMissingLabels($labels);
+
+        foreach ($labels as $label) {
+            $gallery->getLabels()->add($this->labelService->getLabel($label));
+        }
+
+        return $this->saveOrUpdate($gallery);
+    }
+
+    /**
      * @inheritdoc
      */
     public function saveOrUpdate(Gallery $gallery): Gallery
     {
-        $background = $gallery->getBackgroundResource();
-        if ($background !== null) {
-            $gallery->setBackground($this->mediaService->saveMedia($background, MediaServiceInterface::GALLERY_BACKGROUND));
-        }
-
         return parent::save($gallery);
     }
-
 }

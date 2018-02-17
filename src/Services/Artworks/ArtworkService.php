@@ -59,11 +59,6 @@ class ArtworkService extends BaseArtService implements ArtworkServiceInterface
      */
     public function saveOrUpdate(Artwork $artwork): ?Artwork
     {
-        $background = $artwork->getPictureResource();
-        if ($background !== null) {
-            $artwork->setPicture($this->mediaService->saveMedia($background, MediaServiceInterface::CONTENT_IMAGE));
-        }
-
         return parent::save($artwork);
     }
 

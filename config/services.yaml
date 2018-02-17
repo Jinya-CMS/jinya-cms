@@ -51,12 +51,18 @@ services:
     Jinya\Services\Media\MediaService:
       arguments:
         $baseUrl: '%base_url%'
-        $kernelProjectDir: '%kernel.root_dir%'
+        $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Mailing\MailerService:
       arguments:
         $mailerSender: '%mailer_sender%'
 
+    # EventSubscriber
+    Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
+      tags:
+        - { name: doctrine.event_subscriber }
+
+    # Controllers
     Jinya\Controller\InstallController:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
