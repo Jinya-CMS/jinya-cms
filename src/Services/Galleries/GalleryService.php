@@ -18,8 +18,6 @@ use Jinya\Services\Slug\SlugServiceInterface;
 
 class GalleryService extends BaseArtService implements GalleryServiceInterface
 {
-
-
     /**
      * GalleryService constructor.
      * @param EntityManagerInterface $entityManager
@@ -62,24 +60,6 @@ class GalleryService extends BaseArtService implements GalleryServiceInterface
     public function getById(int $id): ?Gallery
     {
         return parent::getById($id);
-    }
-
-    /**
-     * Adds the given labels to the given gallery
-     *
-     * @param Gallery $gallery
-     * @param array $labels
-     * @return Gallery
-     */
-    public function setLabels(Gallery $gallery, array $labels): Gallery
-    {
-        $this->labelService->createMissingLabels($labels);
-
-        foreach ($labels as $label) {
-            $gallery->getLabels()->add($this->labelService->getLabel($label));
-        }
-
-        return $this->saveOrUpdate($gallery);
     }
 
     /**
