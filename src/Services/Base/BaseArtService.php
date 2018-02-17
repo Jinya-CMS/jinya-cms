@@ -11,10 +11,8 @@ namespace Jinya\Services\Base;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
-use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 use function method_exists;
@@ -123,7 +121,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
      */
     public function save($entity)
     {
-        if ($entity->getSlug() === null) {
+        if (empty($entity->getSlug())) {
             $entity->setSlug($this->slugService->generateSlug($entity->getName()));
         }
 

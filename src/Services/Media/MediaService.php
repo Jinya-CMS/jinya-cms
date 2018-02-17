@@ -51,7 +51,7 @@ class MediaService implements MediaServiceInterface
         fseek($file, 0);
 
         $directory = $this->getFilePath($type);
-        mkdir($directory, 775, true);
+        @mkdir($directory, 775, true);
 
         $filename = $directory . $hash;
 
