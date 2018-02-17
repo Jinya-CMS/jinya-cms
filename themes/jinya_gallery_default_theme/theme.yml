@@ -44,8 +44,8 @@ defaultConfig:
       placeholder: Please choose...
     messages:
     mail_sent_message: Mail was sent successfully
-styles_base: public/scss/
-scripts_base: public/js/
+styles_base: public/src/scss/
+scripts_base: public/dist/
 styles:
   variables:
     file: frontend/_variables.scss
