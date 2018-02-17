@@ -170,29 +170,31 @@ abstract class BaseApiController extends AbstractController
 
             return [$data, Response::HTTP_BAD_REQUEST];
         } catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
-            return [$this->jsonFormatException($exception), Response::HTTP_NOT_FOUND];
+            return [$this->jsonFormatException($this->translator->trans('api.state.404.generic'), $exception), Response::HTTP_NOT_FOUND];
         } catch (UniqueConstraintViolationException $exception) {
-            return [$this->jsonFormatException($exception), Response::HTTP_CONFLICT];
+            return [$this->jsonFormatException($this->translator->trans('api.state.409.exists'), $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
-            return [$this->jsonFormatException($throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
+            return [$this->jsonFormatException($this->translator->trans('api.state.500.generic'), $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
     }
 
     /**
      * Formats the given @see Throwable as array
      *
+     * @param string $message
      * @param Throwable $throwable
      * @return array
      */
-    protected function jsonFormatException(Throwable $throwable): array
+    protected function jsonFormatException(string $message, Throwable $throwable): array
     {
         $data = [
             'success' => false,
             'error' => [
-                'message' => $throwable->getMessage()
+                'message' => $message
             ]
         ];
         if ($this->isDebug()) {
+            $data['error']['exception'] = $throwable->getMessage();
             $data['error']['file'] = $throwable->getFile();
             $data['error']['stack'] = $throwable->getTraceAsString();
             $data['error']['line'] = $throwable->getLine();

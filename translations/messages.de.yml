@@ -343,3 +343,11 @@ account:
     email: Email
     password: Passwort
     submit: Anmelden
+api:
+  state:
+    409:
+      exists: Die Resource existiert bereits
+    404:
+      generic: Die Resource konnte nicht gefunden werden
+    500:
+      generic: Ein interner Fehler ist aufgetreten

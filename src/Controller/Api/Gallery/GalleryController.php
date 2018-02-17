@@ -64,8 +64,7 @@ class GalleryController extends BaseApiController
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
-            $slug = $this->getValue('slug', null);
-            $labels = $this->getValue('labels', []);
+            $slug = $this->getValue('slug', '');
 
             if (!$name) {
                 throw new MissingFieldsException(['name' => 'api.gallery.field.name.missing']);
@@ -77,9 +76,7 @@ class GalleryController extends BaseApiController
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
 
-            $gallery = $galleryService->saveOrUpdate($gallery);
-
-            return $galleryService->setLabels($gallery, $labels);
+            return $galleryService->saveOrUpdate($gallery);
         });
 
         return $this->json($data, $status);
