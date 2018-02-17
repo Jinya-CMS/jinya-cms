@@ -12,7 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -106,10 +105,8 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'history' => $this->getHistory(),
             'creator' => $this->getCreator(),
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),

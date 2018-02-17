@@ -128,7 +128,6 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'background' => $this->background,

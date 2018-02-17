@@ -63,6 +63,8 @@ api:
     field:
       name:
         missing: Das Feld Name muss ausgefüllt werden
+      artworkSlug:
+        missing: Es muss ein Kunstwerk angegeben werden
       labelName:
         missing: Es müssen Labels bereitgestellt werden
   generic:
