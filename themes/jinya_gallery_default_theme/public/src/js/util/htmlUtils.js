@@ -7,7 +7,7 @@ class HtmlUtils {
      * @param {string} html
      * @returns {Node}
      */
-    htmlToElement = (html) => {
+    static htmlToElement(html) {
         const range = document.createRange();
         range.selectNode(document.querySelector('body'));
         return range.createContextualFragment(html).firstElementChild;

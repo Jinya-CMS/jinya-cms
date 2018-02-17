@@ -3,7 +3,7 @@ class i18n {
      * Gets the text for the specified identifier
      * @param identifier string
      */
-    getText = (identifier) => {
+    static getText(identifier) {
         return texts[identifier];
     };
 }

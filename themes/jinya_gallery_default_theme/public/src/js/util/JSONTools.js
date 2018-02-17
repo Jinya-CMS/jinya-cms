@@ -2,7 +2,7 @@ class JSONTools {
     /**
      * Code from https://stackoverflow.com/a/24075430
      */
-    jsonStringifyWithoutCycle = (obj, replacer, space) => {
+    static jsonStringifyWithoutCycle(obj, replacer, space) {
         let cache = [];
         const json = JSON.stringify(obj, function (key, value) {
             if (typeof value === 'object' && value !== null) {
