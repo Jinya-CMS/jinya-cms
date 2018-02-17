@@ -38,6 +38,7 @@ abstract class BaseStaticContentService extends BaseService implements BaseStati
     public function getAll(int $offset = 0, int $count = 12, string $keyword = ''): array
     {
         return $this->getFilteredQueryBuilder($keyword)
+            ->select($this->getFieldsWithoutClutter())
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->getQuery()

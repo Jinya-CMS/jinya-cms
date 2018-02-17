@@ -10,10 +10,11 @@ namespace Jinya\Services\Base;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
+use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
+use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 use function method_exists;
@@ -22,10 +23,11 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
 {
 
     /** @var SlugServiceInterface */
-    private $slugService;
-
+    protected $slugService;
     /** @var LabelServiceInterface */
-    private $labelService;
+    protected $labelService;
+    /** @var string */
+    protected $entityType;
 
     /**
      * BaseArtworkService constructor.
@@ -39,6 +41,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
         parent::__construct($entityManager, $entityType);
         $this->slugService = $slugService;
         $this->labelService = $labelService;
+        $this->entityType = $entityType;
     }
 
     /**
@@ -48,6 +51,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
     {
         return $this->getFilteredQueryBuilder($keyword, $label)
             ->setFirstResult($offset)
+            ->select($this->getFieldsWithoutClutter())
             ->setMaxResults($count)
             ->getQuery()
             ->getResult();
@@ -107,9 +111,7 @@ abstract class BaseArtService extends BaseService implements BaseArtServiceInter
      */
     public function getBySlug(string $slug)
     {
-        $queryBuilder = $this->getQueryBuilder();
-
-        return $queryBuilder
+        return $this->getQueryBuilder()
             ->where('entity.slug = :slug')
             ->setParameter('slug', $slug)
             ->getQuery()

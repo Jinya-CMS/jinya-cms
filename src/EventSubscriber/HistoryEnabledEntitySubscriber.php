@@ -9,25 +9,25 @@
 namespace Jinya\EventSubscriber;
 
 
-use Jinya\Entity\HistoryEnabledEntity;
 use DateTime;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Jinya\Entity\HistoryEnabledEntity;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use function strtolower;
 
 class HistoryEnabledEntitySubscriber implements EventSubscriber
 {
-    /** @var TokenStorage */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /**
      * HistoryEnabledEntitySubscriber constructor.
-     * @param TokenStorage $tokenStorage
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(TokenStorage $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }

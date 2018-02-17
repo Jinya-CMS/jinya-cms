@@ -58,3 +58,11 @@ install:
     email:
       invalid: Die Emailadresse ist nicht gültig
       not_blank: Die Emailadresse ist erforderlich
+api:
+  gallery:
+    field:
+      name:
+        missing: Das Feld Name muss ausgefüllt werden
+  generic:
+    headers:
+      contenttype: Der Content Type $contentType ist nicht zugelassen
