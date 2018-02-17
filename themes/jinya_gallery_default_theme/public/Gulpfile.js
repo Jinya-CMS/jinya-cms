@@ -6,7 +6,10 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 
 gulp.task('build:designer:babel', () => {
-    gulp.src('js/designer/**/*.js')
+    gulp.src([
+        'js/util/**/*.js',
+        'js/designer/**/*.js'
+    ])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['babel-preset-env']
@@ -18,6 +21,7 @@ gulp.task('build:designer:babel', () => {
 
 gulp.task('build:frontend:babel', () => {
     gulp.src([
+        'js/util/**/*.js',
         'js/frontend/perfect-scrollbar.js',
         'js/frontend/scrollhelper.js'
     ])
