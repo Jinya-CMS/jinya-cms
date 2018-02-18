@@ -15,6 +15,7 @@ use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseArtServiceInterface;
 use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;
 use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,14 +97,15 @@ abstract class BaseApiController extends AbstractController
      * Gets all arts from the given service
      *
      * @param Request $request
-     * @param BaseSlugEntityService $baseService
+     * @param LabelEntityServiceTrait $baseService
      * @param RouterInterface $router
      * @param LabelServiceInterface $labelService
+     * @param callable $formatter
      * @return Response
      */
-    protected function getAllArt(Request $request, BaseSlugEntityService $baseService, RouterInterface $router, LabelServiceInterface $labelService): Response
+    protected function getAllArt(Request $request, LabelEntityServiceTrait $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
     {
-        list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $router, $request, $baseService) {
+        list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $labelService, $router, $request, $baseService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -114,7 +116,7 @@ abstract class BaseApiController extends AbstractController
             }
 
             $entityCount = $baseService->countAll($keyword);
-            $entities = $baseService->getAll($offset, $count, $keyword, $label);
+            $entities = $formatter($baseService->getAll($offset, $count, $keyword, $label));
 
             $route = $request->get('_route');
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
@@ -219,14 +221,15 @@ abstract class BaseApiController extends AbstractController
      *
      * @param string $slug
      * @param BaseSlugEntityService $baseService
+     * @param callable $formatter
      * @return Response
      */
-    protected function getArt(string $slug, BaseSlugEntityService $baseService): Response
+    protected function getArt(string $slug, BaseSlugEntityService $baseService, callable $formatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $baseService) {
+        list($data, $status) = $this->tryExecute(function () use ($formatter, $slug, $baseService) {
             return [
                 'success' => true,
-                'item' => $baseService->get($slug)
+                'item' => $formatter($baseService->get($slug))
             ];
         });
 

@@ -10,8 +10,8 @@ namespace Jinya\Formatter\Artwork;
 
 
 use Jinya\Entity\Artwork;
-use Jinya\Formatter\Label\LabelFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ArtworkFormatter implements ArtworkFormatterInterface
@@ -25,28 +25,23 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     /** @var UserFormatterInterface */
     private $userFormatter;
 
-    /** @var LabelFormatterInterface */
-    private $labelFormatter;
-
-    /** @var ArtworkPositionFormatterInterface */
-    private $artworkPositionFormatter;
-
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
+    /** @var ContainerInterface */
+    private $container;
 
     /**
      * ArtworkFormatter constructor.
      * @param UserFormatterInterface $userFormatter
-     * @param LabelFormatterInterface $labelFormatter
-     * @param ArtworkPositionFormatterInterface $artworkPositionFormatter
      * @param UrlGeneratorInterface $urlGenerator
+     * @param ContainerInterface $container
      */
-    public function __construct(UserFormatterInterface $userFormatter, LabelFormatterInterface $labelFormatter, ArtworkPositionFormatterInterface $artworkPositionFormatter, UrlGeneratorInterface $urlGenerator)
+    public function __construct(UserFormatterInterface $userFormatter, UrlGeneratorInterface $urlGenerator, ContainerInterface $container)
     {
         $this->userFormatter = $userFormatter;
-        $this->labelFormatter = $labelFormatter;
-        $this->artworkPositionFormatter = $artworkPositionFormatter;
         $this->urlGenerator = $urlGenerator;
+        $this->container = $container;
     }
 
     /**
@@ -163,9 +158,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     public function labels(): ArtworkFormatterInterface
     {
         foreach ($this->artwork->getLabels() as $label) {
-            $this->formattedData['labels'][] = $this->labelFormatter->init($label)
-                ->name()
-                ->format();
+            $this->formattedData['labels'][] = ['name' => $label->getName()];
         }
 
         return $this;
@@ -185,11 +178,15 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Formats the galleries
      *
      * @return ArtworkFormatterInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {
+        $artworkPositionFormatter = $this->container->get(ArtworkPositionFormatterInterface::class);
+
         foreach ($this->artwork->getPositions() as $position) {
-            $this->formattedData['galleries'][] = $this->artworkPositionFormatter
+            $this->formattedData['galleries'][] = $artworkPositionFormatter
                 ->init($position)
                 ->position()
                 ->id()
