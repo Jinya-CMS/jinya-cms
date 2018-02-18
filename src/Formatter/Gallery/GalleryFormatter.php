@@ -170,6 +170,8 @@ class GalleryFormatter implements GalleryFormatterInterface
      */
     public function artworks(): GalleryFormatterInterface
     {
+        $this->formattedData['artworks'] = [];
+
         $artworkPositionFormatter = $this->container->get(ArtworkPositionFormatterInterface::class);
         $artworkPositions = $this->gallery->getArtworks()->toArray();
         uasort($artworkPositions, function (ArtworkPosition $a, ArtworkPosition $b) {
@@ -210,6 +212,8 @@ class GalleryFormatter implements GalleryFormatterInterface
      */
     public function labels(): GalleryFormatterInterface
     {
+        $this->formattedData['labels'] = [];
+
         foreach ($this->gallery->getLabels() as $label) {
             $this->formattedData['labels'][] = ['name' => $label->getName()];
         }

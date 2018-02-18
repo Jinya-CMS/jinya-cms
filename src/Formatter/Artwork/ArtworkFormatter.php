@@ -157,6 +157,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      */
     public function labels(): ArtworkFormatterInterface
     {
+        $this->formattedData['labels'] = [];
+
         foreach ($this->artwork->getLabels() as $label) {
             $this->formattedData['labels'][] = ['name' => $label->getName()];
         }
@@ -184,6 +186,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     public function galleries(): ArtworkFormatterInterface
     {
         $artworkPositionFormatter = $this->container->get(ArtworkPositionFormatterInterface::class);
+        $this->formattedData['galleries'] = [];
 
         foreach ($this->artwork->getPositions() as $position) {
             $this->formattedData['galleries'][] = $artworkPositionFormatter

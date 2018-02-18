@@ -62,6 +62,8 @@ class LabelFormatter implements LabelFormatterInterface
      */
     public function artworks(): LabelFormatterInterface
     {
+        $this->formattedData['artwork'] = [];
+
         foreach ($this->label->getArtworks() as $artwork) {
             $this->formattedData['artwork'][] = [
                 'name' => $artwork->getName(),
@@ -79,6 +81,8 @@ class LabelFormatter implements LabelFormatterInterface
      */
     public function galleries(): LabelFormatterInterface
     {
+        $this->formattedData['galleries'] = [];
+
         foreach ($this->label->getGalleries() as $gallery) {
             $this->formattedData['galleries'][] = [
                 'name' => $gallery->getName(),
