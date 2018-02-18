@@ -62,8 +62,6 @@ class GalleryLabelController extends BaseApiController
             $gallery = $galleryService->get($slug);
 
             $gallery->getLabels()->add($labelService->getLabel($name));
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -93,8 +91,6 @@ class GalleryLabelController extends BaseApiController
             }
 
             $galleryService->saveOrUpdate($gallery);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -117,8 +113,6 @@ class GalleryLabelController extends BaseApiController
 
             $gallery->getLabels()->removeElement($labelService->getLabel($name));
             $galleryService->saveOrUpdate($gallery);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -139,8 +133,6 @@ class GalleryLabelController extends BaseApiController
 
             $gallery->getLabels()->clear();
             $galleryService->saveOrUpdate($gallery);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
