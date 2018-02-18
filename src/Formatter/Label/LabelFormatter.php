@@ -9,8 +9,6 @@
 namespace Jinya\Formatter\Label;
 
 use Jinya\Entity\Label;
-use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 
 class LabelFormatter implements LabelFormatterInterface
 {
@@ -20,23 +18,6 @@ class LabelFormatter implements LabelFormatterInterface
 
     /** @var array */
     private $formattedData;
-
-    /** @var GalleryFormatterInterface */
-    private $galleryFormatter;
-
-    /** @var ArtworkFormatterInterface */
-    private $artworkFormatter;
-
-    /**
-     * LabelFormatter constructor.
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @param ArtworkFormatterInterface $artworkFormatter
-     */
-    public function __construct(GalleryFormatterInterface $galleryFormatter, ArtworkFormatterInterface $artworkFormatter)
-    {
-        $this->galleryFormatter = $galleryFormatter;
-        $this->artworkFormatter = $artworkFormatter;
-    }
 
     /**
      * Formats the given label into an array
@@ -82,11 +63,10 @@ class LabelFormatter implements LabelFormatterInterface
     public function artworks(): LabelFormatterInterface
     {
         foreach ($this->label->getArtworks() as $artwork) {
-            $this->formattedData['artwork'][] = $this->artworkFormatter
-                ->init($artwork)
-                ->name()
-                ->slug()
-                ->format();
+            $this->formattedData['artwork'][] = [
+                'name' => $artwork->getName(),
+                'slug' => $artwork->getSlug()
+            ];
         }
 
         return $this;
@@ -100,11 +80,10 @@ class LabelFormatter implements LabelFormatterInterface
     public function galleries(): LabelFormatterInterface
     {
         foreach ($this->label->getGalleries() as $gallery) {
-            $this->formattedData['galleries'][] = $this->galleryFormatter
-                ->init($gallery)
-                ->name()
-                ->slug()
-                ->format();
+            $this->formattedData['galleries'][] = [
+                'name' => $gallery->getName(),
+                'slug' => $gallery->getSlug()
+            ];
         }
 
         return $this;

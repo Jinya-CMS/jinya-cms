@@ -63,20 +63,8 @@ services:
         - { name: doctrine.event_subscriber }
 
     # Formatter
-    Jinya\Formatter\Artwork\ArtworkFormatter:
-      lazy: true
-
     Jinya\Formatter\Artwork\ArtworkPositionFormatter:
-      lazy: true
-
-    Jinya\Formatter\Label\LabelFormatter:
-      lazy: true
-
-    Jinya\Formatter\User\UserFormatter:
-      lazy: true
-
-    Jinya\Formatter\Gallery\GalleryFormatter:
-      lazy: true
+      public: true
 
     # Controllers
     Jinya\Controller\InstallController:
