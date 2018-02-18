@@ -11,6 +11,7 @@ namespace Jinya\Framework;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NoResultException;
+use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseArtServiceInterface;
@@ -67,19 +68,24 @@ abstract class BaseApiController extends AbstractController
      * @param null $default
      * @return mixed|null|SimpleXMLElement
      * @throws InvalidContentTypeException
+     * @throws EmptyBodyException
      */
     protected function getValue(string $key, $default = null)
     {
         switch ($this->contentType) {
             case 'application/json':
-                if (array_key_exists($key, $this->bodyAsJson)) {
+                if (empty($this->bodyAsJson)) {
+                    throw new EmptyBodyException($this->translator->trans('api.generic.body.empty', [], 'validators'));
+                } elseif (array_key_exists($key, $this->bodyAsJson)) {
                     return $this->bodyAsJson[$key];
                 } else {
                     return $default;
                 }
                 break;
             case 'text/xml':
-                if (property_exists($this->bodyAsXml, $key)) {
+                if (empty($this->bodyAsXml)) {
+                    throw new EmptyBodyException($this->translator->trans('api.generic.body.empty', [], 'validators'));
+                } elseif (property_exists($this->bodyAsXml, $key)) {
                     return $this->bodyAsXml->${$key};
                 } else {
                     return $default;
@@ -89,7 +95,7 @@ abstract class BaseApiController extends AbstractController
                 return $this->request->get($key, $default);
                 break;
             default:
-                throw new InvalidContentTypeException($this->contentType, $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
+                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
         }
     }
 
@@ -174,6 +180,8 @@ abstract class BaseApiController extends AbstractController
             return [$data, Response::HTTP_BAD_REQUEST];
         } catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
             return [$this->jsonFormatException($this->translator->trans('api.state.404.generic'), $exception), Response::HTTP_NOT_FOUND];
+        } catch (EmptyBodyException $exception) {
+            return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
         } catch (UniqueConstraintViolationException $exception) {
             return [$this->jsonFormatException($this->translator->trans('api.state.409.exists'), $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
