@@ -99,8 +99,6 @@ class GalleryBackgroundController extends BaseApiController
             $gallery->setBackground(null);
 
             $galleryService->saveOrUpdate($gallery);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

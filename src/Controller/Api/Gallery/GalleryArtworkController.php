@@ -58,9 +58,7 @@ class GalleryArtworkController extends BaseApiController
             }
 
             $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
-
-            return null;
-        }, Response::HTTP_NO_CONTENT);
+        }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
     }
@@ -76,8 +74,7 @@ class GalleryArtworkController extends BaseApiController
     public function deleteAction(int $id, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($id, $artworkPositionService) {
-            $artworkPositionService->deletePosition($id);;
-            return null;
+            $artworkPositionService->deletePosition($id);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -104,8 +101,6 @@ class GalleryArtworkController extends BaseApiController
             if (!empty($newPosition)) {
                 $artworkPositionService->updatePosition($gallerySlug, $id, $newPosition);
             }
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

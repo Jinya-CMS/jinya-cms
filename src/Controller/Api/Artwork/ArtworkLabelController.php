@@ -64,8 +64,6 @@ class ArtworkLabelController extends BaseApiController
             $artwork->getLabels()->add($labelService->getLabel($name));
 
             $artworkService->saveOrUpdate($artwork);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -95,8 +93,6 @@ class ArtworkLabelController extends BaseApiController
             }
 
             $artworkService->saveOrUpdate($artwork);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -119,8 +115,6 @@ class ArtworkLabelController extends BaseApiController
 
             $artwork->getLabels()->removeElement($labelService->getLabel($name));
             $artworkService->saveOrUpdate($artwork);
-
-            return null;
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -141,9 +135,7 @@ class ArtworkLabelController extends BaseApiController
 
             $artwork->getLabels()->clear();
             $artworkService->saveOrUpdate($artwork);
-
-            return null;
-        }, Response::HTTP_NO_CONTENT);
+       }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
