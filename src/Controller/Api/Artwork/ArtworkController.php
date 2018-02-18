@@ -14,13 +14,11 @@ use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 
 class ArtworkController extends BaseApiController
 {
@@ -28,16 +26,13 @@ class ArtworkController extends BaseApiController
      * @Route("/api/artwork", methods={"GET"}, name="api_artwork_get_all")
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param Request $request
      * @param ArtworkServiceInterface $artworkService
-     * @param RouterInterface $router
-     * @param LabelServiceInterface $labelService
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, ArtworkServiceInterface $artworkService, RouterInterface $router, LabelServiceInterface $labelService, ArtworkFormatterInterface $artworkFormatter): Response
+    public function getAllAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getAllArt($request, $artworkService, $router, $labelService, function (array $artworks) use ($artworkFormatter) {
+        return $this->getAllArt($artworkService, function (array $artworks) use ($artworkFormatter) {
             $data = [];
 
             foreach ($artworks as $gallery) {
