@@ -8,6 +8,7 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
+use Jinya\Formatter\Label\LabelFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -23,14 +24,23 @@ class ArtworkLabelController extends BaseApiController
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
+     * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function getAction(string $slug, ArtworkServiceInterface $artworkService): Response
+    public function getAction(string $slug, ArtworkServiceInterface $artworkService, LabelFormatterInterface $labelFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $labelFormatter) {
             $artwork = $artworkService->get($slug);
+            $labels = [];
 
-            return $artwork->getLabels()->toArray();
+            foreach ($artwork->getLabels() as $label) {
+                $labels[] = $labelFormatter
+                    ->init($label)
+                    ->name()
+                    ->format();
+            }
+
+            return $labels;
         });
 
         return $this->json($data, $status);
@@ -53,8 +63,10 @@ class ArtworkLabelController extends BaseApiController
 
             $artwork->getLabels()->add($labelService->getLabel($name));
 
-            return $artworkService->saveOrUpdate($artwork);
-        });
+            $artworkService->saveOrUpdate($artwork);
+
+            return null;
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

@@ -68,6 +68,7 @@ class GalleryController extends BaseApiController
                 ->name()
                 ->slug()
                 ->background()
+                ->description()
                 ->orientation();
 
             if ($this->isGranted('ROLE_WRITER')) {

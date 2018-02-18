@@ -15,7 +15,7 @@ use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseArtServiceInterface;
 use Jinya\Services\Base\BaseSlugEntityService;
-use Jinya\Services\Base\LabelEntityServiceTrait;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,13 +97,13 @@ abstract class BaseApiController extends AbstractController
      * Gets all arts from the given service
      *
      * @param Request $request
-     * @param LabelEntityServiceTrait $baseService
+     * @param LabelEntityServiceInterface $baseService
      * @param RouterInterface $router
      * @param LabelServiceInterface $labelService
      * @param callable $formatter
      * @return Response
      */
-    protected function getAllArt(Request $request, $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
+    protected function getAllArt(Request $request, LabelEntityServiceInterface $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
     {
         list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $labelService, $router, $request, $baseService) {
             $offset = $request->get('offset', 0);
