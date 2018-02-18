@@ -126,7 +126,6 @@ class LabelService implements LabelServiceInterface
     /**
      * @param Label $label
      * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     private function labelExists(Label $label): bool
     {
@@ -149,6 +148,23 @@ class LabelService implements LabelServiceInterface
         $label = new Label();
         $label->setName($name);
         $this->entityManager->persist($label);
+        $this->entityManager->flush();
+
+        return $label;
+    }
+
+    /**
+     * Renames the given label
+     *
+     * @param string $name
+     * @param string $newName
+     * @return Label
+     */
+    public function rename(string $name, string $newName): Label
+    {
+        $label = $this->getLabel($name);
+        $label->setName($newName);
+
         $this->entityManager->flush();
 
         return $label;

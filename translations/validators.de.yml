@@ -62,11 +62,19 @@ api:
   gallery:
     field:
       name:
-        missing: Das Feld Name muss ausgefüllt werden
+        missing: Der Name muss bereitgestellt werden
       artworkSlug:
         missing: Es muss ein Kunstwerk angegeben werden
-      labelName:
-        missing: Es müssen Labels bereitgestellt werden
+  artwork:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  label:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
   generic:
     headers:
       contenttype: Der Content Type contentType ist nicht zugelassen
+    body:
+      empty: Der Requestbody ist leer
