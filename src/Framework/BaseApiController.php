@@ -18,6 +18,7 @@ use Jinya\Services\Base\BaseArtServiceInterface;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -44,15 +45,19 @@ abstract class BaseApiController extends AbstractController
     private $bodyAsXml;
     /** @var string */
     private $contentType;
+    /** @var LoggerInterface */
+    private $logger;
 
     /**
      * BaseApiController constructor.
      * @param TranslatorInterface $translator
      * @param RequestStack $requestStack
+     * @param LoggerInterface $logger
      */
-    public function __construct(TranslatorInterface $translator, RequestStack $requestStack)
+    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, LoggerInterface $logger)
     {
         $this->translator = $translator;
+        $this->logger = $logger;
         $this->request = $requestStack->getCurrentRequest();
         $this->contentType = $this->request->headers->get('Content-Type');
         if ($this->contentType === 'application/json') {
@@ -185,6 +190,8 @@ abstract class BaseApiController extends AbstractController
         } catch (UniqueConstraintViolationException $exception) {
             return [$this->jsonFormatException($this->translator->trans('api.state.409.exists'), $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
+            $this->logger->error($throwable->getMessage());
+            $this->logger->error($throwable->getTraceAsString());
             return [$this->jsonFormatException($this->translator->trans('api.state.500.generic'), $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
     }
