@@ -21,7 +21,7 @@ class LabelController extends BaseApiController
 {
     /**
      * @Route("/api/label", methods={"GET"}, name="api_label_get_all")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param LabelServiceInterface $labelService
      * @param LabelFormatterInterface $labelFormatter
@@ -48,7 +48,7 @@ class LabelController extends BaseApiController
 
     /**
      * @Route("/api/label/{name}", methods={"GET"}, name="api_label_get")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $name
      * @param LabelServiceInterface $labelService
@@ -73,7 +73,7 @@ class LabelController extends BaseApiController
 
     /**
      * @Route("/api/label", methods={"POST"}, name="api_label_post")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param Request $request
      * @param LabelServiceInterface $labelService
@@ -96,7 +96,7 @@ class LabelController extends BaseApiController
 
     /**
      * @Route("/api/label/{name}", methods={"PUT"}, name="api_label_put")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $name
      * @param Request $request
@@ -120,7 +120,7 @@ class LabelController extends BaseApiController
 
     /**
      * @Route("/api/label/{name}", methods={"DELETE"}, name="api_label_delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $name
      * @param LabelServiceInterface $labelService

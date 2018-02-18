@@ -41,7 +41,7 @@ class GalleryArtworkController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_artwork_position_post")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
@@ -65,7 +65,7 @@ class GalleryArtworkController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{gallerySlug}/artwork/{id}", methods={"DELETE"}, name="api_gallery_artwork_position_delete")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int id$
      * @param ArtworkPositionServiceInterface $artworkPositionService
@@ -82,7 +82,7 @@ class GalleryArtworkController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{gallerySlug}/artwork/{id}", methods={"PUT"}, name="api_gallery_artwork_position_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int id$
      * @param string $gallerySlug
