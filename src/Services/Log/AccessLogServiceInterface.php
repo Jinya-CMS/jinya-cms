@@ -30,8 +30,13 @@ interface AccessLogServiceInterface
     public function get(int $id): AccessLogEntry;
 
     /**
-     * Counts all accesslog entries in the database
+     * Counts all access log entries in the database
      * @return int
      */
     public function countAll(): int;
+
+    /**
+     * Clears the access log
+     */
+    public function clear(): void;
 }

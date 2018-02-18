@@ -23,7 +23,7 @@ class LogService implements LogServiceInterface
     private $entityManager;
 
     /** @var LoggerInterface */
-    private $log;
+    private $logger;
 
     /**
      * LogService constructor.
@@ -33,7 +33,7 @@ class LogService implements LogServiceInterface
     public function __construct(EntityManagerInterface $entityManager, LoggerInterface $log)
     {
         $this->entityManager = $entityManager;
-        $this->log = $log;
+        $this->logger = $log;
     }
 
     /**
@@ -137,13 +137,13 @@ class LogService implements LogServiceInterface
             $repository->clear();
         } catch (Exception $exception) {
             $connection->rollBack();
-            $this->log->error('Could not clear database log');
-            $this->log->error($exception->getMessage());
-            $this->log->error($exception->getTraceAsString());
+            $this->logger->error('Could not clear database log');
+            $this->logger->error($exception->getMessage());
+            $this->logger->error($exception->getTraceAsString());
         }
 
         $fs = new Filesystem();
-        foreach ($this->log->getHandlers() as $handler) {
+        foreach ($this->logger->getHandlers() as $handler) {
             try {
                 if ($handler instanceof StreamHandler) {
                     $fs->remove($handler->getUrl());
@@ -151,12 +151,12 @@ class LogService implements LogServiceInterface
                     $fs->remove($handler->getUrl());
                 }
             } catch (Exception $exception) {
-                $this->log->error('Could not delete log files');
-                $this->log->error($exception->getMessage());
-                $this->log->error($exception->getTraceAsString());
+                $this->logger->error('Could not delete log files');
+                $this->logger->error($exception->getMessage());
+                $this->logger->error($exception->getTraceAsString());
             }
         }
 
-        $this->log->info('Successfully cleared log');
+        $this->logger->info('Successfully cleared log');
     }
 }
