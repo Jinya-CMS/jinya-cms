@@ -20,7 +20,7 @@ class GalleryLabelController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{slug}/label", methods={"GET"}, name="api_gallery_label_get")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
@@ -48,7 +48,7 @@ class GalleryLabelController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/label/{name}", methods={"PUT"}, name="api_gallery_label_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param string $name
@@ -69,7 +69,7 @@ class GalleryLabelController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/label", methods={"PUT"}, name="api_gallery_label_put_batch")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
@@ -98,7 +98,7 @@ class GalleryLabelController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/label/{name}", methods={"DELETE"}, name="api_gallery_label_delete")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param string $name
@@ -120,7 +120,7 @@ class GalleryLabelController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/label", methods={"DELETE"}, name="api_gallery_label_delete_batch")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService

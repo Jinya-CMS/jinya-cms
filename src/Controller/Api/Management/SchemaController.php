@@ -18,7 +18,7 @@ class SchemaController extends BaseApiController
 {
     /**
      * @Route("/api/management/schema", methods={"POST"}, name="api_management_schema_update")
-     * @IsGranted("ROLE_SUPER_ADMIN")
+     * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param SchemaToolInterface $schemaTool
      * @return Response

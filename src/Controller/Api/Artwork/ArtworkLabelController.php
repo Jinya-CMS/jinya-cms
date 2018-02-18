@@ -20,7 +20,7 @@ class ArtworkLabelController extends BaseApiController
 {
     /**
      * @Route("/api/artwork/{slug}/label", methods={"GET"}, name="api_artwork_label_get")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
@@ -48,7 +48,7 @@ class ArtworkLabelController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}/label/{name}", methods={"PUT"}, name="api_artwork_label_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param string $name
@@ -71,7 +71,7 @@ class ArtworkLabelController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}/label", methods={"PUT"}, name="api_artwork_label_put_batch")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
@@ -100,7 +100,7 @@ class ArtworkLabelController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}/label/{name}", methods={"DELETE"}, name="api_artwork_label_delete")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param string $name
@@ -122,7 +122,7 @@ class ArtworkLabelController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}/label", methods={"DELETE"}, name="api_artwork_label_delete_batch")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService

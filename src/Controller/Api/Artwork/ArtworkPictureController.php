@@ -52,7 +52,7 @@ class ArtworkPictureController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}/picture", methods={"PUT"}, name="api_artwork_picture_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request

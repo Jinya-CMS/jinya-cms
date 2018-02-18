@@ -52,7 +52,7 @@ class GalleryBackgroundController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/background", methods={"PUT"}, name="api_gallery_background_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request
@@ -83,7 +83,7 @@ class GalleryBackgroundController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}/background", methods={"DELETE"}, name="api_gallery_background_delete")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request

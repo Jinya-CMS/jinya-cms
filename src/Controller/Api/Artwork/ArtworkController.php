@@ -80,7 +80,7 @@ class ArtworkController extends BaseApiController
 
     /**
      * @Route("/api/artwork", methods={"POST"}, name="api_artwork_post")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param Request $request
      * @param ArtworkServiceInterface $artworkService
@@ -117,7 +117,7 @@ class ArtworkController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}", methods={"PUT"}, name="api_artwork_put")
-     * @IsGranted("ROLE_WRITER")
+     * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request
@@ -155,7 +155,7 @@ class ArtworkController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}", methods={"DELETE"}, name="api_artwork_delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService

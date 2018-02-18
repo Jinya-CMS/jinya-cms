@@ -20,7 +20,7 @@ class AssetsController extends BaseApiController
 {
     /**
      * @Route("/api/management/assets/{area}", methods={"POST"}, name="api_management_assets_compile")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $area
      * @param ConfigurationServiceInterface $configurationService
