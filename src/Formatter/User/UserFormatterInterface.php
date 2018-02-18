@@ -1,0 +1,72 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: imanu
+ * Date: 18.02.2018
+ * Time: 15:55
+ */
+
+namespace Jinya\Formatter\User;
+
+use Jinya\Entity\User;
+use Jinya\Formatter\FormatterInterface;
+
+interface UserFormatterInterface extends FormatterInterface
+{
+    /**
+     * Initializes the formatting
+     *
+     * @param User $user
+     * @return UserFormatterInterface
+     */
+    public function init(User $user): UserFormatterInterface;
+
+    /**
+     * Formats the firstname
+     *
+     * @return UserFormatterInterface
+     */
+    public function firstname(): UserFormatterInterface;
+
+    /**
+     * Formats the lastname
+     *
+     * @return UserFormatterInterface
+     */
+    public function lastname(): UserFormatterInterface;
+
+    /**
+     * Formats the roles
+     *
+     * @return UserFormatterInterface
+     */
+    public function roles(): UserFormatterInterface;
+
+    /**
+     * Formats the email
+     *
+     * @return UserFormatterInterface
+     */
+    public function email(): UserFormatterInterface;
+
+    /**
+     * Formats the enable state
+     *
+     * @return UserFormatterInterface
+     */
+    public function enabled(): UserFormatterInterface;
+
+    /**
+     * Formats the profile picture
+     *
+     * @return UserFormatterInterface
+     */
+    public function profilePicture(): UserFormatterInterface;
+
+    /**
+     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
+     *
+     * @return UserFormatterInterface
+     */
+    public function profile(): UserFormatterInterface;
+}
