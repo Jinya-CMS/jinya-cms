@@ -10,7 +10,6 @@ namespace Jinya\Services\Artworks;
 
 
 use Jinya\Entity\ArtworkPosition;
-use Jinya\Entity\Gallery;
 
 interface ArtworkPositionServiceInterface
 {
@@ -58,12 +57,4 @@ interface ArtworkPositionServiceInterface
      * @return void
      */
     public function updateArtwork(int $id, string $artworkSlug);
-
-    /**
-     * Gets all artworks for the given @see Gallery slug
-     *
-     * @param string $slug
-     * @return array
-     */
-    public function getArtworks(string $slug): array;
 }

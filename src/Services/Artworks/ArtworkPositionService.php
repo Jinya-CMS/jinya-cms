@@ -177,28 +177,4 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             ->getQuery()
             ->execute();
     }
-
-    /**
-     * Gets all artworks for the given @see Gallery slug
-     *
-     * @param string $slug
-     * @return Artwork[]
-     */
-    public function getArtworks(string $slug): array
-    {
-        $gallery = $this->galleryService->get($slug);
-        $artworkPositions = $gallery->getArtworks()->toArray();
-        uasort($artworkPositions, function (ArtworkPosition $a, ArtworkPosition $b) {
-            return $a->getPosition() > $b->getPosition();
-        });
-
-        $artworks = array_values(array_map(function (ArtworkPosition $item) {
-            return [
-                'artwork' => $item->getArtwork(),
-                'id' => $item->getId()
-            ];
-        }, $artworkPositions));
-
-        return $artworks;
-    }
 }
