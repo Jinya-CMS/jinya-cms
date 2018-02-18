@@ -29,6 +29,6 @@ security:
       logout: true
       anonymous: true
   access_control:
-    - { path: ^/account/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/designer/, role: ROLE_WRITER }
-    - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/account/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/designer/, roles: ROLE_WRITER }
+    - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

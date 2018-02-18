@@ -14,6 +14,7 @@ use Exception;
 use Jinya\Entity\LogEntry;
 use Monolog\Handler\AbstractProcessingHandler;
 use Psr\Log\LoggerInterface;
+use function array_key_exists;
 
 class MySqlHandler extends AbstractProcessingHandler
 {
@@ -35,12 +36,6 @@ class MySqlHandler extends AbstractProcessingHandler
         $this->logger = $logger;
     }
 
-
-    public function handle(array $record)
-    {
-        return true;
-    }
-
     /**
      * Writes the record down to the log of the implementing handler
      *
@@ -49,6 +44,8 @@ class MySqlHandler extends AbstractProcessingHandler
      */
     protected function write(array $record)
     {
+        if (array_key_exists('jinya_logger', $record['context'])) return;
+
         try {
             $logEntry = new LogEntry();
             $logEntry->setMessage($record['message']);
@@ -60,8 +57,10 @@ class MySqlHandler extends AbstractProcessingHandler
             $this->entityManager->persist($logEntry);
             $this->entityManager->flush();
         } catch (Exception $exception) {
-            $this->logger->error($exception->getMessage());
-            $this->logger->error($exception->getTraceAsString());
+            $context = $record['context'];
+            $context['jinya_logger'] = true;
+            $this->logger->error($exception->getMessage(), $context);
+            $this->logger->error($exception->getTraceAsString(), $context);
         }
     }
 }
