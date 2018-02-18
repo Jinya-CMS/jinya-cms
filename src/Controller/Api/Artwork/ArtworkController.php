@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Artwork;
 
 use Jinya\Entity\Artwork;
 use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -27,15 +28,30 @@ class ArtworkController extends BaseApiController
      * @Route("/api/artwork", methods={"GET"}, name="api_artwork_get_all")
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param ArtworkServiceInterface $artworkService
      * @param Request $request
+     * @param ArtworkServiceInterface $artworkService
      * @param RouterInterface $router
      * @param LabelServiceInterface $labelService
+     * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, ArtworkServiceInterface $artworkService, RouterInterface $router, LabelServiceInterface $labelService): Response
+    public function getAllAction(Request $request, ArtworkServiceInterface $artworkService, RouterInterface $router, LabelServiceInterface $labelService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getAllArt($request, $artworkService, $router, $labelService);
+        return $this->getAllArt($request, $artworkService, $router, $labelService, function (array $artworks) use ($artworkFormatter) {
+            $data = [];
+
+            foreach ($artworks as $gallery) {
+                $data[] = $artworkFormatter
+                    ->init($gallery)
+                    ->name()
+                    ->picture()
+                    ->slug()
+                    ->description()
+                    ->format();
+            }
+
+            return $data;
+        });
     }
 
     /**
@@ -44,11 +60,27 @@ class ArtworkController extends BaseApiController
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
+     * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAction(string $slug, ArtworkServiceInterface $artworkService): Response
+    public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getArt($slug, $artworkService);
+        return $this->getArt($slug, $artworkService, function ($artwork) use ($artworkFormatter) {
+            $result = $artworkFormatter->init($artwork)
+                ->name()
+                ->slug()
+                ->picture()
+                ->description();
+
+            if ($this->isGranted('ROLE_WRITER')) {
+                $result = $result->updated()
+                    ->created()
+                    ->labels()
+                    ->galleries();
+            }
+
+            return $result;
+        });
     }
 
     /**
@@ -57,11 +89,12 @@ class ArtworkController extends BaseApiController
      *
      * @param Request $request
      * @param ArtworkServiceInterface $artworkService
+     * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function postAction(Request $request, ArtworkServiceInterface $artworkService): Response
+    public function postAction(Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService) {
+        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $artworkFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $slug = $this->getValue('slug', '');
@@ -76,7 +109,12 @@ class ArtworkController extends BaseApiController
             $artwork->setDescription($description);
             $artwork->setPicture('');
 
-            return $artworkService->saveOrUpdate($artwork);
+            return $artworkFormatter
+                ->init($artworkService->saveOrUpdate($artwork))
+                ->name()
+                ->slug()
+                ->description()
+                ->format();
         });
 
         return $this->json($data, $status);
@@ -89,11 +127,12 @@ class ArtworkController extends BaseApiController
      * @param string $slug
      * @param Request $request
      * @param ArtworkServiceInterface $artworkService
+     * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, ArtworkServiceInterface $artworkService): Response
+    public function putAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $artworkService) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $artworkService, $artworkFormatter) {
             $artwork = $artworkService->get($slug);
 
             $name = $this->getValue('name', $artwork->getName());
@@ -108,9 +147,12 @@ class ArtworkController extends BaseApiController
             $artwork->setSlug($slug);
             $artwork->setDescription($description);
 
-            $artwork = $artworkService->saveOrUpdate($artwork);
-
-            return $artwork;
+            return $artworkFormatter
+                ->init($artworkService->saveOrUpdate($artwork))
+                ->name()
+                ->slug()
+                ->description()
+                ->format();
         });
 
         return $this->json($data, $status);
