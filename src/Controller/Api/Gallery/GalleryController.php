@@ -13,13 +13,11 @@ use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 
 class GalleryController extends BaseApiController
 {
@@ -27,16 +25,13 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param Request $request
      * @param GalleryServiceInterface $galleryService
-     * @param RouterInterface $router
-     * @param LabelServiceInterface $labelService
      * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, GalleryServiceInterface $galleryService, RouterInterface $router, LabelServiceInterface $labelService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getAllArt($request, $galleryService, $router, $labelService, function (array $galleries) use ($galleryFormatter) {
+        return $this->getAllArt($galleryService, function (array $galleries) use ($galleryFormatter) {
             $data = [];
 
             foreach ($galleries as $gallery) {

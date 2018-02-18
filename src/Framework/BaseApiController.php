@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
@@ -37,6 +37,13 @@ abstract class BaseApiController extends AbstractController
 {
     /** @var TranslatorInterface */
     private $translator;
+    /** @var LabelServiceInterface */
+    private $labelService;
+    /** @var LoggerInterface */
+    private $logger;
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
     /** @var Request */
     private $request;
     /** @var array */
@@ -45,19 +52,22 @@ abstract class BaseApiController extends AbstractController
     private $bodyAsXml;
     /** @var string */
     private $contentType;
-    /** @var LoggerInterface */
-    private $logger;
 
     /**
      * BaseApiController constructor.
      * @param TranslatorInterface $translator
      * @param RequestStack $requestStack
      * @param LoggerInterface $logger
+     * @param LabelServiceInterface $labelService
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, LoggerInterface $logger)
+    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, LoggerInterface $logger, LabelServiceInterface $labelService, UrlGeneratorInterface $urlGenerator)
     {
         $this->translator = $translator;
         $this->logger = $logger;
+        $this->labelService = $labelService;
+        $this->urlGenerator = $urlGenerator;
+
         $this->request = $requestStack->getCurrentRequest();
         $this->contentType = $this->request->headers->get('Content-Type');
         if ($this->contentType === 'application/json') {
@@ -107,55 +117,30 @@ abstract class BaseApiController extends AbstractController
     /**
      * Gets all arts from the given service
      *
-     * @param Request $request
      * @param LabelEntityServiceInterface $baseService
-     * @param RouterInterface $router
-     * @param LabelServiceInterface $labelService
      * @param callable $formatter
      * @return Response
      */
-    protected function getAllArt(Request $request, LabelEntityServiceInterface $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
+    protected function getAllArt(LabelEntityServiceInterface $baseService, callable $formatter): Response
     {
-        list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $labelService, $router, $request, $baseService) {
-            $offset = $request->get('offset', 0);
-            $count = $request->get('count', 10);
-            $keyword = $request->get('keyword', '');
-            $label = $request->get('label', null);
+        list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $baseService) {
+            $offset = $this->request->get('offset', 0);
+            $count = $this->request->get('count', 10);
+            $keyword = $this->request->get('keyword', '');
+            $label = $this->request->get('label', null);
 
             if ($label) {
-                $label = $labelService->getLabel($label);
+                $label = $this->labelService->getLabel($label);
             }
 
             $entityCount = $baseService->countAll($keyword);
             $entities = $formatter($baseService->getAll($offset, $count, $keyword, $label));
 
-            $route = $request->get('_route');
+            $route = $this->request->get('_route');
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-            if ($entityCount > $offset + $count) {
-                $parameter['offset'] = $offset + $count;
-                $next = $router->generate($route, $parameter);
-            } else {
-                $next = false;
-            }
 
-            if ($offset > 0) {
-                $parameter['offset'] = $offset - $count;
-                $previous = $router->generate($route, $parameter);
-            } else {
-                $previous = false;
-            }
-
-            return [
-                'success' => true,
-                'offset' => $offset,
-                'count' => $entityCount,
-                'items' => $entities,
-                'control' => [
-                    'next' => $next,
-                    'previous' => $previous
-                ]
-            ];
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $entities);
         });
 
         return $this->json($data, $statusCode);
@@ -229,6 +214,43 @@ abstract class BaseApiController extends AbstractController
     {
         $env = $_SERVER['APP_ENV'] ?? 'dev';
         return $_SERVER['APP_DEBUG'] ?? ('prod' !== $env);
+    }
+
+    /**
+     * @param int $totalCount
+     * @param int $offset
+     * @param int $count
+     * @param array $parameter
+     * @param string $route
+     * @param array $entities
+     * @return array
+     */
+    protected function formatListResult(int $totalCount, int $offset, int $count, array $parameter, string $route, array $entities): array
+    {
+        if ($totalCount > $offset + $count) {
+            $parameter['offset'] = $offset + $count;
+            $next = $this->urlGenerator->generate($route, $parameter);
+        } else {
+            $next = false;
+        }
+
+        if ($offset > 0) {
+            $parameter['offset'] = $offset - $count;
+            $previous = $this->urlGenerator->generate($route, $parameter);
+        } else {
+            $previous = false;
+        }
+
+        return [
+            'success' => true,
+            'offset' => $offset,
+            'count' => $totalCount,
+            'items' => $entities,
+            'control' => [
+                'next' => $next,
+                'previous' => $previous
+            ]
+        ];
     }
 
     /**
