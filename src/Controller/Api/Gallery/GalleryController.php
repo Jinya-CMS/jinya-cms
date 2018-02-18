@@ -10,6 +10,7 @@ namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Entity\Gallery;
 use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -26,15 +27,30 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param GalleryServiceInterface $galleryService
      * @param Request $request
+     * @param GalleryServiceInterface $galleryService
      * @param RouterInterface $router
      * @param LabelServiceInterface $labelService
+     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, GalleryServiceInterface $galleryService, RouterInterface $router, LabelServiceInterface $labelService): Response
+    public function getAllAction(Request $request, GalleryServiceInterface $galleryService, RouterInterface $router, LabelServiceInterface $labelService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getAllArt($request, $galleryService, $router, $labelService);
+        return $this->getAllArt($request, $galleryService, $router, $labelService, function (array $galleries) use ($galleryFormatter) {
+            $data = [];
+
+            foreach ($galleries as $gallery) {
+                $data[] = $galleryFormatter
+                    ->init($gallery)
+                    ->name()
+                    ->background()
+                    ->slug()
+                    ->description()
+                    ->format();
+            }
+
+            return $data;
+        });
     }
 
     /**
@@ -45,9 +61,24 @@ class GalleryController extends BaseApiController
      * @param GalleryServiceInterface $galleryService
      * @return Response
      */
-    public function getAction(string $slug, GalleryServiceInterface $galleryService): Response
+    public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getArt($slug, $galleryService);
+        return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
+            $result = $galleryFormatter->init($gallery)
+                ->name()
+                ->slug()
+                ->background()
+                ->orientation();
+
+            if ($this->isGranted('ROLE_WRITER')) {
+                $result = $result->updated()
+                    ->created()
+                    ->labels()
+                    ->artworks();
+            }
+
+            return $result->format();
+        });
     }
 
     /**
@@ -56,11 +87,12 @@ class GalleryController extends BaseApiController
      *
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
+     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(Request $request, GalleryServiceInterface $galleryService): Response
+    public function postAction(Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService) {
+        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
@@ -76,7 +108,12 @@ class GalleryController extends BaseApiController
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
 
-            return $galleryService->saveOrUpdate($gallery);
+            return $galleryFormatter->init($galleryService->saveOrUpdate($gallery))
+                ->name()
+                ->slug()
+                ->description()
+                ->orientation()
+                ->format();
         });
 
         return $this->json($data, $status);
@@ -89,11 +126,12 @@ class GalleryController extends BaseApiController
      * @param string $slug
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
+     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService): Response
+    public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
             $name = $this->getValue('name', $gallery->getName());
@@ -110,9 +148,12 @@ class GalleryController extends BaseApiController
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
 
-            $gallery = $galleryService->saveOrUpdate($gallery);
-
-            return $gallery;
+            return $galleryFormatter->init($galleryService->saveOrUpdate($gallery))
+                ->name()
+                ->slug()
+                ->description()
+                ->orientation()
+                ->format();
         });
 
         return $this->json($data, $status);

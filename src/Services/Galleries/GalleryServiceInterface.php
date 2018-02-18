@@ -10,8 +10,9 @@ namespace Jinya\Services\Galleries;
 
 use Jinya\Entity\Gallery;
 use Jinya\Entity\Label;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 
-interface GalleryServiceInterface
+interface GalleryServiceInterface extends LabelEntityServiceInterface
 {
     /**
      * Gets the specified gallery by slug

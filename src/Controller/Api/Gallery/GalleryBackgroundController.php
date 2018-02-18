@@ -40,13 +40,13 @@ class GalleryBackgroundController extends BaseApiController
                 throw new FileNotFoundException($gallery->getName());
             }
 
-            return $gallery;
+            return $gallery->getBackground();
         });
 
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->redirect($data->getBackground());
+            return $this->redirect($data);
         }
     }
 

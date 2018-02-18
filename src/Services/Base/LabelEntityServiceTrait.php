@@ -31,7 +31,6 @@ trait LabelEntityServiceTrait
     {
         return $this->getFilteredQueryBuilder($keyword, $label)
             ->setFirstResult($offset)
-            ->select($this->getFieldsWithoutClutter())
             ->setMaxResults($count)
             ->getQuery()
             ->getResult();

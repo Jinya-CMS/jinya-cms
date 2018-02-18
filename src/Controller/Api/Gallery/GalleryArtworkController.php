@@ -9,8 +9,10 @@
 namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkPositionServiceInterface;
+use Jinya\Services\Galleries\GalleryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,13 +24,16 @@ class GalleryArtworkController extends BaseApiController
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $gallerySlug
-     * @param ArtworkPositionServiceInterface $artworkPositionService
+     * @param GalleryServiceInterface $galleryService
+     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
+    public function getAction(string $gallerySlug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $artworkPositionService) {
-            return $artworkPositionService->getArtworks($gallerySlug);
+        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
+            $gallery = $galleryService->get($gallerySlug);
+
+            return $galleryFormatter->init($gallery)->artworks()->format()['artworks'];
         });
 
         return $this->json($data, $status);

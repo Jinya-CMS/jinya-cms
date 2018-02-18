@@ -8,6 +8,7 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
+use Jinya\Formatter\Label\LabelFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -23,14 +24,23 @@ class GalleryLabelController extends BaseApiController
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
+     * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function getAction(string $slug, GalleryServiceInterface $galleryService): Response
+    public function getAction(string $slug, GalleryServiceInterface $galleryService, LabelFormatterInterface $labelFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $labelFormatter) {
             $gallery = $galleryService->get($slug);
+            $labels = [];
 
-            return $gallery->getLabels()->toArray();
+            foreach ($gallery->getLabels() as $label) {
+                $labels[] = $labelFormatter
+                    ->init($label)
+                    ->name()
+                    ->format();
+            }
+
+            return $labels;
         });
 
         return $this->json($data, $status);
@@ -53,8 +63,8 @@ class GalleryLabelController extends BaseApiController
 
             $gallery->getLabels()->add($labelService->getLabel($name));
 
-            return $galleryService->saveOrUpdate($gallery);
-        });
+            return null;
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

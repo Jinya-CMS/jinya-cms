@@ -198,7 +198,7 @@ class GalleryFormatter implements GalleryFormatterInterface
      */
     public function background(): GalleryFormatterInterface
     {
-        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()]);
+        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this;
     }
