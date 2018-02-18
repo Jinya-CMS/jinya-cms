@@ -10,8 +10,9 @@ namespace Jinya\Services\Artworks;
 
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Label;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 
-interface ArtworkServiceInterface
+interface ArtworkServiceInterface extends LabelEntityServiceInterface
 {
 
     /**

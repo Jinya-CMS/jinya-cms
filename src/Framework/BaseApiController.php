@@ -103,7 +103,7 @@ abstract class BaseApiController extends AbstractController
      * @param callable $formatter
      * @return Response
      */
-    protected function getAllArt(Request $request, LabelEntityServiceTrait $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
+    protected function getAllArt(Request $request, $baseService, RouterInterface $router, LabelServiceInterface $labelService, callable $formatter): Response
     {
         list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $labelService, $router, $request, $baseService) {
             $offset = $request->get('offset', 0);

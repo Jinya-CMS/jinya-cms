@@ -18,7 +18,6 @@ trait StaticContentServiceTrait
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         return $this->getFilteredQueryBuilder($keyword)
-            ->select($this->getFieldsWithoutClutter())
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->getQuery()
