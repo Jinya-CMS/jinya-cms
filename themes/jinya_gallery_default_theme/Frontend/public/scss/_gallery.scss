@@ -14,11 +14,9 @@
 
       > a {
         display: inline;
-        height: 100%;
         width: auto;
 
         > img {
-          height: 80%;
           width: auto;
         }
       }
@@ -86,6 +84,12 @@
       .artwork {
         width: $gallery-content-figure-width-mobile;
         max-height: 100%;
+
+        > a {
+          > img {
+            height: $gallery-content-figure-height-mobile;
+          }
+        }
       }
     }
 
@@ -108,6 +112,12 @@
       .artwork {
         width: $gallery-content-figure-width-tablet-portrait;
         max-height: 100%;
+
+        > a {
+          > img {
+            height: $gallery-content-figure-height-tablet-portrait;
+          }
+        }
       }
     }
 
@@ -130,6 +140,12 @@
       .artwork {
         width: $gallery-content-figure-width-tablet-landscape;
         max-height: 100%;
+
+        > a {
+          > img {
+            height: $gallery-content-figure-height-tablet-landscape;
+          }
+        }
       }
     }
 
@@ -151,6 +167,12 @@
     &.horizontal {
       .artwork {
         max-height: 100%;
+
+        > a {
+          > img {
+            height: $gallery-content-figure-height-desktop;
+          }
+        }
       }
     }
 

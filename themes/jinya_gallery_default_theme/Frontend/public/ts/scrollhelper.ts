@@ -12,9 +12,13 @@ class scrollhelper {
             });
         }
 
-        let scrolls = document.querySelectorAll('[data-scroll]');
+        let scrolls = document.querySelectorAll<HTMLElement>('[data-scroll]');
         for (let i = 0; i < scrolls.length; i++) {
-            new PerfectScrollbar(scrolls[i] as HTMLElement);
+            let element = scrolls[i];
+            new PerfectScrollbar(element, {
+                'suppressScrollX': element.getAttribute('data-suppress-scroll-x'),
+                'suppressScrollY': element.getAttribute('data-suppress-scroll-y'),
+            });
         }
     }
 }
