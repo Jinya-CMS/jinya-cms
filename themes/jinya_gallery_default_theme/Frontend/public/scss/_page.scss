@@ -26,6 +26,14 @@
     height: 59%;
   }
 
+  .ql-align-center {
+    text-align: center;
+  }
+
+  .ql-align-right {
+    text-align: right;
+  }
+
   @include breakpoint-desktop {
     padding-left: $page-content-margin-left-desktop;
     padding-right: $page-content-margin-right-desktop;
