@@ -194,10 +194,15 @@ $gallery-content-figure-margin-bottom: 0;
 $gallery-content-figure-margin-left: 1.25rem;
 $gallery-content-figure-margin-right: 1.25rem;
 
-$gallery-content-figure-width-mobile: 100%;
-$gallery-content-figure-width-tablet-portrait: 100%;
-$gallery-content-figure-width-tablet-landscape: 100%;
-$gallery-content-figure-width-desktop: 100%;
+$gallery-content-figure-width-mobile: auto;
+$gallery-content-figure-width-tablet-portrait: auto;
+$gallery-content-figure-width-tablet-landscape: auto;
+$gallery-content-figure-width-desktop: auto;
+
+$gallery-content-figure-height-mobile: 45em;
+$gallery-content-figure-height-tablet-portrait: 45em;
+$gallery-content-figure-height-tablet-landscape: 45em;
+$gallery-content-figure-height-desktop: 45em;
 
 $gallery-content-padding-left-ultra-mobile: 1rem;
 $gallery-content-padding-left-mobile: 22.5rem;
