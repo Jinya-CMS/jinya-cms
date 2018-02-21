@@ -44,7 +44,7 @@ class MediaService implements MediaServiceInterface
         $savedFile = $savedFile->move($this->getFilePath($type), hash_file('sha256', $savedFile->getRealPath()));
         $filename = $savedFile->getFilename();
 
-        return "$this->baseUrl/public/$type/${filename}";
+        return "/public/$type/${filename}";
     }
 
     private function getFilePath(string $type): string
