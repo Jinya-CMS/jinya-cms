@@ -47,6 +47,10 @@
       padding-top: $gallery-margin-top-ultra-mobile;
       padding-left: $gallery-content-padding-left-ultra-mobile;
       padding-right: $gallery-content-padding-right-ultra-mobile;
+
+      margin-left: $gallery-content-margin-left-ultra-mobile;
+      margin-right: $gallery-content-margin-right-ultra-mobile;
+
       white-space: normal;
 
       .artwork {
@@ -80,6 +84,9 @@
     padding-left: $gallery-content-padding-left-mobile;
     padding-right: $gallery-content-padding-right-mobile;
 
+    margin-left: $gallery-content-margin-left-mobile;
+    margin-right: $gallery-content-margin-right-mobile;
+
     &.horizontal {
       .artwork {
         width: $gallery-content-figure-width-mobile;
@@ -107,6 +114,9 @@
   .gallery {
     padding-left: $gallery-content-padding-left-tablet-portrait;
     padding-right: $gallery-content-padding-right-tablet-portrait;
+
+    margin-left: $gallery-content-margin-left-tablet-portrait;
+    margin-right: $gallery-content-margin-right-tablet-portrait;
 
     &.horizontal {
       .artwork {
@@ -136,6 +146,9 @@
     padding-left: $gallery-content-padding-left-tablet-landscape;
     padding-right: $gallery-content-padding-right-tablet-landscape;
 
+    margin-left: $gallery-content-margin-left-tablet-landscape;
+    margin-right: $gallery-content-margin-right-tablet-landscape;
+
     &.horizontal {
       .artwork {
         width: $gallery-content-figure-width-tablet-landscape;
@@ -163,6 +176,9 @@
   .gallery {
     padding-left: $gallery-content-padding-left-desktop;
     padding-right: $gallery-content-padding-right-desktop;
+
+    margin-left: $gallery-content-margin-left-desktop;
+    margin-right: $gallery-content-margin-right-desktop;
 
     &.horizontal {
       .artwork {

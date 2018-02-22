@@ -66,3 +66,9 @@ img {
 textarea {
   padding: 0;
 }
+
+figcaption {
+  color: $figure-caption-color;
+  font-family: $figure-caption-font-family;
+  font-size: $figure-caption-font-size;
+}

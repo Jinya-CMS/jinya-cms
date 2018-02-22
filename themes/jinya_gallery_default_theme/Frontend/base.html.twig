@@ -43,6 +43,9 @@
 {% endblock %}
 {% block body %}
     {% block background %}
+        {% if themeConfig.page.background is defined and themeConfig.page.background is not empty %}
+            <img src="{{ themeConfig.page.background }}" class="background full-size" alt="">
+        {% endif %}
     {% endblock %}
     {% block menu %}
         {% include '@Theme/jinya_gallery_default_theme/Frontend/include/menu.html.twig' %}
