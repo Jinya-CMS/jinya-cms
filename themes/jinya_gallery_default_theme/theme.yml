@@ -5,7 +5,9 @@ defaultConfig:
     favicon:
     title: Jinya Gallery CMS
     fontlink:
-    background:
+  default_background:
+    use: false
+    image:
   menu:
     name:
       display: false
@@ -71,9 +73,15 @@ form:
           - name: fontlink
             type: string
             label: Zusätzliche Schriftarten
-          - name: background
+      - name: default_background
+        title: Standardhintergrund
+        fields:
+          - name: use
+            type: boolean
+            label: Verwenden?
+          - name: image
             type: file
-            label: Standard Hintergrundbild
+            label: Hintergrundbild
       - name: menu
         title: Menü
         groups:

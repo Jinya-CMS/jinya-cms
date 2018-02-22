@@ -43,8 +43,8 @@
 {% endblock %}
 {% block body %}
     {% block background %}
-        {% if themeConfig.page.background is defined and themeConfig.page.background is not empty %}
-            <img src="{{ themeConfig.page.background }}" class="background full-size" alt="">
+        {% if themeConfig.default_background.image is defined and themeConfig.default_background.image is not empty and themeConfig.default_background.use %}
+            <img src="{{ themeConfig.default_background.image }}" class="background full-size" alt="">
         {% endif %}
     {% endblock %}
     {% block menu %}
