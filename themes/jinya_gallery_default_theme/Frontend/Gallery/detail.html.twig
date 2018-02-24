@@ -10,13 +10,17 @@
 {% endblock %}
 
 {% block background %}
-    {% if gallery.background %}
+    {% if gallery.background is not empty %}
         <img src="{{ gallery.background }}" class="gallery background">
+    {% else %}
+        {{ parent() }}
     {% endif %}
 {% endblock %}
 
 {% block maincontent %}
-    <div data-scroll class="gallery {{ gallery.orientation }}"{% if gallery.orientation == 'horizontal' %} data-suppress-scroll-y="true"{% endif %} id="gallery">
+    <div data-scroll
+         class="gallery {{ gallery.orientation }}"{% if gallery.orientation == 'horizontal' %} data-suppress-scroll-y="true"{% endif %}
+         id="gallery">
         {% for artworkPosition in gallery.artworks %}
             {% set artwork = artworkPosition.artwork %}
             <figure data-simplebar class="artwork">

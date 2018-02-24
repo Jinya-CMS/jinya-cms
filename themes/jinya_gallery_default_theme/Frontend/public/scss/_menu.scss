@@ -46,7 +46,11 @@
     &:hover li {
       a,
       a.active {
-        @include menu-blurred();
+        @if $menu-enable-blurr {
+          @include menu-blurred();
+        } @else {          
+          @include menu-item-hover-background-gradient();
+        }
       }
     }
 

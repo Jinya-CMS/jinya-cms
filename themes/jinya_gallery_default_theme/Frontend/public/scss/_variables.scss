@@ -69,8 +69,17 @@ $margin-top-mobile: $margin-top / 2 !default;
 $margin-top-tablet-portrait: $margin-top / 2 !default;
 
 /**
+ * Elements
+ */
+$figure-caption-color: $primary !default;
+$figure-caption-font-size: 1.2rem !default;
+$figure-caption-font-family: $font-family-heading !default;
+
+/**
  * Menu
  */
+$menu-enable-blurr: false !default;
+
 $menu-width: 20rem !default;
 $menu-border-radius: 1rem !default;
 $menu-font-family: $font-family !default;
@@ -82,11 +91,11 @@ $menu-text-color: $primary-darker !default;
 /** Margins **/
 $menu-margin-top: $margin-top;
 $menu-margin-left: 5rem !default;
-$menu-margin-top-mobile: $menu-margin-top / 2;
-$menu-margin-left-mobile: $menu-margin-left / 2;
+$menu-margin-top-mobile: $menu-margin-top / 2 !default;
+$menu-margin-left-mobile: $menu-margin-left / 2 !default;
 
-$menu-margin-top-tablet-portrait: $menu-margin-top / 2;
-$menu-margin-left-tablet-portrait: $menu-margin-left / 2;
+$menu-margin-top-tablet-portrait: $menu-margin-top / 2 !default;
+$menu-margin-left-tablet-portrait: $menu-margin-left / 2 !default;
 
 /** Title **/
 $menu-title-padding: 0 1.2rem !default;
@@ -204,17 +213,29 @@ $gallery-content-figure-height-tablet-portrait: 45em;
 $gallery-content-figure-height-tablet-landscape: 45em;
 $gallery-content-figure-height-desktop: 45em;
 
-$gallery-content-padding-left-ultra-mobile: 1rem;
-$gallery-content-padding-left-mobile: 22.5rem;
-$gallery-content-padding-left-tablet-portrait: 22.5rem;
-$gallery-content-padding-left-tablet-landscape: 27.5rem;
-$gallery-content-padding-left-desktop: 27.5rem;
+$gallery-content-margin-left-ultra-mobile: 1rem !default;
+$gallery-content-margin-left-mobile: 22.5rem !default;
+$gallery-content-margin-left-tablet-portrait: 22.5rem !default;
+$gallery-content-margin-left-tablet-landscape: 27.5rem !default;
+$gallery-content-margin-left-desktop: 27.5rem !default;
 
-$gallery-content-padding-right-ultra-mobile: 1rem;
-$gallery-content-padding-right-mobile: 5rem;
-$gallery-content-padding-right-tablet-portrait: 5rem;
-$gallery-content-padding-right-tablet-landscape: 5rem;
-$gallery-content-padding-right-desktop: 5rem;
+$gallery-content-margin-right-ultra-mobile: 1rem !default;
+$gallery-content-margin-right-mobile: 5rem !default;
+$gallery-content-margin-right-tablet-portrait: 5rem !default;
+$gallery-content-margin-right-tablet-landscape: 5rem !default;
+$gallery-content-margin-right-desktop: 5rem !default;
+
+$gallery-content-padding-left-ultra-mobile: 0 !default;
+$gallery-content-padding-left-mobile: 0 !default;
+$gallery-content-padding-left-tablet-portrait: 0 !default;
+$gallery-content-padding-left-tablet-landscape: 0 !default;
+$gallery-content-padding-left-desktop: 0 !default;
+
+$gallery-content-padding-right-ultra-mobile: 0 !default;
+$gallery-content-padding-right-mobile: 0 !default;
+$gallery-content-padding-right-tablet-portrait: 0 !default;
+$gallery-content-padding-right-tablet-landscape: 0 !default;
+$gallery-content-padding-right-desktop: 0 !default;
 
 /**
  + Pages
@@ -286,7 +307,6 @@ $lightbox-padding-left: 5rem !default;
 $lightbox-padding-right: 5rem !default;
 $lightbox-padding-top: 5rem !default;
 $lightbox-padding-bottom: 10rem !default;
-
 
 /**
  * Scrollbar
