@@ -3,12 +3,19 @@
   min-width: 100%;
   height: auto;
   position: fixed;
+  opacity: $background-opacity;
+  bottom: 0;
   top: 0;
   left: 0;
-  object-fit: cover;
-  object-position: 0 0;
-  opacity: $background-opacity;
   width: 100%;
+  object-fit: scale-down;
+
+  &.full-size {
+    top: 0;
+    bottom: unset;
+    object-fit: cover;
+    object-position: 0 0;
+  }
 
   &.gallery {
     opacity: $gallery-background-opacity;

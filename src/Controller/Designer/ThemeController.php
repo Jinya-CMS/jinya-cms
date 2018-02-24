@@ -96,20 +96,25 @@ class ThemeController extends Controller
         $oldConfiguration = $themeService->getTheme($name)->getConfiguration();
 
         foreach ($files->get('configuration') as $aKey => $file) {
-            list($result, $key, $uploadedFile) = $this->getKeyAndFile($file);
-            if ($result) {
-                $path = $mediaService->saveMedia($uploadedFile, 'themeconfig-' . $name);
-
-                $temp = &$configuration;
-                $temp = &$temp[$aKey];
-                preg_match_all('/\[(.*?)\]/', $key, $exploded);
-                foreach ($exploded[1] as $elem) {
-                    $temp = &$temp[$elem];
+            foreach ($file as $fKey => $item) {
+                if (!is_array($item)) {
+                    $item = [$fKey => $item];
                 }
-                $temp = $path;
-                unset($temp);
+                list($result, $key, $uploadedFile) = $this->getKeyAndFile($item);
+                if ($result) {
+                    $path = $mediaService->saveMedia($uploadedFile, 'themeconfig-' . $name);
 
-                $configuration[$key] = $path;
+                    $temp = &$configuration;
+                    $temp = &$temp[$aKey];
+                    preg_match_all('/\[(.*?)\]/', $key, $exploded);
+                    foreach ($exploded[1] as $elem) {
+                        $temp = &$temp[$elem];
+                    }
+                    $temp = $path;
+                    unset($temp);
+
+                    $configuration[$key] = $path;
+                }
             }
         }
         $themeConfigService->saveConfig(array_replace_recursive($oldConfiguration, $configuration), $name);
