@@ -52,6 +52,7 @@
       margin-right: $gallery-content-margin-right-ultra-mobile;
 
       white-space: normal;
+      overflow-y: auto;
 
       .artwork {
         display: block;

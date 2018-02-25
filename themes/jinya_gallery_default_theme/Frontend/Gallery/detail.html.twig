@@ -19,8 +19,7 @@
 
 {% block maincontent %}
     <div data-scroll
-         class="gallery {{ gallery.orientation }}"{% if gallery.orientation == 'horizontal' %} data-suppress-scroll-y="true"{% endif %}
-         id="gallery">
+         class="gallery {{ gallery.orientation }}" id="gallery">
         {% for artworkPosition in gallery.artworks %}
             {% set artwork = artworkPosition.artwork %}
             <figure data-simplebar class="artwork">
