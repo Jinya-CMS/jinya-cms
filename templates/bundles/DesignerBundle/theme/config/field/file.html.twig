@@ -1,7 +1,7 @@
 <label for="text">{{ field.label }}</label>
-<input type="file" name="{{ fullname }}" id="{{ field.name }}">
-<input readonly type="text" class="input-with-addon" data-id="{{ field.name }}">
+<input type="file" name="{{ fullname }}" id="{{ fullname }}">
+<input readonly type="text" class="input-with-addon" data-id="{{ fullname }}">
 <button class="button primary button-border-thin button-input-height input-addon-after"
-        data-toggle="file" data-target="{{ field.name }}" type="button">
+        data-toggle="file" data-target="{{ fullname }}" type="button">
     {{ 'generic.search'|trans }}
 </button>

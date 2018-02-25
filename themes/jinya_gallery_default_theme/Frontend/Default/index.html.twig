@@ -1,5 +1,10 @@
 {% extends '@Theme/jinya_gallery_default_theme/Frontend/base.html.twig' %}
 
 {% block background %}
-    <img src="{{ themeConfig.startpage.background.image }}" alt="" class="background">
+    {% if themeConfig.startpage.background.image is defined %}
+        <img src="{{ themeConfig.startpage.background.image }}" alt="" class="background not ultra-mobile">
+    {% endif %}
+    {% if themeConfig.startpage.background.mobile is defined %}
+        <img src="{{ themeConfig.startpage.background.mobile }}" alt="" class="background only ultra-mobile">
+    {% endif %}
 {% endblock %}
