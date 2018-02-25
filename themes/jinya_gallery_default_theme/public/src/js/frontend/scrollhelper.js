@@ -13,6 +13,10 @@
 
     const scrolls = document.querySelectorAll('[data-scroll]');
     scrolls.forEach((item) => {
-        new PerfectScrollbar(item);
+        let element = scrolls[i];
+        new PerfectScrollbar(element, {
+            'suppressScrollX': element.getAttribute('data-suppress-scroll-x'),
+            'suppressScrollY': element.getAttribute('data-suppress-scroll-y'),
+        });
     });
 }());
