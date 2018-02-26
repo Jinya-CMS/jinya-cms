@@ -54,7 +54,7 @@ class UsersController extends Controller
      */
     public function overviewAction(Request $request): Response
     {
-        $allUsers = $this->userService->getAllUsers(0, PHP_INT_MAX);
+        $allUsers = $this->userService->getAll(0, PHP_INT_MAX);
 
         return $this->render('@Backend/users/overview.html.twig', [
             'users' => $allUsers,
@@ -105,7 +105,7 @@ class UsersController extends Controller
     public function editAction(Request $request, int $id): Response
     {
         $form = $this->createForm(UserType::class);
-        $user = $this->userService->getUser($id);
+        $user = $this->userService->get($id);
         $user->setProfilePicture(null);
         $form->setData($user);
 
@@ -140,14 +140,14 @@ class UsersController extends Controller
     public function deleteAction(Request $request, int $id): Response
     {
         if ($request->getMethod() == 'POST') {
-            $this->userService->deleteUser($id);
+            $this->userService->delete($id);
 
             return $this->redirectToRoute('backend_users_overview');
         }
 
         return $this->render('@Backend/users/delete.html.twig', [
             'id' => $id,
-            'user' => $this->userService->getUser($id),
+            'user' => $this->userService->get($id),
         ]);
     }
 
@@ -163,7 +163,7 @@ class UsersController extends Controller
     {
         return $this->render('@Backend/users/details.html.twig', [
             'id' => $id,
-            'user' => $this->userService->getUser($id),
+            'user' => $this->userService->get($id),
         ]);
     }
 
