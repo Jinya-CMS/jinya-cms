@@ -69,12 +69,13 @@ class ArtworkController extends BaseApiController
 
             if ($this->isGranted('ROLE_WRITER')) {
                 $result = $result->updated()
+                    ->id()
                     ->created()
                     ->labels()
                     ->galleries();
             }
 
-            return $result;
+            return $result->format();
         });
     }
 

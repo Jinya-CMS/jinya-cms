@@ -63,7 +63,8 @@ services:
         - { name: doctrine.event_subscriber }
 
     # Formatter
-    Jinya\Formatter\Artwork\ArtworkPositionFormatter:
+    Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface:
+      alias: Jinya\Formatter\Artwork\ArtworkPositionFormatter
       public: true
 
     # Controllers

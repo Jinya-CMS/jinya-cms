@@ -84,4 +84,11 @@ interface ArtworkFormatterInterface extends FormatterInterface
      * @return ArtworkFormatterInterface
      */
     public function galleries(): ArtworkFormatterInterface;
+
+    /**
+     * Formats the id
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function id(): ArtworkFormatterInterface;
 }

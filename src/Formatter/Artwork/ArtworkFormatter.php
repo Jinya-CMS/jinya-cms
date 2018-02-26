@@ -10,6 +10,7 @@ namespace Jinya\Formatter\Artwork;
 
 
 use Jinya\Entity\Artwork;
+use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -196,6 +197,18 @@ class ArtworkFormatter implements ArtworkFormatterInterface
                 ->gallery()
                 ->format();
         }
+
+        return $this;
+    }
+
+    /**
+     * Formats the id of the entity
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function id(): ArtworkFormatterInterface
+    {
+        $this->formattedData['id'] = $this->artwork->getId();
 
         return $this;
     }

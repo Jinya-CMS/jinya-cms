@@ -220,4 +220,16 @@ class GalleryFormatter implements GalleryFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats the id
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function id(): GalleryFormatterInterface
+    {
+        $this->formattedData['id'] = $this->gallery->getId();
+
+        return $this;
+    }
 }

@@ -8,8 +8,8 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Formatter\FormatterInterface;
 use Jinya\Entity\Gallery;
+use Jinya\Formatter\FormatterInterface;
 
 interface GalleryFormatterInterface extends FormatterInterface
 {
@@ -91,4 +91,11 @@ interface GalleryFormatterInterface extends FormatterInterface
      * @return GalleryFormatterInterface
      */
     public function labels(): GalleryFormatterInterface;
+
+    /**
+     * Formats the id
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function id(): GalleryFormatterInterface;
 }
