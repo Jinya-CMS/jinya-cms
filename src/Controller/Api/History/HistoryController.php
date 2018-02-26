@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HistoryController extends BaseApiController
 {
     /**
-     * @Route("/api/history/{class}/{id}", methods={"GET"})
+     * @Route("/api/history/{class}/{id}", methods={"GET"}, name="api_history_get_detail")
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $class
@@ -26,7 +26,7 @@ class HistoryController extends BaseApiController
      * @param HistoryServiceInterface $historyService
      * @return Response
      */
-    public function get(string $class, int $id, HistoryServiceInterface $historyService): Response
+    public function getAction(string $class, int $id, HistoryServiceInterface $historyService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($class, $id, $historyService) {
             return $historyService->getHistory($class, $id);
@@ -36,28 +36,27 @@ class HistoryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/history/{class}/{id}", methods={"PUT"})
+     * @Route("/api/history/{class}/{id}/{timestamp}/{field}", methods={"PUT"}, name="api_history_revert")
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $class
      * @param int $id
+     * @param string $timestamp
+     * @param string $field
      * @param HistoryServiceInterface $historyService
      * @return Response
      */
-    public function revert(string $class, int $id, HistoryServiceInterface $historyService): Response
+    public function revertAction(string $class, int $id, string $timestamp, string $field, HistoryServiceInterface $historyService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($class, $id, $historyService) {
-            $field = $this->getValue('field');
-            $value = $this->getValue('value');
-
-            $historyService->revert($class, $id, $field, $value);
+        list($data, $status) = $this->tryExecute(function () use ($class, $id, $timestamp, $field, $historyService) {
+            $historyService->revert($class, $id, $field, $timestamp);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/history/{class}/{id}", methods={"DELETE"})
+     * @Route("/api/history/{class}/{id}", methods={"DELETE"}, name="api_history_clear")
      * @IsGranted("ROLE_ADMIN")
      *
      * @param string $class
@@ -65,7 +64,7 @@ class HistoryController extends BaseApiController
      * @param HistoryServiceInterface $historyService
      * @return Response
      */
-    public function clear(string $class, int $id, HistoryServiceInterface $historyService): Response
+    public function clearAction(string $class, int $id, HistoryServiceInterface $historyService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($class, $id, $historyService) {
             $historyService->clearHistory($class, $id);

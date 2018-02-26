@@ -34,7 +34,7 @@ interface HistoryServiceInterface
      * @param string $class
      * @param int $id
      * @param string $field
-     * @param $value
+     * @param string $timestamp
      */
-    public function revert(string $class, int $id, string $field, $value): void;
+    public function revert(string $class, int $id, string $field, string $timestamp): void;
 }

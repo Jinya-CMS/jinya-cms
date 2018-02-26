@@ -10,6 +10,7 @@ namespace Jinya\Services\History;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use function array_filter;
 use function method_exists;
 
 class HistoryService implements HistoryServiceInterface
@@ -19,11 +20,30 @@ class HistoryService implements HistoryServiceInterface
     private $entityManager;
 
     /**
+     * HistoryService constructor.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @inheritdoc
      */
     public function getHistory(string $class, int $id): array
     {
-        return $this->entityManager->find($class, $id)->getHistory();
+        return $this->entityManager->find($this->getFullClassName($class), $id)->getHistory();
+    }
+
+    /**
+     * @param string $class
+     * @return string
+     */
+    protected function getFullClassName(string $class): string
+    {
+        $class = "Jinya\\Entity\\$class";
+        return $class;
     }
 
     /**
@@ -31,7 +51,7 @@ class HistoryService implements HistoryServiceInterface
      */
     public function clearHistory(string $class, int $id): void
     {
-        $entity = $this->entityManager->find($class, $id);
+        $entity = $this->entityManager->find($this->getFullClassName($class), $id);
         $entity->setHistory([]);
 
         $this->entityManager->flush();
@@ -40,12 +60,21 @@ class HistoryService implements HistoryServiceInterface
     /**
      * @inheritdoc
      */
-    public function revert(string $class, int $id, string $field, $value): void
+    public function revert(string $class, int $id, string $field, string $timestamp): void
     {
-        $entity = $this->entityManager->find($class, $id);
+        $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
         if (method_exists($entity, "set$field")) {
-            $entity->${"set$field"}($value);
+            $history = $entity->getHistory();
+            $entry = array_filter($history, function (array $item) use ($timestamp) {
+                return $item['timestamp'] === $timestamp;
+            })[0];
+
+            $revertedValue = $entry['entry'][$field][1];
+            $setter = "set$field";
+            $entity->$setter($revertedValue);
+
+            $this->entityManager->flush();
         }
     }
 }

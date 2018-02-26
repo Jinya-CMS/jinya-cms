@@ -69,7 +69,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     private function checkOnlyUpdatedFieldsChanged(array $changeSet): bool
     {
         foreach ($changeSet as $key => $item) {
-            if (strtolower($key) !== 'lastupdatedat' && strtolower($key) !== 'updatedby') {
+            if (strtolower($key) !== 'lastupdatedat' && strtolower($key) !== 'updatedby' && strtolower($key) !== 'history') {
                 return false;
             }
         }
