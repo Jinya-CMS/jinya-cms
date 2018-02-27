@@ -271,7 +271,7 @@ class User implements JsonSerializable, UserInterface
     /**
      * @return string
      */
-    public function getProfilePicture(): string
+    public function getProfilePicture(): ?string
     {
         return $this->profilePicture;
     }

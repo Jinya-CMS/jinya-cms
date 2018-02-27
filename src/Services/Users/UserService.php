@@ -172,6 +172,8 @@ class UserService implements UserServiceInterface
      */
     public function saveOrUpdate(User $user): User
     {
+        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
+
         if ($this->entityManager->getUnitOfWork()->getEntityState($user) === UnitOfWork::STATE_NEW) {
             $this->entityManager->persist($user);
         }

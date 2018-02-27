@@ -69,4 +69,11 @@ interface UserFormatterInterface extends FormatterInterface
      * @return UserFormatterInterface
      */
     public function profile(): UserFormatterInterface;
+
+    /**
+     * Formats the id
+     *
+     * @return UserFormatterInterface
+     */
+    public function id(): UserFormatterInterface;
 }

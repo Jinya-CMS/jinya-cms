@@ -59,6 +59,22 @@ install:
       invalid: Die Emailadresse ist nicht gültig
       not_blank: Die Emailadresse ist erforderlich
 api:
+  generic:
+    headers:
+      contenttype: Der Content Type contentType ist nicht zugelassen
+    body:
+      empty: Der Requestbody ist leer
+  user:
+    field:
+      firstname:
+        missing: Der Vorname muss bereitgestellt weren
+      lastname:
+        missing: Der Nachname muss bereitgestellt weren
+      email:
+        missing: Die Emailadresse muss bereitgestellt weren
+        invalid: Die Emailadresse email ist nicht gültig
+      password:
+        missing: Das Passwort muss bereitgestellt weren
   gallery:
     field:
       name:
@@ -73,8 +89,3 @@ api:
     field:
       name:
         missing: Der Name muss bereitgestellt werden
-  generic:
-    headers:
-      contenttype: Der Content Type contentType ist nicht zugelassen
-    body:
-      empty: Der Requestbody ist leer

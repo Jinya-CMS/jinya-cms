@@ -128,4 +128,16 @@ class UserFormatter implements UserFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats the id
+     *
+     * @return UserFormatterInterface
+     */
+    public function id(): UserFormatterInterface
+    {
+        $this->formattedData['id'] = $this->user->getId();
+
+        return $this;
+    }
 }
