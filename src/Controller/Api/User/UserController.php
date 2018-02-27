@@ -108,19 +108,19 @@ class UserController extends BaseApiController
             $emptyFields = [];
 
             if (empty($firstname)) {
-                $emptyFields[] = ['firstname' => 'api.user.field.firstname.missing'];
+                $emptyFields['firstname'] = 'api.user.field.firstname.missing';
             }
 
             if (empty($lastname)) {
-                $emptyFields[] = ['lastname' => 'api.user.field.lastname.missing'];
+                $emptyFields['lastname'] = 'api.user.field.lastname.missing';
             }
 
             if (empty($email)) {
-                $emptyFields[] = ['email' => 'api.user.field.email.missing'];
+                $emptyFields['email'] = 'api.user.field.email.missing';
             }
 
             if (empty($password)) {
-                $emptyFields[] = ['password' => 'api.user.field.password.missing'];
+                $emptyFields['password'] = 'api.user.field.password.missing';
             }
 
             if (!empty($emptyFields)) {
