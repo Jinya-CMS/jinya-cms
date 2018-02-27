@@ -98,7 +98,7 @@ class UserService implements UserServiceInterface
             ->setParameter('role', "%$roleSuperAdmin%")
             ->getQuery();
 
-        return $query->getSingleScalarResult() > 1;
+        return $query->getSingleScalarResult() < 1;
     }
 
     /**

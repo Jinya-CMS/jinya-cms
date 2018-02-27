@@ -14,7 +14,6 @@ use Egulias\EmailValidator\Validation\RFCValidation;
 use Jinya\Entity\User;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\User\UserFormatterInterface;
-use Jinya\Framework\BaseApiController;
 use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
 
-class UserController extends BaseApiController
+class UserController extends BaseUserController
 {
     /**
      * @Route("/api/user", methods={"GET"}, name="api_user_get_all")
@@ -225,17 +224,6 @@ class UserController extends BaseApiController
         return $this->json($data, $status);
     }
 
-    /**
-     * Checks whether the given user is the currently logged in user
-     *
-     * @param int $id
-     * @return bool
-     */
-    private function isCurrentUser(int $id): bool
-    {
-        $user = $this->getUser();
-        return $user instanceof User && $user->getId() === $id;
-    }
 
     /**
      * @Route("/api/user/{id}", methods={"DELETE"}, name="api_user_delete")
