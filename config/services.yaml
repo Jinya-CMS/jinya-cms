@@ -72,5 +72,10 @@ services:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
 
+    # Security
+    Jinya\Framework\Security\UserVoter:
+        tags:
+            - { name: security.voter }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

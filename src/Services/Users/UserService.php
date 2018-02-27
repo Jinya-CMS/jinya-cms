@@ -58,12 +58,11 @@ class UserService implements UserServiceInterface
      */
     protected function createFilteredQueryBuilder(string $keyword): QueryBuilder
     {
-        $userRepository = $this->entityManager->getRepository(User::class);
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $userRepository->createQueryBuilder('user');
+        $queryBuilder = $this->entityManager->createQueryBuilder();
 
         return $queryBuilder
             ->select('user')
+            ->from(User::class, 'user')
             ->where($queryBuilder->expr()->like('user.firstname', ':keyword'))
             ->orWhere($queryBuilder->expr()->like('user.lastname', ':keyword'))
             ->orWhere($queryBuilder->expr()->like('user.email', ':keyword'))
@@ -75,9 +74,31 @@ class UserService implements UserServiceInterface
      */
     public function delete(int $id): void
     {
-        $user = $this->entityManager->find(User::class, $id);
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
+        if (!$this->isLastSuperAdmin()) {
+            $user = $this->entityManager->find(User::class, $id);
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function isLastSuperAdmin(): bool
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $roleSuperAdmin = User::ROLE_SUPER_ADMIN;
+
+        $query = $queryBuilder
+            ->select($queryBuilder->expr()->count('u'))
+            ->from(User::class, 'u')
+            ->where('u.roles like :role')
+            ->andWhere('u.enabled = 1')
+            ->setParameter('role', "%$roleSuperAdmin%")
+            ->getQuery();
+
+        return $query->getSingleScalarResult() > 1;
     }
 
     /**
@@ -100,12 +121,12 @@ class UserService implements UserServiceInterface
      */
     public function deactivate(int $id): User
     {
-        /** @var User $user */
         $user = $this->entityManager->find(User::class, $id);
-
-        $user->setEnabled(false);
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        if (!$this->isLastSuperAdmin()) {
+            $user->setEnabled(false);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
 
         return $user;
     }
@@ -133,9 +154,11 @@ class UserService implements UserServiceInterface
      */
     public function revokeRole(int $userId, string $role): void
     {
-        $user = $this->entityManager->find(User::class, $userId);
-        $user->removeRole($role);
-        $this->entityManager->flush();
+        if ($role !== User::ROLE_SUPER_ADMIN || !$this->isLastSuperAdmin()) {
+            $user = $this->entityManager->find(User::class, $userId);
+            $user->removeRole($role);
+            $this->entityManager->flush();
+        }
     }
 
     /**
@@ -158,6 +181,7 @@ class UserService implements UserServiceInterface
     public function countAll(string $keyword): int
     {
         $queryBuilder = $this->createFilteredQueryBuilder($keyword);
+
         return $queryBuilder
             ->select($queryBuilder->expr()->count('user'))
             ->getQuery()
