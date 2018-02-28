@@ -10,6 +10,7 @@ namespace Jinya\Formatter\User;
 
 
 use Jinya\Entity\User;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserFormatter implements UserFormatterInterface
 {
@@ -18,6 +19,18 @@ class UserFormatter implements UserFormatterInterface
 
     /** @var array */
     private $formattedData;
+
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    /**
+     * UserFormatter constructor.
+     * @param UrlGeneratorInterface $urlGenerator
+     */
+    public function __construct(UrlGeneratorInterface $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
 
     /**
      * Formats the content of the @see FormatterInterface into an array
@@ -98,7 +111,7 @@ class UserFormatter implements UserFormatterInterface
      */
     public function profilePicture(): UserFormatterInterface
     {
-        $this->formattedData['profilePicture'] = $this->user->getProfilePicture();
+        $this->formattedData['profilePicture'] = $this->urlGenerator->generate('api_user_profilepicture_get', ['id' => $this->user->getId()]);
 
         return $this;
     }
