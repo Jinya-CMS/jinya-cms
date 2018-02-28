@@ -14,7 +14,6 @@ use Doctrine\ORM\NoResultException;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Services\Base\BaseArtServiceInterface;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -157,7 +156,7 @@ abstract class BaseApiController extends AbstractController
     {
         try {
             return [$function(), $successStatusCode];
-        } catch (MissingFieldsException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
             $data = [
                 'success' => false,
                 'validation' => []
@@ -168,11 +167,13 @@ abstract class BaseApiController extends AbstractController
             }
 
             return [$data, Response::HTTP_BAD_REQUEST];
-        } catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
+        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException $exception) {
+            return [$this->jsonFormatException($this->translator->trans('api.state.403.generic'), $exception), Response::HTTP_FORBIDDEN];
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
             return [$this->jsonFormatException($this->translator->trans('api.state.404.generic'), $exception), Response::HTTP_NOT_FOUND];
-        } catch (EmptyBodyException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
             return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
-        } catch (UniqueConstraintViolationException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
             return [$this->jsonFormatException($this->translator->trans('api.state.409.exists'), $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());

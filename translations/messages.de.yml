@@ -351,3 +351,5 @@ api:
       generic: Die Resource konnte nicht gefunden werden
     500:
       generic: Ein interner Fehler ist aufgetreten
+    403:
+      generic: Für den Zugriff auf die Resource sind andere Rechte nötig

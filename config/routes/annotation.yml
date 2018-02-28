@@ -2,8 +2,3 @@ jinya:
     resource: "../src/Controller/"
     type: annotation
     prefix: /
-
-backend:
-    resource: "../src/Controller/Backend"
-    type: annotation
-    prefix: /backend
