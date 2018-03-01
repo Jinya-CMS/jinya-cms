@@ -21,7 +21,6 @@ class GalleryArtworkController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $gallerySlug
      * @param GalleryServiceInterface $galleryService

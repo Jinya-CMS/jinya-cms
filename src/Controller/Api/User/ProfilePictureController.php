@@ -23,7 +23,6 @@ class ProfilePictureController extends BaseUserController
 {
     /**
      * @Route("/api/user/{id}/profilepicture", methods={"GET"}, name="api_user_profilepicture_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param int $id
      * @param UserServiceInterface $userService

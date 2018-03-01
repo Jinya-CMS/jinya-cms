@@ -24,7 +24,6 @@ class ArtworkController extends BaseApiController
 {
     /**
      * @Route("/api/artwork", methods={"GET"}, name="api_artwork_get_all")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param ArtworkServiceInterface $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
@@ -51,7 +50,6 @@ class ArtworkController extends BaseApiController
 
     /**
      * @Route("/api/artwork/{slug}", methods={"GET"}, name="api_artwork_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService

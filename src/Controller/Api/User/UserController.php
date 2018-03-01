@@ -224,7 +224,6 @@ class UserController extends BaseUserController
         return $this->json($data, $status);
     }
 
-
     /**
      * @Route("/api/user/{id}", methods={"DELETE"}, name="api_user_delete")
      * @IsGranted("ROLE_SUPER_ADMIN")

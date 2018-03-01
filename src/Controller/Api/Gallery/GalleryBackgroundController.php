@@ -24,7 +24,6 @@ class GalleryBackgroundController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{slug}/background", methods={"GET"}, name="api_gallery_background_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $slug
      * @param Request $request

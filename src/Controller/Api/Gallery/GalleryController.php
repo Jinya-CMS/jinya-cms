@@ -23,7 +23,6 @@ class GalleryController extends BaseApiController
 {
     /**
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
@@ -50,7 +49,6 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/gallery/{slug}", methods={"GET"}, name="api_gallery_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService

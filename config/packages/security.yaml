@@ -20,14 +20,14 @@ security:
 
   firewalls:
     api:
-      pattern: ^/
+      pattern: ^/api
       http_basic:
         provider: jinya_db_provider
 
       logout: true
       anonymous: true
     designer:
-      pattern: ^/
+      pattern: ^/designer
       form_login:
         login_path: jinya_account_login
         check_path: jinya_account_login
@@ -41,4 +41,3 @@ security:
   access_control:
     - { path: ^/account/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/designer/, roles: ROLE_WRITER }
-    - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -24,7 +24,6 @@ class ArtworkPictureController extends BaseApiController
 {
     /**
      * @Route("/api/artwork/{slug}/picture", methods={"GET"}, name="api_artwork_picture_get")
-     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @param string $slug
      * @param Request $request
