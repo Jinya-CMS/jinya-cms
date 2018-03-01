@@ -30,20 +30,14 @@ class GalleryController extends BaseApiController
      */
     public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getAllArt($galleryService, function (array $galleries) use ($galleryFormatter) {
-            $data = [];
-
-            foreach ($galleries as $gallery) {
-                $data[] = $galleryFormatter
-                    ->init($gallery)
-                    ->name()
-                    ->background()
-                    ->slug()
-                    ->description()
-                    ->format();
-            }
-
-            return $data;
+        return $this->getAllArt($galleryService, function ($gallery) use ($galleryFormatter) {
+            return $galleryFormatter
+                ->init($gallery)
+                ->name()
+                ->background()
+                ->slug()
+                ->description()
+                ->format();
         });
     }
 

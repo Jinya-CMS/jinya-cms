@@ -134,13 +134,17 @@ abstract class BaseApiController extends AbstractController
             }
 
             $entityCount = $baseService->countAll($keyword);
-            $entities = $formatter($baseService->getAll($offset, $count, $keyword, $label));
+            $entities = $baseService->getAll($offset, $count, $keyword, $label);
+            $result = [];
+
+            foreach ($entities as $entity) {
+                $result[] = $formatter($entity);
+            }
 
             $route = $this->request->get('_route');
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $entities);
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $result);
         });
 
         return $this->json($data, $statusCode);

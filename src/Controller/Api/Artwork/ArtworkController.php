@@ -31,20 +31,14 @@ class ArtworkController extends BaseApiController
      */
     public function getAllAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getAllArt($artworkService, function (array $artworks) use ($artworkFormatter) {
-            $data = [];
-
-            foreach ($artworks as $gallery) {
-                $data[] = $artworkFormatter
-                    ->init($gallery)
-                    ->name()
-                    ->picture()
-                    ->slug()
-                    ->description()
-                    ->format();
-            }
-
-            return $data;
+        return $this->getAllArt($artworkService, function ($artwork) use ($artworkFormatter) {
+            return $artworkFormatter
+                ->init($artwork)
+                ->name()
+                ->picture()
+                ->slug()
+                ->description()
+                ->format();
         });
     }
 
