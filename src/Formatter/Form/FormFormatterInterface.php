@@ -92,4 +92,11 @@ interface FormFormatterInterface extends FormatterInterface
      * @return FormFormatterInterface
      */
     public function history(): FormFormatterInterface;
+
+    /**
+     * Formats the name
+     *
+     * @return FormFormatterInterface
+     */
+    public function name(): FormFormatterInterface;
 }

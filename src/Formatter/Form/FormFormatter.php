@@ -208,4 +208,16 @@ class FormFormatter implements FormFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats the name
+     *
+     * @return FormFormatterInterface
+     */
+    public function name(): FormFormatterInterface
+    {
+        $this->formattedData['name'] = $this->form->getName();
+
+        return $this;
+    }
 }

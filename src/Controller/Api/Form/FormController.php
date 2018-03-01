@@ -65,6 +65,7 @@ class FormController extends BaseApiController
                     ->created()
                     ->updated()
                     ->history()
+                    ->name()
                     ->emailTemplate()
                     ->toAddress();
             }
@@ -78,16 +79,17 @@ class FormController extends BaseApiController
      * @IsGranted("ROLE_WRITER")
      *
      * @param FormServiceInterface $formService
+     * @param FormFormatterInterface $formFormatter
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function postAction(FormServiceInterface $formService, TranslatorInterface $translator): Response
+    public function postAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter, TranslatorInterface $translator): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($formService, $translator) {
-            $slug = $this->getValue('slug');
+        list($data, $status) = $this->tryExecute(function () use ($formService, $formFormatter, $translator) {
             $title = $this->getValue('title');
+            $slug = $this->getValue('slug', '');
+            $description = $this->getValue('description', '');
             $name = $this->getValue('name', $title);
-            $description = $this->getValue('description');
             $toAddress = $this->getValue('toAddress');
 
             $missingFields = [];
@@ -114,6 +116,15 @@ class FormController extends BaseApiController
             $form->setSlug($slug);
 
             $formService->saveOrUpdate($form);
+
+            return $formFormatter
+                ->init($form)
+                ->slug()
+                ->title()
+                ->name()
+                ->description()
+                ->toAddress()
+                ->format();
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
