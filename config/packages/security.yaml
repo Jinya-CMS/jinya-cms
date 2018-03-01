@@ -19,10 +19,15 @@ security:
         property: email
 
   firewalls:
-    designer:
+    api:
       pattern: ^/
       http_basic:
         provider: jinya_db_provider
+
+      logout: true
+      anonymous: true
+    designer:
+      pattern: ^/
       form_login:
         login_path: jinya_account_login
         check_path: jinya_account_login
