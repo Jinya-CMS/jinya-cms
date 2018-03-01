@@ -32,12 +32,11 @@ trait StaticContentServiceTrait
      */
     protected function getFilteredQueryBuilder(string $keyword)
     {
+        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->getQueryBuilder();
 
         return $queryBuilder
-            ->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('entity.title', ':keyword')
-            ))
+            ->where($queryBuilder->expr()->like('entity.title', ':keyword'))
             ->setParameter('keyword', "%$keyword%");
     }
 

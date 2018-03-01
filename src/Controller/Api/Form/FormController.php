@@ -8,25 +8,182 @@
 
 namespace Jinya\Controller\Api\Form;
 
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\RFCValidation;
+use Jinya\Entity\Form;
+use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Form\FormServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Exception\ValidatorException;
 
 class FormController extends BaseApiController
 {
     /**
      * @Route("/api/form", methods={"GET"}, name="api_form_get_all")
+     *
+     * @param FormServiceInterface $formService
+     * @param FormFormatterInterface $formFormatter
+     * @return Response
+     */
+    public function getAllAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
+    {
+        return $this->getAllStaticContent($formService, function ($form) use ($formFormatter) {
+            return $formFormatter
+                ->init($form)
+                ->slug()
+                ->title()
+                ->description()
+                ->format();
+        });
+    }
+
+    /**
+     * @Route("/api/form/{slug}", methods={"GET"}, name="api_form_get")
+     *
+     * @param string $slug
+     * @param FormServiceInterface $formService
+     * @param FormFormatterInterface $formFormatter
+     * @return Response
+     */
+    public function getAction(string $slug, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
+    {
+        return $this->getStaticContent($formService, $slug, function ($form) use ($formFormatter) {
+            $formFormatter
+                ->init($form)
+                ->slug()
+                ->description()
+                ->title()
+                ->items();
+
+            if ($this->isGranted('ROLE_WRITER')) {
+                $formFormatter
+                    ->created()
+                    ->updated()
+                    ->history()
+                    ->emailTemplate()
+                    ->toAddress();
+            }
+
+            return $formFormatter->format();
+        });
+    }
+
+    /**
+     * @Route("/api/form", methods={"POST"}, name="api_form_post")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param Request $request
+     * @param FormServiceInterface $formService
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function postAction(FormServiceInterface $formService, TranslatorInterface $translator): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($formService, $translator) {
+            $slug = $this->getValue('slug');
+            $title = $this->getValue('title');
+            $name = $this->getValue('name', $title);
+            $description = $this->getValue('description');
+            $toAddress = $this->getValue('toAddress');
+
+            $missingFields = [];
+            if (empty($title)) {
+                $missingFields['title'] = 'api.form.field.title.empty';
+            }
+            if (empty($toAddress)) {
+                $missingFields['toAddress'] = 'api.form.field.toAddress.empty';
+            }
+            if (!empty($missingFields)) {
+                throw new MissingFieldsException($missingFields);
+            }
+
+            $emailValidator = new EmailValidator();
+            if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
+                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
+            }
+
+            $form = new Form();
+            $form->setName($name);
+            $form->setDescription($description);
+            $form->setTitle($title);
+            $form->setToAddress($toAddress);
+            $form->setSlug($slug);
+
+            $formService->saveOrUpdate($form);
+        }, Response::HTTP_CREATED);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/form/{slug}", methods={"PUT"}, name="api_form_put")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $slug
+     * @param FormServiceInterface $formService
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function putAction(string $slug, FormServiceInterface $formService, TranslatorInterface $translator): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $translator) {
+            $form = $formService->get($slug);
+
+            $slug = $this->getValue('slug', $form->getSlug());
+            $title = $this->getValue('title', $form->getTitle());
+            $name = $this->getValue('name', $form->getName());
+            $description = $this->getValue('description', $form->getDescription());
+            $toAddress = $this->getValue('toAddress', $form->getToAddress());
+
+            $missingFields = [];
+            if (empty($title)) {
+                $missingFields['title'] = 'api.form.field.title.empty';
+            }
+            if (empty($toAddress)) {
+                $missingFields['toAddress'] = 'api.form.field.toAddress.empty';
+            }
+            if (!empty($missingFields)) {
+                throw new MissingFieldsException($missingFields);
+            }
+
+            $emailValidator = new EmailValidator();
+            if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
+                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
+            }
+
+            $form->setName($name);
+            $form->setDescription($description);
+            $form->setTitle($title);
+            $form->setSlug($slug);
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $form->setToAddress($toAddress);
+            }
+
+            $formService->saveOrUpdate($form);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/form/{slug}", methods={"DELETE"}, name="api_form_delete")
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @param string $slug
      * @param FormServiceInterface $formService
      * @return Response
      */
-    public function getAll(Request $request, FormServiceInterface $formService): Response
+    public function deleteAction(string $slug, FormServiceInterface $formService): Response
     {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $formService) {
+            $formService->delete($formService->get($slug));
+        }, Response::HTTP_NO_CONTENT);
 
+        return $this->json($data, $status);
     }
 }

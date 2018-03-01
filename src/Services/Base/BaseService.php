@@ -9,7 +9,6 @@
 namespace Jinya\Services\Base;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 use Jinya\Entity\BaseEntity;
@@ -37,15 +36,10 @@ class BaseService
      */
     public function updateField(string $key, string $value, int $id)
     {
-        $entity = $this->getRepository()->find($id);
+        $entity = $this->entityManager->find($this->entityType, $id);
         $entity->{"set$key"}($value);
 
         $this->saveOrUpdate($entity);
-    }
-
-    private function getRepository(): EntityRepository
-    {
-        return $this->entityManager->getRepository($this->entityType);
     }
 
     /**
@@ -78,30 +72,12 @@ class BaseService
     }
 
     /**
-     * Gets all fields excluding the clutter, like history
-     *
-     * @return array
-     */
-    protected function getFieldsWithoutClutter(): array
-    {
-        $fieldsInEntity = $this->entityManager->getClassMetadata($this->entityType)->getFieldNames();
-        $fields = [];
-
-        foreach ($fieldsInEntity as $key => $field) {
-            if ($field !== 'history') {
-                $fields[$key] = "entity.$field";
-            }
-        }
-        return $fields;
-    }
-
-    /**
      * Gets a @see QueryBuilder for the current entity type
      *
      * @return QueryBuilder
      */
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('entity');
+        return $this->entityManager->createQueryBuilder()->select('entity')->from($this->entityType, 'entity');
     }
 }

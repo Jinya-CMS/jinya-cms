@@ -80,7 +80,8 @@ services:
     Jinya\Formatter\Form\FormFormatterInterface:
       class: Jinya\Formatter\Form\FormFormatter
       calls:
-          - [setFormItemFormatter, ['@Jinya\Formatter\Form\FormItemFormatterInterface']]
+        - [setFormItemFormatter, ['@Jinya\Formatter\Form\FormItemFormatterInterface']]
+        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
     Jinya\Formatter\Form\FormItemFormatterInterface:
       class: Jinya\Formatter\Form\FormItemFormatter
       calls:

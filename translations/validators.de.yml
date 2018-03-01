@@ -81,6 +81,13 @@ api:
         missing: Der Name muss bereitgestellt werden
       artworkSlug:
         missing: Es muss ein Kunstwerk angegeben werden
+  form:
+    field:
+      title:
+        missing: Der Titel muss bereitgestellt werden
+      toAddress:
+        missing: Es muss ein Emailadresse angegeben werden, an die das Formular gesendet wird
+        invalid: Die Emailadresse toAddress ist ungültig
   artwork:
     field:
       name:

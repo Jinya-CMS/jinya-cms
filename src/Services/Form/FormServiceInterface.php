@@ -10,8 +10,9 @@ namespace Jinya\Services\Form;
 
 
 use Jinya\Entity\Form;
+use Jinya\Services\Base\StaticContentServiceInterface;
 
-interface FormServiceInterface
+interface FormServiceInterface extends StaticContentServiceInterface
 {
     /**
      * Gets the specified @see Form by slug

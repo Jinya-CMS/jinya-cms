@@ -16,6 +16,7 @@ use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
+use Jinya\Services\Base\StaticContentServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
@@ -252,6 +253,53 @@ abstract class BaseApiController extends AbstractController
                 'previous' => $previous
             ]
         ];
+    }
+
+    /**
+     * Gets all static contents from the given service
+     *
+     * @param StaticContentServiceInterface $baseService
+     * @param callable $formatter
+     * @return Response
+     */
+    protected function getAllStaticContent(StaticContentServiceInterface $baseService, callable $formatter): Response
+    {
+        list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $baseService) {
+            $offset = $this->request->get('offset', 0);
+            $count = $this->request->get('count', 10);
+            $keyword = $this->request->get('keyword', '');
+
+            $entityCount = $baseService->countAll($keyword);
+            $entities = $baseService->getAll($offset, $count, $keyword);
+            $result = [];
+            foreach ($entities as $entity) {
+                $result[] = $formatter($entity);
+            }
+
+            $route = $this->request->get('_route');
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $result);
+        });
+
+        return $this->json($data, $statusCode);
+    }
+
+    /**
+     * @param StaticContentServiceInterface $baseService
+     * @param string $slug
+     * @param callable $formatter
+     * @return Response
+     */
+    protected function getStaticContent(StaticContentServiceInterface $baseService, string $slug, callable $formatter): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($baseService, $slug, $formatter) {
+            $entity = $baseService->get($slug);
+
+            return $formatter($entity);
+        });
+
+        return $this->json($data, $status);
     }
 
     /**
