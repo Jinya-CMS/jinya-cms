@@ -12,7 +12,6 @@ namespace Jinya\Formatter\Artwork;
 use Jinya\Entity\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ArtworkFormatter implements ArtworkFormatterInterface
@@ -29,20 +28,32 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var ContainerInterface */
-    private $container;
+    /** @var ArtworkPositionFormatterInterface */
+    private $artworkPositionFormatter;
 
     /**
      * ArtworkFormatter constructor.
-     * @param UserFormatterInterface $userFormatter
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ContainerInterface $container
      */
-    public function __construct(UserFormatterInterface $userFormatter, UrlGeneratorInterface $urlGenerator, ContainerInterface $container)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @param UserFormatterInterface $userFormatter
+     */
+    public function setUserFormatter(UserFormatterInterface $userFormatter): void
     {
         $this->userFormatter = $userFormatter;
-        $this->urlGenerator = $urlGenerator;
-        $this->container = $container;
+    }
+
+    /**
+     * @param ArtworkPositionFormatterInterface $artworkPositionFormatter
+     */
+    public function setArtworkPositionFormatter(ArtworkPositionFormatterInterface $artworkPositionFormatter): void
+    {
+        $this->artworkPositionFormatter = $artworkPositionFormatter;
     }
 
     /**
@@ -186,11 +197,10 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {
-        $artworkPositionFormatter = $this->container->get(ArtworkPositionFormatterInterface::class);
         $this->formattedData['galleries'] = [];
 
         foreach ($this->artwork->getPositions() as $position) {
-            $this->formattedData['galleries'][] = $artworkPositionFormatter
+            $this->formattedData['galleries'][] = $this->artworkPositionFormatter
                 ->init($position)
                 ->position()
                 ->id()

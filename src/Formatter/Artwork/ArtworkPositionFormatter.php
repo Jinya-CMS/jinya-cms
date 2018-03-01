@@ -28,13 +28,18 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     private $artworkFormatterInterface;
 
     /**
-     * ArtworkPositionFormatter constructor.
      * @param GalleryFormatterInterface $galleryFormatterInterface
-     * @param ArtworkFormatterInterface $artworkFormatterInterface
      */
-    public function __construct(GalleryFormatterInterface $galleryFormatterInterface, ArtworkFormatterInterface $artworkFormatterInterface)
+    public function setGalleryFormatterInterface(GalleryFormatterInterface $galleryFormatterInterface): void
     {
         $this->galleryFormatterInterface = $galleryFormatterInterface;
+    }
+
+    /**
+     * @param ArtworkFormatterInterface $artworkFormatterInterface
+     */
+    public function setArtworkFormatterInterface(ArtworkFormatterInterface $artworkFormatterInterface): void
+    {
         $this->artworkFormatterInterface = $artworkFormatterInterface;
     }
 
