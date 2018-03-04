@@ -17,6 +17,7 @@ use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_map;
+use function count;
 
 class MenuController extends BaseApiController
 {
@@ -30,7 +31,7 @@ class MenuController extends BaseApiController
     public function getAllAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($menuService, $menuFormatter) {
-            return array_map(function ($menu) use ($menuFormatter) {
+            $items = array_map(function ($menu) use ($menuFormatter) {
                 return $menuFormatter
                     ->init($menu)
                     ->name()
@@ -38,6 +39,8 @@ class MenuController extends BaseApiController
                     ->id()
                     ->format();
             }, $menuService->getAll());
+
+            return $this->formatListResult(count($items), 0, count($items), [], 'api_menu_get_all', $items);
         });
 
         return $this->json($data, $status);
