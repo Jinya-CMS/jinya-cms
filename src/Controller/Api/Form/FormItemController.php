@@ -62,18 +62,22 @@ class FormItemController extends BaseApiController
     public function getAction(string $slug, int $position, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formItemService, $formItemFormatter) {
-            return $formItemFormatter
+            $formItemFormatter
                 ->init($formItemService->getItem($slug, $position))
                 ->form()
                 ->position()
                 ->label()
                 ->helpText()
                 ->options()
-                ->type()
-                ->created()
-                ->updated()
-                ->history()
-                ->format();
+                ->type();
+
+            if ($this->isGranted('ROLE_WRITER')) {
+                $formItemFormatter->created()
+                    ->updated()
+                    ->history();
+            }
+
+            return $formItemFormatter->format();
         });
 
         return $this->json($data, $status);
