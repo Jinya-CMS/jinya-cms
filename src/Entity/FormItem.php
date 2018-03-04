@@ -51,6 +51,27 @@ class FormItem extends HistoryEnabledEntity
      * @var Form
      */
     private $form;
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $position;
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
+    }
 
     /**
      * @return Form

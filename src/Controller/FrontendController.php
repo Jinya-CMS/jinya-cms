@@ -21,7 +21,7 @@ class FrontendController extends BaseController
 {
 
     /**
-     * @Route("/{route}", name="frontend_default_index", requirements={"route": ".*"})
+     * @Route("/{route}", name="frontend_default_index", requirements={"route": "^(?!api\\/|designer\\/).*"})
      *
      * @param string $route
      * @param RouteServiceInterface $routeService

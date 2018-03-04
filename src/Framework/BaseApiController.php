@@ -29,6 +29,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
+use function array_map;
 use function json_decode;
 use function property_exists;
 use function simplexml_load_string;
@@ -134,17 +135,12 @@ abstract class BaseApiController extends AbstractController
             }
 
             $entityCount = $baseService->countAll($keyword);
-            $entities = $baseService->getAll($offset, $count, $keyword, $label);
-            $result = [];
-
-            foreach ($entities as $entity) {
-                $result[] = $formatter($entity);
-            }
+            $entities = array_map($formatter, $baseService->getAll($offset, $count, $keyword, $label));
 
             $route = $this->request->get('_route');
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $result);
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $entities);
         });
 
         return $this->json($data, $statusCode);
@@ -274,16 +270,12 @@ abstract class BaseApiController extends AbstractController
             $keyword = $this->request->get('keyword', '');
 
             $entityCount = $baseService->countAll($keyword);
-            $entities = $baseService->getAll($offset, $count, $keyword);
-            $result = [];
-            foreach ($entities as $entity) {
-                $result[] = $formatter($entity);
-            }
+            $entities = array_map($formatter, $baseService->getAll($offset, $count, $keyword));
 
             $route = $this->request->get('_route');
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $result);
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $entities);
         });
 
         return $this->json($data, $statusCode);
