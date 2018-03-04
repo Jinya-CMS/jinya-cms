@@ -65,13 +65,13 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     public function retrieveRoutesByType(string $type): array
     {
         switch ($type) {
-            case 'page':
+            case RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE:
                 return $this->retrievePages();
-            case 'artwork':
+            case RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE:
                 return $this->retrieveArtworks();
-            case 'gallery':
+            case RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE:
                 return $this->retrieveGalleries();
-            case 'form':
+            case RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE:
                 return $this->retrieveForms();
             default:
                 return [];
@@ -87,7 +87,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/** @var $item SlugEntity */
+        return function (/** @var SlugEntity $item */
             $item) use ($route) {
             return [
                 'name' => $route,

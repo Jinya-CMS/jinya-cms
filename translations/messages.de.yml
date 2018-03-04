@@ -353,3 +353,9 @@ api:
       generic: Ein interner Fehler ist aufgetreten
     403:
       generic: Für den Zugriff auf die Resource sind andere Rechte nötig
+  route:
+    types:
+      frontend_form_details: Formular
+      frontend_gallery_details: Galerie
+      frontend_artwork_details: Kunstwerk
+      frontend_page_details: Seite
