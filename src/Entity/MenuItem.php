@@ -16,7 +16,7 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="menu_item")
+ * @ORM\Table(name="menu_item", uniqueConstraints={@ORM\UniqueConstraint(name="idx_menu_item_menu_parent_position", columns={"menu_id", "parent_id", "position"})}))
  */
 class MenuItem implements JsonSerializable
 {
@@ -62,6 +62,11 @@ class MenuItem implements JsonSerializable
      * @ORM\Column(type="boolean")
      */
     private $highlighted = false;
+    /**
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $position;
 
     /**
      * MenuItem constructor.
@@ -69,6 +74,22 @@ class MenuItem implements JsonSerializable
     public function __construct()
     {
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
     }
 
     /**

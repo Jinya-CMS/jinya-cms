@@ -87,6 +87,19 @@ services:
       calls:
         - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
         - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Menu\MenuItemFormatterInterface:
+      class: Jinya\Formatter\Menu\MenuItemFormatter
+      calls:
+        - [setMenuFormatter, ['@Jinya\Formatter\Menu\MenuFormatterInterface']]
+        - [setRouteFormatter, ['@Jinya\Formatter\Route\RouteFormatterInterface']]
+    Jinya\Formatter\Route\RouteFormatterInterface:
+      class: Jinya\Formatter\Route\RouteFormatter
+      calls:
+        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
+    Jinya\Formatter\Menu\MenuFormatterInterface:
+      class: Jinya\Formatter\Menu\MenuFormatter
+      calls:
+        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
 
     # Controllers
     Jinya\Controller\InstallController:
