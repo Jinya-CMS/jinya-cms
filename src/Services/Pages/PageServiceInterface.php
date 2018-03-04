@@ -9,8 +9,9 @@
 namespace Jinya\Services\Pages;
 
 use Jinya\Entity\Page;
+use Jinya\Services\Base\StaticContentServiceInterface;
 
-interface PageServiceInterface
+interface PageServiceInterface extends StaticContentServiceInterface
 {
     /**
      * Gets the specified @see Page by slug
@@ -41,10 +42,10 @@ interface PageServiceInterface
     /**
      * Saves or updates the given @see Page
      *
-     * @param Page $form
+     * @param Page $page
      * @return Page
      */
-    public function saveOrUpdate($form);
+    public function saveOrUpdate($page);
 
     /**
      * Deletes the given @see Page
