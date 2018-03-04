@@ -71,7 +71,6 @@ interface FormFormatterInterface extends FormatterInterface
      */
     public function id(): FormFormatterInterface;
 
-
     /**
      * Formats the created info
      *

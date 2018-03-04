@@ -18,9 +18,8 @@ interface FormItemServiceInterface
      * Adds a new form item to the given form
      *
      * @param FormItem $formItem
-     * @param Form $form
      */
-    public function addItem(FormItem $formItem, Form $form): void;
+    public function addItem(FormItem $formItem): void;
 
     /**
      * Deletes the item at the given position
@@ -44,4 +43,13 @@ interface FormItemServiceInterface
      * @param FormItem $formItem
      */
     public function updateItem(FormItem $formItem): void;
+
+    /**
+     * Gets the form item in the given form at the given position
+     *
+     * @param string $slug
+     * @param int $position
+     * @return FormItem
+     */
+    public function getItem(string $slug, int $position): FormItem;
 }

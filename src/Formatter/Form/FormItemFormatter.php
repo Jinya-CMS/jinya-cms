@@ -10,6 +10,7 @@ namespace Jinya\Formatter\Form;
 
 
 use Jinya\Entity\FormItem;
+use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormItemFormatter implements FormItemFormatterInterface
 {
@@ -17,8 +18,18 @@ class FormItemFormatter implements FormItemFormatterInterface
     private $formattedData;
     /** @var FormFormatterInterface */
     private $formFormatter;
+    /** @var UserFormatterInterface */
+    private $userFormatter;
     /** @var FormItem */
     private $formItem;
+
+    /**
+     * @param UserFormatterInterface $userFormatter
+     */
+    public function setUserFormatter(UserFormatterInterface $userFormatter): void
+    {
+        $this->userFormatter = $userFormatter;
+    }
 
     /**
      * @param FormFormatterInterface $formFormatter
@@ -98,7 +109,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
         $this->formattedData['form'] = $this->formFormatter
             ->init($this->formItem->getForm())
-            ->id()
             ->title()
             ->slug()
             ->format();
@@ -127,5 +137,61 @@ class FormItemFormatter implements FormItemFormatterInterface
     public function format(): array
     {
         return $this->formattedData;
+    }
+
+    /**
+     * Formats the position
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function position(): FormItemFormatterInterface
+    {
+        $this->formattedData['position'] = $this->formItem->getPosition();
+
+        return $this;
+    }
+
+    /**
+     * Formats the created info
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function created(): FormItemFormatterInterface
+    {
+        $this->formattedData['created']['by'] = $this->userFormatter
+            ->init($this->formItem->getCreator())
+            ->profile()
+            ->format();
+        $this->formattedData['created']['at'] = $this->formItem->getCreatedAt();
+
+        return $this;
+    }
+
+    /**
+     * Formats the updated info
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function updated(): FormItemFormatterInterface
+    {
+        $this->formattedData['updated']['by'] = $this->userFormatter
+            ->init($this->formItem->getUpdatedBy())
+            ->profile()
+            ->format();
+        $this->formattedData['updated']['at'] = $this->formItem->getLastUpdatedAt();
+
+        return $this;
+    }
+
+    /**
+     * Formats the history
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function history(): FormItemFormatterInterface
+    {
+        $this->formattedData['history'] = $this->formItem->getHistory();
+
+        return $this;
     }
 }

@@ -88,6 +88,10 @@ api:
       toAddress:
         missing: Es muss ein Emailadresse angegeben werden, an die das Formular gesendet wird
         invalid: Die Emailadresse toAddress ist ungültig
+    items:
+      field:
+        label:
+          missing: Das Label muss bereitgestellt werden
   artwork:
     field:
       name:

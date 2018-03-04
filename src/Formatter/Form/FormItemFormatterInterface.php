@@ -57,6 +57,34 @@ interface FormItemFormatterInterface extends FormatterInterface
     public function form(): FormItemFormatterInterface;
 
     /**
+     * Formats the position
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function position(): FormItemFormatterInterface;
+
+    /**
+     * Formats the created info
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function created(): FormItemFormatterInterface;
+
+    /**
+     * Formats the updated info
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function updated(): FormItemFormatterInterface;
+
+    /**
+     * Formats the history
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function history(): FormItemFormatterInterface;
+
+    /**
      * Initializes the formatter
      *
      * @param FormItem $formItem

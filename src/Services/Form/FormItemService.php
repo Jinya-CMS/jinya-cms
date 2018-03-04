@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
+use function array_values;
 
 class FormItemService implements FormItemServiceInterface
 {
@@ -33,11 +34,12 @@ class FormItemService implements FormItemServiceInterface
      * Adds a new form item to the given form
      *
      * @param FormItem $formItem
-     * @param Form $form
      */
-    public function addItem(FormItem $formItem, Form $form): void
+    public function addItem(FormItem $formItem): void
     {
-        $position = $this->rearrangeFormItems($formItem->getPosition(), $form);
+        $position = $this->rearrangeFormItems($formItem->getPosition(), $formItem->getForm());
+        $this->entityManager->flush();
+
         $formItem->setPosition($position);
 
         $this->entityManager->persist($formItem);
@@ -55,7 +57,7 @@ class FormItemService implements FormItemServiceInterface
         uasort($positions, function ($a, $b) {
             /** @var FormItem $a */
             /** @var FormItem $b */
-            return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
         $positions = array_values($positions);
@@ -121,7 +123,7 @@ class FormItemService implements FormItemServiceInterface
      */
     public function getItems(string $formSlug): array
     {
-        return $this->entityManager->createQueryBuilder()
+        $items = $this->entityManager->createQueryBuilder()
             ->select('item')
             ->from(FormItem::class, 'item')
             ->join('item.form', 'form')
@@ -130,6 +132,12 @@ class FormItemService implements FormItemServiceInterface
             ->setParameter('slug', $formSlug)
             ->getQuery()
             ->getResult();
+
+        uasort($items, function (FormItem $a, FormItem $b) {
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+        });
+
+        return array_values($items);
     }
 
     /**
@@ -143,5 +151,28 @@ class FormItemService implements FormItemServiceInterface
         $formItem->setPosition($position);
 
         $this->entityManager->flush();
+    }
+
+    /**
+     * Gets the form item in the given form at the given position
+     *
+     * @param string $slug
+     * @param int $position
+     * @return FormItem
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getItem(string $slug, int $position): FormItem
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('item')
+            ->from(FormItem::class, 'item')
+            ->where('form.slug = :slug')
+            ->andWhere('item.position = :position')
+            ->join('item.form', 'form')
+            ->setParameter('slug', $slug)
+            ->setParameter('position', $position)
+            ->getQuery()
+            ->getSingleResult();
     }
 }
