@@ -112,8 +112,8 @@ class MenuFormatter implements MenuFormatterInterface
         $this->formattedData['children'] = array_map(function (MenuItem $menuItem) {
             return $this->menuItemFormatter
                 ->init($menuItem)
-                ->children()
                 ->id()
+                ->children()
                 ->position()
                 ->title()
                 ->route()

@@ -11,7 +11,6 @@ namespace Jinya\Services\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Menu;
-use Jinya\Entity\MenuItem;
 
 class MenuService implements MenuServiceInterface
 {
@@ -47,18 +46,6 @@ class MenuService implements MenuServiceInterface
     /**
      * @inheritdoc
      */
-    public function addItem(Menu $menu, MenuItem $item): Menu
-    {
-        $menu->getMenuItems()->add($item);
-        $this->entityManager->persist($item);
-        $this->entityManager->flush();
-
-        return $menu;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getAll(): array
     {
         return $this->entityManager->getRepository(Menu::class)->findAll();
@@ -80,26 +67,5 @@ class MenuService implements MenuServiceInterface
     public function get(int $id): Menu
     {
         return $this->entityManager->find(Menu::class, $id);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function removeItem(MenuItem $item): void
-    {
-        $this->entityManager->remove($item);
-        $this->entityManager->flush();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function updateItem(MenuItem $item): MenuItem
-    {
-        /** @var MenuItem $item */
-        $item = $this->entityManager->merge($item);
-        $this->entityManager->flush();
-
-        return $item;
     }
 }

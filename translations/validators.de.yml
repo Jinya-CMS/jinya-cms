@@ -100,3 +100,21 @@ api:
     field:
       name:
         missing: Der Name muss bereitgestellt werden
+  menu:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+    item:
+      field:
+        route:
+          url:
+            missing: Die Route URL muss bereitgestellt werden
+          name:
+            missing: Der Routen Name muss bereitgestellt werden
+          parameter:
+            missing: Die Routen Parameter muss bereitgestellt werden
+          missing: Die Route muss bereitgestellt werden
+        title:
+          missing: Der Titel muss bereitgestellt werden
+        pageType:
+          missing: Der Seitetyp muss bereitgestellt werden

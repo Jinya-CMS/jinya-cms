@@ -9,8 +9,6 @@
 namespace Jinya\Services\Form;
 
 
-use ArrayIterator;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
@@ -76,15 +74,6 @@ class FormItemService implements FormItemServiceInterface
                 $formItem->setPosition($formItem->getPosition() + 1);
             }
         }
-
-        $items = $form->getItems();
-
-        /** @var ArrayIterator $iterator */
-        $iterator = $items->getIterator();
-        $iterator->uasort(function (FormItem $a, FormItem $b) {
-            return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
-        });
-        $form->setItems(new ArrayCollection(iterator_to_array($iterator)));
 
         return $position;
     }

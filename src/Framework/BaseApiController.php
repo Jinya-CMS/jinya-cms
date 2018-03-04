@@ -82,7 +82,7 @@ abstract class BaseApiController extends AbstractController
     /**
      * @param string $key
      * @param null $default
-     * @return mixed|null|SimpleXMLElement
+     * @return mixed|null|SimpleXMLElement|array
      * @throws InvalidContentTypeException
      * @throws EmptyBodyException
      */
