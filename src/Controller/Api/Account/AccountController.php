@@ -36,6 +36,10 @@ class AccountController extends BaseApiController
             return $userFormatter
                 ->init($user)
                 ->profile()
+                ->createdPages()
+                ->createdGalleries()
+                ->createdForms()
+                ->createdArtworks()
                 ->format();
         });
 

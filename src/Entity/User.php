@@ -8,6 +8,8 @@
 
 namespace Jinya\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -115,6 +117,31 @@ class User implements JsonSerializable, UserInterface
     private $profilePicture;
 
     /**
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork", mappedBy="creator")
+     *
+     * @var Collection
+     */
+    private $createdArtworks;
+    /**
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="creator")
+     *
+     * @var Collection
+     */
+    private $createdGalleries;
+    /**
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Page", mappedBy="creator")
+     *
+     * @var Collection
+     */
+    private $createdPages;
+    /**
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Form", mappedBy="creator")
+     *
+     * @var Collection
+     */
+    private $createdForms;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -122,6 +149,74 @@ class User implements JsonSerializable, UserInterface
         $this->enabled = false;
         $this->roles = [];
         $this->salt = uniqid();
+        $this->createdArtworks = new ArrayCollection();
+        $this->createdForms = new ArrayCollection();
+        $this->createdGalleries = new ArrayCollection();
+        $this->createdPages = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCreatedArtworks(): Collection
+    {
+        return $this->createdArtworks;
+    }
+
+    /**
+     * @param Collection $createdArtworks
+     */
+    public function setCreatedArtworks(Collection $createdArtworks): void
+    {
+        $this->createdArtworks = $createdArtworks;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCreatedGalleries(): Collection
+    {
+        return $this->createdGalleries;
+    }
+
+    /**
+     * @param Collection $createdGalleries
+     */
+    public function setCreatedGalleries(Collection $createdGalleries): void
+    {
+        $this->createdGalleries = $createdGalleries;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCreatedPages(): Collection
+    {
+        return $this->createdPages;
+    }
+
+    /**
+     * @param Collection $createdPages
+     */
+    public function setCreatedPages(Collection $createdPages): void
+    {
+        $this->createdPages = $createdPages;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCreatedForms(): Collection
+    {
+        return $this->createdForms;
+    }
+
+    /**
+     * @param Collection $createdForms
+     */
+    public function setCreatedForms(Collection $createdForms): void
+    {
+        $this->createdForms = $createdForms;
     }
 
     /**

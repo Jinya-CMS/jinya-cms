@@ -9,8 +9,17 @@
 namespace Jinya\Formatter\User;
 
 
+use Jinya\Entity\Artwork;
+use Jinya\Entity\Form;
+use Jinya\Entity\Gallery;
+use Jinya\Entity\Page;
 use Jinya\Entity\User;
+use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
+use Jinya\Formatter\Form\FormFormatterInterface;
+use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use function array_map;
 
 class UserFormatter implements UserFormatterInterface
 {
@@ -22,6 +31,14 @@ class UserFormatter implements UserFormatterInterface
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+    /** @var GalleryFormatterInterface */
+    private $galleryFormatter;
+    /** @var ArtworkFormatterInterface */
+    private $artworkFormatter;
+    /** @var PageFormatterInterface */
+    private $pageFormatter;
+    /** @var FormFormatterInterface */
+    private $formFormatter;
 
     /**
      * UserFormatter constructor.
@@ -30,6 +47,38 @@ class UserFormatter implements UserFormatterInterface
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @param GalleryFormatterInterface $galleryFormatter
+     */
+    public function setGalleryFormatter(GalleryFormatterInterface $galleryFormatter): void
+    {
+        $this->galleryFormatter = $galleryFormatter;
+    }
+
+    /**
+     * @param ArtworkFormatterInterface $artworkFormatter
+     */
+    public function setArtworkFormatter(ArtworkFormatterInterface $artworkFormatter): void
+    {
+        $this->artworkFormatter = $artworkFormatter;
+    }
+
+    /**
+     * @param PageFormatterInterface $pageFormatter
+     */
+    public function setPageFormatter(PageFormatterInterface $pageFormatter): void
+    {
+        $this->pageFormatter = $pageFormatter;
+    }
+
+    /**
+     * @param FormFormatterInterface $formFormatter
+     */
+    public function setFormFormatter(FormFormatterInterface $formFormatter): void
+    {
+        $this->formFormatter = $formFormatter;
     }
 
     /**
@@ -150,6 +199,82 @@ class UserFormatter implements UserFormatterInterface
     public function id(): UserFormatterInterface
     {
         $this->formattedData['id'] = $this->user->getId();
+
+        return $this;
+    }
+
+    /**
+     * Formats the created artworks
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdArtworks(): UserFormatterInterface
+    {
+        $this->formattedData['created']['artworks'] = array_map(function (Artwork $artwork) {
+            return $this->artworkFormatter
+                ->init($artwork)
+                ->name()
+                ->slug()
+                ->description()
+                ->picture()
+                ->format();
+        }, $this->user->getCreatedArtworks()->toArray());
+
+        return $this;
+    }
+
+    /**
+     * Formats the created galleries
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdGalleries(): UserFormatterInterface
+    {
+        $this->formattedData['created']['galleries'] = array_map(function (Gallery $gallery) {
+            return $this->galleryFormatter
+                ->init($gallery)
+                ->name()
+                ->slug()
+                ->description()
+                ->background()
+                ->format();
+        }, $this->user->getCreatedGalleries()->toArray());
+
+        return $this;
+    }
+
+    /**
+     * Formats the created pages
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdPages(): UserFormatterInterface
+    {
+        $this->formattedData['created']['pages'] = array_map(function (Page $page) {
+            return $this->pageFormatter
+                ->init($page)
+                ->name()
+                ->slug()
+                ->format();
+        }, $this->user->getCreatedPages()->toArray());
+
+        return $this;
+    }
+
+    /**
+     * Formats the created forms
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdForms(): UserFormatterInterface
+    {
+        $this->formattedData['created']['forms'] = array_map(function (Form $form) {
+            return $this->formFormatter
+                ->init($form)
+                ->name()
+                ->slug()
+                ->format();
+        }, $this->user->getCreatedForms()->toArray());
 
         return $this;
     }

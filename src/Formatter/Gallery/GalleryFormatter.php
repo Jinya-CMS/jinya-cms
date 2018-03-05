@@ -24,21 +24,25 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /** @var UserFormatterInterface */
     private $userFormatter;
-
     /** @var ArtworkPositionFormatterInterface */
     private $artworkPositionFormatter;
-
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     /**
      * GalleryFormatter constructor.
-     * @param UserFormatterInterface $userFormatter
      * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UserFormatterInterface $userFormatter, UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @param UserFormatterInterface $userFormatter
+     */
+    public function setUserFormatter(UserFormatterInterface $userFormatter): void
+    {
         $this->userFormatter = $userFormatter;
     }
 

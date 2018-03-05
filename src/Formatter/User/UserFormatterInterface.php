@@ -76,4 +76,32 @@ interface UserFormatterInterface extends FormatterInterface
      * @return UserFormatterInterface
      */
     public function id(): UserFormatterInterface;
+
+    /**
+     * Formats the created artworks
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdArtworks(): UserFormatterInterface;
+
+    /**
+     * Formats the created galleries
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdGalleries(): UserFormatterInterface;
+
+    /**
+     * Formats the created pages
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdPages(): UserFormatterInterface;
+
+    /**
+     * Formats the created forms
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdForms(): UserFormatterInterface;
 }
