@@ -8,10 +8,15 @@
 
 namespace Jinya\Services\Media;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use const DIRECTORY_SEPARATOR;
 use function array_reverse;
-use function hash_file;
+use function file_exists;
+use function file_put_contents;
+use function fseek;
+use function hash_final;
+use function hash_init;
+use function hash_update_stream;
+use function mkdir;
 use function preg_split;
 use function unlink;
 
@@ -38,18 +43,28 @@ class MediaService implements MediaServiceInterface
     /**
      * @inheritdoc
      */
-    public function saveMedia(UploadedFile $file, string $type): string
+    public function saveMedia($file, string $type): string
     {
-        $savedFile = $file->move($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'var/tmp');
-        $savedFile = $savedFile->move($this->getFilePath($type), hash_file('sha256', $savedFile->getRealPath()));
-        $filename = $savedFile->getFilename();
+        $hashCtx = hash_init('sha256');
+        hash_update_stream($hashCtx, $file);
+        $hash = hash_final($hashCtx);
+        fseek($file, 0);
 
-        return "/public/$type/${filename}";
+        $directory = $this->getFilePath($type);
+        @mkdir($directory, 775, true);
+
+        $filename = $directory . $hash;
+
+        if (!file_exists($filename)) {
+            file_put_contents($filename, $file);
+        }
+
+        return "/public/$type/${hash}";
     }
 
     private function getFilePath(string $type): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public/public/' . $type . DIRECTORY_SEPARATOR;
+        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
     }
 
     /**

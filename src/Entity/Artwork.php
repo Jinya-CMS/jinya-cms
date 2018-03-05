@@ -12,7 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -36,20 +35,12 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
      * @ORM\OneToMany(targetEntity="Jinya\Entity\ArtworkPosition", mappedBy="artwork")
      */
     private $positions;
-    /**
-     * @var resource|UploadedFile
-     */
-    private $pictureResource;
 
     /**
      * @var Collection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label", inversedBy="artworks", cascade={"persist"})
      */
     private $labels;
-    /**
-     * @var array
-     */
-    private $labelsChoice;
 
     /**
      * Artwork constructor.
@@ -58,22 +49,6 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     {
         $this->labels = new ArrayCollection();
         $this->positions = new ArrayCollection();
-    }
-
-    /**
-     * @return array
-     */
-    public function getLabelsChoice(): ?array
-    {
-        return $this->labelsChoice;
-    }
-
-    /**
-     * @param array $labelsChoice
-     */
-    public function setLabelsChoice(array $labelsChoice): void
-    {
-        $this->labelsChoice = $labelsChoice;
     }
 
     /**
@@ -125,31 +100,13 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     }
 
     /**
-     * @return resource|UploadedFile
-     */
-    public function getPictureResource()
-    {
-        return $this->pictureResource;
-    }
-
-    /**
-     * @param resource|UploadedFile $pictureResource
-     */
-    public function setPictureResource($pictureResource)
-    {
-        $this->pictureResource = $pictureResource;
-    }
-
-    /**
      * @inheritdoc
      */
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'history' => $this->getHistory(),
             'creator' => $this->getCreator(),
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),

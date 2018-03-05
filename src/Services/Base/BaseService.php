@@ -9,18 +9,16 @@
 namespace Jinya\Services\Base;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnitOfWork;
+use Jinya\Entity\BaseEntity;
 
-abstract class BaseService
+class BaseService
 {
     /** @var EntityManagerInterface */
     protected $entityManager;
-
-    /** @var EntityRepository */
-    private $repository;
     /** @var string */
-    private $entityType;
+    protected $entityType;
 
     /**
      * BaseService constructor.
@@ -38,82 +36,38 @@ abstract class BaseService
      */
     public function updateField(string $key, string $value, int $id)
     {
-        $entity = $this->getById($id);
+        $entity = $this->entityManager->find($this->entityType, $id);
         $entity->{"set$key"}($value);
 
-        $this->save($entity);
-    }
-
-    /**
-     * Gets the entity by id
-     *
-     * @param int $id
-     * @return mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     */
-    public function getById(int $id)
-    {
-        return $this->entityManager->find($this->entityType, $id);
+        $this->saveOrUpdate($entity);
     }
 
     /**
      * Saves the given entity
      *
-     * @param $item
-     * @return mixed
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\ORMException
+     * @param BaseEntity $entity
+     * @return BaseEntity
      */
-    protected function save($item)
+    public function saveOrUpdate($entity)
     {
-        if ($item->getId() !== null) {
-            $entity = $this->getById($item->getId());
-            $item = $this->mergeEntities($entity, $item);
-
-            $item = $this->entityManager->merge($item);
-        } else {
-            $this->entityManager->persist($item);
+        if ($this->entityManager->getUnitOfWork()->getEntityState($entity) === UnitOfWork::STATE_NEW) {
+            $this->entityManager->persist($entity);
         }
 
         $this->entityManager->flush();
 
-        return $item;
+        return $entity;
     }
 
     /**
-     * Merges the set properties of new into original and returns original
+     * Deletes the given @see BaseEntity
      *
-     * @param $original
-     * @param $new
-     * @return mixed
+     * @param BaseEntity $entity
+     * @return void
      */
-    protected function mergeEntities($original, $new)
+    public function delete($entity): void
     {
-        $newAsArray = json_decode(json_encode($new), true);
-        $originalAsArray = json_decode(json_encode($original), true);
-        foreach ($originalAsArray as $key => $item) {
-            if (isset($newAsArray[$key])) {
-                if (method_exists($original, "set$key")) {
-                    $original->{"set$key"}($new->{"get$key"}());
-                }
-            }
-        }
-
-        return $original;
-    }
-
-    /**
-     * Deletes the entity with the given id
-     *
-     * @param int $id
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function delete(int $id)
-    {
-        $item = $this->getById($id);
-        $this->entityManager->remove($item);
+        $this->entityManager->remove($entity);
         $this->entityManager->flush();
     }
 
@@ -124,10 +78,6 @@ abstract class BaseService
      */
     protected function getQueryBuilder(): QueryBuilder
     {
-        if ($this->repository === null) {
-            $this->repository = $this->entityManager->getRepository($this->entityType);
-        }
-
-        return $this->repository->createQueryBuilder('entity');
+        return $this->entityManager->createQueryBuilder()->select('entity')->from($this->entityType, 'entity');
     }
 }

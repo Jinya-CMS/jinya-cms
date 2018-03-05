@@ -17,6 +17,6 @@ class DesignerController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('@Designer/default/index.html.twig');
+        return $this->render('@Designer/Home/index.html.twig');
     }
 }

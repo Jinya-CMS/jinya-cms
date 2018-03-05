@@ -51,18 +51,73 @@ services:
     Jinya\Services\Media\MediaService:
       arguments:
         $baseUrl: '%base_url%'
-        $kernelProjectDir: '%kernel.root_dir%'
+        $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Mailing\MailerService:
       arguments:
         $mailerSender: '%mailer_sender%'
 
+    # EventSubscriber
+    Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
+      tags:
+        - { name: doctrine.event_subscriber }
+
+    # Formatter
+    Jinya\Formatter\Gallery\GalleryFormatterInterface:
+      class: Jinya\Formatter\Gallery\GalleryFormatter
+      calls:
+        - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
+        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface:
+      class: Jinya\Formatter\Artwork\ArtworkPositionFormatter
+      calls:
+        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\GalleryFormatterInterface']]
+        - [setArtworkFormatterInterface, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
+    Jinya\Formatter\Artwork\ArtworkFormatterInterface:
+      class: Jinya\Formatter\Artwork\ArtworkFormatter
+      calls:
+        - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
+        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Form\FormFormatterInterface:
+      class: Jinya\Formatter\Form\FormFormatter
+      calls:
+        - [setFormItemFormatter, ['@Jinya\Formatter\Form\FormItemFormatterInterface']]
+        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Form\FormItemFormatterInterface:
+      class: Jinya\Formatter\Form\FormItemFormatter
+      calls:
+        - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
+        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Menu\MenuItemFormatterInterface:
+      class: Jinya\Formatter\Menu\MenuItemFormatter
+      calls:
+        - [setMenuFormatter, ['@Jinya\Formatter\Menu\MenuFormatterInterface']]
+        - [setRouteFormatter, ['@Jinya\Formatter\Route\RouteFormatterInterface']]
+    Jinya\Formatter\Route\RouteFormatterInterface:
+      class: Jinya\Formatter\Route\RouteFormatter
+      calls:
+        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
+    Jinya\Formatter\Menu\MenuFormatterInterface:
+      class: Jinya\Formatter\Menu\MenuFormatter
+      calls:
+        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
+    Jinya\Formatter\User\UserFormatterInterface:
+      class: Jinya\Formatter\User\UserFormatter
+      calls:
+        - [setPageFormatter, ['@Jinya\Formatter\Page\PageFormatterInterface']]
+        - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\GalleryFormatterInterface']]
+        - [setArtworkFormatter, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
+        - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
+
+    # Controllers
     Jinya\Controller\InstallController:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
-    Jinya\Controller\FrontendController:
-        arguments:
-          $kernelProjectDir: '%kernel.project_dir%'
+
+    # Security
+    Jinya\Framework\Security\UserVoter:
+        tags:
+            - { name: security.voter }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -3,6 +3,11 @@ security:
     ROLE_SUPER_ADMIN: ROLE_ADMIN
     ROLE_ADMIN: ROLE_WRITER
 
+  access_decision_manager:
+    strategy: consensus
+    allow_if_all_abstain: false
+    allow_if_equal_granted_denied: false
+
   encoders:
     Jinya\Entity\User:
       algorithm: bcrypt
@@ -14,8 +19,15 @@ security:
         property: email
 
   firewalls:
+    api:
+      pattern: ^/api
+      http_basic:
+        provider: jinya_db_provider
+
+      logout: true
+      anonymous: true
     designer:
-      pattern: ^/
+      pattern: ^/designer
       form_login:
         login_path: jinya_account_login
         check_path: jinya_account_login
@@ -27,5 +39,5 @@ security:
       logout: true
       anonymous: true
   access_control:
-    - { path: ^/account/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/designer/, role: ROLE_WRITER }
+    - { path: ^/account/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/designer/, roles: ROLE_WRITER }

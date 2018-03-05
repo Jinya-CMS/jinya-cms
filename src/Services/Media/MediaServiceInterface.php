@@ -9,8 +9,6 @@
 namespace Jinya\Services\Media;
 
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 interface MediaServiceInterface
 {
     public const GALLERY_BACKGROUND = 'gallery_background';
@@ -21,11 +19,11 @@ interface MediaServiceInterface
     /**
      * Saves the media to the storage and return the http url
      *
-     * @param UploadedFile $file
+     * @param resource $file
      * @param string $type
      * @return string
      */
-    public function saveMedia(UploadedFile $file, string $type): string;
+    public function saveMedia($file, string $type): string;
 
     /**
      * Deletes the media saved under the given url

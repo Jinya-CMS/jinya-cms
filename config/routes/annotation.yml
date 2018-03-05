@@ -1,13 +1,3 @@
-designer:
-    resource: "../src/Controller/Designer"
-    type: annotation
-    prefix: /designer
-
-backend:
-    resource: "../src/Controller/Backend"
-    type: annotation
-    prefix: /backend
-
 jinya:
     resource: "../src/Controller/"
     type: annotation

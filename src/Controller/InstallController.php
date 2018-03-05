@@ -3,7 +3,7 @@
 namespace Jinya\Controller;
 
 use Jinya\Components\Database\SchemaToolInterface;
-use Jinya\Form\Backend\AddUserData;
+use Jinya\Entity\User;
 use Jinya\Form\Install\AdminData;
 use Jinya\Form\Install\AdminType;
 use Jinya\Form\Install\SetupData;
@@ -99,19 +99,19 @@ class InstallController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var AdminData $formData */
             $formData = $form->getData();
-            $addUserData = new AddUserData();
-            $addUserData->setProfilePicture($formData->getProfilePicture());
-            $addUserData->setEmail($formData->getEmail());
-            $addUserData->setLastname($formData->getLastname());
-            $addUserData->setFirstname($formData->getFirstname());
-            $addUserData->setPassword($formData->getPassword());
+            $user = new User();
+            $user->setProfilePicture($formData->getProfilePicture());
+            $user->setEmail($formData->getEmail());
+            $user->setLastname($formData->getLastname());
+            $user->setFirstname($formData->getFirstname());
+            $user->setPassword($formData->getPassword());
 
-            $addUserData->setSuperAdmin(true);
-            $addUserData->setAdmin(true);
-            $addUserData->setWriter(true);
-            $addUserData->setActive(true);
+            $user->addRole(User::ROLE_SUPER_ADMIN);
+            $user->addRole(User::ROLE_ADMIN);
+            $user->addRole(User::ROLE_WRITER);
+            $user->setEnabled(true);
 
-            $this->userService->createUser($addUserData);
+            $this->userService->saveOrUpdate($user);
 
             $fs = new Filesystem();
             $fs->touch($this->kernelProjectDir . '/config/install.lock');

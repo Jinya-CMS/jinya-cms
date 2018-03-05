@@ -10,6 +10,7 @@ namespace Jinya\Services\Labels;
 
 
 use Jinya\Entity\Label;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 
 interface LabelServiceInterface
 {
@@ -76,6 +77,16 @@ interface LabelServiceInterface
      * Creates all missing labels
      *
      * @param array $labels
+     * @return array
      */
     public function createMissingLabels(array $labels): array;
+
+    /**
+     * Renames the given label
+     *
+     * @param string $name
+     * @param string $newName
+     * @return Label
+     */
+    public function rename(string $name, string $newName): Label;
 }

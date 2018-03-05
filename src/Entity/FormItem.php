@@ -15,7 +15,7 @@ use function implode;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="form_item")
+ * @ORM\Table(name="form_item", uniqueConstraints={@ORM\UniqueConstraint(name="idx_form_item_position_form", columns={"position", "form_id"})})
  */
 class FormItem extends HistoryEnabledEntity
 {
@@ -27,7 +27,7 @@ class FormItem extends HistoryEnabledEntity
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $type;
@@ -37,7 +37,7 @@ class FormItem extends HistoryEnabledEntity
      */
     private $options;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $label;
@@ -51,6 +51,27 @@ class FormItem extends HistoryEnabledEntity
      * @var Form
      */
     private $form;
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $position;
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
+    }
 
     /**
      * @return Form

@@ -10,33 +10,17 @@ namespace Jinya\Services\Galleries;
 
 use Jinya\Entity\Gallery;
 use Jinya\Entity\Label;
-use Jinya\Services\Base\BaseArtServiceInterface;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 
-interface GalleryServiceInterface extends BaseArtServiceInterface
+interface GalleryServiceInterface extends LabelEntityServiceInterface
 {
-    /**
-     * Gets the specified gallery, either by slug or id
-     *
-     * @param string|int $idOrSlug
-     * @return Gallery
-     */
-    public function get($idOrSlug): ?Gallery;
-
-    /**
-     * Gets the specified gallery by id
-     *
-     * @param int $id
-     * @return Gallery
-     */
-    public function getById(int $id): ?Gallery;
-
     /**
      * Gets the specified gallery by slug
      *
      * @param string $slug
-     * @return Gallery,
+     * @return Gallery
      */
-    public function getBySlug(string $slug): ?Gallery;
+    public function get(string $slug);
 
     /**
      * Gets all galleries by the given parameters
@@ -47,7 +31,7 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
      * @param Label|null $label
      * @return Gallery[]
      */
-    public function getAll(int $offset = 0, int $count = 12, string $keyword = '', Label $label = null): array;
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array;
 
     /**
      * Counts all galleries
@@ -64,15 +48,15 @@ interface GalleryServiceInterface extends BaseArtServiceInterface
      * @param Gallery $gallery
      * @return Gallery
      */
-    public function saveOrUpdate(Gallery $gallery): Gallery;
+    public function saveOrUpdate($gallery);
 
     /**
      * Deletes the given gallery
      *
-     * @param int $id
+     * @param Gallery $gallery
      * @return void
      */
-    public function delete(int $id);
+    public function delete($gallery): void;
 
     /**
      * Updates the given field

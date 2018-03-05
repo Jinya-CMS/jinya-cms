@@ -58,3 +58,63 @@ install:
     email:
       invalid: Die Emailadresse ist nicht gültig
       not_blank: Die Emailadresse ist erforderlich
+api:
+  generic:
+    headers:
+      contenttype: Der Content Type contentType ist nicht zugelassen
+    body:
+      empty: Der Requestbody ist leer
+  user:
+    field:
+      firstname:
+        missing: Der Vorname muss bereitgestellt weren
+      lastname:
+        missing: Der Nachname muss bereitgestellt weren
+      email:
+        missing: Die Emailadresse muss bereitgestellt weren
+        invalid: Die Emailadresse email ist nicht gültig
+      password:
+        missing: Das Passwort muss bereitgestellt weren
+  gallery:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+      artworkSlug:
+        missing: Es muss ein Kunstwerk angegeben werden
+  form:
+    field:
+      title:
+        missing: Der Titel muss bereitgestellt werden
+      toAddress:
+        missing: Es muss ein Emailadresse angegeben werden, an die das Formular gesendet wird
+        invalid: Die Emailadresse toAddress ist ungültig
+    items:
+      field:
+        label:
+          missing: Das Label muss bereitgestellt werden
+  artwork:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  label:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  menu:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+    item:
+      field:
+        route:
+          url:
+            missing: Die Route URL muss bereitgestellt werden
+          name:
+            missing: Der Routen Name muss bereitgestellt werden
+          parameter:
+            missing: Die Routen Parameter muss bereitgestellt werden
+          missing: Die Route muss bereitgestellt werden
+        title:
+          missing: Der Titel muss bereitgestellt werden
+        pageType:
+          missing: Der Seitetyp muss bereitgestellt werden

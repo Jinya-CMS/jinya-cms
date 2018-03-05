@@ -9,10 +9,9 @@
 namespace Jinya\Services\Users;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnitOfWork;
 use Jinya\Entity\User;
-use Jinya\Form\Backend\AddUserData;
-use Jinya\Form\Backend\UserData;
 use Jinya\Services\Media\MediaServiceInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -42,127 +41,70 @@ class UserService implements UserServiceInterface
     /**
      * @inheritdoc
      */
-    public function getAllUsers(int $offset, int $count = 10): array
+    public function getAll(int $offset, int $count = 10, string $keyword): array
     {
-        $userRepository = $this->entityManager->getRepository(User::class);
+        $queryBuilder = $this->createFilteredQueryBuilder($keyword);
 
-        return array_map(function (User $user) {
-            return $this->convertUserToUserData($user);
-        }, $userRepository->findBy([], null, $count, $offset));
+        return $queryBuilder
+            ->getQuery()
+            ->setFirstResult($offset)
+            ->setMaxResults($count)
+            ->getResult();
+    }
+
+    /**
+     * @param string $keyword
+     * @return QueryBuilder
+     */
+    protected function createFilteredQueryBuilder(string $keyword): QueryBuilder
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+
+        return $queryBuilder
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where($queryBuilder->expr()->like('user.firstname', ':keyword'))
+            ->orWhere($queryBuilder->expr()->like('user.lastname', ':keyword'))
+            ->orWhere($queryBuilder->expr()->like('user.email', ':keyword'))
+            ->setParameter('keyword', "%$keyword%");
     }
 
     /**
      * @inheritdoc
      */
-    private function convertUserToUserData(User $user): UserData
+    public function delete(int $id): void
     {
-        $userData = new UserData();
-        $userData->setEmail($user->getEmail());
-        $userData->setFirstname($user->getFirstname());
-        $userData->setLastname($user->getLastname());
-        $userData->setAdmin($user->hasRole(User::ROLE_ADMIN));
-        $userData->setWriter($user->hasRole(User::ROLE_WRITER));
-        $userData->setSuperAdmin($user->hasRole(User::ROLE_SUPER_ADMIN));
-        $userData->setActive($user->isEnabled());
-        $userData->setId($user->getId());
-        $userData->setProfilePicture($user->getProfilePicture());
+        if (!$this->isLastSuperAdmin()) {
+            $user = $this->entityManager->find(User::class, $id);
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
+    }
 
-        return $userData;
+    /**
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function isLastSuperAdmin(): bool
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $roleSuperAdmin = User::ROLE_SUPER_ADMIN;
+
+        $query = $queryBuilder
+            ->select($queryBuilder->expr()->count('u'))
+            ->from(User::class, 'u')
+            ->where('u.roles like :role')
+            ->andWhere('u.enabled = 1')
+            ->setParameter('role', "%$roleSuperAdmin%")
+            ->getQuery();
+
+        return $query->getSingleScalarResult() < 1;
     }
 
     /**
      * @inheritdoc
      */
-    public function deleteUser(int $id): void
-    {
-        $user = $this->entityManager->find(User::class, $id);
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function updateUser(int $id, UserData $userData): User
-    {
-        /** @var User $user */
-        $user = $this->entityManager->find(User::class, $id);
-        $this->fillUserFromUserData($userData, $user);
-        $this->entityManager->flush();
-
-        return $user;
-    }
-
-    /**
-     * @param UserData $userData
-     * @param User $user
-     */
-    private function fillUserFromUserData(UserData $userData, User $user)
-    {
-        if ($userData->getEmail() !== null) {
-            $user->setEmail($userData->getEmail());
-        }
-        if ($userData->isActive() !== null) {
-            $user->setEnabled($userData->isActive());
-        }
-        if ($userData->getFirstname() !== null) {
-            $user->setFirstname($userData->getFirstname());
-        }
-        if ($userData->getLastname() !== null) {
-            $user->setLastname($userData->getLastname());
-        }
-        if ($userData->getProfilePicture()) {
-            $user->setProfilePicture($this->moveProfilePicture($userData));
-        }
-
-        if ($userData->isWriter()) {
-            $user->addRole(User::ROLE_WRITER);
-        } elseif ($userData->isWriter() === false) {
-            $user->removeRole(User::ROLE_WRITER);
-        }
-        if ($userData->isAdmin()) {
-            $user->addRole(User::ROLE_ADMIN);
-        } elseif ($userData->isAdmin() === false) {
-            $user->removeRole(User::ROLE_ADMIN);
-        }
-        if ($userData->isSuperAdmin()) {
-            $user->addRole(User::ROLE_SUPER_ADMIN);
-        } elseif ($userData->isSuperAdmin() === false) {
-            $user->removeRole(User::ROLE_SUPER_ADMIN);
-        }
-    }
-
-    private function moveProfilePicture(UserData $userData): string
-    {
-        $file = $userData->getProfilePicture();
-
-        try {
-            return $this->mediaService->saveMedia($file, MediaServiceInterface::PROFILE_PICTURE);
-        } catch (Exception $ex) {
-            return '';
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function createUser(AddUserData $userData): User
-    {
-        /** @var User $user */
-        $user = new User();
-        $this->fillUserFromUserData($userData, $user);
-        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $userData->getPassword()));
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        return $user;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function activateUser(int $id): User
+    public function activate(int $id): User
     {
         /** @var User $user */
         $user = $this->entityManager->find(User::class, $id);
@@ -177,14 +119,14 @@ class UserService implements UserServiceInterface
     /**
      * @inheritdoc
      */
-    public function deactivateUser(int $id): User
+    public function deactivate(int $id): User
     {
-        /** @var User $user */
         $user = $this->entityManager->find(User::class, $id);
-
-        $user->setEnabled(false);
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        if (!$this->isLastSuperAdmin()) {
+            $user->setEnabled(false);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
 
         return $user;
     }
@@ -192,12 +134,9 @@ class UserService implements UserServiceInterface
     /**
      * @inheritdoc
      */
-    public function getUser(int $id): UserData
+    public function get(int $id): User
     {
-        /** @var User $user */
-        $user = $this->entityManager->find(User::class, $id);
-
-        return $this->convertUserToUserData($user);
+        return $this->entityManager->find(User::class, $id);
     }
 
     /**
@@ -215,9 +154,11 @@ class UserService implements UserServiceInterface
      */
     public function revokeRole(int $userId, string $role): void
     {
-        $user = $this->entityManager->find(User::class, $userId);
-        $user->removeRole($role);
-        $this->entityManager->flush();
+        if ($role !== User::ROLE_SUPER_ADMIN || !$this->isLastSuperAdmin()) {
+            $user = $this->entityManager->find(User::class, $userId);
+            $user->removeRole($role);
+            $this->entityManager->flush();
+        }
     }
 
     /**
@@ -231,18 +172,38 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param int $userId
-     * @return mixed
+     * Counts all users
+     *
+     * @param string $keyword
+     * @return int
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    private function getUsernameById(int $userId)
+    public function countAll(string $keyword): int
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('user.username')
-            ->from(User::class, 'user')
-            ->where('user.id = :userId')
-            ->setParameter('userId', $userId)
+        $queryBuilder = $this->createFilteredQueryBuilder($keyword);
+
+        return $queryBuilder
+            ->select($queryBuilder->expr()->count('user'))
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * Creates a user
+     *
+     * @param User $user
+     * @return User
+     */
+    public function saveOrUpdate(User $user): User
+    {
+        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
+
+        if ($this->entityManager->getUnitOfWork()->getEntityState($user) === UnitOfWork::STATE_NEW) {
+            $this->entityManager->persist($user);
+        }
+
+        $this->entityManager->flush();
+
+        return $user;
     }
 }

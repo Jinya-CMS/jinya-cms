@@ -123,7 +123,12 @@ class Label implements JsonSerializable
     {
         return [
             'name' => $this->name,
-            'artworks' => $this->artworks
+            'artworks' => [
+                'count' => $this->artworks->count()
+            ],
+            'galleries' => [
+                'count' => $this->galleries->count()
+            ]
         ];
     }
 }

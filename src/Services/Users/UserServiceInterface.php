@@ -18,35 +18,34 @@ interface UserServiceInterface
      * Gets the user specified by the id
      *
      * @param int $id
-     * @return UserData
+     * @return User
      */
-    public function getUser(int $id): UserData;
+    public function get(int $id): User;
 
     /**
      * Gets all users in the given range
      *
      * @param int $offset
      * @param int $count
-     *
-     * @return UserData[]
+     * @param string $keyword
+     * @return User[]
      */
-    public function getAllUsers(int $offset, int $count = 10): array;
+    public function getAll(int $offset, int $count = 10, string $keyword): array;
+
+    /**
+     * Counts all users
+     *
+     * @param string $keyword
+     * @return int
+     */
+    public function countAll(string $keyword): int;
 
     /**
      * Deletes the given user
      *
      * @param int $id
      */
-    public function deleteUser(int $id): void;
-
-    /**
-     * Updates the given user
-     *
-     * @param int $id
-     * @param UserData $userData
-     * @return User
-     */
-    public function updateUser(int $id, UserData $userData): User;
+    public function delete(int $id): void;
 
     /**
      * Changes the password for the given user
@@ -59,10 +58,10 @@ interface UserServiceInterface
     /**
      * Creates a user
      *
-     * @param AddUserData $userData
+     * @param User $user
      * @return User
      */
-    public function createUser(AddUserData $userData): User;
+    public function saveOrUpdate(User $user): User;
 
     /**
      * Activates the given user
@@ -70,7 +69,7 @@ interface UserServiceInterface
      * @param int $id
      * @return User
      */
-    public function activateUser(int $id): User;
+    public function activate(int $id): User;
 
     /**
      * Deactivates the given user
@@ -78,7 +77,7 @@ interface UserServiceInterface
      * @param int $id
      * @return User
      */
-    public function deactivateUser(int $id): User;
+    public function deactivate(int $id): User;
 
     /**
      * Grants the given role for the given user

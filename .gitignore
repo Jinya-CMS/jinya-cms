@@ -141,7 +141,6 @@ $RECYCLE.BIN/
 
 .idea/
 node_modules/
-*.js
 *.css
 *.map
 /web/profilepictures/
@@ -173,4 +172,6 @@ node_modules/
 !/public/apple-touch-icon.png
 !/public/favicon.ico
 !/public/robots.txt
-/public/public/
+/public/
+!/public/.htaccess
+!/public/index.php

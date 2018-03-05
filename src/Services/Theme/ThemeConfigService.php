@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Theme;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
+use function array_replace;
+use function array_replace_recursive;
 
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
@@ -40,15 +42,17 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     /**
      * @inheritdoc
      */
-    public function saveConfig(array $config, string $themeName): void
+    public function saveConfig(string $themeName, array $config): void
     {
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeConfig = $this->getThemeConfig($theme->getName());
 
+        $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+
         if (array_key_exists('defaultConfig', $themeConfig)) {
             $defaultConfig = $themeConfig['defaultConfig'];
             if (is_array($defaultConfig)) {
-                $theme->setConfiguration(array_replace_recursive($defaultConfig, $config));
+                $theme->setConfiguration(array_replace_recursive($defaultConfig, $targetConfig));
             }
         }
         $this->entityManager->flush();
@@ -143,8 +147,8 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     public function setVariables(string $name, array $variables): void
     {
         $theme = $this->themeService->getTheme($name);
-        $theme->setScssVariables(array_filter($variables));
-        $this->entityManager->flush($theme);
+        $theme->setScssVariables(array_replace($theme->getScssVariables(), array_filter($variables)));
+        $this->entityManager->flush();
     }
 
     /**
@@ -168,6 +172,30 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $theme->setFooterMenu($this->menuService->get($footerMenu));
         }
 
-        $this->entityManager->flush($theme);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Resets the given themes configuration
+     *
+     * @param string $name
+     */
+    public function resetConfig(string $name): void
+    {
+        $theme = $this->themeService->getThemeOrNewTheme($name);
+        $theme->setConfiguration([]);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Resets the given themes variables
+     *
+     * @param string $name
+     */
+    public function resetVariables(string $name): void
+    {
+        $theme = $this->themeService->getThemeOrNewTheme($name);
+        $theme->setScssVariables([]);
+        $this->entityManager->flush();
     }
 }
