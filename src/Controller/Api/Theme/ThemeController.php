@@ -9,12 +9,18 @@
 namespace Jinya\Controller\Api\Theme;
 
 
+use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 use Jinya\Framework\BaseApiController;
+use Jinya\Services\Media\MediaServiceInterface;
+use Jinya\Services\Menu\MenuServiceInterface;
+use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function array_key_exists;
 use function array_map;
 use function count;
 
@@ -74,6 +80,133 @@ class ThemeController extends BaseApiController
                 ->footerMenu()
                 ->format();
         });
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}", methods={"PUT"}, name="api_theme_put")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param MenuServiceInterface $menuService
+     * @return Response
+     */
+    public function putAction(string $name, ThemeConfigServiceInterface $themeConfigService, MenuServiceInterface $menuService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($menuService, $name, $themeConfigService) {
+            $config = $this->getValue('config');
+            $scss = $this->getValue('scss');
+            $menus = $this->getValue('menus');
+
+            if (!empty($menus)) {
+                if (array_key_exists('primary', $menus)) {
+                    /** @noinspection PhpParamsInspection */
+                    $menu = $menuService->get($menus['primary']['id']);
+                    $themeConfigService->setMenus($name, ['primary' => $menu]);
+                }
+                if (array_key_exists('secondary', $menus)) {
+                    /** @noinspection PhpParamsInspection */
+                    $menu = $menuService->get($menus['secondary']['id']);
+                    $themeConfigService->setMenus($name, ['secondary' => $menu]);
+                }
+                if (array_key_exists('footer', $menus)) {
+                    /** @noinspection PhpParamsInspection */
+                    $menu = $menuService->get($menus['footer']['id']);
+                    $themeConfigService->setMenus($name, ['footer' => $menu]);
+                }
+            }
+
+            $themeConfigService->saveConfig($name, $config);
+            $themeConfigService->setVariables($name, $scss);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}/file/{key}", methods={"PUT"}, name="api_theme_put_file")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param string $key
+     * @param Request $request
+     * @param ArrayUtilInterface $arrayUtil
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param MediaServiceInterface $mediaService
+     * @return Response
+     */
+    public function putFileAction(string $name, string $key, Request $request, ArrayUtilInterface $arrayUtil, ThemeConfigServiceInterface $themeConfigService, MediaServiceInterface $mediaService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($arrayUtil, $name, $key, $request, $themeConfigService, $mediaService) {
+            $content = $request->getContent(true);
+            $path = $mediaService->saveMedia($content, "themeconfig-$name");
+            $data = $arrayUtil->buildArrayFromPath($key);
+
+            $arrayUtil->setArrayValueByPath($data, $key, $path);
+
+            $themeConfigService->saveConfig($name, $data);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}/field/{key}", methods={"PUT"}, name="api_theme_put_field")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param string $key
+     * @param ArrayUtilInterface $arrayUtil
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param MediaServiceInterface $mediaService
+     * @return Response
+     */
+    public function putFieldAction(string $name, string $key, ArrayUtilInterface $arrayUtil, ThemeConfigServiceInterface $themeConfigService, MediaServiceInterface $mediaService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($arrayUtil, $name, $key, $themeConfigService, $mediaService) {
+            $content = $this->getValue('value');
+            $data = $arrayUtil->buildArrayFromPath($key);
+
+            $arrayUtil->setArrayValueByPath($data, $key, $content);
+
+            $themeConfigService->saveConfig($name, $data);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}/config", methods={"DELETE"}, name="api_theme_delete_config")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @return Response
+     */
+    public function deleteConfigAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($name, $themeConfigService) {
+            $themeConfigService->resetConfig($name);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}/variables", methods={"DELETE"}, name="api_theme_delete_variables")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @return Response
+     */
+    public function deleteScssVariablesAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($name, $themeConfigService) {
+            $themeConfigService->resetVariables($name);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

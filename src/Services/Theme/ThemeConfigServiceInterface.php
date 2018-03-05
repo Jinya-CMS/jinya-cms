@@ -49,10 +49,10 @@ interface ThemeConfigServiceInterface
     /**
      * Saves the given theme configuration
      *
-     * @param array $config
      * @param string $themeName
+     * @param array $config
      */
-    public function saveConfig(array $config, string $themeName): void;
+    public function saveConfig(string $themeName, array $config): void;
 
     /**
      * Gets the variables for the given theme
@@ -86,4 +86,18 @@ interface ThemeConfigServiceInterface
      * @return array
      */
     public function getForms(string $name): array;
+
+    /**
+     * Resets the given themes configuration
+     *
+     * @param string $name
+     */
+    public function resetConfig(string $name): void;
+
+    /**
+     * Resets the given themes variables
+     *
+     * @param string $name
+     */
+    public function resetVariables(string $name): void;
 }

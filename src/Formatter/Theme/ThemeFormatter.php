@@ -9,6 +9,7 @@
 namespace Jinya\Formatter\Theme;
 
 
+use Jinya\Entity\Menu;
 use Jinya\Entity\Theme;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -143,7 +144,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['primary'] = $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format();
+        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format() : [];
 
         return $this;
     }
@@ -159,7 +160,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['secondary'] = $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format();
+        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format() : [];
 
         return $this;
     }
@@ -175,7 +176,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['footer'] = $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format();
+        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format() : [];
 
         return $this;
     }
