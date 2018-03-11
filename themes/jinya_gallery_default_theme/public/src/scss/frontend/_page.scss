@@ -2,6 +2,11 @@
   font-family: $page-font-family;
   height: 100%;
 
+  img {
+    width: 100%;
+    height: auto;
+  }
+
   h1 {
     font-family: $page-font-family-heading1;
   }
