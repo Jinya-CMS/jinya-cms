@@ -17,27 +17,14 @@ security:
       entity:
         class: Jinya\Entity\User
         property: email
+    jinya_api_key_provider:
+      id: Jinya\Framework\Security\Api\ApiKeyUserProvider
 
   firewalls:
     api:
       pattern: ^/api
-      http_basic:
-        provider: jinya_db_provider
-
-      logout: true
+      stateless: true
+      simple_preauth:
+        authenticator: Jinya\Framework\Security\Api\ApiKeyAuthenticator
+      provider: jinya_api_key_provider
       anonymous: true
-    designer:
-      pattern: ^/designer
-      form_login:
-        login_path: jinya_account_login
-        check_path: jinya_account_login
-        provider: jinya_db_provider
-        csrf_token_generator: security.csrf.token_manager
-        default_target_path: /designer/
-        always_use_default_target_path: false
-
-      logout: true
-      anonymous: true
-  access_control:
-    - { path: ^/account/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/designer/, roles: ROLE_WRITER }

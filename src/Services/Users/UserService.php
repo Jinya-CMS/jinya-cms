@@ -11,9 +11,11 @@ namespace Jinya\Services\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
+use Exception;
 use Jinya\Entity\User;
 use Jinya\Services\Media\MediaServiceInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class UserService implements UserServiceInterface
 {
@@ -203,6 +205,34 @@ class UserService implements UserServiceInterface
         }
 
         $this->entityManager->flush();
+
+        return $user;
+    }
+
+    /**
+     * Gets the user by username and password
+     *
+     * @param string $username
+     * @param string $password
+     * @return User
+     */
+    public function getUser(string $username, string $password): User
+    {
+        try {
+            $user = $this->entityManager->createQueryBuilder()
+                ->select('user')
+                ->from(User::class, 'user')
+                ->where('user.email = :username')
+                ->setParameter('username', $username)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (Exception $e) {
+            throw new BadCredentialsException();
+        }
+
+        if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
+            throw new BadCredentialsException();
+        }
 
         return $user;
     }

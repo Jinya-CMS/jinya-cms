@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Account;
 use Jinya\Entity\User;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
+use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,43 @@ use function uniqid;
 
 class AccountController extends BaseApiController
 {
+    /**
+     * @Route("/api/login", methods={"POST"}, name="api_account_login")
+     *
+     * @param ApiKeyToolInterface $apiKeyTool
+     * @param UserServiceInterface $userService
+     * @return Response
+     */
+    public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $userService) {
+            $username = $this->getValue('username', '');
+            $password = $this->getValue('password', '');
+
+            $user = $userService->getUser($username, $password);
+
+            return ['apiKey' => $apiKeyTool->createApiKey($user)];
+        });
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/logout", methods={"DELETE"}, name="api_account_logout")
+     *
+     * @param string $key
+     * @param ApiKeyToolInterface $apiKeyTool
+     * @return Response
+     */
+    public function logoutAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($key, $apiKeyTool) {
+            $apiKeyTool->invalidate($key);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
     /**
      * @Route("/api/account", methods={"GET"}, name="api_account_get")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)

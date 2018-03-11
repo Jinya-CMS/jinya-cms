@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
+    public const DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -36,6 +38,27 @@ class Configuration
      * @var Theme
      */
     private $currentDesignerTheme;
+    /**
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $invalidateApiKeyAfter = Configuration::DEFAULT_API_KEY_INVALIDATION;
+
+    /**
+     * @return int
+     */
+    public function getInvalidateApiKeyAfter(): int
+    {
+        return $this->invalidateApiKeyAfter;
+    }
+
+    /**
+     * @param int $invalidateApiKeyAfter
+     */
+    public function setInvalidateApiKeyAfter(int $invalidateApiKeyAfter): void
+    {
+        $this->invalidateApiKeyAfter = $invalidateApiKeyAfter;
+    }
 
     /**
      * @return Theme

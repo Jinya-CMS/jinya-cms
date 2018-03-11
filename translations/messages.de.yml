@@ -353,6 +353,9 @@ api:
       generic: Ein interner Fehler ist aufgetreten
     403:
       generic: Für den Zugriff auf die Resource sind andere Rechte nötig
+    401:
+      generic: Für den Zugriff auf diese Resource ist eine Authentifizierung nötig
+      expired: Der API Key apiKey ist abgelaufen
   route:
     types:
       frontend_form_details: Formular

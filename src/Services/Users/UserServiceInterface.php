@@ -9,8 +9,6 @@
 namespace Jinya\Services\Users;
 
 use Jinya\Entity\User;
-use Jinya\Form\Backend\AddUserData;
-use Jinya\Form\Backend\UserData;
 
 interface UserServiceInterface
 {
@@ -94,4 +92,13 @@ interface UserServiceInterface
      * @param string $role
      */
     public function revokeRole(int $userId, string $role): void;
+
+    /**
+     * Gets the user by username and password
+     *
+     * @param string $username
+     * @param string $password
+     * @return User
+     */
+    public function getUser(string $username, string $password): User;
 }
