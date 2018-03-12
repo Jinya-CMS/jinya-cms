@@ -8,7 +8,7 @@ module.exports = {
     dev: {
 
         // Paths
-        assetsSubDirectory: 'static',
+      assetsSubDirectory: 'designer',
         assetsPublicPath: '/',
         proxyTable: {},
 
@@ -44,9 +44,6 @@ module.exports = {
     },
 
     build: {
-        // Template for index.html
-        index: path.resolve(__dirname, '../Home/index.html.twig'),
-
         // Paths
         assetsRoot: path.resolve(__dirname, '../../public/dist'),
         assetsSubDirectory: 'designer',
