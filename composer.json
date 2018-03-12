@@ -10,6 +10,7 @@
   "require": {
     "php": ">=7.1",
     "ext-iconv": "*",
+    "anahkiasen/underscore-php": "^2.0",
     "behat/transliterator": "^1.2",
     "doctrine/doctrine-bundle": "^1.7",
     "doctrine/orm": "^2.5",

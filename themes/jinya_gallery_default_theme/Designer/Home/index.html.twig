@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>{{ themeConfig.page.title }} {% block head_title %}{% endblock %}</title>
+    {% block styles %}
+        {% block styles_fontawesome %}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+        {% endblock %}
+        {% block styles_theme %}
+            <link rel="stylesheet"
+                  href="{{ asset('public/jinya_gallery_default_theme/styles/designer.css') }}">
+        {% endblock %}
+        {% block styles_additional_fonts %}
+            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+            {% endif %}
+        {% endblock %}
+        {% block styles_custom %}
+        {% endblock %}
+    {% endblock %}
+    {% block favicon %}
+        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {% block custom_meta %}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block licenses %}
+    <!-- Many thanks to the team from Codrops (https://tympanus.net/codrops/), I used many inspirations from you and they all work great. -->
+    <!--
+    Like most sites Jinya Gallery CMS uses open source libraries, here are the licenses
+    Codrops: https://tympanus.net/codrops/licensing/
+    FontAwesome: http://fontawesome.io/license/
+    Perfect Scrollbar: https://github.com/utatti/perfect-scrollbar/blob/master/LICENSE
+    classie: https://desandro.mit-license.org/
+    -->
+{% endblock %}
+{% block body %}
+    <div id="app"></div>
+{% endblock %}
+{% block scripts %}
+    {% block scripts_theme %}
+        <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.js') }}"></script>
+    {% endblock %}
+{% endblock %}
+</body>
+</html>

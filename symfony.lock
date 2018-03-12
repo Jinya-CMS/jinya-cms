@@ -1,4 +1,7 @@
 {
+    "anahkiasen/underscore-php": {
+        "version": "2.0.0"
+    },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
         "recipe": {
@@ -19,6 +22,9 @@
             "version": "1.0",
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
+    },
+    "patchwork/utf8": {
+        "version": "v1.3.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"

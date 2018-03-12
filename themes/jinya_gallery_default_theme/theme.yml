@@ -48,24 +48,24 @@ defaultConfig:
       placeholder: Please choose...
     messages:
     mail_sent_message: Mail was sent successfully
-styles_base: public/src/scss/
-scripts_base: public/dist/
+styles_base: public/src/scss
+scripts_base: public/dist
 styles:
   variables:
     file: frontend/_variables.scss
   files:
     - frontend.scss
-    - designer.scss
+    - ../../dist/designer/designer.css
 scripts:
   files:
     frontend.js:
       - frontend.js
     frontend.min.js:
       - frontend.min.js
-    designer.js:
-      - designer.js
-    designer.min.js:
-      - designer.min.js
+    designer.js!:
+      - designer/manifest.js
+      - designer/vendor.js
+      - designer/app.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren
