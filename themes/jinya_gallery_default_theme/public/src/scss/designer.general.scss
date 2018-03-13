@@ -1,14 +1,9 @@
-$designer: true;
-@import "functions/colors";
-@import "variables";
-@import "mixins/breakpoints";
+@import "designer";
 @import "base";
 @import "typography";
 @import "responsive";
 @import "input";
 @import "background";
-
-@import "designer/variables";
 @import "designer/reset";
 @import "designer/generic";
 @import "designer/grid";
@@ -23,4 +18,3 @@ $designer: true;
 @import "designer/jinya_menu";
 @import "designer/tabs";
 @import "designer/themeconfig";
-@import "designer/login";

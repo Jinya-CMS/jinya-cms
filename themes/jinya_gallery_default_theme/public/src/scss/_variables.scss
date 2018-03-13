@@ -287,7 +287,7 @@ $social-button-instagram-color: $color-instagram !default;
  * Lightbox
  */
 $lightbox-overlay-background-zero-percent: $white !default;
-$lightbox-overlay-background-hundred-percent: transparentize($black, 30%) !default;
+$lightbox-overlay-background-hundred-percent: scale_color($black, $alpha: 30%) !default;
 $lightbox-overlay-background-gradient: true;
 
 $lightbox-close-button-top: 1rem !default;
