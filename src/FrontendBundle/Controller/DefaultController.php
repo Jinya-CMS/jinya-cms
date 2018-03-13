@@ -2,6 +2,9 @@
 
 namespace FrontendBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use DataBundle\Entity\ArtworkPosition;
+use DataBundle\Entity\Gallery;
 use DataBundle\Entity\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,6 +67,15 @@ class DefaultController extends BaseFrontendController
     {
         $galleryService = $this->get('jinya_gallery.services.gallery_service');
         $gallery = $galleryService->get($slug);
+
+        $artworks = $gallery->getArtworks();
+
+        /** @var ArrayIterator $iterator */
+        $iterator = $artworks->getIterator();
+        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+        });
+        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
             'gallery' => $gallery
