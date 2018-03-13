@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "lockr": "^0.8.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",

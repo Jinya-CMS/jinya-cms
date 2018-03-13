@@ -50,6 +50,9 @@
       window.messages = {{ get_translation_catalogue()|json_encode|raw }};
       window.validators = {{ get_translation_catalogue('validators')|json_encode|raw }};
     </script>
+{% block scripts_polyfills %}
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+{% endblock %}
 {% block scripts_theme %}
     <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.js') }}"></script>
 {% endblock %}

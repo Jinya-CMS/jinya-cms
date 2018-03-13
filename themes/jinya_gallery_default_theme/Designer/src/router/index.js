@@ -1,17 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import StartPage from '@/components/Home/StartPage'
+import Login from '@/components/Account/Login'
+import Lockr from 'lockr';
 
-// noinspection Annotator
-// noinspection Annotator
 Vue.use(Router);
 
-export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'HelloWorld',
-            component: HelloWorld
-        }
-    ]
-})
+const router = new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/designer',
+      name: 'DesignerRoot',
+      component: StartPage
+    },
+    {
+      path: '/designer/login',
+      name: 'Login',
+      component: Login
+    }
+  ]
+});
+
+router.beforeEach((to, from, next) => {
+  if (!Lockr.get('JinyaApiKey') && to.name !== 'Login') {
+    next({name: 'Login'});
+  } else {
+    next();
+  }
+});
+
+export default router;
