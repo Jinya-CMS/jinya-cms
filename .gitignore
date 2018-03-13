@@ -1,6 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Linux template
-*~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -30,10 +29,6 @@ composer.phar
 # Email spool folder
 /app/spool/*
 
-# Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
@@ -44,7 +39,6 @@ composer.phar
 
 # Managed by Composer
 /app/bootstrap.php.cache
-/var/bootstrap.php.cache
 /bin/*
 !bin/console
 !bin/symfony_requirements
@@ -68,24 +62,6 @@ composer.phar
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
-# User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
-
-# Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
 
 # CMake
 cmake-build-debug/
@@ -153,15 +129,11 @@ node_modules/
 /.env
 !/bin/phpunit
 ###> symfony/framework-bundle ###
-.env
 /public/bundles/
-/var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
 .phpunit
-/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/web-server-bundle ###
@@ -175,3 +147,4 @@ node_modules/
 /public/
 !/public/.htaccess
 !/public/index.php
+/themes/jinya_gallery_default_theme/public/dist/
