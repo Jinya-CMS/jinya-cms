@@ -12,10 +12,14 @@ use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
 use Psr\Log\LoggerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use DataBundle\Entity\ArtworkPosition;
+use DataBundle\Entity\Gallery;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
+use ArrayIterator;
 
 class FrontendController extends BaseController
 {
@@ -74,6 +78,15 @@ class FrontendController extends BaseController
     public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
     {
         $gallery = $galleryService->get($slug);
+
+        $artworks = $gallery->getArtworks();
+
+        /** @var ArrayIterator $iterator */
+        $iterator = $artworks->getIterator();
+        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
+            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
+        });
+        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
             'gallery' => $gallery
