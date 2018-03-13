@@ -119,5 +119,10 @@ services:
         tags:
             - { name: security.voter }
 
+    # Twig
+    Jinya\Twig\Extension\TranslationUtils:
+        arguments:
+          $kernelProjectDir: '%kernel.project_dir%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

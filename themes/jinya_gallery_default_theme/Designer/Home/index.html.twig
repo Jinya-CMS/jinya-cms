@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>{{ themeConfig.page.title }} {% block head_title %}{% endblock %}</title>
+    <title>{{ themeConfig.page.title }}</title>
     {% block styles %}
         {% block styles_fontawesome %}
             <link rel="stylesheet"
@@ -45,9 +45,14 @@
     <div id="app"></div>
 {% endblock %}
 {% block scripts %}
-    {% block scripts_theme %}
-        <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.js') }}"></script>
-    {% endblock %}
+    <script>
+      window.options = {startBackground: '{{ asset(themeConfig.startpage.background.image) }}'};
+      window.messages = {{ get_translation_catalogue()|json_encode|raw }};
+      window.validators = {{ get_translation_catalogue('validators')|json_encode|raw }};
+    </script>
+{% block scripts_theme %}
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.js') }}"></script>
+{% endblock %}
 {% endblock %}
 </body>
 </html>

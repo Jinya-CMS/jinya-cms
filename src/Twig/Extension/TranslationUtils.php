@@ -3,18 +3,24 @@
 namespace Jinya\Twig\Extension;
 
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Yaml\Yaml;
+use const DIRECTORY_SEPARATOR;
 
 class TranslationUtils extends \Twig_Extension
 {
+    /** @var string */
+    private $kernelProjectDir;
     /** @var TranslatorInterface */
     private $translator;
 
     /**
      * TranslationUtils constructor.
+     * @param string $kernelProjectDir
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(string $kernelProjectDir, TranslatorInterface $translator)
     {
+        $this->kernelProjectDir = $kernelProjectDir;
         $this->translator = $translator;
     }
 
@@ -33,8 +39,12 @@ class TranslationUtils extends \Twig_Extension
         ];
     }
 
-    public function getTranslationCatalogue()
+    public function getTranslationCatalogue(string $catalogue = 'messages')
     {
-        return $this->translator->getCatalogue($this->translator->getLocale())->all('messages');
+        $locale = $this->translator->getLocale();
+
+        $path = $this->kernelProjectDir . '/translations';
+
+        return Yaml::parseFile($path . DIRECTORY_SEPARATOR . $catalogue . '.' . $locale . '.yml');
     }
 }
