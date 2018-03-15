@@ -3,8 +3,7 @@
     <title>{{ themeConfig.page.title }}</title>
     {% block styles %}
         {% block styles_theme %}
-            <link rel="stylesheet"
-                  href="{{ asset('public/jinya_gallery_default_theme/styles/designer.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/jinya_gallery_default_theme/styles/designer.css') }}">
         {% endblock %}
         {% block styles_additional_fonts %}
             <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.99/css/materialdesignicons.min.css">
@@ -42,7 +41,10 @@
 {% endblock %}
 {% block scripts %}
     <script>
-      window.options = {startBackground: '{{ asset(themeConfig.startpage.background.image) }}'};
+      window.options = {
+        startBackground: '{{ asset(themeConfig.startpage.background.image) }}',
+        genericBackground: '{{ asset(themeConfig.default_background.image) }}'
+      };
       window.messages = {{ get_translation_catalogue()|json_encode|raw }};
       window.validators = {{ get_translation_catalogue('validators')|json_encode|raw }};
     </script>

@@ -8,7 +8,18 @@ export default {
 
       bind: function (el, binding) {
         const key = binding.value;
-        el.innerText = Translator.message(key);
+        const message = Translator.message(key);
+        console.log(`${key} => ${message}`);
+
+        if (binding.modifiers && binding.modifiers.length > 0) {
+          for (let modifier in binding.modifiers) {
+            if (el.hasOwnProperty(modifier)) {
+              el.setAttribute(modifier, message);
+            }
+          }
+        } else {
+          el.innerText = message;
+        }
       }
     });
     Vue.directive('jinya-validator', {
@@ -17,7 +28,17 @@ export default {
 
       bind: function (el, binding) {
         const key = binding.value;
-        el.innerText = Translator.validator(key);
+        const validator = Translator.validator(key);
+
+        if (binding.modifiers && binding.modifiers.length > 0) {
+          for (let modifier in binding.modifiers) {
+            if (el.hasOwnProperty(modifier)) {
+              el.setAttribute(modifier, validator);
+            }
+          }
+        } else {
+          el.innerText = validator;
+        }
       }
     });
   }

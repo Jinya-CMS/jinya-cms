@@ -209,7 +209,7 @@ backend:
     select: Kunstwerk auswählen
     labels: Labels
     delete:
-      title: Wollen Sie das Kunstwerk %name% wirklich löschen?
+      title: Ist das Kunst oder kann das weg?
       content: Wenn Sie das Kunstwerk %name% löschen, werden neben dem Eintrag in der Datenbank auch die Bilder auf dem Server gelöscht.
   art:
     label:
@@ -362,3 +362,11 @@ api:
       frontend_gallery_details: Galerie
       frontend_artwork_details: Kunstwerk
       frontend_page_details: Seite
+menu:
+  designer:
+    art: Kunst
+    static: Statischer Inhalt
+    configuration: Konfiguration
+    maintenance: Wartung
+    galleries: Galerien
+    artworks: Kunstwerke

@@ -1,11 +1,15 @@
 <template>
     <div id="app">
+        <jinya-menu v-if="$route.name !== 'Login'"/>
         <router-view/>
     </div>
 </template>
 
 <script>
+  import JinyaMenu from "@/components/Framework/Markup/Menu/JinyaMenu";
+
   export default {
+    components: {JinyaMenu},
     name: 'App'
   }
 </script>
@@ -20,9 +24,12 @@
         overflow: auto;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         font-family: $font-family;
-        box-sizing: border-box;
         margin: 0;
         overflow: auto;
     }
