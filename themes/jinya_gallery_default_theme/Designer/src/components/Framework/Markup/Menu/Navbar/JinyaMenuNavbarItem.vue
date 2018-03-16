@@ -1,7 +1,7 @@
 <template>
-    <li class="jinya-menu-navbar__item" :class="{ 'is--selected': $route.name === to }">
+    <div class="jinya-menu-navbar__item" :class="{ 'is--selected': $route.name === to }">
         <router-link class="jinya-menu-navbar__item__link" :to="{name: to}" v-jinya-message="text"/>
-    </li>
+    </div>
 </template>
 
 <script>
@@ -24,10 +24,29 @@
     @import "designer";
 
     .jinya-menu-navbar__item {
-        padding-left: 5px;
-        padding-right: 5px;
         line-height: 60px;
         color: $white;
+        list-style: none;
+        margin: 0;
+        background: $primary;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 5px;
+
+        a {
+            display: block;
+            font-variant: all-small-caps;
+            cursor: pointer;
+        }
+
+        &:hover {
+            background: $white;
+
+            a {
+                color: $primary;
+            }
+        }
 
         &.is--selected {
             background: $white;

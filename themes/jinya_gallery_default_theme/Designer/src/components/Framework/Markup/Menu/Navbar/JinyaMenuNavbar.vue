@@ -1,13 +1,13 @@
 <template>
-    <ul class="jinya-menu__navbar">
-        <li class="jinya-menu__hamburger" @click="$emit('hamburger-click')" @mouseover="$emit('hamburger-mouseover')"
+    <div class="jinya-menu__navbar">
+        <div class="jinya-menu__hamburger" @click="$emit('hamburger-click')" @mouseover="$emit('hamburger-mouseover')"
             @mouseout="$emit('hamburger-mouseout')">
-            <span></span>
-            <span></span>
-            <span></span>
-        </li>
+            <span class="jinya-menu__hamburger__bar"></span>
+            <span class="jinya-menu__hamburger__bar"></span>
+            <span class="jinya-menu__hamburger__bar"></span>
+        </div>
         <slot/>
-    </ul>
+    </div>
 </template>
 
 <script>
@@ -25,47 +25,29 @@
         margin: 0;
         padding: 0;
         background: $primary;
+        height: 60px;
 
-        li {
-            list-style: none;
+        .jinya-menu__hamburger {
+            background: $primary;
+            width: 60px;
+            cursor: pointer;
             margin: 0;
             background: $primary;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 15px;
+            padding: 10px;
             color: white;
 
-            a {
-                display: block;
-                font-variant: all-small-caps;
-                cursor: pointer;
-            }
-
             &:hover {
                 background: $white;
 
-                a {
-                    color: $primary;
-                }
-            }
-        }
-
-        .jinya-menu__hamburger {
-            background: $primary;
-            width: 60px;
-            padding: 10px;
-            cursor: pointer;
-
-            &:hover {
-                background: $white;
-
-                span {
+                .jinya-menu__hamburger__bar {
                     background: $primary;
                 }
             }
 
-            span {
+            .jinya-menu__hamburger__bar {
                 height: 5px;
                 width: 80%;
                 background: $white;

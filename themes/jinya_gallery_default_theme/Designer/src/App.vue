@@ -46,4 +46,12 @@
         color: $primary;
         font-family: $font-family-heading;
     }
+
+    .sr--only {
+        display: none;
+
+        @media speech {
+            display: inline-block;
+        }
+    }
 </style>

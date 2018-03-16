@@ -52,7 +52,9 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 {% endblock %}
 {% block scripts_theme %}
-    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.js') }}"></script>
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.manifest.js') }}"></script>
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.vendor.js') }}"></script>
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.app.js') }}"></script>
 {% endblock %}
 {% endblock %}
 </body>

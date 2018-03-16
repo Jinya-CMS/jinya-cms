@@ -63,9 +63,11 @@ scripts:
       - frontend.js
     frontend.min.js:
       - frontend.min.js
-    designer.js!:
+    designer.manifest.js!:
       - designer/manifest.js
+    designer.vendor.js!:
       - designer/vendor.js
+    designer.app.js!:
       - designer/app.js
 form:
   config:

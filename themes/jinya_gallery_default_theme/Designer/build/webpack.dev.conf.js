@@ -15,27 +15,17 @@ const webpackConfig = merge(baseWebpackConfig, {
   watch: true,
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
       extract: true,
       usePostCSS: true
     })
   },
-  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  devtool: config.dev.productionSourceMap ? config.dev.devtool : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('[name].js'),
     chunkFilename: utils.assetsPath('[id].js')
   },
   plugins: [
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
-    }),
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('designer.css'),

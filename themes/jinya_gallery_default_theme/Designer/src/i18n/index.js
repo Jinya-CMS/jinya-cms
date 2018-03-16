@@ -1,15 +1,15 @@
 import Translator from "@/components/Framework/i18n/Translator";
+import Vue from 'vue';
 
-export default {
+const i18n = {
   install(Vue) {
     Vue.directive('jinya-message', {
       isFn: true,
       acceptStatement: false,
 
-      bind: function (el, binding) {
+      bind(el, binding) {
         const key = binding.value;
         const message = Translator.message(key);
-        console.log(`${key} => ${message}`);
 
         if (binding.modifiers && binding.modifiers.length > 0) {
           for (let modifier in binding.modifiers) {
@@ -26,7 +26,7 @@ export default {
       isFn: true,
       acceptStatement: false,
 
-      bind: function (el, binding) {
+      bind(el, binding) {
         const key = binding.value;
         const validator = Translator.validator(key);
 
@@ -41,5 +41,15 @@ export default {
         }
       }
     });
+
+    Vue.filter('jmessage', (value) => {
+      return Translator.message(value);
+    });
+    Vue.filter('jvalidator', (value) => {
+      return Translator.validator(value);
+    });
   }
-}
+};
+Vue.use(i18n);
+
+export default i18n;
