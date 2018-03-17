@@ -56,7 +56,7 @@ styles:
   files:
     - frontend.scss
     - designer.general.scss
-    - ../../dist/designer/designer.css
+    - designer.css
 scripts:
   files:
     frontend.js:
