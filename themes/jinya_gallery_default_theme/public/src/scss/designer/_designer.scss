@@ -1,0 +1,472 @@
+
+#app {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  margin: 0;
+  overflow: auto;
+}
+
+a {
+  color: $primary;
+  &:hover {
+    color: $primary-darker;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;
+  font-family: $font-family-heading;
+}
+
+.sr--only {
+  display: none;
+  @media speech {
+    display: inline-block;
+  }
+}
+
+.jinya-menu__navbar[data-v-7fcca093] {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background: $primary;
+  height: 60px;
+  .jinya-menu__hamburger {
+    background: $primary;
+    width: 60px;
+    cursor: pointer;
+    margin: 0;
+    background: $primary;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 10px;
+    color: white;
+    &:hover {
+      background: $white;
+      .jinya-menu__hamburger__bar {
+        background: $primary;
+      }
+    }
+    .jinya-menu__hamburger__bar {
+      height: 5px;
+      width: 80%;
+      background: $white;
+      margin: 2.5px 10%;
+      display: block;
+    }
+  }
+}
+
+.jinya-menu-navbar__item[data-v-6a01d18c] {
+  line-height: 60px;
+  color: $white;
+  list-style: none;
+  margin: 0;
+  background: $primary;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0 5px;
+  a {
+    display: block;
+    font-variant: all-small-caps;
+    cursor: pointer;
+  }
+  &:hover {
+    background: $white;
+    a {
+      color: $primary;
+    }
+  }
+  &.is--selected {
+    background: $white;
+    color: $primary;
+  }
+  .jinya-menu-navbar__item__link {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: $white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-variant: all-small-caps;
+    &:hover {
+      background: $white;
+      color: $primary;
+    }
+  }
+}
+
+.jinya-menu__flyout[data-v-53a89277] {
+  width: 100%;
+}
+
+.jinya-menu-flyout__navbar__item[data-v-7f0b0ffa] {
+  color: $white;
+  font-size: 1.2rem;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  &.is--selected {
+    background: $primary;
+    color: $white;
+    font-size: 1.3rem;
+    .jinya-menu-flyout__navbar__item__link {
+      text-decoration: none;
+      color: $white;
+      outline: none;
+    }
+  }
+  .jinya-menu-flyout__navbar__item__link {
+    text-decoration: none;
+    padding: 0 1em;
+    color: $primary;
+  }
+}
+
+.jinya-menu-flyout__navbar[data-v-6e5e0440] {
+  width: 100%;
+  display: none;
+  border-bottom: 3px solid $primary;
+  background: $white;
+  position: fixed;
+  top: 0;
+  left: 60px;
+  margin: 0;
+  padding: 0;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 57px;
+  &.is--open {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.jinya-menu-flyout__menu[data-v-892a1064] {
+  background: $primary;
+  display: none;
+  position: fixed;
+  width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  &.is--open {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.jinya-menu-flyout__menu__section[data-v-648d388b] {
+  margin: 1em 2.5em 3em;
+  &:first-child {
+    margin-left: 1.3em;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  h4 {
+    color: $primary-lighter;
+    font-size: 1.7rem;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+  }
+  .jinya-menu-flyout__menu__items {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0 0;
+  }
+}
+
+.jinya-menu-flyout__menu__item[data-v-37889874] {
+  color: $white;
+  margin: 0 0 1em;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.jinya-menu-navbar__item--search[data-v-07759970] {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  .jinya-menu-navbar__item--search__input {
+    width: 25em;
+    background: $primary;
+    border: none;
+    padding: 10px;
+    font-size: 1em;
+    font-family: $font-family;
+    color: $white;
+    @mixin placeholder {
+      color: $primary-lighter;
+      opacity: 1;
+    }
+    &::-webkit-input-placeholder {
+      @include placeholder;
+    }
+    &:-ms-input-placeholder {
+      @include placeholder;
+    }
+    &::-ms-input-placeholder {
+      @include placeholder;
+    }
+    &::placeholder {
+      @include placeholder;
+    }
+    &:focus {
+      color: $white;
+      outline: none;
+    }
+  }
+  .jinya-menu-navbar__item--search__button {
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    color: $primary-lighter;
+    border: none;
+    font-size: 2em;
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+h1[data-v-e34d3510], h2[data-v-e34d3510] {
+  font-weight: normal;
+}
+
+ul[data-v-e34d3510] {
+  list-style-type: none;
+  padding: 0;
+}
+
+li[data-v-e34d3510] {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a[data-v-e34d3510] {
+  color: #42b983;
+}
+
+.jinya-login[data-v-d86d675c] {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: auto;
+  .jinya-login__background {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .jinya-login__form {
+    margin: 10% 40% auto;
+    padding: 1.5em 3em;
+    height: auto;
+    background-color: transparentize($gray-200, 0.2);
+    @include breakpoint-ultra-mobile {
+      margin: 0;
+    }
+    @include breakpoint-tablet-landscape {
+      margin-left: 30%;
+      margin-right: 30%;
+    }
+    @include breakpoint-tablet-portrait {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    @include breakpoint-mobile {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
+}
+
+.jinya-input[data-v-0991f472] {
+  font-size: 1rem;
+  margin: 0 0 1em;
+  .jinya-input__label {
+    display: inline-block;
+  }
+  .jinya-input__field {
+    padding: 0.5em;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+    border-style: none;
+    border-bottom: solid 3px $form-underline-color;
+    -webkit-transition: border-bottom-width 0.3s;
+    transition: border-bottom-width 0.3s;
+    font-family: $font-family;
+    font-size: 90%;
+  }
+}
+
+.jinya-button[data-v-03394786] {
+  border: 2px solid;
+  background: $white;
+  min-width: 10em;
+  display: inline-block;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+  position: relative;
+  font-size: 100%;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  &.is--default {
+    background: $gray-600;
+    color: $white;
+    border-color: $gray-600;
+    &:hover {
+      background: $white;
+      color: $gray-600;
+    }
+    &.is--inverse {
+      background: $white;
+      color: $gray-600;
+      border-color: $gray-600;
+      &:hover {
+        background: $gray-600;
+        color: $white;
+      }
+    }
+  }
+  &.is--primary {
+    background: $primary;
+    color: $white;
+    border-color: $primary;
+    &:hover {
+      background: $white;
+      color: $primary;
+    }
+    &.is--inverse {
+      background: $white;
+      color: $primary;
+      border-color: $primary;
+      &:hover {
+        background: $primary;
+        color: $white;
+      }
+    }
+  }
+  &.is--secondary {
+    background: $secondary;
+    color: $white;
+    border-color: $secondary;
+    &:hover {
+      background: $white;
+      color: $secondary;
+    }
+    &.is--inverse {
+      background: $white;
+      color: $secondary;
+      border-color: $secondary;
+      &:hover {
+        background: $secondary;
+        color: $white;
+      }
+    }
+  }
+  &.is--danger {
+    background: $danger;
+    color: $white;
+    border-color: $danger;
+    &:hover {
+      background: $white;
+      color: $danger;
+    }
+    &.is--inverse {
+      background: $white;
+      color: $danger;
+      border-color: $danger;
+      &:hover {
+        background: $danger;
+        color: $white;
+      }
+    }
+  }
+  &.is--success {
+    background: $success;
+    color: $white;
+    border-color: $success;
+    &:hover {
+      background: $white;
+      color: $success;
+    }
+    &.is--inverse {
+      background: $white;
+      color: $success;
+      border-color: $success;
+      &:hover {
+        background: $success;
+        color: $white;
+      }
+    }
+  }
+  &[disabled],
+  &.is--disabled {
+    background: $gray-200;
+    border-color: $gray-200;
+    color: $white;
+    &:hover {
+      background: $gray-200;
+      color: $white;
+    }
+  }
+}
+
+.jinya-form[data-v-04135174] {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  overflow: auto;
+}

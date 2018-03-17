@@ -148,3 +148,4 @@ node_modules/
 !/public/.htaccess
 !/public/index.php
 /themes/jinya_gallery_default_theme/public/dist/
+/themes/jinya_gallery_default_theme/public/src/designer/_designer.scss

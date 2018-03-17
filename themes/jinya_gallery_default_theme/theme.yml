@@ -55,8 +55,7 @@ styles:
     file: frontend/_variables.scss
   files:
     - frontend.scss
-    - designer.general.scss
-    - designer.css
+    - designer.scss
 scripts:
   files:
     frontend.js:
