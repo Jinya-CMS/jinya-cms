@@ -18,15 +18,18 @@
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.maintenance.navbar" to="Login"
                                                :is-selected="selectedHeader === 'maintenance'"
                                                @selected="selectHeader('maintenance')"/>
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.my_jinya.navbar" to="Login"
+                                               :is-selected="selectedHeader === 'my-jinya'"
+                                               @selected="selectHeader('my-jinya')"/>
             </jinya-menu-flyout-navbar>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'">
-                <jinya-menu-flyout-menu-section header="Kunstwerke">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header">
                     <jinya-menu-flyout-menu-item to="Login"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Login"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_external"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Videos">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header">
                     <jinya-menu-flyout-menu-item to="Login"
                                                  text="menu.designer.flyout.art.sections.videos.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Login"
@@ -36,7 +39,7 @@
                     <jinya-menu-flyout-menu-item to="Login"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_newgrounds"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Galerien">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header">
                     <jinya-menu-flyout-menu-item to="Login"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
                     <jinya-menu-flyout-menu-item to="Login"
@@ -44,40 +47,77 @@
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'static'">
-                <jinya-menu-flyout-menu-section header="Seiten">
-                    <jinya-menu-flyout-menu-item to="Login" text="In Jinya CMS gespeichert"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Extern gespeichert"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.pages.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.static.sections.pages.saved_in_jinya"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.static.sections.pages.saved_external"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Formulare">
-                    <jinya-menu-flyout-menu-item to="Login" text="Formulare"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Anfragen"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Emailtemplates"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.forms.header">
+                    <jinya-menu-flyout-menu-item to="Login" text="menu.designer.flyout.static.sections.forms.forms"/>
+                    <jinya-menu-flyout-menu-item to="Login" text="menu.designer.flyout.static.sections.forms.requests"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.static.sections.forms.email_templates"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'config'">
-                <jinya-menu-flyout-menu-section header="Allgemein">
-                    <jinya-menu-flyout-menu-item to="Login" text="Künstler"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.general.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.configuration.sections.general.artists"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Frontend">
-                    <jinya-menu-flyout-menu-item to="Login" text="Themes"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Menüs"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.frontend.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.configuration.sections.frontend.themes"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.configuration.sections.frontend.menus"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'maintenance'">
-                <jinya-menu-flyout-menu-section header="System">
-                    <jinya-menu-flyout-menu-item to="Login" text="Updates"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="env Einstellungen"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Cache"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Jinya CMS Version"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="PHP Info"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.system.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.system.updates"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.system.environment"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.system.cache"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.system.version"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.system.php"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Datenbank">
-                    <jinya-menu-flyout-menu-item to="Login" text="MySQL Informationen"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Adminer"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.database.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.database.mysql_informationen"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.database.database_tool"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="Diagnose">
-                    <jinya-menu-flyout-menu-item to="Login" text="Anwendungsprotokoll"/>
-                    <jinya-menu-flyout-menu-item to="Login" text="Zugriffsprotokoll"/>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.diagnosis.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.diagnosis.application_log"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.maintenance.sections.diagnosis.access_log"/>
+                </jinya-menu-flyout-menu-section>
+            </jinya-menu-flyout-menu>
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'my-jinya'">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.account.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.account.profile"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.account.password"/>
+                </jinya-menu-flyout-menu-section>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.created_by_me.header">
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.artworks"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.videos"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.galleries"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.pages"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.forms"/>
+                    <jinya-menu-flyout-menu-item to="Login"
+                                                 text="menu.designer.flyout.my_jinya.sections.created_by_me.menus"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
         </jinya-menu-flyout>

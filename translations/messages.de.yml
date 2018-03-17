@@ -93,21 +93,71 @@ menu:
         navbar: Kunst
         sections:
           artworks:
+            header: Kunstwerke
             saved_in_jinya: In Jinya CMS gespeichert
             saved_external: Extern gespeichert
           videos:
+            header: Videos
             saved_in_jinya: In Jinya CMS gespeichert
             saved_on_youtube: Auf Youtube gespeichert
             saved_on_vimeo: Auf Vimeo gespeichert
             saved_on_newgrounds: Auf Newgrounds gespeichert
           galleries:
+            header: Galerien
             artwork_galleries: Kunstgalerien
             video_galleries: Videogalerien
       static:
         navbar: Statischer Inhalt
+        sections:
+          pages:
+            header: Seiten
+            saved_in_jinya: In Jinya CMS gespeichert
+            saved_external: Extern gespeichert
+          forms:
+            header: Formulare
+            forms: Formulare
+            requests: Anfragen
+            email_templates: Emailtemplates
       configuration:
         navbar: Konfiguration
+        sections:
+          general:
+            header: Allgemein
+            artists: Künstler
+          frontend:
+            header: Frontend
+            themes: Themes
+            menus: Menüs
       maintenance:
         navbar: Wartung
-    galleries: Galerien
-    artworks: Kunstwerke
+        sections:
+          system:
+            header: System
+            updates: Updates
+            environment: .env Einstellungen
+            cache: Cache
+            version: Jinya CMS Version
+            php: PHP Info
+          database:
+            header: Datenbank
+            mysql_information: MySQL Informationen
+            database_tool: Datenbanktool
+          diagnosis:
+            header: Diagnose
+            application_log: Anwendungsprotokoll
+            access_log: Zugrifsprotokoll
+      my_jinya:
+        navbar: Mein Jinya
+        sections:
+          account:
+            header: Mein Account
+            profile: Mein Profil
+            password: Passwort ändern
+          created_by_me:
+            header: Von mir erstellt
+            galleries: Galerien
+            artworks: Kunstwerke
+            pages: Seiten
+            videos: Videos
+            forms: Formulare
+            menus: Menüs
