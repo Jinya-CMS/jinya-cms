@@ -24,25 +24,25 @@
             </jinya-menu-flyout-navbar>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'">
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header">
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Artworks.SavedInJinya.Overview"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_in_jinya"/>
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Artworks.SavedExternal.Overview"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_external"/>
                 </jinya-menu-flyout-menu-section>
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header">
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedInJinya.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_in_jinya"/>
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnYoutube.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_youtube"/>
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnVimeo.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_vimeo"/>
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnNewgrounds.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_newgrounds"/>
                 </jinya-menu-flyout-menu-section>
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header">
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Galleries.Art.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
-                    <jinya-menu-flyout-menu-item to="Login"
+                    <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.video_galleries"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
@@ -134,6 +134,7 @@
   import JinyaMenuFlyoutMenuSection from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection";
   import JinyaMenuFlyoutMenuItem from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
   import JinyaMenuNavbarSearchItem from "@/components/Framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
+  import EventBus from "../../Events/EventBus";
 
   export default {
     components: {
@@ -154,6 +155,13 @@
       }
     },
     name: "jinya-menu",
+    mounted() {
+      EventBus.$on('navigated', () => {
+        this.isOpen = false;
+        this.isHover = false;
+        this.selectedHeader = '';
+      });
+    },
     data() {
       return {
         'isHover': false,

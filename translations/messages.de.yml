@@ -161,3 +161,6 @@ menu:
             videos: Videos
             forms: Formulare
             menus: Menüs
+home:
+  missing:
+    header: Sorry ich bin noch nicht fertig

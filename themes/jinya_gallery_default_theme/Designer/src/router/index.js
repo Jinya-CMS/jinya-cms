@@ -1,31 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import StartPage from '@/components/Home/StartPage'
-import Login from '@/components/Account/Login'
 import Lockr from 'lockr';
+import Routes from "./Routes";
+import EventBus from "../components/Framework/Events/EventBus";
+
+import Account from './account'
+import Art from './art'
+
+const routes = Account.concat(Art);
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/designer',
-      name: 'DesignerRoot',
-      component: StartPage
-    },
-    {
-      path: '/designer/login',
-      name: 'Login',
-      component: Login
-    }
-  ]
+  routes: routes
 });
 
 router.beforeEach((to, from, next) => {
-  if (!Lockr.get('JinyaApiKey') && to.name !== 'Login') {
-    next({name: 'Login'});
+  if (!Lockr.get('JinyaApiKey') && to.name !== Routes.Account.Login.name) {
+    next(Routes.Account.Login.route);
   } else {
+    EventBus.$emit('navigated');
     next();
   }
 });

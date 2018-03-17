@@ -1,9 +1,12 @@
 <template>
     <li class="jinya-menu-flyout__menu__item">
-        <router-link :to="to" v-jinya-message="text"/>
+        <router-link :to="routeTarget" v-jinya-message="text"/>
     </li>
 </template>
 <script>
+  import ObjectUtils from "../../../Utils/ObjectUtils";
+  import Routes from "../../../../../router/Routes";
+
   export default {
     name: "jinya-menu-flyout-menu-item",
     props: {
@@ -14,6 +17,11 @@
       text: {
         type: String,
         required: true
+      }
+    },
+    data() {
+      return {
+        routeTarget: ObjectUtils.valueByKeypath(Routes, this.to)
       }
     }
   }
