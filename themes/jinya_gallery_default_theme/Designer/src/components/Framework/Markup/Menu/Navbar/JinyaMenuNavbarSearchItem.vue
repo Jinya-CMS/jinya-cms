@@ -32,63 +32,59 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
+    .jinya-menu-navbar__item--search {
+        margin-left: auto;
+        display: flex;
 
-    .jinya-menu__navbar {
-        .jinya-menu-navbar__item--search {
-            margin-left: auto;
-            display: flex;
+        .jinya-menu-navbar__item--search__input {
+            width: 25em;
+            background: $primary;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            font-family: $font-family;
+            color: $white;
 
-            .jinya-menu-navbar__item--search__input {
-                width: 25em;
-                background: $primary;
-                border: none;
-                padding: 10px;
-                font-size: 1em;
-                font-family: $font-family;
-                color: $white;
-
-                @mixin placeholder {
-                    color: $primary-lighter;
-                    opacity: 1;
-                }
-
-                &::-webkit-input-placeholder {
-                    @include placeholder;
-                }
-                &::-moz-placeholder {
-                    @include placeholder;
-                }
-                &:-moz-placeholder {
-                    @include placeholder;
-                }
-                &:-ms-input-placeholder {
-                    @include placeholder;
-                }
-                &::-ms-input-placeholder {
-                    @include placeholder;
-                }
-                &::placeholder {
-                    @include placeholder;
-                }
-
-                &:focus {
-                    color: $white;
-                    outline: none;
-                }
+            @mixin placeholder {
+                color: $primary-lighter;
+                opacity: 1;
             }
 
-            .jinya-menu-navbar__item--search__button {
-                width: 60px;
-                height: 60px;
-                background: transparent;
-                color: $primary-lighter;
-                border: none;
-                font-size: 2em;
+            &::-webkit-input-placeholder {
+                @include placeholder;
+            }
+            &::-moz-placeholder {
+                @include placeholder;
+            }
+            &:-moz-placeholder {
+                @include placeholder;
+            }
+            &:-ms-input-placeholder {
+                @include placeholder;
+            }
+            &::-ms-input-placeholder {
+                @include placeholder;
+            }
+            &::placeholder {
+                @include placeholder;
+            }
 
-                &:hover {
-                    color: $white;
-                }
+            &:focus {
+                color: $white;
+                outline: none;
+            }
+        }
+
+        .jinya-menu-navbar__item--search__button {
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            color: $primary-lighter;
+            border: none;
+            font-size: 2em;
+
+            &:hover {
+                color: $white;
             }
         }
     }

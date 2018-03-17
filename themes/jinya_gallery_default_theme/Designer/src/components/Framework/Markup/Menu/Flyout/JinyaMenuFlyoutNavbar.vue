@@ -20,8 +20,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-flyout__navbar {
         width: 100%;
         display: none;

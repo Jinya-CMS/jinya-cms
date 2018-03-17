@@ -40,9 +40,6 @@
 </script>
 
 <style scoped lang="scss">
-    //noinspection CssUnknownTarget
-    @import "designer";
-
     .jinya-input {
         font-size: 1rem;
         margin: 0 0 1em;

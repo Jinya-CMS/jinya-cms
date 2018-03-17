@@ -21,8 +21,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-navbar__item {
         line-height: 60px;
         color: $white;

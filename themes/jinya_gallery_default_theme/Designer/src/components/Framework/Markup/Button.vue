@@ -44,9 +44,6 @@
 </script>
 
 <style scoped lang="scss">
-    //noinspection CssUnknownTarget
-    @import "designer";
-
     .jinya-button {
         border: 2px solid;
         background: $white;

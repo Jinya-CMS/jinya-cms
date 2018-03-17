@@ -41,9 +41,6 @@
 </script>
 
 <style scoped lang="scss">
-    //noinspection CssUnknownTarget
-    @import "designer";
-
     .jinya-login {
         height: 100%;
         width: 100%;

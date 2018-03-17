@@ -26,8 +26,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-flyout__navbar__item {
         color: $white;
         font-size: 1.2rem;
@@ -43,6 +41,7 @@
             .jinya-menu-flyout__navbar__item__link {
                 text-decoration: none;
                 color: $white;
+                outline: none;
             }
         }
 

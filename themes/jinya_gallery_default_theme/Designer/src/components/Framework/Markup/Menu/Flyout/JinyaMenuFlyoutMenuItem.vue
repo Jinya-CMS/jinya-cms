@@ -20,8 +20,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-flyout__menu__item {
         color: $white;
         margin: 0 0 1em;

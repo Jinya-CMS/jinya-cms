@@ -17,8 +17,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu__navbar {
         width: 100%;
         display: flex;

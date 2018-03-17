@@ -15,9 +15,6 @@
 </script>
 
 <style lang="scss">
-    //noinspection CssUnknownTarget
-    @import "designer";
-
     #app {
         height: 100%;
         width: 100%;

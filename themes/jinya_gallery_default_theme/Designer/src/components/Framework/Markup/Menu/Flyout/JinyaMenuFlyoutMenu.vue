@@ -19,8 +19,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-flyout__menu {
         background: $primary;
         display: none;

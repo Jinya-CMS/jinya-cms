@@ -12,8 +12,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu__flyout {
         width: 100%;
     }

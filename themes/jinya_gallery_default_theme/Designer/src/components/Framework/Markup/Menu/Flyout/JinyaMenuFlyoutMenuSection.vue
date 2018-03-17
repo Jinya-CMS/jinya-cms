@@ -20,8 +20,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "designer";
-
     .jinya-menu-flyout__menu__section {
         margin: 1em 2.5em 3em;
 
