@@ -197,5 +197,283 @@ export default {
         }
       }
     }
+  },
+  Static: {
+    Pages: {
+      SavedInJinya: {
+        Overview: {
+          name: 'StaticPagesSavedInJinyaOverview',
+          route: '/designer/static/page/jinya'
+        },
+        Details: {
+          name: 'StaticPagesSavedInJinyaDetails',
+          route: '/designer/static/page/jinya/:slug'
+        },
+        Add: {
+          name: 'StaticPagesSavedInJinyaAdd',
+          route: '/designer/static/page/jinya/add'
+        },
+        Edit: {
+          name: 'StaticPagesSavedInJinyaEdit',
+          route: '/designer/static/page/jinya/:slug/edit'
+        },
+        Delete: {
+          name: 'StaticPagesSavedInJinyaDelete',
+          route: '/designer/static/page/jinya/:slug/delete'
+        }
+      },
+      SavedExternal: {
+        Overview: {
+          name: 'StaticPagesSavedExternalOverview',
+          route: '/designer/static/page/external'
+        },
+        Details: {
+          name: 'StaticPagesSavedExternalDetails',
+          route: '/designer/static/page/external/:slug'
+        },
+        Add: {
+          name: 'StaticPagesSavedExternalAdd',
+          route: '/designer/static/page/external/add'
+        },
+        Edit: {
+          name: 'StaticPagesSavedExternalEdit',
+          route: '/designer/static/page/external/:slug/edit'
+        },
+        Delete: {
+          name: 'StaticPagesSavedExternalDelete',
+          route: '/designer/static/page/external/:slug/delete'
+        }
+      }
+    },
+    Forms: {
+      Forms: {
+        Overview: {
+          name: 'StaticFormsFormsOverview',
+          route: '/designer/static/forms/forms'
+        },
+        Add: {
+          name: 'StaticFormsFormsAdd',
+          route: '/designer/static/forms/forms/add'
+        },
+        Edit: {
+          name: 'StaticFormsFormsEdit',
+          route: '/designer/static/forms/forms/:slug/edit'
+        },
+        Delete: {
+          name: 'StaticFormsFormsDelete',
+          route: '/designer/static/forms/forms/:slug/delete'
+        },
+        Details: {
+          name: 'StaticFormsFormsDetails',
+          route: '/designer/static/forms/forms/:slug'
+        }
+      },
+      EmailTemplates: {
+        Overview: {
+          name: 'StaticFormsEmailTemplatesOverview',
+          route: '/designer/static/forms/emailtemplates'
+        },
+        Add: {
+          name: 'StaticFormsEmailTemplatesAdd',
+          route: '/designer/static/forms/emailtemplates/add'
+        },
+        Edit: {
+          name: 'StaticFormsEmailTemplatesEdit',
+          route: '/designer/static/forms/emailtemplates/:slug/edit'
+        },
+        Delete: {
+          name: 'StaticFormsEmailTemplatesDelete',
+          route: '/designer/static/forms/emailtemplates/:slug/delete'
+        },
+        Details: {
+          name: 'StaticFormsEmailTemplatesDetails',
+          route: '/designer/static/forms/emailtemplates/:slug'
+        }
+      },
+      Requests: {
+        Overview: {
+          name: 'StaticFormsRequestsOverview',
+          route: '/designer/static/forms/requests'
+        },
+        Reply: {
+          name: 'StaticFormsRequestsReply',
+          route: '/designer/static/forms/requests/:slug/reply'
+        },
+        Close: {
+          name: 'StaticFormsRequestsClose',
+          route: '/designer/static/forms/requests/:slug/close'
+        },
+        Details: {
+          name: 'StaticFormsRequestsDetails',
+          route: '/designer/static/forms/requests/:slug'
+        }
+      }
+    }
+  },
+  Configuration: {
+    General: {
+      Artists: {
+        Overview: {
+          name: 'ConfigurationGeneralArtistsOverview',
+          route: '/designer/configuration/artists'
+        },
+        Details: {
+          name: 'ConfigurationGeneralArtistsDetails',
+          route: '/designer/configuration/artists/:slug'
+        },
+        Add: {
+          name: 'ConfigurationGeneralArtistsAdd',
+          route: '/designer/configuration/artists/add'
+        },
+        Edit: {
+          name: 'ConfigurationGeneralArtistsEdit',
+          route: '/designer/configuration/artists/:slug/edit'
+        },
+        Delete: {
+          name: 'ConfigurationGeneralArtistsDelete',
+          route: '/designer/configuration/artists/:slug/delete'
+        }
+      }
+    },
+    Frontend: {
+      Menu: {
+        Overview: {
+          name: 'ConfigurationFrontendMenusOverview',
+          route: '/designer/configuration/frontend/menu'
+        },
+        Add: {
+          name: 'ConfigurationFrontendMenusAdd',
+          route: '/designer/configuration/frontend/menu/add'
+        },
+        Edit: {
+          name: 'ConfigurationFrontendMenusEdit',
+          route: '/designer/configuration/frontend/menu/:slug/edit'
+        },
+        Delete: {
+          name: 'ConfigurationFrontendMenusDelete',
+          route: '/designer/configuration/frontend/menu/:slug/delete'
+        },
+        Details: {
+          name: 'ConfigurationFrontendMenusDetails',
+          route: '/designer/configuration/frontend/menu/:slug'
+        }
+      },
+      Theme: {
+        Overview: {
+          name: 'ConfigurationFrontendThemeOverview',
+          route: '/designer/configuration/frontend/theme'
+        },
+        Edit: {
+          name: 'ConfigurationFrontendThemeEdit',
+          route: '/designer/configuration/frontend/theme/:slug'
+        }
+      }
+    }
+  },
+  Maintenance: {
+    System: {
+      Updates: {
+        name: 'MaintenanceSystemUpdates',
+        route: '/designer/maintenance/updates'
+      },
+      Environment: {
+        name: 'MaintenanceSystemEnvironment',
+        route: '/designer/maintenance/environment'
+      },
+      Cache: {
+        name: 'MaintenanceSystemCache',
+        route: '/designer/maintenance/cache'
+      },
+      Version: {
+        name: 'MaintenanceSystemVersion',
+        route: '/designer/maintenance/version'
+      },
+      PHP: {
+        name: 'MaintenanceSystemPHP',
+        route: '/designer/maintenance/PHP'
+      }
+    },
+    Database: {
+      MySQL: {
+        name: 'MaintenanceDatabaseMySQL',
+        route: '/designer/maintenance/database/mysql'
+      },
+      Tool: {
+        name: 'MaintenanceDatabaseTool',
+        route: '/designer/maintenance/database/tool'
+      }
+    },
+    Diagnosis: {
+      ApplicationLog: {
+        Overview: {
+          name: 'MaintenanceDiagnosisApplicationLogOverview',
+          route: '/designer/maintenance/applicationlog'
+        },
+        Details: {
+          name: 'MaintenanceDiagnosisApplicationLogDetails',
+          route: '/designer/maintenance/applicationlog/:id'
+        },
+        Clear: {
+          name: 'MaintenanceDiagnosisApplicationLogEdit',
+          route: '/designer/maintenance/applicationlog/clear'
+        }
+      },
+      AccessLog: {
+        Overview: {
+          name: 'MaintenanceDiagnosisAccessLogOverview',
+          route: '/designer/maintenance/accesslog'
+        },
+        Details: {
+          name: 'MaintenanceDiagnosisAccessLogDetails',
+          route: '/designer/maintenance/accesslog/:id'
+        },
+        Clear: {
+          name: 'MaintenanceDiagnosisAccessLogEdit',
+          route: '/designer/maintenance/accesslog/clear'
+        }
+      }
+    }
+  },
+  MyJinya: {
+    Account: {
+      Profile: {
+        name: 'MyJinyaAccountProfile',
+        route: '/designer/myjinya'
+      },
+      Edit: {
+        name: 'MyJinyaAccountEdit',
+        route: '/designer/myjinya/edit'
+      },
+      Password: {
+        name: 'MyJinyaAccountPassword',
+        route: '/designer/myjinya/password'
+      }
+    },
+    CreatedByMe: {
+      Artworks: {
+        name: 'MyJinyaCreatedByMeArtworks',
+        route: '/designer/createdbyme/artworks'
+      },
+      Videos: {
+        name: 'MyJinyaCreatedByMeVideos',
+        route: '/designer/createdbyme/videos'
+      },
+      Galleries: {
+        name: 'MyJinyaCreatedByMeGalleries',
+        route: '/designer/createdbyme/galleries'
+      },
+      Pages: {
+        name: 'MyJinyaCreatedByMePages',
+        route: '/designer/createdbyme/pages'
+      },
+      Forms: {
+        name: 'MyJinyaCreatedByMeForms',
+        route: '/designer/createdbyme/forms'
+      },
+      Menus: {
+        name: 'MyJinyaCreatedByMeMenus',
+        route: '/designer/createdbyme/menus'
+      }
+    }
   }
 };

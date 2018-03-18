@@ -1,13 +1,24 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 import Lockr from 'lockr';
 import Routes from "./Routes";
 import EventBus from "../components/Framework/Events/EventBus";
 
-import Account from './account'
-import Art from './art'
+import Account from './account';
+import Art from './art';
+import Static from './static';
+import Home from './home';
+import Configuration from './configuration';
+import Maintenance from './maintenance';
+import MyJinya from './myjinya';
 
-const routes = Account.concat(Art);
+const routes = Home
+  .concat(Account)
+  .concat(Art)
+  .concat(Static)
+  .concat(Configuration)
+  .concat(Maintenance)
+  .concat(MyJinya);
 
 Vue.use(Router);
 
