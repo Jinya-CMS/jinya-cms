@@ -2,6 +2,7 @@
     <header class="jinya-menu">
         <jinya-menu-navbar @hamburger-mouseover="isHover = true" @hamburger-mouseout="isHover = false"
                            @hamburger-click="isOpen = !isOpen">
+            <span class="jinya-menu__header" v-if="$route.meta.title">{{$route.meta.title|jmessage}}</span>
             <jinya-menu-navbar-search-item v-if="!$route.meta.searchDisabled"/>
         </jinya-menu-navbar>
         <jinya-menu-flyout @mouseover.native="isHover = true" @mouseout.native="isHover = false">
@@ -137,6 +138,7 @@
   import JinyaMenuFlyoutMenuItem from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
   import JinyaMenuNavbarSearchItem from "@/components/Framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
   import EventBus from "../../Events/EventBus";
+  import Events from "../../Events/Events";
 
   export default {
     components: {
@@ -158,7 +160,7 @@
     },
     name: "jinya-menu",
     mounted() {
-      EventBus.$on('navigated', () => {
+      EventBus.$on(Events.navigation.navigated, () => {
         this.isOpen = false;
         this.isHover = false;
         this.selectedHeader = '';
@@ -175,4 +177,12 @@
 </script>
 
 <style scoped lang="scss">
+    .jinya-menu__header {
+        text-align: center;
+        width: 100%;
+        font-size: 2rem;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: $primary-lighter;
+    }
 </style>

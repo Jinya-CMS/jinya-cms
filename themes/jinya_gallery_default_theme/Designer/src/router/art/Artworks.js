@@ -1,11 +1,15 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview'
 
 export default [
   {
     path: Routes.Art.Artworks.SavedInJinya.Overview.route,
     name: Routes.Art.Artworks.SavedInJinya.Overview.name,
-    component: Missing
+    component: ArtworksSavedInJinyaOverview,
+    meta: {
+      title: 'routes.art.artworks.saved_in_jinya.overview'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Add.route,

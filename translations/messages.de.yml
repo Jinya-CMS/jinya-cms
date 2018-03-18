@@ -64,6 +64,7 @@ install:
       label: Umgebung
 account:
   login:
+    title: An Jinya anmelden
     email: Email
     password: Passwort
     submit: Anmelden
@@ -161,6 +162,15 @@ menu:
             videos: Videos
             forms: Formulare
             menus: Menüs
+routes:
+  art:
+    artworks:
+      saved_in_jinya:
+        overview: In Jinya gespeicherte Kunstwerke
+  home:
+    startpage: Startseite
+  account:
+    login: Jinya CMS Login
 home:
   missing:
     header: Sorry ich bin noch nicht fertig

@@ -5,6 +5,10 @@ export default [
   {
     path: Routes.Account.Login.route,
     name: Routes.Account.Login.name,
-    component: Login
+    component: Login,
+    meta: {
+      title: 'routes.account.login',
+      background: window.options.startBackground
+    }
   }
 ];

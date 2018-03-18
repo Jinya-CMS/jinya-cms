@@ -5,6 +5,10 @@ export default [
   {
     path: Routes.Home.StartPage.route,
     name: Routes.Home.StartPage.name,
-    component: StartPage
+    component: StartPage,
+    meta: {
+      title: 'routes.home.startpage',
+      background: window.options.startBackground
+    }
   }
 ];

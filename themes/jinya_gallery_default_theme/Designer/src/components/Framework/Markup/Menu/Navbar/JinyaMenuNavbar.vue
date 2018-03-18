@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-menu__navbar">
         <div class="jinya-menu__hamburger" @click="$emit('hamburger-click')" @mouseover="$emit('hamburger-mouseover')"
-            @mouseout="$emit('hamburger-mouseout')">
+             @mouseout="$emit('hamburger-mouseout')">
             <span class="jinya-menu__hamburger__bar"></span>
             <span class="jinya-menu__hamburger__bar"></span>
             <span class="jinya-menu__hamburger__bar"></span>
@@ -27,7 +27,6 @@
 
         .jinya-menu__hamburger {
             background: $primary;
-            width: 60px;
             cursor: pointer;
             margin: 0;
             background: $primary;
@@ -36,6 +35,8 @@
             justify-content: center;
             padding: 10px;
             color: white;
+            width: 60px;
+            box-sizing: content-box;
 
             &:hover {
                 background: $white;

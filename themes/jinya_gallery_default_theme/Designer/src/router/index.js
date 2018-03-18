@@ -11,6 +11,7 @@ import Home from './home';
 import Configuration from './configuration';
 import Maintenance from './maintenance';
 import MyJinya from './myjinya';
+import Events from "../components/Framework/Events/Events";
 
 const routes = Home
   .concat(Account)
@@ -28,10 +29,11 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!Lockr.get('JinyaApiKey') && to.name !== Routes.Account.Login.name) {
+  const apiKey = Lockr.get('JinyaApiKey');
+  if (!apiKey && to.name !== Routes.Account.Login.name) {
     next(Routes.Account.Login.route);
   } else {
-    EventBus.$emit('navigated');
+    EventBus.$emit(Events.navigation.navigated);
     next();
   }
 });

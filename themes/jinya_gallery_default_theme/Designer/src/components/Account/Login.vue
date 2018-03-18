@@ -1,12 +1,11 @@
 <template>
     <section class="jinya-login">
-        <img :src="options.startBackground" class="jinya-login__background" alt=""/>
         <jinya-form class="jinya-login__form" @submit="login">
-            <h1 v-jinya-message="'layout.account.login.title'"></h1>
+            <h1 v-jinya-message="'account.login.title'"></h1>
             <jinya-input :autofocus="true" autocomplete="login email" v-model="email" label="account.login.email"
-                         required="true" type="email"/>
+                         :required="true" type="email"/>
             <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
-                         required="true" type="password"/>
+                         :required="true" type="password"/>
             <jinya-button :is-primary="true" label="account.login.submit" type="submit"/>
         </jinya-form>
     </section>
@@ -18,6 +17,7 @@
   import JinyaForm from "@/components/Framework/Markup/Form/Form";
   import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
   import Lockr from 'lockr';
+  import Routes from "../../router/Routes";
 
   export default {
     components: {
@@ -33,7 +33,7 @@
       login() {
         JinyaRequest.post('/api/login', {username: this.email, password: this.password}).then(value => {
           Lockr.set('JinyaApiKey', value.apiKey);
-          this.$router.push({name: 'DesignerRoot'});
+          this.$router.push({name: Routes.Home.StartPage.name});
         }).catch(reason => alert(reason.message));
       }
     }
@@ -56,7 +56,7 @@
             left: 0;
         }
         .jinya-login__form {
-            margin: 10% 40% auto;
+            margin: 10% 35% auto;
             padding: 1.5em 3em;
             height: auto;
             background-color: transparentize($gray-200, 0.2);

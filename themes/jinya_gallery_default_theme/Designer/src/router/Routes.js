@@ -8,7 +8,7 @@ export default {
   Home: {
     StartPage: {
       name: 'HomeStartPage',
-      route: '/designer'
+      route: '/designer/'
     },
     Missing: {
       name: 'HomeMissing'

@@ -4,8 +4,11 @@ import NotAllowedError from "@/components/Framework/Ajax/Error/NotAllowedError";
 import UnauthorizedError from "@/components/Framework/Ajax/Error/UnauthorizedError";
 import BadRequestError from "@/components/Framework/Ajax/Error/BadRequestError";
 import HttpError from "@/components/Framework/Ajax/Error/HttpError";
+import EventBus from "../Events/EventBus";
+import Events from "../Events/Events";
 
 async function send(verb, url, data, contentType = 'application/json') {
+  EventBus.$emit(Events.request.started);
   const request = {
     method: verb,
     headers: {
@@ -22,6 +25,7 @@ async function send(verb, url, data, contentType = 'application/json') {
   }
 
   return await fetch(url, request).then(async response => {
+    EventBus.$emit(Events.request.finished, {success: response.ok});
     if (response.ok) {
       return response.json();
     } else {
