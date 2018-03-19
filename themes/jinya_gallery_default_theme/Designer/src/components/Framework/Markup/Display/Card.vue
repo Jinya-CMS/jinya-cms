@@ -28,7 +28,6 @@
         margin: 1em;
         box-shadow: 0 0 1px 0 $primary;
         background: $white;
-        position: relative;
         border-radius: 10px;
         transition: box-shadow 0.3s;
         display: inline-block;

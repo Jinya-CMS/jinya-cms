@@ -50,8 +50,6 @@
         height: 100%;
         object-fit: cover;
         transition: all 0.3s;
-        position: relative;
-        z-index: 10;
 
         &:hover {
             object-fit: scale-down;
