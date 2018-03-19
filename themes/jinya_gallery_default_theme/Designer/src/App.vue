@@ -4,8 +4,10 @@
             <jinya-menu/>
         </nav>
         <img :src="background" class="jinya-app__background"/>
-        <main class="jinya-app__content">
-            <router-view/>
+        <main class="jinya-app__content" @click="hideMenu">
+            <div class="jinya-app__router-view">
+                <router-view/>
+            </div>
         </main>
     </section>
 </template>
@@ -24,6 +26,11 @@
         this.background = this.$route.meta.background || window.options.genericBackground;
       });
     },
+    methods: {
+      hideMenu() {
+        EventBus.$emit(Events.navigation.navigated);
+      }
+    },
     data() {
       return {
         background: this.$route.meta.background || window.options.genericBackground,
@@ -38,9 +45,13 @@
         height: 100%;
         width: 100%;
         overflow: auto;
+        position: relative;
 
-        .jinya-app__content {
-            padding: 0 10%;
+        .jinya-app__navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
         }
 
         .jinya-app__background {
@@ -50,6 +61,15 @@
             position: fixed;
             top: 0;
             left: 0;
+        }
+
+        .jinya-app__content {
+            height: 100%;
+            width: 100%;
+        }
+
+        .jinya-app__router-view {
+            padding: 0 10% 0;
         }
     }
 </style>
@@ -62,6 +82,7 @@
         font-family: $font-family;
         margin: 0;
         overflow: auto;
+        padding-top: 60px;
     }
 
     a {
