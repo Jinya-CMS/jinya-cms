@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Media;
 
+use SplFileInfo;
 use const DIRECTORY_SEPARATOR;
 use function array_reverse;
 use function file_exists;
@@ -80,5 +81,16 @@ class MediaService implements MediaServiceInterface
         $filename = $parts[0];
         $type = $parts[1];
         unlink($this->getFilePath($type) . $filename);
+    }
+
+    /**
+     * Gets the media as SplFileInfo
+     *
+     * @param string $path
+     * @return SplFileInfo
+     */
+    public function getMedia(string $path): SplFileInfo
+    {
+        return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
     }
 }

@@ -28,9 +28,10 @@ class ArtworkPictureController extends BaseApiController
      * @param string $slug
      * @param Request $request
      * @param ArtworkServiceInterface $artworkService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService): Response
+    public function getPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response
     {
         /** @var $data Artwork */
         list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $slug) {
@@ -45,7 +46,7 @@ class ArtworkPictureController extends BaseApiController
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->redirect($data->getPicture());
+            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName() . '.jpg');
         }
     }
 

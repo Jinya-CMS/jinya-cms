@@ -9,9 +9,11 @@
 namespace Jinya\Controller\Api\Menu;
 
 
+use Jinya\Entity\Menu;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,19 +25,26 @@ class MenuLogoController extends BaseApiController
      *
      * @param int $id
      * @param MenuServiceInterface $menuService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getAction(int $id, MenuServiceInterface $menuService): Response
+    public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
+        /** @var $data Menu */
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
-            return $menuService->get($id)->getLogo();
+            return $menuService->get($id);
         });
 
-        return $this->json($data, $status);
+        if ($status !== 200) {
+            return $this->json($data, $status);
+        } else {
+            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
+        }
     }
 
     /**
      * @Route("/api/menu/{id}/logo", methods={"POST"}, name="api_menu_logo_post")
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param Request $request
@@ -58,6 +67,7 @@ class MenuLogoController extends BaseApiController
 
     /**
      * @Route("/api/menu/{id}/logo", methods={"DELETE"}, name="api_menu_logo_delete")
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param MenuServiceInterface $menuService
