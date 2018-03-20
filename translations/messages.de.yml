@@ -171,6 +171,12 @@ routes:
     startpage: Startseite
   account:
     login: Jinya CMS Login
+framework:
+  markup:
+    navigation:
+      pager:
+        previous: Zurück
+        next: Weiter
 home:
   missing:
     header: Sorry ich bin noch nicht fertig

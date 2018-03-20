@@ -1,5 +1,5 @@
 <template>
-    <section class="jinya-card__list">
+    <section class="jinya-card-list">
         <slot/>
     </section>
 </template>
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-card__list {
+    .jinya-card-list {
         display: flex;
         flex-flow: row wrap;
         width: 100%;
