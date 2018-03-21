@@ -49,6 +49,7 @@
             border: 1px solid $primary;
             min-width: 8em;
             padding: 0.6em;
+            outline: none;
 
             &.is--disabled {
                 background: $gray-100;
@@ -66,6 +67,10 @@
             &:hover {
                 background: $primary;
                 color: $white;
+            }
+
+            &:focus {
+                outline: none;
             }
 
             &.jinya-navigation-pager__button--previous {

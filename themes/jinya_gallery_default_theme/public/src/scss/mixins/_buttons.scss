@@ -27,6 +27,10 @@
     @include card-footer-edit-buttons('edit', $edit-color);
     @include card-footer-edit-buttons('delete', $delete-color);
 
+    &:focus {
+      outline: none;
+    }
+
     &:first-of-type {
       border-bottom-left-radius: 10px;
     }

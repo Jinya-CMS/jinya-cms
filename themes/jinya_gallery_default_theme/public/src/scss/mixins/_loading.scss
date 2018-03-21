@@ -9,8 +9,7 @@
       .jinya-card-list {
         &.jinya-card-list--loading {
           position: absolute;
-          border: 16px solid;
-          border-left-color: $white;
+          border: 16px solid transparent;
           border-top-color: $primary-lighter;
           border-right-color: $primary;
           border-bottom-color: $primary-darker;
