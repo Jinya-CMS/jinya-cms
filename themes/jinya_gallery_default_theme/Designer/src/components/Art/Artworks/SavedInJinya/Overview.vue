@@ -13,7 +13,8 @@
                 </button>
             </jinya-card>
         </jinya-card-list>
-        <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading"/>
+        <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
+                     :count="count"/>
     </section>
 </template>
 
