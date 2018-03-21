@@ -176,6 +176,8 @@ framework:
     navigation:
       pager:
         previous: Zurück
+        page: Seite
+        of: von
         next: Weiter
 home:
   missing:

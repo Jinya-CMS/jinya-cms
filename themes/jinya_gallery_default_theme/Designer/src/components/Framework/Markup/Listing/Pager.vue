@@ -3,6 +3,7 @@
         <button :disabled="offset === 0" :class="{'is--disabled': offset === 0}"
                 class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
                 @click="$emit('previous')" v-jinya-message="'framework.markup.navigation.pager.previous'"></button>
+        <span class="jinya-navigation-pager__indicator">{{'framework.markup.navigation.pager.page'|jmessage}} {{currentPage}} {{'framework.markup.navigation.pager.of'|jmessage}} {{pages}}</span>
         <button :disabled="offset + 10 >= count" :class="{'is--disabled': offset + 10 >= count}"
                 class="jinya-navigation-pager__button jinya-navigation-pager__button--next"
                 @click="$emit('next')" v-jinya-message="'framework.markup.navigation.pager.next'"></button>
@@ -21,6 +22,14 @@
         type: Number,
         required: true
       }
+    },
+    data() {
+      const pages = (this.count / 10).toFixed(0);
+
+      return {
+        pages: pages,
+        currentPage: this.offset / 10 + 1
+      }
     }
   }
 </script>
@@ -32,9 +41,9 @@
         padding: 1em;
         justify-content: space-between;
         transition: all 0.3s;
-        cursor: pointer;
 
         .jinya-navigation-pager__button {
+            cursor: pointer;
             background: $white;
             color: $primary;
             border: 1px solid $primary;
@@ -66,6 +75,11 @@
             &.jinya-navigation-pager__button--next {
                 align-self: flex-end;
             }
+        }
+
+        .jinya-navigation-pager__indicator {
+            padding: calc(1em + 1px);
+            color: $primary;
         }
     }
 </style>
