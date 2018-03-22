@@ -1,5 +1,5 @@
 @mixin card-footer-edit-buttons($name, $color) {
-  &.jinya-art-button--#{$name} {
+  &.#{$name} {
     color: $color;
     border: 1px solid $color;
     background: $white;
@@ -23,9 +23,9 @@
     font-size: 1.2em;
     cursor: pointer;
 
-    @include card-footer-edit-buttons('details', $details-color);
-    @include card-footer-edit-buttons('edit', $edit-color);
-    @include card-footer-edit-buttons('delete', $delete-color);
+    @include card-footer-edit-buttons('#{$classname}--details', $details-color);
+    @include card-footer-edit-buttons('#{$classname}--edit', $edit-color);
+    @include card-footer-edit-buttons('#{$classname}--delete', $delete-color);
 
     &:focus {
       outline: none;
