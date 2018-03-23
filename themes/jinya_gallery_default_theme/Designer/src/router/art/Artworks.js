@@ -22,11 +22,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Art.Artworks.SavedInJinya.Delete.route,
-    name: Routes.Art.Artworks.SavedInJinya.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Art.Artworks.SavedInJinya.Edit.route,
     name: Routes.Art.Artworks.SavedInJinya.Edit.name,
     component: Missing
@@ -44,11 +39,6 @@ export default [
   {
     path: Routes.Art.Artworks.SavedExternal.Details.route,
     name: Routes.Art.Artworks.SavedExternal.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Art.Artworks.SavedExternal.Delete.route,
-    name: Routes.Art.Artworks.SavedExternal.Delete.name,
     component: Missing
   },
   {

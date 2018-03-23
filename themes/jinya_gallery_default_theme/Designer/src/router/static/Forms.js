@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Static.Forms.Forms.Delete.route,
-    name: Routes.Static.Forms.Forms.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Static.Forms.Forms.Edit.route,
     name: Routes.Static.Forms.Forms.Edit.name,
     component: Missing
@@ -43,11 +38,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Static.Forms.EmailTemplates.Delete.route,
-    name: Routes.Static.Forms.EmailTemplates.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Static.Forms.EmailTemplates.Edit.route,
     name: Routes.Static.Forms.EmailTemplates.Edit.name,
     component: Missing
@@ -65,11 +55,6 @@ export default [
   {
     path: Routes.Static.Forms.Requests.Details.route,
     name: Routes.Static.Forms.Requests.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Static.Forms.Requests.Close.route,
-    name: Routes.Static.Forms.Requests.Close.name,
     component: Missing
   }
 ];

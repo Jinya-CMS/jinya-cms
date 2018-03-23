@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Static.Pages.SavedInJinya.Delete.route,
-    name: Routes.Static.Pages.SavedInJinya.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Static.Pages.SavedInJinya.Edit.route,
     name: Routes.Static.Pages.SavedInJinya.Edit.name,
     component: Missing
@@ -40,11 +35,6 @@ export default [
   {
     path: Routes.Static.Pages.SavedExternal.Details.route,
     name: Routes.Static.Pages.SavedExternal.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Static.Pages.SavedExternal.Delete.route,
-    name: Routes.Static.Pages.SavedExternal.Delete.name,
     component: Missing
   },
   {

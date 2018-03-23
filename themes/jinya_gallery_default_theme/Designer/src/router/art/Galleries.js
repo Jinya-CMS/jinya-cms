@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Art.Galleries.Art.Delete.route,
-    name: Routes.Art.Galleries.Art.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Art.Galleries.Art.Edit.route,
     name: Routes.Art.Galleries.Art.Edit.name,
     component: Missing
@@ -40,11 +35,6 @@ export default [
   {
     path: Routes.Art.Galleries.Video.Details.route,
     name: Routes.Art.Galleries.Video.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Art.Galleries.Video.Delete.route,
-    name: Routes.Art.Galleries.Video.Delete.name,
     component: Missing
   },
   {

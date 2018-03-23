@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Configuration.Frontend.Menu.Delete.route,
-    name: Routes.Configuration.Frontend.Menu.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Configuration.Frontend.Menu.Edit.route,
     name: Routes.Configuration.Frontend.Menu.Edit.name,
     component: Missing

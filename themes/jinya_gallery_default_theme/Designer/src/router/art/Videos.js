@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Art.Videos.SavedInJinya.Delete.route,
-    name: Routes.Art.Videos.SavedInJinya.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Art.Videos.SavedInJinya.Edit.route,
     name: Routes.Art.Videos.SavedInJinya.Edit.name,
     component: Missing
@@ -40,11 +35,6 @@ export default [
   {
     path: Routes.Art.Videos.SavedOnYoutube.Details.route,
     name: Routes.Art.Videos.SavedOnYoutube.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Art.Videos.SavedOnYoutube.Delete.route,
-    name: Routes.Art.Videos.SavedOnYoutube.Delete.name,
     component: Missing
   },
   {
@@ -68,11 +58,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Art.Videos.SavedOnVimeo.Delete.route,
-    name: Routes.Art.Videos.SavedOnVimeo.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Art.Videos.SavedOnVimeo.Edit.route,
     name: Routes.Art.Videos.SavedOnVimeo.Edit.name,
     component: Missing
@@ -90,11 +75,6 @@ export default [
   {
     path: Routes.Art.Videos.SavedOnNewgrounds.Details.route,
     name: Routes.Art.Videos.SavedOnNewgrounds.Details.name,
-    component: Missing
-  },
-  {
-    path: Routes.Art.Videos.SavedOnNewgrounds.Delete.route,
-    name: Routes.Art.Videos.SavedOnNewgrounds.Delete.name,
     component: Missing
   },
   {

@@ -18,11 +18,6 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Configuration.General.Artists.Delete.route,
-    name: Routes.Configuration.General.Artists.Delete.name,
-    component: Missing
-  },
-  {
     path: Routes.Configuration.General.Artists.Edit.route,
     name: Routes.Configuration.General.Artists.Edit.name,
     component: Missing

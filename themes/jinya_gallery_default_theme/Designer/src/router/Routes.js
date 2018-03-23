@@ -32,10 +32,6 @@ export default {
         Edit: {
           name: 'ArtArtworksSavedInJinyaEdit',
           route: '/designer/art/artwork/jinya/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtArtworksSavedInJinyaDelete',
-          route: '/designer/art/artwork/jinya/:slug/delete'
         }
       },
       SavedExternal: {
@@ -54,10 +50,6 @@ export default {
         Edit: {
           name: 'ArtArtworksSavedExternalEdit',
           route: '/designer/art/artwork/external/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtArtworksSavedExternalDelete',
-          route: '/designer/art/artwork/external/:slug/delete'
         }
       }
     },
@@ -74,10 +66,6 @@ export default {
         Edit: {
           name: 'ArtVideosSavedInJinyaEdit',
           route: '/designer/art/video/jinya/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtVideosSavedInJinyaDelete',
-          route: '/designer/art/video/jinya/:slug/delete'
         },
         Details: {
           name: 'ArtVideosSavedInJinyaDetails',
@@ -97,10 +85,6 @@ export default {
           name: 'ArtVideosSavedOnYoutubeEdit',
           route: '/designer/art/video/youtube/:slug/edit'
         },
-        Delete: {
-          name: 'ArtVideosSavedOnYoutubeDelete',
-          route: '/designer/art/video/youtube/:slug/delete'
-        },
         Details: {
           name: 'ArtVideosSavedOnYoutubeDetails',
           route: '/designer/art/video/youtube/:slug'
@@ -119,10 +103,6 @@ export default {
           name: 'ArtVideosSavedOnVimeoEdit',
           route: '/designer/art/video/vimeo/:slug/edit'
         },
-        Delete: {
-          name: 'ArtVideosSavedOnVimeoDelete',
-          route: '/designer/art/video/vimeo/:slug/delete'
-        },
         Details: {
           name: 'ArtVideosSavedOnVimeoDetails',
           route: '/designer/art/video/vimeo/:slug'
@@ -140,10 +120,6 @@ export default {
         Edit: {
           name: 'ArtVideosSavedOnNewgroundsEdit',
           route: '/designer/art/video/newgrounds/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtVideosSavedOnNewgroundsDelete',
-          route: '/designer/art/video/newgrounds/:slug/delete'
         },
         Details: {
           name: 'ArtVideosSavedOnNewgroundsDetails',
@@ -168,10 +144,6 @@ export default {
         Edit: {
           name: 'ArtGalleriesArtEdit',
           route: '/designer/art/gallery/art/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtGalleriesArtDelete',
-          route: '/designer/art/gallery/art/:slug/delete'
         }
       },
       Video: {
@@ -190,10 +162,6 @@ export default {
         Edit: {
           name: 'ArtGalleriesVideoEdit',
           route: '/designer/art/gallery/video/:slug/edit'
-        },
-        Delete: {
-          name: 'ArtGalleriesVideoDelete',
-          route: '/designer/art/gallery/video/:slug/delete'
         }
       }
     }
@@ -216,10 +184,6 @@ export default {
         Edit: {
           name: 'StaticPagesSavedInJinyaEdit',
           route: '/designer/static/page/jinya/:slug/edit'
-        },
-        Delete: {
-          name: 'StaticPagesSavedInJinyaDelete',
-          route: '/designer/static/page/jinya/:slug/delete'
         }
       },
       SavedExternal: {
@@ -238,10 +202,6 @@ export default {
         Edit: {
           name: 'StaticPagesSavedExternalEdit',
           route: '/designer/static/page/external/:slug/edit'
-        },
-        Delete: {
-          name: 'StaticPagesSavedExternalDelete',
-          route: '/designer/static/page/external/:slug/delete'
         }
       }
     },
@@ -258,10 +218,6 @@ export default {
         Edit: {
           name: 'StaticFormsFormsEdit',
           route: '/designer/static/forms/forms/:slug/edit'
-        },
-        Delete: {
-          name: 'StaticFormsFormsDelete',
-          route: '/designer/static/forms/forms/:slug/delete'
         },
         Details: {
           name: 'StaticFormsFormsDetails',
@@ -281,10 +237,6 @@ export default {
           name: 'StaticFormsEmailTemplatesEdit',
           route: '/designer/static/forms/emailtemplates/:slug/edit'
         },
-        Delete: {
-          name: 'StaticFormsEmailTemplatesDelete',
-          route: '/designer/static/forms/emailtemplates/:slug/delete'
-        },
         Details: {
           name: 'StaticFormsEmailTemplatesDetails',
           route: '/designer/static/forms/emailtemplates/:slug'
@@ -298,10 +250,6 @@ export default {
         Reply: {
           name: 'StaticFormsRequestsReply',
           route: '/designer/static/forms/requests/:slug/reply'
-        },
-        Close: {
-          name: 'StaticFormsRequestsClose',
-          route: '/designer/static/forms/requests/:slug/close'
         },
         Details: {
           name: 'StaticFormsRequestsDetails',
@@ -328,10 +276,6 @@ export default {
         Edit: {
           name: 'ConfigurationGeneralArtistsEdit',
           route: '/designer/configuration/artists/:slug/edit'
-        },
-        Delete: {
-          name: 'ConfigurationGeneralArtistsDelete',
-          route: '/designer/configuration/artists/:slug/delete'
         }
       }
     },
@@ -348,10 +292,6 @@ export default {
         Edit: {
           name: 'ConfigurationFrontendMenusEdit',
           route: '/designer/configuration/frontend/menu/:slug/edit'
-        },
-        Delete: {
-          name: 'ConfigurationFrontendMenusDelete',
-          route: '/designer/configuration/frontend/menu/:slug/delete'
         },
         Details: {
           name: 'ConfigurationFrontendMenusDetails',
