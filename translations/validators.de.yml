@@ -118,3 +118,11 @@ api:
           missing: Der Titel muss bereitgestellt werden
         pageType:
           missing: Der Seitetyp muss bereitgestellt werden
+art:
+  artworks:
+    overview:
+      delete:
+        api:
+          state:
+            409:
+              foreign_key_failed: Das Kunstwerk wird in einer Gallerie verwendet und kann daher nicht gelöscht werden.

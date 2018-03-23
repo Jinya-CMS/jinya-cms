@@ -70,17 +70,18 @@ account:
     submit: Anmelden
 api:
   state:
-    409:
-      exists: Die Resource existiert bereits
-    404:
-      generic: Die Resource konnte nicht gefunden werden
-    500:
-      generic: Ein interner Fehler ist aufgetreten
-    403:
-      generic: Für den Zugriff auf die Resource sind andere Rechte nötig
     401:
       generic: Für den Zugriff auf diese Resource ist eine Authentifizierung nötig
       expired: Der API Key apiKey ist abgelaufen
+    403:
+      generic: Für den Zugriff auf die Resource sind andere Rechte nötig
+    404:
+      generic: Die Resource konnte nicht gefunden werden
+    409:
+      exists: Die Resource existiert bereits
+      foreign_key_failed: Die Resource wird anderweitig verwendet
+    500:
+      generic: Ein interner Fehler ist aufgetreten
   route:
     types:
       frontend_form_details: Formular
@@ -176,9 +177,15 @@ framework:
     navigation:
       pager:
         previous: Zurück
-        page: Seite
-        of: von
+        page_indicator: Seite %page% von %count%
         next: Weiter
 home:
   missing:
     header: Sorry ich bin noch nicht fertig
+art:
+  artworks:
+    delete:
+      title: Ist das Kunst oder kann das weg?
+      content: Soll das Kunstwerk "%artwork%" wirklich gelöscht werden?
+      yes: Kunstwerk löschen
+      no: Kunstwerk nicht löschen

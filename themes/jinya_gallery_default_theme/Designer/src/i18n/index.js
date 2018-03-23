@@ -8,18 +8,7 @@ const i18n = {
       acceptStatement: false,
 
       bind(el, binding) {
-        const key = binding.value;
-        const message = Translator.message(key);
-
-        if (binding.modifiers && binding.modifiers.length > 0) {
-          for (let modifier in binding.modifiers) {
-            if (el.hasOwnProperty(modifier)) {
-              el.setAttribute(modifier, message);
-            }
-          }
-        } else {
-          el.innerText = message;
-        }
+        el.innerText = Translator.message(binding.value);
       }
     });
     Vue.directive('jinya-validator', {
@@ -27,26 +16,15 @@ const i18n = {
       acceptStatement: false,
 
       bind(el, binding) {
-        const key = binding.value;
-        const validator = Translator.validator(key);
-
-        if (binding.modifiers && binding.modifiers.length > 0) {
-          for (let modifier in binding.modifiers) {
-            if (el.hasOwnProperty(modifier)) {
-              el.setAttribute(modifier, validator);
-            }
-          }
-        } else {
-          el.innerText = validator;
-        }
+        el.innerText = Translator.validator(binding.value);
       }
     });
 
-    Vue.filter('jmessage', (value) => {
-      return Translator.message(value);
+    Vue.filter('jmessage', (value, parameter = {}) => {
+      return Translator.message(value, parameter);
     });
-    Vue.filter('jvalidator', (value) => {
-      return Translator.validator(value);
+    Vue.filter('jvalidator', (value, parameter = {}) => {
+      return Translator.validator(value, parameter);
     });
   }
 };
