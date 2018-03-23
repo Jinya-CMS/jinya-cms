@@ -6,6 +6,7 @@ import BadRequestError from "@/components/Framework/Ajax/Error/BadRequestError";
 import HttpError from "@/components/Framework/Ajax/Error/HttpError";
 import EventBus from "../Events/EventBus";
 import Events from "../Events/Events";
+import ConflictError from "./Error/ConflictError";
 
 async function send(verb, url, data, contentType = 'application/json') {
   EventBus.$emit(Events.request.started);
@@ -26,26 +27,30 @@ async function send(verb, url, data, contentType = 'application/json') {
 
   return await fetch(url, request).then(async response => {
     EventBus.$emit(Events.request.finished, {success: response.ok});
+
     if (response.ok) {
-      return response.json();
+      if (response.status !== 204) {
+        return response.json();
+      }
     } else {
-      const message = await response.json().then(error => error.message);
+      const error = await response.json().then(error => error.error.message);
+
       switch (response.status) {
         case 400:
-          throw new BadRequestError(message);
+          throw new BadRequestError(error);
         case 401:
-          throw new UnauthorizedError(message);
+          throw new UnauthorizedError(error);
         case 403:
-          throw new NotAllowedError(message);
+          throw new NotAllowedError(error);
         case 404:
-          throw new NotFoundError(message);
+          throw new NotFoundError(error);
+        case 409:
+          throw new ConflictError(error);
         default:
-          throw new HttpError(response.status, message);
+          throw new HttpError(response.status, error);
       }
     }
-  }).catch(reason => {
-    return {success: false, reason: reason};
-  })
+  });
 }
 
 export default {

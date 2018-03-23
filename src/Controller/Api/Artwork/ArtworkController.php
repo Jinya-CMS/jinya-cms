@@ -52,6 +52,7 @@ class ArtworkController extends BaseApiController
      */
     public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
+        /** @noinspection PhpParamsInspection */
         return $this->getArt($slug, $artworkService, function ($artwork) use ($artworkFormatter) {
             $result = $artworkFormatter->init($artwork)
                 ->name()
@@ -159,11 +160,12 @@ class ArtworkController extends BaseApiController
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $mediaService) {
             $artwork = $artworkService->get($slug);
-            if (!empty($artwork->getPicture())) {
-                $mediaService->deleteMedia($artwork->getPicture());
-            }
-
+            $picture = $artwork->getPicture();
             $artworkService->delete($artwork);
+
+            if (!empty($artwork->getPicture())) {
+                $mediaService->deleteMedia($picture);
+            }
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
