@@ -25,7 +25,6 @@
 </template>
 
 <script>
-  import ArtworksBase from './ArtworksBase';
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
   import JinyaCardList from "../../../Framework/Markup/Listing/Card/CardList";
   import JinyaCard from "../../../Framework/Markup/Listing/Card/Card";
@@ -36,6 +35,8 @@
   import Translator from "../../../Framework/i18n/Translator";
   import JinyaMessage from "../../../Framework/Markup/Validation/Message";
   import JinyaLoader from "../../../Framework/Markup/Loader";
+  import EventBus from "../../../Framework/Events/EventBus";
+  import Events from "../../../Framework/Events/Events";
 
   function load(url) {
     this.loading = true;
@@ -61,8 +62,7 @@
       JinyaCard,
       JinyaCardList
     },
-    extends: ArtworksBase,
-    name: "overview",
+    name: "jinya-artworks-saved-in-jinya-overview",
     methods: {
       load(url) {
         load.call(this, url);
@@ -97,7 +97,14 @@
       }
     },
     beforeCreate() {
-      load.call(this, '/api/artwork');
+      load.call(this, '/api/artwork?offset=0&count=10');
+
+      EventBus.$on(Events.search.triggered, value => {
+        load.call(this, `${this.currentUrl}&keyword=${encodeURIComponent(value.keyword)}`);
+      });
+    },
+    beforeDestroy() {
+      EventBus.$off(Events.search.triggered);
     },
     data() {
       return {

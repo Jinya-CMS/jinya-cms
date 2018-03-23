@@ -29,11 +29,11 @@
     data() {
       const data = {};
       data.additionalClasses = {
-        'is--primary': this.isPrimary,
-        'is--secondary': this.isSecondary,
-        'is--danger': this.isDanger,
-        'is--success': this.isSuccess,
-        'is--default': !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
+        'is--primary': this.isDisabled ? false : this.isPrimary,
+        'is--secondary': this.isDisabled ? false : this.isSecondary,
+        'is--danger': this.isDisabled ? false : this.isDanger,
+        'is--success': this.isDisabled ? false : this.isSuccess,
+        'is--default': this.isDisabled ? false : !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
         'is--inverse': this.isInverse,
         'is--disabled': this.isDisabled
       };
@@ -173,13 +173,26 @@
 
         &[disabled],
         &.is--disabled {
-            background: $gray-200;
-            border-color: $gray-200;
-            color: $white;
+            background: $gray-600;
+            border-color: $gray-600;
+            color: color-yiq($gray-600);
+            cursor: not-allowed;
+
+            &.is--inverse {
+                background: $white;
+                border-color: $gray-600;
+                color: $gray-600;
+            }
 
             &:hover {
-                background: $gray-200;
+                background: $gray-600;
                 color: $white;
+
+                &.is--inverse {
+                    background: $white;
+                    border-color: $gray-600;
+                    color: $gray-600;
+                }
             }
         }
     }
