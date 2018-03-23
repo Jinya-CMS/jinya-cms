@@ -1,27 +1,46 @@
 <template>
     <transition name="overlay" enter-class="is--entering" leave-to-class="is--leaving">
-        <section class="jinya-modal__overlay" @click.self="$emit('close')">
+        <div class="jinya-modal__overlay" @click.self="$emit('close')">
             <dialog class="jinya-modal-dialog" open>
-                <header class="jinya-modal-dialog__title" :v-jinya-message="title"></header>
-                <section class="jinya-modal-dialog__content">
+                <header class="jinya-modal-dialog__title" v-jinya-message="title"></header>
+                <div class="jinya-modal-dialog__message">
+                    <slot name="message"/>
+                </div>
+                <div class="jinya-modal-dialog__loader" v-if="loading">
+                    <jinya-loader :loading="loading"/>
+                </div>
+                <div class="jinya-modal-dialog__content" v-if="!loading">
                     <slot/>
-                </section>
+                </div>
                 <footer class="jinya-modal-dialog__footer">
-                    <slot name="buttons-left"/>
-                    <slot name="buttons-right"/>
+                    <div class="jinya-modal-dialog__buttons--start">
+                        <slot name="buttons-left"/>
+                    </div>
+                    <div class="jinya-modal-dialog__buttons--end">
+                        <slot name="buttons-right"/>
+                    </div>
                 </footer>
             </dialog>
-        </section>
+        </div>
     </transition>
 </template>
 
 <script>
+  import JinyaLoader from "../Loader";
+
   export default {
+    components: {JinyaLoader},
     name: "jinya-modal",
     props: {
       title: {
         type: String,
         required: true
+      },
+      loading: {
+        type: Boolean,
+        default() {
+          return false;
+        }
       }
     }
   }
@@ -57,9 +76,7 @@
             transition: opacity 0.3s;
             border: none;
             z-index: 100000;
-            max-height: 30em;
-            min-height: 20em;
-            width: 35em;
+            max-width: 50em;
             box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 20%);
             border-radius: 10px;
             opacity: 1;
@@ -69,16 +86,41 @@
                 color: $primary-lighter;
                 border-top-left-radius: 10px;
                 border-top-right-radius: 10px;
+                font-size: 2rem;
+                padding: 1rem 2rem;
+            }
+
+            &__loader {
+                display: flex;
+                height: 15em;
             }
 
             &__content {
                 background: $white;
+                max-height: 40em;
+                padding: 2em;
             }
 
             &__footer {
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
                 background: $primary;
+                padding: 2em;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &__message {
+                width: 100%;
+            }
+
+            &__buttons {
+                &--start {
+                    align-self: flex-start;
+                }
+                &--end {
+                    align-self: flex-end;
+                }
             }
         }
     }

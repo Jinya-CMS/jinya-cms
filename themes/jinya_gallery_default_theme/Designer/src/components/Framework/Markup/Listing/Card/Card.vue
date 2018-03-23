@@ -1,5 +1,5 @@
 <template>
-    <div class="jinya-card__item">
+    <section class="jinya-card__item">
         <span class="jinya-card__header">{{header}}</span>
         <div class="jinya-card__body">
             <slot/>
@@ -7,7 +7,7 @@
         <div class="jinya-card__footer">
             <slot name="footer"/>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

@@ -19,7 +19,6 @@
       'isSuccess': Boolean,
       'isInverse': Boolean,
       'isDisabled': Boolean,
-      'click': Function,
       'type': {
         type: String,
         default() {
@@ -171,6 +170,7 @@
                 }
             }
         }
+
         &[disabled],
         &.is--disabled {
             background: $gray-200;

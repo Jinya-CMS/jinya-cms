@@ -1,17 +1,27 @@
 <template>
-    <section class="jinya-art-overview" :class="{'jinya-art-overview--loading': loading}" @click="$emit('close')">
-        <jinya-card-list :class="{'jinya-card-list--loading': loading}">
+    <div class="jinya-art-overview">
+        <jinya-loader :loading="loading"/>
+        <jinya-card-list v-if="!loading">
             <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading">
                 <img class="jinya-art-picture" :src="artwork.picture"/>
                 <jinya-card-button @click="details(artwork)" slot="footer" icon="monitor" type="details"/>
                 <jinya-card-button @click="edit(artwork)" slot="footer" icon="pencil" type="edit"/>
-                <jinya-card-button @click="remove(artwork)" slot="footer" icon="delete" type="delete"/>
+                <!--suppress JSUnnecessarySemicolon -->
+                <jinya-card-button @click="showDeleteModal(artwork)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
         </jinya-card-list>
         <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
                      :count="count"/>
-        <jinya-modal @close="showDelete = false" title="Hello World" v-if="showDelete"/>
-    </section>
+        <jinya-modal @close="closeDeleteModal()" title="art.artworks.delete.title" v-if="this.delete.show"
+                     :loading="this.delete.loading">
+            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                           slot="message"/>
+            {{'art.artworks.delete.content'|jmessage({artwork: selectedArtwork.name})}}
+            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.artworks.delete.no"
+                                :closes-modal="true"/>
+            <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"/>
+        </jinya-modal>
+    </div>
 </template>
 
 <script>
@@ -22,11 +32,16 @@
   import JinyaPager from "../../../Framework/Markup/Listing/Pager";
   import JinyaCardButton from "../../../Framework/Markup/Listing/Card/CardButton";
   import JinyaModal from "../../../Framework/Markup/Modal/Modal";
+  import JinyaModalButton from "../../../Framework/Markup/Modal/ModalButton";
+  import Translator from "../../../Framework/i18n/Translator";
+  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
+  import JinyaLoader from "../../../Framework/Markup/Loader";
 
   function load(url) {
     this.loading = true;
+    this.currentUrl = url || this.currentUrl;
 
-    JinyaRequest.get(url).then(value => {
+    JinyaRequest.get(this.currentUrl).then(value => {
       this.artworks = value.items;
       this.control = value.control;
       this.count = value.count;
@@ -37,6 +52,9 @@
 
   export default {
     components: {
+      JinyaLoader,
+      JinyaMessage,
+      JinyaModalButton,
       JinyaModal,
       JinyaCardButton,
       JinyaPager,
@@ -55,8 +73,27 @@
       edit(artwork) {
 
       },
-      remove(artwork) {
-        this.showDelete = true;
+      selectArtwork(artwork) {
+        this.selectedArtwork = artwork;
+      },
+      async remove() {
+        this.delete.loading = true;
+        await JinyaRequest.delete(`/api/artwork/${this.selectedArtwork.slug}`).then(() => {
+          this.delete.show = false;
+          this.load.call(this);
+        }).catch(reason => {
+          this.delete.error = Translator.validator(`art.artworks.overview.delete.${reason.message}`);
+        });
+        this.delete.loading = false;
+      },
+      showDeleteModal(artwork) {
+        this.selectArtwork(artwork);
+        this.delete.show = true;
+      },
+      closeDeleteModal() {
+        this.delete.show = false;
+        this.delete.loading = false;
+        this.delete.error = '';
       }
     },
     beforeCreate() {
@@ -69,15 +106,18 @@
         count: 0,
         offset: 0,
         loading: true,
-        showDelete: false
+        selectedArtwork: {},
+        delete: {
+          error: '',
+          show: false,
+          loading: false
+        }
       };
     }
   }
 </script>
 
 <style scoped lang="scss">
-    @include card-list-loading('jinya-art-overview');
-
     .jinya-art-picture {
         width: 100%;
         height: 100%;

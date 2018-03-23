@@ -1,17 +1,20 @@
 <template>
     <nav class="jinya-navigation-pager">
-        <button :disabled="offset === 0" :class="{'is--disabled': offset === 0}"
-                class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
-                @click="$emit('previous')" v-jinya-message="'framework.markup.navigation.pager.previous'"></button>
-        <span class="jinya-navigation-pager__indicator">{{'framework.markup.navigation.pager.page'|jmessage}} {{currentPage}} {{'framework.markup.navigation.pager.of'|jmessage}} {{pages}}</span>
-        <button :disabled="offset + 10 >= count" :class="{'is--disabled': offset + 10 >= count}"
-                class="jinya-navigation-pager__button jinya-navigation-pager__button--next"
-                @click="$emit('next')" v-jinya-message="'framework.markup.navigation.pager.next'"></button>
+        <jinya-button :is-disabled="offset === 0" label="framework.markup.navigation.pager.previous" :is-primary="true"
+                      :is-inverse="true" class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
+                      @click="$emit('previous')"/>
+        {{'framework.markup.navigation.pager.page_indicator'|jmessage({page: currentPage, count: pages})}}
+        <jinya-button class="jinya-navigation-pager__button jinya-navigation-pager__button--next" :is-primary="true"
+                      :is-inverse="true" label="framework.markup.navigation.pager.next" @click="$emit('next')"
+                      :is-disabled="offset + 10 >= count"/>
     </nav>
 </template>
 
 <script>
+  import JinyaButton from "../Button";
+
   export default {
+    components: {JinyaButton},
     name: "jinya-pager",
     props: {
       offset: {
@@ -40,38 +43,13 @@
         display: flex;
         padding: 1em;
         justify-content: space-between;
+        align-items: center;
         transition: all 0.3s;
+        color: $primary;
 
         .jinya-navigation-pager__button {
-            cursor: pointer;
-            background: $white;
-            color: $primary;
-            border: 1px solid $primary;
             min-width: 8em;
             padding: 0.6em;
-            outline: none;
-
-            &.is--disabled {
-                background: $gray-100;
-                border-color: $gray-700;
-                color: $gray-700;
-                cursor: not-allowed;
-
-                &:hover {
-                    background: $gray-100;
-                    border-color: $gray-700;
-                    color: $gray-700;
-                }
-            }
-
-            &:hover {
-                background: $primary;
-                color: $white;
-            }
-
-            &:focus {
-                outline: none;
-            }
 
             &.jinya-navigation-pager__button--previous {
                 align-self: flex-start;
@@ -80,11 +58,6 @@
             &.jinya-navigation-pager__button--next {
                 align-self: flex-end;
             }
-        }
-
-        .jinya-navigation-pager__indicator {
-            padding: calc(1em + 1px);
-            color: $primary;
         }
     }
 </style>

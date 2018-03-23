@@ -1,7 +1,7 @@
 <template>
-    <section class="jinya-card-list">
+    <div class="jinya-card-list">
         <slot/>
-    </section>
+    </div>
 </template>
 
 <script>
