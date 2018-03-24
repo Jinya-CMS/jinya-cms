@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-art-overview">
         <jinya-loader :loading="loading"/>
-        <jinya-card-list v-if="!loading">
+        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading">
                 <img class="jinya-art-picture" :src="artwork.picture"/>
                 <jinya-card-button @click="details(artwork)" slot="footer" icon="monitor" type="details"/>
@@ -37,10 +37,11 @@
   import JinyaLoader from "../../../Framework/Markup/Loader";
   import EventBus from "../../../Framework/Events/EventBus";
   import Events from "../../../Framework/Events/Events";
+  import Routes from "../../../../router/Routes";
 
-  function load(url) {
+  function load(offset = 0, count = 10, keyword = '') {
     this.loading = true;
-    this.currentUrl = url || this.currentUrl;
+    this.currentUrl = `/api/artwork?offset=${offset}&count=${count}&keyword=${keyword}`;
 
     JinyaRequest.get(this.currentUrl).then(value => {
       this.artworks = value.items;
@@ -51,6 +52,7 @@
     });
   }
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaLoader,
@@ -64,8 +66,17 @@
     },
     name: "jinya-artworks-saved-in-jinya-overview",
     methods: {
-      load(url) {
-        load.call(this, url);
+      load(target) {
+        const url = new URL(target, location.href);
+
+        this.$router.push({
+          name: Routes.Art.Artworks.SavedInJinya.Overview.name,
+          query: {
+            offset: url.searchParams.get('offset'),
+            count: url.searchParams.get('count'),
+            keyword: url.searchParams.get('keyword')
+          }
+        });
       },
       details(artwork) {
 
@@ -97,14 +108,28 @@
       }
     },
     beforeCreate() {
-      load.call(this, '/api/artwork?offset=0&count=10');
+      const offset = this.$route.query.offset || 0;
+      const count = this.$route.query.count || 10;
+      const keyword = this.$route.query.keyword || '';
+      load.call(this, offset, count, keyword);
 
       EventBus.$on(Events.search.triggered, value => {
-        load.call(this, `${this.currentUrl}&keyword=${encodeURIComponent(value.keyword)}`);
+        this.$router.push({
+          name: Routes.Art.Artworks.SavedInJinya.Overview.name,
+          query: {
+            offset: 0,
+            count: this.$route.query.count,
+            keyword: value.keyword
+          }
+        });
       });
     },
     beforeDestroy() {
       EventBus.$off(Events.search.triggered);
+    },
+    beforeRouteUpdate(to, from, next) {
+      load.call(this, to.query.offset, to.query.count, to.query.keyword);
+      next();
     },
     data() {
       return {
@@ -113,12 +138,14 @@
         count: 0,
         offset: 0,
         loading: true,
+        keyword: '',
         selectedArtwork: {},
         delete: {
           error: '',
           show: false,
           loading: false
-        }
+        },
+        nothingFound: this.$route.query.keyword ? 'art.artworks.overview.nothing_found' : 'art.artworks.overview.no_artworks'
       };
     }
   }

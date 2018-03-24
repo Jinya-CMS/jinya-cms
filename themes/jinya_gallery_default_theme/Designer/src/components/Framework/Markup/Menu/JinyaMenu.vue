@@ -2,7 +2,13 @@
     <header class="jinya-menu">
         <jinya-menu-navbar @hamburger-mouseover="isHover = true" @hamburger-mouseout="isHover = false"
                            @hamburger-click="isOpen = !isOpen">
+            <template v-for="child in $route.meta.navbar.start">
+                <component :is="child" :key="child.name"/>
+            </template>
             <span class="jinya-menu__header" v-if="$route.meta.title">{{$route.meta.title|jmessage}}</span>
+            <template v-for="child in $route.meta.navbar.end">
+                <component :is="child" :key="child.name"/>
+            </template>
             <jinya-menu-navbar-search-item v-if="!$route.meta.searchDisabled"/>
         </jinya-menu-navbar>
         <jinya-menu-flyout @mouseover.native="isHover = true" @mouseout.native="isHover = false">
@@ -140,6 +146,7 @@
   import EventBus from "../../Events/EventBus";
   import Events from "../../Events/Events";
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaMenuNavbarSearchItem,
@@ -179,7 +186,7 @@
 <style scoped lang="scss">
     .jinya-menu__header {
         text-align: center;
-        width: 100%;
+        flex: 1;
         font-size: 2rem;
         margin-top: auto;
         margin-bottom: auto;

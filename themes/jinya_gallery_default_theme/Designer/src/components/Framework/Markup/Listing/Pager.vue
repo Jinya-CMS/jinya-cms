@@ -1,12 +1,13 @@
 <template>
-    <nav class="jinya-navigation-pager">
-        <jinya-button :is-disabled="offset === 0" label="framework.markup.navigation.pager.previous" :is-primary="true"
-                      :is-inverse="true" class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
+    <nav class="jinya-navigation-pager" v-if="!(disable.previous && disable.next)">
+        <jinya-button :is-disabled="disable.previous" label="framework.markup.navigation.pager.previous"
+                      :is-primary="true" :is-inverse="true"
+                      class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
                       @click="$emit('previous')"/>
         {{'framework.markup.navigation.pager.page_indicator'|jmessage({page: currentPage, count: pages})}}
         <jinya-button class="jinya-navigation-pager__button jinya-navigation-pager__button--next" :is-primary="true"
                       :is-inverse="true" label="framework.markup.navigation.pager.next" @click="$emit('next')"
-                      :is-disabled="offset + 10 >= count"/>
+                      :is-disabled="disable.next"/>
     </nav>
 </template>
 
@@ -31,7 +32,11 @@
 
       return {
         pages: pages,
-        currentPage: this.offset / 10 + 1
+        currentPage: this.offset / 10 + 1,
+        disable: {
+          next: this.offset + 10 >= this.count,
+          previous: this.offset === 0
+        }
       }
     }
   }

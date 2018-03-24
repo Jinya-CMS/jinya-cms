@@ -189,3 +189,5 @@ art:
       content: Soll das Kunstwerk "%artwork%" wirklich gelöscht werden?
       yes: Kunstwerk löschen
       no: Kunstwerk nicht löschen
+    add:
+      menu: Neues Kunstwerk

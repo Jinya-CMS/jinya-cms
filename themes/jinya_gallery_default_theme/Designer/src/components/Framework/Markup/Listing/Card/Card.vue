@@ -34,6 +34,12 @@
         white-space: normal;
         vertical-align: top;
 
+        &:only-child {
+            .jinya-card__body {
+                height: 30em;
+            }
+        }
+
         &:hover {
             border: none;
             box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 80%);

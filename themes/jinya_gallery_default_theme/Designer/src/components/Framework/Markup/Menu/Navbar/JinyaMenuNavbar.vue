@@ -24,6 +24,7 @@
         padding: 0;
         background: $primary;
         height: 60px;
+        justify-content: space-between;
 
         .jinya-menu__hamburger {
             background: $primary;

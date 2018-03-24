@@ -121,6 +121,10 @@ api:
 art:
   artworks:
     overview:
+      no_artworks:
+        Bisher wurden keine Kunstwerke hochgeladen.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Kunstwerke.
       delete:
         api:
           state:

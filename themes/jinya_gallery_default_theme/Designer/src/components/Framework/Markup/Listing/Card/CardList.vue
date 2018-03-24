@@ -1,12 +1,23 @@
 <template>
     <div class="jinya-card-list">
-        <slot/>
+        <slot>
+            <jinya-message state="info" :message="nothingFound"/>
+        </slot>
     </div>
 </template>
 
 <script>
+  import JinyaMessage from "../../Validation/Message";
+
   export default {
-    name: "jinya-card-list"
+    components: {JinyaMessage},
+    name: "jinya-card-list",
+    props: {
+      nothingFound: {
+        type: String,
+        required: true
+      }
+    }
   }
 </script>
 
@@ -17,5 +28,9 @@
         width: 100%;
         overflow: hidden;
         padding: 1% 0;
+
+        .jinya-message {
+            margin: 1em;
+        }
     }
 </style>
