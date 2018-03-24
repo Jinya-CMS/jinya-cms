@@ -27,7 +27,7 @@
         background: $white;
         position: fixed;
         top: 0;
-        left: 60px;
+        left: 75px;
         margin: 0;
         padding: 0;
         justify-content: center;

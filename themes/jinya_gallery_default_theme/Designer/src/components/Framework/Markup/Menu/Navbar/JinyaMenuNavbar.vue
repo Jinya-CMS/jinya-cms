@@ -36,8 +36,8 @@
             justify-content: center;
             padding: 10px;
             color: white;
-            width: 60px;
-            box-sizing: content-box;
+            width: 75px;
+            box-sizing: border-box;
 
             &:hover {
                 background: $white;
