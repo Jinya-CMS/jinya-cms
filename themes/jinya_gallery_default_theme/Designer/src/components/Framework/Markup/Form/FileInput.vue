@@ -50,7 +50,7 @@
         } else {
           this.selectedFileName = event.target.files[0].name.split('\\').pop().split('/').pop();
         }
-        this.$emit('input', event.target.files);
+        this.$emit('picked', event.target.files);
       }
     }
   }
@@ -75,6 +75,7 @@
             transition: border-bottom-width 0.3s;
             font-family: $font-family;
             font-size: 90%;
+            background-color: $white;
         }
     }
 </style>

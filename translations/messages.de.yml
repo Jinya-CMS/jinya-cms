@@ -195,3 +195,10 @@ art:
       no: Kunstwerk nicht löschen
     add:
       menu: Neues Kunstwerk
+    artwork_form:
+      name: Name
+      slug: Slug
+      artwork: Kunstwerk
+      description: Beschreibung (optional)
+      save: Kunstwerk speichern
+      back: Zurück
