@@ -130,3 +130,8 @@ art:
           state:
             409:
               foreign_key_failed: Das Kunstwerk wird in einer Gallerie verwendet und kann daher nicht gelöscht werden.
+framework:
+  markup:
+    form:
+      file_input:
+        no_file_selected: Keine Datei ausgewählt

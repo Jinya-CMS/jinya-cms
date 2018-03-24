@@ -26,7 +26,9 @@
       }
     },
     data() {
-      return {id: null};
+      return {
+        id: null
+      };
     },
     mounted() {
       this.id = this._uid;

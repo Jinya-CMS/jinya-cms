@@ -168,12 +168,16 @@ routes:
     artworks:
       saved_in_jinya:
         overview: In Jinya gespeicherte Kunstwerke
+        add: Kunstwerk hinzufügen
   home:
     startpage: Startseite
   account:
     login: Jinya CMS Login
 framework:
   markup:
+    form:
+      file_input:
+        pick: Datei suchen
     navigation:
       pager:
         previous: Zurück
