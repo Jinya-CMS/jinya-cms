@@ -1,6 +1,7 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
 import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview'
+import ArtworksSavedInJinyaAdd from '@/components/Art/Artworks/SavedInJinya/Add'
 import ArtworksSavedInJinyaOverviewAdd from '@/components/Art/Artworks/SavedInJinya/AddNavbarItem'
 
 export default [
@@ -14,13 +15,17 @@ export default [
         start: [
           ArtworksSavedInJinyaOverviewAdd
         ]
-      }
+      },
+      searchEnabled: true
     }
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Add.route,
     name: Routes.Art.Artworks.SavedInJinya.Add.name,
-    component: Missing
+    component: ArtworksSavedInJinyaAdd,
+    meta: {
+      title: 'routes.art.artworks.saved_in_jinya.add'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Details.route,

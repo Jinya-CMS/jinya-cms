@@ -2,26 +2,19 @@
     <div class="jinya-input">
         <label :for="id" class="jinya-input__label" v-jinya-message="label"></label>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <input :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
-               :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)"
-               @input="$emit('input', $event.target.value)"
-               :autofocus="autofocus"/>
+        <textarea :id="id" class="jinya-input__textarea" :type="type" :required="required" :autocomplete="autocomplete"
+                  @keyup="$emit('change', $event.target.value)" @input="$emit('input', $event.target.value)">
+            {{value}}
+        </textarea>
     </div>
 </template>
 
 <script>
   export default {
-    name: "jinya-input",
+    name: "jinya-textarea",
     props: {
       value: String,
       required: Boolean,
-      type: {
-        type: String, default() {
-          return 'text';
-        }
-      },
-      autocomplete: String,
-      autofocus: Boolean,
       label: {
         type: String,
         required: true
@@ -47,7 +40,7 @@
             display: inline-block;
         }
 
-        .jinya-input__field {
+        .jinya-input__textarea {
             padding: 0.5em;
             outline: none;
             width: 100%;
@@ -57,6 +50,7 @@
             transition: border-bottom-width 0.3s;
             font-family: $font-family;
             font-size: 90%;
+            height: 10em;
         }
     }
 </style>

@@ -1,14 +1,19 @@
 <template>
     <a v-if="href" :href="href" v-jinya-message="label" class="jinya-button" :class="additionalClasses"></a>
+    <router-link v-if="to" :to="to" v-jinya-message="label" class="jinya-button" :class="additionalClasses"/>
     <button :type="type" v-else @click="$event => $emit('click', $event)" v-jinya-message="label" class="jinya-button"
             :disabled="isDisabled" :class="additionalClasses"></button>
 </template>
 
 <script>
+  import Routes from "../../../router/Routes";
+  import ObjectUtils from "../Utils/ObjectUtils";
+
   export default {
     name: "jinya-button",
     props: {
       'href': String,
+      'to': String,
       'label': {
         type: String,
         required: true
@@ -27,7 +32,9 @@
       }
     },
     data() {
-      const data = {};
+      const data = {
+        routeTarget: this.to ? ObjectUtils.valueByKeypath(Routes, this.to) : undefined
+      };
       data.additionalClasses = {
         'is--primary': this.isDisabled ? false : this.isPrimary,
         'is--secondary': this.isDisabled ? false : this.isSecondary,
