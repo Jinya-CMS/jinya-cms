@@ -13,16 +13,22 @@ async function send(verb, url, data, contentType = 'application/json') {
   const request = {
     method: verb,
     headers: {
-      JinyaApiKey: Lockr.get('JinyaApiKey'),
-      'Content-Type': contentType
+      JinyaApiKey: Lockr.get('JinyaApiKey')
     }
   };
 
-  switch (verb.toLowerCase()) {
-    case 'post':
-    case 'put':
-      request.body = JSON.stringify(data);
-      break;
+  if (contentType === 'application/json') {
+    request.headers['Content-Type'] = contentType;
+
+    switch (verb.toLowerCase()) {
+      case 'post':
+      case 'put':
+        request.body = JSON.stringify(data);
+        break;
+    }
+  } else {
+    console.log(data);
+    request.body = data;
   }
 
   return await fetch(url, request).then(async response => {
@@ -65,5 +71,8 @@ export default {
   },
   async delete(url) {
     return await send('delete', url);
+  },
+  async upload(url, file) {
+    return await send('put', url, file, file.type);
   }
 }

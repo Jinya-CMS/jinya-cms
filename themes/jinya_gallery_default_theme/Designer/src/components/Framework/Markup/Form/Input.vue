@@ -2,10 +2,9 @@
     <div class="jinya-input">
         <label :for="id" class="jinya-input__label" v-jinya-message="label"></label>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <input :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
-               :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)"
-               @input="$emit('input', $event.target.value)"
-               :autofocus="autofocus"/>
+        <input :id="id" class="jinya-input__field" :type="type" :required="required" :value="value" :disabled="!enable"
+               :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)" :autofocus="autofocus"
+               @input="$emit('input', $event.target.value)"/>
     </div>
 </template>
 
@@ -13,6 +12,12 @@
   export default {
     name: "jinya-input",
     props: {
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
+        }
+      },
       value: String,
       required: Boolean,
       type: {

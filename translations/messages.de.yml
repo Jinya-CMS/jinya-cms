@@ -195,6 +195,9 @@ art:
       no: Kunstwerk nicht löschen
     add:
       menu: Neues Kunstwerk
+      saving: Das Kunstwerk "%name%" wird gespeichert.
+      uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
+      success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
     artwork_form:
       name: Name
       slug: Slug

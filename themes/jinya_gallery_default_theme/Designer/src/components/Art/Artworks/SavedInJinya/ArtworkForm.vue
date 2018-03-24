@@ -1,14 +1,18 @@
 <template>
-    <jinya-form @submit="save" class="jinya-form--artwork" :cancel-label="cancelLabel"
+    <jinya-form @submit="save" class="jinya-form--artwork" :cancel-label="cancelLabel" :enable="enable"
                 :save-label="saveLabel">
         <div class="jinya-form--artwork__pane">
             <img class="jinya-form__preview-image" :src="artwork.picture"/>
         </div>
         <div class="jinya-form--artwork__pane">
-            <jinya-input label="art.artworks.artwork_form.name" v-model="artwork.name" @change="nameChanged"/>
-            <jinya-input label="art.artworks.artwork_form.slug" v-model="artwork.slug" @change="slugChanged"/>
-            <jinya-file-input accept="image/*" label="art.artworks.artwork_form.artwork" @picked="picturePicked"/>
-            <jinya-textarea label="art.artworks.artwork_form.description" v-model="artwork.description"/>
+            <jinya-input :enable="enable" label="art.artworks.artwork_form.name" v-model="artwork.name"
+                         @change="nameChanged"/>
+            <jinya-input :enable="enable" label="art.artworks.artwork_form.slug" v-model="artwork.slug"
+                         @change="slugChanged"/>
+            <jinya-file-input :enable="enable" accept="image/*" label="art.artworks.artwork_form.artwork"
+                              @picked="picturePicked"/>
+            <jinya-textarea :enable="enable" label="art.artworks.artwork_form.description"
+                            v-model="artwork.description"/>
         </div>
     </jinya-form>
 </template>
@@ -20,6 +24,8 @@
   import JinyaFileInput from "../../../Framework/Markup/Form/FileInput";
   import FileUtils from "../../../Framework/IO/FileUtils";
   import JinyaTextarea from "../../../Framework/Markup/Form/Textarea";
+  import slugify from "slugify";
+  import Routes from "../../../../router/Routes";
 
   export default {
     components: {
@@ -31,6 +37,12 @@
     },
     name: "jinya-artwork-form",
     props: {
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
+        }
+      },
       saveLabel: {
         type: String,
         default() {
@@ -63,7 +75,7 @@
     },
     methods: {
       back() {
-        this.$router.back();
+        this.$router.push(Routes.Art.Artworks.SavedInJinya.Overview);
       },
       async picturePicked(files) {
         const file = files.item(0);
@@ -87,6 +99,7 @@
           picture: this.artwork.uploadedFile,
           description: this.artwork.description
         };
+
         this.$emit('save', artwork)
       }
     }

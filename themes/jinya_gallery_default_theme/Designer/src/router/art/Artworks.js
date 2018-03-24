@@ -2,7 +2,6 @@ import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
 import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview'
 import ArtworksSavedInJinyaAdd from '@/components/Art/Artworks/SavedInJinya/Add'
-import ArtworksSavedInJinyaOverviewAdd from '@/components/Art/Artworks/SavedInJinya/AddNavbarItem'
 
 export default [
   {
@@ -11,11 +10,6 @@ export default [
     component: ArtworksSavedInJinyaOverview,
     meta: {
       title: 'routes.art.artworks.saved_in_jinya.overview',
-      navbar: {
-        start: [
-          ArtworksSavedInJinyaOverviewAdd
-        ]
-      },
       searchEnabled: true
     }
   },

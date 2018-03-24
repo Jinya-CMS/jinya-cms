@@ -16,6 +16,7 @@
     "lockr": "^0.8.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
+    "slugify": "^1.2.9",
     "style-loader": "^0.20.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

@@ -2,13 +2,7 @@
     <header class="jinya-menu">
         <jinya-menu-navbar @hamburger-mouseover="isHover = true" @hamburger-mouseout="isHover = false"
                            @hamburger-click="isOpen = !isOpen">
-            <template v-for="child in navbar.start">
-                <component :is="child" :key="child.name"/>
-            </template>
             <span class="jinya-menu__header" v-if="$route.meta.title">{{$route.meta.title|jmessage}}</span>
-            <template v-for="child in navbar.end">
-                <component :is="child" :key="child.name"/>
-            </template>
             <jinya-menu-navbar-search-item v-if="$route.meta.searchEnabled"/>
         </jinya-menu-navbar>
         <jinya-menu-flyout @mouseover.native="isHover = true" @mouseout.native="isHover = false">
@@ -177,11 +171,7 @@
       return {
         isHover: false,
         isOpen: false,
-        selectedHeader: '',
-        navbar: {
-          start: this.$route.meta.navbar ? this.$route.meta.navbar.start : [],
-          end: this.$route.meta.navbar ? this.$route.meta.navbar.end : []
-        }
+        selectedHeader: ''
       }
     }
   }

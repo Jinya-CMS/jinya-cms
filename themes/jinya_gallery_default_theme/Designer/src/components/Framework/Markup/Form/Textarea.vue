@@ -2,10 +2,9 @@
     <div class="jinya-input">
         <label :for="id" class="jinya-input__label" v-jinya-message="label"></label>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <textarea :id="id" class="jinya-input__textarea" :type="type" :required="required" :autocomplete="autocomplete"
-                  @keyup="$emit('change', $event.target.value)" @input="$emit('input', $event.target.value)">
-            {{value}}
-        </textarea>
+        <textarea :disabled="!enable" :id="id" class="jinya-input__textarea" :type="type" :required="required"
+                  :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)"
+                  @input="$emit('input', $event.target.value)">{{value}}</textarea>
     </div>
 </template>
 
@@ -15,6 +14,12 @@
     props: {
       value: String,
       required: Boolean,
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
+        }
+      },
       label: {
         type: String,
         required: true

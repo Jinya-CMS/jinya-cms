@@ -3,8 +3,10 @@
         <slot/>
         <div class="jinya-form__buttons">
             <slot name="buttons">
-                <jinya-button :is-secondary="true" :is-inverse="true" :label="cancelLabel" @click="$emit('back')"/>
-                <jinya-button :is-primary="true" :is-inverse="true" :label="saveLabel" type="submit"/>
+                <jinya-button :is-disabled="!enable" :is-secondary="true" :is-inverse="true" :label="cancelLabel"
+                              @click="$emit('back')"/>
+                <jinya-button :is-disabled="!enable" :is-primary="true" :is-inverse="true" :label="saveLabel"
+                              type="submit"/>
             </slot>
         </div>
     </form>
@@ -17,6 +19,12 @@
     components: {JinyaButton},
     name: "jinya-form",
     props: {
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
+        }
+      },
       cancelLabel: {
         type: String
       },
