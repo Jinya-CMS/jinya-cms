@@ -9,16 +9,16 @@
 namespace Jinya\Services\Media;
 
 use SplFileInfo;
+use Symfony\Component\Filesystem\Filesystem;
 use const DIRECTORY_SEPARATOR;
 use function array_reverse;
-use function file_exists;
 use function file_put_contents;
-use function fseek;
 use function hash_final;
 use function hash_init;
-use function hash_update_stream;
+use function hash_update_file;
 use function mkdir;
 use function preg_split;
+use function uniqid;
 use function unlink;
 
 class MediaService implements MediaServiceInterface
@@ -46,19 +46,20 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-        $hashCtx = hash_init('sha256');
-        hash_update_stream($hashCtx, $file);
-        $hash = hash_final($hashCtx);
-        fseek($file, 0);
-
         $directory = $this->getFilePath($type);
         @mkdir($directory, 775, true);
 
+        $tmpFilename = $directory . uniqid();
+        file_put_contents($tmpFilename, $file);
+
+        $hashCtx = hash_init('sha256');
+        hash_update_file($hashCtx, $tmpFilename);
+        $hash = hash_final($hashCtx);
+
         $filename = $directory . $hash;
 
-        if (!file_exists($filename)) {
-            file_put_contents($filename, $file);
-        }
+        $fs = new Filesystem();
+        $fs->rename($tmpFilename, $filename, true);
 
         return "/public/$type/${hash}";
     }
