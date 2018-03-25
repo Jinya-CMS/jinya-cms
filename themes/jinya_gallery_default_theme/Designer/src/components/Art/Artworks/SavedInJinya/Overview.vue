@@ -21,6 +21,8 @@
                                 :closes-modal="true"/>
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"/>
         </jinya-modal>
+        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
+                                      to="Art.Artworks.SavedInJinya.Add"/>
     </div>
 </template>
 
@@ -38,6 +40,7 @@
   import EventBus from "../../../Framework/Events/EventBus";
   import Events from "../../../Framework/Events/Events";
   import Routes from "../../../../router/Routes";
+  import JinyaFloatingActionButton from "../../../Framework/Markup/FloatingActionButton";
 
   function load(offset = 0, count = 10, keyword = '') {
     this.loading = true;
@@ -55,6 +58,7 @@
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
+      JinyaFloatingActionButton,
       JinyaLoader,
       JinyaMessage,
       JinyaModalButton,

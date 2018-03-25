@@ -12,19 +12,19 @@
   export default {
     name: "jinya-button",
     props: {
-      'href': String,
-      'to': String,
-      'label': {
+      href: String,
+      to: String,
+      label: {
         type: String,
         required: true
       },
-      'isPrimary': Boolean,
-      'isSecondary': Boolean,
-      'isDanger': Boolean,
-      'isSuccess': Boolean,
-      'isInverse': Boolean,
-      'isDisabled': Boolean,
-      'type': {
+      isPrimary: Boolean,
+      isSecondary: Boolean,
+      isDanger: Boolean,
+      isSuccess: Boolean,
+      isInverse: Boolean,
+      isDisabled: Boolean,
+      type: {
         type: String,
         default() {
           return 'button'
