@@ -6,7 +6,7 @@
                          :required="true" type="email"/>
             <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
                          :required="true" type="password"/>
-            <jinya-button :is-primary="true" label="account.login.submit" type="submit"/>
+            <jinya-button :is-primary="true" label="account.login.submit" type="submit" slot="buttons"/>
         </jinya-form>
     </section>
 </template>
@@ -19,6 +19,7 @@
   import Lockr from 'lockr';
   import Routes from "../../router/Routes";
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaForm,

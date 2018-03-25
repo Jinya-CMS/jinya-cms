@@ -8,27 +8,24 @@ import EventBus from "../Events/EventBus";
 import Events from "../Events/Events";
 import ConflictError from "./Error/ConflictError";
 
-async function send(verb, url, data, contentType = 'application/json') {
+async function send(verb, url, data, contentType) {
   EventBus.$emit(Events.request.started);
-  const request = {
-    method: verb,
-    headers: {
-      JinyaApiKey: Lockr.get('JinyaApiKey')
-    }
+  const headers = {
+    JinyaApiKey: Lockr.get('JinyaApiKey'),
+    'Content-Type': contentType
   };
 
-  if (contentType === 'application/json') {
-    request.headers['Content-Type'] = contentType;
+  const request = {
+    headers: headers,
+    method: verb
+  };
 
-    switch (verb.toLowerCase()) {
-      case 'post':
-      case 'put':
-        request.body = JSON.stringify(data);
-        break;
+  if (data) {
+    if (data instanceof Blob) {
+      request.body = data;
+    } else {
+      request.body = JSON.stringify(data);
     }
-  } else {
-    console.log(data);
-    request.body = data;
   }
 
   return await fetch(url, request).then(async response => {
@@ -64,10 +61,10 @@ export default {
     return await send('get', url);
   },
   async put(url, data) {
-    return await send('put', url, data);
+    return await send('put', url, data, 'application/json');
   },
   async post(url, data) {
-    return await send('post', url, data);
+    return await send('post', url, data, 'application/json');
   },
   async delete(url) {
     return await send('delete', url);
