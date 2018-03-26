@@ -17,6 +17,7 @@ async function send(verb, url, data, contentType) {
 
   const request = {
     headers: headers,
+    credentials: 'same-origin',
     method: verb
   };
 
