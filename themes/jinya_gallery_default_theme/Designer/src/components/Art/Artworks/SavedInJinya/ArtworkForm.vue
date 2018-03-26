@@ -1,6 +1,6 @@
 <template>
     <jinya-form @submit="save" class="jinya-form--artwork" :cancel-label="cancelLabel" :enable="enable"
-                :save-label="saveLabel">
+                :save-label="saveLabel" @back="back">
         <div class="jinya-form--artwork__pane">
             <img class="jinya-form__preview-image" :src="artwork.picture"/>
         </div>

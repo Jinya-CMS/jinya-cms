@@ -52,12 +52,12 @@
     .jinya-floating-action-button {
         border: 2px solid;
         border-radius: 50%;
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
         position: fixed;
         display: flex;
-        right: 5rem;
-        bottom: 5rem;
+        right: 3rem;
+        bottom: 3rem;
         font-size: 2em;
         transition: background-color 0.3s, color 0.3s;
         cursor: pointer;
