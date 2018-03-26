@@ -62,6 +62,10 @@
             transition: border-bottom-width 0.3s;
             font-family: $font-family;
             font-size: 90%;
+
+            &.is--disabled {
+                background: $gray-200;
+            }
         }
     }
 </style>

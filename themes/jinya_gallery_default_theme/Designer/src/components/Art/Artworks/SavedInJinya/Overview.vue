@@ -5,7 +5,8 @@
             <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading">
                 <img class="jinya-art-picture" :src="artwork.picture"/>
                 <jinya-card-button @click="details(artwork)" slot="footer" icon="monitor" type="details"/>
-                <jinya-card-button @click="edit(artwork)" slot="footer" icon="pencil" type="edit"/>
+                <jinya-card-button :to="{name: editRoute, params:{slug: artwork.slug}}" slot="footer" icon="pencil"
+                                   type="edit"/>
                 <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(artwork)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
@@ -86,7 +87,12 @@
 
       },
       edit(artwork) {
-
+        this.$router.push({
+          name: Routes.Art.Artworks.SavedInJinya.Edit.name,
+          query: {
+            slug: artwork.slug
+          }
+        });
       },
       selectArtwork(artwork) {
         this.selectedArtwork = artwork;
@@ -149,6 +155,7 @@
           show: false,
           loading: false
         },
+        editRoute: Routes.Art.Artworks.SavedInJinya.Edit.name,
         nothingFound: this.$route.query.keyword ? 'art.artworks.overview.nothing_found' : 'art.artworks.overview.no_artworks'
       };
     }

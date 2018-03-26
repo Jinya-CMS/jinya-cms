@@ -2,6 +2,7 @@ import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
 import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview'
 import ArtworksSavedInJinyaAdd from '@/components/Art/Artworks/SavedInJinya/Add'
+import ArtworksSavedInJinyaEdit from '@/components/Art/Artworks/SavedInJinya/Edit'
 
 export default [
   {
@@ -29,7 +30,10 @@ export default [
   {
     path: Routes.Art.Artworks.SavedInJinya.Edit.route,
     name: Routes.Art.Artworks.SavedInJinya.Edit.name,
-    component: Missing
+    component: ArtworksSavedInJinyaEdit,
+    meta: {
+      title: 'routes.art.artworks.saved_in_jinya.edit'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Overview.route,

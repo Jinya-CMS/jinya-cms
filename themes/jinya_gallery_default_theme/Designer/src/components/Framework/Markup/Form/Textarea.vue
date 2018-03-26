@@ -56,6 +56,10 @@
             font-family: $font-family;
             font-size: 90%;
             height: 10em;
+
+            &.is--disabled {
+                background: $gray-200;
+            }
         }
     }
 </style>

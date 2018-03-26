@@ -129,5 +129,7 @@
 
     .jinya-form__preview-image {
         width: 100%;
+        max-height: 35em;
+        object-fit: scale-down;
     }
 </style>

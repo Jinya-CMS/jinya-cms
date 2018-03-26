@@ -21,6 +21,7 @@
     transition: color 0.3s, background 0.3s;
     outline: none;
     font-size: 1.2em;
+    text-align: center;
     cursor: pointer;
 
     @include card-footer-edit-buttons('#{$classname}--details', $details-color);
@@ -31,11 +32,11 @@
       outline: none;
     }
 
-    &:first-of-type {
+    &:first-child {
       border-bottom-left-radius: 10px;
     }
 
-    &:last-of-type {
+    &:last-child {
       border-bottom-right-radius: 10px;
     }
   }

@@ -1,10 +1,10 @@
 <template>
     <div class="jinya-input">
         <label :for="`label-${id}`" class="jinya-input__label" v-jinya-message="label"></label>
-        <label :id="`label-${id}`" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
+        <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <input :multiple="multiple" :id="id" type="file" :required="required" style="display: none;"
-               :autofocus="autofocus" :accept="accept" :autocomplete="autocomplete" @change="updateValue($event)"/>
+        <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
+               style="display: none;" @change="updateValue($event)"/>
     </div>
 </template>
 
@@ -15,6 +15,12 @@
     name: "jinya-file-input",
     props: {
       required: Boolean,
+      enable: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      },
       label: {
         type: String,
         required: true
@@ -76,6 +82,10 @@
             font-family: $font-family;
             font-size: 90%;
             background-color: $white;
+
+            &.is--disabled {
+                background: $gray-200;
+            }
         }
     }
 </style>
