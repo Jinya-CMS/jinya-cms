@@ -10,10 +10,10 @@ namespace Jinya\Logging;
 
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Jinya\Entity\AccessLogEntry;
 use Monolog\Handler\AbstractProcessingHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 class AccessLogHandler extends AbstractProcessingHandler
 {
@@ -51,7 +51,7 @@ class AccessLogHandler extends AbstractProcessingHandler
 
             $this->entityManager->persist($accessLogEntry);
             $this->entityManager->flush();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
         }
     }
 }
