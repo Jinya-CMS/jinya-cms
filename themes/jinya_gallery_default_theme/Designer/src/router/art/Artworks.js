@@ -3,6 +3,7 @@ import Missing from '@/components/Home/Missing'
 import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview'
 import ArtworksSavedInJinyaAdd from '@/components/Art/Artworks/SavedInJinya/Add'
 import ArtworksSavedInJinyaEdit from '@/components/Art/Artworks/SavedInJinya/Edit'
+import ArtworksSavedInJinyaDetails from '@/components/Art/Artworks/SavedInJinya/Details'
 
 export default [
   {
@@ -25,7 +26,7 @@ export default [
   {
     path: Routes.Art.Artworks.SavedInJinya.Details.route,
     name: Routes.Art.Artworks.SavedInJinya.Details.name,
-    component: Missing
+    component: ArtworksSavedInJinyaDetails
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Edit.route,

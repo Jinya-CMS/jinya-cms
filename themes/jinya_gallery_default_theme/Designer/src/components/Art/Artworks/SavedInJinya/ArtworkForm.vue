@@ -5,13 +5,13 @@
             <img class="jinya-form__preview-image" :src="artwork.picture"/>
         </div>
         <div class="jinya-form--artwork__pane">
-            <jinya-input :enable="enable" label="art.artworks.artwork_form.name" v-model="artwork.name"
+            <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.name" v-model="artwork.name"
                          @change="nameChanged"/>
-            <jinya-input :enable="enable" label="art.artworks.artwork_form.slug" v-model="artwork.slug"
+            <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.slug" v-model="artwork.slug"
                          @change="slugChanged"/>
-            <jinya-file-input :enable="enable" accept="image/*" label="art.artworks.artwork_form.artwork"
+            <jinya-file-input v-if="!static" :enable="enable" accept="image/*" label="art.artworks.artwork_form.artwork"
                               @picked="picturePicked"/>
-            <jinya-textarea :enable="enable" label="art.artworks.artwork_form.description"
+            <jinya-textarea :static="static" :enable="enable" label="art.artworks.artwork_form.description"
                             v-model="artwork.description"/>
         </div>
     </jinya-form>
@@ -37,6 +37,12 @@
     },
     name: "jinya-artwork-form",
     props: {
+      static: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      },
       enable: {
         type: Boolean,
         default() {

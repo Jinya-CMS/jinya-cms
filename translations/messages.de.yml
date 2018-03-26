@@ -202,6 +202,10 @@ art:
       saving: Das Kunstwerk "%name%" wird gespeichert.
       uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
       success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
+      loading: Das Kunstwerk wird geladen
+    details:
+      edit: Bearbeiten
+      loading: Das Kunstwerk wird geladen
     artwork_form:
       name: Name
       slug: Slug

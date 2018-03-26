@@ -4,8 +4,9 @@
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading">
                 <img class="jinya-art-picture" :src="artwork.picture"/>
-                <jinya-card-button @click="details(artwork)" slot="footer" icon="monitor" type="details"/>
-                <jinya-card-button :to="{name: editRoute, params:{slug: artwork.slug}}" slot="footer" icon="pencil"
+                <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" slot="footer" icon="monitor"
+                                   type="details"/>
+                <jinya-card-button :to="{name: editRoute, params: {slug: artwork.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
                 <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(artwork)" slot="footer" icon="delete" type="delete"/>
@@ -83,28 +84,18 @@
           }
         });
       },
-      details(artwork) {
-
-      },
-      edit(artwork) {
-        this.$router.push({
-          name: Routes.Art.Artworks.SavedInJinya.Edit.name,
-          query: {
-            slug: artwork.slug
-          }
-        });
-      },
       selectArtwork(artwork) {
         this.selectedArtwork = artwork;
       },
       async remove() {
         this.delete.loading = true;
-        await JinyaRequest.delete(`/api/artwork/${this.selectedArtwork.slug}`).then(() => {
+        try {
+          await JinyaRequest.delete(`/api/artwork/${this.selectedArtwork.slug}`);
           this.delete.show = false;
           this.load.call(this);
-        }).catch(reason => {
+        } catch (reason) {
           this.delete.error = Translator.validator(`art.artworks.overview.delete.${reason.message}`);
-        });
+        }
         this.delete.loading = false;
       },
       showDeleteModal(artwork) {
@@ -156,6 +147,7 @@
           loading: false
         },
         editRoute: Routes.Art.Artworks.SavedInJinya.Edit.name,
+        detailsRoute: Routes.Art.Artworks.SavedInJinya.Details.name,
         nothingFound: this.$route.query.keyword ? 'art.artworks.overview.nothing_found' : 'art.artworks.overview.no_artworks'
       };
     }

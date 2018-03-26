@@ -38,9 +38,14 @@
       };
     },
     name: "edit",
-    async beforeCreate() {
+    async mounted() {
+      this.state = 'loading';
+      this.disabled = true;
+      this.message = Translator.message('art.artworks.edit.loading');
       const artwork = await JinyaRequest.get(`/api/artwork/${this.$route.params.slug}`);
       this.artwork = artwork.item;
+      this.state = '';
+      this.disabled = false;
     },
     methods: {
       async save(artwork) {

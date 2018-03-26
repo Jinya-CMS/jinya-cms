@@ -14,6 +14,7 @@
     props: {
       href: String,
       to: String,
+      params: Object,
       label: {
         type: String,
         required: true
@@ -33,7 +34,7 @@
     },
     data() {
       const data = {
-        routeTarget: this.to ? ObjectUtils.valueByKeypath(Routes, this.to) : undefined
+        routeTarget: this.to ? {name: ObjectUtils.valueByKeypath(Routes, this.to).name, params: this.params} : undefined
       };
       data.additionalClasses = {
         'is--primary': this.isDisabled ? false : this.isPrimary,
