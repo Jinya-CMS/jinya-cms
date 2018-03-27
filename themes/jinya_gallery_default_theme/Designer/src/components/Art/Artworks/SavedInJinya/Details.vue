@@ -20,7 +20,7 @@
         message: '',
         state: '',
         artwork: {
-          picture: '',
+          background: '',
           name: '',
           slug: '',
           description: ''
@@ -52,9 +52,3 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-    .jinya-artwork-details {
-        padding-top: 1em;
-    }
-</style>

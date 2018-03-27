@@ -1,34 +1,24 @@
 <template>
-    <div class="jinya-artwork-add">
-        <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-artwork-form @save="save" :enable="enable"/>
-    </div>
+    <jinya-artwork-form @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
-  import JinyaFileInput from "../../../Framework/Markup/Form/FileInput";
-  import JinyaForm from "../../../Framework/Markup/Form/Form";
   import JinyaArtworkForm from "./ArtworkForm";
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
-  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
-  import JinyaLoader from "../../../Framework/Markup/Loader";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaLoader,
-      JinyaMessage,
-      JinyaArtworkForm,
-      JinyaForm,
-      JinyaFileInput
+      JinyaArtworkForm
     },
     data() {
       return {
         message: '',
         state: '',
-        loading: false
+        loading: false,
+        enable: true
       }
     },
     name: "add",
@@ -64,9 +54,3 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-    .jinya-artwork-add {
-        padding-top: 1em;
-    }
-</style>

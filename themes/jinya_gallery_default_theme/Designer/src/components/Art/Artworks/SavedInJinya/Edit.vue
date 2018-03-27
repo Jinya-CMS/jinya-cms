@@ -20,7 +20,7 @@
         loading: false,
         enable: false,
         artwork: {
-          picture: '',
+          background: '',
           name: '',
           slug: '',
           description: ''
@@ -56,7 +56,7 @@
             description: artwork.description
           });
 
-          if (picture) {
+          if (background) {
             this.message = Translator.message('art.artworks.edit.uploading', {name: artwork.name});
             await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
           }
@@ -81,14 +81,4 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-    .jinya-artwork-edit {
-        padding-top: 1em;
-    }
-
-    .jinya-message__action-bar {
-        display: block;
-        padding-top: 1em;
-    }
-</style>
+F
