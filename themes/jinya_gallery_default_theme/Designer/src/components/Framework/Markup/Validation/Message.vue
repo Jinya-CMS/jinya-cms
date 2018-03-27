@@ -4,6 +4,7 @@
         <span class="jinya-message__progress" v-if="state === 'loading'"></span>
         <span class="jinya-message__progress jinya-message__progress--decrease" v-if="state === 'loading'"></span>
         {{message|jvalidator(params)}}
+        <slot/>
     </section>
 </template>
 

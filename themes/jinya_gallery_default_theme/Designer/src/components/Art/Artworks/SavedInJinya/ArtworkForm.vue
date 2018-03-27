@@ -1,20 +1,33 @@
 <template>
-    <jinya-form @submit="save" class="jinya-form--artwork" :cancel-label="cancelLabel" :enable="enable"
-                :save-label="saveLabel" @back="back">
-        <div class="jinya-form--artwork__pane">
-            <img class="jinya-form__preview-image" :src="artwork.picture"/>
-        </div>
-        <div class="jinya-form--artwork__pane">
-            <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.name" v-model="artwork.name"
-                         @change="nameChanged"/>
-            <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.slug" v-model="artwork.slug"
-                         @change="slugChanged"/>
-            <jinya-file-input v-if="!static" :enable="enable" accept="image/*" label="art.artworks.artwork_form.artwork"
-                              @picked="picturePicked"/>
-            <jinya-textarea :static="static" :enable="enable" label="art.artworks.artwork_form.description"
-                            v-model="artwork.description"/>
-        </div>
-    </jinya-form>
+    <jinya-editor>
+        <jinya-message :message="message" :state="state" v-if="state">
+            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+                <jinya-button label="art.artworks.artwork_form.back" to="Art.Artworks.SavedInJinya.Overview"
+                              :is-danger="true"/>
+                <jinya-button label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"
+                              :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+            </jinya-message-action-bar>
+        </jinya-message>
+        <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--artwork" @back="back"
+                    :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+            <div class="jinya-form--artwork__pane">
+                <img class="jinya-form__preview-image" :src="artwork.picture"/>
+            </div>
+            <div class="jinya-form--artwork__pane">
+                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.name"
+                             v-model="artwork.name" @change="nameChanged"/>
+                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.slug"
+                             v-model="artwork.slug" @change="slugChanged"/>
+                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="picturePicked"
+                                  label="art.artworks.artwork_form.artwork"/>
+                <jinya-textarea :static="static" :enable="enable" label="art.artworks.artwork_form.description"
+                                v-model="artwork.description"/>
+            </div>
+            <template slot="buttons">
+                <slot name="buttons"/>
+            </template>
+        </jinya-form>
+    </jinya-editor>
 </template>
 
 <script>
@@ -26,9 +39,15 @@
   import JinyaTextarea from "../../../Framework/Markup/Form/Textarea";
   import slugify from "slugify";
   import Routes from "../../../../router/Routes";
+  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
+  import JinyaMessageActionBar from "../../../Framework/Markup/Validation/MessageActionBar";
+  import JinyaEditor from "../../../Framework/Markup/Form/Editor";
 
   export default {
     components: {
+      JinyaEditor,
+      JinyaMessageActionBar,
+      JinyaMessage,
       JinyaTextarea,
       JinyaFileInput,
       JinyaButton,
@@ -37,6 +56,18 @@
     },
     name: "jinya-artwork-form",
     props: {
+      message: {
+        type: String,
+        default() {
+          return '';
+        }
+      },
+      state: {
+        type: String,
+        default() {
+          return '';
+        }
+      },
       static: {
         type: Boolean,
         default() {
@@ -47,6 +78,12 @@
         type: Boolean,
         default() {
           return true;
+        }
+      },
+      hideOnError: {
+        type: Boolean,
+        default() {
+          return false;
         }
       },
       saveLabel: {
@@ -123,11 +160,11 @@
             width: 50%;
             padding: 0.5em;
 
-            &:first-of-type {
+            &:nth-child(1) {
                 padding-left: 0;
             }
 
-            &:last-of-type {
+            &:nth-child(2) {
                 padding-right: 0;
             }
         }

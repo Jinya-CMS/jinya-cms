@@ -130,6 +130,10 @@ art:
           state:
             409:
               foreign_key_failed: Das Kunstwerk wird in einer Gallerie verwendet und kann daher nicht gelöscht werden.
+    api:
+      state:
+        404:
+          generic: Das Kunstwerk konnte nicht gefunden werden.
 framework:
   markup:
     form:

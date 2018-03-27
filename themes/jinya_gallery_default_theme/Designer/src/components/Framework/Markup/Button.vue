@@ -1,6 +1,7 @@
 <template>
     <a v-if="href" :href="href" v-jinya-message="label" class="jinya-button" :class="additionalClasses"></a>
-    <router-link v-if="to" :to="to" v-jinya-message="label" class="jinya-button" :class="additionalClasses"/>
+    <router-link v-else-if="to" :to="routeTarget" v-jinya-message="label" class="jinya-button"
+                 :class="additionalClasses"/>
     <button :type="type" v-else @click="$event => $emit('click', $event)" v-jinya-message="label" class="jinya-button"
             :disabled="isDisabled" :class="additionalClasses"></button>
 </template>
@@ -15,6 +16,7 @@
       href: String,
       to: String,
       params: Object,
+      query: Object,
       label: {
         type: String,
         required: true
@@ -34,7 +36,11 @@
     },
     data() {
       const data = {
-        routeTarget: this.to ? {name: ObjectUtils.valueByKeypath(Routes, this.to).name, params: this.params} : undefined
+        routeTarget: this.to ? {
+          name: ObjectUtils.valueByKeypath(Routes, this.to).name,
+          params: this.params,
+          query: this.query
+        } : undefined
       };
       data.additionalClasses = {
         'is--primary': this.isDisabled ? false : this.isPrimary,

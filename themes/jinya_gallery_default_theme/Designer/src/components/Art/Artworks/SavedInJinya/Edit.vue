@@ -1,34 +1,24 @@
 <template>
-    <div class="jinya-artwork-edit">
-        <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-artwork-form :artwork="artwork" @save="save" :enable="enable"/>
-    </div>
+    <jinya-artwork-form :artwork="artwork" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
-  import JinyaFileInput from "../../../Framework/Markup/Form/FileInput";
-  import JinyaForm from "../../../Framework/Markup/Form/Form";
   import JinyaArtworkForm from "./ArtworkForm";
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
-  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
-  import JinyaLoader from "../../../Framework/Markup/Loader";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaLoader,
-      JinyaMessage,
-      JinyaArtworkForm,
-      JinyaForm,
-      JinyaFileInput
+      JinyaArtworkForm
     },
     data() {
       return {
         message: '',
         state: '',
         loading: false,
+        enable: false,
         artwork: {
           picture: '',
           name: '',
@@ -40,12 +30,17 @@
     name: "edit",
     async mounted() {
       this.state = 'loading';
-      this.disabled = true;
-      this.message = Translator.message('art.artworks.edit.loading');
-      const artwork = await JinyaRequest.get(`/api/artwork/${this.$route.params.slug}`);
-      this.artwork = artwork.item;
-      this.state = '';
-      this.disabled = false;
+      this.enable = false;
+      this.message = Translator.message('art.artworks.details.loading');
+      try {
+        const artwork = await JinyaRequest.get(`/api/artwork/${this.$route.params.slug}`);
+        this.artwork = artwork.item;
+        this.state = '';
+        this.enable = true;
+      } catch (error) {
+        this.state = 'error';
+        this.message = Translator.validator(`art.artworks.${error.message}`);
+      }
     },
     methods: {
       async save(artwork) {
@@ -72,8 +67,8 @@
           setTimeout(() => {
             this.$router.push({
               name: Routes.Art.Artworks.SavedInJinya.Details.name,
-              query: {
-                slug: this.$route.params.slug
+              params: {
+                slug: this.artwork.slug
               }
             });
           }, 0.5 * 60 * 1000);
@@ -89,6 +84,11 @@
 
 <style scoped lang="scss">
     .jinya-artwork-edit {
+        padding-top: 1em;
+    }
+
+    .jinya-message__action-bar {
+        display: block;
         padding-top: 1em;
     }
 </style>
