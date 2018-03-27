@@ -1,26 +1,44 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import GalleriesArtOverview from '@/components/Art/Galleries/Art/Overview'
+import GalleriesArtAdd from '@/components/Art/Galleries/Art/Add'
+import GalleriesArtEdit from '@/components/Art/Galleries/Art/Edit'
+import GalleriesArtDetails from '@/components/Art/Galleries/Art/Details'
+
 
 export default [
   {
     path: Routes.Art.Galleries.Art.Overview.route,
     name: Routes.Art.Galleries.Art.Overview.name,
-    component: Missing
+    component: GalleriesArtOverview,
+    meta: {
+      title: 'routes.art.galleries.art.overview',
+      searchEnabled: true
+    }
   },
   {
     path: Routes.Art.Galleries.Art.Add.route,
     name: Routes.Art.Galleries.Art.Add.name,
-    component: Missing
+    component: GalleriesArtAdd,
+    meta: {
+      title: 'routes.art.galleries.art.add'
+    }
   },
   {
     path: Routes.Art.Galleries.Art.Details.route,
     name: Routes.Art.Galleries.Art.Details.name,
-    component: Missing
+    component: GalleriesArtDetails,
+    meta: {
+      title: 'routes.art.galleries.art.details'
+    }
   },
   {
     path: Routes.Art.Galleries.Art.Edit.route,
     name: Routes.Art.Galleries.Art.Edit.name,
-    component: Missing
+    component: GalleriesArtEdit,
+    meta: {
+      title: 'routes.art.galleries.art.edit'
+    }
   },
   {
     path: Routes.Art.Galleries.Video.Overview.route,

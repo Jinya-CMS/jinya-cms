@@ -1,27 +1,3 @@
-backend:
-  users:
-    password:
-      repeat: Die Passwörter müssen übereinstimmen
-      not_blank: Das Passwort ist erforderlich
-    firstname:
-      not_blank: Der Vorname ist erforderlich
-    lastname:
-      not_blank: Der Nachname ist erforderlich
-    username:
-      not_blank: Der Benutzername ist erforderlich
-    email:
-      invalid: Die Emailadresse ist nicht gültig
-      not_blank: Die Emailadresse ist erforderlich
-  galleries:
-    name:
-      not_unique: Der Name wurde bereits verwendet
-    slug:
-      not_unique: Der Slug wurde bereits verwendet
-  artworks:
-    name:
-      not_unique: Der Name wurde bereits verwendet
-    slug:
-      not_unique: Der Slug wurde bereits verwendet
 install:
   database:
     host:
@@ -129,11 +105,21 @@ art:
         api:
           state:
             409:
-              foreign_key_failed: Das Kunstwerk wird in einer Gallerie verwendet und kann daher nicht gelöscht werden.
+              foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
     api:
       state:
         404:
           generic: Das Kunstwerk konnte nicht gefunden werden.
+  galleries:
+    overview:
+      no_galleries:
+        Bisher wurden keine Galerien hochgeladen.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Galerien.
+    api:
+      state:
+        404:
+          generic: Das Galerie konnte nicht gefunden werden.
 framework:
   markup:
     form:

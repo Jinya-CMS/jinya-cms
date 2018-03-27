@@ -1,0 +1,83 @@
+<template>
+    <jinya-gallery-form :gallery="gallery" @save="save" :enable="enable" :message="message" :state="state"/>
+</template>
+
+<script>
+  import JinyaGalleryForm from "../GalleryForm";
+  import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
+  import Translator from "../../../Framework/i18n/Translator";
+  import Routes from "../../../../router/Routes";
+
+  // noinspection JSUnusedGlobalSymbols
+  export default {
+    components: {
+      JinyaGalleryForm
+    },
+    data() {
+      return {
+        message: '',
+        state: '',
+        loading: false,
+        enable: false,
+        gallery: {
+          background: '',
+          name: '',
+          slug: '',
+          description: ''
+        }
+      };
+    },
+    name: "edit",
+    async mounted() {
+      this.state = 'loading';
+      this.enable = false;
+      this.message = Translator.message('art.galleries.details.loading');
+      try {
+        const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
+        this.gallery = gallery.item;
+        this.state = '';
+        this.enable = true;
+      } catch (error) {
+        this.state = 'error';
+        this.message = Translator.validator(`art.galleries.${error.message}`);
+      }
+    },
+    methods: {
+      async save(gallery) {
+        const background = gallery.background;
+        try {
+          this.enable = false;
+          this.state = 'loading';
+          this.message = Translator.message('art.galleries.edit.saving', {name: gallery.name});
+
+          await JinyaRequest.put(`/api/gallery/${this.$route.params.slug}`, {
+            name: gallery.name,
+            slug: gallery.slug,
+            description: gallery.description
+          });
+
+          if (background) {
+            this.message = Translator.message('art.galleries.edit.uploading', {name: gallery.name});
+            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/picture`, background);
+          }
+
+          this.state = 'success';
+          this.message = Translator.message('art.galleries.edit.success', {name: gallery.name});
+
+          setTimeout(() => {
+            this.$router.push({
+              name: Routes.Art.Galleries.Art.Details.name,
+              params: {
+                slug: this.gallery.slug
+              }
+            });
+          }, 0.5 * 60 * 1000);
+        } catch (error) {
+          this.message = error.message;
+          this.state = 'error';
+          this.enable = true;
+        }
+      }
+    }
+  }
+</script>

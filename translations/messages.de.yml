@@ -170,6 +170,11 @@ routes:
         overview: In Jinya gespeicherte Kunstwerke
         add: Kunstwerk hinzufügen
         edit: Kunstwerk bearbeiten
+    galleries:
+      art:
+        overview: Kunstgalerien
+        add: Galerie hinzufügen
+        edit: Galerie bearbeiten
   home:
     startpage: Startseite
   account:
@@ -212,5 +217,31 @@ art:
       artwork: Kunstwerk
       description: Beschreibung (optional)
       save: Kunstwerk speichern
+      back: Zurück
+      search: Suchen
+  galleries:
+    delete:
+      title: Soll die Galerie wirklich gelöscht werden?
+      content: Wenn die Galerie "%gallery%" gelöscht wird, ist sie nicht mehr im Menü verfügbar.
+      yes: Galerie löschen
+      no: Galerie nicht löschen
+    add:
+      saving: Die Galerie "%name%" wird gespeichert.
+      uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
+      success: Die Galerie "%name%" wurde erfolgreich gespeichert.
+    edit:
+      saving: Die Galerie "%name%" wird gespeichert.
+      uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
+      success: Die Galerie "%name%" wurde erfolgreich gespeichert.
+      loading: Die Galerie wird geladen
+    details:
+      edit: Bearbeiten
+      loading: Die Galerie wird geladen
+    gallery_form:
+      name: Name
+      slug: Slug
+      background: Hintergrund
+      description: Beschreibung (optional)
+      save: Galerie speichern
       back: Zurück
       search: Suchen
