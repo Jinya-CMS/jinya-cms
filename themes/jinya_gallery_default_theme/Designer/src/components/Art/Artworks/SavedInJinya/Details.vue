@@ -35,6 +35,7 @@
         const artwork = await JinyaRequest.get(`/api/artwork/${this.$route.params.slug}`);
         this.artwork = artwork.item;
         this.state = '';
+        document.title = this.artwork.name;
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.artworks.${error.message}`);
