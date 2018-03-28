@@ -31,7 +31,8 @@
           await JinyaRequest.post('/api/gallery', {
             name: gallery.name,
             slug: gallery.slug,
-            description: gallery.description
+            description: gallery.description,
+            orientation: gallery.orientation
           });
 
           if (background) {

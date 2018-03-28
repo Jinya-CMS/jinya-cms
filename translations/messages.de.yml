@@ -241,7 +241,11 @@ art:
       name: Name
       slug: Slug
       background: Hintergrund
+      orientation: Ausrichtung
       description: Beschreibung (optional)
       save: Galerie speichern
       back: Zurück
       search: Suchen
+      orientations:
+        horizontal: Horizontal
+        vertical: Vertikal

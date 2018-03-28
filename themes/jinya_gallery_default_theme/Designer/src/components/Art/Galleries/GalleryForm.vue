@@ -19,6 +19,9 @@
                              v-model="gallery.name" @change="nameChanged"/>
                 <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.slug"
                              v-model="gallery.slug" @change="slugChanged"/>
+                <jinya-choice :static="static" label="art.galleries.gallery_form.orientation" :choices="orientations"
+                              :enable="enable" :selected="gallery.orientation"
+                              @selected="(value) => gallery.orientation = value"/>
                 <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="backgroundPicked"
                                   label="art.galleries.gallery_form.background"/>
                 <jinya-textarea :static="static" :enable="enable" label="art.galleries.gallery_form.description"
@@ -45,9 +48,12 @@
   import JinyaEditor from "../../Framework/Markup/Form/Editor";
   import JinyaEditorPreviewImage from "../../Framework/Markup/Form/EditorPreviewImage";
   import JinyaEditorPane from "../../Framework/Markup/Form/EditorPane";
+  import JinyaChoice from "../../Framework/Markup/Form/Choice";
+  import Translator from "../../Framework/i18n/Translator";
 
   export default {
     components: {
+      JinyaChoice,
       JinyaEditorPane,
       JinyaEditorPreviewImage,
       JinyaEditor,
@@ -110,7 +116,11 @@
             background: '',
             name: '',
             slug: '',
-            description: ''
+            description: '',
+            orientation: {
+              value: 'horizontal',
+              text: ''
+            }
           };
         }
       },
@@ -119,6 +129,28 @@
         default() {
           return true;
         }
+      }
+    },
+    computed: {
+      orientations() {
+        return [
+          {
+            value: 'horizontal',
+            text: Translator.message('art.galleries.gallery_form.orientations.horizontal')
+          },
+          {
+            value: 'vertical',
+            text: Translator.message('art.galleries.gallery_form.orientations.vertical')
+          }
+        ]
+      }
+    },
+    watch: {
+      gallery(newVal) {
+        this.gallery.orientation = {
+          value: newVal.orientation,
+          text: Translator.message(`art.galleries.gallery_form.orientations.${newVal.orientation}`)
+        };
       }
     },
     methods: {
@@ -145,7 +177,8 @@
           name: this.gallery.name,
           slug: this.gallery.slug,
           background: this.gallery.uploadedFile,
-          description: this.gallery.description
+          description: this.gallery.description,
+          orientation: this.gallery.orientation.value
         };
 
         this.$emit('save', gallery)

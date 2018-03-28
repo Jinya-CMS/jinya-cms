@@ -3,7 +3,8 @@
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card :header="gallery.name" v-for="gallery in galleries" v-if="!loading">
-                <p class="jinya-gallery-description">{{gallery.description}}</p>
+                <p :style="{ 'background-image': `url(${gallery.background})` }" class="jinya-gallery-description">
+                    {{gallery.description}}</p>
                 <jinya-card-button :to="{name: detailsRoute, params: {slug: gallery.slug}}" slot="footer" icon="monitor"
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: gallery.slug}}" slot="footer" icon="pencil"
@@ -159,6 +160,8 @@
     .jinya-gallery-description {
         padding: 0.8em;
         margin: 0;
+        height: 100%;
+        background-size: cover;
     }
 
     .jinya-card__item {

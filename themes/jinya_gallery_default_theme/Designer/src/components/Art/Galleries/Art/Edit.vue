@@ -53,7 +53,8 @@
           await JinyaRequest.put(`/api/gallery/${this.$route.params.slug}`, {
             name: gallery.name,
             slug: gallery.slug,
-            description: gallery.description
+            description: gallery.description,
+            orientation: gallery.orientation
           });
 
           if (background) {
