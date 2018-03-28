@@ -35,6 +35,7 @@
         const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
         this.gallery = gallery.item;
         this.state = '';
+        document.title = this.gallery.name;
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.galleries.${error.message}`);

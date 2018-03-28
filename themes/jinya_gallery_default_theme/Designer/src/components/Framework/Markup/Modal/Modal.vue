@@ -1,6 +1,6 @@
 <template>
     <transition name="overlay" enter-class="is--entering" leave-to-class="is--leaving">
-        <div class="jinya-modal__overlay" @click.self="$emit('close')">
+        <div class="jinya-modal__overlay" @click.self="() => { if (!this.loading) $emit('close') }">
             <dialog class="jinya-modal-dialog" open>
                 <header class="jinya-modal-dialog__title" v-jinya-message="title"></header>
                 <div class="jinya-modal-dialog__message">

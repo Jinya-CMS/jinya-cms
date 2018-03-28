@@ -129,7 +129,7 @@
       EventBus.$off(Events.search.triggered);
     },
     beforeRouteUpdate(to, from, next) {
-      load.call(this, to.query.offset, to.query.count, to.query.keyword);
+      load.call(this, to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
       next();
     },
     data() {

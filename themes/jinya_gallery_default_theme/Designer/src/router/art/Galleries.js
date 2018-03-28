@@ -27,10 +27,7 @@ export default [
   {
     path: Routes.Art.Galleries.Art.Details.route,
     name: Routes.Art.Galleries.Art.Details.name,
-    component: GalleriesArtDetails,
-    meta: {
-      title: 'routes.art.galleries.art.details'
-    }
+    component: GalleriesArtDetails
   },
   {
     path: Routes.Art.Galleries.Art.Edit.route,

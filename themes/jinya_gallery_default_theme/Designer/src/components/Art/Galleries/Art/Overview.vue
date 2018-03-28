@@ -15,14 +15,14 @@
         <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
                      :count="count"/>
         <jinya-modal @close="closeDeleteModal()" title="art.galleries.delete.title" v-if="this.delete.show"
-                     :loading="this.delete.loading">
+                     :loading="this.delete.loading" :is-disabled="this.delete.loading">
             <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
                            slot="message"/>
             {{'art.galleries.delete.content'|jmessage({gallery: selectedGallery.name})}}
             <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.galleries.delete.no"
-                                :closes-modal="true"/>
+                                :closes-modal="true" :is-disabled="this.delete.loading"/>
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.galleries.delete.yes"
-                                @click="remove"/>
+                                @click="remove" :is-disabled="this.delete.loading"/>
         </jinya-modal>
         <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
                                       to="Art.Galleries.Art.Add"/>
@@ -130,7 +130,7 @@
       EventBus.$off(Events.search.triggered);
     },
     beforeRouteUpdate(to, from, next) {
-      load.call(this, to.query.offset, to.query.count, to.query.keyword);
+      load.call(this, to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
       next();
     },
     data() {

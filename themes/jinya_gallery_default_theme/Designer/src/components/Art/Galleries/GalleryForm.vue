@@ -11,6 +11,7 @@
         <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--gallery" @back="back"
                     :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
             <jinya-editor-pane>
+                <label>Hintergrund</label>
                 <jinya-editor-preview-image :src="gallery.background"/>
             </jinya-editor-pane>
             <jinya-editor-pane>

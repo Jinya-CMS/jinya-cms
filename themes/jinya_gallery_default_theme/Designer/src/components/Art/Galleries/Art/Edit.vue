@@ -58,7 +58,7 @@
 
           if (background) {
             this.message = Translator.message('art.galleries.edit.uploading', {name: gallery.name});
-            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/picture`, background);
+            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
           }
 
           this.state = 'success';

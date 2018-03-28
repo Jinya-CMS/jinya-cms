@@ -28,7 +28,7 @@
       }
     },
     data() {
-      const pages = (this.count / 10).toFixed(0);
+      const pages = Math.ceil((this.count / 10.0));
 
       return {
         pages: pages,

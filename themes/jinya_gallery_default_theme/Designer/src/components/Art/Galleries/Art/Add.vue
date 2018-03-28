@@ -34,8 +34,10 @@
             description: gallery.description
           });
 
-          this.message = Translator.message('art.galleries.add.uploading', {name: gallery.name});
-          await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
+          if (background) {
+            this.message = Translator.message('art.galleries.add.uploading', {name: gallery.name});
+            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
+          }
 
           this.state = 'success';
           this.message = Translator.message('art.galleries.add.success', {name: gallery.name});
