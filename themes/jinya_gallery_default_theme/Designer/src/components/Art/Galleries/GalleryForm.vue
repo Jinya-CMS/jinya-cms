@@ -10,10 +10,10 @@
         </jinya-message>
         <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--gallery" @back="back"
                     :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
-            <div class="jinya-form--gallery__pane">
-                <img class="jinya-form__preview-image" :src="gallery.background"/>
-            </div>
-            <div class="jinya-form--gallery__pane">
+            <jinya-editor-pane>
+                <jinya-editor-preview-image :src="gallery.background"/>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
                 <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.name"
                              v-model="gallery.name" @change="nameChanged"/>
                 <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.slug"
@@ -22,7 +22,7 @@
                                   label="art.galleries.gallery_form.background"/>
                 <jinya-textarea :static="static" :enable="enable" label="art.galleries.gallery_form.description"
                                 v-model="gallery.description"/>
-            </div>
+            </jinya-editor-pane>
             <template slot="buttons">
                 <slot name="buttons"/>
             </template>
@@ -42,9 +42,13 @@
   import JinyaMessage from "../../Framework/Markup/Validation/Message";
   import JinyaMessageActionBar from "../../Framework/Markup/Validation/MessageActionBar";
   import JinyaEditor from "../../Framework/Markup/Form/Editor";
+  import JinyaEditorPreviewImage from "../../Framework/Markup/Form/EditorPreviewImage";
+  import JinyaEditorPane from "../../Framework/Markup/Form/EditorPane";
 
   export default {
     components: {
+      JinyaEditorPane,
+      JinyaEditorPreviewImage,
       JinyaEditor,
       JinyaMessageActionBar,
       JinyaMessage,
@@ -148,31 +152,3 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-    .jinya-form--gallery {
-        padding-top: 2em;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .jinya-form--gallery__pane {
-            width: 50%;
-            padding: 0.5em;
-
-            &:nth-child(1) {
-                padding-left: 0;
-            }
-
-            &:nth-child(2) {
-                padding-right: 0;
-            }
-        }
-    }
-
-    .jinya-form__preview-image {
-        width: 100%;
-        max-height: 35em;
-        object-fit: scale-down;
-    }
-</style>

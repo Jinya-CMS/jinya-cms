@@ -41,6 +41,10 @@
         padding: 0;
         font-size: 1rem;
         overflow: auto;
+        padding-top: 2em;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
         &__buttons {
             width: 100%;
