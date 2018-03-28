@@ -156,6 +156,10 @@ routes:
     login: Jinya CMS Login
 framework:
   markup:
+    menu:
+      navbar:
+        search_item:
+          placeholder: Suchen
     form:
       file_input:
         pick: Datei suchen

@@ -2,7 +2,8 @@
     <div class="jinya-menu-navbar__item--search">
         <!--suppress HtmlFormInputWithoutLabel -->
         <input class="jinya-menu-navbar__item--search__input" type="search" @keyup.enter="sendSearch"
-               :aria-labelledby="id" v-model="keyword" :placeholder="'generic.search' | jmessage"/>
+               :aria-labelledby="id" v-model="keyword"
+               :placeholder="'framework.markup.menu.navbar.search_item.placeholder' | jmessage"/>
         <button class="jinya-menu-navbar__item--search__button" @click.prevent="sendSearch">
             <span class="mdi mdi-magnify"></span>
             <span class="sr--only" :id="id" v-jinya-message="'generic.search'"></span>

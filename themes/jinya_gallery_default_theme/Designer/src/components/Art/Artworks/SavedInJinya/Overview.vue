@@ -20,8 +20,9 @@
                            slot="message"/>
             {{'art.artworks.delete.content'|jmessage({artwork: selectedArtwork.name})}}
             <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.artworks.delete.no"
-                                :closes-modal="true"/>
-            <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"/>
+                                :closes-modal="true" :is-disabled="this.delete.loading"/>
+            <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"
+                                :is-disabled="this.delete.loading"/>
         </jinya-modal>
         <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
                                       to="Art.Artworks.SavedInJinya.Add"/>

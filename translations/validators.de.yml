@@ -106,6 +106,8 @@ art:
           state:
             409:
               foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
+            500:
+              generic: Beim Löschen des Kunstwerks ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
     api:
       state:
         404:
