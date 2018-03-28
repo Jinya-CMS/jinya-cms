@@ -13,6 +13,11 @@
         }
       }
     },
+    watch: {
+      src(newVal) {
+        this.imgSrc = newVal;
+      }
+    },
     data() {
       return {
         imgSrc: this.src
