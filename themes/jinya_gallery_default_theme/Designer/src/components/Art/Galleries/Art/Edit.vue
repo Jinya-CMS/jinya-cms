@@ -8,6 +8,7 @@
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
   import Timing from "@/components/Framework/Utils/Timing";
+  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -38,6 +39,7 @@
         this.gallery = gallery.item;
         this.state = '';
         this.enable = true;
+        DOMUtils.changeTitle(`${this.gallery.name} ${Translator.message('art.galleries.art.edit.title')}`);
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.galleries.${error.message}`);

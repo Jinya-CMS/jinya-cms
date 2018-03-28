@@ -13,6 +13,7 @@ import Maintenance from './maintenance';
 import MyJinya from './myjinya';
 import Events from "../components/Framework/Events/Events";
 import Translator from "@/components/Framework/i18n/Translator";
+import DOMUtils from "@/components/Framework/Utils/DOMUtils";
 
 const routes = Home
   .concat(Account)
@@ -35,7 +36,7 @@ router.beforeEach((to, from, next) => {
     next(Routes.Account.Login.route);
   } else {
     EventBus.$emit(Events.navigation.navigated);
-    document.title = to.meta && to.meta.title ? Translator.message(to.meta.title) : '';
+    DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
     next();
   }
 });

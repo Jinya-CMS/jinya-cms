@@ -43,7 +43,8 @@
     <script>
       window.options = {
         startBackground: '{{ asset(themeConfig.startpage.background.image) }}',
-        genericBackground: '{{ asset(themeConfig.default_background.image) }}'
+        genericBackground: '{{ asset(themeConfig.default_background.image) }}',
+        pageTitle: '{{ themeConfig.page.title }}'
       };
       window.messages = {{ get_translation_catalogue()|json_encode|raw }};
       window.validators = {{ get_translation_catalogue('validators')|json_encode|raw }};

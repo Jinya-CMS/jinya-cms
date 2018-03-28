@@ -8,6 +8,7 @@
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
   import Routes from "../../../../router/Routes";
   import Translator from "../../../Framework/i18n/Translator";
+  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -35,7 +36,7 @@
         const artwork = await JinyaRequest.get(`/api/artwork/${this.$route.params.slug}`);
         this.artwork = artwork.item;
         this.state = '';
-        document.title = this.artwork.name;
+        DOMUtils.changeTitle(this.artwork.name);
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.artworks.${error.message}`);
