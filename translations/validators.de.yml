@@ -110,6 +110,8 @@ art:
       state:
         404:
           generic: Das Kunstwerk konnte nicht gefunden werden.
+        409:
+          exists: Das Kunstwerk existiert bereits.
   galleries:
     overview:
       no_galleries:
