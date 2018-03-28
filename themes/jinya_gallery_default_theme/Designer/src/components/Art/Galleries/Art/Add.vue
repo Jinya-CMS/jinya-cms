@@ -7,6 +7,7 @@
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
   import JinyaGalleryForm from "../GalleryForm";
+  import Timing from "@/components/Framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -43,9 +44,8 @@
           this.state = 'success';
           this.message = Translator.message('art.galleries.add.success', {name: gallery.name});
 
-          setTimeout(() => {
-            this.$router.push(Routes.Art.Galleries.Art.Overview);
-          }, 0.5 * 60 * 1000);
+          await Timing.wait();
+          this.$router.push(Routes.Art.Galleries.Art.Overview);
         } catch (error) {
           this.message = error.message;
           this.state = 'error';

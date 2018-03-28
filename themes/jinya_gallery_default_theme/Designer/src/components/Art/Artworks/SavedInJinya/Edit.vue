@@ -7,6 +7,7 @@
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
+  import Timing from "@/components/Framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -56,7 +57,7 @@
             description: artwork.description
           });
 
-          if (background) {
+          if (picture) {
             this.message = Translator.message('art.artworks.edit.uploading', {name: artwork.name});
             await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
           }
@@ -64,14 +65,13 @@
           this.state = 'success';
           this.message = Translator.message('art.artworks.edit.success', {name: artwork.name});
 
-          setTimeout(() => {
-            this.$router.push({
-              name: Routes.Art.Artworks.SavedInJinya.Details.name,
-              params: {
-                slug: this.artwork.slug
-              }
-            });
-          }, 0.5 * 60 * 1000);
+          await Timing.wait();
+          this.$router.push({
+            name: Routes.Art.Artworks.SavedInJinya.Details.name,
+            params: {
+              slug: this.artwork.slug
+            }
+          });
         } catch (error) {
           this.message = error.message;
           this.state = 'error';

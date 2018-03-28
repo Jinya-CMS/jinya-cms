@@ -7,6 +7,7 @@
   import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
   import Translator from "../../../Framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
+  import Timing from "@/components/Framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -65,14 +66,13 @@
           this.state = 'success';
           this.message = Translator.message('art.galleries.edit.success', {name: gallery.name});
 
-          setTimeout(() => {
-            this.$router.push({
-              name: Routes.Art.Galleries.Art.Details.name,
-              params: {
-                slug: this.gallery.slug
-              }
-            });
-          }, 0.5 * 60 * 1000);
+          await Timing.wait();
+          this.$router.push({
+            name: Routes.Art.Galleries.Art.Details.name,
+            params: {
+              slug: this.gallery.slug
+            }
+          });
         } catch (error) {
           this.message = error.message;
           this.state = 'error';
