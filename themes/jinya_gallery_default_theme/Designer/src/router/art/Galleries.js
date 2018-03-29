@@ -4,7 +4,7 @@ import GalleriesArtOverview from '@/components/Art/Galleries/Art/Overview'
 import GalleriesArtAdd from '@/components/Art/Galleries/Art/Add'
 import GalleriesArtEdit from '@/components/Art/Galleries/Art/Edit'
 import GalleriesArtDetails from '@/components/Art/Galleries/Art/Details'
-
+import GalleriesArtDesigner from '@/components/Art/Galleries/Art/Designer'
 
 export default [
   {
@@ -28,6 +28,14 @@ export default [
     path: Routes.Art.Galleries.Art.Details.route,
     name: Routes.Art.Galleries.Art.Details.name,
     component: GalleriesArtDetails
+  },
+  {
+    path: Routes.Art.Galleries.Art.Designer.route,
+    name: Routes.Art.Galleries.Art.Designer.name,
+    component: GalleriesArtDesigner,
+    meta: {
+      title: 'routes.art.galleries.art.designer'
+    }
   },
   {
     path: Routes.Art.Galleries.Art.Edit.route,

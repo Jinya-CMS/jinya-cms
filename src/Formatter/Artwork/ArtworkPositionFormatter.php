@@ -68,6 +68,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
             ->init($this->artworkPosition->getArtwork())
             ->slug()
             ->name()
+            ->picture()
             ->description()
             ->format();
 

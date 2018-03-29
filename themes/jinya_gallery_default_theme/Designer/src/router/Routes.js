@@ -137,6 +137,10 @@ export default {
           name: 'ArtGalleriesArtDetails',
           route: '/designer/art/gallery/art/:slug'
         },
+        Designer: {
+          name: 'ArtGalleriesArtDesigner',
+          route: '/designer/art/gallery/art/:slug/designer'
+        },
         Add: {
           name: 'ArtGalleriesArtAdd',
           route: '/designer/art/gallery/art/add'

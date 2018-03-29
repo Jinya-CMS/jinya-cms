@@ -39,7 +39,7 @@
         this.gallery = gallery.item;
         this.state = '';
         this.enable = true;
-        DOMUtils.changeTitle(`${this.gallery.name} ${Translator.message('art.galleries.art.edit.title')}`);
+        DOMUtils.changeTitle(Translator.message('art.galleries.art.edit.title', this.gallery));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.galleries.${error.message}`);

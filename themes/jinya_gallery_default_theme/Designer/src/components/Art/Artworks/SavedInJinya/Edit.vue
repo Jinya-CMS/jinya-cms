@@ -39,7 +39,7 @@
         this.artwork = artwork.item;
         this.state = '';
         this.enable = true;
-        DOMUtils.changeTitle(`${this.artwork.name} ${Translator.message('art.artworks.edit.title')}`);
+        DOMUtils.changeTitle(Translator.message('art.artworks.edit.title', this.artwork));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.artworks.${error.message}`);

@@ -9,6 +9,8 @@
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: gallery.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
+                <jinya-card-button :to="{name: designerRoute, params: {slug: gallery.slug}}" slot="footer" type="edit"
+                                   :icon="gallery.orientation === 'horizontal' ? 'view-sequential' : 'view-parallel'"/>
                 <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(gallery)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
@@ -151,6 +153,7 @@
         },
         editRoute: Routes.Art.Galleries.Art.Edit.name,
         detailsRoute: Routes.Art.Galleries.Art.Details.name,
+        designerRoute: Routes.Art.Galleries.Art.Designer.name,
         nothingFound: this.$route.query.keyword ? 'art.galleries.overview.nothing_found' : 'art.galleries.overview.no_galleries'
       };
     }

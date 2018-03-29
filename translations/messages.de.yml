@@ -150,6 +150,7 @@ routes:
         overview: Kunstgalerien
         add: Galerie hinzufügen
         edit: Galerie bearbeiten
+        designer: Galeriedesigner
   home:
     startpage: Startseite
   account:
@@ -183,7 +184,7 @@ art:
       uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
       success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
     edit:
-      title: bearbeiten
+      title: Kunstwerk %name% bearbeiten
       saving: Das Kunstwerk "%name%" wird gespeichert.
       uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
       success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
@@ -210,13 +211,16 @@ art:
       uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
       success: Die Galerie "%name%" wurde erfolgreich gespeichert.
     edit:
-      title: bearbeiten
+      title: Galerie %name% bearbeiten
       saving: Die Galerie "%name%" wird gespeichert.
       uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
       success: Die Galerie "%name%" wurde erfolgreich gespeichert.
       loading: Die Galerie wird geladen
     details:
       edit: Bearbeiten
+      loading: Die Galerie wird geladen
+    designer:
+      title: Galerie %name% anordnen
       loading: Die Galerie wird geladen
     gallery_form:
       name: Name
