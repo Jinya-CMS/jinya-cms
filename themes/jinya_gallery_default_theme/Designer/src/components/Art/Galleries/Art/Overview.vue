@@ -10,7 +10,7 @@
                 <jinya-card-button :to="{name: editRoute, params: {slug: gallery.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
                 <jinya-card-button :to="{name: designerRoute, params: {slug: gallery.slug}}" slot="footer" type="edit"
-                                   :icon="gallery.orientation === 'horizontal' ? 'view-sequential' : 'view-parallel'"/>
+                                   :icon="gallery.orientation === 'horizontal' ? 'view-parallel' : 'view-sequential'"/>
                 <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(gallery)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>

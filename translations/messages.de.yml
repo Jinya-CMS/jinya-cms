@@ -222,6 +222,13 @@ art:
     designer:
       title: Galerie %name% anordnen
       loading: Die Galerie wird geladen
+      moving: Das Kunstwerk "%name%" wird verschoben
+      add:
+        title: Kunstwerk einfügen
+        pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
+      add_view:
+        add: Kunstwerk auswählen
+        cancel: Abbrechen
     gallery_form:
       name: Name
       slug: Slug
