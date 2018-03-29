@@ -16,33 +16,32 @@
 </script>
 
 <style lang="scss">
-    .jinya-gallery-designer {
-        &.is--horizontal {
-            .jinya-gallery-designer__button {
-                height: 40em;
+    .is--horizontal {
+        .jinya-gallery-designer__button {
+            height: 40em;
 
-                &.jinya-gallery-designer__button--add {
-                    width: 10em;
-                }
+            &.jinya-gallery-designer__button--add {
+                width: 10em;
+            }
 
-                &.jinya-gallery-designer__button--edit {
-                    grid-column: 1;
-                    grid-row: 1;
-                }
+            &.jinya-gallery-designer__button--edit {
+                grid-column: 1;
+                grid-row: 1;
             }
         }
-        &.is--vertical {
-            .jinya-gallery-designer__button {
-                &.jinya-gallery-designer__button--add {
-                    height: 10em;
-                }
+    }
 
-                &.jinya-gallery-designer__button--edit {
-                    height: auto;
-                    width: 100%;
-                    grid-row: 2;
-                    grid-column: 1;
-                }
+    .is--vertical {
+        .jinya-gallery-designer__button {
+            &.jinya-gallery-designer__button--add {
+                height: 10em;
+            }
+
+            &.jinya-gallery-designer__button--edit {
+                height: auto;
+                width: 100%;
+                grid-row: 2;
+                grid-column: 1;
             }
         }
     }

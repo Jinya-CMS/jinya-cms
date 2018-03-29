@@ -16,14 +16,14 @@
 
 <style lang="scss">
     .jinya-gallery-designer__image {
-        .jinya-gallery-designer.is--vertical & {
+        .is--vertical & {
             height: auto;
             width: 100%;
             grid-row: 2;
             grid-column: 1;
         }
 
-        .jinya-gallery-designer.is--horizontal & {
+        .is--horizontal & {
             height: 40em;
             width: auto;
             grid-column: 1;

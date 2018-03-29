@@ -14,7 +14,7 @@
     .jinya-gallery-designer__item {
         display: grid;
 
-        .jinya-gallery-designer.is--vertical & {
+        .is--vertical & {
             grid-template-rows: auto 1fr auto;
         }
     }
