@@ -51,6 +51,7 @@ class FormItemService implements FormItemServiceInterface
      */
     private function rearrangeFormItems(int $position, Form $form): int
     {
+        //FIXME Checkout artwork position service, there it works
         $positions = $form->getItems()->toArray();
         uasort($positions, function ($a, $b) {
             /** @var FormItem $a */
