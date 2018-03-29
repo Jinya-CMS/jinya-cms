@@ -45,9 +45,9 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param string $gallerySlug
      * @param string $artworkSlug
      * @param int $position
-     * @return bool
+     * @return int
      */
-    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): bool
+    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): int
     {
         $gallery = $this->galleryService->get($gallerySlug);
         $artwork = $this->artworkService->get($artworkSlug);
@@ -58,7 +58,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
         $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
 
-        return true;
+        return $artworkPosition->getId();
     }
 
     /**

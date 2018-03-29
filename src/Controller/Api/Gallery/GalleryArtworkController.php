@@ -56,7 +56,7 @@ class GalleryArtworkController extends BaseApiController
                 throw new MissingFieldsException(['artwork' => 'api.gallery.field.artworkSlug.missing']);
             }
 
-            $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
+            return $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
