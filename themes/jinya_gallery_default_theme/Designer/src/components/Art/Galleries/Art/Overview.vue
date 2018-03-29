@@ -94,7 +94,8 @@
         try {
           await JinyaRequest.delete(`/api/gallery/${this.selectedGallery.slug}`);
           this.delete.show = false;
-          this.load.call(this);
+          const url = new URL(location.href);
+          this.load.call(this, 0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.galleries.overview.delete.${reason.message}`);
         }
