@@ -226,8 +226,12 @@ art:
       add:
         title: Kunstwerk einfügen
         pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
+      edit:
+        title: Kunstwerk tauschen
+        pending: Das Kunstwerk "%name%" wird getauscht
       add_view:
-        add: Kunstwerk auswählen
+        cancel: Schließen
+      edit_view:
         cancel: Schließen
       artwork_view:
         search: Suchen…

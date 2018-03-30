@@ -16,6 +16,7 @@
             <jinya-gallery-designer-button type="add" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
+        <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"/>
     </div>
 </template>
 
@@ -32,9 +33,11 @@
   import JinyaModal from "@/components/Framework/Markup/Modal/Modal";
   import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
   import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
+  import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
 
   export default {
     components: {
+      JinyaGalleryDesignerEditView,
       JinyaMessage,
       JinyaGalleryDesignerAddView,
       JinyaModal,
@@ -91,10 +94,32 @@
         this.message = '';
         this.addModal.show = false;
       },
+      async saveEdit(artwork) {
+        this.state = 'loading';
+        this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
+        await JinyaRequest.put(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
+          artwork: artwork.slug
+        });
+
+        this.artworks.splice(this.currentPosition, 1, {
+          artwork: artwork,
+          id: this.artworkPosition.id
+        });
+
+        this.state = '';
+        this.message = '';
+        this.addModal.show = false;
+      },
       add(position) {
         this.addModal.show = true;
         this.addModal.loading = true;
         this.currentPosition = position;
+      },
+      edit(artworkPosition, position) {
+        this.addModal.show = true;
+        this.addModal.loading = true;
+        this.currentPosition = position;
+        this.artworkPosition = artworkPosition;
       }
     },
     data() {
@@ -110,6 +135,10 @@
         artworks: [],
         loading: false,
         addModal: {
+          show: false,
+          loading: false
+        },
+        editModal: {
           show: false,
           loading: false
         }
