@@ -59,10 +59,8 @@
 
         &.jinya-gallery-designer__button--add {
             transition: transform 0.3s;
-            transform: scale(1, 1);
 
             &:hover {
-                transform: scale(0.9, 0.9);
                 background: $gray-300;
             }
 

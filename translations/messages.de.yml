@@ -228,7 +228,10 @@ art:
         pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
       add_view:
         add: Kunstwerk auswählen
-        cancel: Abbrechen
+        cancel: Schließen
+      artwork_view:
+        search: Suchen…
+        pick: Auswählen
     gallery_form:
       name: Name
       slug: Slug

@@ -120,6 +120,10 @@ art:
         Bisher wurden keine Galerien hochgeladen.
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Galerien.
+    designer:
+      artwork_view:
+        nothing_found: Es wurden keine Kunstwerke gefunden
+        loading: Die Kunstwerke werden geladen
     api:
       state:
         404:

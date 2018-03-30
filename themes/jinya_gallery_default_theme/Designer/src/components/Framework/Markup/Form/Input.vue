@@ -1,9 +1,9 @@
 <template>
     <div class="jinya-input">
-        <label :for="id" class="jinya-input__label" v-jinya-message="label"></label>
+        <label v-if="label" :for="id" class="jinya-input__label" v-jinya-message="label"></label>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
         <input v-if="!static" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
-               :disabled="!enable" :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)"
+               :disabled="!enable" :autocomplete="autocomplete" @keyup="keyup" :placeholder="placeholder|jmessage"
                :autofocus="autofocus" @input="$emit('input', $event.target.value)"/>
         <span v-if="static" :id="id" class="jinya-input__field">{{value}}</span>
     </div>
@@ -26,6 +26,7 @@
         }
       },
       value: String,
+      placeholder: String,
       required: Boolean,
       type: {
         type: String, default() {
@@ -36,7 +37,7 @@
       autofocus: Boolean,
       label: {
         type: String,
-        required: true
+        required: false
       }
     },
     data() {
@@ -46,6 +47,12 @@
     },
     mounted() {
       this.id = this._uid;
+    },
+    methods: {
+      keyup($event) {
+        this.$emit('change', $event.target.value);
+        this.$emit('keyup', $event);
+      }
     }
   }
 </script>

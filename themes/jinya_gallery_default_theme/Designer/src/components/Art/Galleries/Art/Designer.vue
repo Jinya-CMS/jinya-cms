@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-gallery-designer" :class="`is--${gallery.orientation}`">
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
-        <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(0)"/>
+        <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
         <template v-if="!loading" v-for="(position, index) in artworks">
             <jinya-gallery-designer-item>
                 <template>
@@ -13,9 +13,9 @@
                                                             @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
-            <jinya-gallery-designer-button type="add" @click="add(index + 1)"/>
+            <jinya-gallery-designer-button type="add" @click="add(index)"/>
         </template>
-        <jinya-gallery-designer-add-view v-if="addModal.show" @picked="saveAdd"/>
+        <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
     </div>
 </template>
 
@@ -82,13 +82,14 @@
           artwork: artwork.slug
         });
 
-        this.artworks.splice(this.currentPosition, {
+        this.artworks.splice(this.currentPosition + 1, 0, {
           id: id,
           artwork: artwork
         });
 
         this.state = '';
         this.message = '';
+        this.addModal.show = false;
       },
       add(position) {
         this.addModal.show = true;

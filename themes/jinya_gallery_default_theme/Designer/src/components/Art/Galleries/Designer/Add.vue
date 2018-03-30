@@ -1,30 +1,48 @@
 <template>
-    <jinya-modal title="art.galleries.designer.add.title" :loading="loading">
-        <jinya-modal-button slot="buttons-right" label="art.galleries.designer.add_view.cancel" :is-secondary="true"
-                            :is-disabled="loading"/>
-        <jinya-modal-button slot="buttons-right" label="art.galleries.designer.add_view.add" :is-primary="true"
-                            :is-disabled="loading"/>
+    <jinya-modal modal-modifiers="jinya-modal--add-artwork" title="art.galleries.designer.add.title"
+                 @close="$emit('close')">
+        <jinya-message message="art.galleries.designer.artwork_view.loading" state="loading" v-if="loading"
+                       slot="message"/>
+        <jinya-gallery-designer-artwork-view @picked="pick" @load-start="loading = true" @load-end="loading = false"/>
+        <jinya-modal-button slot="buttons-right" :closes-modal="true" label="art.galleries.designer.add_view.cancel"
+                            :is-secondary="true" :is-disabled="picked"/>
     </jinya-modal>
 </template>
 
 <script>
   import JinyaModal from "@/components/Framework/Markup/Modal/Modal";
   import JinyaModalButton from "@/components/Framework/Markup/Modal/ModalButton";
+  import JinyaGalleryDesignerArtworkView from "@/components/Art/Galleries/Designer/ArtworkView";
+  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
 
   export default {
     components: {
+      JinyaMessage,
+      JinyaGalleryDesignerArtworkView,
       JinyaModalButton,
       JinyaModal
     },
     name: "jinya-gallery-designer-add-view",
     data() {
       return {
-        loading: true
+        loading: false,
+        picked: false
+      };
+    },
+    methods: {
+      pick(artwork) {
+        this.$emit('picked', artwork);
+        this.picked = true;
       }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .jinya-modal--add-artwork {
+        .jinya-modal__content {
+            padding: 0;
 
+        }
+    }
 </style>
