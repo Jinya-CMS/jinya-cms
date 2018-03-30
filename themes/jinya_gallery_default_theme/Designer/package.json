@@ -19,6 +19,7 @@
     "slugify": "^1.2.9",
     "style-loader": "^0.20.3",
     "vue": "^2.5.2",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

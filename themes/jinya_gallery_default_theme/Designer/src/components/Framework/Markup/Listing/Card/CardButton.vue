@@ -1,9 +1,10 @@
 <template>
-    <router-link v-if="to" class="jinya-card-button" :class="`jinya-card-button--${type}`" :to="routeTarget">
+    <router-link :disabled="isDisabled" v-if="to" class="jinya-card-button" :class="additionalClasses"
+                 :to="routeTarget">
         <span v-if="icon" class="mdi" :class="`mdi-${icon}`"></span>
         <span v-if="text">{{text|jmessage}}</span>
     </router-link>
-    <button v-else class="jinya-card-button" :class="`jinya-card-button--${type}`" @click="$emit('click')">
+    <button :disabled="isDisabled" v-else class="jinya-card-button" :class="additionalClasses" @click="$emit('click')">
         <span v-if="icon" class="mdi" :class="`mdi-${icon}`"></span>
         <span v-if="text">{{text|jmessage}}</span>
     </button>
@@ -34,19 +35,28 @@
           return this.icon || input;
         }
       },
-      to: {}
+      to: {},
+      isDisabled: Boolean
     },
     data() {
+      const additionalClasses = {};
+      additionalClasses[`jinya-card-button--${this.type}`] = this.type;
+      additionalClasses['is--disabled'] = this.isDisabled;
+
       if (this.to instanceof String) {
         return {
-          routeTarget: ObjectUtils.valueByKeypath(Routes, this.to)
+          routeTarget: ObjectUtils.valueByKeypath(Routes, this.to),
+          additionalClasses: additionalClasses
         };
       } else if (this.to instanceof Object) {
         return {
-          routeTarget: this.to
+          routeTarget: this.to,
+          additionalClasses: additionalClasses
         };
       } else {
-        return {};
+        return {
+          additionalClasses: additionalClasses
+        };
       }
     }
   }

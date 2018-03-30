@@ -21,8 +21,15 @@
     @content;
   }
 }
+
 @mixin breakpoint-ultra-mobile {
   @media only screen and (max-width: $breakpoint-ultra-mobile-max-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-768-height {
+  @media only screen and (max-height: 750px) {
     @content;
   }
 }

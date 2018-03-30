@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading" class="jinya-loader">
+    <div v-if="loading" class="jinya-loader" :class="{'is--mini': mini}">
         <div class="jinya-loader__spinner"></div>
     </div>
 </template>
@@ -9,6 +9,12 @@
     name: "jinya-loader",
     props: {
       loading: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      },
+      mini: {
         type: Boolean,
         default() {
           return false;
@@ -33,10 +39,15 @@
             border-right-color: $primary;
             border-bottom-color: $primary-darker;
             border-radius: 50%;
-            width: 120px;
-            height: 120px;
+            width: 10em;
+            height: 10em;
             animation: spin 0.5s steps(6) infinite;
             margin: auto;
+
+            &.is--mini {
+                width: 3em;
+                height: 3em;
+            }
 
             @keyframes spin {
                 from {
