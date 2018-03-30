@@ -16,7 +16,8 @@
             <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
-        <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"/>
+        <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"
+                                          @delete="deleteArtwork"/>
     </div>
 </template>
 
@@ -118,14 +119,23 @@
         this.message = '';
         this.addModal.show = false;
       },
+      async deleteArtwork() {
+        this.state = 'loading';
+        await JinyaRequest.delete(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
+
+        this.artworks.splice(this.currentPosition, 1);
+
+        this.state = '';
+        this.editModal.show = false;
+      },
       add(position) {
         this.addModal.show = true;
         this.addModal.loading = true;
         this.currentPosition = position;
       },
       edit(artworkPosition, position) {
-        this.addModal.show = true;
-        this.addModal.loading = true;
+        this.editModal.show = true;
+        this.editModal.loading = true;
         this.currentPosition = position;
         this.artworkPosition = artworkPosition;
       }

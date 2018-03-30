@@ -4,6 +4,8 @@
         <jinya-message message="art.galleries.designer.artwork_view.loading" state="loading" v-if="loading"
                        slot="message"/>
         <jinya-gallery-designer-artwork-view @picked="pick" @load-start="loading = true" @load-end="loading = false"/>
+        <jinya-modal-button slot="buttons-left" label="art.galleries.designer.edit_view.delete"
+                            :is-danger="true" :is-disabled="picked" @click="$emit('delete')"/>
         <jinya-modal-button slot="buttons-right" :closes-modal="true" label="art.galleries.designer.edit_view.cancel"
                             :is-secondary="true" :is-disabled="picked"/>
     </jinya-modal>

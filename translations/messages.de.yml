@@ -233,6 +233,7 @@ art:
         cancel: Schließen
       edit_view:
         cancel: Schließen
+        delete: Kunstwerk entfernen
       artwork_view:
         search: Suchen…
         pick: Auswählen
