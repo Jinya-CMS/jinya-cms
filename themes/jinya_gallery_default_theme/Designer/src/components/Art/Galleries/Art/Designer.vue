@@ -1,19 +1,19 @@
 <template>
-    <div class="jinya-gallery-designer" :class="`is--${gallery.orientation}`">
+    <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
         <template v-if="!loading" v-for="(position, index) in artworks">
-            <jinya-gallery-designer-item>
+            <jinya-gallery-designer-item @wheel.native="scroll">
                 <template>
-                    <jinya-gallery-designer-image :src="position.artwork.picture"/>
-                    <jinya-gallery-designer-button type="edit" @click="edit(position, index)"/>
-                    <jinya-gallery-designer-position-button v-if="index > 0" :decrease="true"
+                    <jinya-gallery-designer-image @wheel.native="scroll" :src="position.artwork.picture"/>
+                    <jinya-gallery-designer-button @wheel.native="scroll" type="edit" @click="edit(position, index)"/>
+                    <jinya-gallery-designer-position-button v-if="index > 0" :decrease="true" @wheel.native="scroll"
                                                             @click="move(position, index, index - 1)"/>
-                    <jinya-gallery-designer-position-button v-if="index + 1 < artworks.length" :increase="true"
-                                                            @click="move(position, index, index + 1)"/>
+                    <jinya-gallery-designer-position-button v-if="index + 1 < artworks.length" @wheel.native="scroll"
+                                                            :increase="true" @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
-            <jinya-gallery-designer-button type="add" @click="add(index)"/>
+            <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
         <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"/>
@@ -61,6 +61,14 @@
       this.loading = false;
     },
     methods: {
+      scroll($event) {
+        if (!$event.deltaX) {
+          this.$refs.designer.scrollBy({
+            behavior: 'auto',
+            left: $event.deltaY > 0 ? 100 : -100
+          });
+        }
+      },
       async move(artworkPosition, oldPosition, newPosition) {
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.moving', artworkPosition.artwork);
