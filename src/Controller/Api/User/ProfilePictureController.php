@@ -26,9 +26,10 @@ class ProfilePictureController extends BaseUserController
      *
      * @param int $id
      * @param UserServiceInterface $userService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getProfilePictureAction(int $id, UserServiceInterface $userService): Response
+    public function getProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
     {
         /** @var $data User */
         list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
@@ -43,7 +44,7 @@ class ProfilePictureController extends BaseUserController
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->redirect($data->getProfilePicture());
+            return $this->file($mediaService->getMedia($data->getProfilePicture()), $data->getFirstname() . ' ' . $data->getLastname() . '.jpg');
         }
     }
 

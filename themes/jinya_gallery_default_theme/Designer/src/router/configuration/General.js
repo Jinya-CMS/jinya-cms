@@ -1,11 +1,15 @@
 import Routes from "../Routes";
 import Missing from "@/components/Home/Missing";
+import ArtistsOverview from '@/components/Configuration/Artists/Overview';
 
 export default [
   {
     path: Routes.Configuration.General.Artists.Overview.route,
     name: Routes.Configuration.General.Artists.Overview.name,
-    component: Missing
+    component: ArtistsOverview,
+    meta: {
+      title: 'routes.configuration.general.artists.overview'
+    }
   },
   {
     path: Routes.Configuration.General.Artists.Add.route,

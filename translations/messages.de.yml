@@ -153,6 +153,10 @@ routes:
         designer: Galeriedesigner
   home:
     startpage: Startseite
+  configuration:
+    general:
+      artists:
+        overview: Künstler
   account:
     login: Jinya CMS Login
 framework:
@@ -172,6 +176,15 @@ framework:
 home:
   missing:
     header: Sorry ich bin noch nicht fertig
+configuration:
+  general:
+    artists:
+      overview:
+        enable: Aktivieren
+        disable: Deaktivieren
+        delete: Löschen
+        edit: Bearbeiten
+        details: Profil
 art:
   artworks:
     delete:
