@@ -157,8 +157,20 @@ routes:
     general:
       artists:
         overview: Künstler
+        add: Künstler hinzufügen
   account:
     login: Jinya CMS Login
+authentication:
+  roles:
+    -
+      text: Superadmin
+      value: ROLE_SUPER_ADMIN
+    -
+      text: Admin
+      value: ROLE_ADMIN
+    -
+      text: Schreiber
+      value: ROLE_WRITER
 framework:
   markup:
     menu:
@@ -185,6 +197,22 @@ configuration:
         delete: Löschen
         edit: Bearbeiten
         details: Profil
+      add:
+        saving: "%firstname% %lastname% wird gespeichert"
+        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
+        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+      artist_form:
+        firstname: Vorname
+        lastname: Nachname
+        email: Email
+        profile_picture: Profilbild
+        password: Passwort
+        activation: Aktivieren?
+        enabled: Ja
+        disabled: Nein
+        save: Künstler speichern
+        back: Zurück
+        roles: Rollen
 art:
   artworks:
     delete:

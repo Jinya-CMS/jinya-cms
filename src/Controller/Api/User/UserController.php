@@ -157,6 +157,7 @@ class UserController extends BaseUserController
                 ->profile()
                 ->enabled()
                 ->roles()
+                ->id()
                 ->format();
         }, Response::HTTP_CREATED);
 
