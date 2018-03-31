@@ -201,6 +201,12 @@ configuration:
         saving: "%firstname% %lastname% wird gespeichert"
         uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
         success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+      edit:
+        saving: "%firstname% %lastname% wird gespeichert"
+        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
+        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        loading: Der Künstler wird geladen
+        title: "%firstname% %lastname% bearbeiten"
       artist_form:
         firstname: Vorname
         lastname: Nachname

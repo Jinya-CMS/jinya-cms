@@ -8,7 +8,12 @@
                     <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
                                        icon="account-card-details" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
-                                       icon="account-edit" v-if="artist.editable" slot="footer"/>
+                                       :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
+                                       v-if="artist.editable" slot="footer"/>
+                    <jinya-card-button :title="'configuration.general.artists.overview.change_password'|jmessage"
+                                       type="edit"
+                                       :to="{name: editRoute, params: {id: artist.id}}" icon="account-key"
+                                       v-if="artist.editable" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
                                        icon="account-check" v-if="artist.editable && !artist.enabled" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
@@ -29,6 +34,7 @@
   import JinyaCardButton from "@/components/Framework/Markup/Listing/Card/CardButton";
   import JinyaLoader from "@/components/Framework/Markup/Loader";
   import JinyaFloatingActionButton from "@/components/Framework/Markup/FloatingActionButton";
+  import Routes from "@/router/Routes";
 
   export default {
     name: "Overview",
@@ -38,6 +44,11 @@
       JinyaCardButton,
       JinyaCard,
       JinyaCardList
+    },
+    computed: {
+      editRoute() {
+        return Routes.Configuration.General.Artists.Edit.name;
+      }
     },
     data() {
       return {

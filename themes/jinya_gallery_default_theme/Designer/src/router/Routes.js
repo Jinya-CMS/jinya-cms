@@ -271,7 +271,7 @@ export default {
         },
         Details: {
           name: 'ConfigurationGeneralArtistsDetails',
-          route: '/designer/configuration/artists/:slug'
+          route: '/designer/configuration/artists/:id'
         },
         Add: {
           name: 'ConfigurationGeneralArtistsAdd',
@@ -279,7 +279,11 @@ export default {
         },
         Edit: {
           name: 'ConfigurationGeneralArtistsEdit',
-          route: '/designer/configuration/artists/:slug/edit'
+          route: '/designer/configuration/artists/:id/edit'
+        },
+        ChangePassword: {
+          name: 'ConfigurationGeneralArtistsChangePassword',
+          route: '/designer/configuration/artists/:id/password'
         }
       }
     },
