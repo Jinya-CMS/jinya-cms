@@ -158,6 +158,7 @@ routes:
       artists:
         overview: Künstler
         add: Künstler hinzufügen
+        edit: Künstler bearbeiten
   account:
     login: Jinya CMS Login
 authentication:
@@ -196,6 +197,7 @@ configuration:
         disable: Deaktivieren
         delete: Löschen
         edit: Bearbeiten
+        change_password: Passwort ändern
         details: Profil
       add:
         saving: "%firstname% %lastname% wird gespeichert"

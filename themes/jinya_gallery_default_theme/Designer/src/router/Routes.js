@@ -280,10 +280,6 @@ export default {
         Edit: {
           name: 'ConfigurationGeneralArtistsEdit',
           route: '/designer/configuration/artists/:id/edit'
-        },
-        ChangePassword: {
-          name: 'ConfigurationGeneralArtistsChangePassword',
-          route: '/designer/configuration/artists/:id/password'
         }
       }
     },

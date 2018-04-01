@@ -10,10 +10,6 @@
                     <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
                                        :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
                                        v-if="artist.editable" slot="footer"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.change_password'|jmessage"
-                                       type="edit"
-                                       :to="{name: editRoute, params: {id: artist.id}}" icon="account-key"
-                                       v-if="artist.editable" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
                                        icon="account-check" v-if="artist.editable && !artist.enabled" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
