@@ -199,6 +199,22 @@ configuration:
         edit: Bearbeiten
         change_password: Passwort ändern
         details: Profil
+      delete:
+        title: "%firstname% %lastname% wirklich löschen?"
+        message: Soll %firstname% %lastname% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
+        yes: Künstler löschen
+        no: Künstler nicht löschen
+        disable: Künstler deaktivieren
+      enable:
+        title: "%firstname% %lastname% aktivieren?"
+        message: Soll %firstname% %lastname% aktiviert werden? Dadurch kann sich %firstname% %lastname% wieder anmelden und Inhalte erstellen.
+        yes: Künstler aktivieren
+        no: Künstler nicht aktivieren
+      disable:
+        title: "%firstname% %lastname% wirklich deaktivieren?"
+        message: Soll %firstname% %lastname% deaktiviert werden? Dadurch kann sich %firstname% %lastname% nicht mehr anmelden und keine Inhalte erstellen.
+        yes: Künstler deaktivieren
+        no: Künstler nicht deaktivieren
       add:
         saving: "%firstname% %lastname% wird gespeichert"
         uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen

@@ -129,9 +129,15 @@ art:
         404:
           generic: Das Galerie konnte nicht gefunden werden.
 configuration:
-  artists:
-    overview:
-      nothing_found: Es wurden keine Künstler gefunden
+  general:
+    artists:
+      overview:
+        nothing_found: Es wurden keine Künstler gefunden
+      delete:
+        api:
+          state:
+            409:
+              foreign_key_failed: Der Künstler hat Inhalte erstellt und kann daher nicht gelöscht werden
 framework:
   markup:
     form:
