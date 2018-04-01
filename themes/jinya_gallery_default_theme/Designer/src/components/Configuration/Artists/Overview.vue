@@ -6,13 +6,14 @@
                 <jinya-card class="jinya-artist" :header="`${artist.firstname} ${artist.lastname}`">
                     <img class="jinya-artist__profile-picture" :src="artist.profilePicture"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
-                                       :to="{name: detailsRoute, params: {id: artist.id}}" icon="account-card-details"
+                                       :to="{name: artist.me ? profileRoute : detailsRoute, params: {id: artist.id}}"
+                                       icon="account-card-details"
                                        slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
                                        :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
-                                       v-if="artist.editable" slot="footer"/>
+                                       v-if="!artist.me" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
-                                       icon="account-check" @click="showEnable(artist)" v-if="artist.editable"
+                                       icon="account-check" @click="showEnable(artist)" v-if="!artist.me"
                                        v-show="!artist.enabled" slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
                                        icon="account-off" @click="showDisable(artist)" v-if="artist.deletable"
@@ -23,9 +24,8 @@
                 </jinya-card>
             </template>
         </jinya-card-list>
-        <jinya-modal @close="closeDeleteModal()"
-                     :title="'configuration.general.artists.delete.title'|jmessage(selectedArtist)"
-                     v-if="this.delete.show" :loading="this.delete.loading">
+        <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
+                     :title="'configuration.general.artists.delete.title'|jmessage(selectedArtist)">
             <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
                            slot="message">
                 <jinya-message-action-bar v-if="this.delete.creator">
@@ -102,6 +102,9 @@
       },
       detailsRoute() {
         return Routes.Configuration.General.Artists.Details.name;
+      },
+      profileRoute() {
+        return Routes.MyJinya.Account.Profile.name;
       }
     },
     data() {
@@ -133,8 +136,8 @@
     methods: {
       mapArtists(artist) {
         const item = artist;
-        item.editable = artist.email !== this.me.email;
-        item.deletable = item.editable && this.artists.filter(a => a.roles.includes('ROLE_SUPER_ADMIN')).length > 1;
+        item.me = artist.email === this.me.email;
+        item.deletable = !item.me && this.artists.filter(a => a.roles.includes('ROLE_SUPER_ADMIN')).length > 1;
 
         return item;
       },
