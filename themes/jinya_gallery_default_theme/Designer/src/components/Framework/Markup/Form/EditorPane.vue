@@ -14,6 +14,9 @@
     .jinya-editor-pane {
         width: 50%;
         padding: 0.5em;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: start;
 
         &:nth-child(1) {
             padding-left: 0;

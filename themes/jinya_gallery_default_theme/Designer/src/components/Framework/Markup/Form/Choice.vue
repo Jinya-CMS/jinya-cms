@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-choice">
         <label :for="id" class="jinya-choice__label">{{label|jmessage}}</label>
-        <span :id="id" v-if="static" class="jinya-choice__field">{{selected.text}}</span>
+        <span :id="id" v-if="static" class="jinya-choice__field">{{selectionText}}</span>
         <!--suppress HtmlFormInputWithoutLabel -->
         <select @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})" :id="id"
                 v-if="showSelect" class="jinya-choice__field" :disabled="!enable" :multiple="multiple"
@@ -77,6 +77,13 @@
       },
       showRadioButtons() {
         return !this.static && (!this.multiple && this.choices.length <= 5);
+      },
+      selectionText() {
+        if (this.selected instanceof Array) {
+          return this.selected.map(selection => selection.text).join(', ');
+        } else {
+          return this.selected.text;
+        }
       }
     },
     methods: {
@@ -108,6 +115,20 @@
 
         .jinya-choice__label {
             display: block;
+        }
+
+        .jinya-choice__list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                border-bottom: solid 1px $form-underline-color;
+
+                &:last-child {
+                    border-bottom-width: 3px;
+                }
+            }
         }
 
         .jinya-choice__field {

@@ -12,20 +12,22 @@
                 <jinya-editor-preview-image :src="artist.profilePicture"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :enable="enable" v-model="artist.firstname" class="is--half"
+                <jinya-input :static="static" :enable="enable" v-model="artist.firstname" class="is--half"
                              label="configuration.general.artists.artist_form.firstname"/>
-                <jinya-input :enable="enable" v-model="artist.lastname" class="is--half"
+                <jinya-input :static="static" :enable="enable" v-model="artist.lastname" class="is--half"
                              label="configuration.general.artists.artist_form.lastname"/>
-                <jinya-input :enable="enable" type="email" v-model="artist.email"
+                <jinya-input :static="static" :enable="enable" type="email" v-model="artist.email"
                              label="configuration.general.artists.artist_form.email"/>
                 <jinya-input v-if="showPassword" :enable="enable" type="password" v-model="artist.password"
                              label="configuration.general.artists.artist_form.password"/>
-                <jinya-file-input :enable="enable" accept="image/*" @picked="picturePicked"
+                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="picturePicked"
                                   label="configuration.general.artists.artist_form.profile_picture"/>
-                <jinya-choice label="configuration.general.artists.artist_form.activation" :selected="artist.enabled"
-                              :enable="enable" :choices="activationOptions" @selected="enableChanged"/>
-                <jinya-choice label="configuration.general.artists.artist_form.roles" :choices="rolesOptions"
-                              :enable="enable" :multiple="true" @selected="rolesChanged" :selected="artist.roles"/>
+                <jinya-choice :static="static" label="configuration.general.artists.artist_form.activation"
+                              :selected="artist.enabled" :enable="enable" :choices="activationOptions"
+                              @selected="enableChanged"/>
+                <jinya-choice :static="static" label="configuration.general.artists.artist_form.roles" :multiple="true"
+                              :choices="rolesOptions" :enable="enable" @selected="rolesChanged"
+                              :selected="artist.roles"/>
             </jinya-editor-pane>
         </jinya-form>
     </jinya-editor>
@@ -65,6 +67,12 @@
         type: String,
         default() {
           return '';
+        }
+      },
+      static: {
+        type: Boolean,
+        default() {
+          return false;
         }
       },
       state: {
@@ -182,24 +190,19 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-editor-pane {
-        display: flex;
-        flex-wrap: wrap;
+    .jinya-input,
+    .jinya-choice {
+        flex: 0 0 100%;
 
-        .jinya-input,
-        .jinya-choice {
-            flex: 0 0 100%;
+        &.is--half {
+            flex-basis: 49%;
 
-            &.is--half {
-                flex-basis: 49%;
+            &:nth-child(odd) {
+                margin-right: 1%;
+            }
 
-                &:nth-child(odd) {
-                    margin-right: 1%;
-                }
-
-                &:nth-child(even) {
-                    margin-left: 1%;
-                }
+            &:nth-child(even) {
+                margin-left: 1%;
             }
         }
     }

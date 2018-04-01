@@ -6,7 +6,8 @@
                 <jinya-card class="jinya-artist" :header="`${artist.firstname} ${artist.lastname}`">
                     <img class="jinya-artist__profile-picture" :src="artist.profilePicture"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
-                                       icon="account-card-details" slot="footer"/>
+                                       :to="{name: detailsRoute, params: {id: artist.id}}" icon="account-card-details"
+                                       slot="footer"/>
                     <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
                                        :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
                                        v-if="artist.editable" slot="footer"/>
@@ -98,6 +99,9 @@
     computed: {
       editRoute() {
         return Routes.Configuration.General.Artists.Edit.name;
+      },
+      detailsRoute() {
+        return Routes.Configuration.General.Artists.Details.name;
       }
     },
     data() {

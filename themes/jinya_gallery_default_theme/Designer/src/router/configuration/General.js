@@ -1,8 +1,8 @@
 import Routes from "../Routes";
-import Missing from "@/components/Home/Missing";
 import ArtistsOverview from '@/components/Configuration/Artists/Overview';
 import AddArtist from '@/components/Configuration/Artists/Add';
 import EditArtist from '@/components/Configuration/Artists/Edit';
+import ArtistDetails from '@/components/Configuration/Artists/Details';
 
 export default [
   {
@@ -24,7 +24,10 @@ export default [
   {
     path: Routes.Configuration.General.Artists.Details.route,
     name: Routes.Configuration.General.Artists.Details.name,
-    component: Missing
+    component: ArtistDetails,
+    meta: {
+      title: 'routes.configuration.general.artists.details'
+    }
   },
   {
     path: Routes.Configuration.General.Artists.Edit.route,

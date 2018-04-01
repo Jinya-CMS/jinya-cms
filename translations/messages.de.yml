@@ -159,6 +159,7 @@ routes:
         overview: Künstler
         add: Künstler hinzufügen
         edit: Künstler bearbeiten
+        details: Künstlerdetails
   account:
     login: Jinya CMS Login
 authentication:
@@ -219,6 +220,8 @@ configuration:
         saving: "%firstname% %lastname% wird gespeichert"
         uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
         success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+      details:
+        edit: Künstler bearbeiten
       edit:
         saving: "%firstname% %lastname% wird gespeichert"
         uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
@@ -231,7 +234,7 @@ configuration:
         email: Email
         profile_picture: Profilbild
         password: Passwort
-        activation: Aktivieren?
+        activation: Aktiviert
         enabled: Ja
         disabled: Nein
         save: Künstler speichern
