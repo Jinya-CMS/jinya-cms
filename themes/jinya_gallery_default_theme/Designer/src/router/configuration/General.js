@@ -1,8 +1,8 @@
 import Routes from "../Routes";
-import ArtistsOverview from '@/components/Configuration/Artists/Overview';
-import AddArtist from '@/components/Configuration/Artists/Add';
-import EditArtist from '@/components/Configuration/Artists/Edit';
-import ArtistDetails from '@/components/Configuration/Artists/Details';
+import ArtistsOverview from '@/components/Configuration/General/Artists/Overview';
+import AddArtist from '@/components/Configuration/General/Artists/Add';
+import EditArtist from '@/components/Configuration/General/Artists/Edit';
+import ArtistDetails from '@/components/Configuration/General/Artists/Details';
 
 export default [
   {

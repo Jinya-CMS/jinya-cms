@@ -307,9 +307,13 @@ export default {
           name: 'ConfigurationFrontendThemeOverview',
           route: '/designer/configuration/frontend/theme'
         },
-        Edit: {
-          name: 'ConfigurationFrontendThemeEdit',
-          route: '/designer/configuration/frontend/theme/:slug'
+        Settings: {
+          name: 'ConfigurationFrontendThemeSettings',
+          route: '/designer/configuration/frontend/theme/:name/settings'
+        },
+        Variables: {
+          name: 'ConfigurationFrontendThemeVariables',
+          route: '/designer/configuration/frontend/theme/:name/variables'
         }
       }
     }

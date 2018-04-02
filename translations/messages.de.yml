@@ -154,6 +154,9 @@ routes:
   home:
     startpage: Startseite
   configuration:
+    frontend:
+      themes:
+        overview: Themes
     general:
       artists:
         overview: Künstler
@@ -240,6 +243,11 @@ configuration:
         save: Künstler speichern
         back: Zurück
         roles: Rollen
+  frontend:
+    themes:
+      overview:
+        variables: Variablen
+        settings: Einstellungen
 art:
   artworks:
     delete:
