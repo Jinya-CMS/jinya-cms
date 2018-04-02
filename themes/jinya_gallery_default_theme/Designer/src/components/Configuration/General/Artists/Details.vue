@@ -4,7 +4,7 @@
 </template>
 
 <script>
-  import JinyaArtistForm from "@/components/Configuration/Artists/ArtistForm";
+  import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
   import DOMUtils from "@/components/Framework/Utils/DOMUtils";
   import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
   import Translator from "@/components/Framework/i18n/Translator";

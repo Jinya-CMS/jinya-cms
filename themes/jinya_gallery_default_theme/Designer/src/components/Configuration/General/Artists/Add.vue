@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import JinyaArtistForm from "@/components/Configuration/Artists/ArtistForm";
+  import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
   import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
   import Translator from "@/components/Framework/i18n/Translator";
   import Timing from "@/components/Framework/Utils/Timing";
