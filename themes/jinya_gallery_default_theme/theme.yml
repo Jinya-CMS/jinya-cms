@@ -53,7 +53,7 @@ styles_base: public/src/scss
 scripts_base: public/dist
 styles:
   variables:
-    file: frontend/_variables.scss
+    file: _variables.scss
   files:
     - frontend.scss
     - designer.scss

@@ -15,6 +15,7 @@ use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
 use function array_replace;
 use function array_replace_recursive;
+use function preg_replace;
 
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
@@ -114,7 +115,8 @@ class ThemeConfigService implements ThemeConfigServiceInterface
                 while (($line = fgets($handle)) !== false) {
                     if (preg_match('/^\$.*!default;\s$/', $line)) {
                         $replaced = preg_replace('/ !default;$/', '', $line);
-                        $variables[] = explode(':', $replaced);
+                        $exploded = explode(':', $replaced);
+                        $variables[$exploded[0]] = preg_replace('/^\s|\s$/', '', $exploded[1]);
                     }
                 }
             }
