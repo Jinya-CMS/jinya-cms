@@ -14,6 +14,7 @@ use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
+use const DIRECTORY_SEPARATOR;
 
 class ThemeSyncService implements ThemeSyncServiceInterface
 {
@@ -76,7 +77,10 @@ class ThemeSyncService implements ThemeSyncServiceInterface
                 $theme->setConfiguration(array_replace_recursive($defaultConfig, $themeConfig));
             }
         }
-        $theme->setPreviewImage(array_key_exists('previewImage', $config) ? $config['previewImage'] : '');
+        if (array_key_exists('previewImage', $config)) {
+            $previewImagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
+            $theme->setPreviewImage($previewImagePath);
+        }
 
         if ($this->entityManager->getUnitOfWork()->getEntityState($theme) === UnitOfWork::STATE_NEW) {
             $this->entityManager->persist($theme);

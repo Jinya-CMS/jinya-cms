@@ -1,5 +1,6 @@
 displayName: Jinya Gallery Theme
 description: Das Standardtheme für das Jinya Gallery CMS
+previewImage: Jinya-Default-Theme-Preview.png
 defaultConfig:
   page:
     favicon:
