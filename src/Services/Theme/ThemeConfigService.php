@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Theme;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
-use function array_replace;
 use function array_replace_recursive;
 use function preg_replace;
 
@@ -149,7 +148,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     public function setVariables(string $name, array $variables): void
     {
         $theme = $this->themeService->getTheme($name);
-        $theme->setScssVariables(array_replace($theme->getScssVariables(), array_filter($variables)));
+        $theme->setScssVariables(array_filter($variables));
         $this->entityManager->flush();
     }
 

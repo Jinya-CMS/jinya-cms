@@ -157,6 +157,7 @@ routes:
     frontend:
       themes:
         overview: Themes
+        variables: Themevariablen
     general:
       artists:
         overview: Künstler
@@ -248,6 +249,14 @@ configuration:
       overview:
         variables: Variablen
         settings: Einstellungen
+      variables:
+        title: Variablen für %displayName%
+        search: Variablen durchsuchen...
+        saving: Die Variables des Themes %displayName% werden gespeichert
+        loading: Das Theme wird geladen
+        loading_variables: Die Variablen für das Theme %displayName% werden geladen
+        save: Variablen speichern
+        cancel: Zurück
 art:
   artworks:
     delete:

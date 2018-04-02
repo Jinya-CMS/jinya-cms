@@ -1,5 +1,6 @@
 export default {
   navigation: {
+    navigating: 'navigating',
     navigated: 'navigated'
   },
   search: {
@@ -8,5 +9,8 @@ export default {
   request: {
     started: 'request-started',
     finished: 'request-finished'
+  },
+  header: {
+    change: 'change-menu-header'
   }
 }

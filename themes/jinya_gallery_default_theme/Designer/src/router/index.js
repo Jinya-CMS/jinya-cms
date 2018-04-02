@@ -35,10 +35,12 @@ router.beforeEach((to, from, next) => {
   if (!apiKey && to.name !== Routes.Account.Login.name) {
     next(Routes.Account.Login.route);
   } else {
-    EventBus.$emit(Events.navigation.navigated);
+    EventBus.$emit(Events.navigation.navigating);
     DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
     next();
   }
 });
+
+router.afterEach(() => EventBus.$emit(Events.navigation.navigated));
 
 export default router;

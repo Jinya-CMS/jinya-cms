@@ -118,8 +118,13 @@ class ThemeController extends BaseApiController
                 }
             }
 
-            $themeConfigService->saveConfig($name, $config);
-            $themeConfigService->setVariables($name, $scss);
+            if (!empty($config)) {
+                $themeConfigService->saveConfig($name, $config);
+            }
+
+            if (!empty($scss)) {
+                $themeConfigService->setVariables($name, $scss);
+            }
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

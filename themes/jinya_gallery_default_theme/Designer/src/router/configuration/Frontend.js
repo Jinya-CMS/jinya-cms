@@ -1,6 +1,7 @@
 import Routes from "../Routes";
 import Missing from "@/components/Home/Missing";
 import ThemeOverview from "@/components/Configuration/Frontend/Themes/Overview";
+import ThemeVariables from "@/components/Configuration/Frontend/Themes/Variables";
 
 export default [
   {
@@ -39,6 +40,10 @@ export default [
   {
     path: Routes.Configuration.Frontend.Theme.Variables.route,
     name: Routes.Configuration.Frontend.Theme.Variables.name,
-    component: Missing
+    component: ThemeVariables,
+    meta: {
+      title: 'routes.configuration.frontend.themes.variables',
+      searchEnabled: true
+    }
   }
 ]

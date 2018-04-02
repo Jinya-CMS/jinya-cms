@@ -2,7 +2,7 @@
     <header class="jinya-menu">
         <jinya-menu-navbar @hamburger-mouseover="isHover = true" @hamburger-mouseout="isHover = false"
                            @hamburger-click="isOpen = !isOpen">
-            <span class="jinya-menu__header" v-if="$route.meta.title">{{$route.meta.title|jmessage}}</span>
+            <span class="jinya-menu__header" v-if="title">{{title|jmessage}}</span>
             <jinya-menu-navbar-search-item v-if="$route.meta.searchEnabled"/>
         </jinya-menu-navbar>
         <jinya-menu-flyout @mouseover.native="isHover = true" @mouseout.native="isHover = false">
@@ -165,13 +165,16 @@
         this.isOpen = false;
         this.isHover = false;
         this.selectedHeader = '';
+        this.title = this.$route.meta.title || this.title;
       });
+      EventBus.$on(Events.header.change, header => this.title = header);
     },
     data() {
       return {
         isHover: false,
         isOpen: false,
-        selectedHeader: ''
+        selectedHeader: '',
+        title: this.$route.meta.title
       }
     }
   }
