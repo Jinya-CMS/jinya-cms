@@ -15,6 +15,7 @@ use Jinya\Entity\Theme;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
+use function array_filter;
 use function array_replace_recursive;
 use function preg_replace;
 
@@ -57,10 +58,10 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeConfig = $this->getThemeConfig($theme->getName());
 
-        if (!$override) {
-            $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+        if ($override) {
+            $targetConfig = $this->arrayUtils->removeEmptyRecursive($config);
         } else {
-            $targetConfig = $config;
+            $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
         }
 
         if (array_key_exists('defaultConfig', $themeConfig)) {

@@ -8,8 +8,8 @@
 
 namespace Jinya\Components\Arrays;
 
-
 use function explode;
+use function is_array;
 
 class ArrayUtil implements ArrayUtilInterface
 {
@@ -96,5 +96,24 @@ class ArrayUtil implements ArrayUtilInterface
         return array_reduce(explode('.', $path), function ($acc, $val) {
             return $acc[$val];
         }, $data);
+    }
+
+    /**
+     * Removes all empty entries recursively
+     *
+     * @param array $data
+     * @return array
+     */
+    public function removeEmptyRecursive(array $data): array
+    {
+        foreach ($data as &$value) {
+            if (is_array($value)) {
+                $value = $this->removeEmptyRecursive($value);
+            }
+        }
+
+        return array_filter($data, function ($value) {
+            return $value === false || !empty($value);
+        });
     }
 }

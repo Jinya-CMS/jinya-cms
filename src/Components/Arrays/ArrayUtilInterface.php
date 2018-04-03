@@ -50,4 +50,12 @@ interface ArrayUtilInterface
      * @return mixed
      */
     public function getArrayValueByPath(array $data, string $path, string $delimiter = '.');
+
+    /**
+     * Removes all empty entries recursively
+     *
+     * @param array $data
+     * @return array
+     */
+    public function removeEmptyRecursive(array $data): array;
 }
