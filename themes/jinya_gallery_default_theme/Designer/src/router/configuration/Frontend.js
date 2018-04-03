@@ -36,10 +36,7 @@ export default [
   {
     path: Routes.Configuration.Frontend.Theme.Settings.route,
     name: Routes.Configuration.Frontend.Theme.Settings.name,
-    component: ThemeConfiguration,
-    meta: {
-      searchEnabled: true
-    }
+    component: ThemeConfiguration
   },
   {
     path: Routes.Configuration.Frontend.Theme.Variables.route,

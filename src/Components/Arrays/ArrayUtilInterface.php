@@ -20,7 +20,7 @@ interface ArrayUtilInterface
      * @param string $delimiter
      * @return array
      */
-    public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '~'): array;
+    public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '.'): array;
 
     /**
      * Builds a new empty array from the given path
@@ -29,5 +29,25 @@ interface ArrayUtilInterface
      * @param string $delimiter
      * @return array
      */
-    public function buildArrayFromPath(string $path, string $delimiter = '~'): array;
+    public function buildArrayFromPath(string $path, string $delimiter = '.'): array;
+
+    /**
+     * Removes the value behind the given path
+     *
+     * @param array $data
+     * @param string $path
+     * @param string $delimiter
+     * @return array
+     */
+    public function removeArrayValueByPath(array $data, string $path, string $delimiter = '.'): array;
+
+    /**
+     * Gets the value behind the given path
+     *
+     * @param array $data
+     * @param string $path
+     * @param string $delimiter
+     * @return mixed
+     */
+    public function getArrayValueByPath(array $data, string $path, string $delimiter = '.');
 }

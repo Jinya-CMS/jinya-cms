@@ -10,7 +10,9 @@ namespace Jinya\Services\Theme;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme;
+use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
 use function array_replace_recursive;
@@ -25,29 +27,41 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     private $menuService;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var MediaServiceInterface */
+    private $mediaService;
+    /** @var ArrayUtilInterface */
+    private $arrayUtils;
 
     /**
      * ThemeConfigService constructor.
      * @param ThemeServiceInterface $themeService
      * @param MenuServiceInterface $menuService
      * @param EntityManagerInterface $entityManager
+     * @param MediaServiceInterface $mediaService
+     * @param ArrayUtilInterface $arrayUtils
      */
-    public function __construct(ThemeServiceInterface $themeService, MenuServiceInterface $menuService, EntityManagerInterface $entityManager)
+    public function __construct(ThemeServiceInterface $themeService, MenuServiceInterface $menuService, EntityManagerInterface $entityManager, MediaServiceInterface $mediaService, ArrayUtilInterface $arrayUtils)
     {
         $this->themeService = $themeService;
         $this->menuService = $menuService;
         $this->entityManager = $entityManager;
+        $this->mediaService = $mediaService;
+        $this->arrayUtils = $arrayUtils;
     }
 
     /**
      * @inheritdoc
      */
-    public function saveConfig(string $themeName, array $config): void
+    public function saveConfig(string $themeName, array $config, bool $override = true): void
     {
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeConfig = $this->getThemeConfig($theme->getName());
 
-        $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+        if (!$override) {
+            $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+        } else {
+            $targetConfig = $config;
+        }
 
         if (array_key_exists('defaultConfig', $themeConfig)) {
             $defaultConfig = $themeConfig['defaultConfig'];
@@ -198,5 +212,22 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         $theme = $this->themeService->getThemeOrNewTheme($name);
         $theme->setScssVariables([]);
         $this->entityManager->flush();
+    }
+
+    /**
+     * Removes the given file
+     *
+     * @param string $name
+     * @param string $key
+     */
+    public function removeFile(string $name, string $key): void
+    {
+        $theme = $this->themeService->getThemeOrNewTheme($name);
+        $config = $theme->getConfiguration();
+        $file = $this->arrayUtils->getArrayValueByPath($config, $key);
+
+        @$this->mediaService->deleteMedia($file);
+
+        $this->saveConfig($name, $this->arrayUtils->removeArrayValueByPath($config, $key), true);
     }
 }

@@ -36,12 +36,23 @@
         default() {
           return '*';
         }
+      },
+      hasValue: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      }
+    },
+    watch: {
+      hasValue(newValue) {
+        this.selectedFileName = newValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected');
       }
     },
     data() {
       return {
         id: null,
-        selectedFileName: Translator.validator('framework.markup.form.file_input.no_file_selected')
+        selectedFileName: this.hasValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected')
       };
     },
     mounted() {

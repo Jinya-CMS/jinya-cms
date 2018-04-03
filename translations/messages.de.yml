@@ -186,6 +186,7 @@ framework:
     form:
       file_input:
         pick: Datei suchen
+        already_set: Bereits ausgewählt
     navigation:
       pager:
         previous: Zurück
@@ -252,10 +253,21 @@ configuration:
       variables:
         title: Variablen für %displayName%
         search: Variablen durchsuchen...
-        saving: Die Variables des Themes %displayName% werden gespeichert
+        saving: Die Variablen des Themes %displayName% werden gespeichert
         loading: Das Theme wird geladen
         loading_variables: Die Variablen für das Theme %displayName% werden geladen
         save: Variablen speichern
+        cancel: Zurück
+      configuration:
+        title: Variablen für %displayName%
+        deleting: Die Datei für die Einstellung %setting% wird gelöscht
+        saving: Die Einstellungen des Themes %displayName% werden gespeichert
+        saved: Die Einstellungen des Themes %displayName% wurden gespeichert
+        uploading: Die Datei für die Einstellung %setting% wird hochgeladen
+        uploaded: Die Dateien für das Theme %displayName% wurden hochgeladen
+        loading: Das Theme wird geladen
+        loading_configuration: Die Einstellungen für das Theme %displayName% werden geladen
+        save: Einstellungen speichern
         cancel: Zurück
 art:
   artworks:

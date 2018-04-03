@@ -131,6 +131,24 @@ class ThemeController extends BaseApiController
     }
 
     /**
+     * @Route("/api/theme/{name}/file/{key}", methods={"DELETE"}, name="api_theme_delete_file")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param string $key
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @return Response
+     */
+    public function deleteFileAction(string $name, string $key, ThemeConfigServiceInterface $themeConfigService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($name, $key, $themeConfigService) {
+            $themeConfigService->removeFile($name, $key);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
      * @Route("/api/theme/{name}/file/{key}", methods={"PUT"}, name="api_theme_put_file")
      * @IsGranted("ROLE_WRITER")
      *
@@ -176,7 +194,7 @@ class ThemeController extends BaseApiController
 
             $arrayUtil->setArrayValueByPath($data, $key, $content);
 
-            $themeConfigService->saveConfig($name, $data);
+            $themeConfigService->saveConfig($name, $data, false);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
