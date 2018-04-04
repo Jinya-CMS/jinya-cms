@@ -187,6 +187,7 @@ framework:
       file_input:
         pick: Datei suchen
         already_set: Bereits ausgewählt
+        reset: Zurücksetzen
     navigation:
       pager:
         previous: Zurück

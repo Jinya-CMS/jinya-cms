@@ -1,7 +1,12 @@
 <template>
     <div class="jinya-input">
         <label :for="`label-${id}`" class="jinya-input__label" v-jinya-message="label"></label>
-        <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
+        <div class="jinya-input__wrapper">
+            <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
+            <jinya-button label="framework.markup.form.file_input.reset" class="jinya-button--reset" :is-primary="true"
+                          :is-inverse="true" type="button"
+                          @click="reset"/>
+        </div>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
         <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
                style="display: none;" @change="updateValue($event)"/>
@@ -10,9 +15,11 @@
 
 <script>
   import Translator from "../../i18n/Translator";
+  import JinyaButton from "@/components/Framework/Markup/Button";
 
   export default {
     name: "jinya-file-input",
+    components: {JinyaButton},
     props: {
       required: Boolean,
       enable: {
@@ -59,6 +66,10 @@
       this.id = this._uid;
     },
     methods: {
+      reset() {
+        this.selectedFileName = Translator.validator('framework.markup.form.file_input.no_file_selected');
+        this.$emit('picked', [null]);
+      },
       updateValue(event) {
         if (this.multiple) {
           this.selectedFileName = [...event.target.files]
@@ -82,20 +93,35 @@
             display: inline-block;
         }
 
-        .jinya-input__field {
-            padding: 0.5em;
-            outline: none;
+        .jinya-input__wrapper {
             width: 100%;
-            display: inline-block;
-            border-style: none;
-            border-bottom: solid 3px $form-underline-color;
-            transition: border-bottom-width 0.3s;
-            font-family: $font-family;
-            font-size: 90%;
-            background-color: $white;
+            display: flex;
 
-            &.is--disabled {
-                background: $gray-200;
+            .jinya-button--reset {
+                flex: 0 0 auto;
+                min-width: 5em;
+                padding: 0 0.5em;
+                border: none;
+                position: unset;
+                border-bottom: 3px solid $form-underline-color;
+            }
+
+            .jinya-input__field {
+                flex: 1 1 auto;
+                padding: 0.5em;
+                outline: none;
+                justify-self: flex-start;
+                display: inline-block;
+                border-style: none;
+                border-bottom: solid 3px $form-underline-color;
+                transition: border-bottom-width 0.3s;
+                font-family: $font-family;
+                font-size: 90%;
+                background-color: $white;
+
+                &.is--disabled {
+                    background: $gray-200;
+                }
             }
         }
     }

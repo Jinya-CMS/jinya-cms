@@ -3,7 +3,6 @@
     <div v-else-if="type === 'file'" class="jinya-field__group">
         <jinya-file-input @picked="changed" :label="label" :enable="enable" class="jinya-field__input"
                           :has-value="hasValue"/>
-        <jinya-button label="Reset" @click="resetFile" :is-secondary="true" class="jinya-field__button"/>
     </div>
     <jinya-checkbox @input="changed" :label="label" :enable="enable" v-else-if="type === 'boolean'" :value="!!value"/>
 </template>
@@ -54,15 +53,6 @@
       }
     },
     methods: {
-      resetFile() {
-        this.$emit('changed', {
-          name: this.name,
-          type: this.type,
-          label: this.label,
-          value: null
-        });
-        this.hasValue = false;
-      },
       changed($event) {
         const payload = {
           name: this.name,
