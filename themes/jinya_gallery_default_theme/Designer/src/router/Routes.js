@@ -297,9 +297,9 @@ export default {
           name: 'ConfigurationFrontendMenusEdit',
           route: '/designer/configuration/frontend/menu/:slug/edit'
         },
-        Details: {
-          name: 'ConfigurationFrontendMenusDetails',
-          route: '/designer/configuration/frontend/menu/:slug'
+        Editor: {
+          name: 'ConfigurationFrontendMenusEditor',
+          route: '/designer/configuration/frontend/menu/:slug/editor'
         }
       },
       Theme: {

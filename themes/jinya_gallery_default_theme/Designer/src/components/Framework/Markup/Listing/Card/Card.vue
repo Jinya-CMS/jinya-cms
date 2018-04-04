@@ -17,6 +17,9 @@
       header: {
         type: String,
         required: true
+      },
+      bodyModifier: {
+        type: String
       }
     }
   }

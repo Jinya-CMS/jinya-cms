@@ -3,12 +3,17 @@ import Missing from "@/components/Home/Missing";
 import ThemeOverview from "@/components/Configuration/Frontend/Themes/Overview";
 import ThemeVariables from "@/components/Configuration/Frontend/Themes/Variables";
 import ThemeConfiguration from "@/components/Configuration/Frontend/Themes/Configuration";
+import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 
 export default [
   {
     path: Routes.Configuration.Frontend.Menu.Overview.route,
     name: Routes.Configuration.Frontend.Menu.Overview.name,
-    component: Missing
+    component: MenuOverview,
+    meta: {
+      searchEnabled: true,
+      title: 'routes.configuration.frontend.menus.overview'
+    }
   },
   {
     path: Routes.Configuration.Frontend.Menu.Add.route,
@@ -16,8 +21,8 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Configuration.Frontend.Menu.Details.route,
-    name: Routes.Configuration.Frontend.Menu.Details.name,
+    path: Routes.Configuration.Frontend.Menu.Editor.route,
+    name: Routes.Configuration.Frontend.Menu.Editor.name,
     component: Missing
   },
   {

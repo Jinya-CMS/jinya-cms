@@ -129,6 +129,10 @@ art:
         404:
           generic: Das Galerie konnte nicht gefunden werden.
 configuration:
+  frontend:
+    menus:
+      overview:
+        nothing_found: Es wurden keine Menüs gefunden
   general:
     artists:
       overview:

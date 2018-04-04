@@ -155,6 +155,8 @@ routes:
     startpage: Startseite
   configuration:
     frontend:
+      menus:
+        overview: Menüs
       themes:
         overview: Themes
         variables: Themevariablen
@@ -247,6 +249,12 @@ configuration:
         back: Zurück
         roles: Rollen
   frontend:
+    menus:
+      overview:
+        loading: Die Menüs werden geladen
+        delete: Menü löschen
+        edit: Menü bearbeiten
+        editor: Menüeinträge bearbeiten
     themes:
       overview:
         variables: Variablen
