@@ -3,27 +3,25 @@
         <jinya-message :message="message" :state="state"/>
         <jinya-form save-label="configuration.frontend.themes.configuration.save" @submit="save" v-if="!initial"
                     cancel-label="configuration.frontend.themes.configuration.cancel" :enable="!loading">
-            <ul>
-                <li v-for="tab in form.groups"> {{tab.title}}</li>
-            </ul>
-            <div>
-                <div v-for="tab in form.groups">
-                    <h1>{{tab.title}}</h1>
-                    <jinya-theme-configuration-field v-for="field in tab.fields" :key="`${tab.name}.${field.name}`"
-                                                     :label="field.label" :name="`${tab.name}.${field.name}`"
-                                                     :type="field.type" :enable="!loading" @changed="changed"
-                                                     :value="getValue(`${tab.name}.${field.name}`)"/>
+            <jinya-tab-container :items="form.groups" @select="selected = $event">
+                <template v-for="tab in form.groups">
+                    <jinya-tab :is-selected="selected === tab.name">
+                        <jinya-theme-configuration-field v-for="field in tab.fields" :key="`${tab.name}.${field.name}`"
+                                                         :label="field.label" :name="`${tab.name}.${field.name}`"
+                                                         :type="field.type" :enable="!loading" @changed="changed"
+                                                         :value="getValue(`${tab.name}.${field.name}`)"/>
 
-                    <jinya-fieldset v-for="group in tab.groups" :legend="group.title"
-                                    :key="`${tab.name}.${group.name}`">
-                        <jinya-theme-configuration-field v-for="field in group.fields" :enable="!loading"
-                                                         :type="field.type" :label="field.label" @changed="changed"
-                                                         :key="`${tab.name}.${group.name}.${field.name}`"
-                                                         :name="`${tab.name}.${group.name}.${field.name}`"
-                                                         :value="getValue(`${tab.name}.${group.name}.${field.name}`)"/>
-                    </jinya-fieldset>
-                </div>
-            </div>
+                        <jinya-fieldset v-for="group in tab.groups" :legend="group.title"
+                                        :key="`${tab.name}.${group.name}`">
+                            <jinya-theme-configuration-field v-for="field in group.fields" :enable="!loading"
+                                                             :type="field.type" :label="field.label" @changed="changed"
+                                                             :key="`${tab.name}.${group.name}.${field.name}`"
+                                                             :name="`${tab.name}.${group.name}.${field.name}`"
+                                                             :value="getValue(`${tab.name}.${group.name}.${field.name}`)"/>
+                        </jinya-fieldset>
+                    </jinya-tab>
+                </template>
+            </jinya-tab-container>
         </jinya-form>
     </div>
 </template>
@@ -46,10 +44,14 @@
   import Timing from "@/components/Framework/Utils/Timing";
   import Routes from "@/router/Routes";
   import ArrayUtils from "@/components/Framework/Utils/ArrayUtils";
+  import JinyaTab from "@/components/Framework/Markup/Tab/Tab";
+  import JinyaTabContainer from "@/components/Framework/Markup/Tab/TabContainer";
 
   export default {
     name: "Configuration",
     components: {
+      JinyaTabContainer,
+      JinyaTab,
       JinyaThemeConfigurationField,
       JinyaMessage, JinyaFieldset, JinyaCheckbox, JinyaFileInput, JinyaChoice, JinyaInput, JinyaForm
     },
@@ -63,7 +65,8 @@
         initial: true,
         message: '',
         state: '',
-        files: {}
+        files: {},
+        selected: ''
       };
     },
     methods: {
