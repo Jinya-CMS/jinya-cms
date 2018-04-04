@@ -11,7 +11,6 @@
                                    type="edit"/>
                 <jinya-card-button :to="{name: designerRoute, params: {slug: gallery.slug}}" slot="footer" type="edit"
                                    :icon="gallery.orientation === 'horizontal' ? 'view-parallel' : 'view-sequential'"/>
-                <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(gallery)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
         </jinya-card-list>
@@ -48,20 +47,6 @@
   import Routes from "../../../../router/Routes";
   import JinyaFloatingActionButton from "../../../Framework/Markup/FloatingActionButton";
 
-  function load(offset = 0, count = 10, keyword = '') {
-    this.loading = true;
-    this.currentUrl = `/api/gallery?offset=${offset}&count=${count}&keyword=${keyword}`;
-
-    JinyaRequest.get(this.currentUrl).then(value => {
-      this.galleries = value.items;
-      this.control = value.control;
-      this.count = value.count;
-      this.offset = value.offset;
-      this.loading = false;
-    });
-  }
-
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaFloatingActionButton,
@@ -88,6 +73,17 @@
           }
         });
       },
+      async fetchGalleries(offset = 0, count = 10, keyword = '') {
+        this.loading = true;
+        this.currentUrl = `/api/gallery?offset=${offset}&count=${count}&keyword=${keyword}`;
+
+        const value = await JinyaRequest.get(this.currentUrl);
+        this.galleries = value.items;
+        this.control = value.control;
+        this.count = value.count;
+        this.offset = value.offset;
+        this.loading = false;
+      },
       selectGallery(gallery) {
         this.selectedGallery = gallery;
       },
@@ -113,11 +109,11 @@
         this.delete.error = '';
       }
     },
-    beforeCreate() {
+    async mounted() {
       const offset = this.$route.query.offset || 0;
       const count = this.$route.query.count || 10;
       const keyword = this.$route.query.keyword || '';
-      load.call(this, offset, count, keyword);
+      await this.fetchGalleries(offset, count, keyword);
 
       EventBus.$on(Events.search.triggered, value => {
         this.$router.push({
@@ -133,8 +129,8 @@
     beforeDestroy() {
       EventBus.$off(Events.search.triggered);
     },
-    beforeRouteUpdate(to, from, next) {
-      load.call(this, to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
+    async beforeRouteUpdate(to, from, next) {
+      await this.fetchGalleries(to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
       next();
     },
     data() {
