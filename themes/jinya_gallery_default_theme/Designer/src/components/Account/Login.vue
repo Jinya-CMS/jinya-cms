@@ -12,12 +12,12 @@
 </template>
 
 <script>
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaButton from "@/components/Framework/Markup/Button";
-  import JinyaForm from "@/components/Framework/Markup/Form/Form";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Lockr from 'lockr';
-  import Routes from "../../router/Routes";
+  import Routes from "@/router/Routes";
 
   // noinspection JSUnusedGlobalSymbols
   export default {

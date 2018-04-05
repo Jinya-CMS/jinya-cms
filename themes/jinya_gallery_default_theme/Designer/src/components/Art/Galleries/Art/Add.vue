@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
-  import Translator from "../../../Framework/i18n/Translator";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Translator from "@/framework/i18n/Translator";
   import Routes from "../../../../router/Routes";
   import JinyaGalleryForm from "../GalleryForm";
-  import Timing from "@/components/Framework/Utils/Timing";
+  import Timing from "@/framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols
   export default {

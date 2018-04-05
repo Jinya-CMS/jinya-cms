@@ -12,15 +12,15 @@
 </template>
 
 <script>
-  import JinyaEditor from "@/components/Framework/Markup/Form/Editor";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
-  import JinyaForm from "@/components/Framework/Markup/Form/Form";
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import Translator from "@/components/Framework/i18n/Translator";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
-  import EventBus from "@/components/Framework/Events/EventBus";
-  import Events from "@/components/Framework/Events/Events";
+  import JinyaEditor from "@/framework/Markup/Form/Editor";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Translator from "@/framework/i18n/Translator";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
   import Routes from "@/router/Routes";
 
   export default {

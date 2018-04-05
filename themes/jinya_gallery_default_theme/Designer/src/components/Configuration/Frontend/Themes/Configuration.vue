@@ -27,25 +27,25 @@
 </template>
 
 <script>
-  import JinyaForm from "@/components/Framework/Markup/Form/Form";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import Events from "@/components/Framework/Events/Events";
-  import EventBus from "@/components/Framework/Events/EventBus";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaChoice from "@/components/Framework/Markup/Form/Choice";
-  import JinyaFileInput from "@/components/Framework/Markup/Form/FileInput";
-  import JinyaCheckbox from "@/components/Framework/Markup/Form/Checkbox";
-  import JinyaFieldset from "@/components/Framework/Markup/Form/Fieldset";
-  import ObjectUtils from "@/components/Framework/Utils/ObjectUtils";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
-  import Translator from "@/components/Framework/i18n/Translator";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Events from "@/framework/Events/Events";
+  import EventBus from "@/framework/Events/EventBus";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaChoice from "@/framework/Markup/Form/Choice";
+  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
+  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
+  import JinyaFieldset from "@/framework/Markup/Form/Fieldset";
+  import ObjectUtils from "@/framework/Utils/ObjectUtils";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import Translator from "@/framework/i18n/Translator";
   import JinyaThemeConfigurationField from "@/components/Configuration/Frontend/Themes/Configuration/Field";
-  import Timing from "@/components/Framework/Utils/Timing";
+  import Timing from "@/framework/Utils/Timing";
   import Routes from "@/router/Routes";
-  import ArrayUtils from "@/components/Framework/Utils/ArrayUtils";
-  import JinyaTab from "@/components/Framework/Markup/Tab/Tab";
-  import JinyaTabContainer from "@/components/Framework/Markup/Tab/TabContainer";
+  import ArrayUtils from "@/framework/Utils/ArrayUtils";
+  import JinyaTab from "@/framework/Markup/Tab/Tab";
+  import JinyaTabContainer from "@/framework/Markup/Tab/TabContainer";
 
   export default {
     name: "Configuration",

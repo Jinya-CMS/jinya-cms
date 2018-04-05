@@ -128,15 +128,15 @@
 </template>
 
 <script>
-  import JinyaMenuNavbar from "@/components/Framework/Markup/Menu/Navbar/JinyaMenuNavbar";
-  import JinyaMenuNavbarItem from "@/components/Framework/Markup/Menu/Navbar/JinyaMenuNavbarItem";
-  import JinyaMenuFlyout from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyout";
-  import JinyaMenuFlyoutNavbarItem from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbarItem";
-  import JinyaMenuFlyoutNavbar from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbar";
-  import JinyaMenuFlyoutMenu from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenu";
-  import JinyaMenuFlyoutMenuSection from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection";
-  import JinyaMenuFlyoutMenuItem from "@/components/Framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
-  import JinyaMenuNavbarSearchItem from "@/components/Framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
+  import JinyaMenuNavbar from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbar";
+  import JinyaMenuNavbarItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarItem";
+  import JinyaMenuFlyout from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyout";
+  import JinyaMenuFlyoutNavbarItem from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbarItem";
+  import JinyaMenuFlyoutNavbar from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbar";
+  import JinyaMenuFlyoutMenu from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenu";
+  import JinyaMenuFlyoutMenuSection from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection";
+  import JinyaMenuFlyoutMenuItem from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
+  import JinyaMenuNavbarSearchItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
   import EventBus from "../../Events/EventBus";
   import Events from "../../Events/Events";
 

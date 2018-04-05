@@ -13,10 +13,10 @@
 </template>
 
 <script>
-  import JinyaMenu from "@/components/Framework/Markup/Menu/JinyaMenu";
-  import Routes from "./router/Routes";
-  import EventBus from "./components/Framework/Events/EventBus";
-  import Events from "./components/Framework/Events/Events";
+  import JinyaMenu from "@/framework/Markup/Menu/JinyaMenu";
+  import Routes from "@/router/Routes";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
 
   export default {
     components: {JinyaMenu},

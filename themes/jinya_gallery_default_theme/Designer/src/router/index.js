@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Lockr from 'lockr';
 import Routes from "./Routes";
-import EventBus from "../components/Framework/Events/EventBus";
+import EventBus from "@/framework/Events/EventBus";
 
 import Account from './account';
 import Art from './art';
@@ -11,9 +11,9 @@ import Home from './home';
 import Configuration from './configuration';
 import Maintenance from './maintenance';
 import MyJinya from './myjinya';
-import Events from "../components/Framework/Events/Events";
-import Translator from "@/components/Framework/i18n/Translator";
-import DOMUtils from "@/components/Framework/Utils/DOMUtils";
+import Events from "@/framework/Events/Events";
+import Translator from "@/framework/i18n/Translator";
+import DOMUtils from "@/framework/Utils/DOMUtils";
 
 const routes = Home
   .concat(Account)

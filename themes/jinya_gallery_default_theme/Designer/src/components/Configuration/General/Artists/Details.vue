@@ -5,9 +5,9 @@
 
 <script>
   import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import Translator from "@/components/Framework/i18n/Translator";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Translator from "@/framework/i18n/Translator";
   import Routes from "@/router/Routes";
 
   export default {

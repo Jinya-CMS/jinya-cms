@@ -34,18 +34,18 @@
 </template>
 
 <script>
-  import JinyaEditor from "@/components/Framework/Markup/Form/Editor";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/components/Framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/components/Framework/Markup/Button";
-  import JinyaForm from "@/components/Framework/Markup/Form/Form";
-  import JinyaEditorPane from "@/components/Framework/Markup/Form/EditorPane";
-  import JinyaEditorPreviewImage from "@/components/Framework/Markup/Form/EditorPreviewImage";
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaFileInput from "@/components/Framework/Markup/Form/FileInput";
-  import JinyaChoice from "@/components/Framework/Markup/Form/Choice";
-  import Translator from "@/components/Framework/i18n/Translator";
-  import FileUtils from "@/components/Framework/IO/FileUtils";
+  import JinyaEditor from "@/framework/Markup/Form/Editor";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
+  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
+  import JinyaChoice from "@/framework/Markup/Form/Choice";
+  import Translator from "@/framework/i18n/Translator";
+  import FileUtils from "@/framework/IO/FileUtils";
   import Routes from "@/router/Routes";
 
   export default {

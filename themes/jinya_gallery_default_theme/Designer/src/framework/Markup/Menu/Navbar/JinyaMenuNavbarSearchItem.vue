@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import EventBus from "@/components/Framework/Events/EventBus";
+  import EventBus from "@/framework/Events/EventBus";
 
   export default {
     name: "jinya-menu-navbar-search-item",

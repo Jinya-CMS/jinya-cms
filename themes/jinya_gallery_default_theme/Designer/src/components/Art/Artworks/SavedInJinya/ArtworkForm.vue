@@ -31,19 +31,19 @@
 </template>
 
 <script>
-  import JinyaForm from "../../../Framework/Markup/Form/Form";
-  import JinyaInput from "../../../Framework/Markup/Form/Input";
-  import JinyaButton from "../../../Framework/Markup/Button";
-  import JinyaFileInput from "../../../Framework/Markup/Form/FileInput";
-  import FileUtils from "../../../Framework/IO/FileUtils";
-  import JinyaTextarea from "../../../Framework/Markup/Form/Textarea";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
+  import FileUtils from "@/framework/IO/FileUtils";
+  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
   import slugify from "slugify";
   import Routes from "../../../../router/Routes";
-  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "../../../Framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "../../../Framework/Markup/Form/Editor";
-  import JinyaEditorPreviewImage from "../../../Framework/Markup/Form/EditorPreviewImage";
-  import JinyaEditorPane from "../../../Framework/Markup/Form/EditorPane";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
+  import JinyaEditor from "@/framework/Markup/Form/Editor";
+  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
+  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
 
   export default {
     components: {

@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import JinyaCheckbox from "@/components/Framework/Markup/Form/Checkbox";
-  import JinyaFileInput from "@/components/Framework/Markup/Form/FileInput";
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaButton from "@/components/Framework/Markup/Button";
+  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
+  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaButton from "@/framework/Markup/Button";
 
   export default {
     name: "jinya-theme-configuration-field",

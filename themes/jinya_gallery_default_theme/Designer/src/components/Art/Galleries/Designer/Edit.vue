@@ -12,10 +12,10 @@
 </template>
 
 <script>
-  import JinyaModal from "@/components/Framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/components/Framework/Markup/Modal/ModalButton";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
   import JinyaGalleryDesignerArtworkView from "@/components/Art/Galleries/Designer/ArtworkView";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
 
   export default {
     components: {

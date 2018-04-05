@@ -15,11 +15,11 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/components/Framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/components/Framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/components/Framework/Markup/Loader";
-  import JinyaCardButton from "@/components/Framework/Markup/Listing/Card/CardButton";
+  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
+  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
   import Routes from "@/router/Routes";
 
   export default {

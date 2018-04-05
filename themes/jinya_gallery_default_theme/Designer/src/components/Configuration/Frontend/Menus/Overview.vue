@@ -20,16 +20,16 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/components/Framework/Markup/Listing/Card/CardList";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
-  import JinyaLoader from "@/components/Framework/Markup/Loader";
-  import JinyaCard from "@/components/Framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import JinyaCardButton from "@/components/Framework/Markup/Listing/Card/CardButton";
-  import JinyaPager from "@/components/Framework/Markup/Listing/Pager";
+  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
+  import JinyaPager from "@/framework/Markup/Listing/Pager";
   import Routes from "@/router/Routes";
-  import EventBus from "@/components/Framework/Events/EventBus";
-  import Events from "@/components/Framework/Events/Events";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
 
   export default {
     name: "Overview",

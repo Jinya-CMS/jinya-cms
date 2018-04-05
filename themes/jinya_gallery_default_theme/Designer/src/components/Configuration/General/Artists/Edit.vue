@@ -5,11 +5,11 @@
 
 <script>
   import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import Translator from "@/components/Framework/i18n/Translator";
-  import Timing from "@/components/Framework/Utils/Timing";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Translator from "@/framework/i18n/Translator";
+  import Timing from "@/framework/Utils/Timing";
   import Routes from "@/router/Routes";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
 
   export default {
     name: "Edit",

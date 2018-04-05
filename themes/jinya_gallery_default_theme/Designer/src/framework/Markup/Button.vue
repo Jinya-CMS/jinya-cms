@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Routes from "../../../router/Routes";
+  import Routes from "@/router/Routes";
   import ObjectUtils from "../Utils/ObjectUtils";
 
   export default {

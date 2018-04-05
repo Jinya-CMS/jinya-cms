@@ -69,18 +69,18 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/components/Framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/components/Framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import JinyaCardButton from "@/components/Framework/Markup/Listing/Card/CardButton";
-  import JinyaLoader from "@/components/Framework/Markup/Loader";
-  import JinyaFloatingActionButton from "@/components/Framework/Markup/FloatingActionButton";
+  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
+  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
+  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
   import Routes from "@/router/Routes";
-  import JinyaModalButton from "@/components/Framework/Markup/Modal/ModalButton";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
-  import JinyaModal from "@/components/Framework/Markup/Modal/Modal";
-  import JinyaMessageActionBar from "@/components/Framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/components/Framework/Markup/Button";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
+  import JinyaButton from "@/framework/Markup/Button";
 
   export default {
     name: "Overview",

@@ -32,20 +32,20 @@
 </template>
 
 <script>
-  import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
-  import JinyaCardList from "../../../Framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "../../../Framework/Markup/Listing/Card/Card";
-  import JinyaPager from "../../../Framework/Markup/Listing/Pager";
-  import JinyaCardButton from "../../../Framework/Markup/Listing/Card/CardButton";
-  import JinyaModal from "../../../Framework/Markup/Modal/Modal";
-  import JinyaModalButton from "../../../Framework/Markup/Modal/ModalButton";
-  import Translator from "../../../Framework/i18n/Translator";
-  import JinyaMessage from "../../../Framework/Markup/Validation/Message";
-  import JinyaLoader from "../../../Framework/Markup/Loader";
-  import EventBus from "../../../Framework/Events/EventBus";
-  import Events from "../../../Framework/Events/Events";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
+  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
+  import JinyaPager from "@/framework/Markup/Listing/Pager";
+  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import Translator from "@/framework/i18n/Translator";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaLoader from "@/framework/Markup/Loader";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
   import Routes from "../../../../router/Routes";
-  import JinyaFloatingActionButton from "../../../Framework/Markup/FloatingActionButton";
+  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
 
   export default {
     components: {

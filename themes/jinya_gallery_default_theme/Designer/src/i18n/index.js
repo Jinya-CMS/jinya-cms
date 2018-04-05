@@ -1,4 +1,4 @@
-import Translator from "@/components/Framework/i18n/Translator";
+import Translator from "@/framework/i18n/Translator";
 import Vue from 'vue';
 
 const i18n = {

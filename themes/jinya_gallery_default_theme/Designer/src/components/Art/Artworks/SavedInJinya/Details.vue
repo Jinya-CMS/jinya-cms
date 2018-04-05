@@ -5,10 +5,10 @@
 
 <script>
   import JinyaArtworkForm from "./ArtworkForm";
-  import JinyaRequest from "../../../Framework/Ajax/JinyaRequest";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Routes from "../../../../router/Routes";
-  import Translator from "../../../Framework/i18n/Translator";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
+  import Translator from "@/framework/i18n/Translator";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
 
   // noinspection JSUnusedGlobalSymbols
   export default {

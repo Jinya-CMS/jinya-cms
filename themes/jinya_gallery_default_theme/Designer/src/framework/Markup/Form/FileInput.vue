@@ -14,8 +14,8 @@
 </template>
 
 <script>
-  import Translator from "../../i18n/Translator";
-  import JinyaButton from "@/components/Framework/Markup/Button";
+  import Translator from "@/framework/i18n/Translator";
+  import JinyaButton from "@/framework/Markup/Button";
 
   export default {
     name: "jinya-file-input",

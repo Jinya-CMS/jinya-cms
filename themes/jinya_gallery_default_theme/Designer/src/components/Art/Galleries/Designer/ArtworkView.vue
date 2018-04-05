@@ -16,11 +16,11 @@
 
 <script>
   import infiniteScroll from 'vue-infinite-scroll'
-  import JinyaInput from "@/components/Framework/Markup/Form/Input";
-  import JinyaCardList from "@/components/Framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/components/Framework/Markup/Listing/Card/Card";
-  import JinyaCardButton from "@/components/Framework/Markup/Listing/Card/CardButton";
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
+  import JinyaInput from "@/framework/Markup/Form/Input";
+  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
+  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
+  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
 
   export default {
     components: {

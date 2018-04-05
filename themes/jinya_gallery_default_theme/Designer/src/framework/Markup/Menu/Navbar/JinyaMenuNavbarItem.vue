@@ -7,7 +7,7 @@
 
 <script>
   import ObjectUtils from "../../../Utils/ObjectUtils";
-  import Routes from "../../../../../router/Routes";
+  import Routes from "@/router/Routes";
 
   export default {
     name: "jinya-menu-navbar-item",

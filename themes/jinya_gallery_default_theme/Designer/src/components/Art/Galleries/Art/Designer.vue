@@ -22,18 +22,18 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/components/Framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/components/Framework/Markup/Loader";
-  import DOMUtils from "@/components/Framework/Utils/DOMUtils";
-  import Translator from "@/components/Framework/i18n/Translator";
-  import JinyaButton from "@/components/Framework/Markup/Button";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import JinyaLoader from "@/framework/Markup/Loader";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import Translator from "@/framework/i18n/Translator";
+  import JinyaButton from "@/framework/Markup/Button";
   import JinyaGalleryDesignerPositionButton from "@/components/Art/Galleries/Designer/PositionButton";
   import JinyaGalleryDesignerButton from "@/components/Art/Galleries/Designer/Button";
   import JinyaGalleryDesignerItem from "@/components/Art/Galleries/Designer/Item";
   import JinyaGalleryDesignerImage from "@/components/Art/Galleries/Designer/Image";
-  import JinyaModal from "@/components/Framework/Markup/Modal/Modal";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
-  import JinyaMessage from "@/components/Framework/Markup/Validation/Message";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
 
   export default {
