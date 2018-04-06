@@ -47,6 +47,7 @@
     .jinya-input {
         font-size: 1rem;
         margin: 0 0 1em;
+        width: 100%;
 
         .jinya-input__label {
             display: inline-block;
