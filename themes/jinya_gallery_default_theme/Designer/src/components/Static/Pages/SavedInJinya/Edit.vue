@@ -31,7 +31,7 @@
     async mounted() {
       this.state = 'loading';
       this.enable = false;
-      this.message = Translator.message('static.pages.details.loading');
+      this.message = Translator.message('static.pages.edit.loading');
       try {
         this.page = await JinyaRequest.get(`/api/page/${this.$route.params.slug}`);
         this.state = '';

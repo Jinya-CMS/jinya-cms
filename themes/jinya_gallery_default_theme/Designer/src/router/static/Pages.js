@@ -3,6 +3,7 @@ import Missing from '@/components/Home/Missing'
 import OverviewSavedInJinya from '@/components/Static/Pages/SavedInJinya/Overview'
 import AddSavedInJinya from '@/components/Static/Pages/SavedInJinya/Add'
 import EditSavedInJinya from '@/components/Static/Pages/SavedInJinya/Edit'
+import DetailsSavedInJinya from '@/components/Static/Pages/SavedInJinya/Details'
 
 export default [
   {
@@ -25,7 +26,7 @@ export default [
   {
     path: Routes.Static.Pages.SavedInJinya.Details.route,
     name: Routes.Static.Pages.SavedInJinya.Details.name,
-    component: Missing
+    component: DetailsSavedInJinya
   },
   {
     path: Routes.Static.Pages.SavedInJinya.Edit.route,

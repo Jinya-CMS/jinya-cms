@@ -19,7 +19,7 @@
         type: String,
         required: true
       },
-      to: String,
+      to: {},
       isPrimary: Boolean,
       isSecondary: Boolean,
       isDanger: Boolean,
@@ -34,8 +34,13 @@
     },
     data() {
       const data = {
-        routeTarget: this.to ? ObjectUtils.valueByKeypath(Routes, this.to) : undefined
+        routeTarget: undefined
       };
+      if (this.to instanceof String) {
+        data.routeTarget = ObjectUtils.valueByKeypath(Routes, this.to);
+      } else if (this.to instanceof Object) {
+        data.routeTarget = this.to;
+      }
       data.additionalClasses = {
         'is--primary': this.isPrimary,
         'is--secondary': this.isSecondary,
