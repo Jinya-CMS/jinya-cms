@@ -94,6 +94,13 @@ api:
           missing: Der Titel muss bereitgestellt werden
         pageType:
           missing: Der Seitetyp muss bereitgestellt werden
+static:
+  pages:
+    overview:
+      no_pages:
+        Bisher wurden keine Seiten angelegt.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Seiten.
 art:
   artworks:
     overview:

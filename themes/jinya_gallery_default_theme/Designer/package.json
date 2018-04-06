@@ -12,6 +12,7 @@
     "watch": "node build/watch.js"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^1.0.5",
     "babel-polyfill": "^6.26.0",
     "deepmerge": "^2.1.0",
     "lockr": "^0.8.4",

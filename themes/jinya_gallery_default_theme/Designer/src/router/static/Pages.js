@@ -1,11 +1,16 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import OverviewSavedInJinya from '@/components/Static/Pages/Overview'
 
 export default [
   {
     path: Routes.Static.Pages.SavedInJinya.Overview.route,
     name: Routes.Static.Pages.SavedInJinya.Overview.name,
-    component: Missing
+    component: OverviewSavedInJinya,
+    meta: {
+      searchEnabled: true,
+      title: ''
+    }
   },
   {
     path: Routes.Static.Pages.SavedInJinya.Add.route,

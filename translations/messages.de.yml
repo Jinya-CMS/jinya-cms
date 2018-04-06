@@ -151,6 +151,12 @@ routes:
         add: Galerie hinzufügen
         edit: Galerie bearbeiten
         designer: Galeriedesigner
+  static:
+    pages:
+      saved_in_jinya:
+        overview: In Jinya gespeicherte Seiten
+        add: Seite hinzufügen
+        edit: Seite bearbeiten
   home:
     startpage: Startseite
   configuration:
@@ -278,6 +284,13 @@ configuration:
         loading_configuration: Die Einstellungen für das Theme %displayName% werden geladen
         save: Einstellungen speichern
         cancel: Zurück
+static:
+  pages:
+    delete:
+      title: Soll die Seite wirklich gelöscht werden?
+      content: Soll die Seite "%title%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+      yes: Seite löschen
+      no: Seite nicht löschen
 art:
   artworks:
     delete:
