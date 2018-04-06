@@ -1,5 +1,5 @@
 <template>
-    <tiny-mce :init="tinyMceOptions" :initial-value="content" v-model="data" @input="$emit('input', data)"/>
+    <tiny-mce :init="tinyMceOptions" :initial-value="data" v-model="data" @input="$emit('input', data)"/>
 </template>
 
 <script>
@@ -11,9 +11,20 @@
     components: {
       TinyMce
     },
+    watch: {
+      content(newValue) {
+        this.data = newValue;
+      }
+    },
     props: {
       content: {
         type: String
+      },
+      height: {
+        type: String,
+        default() {
+          return '600px';
+        }
       }
     },
     data() {
@@ -23,6 +34,8 @@
     },
     computed: {
       tinyMceOptions() {
+        const height = this.height;
+
         return {
           plugins: [
             'anchor',
@@ -35,7 +48,7 @@
             'table',
             'textcolor'
           ],
-          height: '100%',
+          height: height,
           menubar: 'edit insert view format table tools help',
           toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor",
           file_picker_type: 'image',
@@ -62,6 +75,8 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .mce-container.mce-panel.mce-tinymce {
+        margin-bottom: 1em;
+    }
 </style>

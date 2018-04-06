@@ -291,6 +291,20 @@ static:
       content: Soll die Seite "%title%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
       yes: Seite löschen
       no: Seite nicht löschen
+    add:
+      saving: Die Seite "%title%" wird gespeichert.
+      success: Die Seite "%title%" wurde erfolgreich gespeichert.
+    edit:
+      title: Seite %title% bearbeiten
+      saving: Die Seite "%title%" wird gespeichert.
+      success: Die Seite "%title%" wurde erfolgreich gespeichert.
+      loading: Die Seite wird geladen
+    page_form:
+      title: Titel
+      slug: Slug
+      save: Seite speichern
+      back: Zurück
+      search: Suchen
 art:
   artworks:
     delete:
