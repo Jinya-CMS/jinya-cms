@@ -52,6 +52,30 @@
 {% block scripts_polyfills %}
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 {% endblock %}
+{% block scripts_tinymce %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/tinymce.min.js"
+            integrity="sha256-ibVg3nLs0DX10T7r/GxKZzdLsqyGTDzVBQv9WmxQOt0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/themes/modern/theme.min.js"
+            integrity="sha256-fY0yySF8CMlB5wmj3nwpIjt83fVJCeorkoBTfc5xd/o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/anchor/plugin.min.js"
+            integrity="sha256-AyCmNKBvmfz1rW3rFIJeYYPrQwDp9GH2DWSEjj24qp8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/autolink/plugin.min.js"
+            integrity="sha256-tiaecEfh2e4XtcuZj11rE5KsVn4r/bB453ttfYde1Og=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/colorpicker/plugin.min.js"
+            integrity="sha256-RLRauLfUcMsWa9Sj/emZTbtzBdknS0tHDJH5jksUydE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/contextmenu/plugin.min.js"
+            integrity="sha256-nskj7w9Y0nNP+PoTWQACBOm7WI1Rf02uGVYbKIfcbEY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/fullscreen/plugin.min.js"
+            integrity="sha256-qv3u5l7Qr5xrxbPeD6gL5o61N4p7ZQXHSqLOpQLWcB4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/help/plugin.min.js"
+            integrity="sha256-nn5VXVDtwHRfqrywGxMCidRdyI230sfvEdaZ0Gbgwag=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/image/plugin.min.js"
+            integrity="sha256-S5iCzx6srQ5D/wRbDcG151NqVr2VTTv280vzSdVPhCI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/table/plugin.min.js"
+            integrity="sha256-AcaQtvDz+n68UzyF4FnV9536WCf2Wc/1D2Es4IK4pQQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/textcolor/plugin.min.js"
+            integrity="sha256-7bXvStPDyUwaS7lz5zmQiergy4450s0mrmhG3DXFH3U=" crossorigin="anonymous"></script>
+{% endblock %}
 {% block scripts_theme %}
     <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.manifest.js') }}"></script>
     <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.vendor.js') }}"></script>
