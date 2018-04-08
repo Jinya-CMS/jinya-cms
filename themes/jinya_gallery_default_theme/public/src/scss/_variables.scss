@@ -21,6 +21,7 @@ $success-background-color: pastelize($success-color) !default;
 
 /** Social **/
 $color-facebook: #3b5998;
+$color-artstation: #0064b4;
 $color-twitter: #1da1f2;
 $color-pinterest: #bd081c;
 $color-tumblr: #35465c;
@@ -264,6 +265,7 @@ $page-font-family-heading6: $font-family-heading !default;
  + Social
  */
 /** Icons */
+$social-icon-artstation-color: $color-artstation !default;
 $social-icon-facebook-color: $color-facebook !default;
 $social-icon-twitter-color: $color-twitter !default;
 $social-icon-pinterest-color: $color-pinterest !default;

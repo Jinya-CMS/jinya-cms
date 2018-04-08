@@ -23,6 +23,7 @@ defaultConfig:
       mobile:
   socialmedia:
     facebook:
+    artstation:
     twitter:
     instagram:
     deviantart:
@@ -133,6 +134,9 @@ form:
       - name: socialmedia
         title: Soziale Medien
         fields:
+          - name: artstation
+            type: string
+            label: Artstationprofil
           - name: facebook
             type: string
             label: Facebookseite
