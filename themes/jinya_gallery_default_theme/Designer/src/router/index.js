@@ -14,6 +14,7 @@ import MyJinya from './myjinya';
 import Events from "@/framework/Events/Events";
 import Translator from "@/framework/i18n/Translator";
 import DOMUtils from "@/framework/Utils/DOMUtils";
+import JinyaRequest from "@/framework/Ajax/JinyaRequest";
 
 const routes = Home
   .concat(Account)
@@ -30,14 +31,23 @@ const router = new Router({
   routes: routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const apiKey = Lockr.get('JinyaApiKey');
   if (!apiKey && to.name !== Routes.Account.Login.name) {
     next(Routes.Account.Login.route);
   } else {
-    EventBus.$emit(Events.navigation.navigating);
-    DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
-    next();
+    try {
+      if (to.name !== Routes.Account.Login.name) {
+        await JinyaRequest.head('/api/login');
+      }
+
+      EventBus.$emit(Events.navigation.navigating);
+      DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
+      next();
+    } catch (e) {
+      // Lockr.rm('JinyaApiKey');
+      next(Routes.Account.Login.route);
+    }
   }
 });
 

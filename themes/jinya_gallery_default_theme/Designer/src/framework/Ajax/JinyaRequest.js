@@ -61,6 +61,9 @@ export default {
   async get(url) {
     return await send('get', url);
   },
+  async head(url) {
+    return await send('head', url);
+  },
   async put(url, data) {
     return await send('put', url, data, 'application/json');
   },

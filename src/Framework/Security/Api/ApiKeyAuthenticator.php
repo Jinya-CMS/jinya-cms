@@ -105,7 +105,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         $login = $this->urlGenerator->generate('api_account_login');
 
-        if ($request->getPathInfo() === $login) {
+        if ($request->getPathInfo() === $login && $request->getMethod() !== 'HEAD') {
             /** @noinspection PhpInconsistentReturnPointsInspection */
             return;
         }

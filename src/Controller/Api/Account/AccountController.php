@@ -14,6 +14,7 @@ use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -40,6 +41,23 @@ class AccountController extends BaseApiController
         });
 
         return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/login", methods={"HEAD"}, name="account_login_check")
+     *
+     * @param Request $request
+     * @param ApiKeyToolInterface $apiKeyTool
+     * @return Response
+     */
+    public function checkLoginAction(Request $request, ApiKeyToolInterface $apiKeyTool): Response
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new Response('', Response::HTTP_NO_CONTENT);
+        } else {
+            $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
