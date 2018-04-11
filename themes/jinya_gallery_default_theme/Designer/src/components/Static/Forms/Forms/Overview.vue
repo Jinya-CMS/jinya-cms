@@ -3,7 +3,7 @@
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card v-for="form in forms" :header="form.title">
-                <p>{{form.description}}</p>
+                <p class="jinya-form__description">{{form.description}}</p>
                 <jinya-card-button icon="pencil" type="edit" :to="{name: editRoute, params: {slug: form.slug}}"
                                    slot="footer"/>
                 <jinya-card-button icon="television-guide" type="edit" slot="footer"
@@ -137,6 +137,9 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .jinya-form__description {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 </style>

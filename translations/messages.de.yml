@@ -160,6 +160,7 @@ routes:
     forms:
       forms:
         overview: Formulare
+        add: Formular hinzufügen
   home:
     startpage: Startseite
   configuration:
@@ -325,11 +326,27 @@ static:
       back: Zurück
       search: Suchen
   forms:
-    delete:
-      title: Soll das Formular wirklich gelöscht werden?
-      content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
-      yes: Formular löschen
-      no: Formular nicht löschen
+    forms:
+      delete:
+        title: Soll das Formular wirklich gelöscht werden?
+        content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+        yes: Formular löschen
+        no: Formular nicht löschen
+      add:
+        saving: Das Formular "%title%" wird gespeichert
+        success: Das Formular "%title%" wurde gespeichert
+      edit:
+        title: "%title% bearbeiten"
+        loading: Das Formular "%title%" wird geladen
+        saving: Das Formular "%title%" wird gespeichert
+        success: Das Formular "%title%" wurde gespeichert
+      form_form:
+        title: Titel
+        slug: Slug
+        description: Beschreibung
+        email: Zieladresse
+        save: Formular speichern
+        back: Zurück
 art:
   artworks:
     delete:

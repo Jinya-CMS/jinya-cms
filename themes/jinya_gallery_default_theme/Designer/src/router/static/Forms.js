@@ -1,6 +1,8 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
 import FormsOverview from '@/components/Static/Forms/Forms/Overview';
+import FormsAdd from '@/components/Static/Forms/Forms/Add';
+import FormsEdit from '@/components/Static/Forms/Forms/Edit';
 
 export default [
   {
@@ -14,7 +16,10 @@ export default [
   {
     path: Routes.Static.Forms.Forms.Add.route,
     name: Routes.Static.Forms.Forms.Add.name,
-    component: Missing
+    component: FormsAdd,
+    meta: {
+      title: 'routes.static.forms.forms.add'
+    }
   },
   {
     path: Routes.Static.Forms.Forms.Items.route,
@@ -24,7 +29,7 @@ export default [
   {
     path: Routes.Static.Forms.Forms.Edit.route,
     name: Routes.Static.Forms.Forms.Edit.name,
-    component: Missing
+    component: FormsEdit
   },
   {
     path: Routes.Static.Forms.EmailTemplates.Overview.route,
