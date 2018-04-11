@@ -1,11 +1,15 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import FormsOverview from '@/components/Static/Forms/Forms/Overview';
 
 export default [
   {
     path: Routes.Static.Forms.Forms.Overview.route,
     name: Routes.Static.Forms.Forms.Overview.name,
-    component: Missing
+    component: FormsOverview,
+    meta: {
+      title: 'routes.static.forms.forms.overview'
+    }
   },
   {
     path: Routes.Static.Forms.Forms.Add.route,
@@ -13,8 +17,8 @@ export default [
     component: Missing
   },
   {
-    path: Routes.Static.Forms.Forms.Details.route,
-    name: Routes.Static.Forms.Forms.Details.name,
+    path: Routes.Static.Forms.Forms.Items.route,
+    name: Routes.Static.Forms.Forms.Items.name,
     component: Missing
   },
   {

@@ -157,6 +157,9 @@ routes:
         overview: In Jinya gespeicherte Seiten
         add: Seite hinzufügen
         edit: Seite bearbeiten
+    forms:
+      forms:
+        overview: Formulare
   home:
     startpage: Startseite
   configuration:
@@ -321,6 +324,12 @@ static:
       save: Seite speichern
       back: Zurück
       search: Suchen
+  forms:
+    delete:
+      title: Soll das Formular wirklich gelöscht werden?
+      content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+      yes: Formular löschen
+      no: Formular nicht löschen
 art:
   artworks:
     delete:

@@ -223,9 +223,9 @@ export default {
           name: 'StaticFormsFormsEdit',
           route: '/designer/static/forms/forms/:slug/edit'
         },
-        Details: {
-          name: 'StaticFormsFormsDetails',
-          route: '/designer/static/forms/forms/:slug'
+        Items: {
+          name: 'StaticFormsFormsItems',
+          route: '/designer/static/forms/forms/:slug/items'
         }
       },
       EmailTemplates: {

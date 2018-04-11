@@ -101,6 +101,13 @@ static:
         Bisher wurden keine Seiten angelegt.
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Seiten.
+  forms:
+    forms:
+      overview:
+        no_forms:
+          Bisher wurden keine Formulare angelegt.
+        nothing_found:
+          Leider gibt es zu deinem Suchbegriff keine Formulare.
 art:
   artworks:
     overview:
