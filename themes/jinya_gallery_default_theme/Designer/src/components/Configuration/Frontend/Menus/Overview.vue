@@ -11,11 +11,21 @@
                 <jinya-card-button slot="footer" type="edit" icon="menu"
                                    :to="{name: editorRoute, params: {id: menu.id}}"
                                    :title="'configuration.frontend.menus.overview.editor'|jmessage"/>
-                <jinya-card-button slot="footer" type="delete" icon="delete"
+                <jinya-card-button slot="footer" type="delete" icon="delete" @click="showDelete(menu)"
                                    :title="'configuration.frontend.menus.overview.delete'|jmessage"/>
             </jinya-card>
         </jinya-card-list>
         <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
+        <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
+                     :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)">
+            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                           slot="message"/>
+            {{'configuration.frontend.menus.delete.message'|jmessage(selectedMenu)}}
+            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.frontend.menus.delete.no"
+                                :closes-modal="true" :is-disabled="this.delete.loading"/>
+            <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.frontend.menus.delete.yes"
+                                @click="remove" :is-disabled="this.delete.loading"/>
+        </jinya-modal>
     </div>
 </template>
 
@@ -30,10 +40,14 @@
   import Routes from "@/router/Routes";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
 
   export default {
     name: "Overview",
     components: {
+      JinyaModalButton,
+      JinyaModal,
       JinyaPager,
       JinyaCardButton,
       JinyaCard,
@@ -88,6 +102,25 @@
         this.count = value.count;
         this.offset = value.offset;
         this.loading = false;
+      },
+      showDelete(menu) {
+        this.selectedMenu = menu;
+        this.delete.show = true;
+      },
+      closeDeleteModal() {
+        this.delete.show = false;
+      },
+      async remove() {
+        this.delete.loading = true;
+        try {
+          await JinyaRequest.delete(`/api/menu/${this.selectedMenu.id}`);
+          this.delete.show = false;
+          this.menus.splice(this.menus.findIndex(menu => menu.id === this.selectedMenu.id), 1);
+        } catch (e) {
+          this.delete.error = `configuration.general.artists.delete.${e.message}`;
+        }
+
+        this.delete.loading = false;
       }
     },
     computed: {
@@ -109,6 +142,14 @@
         control: {
           next: '',
           previous: ''
+        },
+        selectedMenu: {
+          name: ''
+        },
+        delete: {
+          loading: false,
+          show: false,
+          error: '',
         }
       };
     }

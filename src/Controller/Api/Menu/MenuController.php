@@ -13,6 +13,7 @@ use Jinya\Entity\Menu;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Jinya\Framework\BaseApiController;
+use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -127,11 +128,17 @@ class MenuController extends BaseApiController
      *
      * @param int $id
      * @param MenuServiceInterface $menuService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(int $id, MenuServiceInterface $menuService): Response
+    public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
+        list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $mediaService) {
+            $menu = $menuService->get($id);
+            if (!empty($menu->getLogo())) {
+                $mediaService->deleteMedia($menu->getLogo());
+            }
+
             $menuService->delete($id);
         }, Response::HTTP_NO_CONTENT);
 
