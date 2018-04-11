@@ -4,8 +4,7 @@
         <div class="jinya-input__wrapper">
             <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
             <jinya-button label="framework.markup.form.file_input.reset" class="jinya-button--reset" :is-primary="true"
-                          :is-inverse="true" type="button"
-                          @click="reset"/>
+                          :is-inverse="true" type="button" :is-disabled="!enable" @click="reset"/>
         </div>
         <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
         <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
@@ -88,6 +87,7 @@
     .jinya-input {
         font-size: 1rem;
         margin: 0 0 1em;
+        width: 100%;
 
         .jinya-input__label {
             display: inline-block;

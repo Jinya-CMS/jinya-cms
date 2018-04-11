@@ -1,5 +1,5 @@
 <template>
-    <img class="jinya-form__preview-image" :src="imgSrc" @error="imgSrc = ''"/>
+    <img class="jinya-form__preview-image" :src="imgSrc"/>
 </template>
 
 <script>

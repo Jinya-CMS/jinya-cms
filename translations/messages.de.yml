@@ -163,6 +163,7 @@ routes:
     frontend:
       menus:
         overview: Menüs
+        add: Menü hinzufügen
       themes:
         overview: Themes
         variables: Themevariablen
@@ -261,6 +262,21 @@ configuration:
         delete: Menü löschen
         edit: Menü bearbeiten
         editor: Menüeinträge bearbeiten
+      menu_form:
+        logo: Logo
+        name: Name
+        save: Menü speichern
+        back: Zurück
+      add:
+        saving: Das Menü "%name%" wird gespeichert
+        uploading: Das Logo für das Menü "%name%" wird hochgeladen
+        success: Das Menü "%name%" wurde gespeichert
+      edit:
+        saving: Das Menü "%name%" wird gespeichert
+        uploading: Das Logo für das Menü "%name%" wird hochgeladen
+        deleting: Das Logo für das Menü "%name%" wird gelöscht
+        success: Das Menü "%name%" wurde gespeichert
+        title: "%name% bearbeiten"
     themes:
       overview:
         variables: Variablen

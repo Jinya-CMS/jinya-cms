@@ -4,7 +4,7 @@
         <jinya-message :message="message" :state="state" v-if="!loading"/>
         <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
             <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu">
-                <img class="jinya-menu__logo" :src="menu.logo"/>
+                <img class="jinya-menu__logo" :src="menu.logo" v-if="menu.logo"/>
                 <jinya-card-button slot="footer" type="edit" icon="pencil"
                                    :to="{name: editRoute, params: {id: menu.id}}"
                                    :title="'configuration.frontend.menus.overview.edit'|jmessage"/>
@@ -26,6 +26,7 @@
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.frontend.menus.delete.yes"
                                 @click="remove" :is-disabled="this.delete.loading"/>
         </jinya-modal>
+        <jinya-floating-action-button :is-primary="true" icon="plus" :to="addRoute"/>
     </div>
 </template>
 
@@ -42,10 +43,12 @@
   import Events from "@/framework/Events/Events";
   import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
 
   export default {
     name: "Overview",
     components: {
+      JinyaFloatingActionButton,
       JinyaModalButton,
       JinyaModal,
       JinyaPager,
@@ -124,6 +127,9 @@
       }
     },
     computed: {
+      addRoute() {
+        return Routes.Configuration.Frontend.Menu.Add;
+      },
       editRoute() {
         return Routes.Configuration.Frontend.Menu.Edit.name;
       },

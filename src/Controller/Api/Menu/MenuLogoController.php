@@ -43,7 +43,7 @@ class MenuLogoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/menu/{id}/logo", methods={"POST"}, name="api_menu_logo_post")
+     * @Route("/api/menu/{id}/logo", methods={"PUT"}, name="api_menu_logo_post")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id

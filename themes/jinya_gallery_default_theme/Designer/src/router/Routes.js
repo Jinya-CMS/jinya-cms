@@ -295,11 +295,11 @@ export default {
         },
         Edit: {
           name: 'ConfigurationFrontendMenusEdit',
-          route: '/designer/configuration/frontend/menu/:slug/edit'
+          route: '/designer/configuration/frontend/menu/:id/edit'
         },
         Editor: {
           name: 'ConfigurationFrontendMenusEditor',
-          route: '/designer/configuration/frontend/menu/:slug/editor'
+          route: '/designer/configuration/frontend/menu/:id/editor'
         }
       },
       Theme: {
