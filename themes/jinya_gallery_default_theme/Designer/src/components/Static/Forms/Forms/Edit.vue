@@ -33,10 +33,10 @@
       this.enable = false;
       this.message = Translator.message('static.forms.forms.edit.loading');
       try {
-        this.page = await JinyaRequest.get(`/api/form/${this.$route.params.slug}`);
+        this.form = await JinyaRequest.get(`/api/form/${this.$route.params.slug}`);
         this.state = '';
         this.enable = true;
-        DOMUtils.changeTitle(Translator.message('static.forms.forms.edit.title', this.page));
+        DOMUtils.changeTitle(Translator.message('static.forms.forms.edit.title', this.form));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(error.message);
@@ -49,7 +49,7 @@
           this.state = 'loading';
           this.message = Translator.message('static.forms.forms.add.saving', form);
 
-          await JinyaRequest.post('/api/form', form);
+          await JinyaRequest.put(`/api/form/${this.form.slug}`, form);
 
           this.state = 'success';
           this.message = Translator.message('static.forms.forms.add.success', form);

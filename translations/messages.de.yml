@@ -337,7 +337,7 @@ static:
         success: Das Formular "%title%" wurde gespeichert
       edit:
         title: "%title% bearbeiten"
-        loading: Das Formular "%title%" wird geladen
+        loading: Das Formular wird geladen
         saving: Das Formular "%title%" wird gespeichert
         success: Das Formular "%title%" wurde gespeichert
       form_form:
