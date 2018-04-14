@@ -327,6 +327,15 @@ static:
       search: Suchen
   forms:
     forms:
+      builder:
+        title: Formular %title%
+        default_label: Label
+        save: Fertig
+        cancel: Zurück
+        label: Label
+        help_text: Hilfetext
+        required: Erforderlich
+        close: Schließen
       delete:
         title: Soll das Formular wirklich gelöscht werden?
         content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.

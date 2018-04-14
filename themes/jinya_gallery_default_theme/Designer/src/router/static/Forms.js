@@ -3,6 +3,7 @@ import Missing from '@/components/Home/Missing'
 import FormsOverview from '@/components/Static/Forms/Forms/Overview';
 import FormsAdd from '@/components/Static/Forms/Forms/Add';
 import FormsEdit from '@/components/Static/Forms/Forms/Edit';
+import FormsBuilder from '@/components/Static/Forms/Forms/Builder';
 
 export default [
   {
@@ -24,7 +25,7 @@ export default [
   {
     path: Routes.Static.Forms.Forms.Items.route,
     name: Routes.Static.Forms.Forms.Items.name,
-    component: Missing
+    component: FormsBuilder
   },
   {
     path: Routes.Static.Forms.Forms.Edit.route,
