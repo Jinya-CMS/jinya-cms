@@ -13,12 +13,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\ArtworkPosition;
 use Jinya\Entity\Gallery;
+use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\GalleryServiceInterface;
-use function array_splice;
-use function array_walk;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
+    use ArrangementServiceTrait;
+
     /** @var GalleryServiceInterface */
     private $galleryService;
     /** @var ArtworkServiceInterface */
@@ -71,29 +72,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
     {
         $positions = $gallery->getArtworks()->toArray();
-        uasort($positions, function ($a, $b) {
-            /** @var ArtworkPosition $a */
-            /** @var ArtworkPosition $b */
-            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
-        });
-
-        if ($oldPosition < $newPosition) {
-            array_splice($positions, $newPosition + 1, 0, [$artworkPosition]);
-
-            if ($oldPosition > -1) {
-                array_splice($positions, $oldPosition, 1);
-            }
-        } else {
-            array_splice($positions, $newPosition, 0, [$artworkPosition]);
-
-            if ($oldPosition > -1) {
-                array_splice($positions, $oldPosition + 1, 1);
-            }
-        }
-
-        array_walk($positions, function (ArtworkPosition &$item, int $index) {
-            $item->setPosition($index);
-        });
+        $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);
 
         $gallery->setArtworks(new ArrayCollection($positions));
         $this->entityManager->flush();

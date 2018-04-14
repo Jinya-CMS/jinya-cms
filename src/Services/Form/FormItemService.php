@@ -9,23 +9,31 @@
 namespace Jinya\Services\Form;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
+use Jinya\Services\Base\ArrangementServiceTrait;
 use function array_values;
 
 class FormItemService implements FormItemServiceInterface
 {
+    use ArrangementServiceTrait;
+
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var FormServiceInterface */
+    private $formService;
 
     /**
      * FormItemService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param FormServiceInterface $formService
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, FormServiceInterface $formService)
     {
         $this->entityManager = $entityManager;
+        $this->formService = $formService;
     }
 
     /**
@@ -35,48 +43,24 @@ class FormItemService implements FormItemServiceInterface
      */
     public function addItem(FormItem $formItem): void
     {
-        $position = $this->rearrangeFormItems($formItem->getPosition(), $formItem->getForm());
-        $this->entityManager->flush();
-
-        $formItem->setPosition($position);
-
         $this->entityManager->persist($formItem);
-        $this->entityManager->flush();
+        $this->rearrangeFormItems(-1, $formItem->getPosition(), $formItem, $formItem->getForm());
     }
 
     /**
-     * @param int $position
+     * @param int $oldPosition
+     * @param int $newPosition
+     * @param FormItem $formItem
      * @param Form $form
-     * @return int
      */
-    private function rearrangeFormItems(int $position, Form $form): int
+    private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form)
     {
         //FIXME Checkout artwork position service, there it works
         $positions = $form->getItems()->toArray();
-        uasort($positions, function ($a, $b) {
-            /** @var FormItem $a */
-            /** @var FormItem $b */
-            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
-        });
+        $positions = $this->rearrange($positions, $oldPosition, $newPosition, $formItem);
 
-        $positions = array_values($positions);
-
-        if ($position === -1) {
-            $position = array_shift($positions)->getPosition() + 1;
-        }
-
-        /** @var FormItem $formItem */
-        foreach ($positions as $key => $formItem) {
-            $formItem->setPosition($key);
-        }
-
-        foreach ($positions as $formItem) {
-            if ($formItem->getPosition() >= $position) {
-                $formItem->setPosition($formItem->getPosition() + 1);
-            }
-        }
-
-        return $position;
+        $form->setItems(new ArrayCollection($positions));
+        $this->entityManager->flush();
     }
 
     /**
@@ -137,9 +121,6 @@ class FormItemService implements FormItemServiceInterface
      */
     public function updateItem(FormItem $formItem): void
     {
-        $position = $this->rearrangeFormItems($formItem->getPosition(), $formItem->getForm());
-        $formItem->setPosition($position);
-
         $this->entityManager->flush();
     }
 
@@ -164,5 +145,24 @@ class FormItemService implements FormItemServiceInterface
             ->setParameter('position', $position)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * Updates the position
+     *
+     * @param string $formSlug
+     * @param int $oldPosition
+     * @param int $newPosition
+     */
+    public function updatePosition(string $formSlug, int $oldPosition, int $newPosition): void
+    {
+        $form = $this->formService->get($formSlug);
+        $items = $form->getItems();
+
+        $artwork = $items->filter(function (FormItem $item) use ($oldPosition) {
+            return $item->getPosition() === $oldPosition;
+        })->first();
+
+        $this->rearrangeFormItems($oldPosition, $newPosition, $artwork, $form);
     }
 }

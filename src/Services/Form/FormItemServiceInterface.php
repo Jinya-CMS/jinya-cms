@@ -45,6 +45,15 @@ interface FormItemServiceInterface
     public function updateItem(FormItem $formItem): void;
 
     /**
+     * Updates the position
+     *
+     * @param string $formSlug
+     * @param int $oldPosition
+     * @param int $newPosition
+     */
+    public function updatePosition(string $formSlug, int $oldPosition, int $newPosition): void;
+
+    /**
      * Gets the form item in the given form at the given position
      *
      * @param string $slug

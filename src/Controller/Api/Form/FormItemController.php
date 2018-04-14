@@ -136,6 +136,25 @@ class FormItemController extends BaseApiController
     }
 
     /**
+     * @Route("/api/form/{slug}/move/{oldPosition}/to/{newPosition}", name="form_item_move", methods={"PUT"})
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $slug
+     * @param int $oldPosition
+     * @param int $newPosition
+     * @param FormItemServiceInterface $formItemService
+     * @return Response
+     */
+    public function moveAction(string $slug, int $oldPosition, int $newPosition, FormItemServiceInterface $formItemService): Response
+    {
+        list($result, $status) = $this->tryExecute(function () use ($slug, $oldPosition, $newPosition, $formItemService) {
+            $formItemService->updatePosition($slug, $oldPosition, $newPosition);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($result, $status);
+    }
+
+    /**
      * @Route("/api/form/{slug}/items/{position}", methods={"PUT"}, name="api_form_item_put")
      * @IsGranted("ROLE_WRITER")
      *
@@ -159,23 +178,12 @@ class FormItemController extends BaseApiController
                 $options['required'] = false;
             }
 
-            $item->setPosition($position);
             $item->setType($type);
             $item->setOptions($options);
             $item->setLabel($label);
             $item->setHelpText($helpText);
 
             $formItemService->updateItem($item);
-
-            return $formItemFormatter
-                ->init($item)
-                ->helpText()
-                ->label()
-                ->options()
-                ->type()
-                ->position()
-                ->form()
-                ->format();
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
