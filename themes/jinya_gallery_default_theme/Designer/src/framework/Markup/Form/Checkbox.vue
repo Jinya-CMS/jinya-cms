@@ -1,8 +1,8 @@
 <template>
     <label class="jinya-checkbox">
-        <input @change="$emit('input', $event.target.checked)" name="label" :checked="value" type="checkbox"
+        <input @change="$emit('input', $event.target.checked)" :checked="value" type="checkbox"
                :disabled="!enable || static">
-        {{label}}
+        {{label|jmessage}}
     </label>
 </template>
 

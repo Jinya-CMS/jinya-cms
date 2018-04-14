@@ -33,6 +33,12 @@
   export default {
     name: "jinya-choice",
     props: {
+      enforceSelect: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      },
       static: {
         type: Boolean,
         default() {
@@ -70,13 +76,13 @@
     },
     computed: {
       showSelect() {
-        return !this.static && (this.multiple && this.choices.length > 5);
+        return this.enforceSelect || (!this.static && (this.multiple && this.choices.length > 5));
       },
       showCheckboxes() {
-        return !this.static && (this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.static && (this.multiple && this.choices.length <= 5);
       },
       showRadioButtons() {
-        return !this.static && (!this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.static && (!this.multiple && this.choices.length <= 5);
       },
       selectionText() {
         if (this.selected instanceof Array) {
