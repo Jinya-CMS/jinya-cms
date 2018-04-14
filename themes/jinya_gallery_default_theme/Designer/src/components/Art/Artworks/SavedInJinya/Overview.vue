@@ -24,8 +24,7 @@
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"
                                 :is-disabled="this.delete.loading"/>
         </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
-                                      to="Art.Artworks.SavedInJinya.Add"/>
+        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
     </div>
 </template>
 
@@ -58,6 +57,11 @@
       JinyaCardList
     },
     name: "jinya-artworks-saved-in-jinya-overview",
+    computed: {
+      addRoute() {
+        return Routes.Art.Artworks.SavedInJinya.Add;
+      }
+    },
     methods: {
       load(target) {
         const url = new URL(target, location.href);

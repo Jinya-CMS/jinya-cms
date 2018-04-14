@@ -26,8 +26,7 @@
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.galleries.delete.yes"
                                 @click="remove" :is-disabled="this.delete.loading"/>
         </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
-                                      to="Art.Galleries.Art.Add"/>
+        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
     </div>
 </template>
 
@@ -60,6 +59,11 @@
       JinyaCardList
     },
     name: "jinya-galleries-saved-in-jinya-overview",
+    computed: {
+      addRoute() {
+        return Routes.Art.Galleries.Art.Add;
+      }
+    },
     methods: {
       load(target) {
         const url = new URL(target, location.href);
