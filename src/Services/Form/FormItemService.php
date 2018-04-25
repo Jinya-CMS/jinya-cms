@@ -83,8 +83,6 @@ class FormItemService implements FormItemServiceInterface
             ->getQuery()
             ->getSingleResult();
 
-        $form->getItems()->removeElement($formItem);
-
         $this->entityManager->remove($formItem);
         $this->entityManager->flush();
     }

@@ -2,23 +2,27 @@
     <div class="jinya-form-builder">
         <jinya-loader :loading="loading"/>
         <jinya-editor v-if="!loading">
-            <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel">
+            <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel"
+                        @submit="saveChanges" novalidate class="jinya-form-builder__form">
+                <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash"
+                           :options="destinationOptions">
+                    <i class="mdi mdi-delete is--big"></i>
+                    <span>Drag here to delete</span>
+                </draggable>
+                <jinya-message :message="message" :state="state"/>
                 <jinya-editor-pane>
-                    <draggable class="jinya-form-builder__draggable" :options="originOptions">
-                        <jinya-form-builder-item :settings-available="false" :item="{type: 'TextType', options: {}}"/>
-                        <jinya-form-builder-item :settings-available="false" :item="{type: 'EmailType', options: {}}"/>
-                        <jinya-form-builder-item :settings-available="false"
-                                                 :item="{type: 'CheckboxType', options: {}}"/>
-                        <jinya-form-builder-item :settings-available="false"
-                                                 :item="{type: 'ChoiceType', options: {choices:[]}}"/>
-                        <jinya-form-builder-item :settings-available="false"
-                                                 :item="{type: 'TextareaType', options: {}}"/>
+                    <draggable class="jinya-form-builder__draggable" :options="originOptions"
+                               v-model="availableItemTypes">
+                        <jinya-form-builder-item v-for="item in availableItemTypes" :settings-available="false"
+                                                 :enable="enable" :item="item"/>
                     </draggable>
                 </jinya-editor-pane>
                 <jinya-editor-pane>
                     <draggable @change="itemsChange" class="jinya-form-builder__draggable" :options="destinationOptions"
-                               :list="items">
-                        <jinya-form-builder-item :item="item" v-for="item in items"/>
+                               v-model="items" @add="itemAdded" @start="drag = true" @end="drag = false">
+                        <jinya-form-builder-item v-for="(item, index) in items" :key="`${item.position}-${index}`"
+                                                 :item="item" :enable="enable" @toggle-settings="toggleSettings"
+                                                 :position="index" @edit-done="editSettingsDone"/>
                     </draggable>
                 </jinya-editor-pane>
             </jinya-form>
@@ -43,10 +47,14 @@
   import draggable from 'vuedraggable';
   import JinyaFormBuilderItem from "@/components/Static/Forms/Forms/Builder/Item";
   import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import Timing from "@/framework/Utils/Timing";
+  import Routes from "@/router/Routes";
 
   export default {
     name: "Builder",
     components: {
+      JinyaMessage,
       JinyaLoader,
       JinyaFormBuilderItem,
       JinyaFormBuilderTextAreaType,
@@ -60,26 +68,78 @@
       draggable
     },
     methods: {
-      async itemsChange(data) {
-        const added = data.added;
-        const moved = data.moved;
-        const slug = this.$route.params.slug;
-
-        if (added) {
+      async saveChanges() {
+        this.state = 'loading';
+        this.enable = false;
+        try {
+          this.message = Translator.message('static.forms.forms.builder.saving', this.form);
+          await JinyaRequest.put(`/api/form/${this.form.slug}/batch`, this.actions);
+          this.state = 'success';
+          this.message = Translator.message('static.forms.forms.builder.saved', this.form);
+          await Timing.wait();
+          this.$router.push(Routes.Static.Forms.Forms.Overview);
+        } catch (error) {
+          this.message = Translator.message(`static.forms.forms.builder.${error.message}`, this.form);
+          this.state = 'error';
+          this.enable = true;
         }
+      },
+      deleteItem(item) {
+        this.actions.push({
+          action: 'delete',
+          where: item.oldIndex
+        })
+      },
+      itemAdded(add) {
+        const position = add.newIndex;
+        const item = this.items[position];
+        const clone = JSON.parse(JSON.stringify(item));
+        clone.position = position;
+
+        this.items.splice(position, 1, clone);
+
+        this.actions.push({
+          action: 'add',
+          where: position,
+          data: clone
+        });
+      },
+      itemsChange(data) {
+        const moved = data.moved;
 
         if (moved) {
           const newPosition = moved.newIndex;
           const oldPosition = moved.oldIndex;
 
-          await JinyaRequest.put(`/api/form/${slug}/move/${oldPosition}/to/${newPosition}`);
+          this.actions.push({
+            action: 'move',
+            from: oldPosition,
+            to: newPosition
+          });
         }
+      },
+      editSettingsDone(item) {
+        this.actions.push({
+          action: 'edit',
+          where: item.position,
+          data: item.data
+        });
+      },
+      toggleSettings(item) {
+        this.items = this.items.map(elem => {
+          if (item.position !== elem.position) {
+            elem.showSettings = false;
+          }
+
+          return elem;
+        });
       }
     },
     computed: {
       originOptions() {
         return {
-          sort: false,
+          handle: '.jinya-form-builder__component',
+          disabled: !this.enable,
           group: {
             name: 'edit',
             pull: 'clone',
@@ -90,11 +150,8 @@
       destinationOptions() {
         return {
           handle: '.jinya-form-builder__component',
-          group: {
-            name: 'edit',
-            pull: false,
-            put: true
-          }
+          disabled: !this.enable,
+          group: 'edit'
         }
       }
     },
@@ -110,16 +167,58 @@
       this.loading = false;
     },
     data() {
+      const availableItemTypes = [
+        {
+          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+          label: Translator.message('static.forms.forms.builder.default_label.text_type'),
+          options: {
+            required: false
+          }
+        },
+        {
+          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+          label: Translator.message('static.forms.forms.builder.default_label.email_type'),
+          options: {
+            required: false
+          }
+        },
+        {
+          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+          label: Translator.message('static.forms.forms.builder.default_label.choice_type'),
+          options: {
+            required: false,
+            choices: []
+          }
+        },
+        {
+          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+          label: Translator.message('static.forms.forms.builder.default_label.checkbox_type'),
+          options: {
+            required: false
+          }
+        },
+        {
+          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+          label: Translator.message('static.forms.forms.builder.default_label.textarea_type'),
+          options: {
+            required: false
+          }
+        }
+      ];
+
       return {
         form: {
           title: '',
           slug: this.$route.params.slug
         },
+        availableItemTypes: availableItemTypes,
         message: '',
         state: '',
         enable: true,
         items: [],
-        loading: false
+        loading: false,
+        actions: [],
+        drag: false
       };
     }
   }
@@ -128,5 +227,19 @@
 <style scoped lang="scss">
     .jinya-form-builder__draggable {
         width: 100%;
+    }
+
+    .jinya-form-builder__trash {
+        width: 100%;
+        display: flex;
+        transition: opacity 0.3s;
+        color: $danger;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .is--big {
+        font-size: 250%;
     }
 </style>

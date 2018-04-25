@@ -1,4 +1,4 @@
-@mixin button-variations() {
+@mixin button-variations($inverseBackground: $white) {
   &.is--default {
     background: $gray-600;
     color: $white;
@@ -10,7 +10,7 @@
     }
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       color: $gray-600;
       border-color: $gray-600;
 
@@ -31,7 +31,7 @@
     }
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       color: $primary;
       border-color: $primary;
 
@@ -52,7 +52,7 @@
     }
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       color: $secondary;
       border-color: $secondary;
 
@@ -73,7 +73,7 @@
     }
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       color: $danger;
       border-color: $danger;
 
@@ -94,7 +94,7 @@
     }
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       color: $success;
       border-color: $success;
 
@@ -113,7 +113,7 @@
     cursor: not-allowed;
 
     &.is--inverse {
-      background: $white;
+      background: $inverseBackground;
       border-color: $gray-600;
       color: $gray-600;
     }
@@ -123,7 +123,7 @@
       color: $white;
 
       &.is--inverse {
-        background: $white;
+        background: $inverseBackground;
         border-color: $gray-600;
         color: $gray-600;
       }

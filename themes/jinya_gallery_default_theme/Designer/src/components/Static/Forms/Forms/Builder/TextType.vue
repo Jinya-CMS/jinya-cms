@@ -1,5 +1,5 @@
 <template>
-    <jinya-input type="text" :label="label" :required="required"/>
+    <jinya-input type="text" :label="label" :required="required" :enable="enable"/>
 </template>
 
 <script>
@@ -22,6 +22,12 @@
         type: Boolean,
         default() {
           return false;
+        }
+      },
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
         }
       }
     }

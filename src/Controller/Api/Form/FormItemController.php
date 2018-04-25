@@ -17,6 +17,7 @@ use Jinya\Services\Form\FormItemServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_key_exists;
@@ -81,6 +82,59 @@ class FormItemController extends BaseApiController
         });
 
         return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/form/{slug}/batch", methods={"PUT"}, name="api_form_item_batch")
+     *
+     * @param string $slug
+     * @param Request $request
+     * @param FormServiceInterface $formService
+     * @param FormItemServiceInterface $formItemService
+     * @return Response
+     */
+    public function batchAction(string $slug, Request $request, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response
+    {
+        list($status, $data) = $this->tryExecute(function () use ($slug, $request, $formService, $formItemService) {
+            $actions = json_decode($request->getContent(), true);
+            $form = $formService->get($slug);
+
+            foreach ($actions as $action) {
+                switch ($action['action']) {
+                    case 'add':
+                        $data = $action['data'];
+                        $formItem = new FormItem();
+                        $formItem->setPosition($action['where']);
+                        $formItem->setForm($form);
+                        $formItem->setLabel($data['label']);
+                        $formItem->setType($data['type']);
+                        $formItem->setOptions($data['options']);
+                        $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
+
+                        $formItemService->addItem($formItem);
+                        break;
+                    case 'edit':
+                        $data = $action['data'];
+                        $formItem = $formItemService->getItem($slug, $action['where']);
+                        $formItem->setLabel($data['label']);
+                        $formItem->setType($data['type']);
+                        $formItem->setOptions($data['options']);
+                        $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
+
+                        $formItemService->updateItem($formItem);
+                        break;
+                    case 'move':
+                        $formItemService->updatePosition($slug, $action['from'], $action['to']);
+                        break;
+                    case 'delete':
+                        $formItemService->deleteItem($form, $action['where']);
+                        break;
+                }
+            }
+
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($status, $data);
     }
 
     /**

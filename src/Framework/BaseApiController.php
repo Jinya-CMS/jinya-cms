@@ -9,6 +9,7 @@
 namespace Jinya\Framework;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NoResultException;
@@ -179,6 +180,8 @@ abstract class BaseApiController extends AbstractController
             return [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
             return [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+            return [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());

@@ -58,7 +58,7 @@ async function send(verb, url, data, contentType) {
 }
 
 export default {
-  async get(url) {
+  async get (url) {
     return await send('get', url);
   },
   async head(url) {
@@ -75,5 +75,8 @@ export default {
   },
   async upload(url, file) {
     return await send('put', url, file, file.type);
+  },
+  async send(verb, url, data) {
+    return await send(verb, url, data, 'application/json');
   }
 }

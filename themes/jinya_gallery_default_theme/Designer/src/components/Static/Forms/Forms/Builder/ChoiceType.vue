@@ -1,5 +1,6 @@
 <template>
-    <jinya-choice :enforce-select="true" :label="label" :required="required" :choices="formattedChoices"/>
+    <jinya-choice :enforce-select="true" :label="label" :required="required" :choices="formattedChoices"
+                  :enable="enable"/>
 </template>
 
 <script>
@@ -38,6 +39,12 @@
         type: Boolean,
         default() {
           return false;
+        }
+      },
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
         }
       }
     }

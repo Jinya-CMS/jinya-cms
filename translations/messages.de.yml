@@ -329,13 +329,28 @@ static:
     forms:
       builder:
         title: Formular %title%
-        default_label: Label
+        default_label:
+          email_type: Emailadresse
+          text_type: Einzeiliger Text
+          choice_type: Auswahl
+          checkbox_type: Ja/Nein Feld
+          textarea_type: Mehrzeiliger Text
         save: Fertig
         cancel: Zurück
-        label: Label
-        help_text: Hilfetext
-        required: Erforderlich
-        close: Schließen
+        saving: Die Anpassungen am Formular %title% werden gespeichert
+        saved: Die Anpassungen am Formular %title% wurden gespeichert
+        api:
+          state:
+            409:
+              not_null_failed: Es sind nicht alle Pflichtfelder gefüllt
+            500:
+              generic: Die Anpassungen am Formular %title% konnten nicht gespeichert werden
+        settings:
+          save: Speichern
+          label: Label
+          help_text: Hilfetext
+          required: Erforderlich
+          options: Optionen
       delete:
         title: Soll das Formular wirklich gelöscht werden?
         content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
