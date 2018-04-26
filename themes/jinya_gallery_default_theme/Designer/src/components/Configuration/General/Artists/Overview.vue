@@ -64,7 +64,7 @@
                                 label="configuration.general.artists.disable.yes"
                                 @click="deactivate" :is-disabled="this.disable.loading"/>
         </jinya-modal>
-        <jinya-floating-action-button icon="account-plus" :is-primary="true" to="Configuration.General.Artists.Add"/>
+        <jinya-floating-action-button icon="account-plus" :is-primary="true" :to="addRoute"/>
     </div>
 </template>
 
@@ -105,6 +105,9 @@
       },
       profileRoute() {
         return Routes.MyJinya.Account.Profile.name;
+      },
+      addRoute() {
+        return Routes.Configuration.General.Artists.Add;
       }
     },
     data() {
