@@ -134,7 +134,7 @@
         return Routes.Configuration.Frontend.Menu.Edit.name;
       },
       editorRoute() {
-        return Routes.Configuration.Frontend.Menu.Editor.name;
+        return Routes.Configuration.Frontend.Menu.Builder.name;
       }
     },
     data() {

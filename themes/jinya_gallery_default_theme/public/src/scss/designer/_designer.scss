@@ -2184,7 +2184,7 @@ img {
 }
 }
 
-.jinya-card--menu[data-v-41fcfe53] {
+.jinya-card--menu[data-v-9345cc7e] {
 .jinya-card__body {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -2194,157 +2194,33 @@ img {
                 justify-content: center;
 }
 }
-.jinya-menu__logo[data-v-41fcfe53] {
+
+.jinya-menu__logo[data-v-9345cc7e] {
     height: 100%;
     width: auto;
     -o-object-fit: cover;
        object-fit: cover;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.jinya-menu-builder__group[data-v-fca0fbdc] {
+  margin-left: 2rem;
+  width: 30rem;
+  &.is--dragging {
+    opacity: 0.4;
+  }
+}
+
+.jinya-menu-builder__title[data-v-fca0fbdc] {
+  display: block;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border: 0.5px solid $white;
+  background: $secondary-lighter;
+  color: $gray-800;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.jinya-menu-builder__draggable[data-v-fca0fbdc] {
+  min-height: 0.4rem;
+  display: block;
+}

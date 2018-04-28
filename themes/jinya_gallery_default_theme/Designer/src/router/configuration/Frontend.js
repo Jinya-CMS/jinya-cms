@@ -1,11 +1,11 @@
 import Routes from "../Routes";
-import Missing from "@/components/Home/Missing";
 import ThemeOverview from "@/components/Configuration/Frontend/Themes/Overview";
 import ThemeVariables from "@/components/Configuration/Frontend/Themes/Variables";
 import ThemeConfiguration from "@/components/Configuration/Frontend/Themes/Configuration";
 import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 import MenuAdd from '@/components/Configuration/Frontend/Menus/Add';
 import MenuEdit from '@/components/Configuration/Frontend/Menus/Edit';
+import MenuBuilder from '@/components/Configuration/Frontend/Menus/Builder';
 
 export default [
   {
@@ -18,9 +18,9 @@ export default [
     }
   },
   {
-    path: Routes.Configuration.Frontend.Menu.Editor.route,
-    name: Routes.Configuration.Frontend.Menu.Editor.name,
-    component: Missing
+    path: Routes.Configuration.Frontend.Menu.Builder.route,
+    name: Routes.Configuration.Frontend.Menu.Builder.name,
+    component: MenuBuilder
   },
   {
     path: Routes.Configuration.Frontend.Menu.Edit.route,
