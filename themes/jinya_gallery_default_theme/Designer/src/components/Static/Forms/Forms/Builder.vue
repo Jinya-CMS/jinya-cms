@@ -7,7 +7,7 @@
                 <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash"
                            :options="destinationOptions">
                     <i class="mdi mdi-delete is--big"></i>
-                    <span>Drag here to delete</span>
+                    <span>{{'static.forms.forms.builder.delete'|jmessage}}</span>
                 </draggable>
                 <jinya-message :message="message" :state="state"/>
                 <jinya-editor-pane>

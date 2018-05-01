@@ -329,6 +329,7 @@ static:
     forms:
       builder:
         title: Formular %title%
+        delete: Hierher ziehen zum löschen
         default_label:
           email_type: Emailadresse
           text_type: Einzeiliger Text
