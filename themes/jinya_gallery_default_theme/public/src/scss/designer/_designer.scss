@@ -1476,10 +1476,10 @@ li {
 
 
 
-.jinya-form-builder__draggable[data-v-1320fbe4] {
+.jinya-form-builder__draggable[data-v-2b6e3951] {
     width: 100%;
 }
-.jinya-form-builder__trash[data-v-1320fbe4] {
+.jinya-form-builder__trash[data-v-2b6e3951] {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1498,7 +1498,7 @@ li {
         -ms-flex-align: center;
             align-items: center;
 }
-.is--big[data-v-1320fbe4] {
+.is--big[data-v-2b6e3951] {
     font-size: 250%;
 }
 
@@ -2194,7 +2194,6 @@ img {
                 justify-content: center;
 }
 }
-
 .jinya-menu__logo[data-v-9345cc7e] {
     height: 100%;
     width: auto;
@@ -2202,25 +2201,194 @@ img {
        object-fit: cover;
 }
 
-.jinya-menu-builder__group[data-v-fca0fbdc] {
-  margin-left: 2rem;
-  width: 30rem;
-  &.is--dragging {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.jinya-tab[data-v-33c041ac] {
+&.is--loading {
+        height: 15rem;
+}
+}
+.is--dragging[data-v-33c041ac] {
     opacity: 0.4;
-  }
+}
+.jinya-menu-builder__list[data-v-33c041ac] {
+    width: 100%;
+}
+.jinya-menu-builder__header[data-v-33c041ac] {
+    font-size: 1.4rem;
+    padding: 0.5em 1em 0;
+    margin-bottom: 1.2rem;
+    width: 100%;
+    color: $primary;
+    border: 2px solid transparent;
+    border-bottom-color: $primary;
 }
 
-.jinya-menu-builder__title[data-v-fca0fbdc] {
-  display: block;
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  border: 0.5px solid $white;
-  background: $secondary-lighter;
-  color: $gray-800;
-  border-radius: 3px;
-  cursor: pointer;
+.jinya-menu-builder__item[data-v-10c4c47d] {
+    display: block;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border: 0.5px solid $white;
+    background: $secondary-lighter;
+    color: $gray-800;
+    border-radius: 3px;
+    cursor: move;
+&.is--highlighted {
+        background: $primary-lighter;
+}
 }
 
-.jinya-menu-builder__draggable[data-v-fca0fbdc] {
-  min-height: 0.4rem;
-  display: block;
+.jinya-menu-builder__template-item[data-v-4802d2a1] {
+    display: block;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border: 0.5px solid $white;
+    background: $secondary-lighter;
+    color: $gray-800;
+    border-radius: 3px;
+    cursor: move;
 }
