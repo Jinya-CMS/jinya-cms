@@ -3,6 +3,12 @@
         <jinya-loader :loading="loading"/>
         <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save"
                     cancel-label="configuration.frontend.menus.builder.cancel">
+            <draggable @add="deleteItem" v-show="drag" class="jinya-menu-builder__trash"
+                       :options="itemsOptions">
+                <i class="mdi mdi-delete is--big"></i>
+                <span>{{'static.forms.forms.builder.delete'|jmessage}}</span>
+            </draggable>
+            <jinya-message :message="message" :state="state"/>
             <jinya-editor-pane>
                 <jinya-tab-container :items="types" @select="selectTemplateItems"
                                      :class="{'is--loading': itemsLoading}">
@@ -17,9 +23,12 @@
             <jinya-editor-pane>
                 <span class="jinya-menu-builder__header">{{'configuration.frontend.menus.builder.menu'|jmessage}}</span>
                 <draggable v-model="items" :options="itemsOptions" class="jinya-menu-builder__list" @add="itemsAdded"
-                           @change="itemsChange" @start="itemDragStart" @end="itemDragEnd">
-                    <jinya-menu-builder-group v-for="item in items" :item="item"
-                                              :key="`${item.position}-${item.parent.id}-${item.route.name}`"/>
+                           @change="itemsChange" @start="drag = true" @end="drag = false">
+                    <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
+                                              @increase="increase(item)" :allow-increase="item.allowIncrease"
+                                              @decrease="decrease(item)" :allow-decrease="item.allowDecrease"
+                                              @toggle-settings="toggleSettings" @edit-done="editSettingsDone"
+                                              :key="`${item.position}-${index}-${item.route.name}`"/>
                 </draggable>
             </jinya-editor-pane>
         </jinya-form>
@@ -40,10 +49,13 @@
   import Events from "@/framework/Events/Events";
   import JinyaLoader from "@/framework/Markup/Loader";
   import Translator from "@/framework/i18n/Translator";
+  import ObjectUtils from "@/framework/Utils/ObjectUtils";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
 
   export default {
     name: "Builder",
     components: {
+      JinyaMessage,
       JinyaLoader,
       JinyaTabContainer,
       JinyaMenuBuilderTemplateEntry,
@@ -67,9 +79,10 @@
         pages: [],
         itemsLoading: false,
         loading: false,
-        actions: [],
-        absOldClientX: 0,
-        absClientX: 0
+        drag: false,
+        state: '',
+        message: '',
+        enable: true
       }
     },
     async mounted() {
@@ -81,15 +94,13 @@
           const elem = {
             id: item.id,
             title: item.title,
-            parent: {
-              type: nestingLevel === 0 ? 'menu' : 'item',
-              id: parent.id
-            },
             highlighted: item.highlighted,
             nestingLevel: nestingLevel,
             pageType: item.pageType,
             position: item.position,
-            route: item.route
+            route: item.route,
+            allowIncrease: nestingLevel < 0,
+            allowDecrease: nestingLevel > 0
           };
 
           return [elem].concat(flattenChildren(item, nestingLevel + 1, item.children));
@@ -102,6 +113,7 @@
       };
 
       this.items = flattenChildren(this.menu, 0, this.menu.children);
+      this.calculateNestingAllowance();
 
       DOMUtils.changeTitle(this.menu.name);
       EventBus.$emit(Events.header.change, this.menu.name);
@@ -147,45 +159,57 @@
       }
     },
     methods: {
-      itemDragStart(event) {
-        this.currentItem = this.items[event.oldIndex];
-        this.absOldClientX = 0;
-        this.absClientX = 0;
-        document.ondragover = event => {
-          this.absClientX = Math.abs(event.clientX);
+      calculateNestingAllowance() {
+        for (let i = 0; i < this.items.length; i++) {
+          const previous = this.findPrevious(this.items[i], i);
+          const item = this.items[i];
 
-          //TODO Implement correct movement on x axis
-
-          this.itemDragMove();
-        };
+          item.allowIncrease = previous && previous.nestingLevel >= item.nestingLevel;
+          item.allowDecrease = !this.hasChildren(item, i) && !!this.findParent(item, i);
+        }
       },
-      itemDragMove() {
-        const item = this.currentItem;
+      hasChildren(item, currentIdx = undefined) {
+        if (currentIdx === undefined)
+          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        const currentIdx = this.items.findIndex(elem => item.position === elem.position && item.parent.id === elem.parent.id);
+        return item.nestingLevel < this.findNext(item, currentIdx)?.nestingLevel;
+      },
+      findParent(item, currentIdx = undefined) {
+        if (currentIdx === undefined)
+          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        if (this.absOldClientX > this.absClientX) {
-          const previous = (currentIdx => {
-            if (this.items.length > currentIdx && currentIdx > 0) {
-              return this.items[currentIdx - 1];
-            }
+        return this.items
+          .slice(0, currentIdx)
+          .reverse()
+          .find(elem => elem.nestingLevel === item.nestingLevel - 1);
+      },
+      findPrevious(item, currentIdx = undefined) {
+        if (currentIdx === undefined)
+          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-            return false;
-          })(currentIdx);
-
-          if (previous && previous.nestingLevel - 1 === item.nestingLevel) {
-            item.nestingLevel = item.nestingLevel + 1;
-          }
-        } else if (this.absOldClientX < this.absClientX && item.nestingLevel > 0) {
-          item.nestingLevel = item.nestingLevel - 1;
+        if (this.items.length > currentIdx && currentIdx > 0) {
+          return this.items[currentIdx - 1];
         }
 
-        this.absOldClientX = this.absClientX;
+        return false;
       },
-      itemDragEnd() {
-        delete this.currentItem;
-        document.ondragover = () => {
-        };
+      findNext(item, currentIdx = undefined) {
+        if (currentIdx === undefined)
+          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+
+        if (this.items.length > currentIdx && currentIdx < this.items.length) {
+          return this.items[currentIdx + 1];
+        }
+
+        return false;
+      },
+      increase(item) {
+        item.nestingLevel = item.nestingLevel + 1;
+        this.calculateNestingAllowance();
+      },
+      decrease(item) {
+        item.nestingLevel = item.nestingLevel - 1;
+        this.calculateNestingAllowance();
       },
       itemsAdded(add) {
         const position = add.newIndex;
@@ -197,41 +221,34 @@
 
           if (position === 0 || position === this.items.length) {
             clone.nestingLevel = 0;
-            clone.parent = {
-              id: this.menu.id,
-              type: 'menu'
-            };
           } else {
             const previous = this.items[position + 1];
             clone.nestingLevel = previous.nestingLevel;
-            clone.parent = previous.parent;
           }
 
           return clone;
         })(item);
 
         this.items.splice(position, 1, clone);
+
+        this.calculateNestingAllowance();
       },
       itemsChange(data) {
         const moved = data.moved;
 
         if (moved) {
           const newPosition = moved.newIndex;
-
           const item = this.items[newPosition];
 
           if (newPosition === 0 || newPosition === this.items.length) {
             item.nestingLevel = 0;
-            item.parent = {
-              id: this.menu.id,
-              type: 'menu'
-            };
           } else {
             const previous = this.items[newPosition + 1];
             item.nestingLevel = previous.nestingLevel;
-            item.parent = previous.parent;
           }
         }
+
+        this.calculateNestingAllowance();
       },
       generateTemplateItem(type, title, slug) {
         return {
@@ -318,5 +335,15 @@
         color: $primary;
         border: 2px solid transparent;
         border-bottom-color: $primary;
+    }
+
+    .jinya-menu-builder__trash {
+        width: 100%;
+        display: flex;
+        transition: opacity 0.3s;
+        color: $danger;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
     }
 </style>

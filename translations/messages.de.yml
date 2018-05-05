@@ -281,6 +281,24 @@ configuration:
         deleting: Das Logo für das Menü "%name%" wird gelöscht
         success: Das Menü "%name%" wurde gespeichert
         title: "%name% bearbeiten"
+      builder:
+        galleries: Galerien
+        forms: Formulare
+        pages: Seiten
+        other: Andere
+        external: Externe Seite
+        group: Gruppe
+        save: Fertig
+        cancel: Abbrechen
+        menu: Menü
+        increase_alignment: Einzug erhöhen
+        decrease_alignment: Einzug verringern
+        settings:
+          title: Titel
+          display_url: Anzeigeurl
+          target_url: Ziel
+          highlighted: Hervorgehoben
+          save: Speichern
     themes:
       overview:
         variables: Variablen

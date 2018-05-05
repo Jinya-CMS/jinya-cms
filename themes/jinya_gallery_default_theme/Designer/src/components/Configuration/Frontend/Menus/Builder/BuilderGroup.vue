@@ -1,73 +1,107 @@
 <template>
-    <div>
-        <draggable :options="draggableOptions" class="jinya-menu-builder__draggable">
-        </draggable>
-        <draggable :options="draggableOptions">
-            <div class="jinya-menu-builder__group">
-                <span class="jinya-menu-builder__title">{{item.title}}</span>
-                <jinya-menu-builder-group v-for="(child, index) in item.children"
-                                          :show-bottom-draggable="index - 1 === item.children.length" :item="child">
-                </jinya-menu-builder-group>
-                <draggable v-if="showBottomDraggable" :options="draggableOptions" class="jinya-menu-builder__draggable">
-                </draggable>
-            </div>
-        </draggable>
+    <div :style="{'margin-left':`${item.nestingLevel * 2}rem`, 'width':`calc(100% - ${item.nestingLevel * 2}rem)`}">
+        <span class="jinya-menu-builder__item" :class="{'is--highlighted': item.highlighted}">
+            <jinya-icon-button v-if="allowDecrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
+                               @click="$emit('decrease')" icon="chevron-left"/>
+            {{item.title}}
+            <jinya-icon-button v-if="allowIncrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
+                               @click="$emit('increase')" icon="chevron-right"
+                               :title="'configuration.frontend.menus.builder.increase_alignment'|jmessage"/>
+            <jinya-icon-button :is-primary="item.highlighted" :is-secondary="!item.highlighted" class="is--right"
+                               @click="toggleSettingsClick" icon="pencil"
+                               :title="'configuration.frontend.menus.builder.decrease_alignment'|jmessage"/>
+        </span>
+        <transition enter-active-class="is--enter-active" leave-to-class="is--leave-to">
+            <jinya-menu-builder-settings-editor :item="item" v-if="showSettings && enable" @done="editSettingsDone"/>
+        </transition>
     </div>
 </template>
 
 <script>
-  import draggable from 'vuedraggable';
+  import JinyaIconButton from "@/framework/Markup/IconButton";
+  import JinyaMenuBuilderSettingsEditor from "@/components/Configuration/Frontend/Menus/Builder/SettingsEditor";
 
   export default {
     name: "jinya-menu-builder-group",
     components: {
-      draggable
+      JinyaMenuBuilderSettingsEditor,
+      JinyaIconButton
     },
     computed: {
       draggableOptions() {
         return {
           group: 'menu',
-          ghostClass: 'is--dragging'
         }
       }
     },
     props: {
-      showBottomDraggable: {
+      item: {
+        type: Object,
+        required: true
+      },
+      allowIncrease: {
         type: Boolean,
         default() {
           return true;
         }
       },
-      item: {
-        type: Object,
-        required: true
+      allowDecrease: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      },
+      enable: {
+        type: Boolean,
+        default() {
+          return true;
+        }
       }
+    },
+    methods: {
+      editSettingsDone() {
+        this.showSettings = false;
+        this.$emit('edit-done', this.item);
+      },
+      toggleSettingsClick() {
+        this.showSettings = !this.showSettings;
+        this.$emit('toggle-settings', this.item);
+      }
+    },
+    data() {
+      return {
+        showSettings: false
+      };
     }
   }
 </script>
 
 <style scoped lang="scss">
-    .jinya-menu-builder__group {
-        margin-left: 2rem;
-        width: 30rem;
-
-        &.is--dragging {
-            opacity: 0.4;
-        }
-    }
-
-    .jinya-menu-builder__title {
-        display: block;
+    .jinya-menu-builder__item {
+        display: flex;
         padding: 0.5rem 0.5rem 0.5rem 1rem;
         border: 0.5px solid $white;
         background: $secondary-lighter;
         color: $gray-800;
         border-radius: 3px;
-        cursor: pointer;
+        align-items: center;
+        cursor: move;
+
+        .is--right {
+            margin-left: auto;
+        }
+
+        &.is--highlighted {
+            background: $primary-lighter;
+        }
     }
 
-    .jinya-menu-builder__draggable {
-        min-height: 0.4rem;
-        display: block;
+    .jinya-menu-builder__settings {
+        transition: opacity 0.3s;
+
+        &.is--leave-to,
+        &.is--enter-active {
+            opacity: 0;
+        }
     }
 </style>
