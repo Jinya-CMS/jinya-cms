@@ -2,7 +2,7 @@
     <router-link class="jinya-floating-action-button" :class="additionalClasses" v-if="!isDisabled" :to="routeTarget">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </router-link>
-    <button class="jinya-floating-action-button" :class="additionalClasses" v-if="!routeTarget && !isDisabled"
+    <button class="jinya-floating-action-button" :class="additionalClasses" v-else-if="!routeTarget && !isDisabled"
             @click="$emit('click')">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </button>
