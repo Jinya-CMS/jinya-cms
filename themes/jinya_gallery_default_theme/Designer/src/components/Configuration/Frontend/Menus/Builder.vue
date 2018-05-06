@@ -1,5 +1,5 @@
 <template>
-    <jinya-editor>
+    <jinya-editor class="jinya-menu-builder">
         <jinya-loader :loading="loading"/>
         <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save"
                     cancel-label="configuration.frontend.menus.builder.cancel">
@@ -27,7 +27,6 @@
                     <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
                                               @increase="increase(item)" :allow-increase="item.allowIncrease"
                                               @decrease="decrease(item)" :allow-decrease="item.allowDecrease"
-                                              @toggle-settings="toggleSettings" @edit-done="editSettingsDone"
                                               :key="`${item.position}-${index}-${item.route.name}`"/>
                 </draggable>
             </jinya-editor-pane>
@@ -51,6 +50,9 @@
   import Translator from "@/framework/i18n/Translator";
   import ObjectUtils from "@/framework/Utils/ObjectUtils";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import Routes from "@/router/Routes";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
 
   export default {
     name: "Builder",
@@ -346,5 +348,9 @@
         justify-content: center;
         flex-direction: row;
         align-items: center;
+    }
+
+    .jinya-menu-builder {
+        padding-bottom: 1rem;
     }
 </style>

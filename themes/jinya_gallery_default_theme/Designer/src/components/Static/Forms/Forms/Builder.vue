@@ -3,7 +3,8 @@
         <jinya-loader :loading="loading"/>
         <jinya-editor v-if="!loading">
             <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel"
-                        @submit="saveChanges" novalidate class="jinya-form-builder__form">
+                        @submit="saveChanges" novalidate class="jinya-form-builder__form"
+                        button-bar-padding-right="0.5rem">
                 <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash"
                            :options="destinationOptions">
                     <i class="mdi mdi-delete is--big"></i>

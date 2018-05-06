@@ -1,7 +1,7 @@
 <template>
     <form class="jinya-form" @submit.prevent="$emit('submit', $event)">
         <slot/>
-        <div class="jinya-form__buttons">
+        <div class="jinya-form__buttons" :style="{'padding-right': buttonBarPaddingRight}">
             <slot name="buttons">
                 <jinya-button :is-disabled="!enable" :is-secondary="true" :is-inverse="true" :label="cancelLabel"
                               @click="$emit('back')"/>
@@ -29,6 +29,9 @@
         type: String
       },
       saveLabel: {
+        type: String
+      },
+      buttonBarPaddingRight: {
         type: String
       }
     }
