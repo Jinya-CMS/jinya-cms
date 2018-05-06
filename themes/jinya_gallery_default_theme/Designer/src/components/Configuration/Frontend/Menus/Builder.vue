@@ -218,6 +218,7 @@
         const clone = ((item) => {
           const clone = JSON.parse(JSON.stringify(item));
           clone.position = position;
+          clone.showSettings = true;
 
           if (position === 0 || position === this.items.length) {
             clone.nestingLevel = 0;
