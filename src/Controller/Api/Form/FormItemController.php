@@ -85,7 +85,7 @@ class FormItemController extends BaseApiController
     }
 
     /**
-     * @Route("/api/form/{slug}/batch", methods={"PUT"}, name="api_form_item_batch")
+     * @Route("/api/form/{slug}/items/batch", methods={"PUT"}, name="api_form_item_batch")
      *
      * @param string $slug
      * @param Request $request

@@ -99,7 +99,7 @@
         this.enable = false;
         try {
           this.message = Translator.message('static.forms.forms.builder.saving', this.form);
-          await JinyaRequest.put(`/api/form/${this.form.slug}/batch`, this.actions);
+          await JinyaRequest.put(`/api/form/${this.form.slug}/items/batch`, this.actions);
           this.state = 'success';
           this.message = Translator.message('static.forms.forms.builder.saved', this.form);
           await Timing.wait();
