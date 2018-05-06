@@ -3,7 +3,7 @@
         <jinya-loader :loading="loading"/>
         <jinya-editor v-if="!loading">
             <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel"
-                        @submit="saveChanges" novalidate class="jinya-form-builder__form"
+                        @submit="saveChanges" novalidate class="jinya-form-builder__form" @back="back"
                         button-bar-padding-right="0.5rem">
                 <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash"
                            :options="destinationOptions">
@@ -28,6 +28,19 @@
                 </jinya-editor-pane>
             </jinya-form>
         </jinya-editor>
+        <jinya-modal title="static.forms.forms.builder.leave.title" v-if="leaving">
+            {{'static.forms.forms.builder.leave.content'|jmessage(form)}}
+            <template slot="buttons-left">
+                <jinya-modal-button label="static.forms.forms.builder.leave.cancel" :closes-modal="true"
+                                    @click="stay" :is-secondary="true"/>
+            </template>
+            <template slot="buttons-right">
+                <jinya-modal-button label="static.forms.forms.builder.leave.no" :closes-modal="true"
+                                    @click="stayAndSaveChanges" :is-success="true"/>
+                <jinya-modal-button label="static.forms.forms.builder.leave.yes" :closes-modal="true"
+                                    @click="leave" :is-danger="true"/>
+            </template>
+        </jinya-modal>
     </div>
 </template>
 
@@ -51,10 +64,14 @@
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import Timing from "@/framework/Utils/Timing";
   import Routes from "@/router/Routes";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
 
   export default {
     name: "Builder",
     components: {
+      JinyaModalButton,
+      JinyaModal,
       JinyaMessage,
       JinyaLoader,
       JinyaFormBuilderItem,
@@ -68,6 +85,14 @@
       JinyaEditor,
       draggable
     },
+    beforeRouteLeave(to, from, next) {
+      if (this.actions.length > 0) {
+        this.leaving = true;
+        this.next = next;
+      } else {
+        next();
+      }
+    },
     methods: {
       async saveChanges() {
         this.state = 'loading';
@@ -78,12 +103,27 @@
           this.state = 'success';
           this.message = Translator.message('static.forms.forms.builder.saved', this.form);
           await Timing.wait();
+          this.actions = [];
           this.$router.push(Routes.Static.Forms.Forms.Overview);
         } catch (error) {
           this.message = Translator.message(`static.forms.forms.builder.${error.message}`, this.form);
           this.state = 'error';
           this.enable = true;
         }
+      },
+      stayAndSaveChanges() {
+        this.stay();
+        this.saveChanges();
+      },
+      stay() {
+        this.next(false);
+        this.leaving = false;
+      },
+      leave() {
+        this.next();
+      },
+      back() {
+        this.$router.push(Routes.Static.Forms.Forms.Overview);
       },
       deleteItem(item) {
         this.actions.push({
@@ -219,7 +259,8 @@
         items: [],
         loading: false,
         actions: [],
-        drag: false
+        drag: false,
+        leaving: false
       };
     }
   }

@@ -15,10 +15,14 @@ const getHashCode = (obj) => {
 const equals = (obj1, obj2) => {
   return getHashCode(obj1) === getHashCode(obj2);
 };
+const clone = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
 
 export default {
   equals,
   getHashCode,
+  clone,
   setValueByKeyPath(target, key, value) {
     const data = {};
     key.split('.').reduce((previousValue, currentValue, currentIndex, array) => {

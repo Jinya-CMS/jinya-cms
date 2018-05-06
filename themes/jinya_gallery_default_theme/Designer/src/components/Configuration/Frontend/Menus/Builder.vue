@@ -1,10 +1,9 @@
 <template>
     <jinya-editor class="jinya-menu-builder">
         <jinya-loader :loading="loading"/>
-        <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save"
-                    cancel-label="configuration.frontend.menus.builder.cancel">
-            <draggable @add="deleteItem" v-show="drag" class="jinya-menu-builder__trash"
-                       :options="itemsOptions">
+        <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save" @submit="save" @back="back"
+                    cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
+            <draggable v-show="drag" class="jinya-menu-builder__trash" :options="itemsOptions">
                 <i class="mdi mdi-delete is--big"></i>
                 <span>{{'static.forms.forms.builder.delete'|jmessage}}</span>
             </draggable>
@@ -31,6 +30,19 @@
                 </draggable>
             </jinya-editor-pane>
         </jinya-form>
+        <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
+            {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
+            <template slot="buttons-left">
+                <jinya-modal-button label="configuration.frontend.menus.builder.leave.cancel" :closes-modal="true"
+                                    @click="stay" :is-secondary="true"/>
+            </template>
+            <template slot="buttons-right">
+                <jinya-modal-button label="configuration.frontend.menus.builder.leave.no" :closes-modal="true"
+                                    @click="stayAndSaveChanges" :is-success="true"/>
+                <jinya-modal-button label="configuration.frontend.menus.builder.leave.yes" :closes-modal="true"
+                                    @click="leave" :is-danger="true"/>
+            </template>
+        </jinya-modal>
     </jinya-editor>
 </template>
 
@@ -57,6 +69,8 @@
   export default {
     name: "Builder",
     components: {
+      JinyaModalButton,
+      JinyaModal,
       JinyaMessage,
       JinyaLoader,
       JinyaTabContainer,
@@ -84,7 +98,8 @@
         drag: false,
         state: '',
         message: '',
-        enable: true
+        enable: true,
+        leaving: false
       }
     },
     async mounted() {
@@ -115,11 +130,20 @@
       };
 
       this.items = flattenChildren(this.menu, 0, this.menu.children);
+      this.originalItems = ObjectUtils.clone(this.items);
       this.calculateNestingAllowance();
 
       DOMUtils.changeTitle(this.menu.name);
       EventBus.$emit(Events.header.change, this.menu.name);
       this.loading = false;
+    },
+    beforeRouteLeave(to, from, next) {
+      if (!ObjectUtils.equals(this.items, this.originalItems)) {
+        this.leaving = true;
+        this.next = next;
+      } else {
+        next();
+      }
     },
     computed: {
       types() {
@@ -310,6 +334,23 @@
         }
 
         this.itemsLoading = false;
+      },
+      save() {
+
+      },
+      back() {
+        this.$router.push(Routes.Configuration.Frontend.Menu.Overview);
+      },
+      stayAndSaveChanges() {
+        this.stay();
+        this.save();
+      },
+      stay() {
+        this.next(false);
+        this.leaving = false;
+      },
+      leave() {
+        this.next();
       }
     }
   }

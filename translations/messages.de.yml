@@ -299,6 +299,12 @@ configuration:
           target_url: Ziel
           highlighted: Hervorgehoben
           save: Speichern
+        leave:
+          title: Wirklich verlassen?
+          content: Es sind ungespeicherte Änderungen im Menü "%name%" vorhanden. Sollen die Änderungen wirklich verworfen werden?
+          yes: Änderungen verwerfen
+          no: Änderungen speichern
+          cancel: Hier bleiben
     themes:
       overview:
         variables: Variablen
@@ -370,6 +376,12 @@ static:
           help_text: Hilfetext
           required: Erforderlich
           options: Optionen
+        leave:
+          title: Wirklich verlassen?
+          content: Es sind ungespeicherte Änderungen im Formular "%title%" vorhanden. Sollen die Änderungen wirklich verworfen werden?
+          yes: Änderungen verwerfen
+          no: Änderungen speichern
+          cancel: Hier bleiben
       delete:
         title: Soll das Formular wirklich gelöscht werden?
         content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
