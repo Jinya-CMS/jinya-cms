@@ -227,4 +227,20 @@ class MenuItemController extends BaseApiController
 
         return $this->json($data, $status);
     }
+
+    /**
+     * @Route("/api/menu/{id}/items/batch", methods={"PUT"}, name="api_menu_items_batch")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param int $id
+     * @param MenuItemServiceInterface $menuItemService
+     * @return Response
+     */
+    public function batchChangeItems(int $id, MenuItemServiceInterface $menuItemService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($id, $menuItemService) {
+        });
+
+        return $this->json($data, $status);
+    }
 }
