@@ -5,7 +5,7 @@
                     cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
             <draggable v-show="drag" class="jinya-menu-builder__trash" :options="itemsOptions">
                 <i class="mdi mdi-delete is--big"></i>
-                <span>{{'static.forms.forms.builder.delete'|jmessage}}</span>
+                <span>{{'configuration.frontend.menus.builder.delete'|jmessage}}</span>
             </draggable>
             <jinya-message :message="message" :state="state"/>
             <jinya-editor-pane>
@@ -65,6 +65,7 @@
   import Routes from "@/router/Routes";
   import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import Timing from "@/framework/Utils/Timing";
 
   export default {
     name: "Builder",
@@ -335,8 +336,22 @@
 
         this.itemsLoading = false;
       },
-      save() {
-
+      async save() {
+        this.state = 'loading';
+        this.enable = false;
+        try {
+          this.message = Translator.message('configuration.frontend.menus.builder.saving', this.form);
+          await JinyaRequest.put(`/api/menu/${this.menu.id}/batch`, this.actions);
+          this.state = 'success';
+          this.message = Translator.message('configuration.frontend.menus.builder.saved', this.form);
+          await Timing.wait();
+          this.originalItems = this.items;
+          this.$router.push(Routes.Configuration.Frontend.Menus.Overview);
+        } catch (error) {
+          this.message = Translator.message(`configuration.frontend.menus.builder.${error.message}`, this.form);
+          this.state = 'error';
+          this.enable = true;
+        }
       },
       back() {
         this.$router.push(Routes.Configuration.Frontend.Menu.Overview);

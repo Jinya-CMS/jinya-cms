@@ -293,6 +293,14 @@ configuration:
         menu: Menü
         increase_alignment: Einzug erhöhen
         decrease_alignment: Einzug verringern
+        saving: Die Anpassungen am Menü %name% werden gespeichert
+        saved: Die Anpassungen am Menü %name% wurden gespeichert
+        api:
+          state:
+            409:
+              not_null_failed: Es sind nicht alle Pflichtfelder gefüllt
+            500:
+              generic: Die Anpassungen am Menü %name% konnten nicht gespeichert werden
         settings:
           title: Titel
           display_url: Anzeigeurl
