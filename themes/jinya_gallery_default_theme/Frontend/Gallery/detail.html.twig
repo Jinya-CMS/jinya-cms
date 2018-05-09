@@ -38,7 +38,7 @@
                     <div class="share-bar">
                         {% set shareUrl = (get_url() ~ '#' ~ artwork.slug)|url_encode %}
                         {% if themeConfig.share.enable.facebook == true and themeConfig.share.facebook_app_id is not empty %}
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl|url_encode }}"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl }}"
                                target="_blank" class="share-button facebook">
                                 {{ inline(theme.path ~ 'Frontend/assets/icons/facebook.svg')|raw }}
                             </a>
