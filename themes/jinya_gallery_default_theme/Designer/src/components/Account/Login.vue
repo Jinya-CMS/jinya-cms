@@ -1,14 +1,16 @@
 <template>
-    <section class="jinya-login">
+    <div class="jinya-login">
+        <jinya-message class="jinya-login__message" :message="message" :state="state" v-if="state"/>
         <jinya-form class="jinya-login__form" @submit="login">
-            <h1 v-jinya-message="'account.login.title'"></h1>
+            <h1 class="jinya-login__title" v-jinya-message="'account.login.title'"
+                :class="{'no--margin-top': state}"></h1>
             <jinya-input :autofocus="true" autocomplete="login email" v-model="email" label="account.login.email"
                          :required="true" type="email"/>
             <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
                          :required="true" type="password"/>
             <jinya-button :is-primary="true" label="account.login.submit" type="submit" slot="buttons"/>
         </jinya-form>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -18,24 +20,39 @@
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Lockr from 'lockr';
   import Routes from "@/router/Routes";
+  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import Translator from "@/framework/i18n/Translator";
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
+      JinyaMessage,
       JinyaForm,
       JinyaButton,
       JinyaInput
     },
-    name: "login",
+    name: "Login",
     data() {
-      return {options: window.options, email: null, password: null};
+      return {
+        email: '',
+        password: '',
+        message: '',
+        state: ''
+      };
     },
     methods: {
-      login() {
-        JinyaRequest.post('/api/login', {username: this.email, password: this.password}).then(value => {
+      async login() {
+        try {
+          this.message = Translator.message('account.login.pending');
+          this.state = 'loading';
+
+          const value = await JinyaRequest.post('/api/login', {username: this.email, password: this.password});
           Lockr.set('JinyaApiKey', value.apiKey);
-          this.$router.push({name: Routes.Home.StartPage.name});
-        }).catch(reason => alert(reason.message));
+
+          this.$router.push(Routes.Home.StartPage);
+        } catch (e) {
+          this.message = Translator.validator(`account.login.${e.message}`);
+          this.state = 'error';
+        }
       }
     }
   }
@@ -43,43 +60,26 @@
 
 <style scoped lang="scss">
     .jinya-login {
-        height: 100%;
-        width: 100%;
-        position: relative;
+        height: auto;
         overflow: auto;
+        background-color: scale_color($gray-200, $alpha: 80%);
+        margin: 10% 35% auto;
 
-        .jinya-login__background {
-            z-index: -1;
-            height: 100%;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
         .jinya-login__form {
-            margin: 10% 35% auto;
             padding: 1.5em 3em;
-            height: auto;
-            background-color: transparentize($gray-200, 0.2);
-
-            @include breakpoint-ultra-mobile {
-                margin: 0;
-            }
-
-            @include breakpoint-tablet-landscape {
-                margin-left: 30%;
-                margin-right: 30%;
-            }
-
-            @include breakpoint-tablet-portrait {
-                margin-left: 20%;
-                margin-right: 20%;
-            }
-
-            @include breakpoint-mobile {
-                margin-left: 10%;
-                margin-right: 10%;
-            }
         }
+
+        .jinya-login__title {
+            margin: 0.7rem 0;
+        }
+
+        .jinya-login__message {
+            padding-left: 3em;
+            padding-right: 3em;
+        }
+    }
+
+    .no--margin-top {
+        margin-top: 0;
     }
 </style>

@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
@@ -170,7 +171,7 @@ abstract class BaseApiController extends AbstractController
             }
 
             return [$data, Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException $exception) {
+        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException|BadCredentialsException $exception) {
             return [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
             return [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];

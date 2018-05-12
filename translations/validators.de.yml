@@ -94,6 +94,12 @@ api:
           missing: Der Titel muss bereitgestellt werden
         pageType:
           missing: Der Seitetyp muss bereitgestellt werden
+account:
+  login:
+    api:
+      state:
+        403:
+          generic: Benutzername und Passwort stimmen nicht überein
 static:
   pages:
     overview:

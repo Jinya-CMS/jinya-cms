@@ -43,6 +43,7 @@ account:
     email: Email
     password: Passwort
     submit: Anmelden
+    pending: Du wirst angemeldet
 api:
   state:
     401:
