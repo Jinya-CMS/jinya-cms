@@ -23,8 +23,7 @@
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="static.pages.delete.yes" @click="remove"
                                 :is-disabled="this.delete.loading"/>
         </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus"
-                                      to="Static.Pages.SavedInJinya.Add"/>
+        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
     </div>
 </template>
 
@@ -56,6 +55,20 @@
       JinyaModalButton,
       JinyaFloatingActionButton,
       JinyaCardList
+    },
+    computed: {
+      addRoute() {
+        return Routes.Static.Pages.SavedInJinya.Add;
+      },
+      editRoute() {
+        return Routes.Static.Pages.SavedInJinya.Edit.name;
+      },
+      detailsRoute() {
+        return Routes.Static.Pages.SavedInJinya.Details.name;
+      },
+      nothingFound() {
+        return this.$route.query.keyword ? 'static.pages.overview.nothing_found' : 'static.pages.overview.no_pages';
+      }
     },
     methods: {
       load(target) {
@@ -143,10 +156,7 @@
           error: '',
           show: false,
           loading: false
-        },
-        editRoute: Routes.Static.Pages.SavedInJinya.Edit.name,
-        detailsRoute: Routes.Static.Pages.SavedInJinya.Details.name,
-        nothingFound: this.$route.query.keyword ? 'static.pages.overview.nothing_found' : 'static.pages.overview.no_pages'
+        }
       };
     }
   }

@@ -1,11 +1,14 @@
 <template>
     <li class="jinya-menu-flyout__menu__item">
-        <router-link :to="routeTarget" v-jinya-message="text"/>
+        <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
     </li>
 </template>
+
 <script>
   import ObjectUtils from "../../../Utils/ObjectUtils";
   import Routes from "@/router/Routes";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
 
   export default {
     name: "jinya-menu-flyout-menu-item",
@@ -19,9 +22,19 @@
         required: true
       }
     },
-    data() {
-      return {
-        routeTarget: ObjectUtils.valueByKeypath(Routes, this.to)
+    computed: {
+      href() {
+        return this.route.route;
+      },
+      route() {
+        return ObjectUtils.valueByKeypath(Routes, this.to);
+      }
+    },
+    methods: {
+      navigated() {
+        EventBus.$emit(Events.navigation.navigating);
+        this.$router.push(this.route);
+        EventBus.$emit(Events.navigation.navigated);
       }
     }
   }
