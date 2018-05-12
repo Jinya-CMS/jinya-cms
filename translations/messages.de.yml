@@ -171,6 +171,7 @@ routes:
         add: Menü hinzufügen
       themes:
         overview: Themes
+        menus: Menüs
         variables: Themevariablen
     general:
       artists:
@@ -321,6 +322,8 @@ configuration:
       overview:
         variables: Variablen
         settings: Einstellungen
+        menus: Menüs
+        activate: Aktivieren
       variables:
         title: Variablen für %displayName%
         search: Variablen durchsuchen...
@@ -328,6 +331,15 @@ configuration:
         loading: Das Theme wird geladen
         loading_variables: Die Variablen für das Theme %displayName% werden geladen
         save: Variablen speichern
+        cancel: Zurück
+      menus:
+        primary: Primäres Menü
+        secondary: Sekundäres Menü
+        footer: Footer Menü
+        please_choose: Kein Menü
+        saving: Die Menüs für das Theme %displayName% werden gespeichert
+        saved: Die Menüs für das Theme %displayName% wurden gespeichert
+        save: Menüs speichern
         cancel: Zurück
       configuration:
         title: Variablen für %displayName%

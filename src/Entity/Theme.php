@@ -84,7 +84,7 @@ class Theme
     /**
      * @param Menu $primaryMenu
      */
-    public function setPrimaryMenu(Menu $primaryMenu): void
+    public function setPrimaryMenu(?Menu $primaryMenu): void
     {
         $this->primaryMenu = $primaryMenu;
     }
@@ -100,7 +100,7 @@ class Theme
     /**
      * @param Menu $secondaryMenu
      */
-    public function setSecondaryMenu(Menu $secondaryMenu): void
+    public function setSecondaryMenu(?Menu $secondaryMenu): void
     {
         $this->secondaryMenu = $secondaryMenu;
     }
@@ -116,7 +116,7 @@ class Theme
     /**
      * @param Menu $footerMenu
      */
-    public function setFooterMenu(Menu $footerMenu): void
+    public function setFooterMenu(?Menu $footerMenu): void
     {
         $this->footerMenu = $footerMenu;
     }

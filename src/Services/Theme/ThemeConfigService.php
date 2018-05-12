@@ -174,18 +174,26 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     {
         $theme = $this->themeService->getTheme($name);
 
-        $primaryMenu = $menus['primary'];
-        $secondaryMenu = $menus['secondary'];
-        $footerMenu = $menus['footer'];
+        if (array_key_exists('primary', $menus)) {
+            $primaryMenu = $menus['primary'];
 
-        if ($primaryMenu) {
-            $theme->setPrimaryMenu($this->menuService->get($primaryMenu));
+            if ($primaryMenu) {
+                $theme->setPrimaryMenu($primaryMenu === 'unset' ? null : $this->menuService->get($primaryMenu));
+            }
         }
-        if ($secondaryMenu) {
-            $theme->setSecondaryMenu($this->menuService->get($secondaryMenu));
+        if (array_key_exists('secondary', $menus)) {
+            $secondaryMenu = $menus['secondary'];
+
+            if ($secondaryMenu) {
+                $theme->setSecondaryMenu($secondaryMenu === 'unset' ? null : $this->menuService->get($secondaryMenu));
+            }
         }
-        if ($footerMenu) {
-            $theme->setFooterMenu($this->menuService->get($footerMenu));
+        if (array_key_exists('footer', $menus)) {
+            $footerMenu = $menus['footer'];
+
+            if ($footerMenu) {
+                $theme->setFooterMenu($footerMenu === 'unset' ? null : $this->menuService->get($footerMenu));
+            }
         }
 
         $this->entityManager->flush();

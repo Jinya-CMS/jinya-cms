@@ -31,14 +31,9 @@ class Configuration
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $currentFrontendTheme;
+    private $currentTheme;
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme")
-     * @ORM\JoinColumn(name="current_designer_theme_id", referencedColumnName="id")
-     * @var Theme
-     */
-    private $currentDesignerTheme;
-    /**
+     * /**
      * @ORM\Column(type="integer")
      * @var int
      */
@@ -61,22 +56,6 @@ class Configuration
     }
 
     /**
-     * @return Theme
-     */
-    public function getCurrentDesignerTheme(): Theme
-    {
-        return $this->currentDesignerTheme;
-    }
-
-    /**
-     * @param Theme $currentDesignerTheme
-     */
-    public function setCurrentDesignerTheme(Theme $currentDesignerTheme): void
-    {
-        $this->currentDesignerTheme = $currentDesignerTheme;
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -95,16 +74,16 @@ class Configuration
     /**
      * @return Theme
      */
-    public function getCurrentFrontendTheme(): Theme
+    public function getCurrentTheme(): Theme
     {
-        return $this->currentFrontendTheme;
+        return $this->currentTheme;
     }
 
     /**
-     * @param Theme $currentFrontendTheme
+     * @param Theme $currentTheme
      */
-    public function setCurrentFrontendTheme(Theme $currentFrontendTheme): void
+    public function setCurrentTheme(Theme $currentTheme): void
     {
-        $this->currentFrontendTheme = $currentFrontendTheme;
+        $this->currentTheme = $currentTheme;
     }
 }

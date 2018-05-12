@@ -32,8 +32,7 @@ class ConfigurationController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($configurationService, $configurationFormatter) {
             return $configurationFormatter
                 ->init($configurationService->getConfig())
-                ->designerTheme()
-                ->frontendTheme()
+                ->theme()
                 ->format();
         });
 
@@ -41,7 +40,7 @@ class ConfigurationController extends BaseApiController
     }
 
     /**
-     * @Route("/api/configuration/frontend/{themeName}", methods={"PUT"}, name="api_configuration_frontend_put")
+     * @Route("/api/configuration/{themeName}", methods={"PUT"}, name="api_configuration_frontend_put")
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $themeName
@@ -49,32 +48,11 @@ class ConfigurationController extends BaseApiController
      * @param ThemeServiceInterface $themeService
      * @return Response
      */
-    public function putFrontendAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response
+    public function putThemeAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($themeName, $configurationService, $themeService) {
             $configuration = $configurationService->getConfig();
-            $configuration->setCurrentFrontendTheme($themeService->getTheme($themeName));
-
-            $configurationService->writeConfig($configuration);
-        }, Response::HTTP_NO_CONTENT);
-
-        return $this->json($data, $status);
-    }
-
-    /**
-     * @Route("/api/configuration/designer/{themeName}", methods={"PUT"}, name="api_configuration_designer_put")
-     * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $themeName
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeServiceInterface $themeService
-     * @return Response
-     */
-    public function putDesignerAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($themeName, $configurationService, $themeService) {
-            $configuration = $configurationService->getConfig();
-            $configuration->setCurrentDesignerTheme($themeService->getTheme($themeName));
+            $configuration->setCurrentTheme($themeService->getTheme($themeName));
 
             $configurationService->writeConfig($configuration);
         }, Response::HTTP_NO_CONTENT);

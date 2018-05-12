@@ -2,6 +2,7 @@ import Routes from "../Routes";
 import ThemeOverview from "@/components/Configuration/Frontend/Themes/Overview";
 import ThemeVariables from "@/components/Configuration/Frontend/Themes/Variables";
 import ThemeConfiguration from "@/components/Configuration/Frontend/Themes/Configuration";
+import ThemeMenus from "@/components/Configuration/Frontend/Themes/Menus";
 import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 import MenuAdd from '@/components/Configuration/Frontend/Menus/Add';
 import MenuEdit from '@/components/Configuration/Frontend/Menus/Edit';
@@ -47,6 +48,11 @@ export default [
     path: Routes.Configuration.Frontend.Theme.Settings.route,
     name: Routes.Configuration.Frontend.Theme.Settings.name,
     component: ThemeConfiguration
+  },
+  {
+    path: Routes.Configuration.Frontend.Theme.Menus.route,
+    name: Routes.Configuration.Frontend.Theme.Menus.name,
+    component: ThemeMenus
   },
   {
     path: Routes.Configuration.Frontend.Theme.Variables.route,

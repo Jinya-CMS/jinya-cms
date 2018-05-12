@@ -311,6 +311,10 @@ export default {
           name: 'ConfigurationFrontendThemeSettings',
           route: '/designer/configuration/frontend/theme/:name/settings'
         },
+        Menus: {
+          name: 'ConfigurationFrontendThemeMenus',
+          route: '/designer/configuration/frontend/theme/:name/menus'
+        },
         Variables: {
           name: 'ConfigurationFrontendThemeVariables',
           route: '/designer/configuration/frontend/theme/:name/variables'

@@ -7,6 +7,10 @@
                 <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
                 <jinya-card-button type="edit" icon="settings" :to="{name: settingsRoute, params: {name: theme.name}}"
                                    slot="footer" :title="'configuration.frontend.themes.overview.settings'|jmessage"/>
+                <jinya-card-button type="edit" icon="menu" :to="{name: menusRoute, params: {name: theme.name}}"
+                                   slot="footer" :title="'configuration.frontend.themes.overview.menus'|jmessage"/>
+                <jinya-card-button type="edit" icon="check" @click="activate(theme)" slot="footer"
+                                   :title="'configuration.frontend.themes.overview.activate'|jmessage"/>
                 <jinya-card-button type="edit" icon="sass" slot="footer" class="jinya-card-button--variables"
                                    :to="{name: variablesRoute, params: {name: theme.name}}"
                                    :title="'configuration.frontend.themes.overview.variables'|jmessage"/>
@@ -37,6 +41,9 @@
       },
       variablesRoute() {
         return Routes.Configuration.Frontend.Theme.Variables.name;
+      },
+      menusRoute() {
+        return Routes.Configuration.Frontend.Theme.Menus.name;
       }
     },
     data() {
@@ -44,6 +51,11 @@
         themes: [],
         loading: true
       };
+    },
+    methods: {
+      async activate(theme) {
+        await JinyaRequest.put(`/api/configuration/${theme.name}`);
+      }
     },
     async mounted() {
       const themes = await JinyaRequest.get('/api/theme');

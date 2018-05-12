@@ -10,10 +10,9 @@ namespace Jinya\Services\Configuration;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Jinya\Entity\Configuration;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Doctrine\ORM\EntityManager;
-use Exception;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
@@ -48,8 +47,7 @@ class ConfigurationService implements ConfigurationServiceInterface
             return $this->entityManager->getRepository(Configuration::class)->findAll()[0];
         } catch (Exception $exception) {
             $config = new Configuration();
-            $config->setCurrentFrontendTheme($this->themeService->getDefaultJinyaTheme());
-            $config->setCurrentDesignerTheme($this->themeService->getDefaultJinyaTheme());
+            $config->setCurrentTheme($this->themeService->getDefaultJinyaTheme());
 
             $this->entityManager->persist($config);
             $this->entityManager->flush();
@@ -63,6 +61,6 @@ class ConfigurationService implements ConfigurationServiceInterface
      */
     public function writeConfig(Configuration $configuration): void
     {
-        $this->entityManager->flush($configuration);
+        $this->entityManager->flush();
     }
 }

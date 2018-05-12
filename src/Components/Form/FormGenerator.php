@@ -53,7 +53,7 @@ class FormGenerator implements FormGeneratorInterface
                 }
 
                 $options['choices'] = $choices;
-                $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentFrontendTheme();
+                $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentTheme();
                 $options['placeholder'] = $activeTheme->getConfiguration()['form']['dropdowns']['placeholder'];
             }
 

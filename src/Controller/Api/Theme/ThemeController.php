@@ -102,18 +102,33 @@ class ThemeController extends BaseApiController
 
             if (!empty($menus)) {
                 if (array_key_exists('primary', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['primary']['id']);
+                    if ($menus ['primary']['id'] !== null && $menus ['primary']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['primary']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['primary' => $menu]);
                 }
                 if (array_key_exists('secondary', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['secondary']['id']);
+                    if ($menus ['secondary']['id'] !== null && $menus ['secondary']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['secondary']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['secondary' => $menu]);
                 }
                 if (array_key_exists('footer', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['footer']['id']);
+                    if ($menus ['footer']['id'] !== null && $menus ['footer']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['footer']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['footer' => $menu]);
                 }
             }

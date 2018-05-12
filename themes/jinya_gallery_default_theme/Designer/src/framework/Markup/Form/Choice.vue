@@ -15,13 +15,13 @@
         <template v-for="choice in choices">
             <label :id="id" v-if="showCheckboxes" class="jinya-choice__checkbox">
                 <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
-                       name="label" type="checkbox" :checked="isSelected(choice)" :disabled="!enable"
+                       :name="label" type="checkbox" :checked="isSelected(choice)" :disabled="!enable"
                        :value="choice.value">
                 {{choice.text}}
             </label>
             <label :id="id" v-if="showRadioButtons" class="jinya-choice__radio">
                 <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
-                       name="label" type="radio" :checked="isSelected(choice)" :disabled="!enable"
+                       :name="label" type="radio" :checked="isSelected(choice)" :disabled="!enable"
                        :value="choice.value">
                 {{choice.text}}
             </label>
@@ -95,9 +95,9 @@
     methods: {
       isSelected(value) {
         if (this.selected instanceof Array) {
-          return this.selected.filter((item) => value.value === item.value).length > 0;
+          return this.selected.filter((item) => value.value.toString() === item.value.toString()).length > 0;
         } else if (this.selected instanceof Object) {
-          return this.selected.value === value.value;
+          return this.selected.value.toString() === value.value.toString();
         } else {
           return false;
         }

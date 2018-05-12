@@ -23,16 +23,9 @@ interface ConfigurationFormatterInterface extends FormatterInterface
     public function init(Configuration $configuration): ConfigurationFormatterInterface;
 
     /**
-     * Formats the designer theme
+     * Formats the current theme
      *
      * @return ConfigurationFormatterInterface
      */
-    public function designerTheme(): ConfigurationFormatterInterface;
-
-    /**
-     * Formats the frontend theme
-     *
-     * @return ConfigurationFormatterInterface
-     */
-    public function frontendTheme(): ConfigurationFormatterInterface;
+    public function theme(): ConfigurationFormatterInterface;
 }
