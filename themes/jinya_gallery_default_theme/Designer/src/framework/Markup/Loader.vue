@@ -34,14 +34,12 @@
 
         .jinya-loader__spinner {
             position: absolute;
-            border: 16px solid transparent;
-            border-top-color: $primary-lighter;
-            border-right-color: $primary;
-            border-bottom-color: $primary-darker;
+            border: 16px solid $gray-300;
+            border-top-color: $primary;
             border-radius: 50%;
             width: 10em;
             height: 10em;
-            animation: spin 0.5s steps(6) infinite;
+            animation: spin 0.8s ease infinite;
             margin: auto;
 
             &.is--mini {
@@ -50,9 +48,6 @@
             }
 
             @keyframes spin {
-                from {
-                    transform: rotate(0deg);
-                }
                 to {
                     transform: rotate(360deg);
                 }
