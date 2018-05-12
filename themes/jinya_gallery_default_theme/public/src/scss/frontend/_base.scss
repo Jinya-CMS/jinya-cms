@@ -1,4 +1,35 @@
+@include breakpoint-desktop {
+  :root {
+    font-size: $font-size-desktop;
+  }
+}
+
+@include breakpoint-tablet-landscape {
+  :root {
+    font-size: $font-size-tablet-landscape;
+  }
+}
+
+@include breakpoint-tablet-portrait {
+  :root {
+    font-size: $font-size-tablet-portrait;
+  }
+}
+
+@include breakpoint-mobile {
+  :root {
+    font-size: $font-size-mobile;
+  }
+}
+
+@include breakpoint-ultra-mobile {
+  :root {
+    font-size: $font-size-ultra-mobile;
+  }
+}
+
 body {
+  margin: 0;
   padding-top: $body-frontend-margin-top;
 
   @include breakpoint-ultra-mobile {
@@ -12,4 +43,26 @@ body {
   @include breakpoint-tablet-portrait {
     padding-top: $body-frontend-margin-top-tablet-portrait;
   }
+}
+
+div {
+  position: relative;
+}
+
+img {
+  border: 0 solid transparent;
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+textarea {
+  padding: 0;
+}
+
+figcaption {
+  color: $figure-caption-color;
+  font-family: $figure-caption-font-family;
+  font-size: $figure-caption-font-size;
 }

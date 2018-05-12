@@ -3,9 +3,9 @@ $frontend: true;
 @import "variables";
 @import "mixins/breakpoints";
 @import "base";
-@import "typography";
-@import "input";
-@import "background";
+@import "frontend/typography";
+@import "frontend/input";
+@import "frontend/background";
 
 @import "frontend/mixins/menu";
 @import "frontend/menu";
@@ -21,4 +21,4 @@ $frontend: true;
 @import "frontend/form";
 @import "frontend/buttons";
 @import "frontend/messages";
-@import "responsive";
+@import "frontend/responsive";
