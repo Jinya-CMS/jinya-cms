@@ -10,7 +10,8 @@ export default [
     name: Routes.Configuration.General.Artists.Overview.name,
     component: ArtistsOverview,
     meta: {
-      title: 'routes.configuration.general.artists.overview'
+      title: 'routes.configuration.general.artists.overview',
+      searchEnabled: true
     }
   },
   {
