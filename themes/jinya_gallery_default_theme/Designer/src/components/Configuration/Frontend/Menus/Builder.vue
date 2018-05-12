@@ -340,15 +340,15 @@
         this.state = 'loading';
         this.enable = false;
         try {
-          this.message = Translator.message('configuration.frontend.menus.builder.saving', this.form);
-          await JinyaRequest.put(`/api/menu/${this.menu.id}/batch`, this.actions);
+          this.message = Translator.message('configuration.frontend.menus.builder.saving', this.menu);
+          await JinyaRequest.put(`/api/menu/${this.menu.id}/items/batch`, this.items);
           this.state = 'success';
-          this.message = Translator.message('configuration.frontend.menus.builder.saved', this.form);
+          this.message = Translator.message('configuration.frontend.menus.builder.saved', this.menu);
           await Timing.wait();
           this.originalItems = this.items;
-          this.$router.push(Routes.Configuration.Frontend.Menus.Overview);
+          this.$router.push(Routes.Configuration.Frontend.Menu.Overview);
         } catch (error) {
-          this.message = Translator.message(`configuration.frontend.menus.builder.${error.message}`, this.form);
+          this.message = Translator.message(`configuration.frontend.menus.builder.${error.message}`, this.menu);
           this.state = 'error';
           this.enable = true;
         }

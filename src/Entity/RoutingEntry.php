@@ -44,10 +44,27 @@ class RoutingEntry implements JsonSerializable
      */
     private $routeParameter;
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="route", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="route")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @var MenuItem
      */
     private $menuItem;
+
+    /**
+     * Creates a RoutingEntry from the given array
+     *
+     * @param $route
+     * @return RoutingEntry
+     */
+    public static function fromArray($route): RoutingEntry
+    {
+        $routingEntry = new RoutingEntry();
+        $routingEntry->routeName = $route ['name'];
+        $routingEntry->routeParameter = $route['parameter'];
+        $routingEntry->url = $route['url'];
+
+        return $routingEntry;
+    }
 
     /**
      * @return MenuItem

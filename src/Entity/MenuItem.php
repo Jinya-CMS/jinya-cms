@@ -16,10 +16,6 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="menu_item", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="idx_menu_item_parent_position", columns={"parent_id", "position"}),
- *     @ORM\UniqueConstraint(name="idx_menu_item_menu_position", columns={"menu_id", "position"})
- * }))
  */
 class MenuItem implements JsonSerializable
 {
@@ -46,7 +42,7 @@ class MenuItem implements JsonSerializable
     private $route;
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="children", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * @var MenuItem
      */
     private $parent;
@@ -77,6 +73,27 @@ class MenuItem implements JsonSerializable
     public function __construct()
     {
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * Creates a MenuItem from the given array
+     *
+     * @param array $item
+     * @return MenuItem
+     */
+    public static function fromArray(array $item): MenuItem
+    {
+        $menuItem = new MenuItem();
+        $route = RoutingEntry::fromArray($item['route']);
+        $route->setMenuItem($menuItem);
+
+        $menuItem->route = $route;
+        $menuItem->highlighted = $item['highlighted'];
+        $menuItem->pageType = $item['pageType'];
+        $menuItem->position = $item['position'];
+        $menuItem->title = $item['title'];
+
+        return $menuItem;
     }
 
     /**

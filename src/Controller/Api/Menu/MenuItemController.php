@@ -16,7 +16,9 @@ use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Jinya\Formatter\Menu\MenuItemFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Menu\MenuItemServiceInterface;
+use Jinya\Services\Menu\MenuServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_key_exists;
@@ -232,15 +234,20 @@ class MenuItemController extends BaseApiController
      * @Route("/api/menu/{id}/items/batch", methods={"PUT"}, name="api_menu_items_batch")
      * @IsGranted("ROLE_WRITER")
      *
+     * @param Request $request
      * @param int $id
-     * @param MenuItemServiceInterface $menuItemService
+     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function batchChangeItems(int $id, MenuItemServiceInterface $menuItemService): Response
+    public function batchChangeItems(Request $request, int $id, MenuServiceInterface $menuService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuItemService) {
-        });
+        list($data, $status) = $this->tryExecute(function () use ($request, $id, $menuService) {
+            $data = json_decode($request->getContent(), true);
+
+            $menuService->fillFromArray($id, $data);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
+
 }

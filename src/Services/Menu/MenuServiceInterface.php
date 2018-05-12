@@ -40,4 +40,12 @@ interface MenuServiceInterface
      * @param int $id
      */
     public function delete(int $id): void;
+
+    /**
+     * Fills the menu items from the given array
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function fillFromArray(int $id, array $data): void;
 }
