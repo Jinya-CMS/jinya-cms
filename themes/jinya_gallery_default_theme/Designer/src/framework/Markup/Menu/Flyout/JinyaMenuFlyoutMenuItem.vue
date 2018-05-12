@@ -1,11 +1,14 @@
 <template>
-    <li class="jinya-menu-flyout__menu__item">
-        <router-link :to="routeTarget" v-jinya-message="text"/>
+    <li class="jinya-menu-flyout__menu__item" :class="{'is--active': active}">
+        <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
     </li>
 </template>
+
 <script>
   import ObjectUtils from "../../../Utils/ObjectUtils";
   import Routes from "@/router/Routes";
+  import EventBus from "@/framework/Events/EventBus";
+  import Events from "@/framework/Events/Events";
 
   export default {
     name: "jinya-menu-flyout-menu-item",
@@ -19,9 +22,22 @@
         required: true
       }
     },
-    data() {
-      return {
-        routeTarget: ObjectUtils.valueByKeypath(Routes, this.to)
+    computed: {
+      href() {
+        return this.route.route;
+      },
+      route() {
+        return ObjectUtils.valueByKeypath(Routes, this.to);
+      },
+      active() {
+        return this.route.route === window.location.pathname;
+      }
+    },
+    methods: {
+      navigated() {
+        EventBus.$emit(Events.navigation.navigating);
+        this.$router.push(this.route);
+        EventBus.$emit(Events.navigation.navigated);
       }
     }
   }
@@ -31,6 +47,17 @@
     .jinya-menu-flyout__menu__item {
         color: $white;
         margin: 0 0 1em;
+
+        &.is--active {
+            &:before {
+                content: '\f1c6';
+                //noinspection CssNoGenericFontName
+                font-family: 'Material Design Icons';
+                color: $white;
+                transform: rotate(-90deg);
+                display: inline-block;
+            }
+        }
 
         &:last-of-type {
             margin-bottom: 0;

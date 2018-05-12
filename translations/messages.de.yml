@@ -72,11 +72,11 @@ menu:
         sections:
           artworks:
             header: Kunstwerke
-            saved_in_jinya: In Jinya CMS gespeichert
+            saved_in_jinya: Im Jinya CMS gespeichert
             saved_external: Extern gespeichert
           videos:
             header: Videos
-            saved_in_jinya: In Jinya CMS gespeichert
+            saved_in_jinya: Im Jinya CMS gespeichert
             saved_on_youtube: Auf Youtube gespeichert
             saved_on_vimeo: Auf Vimeo gespeichert
             saved_on_newgrounds: Auf Newgrounds gespeichert
@@ -89,7 +89,7 @@ menu:
         sections:
           pages:
             header: Seiten
-            saved_in_jinya: In Jinya CMS gespeichert
+            saved_in_jinya: Im Jinya CMS gespeichert
             saved_external: Extern gespeichert
           forms:
             header: Formulare

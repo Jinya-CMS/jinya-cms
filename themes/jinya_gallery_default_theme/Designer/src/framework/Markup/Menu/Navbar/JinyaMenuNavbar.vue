@@ -1,7 +1,6 @@
 <template>
     <div class="jinya-menu__navbar">
-        <div class="jinya-menu__hamburger" @click="$emit('hamburger-click')" @mouseover="$emit('hamburger-mouseover')"
-             @mouseout="$emit('hamburger-mouseout')">
+        <div class="jinya-menu__hamburger" @click="$emit('hamburger-click')">
             <span class="jinya-menu__hamburger__bar"></span>
             <span class="jinya-menu__hamburger__bar"></span>
             <span class="jinya-menu__hamburger__bar"></span>
