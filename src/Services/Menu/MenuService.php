@@ -124,6 +124,7 @@ class MenuService implements MenuServiceInterface
         $children = $this->fixPositions($children);
 
         $menuItem->setChildren(new ArrayCollection($children));
+        $this->entityManager->persist($menuItem);
         $this->entityManager->flush();
 
         return $menuItem;
