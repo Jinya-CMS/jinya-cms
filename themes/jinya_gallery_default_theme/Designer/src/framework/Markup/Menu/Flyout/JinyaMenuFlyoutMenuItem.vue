@@ -1,5 +1,5 @@
 <template>
-    <li class="jinya-menu-flyout__menu__item">
+    <li class="jinya-menu-flyout__menu__item" :class="{'is--active': active}">
         <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
     </li>
 </template>
@@ -28,6 +28,9 @@
       },
       route() {
         return ObjectUtils.valueByKeypath(Routes, this.to);
+      },
+      active() {
+        return this.route.route === window.location.pathname;
       }
     },
     methods: {
@@ -44,6 +47,17 @@
     .jinya-menu-flyout__menu__item {
         color: $white;
         margin: 0 0 1em;
+
+        &.is--active {
+            &:before {
+                content: '\f1c6';
+                //noinspection CssNoGenericFontName
+                font-family: 'Material Design Icons';
+                color: $white;
+                transform: rotate(-90deg);
+                display: inline-block;
+            }
+        }
 
         &:last-of-type {
             margin-bottom: 0;
