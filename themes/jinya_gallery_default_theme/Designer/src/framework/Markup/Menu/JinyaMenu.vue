@@ -1,12 +1,11 @@
 <template>
     <header class="jinya-menu">
-        <jinya-menu-navbar @hamburger-mouseover="isHover = true" @hamburger-mouseout="isHover = false"
-                           @hamburger-click="isOpen = !isOpen">
+        <jinya-menu-navbar @hamburger-click="isOpen = !isOpen">
             <span class="jinya-menu__header" v-if="title">{{title|jmessage}}</span>
             <jinya-menu-navbar-search-item v-if="$route.meta.searchEnabled"/>
         </jinya-menu-navbar>
-        <jinya-menu-flyout @mouseover.native="isHover = true" @mouseout.native="isHover = false">
-            <jinya-menu-flyout-navbar slot="flyout-navbar" :is-open="isOpen || isHover">
+        <jinya-menu-flyout>
+            <jinya-menu-flyout-navbar slot="flyout-navbar" :is-open="isOpen">
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.art.navbar" to="Login"
                                                :is-selected="selectedHeader === 'art'"
                                                @selected="selectHeader('art')"/>
@@ -163,7 +162,6 @@
     mounted() {
       EventBus.$on(Events.navigation.navigated, () => {
         this.isOpen = false;
-        this.isHover = false;
         this.selectedHeader = '';
         this.title = this.$route.meta.title || this.title;
       });
@@ -171,7 +169,6 @@
     },
     data() {
       return {
-        isHover: false,
         isOpen: false,
         selectedHeader: '',
         title: this.$route.meta.title
