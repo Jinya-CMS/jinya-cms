@@ -9,3 +9,17 @@
 
   @return rgb($red, $green, $blue);
 }
+
+@function color-yiq($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= 255 / 2) {
+    @return $black;
+  } @else {
+    @return $white;
+  }
+}

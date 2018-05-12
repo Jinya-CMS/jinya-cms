@@ -13,6 +13,7 @@ use Jinya\Entity\Theme;
 use Jinya\Services\Scss\ScssCompilerServiceInterface;
 use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
+use Underscore\Types\Strings;
 use const DIRECTORY_SEPARATOR;
 
 class ThemeCompilerService implements ThemeCompilerServiceInterface
@@ -69,7 +70,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
             foreach ($themeConfig['styles']['files'] as $style) {
                 $scssCode = $this->getScssCodeForStyle($style, $theme);
                 $result = $this->scssCompilerService->compileScss($scssCode, $this->themeConfigService->getStylesPath($theme), $variables);
-                $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', $style);
+                $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', basename($style));
                 $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
                 $fs->dumpFile($webStylesPath, $result);
@@ -134,8 +135,15 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
             foreach ($themeConfig['scripts']['files'] as $key => $scripts) {
                 $source = $this->getJavaScriptSource($scriptsBasePath, $scripts);
                 $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
+                $compiled = $source;
+
+                if (!Strings::endsWith($key, '!')) {
+                    $compiled = $jsQueeze->squeeze($source);
+                } else {
+                    $key = Strings::remove($key, '!');
+                }
+
                 $targetPath = $webStylesBasePath . $key;
-                $compiled = $jsQueeze->squeeze($source);
 
                 $fs->dumpFile($targetPath, $compiled);
                 $fs->dumpFile($compilationCheckPath, md5($compiled));

@@ -8,6 +8,8 @@
 
 namespace Jinya\Framework;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NoResultException;
@@ -26,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
@@ -91,7 +94,7 @@ abstract class BaseApiController extends AbstractController
         switch ($this->contentType) {
             case 'application/json':
                 if (empty($this->bodyAsJson)) {
-                    throw new EmptyBodyException($this->translator->trans('api.generic.body.empty', [], 'validators'));
+                    throw new EmptyBodyException('api.generic.body.empty');
                 } elseif (array_key_exists($key, $this->bodyAsJson)) {
                     return $this->bodyAsJson[$key];
                 } else {
@@ -100,7 +103,7 @@ abstract class BaseApiController extends AbstractController
                 break;
             case 'text/xml':
                 if (empty($this->bodyAsXml)) {
-                    throw new EmptyBodyException($this->translator->trans('api.generic.body.empty', [], 'validators'));
+                    throw new EmptyBodyException('api.generic.body.empty');
                 } elseif (property_exists($this->bodyAsXml, $key)) {
                     return $this->bodyAsXml->${$key};
                 } else {
@@ -168,18 +171,22 @@ abstract class BaseApiController extends AbstractController
             }
 
             return [$data, Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException $exception) {
-            return [$this->jsonFormatException($this->translator->trans('api.state.403.generic'), $exception), Response::HTTP_FORBIDDEN];
+        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException|BadCredentialsException $exception) {
+            return [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
-            return [$this->jsonFormatException($this->translator->trans('api.state.404.generic'), $exception), Response::HTTP_NOT_FOUND];
+            return [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
             return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
-            return [$this->jsonFormatException($this->translator->trans('api.state.409.exists'), $exception), Response::HTTP_CONFLICT];
+            return [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
+            return [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+            return [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());
-            return [$this->jsonFormatException($this->translator->trans('api.state.500.generic'), $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
+            return [$this->jsonFormatException('api.state.500.generic', $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
     }
 

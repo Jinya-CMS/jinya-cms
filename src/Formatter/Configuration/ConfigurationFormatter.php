@@ -45,31 +45,14 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     }
 
     /**
-     * Formats the designer theme
-     *
-     * @return ConfigurationFormatterInterface
-     */
-    public function designerTheme(): ConfigurationFormatterInterface
-    {
-        $this->formattedData['designer']['theme'] = $this->themeFormatter
-            ->init($this->configuration->getCurrentDesignerTheme())
-            ->name()
-            ->displayName()
-            ->description()
-            ->format();
-
-        return $this;
-    }
-
-    /**
      * Formats the frontend theme
      *
      * @return ConfigurationFormatterInterface
      */
-    public function frontendTheme(): ConfigurationFormatterInterface
+    public function theme(): ConfigurationFormatterInterface
     {
         $this->formattedData['frontend']['theme'] = $this->themeFormatter
-            ->init($this->configuration->getCurrentFrontendTheme())
+            ->init($this->configuration->getCurrentTheme())
             ->name()
             ->displayName()
             ->description()

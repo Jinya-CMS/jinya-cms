@@ -1,9 +1,0 @@
-{% extends '@Designer/page/page.base.html.twig' %}
-{% block header %}{{ 'layout.designer.page.header.edit'|trans({ 'title': page.title }) }}{% endblock %}
-{% block content %}
-    {% include '@Designer/page/editor.html.twig' %}
-{% endblock %}
-
-{% block menu_bottom_links_page_specific %}
-    {% include '@Designer/page/additionalLinks.html.twig' %}
-{% endblock %}

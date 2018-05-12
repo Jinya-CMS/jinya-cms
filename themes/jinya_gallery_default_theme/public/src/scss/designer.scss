@@ -1,26 +1,8 @@
 $designer: true;
 @import "functions/colors";
 @import "variables";
-@import "mixins/breakpoints";
-@import "base";
-@import "typography";
-@import "responsive";
-@import "input";
-@import "background";
+@import "mixins/mixins";
 
 @import "designer/variables";
-@import "designer/reset";
-@import "designer/generic";
-@import "designer/grid";
-@import "designer/menu";
-@import "designer/list";
-@import "designer/modal";
-@import "designer/button";
-@import "designer/gallery-designer";
-@import "designer/loader";
-@import "designer/forms";
-@import "designer/page";
-@import "designer/jinya_menu";
-@import "designer/tabs";
-@import "designer/themeconfig";
-@import "designer/login";
+
+@import "designer/designer";

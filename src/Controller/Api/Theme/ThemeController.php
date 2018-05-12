@@ -102,24 +102,62 @@ class ThemeController extends BaseApiController
 
             if (!empty($menus)) {
                 if (array_key_exists('primary', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['primary']['id']);
+                    if ($menus ['primary']['id'] !== null && $menus ['primary']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['primary']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['primary' => $menu]);
                 }
                 if (array_key_exists('secondary', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['secondary']['id']);
+                    if ($menus ['secondary']['id'] !== null && $menus ['secondary']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['secondary']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['secondary' => $menu]);
                 }
                 if (array_key_exists('footer', $menus)) {
-                    /** @noinspection PhpParamsInspection */
-                    $menu = $menuService->get($menus['footer']['id']);
+                    if ($menus ['footer']['id'] !== null && $menus ['footer']['id'] !== '') {
+                        /** @noinspection PhpParamsInspection */
+                        $menu = (int)$menus['footer']['id'];
+                    } else {
+                        $menu = 'unset';
+                    }
+
                     $themeConfigService->setMenus($name, ['footer' => $menu]);
                 }
             }
 
-            $themeConfigService->saveConfig($name, $config);
-            $themeConfigService->setVariables($name, $scss);
+            if (!empty($config)) {
+                $themeConfigService->saveConfig($name, $config);
+            }
+
+            if (!empty($scss)) {
+                $themeConfigService->setVariables($name, $scss);
+            }
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/theme/{name}/file/{key}", methods={"DELETE"}, name="api_theme_delete_file")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $name
+     * @param string $key
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @return Response
+     */
+    public function deleteFileAction(string $name, string $key, ThemeConfigServiceInterface $themeConfigService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($name, $key, $themeConfigService) {
+            $themeConfigService->removeFile($name, $key);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -171,7 +209,7 @@ class ThemeController extends BaseApiController
 
             $arrayUtil->setArrayValueByPath($data, $key, $content);
 
-            $themeConfigService->saveConfig($name, $data);
+            $themeConfigService->saveConfig($name, $data, false);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

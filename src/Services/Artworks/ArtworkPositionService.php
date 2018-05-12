@@ -9,17 +9,17 @@
 namespace Jinya\Services\Artworks;
 
 
-use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Artwork;
 use Jinya\Entity\ArtworkPosition;
 use Jinya\Entity\Gallery;
+use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\GalleryServiceInterface;
-use function array_values;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
+    use ArrangementServiceTrait;
+
     /** @var GalleryServiceInterface */
     private $galleryService;
     /** @var ArtworkServiceInterface */
@@ -46,86 +46,51 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param string $gallerySlug
      * @param string $artworkSlug
      * @param int $position
-     * @return bool
+     * @return int
      */
-    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): bool
+    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): int
     {
         $gallery = $this->galleryService->get($gallerySlug);
         $artwork = $this->artworkService->get($artworkSlug);
 
-        $position = $this->rearrangeArtworks($position, $gallery);
-
         $artworkPosition = new ArtworkPosition();
         $artworkPosition->setArtwork($artwork);
-        $artworkPosition->setPosition($position);
         $artworkPosition->setGallery($gallery);
 
-        $this->entityManager->persist($artworkPosition);
-        $this->entityManager->flush();
+        $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
 
-        return true;
+        return $artworkPosition->getId();
     }
 
     /**
-     * @param int $position
+     * @param int $oldPosition
+     * @param int $newPosition
+     * @param ArtworkPosition $artworkPosition
      * @param Gallery $gallery
-     * @return int
+     * @return void
      */
-    private function rearrangeArtworks(int $position, Gallery $gallery): int
+    private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
     {
         $positions = $gallery->getArtworks()->toArray();
-        uasort($positions, function ($a, $b) {
-            /** @var ArtworkPosition $a */
-            /** @var ArtworkPosition $b */
-            return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
-        });
+        $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);
 
-        $positions = array_values($positions);
-
-        if ($position === -1) {
-            $position = array_shift($positions)->getPosition() + 1;
-        }
-
-        /** @var ArtworkPosition $artworkPosition */
-        foreach ($positions as $key => $artworkPosition) {
-            $artworkPosition->setPosition($key);
-        }
-
-        foreach ($positions as $artworkPosition) {
-            if ($artworkPosition->getPosition() >= $position) {
-                $artworkPosition->setPosition($artworkPosition->getPosition() + 1);
-            }
-        }
-
-        $artworks = $gallery->getArtworks();
-
-        /** @var ArrayIterator $iterator */
-        $iterator = $artworks->getIterator();
-        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
-            return ($a->getPosition() > $b->getPosition()) ? -1 : 1;
-        });
-        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
-
-        return $position;
+        $gallery->setArtworks(new ArrayCollection($positions));
+        $this->entityManager->flush();
     }
 
     /**
      * @inheritdoc
      */
-    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $newPosition)
+    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition)
     {
         $gallery = $this->galleryService->get($gallerySlug);
         $artworks = $gallery->getArtworks();
 
-        $this->rearrangeArtworks($newPosition, $gallery);
+        $artwork = $artworks->filter(function (ArtworkPosition $item) use ($oldPosition) {
+            return $item->getPosition() === $oldPosition;
+        })->first();
 
-        foreach ($artworks as $artworkPosition) {
-            if ($artworkPosition->getId() === $artworkPositionId) {
-                $artworkPosition->setPosition($newPosition);
-            }
-        }
-
-        $this->entityManager->flush();
+        $this->rearrangeArtworks($oldPosition, $newPosition, $artwork, $gallery);
     }
 
     /**
@@ -137,9 +102,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     public function deletePosition(int $id)
     {
         $this->entityManager
-            ->getRepository(ArtworkPosition::class)
-            ->createQueryBuilder('e')
-            ->delete()
+            ->createQueryBuilder()
+            ->delete(ArtworkPosition::class, 'e')
             ->where('e.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
@@ -168,9 +132,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     {
         $artwork = $this->artworkService->get($artworkSlug);
         $this->entityManager
-            ->getRepository(ArtworkPosition::class)
-            ->createQueryBuilder('e')
-            ->update()
+            ->createQueryBuilder()
+            ->update(ArtworkPosition::class, 'e')
             ->set('e.artwork', $artwork->getId())
             ->where('e.id = :id')
             ->setParameter('id', $id)

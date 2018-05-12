@@ -50,7 +50,6 @@ services:
 
     Jinya\Services\Media\MediaService:
       arguments:
-        $baseUrl: '%base_url%'
         $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Mailing\MailerService:
@@ -118,6 +117,11 @@ services:
     Jinya\Framework\Security\UserVoter:
         tags:
             - { name: security.voter }
+
+    # Twig
+    Jinya\Twig\Extension\TranslationUtils:
+        arguments:
+          $kernelProjectDir: '%kernel.project_dir%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

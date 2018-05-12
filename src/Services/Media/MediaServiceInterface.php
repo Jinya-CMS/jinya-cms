@@ -9,6 +9,8 @@
 namespace Jinya\Services\Media;
 
 
+use SplFileInfo;
+
 interface MediaServiceInterface
 {
     public const GALLERY_BACKGROUND = 'gallery_background';
@@ -32,4 +34,12 @@ interface MediaServiceInterface
      * @return void
      */
     public function deleteMedia(string $url);
+
+    /**
+     * Gets the media as SplFileInfo
+     *
+     * @param string $path
+     * @return SplFileInfo
+     */
+    public function getMedia(string $path): SplFileInfo;
 }

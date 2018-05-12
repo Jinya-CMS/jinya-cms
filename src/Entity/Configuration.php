@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
+    public const DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,28 +31,28 @@ class Configuration
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $currentFrontendTheme;
+    private $currentTheme;
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme")
-     * @ORM\JoinColumn(name="current_designer_theme_id", referencedColumnName="id")
-     * @var Theme
+     * /**
+     * @ORM\Column(type="integer")
+     * @var int
      */
-    private $currentDesignerTheme;
+    private $invalidateApiKeyAfter = Configuration::DEFAULT_API_KEY_INVALIDATION;
 
     /**
-     * @return Theme
+     * @return int
      */
-    public function getCurrentDesignerTheme(): Theme
+    public function getInvalidateApiKeyAfter(): int
     {
-        return $this->currentDesignerTheme;
+        return $this->invalidateApiKeyAfter;
     }
 
     /**
-     * @param Theme $currentDesignerTheme
+     * @param int $invalidateApiKeyAfter
      */
-    public function setCurrentDesignerTheme(Theme $currentDesignerTheme): void
+    public function setInvalidateApiKeyAfter(int $invalidateApiKeyAfter): void
     {
-        $this->currentDesignerTheme = $currentDesignerTheme;
+        $this->invalidateApiKeyAfter = $invalidateApiKeyAfter;
     }
 
     /**
@@ -72,16 +74,16 @@ class Configuration
     /**
      * @return Theme
      */
-    public function getCurrentFrontendTheme(): Theme
+    public function getCurrentTheme(): Theme
     {
-        return $this->currentFrontendTheme;
+        return $this->currentTheme;
     }
 
     /**
-     * @param Theme $currentFrontendTheme
+     * @param Theme $currentTheme
      */
-    public function setCurrentFrontendTheme(Theme $currentFrontendTheme): void
+    public function setCurrentTheme(Theme $currentTheme): void
     {
-        $this->currentFrontendTheme = $currentFrontendTheme;
+        $this->currentTheme = $currentTheme;
     }
 }

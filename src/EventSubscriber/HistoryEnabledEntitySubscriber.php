@@ -78,10 +78,13 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $eventArgs)
     {
-        $entity = $eventArgs->getEntity();
-        if ($entity instanceof HistoryEnabledEntity) {
-            $entity->setLastUpdatedAt(new DateTime());
-            $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
+        $token = $this->tokenStorage->getToken();
+        if ($token) {
+            $entity = $eventArgs->getEntity();
+            if ($entity instanceof HistoryEnabledEntity) {
+                $entity->setLastUpdatedAt(new DateTime());
+                $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
+            }
         }
     }
 

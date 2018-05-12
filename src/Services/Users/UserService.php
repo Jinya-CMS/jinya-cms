@@ -11,9 +11,11 @@ namespace Jinya\Services\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
+use Exception;
 use Jinya\Entity\User;
-use Jinya\Services\Media\MediaServiceInterface;
+use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class UserService implements UserServiceInterface
 {
@@ -22,20 +24,20 @@ class UserService implements UserServiceInterface
     private $entityManager;
     /** @var UserPasswordEncoderInterface */
     private $userPasswordEncoder;
-    /** @var MediaServiceInterface */
-    private $mediaService;
+    /** @var ApiKeyToolInterface */
+    private $apiKeyTool;
 
     /**
      * UserService constructor.
      * @param EntityManagerInterface $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param MediaServiceInterface $mediaService
+     * @param ApiKeyToolInterface $apiKeyTool
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, MediaServiceInterface $mediaService)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool)
     {
         $this->entityManager = $entityManager;
         $this->userPasswordEncoder = $userPasswordEncoder;
-        $this->mediaService = $mediaService;
+        $this->apiKeyTool = $apiKeyTool;
     }
 
     /**
@@ -71,6 +73,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @inheritdoc
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function delete(int $id): void
     {
@@ -118,6 +121,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @inheritdoc
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function deactivate(int $id): User
     {
@@ -151,6 +155,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @inheritdoc
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function revokeRole(int $userId, string $role): void
     {
@@ -168,6 +173,7 @@ class UserService implements UserServiceInterface
     {
         $user = $this->entityManager->find(User::class, $id);
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, $newPassword));
+        $this->apiKeyTool->invalidateAll($id);
         $this->entityManager->flush();
     }
 
@@ -203,6 +209,34 @@ class UserService implements UserServiceInterface
         }
 
         $this->entityManager->flush();
+
+        return $user;
+    }
+
+    /**
+     * Gets the user by username and password
+     *
+     * @param string $username
+     * @param string $password
+     * @return User
+     */
+    public function getUser(string $username, string $password): User
+    {
+        try {
+            $user = $this->entityManager->createQueryBuilder()
+                ->select('user')
+                ->from(User::class, 'user')
+                ->where('user.email = :username')
+                ->setParameter('username', $username)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (Exception $e) {
+            throw new BadCredentialsException();
+        }
+
+        if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
+            throw new BadCredentialsException();
+        }
 
         return $user;
     }

@@ -17,6 +17,7 @@ use Jinya\Services\Form\FormItemServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function array_key_exists;
@@ -84,6 +85,59 @@ class FormItemController extends BaseApiController
     }
 
     /**
+     * @Route("/api/form/{slug}/items/batch", methods={"PUT"}, name="api_form_item_batch")
+     *
+     * @param string $slug
+     * @param Request $request
+     * @param FormServiceInterface $formService
+     * @param FormItemServiceInterface $formItemService
+     * @return Response
+     */
+    public function batchAction(string $slug, Request $request, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response
+    {
+        list($status, $data) = $this->tryExecute(function () use ($slug, $request, $formService, $formItemService) {
+            $actions = json_decode($request->getContent(), true);
+            $form = $formService->get($slug);
+
+            foreach ($actions as $action) {
+                switch ($action['action']) {
+                    case 'add':
+                        $data = $action['data'];
+                        $formItem = new FormItem();
+                        $formItem->setPosition($action['where']);
+                        $formItem->setForm($form);
+                        $formItem->setLabel($data['label']);
+                        $formItem->setType($data['type']);
+                        $formItem->setOptions($data['options']);
+                        $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
+
+                        $formItemService->addItem($formItem);
+                        break;
+                    case 'edit':
+                        $data = $action['data'];
+                        $formItem = $formItemService->getItem($slug, $action['where']);
+                        $formItem->setLabel($data['label']);
+                        $formItem->setType($data['type']);
+                        $formItem->setOptions($data['options']);
+                        $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
+
+                        $formItemService->updateItem($formItem);
+                        break;
+                    case 'move':
+                        $formItemService->updatePosition($slug, $action['from'], $action['to']);
+                        break;
+                    case 'delete':
+                        $formItemService->deleteItem($form, $action['where']);
+                        break;
+                }
+            }
+
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($status, $data);
+    }
+
+    /**
      * @Route("/api/form/{slug}/items/{position}", methods={"POST"}, name="api_form_item_post")
      * @IsGranted("ROLE_WRITER")
      *
@@ -136,6 +190,25 @@ class FormItemController extends BaseApiController
     }
 
     /**
+     * @Route("/api/form/{slug}/move/{oldPosition}/to/{newPosition}", name="form_item_move", methods={"PUT"})
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $slug
+     * @param int $oldPosition
+     * @param int $newPosition
+     * @param FormItemServiceInterface $formItemService
+     * @return Response
+     */
+    public function moveAction(string $slug, int $oldPosition, int $newPosition, FormItemServiceInterface $formItemService): Response
+    {
+        list($result, $status) = $this->tryExecute(function () use ($slug, $oldPosition, $newPosition, $formItemService) {
+            $formItemService->updatePosition($slug, $oldPosition, $newPosition);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($result, $status);
+    }
+
+    /**
      * @Route("/api/form/{slug}/items/{position}", methods={"PUT"}, name="api_form_item_put")
      * @IsGranted("ROLE_WRITER")
      *
@@ -159,23 +232,12 @@ class FormItemController extends BaseApiController
                 $options['required'] = false;
             }
 
-            $item->setPosition($position);
             $item->setType($type);
             $item->setOptions($options);
             $item->setLabel($label);
             $item->setHelpText($helpText);
 
             $formItemService->updateItem($item);
-
-            return $formItemFormatter
-                ->init($item)
-                ->helpText()
-                ->label()
-                ->options()
-                ->type()
-                ->position()
-                ->form()
-                ->format();
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

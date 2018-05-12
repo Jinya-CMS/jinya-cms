@@ -35,6 +35,7 @@ class GalleryController extends BaseApiController
                 ->init($gallery)
                 ->name()
                 ->background()
+                ->orientation()
                 ->slug()
                 ->description()
                 ->format();

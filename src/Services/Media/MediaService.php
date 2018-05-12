@@ -8,35 +8,31 @@
 
 namespace Jinya\Services\Media;
 
-use const DIRECTORY_SEPARATOR;
+use SplFileInfo;
+use Symfony\Component\Filesystem\Filesystem;
 use function array_reverse;
-use function file_exists;
 use function file_put_contents;
-use function fseek;
 use function hash_final;
 use function hash_init;
-use function hash_update_stream;
+use function hash_update_file;
 use function mkdir;
 use function preg_split;
+use function uniqid;
 use function unlink;
+use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
-
-    /** @var string */
-    private $baseUrl;
 
     /** @var string */
     private $kernelProjectDir;
 
     /**
      * MediaService constructor.
-     * @param string $baseUrl
      * @param string $kernelProjectDir
      */
-    public function __construct(string $baseUrl, string $kernelProjectDir)
+    public function __construct(string $kernelProjectDir)
     {
-        $this->baseUrl = $baseUrl;
         $this->kernelProjectDir = $kernelProjectDir;
     }
 
@@ -45,19 +41,20 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-        $hashCtx = hash_init('sha256');
-        hash_update_stream($hashCtx, $file);
-        $hash = hash_final($hashCtx);
-        fseek($file, 0);
-
         $directory = $this->getFilePath($type);
         @mkdir($directory, 775, true);
 
+        $tmpFilename = $directory . uniqid();
+        file_put_contents($tmpFilename, $file);
+
+        $hashCtx = hash_init('sha256');
+        hash_update_file($hashCtx, $tmpFilename);
+        $hash = hash_final($hashCtx);
+
         $filename = $directory . $hash;
 
-        if (!file_exists($filename)) {
-            file_put_contents($filename, $file);
-        }
+        $fs = new Filesystem();
+        $fs->rename($tmpFilename, $filename, true);
 
         return "/public/$type/${hash}";
     }
@@ -80,5 +77,16 @@ class MediaService implements MediaServiceInterface
         $filename = $parts[0];
         $type = $parts[1];
         unlink($this->getFilePath($type) . $filename);
+    }
+
+    /**
+     * Gets the media as SplFileInfo
+     *
+     * @param string $path
+     * @return SplFileInfo
+     */
+    public function getMedia(string $path): SplFileInfo
+    {
+        return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
     }
 }

@@ -1,5 +1,6 @@
 displayName: Jinya Gallery Theme
 description: Das Standardtheme für das Jinya Gallery CMS
+previewImage: Jinya-Default-Theme-Preview.png
 defaultConfig:
   page:
     favicon:
@@ -22,6 +23,7 @@ defaultConfig:
       mobile:
   socialmedia:
     facebook:
+    artstation:
     twitter:
     instagram:
     deviantart:
@@ -48,24 +50,24 @@ defaultConfig:
       placeholder: Please choose...
     messages:
     mail_sent_message: Mail was sent successfully
-styles_base: public/src/scss/
-scripts_base: public/dist/
+styles_base: public/src/scss
+scripts_base: public/dist
 styles:
   variables:
-    file: frontend/_variables.scss
+    file: _variables.scss
   files:
     - frontend.scss
     - designer.scss
 scripts:
   files:
     frontend.js:
-      - frontend.js
-    frontend.min.js:
-      - frontend.min.js
-    designer.js:
-      - designer.js
-    designer.min.js:
-      - designer.min.js
+      - scrollhelper.js
+    designer.manifest.js!:
+      - designer/manifest.js
+    designer.vendor.js!:
+      - designer/vendor.js
+    designer.app.js!:
+      - designer/app.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren
@@ -130,6 +132,9 @@ form:
       - name: socialmedia
         title: Soziale Medien
         fields:
+          - name: artstation
+            type: string
+            label: Artstationprofil
           - name: facebook
             type: string
             label: Facebookseite

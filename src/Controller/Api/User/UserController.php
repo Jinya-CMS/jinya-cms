@@ -45,12 +45,17 @@ class UserController extends BaseUserController
             $entities = [];
 
             foreach ($users as $user) {
-                $entities[] = $userFormatter
+                $userFormatter
                     ->init($user)
                     ->profile()
                     ->enabled()
-                    ->id()
-                    ->format();
+                    ->id();
+
+                if ($this->isGranted("ROLE_SUPER_ADMIN")) {
+                    $userFormatter->roles();
+                }
+
+                $entities[] = $userFormatter->format();
             }
 
             $route = $request->get('_route');
@@ -152,6 +157,7 @@ class UserController extends BaseUserController
                 ->profile()
                 ->enabled()
                 ->roles()
+                ->id()
                 ->format();
         }, Response::HTTP_CREATED);
 

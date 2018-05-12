@@ -28,9 +28,10 @@ class GalleryBackgroundController extends BaseApiController
      * @param string $slug
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
+     * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService): Response
+    public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         /** @var $data Gallery */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
@@ -39,13 +40,13 @@ class GalleryBackgroundController extends BaseApiController
                 throw new FileNotFoundException($gallery->getName());
             }
 
-            return $gallery->getBackground();
+            return $gallery;
         });
 
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->redirect($data);
+            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
         }
     }
 

@@ -47,7 +47,7 @@ class FormItem extends HistoryEnabledEntity
      */
     private $helpText;
     /**
-     * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form", cascade={"persist"})
      * @var Form
      */
     private $form;

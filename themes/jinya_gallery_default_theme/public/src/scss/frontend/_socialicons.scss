@@ -16,6 +16,11 @@
     width: 2em;
     height: 2em;
 
+    &.artstation {
+      svg {
+        fill: pastelize($social-icon-artstation-color);
+      }
+    }
     &.facebook {
       svg {
         fill: pastelize($social-icon-facebook-color);

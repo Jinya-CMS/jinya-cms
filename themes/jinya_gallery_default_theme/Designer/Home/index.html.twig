@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>{{ themeConfig.page.title }}</title>
+    {% block styles %}
+        {% block styles_theme %}
+            <link rel="stylesheet" href="{{ asset('public/jinya_gallery_default_theme/styles/designer.css') }}">
+        {% endblock %}
+        {% block styles_additional_fonts %}
+            <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.99/css/materialdesignicons.min.css">
+            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+            {% endif %}
+        {% endblock %}
+        {% block styles_custom %}
+        {% endblock %}
+    {% endblock %}
+    {% block favicon %}
+        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {% block custom_meta %}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block licenses %}
+    <!-- Many thanks to the team from Codrops (https://tympanus.net/codrops/), I used many inspirations from you and they all work great. -->
+    <!--
+    Like most sites Jinya Gallery CMS uses open source libraries, here are the licenses
+    Codrops: https://tympanus.net/codrops/licensing/
+    FontAwesome: http://fontawesome.io/license/
+    Perfect Scrollbar: https://github.com/utatti/perfect-scrollbar/blob/master/LICENSE
+    classie: https://desandro.mit-license.org/
+    -->
+{% endblock %}
+{% block body %}
+    <div id="app"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+      window.options = {
+        startBackground: '{{ asset(themeConfig.startpage.background.image) }}',
+        genericBackground: '{{ asset(themeConfig.default_background.image) }}',
+        pageTitle: '{{ themeConfig.page.title }}'
+      };
+      window.messages = {{ get_translation_catalogue()|json_encode|raw }};
+      window.validators = {{ get_translation_catalogue('validators')|json_encode|raw }};
+    </script>
+{% block scripts_polyfills %}
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+{% endblock %}
+{% block scripts_tinymce %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/tinymce.min.js"
+            integrity="sha256-ibVg3nLs0DX10T7r/GxKZzdLsqyGTDzVBQv9WmxQOt0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/themes/modern/theme.min.js"
+            integrity="sha256-fY0yySF8CMlB5wmj3nwpIjt83fVJCeorkoBTfc5xd/o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/anchor/plugin.min.js"
+            integrity="sha256-AyCmNKBvmfz1rW3rFIJeYYPrQwDp9GH2DWSEjj24qp8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/autolink/plugin.min.js"
+            integrity="sha256-tiaecEfh2e4XtcuZj11rE5KsVn4r/bB453ttfYde1Og=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/colorpicker/plugin.min.js"
+            integrity="sha256-RLRauLfUcMsWa9Sj/emZTbtzBdknS0tHDJH5jksUydE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/contextmenu/plugin.min.js"
+            integrity="sha256-nskj7w9Y0nNP+PoTWQACBOm7WI1Rf02uGVYbKIfcbEY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/fullscreen/plugin.min.js"
+            integrity="sha256-qv3u5l7Qr5xrxbPeD6gL5o61N4p7ZQXHSqLOpQLWcB4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/help/plugin.min.js"
+            integrity="sha256-nn5VXVDtwHRfqrywGxMCidRdyI230sfvEdaZ0Gbgwag=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/image/plugin.min.js"
+            integrity="sha256-S5iCzx6srQ5D/wRbDcG151NqVr2VTTv280vzSdVPhCI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/table/plugin.min.js"
+            integrity="sha256-AcaQtvDz+n68UzyF4FnV9536WCf2Wc/1D2Es4IK4pQQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.10/plugins/textcolor/plugin.min.js"
+            integrity="sha256-7bXvStPDyUwaS7lz5zmQiergy4450s0mrmhG3DXFH3U=" crossorigin="anonymous"></script>
+{% endblock %}
+{% block scripts_theme %}
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.manifest.js') }}"></script>
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.vendor.js') }}"></script>
+    <script src="{{ asset('public/jinya_gallery_default_theme/scripts/designer.app.js') }}"></script>
+{% endblock %}
+{% endblock %}
+</body>
+</html>

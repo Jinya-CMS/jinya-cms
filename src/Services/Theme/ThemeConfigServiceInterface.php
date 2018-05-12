@@ -51,8 +51,9 @@ interface ThemeConfigServiceInterface
      *
      * @param string $themeName
      * @param array $config
+     * @param bool $override
      */
-    public function saveConfig(string $themeName, array $config): void;
+    public function saveConfig(string $themeName, array $config, bool $override = true): void;
 
     /**
      * Gets the variables for the given theme
@@ -100,4 +101,12 @@ interface ThemeConfigServiceInterface
      * @param string $name
      */
     public function resetVariables(string $name): void;
+
+    /**
+     * Removes the given file
+     *
+     * @param string $name
+     * @param string $key
+     */
+    public function removeFile(string $name, string $key): void;
 }

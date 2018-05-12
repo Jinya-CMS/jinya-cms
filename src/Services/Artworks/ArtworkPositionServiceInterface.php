@@ -19,9 +19,9 @@ interface ArtworkPositionServiceInterface
      * @param string $gallerySlug
      * @param string $artworkSlug
      * @param int $position
-     * @return bool
+     * @return int
      */
-    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): bool;
+    public function savePosition(string $gallerySlug, string $artworkSlug, int $position): int;
 
     /**
      * Sets the artworks position to the new position
@@ -29,9 +29,10 @@ interface ArtworkPositionServiceInterface
      * @param string $gallerySlug
      * @param int $artworkPositionId
      * @param int $newPosition
+     * @param int $oldPosition
      * @return void
      */
-    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $newPosition);
+    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition);
 
     /**
      * Deletes the given artwork position

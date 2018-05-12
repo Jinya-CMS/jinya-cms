@@ -124,10 +124,12 @@ class MenuItemService implements MenuItemServiceInterface
     /**
      * @param int $position
      * @param int $parentId
+     * @param string $type
      * @return int
      */
     private function rearrangeMenuItems(int $position, int $parentId, string $type = MenuItemServiceInterface::PARENT): int
     {
+        //FIXME Checkout artwork position service, there it works
         if ($type === MenuItemServiceInterface::MENU) {
             $positions = $this->menuService->get($parentId)->getMenuItems()->toArray();
         } else {

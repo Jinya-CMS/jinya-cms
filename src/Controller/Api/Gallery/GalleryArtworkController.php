@@ -56,7 +56,7 @@ class GalleryArtworkController extends BaseApiController
                 throw new MissingFieldsException(['artwork' => 'api.gallery.field.artworkSlug.missing']);
             }
 
-            $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
+            return $artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
@@ -80,25 +80,26 @@ class GalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork/{id}", methods={"PUT"}, name="api_gallery_artwork_position_put")
+     * @Route("/api/gallery/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_artwork_position_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param int id$
+     * @param int $id
+     * @param int $oldPosition
      * @param string $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function putPositionAction(int $id, string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
+    public function putPositionAction(int $id, int $oldPosition, string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $id, $artworkPositionService) {
+        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $id, $oldPosition, $artworkPositionService) {
             $newPosition = $this->getValue('position', null);
             $artworkSlug = $this->getValue('artwork', null);
 
             if (!empty($artworkSlug)) {
                 $artworkPositionService->updateArtwork($id, $artworkSlug);
             }
-            if (!empty($newPosition)) {
-                $artworkPositionService->updatePosition($gallerySlug, $id, $newPosition);
+            if (isset($newPosition) && $newPosition !== null) {
+                $artworkPositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);
             }
         }, Response::HTTP_NO_CONTENT);
 

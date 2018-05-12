@@ -11,17 +11,14 @@ namespace Jinya\Controller\Api\Theme;
 
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function file_get_contents;
 
 class ThemePreviewImageController extends BaseApiController
 {
     /**
      * @Route("/api/theme/{name}/preview", methods={"GET"}, name="api_theme_preview_get")
-     * @IsGranted("ROLE_WRITER")
      *
      * @param string $name
      * @param ThemeServiceInterface $themeService
@@ -42,7 +39,7 @@ class ThemePreviewImageController extends BaseApiController
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->file(file_get_contents($data));
+            return $this->file($data);
         }
     }
 }

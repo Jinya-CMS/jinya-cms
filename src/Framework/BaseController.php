@@ -51,14 +51,13 @@ abstract class BaseController extends AbstractController
      */
     public function render(string $view, array $parameters = array(), Response $response = null): Response
     {
-        $activeFrontendTheme = $this->configurationService->getConfig()->getCurrentFrontendTheme();
-        $activeDesignerTheme = $this->configurationService->getConfig()->getCurrentDesignerTheme();
+        $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
         $themeViewPath = $view;
         if (strpos($view, '@Frontend') === 0) {
-            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $activeFrontendTheme);
+            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
         } elseif (strpos($view, '@Designer') === 0) {
-            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $activeDesignerTheme);
+            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
         }
 
         return parent::render($themeViewPath, $parameters, $response);
