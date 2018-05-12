@@ -67,7 +67,6 @@
         display: inline-block;
         padding: 0.5em 1em;
         vertical-align: middle;
-        position: relative;
         font-size: 100%;
         transition: background-color 0.3s, color 0.3s;
         text-align: center;

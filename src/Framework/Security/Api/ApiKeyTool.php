@@ -130,4 +130,19 @@ class ApiKeyTool implements ApiKeyToolInterface
 
         return (new DateTime())->getTimestamp() > $validSince->getTimestamp();
     }
+
+    /**
+     * Invalidates all tokens for the given user
+     *
+     * @param int $userId
+     */
+    public function invalidateAll(int $userId): void
+    {
+        $this->entityManager->createQueryBuilder()
+            ->delete(ApiKey::class, 'key')
+            ->where('key.user = :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->execute();
+    }
 }

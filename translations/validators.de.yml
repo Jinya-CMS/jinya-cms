@@ -156,6 +156,14 @@ configuration:
           state:
             409:
               foreign_key_failed: Der Künstler hat Inhalte erstellt und kann daher nicht gelöscht werden
+my_jinya:
+  account:
+    password:
+      passwords_dont_match: Die Passwörter stimmen nicht überein
+      api:
+        state:
+          403:
+            generic: Das eingegebene Passwort ist falsch
 framework:
   markup:
     form:

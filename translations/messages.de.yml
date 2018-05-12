@@ -179,6 +179,9 @@ routes:
         details: Künstlerdetails
   account:
     login: Jinya CMS Login
+  my_jinya:
+    account:
+      password: Passwort ändern
 authentication:
   roles:
     -
@@ -487,3 +490,14 @@ art:
       orientations:
         horizontal: Horizontal
         vertical: Vertikal
+my_jinya:
+  account:
+    password:
+      save: Passwort ändern
+      cancel: Abbrechen
+      old_password: Aktuelles Passwort
+      new_password: Neues Passwort
+      new_password_repeat: Neues Passwort wiederholen
+      asking_for_token: Änderung wird angefragt
+      changing: Passwort wird geändert
+      changed: Das Passwort wurde geändert, du wirst jetzt abgemeldet

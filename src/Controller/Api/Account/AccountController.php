@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use function uniqid;
 
 class AccountController extends BaseApiController
@@ -131,33 +133,43 @@ class AccountController extends BaseApiController
      * @Route("/api/account/password", methods={"PUT"}, name="api_account_password_put")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param UserServiceInterface $userService
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      * @throws \Jinya\Exceptions\EmptyBodyException
      * @throws \Jinya\Exceptions\InvalidContentTypeException
      */
-    public function putPasswordAction(UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
+    public function putPasswordAction(UserPasswordEncoderInterface $userPasswordEncoder, UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
     {
         $confirmToken = $this->getValue('token', uniqid());
         /** @var User $user */
         $user = $this->getUser();
-        if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
-            list($data, $status) = $this->tryExecute(function () use ($userService) {
 
-                $userService->changePassword($this->getUser()->getId(), $this->getValue('password'));
+        if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
+            list($data, $status) = $this->tryExecute(function () use ($user, $userPasswordEncoder, $userService) {
+                $userService->changePassword($user->getId(), $this->getValue('password'));
             }, Response::HTTP_NO_CONTENT);
 
             return $this->json($data, $status);
         } else {
-            $user = $userService->get($user->getId());
-            $user->setConfirmationToken($confirmToken);
+            list($data, $status) = $this->tryExecute(function () use ($urlGenerator, $confirmToken, $user, $userService, $userPasswordEncoder) {
+                $user = $userService->get($user->getId());
+                if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password'))) {
+                    $user->setConfirmationToken($confirmToken);
 
-            $userService->saveOrUpdate($user);
-            return $this->json([
-                'url' => $urlGenerator->generate('api_account_password_put'),
-                'token' => $confirmToken
-            ]);
+                    $userService->saveOrUpdate($user);
+
+                    return [
+                        'url' => $urlGenerator->generate('api_account_password_put'),
+                        'token' => $confirmToken
+                    ];
+                } else {
+                    throw new AccessDeniedException();
+                }
+            });
+
+            return $this->json($data, $status);
         }
     }
 }

@@ -50,4 +50,11 @@ interface ApiKeyToolInterface
      * @return bool
      */
     public function shouldInvalidate(string $key): bool;
+
+    /**
+     * Invalidates all tokens for the given user
+     *
+     * @param int $userId
+     */
+    public function invalidateAll(int $userId): void;
 }

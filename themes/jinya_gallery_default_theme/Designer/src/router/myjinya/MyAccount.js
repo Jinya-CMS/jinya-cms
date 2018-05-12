@@ -1,5 +1,6 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import Password from '@/components/MyJinya/Account/Password'
 
 export default [
   {
@@ -15,6 +16,9 @@ export default [
   {
     path: Routes.MyJinya.Account.Password.route,
     name: Routes.MyJinya.Account.Password.name,
-    component: Missing
+    component: Password,
+    meta: {
+      title: 'routes.my_jinya.account.password'
+    }
   }
 ];
