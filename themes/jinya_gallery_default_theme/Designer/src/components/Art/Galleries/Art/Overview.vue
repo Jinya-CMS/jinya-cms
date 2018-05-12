@@ -2,7 +2,7 @@
     <div class="jinya-gallery-overview">
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="gallery.name" v-for="gallery in galleries" v-if="!loading">
+            <jinya-card :header="gallery.name" v-for="gallery in galleries" v-if="!loading" :key="gallery.slug">
                 <p :style="{ 'background-image': `url(${gallery.background})` }" class="jinya-gallery-description">
                     {{gallery.description}}</p>
                 <jinya-card-button :to="{name: detailsRoute, params: {slug: gallery.slug}}" slot="footer" icon="monitor"

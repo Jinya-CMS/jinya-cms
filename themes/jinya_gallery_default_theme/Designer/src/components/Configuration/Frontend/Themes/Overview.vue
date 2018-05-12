@@ -2,7 +2,8 @@
     <div class="jinya-theme">
         <jinya-loader :loading="loading" v-if="loading"/>
         <jinya-card-list nothing-found="impossible" v-else>
-            <jinya-card :header="theme.displayName" v-for="theme in themes" class="jinya-card__item--theme">
+            <jinya-card :header="theme.displayName" v-for="theme in themes" class="jinya-card__item--theme"
+                        :key="theme.name">
                 <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
                 <jinya-card-button type="edit" icon="settings" :to="{name: settingsRoute, params: {name: theme.name}}"
                                    slot="footer" :title="'configuration.frontend.themes.overview.settings'|jmessage"/>

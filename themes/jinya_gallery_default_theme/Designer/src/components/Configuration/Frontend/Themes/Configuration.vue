@@ -4,7 +4,7 @@
         <jinya-form save-label="configuration.frontend.themes.configuration.save" @submit="save" v-if="!initial"
                     cancel-label="configuration.frontend.themes.configuration.cancel" :enable="!loading">
             <jinya-tab-container :items="form.groups" @select="selected = $event">
-                <template v-for="tab in form.groups">
+                <template v-for="tab in form.groups" :key="tab.name">
                     <jinya-tab :is-selected="selected === tab.name">
                         <jinya-theme-configuration-field v-for="field in tab.fields" :key="`${tab.name}.${field.name}`"
                                                          :label="field.label" :name="`${tab.name}.${field.name}`"

@@ -2,7 +2,8 @@
     <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-        <template v-if="!loading" v-for="(position, index) in artworks">
+        <template v-if="!loading" v-for="(position, index) in artworks"
+                  :key="`${position.position}-${position.artwork.slug}`">
             <jinya-gallery-designer-item @wheel.native="scroll">
                 <template>
                     <jinya-gallery-designer-image @wheel.native="scroll" :src="position.artwork.picture"/>

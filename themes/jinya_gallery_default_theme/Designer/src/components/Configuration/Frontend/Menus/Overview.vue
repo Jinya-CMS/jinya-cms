@@ -3,7 +3,7 @@
         <jinya-loader :loading="loading"/>
         <jinya-message :message="message" :state="state" v-if="!loading"/>
         <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
-            <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu">
+            <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu" :key="menu.id">
                 <img class="jinya-menu__logo" :src="menu.logo" v-if="menu.logo"/>
                 <jinya-card-button slot="footer" type="edit" icon="pencil"
                                    :to="{name: editRoute, params: {id: menu.id}}"

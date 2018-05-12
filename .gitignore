@@ -131,11 +131,6 @@ node_modules/
 ###> symfony/framework-bundle ###
 /public/bundles/
 ###< symfony/framework-bundle ###
-
-###> symfony/phpunit-bridge ###
-.phpunit
-###< symfony/phpunit-bridge ###
-
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###

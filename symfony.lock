@@ -23,6 +23,9 @@
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
     },
+    "nikic/php-parser": {
+        "version": "v4.0.1"
+    },
     "patchwork/utf8": {
         "version": "v1.3.1"
     },
@@ -151,15 +154,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
-    },
-    "symfony/phpunit-bridge": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "179470cb6492db92dffee208cfdb436f175c93b4"
-        }
     },
     "symfony/polyfill-php72": {
         "version": "v1.7.0"

@@ -5,7 +5,7 @@
         <jinya-card-list nothing-found="art.galleries.designer.artwork_view.nothing_found" v-infinite-scroll="loadMore"
                          v-show="!initial" infinite-scroll-disabled="loading" infinite-scroll-distance="10"
                          class="jinya-card-list--artwork-view">
-            <jinya-card :header="artwork.name" v-for="artwork in artworks">
+            <jinya-card :header="artwork.name" v-for="artwork in artworks" :key="artwork.slug">
                 <img class="jinya-artwork-view__picture" :src="artwork.picture"/>
                 <jinya-card-button text="art.galleries.designer.artwork_view.pick" type="details" slot="footer"
                                    @click="pick(artwork)" :is-disabled="picked"/>

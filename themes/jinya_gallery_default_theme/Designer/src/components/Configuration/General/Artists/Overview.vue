@@ -2,27 +2,26 @@
     <div class="jinya-artist-overview">
         <jinya-loader :loading="loading" v-if="loading"/>
         <jinya-card-list nothing-found="configuration.general.artists.overview.nothing_found" v-else>
-            <template v-for="artist in artists">
-                <jinya-card class="jinya-artist" :header="`${artist.firstname} ${artist.lastname}`">
-                    <img class="jinya-artist__profile-picture" :src="artist.profilePicture"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
-                                       :to="{name: artist.me ? profileRoute : detailsRoute, params: {id: artist.id}}"
-                                       icon="account-card-details"
-                                       slot="footer"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
-                                       :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
-                                       v-if="!artist.me" slot="footer"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
-                                       icon="account-check" @click="showEnable(artist)" v-if="!artist.me"
-                                       v-show="!artist.enabled" slot="footer"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
-                                       icon="account-off" @click="showDisable(artist)" v-if="artist.deletable"
-                                       v-show="artist.enabled" slot="footer"/>
-                    <jinya-card-button :title="'configuration.general.artists.overview.delete'|jmessage" type="delete"
-                                       icon="account-remove" @click="showDelete(artist)"
-                                       v-if="artist.deletable" slot="footer"/>
-                </jinya-card>
-            </template>
+            <jinya-card v-for="artist in artists" :key="artist.email" class="jinya-artist"
+                        :header="`${artist.firstname} ${artist.lastname}`">
+                <img class="jinya-artist__profile-picture" :src="artist.profilePicture"/>
+                <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
+                                   :to="{name: artist.me ? profileRoute : detailsRoute, params: {id: artist.id}}"
+                                   icon="account-card-details"
+                                   slot="footer"/>
+                <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
+                                   :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
+                                   v-if="!artist.me" slot="footer"/>
+                <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
+                                   icon="account-check" @click="showEnable(artist)" v-if="!artist.me"
+                                   v-show="!artist.enabled" slot="footer"/>
+                <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
+                                   icon="account-off" @click="showDisable(artist)" v-if="artist.deletable"
+                                   v-show="artist.enabled" slot="footer"/>
+                <jinya-card-button :title="'configuration.general.artists.overview.delete'|jmessage" type="delete"
+                                   icon="account-remove" @click="showDelete(artist)"
+                                   v-if="artist.deletable" slot="footer"/>
+            </jinya-card>
         </jinya-card-list>
         <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
         <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"

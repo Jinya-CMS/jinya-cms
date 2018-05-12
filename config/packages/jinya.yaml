@@ -1,3 +1,2 @@
 parameters:
-    base_url: http://localhost:8000/
-    mailer_sender: noreply@localhost
+    mailer_sender: '%env(MAILER_SENDER)%'

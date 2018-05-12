@@ -50,7 +50,6 @@ services:
 
     Jinya\Services\Media\MediaService:
       arguments:
-        $baseUrl: '%base_url%'
         $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Mailing\MailerService:

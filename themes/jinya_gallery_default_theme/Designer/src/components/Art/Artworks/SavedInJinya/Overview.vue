@@ -2,7 +2,7 @@
     <div class="jinya-art-overview">
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading">
+            <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading" :key="artwork.slug">
                 <img class="jinya-art-picture" :src="artwork.picture"/>
                 <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" slot="footer" icon="monitor"
                                    type="details"/>

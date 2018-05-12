@@ -10,7 +10,6 @@ namespace Jinya\Services\Media;
 
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
-use const DIRECTORY_SEPARATOR;
 use function array_reverse;
 use function file_put_contents;
 use function hash_final;
@@ -20,24 +19,20 @@ use function mkdir;
 use function preg_split;
 use function uniqid;
 use function unlink;
+use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
-
-    /** @var string */
-    private $baseUrl;
 
     /** @var string */
     private $kernelProjectDir;
 
     /**
      * MediaService constructor.
-     * @param string $baseUrl
      * @param string $kernelProjectDir
      */
-    public function __construct(string $baseUrl, string $kernelProjectDir)
+    public function __construct(string $kernelProjectDir)
     {
-        $this->baseUrl = $baseUrl;
         $this->kernelProjectDir = $kernelProjectDir;
     }
 

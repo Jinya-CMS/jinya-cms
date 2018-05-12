@@ -2,7 +2,7 @@
     <div class="jinya-form-overview">
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card v-for="form in forms" :header="form.title">
+            <jinya-card v-for="form in forms" :header="form.title" :key="form.slug">
                 <p class="jinya-form__description">{{form.description}}</p>
                 <jinya-card-button icon="pencil" type="edit" :to="{name: editRoute, params: {slug: form.slug}}"
                                    slot="footer"/>
