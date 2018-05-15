@@ -33,7 +33,7 @@ class BugController extends BaseApiController
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $client) {
             ob_start();
-            phpinfo();
+            phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES);
             $phpInfo = ob_get_contents();
             ob_clean();
 
