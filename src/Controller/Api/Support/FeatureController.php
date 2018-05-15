@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Jinya\Entity\User;
 use Jinya\Framework\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,10 +32,12 @@ class FeatureController extends BaseApiController
     public function submitAction(Request $request, Client $client): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $client) {
+            /** @var User $user */
+            $user = $this->getUser();
             $feature = [
                 'title' => $this->getValue('title'),
                 'details' => $this->getValue('details'),
-                'who' => $this->getValue('who'),
+                'who' => $user->getFirstname(),
             ];
 
             $response = $client->request('POST', 'https://api.jinya.de/tracker/feature', [

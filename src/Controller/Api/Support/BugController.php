@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Jinya\Entity\User;
 use Jinya\Framework\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,13 +37,16 @@ class BugController extends BaseApiController
             $phpInfo = ob_get_contents();
             ob_clean();
 
+            /** @var User $user */
+            $user = $this->getUser();
+
             $bug = [
                 'phpInfo' => $phpInfo,
                 'title' => $this->getValue('title'),
                 'details' => $this->getValue('details'),
                 'reproduce' => $this->getValue('reproduce'),
                 'severity' => $this->getValue('severity'),
-                'who' => $this->getValue('who'),
+                'who' => $user->getFirstname(),
                 'url' => $request->headers->has('referer') ? $request->headers->get('referer') : '',
                 'jinyaVersion' => $this->jinyaVersion
             ];
