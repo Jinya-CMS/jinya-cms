@@ -20,11 +20,27 @@
       text: {
         type: String,
         required: true
+      },
+      navigate: {
+        type: Boolean,
+        default() {
+          return true;
+        }
+      },
+      directLink: {
+        type: Boolean,
+        default() {
+          return false;
+        }
       }
     },
     computed: {
       href() {
-        return this.route.route;
+        if (this.directLink) {
+          return this.to;
+        } else {
+          return this.route.route;
+        }
       },
       route() {
         return ObjectUtils.valueByKeypath(Routes, this.to);
@@ -35,9 +51,16 @@
     },
     methods: {
       navigated() {
-        EventBus.$emit(Events.navigation.navigating);
-        this.$router.push(this.route);
-        EventBus.$emit(Events.navigation.navigated);
+        if (this.navigate && !this.directLink) {
+          EventBus.$emit(Events.navigation.navigating);
+          this.$router.push(this.route);
+          EventBus.$emit(Events.navigation.navigated);
+        } else if (this.navigate && this.directLink) {
+          window.open(this.href);
+        }
+
+        console.log('selected');
+        this.$emit('selected');
       }
     }
   }
