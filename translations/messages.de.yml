@@ -139,6 +139,17 @@ menu:
             videos: Videos
             forms: Formulare
             menus: Menüs
+      support:
+        navbar: Support
+        sections:
+          problems:
+            header: Fehler und Wünsche
+            bug: Ich habe einen Fehler gefunden
+            feature: Ich hab einen Wunsch an Jinya
+          like:
+            header: Gefällt dir Jinya?
+            like: Ja? Dann zeigs uns
+            dont_like: Nein? Dann schick uns eine Mail
 routes:
   art:
     artworks:
@@ -514,3 +525,24 @@ my_jinya:
       asking_for_token: Änderung wird angefragt
       changing: Passwort wird geändert
       changed: Das Passwort wurde geändert, du wirst jetzt abgemeldet
+support:
+  bug_dialog:
+    title: Ich habe einen Fehler gefunden
+    content: Das tut uns leid, wir versuchen Jinya möglichst gut zu testen, damit keine Fehler vorkommen, bist du so nett und sagst uns was der Fehler ist und wie wir in nachstellen können?
+    sending: Der Fehler wird übermittelt, wir kümmern uns drum, versprochen. Dir wird gleich das Ticket geöffnet.
+    error: Leider konnte der Fehler nicht übermittelt werden, magst du uns eine Mail schicken?
+    send_mail: Mail schicken
+    form:
+      title: Kurzbeschreibung
+      details: Genaue Fehlerbeschreibung
+      reproduce: Anleitung zum Nachstellen
+      severity: Auswirkung
+      submit: Fehler melden
+      cancel: Abbrechen
+      severity_levels:
+        slightly_annoying: Ein wenig nervig
+        annoying: Nervig
+        very_annoying: Sehr nervig
+        usability_issues: Leichtere Benutzungsprobleme
+        unusable: Unbenutzbar
+        security: Sicherheitsleck

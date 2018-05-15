@@ -76,7 +76,7 @@
     },
     computed: {
       showSelect() {
-        return this.enforceSelect || (!this.static && (this.multiple && this.choices.length > 5));
+        return this.enforceSelect || (!this.static && this.choices.length > 5);
       },
       showCheckboxes() {
         return !this.enforceSelect && !this.static && (this.multiple && this.choices.length <= 5);
