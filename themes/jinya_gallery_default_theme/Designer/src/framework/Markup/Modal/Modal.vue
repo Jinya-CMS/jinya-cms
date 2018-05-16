@@ -1,6 +1,7 @@
 <template>
     <transition name="overlay" enter-class="is--entering" leave-to-class="is--leaving">
-        <div class="jinya-modal__overlay" @click.self="() => { if (!this.loading) $emit('close') }">
+        <div class="jinya-modal__overlay" @click.self="() => { if (!this.loading) $emit('close') }"
+             :class="{'is--fullscreen': isFullscreen}">
             <dialog class="jinya-modal-dialog" :class="additionalClasses" open>
                 <header class="jinya-modal-dialog__title" v-jinya-message="title"></header>
                 <div class="jinya-modal-dialog__message">
@@ -79,6 +80,11 @@
         z-index: 99999;
         transition: opacity 0.3s;
         opacity: 1;
+
+        &.is--fullscreen {
+            align-items: start;
+            padding-top: 3rem;
+        }
 
         &.is--entering,
         &.is--leaving {
