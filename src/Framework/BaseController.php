@@ -160,11 +160,11 @@ abstract class BaseController
      *
      * @see json_decode()
      * @see JsonResponse
-     * @param array $data
+     * @param array|null $data
      * @param int $status
      * @return JsonResponse
      */
-    protected final function json(array $data, int $status = Response::HTTP_OK): JsonResponse
+    protected final function json(?array $data, int $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse($data, $status);
     }

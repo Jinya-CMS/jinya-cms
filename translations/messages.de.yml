@@ -557,3 +557,10 @@ support:
       details: Beschreibung deiner Idee
       submit: Jinya helfen
       cancel: Abbrechen
+  like_dialog:
+    title: Ich finde Jinya super
+    content: Das freut uns, gibt es noch etwas das du uns sagen möchtest?
+    form:
+      details: Meine Nachricht an die Entwickler
+      submit: Like senden
+      cancel: Abbrechen

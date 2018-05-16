@@ -12,6 +12,7 @@
         </main>
         <jinya-bug-dialog @close="showBugDialog = false" :show="showBugDialog" v-if="showBugDialog"/>
         <jinya-feature-dialog @close="showFeatureDialog = false" :show="showFeatureDialog" v-if="showFeatureDialog"/>
+        <jinya-like-dialog @close="showLikeDialog = false" :show="showLikeDialog" v-if="showLikeDialog"/>
     </section>
 </template>
 
@@ -22,9 +23,11 @@
   import Events from "@/framework/Events/Events";
   import JinyaBugDialog from "@/components/Support/BugDialog";
   import JinyaFeatureDialog from "@/components/Support/FeatureDialog";
+  import JinyaLikeDialog from "@/components/Support/LikeDialog";
 
   export default {
     components: {
+      JinyaLikeDialog,
       JinyaFeatureDialog,
       JinyaBugDialog,
       JinyaMenu
