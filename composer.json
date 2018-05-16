@@ -1,5 +1,5 @@
 {
-  "name": "knerd/jinya-gallery-cms",
+  "name": "jinya/jinya-gallery-cms",
   "license": "proprietary",
   "type": "project",
   "autoload": {
@@ -14,6 +14,7 @@
     "behat/transliterator": "^1.2",
     "doctrine/doctrine-bundle": "^1.7",
     "doctrine/orm": "^2.5",
+    "guzzlehttp/guzzle": "^6.3",
     "incenteev/composer-parameter-handler": "^2.0",
     "leafo/scssphp": "^0.7.1",
     "ocramius/proxy-manager": "^2.1",

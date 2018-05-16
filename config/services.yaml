@@ -112,6 +112,9 @@ services:
     Jinya\Controller\InstallController:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
+    Jinya\Controller\Api\Support\BugController:
+      calls:
+        - [setJinyaVersion, ['%jinya_version%']]
 
     # Security
     Jinya\Framework\Security\UserVoter:
@@ -122,6 +125,9 @@ services:
     Jinya\Twig\Extension\TranslationUtils:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
+
+    # External Services
+    GuzzleHttp\Client:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

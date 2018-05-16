@@ -2,7 +2,10 @@
 
 namespace Jinya\Controller;
 
+use ArrayIterator;
+use Doctrine\Common\Collections\ArrayCollection;
 use Jinya\Components\Form\FormGeneratorInterface;
+use Jinya\Entity\ArtworkPosition;
 use Jinya\Entity\Form;
 use Jinya\Framework\BaseController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
@@ -12,14 +15,10 @@ use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
 use Psr\Log\LoggerInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use DataBundle\Entity\ArtworkPosition;
-use DataBundle\Entity\Gallery;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
-use ArrayIterator;
 
 class FrontendController extends BaseController
 {
@@ -58,6 +57,9 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function artworkDetailAction(string $slug, ArtworkServiceInterface $artworkService): Response
     {
@@ -74,6 +76,9 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
     {
@@ -102,6 +107,9 @@ class FrontendController extends BaseController
      * @param FormGeneratorInterface $formGenerator
      * @param MailerServiceInterface $mailerService
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function formDetailAction(string $slug, Request $request, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService): Response
     {
@@ -131,6 +139,9 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param PageServiceInterface $pageService
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function pageDetailAction(string $slug, PageServiceInterface $pageService): Response
     {

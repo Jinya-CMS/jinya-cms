@@ -6,21 +6,24 @@
         </jinya-menu-navbar>
         <jinya-menu-flyout>
             <jinya-menu-flyout-navbar slot="flyout-navbar" :is-open="isOpen">
-                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.art.navbar" to="Login"
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.art.navbar"
                                                :is-selected="selectedHeader === 'art'"
                                                @selected="selectHeader('art')"/>
-                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.static.navbar" to="Login"
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.static.navbar"
                                                :is-selected="selectedHeader === 'static'"
                                                @selected="selectHeader('static')"/>
-                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.configuration.navbar" to="Login"
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.configuration.navbar"
                                                :is-selected="selectedHeader === 'config'"
                                                @selected="selectHeader('config')"/>
-                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.maintenance.navbar" to="Login"
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.maintenance.navbar"
                                                :is-selected="selectedHeader === 'maintenance'"
                                                @selected="selectHeader('maintenance')"/>
-                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.my_jinya.navbar" to="Login"
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.my_jinya.navbar"
                                                :is-selected="selectedHeader === 'my-jinya'"
                                                @selected="selectHeader('my-jinya')"/>
+                <jinya-menu-flyout-navbar-item text="menu.designer.flyout.support.navbar"
+                                               :is-selected="selectedHeader === 'support'"
+                                               @selected="selectHeader('support')"/>
             </jinya-menu-flyout-navbar>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'">
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header">
@@ -116,10 +119,27 @@
                                                  text="menu.designer.flyout.my_jinya.sections.created_by_me.galleries"/>
                     <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Pages"
                                                  text="menu.designer.flyout.my_jinya.sections.created_by_me.pages"/>
-                    <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Fpr,s"
+                    <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Forms"
                                                  text="menu.designer.flyout.my_jinya.sections.created_by_me.forms"/>
                     <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Menus"
                                                  text="menu.designer.flyout.my_jinya.sections.created_by_me.menus"/>
+                </jinya-menu-flyout-menu-section>
+            </jinya-menu-flyout-menu>
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'support'">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.support.sections.problems.header">
+                    <jinya-menu-flyout-menu-item @selected="$emit('show-bug')" :direct-link="true" to=""
+                                                 :navigate="false"
+                                                 text="menu.designer.flyout.support.sections.problems.bug"/>
+                    <jinya-menu-flyout-menu-item @selected="$emit('show-feature')" :direct-link="true" to=""
+                                                 :navigate="false"
+                                                 text="menu.designer.flyout.support.sections.problems.feature"/>
+                </jinya-menu-flyout-menu-section>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.support.sections.like.header">
+                    <jinya-menu-flyout-menu-item @selected="$emit('show-like')" :direct-link="true" to=""
+                                                 :navigate="false"
+                                                 text="menu.designer.flyout.support.sections.like.like"/>
+                    <jinya-menu-flyout-menu-item to="mailto:developers@jinya.de" :direct-link="true"
+                                                 text="menu.designer.flyout.support.sections.like.dont_like"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
         </jinya-menu-flyout>
@@ -136,10 +156,9 @@
   import JinyaMenuFlyoutMenuSection from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection";
   import JinyaMenuFlyoutMenuItem from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
   import JinyaMenuNavbarSearchItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
-  import EventBus from "../../Events/EventBus";
-  import Events from "../../Events/Events";
+  import EventBus from "../../framework/Events/EventBus";
+  import Events from "../../framework/Events/Events";
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaMenuNavbarSearchItem,

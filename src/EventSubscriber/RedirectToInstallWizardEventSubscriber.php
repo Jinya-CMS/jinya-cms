@@ -60,7 +60,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
             }
         } else {
             if ($installed) {
-                $event->setResponse(new RedirectResponse($this->router->generate('designer_default_index')));
+                $event->setResponse(new RedirectResponse($this->router->generate('designer_home_index_specific')));
             }
         }
     }

@@ -19,15 +19,22 @@ use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Base\StaticContentServiceInterface;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
+use Jinya\Services\Theme\ThemeCompilerServiceInterface;
+use Jinya\Services\Theme\ThemeConfigServiceInterface;
+use Jinya\Services\Theme\ThemeServiceInterface;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
@@ -37,7 +44,7 @@ use function json_decode;
 use function property_exists;
 use function simplexml_load_string;
 
-abstract class BaseApiController extends AbstractController
+abstract class BaseApiController extends BaseController
 {
     /** @var TranslatorInterface */
     private $translator;
@@ -60,16 +67,26 @@ abstract class BaseApiController extends AbstractController
     /**
      * BaseApiController constructor.
      * @param TranslatorInterface $translator
-     * @param RequestStack $requestStack
-     * @param LoggerInterface $logger
      * @param LabelServiceInterface $labelService
+     * @param LoggerInterface $logger
      * @param UrlGeneratorInterface $urlGenerator
+     * @param ThemeConfigServiceInterface $themeConfigService
+     * @param ThemeServiceInterface $themeService
+     * @param ConfigurationServiceInterface $configurationService
+     * @param ThemeCompilerServiceInterface $themeCompilerService
+     * @param RequestStack $requestStack
+     * @param HttpKernelInterface $kernel
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param \Twig_Environment $twig
+     * @param TokenStorageInterface $tokenStorage
+     * @param RouterInterface $router
      */
-    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, LoggerInterface $logger, LabelServiceInterface $labelService, UrlGeneratorInterface $urlGenerator)
+    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
     {
+        parent::__construct($themeConfigService, $themeService, $configurationService, $themeCompilerService, $requestStack, $kernel, $authorizationChecker, $twig, $tokenStorage, $router);
         $this->translator = $translator;
-        $this->logger = $logger;
         $this->labelService = $labelService;
+        $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
 
         $this->request = $requestStack->getCurrentRequest();

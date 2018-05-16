@@ -1,7 +1,8 @@
 <template>
     <transition name="overlay" enter-class="is--entering" leave-to-class="is--leaving">
-        <div class="jinya-modal__overlay" @click.self="() => { if (!this.loading) $emit('close') }">
-            <dialog class="jinya-modal-dialog" :class="modalModifiers" open>
+        <div class="jinya-modal__overlay" @click.self="() => { if (!this.loading) $emit('close') }"
+             :class="{'is--fullscreen': isFullscreen}">
+            <dialog class="jinya-modal-dialog" :class="additionalClasses" open>
                 <header class="jinya-modal-dialog__title" v-jinya-message="title"></header>
                 <div class="jinya-modal-dialog__message">
                     <slot name="message"/>
@@ -26,11 +27,11 @@
 </template>
 
 <script>
-  import JinyaLoader from "../Loader";
+  import JinyaLoader from "@/framework/Markup/Loader";
 
   export default {
-    components: {JinyaLoader},
     name: "jinya-modal",
+    components: {JinyaLoader},
     props: {
       title: {
         type: String,
@@ -46,6 +47,20 @@
         default() {
           return {};
         }
+      },
+      isFullscreen: {
+        type: Boolean,
+        default() {
+          return false;
+        }
+      }
+    },
+    computed: {
+      additionalClasses() {
+        return {
+          'is--fullscreen': this.isFullscreen,
+          ...this.modalModifiers
+        };
       }
     }
   }
@@ -66,6 +81,11 @@
         transition: opacity 0.3s;
         opacity: 1;
 
+        &.is--fullscreen {
+            align-items: start;
+            padding-top: 3rem;
+        }
+
         &.is--entering,
         &.is--leaving {
             opacity: 0;
@@ -85,6 +105,11 @@
             box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 20%);
             border-radius: 10px;
             opacity: 1;
+
+            &.is--fullscreen {
+                max-width: 95%;
+                width: 95%;
+            }
 
             &__title {
                 background: $primary;

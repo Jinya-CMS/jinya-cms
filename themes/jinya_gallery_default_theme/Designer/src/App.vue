@@ -1,7 +1,8 @@
 <template>
     <section class="jinya-app">
         <nav class="jinya-app__navigation" v-if="$route.name !== loginRoute.name">
-            <jinya-menu/>
+            <jinya-menu @show-bug="showBugDialog = true" @show-feature="showFeatureDialog = true"
+                        @show-like="showLikeDialog = true"/>
         </nav>
         <img :src="background" class="jinya-app__background"/>
         <main class="jinya-app__content" @click="hideMenu">
@@ -9,17 +10,28 @@
                 <router-view/>
             </div>
         </main>
+        <jinya-bug-dialog @close="showBugDialog = false" :show="showBugDialog" v-if="showBugDialog"/>
+        <jinya-feature-dialog @close="showFeatureDialog = false" :show="showFeatureDialog" v-if="showFeatureDialog"/>
+        <jinya-like-dialog @close="showLikeDialog = false" :show="showLikeDialog" v-if="showLikeDialog"/>
     </section>
 </template>
 
 <script>
-  import JinyaMenu from "@/framework/Markup/Menu/JinyaMenu";
+  import JinyaMenu from "@/components/Navigation/JinyaMenu";
   import Routes from "@/router/Routes";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
+  import JinyaBugDialog from "@/components/Support/BugDialog";
+  import JinyaFeatureDialog from "@/components/Support/FeatureDialog";
+  import JinyaLikeDialog from "@/components/Support/LikeDialog";
 
   export default {
-    components: {JinyaMenu},
+    components: {
+      JinyaLikeDialog,
+      JinyaFeatureDialog,
+      JinyaBugDialog,
+      JinyaMenu
+    },
     name: 'App',
     created() {
       EventBus.$on(Events.navigation.navigated, () => {
@@ -34,7 +46,10 @@
     data() {
       return {
         background: this.$route.meta.background || window.options.genericBackground,
-        loginRoute: Routes.Account.Login
+        loginRoute: Routes.Account.Login,
+        showBugDialog: false,
+        showFeatureDialog: false,
+        showLikeDialog: false
       };
     }
   }

@@ -30,7 +30,7 @@ class MenuLogoController extends BaseApiController
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data Menu */
+        /** @var $data Menu|array */
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
             return $menuService->get($id);
         });
