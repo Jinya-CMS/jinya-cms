@@ -75,6 +75,7 @@ class MenuService implements MenuServiceInterface
     /**
      * Fills the menu items from the given array
      *
+     * @param int $id
      * @param array $data
      */
     public function fillFromArray(int $id, array $data): void

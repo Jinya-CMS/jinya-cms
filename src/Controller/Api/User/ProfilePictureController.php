@@ -31,7 +31,7 @@ class ProfilePictureController extends BaseUserController
      */
     public function getProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data User */
+        /** @var $data User|array */
         list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
             $user = $userService->get($id);
             if (empty($user->getProfilePicture())) {

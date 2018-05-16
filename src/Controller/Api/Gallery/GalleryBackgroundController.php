@@ -33,7 +33,7 @@ class GalleryBackgroundController extends BaseApiController
      */
     public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data Gallery */
+        /** @var $data Gallery|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
             $gallery = $galleryService->get($slug);
             if (empty($gallery->getBackground())) {

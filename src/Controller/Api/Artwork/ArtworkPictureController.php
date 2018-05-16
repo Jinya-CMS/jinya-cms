@@ -33,7 +33,7 @@ class ArtworkPictureController extends BaseApiController
      */
     public function getPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data Artwork */
+        /** @var $data Artwork|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $slug) {
             $artwork = $artworkService->get($slug);
             if (empty($artwork->getPicture())) {

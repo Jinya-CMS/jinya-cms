@@ -13,7 +13,6 @@ use Exception;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
@@ -45,7 +44,7 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onRequest(GetResponseEvent $event)
+    public function onRequest()
     {
         try {
             $this->themeSyncService->syncThemes();

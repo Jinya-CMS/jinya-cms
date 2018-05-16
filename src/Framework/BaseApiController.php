@@ -79,6 +79,7 @@ abstract class BaseApiController extends BaseController
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param \Twig_Environment $twig
      * @param TokenStorageInterface $tokenStorage
+     * @param RouterInterface $router
      */
     public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
     {

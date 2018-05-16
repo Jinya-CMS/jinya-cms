@@ -39,6 +39,7 @@ class BaseService
         $entity = $this->entityManager->find($this->entityType, $id);
         $entity->{"set$key"}($value);
 
+        /** @noinspection PhpParamsInspection */
         $this->saveOrUpdate($entity);
     }
 

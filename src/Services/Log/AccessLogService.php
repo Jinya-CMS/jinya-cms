@@ -51,7 +51,6 @@ class AccessLogService implements AccessLogServiceInterface
 
     /**
      * @inheritdoc
-     * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(): int
