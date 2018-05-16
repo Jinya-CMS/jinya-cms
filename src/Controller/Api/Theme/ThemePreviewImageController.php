@@ -9,6 +9,7 @@
 namespace Jinya\Controller\Api\Theme;
 
 
+use Jinya\Entity\Theme;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -26,6 +27,7 @@ class ThemePreviewImageController extends BaseApiController
      */
     public function getAction(string $name, ThemeServiceInterface $themeService): Response
     {
+        /** @var $data Theme|array */
         list($data, $status) = $this->tryExecute(function () use ($name, $themeService) {
             $theme = $themeService->getTheme($name);
 
@@ -33,13 +35,13 @@ class ThemePreviewImageController extends BaseApiController
                 throw new FileNotFoundException($theme->getName());
             }
 
-            return $theme->getPreviewImage();
+            return $theme;
         });
 
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->file($data);
+            return $this->file($data->getPreviewImage(), $data->getDisplayName() . '.jpg');
         }
     }
 }
