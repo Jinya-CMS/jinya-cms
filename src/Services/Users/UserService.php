@@ -238,11 +238,11 @@ class UserService implements UserServiceInterface
                 ->getQuery()
                 ->getSingleResult();
         } catch (Exception $e) {
-            throw new BadCredentialsException();
+            throw new BadCredentialsException($e->getMessage(), $e);
         }
 
-        if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
-            throw new BadCredentialsException();
+        if (!$this->userPasswordEncoder->encodePassword($user, $password) === $user->getPassword()) {
+            throw new BadCredentialsException("Invalid username or password");
         }
 
         return $user;

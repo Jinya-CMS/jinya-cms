@@ -189,16 +189,22 @@ abstract class BaseApiController extends BaseController
 
             return [$data, Response::HTTP_BAD_REQUEST];
         } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException|BadCredentialsException $exception) {
+            $this->logException($exception, 403);
             return [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
+            $this->logException($exception, 404);
             return [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
+            $this->logException($exception, 400);
             return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
+            $this->logException($exception, 409);
             return [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
+            $this->logException($exception, 409);
             return [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
         } /** @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+            $this->logException($exception, 409);
             return [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
@@ -238,8 +244,7 @@ abstract class BaseApiController extends BaseController
      */
     private function isDebug(): bool
     {
-        $env = $_SERVER['APP_ENV'] ?? 'dev';
-        return $_SERVER['APP_DEBUG'] ?? ('prod' !== $env);
+        return getenv('APP_DEBUG') === 'yes';
     }
 
     /**
@@ -340,5 +345,19 @@ abstract class BaseApiController extends BaseController
         });
 
         return $this->json($data, $status);
+    }
+
+    /**
+     * @param Throwable $exception
+     * @param $code
+     */
+    protected function logException(Throwable $exception, $code): void
+    {
+        $this->logger->warning("$code thrown – " . gettype($exception));
+        $this->logger->warning($exception->getLine() . ': ' . $exception->getFile());
+        if ($this->isDebug()) {
+            $this->logger->warning($exception->getMessage());
+            $this->logger->warning($exception->getTraceAsString());
+        }
     }
 }
