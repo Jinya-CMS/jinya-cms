@@ -88,12 +88,12 @@
             const file = this.files[key];
             if (file.file) {
               this.message = Translator.message('configuration.frontend.themes.configuration.uploading', {
-                setting: file.label
+                setting: file.name
               });
               await JinyaRequest.put(`/api/theme/${this.theme.name}/file/${key}`, file.file);
             } else {
               this.message = Translator.message('configuration.frontend.themes.configuration.deleting', {
-                setting: file.label
+                setting: file.name
               });
               await JinyaRequest.delete(`/api/theme/${this.theme.name}/file/${key}`);
             }
@@ -112,9 +112,9 @@
       },
       changed(data) {
         if (data.type === 'file') {
-          if (data.file === null) {
+          if (data.file !== null) {
             this.files[data.name] = {
-              file: data.file,
+              file: data.value,
               name: data.label
             };
           } else {

@@ -163,7 +163,7 @@ abstract class BaseController
      * @param int $status
      * @return JsonResponse
      */
-    protected final function json(?array $data, int $status = Response::HTTP_OK): JsonResponse
+    protected final function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse($data, $status);
     }

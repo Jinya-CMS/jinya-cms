@@ -182,9 +182,9 @@ class ThemeController extends BaseApiController
             $path = $mediaService->saveMedia($content, "themeconfig-$name");
             $data = $arrayUtil->buildArrayFromPath($key);
 
-            $arrayUtil->setArrayValueByPath($data, $key, $path);
+            $data = $arrayUtil->setArrayValueByPath($data, $key, $path);
 
-            $themeConfigService->saveConfig($name, $data);
+            $themeConfigService->saveConfig($name, $data, false);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

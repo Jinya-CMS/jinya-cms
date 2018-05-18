@@ -61,7 +61,7 @@
 
         switch (this.type) {
           case 'file':
-            payload.value = $event[0];
+            payload.value = $event.item(0);
             payload.label = this.label;
             break;
           case 'string':
