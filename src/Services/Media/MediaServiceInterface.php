@@ -10,6 +10,7 @@ namespace Jinya\Services\Media;
 
 
 use SplFileInfo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface MediaServiceInterface
 {
@@ -21,7 +22,7 @@ interface MediaServiceInterface
     /**
      * Saves the media to the storage and return the http url
      *
-     * @param resource $file
+     * @param resource|UploadedFile $file
      * @param string $type
      * @return string
      */

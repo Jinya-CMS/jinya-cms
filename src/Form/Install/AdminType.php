@@ -17,23 +17,23 @@ class AdminType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'backend.users.firstname',
+                'label' => 'install.admin.firstname',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'backend.users.lastname',
+                'label' => 'install.admin.lastname',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'backend.users.email',
+                'label' => 'install.admin.email',
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'backend.users.password.repeat',
-                'first_options' => ['label' => 'backend.users.password'],
-                'second_options' => ['label' => 'backend.users.password_repeat'],
+                'invalid_message' => 'install.admin.password.repeat',
+                'first_options' => ['label' => 'install.admin.password'],
+                'second_options' => ['label' => 'install.admin.password_repeat'],
             ])
             ->add('profilePicture', FileType::class, [
-                'label' => 'backend.users.profilepicture',
-                'required' => false,
+                'label' => 'install.admin.profilepicture',
+                'required' => true,
             ]);
     }
 

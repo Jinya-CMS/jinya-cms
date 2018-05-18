@@ -205,6 +205,13 @@ class UserService implements UserServiceInterface
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
 
         if ($this->entityManager->getUnitOfWork()->getEntityState($user) === UnitOfWork::STATE_NEW) {
+            if (!$this->entityManager->isOpen()) {
+                /** @noinspection PhpUndefinedMethodInspection */
+                $this->entityManager = $this->entityManager->create(
+                    $this->entityManager->getConnection(),
+                    $this->entityManager->getConfiguration()
+                );
+            }
             $this->entityManager->persist($user);
         }
 

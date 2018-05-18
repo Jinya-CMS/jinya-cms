@@ -8,30 +8,30 @@
 
 namespace Jinya\EventSubscriber;
 
-use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents as SymfonyKernelEvents;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Underscore\Types\Strings;
 
 class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
     private $kernelProjectDir;
-    /** @var RouterInterface */
-    private $router;
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
 
     /**
-     * RequestEventSubscriber constructor.
+     * RedirectToInstallWizardEventSubscriber constructor.
      * @param string $kernelProjectDir
-     * @param RouterInterface $router
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(string $kernelProjectDir, RouterInterface $router)
+    public function __construct(string $kernelProjectDir, UrlGeneratorInterface $urlGenerator)
     {
         $this->kernelProjectDir = $kernelProjectDir;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -50,18 +50,10 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 
-        if (stripos($event->getRequest()->getPathInfo(), '/install') !== 0) {
-            try {
-                if (!$installed) {
-                    $event->setResponse(new RedirectResponse($this->router->generate('install_default_index')));
-                }
-            } catch (Exception $ex) {
-                $event->setResponse(new RedirectResponse($this->router->generate('install_default_index')));
-            }
-        } else {
-            if ($installed) {
-                $event->setResponse(new RedirectResponse($this->router->generate('designer_home_index_specific')));
-            }
+        if (!Strings::find($event->getRequest()->getPathInfo(), '/install') && !$installed) {
+            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_index')));
+        } elseif (Strings::find($event->getRequest()->getPathInfo(), '/install') && $installed) {
+            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index')));
         }
     }
 }

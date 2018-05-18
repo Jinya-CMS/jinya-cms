@@ -8,8 +8,9 @@ use Jinya\Form\Install\AdminData;
 use Jinya\Form\Install\AdminType;
 use Jinya\Form\Install\SetupData;
 use Jinya\Form\Install\SetupType;
+use Jinya\Services\Media\MediaServiceInterface;
+use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,24 +28,36 @@ class InstallController extends AbstractController
     private $kernelProjectDir;
     /** @var UserServiceInterface */
     private $userService;
+    /** @var \Twig_Environment */
+    private $twig;
+    /** @var MediaServiceInterface */
+    private $mediaService;
+    /** @var ThemeSyncServiceInterface */
+    private $themeSyncService;
 
     /**
      * InstallController constructor.
      * @param SchemaToolInterface $schemaTool
      * @param string $kernelProjectDir
      * @param UserServiceInterface $userService
+     * @param \Twig_Environment $twig
+     * @param MediaServiceInterface $mediaService
      */
-    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService)
+    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, \Twig_Environment $twig, MediaServiceInterface $mediaService)
     {
         $this->schemaTool = $schemaTool;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->userService = $userService;
+        $this->twig = $twig;
+        $this->mediaService = $mediaService;
     }
 
     /**
-     * @Route("/install", name="install_default_index")
      * @param Request $request
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function indexAction(Request $request): Response
     {
@@ -58,36 +71,60 @@ class InstallController extends AbstractController
             $mailerUrl = $formData->getMailerTransport() . '://' . $formData->getMailerUser() . ':' . $formData->getMailerPassword() . '@' . $formData->getMailerHost() . ':' . $formData->getMailerPort();
 
             $parameters = [
-                'DATABASE_URL' => $databaseUrl,
-                'APP_SECRET' => uniqid(),
-                'APP_ENV' => $formData->getEnvironment() ?? 'prod',
-                'MAILER_URL' => $mailerUrl
+                'databaseUrl' => $databaseUrl,
+                'appSecret' => uniqid(),
+                'appEnv' => 'prod',
+                'mailerUrl' => $mailerUrl,
+                'mailerSender' => $formData->getMailerSender()
             ];
 
             $this->writeEnv($parameters);
-            $this->schemaTool->updateSchema();
 
-            return $this->redirectToRoute('install_admin_create');
+            return $this->redirectToRoute('install_database');
         }
-        return $this->render('@Jinya_Install/default/index.html.twig', [
+
+        return $this->render('@Jinya\Installer\Default\index.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    /**
+     * @param array $parameters
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     private function writeEnv(array $parameters)
     {
         $fs = new Filesystem();
-        $data = '';
+        $data = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
 
-        foreach ($parameters as $key => $parameter) {
-            $data .= "\n$key=$parameter";
-        }
-
-        $fs->dumpFile($this->kernelProjectDir . '/.env', $data);
+        $fs->dumpFile($this->kernelProjectDir . '/public/.htaccess', $data);
     }
 
     /**
-     * @Route("/install/user", name="install_admin_create")
+     * @param Request $request
+     * @return Response
+     */
+    public function createDatabaseAction(Request $request): Response
+    {
+        if ($request->isMethod('POST')) {
+            $this->schemaTool->updateSchema();
+            return $this->redirectToRoute('install_admin');
+        }
+
+        return $this->render('@Jinya\Installer\Default\createDatabase.html.twig');
+    }
+
+    /**
+     * @return Response
+     */
+    public function doneAction(): Response
+    {
+        return $this->render('@Jinya\Installer\Default\done.html.twig');
+    }
+
+    /**
      * @param Request $request
      * @return Response
      */
@@ -100,7 +137,6 @@ class InstallController extends AbstractController
             /** @var AdminData $formData */
             $formData = $form->getData();
             $user = new User();
-            $user->setProfilePicture($formData->getProfilePicture());
             $user->setEmail($formData->getEmail());
             $user->setLastname($formData->getLastname());
             $user->setFirstname($formData->getFirstname());
@@ -111,15 +147,19 @@ class InstallController extends AbstractController
             $user->addRole(User::ROLE_WRITER);
             $user->setEnabled(true);
 
+            $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
+
+            $user->setProfilePicture($path);
             $this->userService->saveOrUpdate($user);
+            $this->themeSyncService->syncThemes();
 
             $fs = new Filesystem();
             $fs->touch($this->kernelProjectDir . '/config/install.lock');
 
-            return $this->redirectToRoute('designer_home_index');
+            return $this->redirectToRoute('install_done');
         }
 
-        return $this->render('@Jinya_Install/Default/createAdmin.html.twig', [
+        return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
             'form' => $form->createView()
         ]);
     }

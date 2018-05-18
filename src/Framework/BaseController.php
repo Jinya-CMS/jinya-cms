@@ -152,7 +152,6 @@ abstract class BaseController
         $subRequest = $request->duplicate([], null, $path);
 
         return $this->kernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-
     }
 
     /**

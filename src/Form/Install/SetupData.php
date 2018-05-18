@@ -63,6 +63,11 @@ class SetupData
      * @var string
      */
     private $mailerPassword;
+    /**
+     * @Assert\NotBlank(message="install.mailer.sender.not_blank")
+     * @var string
+     */
+    private $mailerSender;
 
     /**
      * @var string
@@ -243,5 +248,21 @@ class SetupData
     public function setMailerPort(int $mailerPort)
     {
         $this->mailerPort = $mailerPort;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMailerSender(): ?string
+    {
+        return $this->mailerSender;
+    }
+
+    /**
+     * @param string $mailerSender
+     */
+    public function setMailerSender(string $mailerSender): void
+    {
+        $this->mailerSender = $mailerSender;
     }
 }

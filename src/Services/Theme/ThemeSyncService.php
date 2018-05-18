@@ -67,6 +67,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     {
         $config = Yaml::parse($configString, Yaml::PARSE_OBJECT);
         $theme = $this->themeService->getThemeOrNewTheme($name);
+        $theme->setScssVariables($theme->getScssVariables() ?? []);
         $theme->setName($name);
         $theme->setDisplayName($config['displayName']);
         $theme->setDescription(array_key_exists('description', $config) ? $config['description'] : '');
@@ -76,6 +77,8 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             if (is_array($defaultConfig)) {
                 $theme->setConfiguration(array_replace_recursive($defaultConfig, $themeConfig));
             }
+        } else {
+            $theme->setConfiguration([]);
         }
         if (array_key_exists('previewImage', $config)) {
             $previewImagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];

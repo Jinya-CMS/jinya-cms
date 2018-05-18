@@ -1,42 +1,56 @@
 app:
   name: Jinya Gallery CMS
-generic:
-  edit: bearbeiten
-layout:
-  install:
-    general:
-      title: Ersteinrichtung
-    admin:
-      title: Erster Administrator
 install:
+  general:
+    title: Ersteinrichtung
+    submit: Einrichten
+    database:
+      title: Datenbank
+      host:
+        label: Host
+      port:
+        label: Port
+      user:
+        label: Benutzer
+      password:
+        label: Passwort
+      name:
+        label: Datenbankname
+    mailer:
+      title: Mailer
+      transport:
+        label: Transportprotokoll
+      host:
+        label: Emailserver
+      sender:
+        label: Absender
+      port:
+        label: Port
+      user:
+        label: Benutzer
+      password:
+        label: Passwort
+    generic:
+      title: Allgemeines
+      environment:
+        label: Umgebung
   database:
-    title: Datenbank
-    host:
-      label: Host
-    port:
-      label: Port
-    user:
-      label: Benutzer
-    password:
-      label: Passwort
-    name:
-      label: Datenbankname
-  mailer:
-    title: Mailer
-    transport:
-      label: Transportprotokoll
-    host:
-      label: Emailserver
-    port:
-      label: Port
-    user:
-      label: Benutzer
-    password:
-      label: Passwort
-  generic:
-    title: Allgemeines
-    environment:
-      label: Umgebung
+    title: Datenbank erstellen
+    content: Damit Jinya funktioniert, müssen wir als nächstes die Datenbank einrichten, bitte bestätige diese Aktion.
+    submit: Erstellen
+  admin:
+    title: Erster Administrator
+    submit: Administrator anlegen
+    firstname: Vorname
+    lastname: Nachname
+    email: Emailadresse
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    profilepicture: Profilbild
+  done:
+    title: Einrichtung abschließen
+    content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
+    designer: Zum Designer
 account:
   login:
     title: An Jinya anmelden

@@ -46,14 +46,16 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
 
     public function onException(GetResponseForExceptionEvent $event)
     {
-        $request = $event->getRequest();
-        $this->logger->warning($event->getException()->getMessage());
-        $this->logger->warning($event->getException()->getTraceAsString());
+        if (getenv('APP_ENV') !== 'dev') {
+            $request = $event->getRequest();
+            $this->logger->warning($event->getException()->getMessage());
+            $this->logger->warning($event->getException()->getTraceAsString());
 
-        $route = $this->router->getRouteCollection()->get($request->get('_route'));
-        if ($request->getPathInfo() === '/') {
-        } elseif ($route->getPath() === '/{route}') {
-            $event->setResponse(new RedirectResponse('/'));
+            $route = $this->router->getRouteCollection()->get($request->get('_route'));
+            if ($request->getPathInfo() === '/') {
+            } elseif ($route->getPath() === '/{route}') {
+                $event->setResponse(new RedirectResponse('/'));
+            }
         }
     }
 }

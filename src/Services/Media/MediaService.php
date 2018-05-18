@@ -10,6 +10,7 @@ namespace Jinya\Services\Media;
 
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use function array_reverse;
 use function file_put_contents;
 use function hash_final;
@@ -37,7 +38,11 @@ class MediaService implements MediaServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * Saves the media to the storage and return the http url
+     *
+     * @param resource|UploadedFile $file
+     * @param string $type
+     * @return string
      */
     public function saveMedia($file, string $type): string
     {
