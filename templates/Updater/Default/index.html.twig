@@ -1,0 +1,18 @@
+{% extends '@Jinya/Updater/base.html.twig' %}
+
+{% block content %}
+    <form method="post">
+        <h1>{{ 'update.title'|trans }}</h1>
+        <div class="form-group">
+            <label for="newVersion">{{ 'update.version'|trans }}</label>
+            <select class="form-control" name="newVersion" id="newVersion">
+                {% for key, version in versions %}
+                    <option value="{{ version }}" {% if currentVersion == key %}selected{% endif %}>{{ key }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-secondary" value="cancel" name="action"
+                type="submit">{{ 'update.cancel'|trans }}</button>
+        <button class="btn btn-primary" value="start" name="action" type="submit">{{ 'update.update'|trans }}</button>
+    </form>
+{% endblock %}
