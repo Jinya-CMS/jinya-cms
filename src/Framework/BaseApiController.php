@@ -106,6 +106,19 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
+     * Generates a url from the given route
+     *
+     * @param string $route
+     * @param array $parameter
+     * @param bool $fullUrl
+     * @return string
+     */
+    protected function generateUrl(string $route, array $parameter = [], bool $fullUrl = false): string
+    {
+        return $this->urlGenerator->generate($route, $parameter, $fullUrl ? UrlGeneratorInterface::ABSOLUTE_PATH : UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    /**
      * @param string $key
      * @param null $default
      * @return mixed|null|SimpleXMLElement|array
