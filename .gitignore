@@ -124,6 +124,7 @@ node_modules/
 /tests/_output/
 /var/
 /config/install.lock
+/config/update.lock
 /web/assetic/
 /web/public/
 /.env
