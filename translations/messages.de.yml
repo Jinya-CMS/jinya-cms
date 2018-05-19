@@ -48,8 +48,21 @@ install:
     password_repeat: Passwort wiederholen
     profilepicture: Profilbild
   done:
-    title: Einrichtung abschließen
+    title: Einrichtung abgeschlossen
     content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
+    designer: Zum Designer
+update:
+  title: Jinya Update
+  version: Version
+  update: Update starten
+  cancel: Update abbrechen
+  database:
+    title: Datenbank aktualisieren
+    content: Um das Update abzuschließen, muss noch die Datenbank aktualisiert werden, dazu musst du auf "Aktualisieren" klicken.
+    submit: Aktualisieren
+  done:
+    title: Update abgeschlossen
+    content: Das Update wurde abgeschlossen, du kannst jetzt wieder in den Designer
     designer: Zum Designer
 account:
   login:

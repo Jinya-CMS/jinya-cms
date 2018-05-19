@@ -109,7 +109,7 @@ class InstallController extends AbstractController
     public function createDatabaseAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
-            $this->schemaTool->updateSchema();
+            $this->schemaTool->createSchema();
             return $this->redirectToRoute('install_admin');
         }
 
