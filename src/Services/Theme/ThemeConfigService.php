@@ -62,6 +62,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $targetConfig = $this->arrayUtils->removeEmptyRecursive($config);
         } else {
             $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+            $targetConfig = $this->arrayUtils->removeEmptyRecursive($targetConfig);
         }
 
         if (array_key_exists('defaultConfig', $themeConfig)) {

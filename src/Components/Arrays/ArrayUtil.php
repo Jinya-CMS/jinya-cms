@@ -22,7 +22,7 @@ class ArrayUtil implements ArrayUtilInterface
      * @param string $delimiter
      * @return array
      */
-    public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '/'): array
+    public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '.'): array
     {
         $keys = explode($delimiter, $path);
         $temp = &$data;
@@ -43,7 +43,7 @@ class ArrayUtil implements ArrayUtilInterface
      * @param string $delimiter
      * @return array
      */
-    public function buildArrayFromPath(string $path, string $delimiter = '~'): array
+    public function buildArrayFromPath(string $path, string $delimiter = '.'): array
     {
         $keys = explode($delimiter, $path);
         $buildArray = function (array &$input, int $idx) use (&$buildArray, $keys) {

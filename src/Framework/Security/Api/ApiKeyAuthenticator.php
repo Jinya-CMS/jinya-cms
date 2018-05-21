@@ -10,6 +10,7 @@ namespace Jinya\Framework\Security\Api;
 
 
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -30,22 +31,28 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     private $translator;
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
+    /** @var LoggerInterface */
+    private $logger;
 
     /**
      * ApiKeyAuthenticator constructor.
      * @param UrlGeneratorInterface $urlGenerator
      * @param TranslatorInterface $translator
      * @param ApiKeyToolInterface $apiKeyTool
+     * @param LoggerInterface $logger
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ApiKeyToolInterface $apiKeyTool)
+    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ApiKeyToolInterface $apiKeyTool, LoggerInterface $logger)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->apiKeyTool = $apiKeyTool;
+        $this->logger = $logger;
     }
 
     /**
      * @inheritdoc
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
@@ -67,6 +74,8 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
                 throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiKey]));
             }
         } catch (Exception $exception) {
+            $this->logger->warning($exception->getMessage());
+            $this->logger->warning($exception->getTraceAsString());
             throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiKey]));
         }
 

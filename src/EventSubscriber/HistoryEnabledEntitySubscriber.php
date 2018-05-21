@@ -46,22 +46,25 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
 
     public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
-        $changeSet = $eventArgs->getEntityChangeSet();
-        $entity = $eventArgs->getEntity();
-        if ($entity instanceof HistoryEnabledEntity) {
-            if (!$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
-                $lastUpdatedBy = $entity->getUpdatedBy();
-                $entity->setLastUpdatedAt(new DateTime());
-                $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
-                $history = $entity->getHistory();
-                $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
-                $changeSet['updatedBy'] = [$lastUpdatedBy, $entity->getUpdatedBy()];
-                $history[] = [
-                    'entry' => $changeSet,
-                    'timestamp' => $entity->getLastUpdatedAt()->format('c'),
-                    'initial' => false
-                ];
-                $entity->setHistory($history);
+        $token = $this->tokenStorage->getToken();
+        if ($token) {
+            $changeSet = $eventArgs->getEntityChangeSet();
+            $entity = $eventArgs->getEntity();
+            if ($entity instanceof HistoryEnabledEntity) {
+                if (!$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
+                    $lastUpdatedBy = $entity->getUpdatedBy();
+                    $entity->setLastUpdatedAt(new DateTime());
+                    $entity->setUpdatedBy($token->getUser());
+                    $history = $entity->getHistory();
+                    $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
+                    $changeSet['updatedBy'] = [$lastUpdatedBy, $entity->getUpdatedBy()];
+                    $history[] = [
+                        'entry' => $changeSet,
+                        'timestamp' => $entity->getLastUpdatedAt()->format('c'),
+                        'initial' => false
+                    ];
+                    $entity->setHistory($history);
+                }
             }
         }
     }

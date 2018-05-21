@@ -1,3 +1,3 @@
 parameters:
     mailer_sender: '%env(MAILER_SENDER)%'
-    jinya_version: 2.0 Alpha 1
+    jinya_version: 2.0.0
