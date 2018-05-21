@@ -1,0 +1,26 @@
+.form-content {
+  @include breakpoint-desktop {
+    margin-left: $page-content-margin-left-desktop;
+    margin-right: $page-content-margin-right-desktop;
+  }
+
+  @include breakpoint-tablet-landscape {
+    margin-left: $page-content-margin-left-tablet-landscape;
+    margin-right: $page-content-margin-right-tablet-landscape;
+  }
+
+  @include breakpoint-tablet-portrait {
+    margin-left: $page-content-margin-left-tablet-portrait;
+    margin-right: $page-content-margin-right-tablet-portrait;
+  }
+
+  @include breakpoint-mobile {
+    margin-left: $page-content-margin-left-mobile;
+    margin-right: $page-content-margin-right-mobile;
+  }
+
+  @include breakpoint-ultra-mobile {
+    margin-left: $page-content-margin-left-ultra-mobile;
+    margin-right: $page-content-margin-right-ultra-mobile;
+  }
+}

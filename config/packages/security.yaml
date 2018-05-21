@@ -1,0 +1,30 @@
+security:
+  role_hierarchy:
+    ROLE_SUPER_ADMIN: ROLE_ADMIN
+    ROLE_ADMIN: ROLE_WRITER
+
+  access_decision_manager:
+    strategy: consensus
+    allow_if_all_abstain: false
+    allow_if_equal_granted_denied: false
+
+  encoders:
+    Jinya\Entity\User:
+      algorithm: bcrypt
+
+  providers:
+    jinya_db_provider:
+      entity:
+        class: Jinya\Entity\User
+        property: email
+    jinya_api_key_provider:
+      id: Jinya\Framework\Security\Api\ApiKeyUserProvider
+
+  firewalls:
+    api:
+      pattern: ^/api
+      stateless: true
+      simple_preauth:
+        authenticator: Jinya\Framework\Security\Api\ApiKeyAuthenticator
+      provider: jinya_api_key_provider
+      anonymous: true

@@ -1,0 +1,177 @@
+install:
+  database:
+    host:
+      not_blank: Der Host muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden
+    name:
+      not_blank: Der Name der Datenbank muss angegeben werden
+  mailer:
+    transport:
+      not_blank: Das Transportprotokoll muss angegeben werden
+    host:
+      not_blank: Der Emailserver muss angegeben werden
+    user:
+      not_blank: Der Benutzer muss angegeben werden
+    password:
+      not_blank: Das Passwort muss angegeben werden
+    port:
+      invalid: Der Port muss zwischen 0 und 65535 liegen
+  users:
+    password:
+      repeat: Die Passwörter müssen übereinstimmen
+      not_blank: Das Passwort ist erforderlich
+    firstname:
+      not_blank: Der Vorname ist erforderlich
+    lastname:
+      not_blank: Der Nachname ist erforderlich
+    username:
+      not_blank: Der Benutzername ist erforderlich
+    email:
+      invalid: Die Emailadresse ist nicht gültig
+      not_blank: Die Emailadresse ist erforderlich
+api:
+  generic:
+    headers:
+      contenttype: Der Content Type contentType ist nicht zugelassen
+    body:
+      empty: Der Requestbody ist leer
+  user:
+    field:
+      firstname:
+        missing: Der Vorname muss bereitgestellt weren
+      lastname:
+        missing: Der Nachname muss bereitgestellt weren
+      email:
+        missing: Die Emailadresse muss bereitgestellt weren
+        invalid: Die Emailadresse email ist nicht gültig
+      password:
+        missing: Das Passwort muss bereitgestellt weren
+  gallery:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+      artworkSlug:
+        missing: Es muss ein Kunstwerk angegeben werden
+  form:
+    field:
+      title:
+        missing: Der Titel muss bereitgestellt werden
+      toAddress:
+        missing: Es muss ein Emailadresse angegeben werden, an die das Formular gesendet wird
+        invalid: Die Emailadresse toAddress ist ungültig
+    items:
+      field:
+        label:
+          missing: Das Label muss bereitgestellt werden
+  artwork:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  label:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  menu:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+    item:
+      field:
+        route:
+          url:
+            missing: Die Route URL muss bereitgestellt werden
+          name:
+            missing: Der Routen Name muss bereitgestellt werden
+          parameter:
+            missing: Die Routen Parameter muss bereitgestellt werden
+          missing: Die Route muss bereitgestellt werden
+        title:
+          missing: Der Titel muss bereitgestellt werden
+        pageType:
+          missing: Der Seitetyp muss bereitgestellt werden
+account:
+  login:
+    api:
+      state:
+        403:
+          generic: Benutzername und Passwort stimmen nicht überein
+static:
+  pages:
+    overview:
+      no_pages:
+        Bisher wurden keine Seiten angelegt.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Seiten.
+  forms:
+    forms:
+      overview:
+        no_forms:
+          Bisher wurden keine Formulare angelegt.
+        nothing_found:
+          Leider gibt es zu deinem Suchbegriff keine Formulare.
+art:
+  artworks:
+    overview:
+      no_artworks:
+        Bisher wurden keine Kunstwerke hochgeladen.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Kunstwerke.
+      delete:
+        api:
+          state:
+            409:
+              foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
+            500:
+              generic: Beim Löschen des Kunstwerks ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
+    api:
+      state:
+        404:
+          generic: Das Kunstwerk konnte nicht gefunden werden.
+        409:
+          exists: Das Kunstwerk existiert bereits.
+  galleries:
+    overview:
+      no_galleries:
+        Bisher wurden keine Galerien hochgeladen.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Galerien.
+    designer:
+      artwork_view:
+        nothing_found: Es wurden keine Kunstwerke gefunden
+        loading: Die Kunstwerke werden geladen
+    api:
+      state:
+        404:
+          generic: Das Galerie konnte nicht gefunden werden.
+configuration:
+  frontend:
+    menus:
+      overview:
+        nothing_found: Es wurden keine Menüs gefunden
+  general:
+    artists:
+      overview:
+        nothing_found: Es wurden keine Künstler gefunden
+      delete:
+        api:
+          state:
+            409:
+              foreign_key_failed: Der Künstler hat Inhalte erstellt und kann daher nicht gelöscht werden
+my_jinya:
+  account:
+    password:
+      passwords_dont_match: Die Passwörter stimmen nicht überein
+      api:
+        state:
+          403:
+            generic: Das eingegebene Passwort ist falsch
+framework:
+  markup:
+    form:
+      file_input:
+        no_file_selected: Keine Datei ausgewählt

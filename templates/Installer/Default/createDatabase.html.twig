@@ -1,0 +1,10 @@
+{% extends '@Jinya/Installer/base.html.twig' %}
+
+{% block content %}
+    <form action="{{ path('install_database') }}" method="post">
+        <h1>{{ 'install.database.title'|trans }}</h1>
+        <p>{{ 'install.database.content'|trans }}</p>
+        <button class="btn btn-primary" type="submit">{{ 'install.database.submit'|trans }}</button>
+    </form>
+{% endblock %}
+

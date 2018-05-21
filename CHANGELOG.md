@@ -1,4 +1,8 @@
 # Changelog
+## Release 2.0
+### New Features
+The whole designer got rewritten and is an entirely new application based on Vue.js. All features are also available via a REST api. 
+
 ## Release 1.1
 ### New features
 * **[Trello 16](https://trello.com/c/ARW2WXCY)** Implemented the option to embed videos (e.g. YouTube) in the page via QuillJS editor

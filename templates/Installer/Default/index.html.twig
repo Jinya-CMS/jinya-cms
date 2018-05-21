@@ -1,0 +1,29 @@
+{% extends '@Jinya/Installer/base.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <h1>{{ 'install.general.title'|trans }}</h1>
+    <fieldset>
+        <legend>{{ 'install.general.database.title'|trans }}</legend>
+        {{ form_row(form.databaseHost) }}
+        {{ form_row(form.databasePort) }}
+        {{ form_row(form.databaseName) }}
+        {{ form_row(form.databaseUser) }}
+        {{ form_row(form.databasePassword) }}
+    </fieldset>
+    <fieldset>
+        <legend>{{ 'install.general.mailer.title'|trans }}</legend>
+        {{ form_row(form.mailerTransport) }}
+        {{ form_row(form.mailerHost) }}
+        {{ form_row(form.mailerSender) }}
+        {{ form_row(form.mailerPort) }}
+        {{ form_row(form.mailerUser) }}
+        {{ form_row(form.mailerPassword) }}
+    </fieldset>
+    <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+            <button class="btn btn-primary" type="submit">{{ 'install.general.submit'|trans }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

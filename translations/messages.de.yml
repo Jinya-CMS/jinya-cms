@@ -1,0 +1,580 @@
+app:
+  name: Jinya Gallery CMS
+install:
+  general:
+    title: Ersteinrichtung
+    submit: Einrichten
+    database:
+      title: Datenbank
+      host:
+        label: Host
+      port:
+        label: Port
+      user:
+        label: Benutzer
+      password:
+        label: Passwort
+      name:
+        label: Datenbankname
+    mailer:
+      title: Mailer
+      transport:
+        label: Transportprotokoll
+      host:
+        label: Emailserver
+      sender:
+        label: Absender
+      port:
+        label: Port
+      user:
+        label: Benutzer
+      password:
+        label: Passwort
+    generic:
+      title: Allgemeines
+      environment:
+        label: Umgebung
+  database:
+    title: Datenbank erstellen
+    content: Damit Jinya funktioniert, müssen wir als nächstes die Datenbank einrichten, bitte bestätige diese Aktion.
+    submit: Erstellen
+  admin:
+    title: Erster Administrator
+    submit: Administrator anlegen
+    firstname: Vorname
+    lastname: Nachname
+    email: Emailadresse
+    password: Passwort
+    password_repeat: Passwort wiederholen
+    profilepicture: Profilbild
+  done:
+    title: Einrichtung abschließen
+    content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
+    designer: Zum Designer
+account:
+  login:
+    title: An Jinya anmelden
+    email: Email
+    password: Passwort
+    submit: Anmelden
+    pending: Du wirst angemeldet
+api:
+  state:
+    401:
+      generic: Für den Zugriff auf diese Resource ist eine Authentifizierung nötig
+      expired: Der API Key apiKey ist abgelaufen
+    403:
+      generic: Für den Zugriff auf die Resource sind andere Rechte nötig
+    404:
+      generic: Die Resource konnte nicht gefunden werden
+    409:
+      exists: Die Resource existiert bereits
+      foreign_key_failed: Die Resource wird anderweitig verwendet
+    500:
+      generic: Ein interner Fehler ist aufgetreten
+  route:
+    types:
+      frontend_form_details: Formular
+      frontend_gallery_details: Galerie
+      frontend_artwork_details: Kunstwerk
+      frontend_page_details: Seite
+menu:
+  designer:
+    flyout:
+      art:
+        navbar: Kunst
+        sections:
+          artworks:
+            header: Kunstwerke
+            saved_in_jinya: Im Jinya CMS gespeichert
+            saved_external: Extern gespeichert
+          videos:
+            header: Videos
+            saved_in_jinya: Im Jinya CMS gespeichert
+            saved_on_youtube: Auf Youtube gespeichert
+            saved_on_vimeo: Auf Vimeo gespeichert
+            saved_on_newgrounds: Auf Newgrounds gespeichert
+          galleries:
+            header: Galerien
+            artwork_galleries: Kunstgalerien
+            video_galleries: Videogalerien
+      static:
+        navbar: Statischer Inhalt
+        sections:
+          pages:
+            header: Seiten
+            saved_in_jinya: Im Jinya CMS gespeichert
+            saved_external: Extern gespeichert
+          forms:
+            header: Formulare
+            forms: Formulare
+            requests: Anfragen
+            email_templates: Emailtemplates
+      configuration:
+        navbar: Konfiguration
+        sections:
+          general:
+            header: Allgemein
+            artists: Künstler
+          frontend:
+            header: Frontend
+            themes: Themes
+            menus: Menüs
+      maintenance:
+        navbar: Wartung
+        sections:
+          system:
+            header: System
+            updates: Updates
+            environment: .env Einstellungen
+            cache: Cache
+            version: Jinya CMS Version
+            php: PHP Info
+          database:
+            header: Datenbank
+            mysql_information: MySQL Informationen
+            database_tool: Datenbanktool
+          diagnosis:
+            header: Diagnose
+            application_log: Anwendungsprotokoll
+            access_log: Zugrifsprotokoll
+      my_jinya:
+        navbar: Mein Jinya
+        sections:
+          account:
+            header: Mein Account
+            profile: Mein Profil
+            password: Passwort ändern
+          created_by_me:
+            header: Von mir erstellt
+            galleries: Galerien
+            artworks: Kunstwerke
+            pages: Seiten
+            videos: Videos
+            forms: Formulare
+            menus: Menüs
+      support:
+        navbar: Support
+        sections:
+          problems:
+            header: Fehler und Wünsche
+            bug: Ich habe einen Fehler gefunden
+            feature: Ich hab einen Wunsch an Jinya
+          like:
+            header: Gefällt dir Jinya?
+            like: Ja? Dann zeigs uns
+            dont_like: Nein? Dann schick uns eine Mail
+routes:
+  art:
+    artworks:
+      saved_in_jinya:
+        overview: In Jinya gespeicherte Kunstwerke
+        add: Kunstwerk hinzufügen
+        edit: Kunstwerk bearbeiten
+    galleries:
+      art:
+        overview: Kunstgalerien
+        add: Galerie hinzufügen
+        edit: Galerie bearbeiten
+        designer: Galeriedesigner
+  static:
+    pages:
+      saved_in_jinya:
+        overview: In Jinya gespeicherte Seiten
+        add: Seite hinzufügen
+        edit: Seite bearbeiten
+    forms:
+      forms:
+        overview: Formulare
+        add: Formular hinzufügen
+  home:
+    startpage: Startseite
+  configuration:
+    frontend:
+      menus:
+        overview: Menüs
+        add: Menü hinzufügen
+      themes:
+        overview: Themes
+        menus: Menüs
+        variables: Themevariablen
+    general:
+      artists:
+        overview: Künstler
+        add: Künstler hinzufügen
+        edit: Künstler bearbeiten
+        details: Künstlerdetails
+  account:
+    login: Jinya CMS Login
+  my_jinya:
+    account:
+      password: Passwort ändern
+authentication:
+  roles:
+    -
+      text: Superadmin
+      value: ROLE_SUPER_ADMIN
+    -
+      text: Admin
+      value: ROLE_ADMIN
+    -
+      text: Schreiber
+      value: ROLE_WRITER
+framework:
+  markup:
+    menu:
+      navbar:
+        search_item:
+          placeholder: Suchen
+    form:
+      file_input:
+        pick: Datei suchen
+        already_set: Bereits ausgewählt
+        reset: Zurücksetzen
+    navigation:
+      pager:
+        previous: Zurück
+        page_indicator: Seite %page% von %count%
+        next: Weiter
+home:
+  missing:
+    header: Sorry ich bin noch nicht fertig
+configuration:
+  general:
+    artists:
+      overview:
+        enable: Aktivieren
+        disable: Deaktivieren
+        delete: Löschen
+        edit: Bearbeiten
+        change_password: Passwort ändern
+        details: Profil
+      delete:
+        title: "%firstname% %lastname% wirklich löschen?"
+        message: Soll %firstname% %lastname% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
+        yes: Künstler löschen
+        no: Künstler nicht löschen
+        disable: Künstler deaktivieren
+      enable:
+        title: "%firstname% %lastname% aktivieren?"
+        message: Soll %firstname% %lastname% aktiviert werden? Dadurch kann sich %firstname% %lastname% wieder anmelden und Inhalte erstellen.
+        yes: Künstler aktivieren
+        no: Künstler nicht aktivieren
+      disable:
+        title: "%firstname% %lastname% wirklich deaktivieren?"
+        message: Soll %firstname% %lastname% deaktiviert werden? Dadurch kann sich %firstname% %lastname% nicht mehr anmelden und keine Inhalte erstellen.
+        yes: Künstler deaktivieren
+        no: Künstler nicht deaktivieren
+      add:
+        saving: "%firstname% %lastname% wird gespeichert"
+        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
+        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+      details:
+        edit: Künstler bearbeiten
+      edit:
+        saving: "%firstname% %lastname% wird gespeichert"
+        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
+        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        loading: Der Künstler wird geladen
+        title: "%firstname% %lastname% bearbeiten"
+      artist_form:
+        firstname: Vorname
+        lastname: Nachname
+        email: Email
+        profile_picture: Profilbild
+        password: Passwort
+        activation: Aktiviert
+        enabled: Ja
+        disabled: Nein
+        save: Künstler speichern
+        back: Zurück
+        roles: Rollen
+  frontend:
+    menus:
+      overview:
+        loading: Die Menüs werden geladen
+        delete: Menü löschen
+        edit: Menü bearbeiten
+        editor: Menüeinträge bearbeiten
+      menu_form:
+        logo: Logo
+        name: Name
+        save: Menü speichern
+        back: Zurück
+      add:
+        saving: Das Menü "%name%" wird gespeichert
+        uploading: Das Logo für das Menü "%name%" wird hochgeladen
+        success: Das Menü "%name%" wurde gespeichert
+      edit:
+        saving: Das Menü "%name%" wird gespeichert
+        uploading: Das Logo für das Menü "%name%" wird hochgeladen
+        deleting: Das Logo für das Menü "%name%" wird gelöscht
+        success: Das Menü "%name%" wurde gespeichert
+        title: "%name% bearbeiten"
+      builder:
+        galleries: Galerien
+        forms: Formulare
+        pages: Seiten
+        other: Andere
+        external: Externe Seite
+        group: Gruppe
+        save: Fertig
+        cancel: Abbrechen
+        menu: Menü
+        increase_alignment: Einzug erhöhen
+        decrease_alignment: Einzug verringern
+        saving: Die Anpassungen am Menü %name% werden gespeichert
+        saved: Die Anpassungen am Menü %name% wurden gespeichert
+        api:
+          state:
+            409:
+              not_null_failed: Es sind nicht alle Pflichtfelder gefüllt
+            500:
+              generic: Die Anpassungen am Menü %name% konnten nicht gespeichert werden
+        settings:
+          title: Titel
+          display_url: Anzeigeurl
+          target_url: Ziel
+          highlighted: Hervorgehoben
+          save: Speichern
+        leave:
+          title: Wirklich verlassen?
+          content: Es sind ungespeicherte Änderungen im Menü "%name%" vorhanden. Sollen die Änderungen wirklich verworfen werden?
+          yes: Änderungen verwerfen
+          no: Änderungen speichern
+          cancel: Hier bleiben
+    themes:
+      overview:
+        variables: Variablen
+        settings: Einstellungen
+        menus: Menüs
+        activate: Aktivieren
+      variables:
+        title: Variablen für %displayName%
+        search: Variablen durchsuchen...
+        saving: Die Variablen des Themes %displayName% werden gespeichert
+        loading: Das Theme wird geladen
+        loading_variables: Die Variablen für das Theme %displayName% werden geladen
+        save: Variablen speichern
+        cancel: Zurück
+      menus:
+        primary: Primäres Menü
+        secondary: Sekundäres Menü
+        footer: Footer Menü
+        please_choose: Kein Menü
+        saving: Die Menüs für das Theme %displayName% werden gespeichert
+        saved: Die Menüs für das Theme %displayName% wurden gespeichert
+        save: Menüs speichern
+        cancel: Zurück
+      configuration:
+        title: Variablen für %displayName%
+        deleting: Die Datei für die Einstellung %setting% wird gelöscht
+        saving: Die Einstellungen des Themes %displayName% werden gespeichert
+        saved: Die Einstellungen des Themes %displayName% wurden gespeichert
+        uploading: Die Datei für die Einstellung %setting% wird hochgeladen
+        uploaded: Die Dateien für das Theme %displayName% wurden hochgeladen
+        loading: Das Theme wird geladen
+        loading_configuration: Die Einstellungen für das Theme %displayName% werden geladen
+        save: Einstellungen speichern
+        cancel: Zurück
+static:
+  pages:
+    delete:
+      title: Soll die Seite wirklich gelöscht werden?
+      content: Soll die Seite "%title%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+      yes: Seite löschen
+      no: Seite nicht löschen
+    add:
+      saving: Die Seite "%title%" wird gespeichert.
+      success: Die Seite "%title%" wurde erfolgreich gespeichert.
+    edit:
+      title: Seite %title% bearbeiten
+      saving: Die Seite "%title%" wird gespeichert.
+      success: Die Seite "%title%" wurde erfolgreich gespeichert.
+      loading: Die Seite wird geladen
+    page_form:
+      title: Titel
+      slug: Slug
+      save: Seite speichern
+      back: Zurück
+      search: Suchen
+  forms:
+    forms:
+      builder:
+        title: Formular %title%
+        delete: Hierher ziehen zum löschen
+        default_label:
+          email_type: Emailadresse
+          text_type: Einzeiliger Text
+          choice_type: Auswahl
+          checkbox_type: Ja/Nein Feld
+          textarea_type: Mehrzeiliger Text
+        save: Fertig
+        cancel: Zurück
+        saving: Die Anpassungen am Formular %title% werden gespeichert
+        saved: Die Anpassungen am Formular %title% wurden gespeichert
+        api:
+          state:
+            409:
+              not_null_failed: Es sind nicht alle Pflichtfelder gefüllt
+            500:
+              generic: Die Anpassungen am Formular %title% konnten nicht gespeichert werden
+        settings:
+          save: Speichern
+          label: Label
+          help_text: Hilfetext
+          required: Erforderlich
+          options: Optionen
+        leave:
+          title: Wirklich verlassen?
+          content: Es sind ungespeicherte Änderungen im Formular "%title%" vorhanden. Sollen die Änderungen wirklich verworfen werden?
+          yes: Änderungen verwerfen
+          no: Änderungen speichern
+          cancel: Hier bleiben
+      delete:
+        title: Soll das Formular wirklich gelöscht werden?
+        content: Soll das Formular "%title%" wirklich gelöscht werden? Danach ist es nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+        yes: Formular löschen
+        no: Formular nicht löschen
+      add:
+        saving: Das Formular "%title%" wird gespeichert
+        success: Das Formular "%title%" wurde gespeichert
+      edit:
+        title: "%title% bearbeiten"
+        loading: Das Formular wird geladen
+        saving: Das Formular "%title%" wird gespeichert
+        success: Das Formular "%title%" wurde gespeichert
+      form_form:
+        title: Titel
+        slug: Slug
+        description: Beschreibung
+        email: Zieladresse
+        save: Formular speichern
+        back: Zurück
+art:
+  artworks:
+    delete:
+      title: Ist das Kunst oder kann das weg?
+      content: Soll das Kunstwerk "%artwork%" wirklich gelöscht werden?
+      yes: Kunstwerk löschen
+      no: Kunstwerk nicht löschen
+    add:
+      saving: Das Kunstwerk "%name%" wird gespeichert.
+      uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
+      success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
+    edit:
+      title: Kunstwerk %name% bearbeiten
+      saving: Das Kunstwerk "%name%" wird gespeichert.
+      uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
+      success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
+      loading: Das Kunstwerk wird geladen
+    details:
+      edit: Bearbeiten
+      loading: Das Kunstwerk wird geladen
+    artwork_form:
+      name: Name
+      slug: Slug
+      artwork: Kunstwerk
+      description: Beschreibung (optional)
+      save: Kunstwerk speichern
+      back: Zurück
+      search: Suchen
+  galleries:
+    delete:
+      title: Soll die Galerie wirklich gelöscht werden?
+      content: Wenn die Galerie "%gallery%" gelöscht wird, ist sie nicht mehr im Menü verfügbar.
+      yes: Galerie löschen
+      no: Galerie nicht löschen
+    add:
+      saving: Die Galerie "%name%" wird gespeichert.
+      uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
+      success: Die Galerie "%name%" wurde erfolgreich gespeichert.
+    edit:
+      title: Galerie %name% bearbeiten
+      saving: Die Galerie "%name%" wird gespeichert.
+      uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
+      success: Die Galerie "%name%" wurde erfolgreich gespeichert.
+      loading: Die Galerie wird geladen
+    details:
+      edit: Bearbeiten
+      loading: Die Galerie wird geladen
+    designer:
+      title: Galerie %name% anordnen
+      loading: Die Galerie wird geladen
+      moving: Das Kunstwerk "%name%" wird verschoben
+      add:
+        title: Kunstwerk einfügen
+        pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
+      edit:
+        title: Kunstwerk tauschen
+        pending: Das Kunstwerk "%name%" wird getauscht
+      add_view:
+        cancel: Schließen
+      edit_view:
+        cancel: Schließen
+        delete: Kunstwerk entfernen
+      artwork_view:
+        search: Suchen…
+        pick: Auswählen
+    gallery_form:
+      name: Name
+      slug: Slug
+      background: Hintergrund
+      orientation: Ausrichtung
+      description: Beschreibung (optional)
+      save: Galerie speichern
+      back: Zurück
+      search: Suchen
+      orientations:
+        horizontal: Horizontal
+        vertical: Vertikal
+my_jinya:
+  account:
+    password:
+      save: Passwort ändern
+      cancel: Abbrechen
+      old_password: Aktuelles Passwort
+      new_password: Neues Passwort
+      new_password_repeat: Neues Passwort wiederholen
+      asking_for_token: Änderung wird angefragt
+      changing: Passwort wird geändert
+      changed: Das Passwort wurde geändert, du wirst jetzt abgemeldet
+support:
+  bug_dialog:
+    title: Ich habe einen Fehler gefunden
+    content: Das tut uns leid, wir versuchen Jinya möglichst gut zu testen, damit keine Fehler vorkommen, bist du so nett und sagst uns was der Fehler ist und wie wir in nachstellen können?
+    sending: Der Fehler wird übermittelt, wir kümmern uns drum, versprochen. Dir wird gleich das Ticket geöffnet.
+    error: Leider konnte der Fehler nicht übermittelt werden, magst du uns eine Mail schicken?
+    send_mail: Mail schicken
+    form:
+      title: Kurzbeschreibung
+      details: Genaue Fehlerbeschreibung
+      reproduce: Anleitung zum Nachstellen
+      severity: Auswirkung
+      submit: Fehler melden
+      cancel: Abbrechen
+      severity_levels:
+        slightly_annoying: Ein wenig nervig
+        annoying: Nervig
+        very_annoying: Sehr nervig
+        usability_issues: Leichtere Benutzungsprobleme
+        unusable: Unbenutzbar
+        security: Sicherheitsleck
+  feature_dialog:
+    title: Ich habe einen Idee für um Jinya zu verbessern
+    content: Das freut uns, jede Vorschlag ist wichtig um Jinya zu verbessern, bist du so nett und sagst uns was deine Idee ist?
+    sending: Deine Idee wird übermittelt, wir kümmern uns drum, versprochen. Dir wird gleich das Ticket geöffnet.
+    error: Leider konnte deine Idee nicht übermittelt werden, magst du uns eine Mail schicken?
+    send_mail: Mail schicken
+    form:
+      title: Kurzbeschreibung
+      details: Beschreibung deiner Idee
+      submit: Jinya helfen
+      cancel: Abbrechen
+  like_dialog:
+    title: Ich finde Jinya super
+    content: Das freut uns, gibt es noch etwas das du uns sagen möchtest?
+    form:
+      details: Meine Nachricht an die Entwickler
+      submit: Like senden
+      cancel: Abbrechen

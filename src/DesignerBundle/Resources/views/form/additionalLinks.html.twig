@@ -1,9 +1,0 @@
-<a href="{{ url("designer_form_edit", { "slug": formModel.slug }) }}"
-   title="{{ 'layout.designer.form.edit'|trans({ 'title': formModel.title }) }}"><i class="fa fa-edit"></i></a>
-<a href="#" data-delete="true" data-delete-title="{{ 'designer.form.delete.title'|trans }}"
-   data-delete-content="{{ 'designer.form.delete.content'|trans({ 'title': formModel.title }) }}"
-   data-delete-positive-button="{{ 'generic.delete'|trans }}"
-   data-delete-negative-button="{{ 'generic.dont.delete'|trans }}"
-   data-delete-url="{{ url('designer_form_delete', { 'id': formModel.id }) }}"
-   data-redirect-target="{{ url('designer_form_index') }}"
-   title="{{ 'generic.delete'|trans }}"><i class="fa fa-trash"></i></a>
