@@ -51,8 +51,6 @@ ALTER TABLE page
   ADD name VARCHAR(255) NOT NULL,
   CHANGE history history LONGTEXT NOT NULL
 COMMENT '(DC2Type:json)';
-CREATE UNIQUE INDEX UNIQ_140AB6205E237E06
-  ON page (name);
 ALTER TABLE gallery
   CHANGE background background LONGTEXT DEFAULT NULL,
   CHANGE history history LONGTEXT NOT NULL
@@ -68,8 +66,6 @@ ALTER TABLE form_item
   ADD position INT NOT NULL,
   CHANGE history history LONGTEXT NOT NULL
 COMMENT '(DC2Type:json)';
-CREATE UNIQUE INDEX idx_form_item_position_form
-  ON form_item (position, form_id);
 ALTER TABLE form
   ADD name VARCHAR(255) NOT NULL,
   CHANGE history history LONGTEXT NOT NULL
