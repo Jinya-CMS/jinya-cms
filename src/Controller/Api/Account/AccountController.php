@@ -158,7 +158,7 @@ class AccountController extends BaseApiController
                 if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password'))) {
                     $user->setConfirmationToken($confirmToken);
 
-                    $userService->saveOrUpdate($user);
+                    $userService->saveOrUpdate($user, false);
 
                     return [
                         'url' => $urlGenerator->generate('api_account_password_put'),

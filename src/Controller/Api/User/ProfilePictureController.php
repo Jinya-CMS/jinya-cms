@@ -69,7 +69,7 @@ class ProfilePictureController extends BaseUserController
 
                 $user->setProfilePicture($picturePath);
 
-                $userService->saveOrUpdate($user);
+                $userService->saveOrUpdate($user, true);
 
                 return $urlGenerator->generate('api_user_profilepicture_get', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
             } else {
@@ -96,7 +96,7 @@ class ProfilePictureController extends BaseUserController
                 $user = $userService->get($id);
                 $mediaService->deleteMedia($user->getProfilePicture());
                 $user->setProfilePicture('');
-                $userService->saveOrUpdate($user);
+                $userService->saveOrUpdate($user, false);
             } else {
                 throw $this->createAccessDeniedException();
             }

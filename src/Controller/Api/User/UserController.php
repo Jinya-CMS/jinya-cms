@@ -150,7 +150,7 @@ class UserController extends BaseUserController
             $user->setRoles($roles);
             $user->setPassword($password);
 
-            $user = $userService->saveOrUpdate($user);
+            $user = $userService->saveOrUpdate($user, false);
 
             return $userFormatter
                 ->init($user)
@@ -217,7 +217,7 @@ class UserController extends BaseUserController
             $user->setLastname($lastname);
             $user->setRoles($roles);
 
-            $user = $userService->saveOrUpdate($user);
+            $user = $userService->saveOrUpdate($user, true);
 
             return $userFormatter
                 ->init($user)
