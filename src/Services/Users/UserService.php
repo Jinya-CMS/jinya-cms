@@ -241,7 +241,7 @@ class UserService implements UserServiceInterface
             throw new BadCredentialsException($e->getMessage(), $e);
         }
 
-        if ($this->userPasswordEncoder->isPasswordValid($user, $password)) {
+        if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
             throw new BadCredentialsException("Invalid username or password");
         }
 
