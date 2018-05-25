@@ -8,13 +8,12 @@
 
 namespace Jinya\Services\Menu;
 
-
 use Jinya\Entity\MenuItem;
 
 interface MenuItemServiceInterface
 {
-
     public const MENU = 'menu';
+
     public const PARENT = 'parent';
 
     /**
@@ -24,7 +23,7 @@ interface MenuItemServiceInterface
      * @param string $type
      * @return array
      */
-    public function getAll(int $parentId, string $type = MenuItemServiceInterface::PARENT): array;
+    public function getAll(int $parentId, string $type = self::PARENT): array;
 
     /**
      * Gets the menu item by position and parent id
@@ -34,7 +33,7 @@ interface MenuItemServiceInterface
      * @param string $type
      * @return MenuItem
      */
-    public function get(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): MenuItem;
+    public function get(int $parentId, int $position, string $type = self::PARENT): MenuItem;
 
     /**
      * Adds the given menu item
@@ -42,9 +41,8 @@ interface MenuItemServiceInterface
      * @param int $parentId
      * @param MenuItem $item
      * @param string $type
-     * @return void
      */
-    public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void;
+    public function addItem(int $parentId, MenuItem $item, string $type = self::PARENT): void;
 
     /**
      * Removes the given menu item from the menu
@@ -53,7 +51,7 @@ interface MenuItemServiceInterface
      * @param int $position
      * @param string $type
      */
-    public function removeItem(int $id, int $position, string $type = MenuItemServiceInterface::PARENT): void;
+    public function removeItem(int $id, int $position, string $type = self::PARENT): void;
 
     /**
      * Updates the given @see MenuItem

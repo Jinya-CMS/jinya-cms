@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\History;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\History\HistoryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
