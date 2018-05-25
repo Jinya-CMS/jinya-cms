@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\MenuItem;
 use Jinya\Entity\RoutingEntry;
 use Jinya\Exceptions\MissingFieldsException;
@@ -144,7 +143,7 @@ class MenuItemController extends BaseApiController
             $route->setUrl($routeJson['url']);
             $route->setMenuItem($item);
             if (array_key_exists('parameter', $routeJson)) {
-                /** @noinspection PhpParamsInspection */
+                /* @noinspection PhpParamsInspection */
                 $route->setRouteParameter($routeJson['parameter']);
             } else {
                 $route->setRouteParameter([]);
@@ -159,7 +158,7 @@ class MenuItemController extends BaseApiController
 
             $menuItemService->addItem($id, $item, $type);
 
-            if ($type === MenuItemServiceInterface::MENU) {
+            if (MenuItemServiceInterface::MENU === $type) {
                 return $menuFormatter
                     ->init($item->getMenu())
                     ->name()
@@ -249,5 +248,4 @@ class MenuItemController extends BaseApiController
 
         return $this->json($data, $status);
     }
-
 }

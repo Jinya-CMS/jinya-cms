@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Configuration;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Jinya\Entity\Configuration;
@@ -16,11 +15,11 @@ use Jinya\Services\Theme\ThemeServiceInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
     /**
      * @var ThemeServiceInterface
      */
@@ -37,9 +36,8 @@ class ConfigurationService implements ConfigurationServiceInterface
         $this->themeService = $themeService;
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConfig(): Configuration
     {
@@ -57,7 +55,7 @@ class ConfigurationService implements ConfigurationServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function writeConfig(Configuration $configuration): void
     {
