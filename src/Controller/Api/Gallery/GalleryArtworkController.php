@@ -25,6 +25,7 @@ class GalleryArtworkController extends BaseApiController
      * @param string $gallerySlug
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAction(string $gallerySlug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -44,6 +45,7 @@ class GalleryArtworkController extends BaseApiController
      *
      * @param string $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function postAction(string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -68,6 +70,7 @@ class GalleryArtworkController extends BaseApiController
      *
      * @param int id$
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function deleteAction(int $id, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -87,6 +90,7 @@ class GalleryArtworkController extends BaseApiController
      * @param int $oldPosition
      * @param string $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function putPositionAction(int $id, int $oldPosition, string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -98,7 +102,7 @@ class GalleryArtworkController extends BaseApiController
             if (!empty($artworkSlug)) {
                 $artworkPositionService->updateArtwork($id, $artworkSlug);
             }
-            if (isset($newPosition) && $newPosition !== null) {
+            if (isset($newPosition) && null !== $newPosition) {
                 $artworkPositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);
             }
         }, Response::HTTP_NO_CONTENT);

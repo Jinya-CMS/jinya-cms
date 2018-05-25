@@ -8,7 +8,6 @@
 
 namespace Jinya\EventSubscriber;
 
-
 use Exception;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Psr\Log\LoggerInterface;
@@ -17,14 +16,15 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
-
     /** @var LoggerInterface */
     private $logger;
+
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
 
     /**
      * ThemeCompilationEventSubscriber constructor.
+     *
      * @param LoggerInterface $logger
      * @param ThemeSyncServiceInterface $themeSyncService
      */
@@ -35,12 +35,12 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'onRequest'
+            KernelEvents::REQUEST => 'onRequest',
         ];
     }
 

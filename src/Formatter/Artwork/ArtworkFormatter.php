@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Artwork;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
@@ -33,6 +32,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
 
     /**
      * ArtworkFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -60,6 +60,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Initializes the formatting
      *
      * @param Artwork $artwork
+     *
      * @return ArtworkFormatterInterface
      */
     public function init(Artwork $artwork): ArtworkFormatterInterface
@@ -192,6 +193,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Formats the galleries
      *
      * @return ArtworkFormatterInterface
+     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */

@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\MenuItem;
 use Jinya\Entity\RoutingEntry;
 use Jinya\Exceptions\MissingFieldsException;
@@ -32,6 +31,7 @@ class MenuItemController extends BaseApiController
      * @param int $id
      * @param MenuItemServiceInterface $menuItemService
      * @param MenuItemFormatterInterface $menuItemFormatter
+     *
      * @return Response
      */
     public function getAllAction(int $id, MenuItemServiceInterface $menuItemService, MenuItemFormatterInterface $menuItemFormatter): Response
@@ -59,6 +59,7 @@ class MenuItemController extends BaseApiController
      * @param int $position
      * @param MenuItemServiceInterface $menuItemService
      * @param MenuItemFormatterInterface $menuItemFormatter
+     *
      * @return Response
      */
     public function getAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuItemFormatterInterface $menuItemFormatter): Response
@@ -88,6 +89,7 @@ class MenuItemController extends BaseApiController
      * @param MenuItemServiceInterface $menuItemService
      * @param MenuFormatterInterface $menuFormatter
      * @param MenuItemFormatterInterface $menuItemFormatter
+     *
      * @return Response
      */
     public function postMenuParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuFormatterInterface $menuFormatter, MenuItemFormatterInterface $menuItemFormatter): Response
@@ -106,6 +108,7 @@ class MenuItemController extends BaseApiController
      * @param MenuItemServiceInterface $menuItemService
      * @param MenuFormatterInterface $menuFormatter
      * @param MenuItemFormatterInterface $menuItemFormatter
+     *
      * @return callable
      */
     private function addItem(string $type, int $id, int $position, MenuItemServiceInterface $menuItemService, MenuFormatterInterface $menuFormatter, MenuItemFormatterInterface $menuItemFormatter): callable
@@ -144,7 +147,7 @@ class MenuItemController extends BaseApiController
             $route->setUrl($routeJson['url']);
             $route->setMenuItem($item);
             if (array_key_exists('parameter', $routeJson)) {
-                /** @noinspection PhpParamsInspection */
+                /* @noinspection PhpParamsInspection */
                 $route->setRouteParameter($routeJson['parameter']);
             } else {
                 $route->setRouteParameter([]);
@@ -159,7 +162,7 @@ class MenuItemController extends BaseApiController
 
             $menuItemService->addItem($id, $item, $type);
 
-            if ($type === MenuItemServiceInterface::MENU) {
+            if (MenuItemServiceInterface::MENU === $type) {
                 return $menuFormatter
                     ->init($item->getMenu())
                     ->name()
@@ -185,6 +188,7 @@ class MenuItemController extends BaseApiController
      * @param MenuItemServiceInterface $menuItemService
      * @param MenuFormatterInterface $menuFormatter
      * @param MenuItemFormatterInterface $menuItemFormatter
+     *
      * @return Response
      */
     public function postMenuItemParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuFormatterInterface $menuFormatter, MenuItemFormatterInterface $menuItemFormatter): Response
@@ -201,6 +205,7 @@ class MenuItemController extends BaseApiController
      * @param int $id
      * @param int $position
      * @param MenuItemServiceInterface $menuItemService
+     *
      * @return Response
      */
     public function deleteMenuParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService): Response
@@ -219,6 +224,7 @@ class MenuItemController extends BaseApiController
      * @param int $id
      * @param int $position
      * @param MenuItemServiceInterface $menuItemService
+     *
      * @return Response
      */
     public function deleteMenuItemParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService): Response
@@ -237,6 +243,7 @@ class MenuItemController extends BaseApiController
      * @param Request $request
      * @param int $id
      * @param MenuServiceInterface $menuService
+     *
      * @return Response
      */
     public function batchChangeItems(Request $request, int $id, MenuServiceInterface $menuService): Response
@@ -249,5 +256,4 @@ class MenuItemController extends BaseApiController
 
         return $this->json($data, $status);
     }
-
 }

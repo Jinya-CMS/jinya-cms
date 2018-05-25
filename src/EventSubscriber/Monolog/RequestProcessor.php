@@ -8,7 +8,6 @@
 
 namespace Jinya\EventSubscriber\Monolog;
 
-
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestProcessor
@@ -18,6 +17,7 @@ class RequestProcessor
 
     /**
      * RequestProcessor constructor.
+     *
      * @param RequestStack $request
      */
     public function __construct(RequestStack $request)

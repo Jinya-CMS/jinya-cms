@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\History;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\History\HistoryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,6 +23,7 @@ class HistoryController extends BaseApiController
      * @param string $class
      * @param int $id
      * @param HistoryServiceInterface $historyService
+     *
      * @return Response
      */
     public function getAction(string $class, int $id, HistoryServiceInterface $historyService): Response
@@ -44,6 +44,7 @@ class HistoryController extends BaseApiController
      * @param string $timestamp
      * @param string $field
      * @param HistoryServiceInterface $historyService
+     *
      * @return Response
      */
     public function revertAction(string $class, int $id, string $timestamp, string $field, HistoryServiceInterface $historyService): Response
@@ -62,6 +63,7 @@ class HistoryController extends BaseApiController
      * @param string $class
      * @param int $id
      * @param HistoryServiceInterface $historyService
+     *
      * @return Response
      */
     public function clearAction(string $class, int $id, HistoryServiceInterface $historyService): Response

@@ -8,15 +8,17 @@
 
 namespace Jinya\Services\Media;
 
-
 use SplFileInfo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface MediaServiceInterface
 {
     public const GALLERY_BACKGROUND = 'gallery_background';
+
     public const CONTENT_IMAGE = 'content_image';
+
     public const PROFILE_PICTURE = 'profile_picture';
+
     public const MENU_LOGO = 'menu_logo';
 
     /**
@@ -24,6 +26,7 @@ interface MediaServiceInterface
      *
      * @param resource|UploadedFile $file
      * @param string $type
+     *
      * @return string
      */
     public function saveMedia($file, string $type): string;
@@ -32,7 +35,6 @@ interface MediaServiceInterface
      * Deletes the media saved under the given url
      *
      * @param string $url
-     * @return void
      */
     public function deleteMedia(string $url);
 
@@ -40,6 +42,7 @@ interface MediaServiceInterface
      * Gets the media as SplFileInfo
      *
      * @param string $path
+     *
      * @return SplFileInfo
      */
     public function getMedia(string $path): SplFileInfo;

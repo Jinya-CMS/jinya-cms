@@ -21,6 +21,7 @@ class GalleryService extends BaseSlugEntityService implements GalleryServiceInte
 
     /**
      * GalleryService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService

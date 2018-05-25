@@ -21,6 +21,7 @@ class SchemaController extends BaseApiController
      * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param SchemaToolInterface $schemaTool
+     *
      * @return Response
      */
     public function updateSchemaAction(SchemaToolInterface $schemaTool): Response

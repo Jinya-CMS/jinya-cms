@@ -14,25 +14,30 @@ interface LogServiceInterface
 {
     /**
      * Finds all log messages that match the given filter
+     *
      * @param int $offset
      * @param int $count
      * @param string $sortBy
      * @param string $sortOrder
      * @param string $level
      * @param string $filter
+     *
      * @return array
      */
     public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array;
 
     /**
      * Finds the log message for the given id
+     *
      * @param int $id
+     *
      * @return LogEntry
      */
     public function get(int $id): LogEntry;
 
     /**
      * Counts all elements
+     *
      * @return int
      */
     public function countAll(): int;
@@ -42,6 +47,7 @@ interface LogServiceInterface
      *
      * @param string $level
      * @param string $filter
+     *
      * @return int
      */
     public function countFiltered(string $level, string $filter): int;
@@ -55,8 +61,6 @@ interface LogServiceInterface
 
     /**
      * Removes all log entries from the database and deletes the log files
-     *
-     * @return void
      */
     public function clear();
 }

@@ -17,35 +17,36 @@ interface ArtworkPositionFormatterInterface extends FormatterInterface
      * Initializes the format
      *
      * @param ArtworkPosition $artworkPosition
+     *
      * @return ArtworkPositionFormatterInterface
      */
-    public function init(ArtworkPosition $artworkPosition): ArtworkPositionFormatterInterface;
+    public function init(ArtworkPosition $artworkPosition): self;
 
     /**
      * Formats the artwork
      *
      * @return ArtworkPositionFormatterInterface
      */
-    public function artwork(): ArtworkPositionFormatterInterface;
+    public function artwork(): self;
 
     /**
      * Formats the gallery
      *
      * @return ArtworkPositionFormatterInterface
      */
-    public function gallery(): ArtworkPositionFormatterInterface;
+    public function gallery(): self;
 
     /**
      * Formats the position
      *
      * @return ArtworkPositionFormatterInterface
      */
-    public function position(): ArtworkPositionFormatterInterface;
+    public function position(): self;
 
     /**
      * Formats the id
      *
      * @return ArtworkPositionFormatterInterface
      */
-    public function id(): ArtworkPositionFormatterInterface;
+    public function id(): self;
 }

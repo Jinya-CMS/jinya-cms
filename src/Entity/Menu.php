@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
@@ -23,21 +22,28 @@ class Menu implements JsonSerializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * @var integer
+     *
+     * @var int
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $name;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
+     *
      * @var Collection
      */
     private $menuItems;
+
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $logo;
@@ -108,9 +114,12 @@ class Menu implements JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -119,7 +128,7 @@ class Menu implements JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'logo' => $this->logo,
-            'children' => $this->menuItems->toArray()
+            'children' => $this->menuItems->toArray(),
         ];
     }
 }

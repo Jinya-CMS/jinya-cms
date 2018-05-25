@@ -17,12 +17,12 @@ use Jinya\Services\Slug\SlugServiceInterface;
 
 class BaseSlugEntityService extends BaseService
 {
-
     /** @var SlugServiceInterface */
     protected $slugService;
 
     /**
      * BaseSlugEntityService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      * @param string $entityType
@@ -35,15 +35,17 @@ class BaseSlugEntityService extends BaseService
 
     /**
      * @param SlugEntity $entity
+     *
      * @return \Jinya\Entity\BaseEntity|SlugEntity
+     *
      * @throws EmptySlugException
      */
     public function saveOrUpdate($entity)
     {
-        if ($entity->getSlug() === null || $entity->getSlug() === '') {
+        if (null === $entity->getSlug() || '' === $entity->getSlug()) {
             if (method_exists($entity, 'getTitle')) {
                 $slugBase = $entity->getTitle();
-            } else if (method_exists($entity, 'getName')) {
+            } elseif (method_exists($entity, 'getName')) {
                 $slugBase = $entity->getName();
             } else {
                 throw new EmptySlugException();
@@ -58,7 +60,8 @@ class BaseSlugEntityService extends BaseService
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws NonUniqueResultException
      * @throws NoResultException
      */

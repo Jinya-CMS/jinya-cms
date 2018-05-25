@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Security\Api;
 
-
 use Jinya\Entity\User;
 
 interface ApiKeyToolInterface
@@ -17,6 +16,7 @@ interface ApiKeyToolInterface
      * Creates an api key for the given user
      *
      * @param User $user
+     *
      * @return string
      */
     public function createApiKey(User $user): string;
@@ -25,6 +25,7 @@ interface ApiKeyToolInterface
      * Gets the user for the given api key
      *
      * @param string $key
+     *
      * @return User
      */
     public function getUserByKey(string $key): User;
@@ -47,6 +48,7 @@ interface ApiKeyToolInterface
      * Checks whether the given api key should get invalidated
      *
      * @param string $key
+     *
      * @return bool
      */
     public function shouldInvalidate(string $key): bool;

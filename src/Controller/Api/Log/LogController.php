@@ -27,6 +27,7 @@ class LogController extends BaseApiController
      * @param Request $request
      * @param LogServiceInterface $logService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function getAllAction(Request $request, LogServiceInterface $logService, UrlGeneratorInterface $urlGenerator): Response
@@ -47,7 +48,7 @@ class LogController extends BaseApiController
                 'filter' => $filter,
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
-                'level' => $level
+                'level' => $level,
             ];
 
             return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_log_get_all', $entities);
@@ -62,6 +63,7 @@ class LogController extends BaseApiController
      *
      * @param int $id
      * @param LogServiceInterface $logService
+     *
      * @return Response
      */
     public function getAction(int $id, LogServiceInterface $logService): Response
@@ -79,6 +81,7 @@ class LogController extends BaseApiController
      *
      * @param Request $request
      * @param LoggerInterface $logger
+     *
      * @return Response
      */
     public function postAction(Request $request, LoggerInterface $logger): Response
@@ -100,6 +103,7 @@ class LogController extends BaseApiController
      * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param LogServiceInterface $logService
+     *
      * @return Response
      */
     public function deleteAction(LogServiceInterface $logService): Response

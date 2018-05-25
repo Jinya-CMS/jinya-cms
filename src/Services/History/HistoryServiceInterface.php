@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\History;
 
-
 interface HistoryServiceInterface
 {
     /**
@@ -16,6 +15,7 @@ interface HistoryServiceInterface
      *
      * @param string $class
      * @param int $id
+     *
      * @return array
      */
     public function getHistory(string $class, int $id): array;

@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Scss;
 
-
 interface ScssCompilerServiceInterface
 {
     /**
@@ -17,6 +16,7 @@ interface ScssCompilerServiceInterface
      * @param string $code
      * @param string $importPath
      * @param array $variables
+     *
      * @return string
      */
     public function compileScss(string $code, string $importPath, array $variables): string;

@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Base;
 
-
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -25,6 +24,7 @@ trait LabelEntityServiceTrait
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return array
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
@@ -41,6 +41,7 @@ trait LabelEntityServiceTrait
      *
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return QueryBuilder
      */
     protected function getFilteredQueryBuilder(string $keyword, Label $label = null): QueryBuilder
@@ -54,7 +55,7 @@ trait LabelEntityServiceTrait
             ))
             ->setParameter('keyword', "%$keyword%");
 
-        if ($label !== null) {
+        if (null !== $label) {
             $queryBuilder->andWhere(':label_id MEMBER OF entity.labels')->setParameter('label_id', $label->getId());
         }
 
@@ -66,7 +67,9 @@ trait LabelEntityServiceTrait
      *
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(string $keyword = '', Label $label = null): int

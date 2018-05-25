@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\User;
 
-
 use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +19,7 @@ class UserActivationController extends BaseUserController
      *
      * @param int $id
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function deactivateAction(int $id, UserServiceInterface $userService): Response
@@ -38,6 +38,7 @@ class UserActivationController extends BaseUserController
      *
      * @param int $id
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function activateAction(int $id, UserServiceInterface $userService): Response

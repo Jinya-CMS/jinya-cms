@@ -8,7 +8,6 @@
 
 namespace Jinya\Logging;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Jinya\Entity\LogEntry;
@@ -26,6 +25,7 @@ class MySqlHandler extends AbstractProcessingHandler
 
     /**
      * MySqlHandler constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param LoggerInterface $logger
      */
@@ -40,11 +40,12 @@ class MySqlHandler extends AbstractProcessingHandler
      * Writes the record down to the log of the implementing handler
      *
      * @param  array $record
-     * @return void
      */
     protected function write(array $record)
     {
-        if (array_key_exists('jinya_logger', $record['context'])) return;
+        if (array_key_exists('jinya_logger', $record['context'])) {
+            return;
+        }
 
         try {
             $logEntry = new LogEntry();

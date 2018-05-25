@@ -24,13 +24,16 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /** @var UserFormatterInterface */
     private $userFormatter;
+
     /** @var ArtworkPositionFormatterInterface */
     private $artworkPositionFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     /**
      * GalleryFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -68,6 +71,7 @@ class GalleryFormatter implements GalleryFormatterInterface
      * Initializes the formatting
      *
      * @param Gallery $gallery
+     *
      * @return GalleryFormatterInterface
      */
     public function init(Gallery $gallery): GalleryFormatterInterface
@@ -174,6 +178,7 @@ class GalleryFormatter implements GalleryFormatterInterface
      * Formats the artworks
      *
      * @return GalleryFormatterInterface
+     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */

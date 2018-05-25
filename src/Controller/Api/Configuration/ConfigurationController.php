@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Configuration;
 
-
 use Jinya\Formatter\Configuration\ConfigurationFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
@@ -25,6 +24,7 @@ class ConfigurationController extends BaseApiController
      *
      * @param ConfigurationServiceInterface $configurationService
      * @param ConfigurationFormatterInterface $configurationFormatter
+     *
      * @return Response
      */
     public function getAction(ConfigurationServiceInterface $configurationService, ConfigurationFormatterInterface $configurationFormatter): Response
@@ -46,6 +46,7 @@ class ConfigurationController extends BaseApiController
      * @param string $themeName
      * @param ConfigurationServiceInterface $configurationService
      * @param ThemeServiceInterface $themeService
+     *
      * @return Response
      */
     public function putThemeAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response

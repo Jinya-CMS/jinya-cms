@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Jinya\Entity\Theme;
 
 interface ThemeCompilerServiceInterface
@@ -24,6 +23,7 @@ interface ThemeCompilerServiceInterface
      * Checks whether the given theme is compiled
      *
      * @param Theme $theme
+     *
      * @return bool
      */
     public function isCompiled(Theme $theme): bool;

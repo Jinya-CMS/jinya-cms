@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
@@ -27,6 +26,7 @@ class MenuController extends BaseApiController
      *
      * @param MenuServiceInterface $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function getAllAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -53,6 +53,7 @@ class MenuController extends BaseApiController
      * @param int $id
      * @param MenuServiceInterface $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -74,6 +75,7 @@ class MenuController extends BaseApiController
      *
      * @param MenuServiceInterface $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function postAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -107,6 +109,7 @@ class MenuController extends BaseApiController
      *
      * @param int $id
      * @param MenuServiceInterface $menuService
+     *
      * @return Response
      */
     public function putAction(int $id, MenuServiceInterface $menuService): Response
@@ -129,6 +132,7 @@ class MenuController extends BaseApiController
      * @param int $id
      * @param MenuServiceInterface $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response

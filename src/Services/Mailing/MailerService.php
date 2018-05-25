@@ -8,14 +8,12 @@
 
 namespace Jinya\Services\Mailing;
 
-
 use Jinya\Entity\Form;
 use Swift_Mailer;
 use Swift_Message;
 
 class MailerService implements MailerServiceInterface
 {
-
     /** @var Swift_Mailer */
     private $swift;
 
@@ -24,6 +22,7 @@ class MailerService implements MailerServiceInterface
 
     /**
      * MailerService constructor.
+     *
      * @param Swift_Mailer $swift
      * @param string $mailerSender
      */
@@ -34,14 +33,14 @@ class MailerService implements MailerServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendMail(Form $form, array $data): void
     {
         /** @var Swift_Message $message */
         $message = $this->swift->createMessage('message');
         $message->addTo($form->getToAddress());
-        $message->setSubject('Form ' . $form->getTitle() . ' submitted');
+        $message->setSubject('Form '.$form->getTitle().' submitted');
         $message->setBody($this->formatBody($data), 'text/html');
         $message->setFrom($this->mailerSender);
         $this->swift->send($message);

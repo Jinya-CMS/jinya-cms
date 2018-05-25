@@ -17,28 +17,29 @@ interface LabelFormatterInterface extends FormatterInterface
      * Initializes the formatting
      *
      * @param Label $label
+     *
      * @return LabelFormatterInterface
      */
-    public function init(Label $label): LabelFormatterInterface;
+    public function init(Label $label): self;
 
     /**
      * Formats the label
      *
      * @return LabelFormatterInterface
      */
-    public function name(): LabelFormatterInterface;
+    public function name(): self;
 
     /**
      * Formats the artworks
      *
      * @return LabelFormatterInterface
      */
-    public function artworks(): LabelFormatterInterface;
+    public function artworks(): self;
 
     /**
      * Formats the galleries
      *
      * @return LabelFormatterInterface
      */
-    public function galleries(): LabelFormatterInterface;
+    public function galleries(): self;
 }

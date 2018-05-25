@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Labels;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Gallery;
 use Jinya\Entity\Label;
@@ -16,12 +15,12 @@ use function array_map;
 
 class LabelService implements LabelServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
      * LabelService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -30,7 +29,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllLabels(): array
     {
@@ -38,7 +37,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllLabelsWithArtworks(): array
     {
@@ -53,7 +52,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllLabelsWithGalleries(): array
     {
@@ -68,7 +67,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deleteLabel(string $name): void
     {
@@ -77,7 +76,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLabel(string $name): Label
     {
@@ -85,7 +84,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateLabel(Label $label): Label
     {
@@ -95,7 +94,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllLabelNames(): array
     {
@@ -107,7 +106,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createMissingLabels(array $labels): array
     {
@@ -125,11 +124,13 @@ class LabelService implements LabelServiceInterface
 
     /**
      * @param Label $label
+     *
      * @return bool
      */
     private function labelExists(Label $label): bool
     {
         $qb = $this->entityManager->getRepository(Label::class)->createQueryBuilder('label');
+
         return $qb
             ->select($qb->expr()->count('label.name'))
             ->where('label.id = :id')
@@ -141,7 +142,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addLabel(string $name): Label
     {
@@ -158,6 +159,7 @@ class LabelService implements LabelServiceInterface
      *
      * @param string $name
      * @param string $newName
+     *
      * @return Label
      */
     public function rename(string $name, string $newName): Label

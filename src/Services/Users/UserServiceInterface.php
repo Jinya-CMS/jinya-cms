@@ -16,6 +16,7 @@ interface UserServiceInterface
      * Gets the user specified by the id
      *
      * @param int $id
+     *
      * @return User
      */
     public function get(int $id): User;
@@ -26,6 +27,7 @@ interface UserServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     *
      * @return User[]
      */
     public function getAll(int $offset, int $count = 10, string $keyword): array;
@@ -34,6 +36,7 @@ interface UserServiceInterface
      * Counts all users
      *
      * @param string $keyword
+     *
      * @return int
      */
     public function countAll(string $keyword): int;
@@ -57,6 +60,7 @@ interface UserServiceInterface
      * Creates a user
      *
      * @param User $user
+     *
      * @return User
      */
     public function saveOrUpdate(User $user): User;
@@ -65,6 +69,7 @@ interface UserServiceInterface
      * Activates the given user
      *
      * @param int $id
+     *
      * @return User
      */
     public function activate(int $id): User;
@@ -73,6 +78,7 @@ interface UserServiceInterface
      * Deactivates the given user
      *
      * @param int $id
+     *
      * @return User
      */
     public function deactivate(int $id): User;
@@ -98,6 +104,7 @@ interface UserServiceInterface
      *
      * @param string $username
      * @param string $password
+     *
      * @return User
      */
     public function getUser(string $username, string $password): User;

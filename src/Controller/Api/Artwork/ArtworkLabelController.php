@@ -25,6 +25,7 @@ class ArtworkLabelController extends BaseApiController
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, ArtworkServiceInterface $artworkService, LabelFormatterInterface $labelFormatter): Response
@@ -54,6 +55,7 @@ class ArtworkLabelController extends BaseApiController
      * @param string $name
      * @param ArtworkServiceInterface $artworkService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function putAction(string $slug, string $name, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
@@ -76,6 +78,7 @@ class ArtworkLabelController extends BaseApiController
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function putBatchAction(string $slug, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
@@ -106,6 +109,7 @@ class ArtworkLabelController extends BaseApiController
      * @param string $name
      * @param ArtworkServiceInterface $artworkService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, string $name, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
@@ -126,6 +130,7 @@ class ArtworkLabelController extends BaseApiController
      *
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
+     *
      * @return Response
      */
     public function deleteBatchAction(string $slug, ArtworkServiceInterface $artworkService): Response
@@ -135,7 +140,7 @@ class ArtworkLabelController extends BaseApiController
 
             $artwork->getLabels()->clear();
             $artworkService->saveOrUpdate($artwork);
-       }, Response::HTTP_NO_CONTENT);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Routing;
 
-
 use Jinya\Entity\RoutingEntry;
 
 interface RouteServiceInterface
@@ -17,6 +16,7 @@ interface RouteServiceInterface
      * Gets a route by its url
      *
      * @param string $url
+     *
      * @return RoutingEntry
      */
     public function findByUrl(string $url): RoutingEntry;

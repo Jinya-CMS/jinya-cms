@@ -8,7 +8,6 @@
 
 namespace Jinya\Exceptions;
 
-
 use Exception;
 
 class MissingFieldsException extends Exception
@@ -18,6 +17,7 @@ class MissingFieldsException extends Exception
 
     /**
      * MissingFieldsException constructor.
+     *
      * @param array $fields
      */
     public function __construct(array $fields)

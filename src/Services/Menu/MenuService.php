@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Menu;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Menu;
@@ -16,7 +15,6 @@ use Jinya\Entity\MenuItem;
 
 class MenuService implements MenuServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -24,6 +22,7 @@ class MenuService implements MenuServiceInterface
 
     /**
      * MenuService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,11 +31,11 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save(Menu $menu): Menu
     {
-        if ($menu->getId() === null) {
+        if (null === $menu->getId()) {
             $this->entityManager->persist($menu);
         }
 
@@ -46,7 +45,7 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(): array
     {
@@ -54,7 +53,7 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(int $id): void
     {
@@ -64,13 +63,12 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(int $id): Menu
     {
         return $this->entityManager->find(Menu::class, $id);
     }
-
 
     /**
      * Fills the menu items from the given array
@@ -88,7 +86,7 @@ class MenuService implements MenuServiceInterface
         $menuItems = [];
 
         foreach ($data as $key => $item) {
-            if ($item['nestingLevel'] === 0) {
+            if (0 === $item['nestingLevel']) {
                 $tail = array_slice($data, $key + 1, count($data));
                 $menuItem = $this->createSubmenu($item, $tail);
                 $menuItem->setMenu($menu);
@@ -116,7 +114,7 @@ class MenuService implements MenuServiceInterface
                     $child->setParent($menuItem);
                     $this->entityManager->persist($child);
                     $children[] = $child;
-                } else if ($nestingLevel >= $item['nestingLevel']) {
+                } elseif ($nestingLevel >= $item['nestingLevel']) {
                     break;
                 }
             }
@@ -133,17 +131,18 @@ class MenuService implements MenuServiceInterface
 
     /**
      * @param array $items
+     *
      * @return array
      */
     private function fixPositions(array $items): array
     {
         $positionZero = array_filter($items, function (MenuItem $item) {
-            return $item->getPosition() === 0;
+            return 0 === $item->getPosition();
         });
 
         if (count($positionZero) === count($items)) {
             foreach ($items as $idx => $item) {
-                /** @var MenuItem $item */
+                /* @var MenuItem $item */
                 $item->setPosition($idx);
             }
         }
