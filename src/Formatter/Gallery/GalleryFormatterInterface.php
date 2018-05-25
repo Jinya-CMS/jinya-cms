@@ -13,89 +13,89 @@ use Jinya\Formatter\FormatterInterface;
 
 interface GalleryFormatterInterface extends FormatterInterface
 {
-
     /**
      * Initializes the formatting
      *
      * @param Gallery $gallery
+     *
      * @return GalleryFormatterInterface
      */
-    public function init(Gallery $gallery): GalleryFormatterInterface;
+    public function init(Gallery $gallery): self;
 
     /**
      * Formats the slug
      *
      * @return GalleryFormatterInterface
      */
-    public function slug(): GalleryFormatterInterface;
+    public function slug(): self;
 
     /**
      * Formats the name
      *
      * @return GalleryFormatterInterface
      */
-    public function name(): GalleryFormatterInterface;
+    public function name(): self;
 
     /**
      * Formats the description
      *
      * @return GalleryFormatterInterface
      */
-    public function description(): GalleryFormatterInterface;
+    public function description(): self;
 
     /**
      * Formats the created info
      *
      * @return GalleryFormatterInterface
      */
-    public function created(): GalleryFormatterInterface;
+    public function created(): self;
 
     /**
      * Formats the updated info
      *
      * @return GalleryFormatterInterface
      */
-    public function updated(): GalleryFormatterInterface;
+    public function updated(): self;
 
     /**
      * Formats the history
      *
      * @return GalleryFormatterInterface
      */
-    public function history(): GalleryFormatterInterface;
+    public function history(): self;
 
     /**
      * Formats the orientation
      *
      * @return GalleryFormatterInterface
      */
-    public function orientation(): GalleryFormatterInterface;
+    public function orientation(): self;
 
     /**
      * Formats the artworks
      *
      * @return GalleryFormatterInterface
      */
-    public function artworks(): GalleryFormatterInterface;
+    public function artworks(): self;
 
     /**
      * Formats the background
      *
      * @return GalleryFormatterInterface
      */
-    public function background(): GalleryFormatterInterface;
+    public function background(): self;
 
     /**
      * Formats the labels
      *
      * @return GalleryFormatterInterface
      */
-    public function labels(): GalleryFormatterInterface;
+    public function labels(): self;
 
     /**
      * Formats the id
      *
      * @return GalleryFormatterInterface
      */
-    public function id(): GalleryFormatterInterface;
+    public function id(): self;
 }

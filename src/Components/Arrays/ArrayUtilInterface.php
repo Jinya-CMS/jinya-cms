@@ -8,7 +8,6 @@
 
 namespace Jinya\Components\Arrays;
 
-
 interface ArrayUtilInterface
 {
     /**
@@ -18,6 +17,7 @@ interface ArrayUtilInterface
      * @param string $path
      * @param $newValue
      * @param string $delimiter
+     *
      * @return array
      */
     public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '.'): array;
@@ -27,6 +27,7 @@ interface ArrayUtilInterface
      *
      * @param string $path
      * @param string $delimiter
+     *
      * @return array
      */
     public function buildArrayFromPath(string $path, string $delimiter = '.'): array;
@@ -37,6 +38,7 @@ interface ArrayUtilInterface
      * @param array $data
      * @param string $path
      * @param string $delimiter
+     *
      * @return array
      */
     public function removeArrayValueByPath(array $data, string $path, string $delimiter = '.'): array;
@@ -47,6 +49,7 @@ interface ArrayUtilInterface
      * @param array $data
      * @param string $path
      * @param string $delimiter
+     *
      * @return mixed
      */
     public function getArrayValueByPath(array $data, string $path, string $delimiter = '.');
@@ -55,6 +58,7 @@ interface ArrayUtilInterface
      * Removes all empty entries recursively
      *
      * @param array $data
+     *
      * @return array
      */
     public function removeEmptyRecursive(array $data): array;

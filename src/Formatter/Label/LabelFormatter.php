@@ -12,7 +12,6 @@ use Jinya\Entity\Label;
 
 class LabelFormatter implements LabelFormatterInterface
 {
-
     /** @var Label */
     private $label;
 
@@ -23,6 +22,7 @@ class LabelFormatter implements LabelFormatterInterface
      * Formats the given label into an array
      *
      * @param Label $label
+     *
      * @return LabelFormatterInterface
      */
     public function init(Label $label): LabelFormatterInterface
@@ -67,7 +67,7 @@ class LabelFormatter implements LabelFormatterInterface
         foreach ($this->label->getArtworks() as $artwork) {
             $this->formattedData['artwork'][] = [
                 'name' => $artwork->getName(),
-                'slug' => $artwork->getSlug()
+                'slug' => $artwork->getSlug(),
             ];
         }
 
@@ -86,7 +86,7 @@ class LabelFormatter implements LabelFormatterInterface
         foreach ($this->label->getGalleries() as $gallery) {
             $this->formattedData['galleries'][] = [
                 'name' => $gallery->getName(),
-                'slug' => $gallery->getSlug()
+                'slug' => $gallery->getSlug(),
             ];
         }
 

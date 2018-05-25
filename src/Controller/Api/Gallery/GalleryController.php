@@ -26,6 +26,7 @@ class GalleryController extends BaseApiController
      *
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -48,11 +49,12 @@ class GalleryController extends BaseApiController
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
             $result = $galleryFormatter->init($gallery)
                 ->name()
@@ -80,6 +82,7 @@ class GalleryController extends BaseApiController
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function postAction(Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -119,6 +122,7 @@ class GalleryController extends BaseApiController
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -158,6 +162,7 @@ class GalleryController extends BaseApiController
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response

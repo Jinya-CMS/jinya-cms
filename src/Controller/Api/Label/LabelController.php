@@ -25,6 +25,7 @@ class LabelController extends BaseApiController
      *
      * @param LabelServiceInterface $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAllAction(LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -53,6 +54,7 @@ class LabelController extends BaseApiController
      * @param string $name
      * @param LabelServiceInterface $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAction(string $name, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -78,6 +80,7 @@ class LabelController extends BaseApiController
      * @param Request $request
      * @param LabelServiceInterface $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function postAction(Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -102,6 +105,7 @@ class LabelController extends BaseApiController
      * @param Request $request
      * @param LabelServiceInterface $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function putAction(string $name, Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -124,6 +128,7 @@ class LabelController extends BaseApiController
      *
      * @param string $name
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function deleteAction(string $name, LabelServiceInterface $labelService): Response

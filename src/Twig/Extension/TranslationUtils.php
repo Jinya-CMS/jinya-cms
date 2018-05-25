@@ -10,11 +10,13 @@ class TranslationUtils extends \Twig_Extension
 {
     /** @var string */
     private $kernelProjectDir;
+
     /** @var TranslatorInterface */
     private $translator;
 
     /**
      * TranslationUtils constructor.
+     *
      * @param string $kernelProjectDir
      * @param TranslatorInterface $translator
      */
@@ -35,7 +37,7 @@ class TranslationUtils extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_translation_catalogue' => new \Twig_Function('get_translation_catalogue', [$this, 'getTranslationCatalogue'])
+            'get_translation_catalogue' => new \Twig_Function('get_translation_catalogue', [$this, 'getTranslationCatalogue']),
         ];
     }
 
@@ -43,8 +45,8 @@ class TranslationUtils extends \Twig_Extension
     {
         $locale = $this->translator->getLocale();
 
-        $path = $this->kernelProjectDir . '/translations';
+        $path = $this->kernelProjectDir.'/translations';
 
-        return Yaml::parseFile($path . DIRECTORY_SEPARATOR . $catalogue . '.' . $locale . '.yml');
+        return Yaml::parseFile($path.DIRECTORY_SEPARATOR.$catalogue.'.'.$locale.'.yml');
     }
 }

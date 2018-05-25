@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Pages;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Page;
 use Jinya\Services\Base\BaseSlugEntityService;
@@ -21,6 +20,7 @@ class PageService extends BaseSlugEntityService implements PageServiceInterface
 
     /**
      * PageService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      */

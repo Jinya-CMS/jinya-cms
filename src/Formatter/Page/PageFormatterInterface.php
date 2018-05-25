@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Page;
 
-
 use Jinya\Entity\Page;
 use Jinya\Formatter\FormatterInterface;
 
@@ -18,63 +17,64 @@ interface PageFormatterInterface extends FormatterInterface
      * Initializes the formatter
      *
      * @param Page $page
+     *
      * @return PageFormatterInterface
      */
-    public function init(Page $page): PageFormatterInterface;
+    public function init(Page $page): self;
 
     /**
      * Formats the id
      *
      * @return PageFormatterInterface
      */
-    public function id(): PageFormatterInterface;
+    public function id(): self;
 
     /**
      * Formats the created info
      *
      * @return PageFormatterInterface
      */
-    public function created(): PageFormatterInterface;
+    public function created(): self;
 
     /**
      * Formats the updated info
      *
      * @return PageFormatterInterface
      */
-    public function updated(): PageFormatterInterface;
+    public function updated(): self;
 
     /**
      * Formats the history
      *
      * @return PageFormatterInterface
      */
-    public function history(): PageFormatterInterface;
+    public function history(): self;
 
     /**
      * Formats the content
      *
      * @return PageFormatterInterface
      */
-    public function content(): PageFormatterInterface;
+    public function content(): self;
 
     /**
      * Formats the title
      *
      * @return PageFormatterInterface
      */
-    public function title(): PageFormatterInterface;
+    public function title(): self;
 
     /**
      * Formats the slug
      *
      * @return PageFormatterInterface
      */
-    public function slug(): PageFormatterInterface;
+    public function slug(): self;
 
     /**
      * Formats the name
      *
      * @return PageFormatterInterface
      */
-    public function name(): PageFormatterInterface;
+    public function name(): self;
 }

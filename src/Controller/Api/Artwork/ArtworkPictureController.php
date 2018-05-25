@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
@@ -29,6 +28,7 @@ class ArtworkPictureController extends BaseApiController
      * @param Request $request
      * @param ArtworkServiceInterface $artworkService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function getPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response
@@ -43,10 +43,10 @@ class ArtworkPictureController extends BaseApiController
             return $artwork;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName().'.jpg');
         }
     }
 
@@ -59,6 +59,7 @@ class ArtworkPictureController extends BaseApiController
      * @param ArtworkServiceInterface $artworkService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function putPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response

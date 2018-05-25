@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Form;
 
-
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
 
@@ -33,6 +32,7 @@ interface FormItemServiceInterface
      * Gets all items for the given form
      *
      * @param string $formSlug
+     *
      * @return array
      */
     public function getItems(string $formSlug): array;
@@ -58,6 +58,7 @@ interface FormItemServiceInterface
      *
      * @param string $slug
      * @param int $position
+     *
      * @return FormItem
      */
     public function getItem(string $slug, int $position): FormItem;

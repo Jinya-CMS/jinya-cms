@@ -48,24 +48,31 @@ abstract class BaseApiController extends BaseController
 {
     /** @var TranslatorInterface */
     private $translator;
+
     /** @var LabelServiceInterface */
     private $labelService;
+
     /** @var LoggerInterface */
     private $logger;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     /** @var Request */
     private $request;
+
     /** @var array */
     private $bodyAsJson;
+
     /** @var SimpleXMLElement */
     private $bodyAsXml;
+
     /** @var string */
     private $contentType;
 
     /**
      * BaseApiController constructor.
+     *
      * @param TranslatorInterface $translator
      * @param LabelServiceInterface $labelService
      * @param LoggerInterface $logger
@@ -91,10 +98,10 @@ abstract class BaseApiController extends BaseController
 
         $this->request = $requestStack->getCurrentRequest();
         $this->contentType = $this->request->headers->get('Content-Type');
-        if ($this->contentType === 'application/json') {
+        if ('application/json' === $this->contentType) {
             $this->bodyAsJson = json_decode($this->request->getContent(), true);
         }
-        if ($this->contentType === 'text/xml') {
+        if ('text/xml' === $this->contentType) {
             $this->bodyAsXml = simplexml_load_string($this->request->getContent());
         }
     }
@@ -102,7 +109,9 @@ abstract class BaseApiController extends BaseController
     /**
      * @param string $key
      * @param null $default
+     *
      * @return mixed|null|SimpleXMLElement|array
+     *
      * @throws InvalidContentTypeException
      * @throws EmptyBodyException
      */
@@ -117,6 +126,7 @@ abstract class BaseApiController extends BaseController
                 } else {
                     return $default;
                 }
+
                 break;
             case 'text/xml':
                 if (empty($this->bodyAsXml)) {
@@ -126,9 +136,11 @@ abstract class BaseApiController extends BaseController
                 } else {
                     return $default;
                 }
+
                 break;
             case 'x-www-form-urlencoded':
                 return $this->request->get($key, $default);
+
                 break;
             default:
                 throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
@@ -140,6 +152,7 @@ abstract class BaseApiController extends BaseController
      *
      * @param LabelEntityServiceInterface $baseService
      * @param callable $formatter
+     *
      * @return Response
      */
     protected function getAllArt(LabelEntityServiceInterface $baseService, callable $formatter): Response
@@ -171,16 +184,17 @@ abstract class BaseApiController extends BaseController
      *
      * @param callable $function
      * @param int $successStatusCode
+     *
      * @return array
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
         try {
             return [$function(), $successStatusCode];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
             $data = [
                 'success' => false,
-                'validation' => []
+                'validation' => [],
             ];
 
             foreach ($exception->getFields() as $key => $message) {
@@ -188,27 +202,34 @@ abstract class BaseApiController extends BaseController
             }
 
             return [$data, Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException|BadCredentialsException $exception) {
+        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | \Symfony\Component\Finder\Exception\AccessDeniedException | BadCredentialsException $exception) {
             $this->logException($exception, 403);
+
             return [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException | FileNotFoundException | NoResultException $exception) {
             $this->logException($exception, 404);
+
             return [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
             $this->logException($exception, 400);
+
             return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());
+
             return [$this->jsonFormatException('api.state.500.generic', $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
     }
@@ -218,6 +239,7 @@ abstract class BaseApiController extends BaseController
      *
      * @param string $message
      * @param Throwable $throwable
+     *
      * @return array
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
@@ -225,8 +247,8 @@ abstract class BaseApiController extends BaseController
         $data = [
             'success' => false,
             'error' => [
-                'message' => $message
-            ]
+                'message' => $message,
+            ],
         ];
         if ($this->isDebug()) {
             $data['error']['exception'] = $throwable->getMessage();
@@ -234,6 +256,7 @@ abstract class BaseApiController extends BaseController
             $data['error']['stack'] = $throwable->getTraceAsString();
             $data['error']['line'] = $throwable->getLine();
         }
+
         return $data;
     }
 
@@ -244,7 +267,7 @@ abstract class BaseApiController extends BaseController
      */
     private function isDebug(): bool
     {
-        return getenv('APP_DEBUG') === 'yes';
+        return 'yes' === getenv('APP_DEBUG');
     }
 
     /**
@@ -254,6 +277,7 @@ abstract class BaseApiController extends BaseController
      * @param array $parameter
      * @param string $route
      * @param array $entities
+     *
      * @return array
      */
     protected function formatListResult(int $totalCount, int $offset, int $count, array $parameter, string $route, array $entities): array
@@ -279,8 +303,8 @@ abstract class BaseApiController extends BaseController
             'items' => $entities,
             'control' => [
                 'next' => $next,
-                'previous' => $previous
-            ]
+                'previous' => $previous,
+            ],
         ];
     }
 
@@ -289,6 +313,7 @@ abstract class BaseApiController extends BaseController
      *
      * @param StaticContentServiceInterface $baseService
      * @param callable $formatter
+     *
      * @return Response
      */
     protected function getAllStaticContent(StaticContentServiceInterface $baseService, callable $formatter): Response
@@ -314,6 +339,7 @@ abstract class BaseApiController extends BaseController
      * @param StaticContentServiceInterface $baseService
      * @param string $slug
      * @param callable $formatter
+     *
      * @return Response
      */
     protected function getStaticContent(StaticContentServiceInterface $baseService, string $slug, callable $formatter): Response
@@ -333,6 +359,7 @@ abstract class BaseApiController extends BaseController
      * @param string $slug
      * @param BaseSlugEntityService $baseService
      * @param callable $formatter
+     *
      * @return Response
      */
     protected function getArt(string $slug, BaseSlugEntityService $baseService, callable $formatter): Response
@@ -340,7 +367,7 @@ abstract class BaseApiController extends BaseController
         list($data, $status) = $this->tryExecute(function () use ($formatter, $slug, $baseService) {
             return [
                 'success' => true,
-                'item' => $formatter($baseService->get($slug))
+                'item' => $formatter($baseService->get($slug)),
             ];
         });
 
@@ -353,8 +380,8 @@ abstract class BaseApiController extends BaseController
      */
     protected function logException(Throwable $exception, $code): void
     {
-        $this->logger->warning("$code thrown – " . gettype($exception));
-        $this->logger->warning($exception->getLine() . ': ' . $exception->getFile());
+        $this->logger->warning("$code thrown – ".gettype($exception));
+        $this->logger->warning($exception->getLine().': '.$exception->getFile());
         if ($this->isDebug()) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());

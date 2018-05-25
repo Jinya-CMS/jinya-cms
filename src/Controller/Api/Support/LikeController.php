@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Support;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Entity\User;
@@ -29,6 +28,7 @@ class LikeController extends BaseApiController
      *
      * @param Request $request
      * @param Client $client
+     *
      * @return Response
      */
     public function submitAction(Request $request, Client $client): Response
@@ -38,14 +38,14 @@ class LikeController extends BaseApiController
             $user = $this->getUser();
             $like = [
                 'who' => $user->getFirstname(),
-                'message' => $this->getValue('message', null)
+                'message' => $this->getValue('message', null),
             ];
 
             $response = $client->request('POST', 'https://api.jinya.de/tracker/like', [
                 RequestOptions::JSON => $like,
                 RequestOptions::HEADERS => [
-                    'Content-Type' => 'application/json'
-                ]
+                    'Content-Type' => 'application/json',
+                ],
             ]);
 
             return json_decode($response->getBody()->getContents(), true);

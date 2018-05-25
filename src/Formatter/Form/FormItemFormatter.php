@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Form;
 
-
 use Jinya\Entity\FormItem;
 use Jinya\Formatter\User\UserFormatterInterface;
 
@@ -16,10 +15,13 @@ class FormItemFormatter implements FormItemFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
+
     /** @var UserFormatterInterface */
     private $userFormatter;
+
     /** @var FormItem */
     private $formItem;
 
@@ -106,7 +108,6 @@ class FormItemFormatter implements FormItemFormatterInterface
      */
     public function form(): FormItemFormatterInterface
     {
-
         $this->formattedData['form'] = $this->formFormatter
             ->init($this->formItem->getForm())
             ->title()
@@ -120,6 +121,7 @@ class FormItemFormatter implements FormItemFormatterInterface
      * Initializes the formatter
      *
      * @param FormItem $formItem
+     *
      * @return FormItemFormatterInterface
      */
     public function init(FormItem $formItem): FormItemFormatterInterface

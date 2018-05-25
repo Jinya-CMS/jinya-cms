@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-
 use Jinya\Entity\Gallery;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
@@ -29,6 +28,7 @@ class GalleryBackgroundController extends BaseApiController
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
@@ -43,10 +43,10 @@ class GalleryBackgroundController extends BaseApiController
             return $gallery;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName().'.jpg');
         }
     }
 
@@ -59,6 +59,7 @@ class GalleryBackgroundController extends BaseApiController
      * @param GalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function putBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
@@ -89,6 +90,7 @@ class GalleryBackgroundController extends BaseApiController
      * @param Request $request
      * @param GalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response

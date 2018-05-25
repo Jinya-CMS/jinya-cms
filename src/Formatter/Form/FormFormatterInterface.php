@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Form;
 
-
 use Jinya\Entity\Form;
 use Jinya\Formatter\FormatterInterface;
 
@@ -18,84 +17,85 @@ interface FormFormatterInterface extends FormatterInterface
      * Initializes the formatter
      *
      * @param Form $form
+     *
      * @return FormFormatterInterface
      */
-    public function init(Form $form): FormFormatterInterface;
+    public function init(Form $form): self;
 
     /**
      * Formats the to address
      *
      * @return FormFormatterInterface
      */
-    public function toAddress(): FormFormatterInterface;
+    public function toAddress(): self;
 
     /**
      * Formats the title
      *
      * @return FormFormatterInterface
      */
-    public function title(): FormFormatterInterface;
+    public function title(): self;
 
     /**
      * Formats the description
      *
      * @return FormFormatterInterface
      */
-    public function description(): FormFormatterInterface;
+    public function description(): self;
 
     /**
      * Formats the email template
      *
      * @return FormFormatterInterface
      */
-    public function emailTemplate(): FormFormatterInterface;
+    public function emailTemplate(): self;
 
     /**
      * Formats the items
      *
      * @return FormFormatterInterface
      */
-    public function items(): FormFormatterInterface;
+    public function items(): self;
 
     /**
      * Formats the slug
      *
      * @return FormFormatterInterface
      */
-    public function slug(): FormFormatterInterface;
+    public function slug(): self;
 
     /**
      * Formats the id
      *
      * @return FormFormatterInterface
      */
-    public function id(): FormFormatterInterface;
+    public function id(): self;
 
     /**
      * Formats the created info
      *
      * @return FormFormatterInterface
      */
-    public function created(): FormFormatterInterface;
+    public function created(): self;
 
     /**
      * Formats the updated info
      *
      * @return FormFormatterInterface
      */
-    public function updated(): FormFormatterInterface;
+    public function updated(): self;
 
     /**
      * Formats the history
      *
      * @return FormFormatterInterface
      */
-    public function history(): FormFormatterInterface;
+    public function history(): self;
 
     /**
      * Formats the name
      *
      * @return FormFormatterInterface
      */
-    public function name(): FormFormatterInterface;
+    public function name(): self;
 }

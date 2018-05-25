@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Jinya\Entity\Theme;
 
 interface ThemeServiceInterface
@@ -17,6 +16,7 @@ interface ThemeServiceInterface
      * Gets the theme by the given name
      *
      * @param string $name
+     *
      * @return Theme
      */
     public function getTheme(string $name): Theme;
@@ -44,6 +44,7 @@ interface ThemeServiceInterface
      * Gets the theme by name or creates a new instance
      *
      * @param string $name
+     *
      * @return Theme
      */
     public function getThemeOrNewTheme(string $name): Theme;

@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Artworks;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\ArtworkPosition;
@@ -22,13 +21,16 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /** @var GalleryServiceInterface */
     private $galleryService;
+
     /** @var ArtworkServiceInterface */
     private $artworkService;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
      * ArtworkPositionService constructor.
+     *
      * @param GalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param EntityManagerInterface $entityManager
@@ -46,6 +48,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param string $gallerySlug
      * @param string $artworkSlug
      * @param int $position
+     *
      * @return int
      */
     public function savePosition(string $gallerySlug, string $artworkSlug, int $position): int
@@ -67,7 +70,6 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param int $newPosition
      * @param ArtworkPosition $artworkPosition
      * @param Gallery $gallery
-     * @return void
      */
     private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
     {
@@ -79,7 +81,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition)
     {
@@ -97,7 +99,6 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * Deletes the given artwork position
      *
      * @param int $id
-     * @return void
      */
     public function deletePosition(int $id)
     {
@@ -114,6 +115,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * Gets the artwork position for the given id
      *
      * @param int $id
+     *
      * @return ArtworkPosition
      */
     public function getPosition(int $id): ArtworkPosition
@@ -126,7 +128,6 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      *
      * @param int $id
      * @param string $artworkSlug
-     * @return void
      */
     public function updateArtwork(int $id, string $artworkSlug)
     {

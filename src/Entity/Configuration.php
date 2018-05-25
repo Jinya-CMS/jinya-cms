@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,21 +22,26 @@ class Configuration
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     private $id;
+
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme")
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
+     *
      * @var Theme
      */
     private $currentTheme;
+
     /**
      * /**
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
-    private $invalidateApiKeyAfter = Configuration::DEFAULT_API_KEY_INVALIDATION;
+    private $invalidateApiKeyAfter = self::DEFAULT_API_KEY_INVALIDATION;
 
     /**
      * @return int

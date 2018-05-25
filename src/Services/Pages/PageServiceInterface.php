@@ -17,6 +17,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * Gets the specified @see Page by slug
      *
      * @param string $slug
+     *
      * @return Page
      */
     public function get(string $slug);
@@ -27,6 +28,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
+     *
      * @return Page[]
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
@@ -35,6 +37,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * Counts all entities
      *
      * @param string $keyword
+     *
      * @return int
      */
     public function countAll(string $keyword = ''): int;
@@ -43,6 +46,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * Saves or updates the given @see Page
      *
      * @param Page $page
+     *
      * @return Page
      */
     public function saveOrUpdate($page);
@@ -51,7 +55,6 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * Deletes the given @see Page
      *
      * @param Page $entity
-     * @return void
      */
     public function delete($entity): void;
 
@@ -61,7 +64,6 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param string $key
      * @param string $value
      * @param int $id
-     * @return void
      */
     public function updateField(string $key, string $value, int $id);
 }

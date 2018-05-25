@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\User;
 
-
 use Jinya\Entity\User;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
@@ -27,6 +26,7 @@ class ProfilePictureController extends BaseUserController
      * @param int $id
      * @param UserServiceInterface $userService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function getProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
@@ -41,10 +41,10 @@ class ProfilePictureController extends BaseUserController
             return $user;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getProfilePicture()), $data->getFirstname() . ' ' . $data->getLastname() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getProfilePicture()), $data->getFirstname().' '.$data->getLastname().'.jpg');
         }
     }
 
@@ -57,12 +57,13 @@ class ProfilePictureController extends BaseUserController
      * @param UserServiceInterface $userService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function putProfilePictureAction(int $id, Request $request, UserServiceInterface $userService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($id, $request, $userService, $mediaService, $urlGenerator) {
-            if ($this->isCurrentUser($id) || $this->isGranted("ROLE_SUPER_ADMIN")) {
+            if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $picture = $request->getContent(true);
                 $picturePath = $mediaService->saveMedia($picture, MediaServiceInterface::PROFILE_PICTURE);
                 $user = $userService->get($id);
@@ -87,12 +88,13 @@ class ProfilePictureController extends BaseUserController
      * @param int $id
      * @param UserServiceInterface $userService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($id, $userService, $mediaService) {
-            if ($this->isCurrentUser($id) || $this->isGranted("ROLE_SUPER_ADMIN")) {
+            if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $user = $userService->get($id);
                 $mediaService->deleteMedia($user->getProfilePicture());
                 $user->setProfilePicture('');

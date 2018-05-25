@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Security\Api;
 
-
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +26,19 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 {
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
     /** @var TranslatorInterface */
     private $translator;
+
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
+
     /** @var LoggerInterface */
     private $logger;
 
     /**
      * ApiKeyAuthenticator constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      * @param TranslatorInterface $translator
      * @param ApiKeyToolInterface $apiKeyTool
@@ -50,7 +53,8 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -76,6 +80,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
+
             throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiKey]));
         }
 
@@ -98,7 +103,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsToken(TokenInterface $token, $providerKey)
     {
@@ -106,7 +111,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createToken(Request $request, $providerKey)
     {
@@ -114,19 +119,20 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         $login = $this->urlGenerator->generate('api_account_login');
 
-        if ($request->getPathInfo() === $login && $request->getMethod() !== 'HEAD') {
-            /** @noinspection PhpInconsistentReturnPointsInspection */
+        if ($request->getPathInfo() === $login && 'HEAD' !== $request->getMethod()) {
+            /* @noinspection PhpInconsistentReturnPointsInspection */
             return;
         }
 
         if (empty($key)) {
             return null;
         }
+
         return new PreAuthenticatedToken('anon.', $key, $providerKey);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {

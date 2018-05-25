@@ -8,16 +8,15 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Jinya\Entity\Theme;
 
 interface ThemeConfigServiceInterface
 {
-
     /**
      * Gets the configuration for the given theme
      *
      * @param string $name
+     *
      * @return array
      */
     public function getThemeConfig(string $name): array;
@@ -26,6 +25,7 @@ interface ThemeConfigServiceInterface
      * Gets the path for the styles
      *
      * @param Theme $theme
+     *
      * @return string
      */
     public function getStylesPath(Theme $theme): string;
@@ -34,6 +34,7 @@ interface ThemeConfigServiceInterface
      * Gets the config form for the given theme
      *
      * @param string $name
+     *
      * @return array
      */
     public function getConfigForm(string $name): array;
@@ -42,6 +43,7 @@ interface ThemeConfigServiceInterface
      * Gets the namespace for the given theme
      *
      * @param Theme $theme
+     *
      * @return string
      */
     public function getThemeNamespace(Theme $theme): string;
@@ -59,6 +61,7 @@ interface ThemeConfigServiceInterface
      * Gets the variables for the given theme
      *
      * @param string $name
+     *
      * @return array
      */
     public function getVariablesForm(string $name): array;
@@ -68,7 +71,6 @@ interface ThemeConfigServiceInterface
      *
      * @param string $name
      * @param array $variables
-     * @return void
      */
     public function setVariables(string $name, array $variables): void;
 
@@ -84,6 +86,7 @@ interface ThemeConfigServiceInterface
      * Gets the forms for the given theme
      *
      * @param string $name
+     *
      * @return array
      */
     public function getForms(string $name): array;

@@ -8,7 +8,6 @@
 
 namespace Jinya\Exceptions;
 
-
 use Exception;
 
 class InvalidContentTypeException extends Exception
@@ -18,6 +17,7 @@ class InvalidContentTypeException extends Exception
 
     /**
      * InvalidContentTypeException constructor.
+     *
      * @param string $contentType
      * @param string $message
      */

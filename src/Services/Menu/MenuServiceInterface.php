@@ -8,21 +8,21 @@
 
 namespace Jinya\Services\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Entity\MenuItem;
 
 interface MenuServiceInterface
 {
-
     /**
      * @param Menu $menu
+     *
      * @return Menu
      */
     public function save(Menu $menu): Menu;
 
     /**
      * @param int $id
+     *
      * @return Menu
      */
     public function get(int $id): Menu;

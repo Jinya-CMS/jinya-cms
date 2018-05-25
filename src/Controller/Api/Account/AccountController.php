@@ -29,6 +29,7 @@ class AccountController extends BaseApiController
      *
      * @param ApiKeyToolInterface $apiKeyTool
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService): Response
@@ -50,6 +51,7 @@ class AccountController extends BaseApiController
      *
      * @param Request $request
      * @param ApiKeyToolInterface $apiKeyTool
+     *
      * @return Response
      */
     public function checkLoginAction(Request $request, ApiKeyToolInterface $apiKeyTool): Response
@@ -58,6 +60,7 @@ class AccountController extends BaseApiController
             return new Response('', Response::HTTP_NO_CONTENT);
         } else {
             $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
+
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
@@ -67,6 +70,7 @@ class AccountController extends BaseApiController
      *
      * @param string $key
      * @param ApiKeyToolInterface $apiKeyTool
+     *
      * @return Response
      */
     public function logoutAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
@@ -84,6 +88,7 @@ class AccountController extends BaseApiController
      *
      * @param UserServiceInterface $userService
      * @param UserFormatterInterface $userFormatter
+     *
      * @return Response
      */
     public function getAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
@@ -109,6 +114,7 @@ class AccountController extends BaseApiController
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function putDataAction(UserServiceInterface $userService): Response
@@ -136,7 +142,9 @@ class AccountController extends BaseApiController
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param UserServiceInterface $userService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
+     *
      * @throws \Jinya\Exceptions\EmptyBodyException
      * @throws \Jinya\Exceptions\InvalidContentTypeException
      */
@@ -162,7 +170,7 @@ class AccountController extends BaseApiController
 
                     return [
                         'url' => $urlGenerator->generate('api_account_password_put'),
-                        'token' => $confirmToken
+                        'token' => $confirmToken,
                     ];
                 } else {
                     throw new AccessDeniedException();

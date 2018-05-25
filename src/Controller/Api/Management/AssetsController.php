@@ -25,6 +25,7 @@ class AssetsController extends BaseApiController
      * @param string $area
      * @param ConfigurationServiceInterface $configurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
+     *
      * @return Response
      */
     public function compileAssetsAction(string $area, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService): Response

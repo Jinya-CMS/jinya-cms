@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Base;
 
-
 trait ArrangementServiceTrait
 {
     /**
@@ -16,12 +15,13 @@ trait ArrangementServiceTrait
      * @param int $oldPosition
      * @param int $newPosition
      * @param $targetItem
+     *
      * @return mixed
      */
     private function rearrange(array $positions, int $oldPosition, int $newPosition, $targetItem)
     {
         uasort($positions, function ($a, $b) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
@@ -40,7 +40,7 @@ trait ArrangementServiceTrait
         }
 
         array_walk($positions, function (&$item, int $index) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            /* @noinspection PhpUndefinedMethodInspection */
             $item->setPosition($index);
         });
 

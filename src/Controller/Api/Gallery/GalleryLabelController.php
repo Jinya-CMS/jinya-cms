@@ -25,6 +25,7 @@ class GalleryLabelController extends BaseApiController
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, GalleryServiceInterface $galleryService, LabelFormatterInterface $labelFormatter): Response
@@ -54,6 +55,7 @@ class GalleryLabelController extends BaseApiController
      * @param string $name
      * @param GalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function putAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -74,6 +76,7 @@ class GalleryLabelController extends BaseApiController
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function putBatchAction(string $slug, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -104,6 +107,7 @@ class GalleryLabelController extends BaseApiController
      * @param string $name
      * @param GalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -124,6 +128,7 @@ class GalleryLabelController extends BaseApiController
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
+     *
      * @return Response
      */
     public function deleteBatchAction(string $slug, GalleryServiceInterface $galleryService): Response

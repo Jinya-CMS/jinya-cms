@@ -17,91 +17,92 @@ interface UserFormatterInterface extends FormatterInterface
      * Initializes the formatting
      *
      * @param User $user
+     *
      * @return UserFormatterInterface
      */
-    public function init(User $user): UserFormatterInterface;
+    public function init(User $user): self;
 
     /**
      * Formats the firstname
      *
      * @return UserFormatterInterface
      */
-    public function firstname(): UserFormatterInterface;
+    public function firstname(): self;
 
     /**
      * Formats the lastname
      *
      * @return UserFormatterInterface
      */
-    public function lastname(): UserFormatterInterface;
+    public function lastname(): self;
 
     /**
      * Formats the roles
      *
      * @return UserFormatterInterface
      */
-    public function roles(): UserFormatterInterface;
+    public function roles(): self;
 
     /**
      * Formats the email
      *
      * @return UserFormatterInterface
      */
-    public function email(): UserFormatterInterface;
+    public function email(): self;
 
     /**
      * Formats the enable state
      *
      * @return UserFormatterInterface
      */
-    public function enabled(): UserFormatterInterface;
+    public function enabled(): self;
 
     /**
      * Formats the profile picture
      *
      * @return UserFormatterInterface
      */
-    public function profilePicture(): UserFormatterInterface;
+    public function profilePicture(): self;
 
     /**
      * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
      *
      * @return UserFormatterInterface
      */
-    public function profile(): UserFormatterInterface;
+    public function profile(): self;
 
     /**
      * Formats the id
      *
      * @return UserFormatterInterface
      */
-    public function id(): UserFormatterInterface;
+    public function id(): self;
 
     /**
      * Formats the created artworks
      *
      * @return UserFormatterInterface
      */
-    public function createdArtworks(): UserFormatterInterface;
+    public function createdArtworks(): self;
 
     /**
      * Formats the created galleries
      *
      * @return UserFormatterInterface
      */
-    public function createdGalleries(): UserFormatterInterface;
+    public function createdGalleries(): self;
 
     /**
      * Formats the created pages
      *
      * @return UserFormatterInterface
      */
-    public function createdPages(): UserFormatterInterface;
+    public function createdPages(): self;
 
     /**
      * Formats the created forms
      *
      * @return UserFormatterInterface
      */
-    public function createdForms(): UserFormatterInterface;
+    public function createdForms(): self;
 }

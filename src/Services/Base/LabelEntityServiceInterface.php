@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Base;
 
-
 use Jinya\Entity\Label;
 
 interface LabelEntityServiceInterface
@@ -20,6 +19,7 @@ interface LabelEntityServiceInterface
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return array
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array;
@@ -29,7 +29,9 @@ interface LabelEntityServiceInterface
      *
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(string $keyword = '', Label $label = null): int;

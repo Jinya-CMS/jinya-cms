@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Jinya\Entity\Theme;
@@ -17,24 +16,30 @@ use Twig\Loader\FilesystemLoader;
 class ThemeService implements ThemeServiceInterface
 {
     const THEME_CONFIG_YML = 'theme.yml';
+
     const JINYA_GALLERY_DEFAULT_THEME_NAME = 'jinya_gallery_default_theme';
+
     const THEMES_TWIG_NAMESPACE = 'Themes';
 
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
     /**
      * @var FilesystemLoader
      */
     private $twigLoader;
+
     /** @var string */
     private $themeDirectory;
+
     /** @var string */
     private $kernelProjectDir;
 
     /**
      * ThemeService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param FilesystemLoader $twigLoader
      * @param string $themeDirectory
@@ -49,7 +54,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeOrNewTheme(string $name): Theme
     {
@@ -63,11 +68,12 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTheme(string $name): Theme
     {
         $repository = $this->entityManager->getRepository(Theme::class);
+
         return $repository
             ->createQueryBuilder('theme')
             ->where('theme.name = :name')
@@ -77,7 +83,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllThemes(): array
     {
@@ -85,7 +91,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDefaultJinyaTheme(): Theme
     {
@@ -93,7 +99,7 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function registerThemes(): void
     {
@@ -101,10 +107,10 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeDirectory(): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        return $this->kernelProjectDir.DIRECTORY_SEPARATOR.$this->themeDirectory;
     }
 }

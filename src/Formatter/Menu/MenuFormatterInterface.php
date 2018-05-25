@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Formatter\FormatterInterface;
 
@@ -18,35 +17,36 @@ interface MenuFormatterInterface extends FormatterInterface
      * Initializes the @see MenuFormatterInterface
      *
      * @param Menu $menu
+     *
      * @return MenuFormatterInterface
      */
-    public function init(Menu $menu): MenuFormatterInterface;
+    public function init(Menu $menu): self;
 
     /**
      * Formats the name
      *
      * @return MenuFormatterInterface
      */
-    public function name(): MenuFormatterInterface;
+    public function name(): self;
 
     /**
      * Formats the id
      *
      * @return MenuFormatterInterface
      */
-    public function id(): MenuFormatterInterface;
+    public function id(): self;
 
     /**
      * Formats the logo
      *
      * @return MenuFormatterInterface
      */
-    public function logo(): MenuFormatterInterface;
+    public function logo(): self;
 
     /**
      * Formats the items
      *
      * @return MenuFormatterInterface
      */
-    public function items(): MenuFormatterInterface;
+    public function items(): self;
 }

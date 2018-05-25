@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Form;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form;
@@ -22,11 +21,13 @@ class FormItemService implements FormItemServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var FormServiceInterface */
     private $formService;
 
     /**
      * FormItemService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param FormServiceInterface $formService
      */
@@ -68,6 +69,7 @@ class FormItemService implements FormItemServiceInterface
      *
      * @param Form $form
      * @param int $position
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -91,6 +93,7 @@ class FormItemService implements FormItemServiceInterface
      * Gets all items for the given form
      *
      * @param string $formSlug
+     *
      * @return array
      */
     public function getItems(string $formSlug): array
@@ -127,7 +130,9 @@ class FormItemService implements FormItemServiceInterface
      *
      * @param string $slug
      * @param int $position
+     *
      * @return FormItem
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

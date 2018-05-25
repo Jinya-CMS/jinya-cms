@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\Finder\Finder;
@@ -18,18 +17,21 @@ use const DIRECTORY_SEPARATOR;
 
 class ThemeSyncService implements ThemeSyncServiceInterface
 {
-
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var string */
     private $kernelProjectDir;
+
     /** @var string */
     private $themeDirectory;
 
     /**
      * ThemeSyncService constructor.
+     *
      * @param ThemeServiceInterface $themeService
      * @param EntityManagerInterface $entityManager
      * @param string $kernelProjectDir
@@ -44,24 +46,24 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        $themeDirectory = $this->kernelProjectDir.DIRECTORY_SEPARATOR.$this->themeDirectory;
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
 
         foreach ($configFiles as $configFile) {
-            /** @var $configFile SplFileInfo */
+            /* @var $configFile SplFileInfo */
             $this->saveTheme($configFile->getContents(), $configFile->getRelativePath());
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -81,11 +83,11 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             $theme->setConfiguration([]);
         }
         if (array_key_exists('previewImage', $config)) {
-            $previewImagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
+            $previewImagePath = $this->kernelProjectDir.DIRECTORY_SEPARATOR.$this->themeDirectory.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$config['previewImage'];
             $theme->setPreviewImage($previewImagePath);
         }
 
-        if ($this->entityManager->getUnitOfWork()->getEntityState($theme) === UnitOfWork::STATE_NEW) {
+        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($theme)) {
             $this->entityManager->persist($theme);
         }
 

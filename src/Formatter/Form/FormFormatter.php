@@ -8,14 +8,12 @@
 
 namespace Jinya\Formatter\Form;
 
-
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
 use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormFormatter implements FormFormatterInterface
 {
-
     /** @var array */
     private $formattedData;
 
@@ -48,6 +46,7 @@ class FormFormatter implements FormFormatterInterface
      * Initializes the formatter
      *
      * @param Form $form
+     *
      * @return FormFormatterInterface
      */
     public function init(Form $form): FormFormatterInterface

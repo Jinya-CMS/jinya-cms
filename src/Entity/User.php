@@ -23,7 +23,9 @@ use function uniqid;
 class User implements JsonSerializable, UserInterface
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
+
     const ROLE_WRITER = 'ROLE_WRITER';
+
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
@@ -86,6 +88,7 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="array")
      */
     private $roles;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -122,18 +125,21 @@ class User implements JsonSerializable, UserInterface
      * @var Collection
      */
     private $createdArtworks;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdGalleries;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdPages;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Form", mappedBy="creator")
      *
@@ -424,7 +430,7 @@ class User implements JsonSerializable, UserInterface
      *
      * @return User
      */
-    public function setId(int $id): User
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -433,9 +439,12 @@ class User implements JsonSerializable, UserInterface
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -446,7 +455,7 @@ class User implements JsonSerializable, UserInterface
             'lastname' => $this->lastname,
             'profilepicture' => $this->profilePicture,
             'email' => $this->email,
-            'roles' => $this->roles
+            'roles' => $this->roles,
         ];
     }
 
@@ -478,14 +487,14 @@ class User implements JsonSerializable, UserInterface
 
     public function addRole(string $role)
     {
-        if (($key = array_search($role, $this->roles)) === false) {
+        if (false === ($key = array_search($role, $this->roles))) {
             $this->roles[] = $role;
         }
     }
 
     public function removeRole(string $role)
     {
-        if (($key = array_search($role, $this->roles)) !== false) {
+        if (false !== ($key = array_search($role, $this->roles))) {
             unset($this->roles[$key]);
         }
     }

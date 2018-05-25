@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 interface ArtEntityInterface
 {
     /**
@@ -34,6 +33,7 @@ interface ArtEntityInterface
 
     /**
      * Sets the name of the art entity
+     *
      * @param string $name
      */
     public function setName(string $name): void;

@@ -8,12 +8,11 @@
 
 namespace Jinya\Validator\Constraints;
 
-
 use Symfony\Component\Validator\Constraint;
 
 /**
  * Class Port
- * @package Jinya\Validator\Constraints
+ *
  * @Annotation
  */
 class Port extends Constraint

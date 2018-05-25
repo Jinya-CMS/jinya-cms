@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Page;
 
-
 use Jinya\Entity\Page;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Page\PageFormatterInterface;
@@ -25,6 +24,7 @@ class PageController extends BaseApiController
      *
      * @param PageServiceInterface $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function getAllAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -44,6 +44,7 @@ class PageController extends BaseApiController
      * @param string $slug
      * @param PageServiceInterface $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -74,6 +75,7 @@ class PageController extends BaseApiController
      *
      * @param PageServiceInterface $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function postAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -121,6 +123,7 @@ class PageController extends BaseApiController
      *
      * @param string $slug
      * @param PageServiceInterface $pageService
+     *
      * @return Response
      */
     public function putAction(string $slug, PageServiceInterface $pageService): Response
@@ -149,6 +152,7 @@ class PageController extends BaseApiController
      *
      * @param string $slug
      * @param PageServiceInterface $pageService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, PageServiceInterface $pageService): Response

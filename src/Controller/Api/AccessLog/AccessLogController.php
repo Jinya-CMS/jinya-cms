@@ -25,6 +25,7 @@ class AccessLogController extends BaseApiController
      * @param Request $request
      * @param AccessLogServiceInterface $accessLogService
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function getAllAction(Request $request, AccessLogServiceInterface $accessLogService, UrlGeneratorInterface $urlGenerator): Response
@@ -41,7 +42,7 @@ class AccessLogController extends BaseApiController
                 'offset' => $offset,
                 'count' => $count,
                 'sortBy' => $sortBy,
-                'sortOrder' => $sortOrder
+                'sortOrder' => $sortOrder,
             ];
 
             return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_accessLog_get_all', $entities);
@@ -56,6 +57,7 @@ class AccessLogController extends BaseApiController
      *
      * @param int $id
      * @param AccessLogServiceInterface $accessLogService
+     *
      * @return Response
      */
     public function getAction(int $id, AccessLogServiceInterface $accessLogService): Response
@@ -72,6 +74,7 @@ class AccessLogController extends BaseApiController
      * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param AccessLogServiceInterface $accessLogService
+     *
      * @return Response
      */
     public function deleteAction(AccessLogServiceInterface $accessLogService): Response

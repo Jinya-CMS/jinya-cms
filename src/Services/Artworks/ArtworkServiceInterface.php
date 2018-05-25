@@ -14,7 +14,6 @@ use Jinya\Services\Base\LabelEntityServiceInterface;
 
 interface ArtworkServiceInterface extends LabelEntityServiceInterface
 {
-
     /**
      * Gets a list of artworks in the given range and filtered by the given keyword
      *
@@ -22,6 +21,7 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * @param int $count
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return Artwork[]
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array;
@@ -31,6 +31,7 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      *
      * @param string $keyword
      * @param Label|null $label
+     *
      * @return int
      */
     public function countAll(string $keyword = '', Label $label = null): int;
@@ -39,6 +40,7 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Saves or update the given artwork
      *
      * @param Artwork $artwork
+     *
      * @return Artwork
      */
     public function saveOrUpdate($artwork);
@@ -47,7 +49,6 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Deletes the given gallery
      *
      * @param Artwork $artwork
-     * @return void
      */
     public function delete($artwork): void;
 
@@ -55,6 +56,7 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Gets the artwork by slug or id
      *
      * @param string $slug
+     *
      * @return Artwork
      */
     public function get(string $slug): ?Artwork;

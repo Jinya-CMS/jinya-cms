@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
@@ -26,6 +25,7 @@ class MenuLogoController extends BaseApiController
      * @param int $id
      * @param MenuServiceInterface $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
@@ -35,10 +35,10 @@ class MenuLogoController extends BaseApiController
             return $menuService->get($id);
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName().'.jpg');
         }
     }
 
@@ -50,6 +50,7 @@ class MenuLogoController extends BaseApiController
      * @param Request $request
      * @param MenuServiceInterface $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function postAction(int $id, Request $request, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
@@ -72,6 +73,7 @@ class MenuLogoController extends BaseApiController
      * @param int $id
      * @param MenuServiceInterface $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response

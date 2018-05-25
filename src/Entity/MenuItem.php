@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,44 +24,58 @@ class MenuItem implements JsonSerializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $title;
+
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu", inversedBy="menuItems", cascade={"persist"})
+     *
      * @var Menu
      */
     private $menu;
+
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
+     *
      * @var RoutingEntry
      */
     private $route;
+
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     *
      * @var MenuItem
      */
     private $parent;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
+     *
      * @var Collection
      */
     private $children;
+
     /**
      * @var string
      * @ORM\Column(type="string")
      */
     private $pageType;
+
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $highlighted = false;
+
     /**
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     private $position;
@@ -79,11 +92,12 @@ class MenuItem implements JsonSerializable
      * Creates a MenuItem from the given array
      *
      * @param array $item
+     *
      * @return MenuItem
      */
-    public static function fromArray(array $item): MenuItem
+    public static function fromArray(array $item): self
     {
-        $menuItem = new MenuItem();
+        $menuItem = new self();
         $route = RoutingEntry::fromArray($item['route']);
         $route->setMenuItem($menuItem);
 
@@ -163,7 +177,7 @@ class MenuItem implements JsonSerializable
     /**
      * @return MenuItem
      */
-    public function getParent(): ?MenuItem
+    public function getParent(): ?self
     {
         return $this->parent;
     }
@@ -171,7 +185,7 @@ class MenuItem implements JsonSerializable
     /**
      * @param MenuItem $parent
      */
-    public function setParent(?MenuItem $parent): void
+    public function setParent(?self $parent): void
     {
         $this->parent = $parent;
     }
@@ -226,9 +240,12 @@ class MenuItem implements JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -240,17 +257,17 @@ class MenuItem implements JsonSerializable
             'children' => $this->children->toArray(),
             'pageType' => $this->pageType,
             'displayUrl' => $this->route->getUrl(),
-            'highlighted' => $this->highlighted
+            'highlighted' => $this->highlighted,
         ];
 
-        if ($this->parent !== null) {
+        if (null !== $this->parent) {
             $result['parent'] = [
-                'id' => $this->parent->getId()
+                'id' => $this->parent->getId(),
             ];
         }
-        if ($this->menu !== null) {
+        if (null !== $this->menu) {
             $result['menu'] = [
-                'id' => $this->menu->getId()
+                'id' => $this->menu->getId(),
             ];
         }
 

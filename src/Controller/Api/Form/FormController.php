@@ -28,6 +28,7 @@ class FormController extends BaseApiController
      *
      * @param FormServiceInterface $formService
      * @param FormFormatterInterface $formFormatter
+     *
      * @return Response
      */
     public function getAllAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
@@ -48,6 +49,7 @@ class FormController extends BaseApiController
      * @param string $slug
      * @param FormServiceInterface $formService
      * @param FormFormatterInterface $formFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
@@ -81,6 +83,7 @@ class FormController extends BaseApiController
      * @param FormServiceInterface $formService
      * @param FormFormatterInterface $formFormatter
      * @param TranslatorInterface $translator
+     *
      * @return Response
      */
     public function postAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter, TranslatorInterface $translator): Response
@@ -137,6 +140,7 @@ class FormController extends BaseApiController
      * @param string $slug
      * @param FormServiceInterface $formService
      * @param TranslatorInterface $translator
+     *
      * @return Response
      */
     public function putAction(string $slug, FormServiceInterface $formService, TranslatorInterface $translator): Response
@@ -187,6 +191,7 @@ class FormController extends BaseApiController
      *
      * @param string $slug
      * @param FormServiceInterface $formService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, FormServiceInterface $formService): Response

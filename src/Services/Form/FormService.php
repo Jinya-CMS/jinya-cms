@@ -16,11 +16,11 @@ use Jinya\Services\Slug\SlugServiceInterface;
 
 class FormService extends BaseSlugEntityService implements FormServiceInterface
 {
-
     use StaticContentServiceTrait;
 
     /**
      * FormService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      */
