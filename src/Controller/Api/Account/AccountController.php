@@ -58,6 +58,7 @@ class AccountController extends BaseApiController
             return new Response('', Response::HTTP_NO_CONTENT);
         } else {
             $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
+
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
@@ -162,7 +163,7 @@ class AccountController extends BaseApiController
 
                     return [
                         'url' => $urlGenerator->generate('api_account_password_put'),
-                        'token' => $confirmToken
+                        'token' => $confirmToken,
                     ];
                 } else {
                     throw new AccessDeniedException();

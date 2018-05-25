@@ -16,39 +16,39 @@ class SetupType extends AbstractType
     {
         $builder
             ->add('databaseHost', TextType::class, [
-                'label' => 'install.general.database.host.label'
+                'label' => 'install.general.database.host.label',
             ])
             ->add('databasePort', NumberType::class, [
                 'label' => 'install.general.database.port.label',
-                'data' => 3306
+                'data' => 3306,
             ])
             ->add('databaseName', TextType::class, [
-                'label' => 'install.general.database.name.label'
+                'label' => 'install.general.database.name.label',
             ])
             ->add('databaseUser', TextType::class, [
-                'label' => 'install.general.database.user.label'
+                'label' => 'install.general.database.user.label',
             ])
             ->add('databasePassword', PasswordType::class, [
-                'label' => 'install.general.database.password.label'
+                'label' => 'install.general.database.password.label',
             ])
             ->add('mailerTransport', TextType::class, [
-                'label' => 'install.general.mailer.transport.label'
+                'label' => 'install.general.mailer.transport.label',
             ])
             ->add('mailerHost', TextType::class, [
-                'label' => 'install.general.mailer.host.label'
+                'label' => 'install.general.mailer.host.label',
             ])
             ->add('mailerPort', NumberType::class, [
                 'label' => 'install.general.mailer.port.label',
-                'data' => 25
+                'data' => 25,
             ])
             ->add('mailerUser', TextType::class, [
-                'label' => 'install.general.mailer.user.label'
+                'label' => 'install.general.mailer.user.label',
             ])
             ->add('mailerPassword', PasswordType::class, [
-                'label' => 'install.general.mailer.password.label'
+                'label' => 'install.general.mailer.password.label',
             ])
             ->add('mailerSender', EmailType::class, [
-                'label' => 'install.general.mailer.sender.label'
+                'label' => 'install.general.mailer.sender.label',
             ]);
     }
 

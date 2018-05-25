@@ -24,8 +24,10 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /** @var UserFormatterInterface */
     private $userFormatter;
+
     /** @var ArtworkPositionFormatterInterface */
     private $artworkPositionFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
