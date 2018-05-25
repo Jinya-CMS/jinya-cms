@@ -8,19 +8,23 @@
 
 namespace Jinya\Components\DataTables;
 
-
 class DatatablesModel
 {
     /** @var int */
     private $length;
+
     /** @var int */
     private $start;
+
     /** @var mixed */
     private $draw;
+
     /** @var DatatablesColumnModel[] */
     private $columns;
+
     /** @var DatatablesOrderModel[] */
     private $order;
+
     /** @var DatatablesSearchModel */
     private $search;
 
@@ -123,9 +127,10 @@ class DatatablesModel
     public function getColumn(string $name)
     {
         $filterResults = array_filter($this->columns, function ($var) use ($name) {
-            /** @var $var DatatablesColumnModel */
+            /* @var $var DatatablesColumnModel */
             return $var->getName() === $name;
         });
+
         return array_shift($filterResults);
     }
 }

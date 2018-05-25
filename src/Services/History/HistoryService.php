@@ -8,14 +8,12 @@
 
 namespace Jinya\Services\History;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use function array_filter;
 use function method_exists;
 
 class HistoryService implements HistoryServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -29,7 +27,7 @@ class HistoryService implements HistoryServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getHistory(string $class, int $id): array
     {
@@ -43,11 +41,12 @@ class HistoryService implements HistoryServiceInterface
     protected function getFullClassName(string $class): string
     {
         $class = "Jinya\\Entity\\$class";
+
         return $class;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clearHistory(string $class, int $id): void
     {
@@ -58,7 +57,7 @@ class HistoryService implements HistoryServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function revert(string $class, int $id, string $field, string $timestamp): void
     {
