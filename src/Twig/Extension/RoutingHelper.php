@@ -29,7 +29,7 @@ class RoutingHelper extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_url' => new \Twig_Function('get_url', [$this, 'getUrl'])
+            'get_url' => new \Twig_Function('get_url', [$this, 'getUrl']),
         ];
     }
 
@@ -37,9 +37,9 @@ class RoutingHelper extends \Twig_Extension
     {
         $url = $this->request->getScheme() . '://' . $this->request->getHost();
 
-        if ($this->request->getScheme() === 'http' && $this->request->getHttpPort() !== 80) {
+        if ('http' === $this->request->getScheme() && 80 !== $this->request->getHttpPort()) {
             $url .= ':' . $this->request->getHttpPort();
-        } else if ($this->request->getScheme() === 'https' && $this->request->getHttpsPort() !== 443) {
+        } elseif ('https' === $this->request->getScheme() && 443 !== $this->request->getHttpsPort()) {
             $url .= ':' . $this->request->getHttpsPort();
         }
 

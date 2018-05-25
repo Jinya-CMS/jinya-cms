@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Security\Api;
 
-
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,9 +19,9 @@ use function uniqid;
 
 class ApiKeyTool implements ApiKeyToolInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var ConfigurationServiceInterface */
     private $configurationService;
 

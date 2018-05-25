@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Security\Api;
 
-
 use Jinya\Entity\User;
 
 interface ApiKeyToolInterface
