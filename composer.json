@@ -1,6 +1,6 @@
 {
   "name": "jinya/jinya-gallery-cms",
-  "license": "proprietary",
+  "license": "MIT",
   "type": "project",
   "autoload": {
     "psr-4": {
