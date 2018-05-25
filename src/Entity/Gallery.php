@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 07.11.2017
- * Time: 17:33
+ * Time: 17:33.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +25,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     use BaseArtEntity;
 
     public const VERTICAL = 'vertical';
+
     public const HORIZONTAL = 'horizontal';
 
     /**
@@ -33,21 +33,24 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
      * @ORM\OneToMany(targetEntity="Jinya\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $artworks;
+
     /**
      * @var Collection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label", inversedBy="galleries", cascade={"persist"})
      */
     private $labels;
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
     private $background;
+
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $orientation = Gallery::HORIZONTAL;
+    private $orientation = self::HORIZONTAL;
 
     /**
      * Gallery constructor.
@@ -123,7 +126,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
@@ -135,7 +138,7 @@ class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
             'createdAt' => $this->getCreatedAt(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
             'updatedBy' => $this->getUpdatedBy(),
-            'slug' => $this->slug
+            'slug' => $this->slug,
         ];
     }
 }

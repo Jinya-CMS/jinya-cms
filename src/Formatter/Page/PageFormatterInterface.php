@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 22:50
+ * Time: 22:50.
  */
 
 namespace Jinya\Formatter\Page;
-
 
 use Jinya\Entity\Page;
 use Jinya\Formatter\FormatterInterface;
@@ -15,66 +14,67 @@ use Jinya\Formatter\FormatterInterface;
 interface PageFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Page $page
-     * @return PageFormatterInterface
-     */
-    public function init(Page $page): PageFormatterInterface;
-
-    /**
-     * Formats the id
      *
      * @return PageFormatterInterface
      */
-    public function id(): PageFormatterInterface;
+    public function init(Page $page): self;
 
     /**
-     * Formats the created info
+     * Formats the id.
      *
      * @return PageFormatterInterface
      */
-    public function created(): PageFormatterInterface;
+    public function id(): self;
 
     /**
-     * Formats the updated info
+     * Formats the created info.
      *
      * @return PageFormatterInterface
      */
-    public function updated(): PageFormatterInterface;
+    public function created(): self;
 
     /**
-     * Formats the history
+     * Formats the updated info.
      *
      * @return PageFormatterInterface
      */
-    public function history(): PageFormatterInterface;
+    public function updated(): self;
 
     /**
-     * Formats the content
+     * Formats the history.
      *
      * @return PageFormatterInterface
      */
-    public function content(): PageFormatterInterface;
+    public function history(): self;
 
     /**
-     * Formats the title
+     * Formats the content.
      *
      * @return PageFormatterInterface
      */
-    public function title(): PageFormatterInterface;
+    public function content(): self;
 
     /**
-     * Formats the slug
+     * Formats the title.
      *
      * @return PageFormatterInterface
      */
-    public function slug(): PageFormatterInterface;
+    public function title(): self;
 
     /**
-     * Formats the name
+     * Formats the slug.
      *
      * @return PageFormatterInterface
      */
-    public function name(): PageFormatterInterface;
+    public function slug(): self;
+
+    /**
+     * Formats the name.
+     *
+     * @return PageFormatterInterface
+     */
+    public function name(): self;
 }

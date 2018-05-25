@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 16:56
+ * Time: 16:56.
  */
 
 namespace Jinya\Entity;
-
 
 trait BaseArtEntity
 {
@@ -18,6 +17,7 @@ trait BaseArtEntity
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
     private $name;
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)

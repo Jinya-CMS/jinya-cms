@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 16.02.2018
- * Time: 17:37
+ * Time: 17:37.
  */
 
 namespace Jinya\EventSubscriber;
-
 
 use Exception;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
@@ -17,15 +16,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
-
     /** @var LoggerInterface */
     private $logger;
+
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
 
     /**
      * ThemeCompilationEventSubscriber constructor.
-     * @param LoggerInterface $logger
+     *
+     * @param LoggerInterface           $logger
      * @param ThemeSyncServiceInterface $themeSyncService
      */
     public function __construct(LoggerInterface $logger, ThemeSyncServiceInterface $themeSyncService)
@@ -35,12 +35,12 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'onRequest'
+            KernelEvents::REQUEST => 'onRequest',
         ];
     }
 

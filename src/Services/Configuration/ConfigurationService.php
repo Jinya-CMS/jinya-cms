@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.01.2018
- * Time: 18:03
+ * Time: 18:03.
  */
 
 namespace Jinya\Services\Configuration;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -16,11 +15,11 @@ use Jinya\Services\Theme\ThemeServiceInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
     /**
      * @var ThemeServiceInterface
      */
@@ -28,8 +27,9 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /**
      * FrontendConfigurationService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param ThemeServiceInterface $themeService
+     * @param ThemeServiceInterface  $themeService
      */
     public function __construct(EntityManagerInterface $entityManager, ThemeServiceInterface $themeService)
     {
@@ -37,9 +37,8 @@ class ConfigurationService implements ConfigurationServiceInterface
         $this->themeService = $themeService;
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConfig(): Configuration
     {
@@ -57,7 +56,7 @@ class ConfigurationService implements ConfigurationServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function writeConfig(Configuration $configuration): void
     {

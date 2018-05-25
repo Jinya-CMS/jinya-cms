@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 18:10
+ * Time: 18:10.
  */
 
 namespace Jinya\Formatter\Menu;
-
 
 use Jinya\Entity\MenuItem;
 use Jinya\Formatter\FormatterInterface;
@@ -15,66 +14,67 @@ use Jinya\Formatter\FormatterInterface;
 interface MenuItemFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param MenuItem $menuItem
-     * @return MenuItemFormatterInterface
-     */
-    public function init(MenuItem $menuItem): MenuItemFormatterInterface;
-
-    /**
-     * Formats the id
      *
      * @return MenuItemFormatterInterface
      */
-    public function id(): MenuItemFormatterInterface;
+    public function init(MenuItem $menuItem): self;
 
     /**
-     * Formats the title
+     * Formats the id.
      *
      * @return MenuItemFormatterInterface
      */
-    public function title(): MenuItemFormatterInterface;
+    public function id(): self;
 
     /**
-     * Formats the page type
+     * Formats the title.
      *
      * @return MenuItemFormatterInterface
      */
-    public function pageType(): MenuItemFormatterInterface;
+    public function title(): self;
 
     /**
-     * Formats the highlight state
+     * Formats the page type.
      *
      * @return MenuItemFormatterInterface
      */
-    public function highlighted(): MenuItemFormatterInterface;
+    public function pageType(): self;
 
     /**
-     * Formats the children
+     * Formats the highlight state.
      *
      * @return MenuItemFormatterInterface
      */
-    public function children(): MenuItemFormatterInterface;
+    public function highlighted(): self;
 
     /**
-     * Formats the parent
+     * Formats the children.
      *
      * @return MenuItemFormatterInterface
      */
-    public function parent(): MenuItemFormatterInterface;
+    public function children(): self;
 
     /**
-     * Formats the route
+     * Formats the parent.
      *
      * @return MenuItemFormatterInterface
      */
-    public function route(): MenuItemFormatterInterface;
+    public function parent(): self;
 
     /**
-     * Formats the position
+     * Formats the route.
      *
      * @return MenuItemFormatterInterface
      */
-    public function position(): MenuItemFormatterInterface;
+    public function route(): self;
+
+    /**
+     * Formats the position.
+     *
+     * @return MenuItemFormatterInterface
+     */
+    public function position(): self;
 }

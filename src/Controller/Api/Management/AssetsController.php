@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 17:47
+ * Time: 17:47.
  */
 
 namespace Jinya\Controller\Api\Management;
@@ -22,9 +22,10 @@ class AssetsController extends BaseApiController
      * @Route("/api/management/assets/{area}", methods={"POST"}, name="api_management_assets_compile")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param string $area
+     * @param string                        $area
      * @param ConfigurationServiceInterface $configurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
+     *
      * @return Response
      */
     public function compileAssetsAction(string $area, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService): Response

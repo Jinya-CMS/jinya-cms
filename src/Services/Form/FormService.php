@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.12.2017
- * Time: 17:51
+ * Time: 17:51.
  */
 
 namespace Jinya\Services\Form;
@@ -16,13 +16,13 @@ use Jinya\Services\Slug\SlugServiceInterface;
 
 class FormService extends BaseSlugEntityService implements FormServiceInterface
 {
-
     use StaticContentServiceTrait;
 
     /**
      * FormService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
+     * @param SlugServiceInterface   $slugService
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService)
     {

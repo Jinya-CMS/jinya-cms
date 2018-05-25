@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 17:44
+ * Time: 17:44.
  */
 
 namespace Jinya\Controller\Api\Management;
@@ -21,6 +21,7 @@ class SchemaController extends BaseApiController
      * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param SchemaToolInterface $schemaTool
+     *
      * @return Response
      */
     public function updateSchemaAction(SchemaToolInterface $schemaTool): Response

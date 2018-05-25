@@ -12,6 +12,7 @@ class ActiveMenuItemCheck extends \Twig_Extension
 
     /**
      * ActiveMenuItemCheck constructor.
+     *
      * @param RequestContext $requestContext
      */
     public function __construct(RequestContext $requestContext)
@@ -31,12 +32,13 @@ class ActiveMenuItemCheck extends \Twig_Extension
     {
         return [
             'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem']),
-            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'])
+            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem']),
         ];
     }
 
     /**
      * @param MenuItem $menuItem
+     *
      * @return bool
      */
     public function isChildActiveMenuItem(MenuItem $menuItem): bool
@@ -52,6 +54,7 @@ class ActiveMenuItemCheck extends \Twig_Extension
 
     /**
      * @param MenuItem $menuItem
+     *
      * @return bool
      */
     public function isActiveMenuItem(MenuItem $menuItem): bool

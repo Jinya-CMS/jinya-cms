@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 18:24
+ * Time: 18:24.
  */
 
 namespace Jinya\Formatter\Menu;
-
 
 use Jinya\Entity\MenuItem;
 use Jinya\Formatter\Route\RouteFormatterInterface;
@@ -16,16 +15,18 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var MenuItem */
     private $menuItem;
 
     /** @var MenuFormatterInterface */
     private $menuFormatter;
+
     /** @var RouteFormatterInterface */
     private $routeFormatter;
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -35,7 +36,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return MenuItemFormatterInterface
      */
@@ -47,7 +48,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the title
+     * Formats the title.
      *
      * @return MenuItemFormatterInterface
      */
@@ -59,7 +60,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the page type
+     * Formats the page type.
      *
      * @return MenuItemFormatterInterface
      */
@@ -71,7 +72,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the highlight state
+     * Formats the highlight state.
      *
      * @return MenuItemFormatterInterface
      */
@@ -83,13 +84,13 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the children
+     * Formats the children.
      *
      * @return MenuItemFormatterInterface
      */
     public function children(): MenuItemFormatterInterface
     {
-        $menuItemFormatter = new MenuItemFormatter();
+        $menuItemFormatter = new self();
         $menuItemFormatter->setMenuFormatter($this->menuFormatter);
         $menuItemFormatter->setRouteFormatter($this->routeFormatter);
         $this->formattedData['children'] = array_map(function (MenuItem $menuItem) use ($menuItemFormatter) {
@@ -125,9 +126,10 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param MenuItem $menuItem
+     *
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): MenuItemFormatterInterface
@@ -138,14 +140,14 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the parent
+     * Formats the parent.
      *
      * @return MenuItemFormatterInterface
      */
     public function parent(): MenuItemFormatterInterface
     {
         if ($this->menuItem->getParent()) {
-            $menuItemFormatter = new MenuItemFormatter();
+            $menuItemFormatter = new self();
             $menuItemFormatter->setMenuFormatter($this->menuFormatter);
             $menuItemFormatter->setRouteFormatter($this->routeFormatter);
 
@@ -158,7 +160,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the route
+     * Formats the route.
      *
      * @return MenuItemFormatterInterface
      */
@@ -175,7 +177,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     }
 
     /**
-     * Formats the position
+     * Formats the position.
      *
      * @return MenuItemFormatterInterface
      */

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 10.03.2018
- * Time: 22:44
+ * Time: 22:44.
  */
 
 namespace Jinya\Framework\Security\Api;
-
 
 use DateInterval;
 use DateTime;
@@ -20,15 +19,16 @@ use function uniqid;
 
 class ApiKeyTool implements ApiKeyToolInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var ConfigurationServiceInterface */
     private $configurationService;
 
     /**
      * ApiKeyTool constructor.
-     * @param EntityManagerInterface $entityManager
+     *
+     * @param EntityManagerInterface        $entityManager
      * @param ConfigurationServiceInterface $configurationService
      */
     public function __construct(EntityManagerInterface $entityManager, ConfigurationServiceInterface $configurationService)
@@ -38,9 +38,10 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Creates an api key for the given user
+     * Creates an api key for the given user.
      *
      * @param User $user
+     *
      * @return string
      */
     public function createApiKey(User $user): string
@@ -57,10 +58,12 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Gets the user for the given api key
+     * Gets the user for the given api key.
      *
      * @param string $key
+     *
      * @return User
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -77,7 +80,7 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Invalidates the given api key
+     * Invalidates the given api key.
      *
      * @param string $key
      */
@@ -92,7 +95,7 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Refreshes the validate since time
+     * Refreshes the validate since time.
      *
      * @param string $key
      */
@@ -107,10 +110,12 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Checks whether the given api key should get invalidated
+     * Checks whether the given api key should get invalidated.
      *
      * @param string $key
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function shouldInvalidate(string $key): bool
@@ -132,7 +137,7 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Invalidates all tokens for the given user
+     * Invalidates all tokens for the given user.
      *
      * @param int $userId
      */

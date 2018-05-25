@@ -19,19 +19,21 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class UserService implements UserServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var UserPasswordEncoderInterface */
     private $userPasswordEncoder;
+
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
 
     /**
      * UserService constructor.
-     * @param EntityManagerInterface $entityManager
+     *
+     * @param EntityManagerInterface       $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param ApiKeyToolInterface $apiKeyTool
+     * @param ApiKeyToolInterface          $apiKeyTool
      */
     public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool)
     {
@@ -41,7 +43,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(int $offset, int $count = 10, string $keyword): array
     {
@@ -56,6 +58,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @param string $keyword
+     *
      * @return QueryBuilder
      */
     protected function createFilteredQueryBuilder(string $keyword): QueryBuilder
@@ -72,7 +75,8 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function delete(int $id): void
@@ -86,6 +90,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @return bool
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     private function isLastSuperAdmin(): bool
@@ -105,7 +110,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function activate(int $id): User
     {
@@ -120,7 +125,8 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function deactivate(int $id): User
@@ -136,7 +142,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(int $id): User
     {
@@ -144,7 +150,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function grantRole(int $userId, string $role): void
     {
@@ -154,12 +160,13 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function revokeRole(int $userId, string $role): void
     {
-        if ($role !== User::ROLE_SUPER_ADMIN || !$this->isLastSuperAdmin()) {
+        if (User::ROLE_SUPER_ADMIN !== $role || !$this->isLastSuperAdmin()) {
             $user = $this->entityManager->find(User::class, $userId);
             $user->removeRole($role);
             $this->entityManager->flush();
@@ -167,7 +174,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function changePassword(int $id, string $newPassword): void
     {
@@ -178,10 +185,12 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * Counts all users
+     * Counts all users.
      *
      * @param string $keyword
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(string $keyword): int
@@ -195,18 +204,19 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * Creates a user
+     * Creates a user.
      *
      * @param User $user
+     *
      * @return User
      */
     public function saveOrUpdate(User $user): User
     {
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
 
-        if ($this->entityManager->getUnitOfWork()->getEntityState($user) === UnitOfWork::STATE_NEW) {
+        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($user)) {
             if (!$this->entityManager->isOpen()) {
-                /** @noinspection PhpUndefinedMethodInspection */
+                /* @noinspection PhpUndefinedMethodInspection */
                 $this->entityManager = $this->entityManager->create(
                     $this->entityManager->getConnection(),
                     $this->entityManager->getConfiguration()
@@ -221,10 +231,11 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * Gets the user by username and password
+     * Gets the user by username and password.
      *
      * @param string $username
      * @param string $password
+     *
      * @return User
      */
     public function getUser(string $username, string $password): User
@@ -242,7 +253,7 @@ class UserService implements UserServiceInterface
         }
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException('Invalid username or password');
         }
 
         return $user;

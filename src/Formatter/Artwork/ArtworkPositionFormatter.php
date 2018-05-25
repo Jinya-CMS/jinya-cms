@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 16:20
+ * Time: 16:20.
  */
 
 namespace Jinya\Formatter\Artwork;
-
 
 use Jinya\Entity\ArtworkPosition;
 use Jinya\Formatter\FormatterInterface;
@@ -44,9 +43,10 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Initializes the format
+     * Initializes the format.
      *
      * @param ArtworkPosition $artworkPosition
+     *
      * @return ArtworkPositionFormatterInterface
      */
     public function init(ArtworkPosition $artworkPosition): ArtworkPositionFormatterInterface
@@ -58,7 +58,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the artwork
+     * Formats the artwork.
      *
      * @return ArtworkPositionFormatterInterface
      */
@@ -76,7 +76,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the gallery
+     * Formats the gallery.
      *
      * @return ArtworkPositionFormatterInterface
      */
@@ -93,7 +93,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the position
+     * Formats the position.
      *
      * @return ArtworkPositionFormatterInterface
      */
@@ -105,7 +105,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return ArtworkPositionFormatterInterface
      */
@@ -117,7 +117,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */

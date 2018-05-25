@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 09.11.2017
- * Time: 19:32
+ * Time: 19:32.
  */
 
 namespace Jinya\Services\Media;
@@ -24,12 +24,12 @@ use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
-
     /** @var string */
     private $kernelProjectDir;
 
     /**
      * MediaService constructor.
+     *
      * @param string $kernelProjectDir
      */
     public function __construct(string $kernelProjectDir)
@@ -38,10 +38,11 @@ class MediaService implements MediaServiceInterface
     }
 
     /**
-     * Saves the media to the storage and return the http url
+     * Saves the media to the storage and return the http url.
      *
      * @param resource|UploadedFile $file
-     * @param string $type
+     * @param string                $type
+     *
      * @return string
      */
     public function saveMedia($file, string $type): string
@@ -49,14 +50,14 @@ class MediaService implements MediaServiceInterface
         $directory = $this->getFilePath($type);
         @mkdir($directory, 775, true);
 
-        $tmpFilename = $directory . uniqid();
+        $tmpFilename = $directory.uniqid();
         file_put_contents($tmpFilename, $file);
 
         $hashCtx = hash_init('sha256');
         hash_update_file($hashCtx, $tmpFilename);
         $hash = hash_final($hashCtx);
 
-        $filename = $directory . $hash;
+        $filename = $directory.$hash;
 
         $fs = new Filesystem();
         $fs->rename($tmpFilename, $filename, true);
@@ -66,14 +67,13 @@ class MediaService implements MediaServiceInterface
 
     private function getFilePath(string $type): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+        return $this->kernelProjectDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$type.DIRECTORY_SEPARATOR;
     }
 
     /**
-     * Deletes the media saved under the given url
+     * Deletes the media saved under the given url.
      *
      * @param string $url
-     * @return void
      */
     public function deleteMedia(string $url)
     {
@@ -81,17 +81,18 @@ class MediaService implements MediaServiceInterface
         $parts = array_reverse($parts);
         $filename = $parts[0];
         $type = $parts[1];
-        unlink($this->getFilePath($type) . $filename);
+        unlink($this->getFilePath($type).$filename);
     }
 
     /**
-     * Gets the media as SplFileInfo
+     * Gets the media as SplFileInfo.
      *
      * @param string $path
+     *
      * @return SplFileInfo
      */
     public function getMedia(string $path): SplFileInfo
     {
-        return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
+        return new SplFileInfo($this->kernelProjectDir.DIRECTORY_SEPARATOR.'public'.$path);
     }
 }

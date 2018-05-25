@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 01.03.2018
- * Time: 08:09
+ * Time: 08:09.
  */
 
 namespace Jinya\Formatter\Form;
-
 
 use Jinya\Entity\Form;
 use Jinya\Formatter\FormatterInterface;
@@ -15,87 +14,88 @@ use Jinya\Formatter\FormatterInterface;
 interface FormFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Form $form
-     * @return FormFormatterInterface
-     */
-    public function init(Form $form): FormFormatterInterface;
-
-    /**
-     * Formats the to address
      *
      * @return FormFormatterInterface
      */
-    public function toAddress(): FormFormatterInterface;
+    public function init(Form $form): self;
 
     /**
-     * Formats the title
+     * Formats the to address.
      *
      * @return FormFormatterInterface
      */
-    public function title(): FormFormatterInterface;
+    public function toAddress(): self;
 
     /**
-     * Formats the description
+     * Formats the title.
      *
      * @return FormFormatterInterface
      */
-    public function description(): FormFormatterInterface;
+    public function title(): self;
 
     /**
-     * Formats the email template
+     * Formats the description.
      *
      * @return FormFormatterInterface
      */
-    public function emailTemplate(): FormFormatterInterface;
+    public function description(): self;
 
     /**
-     * Formats the items
+     * Formats the email template.
      *
      * @return FormFormatterInterface
      */
-    public function items(): FormFormatterInterface;
+    public function emailTemplate(): self;
 
     /**
-     * Formats the slug
+     * Formats the items.
      *
      * @return FormFormatterInterface
      */
-    public function slug(): FormFormatterInterface;
+    public function items(): self;
 
     /**
-     * Formats the id
+     * Formats the slug.
      *
      * @return FormFormatterInterface
      */
-    public function id(): FormFormatterInterface;
+    public function slug(): self;
 
     /**
-     * Formats the created info
+     * Formats the id.
      *
      * @return FormFormatterInterface
      */
-    public function created(): FormFormatterInterface;
+    public function id(): self;
 
     /**
-     * Formats the updated info
+     * Formats the created info.
      *
      * @return FormFormatterInterface
      */
-    public function updated(): FormFormatterInterface;
+    public function created(): self;
 
     /**
-     * Formats the history
+     * Formats the updated info.
      *
      * @return FormFormatterInterface
      */
-    public function history(): FormFormatterInterface;
+    public function updated(): self;
 
     /**
-     * Formats the name
+     * Formats the history.
      *
      * @return FormFormatterInterface
      */
-    public function name(): FormFormatterInterface;
+    public function history(): self;
+
+    /**
+     * Formats the name.
+     *
+     * @return FormFormatterInterface
+     */
+    public function name(): self;
 }

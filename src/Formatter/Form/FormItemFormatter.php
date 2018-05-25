@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 01.03.2018
- * Time: 08:19
+ * Time: 08:19.
  */
 
 namespace Jinya\Formatter\Form;
-
 
 use Jinya\Entity\FormItem;
 use Jinya\Formatter\User\UserFormatterInterface;
@@ -16,10 +15,13 @@ class FormItemFormatter implements FormItemFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
+
     /** @var UserFormatterInterface */
     private $userFormatter;
+
     /** @var FormItem */
     private $formItem;
 
@@ -40,7 +42,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return FormItemFormatterInterface
      */
@@ -52,7 +54,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the type
+     * Formats the type.
      *
      * @return FormItemFormatterInterface
      */
@@ -64,7 +66,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the options
+     * Formats the options.
      *
      * @return FormItemFormatterInterface
      */
@@ -76,7 +78,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the label
+     * Formats the label.
      *
      * @return FormItemFormatterInterface
      */
@@ -88,7 +90,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the help text
+     * Formats the help text.
      *
      * @return FormItemFormatterInterface
      */
@@ -100,13 +102,12 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the form
+     * Formats the form.
      *
      * @return FormItemFormatterInterface
      */
     public function form(): FormItemFormatterInterface
     {
-
         $this->formattedData['form'] = $this->formFormatter
             ->init($this->formItem->getForm())
             ->title()
@@ -117,9 +118,10 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param FormItem $formItem
+     *
      * @return FormItemFormatterInterface
      */
     public function init(FormItem $formItem): FormItemFormatterInterface
@@ -130,7 +132,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -140,7 +142,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the position
+     * Formats the position.
      *
      * @return FormItemFormatterInterface
      */
@@ -152,7 +154,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the created info
+     * Formats the created info.
      *
      * @return FormItemFormatterInterface
      */
@@ -168,7 +170,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the updated info
+     * Formats the updated info.
      *
      * @return FormItemFormatterInterface
      */
@@ -184,7 +186,7 @@ class FormItemFormatter implements FormItemFormatterInterface
     }
 
     /**
-     * Formats the history
+     * Formats the history.
      *
      * @return FormItemFormatterInterface
      */

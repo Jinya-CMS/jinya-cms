@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 01.03.2018
- * Time: 08:11
+ * Time: 08:11.
  */
 
 namespace Jinya\Formatter\Form;
-
 
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
@@ -15,7 +14,6 @@ use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormFormatter implements FormFormatterInterface
 {
-
     /** @var array */
     private $formattedData;
 
@@ -45,9 +43,10 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Form $form
+     *
      * @return FormFormatterInterface
      */
     public function init(Form $form): FormFormatterInterface
@@ -58,7 +57,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the to address
+     * Formats the to address.
      *
      * @return FormFormatterInterface
      */
@@ -70,7 +69,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the title
+     * Formats the title.
      *
      * @return FormFormatterInterface
      */
@@ -82,7 +81,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the description
+     * Formats the description.
      *
      * @return FormFormatterInterface
      */
@@ -94,7 +93,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the email template
+     * Formats the email template.
      *
      * @return FormFormatterInterface
      */
@@ -106,7 +105,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the items
+     * Formats the items.
      *
      * @return FormFormatterInterface
      */
@@ -132,7 +131,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -142,7 +141,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the slug
+     * Formats the slug.
      *
      * @return FormFormatterInterface
      */
@@ -154,7 +153,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return FormFormatterInterface
      */
@@ -166,7 +165,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the created info
+     * Formats the created info.
      *
      * @return FormFormatterInterface
      */
@@ -182,7 +181,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the updated info
+     * Formats the updated info.
      *
      * @return FormFormatterInterface
      */
@@ -198,7 +197,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the history
+     * Formats the history.
      *
      * @return FormFormatterInterface
      */
@@ -210,7 +209,7 @@ class FormFormatter implements FormFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return FormFormatterInterface
      */

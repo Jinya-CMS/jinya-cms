@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 21:04
+ * Time: 21:04.
  */
 
 namespace Jinya\Controller\Api\Configuration;
-
 
 use Jinya\Formatter\Configuration\ConfigurationFormatterInterface;
 use Jinya\Framework\BaseApiController;
@@ -23,8 +22,9 @@ class ConfigurationController extends BaseApiController
      * @Route("/api/configuration", methods={"GET"}, name="api_configuration_get")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param ConfigurationServiceInterface $configurationService
+     * @param ConfigurationServiceInterface   $configurationService
      * @param ConfigurationFormatterInterface $configurationFormatter
+     *
      * @return Response
      */
     public function getAction(ConfigurationServiceInterface $configurationService, ConfigurationFormatterInterface $configurationFormatter): Response
@@ -43,9 +43,10 @@ class ConfigurationController extends BaseApiController
      * @Route("/api/configuration/{themeName}", methods={"PUT"}, name="api_configuration_frontend_put")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $themeName
+     * @param string                        $themeName
      * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeServiceInterface $themeService
+     * @param ThemeServiceInterface         $themeService
+     *
      * @return Response
      */
     public function putThemeAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 17:52
+ * Time: 17:52.
  */
 
 namespace Jinya\Controller\Api\Menu;
-
 
 use Jinya\Entity\Menu;
 use Jinya\Framework\BaseApiController;
@@ -23,9 +22,10 @@ class MenuLogoController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/logo", methods={"GET"}, name="api_menu_logo_get")
      *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
+     * @param int                   $id
+     * @param MenuServiceInterface  $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
@@ -35,10 +35,10 @@ class MenuLogoController extends BaseApiController
             return $menuService->get($id);
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName().'.jpg');
         }
     }
 
@@ -46,10 +46,11 @@ class MenuLogoController extends BaseApiController
      * @Route("/api/menu/{id}/logo", methods={"PUT"}, name="api_menu_logo_post")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param int $id
-     * @param Request $request
-     * @param MenuServiceInterface $menuService
+     * @param int                   $id
+     * @param Request               $request
+     * @param MenuServiceInterface  $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function postAction(int $id, Request $request, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
@@ -69,9 +70,10 @@ class MenuLogoController extends BaseApiController
      * @Route("/api/menu/{id}/logo", methods={"DELETE"}, name="api_menu_logo_delete")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
+     * @param int                   $id
+     * @param MenuServiceInterface  $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response

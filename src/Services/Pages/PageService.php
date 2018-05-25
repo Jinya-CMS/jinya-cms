@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.12.2017
- * Time: 17:45
+ * Time: 17:45.
  */
 
 namespace Jinya\Services\Pages;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Page;
@@ -21,8 +20,9 @@ class PageService extends BaseSlugEntityService implements PageServiceInterface
 
     /**
      * PageService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
+     * @param SlugServiceInterface   $slugService
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService)
     {

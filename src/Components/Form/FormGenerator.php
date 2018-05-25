@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 26.12.2017
- * Time: 21:07
+ * Time: 21:07.
  */
 
 namespace Jinya\Components\Form;
-
 
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
@@ -29,7 +28,8 @@ class FormGenerator implements FormGeneratorInterface
 
     /**
      * FormGenerator constructor.
-     * @param FormFactoryInterface $formFactory
+     *
+     * @param FormFactoryInterface          $formFactory
      * @param ConfigurationServiceInterface $frontendConfigurationService
      */
     public function __construct(FormFactoryInterface $formFactory, ConfigurationServiceInterface $frontendConfigurationService)
@@ -37,7 +37,6 @@ class FormGenerator implements FormGeneratorInterface
         $this->formFactory = $formFactory;
         $this->frontendConfigurationService = $frontendConfigurationService;
     }
-
 
     public function generateForm(Form $form): FormInterface
     {
@@ -59,7 +58,7 @@ class FormGenerator implements FormGeneratorInterface
 
             if (strpos($item->getType(), 'TextareaType') != -1) {
                 $options['attr'] = [
-                    'rows' => 10
+                    'rows' => 10,
                 ];
             }
 
