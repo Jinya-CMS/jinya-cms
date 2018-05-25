@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 08:12
+ * Time: 08:12.
  */
 
 namespace Jinya\Controller\Api\Theme;
-
 
 use Jinya\Entity\Theme;
 use Jinya\Framework\BaseApiController;
@@ -21,8 +20,9 @@ class ThemePreviewImageController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/preview", methods={"GET"}, name="api_theme_preview_get")
      *
-     * @param string $name
+     * @param string                $name
      * @param ThemeServiceInterface $themeService
+     *
      * @return Response
      */
     public function getAction(string $name, ThemeServiceInterface $themeService): Response
@@ -41,7 +41,7 @@ class ThemePreviewImageController extends BaseApiController
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->file($data->getPreviewImage(), $data->getDisplayName() . '.jpg');
+            return $this->file($data->getPreviewImage(), $data->getDisplayName().'.jpg');
         }
     }
 }

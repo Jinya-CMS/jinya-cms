@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 17:33
+ * Time: 17:33.
  */
 
 namespace Jinya\Services\Artworks;
@@ -21,9 +21,10 @@ class ArtworkService extends BaseSlugEntityService implements ArtworkServiceInte
 
     /**
      * GalleryService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param LabelServiceInterface $labelService
+     * @param SlugServiceInterface   $slugService
+     * @param LabelServiceInterface  $labelService
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
@@ -32,7 +33,7 @@ class ArtworkService extends BaseSlugEntityService implements ArtworkServiceInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(string $slug): ?Artwork
     {

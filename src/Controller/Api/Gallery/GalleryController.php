@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 17:39
+ * Time: 17:39.
  */
 
 namespace Jinya\Controller\Api\Gallery;
@@ -24,8 +24,9 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
      *
-     * @param GalleryServiceInterface $galleryService
+     * @param GalleryServiceInterface   $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -45,14 +46,15 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/gallery/{slug}", methods={"GET"}, name="api_gallery_get")
      *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param string                    $slug
+     * @param GalleryServiceInterface   $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
             $result = $galleryFormatter->init($gallery)
                 ->name()
@@ -77,9 +79,10 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery", methods={"POST"}, name="api_gallery_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param Request                   $request
+     * @param GalleryServiceInterface   $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function postAction(Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -115,10 +118,11 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param string                    $slug
+     * @param Request                   $request
+     * @param GalleryServiceInterface   $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -155,9 +159,10 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
+     * @param MediaServiceInterface   $mediaService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response

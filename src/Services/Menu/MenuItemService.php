@@ -3,18 +3,16 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 19:04
+ * Time: 19:04.
  */
 
 namespace Jinya\Services\Menu;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\MenuItem;
 
 class MenuItemService implements MenuItemServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var MenuServiceInterface */
@@ -22,8 +20,9 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * MenuItemService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param MenuServiceInterface $menuService
+     * @param MenuServiceInterface   $menuService
      */
     public function __construct(EntityManagerInterface $entityManager, MenuServiceInterface $menuService)
     {
@@ -32,10 +31,11 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Gets the all menu items for the given menu
+     * Gets the all menu items for the given menu.
      *
-     * @param int $parentId
+     * @param int    $parentId
      * @param string $type
+     *
      * @return array
      */
     public function getAll(int $parentId, string $type = MenuItemServiceInterface::PARENT): array
@@ -61,14 +61,16 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Gets the menu item by position and parent id
+     * Gets the menu item by position and parent id.
      *
-     * @param int $parentId
-     * @param int $position
+     * @param int    $parentId
+     * @param int    $position
      * @param string $type
-     * @return MenuItem
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return MenuItem
      */
     public function get(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): MenuItem
     {
@@ -95,11 +97,12 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Adds the given menu item
+     * Adds the given menu item.
      *
-     * @param int $parentId
+     * @param int      $parentId
      * @param MenuItem $item
-     * @param string $type
+     * @param string   $type
+     *
      * @return void
      */
     public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void
@@ -122,9 +125,10 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * @param int $position
-     * @param int $parentId
+     * @param int    $position
+     * @param int    $parentId
      * @param string $type
+     *
      * @return int
      */
     private function rearrangeMenuItems(int $position, int $parentId, string $type = MenuItemServiceInterface::PARENT): int
@@ -137,8 +141,8 @@ class MenuItemService implements MenuItemServiceInterface
         }
 
         uasort($positions, function ($a, $b) {
-            /** @var MenuItem $a */
-            /** @var MenuItem $b */
+            /* @var MenuItem $a */
+            /* @var MenuItem $b */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
@@ -163,11 +167,12 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Removes the given @see MenuItem
+     * Removes the given @see MenuItem.
      *
-     * @param int $id
-     * @param int $position
+     * @param int    $id
+     * @param int    $position
      * @param string $type
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -194,9 +199,10 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Updates the given @see MenuItem
+     * Updates the given @see MenuItem.
      *
      * @param MenuItem $item
+     *
      * @return MenuItem
      */
     public function updateItem(MenuItem $item): MenuItem

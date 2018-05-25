@@ -11,7 +11,7 @@ namespace Jinya\Components\Database;
 interface SchemaToolInterface
 {
     /**
-     * Updates the database schema
+     * Updates the database schema.
      */
     public function updateSchema(): void;
 }

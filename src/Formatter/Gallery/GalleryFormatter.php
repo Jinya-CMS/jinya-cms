@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:52
+ * Time: 15:52.
  */
 
 namespace Jinya\Formatter\Gallery;
@@ -31,6 +31,7 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * GalleryFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -55,7 +56,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -65,9 +66,10 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param Gallery $gallery
+     *
      * @return GalleryFormatterInterface
      */
     public function init(Gallery $gallery): GalleryFormatterInterface
@@ -79,7 +81,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the slug
+     * Formats the slug.
      *
      * @return GalleryFormatterInterface
      */
@@ -91,7 +93,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return GalleryFormatterInterface
      */
@@ -103,7 +105,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the description
+     * Formats the description.
      *
      * @return GalleryFormatterInterface
      */
@@ -115,7 +117,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the created info
+     * Formats the created info.
      *
      * @return GalleryFormatterInterface
      */
@@ -131,7 +133,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the updated info
+     * Formats the updated info.
      *
      * @return GalleryFormatterInterface
      */
@@ -147,7 +149,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the history
+     * Formats the history.
      *
      * @return GalleryFormatterInterface
      */
@@ -159,7 +161,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the orientation
+     * Formats the orientation.
      *
      * @return GalleryFormatterInterface
      */
@@ -171,11 +173,12 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the artworks
+     * Formats the artworks.
      *
-     * @return GalleryFormatterInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     *
+     * @return GalleryFormatterInterface
      */
     public function artworks(): GalleryFormatterInterface
     {
@@ -202,7 +205,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the background
+     * Formats the background.
      *
      * @return GalleryFormatterInterface
      */
@@ -214,7 +217,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the labels
+     * Formats the labels.
      *
      * @return GalleryFormatterInterface
      */
@@ -230,7 +233,7 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return GalleryFormatterInterface
      */

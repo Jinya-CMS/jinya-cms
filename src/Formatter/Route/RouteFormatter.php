@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 18:34
+ * Time: 18:34.
  */
 
 namespace Jinya\Formatter\Route;
-
 
 use Jinya\Entity\RoutingEntry;
 use Jinya\Formatter\Menu\MenuItemFormatterInterface;
@@ -31,7 +30,7 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -41,7 +40,7 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Formats the route name
+     * Formats the route name.
      *
      * @return RouteFormatterInterface
      */
@@ -53,7 +52,7 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Formats the route parameter
+     * Formats the route parameter.
      *
      * @return RouteFormatterInterface
      */
@@ -65,7 +64,7 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Formats the url
+     * Formats the url.
      *
      * @return RouteFormatterInterface
      */
@@ -77,7 +76,7 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Formats the menu item
+     * Formats the menu item.
      *
      * @return RouteFormatterInterface
      */
@@ -92,9 +91,10 @@ class RouteFormatter implements RouteFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param RoutingEntry $routingEntry
+     *
      * @return RouteFormatterInterface
      */
     public function init(RoutingEntry $routingEntry): RouteFormatterInterface

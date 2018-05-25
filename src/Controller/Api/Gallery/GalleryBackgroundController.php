@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 20:57
+ * Time: 20:57.
  */
 
 namespace Jinya\Controller\Api\Gallery;
-
 
 use Jinya\Entity\Gallery;
 use Jinya\Framework\BaseApiController;
@@ -25,10 +24,11 @@ class GalleryBackgroundController extends BaseApiController
     /**
      * @Route("/api/gallery/{slug}/background", methods={"GET"}, name="api_gallery_background_get")
      *
-     * @param string $slug
-     * @param Request $request
+     * @param string                  $slug
+     * @param Request                 $request
      * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
+     * @param MediaServiceInterface   $mediaService
+     *
      * @return Response
      */
     public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
@@ -46,7 +46,7 @@ class GalleryBackgroundController extends BaseApiController
         if ($status !== 200) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName().'.jpg');
         }
     }
 
@@ -54,11 +54,12 @@ class GalleryBackgroundController extends BaseApiController
      * @Route("/api/gallery/{slug}/background", methods={"PUT"}, name="api_gallery_background_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param Request $request
+     * @param string                  $slug
+     * @param Request                 $request
      * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param MediaServiceInterface   $mediaService
+     * @param UrlGeneratorInterface   $urlGenerator
+     *
      * @return Response
      */
     public function putBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
@@ -85,10 +86,11 @@ class GalleryBackgroundController extends BaseApiController
      * @Route("/api/gallery/{slug}/background", methods={"DELETE"}, name="api_gallery_background_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param Request $request
+     * @param string                  $slug
+     * @param Request                 $request
      * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
+     * @param MediaServiceInterface   $mediaService
+     *
      * @return Response
      */
     public function deleteBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response

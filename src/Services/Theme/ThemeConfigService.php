@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 29.01.2018
- * Time: 08:11
+ * Time: 08:11.
  */
 
 namespace Jinya\Services\Theme;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
@@ -21,7 +20,6 @@ use function preg_replace;
 
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
-
     /** @var ThemeServiceInterface */
     private $themeService;
     /** @var MenuServiceInterface */
@@ -35,11 +33,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * ThemeConfigService constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param MenuServiceInterface $menuService
+     *
+     * @param ThemeServiceInterface  $themeService
+     * @param MenuServiceInterface   $menuService
      * @param EntityManagerInterface $entityManager
-     * @param MediaServiceInterface $mediaService
-     * @param ArrayUtilInterface $arrayUtils
+     * @param MediaServiceInterface  $mediaService
+     * @param ArrayUtilInterface     $arrayUtils
      */
     public function __construct(ThemeServiceInterface $themeService, MenuServiceInterface $menuService, EntityManagerInterface $entityManager, MediaServiceInterface $mediaService, ArrayUtilInterface $arrayUtils)
     {
@@ -51,7 +50,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function saveConfig(string $themeName, array $config, bool $override = true): void
     {
@@ -75,25 +74,25 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeConfig(string $name): array
     {
         $theme = $this->themeService->getTheme($name);
 
-        return Yaml::parse(file_get_contents($this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+        return Yaml::parse(file_get_contents($this->themeService->getThemeDirectory().DIRECTORY_SEPARATOR.$theme->getName().DIRECTORY_SEPARATOR.ThemeService::THEME_CONFIG_YML));
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeNamespace(Theme $theme): string
     {
-        return '@Themes/' . $theme->getName();
+        return '@Themes/'.$theme->getName();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConfigForm(string $name): array
     {
@@ -101,11 +100,11 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getForms(string $name): array
     {
-        $themeYml = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML;
+        $themeYml = $this->themeService->getThemeDirectory().DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.ThemeService::THEME_CONFIG_YML;
 
         $themeData = Yaml::parseFile($themeYml);
 
@@ -113,7 +112,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getVariablesForm(string $name): array
     {
@@ -121,8 +120,8 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         $stylesPath = $this->getStylesPath($theme);
         $themeConfig = $this->getThemeConfig($theme->getName());
 
-        $variablesPath = $stylesPath . DIRECTORY_SEPARATOR . $themeConfig['styles']['variables']['file'];
-        $handle = fopen($variablesPath, "r");
+        $variablesPath = $stylesPath.DIRECTORY_SEPARATOR.$themeConfig['styles']['variables']['file'];
+        $handle = fopen($variablesPath, 'r');
         $variables = [];
 
         try {
@@ -143,7 +142,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStylesPath(Theme $theme): string
     {
@@ -153,13 +152,13 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $stylesBasePath = $themeConfig['styles_base'];
         }
 
-        $stylesPath = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $stylesBasePath;
+        $stylesPath = $this->themeService->getThemeDirectory().DIRECTORY_SEPARATOR.$theme->getName().DIRECTORY_SEPARATOR.$stylesBasePath;
 
         return $stylesPath;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setVariables(string $name, array $variables): void
     {
@@ -169,7 +168,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMenus(string $name, array $menus): void
     {
@@ -201,7 +200,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * Resets the given themes configuration
+     * Resets the given themes configuration.
      *
      * @param string $name
      */
@@ -213,7 +212,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * Resets the given themes variables
+     * Resets the given themes variables.
      *
      * @param string $name
      */
@@ -225,7 +224,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * Removes the given file
+     * Removes the given file.
      *
      * @param string $name
      * @param string $key

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 17:49
+ * Time: 17:49.
  */
 
 namespace Jinya\Formatter\Menu;
-
 
 use Jinya\Entity\Menu;
 use Jinya\Entity\MenuItem;
@@ -28,6 +27,7 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * MenuFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urLGenerator
      */
     public function __construct(UrlGeneratorInterface $urLGenerator)
@@ -44,7 +44,7 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -54,9 +54,10 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Initializes the @see MenuFormatterInterface
+     * Initializes the @see MenuFormatterInterface.
      *
      * @param Menu $menu
+     *
      * @return MenuFormatterInterface
      */
     public function init(Menu $menu): MenuFormatterInterface
@@ -67,7 +68,7 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return MenuFormatterInterface
      */
@@ -79,7 +80,7 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return MenuFormatterInterface
      */
@@ -91,7 +92,7 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the logo
+     * Formats the logo.
      *
      * @return MenuFormatterInterface
      */
@@ -103,7 +104,7 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the items
+     * Formats the items.
      *
      * @return MenuFormatterInterface
      */

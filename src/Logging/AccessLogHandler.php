@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 31.10.2017
- * Time: 16:19
+ * Time: 16:19.
  */
 
 namespace Jinya\Logging;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\AccessLogEntry;
@@ -22,6 +21,7 @@ class AccessLogHandler extends AbstractProcessingHandler
 
     /**
      * AccessLogHandler constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -31,9 +31,10 @@ class AccessLogHandler extends AbstractProcessingHandler
     }
 
     /**
-     * Writes the record down to the log of the implementing handler
+     * Writes the record down to the log of the implementing handler.
      *
-     * @param  array $record
+     * @param array $record
+     *
      * @return void
      */
     protected function write(array $record)

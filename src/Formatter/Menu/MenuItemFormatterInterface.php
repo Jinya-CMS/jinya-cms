@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 18:10
+ * Time: 18:10.
  */
 
 namespace Jinya\Formatter\Menu;
-
 
 use Jinya\Entity\MenuItem;
 use Jinya\Formatter\FormatterInterface;
@@ -15,64 +14,65 @@ use Jinya\Formatter\FormatterInterface;
 interface MenuItemFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param MenuItem $menuItem
+     *
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): MenuItemFormatterInterface;
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return MenuItemFormatterInterface
      */
     public function id(): MenuItemFormatterInterface;
 
     /**
-     * Formats the title
+     * Formats the title.
      *
      * @return MenuItemFormatterInterface
      */
     public function title(): MenuItemFormatterInterface;
 
     /**
-     * Formats the page type
+     * Formats the page type.
      *
      * @return MenuItemFormatterInterface
      */
     public function pageType(): MenuItemFormatterInterface;
 
     /**
-     * Formats the highlight state
+     * Formats the highlight state.
      *
      * @return MenuItemFormatterInterface
      */
     public function highlighted(): MenuItemFormatterInterface;
 
     /**
-     * Formats the children
+     * Formats the children.
      *
      * @return MenuItemFormatterInterface
      */
     public function children(): MenuItemFormatterInterface;
 
     /**
-     * Formats the parent
+     * Formats the parent.
      *
      * @return MenuItemFormatterInterface
      */
     public function parent(): MenuItemFormatterInterface;
 
     /**
-     * Formats the route
+     * Formats the route.
      *
      * @return MenuItemFormatterInterface
      */
     public function route(): MenuItemFormatterInterface;
 
     /**
-     * Formats the position
+     * Formats the position.
      *
      * @return MenuItemFormatterInterface
      */

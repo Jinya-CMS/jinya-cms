@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:37
+ * Time: 15:37.
  */
 
 namespace Jinya\Formatter\Label;
@@ -12,7 +12,6 @@ use Jinya\Entity\Label;
 
 class LabelFormatter implements LabelFormatterInterface
 {
-
     /** @var Label */
     private $label;
 
@@ -20,9 +19,10 @@ class LabelFormatter implements LabelFormatterInterface
     private $formattedData;
 
     /**
-     * Formats the given label into an array
+     * Formats the given label into an array.
      *
      * @param Label $label
+     *
      * @return LabelFormatterInterface
      */
     public function init(Label $label): LabelFormatterInterface
@@ -34,7 +34,7 @@ class LabelFormatter implements LabelFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -44,7 +44,7 @@ class LabelFormatter implements LabelFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return LabelFormatterInterface
      */
@@ -56,7 +56,7 @@ class LabelFormatter implements LabelFormatterInterface
     }
 
     /**
-     * Formats the artworks
+     * Formats the artworks.
      *
      * @return LabelFormatterInterface
      */
@@ -67,7 +67,7 @@ class LabelFormatter implements LabelFormatterInterface
         foreach ($this->label->getArtworks() as $artwork) {
             $this->formattedData['artwork'][] = [
                 'name' => $artwork->getName(),
-                'slug' => $artwork->getSlug()
+                'slug' => $artwork->getSlug(),
             ];
         }
 
@@ -75,7 +75,7 @@ class LabelFormatter implements LabelFormatterInterface
     }
 
     /**
-     * Formats the galleries
+     * Formats the galleries.
      *
      * @return LabelFormatterInterface
      */
@@ -86,7 +86,7 @@ class LabelFormatter implements LabelFormatterInterface
         foreach ($this->label->getGalleries() as $gallery) {
             $this->formattedData['galleries'][] = [
                 'name' => $gallery->getName(),
-                'slug' => $gallery->getSlug()
+                'slug' => $gallery->getSlug(),
             ];
         }
 

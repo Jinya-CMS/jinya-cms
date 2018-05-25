@@ -118,7 +118,7 @@ class PhpIniRequirement extends Requirement
      * Constructor that initializes the requirement.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -171,7 +171,7 @@ class RequirementCollection implements IteratorAggregate
     /**
      * @var Requirement[]
      */
-    private $requirements = array();
+    private $requirements = [];
 
     /**
      * Gets the current RequirementCollection as an Iterator.
@@ -223,7 +223,7 @@ class RequirementCollection implements IteratorAggregate
      * Adds a mandatory requirement in form of a php.ini configuration.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -241,7 +241,7 @@ class RequirementCollection implements IteratorAggregate
      * Adds an optional recommendation in form of a php.ini configuration.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -282,7 +282,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRequirements()
     {
-        $array = array();
+        $array = [];
         foreach ($this->requirements as $req) {
             if (!$req->isOptional()) {
                 $array[] = $req;
@@ -299,7 +299,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRequirements()
     {
-        $array = array();
+        $array = [];
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && !$req->isOptional()) {
                 $array[] = $req;
@@ -316,7 +316,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRecommendations()
     {
-        $array = array();
+        $array = [];
         foreach ($this->requirements as $req) {
             if ($req->isOptional()) {
                 $array[] = $req;
@@ -333,7 +333,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRecommendations()
     {
-        $array = array();
+        $array = [];
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && $req->isOptional()) {
                 $array[] = $req;
@@ -448,7 +448,7 @@ class SymfonyRequirements extends RequirementCollection
         }
 
         if (false !== $requiredPhpVersion && version_compare($installedPhpVersion, $requiredPhpVersion, '>=')) {
-            $timezones = array();
+            $timezones = [];
             foreach (DateTimeZone::listAbbreviations() as $abbreviations) {
                 foreach ($abbreviations as $abbreviation) {
                     $timezones[$abbreviation['timezone_id']] = true;
@@ -722,8 +722,7 @@ class SymfonyRequirements extends RequirementCollection
             ||
             (extension_loaded('xcache') && ini_get('xcache.cacher'))
             ||
-            (extension_loaded('wincache') && ini_get('wincache.ocenabled'))
-        ;
+            (extension_loaded('wincache') && ini_get('wincache.ocenabled'));
 
         $this->addRecommendation(
             $accelerator,

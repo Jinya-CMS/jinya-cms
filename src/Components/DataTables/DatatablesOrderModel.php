@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.11.2017
- * Time: 00:34
+ * Time: 00:34.
  */
 
 namespace Jinya\Components\DataTables;
-
 
 class DatatablesOrderModel
 {

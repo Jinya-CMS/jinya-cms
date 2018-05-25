@@ -3,24 +3,23 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 11.01.2018
- * Time: 18:49
+ * Time: 18:49.
  */
 
 namespace Jinya\Services\Scss;
-
 
 use Leafo\ScssPhp\Compiler;
 use Leafo\ScssPhp\Formatter\Compressed;
 
 class ScssCompilerService implements ScssCompilerServiceInterface
 {
-
     /**
-     * Compiles the given source path into a css file
+     * Compiles the given source path into a css file.
      *
      * @param string $code
      * @param string $importPath
-     * @param array $variables
+     * @param array  $variables
+     *
      * @return string
      */
     public function compileScss(string $code, string $importPath, array $variables): string

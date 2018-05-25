@@ -17,7 +17,8 @@ class CompileThemesCommand extends ContainerAwareCommand
 
     /**
      * CompileThemesCommand constructor.
-     * @param ThemeServiceInterface $themeService
+     *
+     * @param ThemeServiceInterface         $themeService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      */
     public function __construct(ThemeServiceInterface $themeService, ThemeCompilerServiceInterface $themeCompilerService)
@@ -44,9 +45,9 @@ class CompileThemesCommand extends ContainerAwareCommand
     {
         $themes = $this->themeService->getAllThemes();
         foreach ($themes as $theme) {
-            $output->writeln('Compiling theme ' . $theme->getName());
+            $output->writeln('Compiling theme '.$theme->getName());
             $this->themeCompilerService->compileTheme($theme);
-            $output->writeln('Compiled theme ' . $theme->getName());
+            $output->writeln('Compiled theme '.$theme->getName());
         }
 
         $output->writeln('Compiled all themes');

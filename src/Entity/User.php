@@ -432,10 +432,13 @@ class User implements JsonSerializable, UserInterface
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
+     *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -446,7 +449,7 @@ class User implements JsonSerializable, UserInterface
             'lastname' => $this->lastname,
             'profilepicture' => $this->profilePicture,
             'email' => $this->email,
-            'roles' => $this->roles
+            'roles' => $this->roles,
         ];
     }
 

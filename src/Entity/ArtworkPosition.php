@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 17:05
+ * Time: 17:05.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
@@ -20,7 +19,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class ArtworkPosition implements JsonSerializable
 {
-
     use BaseEntity;
     /**
      * @var Gallery
@@ -33,20 +31,20 @@ class ArtworkPosition implements JsonSerializable
      */
     private $artwork;
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="integer")
      */
     private $position;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return [
             'artwork' => $this->getArtwork(),
             'gallery' => $this->getGallery(),
-            'position' => $this->getPosition()
+            'position' => $this->getPosition(),
         ];
     }
 

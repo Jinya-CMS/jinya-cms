@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 29.12.2017
- * Time: 17:06
+ * Time: 17:06.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,27 +26,32 @@ class MenuItem implements JsonSerializable
     private $id;
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $title;
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu", inversedBy="menuItems", cascade={"persist"})
+     *
      * @var Menu
      */
     private $menu;
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
+     *
      * @var RoutingEntry
      */
     private $route;
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     *
      * @var MenuItem
      */
     private $parent;
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
+     *
      * @var Collection
      */
     private $children;
@@ -63,6 +67,7 @@ class MenuItem implements JsonSerializable
     private $highlighted = false;
     /**
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     private $position;
@@ -76,9 +81,10 @@ class MenuItem implements JsonSerializable
     }
 
     /**
-     * Creates a MenuItem from the given array
+     * Creates a MenuItem from the given array.
      *
      * @param array $item
+     *
      * @return MenuItem
      */
     public static function fromArray(array $item): MenuItem
@@ -225,10 +231,13 @@ class MenuItem implements JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
+     *
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -240,17 +249,17 @@ class MenuItem implements JsonSerializable
             'children' => $this->children->toArray(),
             'pageType' => $this->pageType,
             'displayUrl' => $this->route->getUrl(),
-            'highlighted' => $this->highlighted
+            'highlighted' => $this->highlighted,
         ];
 
         if ($this->parent !== null) {
             $result['parent'] = [
-                'id' => $this->parent->getId()
+                'id' => $this->parent->getId(),
             ];
         }
         if ($this->menu !== null) {
             $result['menu'] = [
-                'id' => $this->menu->getId()
+                'id' => $this->menu->getId(),
             ];
         }
 

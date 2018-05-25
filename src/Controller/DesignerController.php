@@ -12,10 +12,11 @@ class DesignerController extends BaseController
      * @Route("/designer", name="designer_home_index")
      * @Route("/designer/{route}", name="designer_home_index_specific", requirements={"route": ".*"})
      *
-     * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function indexAction()
     {

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 16:52
+ * Time: 16:52.
  */
 
 namespace Jinya\Entity;
@@ -100,7 +100,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
@@ -112,7 +112,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
             'updatedBy' => $this->getUpdatedBy(),
             'slug' => $this->slug,
-            'picture' => $this->picture
+            'picture' => $this->picture,
         ];
     }
 }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 16:11
+ * Time: 16:11.
  */
 
 namespace Jinya\Formatter\Artwork;
-
 
 use Jinya\Entity\Artwork;
 use Jinya\Formatter\FormatterInterface;
@@ -33,6 +32,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
 
     /**
      * ArtworkFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -57,9 +57,10 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param Artwork $artwork
+     *
      * @return ArtworkFormatterInterface
      */
     public function init(Artwork $artwork): ArtworkFormatterInterface
@@ -71,7 +72,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the slug
+     * Formats the slug.
      *
      * @return ArtworkFormatterInterface
      */
@@ -83,7 +84,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return ArtworkFormatterInterface
      */
@@ -95,7 +96,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the description
+     * Formats the description.
      *
      * @return ArtworkFormatterInterface
      */
@@ -107,7 +108,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the created info
+     * Formats the created info.
      *
      * @return ArtworkFormatterInterface
      */
@@ -123,7 +124,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the updated info
+     * Formats the updated info.
      *
      * @return ArtworkFormatterInterface
      */
@@ -139,7 +140,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the history
+     * Formats the history.
      *
      * @return ArtworkFormatterInterface
      */
@@ -151,7 +152,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the picture
+     * Formats the picture.
      *
      * @return ArtworkFormatterInterface
      */
@@ -163,7 +164,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the labels
+     * Formats the labels.
      *
      * @return ArtworkFormatterInterface
      */
@@ -179,7 +180,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -189,11 +190,12 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the galleries
+     * Formats the galleries.
      *
-     * @return ArtworkFormatterInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
+     *
+     * @return ArtworkFormatterInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {
@@ -212,7 +214,7 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the id of the entity
+     * Formats the id of the entity.
      *
      * @return ArtworkFormatterInterface
      */

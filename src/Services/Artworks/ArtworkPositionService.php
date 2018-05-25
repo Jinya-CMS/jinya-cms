@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 29.11.2017
- * Time: 18:09
+ * Time: 18:09.
  */
 
 namespace Jinya\Services\Artworks;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,9 +28,10 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /**
      * ArtworkPositionService constructor.
+     *
      * @param GalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManagerInterface  $entityManager
      */
     public function __construct(GalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
     {
@@ -41,11 +41,12 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * Saves the artwork in the given gallery at the given position
+     * Saves the artwork in the given gallery at the given position.
      *
      * @param string $gallerySlug
      * @param string $artworkSlug
-     * @param int $position
+     * @param int    $position
+     *
      * @return int
      */
     public function savePosition(string $gallerySlug, string $artworkSlug, int $position): int
@@ -63,10 +64,11 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * @param int $oldPosition
-     * @param int $newPosition
+     * @param int             $oldPosition
+     * @param int             $newPosition
      * @param ArtworkPosition $artworkPosition
-     * @param Gallery $gallery
+     * @param Gallery         $gallery
+     *
      * @return void
      */
     private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
@@ -79,7 +81,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition)
     {
@@ -94,9 +96,10 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * Deletes the given artwork position
+     * Deletes the given artwork position.
      *
      * @param int $id
+     *
      * @return void
      */
     public function deletePosition(int $id)
@@ -111,9 +114,10 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * Gets the artwork position for the given id
+     * Gets the artwork position for the given id.
      *
      * @param int $id
+     *
      * @return ArtworkPosition
      */
     public function getPosition(int $id): ArtworkPosition
@@ -122,10 +126,11 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     }
 
     /**
-     * Sets the artwork of the given artwork position to the new slug
+     * Sets the artwork of the given artwork position to the new slug.
      *
-     * @param int $id
+     * @param int    $id
      * @param string $artworkSlug
+     *
      * @return void
      */
     public function updateArtwork(int $id, string $artworkSlug)

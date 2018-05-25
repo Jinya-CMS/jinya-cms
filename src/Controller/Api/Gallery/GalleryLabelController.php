@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 21:42
+ * Time: 21:42.
  */
 
 namespace Jinya\Controller\Api\Gallery;
@@ -22,9 +22,10 @@ class GalleryLabelController extends BaseApiController
      * @Route("/api/gallery/{slug}/label", methods={"GET"}, name="api_gallery_label_get")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param GalleryServiceInterface $galleryService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, GalleryServiceInterface $galleryService, LabelFormatterInterface $labelFormatter): Response
@@ -50,10 +51,11 @@ class GalleryLabelController extends BaseApiController
      * @Route("/api/gallery/{slug}/label/{name}", methods={"PUT"}, name="api_gallery_label_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param string $name
+     * @param string                  $slug
+     * @param string                  $name
      * @param GalleryServiceInterface $galleryService
-     * @param LabelServiceInterface $labelService
+     * @param LabelServiceInterface   $labelService
+     *
      * @return Response
      */
     public function putAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -71,9 +73,10 @@ class GalleryLabelController extends BaseApiController
      * @Route("/api/gallery/{slug}/label", methods={"PUT"}, name="api_gallery_label_put_batch")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param GalleryServiceInterface $galleryService
-     * @param LabelServiceInterface $labelService
+     * @param LabelServiceInterface   $labelService
+     *
      * @return Response
      */
     public function putBatchAction(string $slug, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -100,10 +103,11 @@ class GalleryLabelController extends BaseApiController
      * @Route("/api/gallery/{slug}/label/{name}", methods={"DELETE"}, name="api_gallery_label_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param string $name
+     * @param string                  $slug
+     * @param string                  $name
      * @param GalleryServiceInterface $galleryService
-     * @param LabelServiceInterface $labelService
+     * @param LabelServiceInterface   $labelService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
@@ -122,8 +126,9 @@ class GalleryLabelController extends BaseApiController
      * @Route("/api/gallery/{slug}/label", methods={"DELETE"}, name="api_gallery_label_delete_batch")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param GalleryServiceInterface $galleryService
+     *
      * @return Response
      */
     public function deleteBatchAction(string $slug, GalleryServiceInterface $galleryService): Response

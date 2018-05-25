@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 17:40
+ * Time: 17:40.
  */
 
 namespace Jinya\Framework;
@@ -66,20 +66,21 @@ abstract class BaseApiController extends BaseController
 
     /**
      * BaseApiController constructor.
-     * @param TranslatorInterface $translator
-     * @param LabelServiceInterface $labelService
-     * @param LoggerInterface $logger
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
+     *
+     * @param TranslatorInterface           $translator
+     * @param LabelServiceInterface         $labelService
+     * @param LoggerInterface               $logger
+     * @param UrlGeneratorInterface         $urlGenerator
+     * @param ThemeConfigServiceInterface   $themeConfigService
+     * @param ThemeServiceInterface         $themeService
      * @param ConfigurationServiceInterface $configurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
-     * @param RequestStack $requestStack
-     * @param HttpKernelInterface $kernel
+     * @param RequestStack                  $requestStack
+     * @param HttpKernelInterface           $kernel
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param \Twig_Environment $twig
-     * @param TokenStorageInterface $tokenStorage
-     * @param RouterInterface $router
+     * @param \Twig_Environment             $twig
+     * @param TokenStorageInterface         $tokenStorage
+     * @param RouterInterface               $router
      */
     public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
     {
@@ -101,10 +102,12 @@ abstract class BaseApiController extends BaseController
 
     /**
      * @param string $key
-     * @param null $default
-     * @return mixed|null|SimpleXMLElement|array
+     * @param null   $default
+     *
      * @throws InvalidContentTypeException
      * @throws EmptyBodyException
+     *
+     * @return mixed|null|SimpleXMLElement|array
      */
     protected function getValue(string $key, $default = null)
     {
@@ -136,10 +139,11 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Gets all arts from the given service
+     * Gets all arts from the given service.
      *
      * @param LabelEntityServiceInterface $baseService
-     * @param callable $formatter
+     * @param callable                    $formatter
+     *
      * @return Response
      */
     protected function getAllArt(LabelEntityServiceInterface $baseService, callable $formatter): Response
@@ -167,20 +171,21 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Executes the given @see callable and return a formatted error if it fails
+     * Executes the given @see callable and return a formatted error if it fails.
      *
      * @param callable $function
-     * @param int $successStatusCode
+     * @param int      $successStatusCode
+     *
      * @return array
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
         try {
             return [$function(), $successStatusCode];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
             $data = [
                 'success' => false,
-                'validation' => []
+                'validation' => [],
             ];
 
             foreach ($exception->getFields() as $key => $message) {
@@ -188,36 +193,44 @@ abstract class BaseApiController extends BaseController
             }
 
             return [$data, Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException|\Symfony\Component\Security\Core\Exception\AccessDeniedException|\Symfony\Component\Finder\Exception\AccessDeniedException|BadCredentialsException $exception) {
+        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | \Symfony\Component\Finder\Exception\AccessDeniedException | BadCredentialsException $exception) {
             $this->logException($exception, 403);
+
             return [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException|FileNotFoundException|NoResultException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException | FileNotFoundException | NoResultException $exception) {
             $this->logException($exception, 404);
+
             return [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
             $this->logException($exception, 400);
+
             return [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
-        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
             $this->logException($exception, 409);
+
             return [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());
+
             return [$this->jsonFormatException('api.state.500.generic', $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
         }
     }
 
     /**
-     * Formats the given @see Throwable as array
+     * Formats the given @see Throwable as array.
      *
-     * @param string $message
+     * @param string    $message
      * @param Throwable $throwable
+     *
      * @return array
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
@@ -225,8 +238,8 @@ abstract class BaseApiController extends BaseController
         $data = [
             'success' => false,
             'error' => [
-                'message' => $message
-            ]
+                'message' => $message,
+            ],
         ];
         if ($this->isDebug()) {
             $data['error']['exception'] = $throwable->getMessage();
@@ -234,11 +247,12 @@ abstract class BaseApiController extends BaseController
             $data['error']['stack'] = $throwable->getTraceAsString();
             $data['error']['line'] = $throwable->getLine();
         }
+
         return $data;
     }
 
     /**
-     * Checks if we are currently in a debugging environment
+     * Checks if we are currently in a debugging environment.
      *
      * @return bool
      */
@@ -248,12 +262,13 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * @param int $totalCount
-     * @param int $offset
-     * @param int $count
-     * @param array $parameter
+     * @param int    $totalCount
+     * @param int    $offset
+     * @param int    $count
+     * @param array  $parameter
      * @param string $route
-     * @param array $entities
+     * @param array  $entities
+     *
      * @return array
      */
     protected function formatListResult(int $totalCount, int $offset, int $count, array $parameter, string $route, array $entities): array
@@ -279,16 +294,17 @@ abstract class BaseApiController extends BaseController
             'items' => $entities,
             'control' => [
                 'next' => $next,
-                'previous' => $previous
-            ]
+                'previous' => $previous,
+            ],
         ];
     }
 
     /**
-     * Gets all static contents from the given service
+     * Gets all static contents from the given service.
      *
      * @param StaticContentServiceInterface $baseService
-     * @param callable $formatter
+     * @param callable                      $formatter
+     *
      * @return Response
      */
     protected function getAllStaticContent(StaticContentServiceInterface $baseService, callable $formatter): Response
@@ -312,8 +328,9 @@ abstract class BaseApiController extends BaseController
 
     /**
      * @param StaticContentServiceInterface $baseService
-     * @param string $slug
-     * @param callable $formatter
+     * @param string                        $slug
+     * @param callable                      $formatter
+     *
      * @return Response
      */
     protected function getStaticContent(StaticContentServiceInterface $baseService, string $slug, callable $formatter): Response
@@ -328,11 +345,12 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Gets the art for the given slug
+     * Gets the art for the given slug.
      *
-     * @param string $slug
+     * @param string                $slug
      * @param BaseSlugEntityService $baseService
-     * @param callable $formatter
+     * @param callable              $formatter
+     *
      * @return Response
      */
     protected function getArt(string $slug, BaseSlugEntityService $baseService, callable $formatter): Response
@@ -340,7 +358,7 @@ abstract class BaseApiController extends BaseController
         list($data, $status) = $this->tryExecute(function () use ($formatter, $slug, $baseService) {
             return [
                 'success' => true,
-                'item' => $formatter($baseService->get($slug))
+                'item' => $formatter($baseService->get($slug)),
             ];
         });
 
@@ -353,8 +371,8 @@ abstract class BaseApiController extends BaseController
      */
     protected function logException(Throwable $exception, $code): void
     {
-        $this->logger->warning("$code thrown – " . gettype($exception));
-        $this->logger->warning($exception->getLine() . ': ' . $exception->getFile());
+        $this->logger->warning("$code thrown – ".gettype($exception));
+        $this->logger->warning($exception->getLine().': '.$exception->getFile());
         if ($this->isDebug()) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());

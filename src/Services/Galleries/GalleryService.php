@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 08.11.2017
- * Time: 17:06
+ * Time: 17:06.
  */
 
 namespace Jinya\Services\Galleries;
@@ -21,9 +21,10 @@ class GalleryService extends BaseSlugEntityService implements GalleryServiceInte
 
     /**
      * GalleryService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param LabelServiceInterface $labelService
+     * @param SlugServiceInterface   $slugService
+     * @param LabelServiceInterface  $labelService
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {

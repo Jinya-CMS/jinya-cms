@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:29
+ * Time: 15:29.
  */
 
 namespace Jinya\Controller\Api\Label;
@@ -23,8 +23,9 @@ class LabelController extends BaseApiController
      * @Route("/api/label", methods={"GET"}, name="api_label_get_all")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param LabelServiceInterface $labelService
+     * @param LabelServiceInterface   $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAllAction(LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -50,9 +51,10 @@ class LabelController extends BaseApiController
      * @Route("/api/label/{name}", methods={"GET"}, name="api_label_get")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $name
-     * @param LabelServiceInterface $labelService
+     * @param string                  $name
+     * @param LabelServiceInterface   $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function getAction(string $name, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -75,9 +77,10 @@ class LabelController extends BaseApiController
      * @Route("/api/label", methods={"POST"}, name="api_label_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
-     * @param LabelServiceInterface $labelService
+     * @param Request                 $request
+     * @param LabelServiceInterface   $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function postAction(Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -98,10 +101,11 @@ class LabelController extends BaseApiController
      * @Route("/api/label/{name}", methods={"PUT"}, name="api_label_put")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param string $name
-     * @param Request $request
-     * @param LabelServiceInterface $labelService
+     * @param string                  $name
+     * @param Request                 $request
+     * @param LabelServiceInterface   $labelService
      * @param LabelFormatterInterface $labelFormatter
+     *
      * @return Response
      */
     public function putAction(string $name, Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
@@ -122,8 +126,9 @@ class LabelController extends BaseApiController
      * @Route("/api/label/{name}", methods={"DELETE"}, name="api_label_delete")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param string $name
+     * @param string                $name
      * @param LabelServiceInterface $labelService
+     *
      * @return Response
      */
     public function deleteAction(string $name, LabelServiceInterface $labelService): Response

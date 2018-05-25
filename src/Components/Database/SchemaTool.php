@@ -17,6 +17,7 @@ class SchemaTool implements SchemaToolInterface
 
     /**
      * SchemaTool constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -24,9 +25,8 @@ class SchemaTool implements SchemaToolInterface
         $this->entityManager = $entityManager;
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateSchema(): void
     {

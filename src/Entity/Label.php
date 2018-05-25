@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 07.01.2018
- * Time: 19:54
+ * Time: 19:54.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -117,18 +116,18 @@ class Label implements JsonSerializable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return [
             'name' => $this->name,
             'artworks' => [
-                'count' => $this->artworks->count()
+                'count' => $this->artworks->count(),
             ],
             'galleries' => [
-                'count' => $this->galleries->count()
-            ]
+                'count' => $this->galleries->count(),
+            ],
         ];
     }
 }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 16:17
+ * Time: 16:17.
  */
 
 namespace Jinya\Formatter\User;
-
 
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Form;
@@ -42,6 +41,7 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * UserFormatter constructor.
+     *
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -82,7 +82,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -92,9 +92,10 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param User $user
+     *
      * @return UserFormatterInterface
      */
     public function init(User $user): UserFormatterInterface
@@ -106,7 +107,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the lastname
+     * Formats the lastname.
      *
      * @return UserFormatterInterface
      */
@@ -118,7 +119,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the roles
+     * Formats the roles.
      *
      * @return UserFormatterInterface
      */
@@ -130,7 +131,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the email
+     * Formats the email.
      *
      * @return UserFormatterInterface
      */
@@ -142,7 +143,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the enable state
+     * Formats the enable state.
      *
      * @return UserFormatterInterface
      */
@@ -154,7 +155,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the profile picture
+     * Formats the profile picture.
      *
      * @return UserFormatterInterface
      */
@@ -166,7 +167,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
+     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email().
      *
      * @return UserFormatterInterface
      */
@@ -180,7 +181,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the firstname
+     * Formats the firstname.
      *
      * @return UserFormatterInterface
      */
@@ -192,7 +193,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return UserFormatterInterface
      */
@@ -204,7 +205,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the created artworks
+     * Formats the created artworks.
      *
      * @return UserFormatterInterface
      */
@@ -224,7 +225,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the created galleries
+     * Formats the created galleries.
      *
      * @return UserFormatterInterface
      */
@@ -244,7 +245,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the created pages
+     * Formats the created pages.
      *
      * @return UserFormatterInterface
      */
@@ -262,7 +263,7 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the created forms
+     * Formats the created forms.
      *
      * @return UserFormatterInterface
      */

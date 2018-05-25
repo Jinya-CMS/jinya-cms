@@ -22,20 +22,21 @@ use Throwable;
 
 class FrontendController extends BaseController
 {
-
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": "^(?!api\\/|designer\\/).*"})
      *
-     * @param string $route
+     * @param string                $route
      * @param RouteServiceInterface $routeService
-     * @param LoggerInterface $logger
-     * @return Response
+     * @param LoggerInterface       $logger
+     *
      * @throws Throwable
+     *
+     * @return Response
      */
     public function indexAction(string $route, RouteServiceInterface $routeService, LoggerInterface $logger): Response
     {
         try {
-            $routeEntry = $routeService->findByUrl('/' . $route);
+            $routeEntry = $routeService->findByUrl('/'.$route);
 
             return $this->forwardToRoute($routeEntry);
         } catch (Throwable $throwable) {
@@ -54,31 +55,35 @@ class FrontendController extends BaseController
     /**
      * @Route("/artwork/{slug}", name="frontend_artwork_details")
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param ArtworkServiceInterface $artworkService
-     * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function artworkDetailAction(string $slug, ArtworkServiceInterface $artworkService): Response
     {
         $artwork = $artworkService->get($slug);
 
         return $this->render('@Frontend/Artwork/detail.html.twig', [
-            'artwork' => $artwork
+            'artwork' => $artwork,
         ]);
     }
 
     /**
      * @Route("/gallery/{slug}", name="frontend_gallery_details")
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param GalleryServiceInterface $galleryService
-     * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
     {
@@ -94,22 +99,24 @@ class FrontendController extends BaseController
         $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
-            'gallery' => $gallery
+            'gallery' => $gallery,
         ]);
     }
 
     /**
      * @Route("/form/{slug}", name="frontend_form_details")
      *
-     * @param string $slug
-     * @param Request $request
-     * @param FormServiceInterface $formService
+     * @param string                 $slug
+     * @param Request                $request
+     * @param FormServiceInterface   $formService
      * @param FormGeneratorInterface $formGenerator
      * @param MailerServiceInterface $mailerService
-     * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function formDetailAction(string $slug, Request $request, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService): Response
     {
@@ -122,7 +129,7 @@ class FrontendController extends BaseController
 
         $viewData = [
             'formEntity' => $formEntity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,19 +143,21 @@ class FrontendController extends BaseController
     /**
      * @Route("/page/{slug}", name="frontend_page_details")
      *
-     * @param string $slug
+     * @param string               $slug
      * @param PageServiceInterface $pageService
-     * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function pageDetailAction(string $slug, PageServiceInterface $pageService): Response
     {
         $page = $pageService->get($slug);
 
         return $this->render('@Frontend/Page/detail.html.twig', [
-            'page' => $page
+            'page' => $page,
         ]);
     }
 }

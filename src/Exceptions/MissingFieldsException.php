@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 19:11
+ * Time: 19:11.
  */
 
 namespace Jinya\Exceptions;
-
 
 use Exception;
 
@@ -18,6 +17,7 @@ class MissingFieldsException extends Exception
 
     /**
      * MissingFieldsException constructor.
+     *
      * @param array $fields
      */
     public function __construct(array $fields)

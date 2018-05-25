@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 07:59
+ * Time: 07:59.
  */
 
 namespace Jinya\Formatter\Theme;
-
 
 use Jinya\Entity\Theme;
 use Jinya\Formatter\FormatterInterface;
@@ -15,71 +14,72 @@ use Jinya\Formatter\FormatterInterface;
 interface ThemeFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Theme $theme
+     *
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): ThemeFormatterInterface;
 
     /**
-     * Formats the preview image
+     * Formats the preview image.
      *
      * @return ThemeFormatterInterface
      */
     public function previewImage(): ThemeFormatterInterface;
 
     /**
-     * Formats the config
+     * Formats the config.
      *
      * @return ThemeFormatterInterface
      */
     public function config(): ThemeFormatterInterface;
 
     /**
-     * Formats the description
+     * Formats the description.
      *
      * @return ThemeFormatterInterface
      */
     public function description(): ThemeFormatterInterface;
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return ThemeFormatterInterface
      */
     public function name(): ThemeFormatterInterface;
 
     /**
-     * Formats the display name
+     * Formats the display name.
      *
      * @return ThemeFormatterInterface
      */
     public function displayName(): ThemeFormatterInterface;
 
     /**
-     * Formats the SCSS variables
+     * Formats the SCSS variables.
      *
      * @return ThemeFormatterInterface
      */
     public function scssVariables(): ThemeFormatterInterface;
 
     /**
-     * Formats the primary menu
+     * Formats the primary menu.
      *
      * @return ThemeFormatterInterface
      */
     public function primaryMenu(): ThemeFormatterInterface;
 
     /**
-     * Formats the secondary menu
+     * Formats the secondary menu.
      *
      * @return ThemeFormatterInterface
      */
     public function secondaryMenu(): ThemeFormatterInterface;
 
     /**
-     * Formats the footer menu
+     * Formats the footer menu.
      *
      * @return ThemeFormatterInterface
      */

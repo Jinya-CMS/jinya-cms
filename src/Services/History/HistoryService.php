@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 26.02.2018
- * Time: 08:09
+ * Time: 08:09.
  */
 
 namespace Jinya\Services\History;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use function array_filter;
@@ -15,12 +14,12 @@ use function method_exists;
 
 class HistoryService implements HistoryServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
      * HistoryService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -29,7 +28,7 @@ class HistoryService implements HistoryServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getHistory(string $class, int $id): array
     {
@@ -38,16 +37,18 @@ class HistoryService implements HistoryServiceInterface
 
     /**
      * @param string $class
+     *
      * @return string
      */
     protected function getFullClassName(string $class): string
     {
         $class = "Jinya\\Entity\\$class";
+
         return $class;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clearHistory(string $class, int $id): void
     {
@@ -58,7 +59,7 @@ class HistoryService implements HistoryServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function revert(string $class, int $id, string $field, string $timestamp): void
     {

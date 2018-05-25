@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 02.03.2018
- * Time: 08:02
+ * Time: 08:02.
  */
 
 namespace Jinya\Services\Form;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,8 +26,9 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * FormItemService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param FormServiceInterface $formService
+     * @param FormServiceInterface   $formService
      */
     public function __construct(EntityManagerInterface $entityManager, FormServiceInterface $formService)
     {
@@ -37,7 +37,7 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Adds a new form item to the given form
+     * Adds a new form item to the given form.
      *
      * @param FormItem $formItem
      */
@@ -48,10 +48,10 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * @param int $oldPosition
-     * @param int $newPosition
+     * @param int      $oldPosition
+     * @param int      $newPosition
      * @param FormItem $formItem
-     * @param Form $form
+     * @param Form     $form
      */
     private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form)
     {
@@ -64,10 +64,11 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Deletes the item at the given position
+     * Deletes the item at the given position.
      *
      * @param Form $form
-     * @param int $position
+     * @param int  $position
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -88,9 +89,10 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Gets all items for the given form
+     * Gets all items for the given form.
      *
      * @param string $formSlug
+     *
      * @return array
      */
     public function getItems(string $formSlug): array
@@ -113,7 +115,7 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Updates the given form item
+     * Updates the given form item.
      *
      * @param FormItem $formItem
      */
@@ -123,13 +125,15 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Gets the form item in the given form at the given position
+     * Gets the form item in the given form at the given position.
      *
      * @param string $slug
-     * @param int $position
-     * @return FormItem
+     * @param int    $position
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return FormItem
      */
     public function getItem(string $slug, int $position): FormItem
     {
@@ -146,11 +150,11 @@ class FormItemService implements FormItemServiceInterface
     }
 
     /**
-     * Updates the position
+     * Updates the position.
      *
      * @param string $formSlug
-     * @param int $oldPosition
-     * @param int $newPosition
+     * @param int    $oldPosition
+     * @param int    $newPosition
      */
     public function updatePosition(string $formSlug, int $oldPosition, int $newPosition): void
     {
