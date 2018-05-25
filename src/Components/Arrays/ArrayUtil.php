@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 19:48
+ * Time: 19:48.
  */
 
 namespace Jinya\Components\Arrays;
@@ -14,12 +14,13 @@ use function is_array;
 class ArrayUtil implements ArrayUtilInterface
 {
     /**
-     * Sets an array value based on the path
+     * Sets an array value based on the path.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $path
      * @param $newValue
      * @param string $delimiter
+     *
      * @return array
      */
     public function setArrayValueByPath(array $data, string $path, $newValue, string $delimiter = '.'): array
@@ -37,10 +38,11 @@ class ArrayUtil implements ArrayUtilInterface
     }
 
     /**
-     * Builds a new empty array from the given path
+     * Builds a new empty array from the given path.
      *
      * @param string $path
      * @param string $delimiter
+     *
      * @return array
      */
     public function buildArrayFromPath(string $path, string $delimiter = '.'): array
@@ -60,9 +62,10 @@ class ArrayUtil implements ArrayUtilInterface
     }
 
     /**
-     * @param array $data
+     * @param array  $data
      * @param string $path
      * @param string $delimiter
+     *
      * @return array
      */
     public function removeArrayValueByPath(array $data, string $path, string $delimiter = '.'): array
@@ -84,11 +87,12 @@ class ArrayUtil implements ArrayUtilInterface
     }
 
     /**
-     * Gets the value behind the given path
+     * Gets the value behind the given path.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $path
      * @param string $delimiter
+     *
      * @return mixed
      */
     public function getArrayValueByPath(array $data, string $path, string $delimiter = '.')
@@ -99,9 +103,10 @@ class ArrayUtil implements ArrayUtilInterface
     }
 
     /**
-     * Removes all empty entries recursively
+     * Removes all empty entries recursively.
      *
      * @param array $data
+     *
      * @return array
      */
     public function removeEmptyRecursive(array $data): array

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 20:02
+ * Time: 20:02.
  */
 
 namespace Jinya\Exceptions;
-
 
 use Exception;
 
@@ -18,6 +17,7 @@ class InvalidContentTypeException extends Exception
 
     /**
      * InvalidContentTypeException constructor.
+     *
      * @param string $contentType
      * @param string $message
      */

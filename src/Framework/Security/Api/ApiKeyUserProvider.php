@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 10.03.2018
- * Time: 22:38
+ * Time: 22:38.
  */
 
 namespace Jinya\Framework\Security\Api;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\User;
@@ -17,7 +16,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
-
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
     /** @var EntityManagerInterface */
@@ -25,7 +23,8 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     /**
      * ApiKeyUserProvider constructor.
-     * @param ApiKeyToolInterface $apiKeyTool
+     *
+     * @param ApiKeyToolInterface    $apiKeyTool
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(ApiKeyToolInterface $apiKeyTool, EntityManagerInterface $entityManager)
@@ -42,9 +41,10 @@ class ApiKeyUserProvider implements UserProviderInterface
      *
      * @param string $username The username
      *
-     * @return UserInterface
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return UserInterface
      */
     public function loadUserByUsername($username)
     {
@@ -66,6 +66,7 @@ class ApiKeyUserProvider implements UserProviderInterface
      * map.
      *
      * @param UserInterface $user
+     *
      * @return void
      */
     public function refreshUser(UserInterface $user)
@@ -88,6 +89,7 @@ class ApiKeyUserProvider implements UserProviderInterface
     public function getUsernameFromApiKey(string $key): string
     {
         $this->apiKeyTool->refreshToken($key);
+
         return $this->apiKeyTool->getUserByKey($key)->getEmail();
     }
 }

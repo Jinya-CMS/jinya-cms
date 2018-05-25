@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 21:54
+ * Time: 21:54.
  */
 
 namespace Jinya\Formatter\Configuration;
-
 
 use Jinya\Entity\Configuration;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
@@ -24,6 +23,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * ConfigurationFormatter constructor.
+     *
      * @param ThemeFormatterInterface $themeFormatter
      */
     public function __construct(ThemeFormatterInterface $themeFormatter)
@@ -32,9 +32,10 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Configuration $configuration
+     *
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): ConfigurationFormatterInterface
@@ -45,7 +46,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     }
 
     /**
-     * Formats the frontend theme
+     * Formats the frontend theme.
      *
      * @return ConfigurationFormatterInterface
      */
@@ -62,7 +63,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */

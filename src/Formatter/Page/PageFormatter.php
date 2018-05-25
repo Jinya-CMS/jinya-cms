@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 22:53
+ * Time: 22:53.
  */
 
 namespace Jinya\Formatter\Page;
-
 
 use Jinya\Entity\Page;
 use Jinya\Formatter\User\UserFormatterInterface;
@@ -24,6 +23,7 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * PageFormatter constructor.
+     *
      * @param UserFormatterInterface $userFormatter
      */
     public function __construct(UserFormatterInterface $userFormatter)
@@ -32,7 +32,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -42,9 +42,10 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Page $page
+     *
      * @return PageFormatterInterface
      */
     public function init(Page $page): PageFormatterInterface
@@ -55,7 +56,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return PageFormatterInterface
      */
@@ -67,7 +68,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the created info
+     * Formats the created info.
      *
      * @return PageFormatterInterface
      */
@@ -83,7 +84,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the updated info
+     * Formats the updated info.
      *
      * @return PageFormatterInterface
      */
@@ -98,9 +99,8 @@ class PageFormatter implements PageFormatterInterface
         return $this;
     }
 
-
     /**
-     * Formats the history
+     * Formats the history.
      *
      * @return PageFormatterInterface
      */
@@ -112,7 +112,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the content
+     * Formats the content.
      *
      * @return PageFormatterInterface
      */
@@ -124,7 +124,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the title
+     * Formats the title.
      *
      * @return PageFormatterInterface
      */
@@ -136,7 +136,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the slug
+     * Formats the slug.
      *
      * @return PageFormatterInterface
      */
@@ -148,7 +148,7 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return PageFormatterInterface
      */

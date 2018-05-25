@@ -17,8 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class InstallController
- * @package Jinya\Controller
+ * Class InstallController.
  */
 class InstallController extends AbstractController
 {
@@ -37,10 +36,11 @@ class InstallController extends AbstractController
 
     /**
      * InstallController constructor.
-     * @param SchemaToolInterface $schemaTool
-     * @param string $kernelProjectDir
-     * @param UserServiceInterface $userService
-     * @param \Twig_Environment $twig
+     *
+     * @param SchemaToolInterface   $schemaTool
+     * @param string                $kernelProjectDir
+     * @param UserServiceInterface  $userService
+     * @param \Twig_Environment     $twig
      * @param MediaServiceInterface $mediaService
      */
     public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, \Twig_Environment $twig, MediaServiceInterface $mediaService)
@@ -54,10 +54,12 @@ class InstallController extends AbstractController
 
     /**
      * @param Request $request
-     * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function indexAction(Request $request): Response
     {
@@ -67,15 +69,15 @@ class InstallController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SetupData $formData */
             $formData = $form->getData();
-            $databaseUrl = 'mysql://' . $formData->getDatabaseUser() . ':' . $formData->getDatabasePassword() . '@' . $formData->getDatabaseHost() . ':' . $formData->getDatabasePort() . '/' . $formData->getDatabaseName();
-            $mailerUrl = $formData->getMailerTransport() . '://' . $formData->getMailerUser() . ':' . $formData->getMailerPassword() . '@' . $formData->getMailerHost() . ':' . $formData->getMailerPort();
+            $databaseUrl = 'mysql://'.$formData->getDatabaseUser().':'.$formData->getDatabasePassword().'@'.$formData->getDatabaseHost().':'.$formData->getDatabasePort().'/'.$formData->getDatabaseName();
+            $mailerUrl = $formData->getMailerTransport().'://'.$formData->getMailerUser().':'.$formData->getMailerPassword().'@'.$formData->getMailerHost().':'.$formData->getMailerPort();
 
             $parameters = [
                 'databaseUrl' => $databaseUrl,
                 'appSecret' => uniqid(),
                 'appEnv' => 'prod',
                 'mailerUrl' => $mailerUrl,
-                'mailerSender' => $formData->getMailerSender()
+                'mailerSender' => $formData->getMailerSender(),
             ];
 
             $this->writeEnv($parameters);
@@ -84,12 +86,13 @@ class InstallController extends AbstractController
         }
 
         return $this->render('@Jinya\Installer\Default\index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @param array $parameters
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -99,17 +102,19 @@ class InstallController extends AbstractController
         $fs = new Filesystem();
         $data = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
 
-        $fs->dumpFile($this->kernelProjectDir . '/public/.htaccess', $data);
+        $fs->dumpFile($this->kernelProjectDir.'/public/.htaccess', $data);
     }
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function createDatabaseAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
             $this->schemaTool->updateSchema();
+
             return $this->redirectToRoute('install_admin');
         }
 
@@ -126,6 +131,7 @@ class InstallController extends AbstractController
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function createAdminAction(Request $request): Response
@@ -154,13 +160,13 @@ class InstallController extends AbstractController
             $this->themeSyncService->syncThemes();
 
             $fs = new Filesystem();
-            $fs->touch($this->kernelProjectDir . '/config/install.lock');
+            $fs->touch($this->kernelProjectDir.'/config/install.lock');
 
             return $this->redirectToRoute('install_done');
         }
 
         return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 28.02.2018
- * Time: 08:17
+ * Time: 08:17.
  */
 
 namespace Jinya\Controller\Api\Account;
@@ -27,8 +27,9 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/login", methods={"POST"}, name="api_account_login")
      *
-     * @param ApiKeyToolInterface $apiKeyTool
+     * @param ApiKeyToolInterface  $apiKeyTool
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService): Response
@@ -48,8 +49,9 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/login", methods={"HEAD"}, name="account_login_check")
      *
-     * @param Request $request
+     * @param Request             $request
      * @param ApiKeyToolInterface $apiKeyTool
+     *
      * @return Response
      */
     public function checkLoginAction(Request $request, ApiKeyToolInterface $apiKeyTool): Response
@@ -58,6 +60,7 @@ class AccountController extends BaseApiController
             return new Response('', Response::HTTP_NO_CONTENT);
         } else {
             $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
+
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
@@ -65,8 +68,9 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/logout", methods={"DELETE"}, name="api_account_logout")
      *
-     * @param string $key
+     * @param string              $key
      * @param ApiKeyToolInterface $apiKeyTool
+     *
      * @return Response
      */
     public function logoutAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
@@ -82,8 +86,9 @@ class AccountController extends BaseApiController
      * @Route("/api/account", methods={"GET"}, name="api_account_get")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
-     * @param UserServiceInterface $userService
+     * @param UserServiceInterface   $userService
      * @param UserFormatterInterface $userFormatter
+     *
      * @return Response
      */
     public function getAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
@@ -109,6 +114,7 @@ class AccountController extends BaseApiController
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function putDataAction(UserServiceInterface $userService): Response
@@ -134,11 +140,13 @@ class AccountController extends BaseApiController
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UserServiceInterface $userService
-     * @param UrlGeneratorInterface $urlGenerator
-     * @return Response
+     * @param UserServiceInterface         $userService
+     * @param UrlGeneratorInterface        $urlGenerator
+     *
      * @throws \Jinya\Exceptions\EmptyBodyException
      * @throws \Jinya\Exceptions\InvalidContentTypeException
+     *
+     * @return Response
      */
     public function putPasswordAction(UserPasswordEncoderInterface $userPasswordEncoder, UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
     {
@@ -162,7 +170,7 @@ class AccountController extends BaseApiController
 
                     return [
                         'url' => $urlGenerator->generate('api_account_password_put'),
-                        'token' => $confirmToken
+                        'token' => $confirmToken,
                     ];
                 } else {
                     throw new AccessDeniedException();

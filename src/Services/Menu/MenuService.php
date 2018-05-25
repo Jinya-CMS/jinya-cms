@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 30.12.2017
- * Time: 23:08
+ * Time: 23:08.
  */
 
 namespace Jinya\Services\Menu;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +15,6 @@ use Jinya\Entity\MenuItem;
 
 class MenuService implements MenuServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -24,6 +22,7 @@ class MenuService implements MenuServiceInterface
 
     /**
      * MenuService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,7 +31,7 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save(Menu $menu): Menu
     {
@@ -46,7 +45,7 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(): array
     {
@@ -54,7 +53,7 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(int $id): void
     {
@@ -64,18 +63,17 @@ class MenuService implements MenuServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(int $id): Menu
     {
         return $this->entityManager->find(Menu::class, $id);
     }
 
-
     /**
-     * Fills the menu items from the given array
+     * Fills the menu items from the given array.
      *
-     * @param int $id
+     * @param int   $id
      * @param array $data
      */
     public function fillFromArray(int $id, array $data): void
@@ -116,7 +114,7 @@ class MenuService implements MenuServiceInterface
                     $child->setParent($menuItem);
                     $this->entityManager->persist($child);
                     $children[] = $child;
-                } else if ($nestingLevel >= $item['nestingLevel']) {
+                } elseif ($nestingLevel >= $item['nestingLevel']) {
                     break;
                 }
             }
@@ -133,6 +131,7 @@ class MenuService implements MenuServiceInterface
 
     /**
      * @param array $items
+     *
      * @return array
      */
     private function fixPositions(array $items): array
@@ -143,7 +142,7 @@ class MenuService implements MenuServiceInterface
 
         if (count($positionZero) === count($items)) {
             foreach ($items as $idx => $item) {
-                /** @var MenuItem $item */
+                /* @var MenuItem $item */
                 $item->setPosition($idx);
             }
         }

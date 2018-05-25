@@ -3,17 +3,16 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 27.10.2017
- * Time: 23:10
+ * Time: 23:10.
  */
 
 namespace Jinya\Validator\Constraints;
 
-
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class Port
- * @package Jinya\Validator\Constraints
+ * Class Port.
+ *
  * @Annotation
  */
 class Port extends Constraint

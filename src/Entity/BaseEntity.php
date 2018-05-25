@@ -3,15 +3,13 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 16:56
+ * Time: 16:56.
  */
 
 namespace Jinya\Entity;
 
-
 trait BaseEntity
 {
-
     /**
      * @var int
      * @ORM\Id

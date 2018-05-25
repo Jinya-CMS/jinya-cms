@@ -71,7 +71,6 @@ class AdminData
         $this->profilePicture = $profilePicture;
     }
 
-
     /**
      * @return string
      */

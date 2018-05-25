@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.12.2017
- * Time: 17:36
+ * Time: 17:36.
  */
 
 namespace Jinya\Entity;
-
 
 trait SlugEntity
 {

@@ -11,6 +11,7 @@ class RoutingHelper extends \Twig_Extension
 
     /**
      * RoutingHelper constructor.
+     *
      * @param RequestContext $request
      */
     public function __construct(RequestContext $request)
@@ -29,24 +30,24 @@ class RoutingHelper extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_url' => new \Twig_Function('get_url', [$this, 'getUrl'])
+            'get_url' => new \Twig_Function('get_url', [$this, 'getUrl']),
         ];
     }
 
     public function getUrl()
     {
-        $url = $this->request->getScheme() . '://' . $this->request->getHost();
+        $url = $this->request->getScheme().'://'.$this->request->getHost();
 
         if ($this->request->getScheme() === 'http' && $this->request->getHttpPort() !== 80) {
-            $url .= ':' . $this->request->getHttpPort();
-        } else if ($this->request->getScheme() === 'https' && $this->request->getHttpsPort() !== 443) {
-            $url .= ':' . $this->request->getHttpsPort();
+            $url .= ':'.$this->request->getHttpPort();
+        } elseif ($this->request->getScheme() === 'https' && $this->request->getHttpsPort() !== 443) {
+            $url .= ':'.$this->request->getHttpsPort();
         }
 
         $url .= $this->request->getPathInfo();
 
         if (!empty($this->request->getQueryString())) {
-            $url .= '?' . $this->request->getQueryString();
+            $url .= '?'.$this->request->getQueryString();
         }
 
         return $url;

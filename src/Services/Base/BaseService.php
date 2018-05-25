@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 09.11.2017
- * Time: 17:00
+ * Time: 17:00.
  */
 
 namespace Jinya\Services\Base;
@@ -22,8 +22,9 @@ class BaseService
 
     /**
      * BaseService constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param string $entityType
+     * @param string                 $entityType
      */
     public function __construct(EntityManagerInterface $entityManager, string $entityType)
     {
@@ -31,22 +32,20 @@ class BaseService
         $this->entityType = $entityType;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function updateField(string $key, string $value, int $id)
     {
         $entity = $this->entityManager->find($this->entityType, $id);
         $entity->{"set$key"}($value);
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->saveOrUpdate($entity);
     }
 
     /**
-     * Saves the given entity
+     * Saves the given entity.
      *
      * @param BaseEntity $entity
+     *
      * @return BaseEntity
      */
     public function saveOrUpdate($entity)
@@ -61,9 +60,10 @@ class BaseService
     }
 
     /**
-     * Deletes the given @see BaseEntity
+     * Deletes the given @see BaseEntity.
      *
      * @param BaseEntity $entity
+     *
      * @return void
      */
     public function delete($entity): void
@@ -73,7 +73,7 @@ class BaseService
     }
 
     /**
-     * Gets a @see QueryBuilder for the current entity type
+     * Gets a @see QueryBuilder for the current entity type.
      *
      * @return QueryBuilder
      */

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 29.01.2018
- * Time: 18:56
+ * Time: 18:56.
  */
 
 namespace Jinya\Services\Theme;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
@@ -18,7 +17,6 @@ use const DIRECTORY_SEPARATOR;
 
 class ThemeSyncService implements ThemeSyncServiceInterface
 {
-
     /** @var ThemeServiceInterface */
     private $themeService;
     /** @var EntityManagerInterface */
@@ -30,10 +28,11 @@ class ThemeSyncService implements ThemeSyncServiceInterface
 
     /**
      * ThemeSyncService constructor.
-     * @param ThemeServiceInterface $themeService
+     *
+     * @param ThemeServiceInterface  $themeService
      * @param EntityManagerInterface $entityManager
-     * @param string $kernelProjectDir
-     * @param string $themeDirectory
+     * @param string                 $kernelProjectDir
+     * @param string                 $themeDirectory
      */
     public function __construct(ThemeServiceInterface $themeService, EntityManagerInterface $entityManager, string $kernelProjectDir, string $themeDirectory)
     {
@@ -44,24 +43,24 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        $themeDirectory = $this->kernelProjectDir.DIRECTORY_SEPARATOR.$this->themeDirectory;
         $configFiles = $finder->files()
             ->in($themeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
 
         foreach ($configFiles as $configFile) {
-            /** @var $configFile SplFileInfo */
+            /* @var $configFile SplFileInfo */
             $this->saveTheme($configFile->getContents(), $configFile->getRelativePath());
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -81,7 +80,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             $theme->setConfiguration([]);
         }
         if (array_key_exists('previewImage', $config)) {
-            $previewImagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
+            $previewImagePath = $this->kernelProjectDir.DIRECTORY_SEPARATOR.$this->themeDirectory.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$config['previewImage'];
             $theme->setPreviewImage($previewImagePath);
         }
 

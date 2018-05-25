@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 15.01.2018
- * Time: 22:32
+ * Time: 22:32.
  */
 
 namespace Jinya\EventSubscriber;
-
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,6 +24,7 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
 
     /**
      * KernelExceptionSubscriber constructor.
+     *
      * @param RouterInterface $router
      * @param LoggerInterface $logger
      */
@@ -35,12 +35,12 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::EXCEPTION => 'onException'
+            KernelEvents::EXCEPTION => 'onException',
         ];
     }
 

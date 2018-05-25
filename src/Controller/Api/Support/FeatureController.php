@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanuel
  * Date: 15.05.18
- * Time: 17:40
+ * Time: 17:40.
  */
 
 namespace Jinya\Controller\Api\Support;
-
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -26,7 +25,8 @@ class FeatureController extends BaseApiController
      * @Route("/api/support/feature", methods={"POST"}, name="api_support_feature")
      *
      * @param Request $request
-     * @param Client $client
+     * @param Client  $client
+     *
      * @return Response
      */
     public function submitAction(Request $request, Client $client): Response
@@ -43,8 +43,8 @@ class FeatureController extends BaseApiController
             $response = $client->request('POST', 'https://api.jinya.de/tracker/feature', [
                 RequestOptions::JSON => $feature,
                 RequestOptions::HEADERS => [
-                    'Content-Type' => 'application/json'
-                ]
+                    'Content-Type' => 'application/json',
+                ],
             ]);
 
             return json_decode($response->getBody()->getContents(), true);

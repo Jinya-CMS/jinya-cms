@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.01.2018
- * Time: 17:09
+ * Time: 17:09.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,6 +20,7 @@ class Theme
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
      * @var int
      */
     private $id;
@@ -31,21 +31,25 @@ class Theme
     private $previewImage;
     /**
      * @ORM\Column(type="json_array")
+     *
      * @var array
      */
     private $configuration = [];
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $description;
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $name;
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $displayName;

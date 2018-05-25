@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 16:05
+ * Time: 16:05.
  */
 
 namespace Jinya\Formatter\Artwork;
@@ -14,36 +14,37 @@ use Jinya\Formatter\FormatterInterface;
 interface ArtworkPositionFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the format
+     * Initializes the format.
      *
      * @param ArtworkPosition $artworkPosition
+     *
      * @return ArtworkPositionFormatterInterface
      */
     public function init(ArtworkPosition $artworkPosition): ArtworkPositionFormatterInterface;
 
     /**
-     * Formats the artwork
+     * Formats the artwork.
      *
      * @return ArtworkPositionFormatterInterface
      */
     public function artwork(): ArtworkPositionFormatterInterface;
 
     /**
-     * Formats the gallery
+     * Formats the gallery.
      *
      * @return ArtworkPositionFormatterInterface
      */
     public function gallery(): ArtworkPositionFormatterInterface;
 
     /**
-     * Formats the position
+     * Formats the position.
      *
      * @return ArtworkPositionFormatterInterface
      */
     public function position(): ArtworkPositionFormatterInterface;
 
     /**
-     * Formats the id
+     * Formats the id.
      *
      * @return ArtworkPositionFormatterInterface
      */
