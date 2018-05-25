@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 23:10
+ * Time: 23:10.
  */
 
 namespace Jinya\Controller\Api\Artwork;
-
 
 use Jinya\Entity\Artwork;
 use Jinya\Exceptions\MissingFieldsException;
@@ -25,8 +24,9 @@ class ArtworkController extends BaseApiController
     /**
      * @Route("/api/artwork", methods={"GET"}, name="api_artwork_get_all")
      *
-     * @param ArtworkServiceInterface $artworkService
+     * @param ArtworkServiceInterface   $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
+     *
      * @return Response
      */
     public function getAllAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
@@ -45,14 +45,15 @@ class ArtworkController extends BaseApiController
     /**
      * @Route("/api/artwork/{slug}", methods={"GET"}, name="api_artwork_get")
      *
-     * @param string $slug
-     * @param ArtworkServiceInterface $artworkService
+     * @param string                    $slug
+     * @param ArtworkServiceInterface   $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $artworkService, function ($artwork) use ($artworkFormatter) {
             $result = $artworkFormatter->init($artwork)
                 ->name()
@@ -76,9 +77,10 @@ class ArtworkController extends BaseApiController
      * @Route("/api/artwork", methods={"POST"}, name="api_artwork_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
-     * @param ArtworkServiceInterface $artworkService
+     * @param Request                   $request
+     * @param ArtworkServiceInterface   $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
+     *
      * @return Response
      */
     public function postAction(Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
@@ -113,10 +115,11 @@ class ArtworkController extends BaseApiController
      * @Route("/api/artwork/{slug}", methods={"PUT"}, name="api_artwork_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $slug
-     * @param Request $request
-     * @param ArtworkServiceInterface $artworkService
+     * @param string                    $slug
+     * @param Request                   $request
+     * @param ArtworkServiceInterface   $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
+     *
      * @return Response
      */
     public function putAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
@@ -151,9 +154,10 @@ class ArtworkController extends BaseApiController
      * @Route("/api/artwork/{slug}", methods={"DELETE"}, name="api_artwork_delete")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param ArtworkServiceInterface $artworkService
-     * @param MediaServiceInterface $mediaService
+     * @param MediaServiceInterface   $mediaService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response

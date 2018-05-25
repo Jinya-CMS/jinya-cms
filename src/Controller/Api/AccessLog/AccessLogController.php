@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 18:00
+ * Time: 18:00.
  */
 
 namespace Jinya\Controller\Api\AccessLog;
@@ -22,9 +22,10 @@ class AccessLogController extends BaseApiController
      * @Route("/api/accesslog", methods={"GET"}, name="api_accessLog_get_all")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
+     * @param Request                   $request
      * @param AccessLogServiceInterface $accessLogService
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param UrlGeneratorInterface     $urlGenerator
+     *
      * @return Response
      */
     public function getAllAction(Request $request, AccessLogServiceInterface $accessLogService, UrlGeneratorInterface $urlGenerator): Response
@@ -41,7 +42,7 @@ class AccessLogController extends BaseApiController
                 'offset' => $offset,
                 'count' => $count,
                 'sortBy' => $sortBy,
-                'sortOrder' => $sortOrder
+                'sortOrder' => $sortOrder,
             ];
 
             return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_accessLog_get_all', $entities);
@@ -54,8 +55,9 @@ class AccessLogController extends BaseApiController
      * @Route("/api/accesslog/{id}", methods={"GET"}, name="api_accessLog_get")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param int $id
+     * @param int                       $id
      * @param AccessLogServiceInterface $accessLogService
+     *
      * @return Response
      */
     public function getAction(int $id, AccessLogServiceInterface $accessLogService): Response
@@ -72,6 +74,7 @@ class AccessLogController extends BaseApiController
      * @IsGranted("ROLE_SUPER_ADMIN", statusCode=403)
      *
      * @param AccessLogServiceInterface $accessLogService
+     *
      * @return Response
      */
     public function deleteAction(AccessLogServiceInterface $accessLogService): Response

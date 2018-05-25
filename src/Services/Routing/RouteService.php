@@ -3,18 +3,16 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.01.2018
- * Time: 21:34
+ * Time: 21:34.
  */
 
 namespace Jinya\Services\Routing;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\RoutingEntry;
 
 class RouteService implements RouteServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -22,6 +20,7 @@ class RouteService implements RouteServiceInterface
 
     /**
      * RouteService constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -30,7 +29,7 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findByUrl(string $url): RoutingEntry
     {

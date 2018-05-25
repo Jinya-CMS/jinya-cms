@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:36
+ * Time: 15:36.
  */
 
 namespace Jinya\Formatter\Label;
@@ -14,31 +14,32 @@ use Jinya\Formatter\FormatterInterface;
 interface LabelFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param Label $label
-     * @return LabelFormatterInterface
-     */
-    public function init(Label $label): LabelFormatterInterface;
-
-    /**
-     * Formats the label
      *
      * @return LabelFormatterInterface
      */
-    public function name(): LabelFormatterInterface;
+    public function init(Label $label): self;
 
     /**
-     * Formats the artworks
+     * Formats the label.
      *
      * @return LabelFormatterInterface
      */
-    public function artworks(): LabelFormatterInterface;
+    public function name(): self;
 
     /**
-     * Formats the galleries
+     * Formats the artworks.
      *
      * @return LabelFormatterInterface
      */
-    public function galleries(): LabelFormatterInterface;
+    public function artworks(): self;
+
+    /**
+     * Formats the galleries.
+     *
+     * @return LabelFormatterInterface
+     */
+    public function galleries(): self;
 }

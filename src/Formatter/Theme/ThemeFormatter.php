@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.03.2018
- * Time: 08:00
+ * Time: 08:00.
  */
 
 namespace Jinya\Formatter\Theme;
-
 
 use Jinya\Entity\Menu;
 use Jinya\Entity\Theme;
@@ -19,18 +18,21 @@ class ThemeFormatter implements ThemeFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var Theme */
     private $theme;
 
     /** @var MenuFormatterInterface */
     private $menuFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     /**
      * ThemeFormatter constructor.
+     *
      * @param MenuFormatterInterface $menuFormatter
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param UrlGeneratorInterface  $urlGenerator
      */
     public function __construct(MenuFormatterInterface $menuFormatter, UrlGeneratorInterface $urlGenerator)
     {
@@ -39,7 +41,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @see FormatterInterface into an array.
      *
      * @return array
      */
@@ -49,9 +51,10 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Initializes the formatter
+     * Initializes the formatter.
      *
      * @param Theme $theme
+     *
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): ThemeFormatterInterface
@@ -62,7 +65,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the preview image
+     * Formats the preview image.
      *
      * @return ThemeFormatterInterface
      */
@@ -74,7 +77,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the config
+     * Formats the config.
      *
      * @return ThemeFormatterInterface
      */
@@ -86,7 +89,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the description
+     * Formats the description.
      *
      * @return ThemeFormatterInterface
      */
@@ -98,7 +101,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the name
+     * Formats the name.
      *
      * @return ThemeFormatterInterface
      */
@@ -110,7 +113,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the display name
+     * Formats the display name.
      *
      * @return ThemeFormatterInterface
      */
@@ -122,7 +125,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the SCSS variables
+     * Formats the SCSS variables.
      *
      * @return ThemeFormatterInterface
      */
@@ -134,7 +137,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the primary menu
+     * Formats the primary menu.
      *
      * @return ThemeFormatterInterface
      */
@@ -150,7 +153,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the secondary menu
+     * Formats the secondary menu.
      *
      * @return ThemeFormatterInterface
      */
@@ -166,7 +169,7 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the footer menu
+     * Formats the footer menu.
      *
      * @return ThemeFormatterInterface
      */

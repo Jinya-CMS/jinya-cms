@@ -3,19 +3,17 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.11.2017
- * Time: 00:20
+ * Time: 00:20.
  */
 
 namespace Jinya\Components\DataTables;
-
 
 use Symfony\Component\HttpFoundation\Request;
 
 class DatatablesRequestParser implements DatatablesRequestParserInterface
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function parseRequest(Request $request): DatatablesModel
     {

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:55
+ * Time: 15:55.
  */
 
 namespace Jinya\Formatter\User;
@@ -14,94 +14,95 @@ use Jinya\Formatter\FormatterInterface;
 interface UserFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param User $user
-     * @return UserFormatterInterface
-     */
-    public function init(User $user): UserFormatterInterface;
-
-    /**
-     * Formats the firstname
      *
      * @return UserFormatterInterface
      */
-    public function firstname(): UserFormatterInterface;
+    public function init(User $user): self;
 
     /**
-     * Formats the lastname
+     * Formats the firstname.
      *
      * @return UserFormatterInterface
      */
-    public function lastname(): UserFormatterInterface;
+    public function firstname(): self;
 
     /**
-     * Formats the roles
+     * Formats the lastname.
      *
      * @return UserFormatterInterface
      */
-    public function roles(): UserFormatterInterface;
+    public function lastname(): self;
 
     /**
-     * Formats the email
+     * Formats the roles.
      *
      * @return UserFormatterInterface
      */
-    public function email(): UserFormatterInterface;
+    public function roles(): self;
 
     /**
-     * Formats the enable state
+     * Formats the email.
      *
      * @return UserFormatterInterface
      */
-    public function enabled(): UserFormatterInterface;
+    public function email(): self;
 
     /**
-     * Formats the profile picture
+     * Formats the enable state.
      *
      * @return UserFormatterInterface
      */
-    public function profilePicture(): UserFormatterInterface;
+    public function enabled(): self;
 
     /**
-     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
+     * Formats the profile picture.
      *
      * @return UserFormatterInterface
      */
-    public function profile(): UserFormatterInterface;
+    public function profilePicture(): self;
 
     /**
-     * Formats the id
+     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email().
      *
      * @return UserFormatterInterface
      */
-    public function id(): UserFormatterInterface;
+    public function profile(): self;
 
     /**
-     * Formats the created artworks
+     * Formats the id.
      *
      * @return UserFormatterInterface
      */
-    public function createdArtworks(): UserFormatterInterface;
+    public function id(): self;
 
     /**
-     * Formats the created galleries
+     * Formats the created artworks.
      *
      * @return UserFormatterInterface
      */
-    public function createdGalleries(): UserFormatterInterface;
+    public function createdArtworks(): self;
 
     /**
-     * Formats the created pages
+     * Formats the created galleries.
      *
      * @return UserFormatterInterface
      */
-    public function createdPages(): UserFormatterInterface;
+    public function createdGalleries(): self;
 
     /**
-     * Formats the created forms
+     * Formats the created pages.
      *
      * @return UserFormatterInterface
      */
-    public function createdForms(): UserFormatterInterface;
+    public function createdPages(): self;
+
+    /**
+     * Formats the created forms.
+     *
+     * @return UserFormatterInterface
+     */
+    public function createdForms(): self;
 }

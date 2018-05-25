@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 14.11.2017
- * Time: 17:47
+ * Time: 17:47.
  */
 
 namespace Jinya\Services\Base;
@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 trait StaticContentServiceTrait
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
@@ -25,9 +25,10 @@ trait StaticContentServiceTrait
     }
 
     /**
-     * Gets a querybuilder with a keyword filter
+     * Gets a querybuilder with a keyword filter.
      *
      * @param string $keyword
+     *
      * @return QueryBuilder
      */
     protected function getFilteredQueryBuilder(string $keyword)
@@ -41,7 +42,7 @@ trait StaticContentServiceTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function countAll(string $keyword = ''): int
     {

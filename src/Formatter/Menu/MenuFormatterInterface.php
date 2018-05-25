@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 17:38
+ * Time: 17:38.
  */
 
 namespace Jinya\Formatter\Menu;
-
 
 use Jinya\Entity\Menu;
 use Jinya\Formatter\FormatterInterface;
@@ -15,38 +14,39 @@ use Jinya\Formatter\FormatterInterface;
 interface MenuFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the @see MenuFormatterInterface
+     * Initializes the @see MenuFormatterInterface.
      *
      * @param Menu $menu
-     * @return MenuFormatterInterface
-     */
-    public function init(Menu $menu): MenuFormatterInterface;
-
-    /**
-     * Formats the name
      *
      * @return MenuFormatterInterface
      */
-    public function name(): MenuFormatterInterface;
+    public function init(Menu $menu): self;
 
     /**
-     * Formats the id
+     * Formats the name.
      *
      * @return MenuFormatterInterface
      */
-    public function id(): MenuFormatterInterface;
+    public function name(): self;
 
     /**
-     * Formats the logo
+     * Formats the id.
      *
      * @return MenuFormatterInterface
      */
-    public function logo(): MenuFormatterInterface;
+    public function id(): self;
 
     /**
-     * Formats the items
+     * Formats the logo.
      *
      * @return MenuFormatterInterface
      */
-    public function items(): MenuFormatterInterface;
+    public function logo(): self;
+
+    /**
+     * Formats the items.
+     *
+     * @return MenuFormatterInterface
+     */
+    public function items(): self;
 }

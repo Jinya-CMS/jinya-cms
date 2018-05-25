@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 17.02.2018
- * Time: 23:38
+ * Time: 23:38.
  */
 
 namespace Jinya\Controller\Api\Gallery;
@@ -22,9 +22,10 @@ class GalleryArtworkController extends BaseApiController
     /**
      * @Route("/api/gallery/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
      *
-     * @param string $gallerySlug
-     * @param GalleryServiceInterface $galleryService
+     * @param string                    $gallerySlug
+     * @param GalleryServiceInterface   $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
+     *
      * @return Response
      */
     public function getAction(string $gallerySlug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
@@ -42,8 +43,9 @@ class GalleryArtworkController extends BaseApiController
      * @Route("/api/gallery/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_artwork_position_post")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $gallerySlug
+     * @param string                          $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function postAction(string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -68,6 +70,7 @@ class GalleryArtworkController extends BaseApiController
      *
      * @param int id$
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function deleteAction(int $id, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -83,10 +86,11 @@ class GalleryArtworkController extends BaseApiController
      * @Route("/api/gallery/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_artwork_position_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param int $id
-     * @param int $oldPosition
-     * @param string $gallerySlug
+     * @param int                             $id
+     * @param int                             $oldPosition
+     * @param string                          $gallerySlug
      * @param ArtworkPositionServiceInterface $artworkPositionService
+     *
      * @return Response
      */
     public function putPositionAction(int $id, int $oldPosition, string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
@@ -98,7 +102,7 @@ class GalleryArtworkController extends BaseApiController
             if (!empty($artworkSlug)) {
                 $artworkPositionService->updateArtwork($id, $artworkSlug);
             }
-            if (isset($newPosition) && $newPosition !== null) {
+            if (isset($newPosition) && null !== $newPosition) {
                 $artworkPositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);
             }
         }, Response::HTTP_NO_CONTENT);

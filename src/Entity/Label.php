@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 07.01.2018
- * Time: 19:54
+ * Time: 19:54.
  */
 
 namespace Jinya\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,16 +26,19 @@ class Label implements JsonSerializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)
      */
     private $name;
+
     /**
      * @var Collection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Artwork", mappedBy="labels", cascade={"persist"})
      */
     private $artworks;
+
     /**
      * @var Collection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="labels", cascade={"persist"})
@@ -117,18 +119,18 @@ class Label implements JsonSerializable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return [
             'name' => $this->name,
             'artworks' => [
-                'count' => $this->artworks->count()
+                'count' => $this->artworks->count(),
             ],
             'galleries' => [
-                'count' => $this->galleries->count()
-            ]
+                'count' => $this->galleries->count(),
+            ],
         ];
     }
 }

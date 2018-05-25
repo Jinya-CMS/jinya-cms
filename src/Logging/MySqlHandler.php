@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 31.10.2017
- * Time: 15:32
+ * Time: 15:32.
  */
 
 namespace Jinya\Logging;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -26,8 +25,9 @@ class MySqlHandler extends AbstractProcessingHandler
 
     /**
      * MySqlHandler constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param LoggerInterface $logger
+     * @param LoggerInterface        $logger
      */
     public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
@@ -37,14 +37,15 @@ class MySqlHandler extends AbstractProcessingHandler
     }
 
     /**
-     * Writes the record down to the log of the implementing handler
+     * Writes the record down to the log of the implementing handler.
      *
-     * @param  array $record
-     * @return void
+     * @param array $record
      */
     protected function write(array $record)
     {
-        if (array_key_exists('jinya_logger', $record['context'])) return;
+        if (array_key_exists('jinya_logger', $record['context'])) {
+            return;
+        }
 
         try {
             $logEntry = new LogEntry();

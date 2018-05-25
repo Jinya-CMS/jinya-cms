@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 18.02.2018
- * Time: 15:46
+ * Time: 15:46.
  */
 
 namespace Jinya\Formatter\Artwork;
@@ -13,82 +13,82 @@ use Jinya\Formatter\FormatterInterface;
 
 interface ArtworkFormatterInterface extends FormatterInterface
 {
-
     /**
-     * Initializes the formatting
+     * Initializes the formatting.
      *
      * @param Artwork $artwork
-     * @return ArtworkFormatterInterface
-     */
-    public function init(Artwork $artwork): ArtworkFormatterInterface;
-
-    /**
-     * Formats the slug
      *
      * @return ArtworkFormatterInterface
      */
-    public function slug(): ArtworkFormatterInterface;
+    public function init(Artwork $artwork): self;
 
     /**
-     * Formats the name
+     * Formats the slug.
      *
      * @return ArtworkFormatterInterface
      */
-    public function name(): ArtworkFormatterInterface;
+    public function slug(): self;
 
     /**
-     * Formats the description
+     * Formats the name.
      *
      * @return ArtworkFormatterInterface
      */
-    public function description(): ArtworkFormatterInterface;
+    public function name(): self;
 
     /**
-     * Formats the created info
+     * Formats the description.
      *
      * @return ArtworkFormatterInterface
      */
-    public function created(): ArtworkFormatterInterface;
+    public function description(): self;
 
     /**
-     * Formats the updated info
+     * Formats the created info.
      *
      * @return ArtworkFormatterInterface
      */
-    public function updated(): ArtworkFormatterInterface;
+    public function created(): self;
 
     /**
-     * Formats the history
+     * Formats the updated info.
      *
      * @return ArtworkFormatterInterface
      */
-    public function history(): ArtworkFormatterInterface;
+    public function updated(): self;
 
     /**
-     * Formats the picture
+     * Formats the history.
      *
      * @return ArtworkFormatterInterface
      */
-    public function picture(): ArtworkFormatterInterface;
+    public function history(): self;
 
     /**
-     * Formats the labels
+     * Formats the picture.
      *
      * @return ArtworkFormatterInterface
      */
-    public function labels(): ArtworkFormatterInterface;
+    public function picture(): self;
 
     /**
-     * Formats the galleries
+     * Formats the labels.
      *
      * @return ArtworkFormatterInterface
      */
-    public function galleries(): ArtworkFormatterInterface;
+    public function labels(): self;
 
     /**
-     * Formats the id
+     * Formats the galleries.
      *
      * @return ArtworkFormatterInterface
      */
-    public function id(): ArtworkFormatterInterface;
+    public function galleries(): self;
+
+    /**
+     * Formats the id.
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function id(): self;
 }

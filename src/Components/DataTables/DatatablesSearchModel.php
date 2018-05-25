@@ -3,16 +3,16 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.11.2017
- * Time: 00:32
+ * Time: 00:32.
  */
 
 namespace Jinya\Components\DataTables;
-
 
 class DatatablesSearchModel
 {
     /** @var bool */
     private $regex;
+
     /** @var string */
     private $value;
 

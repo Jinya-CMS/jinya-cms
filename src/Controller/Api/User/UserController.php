@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 26.02.2018
- * Time: 22:40
+ * Time: 22:40.
  */
 
 namespace Jinya\Controller\Api\User;
-
 
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
@@ -28,9 +27,10 @@ class UserController extends BaseUserController
      * @Route("/api/user", methods={"GET"}, name="api_user_get_all")
      * @IsGranted("ROLE_ADMIN")
      *
-     * @param Request $request
-     * @param UserServiceInterface $userService
+     * @param Request                $request
+     * @param UserServiceInterface   $userService
      * @param UserFormatterInterface $userFormatter
+     *
      * @return Response
      */
     public function getAllAction(Request $request, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
@@ -51,7 +51,7 @@ class UserController extends BaseUserController
                     ->enabled()
                     ->id();
 
-                if ($this->isGranted("ROLE_SUPER_ADMIN")) {
+                if ($this->isGranted('ROLE_SUPER_ADMIN')) {
                     $userFormatter->roles();
                 }
 
@@ -71,9 +71,10 @@ class UserController extends BaseUserController
      * @Route("/api/user/{id}", methods={"GET"}, name="api_user_get")
      * @IsGranted("ROLE_ADMIN")
      *
-     * @param int $id
-     * @param UserServiceInterface $userService
+     * @param int                    $id
+     * @param UserServiceInterface   $userService
      * @param UserFormatterInterface $userFormatter
+     *
      * @return Response
      */
     public function getAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
@@ -86,7 +87,7 @@ class UserController extends BaseUserController
                 ->profile()
                 ->enabled();
 
-            if ($this->isGranted("ROLE_SUPER_ADMIN")) {
+            if ($this->isGranted('ROLE_SUPER_ADMIN')) {
                 $userFormatter->roles();
             }
 
@@ -100,19 +101,20 @@ class UserController extends BaseUserController
      * @Route("/api/user", methods={"POST"}, name="api_user_post")
      * @IsGranted("ROLE_SUPER_ADMIN")
      *
-     * @param UserServiceInterface $userService
+     * @param UserServiceInterface   $userService
      * @param UserFormatterInterface $userFormatter
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface    $translator
+     *
      * @return Response
      */
     public function postAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($userService, $userFormatter, $translator) {
-            $firstname = $this->getValue("firstname");
-            $lastname = $this->getValue("lastname");
-            $email = $this->getValue("email");
-            $password = $this->getValue("password");
-            $enabled = $this->getValue("enabled", false);
+            $firstname = $this->getValue('firstname');
+            $lastname = $this->getValue('lastname');
+            $email = $this->getValue('email');
+            $password = $this->getValue('password');
+            $enabled = $this->getValue('enabled', false);
             $roles = $this->getValue('roles', []);
 
             $emptyFields = [];
@@ -168,10 +170,11 @@ class UserController extends BaseUserController
      * @Route("/api/user/{id}", methods={"PUT"}, name="api_user_put")
      * @IsGranted("ROLE_SUPER_ADMIN", attributes="usermanipulation")
      *
-     * @param int $id
-     * @param UserServiceInterface $userService
+     * @param int                    $id
+     * @param UserServiceInterface   $userService
      * @param UserFormatterInterface $userFormatter
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface    $translator
+     *
      * @return Response
      */
     public function putAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
@@ -179,10 +182,10 @@ class UserController extends BaseUserController
         list($data, $status) = $this->tryExecute(function () use ($id, $userService, $userFormatter, $translator) {
             $user = $userService->get($id);
 
-            $firstname = $this->getValue("firstname", $user->getFirstname());
-            $lastname = $this->getValue("lastname", $user->getLastname());
-            $email = $this->getValue("email", $user->getEmail());
-            $enabled = $this->getValue("enabled", $user->isEnabled());
+            $firstname = $this->getValue('firstname', $user->getFirstname());
+            $lastname = $this->getValue('lastname', $user->getLastname());
+            $email = $this->getValue('email', $user->getEmail());
+            $enabled = $this->getValue('enabled', $user->isEnabled());
             $roles = $this->getValue('roles', $user->getRoles());
 
             $emptyFields = [];
@@ -234,8 +237,9 @@ class UserController extends BaseUserController
      * @Route("/api/user/{id}", methods={"DELETE"}, name="api_user_delete")
      * @IsGranted("ROLE_SUPER_ADMIN")
      *
-     * @param int $id
+     * @param int                  $id
      * @param UserServiceInterface $userService
+     *
      * @return Response
      */
     public function deleteAction(int $id, UserServiceInterface $userService): Response

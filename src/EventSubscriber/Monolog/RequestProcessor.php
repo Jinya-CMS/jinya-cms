@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 31.10.2017
- * Time: 16:26
+ * Time: 16:26.
  */
 
 namespace Jinya\EventSubscriber\Monolog;
-
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -18,6 +17,7 @@ class RequestProcessor
 
     /**
      * RequestProcessor constructor.
+     *
      * @param RequestStack $request
      */
     public function __construct(RequestStack $request)

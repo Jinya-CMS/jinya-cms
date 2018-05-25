@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 17:27
+ * Time: 17:27.
  */
 
 namespace Jinya\Controller\Api\Menu;
-
 
 use Jinya\Entity\Menu;
 use Jinya\Exceptions\MissingFieldsException;
@@ -25,8 +24,9 @@ class MenuController extends BaseApiController
     /**
      * @Route("/api/menu", methods={"GET"}, name="api_menu_get_all")
      *
-     * @param MenuServiceInterface $menuService
+     * @param MenuServiceInterface   $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function getAllAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -50,9 +50,10 @@ class MenuController extends BaseApiController
     /**
      * @Route("/api/menu/{id}", methods={"GET"}, name="api_menu_get")
      *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
+     * @param int                    $id
+     * @param MenuServiceInterface   $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -72,8 +73,9 @@ class MenuController extends BaseApiController
     /**
      * @Route("/api/menu", methods={"POST"}, name="api_menu_post")
      *
-     * @param MenuServiceInterface $menuService
+     * @param MenuServiceInterface   $menuService
      * @param MenuFormatterInterface $menuFormatter
+     *
      * @return Response
      */
     public function postAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
@@ -105,8 +107,9 @@ class MenuController extends BaseApiController
     /**
      * @Route("/api/menu/{id}", methods={"PUT"}, name="api_menu_put")
      *
-     * @param int $id
+     * @param int                  $id
      * @param MenuServiceInterface $menuService
+     *
      * @return Response
      */
     public function putAction(int $id, MenuServiceInterface $menuService): Response
@@ -126,9 +129,10 @@ class MenuController extends BaseApiController
     /**
      * @Route("/api/menu/{id}", methods={"DELETE"}, name="api_menu_delete")
      *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
+     * @param int                   $id
+     * @param MenuServiceInterface  $menuService
      * @param MediaServiceInterface $mediaService
+     *
      * @return Response
      */
     public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response

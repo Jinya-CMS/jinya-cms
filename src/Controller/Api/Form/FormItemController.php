@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 02.03.2018
- * Time: 07:53
+ * Time: 07:53.
  */
 
 namespace Jinya\Controller\Api\Form;
-
 
 use Jinya\Entity\FormItem;
 use Jinya\Exceptions\MissingFieldsException;
@@ -28,9 +27,10 @@ class FormItemController extends BaseApiController
     /**
      * @Route("/api/form/{slug}/items", methods={"GET"}, name="api_form_item_get_all")
      *
-     * @param string $slug
-     * @param FormItemServiceInterface $formItemService
+     * @param string                     $slug
+     * @param FormItemServiceInterface   $formItemService
      * @param FormItemFormatterInterface $formItemFormatter
+     *
      * @return Response
      */
     public function getAllAction(string $slug, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
@@ -54,10 +54,11 @@ class FormItemController extends BaseApiController
     /**
      * @Route("/api/form/{slug}/items/{position}", methods={"GET"}, name="api_form_item_get")
      *
-     * @param string $slug
-     * @param int $position
-     * @param FormItemServiceInterface $formItemService
+     * @param string                     $slug
+     * @param int                        $position
+     * @param FormItemServiceInterface   $formItemService
      * @param FormItemFormatterInterface $formItemFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, int $position, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
@@ -87,10 +88,11 @@ class FormItemController extends BaseApiController
     /**
      * @Route("/api/form/{slug}/items/batch", methods={"PUT"}, name="api_form_item_batch")
      *
-     * @param string $slug
-     * @param Request $request
-     * @param FormServiceInterface $formService
+     * @param string                   $slug
+     * @param Request                  $request
+     * @param FormServiceInterface     $formService
      * @param FormItemServiceInterface $formItemService
+     *
      * @return Response
      */
     public function batchAction(string $slug, Request $request, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response
@@ -112,6 +114,7 @@ class FormItemController extends BaseApiController
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->addItem($formItem);
+
                         break;
                     case 'edit':
                         $data = $action['data'];
@@ -122,16 +125,18 @@ class FormItemController extends BaseApiController
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->updateItem($formItem);
+
                         break;
                     case 'move':
                         $formItemService->updatePosition($slug, $action['from'], $action['to']);
+
                         break;
                     case 'delete':
                         $formItemService->deleteItem($form, $action['where']);
+
                         break;
                 }
             }
-
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($status, $data);
@@ -141,11 +146,12 @@ class FormItemController extends BaseApiController
      * @Route("/api/form/{slug}/items/{position}", methods={"POST"}, name="api_form_item_post")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
-     * @param int $position
-     * @param FormServiceInterface $formService
-     * @param FormItemServiceInterface $formItemService
+     * @param string                     $slug
+     * @param int                        $position
+     * @param FormServiceInterface       $formService
+     * @param FormItemServiceInterface   $formItemService
      * @param FormItemFormatterInterface $formItemFormatter
+     *
      * @return Response
      */
     public function postAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
@@ -193,10 +199,11 @@ class FormItemController extends BaseApiController
      * @Route("/api/form/{slug}/move/{oldPosition}/to/{newPosition}", name="form_item_move", methods={"PUT"})
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
-     * @param int $oldPosition
-     * @param int $newPosition
+     * @param string                   $slug
+     * @param int                      $oldPosition
+     * @param int                      $newPosition
      * @param FormItemServiceInterface $formItemService
+     *
      * @return Response
      */
     public function moveAction(string $slug, int $oldPosition, int $newPosition, FormItemServiceInterface $formItemService): Response
@@ -212,11 +219,12 @@ class FormItemController extends BaseApiController
      * @Route("/api/form/{slug}/items/{position}", methods={"PUT"}, name="api_form_item_put")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
-     * @param int $position
-     * @param FormServiceInterface $formService
-     * @param FormItemServiceInterface $formItemService
+     * @param string                     $slug
+     * @param int                        $position
+     * @param FormServiceInterface       $formService
+     * @param FormItemServiceInterface   $formItemService
      * @param FormItemFormatterInterface $formItemFormatter
+     *
      * @return Response
      */
     public function putAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
@@ -247,10 +255,11 @@ class FormItemController extends BaseApiController
      * @Route("/api/form/{slug}/items/{position}", methods={"DELETE"}, name="api_form_item_delete")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
-     * @param int $position
-     * @param FormServiceInterface $formService
+     * @param string                   $slug
+     * @param int                      $position
+     * @param FormServiceInterface     $formService
      * @param FormItemServiceInterface $formItemService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response

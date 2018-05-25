@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.01.2018
- * Time: 20:55
+ * Time: 20:55.
  */
 
 namespace Jinya\Services\Routing;
-
 
 use Jinya\Entity\SlugEntity;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
@@ -20,23 +19,26 @@ use function array_map;
 
 class RouteRetrievalService implements RouteRetrievalServiceInterface
 {
-
     /**
      * @var PageServiceInterface
      */
     private $pageService;
+
     /**
      * @var FormServiceInterface
      */
     private $formService;
+
     /**
      * @var GalleryServiceInterface
      */
     private $galleryService;
+
     /**
      * @var ArtworkServiceInterface
      */
     private $artworkService;
+
     /**
      * @var RouterInterface
      */
@@ -44,11 +46,12 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     /**
      * RouteRetrievalService constructor.
-     * @param PageServiceInterface $pageService
-     * @param FormServiceInterface $formService
+     *
+     * @param PageServiceInterface    $pageService
+     * @param FormServiceInterface    $formService
      * @param GalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
-     * @param RouterInterface $router
+     * @param RouterInterface         $router
      */
     public function __construct(PageServiceInterface $pageService, FormServiceInterface $formService, GalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, RouterInterface $router)
     {
@@ -60,7 +63,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function retrieveRoutesByType(string $type): array
     {
@@ -87,14 +90,14 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/** @var SlugEntity $item */
+        return function (/* @var SlugEntity $item */
             $item) use ($route) {
             return [
                 'name' => $route,
                 'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),
                 'parameter' => [
-                    'slug' => $item->getSlug()
-                ]
+                    'slug' => $item->getSlug(),
+                ],
             ];
         };
     }

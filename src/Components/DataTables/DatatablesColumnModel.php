@@ -3,22 +3,25 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.11.2017
- * Time: 00:33
+ * Time: 00:33.
  */
 
 namespace Jinya\Components\DataTables;
-
 
 class DatatablesColumnModel
 {
     /** @var string */
     private $data;
+
     /** @var string */
     private $name;
+
     /** @var bool */
     private $orderable;
+
     /** @var bool */
     private $searchable;
+
     /** @var DatatablesSearchModel */
     private $search;
 

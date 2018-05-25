@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 05.01.2018
- * Time: 21:55
+ * Time: 21:55.
  */
 
 namespace Jinya\Framework;
-
 
 use Jinya\Entity\RoutingEntry;
 use Jinya\Entity\Theme;
@@ -33,37 +32,47 @@ abstract class BaseController
 {
     /** @var ThemeConfigServiceInterface */
     private $themeConfigService;
+
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var ConfigurationServiceInterface */
     private $configurationService;
+
     /** @var ThemeCompilerServiceInterface */
     private $themeCompilerService;
+
     /** @var RequestStack */
     private $requestStack;
+
     /** @var HttpKernelInterface */
     private $kernel;
+
     /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
+
     /** @var \Twig_Environment */
     private $twig;
+
     /** @var TokenStorageInterface */
     private $tokenStorage;
+
     /** @var RouterInterface */
     private $router;
 
     /**
      * BaseController constructor.
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
+     *
+     * @param ThemeConfigServiceInterface   $themeConfigService
+     * @param ThemeServiceInterface         $themeService
      * @param ConfigurationServiceInterface $configurationService
      * @param ThemeCompilerServiceInterface $themeCompilerService
-     * @param RequestStack $requestStack
-     * @param HttpKernelInterface $kernel
+     * @param RequestStack                  $requestStack
+     * @param HttpKernelInterface           $kernel
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param \Twig_Environment $twig
-     * @param TokenStorageInterface $tokenStorage
-     * @param RouterInterface $router
+     * @param \Twig_Environment             $twig
+     * @param TokenStorageInterface         $tokenStorage
+     * @param RouterInterface               $router
      */
     public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
     {
@@ -80,25 +89,27 @@ abstract class BaseController
     }
 
     /**
-     * Renders the given Twig template with the current theme
+     * Renders the given Twig template with the current theme.
      *
      * @param string $view
-     * @param array $parameters
+     * @param array  $parameters
+     *
      * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    protected final function render(string $view, array $parameters = array()): Response
+    final protected function render(string $view, array $parameters = array()): Response
     {
         $response = new Response();
 
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
         $themeViewPath = $view;
-        if (strpos($view, '@Frontend') === 0) {
+        if (0 === strpos($view, '@Frontend')) {
             list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
-        } elseif (strpos($view, '@Designer') === 0) {
+        } elseif (0 === strpos($view, '@Designer')) {
             list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
         }
 
@@ -110,8 +121,9 @@ abstract class BaseController
 
     /**
      * @param string $view
-     * @param array $parameters
+     * @param array  $parameters
      * @param $theme
+     *
      * @return array
      */
     private function includeTheme(string $view, array $parameters, Theme $theme): array
@@ -121,26 +133,29 @@ abstract class BaseController
         }
 
         $this->themeService->registerThemes();
-        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme) . str_replace('@', '/', $view);
+        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme).str_replace('@', '/', $view);
 
         $parameters['themeConfig'] = $theme->getConfiguration();
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
 
         $parameters['theme']['active'] = $theme;
-        $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR;
+        $parameters['theme']['path'] = $this->themeService->getThemeDirectory().DIRECTORY_SEPARATOR.$theme->getName().DIRECTORY_SEPARATOR;
 
         return array($themeViewPath, $parameters);
     }
 
     /**
-     * Forwards the request to the given RoutingEntry
+     * Forwards the request to the given RoutingEntry.
      *
      * @see RoutingEntry
+     *
      * @param RoutingEntry $route
+     *
      * @return Response
+     *
      * @throws \Exception
      */
-    protected final function forwardToRoute(RoutingEntry $route): Response
+    final protected function forwardToRoute(RoutingEntry $route): Response
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -159,11 +174,13 @@ abstract class BaseController
      *
      * @see json_decode()
      * @see JsonResponse
+     *
      * @param array|null $data
-     * @param int $status
+     * @param int        $status
+     *
      * @return JsonResponse
      */
-    protected final function json($data, int $status = Response::HTTP_OK): JsonResponse
+    final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse($data, $status);
     }
@@ -171,12 +188,13 @@ abstract class BaseController
     /**
      * Returns a BinaryFileResponse object with original or customized file name and disposition header.
      *
-     * @param \SplFileInfo|string $file File object or path to file to be sent as response
-     * @param string|null $fileName
-     * @param string $disposition
+     * @param \SplFileInfo|string $file        File object or path to file to be sent as response
+     * @param string|null         $fileName
+     * @param string              $disposition
+     *
      * @return BinaryFileResponse
      */
-    protected final function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
+    final protected function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
     {
         $response = new BinaryFileResponse($file);
         $response->setContentDisposition($disposition, $fileName);
@@ -188,9 +206,10 @@ abstract class BaseController
      * Checks if the attributes are granted against the current authentication token and optionally supplied subject.
      *
      * @param array|string $attributes
+     *
      * @return bool
      */
-    protected final function isGranted($attributes): bool
+    final protected function isGranted($attributes): bool
     {
         return $this->authorizationChecker->isGranted($attributes);
     }
@@ -204,7 +223,7 @@ abstract class BaseController
      *
      * @return AccessDeniedException
      */
-    protected final function createAccessDeniedException(): AccessDeniedException
+    final protected function createAccessDeniedException(): AccessDeniedException
     {
         return new AccessDeniedException('Access Denied.');
     }
@@ -213,9 +232,10 @@ abstract class BaseController
      * Get a user from the Security Token Storage.
      *
      * @return User|null
+     *
      * @see TokenInterface::getUser()
      */
-    protected final function getUser(): ?User
+    final protected function getUser(): ?User
     {
         $token = $this->tokenStorage->getToken();
         if (null === $token) {
@@ -232,11 +252,13 @@ abstract class BaseController
 
     /**
      * @param string $routeName
+     *
      * @return string
      */
     private function convertRouteToControllerName(string $routeName): string
     {
         $routes = $this->router->getRouteCollection();
+
         return $routes->get($routeName)->getDefaults()['_controller'];
     }
 }

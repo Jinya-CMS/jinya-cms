@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: imanu
  * Date: 04.03.2018
- * Time: 22:45
+ * Time: 22:45.
  */
 
 namespace Jinya\Controller\Api\Page;
-
 
 use Jinya\Entity\Page;
 use Jinya\Exceptions\MissingFieldsException;
@@ -23,8 +22,9 @@ class PageController extends BaseApiController
     /**
      * @Route("/api/page", methods={"GET"}, name="api_page_get_all")
      *
-     * @param PageServiceInterface $pageService
+     * @param PageServiceInterface   $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function getAllAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -41,9 +41,10 @@ class PageController extends BaseApiController
     /**
      * @Route("/api/page/{slug}", methods={"GET"}, name="api_page_get")
      *
-     * @param string $slug
-     * @param PageServiceInterface $pageService
+     * @param string                 $slug
+     * @param PageServiceInterface   $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function getAction(string $slug, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -72,8 +73,9 @@ class PageController extends BaseApiController
      * @Route("/api/page", methods={"POST"}, name="api_page_post")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param PageServiceInterface $pageService
+     * @param PageServiceInterface   $pageService
      * @param PageFormatterInterface $pageFormatter
+     *
      * @return Response
      */
     public function postAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
@@ -119,8 +121,9 @@ class PageController extends BaseApiController
      * @Route("/api/page/{slug}", methods={"PUT"}, name="api_page_put")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
+     * @param string               $slug
      * @param PageServiceInterface $pageService
+     *
      * @return Response
      */
     public function putAction(string $slug, PageServiceInterface $pageService): Response
@@ -147,8 +150,9 @@ class PageController extends BaseApiController
      * @Route("/api/page/{slug}", methods={"DELETE"}, name="api_page_delete")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
+     * @param string               $slug
      * @param PageServiceInterface $pageService
+     *
      * @return Response
      */
     public function deleteAction(string $slug, PageServiceInterface $pageService): Response
