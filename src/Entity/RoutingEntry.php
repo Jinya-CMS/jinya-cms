@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use function strpos;
@@ -33,16 +32,19 @@ class RoutingEntry implements JsonSerializable
      * @ORM\Column(type="string")
      */
     private $url;
+
     /**
      * @var string
      * @ORM\Column(type="string")
      */
     private $routeName;
+
     /**
      * @var array
      * @ORM\Column(type="object")
      */
     private $routeParameter;
+
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="route")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -56,10 +58,10 @@ class RoutingEntry implements JsonSerializable
      * @param $route
      * @return RoutingEntry
      */
-    public static function fromArray($route): RoutingEntry
+    public static function fromArray($route): self
     {
-        $routingEntry = new RoutingEntry();
-        $routingEntry->routeName = $route ['name'];
+        $routingEntry = new self();
+        $routingEntry->routeName = $route['name'];
         $routingEntry->routeParameter = $route['parameter'];
         $routingEntry->url = $route['url'];
 
@@ -148,9 +150,9 @@ class RoutingEntry implements JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -159,7 +161,7 @@ class RoutingEntry implements JsonSerializable
             'id' => $this->id,
             'name' => $this->routeName,
             'parameter' => $this->routeParameter,
-            'url' => $this->url
+            'url' => $this->url,
         ];
     }
 
@@ -169,8 +171,8 @@ class RoutingEntry implements JsonSerializable
      */
     public function correctUrl()
     {
-        if (strpos($this->url, '/') !== 0 && strpos($this->url, 'http') !== 0 && $this->url !== '') {
-            $this->url = '/' . $this->url;
+        if (0 !== strpos($this->url, '/') && 0 !== strpos($this->url, 'http') && '' !== $this->url) {
+            $this->url = '/'.$this->url;
         }
     }
 }

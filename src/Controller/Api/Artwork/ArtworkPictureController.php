@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
@@ -43,10 +42,10 @@ class ArtworkPictureController extends BaseApiController
             return $artwork;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName().'.jpg');
         }
     }
 

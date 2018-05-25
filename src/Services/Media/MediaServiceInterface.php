@@ -8,15 +8,17 @@
 
 namespace Jinya\Services\Media;
 
-
 use SplFileInfo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface MediaServiceInterface
 {
     public const GALLERY_BACKGROUND = 'gallery_background';
+
     public const CONTENT_IMAGE = 'content_image';
+
     public const PROFILE_PICTURE = 'profile_picture';
+
     public const MENU_LOGO = 'menu_logo';
 
     /**
@@ -32,7 +34,6 @@ interface MediaServiceInterface
      * Deletes the media saved under the given url
      *
      * @param string $url
-     * @return void
      */
     public function deleteMedia(string $url);
 

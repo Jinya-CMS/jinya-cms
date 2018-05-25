@@ -20,6 +20,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
     private $kernelProjectDir;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
@@ -35,18 +36,18 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
-            SymfonyKernelEvents::REQUEST => 'onSymfonyRequest'
+            SymfonyKernelEvents::REQUEST => 'onSymfonyRequest',
         ];
     }
 
     public function onSymfonyRequest(GetResponseEvent $event)
     {
-        $installLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/install.lock';
+        $installLock = $this->kernelProjectDir.DIRECTORY_SEPARATOR.'config/install.lock';
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 

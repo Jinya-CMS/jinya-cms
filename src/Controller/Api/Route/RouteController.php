@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Route;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Routing\RouteRetrievalServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -46,10 +45,10 @@ class RouteController extends BaseApiController
     {
         list($data, $status) = $this->tryExecute(function () use ($translator) {
             return [
-                RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE => $translator->trans('api.route.types.' . RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE),
-                RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE => $translator->trans('api.route.types.' . RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE),
-                RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE => $translator->trans('api.route.types.' . RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE),
-                RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE => $translator->trans('api.route.types.' . RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE)
+                RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE => $translator->trans('api.route.types.'.RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE),
+                RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE => $translator->trans('api.route.types.'.RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE),
+                RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE => $translator->trans('api.route.types.'.RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE),
+                RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE => $translator->trans('api.route.types.'.RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE),
             ];
         });
 

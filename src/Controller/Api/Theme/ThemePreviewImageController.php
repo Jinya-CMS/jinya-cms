@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Theme;
 
-
 use Jinya\Entity\Theme;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Theme\ThemeServiceInterface;
@@ -38,10 +37,10 @@ class ThemePreviewImageController extends BaseApiController
             return $theme;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($data->getPreviewImage(), $data->getDisplayName() . '.jpg');
+            return $this->file($data->getPreviewImage(), $data->getDisplayName().'.jpg');
         }
     }
 }

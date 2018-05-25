@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Jinya\Entity\Theme;
 
 interface ThemeServiceInterface
