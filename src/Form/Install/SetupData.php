@@ -18,51 +18,61 @@ class SetupData
      * @var string
      */
     private $databaseHost;
+
     /**
      * @InstallAssert\Port(message="install.database.port.invalid")
      * @var int
      */
     private $databasePort = 3306;
+
     /**
      * @Assert\NotBlank(message="install.database.user.not_blank")
      * @var string
      */
     private $databaseUser;
+
     /**
      * @Assert\NotBlank(message="install.database.password.not_blank")
      * @var string
      */
     private $databasePassword;
+
     /**
      * @Assert\NotBlank(message="install.database.name.not_blank")
      * @var string
      */
     private $databaseName;
+
     /**
      * @Assert\NotBlank(message="install.mailer.transport.not_blank")
      * @var string
      */
     private $mailerTransport;
+
     /**
      * @Assert\NotBlank(message="install.mailer.host.not_blank")
      * @var string
      */
     private $mailerHost;
+
     /**
      * @InstallAssert\Port(message="install.mailer.port.invalid")
      * @var int
      */
     private $mailerPort = 25;
+
     /**
      * @Assert\NotBlank(message="install.mailer.user.not_blank")
      * @var string
      */
     private $mailerUser;
+
     /**
      * @Assert\NotBlank(message="install.mailer.password.not_blank")
      * @var string
      */
     private $mailerPassword;
+
     /**
      * @Assert\NotBlank(message="install.mailer.sender.not_blank")
      * @var string
