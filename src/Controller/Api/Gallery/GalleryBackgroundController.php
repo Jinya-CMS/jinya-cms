@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-
 use Jinya\Entity\Gallery;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
@@ -43,10 +42,10 @@ class GalleryBackgroundController extends BaseApiController
             return $gallery;
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName().'.jpg');
         }
     }
 

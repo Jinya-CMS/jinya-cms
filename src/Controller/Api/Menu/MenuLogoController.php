@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
@@ -35,10 +34,10 @@ class MenuLogoController extends BaseApiController
             return $menuService->get($id);
         });
 
-        if ($status !== 200) {
+        if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
+            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName().'.jpg');
         }
     }
 

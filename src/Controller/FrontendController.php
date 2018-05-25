@@ -22,7 +22,6 @@ use Throwable;
 
 class FrontendController extends BaseController
 {
-
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": "^(?!api\\/|designer\\/).*"})
      *
@@ -35,7 +34,7 @@ class FrontendController extends BaseController
     public function indexAction(string $route, RouteServiceInterface $routeService, LoggerInterface $logger): Response
     {
         try {
-            $routeEntry = $routeService->findByUrl('/' . $route);
+            $routeEntry = $routeService->findByUrl('/'.$route);
 
             return $this->forwardToRoute($routeEntry);
         } catch (Throwable $throwable) {
@@ -66,7 +65,7 @@ class FrontendController extends BaseController
         $artwork = $artworkService->get($slug);
 
         return $this->render('@Frontend/Artwork/detail.html.twig', [
-            'artwork' => $artwork
+            'artwork' => $artwork,
         ]);
     }
 
@@ -94,7 +93,7 @@ class FrontendController extends BaseController
         $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
-            'gallery' => $gallery
+            'gallery' => $gallery,
         ]);
     }
 
@@ -122,7 +121,7 @@ class FrontendController extends BaseController
 
         $viewData = [
             'formEntity' => $formEntity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -148,7 +147,7 @@ class FrontendController extends BaseController
         $page = $pageService->get($slug);
 
         return $this->render('@Frontend/Page/detail.html.twig', [
-            'page' => $page
+            'page' => $page,
         ]);
     }
 }

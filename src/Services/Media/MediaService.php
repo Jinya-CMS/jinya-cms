@@ -24,7 +24,6 @@ use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
-
     /** @var string */
     private $kernelProjectDir;
 
@@ -49,14 +48,14 @@ class MediaService implements MediaServiceInterface
         $directory = $this->getFilePath($type);
         @mkdir($directory, 775, true);
 
-        $tmpFilename = $directory . uniqid();
+        $tmpFilename = $directory.uniqid();
         file_put_contents($tmpFilename, $file);
 
         $hashCtx = hash_init('sha256');
         hash_update_file($hashCtx, $tmpFilename);
         $hash = hash_final($hashCtx);
 
-        $filename = $directory . $hash;
+        $filename = $directory.$hash;
 
         $fs = new Filesystem();
         $fs->rename($tmpFilename, $filename, true);
@@ -66,14 +65,13 @@ class MediaService implements MediaServiceInterface
 
     private function getFilePath(string $type): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+        return $this->kernelProjectDir.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.$type.DIRECTORY_SEPARATOR;
     }
 
     /**
      * Deletes the media saved under the given url
      *
      * @param string $url
-     * @return void
      */
     public function deleteMedia(string $url)
     {
@@ -81,7 +79,7 @@ class MediaService implements MediaServiceInterface
         $parts = array_reverse($parts);
         $filename = $parts[0];
         $type = $parts[1];
-        unlink($this->getFilePath($type) . $filename);
+        unlink($this->getFilePath($type).$filename);
     }
 
     /**
@@ -92,6 +90,6 @@ class MediaService implements MediaServiceInterface
      */
     public function getMedia(string $path): SplFileInfo
     {
-        return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
+        return new SplFileInfo($this->kernelProjectDir.DIRECTORY_SEPARATOR.'public'.$path);
     }
 }

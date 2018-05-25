@@ -8,7 +8,6 @@
 
 namespace Jinya\Exceptions;
 
-
 use Exception;
 
 class InvalidContentTypeException extends Exception

@@ -18,20 +18,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class InstallController
- * @package Jinya\Controller
  */
 class InstallController extends AbstractController
 {
     /** @var SchemaToolInterface */
     private $schemaTool;
+
     /** @var string */
     private $kernelProjectDir;
+
     /** @var UserServiceInterface */
     private $userService;
+
     /** @var \Twig_Environment */
     private $twig;
+
     /** @var MediaServiceInterface */
     private $mediaService;
+
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
 
@@ -67,15 +71,15 @@ class InstallController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SetupData $formData */
             $formData = $form->getData();
-            $databaseUrl = 'mysql://' . $formData->getDatabaseUser() . ':' . $formData->getDatabasePassword() . '@' . $formData->getDatabaseHost() . ':' . $formData->getDatabasePort() . '/' . $formData->getDatabaseName();
-            $mailerUrl = $formData->getMailerTransport() . '://' . $formData->getMailerUser() . ':' . $formData->getMailerPassword() . '@' . $formData->getMailerHost() . ':' . $formData->getMailerPort();
+            $databaseUrl = 'mysql://'.$formData->getDatabaseUser().':'.$formData->getDatabasePassword().'@'.$formData->getDatabaseHost().':'.$formData->getDatabasePort().'/'.$formData->getDatabaseName();
+            $mailerUrl = $formData->getMailerTransport().'://'.$formData->getMailerUser().':'.$formData->getMailerPassword().'@'.$formData->getMailerHost().':'.$formData->getMailerPort();
 
             $parameters = [
                 'databaseUrl' => $databaseUrl,
                 'appSecret' => uniqid(),
                 'appEnv' => 'prod',
                 'mailerUrl' => $mailerUrl,
-                'mailerSender' => $formData->getMailerSender()
+                'mailerSender' => $formData->getMailerSender(),
             ];
 
             $this->writeEnv($parameters);
@@ -84,7 +88,7 @@ class InstallController extends AbstractController
         }
 
         return $this->render('@Jinya\Installer\Default\index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -99,7 +103,7 @@ class InstallController extends AbstractController
         $fs = new Filesystem();
         $data = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
 
-        $fs->dumpFile($this->kernelProjectDir . '/public/.htaccess', $data);
+        $fs->dumpFile($this->kernelProjectDir.'/public/.htaccess', $data);
     }
 
     /**
@@ -110,6 +114,7 @@ class InstallController extends AbstractController
     {
         if ($request->isMethod('POST')) {
             $this->schemaTool->updateSchema();
+
             return $this->redirectToRoute('install_admin');
         }
 
@@ -154,13 +159,13 @@ class InstallController extends AbstractController
             $this->themeSyncService->syncThemes();
 
             $fs = new Filesystem();
-            $fs->touch($this->kernelProjectDir . '/config/install.lock');
+            $fs->touch($this->kernelProjectDir.'/config/install.lock');
 
             return $this->redirectToRoute('install_done');
         }
 
         return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

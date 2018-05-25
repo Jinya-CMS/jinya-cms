@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 trait StaticContentServiceTrait
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
@@ -41,7 +41,7 @@ trait StaticContentServiceTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function countAll(string $keyword = ''): int
     {
