@@ -33,7 +33,7 @@ body {
   padding-top: $body-frontend-margin-top;
 
   @include breakpoint-ultra-mobile {
-    padding-top: 0;
+    padding-top: $menu-ultra-mobile-menu-bar-height;
   }
 
   @include breakpoint-mobile {
