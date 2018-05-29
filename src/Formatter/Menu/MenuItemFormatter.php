@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Menu;
 
-
 use Jinya\Entity\MenuItem;
 use Jinya\Formatter\Route\RouteFormatterInterface;
 
@@ -16,11 +15,13 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var MenuItem */
     private $menuItem;
 
     /** @var MenuFormatterInterface */
     private $menuFormatter;
+
     /** @var RouteFormatterInterface */
     private $routeFormatter;
 
@@ -89,7 +90,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
      */
     public function children(): MenuItemFormatterInterface
     {
-        $menuItemFormatter = new MenuItemFormatter();
+        $menuItemFormatter = new self();
         $menuItemFormatter->setMenuFormatter($this->menuFormatter);
         $menuItemFormatter->setRouteFormatter($this->routeFormatter);
         $this->formattedData['children'] = array_map(function (MenuItem $menuItem) use ($menuItemFormatter) {
@@ -145,7 +146,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     public function parent(): MenuItemFormatterInterface
     {
         if ($this->menuItem->getParent()) {
-            $menuItemFormatter = new MenuItemFormatter();
+            $menuItemFormatter = new self();
             $menuItemFormatter->setMenuFormatter($this->menuFormatter);
             $menuItemFormatter->setRouteFormatter($this->routeFormatter);
 

@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Configuration;
 
-
 use Jinya\Formatter\Configuration\ConfigurationFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
