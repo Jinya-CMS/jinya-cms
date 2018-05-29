@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Routing;
 
-
 use Jinya\Entity\SlugEntity;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
@@ -20,23 +19,26 @@ use function array_map;
 
 class RouteRetrievalService implements RouteRetrievalServiceInterface
 {
-
     /**
      * @var PageServiceInterface
      */
     private $pageService;
+
     /**
      * @var FormServiceInterface
      */
     private $formService;
+
     /**
      * @var GalleryServiceInterface
      */
     private $galleryService;
+
     /**
      * @var ArtworkServiceInterface
      */
     private $artworkService;
+
     /**
      * @var RouterInterface
      */
@@ -60,7 +62,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function retrieveRoutesByType(string $type): array
     {
@@ -87,14 +89,14 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/** @var SlugEntity $item */
+        return function (/* @var SlugEntity $item */
             $item) use ($route) {
             return [
                 'name' => $route,
                 'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),
                 'parameter' => [
-                    'slug' => $item->getSlug()
-                ]
+                    'slug' => $item->getSlug(),
+                ],
             ];
         };
     }
