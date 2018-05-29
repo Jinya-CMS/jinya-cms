@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "gulp": "^4.0.0"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/gulp"
   }
 }
