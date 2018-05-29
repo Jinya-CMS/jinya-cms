@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\User;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Form;
 use Jinya\Entity\Gallery;
@@ -33,14 +32,19 @@ class UserFormatter implements UserFormatterInterface
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
     /** @var GalleryFormatterInterface */
     private $galleryFormatter;
+
     /** @var ArtworkFormatterInterface */
     private $artworkFormatter;
+
     /** @var PageFormatterInterface */
     private $pageFormatter;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
+
     /** @var RoleHierarchyInterface */
     private $roleHierarchy;
 
