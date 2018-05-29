@@ -183,9 +183,9 @@ class LogEntry implements JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -196,7 +196,7 @@ class LogEntry implements JsonSerializable
             'level' => $this->levelName,
             'extra' => $this->extra,
             'context' => $this->context,
-            'id' => $this->id
+            'id' => $this->id,
         ];
     }
 }

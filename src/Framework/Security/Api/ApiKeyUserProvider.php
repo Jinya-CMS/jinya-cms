@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Security\Api;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -17,9 +16,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
-
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -66,7 +65,6 @@ class ApiKeyUserProvider implements UserProviderInterface
      * map.
      *
      * @param UserInterface $user
-     * @return void
      */
     public function refreshUser(UserInterface $user)
     {
@@ -88,6 +86,7 @@ class ApiKeyUserProvider implements UserProviderInterface
     public function getUsernameFromApiKey(string $key): string
     {
         $this->apiKeyTool->refreshToken($key);
+
         return $this->apiKeyTool->getUserByKey($key)->getEmail();
     }
 }
