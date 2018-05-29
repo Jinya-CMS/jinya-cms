@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 trait BaseArtEntity
 {
     use SlugEntity;
@@ -18,6 +17,7 @@ trait BaseArtEntity
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
     private $name;
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)

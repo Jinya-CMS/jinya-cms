@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\Finder\Finder;
@@ -18,13 +17,15 @@ use const DIRECTORY_SEPARATOR;
 
 class ThemeSyncService implements ThemeSyncServiceInterface
 {
-
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var string */
     private $kernelProjectDir;
+
     /** @var string */
     private $themeDirectory;
 
@@ -44,7 +45,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function syncThemes(): void
     {
@@ -55,13 +56,13 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             ->name(ThemeService::THEME_CONFIG_YML);
 
         foreach ($configFiles as $configFile) {
-            /** @var $configFile SplFileInfo */
+            /* @var $configFile SplFileInfo */
             $this->saveTheme($configFile->getContents(), $configFile->getRelativePath());
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     private function saveTheme(string $configString, string $name)
     {
@@ -85,7 +86,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             $theme->setPreviewImage($previewImagePath);
         }
 
-        if ($this->entityManager->getUnitOfWork()->getEntityState($theme) === UnitOfWork::STATE_NEW) {
+        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($theme)) {
             $this->entityManager->persist($theme);
         }
 
