@@ -8,10 +8,8 @@
 
 namespace Jinya\Entity;
 
-
 trait BaseEntity
 {
-
     /**
      * @var int
      * @ORM\Id

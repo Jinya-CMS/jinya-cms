@@ -47,7 +47,7 @@ class LogController extends BaseApiController
                 'filter' => $filter,
                 'sortBy' => $sortBy,
                 'sortOrder' => $sortOrder,
-                'level' => $level
+                'level' => $level,
             ];
 
             return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_log_get_all', $entities);

@@ -32,7 +32,7 @@ class ArtworkService extends BaseSlugEntityService implements ArtworkServiceInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(string $slug): ?Artwork
     {
