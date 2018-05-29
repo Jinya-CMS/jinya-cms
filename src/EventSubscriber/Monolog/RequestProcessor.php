@@ -8,7 +8,6 @@
 
 namespace Jinya\EventSubscriber\Monolog;
 
-
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestProcessor

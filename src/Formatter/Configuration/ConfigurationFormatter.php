@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Configuration;
 
-
 use Jinya\Entity\Configuration;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 
@@ -16,6 +15,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var Configuration */
     private $configuration;
 

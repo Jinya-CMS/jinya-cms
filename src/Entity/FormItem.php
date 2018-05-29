@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use function array_key_exists;
 use function implode;
@@ -26,31 +25,37 @@ class FormItem extends HistoryEnabledEntity
      * @var int
      */
     private $id;
+
     /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $type;
+
     /**
      * @ORM\Column(type="json_array")
      * @var array
      */
     private $options;
+
     /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
     private $label;
+
     /**
      * @ORM\Column(type="string")
      * @var string
      */
     private $helpText;
+
     /**
      * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form", cascade={"persist"})
      * @var Form
      */
     private $form;
+
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=false)
@@ -171,9 +176,9 @@ class FormItem extends HistoryEnabledEntity
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -191,7 +196,7 @@ class FormItem extends HistoryEnabledEntity
             'helpText' => $this->helpText,
             'options' => $this->options,
             'required' => $this->options['required'],
-            'selectOptions' => $selectOptions
+            'selectOptions' => $selectOptions,
         ];
     }
 }

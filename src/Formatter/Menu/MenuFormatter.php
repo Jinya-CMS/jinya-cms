@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Entity\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,11 +17,13 @@ class MenuFormatter implements MenuFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var Menu */
     private $menu;
 
     /** @var MenuItemFormatterInterface */
     private $menuItemFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urLGenerator;
 
