@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Base;
 
-
 use Jinya\Entity\Label;
 
 interface LabelEntityServiceInterface
