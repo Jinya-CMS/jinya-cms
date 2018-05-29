@@ -8,16 +8,20 @@
             <jinya-menu-flyout-navbar slot="flyout-navbar" :is-open="isOpen">
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.art.navbar"
                                                :is-selected="selectedHeader === 'art'"
-                                               @selected="selectHeader('art')"/>
+                                               @selected="selectHeader('art')"
+                                               v-jinya-permission="ROLE_WRITER"/>
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.static.navbar"
                                                :is-selected="selectedHeader === 'static'"
-                                               @selected="selectHeader('static')"/>
+                                               @selected="selectHeader('static')"
+                                               v-jinya-permission="ROLE_WRITER"/>
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.configuration.navbar"
                                                :is-selected="selectedHeader === 'config'"
-                                               @selected="selectHeader('config')"/>
+                                               @selected="selectHeader('config')"
+                                               v-jinya-permission="ROLE_ADMIN"/>
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.maintenance.navbar"
                                                :is-selected="selectedHeader === 'maintenance'"
-                                               @selected="selectHeader('maintenance')"/>
+                                               @selected="selectHeader('maintenance')"
+                                               v-jinya-permission="ROLE_SUPER_ADMIN"/>
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.my_jinya.navbar"
                                                :is-selected="selectedHeader === 'my-jinya'"
                                                @selected="selectHeader('my-jinya')"/>
@@ -25,15 +29,17 @@
                                                :is-selected="selectedHeader === 'support'"
                                                @selected="selectHeader('support')"/>
             </jinya-menu-flyout-navbar>
-            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'">
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header">
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'"
+                                    v-jinya-permission="ROLE_WRITER">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header"
+                                                v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Artworks.SavedInJinya.Overview"
-                                                 :v-jinya-permission="'Art.Artworks.SavedExternal.Overview'"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Art.Artworks.SavedExternal.Overview"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_external"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header"
+                                                v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Videos.SavedInJinya.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnYoutube.Overview"
@@ -43,22 +49,25 @@
                     <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnNewgrounds.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_newgrounds"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header"
+                                                v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Art.Overview"
-                                                 :v-jinya-permission="'Art.Galleries.Art.Overview'"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.video_galleries"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
-            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'static'">
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.pages.header">
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'static'"
+                                    v-jinya-permission="ROLE_WRITER">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.pages.header"
+                                                v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Static.Pages.SavedInJinya.Overview"
                                                  text="menu.designer.flyout.static.sections.pages.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Static.Pages.SavedExternal.Overview"
                                                  text="menu.designer.flyout.static.sections.pages.saved_external"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.forms.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.static.sections.forms.header"
+                                                v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Static.Forms.Forms.Overview"
                                                  text="menu.designer.flyout.static.sections.forms.forms"/>
                     <jinya-menu-flyout-menu-item to="Static.Forms.Requests.Overview"
@@ -67,20 +76,25 @@
                                                  text="menu.designer.flyout.static.sections.forms.email_templates"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
-            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'config'">
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.general.header">
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'config'"
+                                    v-jinya-permission="ROLE_ADMIN">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.general.header"
+                                                v-jinya-permission="ROLE_SUPER_ADMIN">
                     <jinya-menu-flyout-menu-item to="Configuration.General.Artists.Overview"
                                                  text="menu.designer.flyout.configuration.sections.general.artists"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.frontend.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.configuration.sections.frontend.header"
+                                                v-jinya-permission="ROLE_ADMIN">
                     <jinya-menu-flyout-menu-item to="Configuration.Frontend.Theme.Overview"
                                                  text="menu.designer.flyout.configuration.sections.frontend.themes"/>
                     <jinya-menu-flyout-menu-item to="Configuration.Frontend.Menu.Overview"
                                                  text="menu.designer.flyout.configuration.sections.frontend.menus"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
-            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'maintenance'">
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.system.header">
+            <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'maintenance'"
+                                    v-jinya-permission="ROLE_SUPER_ADMIN">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.system.header"
+                                                v-jinya-permission="ROLE_SUPER_ADMIN">
                     <jinya-menu-flyout-menu-item to="Maintenance.System.Updates"
                                                  text="menu.designer.flyout.maintenance.sections.system.updates"/>
                     <jinya-menu-flyout-menu-item to="Maintenance.System.Environment"
@@ -92,13 +106,15 @@
                     <jinya-menu-flyout-menu-item to="Maintenance.System.PHP"
                                                  text="menu.designer.flyout.maintenance.sections.system.php"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.database.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.database.header"
+                                                v-jinya-permission="ROLE_SUPER_ADMIN">
                     <jinya-menu-flyout-menu-item to="Maintenance.Database.MySQL"
                                                  text="menu.designer.flyout.maintenance.sections.database.mysql_information"/>
                     <jinya-menu-flyout-menu-item to="Maintenance.Database.Tool"
                                                  text="menu.designer.flyout.maintenance.sections.database.database_tool"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.diagnosis.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.maintenance.sections.diagnosis.header"
+                                                v-jinya-permission="ROLE_SUPER_ADMIN">
                     <jinya-menu-flyout-menu-item to="Maintenance.Diagnosis.ApplicationLog.Overview"
                                                  text="menu.designer.flyout.maintenance.sections.diagnosis.application_log"/>
                     <jinya-menu-flyout-menu-item to="Maintenance.Diagnosis.AccessLog.Overview"
@@ -112,7 +128,8 @@
                     <jinya-menu-flyout-menu-item to="MyJinya.Account.Password"
                                                  text="menu.designer.flyout.my_jinya.sections.account.password"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.created_by_me.header">
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.created_by_me.header"
+                                                v-jinya-permission="ROLE_SUPER_ADMIN">
                     <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Artworks"
                                                  text="menu.designer.flyout.my_jinya.sections.created_by_me.artworks"/>
                     <jinya-menu-flyout-menu-item to="MyJinya.CreatedByMe.Videos"

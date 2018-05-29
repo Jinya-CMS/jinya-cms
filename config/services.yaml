@@ -102,6 +102,8 @@ services:
         - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
     Jinya\Formatter\User\UserFormatterInterface:
       class: Jinya\Formatter\User\UserFormatter
+      arguments:
+        $roleHierarchy: '@security.role_hierarchy'
       calls:
         - [setPageFormatter, ['@Jinya\Formatter\Page\PageFormatterInterface']]
         - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\GalleryFormatterInterface']]
