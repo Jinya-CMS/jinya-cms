@@ -100,7 +100,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
@@ -112,7 +112,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
             'updatedBy' => $this->getUpdatedBy(),
             'slug' => $this->slug,
-            'picture' => $this->picture
+            'picture' => $this->picture,
         ];
     }
 }
