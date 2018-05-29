@@ -1,127 +1,122 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
-version: 2
-defaults: &defaults
+--- 
+defaults: 
+  docker: 
+    - 
+      image: circleci/php
   working_directory: ~/jinya
-  docker:
-    - image: circleci/php
-jobs:
-  build:
-    <<: *defaults
-    steps:
+jobs: 
+  build: 
+    docker: 
+      - 
+        image: circleci/php
+    steps: 
       - checkout
-
-      - run:
-          command: >
-            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-            curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-            sudo apt update
-            sudo apt install -y nodejs build-essential yarn
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: composer install -n --prefer-dist --no-scripts --no-dev
-
-      - save_cache:
-          paths:
+      - 
+        run: 
+          command: "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo \"deb https://dl.yarnpkg.com/debian/ stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - sudo apt update sudo apt install -y nodejs build-essential yarn\n"
+      - 
+        restore_cache: 
+          keys: 
+            - "v1-dependencies-{{ checksum \"composer.json\" }}"
+            - v1-dependencies-
+      - 
+        run: "composer install -n --prefer-dist --no-scripts --no-dev"
+      - 
+        save_cache: 
+          key: "v1-dependencies-{{ checksum \"composer.json\" }}"
+          paths: 
             - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
-
-      - run:
-          command: >
-            cd themes/jinya_gallery_default_theme/Designer/
-            yarn
-            yarn build
-
-      - run:
-          command: >
-            cd themes/jinya_gallery_default_theme/Frontend/
-            yarn
-            node_modules/.bin/gulp
-      - run:
-          command: >
-            rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules
-            rm -rf themes/jinya_gallery_default_theme/Designer/node_modules
-            rm -rf var/cache
-            rm -rf var/log
-            rm -rf public/public
-            mkdir -p ~/dist
-            zip -r ~/jinya ~/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
-      - persist_to_workspace:
-          root: ~/jinya
-          paths:
+      - 
+        run: 
+          command: "cd themes/jinya_gallery_default_theme/Designer/ yarn yarn build\n"
+      - 
+        run: 
+          command: "cd themes/jinya_gallery_default_theme/Frontend/ yarn node_modules/.bin/gulp\n"
+      - 
+        run: 
+          command: "rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules rm -rf themes/jinya_gallery_default_theme/Designer/node_modules rm -rf var/cache rm -rf var/log rm -rf public/public mkdir -p ~/dist zip -r ~/jinya ~/dist/$(date +\"%Y-%m-%d_%H-%M-%S\").zip\n"
+      - 
+        persist_to_workspace: 
+          paths: 
             - dist
-  deployEdge:
-    <<: *defaults
-    steps:
-      - attach_workspace:
+          root: ~/jinya
+    working_directory: ~/jinya
+  deployEdge: 
+    docker: 
+      - 
+        image: circleci/php
+    steps: 
+      - 
+        attach_workspace: 
           at: ~/jinya/
-      - run:
-          name: Deploy via SCP
-          command: >
-            scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
-            ssh $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update edge"
-  deployNightly:
-    <<: *defaults
-    steps:
-      - attach_workspace:
+      - 
+        run: 
+          command: "scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge ssh $DEPLOY_LOGIN@$DEPLOY_SERVER \"php_cli $DEPLOY_TARGET/bin/console jinya:version:update edge\"\n"
+          name: "Deploy via SCP"
+    working_directory: ~/jinya
+  deployNightly: 
+    docker: 
+      - 
+        image: circleci/php
+    steps: 
+      - 
+        attach_workspace: 
           at: ~/jinya/
-      - run:
-          name: Deploy via SCP
-          command: >
-            scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
-            ssh $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update nightly"
-  deployStable:
-    <<: *defaults
-    steps:
-      - attach_workspace:
+      - 
+        run: 
+          command: "scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly ssh $DEPLOY_LOGIN@$DEPLOY_SERVER \"php_cli $DEPLOY_TARGET/bin/console jinya:version:update nightly\"\n"
+          name: "Deploy via SCP"
+    working_directory: ~/jinya
+  deployStable: 
+    docker: 
+      - 
+        image: circleci/php
+    steps: 
+      - 
+        attach_workspace: 
           at: ~/jinya/
-      - run:
-          name: Deploy via SCP
-          command: >
-            scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
-            ssh $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update stable"
-workflows:
-  version: 2
-  edge:
-    jobs:
+      - 
+        run: 
+          command: "scp -r ~/jinya/dist $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable ssh $DEPLOY_LOGIN@$DEPLOY_SERVER \"php_cli $DEPLOY_TARGET/bin/console jinya:version:update stable\"\n"
+          name: "Deploy via SCP"
+    working_directory: ~/jinya
+version: 2
+workflows: 
+  edge: 
+    jobs: 
       - build
-      - deployEdge
-          requires:
+      - 
+        deployEdge: 
+          requires: 
             - build
-
-  stable:
-    triggers:
-      - schedule:
-          cron: "0 0 * * 6"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
+  nightly: 
+    jobs: 
       - build
-      - deployStable
-          requires:
+      - 
+        deployNightly: 
+          requires: 
             - build
-
-  nightly:
-    triggers:
-      - schedule:
+    triggers: 
+      - 
+        schedule: 
           cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
+          filters: 
+            branches: 
+              only: 
                 - develop
-    jobs:
+  stable: 
+    jobs: 
       - build
-      - deployNightly
-          requires:
+      - 
+        deployStable: 
+          requires: 
             - build
+    triggers: 
+      - 
+        schedule: 
+          cron: "0 0 * * 6"
+          filters: 
+            branches: 
+              only: 
+                - master
+  version: 2
