@@ -51,7 +51,6 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * Deletes the given @see Page
      *
      * @param Page $entity
-     * @return void
      */
     public function delete($entity): void;
 
@@ -61,7 +60,6 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param string $key
      * @param string $value
      * @param int $id
-     * @return void
      */
     public function updateField(string $key, string $value, int $id);
 }

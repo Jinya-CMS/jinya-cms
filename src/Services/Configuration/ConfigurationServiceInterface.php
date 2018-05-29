@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Configuration;
 
-
 use Jinya\Entity\Configuration;
 
 interface ConfigurationServiceInterface
