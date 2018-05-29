@@ -8,14 +8,12 @@
 
 namespace Jinya\Framework\Security;
 
-
 use Jinya\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class UserVoter extends Voter
 {
-
     /**
      * Determines if the attribute and subject are supported by this voter.
      *

@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Theme;
 
-
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 use Jinya\Framework\BaseApiController;
@@ -102,9 +101,9 @@ class ThemeController extends BaseApiController
 
             if (!empty($menus)) {
                 if (array_key_exists('primary', $menus)) {
-                    if ($menus ['primary']['id'] !== null && $menus ['primary']['id'] !== '') {
+                    if ($menus['primary']['id'] !== null && $menus['primary']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int)$menus['primary']['id'];
+                        $menu = (int) $menus['primary']['id'];
                     } else {
                         $menu = 'unset';
                     }
@@ -112,9 +111,9 @@ class ThemeController extends BaseApiController
                     $themeConfigService->setMenus($name, ['primary' => $menu]);
                 }
                 if (array_key_exists('secondary', $menus)) {
-                    if ($menus ['secondary']['id'] !== null && $menus ['secondary']['id'] !== '') {
+                    if ($menus['secondary']['id'] !== null && $menus['secondary']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int)$menus['secondary']['id'];
+                        $menu = (int) $menus['secondary']['id'];
                     } else {
                         $menu = 'unset';
                     }
@@ -122,9 +121,9 @@ class ThemeController extends BaseApiController
                     $themeConfigService->setMenus($name, ['secondary' => $menu]);
                 }
                 if (array_key_exists('footer', $menus)) {
-                    if ($menus ['footer']['id'] !== null && $menus ['footer']['id'] !== '') {
+                    if ($menus['footer']['id'] !== null && $menus['footer']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int)$menus['footer']['id'];
+                        $menu = (int) $menus['footer']['id'];
                     } else {
                         $menu = 'unset';
                     }

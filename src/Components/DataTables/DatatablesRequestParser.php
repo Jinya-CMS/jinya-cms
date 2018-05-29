@@ -8,14 +8,12 @@
 
 namespace Jinya\Components\DataTables;
 
-
 use Symfony\Component\HttpFoundation\Request;
 
 class DatatablesRequestParser implements DatatablesRequestParserInterface
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function parseRequest(Request $request): DatatablesModel
     {
