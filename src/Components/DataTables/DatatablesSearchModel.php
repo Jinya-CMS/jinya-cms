@@ -8,11 +8,11 @@
 
 namespace Jinya\Components\DataTables;
 
-
 class DatatablesSearchModel
 {
     /** @var bool */
     private $regex;
+
     /** @var string */
     private $value;
 

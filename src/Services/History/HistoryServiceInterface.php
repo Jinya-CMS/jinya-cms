@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\History;
 
-
 interface HistoryServiceInterface
 {
     /**
