@@ -12,6 +12,7 @@ class CompileThemesCommand extends ContainerAwareCommand
 {
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var ThemeCompilerServiceInterface */
     private $themeCompilerService;
 

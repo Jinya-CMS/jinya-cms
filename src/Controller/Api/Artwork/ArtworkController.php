@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
@@ -52,7 +51,7 @@ class ArtworkController extends BaseApiController
      */
     public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $artworkService, function ($artwork) use ($artworkFormatter) {
             $result = $artworkFormatter->init($artwork)
                 ->name()

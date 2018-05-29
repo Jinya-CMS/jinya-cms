@@ -17,7 +17,7 @@ class Inline extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'inline' => new \Twig_Function('inline', [$this, 'inlineFile'])
+            'inline' => new \Twig_Function('inline', [$this, 'inlineFile']),
         ];
     }
 
