@@ -1,13 +1,17 @@
 import ObjectUtils from "@/framework/Utils/ObjectUtils";
+import Vue from "vue";
+import Routes from "@/router/Routes";
+import Permissions from "@/security/Permissions";
 
 const roles = {
   install(Vue) {
     Vue.directive('jinya-permission', (el, binding, vnode) => {
-      console.log(vnode);
-      if (binding.modifiers.includes('route')) {
-        const route = ObjectUtils.valueByKeypath(binding.value);
+      if (binding.modifiers.route) {
+        const route = ObjectUtils.valueByKeypath(Routes, binding.value);
+        const permission = Permissions[route.name];
+        const meta = vnode.context.$route.meta;
 
-        if (route && route.meta.me.roles.includes(route.meta.role)) {
+        if (!meta.me.roles.includes(permission?.role)) {
           vnode.elm.parentElement.removeChild(vnode.elm);
         }
       } else {
@@ -18,5 +22,7 @@ const roles = {
     });
   }
 };
+
+Vue.use(roles);
 
 export default roles;
