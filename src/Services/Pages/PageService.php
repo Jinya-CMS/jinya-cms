@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Pages;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Page;
 use Jinya\Services\Base\BaseSlugEntityService;

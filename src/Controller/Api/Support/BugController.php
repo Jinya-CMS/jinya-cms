@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Support;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Entity\User;
@@ -48,14 +47,14 @@ class BugController extends BaseApiController
                 'severity' => $this->getValue('severity'),
                 'who' => $user->getFirstname(),
                 'url' => $request->headers->has('referer') ? $request->headers->get('referer') : '',
-                'jinyaVersion' => $this->jinyaVersion
+                'jinyaVersion' => $this->jinyaVersion,
             ];
 
             $response = $client->request('POST', 'https://api.jinya.de/tracker/bug', [
                 RequestOptions::JSON => $bug,
                 RequestOptions::HEADERS => [
-                    'Content-Type' => 'application/json'
-                ]
+                    'Content-Type' => 'application/json',
+                ],
             ]);
 
             return json_decode($response->getBody()->getContents(), true);
