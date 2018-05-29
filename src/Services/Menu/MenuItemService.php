@@ -8,15 +8,14 @@
 
 namespace Jinya\Services\Menu;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\MenuItem;
 
 class MenuItemService implements MenuItemServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var MenuServiceInterface */
     private $menuService;
 
@@ -45,7 +44,7 @@ class MenuItemService implements MenuItemServiceInterface
             ->from(MenuItem::class, 'item')
             ->setParameter('parentId', $parentId);
 
-        if ($type === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $type) {
             $queryBuilder
                 ->where('menu.id = :parentId')
                 ->join('item.menu', 'menu');
@@ -77,7 +76,7 @@ class MenuItemService implements MenuItemServiceInterface
             ->from(MenuItem::class, 'item')
             ->where('item.position = :position');
 
-        if ($type === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $type) {
             $queryBuilder = $queryBuilder
                 ->andWhere('menu.id = :parentId')
                 ->join('item.menu', 'menu');
@@ -100,7 +99,6 @@ class MenuItemService implements MenuItemServiceInterface
      * @param int $parentId
      * @param MenuItem $item
      * @param string $type
-     * @return void
      */
     public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void
     {
@@ -109,7 +107,7 @@ class MenuItemService implements MenuItemServiceInterface
 
         $item->setPosition($position);
 
-        if ($type === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $type) {
             $menu = $this->menuService->get($parentId);
             $item->setMenu($menu);
         } else {
@@ -130,15 +128,15 @@ class MenuItemService implements MenuItemServiceInterface
     private function rearrangeMenuItems(int $position, int $parentId, string $type = MenuItemServiceInterface::PARENT): int
     {
         //FIXME Checkout artwork position service, there it works
-        if ($type === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $type) {
             $positions = $this->menuService->get($parentId)->getMenuItems()->toArray();
         } else {
             $positions = $this->entityManager->find(MenuItem::class, $parentId)->getChildren()->toArray();
         }
 
         uasort($positions, function ($a, $b) {
-            /** @var MenuItem $a */
-            /** @var MenuItem $b */
+            /* @var MenuItem $a */
+            /* @var MenuItem $b */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
@@ -178,7 +176,7 @@ class MenuItemService implements MenuItemServiceInterface
             ->from(MenuItem::class, 'item')
             ->where('item.position = :position');
 
-        if ($type === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $type) {
             $queryBuilder = $queryBuilder->join('item.menu', 'parent');
         } else {
             $queryBuilder = $queryBuilder->join('item.parent', 'parent');
