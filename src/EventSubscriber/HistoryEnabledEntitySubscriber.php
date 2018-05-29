@@ -8,7 +8,6 @@
 
 namespace Jinya\EventSubscriber;
 
-
 use DateTime;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -33,14 +32,14 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
         return [
             Events::prePersist,
             Events::preUpdate,
-            Events::postLoad
+            Events::postLoad,
         ];
     }
 
@@ -61,7 +60,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
                     $history[] = [
                         'entry' => $changeSet,
                         'timestamp' => $entity->getLastUpdatedAt()->format('c'),
-                        'initial' => false
+                        'initial' => false,
                     ];
                     $entity->setHistory($history);
                 }
@@ -72,10 +71,11 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     private function checkOnlyUpdatedFieldsChanged(array $changeSet): bool
     {
         foreach ($changeSet as $key => $item) {
-            if (strtolower($key) !== 'lastupdatedat' && strtolower($key) !== 'updatedby' && strtolower($key) !== 'history') {
+            if ('lastupdatedat' !== strtolower($key) && 'updatedby' !== strtolower($key) && 'history' !== strtolower($key)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -107,7 +107,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
             $entity->setHistory([[
                 'entry' => $historyEntry,
                 'timestamp' => $entity->getLastUpdatedAt()->format('c'),
-                'initial' => true
+                'initial' => true,
             ]]);
         }
     }

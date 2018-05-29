@@ -8,12 +8,10 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Jinya\Entity\Theme;
 
 interface ThemeConfigServiceInterface
 {
-
     /**
      * Gets the configuration for the given theme
      *
@@ -68,7 +66,6 @@ interface ThemeConfigServiceInterface
      *
      * @param string $name
      * @param array $variables
-     * @return void
      */
     public function setVariables(string $name, array $variables): void;
 
