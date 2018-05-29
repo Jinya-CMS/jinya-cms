@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 interface ArtEntityInterface
 {
     /**
