@@ -36,7 +36,8 @@ jobs:
         run: 
           command: |
             cd themes/jinya_gallery_default_theme/Designer/
-            yarn yarn build
+            yarn
+            yarn build
       - 
         run: 
           command: |
