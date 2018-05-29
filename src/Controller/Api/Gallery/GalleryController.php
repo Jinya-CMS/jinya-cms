@@ -52,7 +52,7 @@ class GalleryController extends BaseApiController
      */
     public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
             $result = $galleryFormatter->init($gallery)
                 ->name()

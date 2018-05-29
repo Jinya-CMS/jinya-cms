@@ -8,13 +8,11 @@
 
 namespace Jinya\Services\Routing;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\RoutingEntry;
 
 class RouteService implements RouteServiceInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -30,7 +28,7 @@ class RouteService implements RouteServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findByUrl(string $url): RoutingEntry
     {
