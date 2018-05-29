@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Artworks;
 
-
 use Jinya\Entity\ArtworkPosition;
 
 interface ArtworkPositionServiceInterface
@@ -30,7 +29,6 @@ interface ArtworkPositionServiceInterface
      * @param int $artworkPositionId
      * @param int $newPosition
      * @param int $oldPosition
-     * @return void
      */
     public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition);
 
@@ -38,7 +36,6 @@ interface ArtworkPositionServiceInterface
      * Deletes the given artwork position
      *
      * @param int $id
-     * @return void
      */
     public function deletePosition(int $id);
 
@@ -55,7 +52,6 @@ interface ArtworkPositionServiceInterface
      *
      * @param int $id
      * @param string $artworkSlug
-     * @return void
      */
     public function updateArtwork(int $id, string $artworkSlug);
 }
