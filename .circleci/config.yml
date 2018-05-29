@@ -54,7 +54,7 @@ jobs:
         persist_to_workspace: 
           paths: 
             - dist
-          root: ~/jinya
+          root: ~/
     working_directory: ~/jinya
   deployEdge: 
     docker: 
