@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Form;
 
-
 use Jinya\Entity\FormItem;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Form\FormItemFormatterInterface;
@@ -112,6 +111,7 @@ class FormItemController extends BaseApiController
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->addItem($formItem);
+
                         break;
                     case 'edit':
                         $data = $action['data'];
@@ -122,16 +122,18 @@ class FormItemController extends BaseApiController
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->updateItem($formItem);
+
                         break;
                     case 'move':
                         $formItemService->updatePosition($slug, $action['from'], $action['to']);
+
                         break;
                     case 'delete':
                         $formItemService->deleteItem($form, $action['where']);
+
                         break;
                 }
             }
-
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($status, $data);

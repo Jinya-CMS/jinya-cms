@@ -24,7 +24,6 @@ use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
-
     /** @var string */
     private $kernelProjectDir;
 
@@ -73,7 +72,6 @@ class MediaService implements MediaServiceInterface
      * Deletes the media saved under the given url
      *
      * @param string $url
-     * @return void
      */
     public function deleteMedia(string $url)
     {
