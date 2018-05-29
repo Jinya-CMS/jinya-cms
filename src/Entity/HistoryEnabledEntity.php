@@ -14,7 +14,6 @@ use JsonSerializable;
 
 /**
  * Class HistoryEnabledEntity
- * @package Jinya\Entity
  * @ORM\MappedSuperclass
  */
 abstract class HistoryEnabledEntity implements JsonSerializable
@@ -24,21 +23,25 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      * @ORM\Column(type="json")
      */
     private $history;
+
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $createdAt;
+
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $lastUpdatedAt;
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
      */
     private $creator;
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
@@ -56,7 +59,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param array[] $history
      */
-    function setHistory(array $history): void
+    public function setHistory(array $history): void
     {
         $this->history = $history;
     }
@@ -72,7 +75,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param DateTime $createdAt
      */
-    function setCreatedAt(DateTime $createdAt): void
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -88,7 +91,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param User $creator
      */
-    function setCreator(User $creator): void
+    public function setCreator(User $creator): void
     {
         $this->creator = $creator;
     }
@@ -104,7 +107,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param DateTime $lastUpdatedAt
      */
-    function setLastUpdatedAt(DateTime $lastUpdatedAt): void
+    public function setLastUpdatedAt(DateTime $lastUpdatedAt): void
     {
         $this->lastUpdatedAt = $lastUpdatedAt;
     }
@@ -120,7 +123,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @param User $updatedBy
      */
-    function setUpdatedBy($updatedBy): void
+    public function setUpdatedBy($updatedBy): void
     {
         if ($updatedBy instanceof User) {
             $this->updatedBy = $updatedBy;
