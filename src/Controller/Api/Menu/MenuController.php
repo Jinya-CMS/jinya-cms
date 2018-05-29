@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
