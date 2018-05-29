@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Log;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
@@ -19,6 +18,7 @@ class AccessLogService implements AccessLogServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var LoggerInterface */
     private $logger;
 
@@ -34,7 +34,7 @@ class AccessLogService implements AccessLogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(int $offset = 0, int $count = 20, string $sortBy = 'createdAt', string $sortOrder = 'DESC'): array
     {
@@ -42,7 +42,7 @@ class AccessLogService implements AccessLogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(int $id): AccessLogEntry
     {
@@ -50,13 +50,14 @@ class AccessLogService implements AccessLogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(): int
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityManager->getRepository(AccessLogEntry::class)->createQueryBuilder('ale');
+
         return $queryBuilder
             ->select($queryBuilder->expr()->count('ale'))
             ->getQuery()
@@ -64,12 +65,13 @@ class AccessLogService implements AccessLogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clear(): void
     {
         $connection = $this->entityManager->getConnection();
         $connection->beginTransaction();
+
         try {
             $connection->query('SET FOREIGN_KEY_CHECKS=0');
             $truncate = $connection->getDatabasePlatform()->getTruncateTableSQL($this->entityManager->getClassMetadata(AccessLogEntry::class)->getTableName());
