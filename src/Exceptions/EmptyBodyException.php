@@ -8,10 +8,8 @@
 
 namespace Jinya\Exceptions;
 
-
 use Exception;
 
 class EmptyBodyException extends Exception
 {
-
 }
