@@ -49,7 +49,7 @@ jobs:
           command: |
             rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public
             mkdir -p ~/dist
-            zip -r ~/jinya ~/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
+            zip -r ~/jinya/* ~/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip --exclude .git/
       - 
         persist_to_workspace: 
           paths: 
