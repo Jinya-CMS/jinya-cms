@@ -8,7 +8,6 @@
 
 namespace Jinya\Components\Form;
 
-
 use Jinya\Entity\Form;
 use Jinya\Entity\FormItem;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
@@ -38,7 +37,6 @@ class FormGenerator implements FormGeneratorInterface
         $this->frontendConfigurationService = $frontendConfigurationService;
     }
 
-
     public function generateForm(Form $form): FormInterface
     {
         $formBuilder = $this->formFactory->createBuilder();
@@ -59,7 +57,7 @@ class FormGenerator implements FormGeneratorInterface
 
             if (strpos($item->getType(), 'TextareaType') != -1) {
                 $options['attr'] = [
-                    'rows' => 10
+                    'rows' => 10,
                 ];
             }
 

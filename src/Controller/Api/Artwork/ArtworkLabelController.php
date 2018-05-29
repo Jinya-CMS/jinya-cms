@@ -135,7 +135,7 @@ class ArtworkLabelController extends BaseApiController
 
             $artwork->getLabels()->clear();
             $artworkService->saveOrUpdate($artwork);
-       }, Response::HTTP_NO_CONTENT);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

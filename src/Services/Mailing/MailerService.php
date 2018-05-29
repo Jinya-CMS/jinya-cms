@@ -8,14 +8,12 @@
 
 namespace Jinya\Services\Mailing;
 
-
 use Jinya\Entity\Form;
 use Swift_Mailer;
 use Swift_Message;
 
 class MailerService implements MailerServiceInterface
 {
-
     /** @var Swift_Mailer */
     private $swift;
 
@@ -34,7 +32,7 @@ class MailerService implements MailerServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendMail(Form $form, array $data): void
     {

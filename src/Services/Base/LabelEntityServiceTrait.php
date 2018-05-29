@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Base;
 
-
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -54,7 +53,7 @@ trait LabelEntityServiceTrait
             ))
             ->setParameter('keyword', "%$keyword%");
 
-        if ($label !== null) {
+        if (null !== $label) {
             $queryBuilder->andWhere(':label_id MEMBER OF entity.labels')->setParameter('label_id', $label->getId());
         }
 

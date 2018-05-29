@@ -98,7 +98,7 @@ class GalleryArtworkController extends BaseApiController
             if (!empty($artworkSlug)) {
                 $artworkPositionService->updateArtwork($id, $artworkSlug);
             }
-            if (isset($newPosition) && $newPosition !== null) {
+            if (isset($newPosition) && null !== $newPosition) {
                 $artworkPositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);
             }
         }, Response::HTTP_NO_CONTENT);
