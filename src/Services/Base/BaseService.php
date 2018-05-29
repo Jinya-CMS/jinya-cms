@@ -17,6 +17,7 @@ class BaseService
 {
     /** @var EntityManagerInterface */
     protected $entityManager;
+
     /** @var string */
     protected $entityType;
 
@@ -31,15 +32,12 @@ class BaseService
         $this->entityType = $entityType;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function updateField(string $key, string $value, int $id)
     {
         $entity = $this->entityManager->find($this->entityType, $id);
         $entity->{"set$key"}($value);
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->saveOrUpdate($entity);
     }
 
@@ -51,7 +49,7 @@ class BaseService
      */
     public function saveOrUpdate($entity)
     {
-        if ($this->entityManager->getUnitOfWork()->getEntityState($entity) === UnitOfWork::STATE_NEW) {
+        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($entity)) {
             $this->entityManager->persist($entity);
         }
 
@@ -64,7 +62,6 @@ class BaseService
      * Deletes the given @see BaseEntity
      *
      * @param BaseEntity $entity
-     * @return void
      */
     public function delete($entity): void
     {
