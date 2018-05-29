@@ -8,7 +8,6 @@
 
 namespace Jinya\Components\Arrays;
 
-
 interface ArrayUtilInterface
 {
     /**

@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -20,33 +19,35 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class ArtworkPosition implements JsonSerializable
 {
-
     use BaseEntity;
+
     /**
      * @var Gallery
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery", inversedBy="artworks")
      */
     private $gallery;
+
     /**
      * @var Artwork
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artwork", inversedBy="positions", cascade={"persist"})
      */
     private $artwork;
+
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="integer")
      */
     private $position;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return [
             'artwork' => $this->getArtwork(),
             'gallery' => $this->getGallery(),
-            'position' => $this->getPosition()
+            'position' => $this->getPosition(),
         ];
     }
 

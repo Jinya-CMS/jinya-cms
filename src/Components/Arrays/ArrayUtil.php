@@ -76,7 +76,7 @@ class ArrayUtil implements ArrayUtilInterface
             $temp = &$temp[$key];
         }
 
-        if ($prevEl !== null) {
+        if (null !== $prevEl) {
             unset($prevEl[$key]);
         }
 
@@ -113,7 +113,7 @@ class ArrayUtil implements ArrayUtilInterface
         }
 
         return array_filter($data, function ($value) {
-            return $value === false || !empty($value);
+            return false === $value || !empty($value);
         });
     }
 }

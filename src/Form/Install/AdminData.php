@@ -18,11 +18,13 @@ class AdminData
      * @Assert\NotBlank(message="install.users.firstname.not_blank")
      */
     private $firstname;
+
     /**
      * @var string
      * @Assert\NotBlank(message="install.users.lastname.not_blank")
      */
     private $lastname;
+
     /**
      * @var string
      * @Assert\Email(message="install.users.email.invalid")
@@ -70,7 +72,6 @@ class AdminData
     {
         $this->profilePicture = $profilePicture;
     }
-
 
     /**
      * @return string

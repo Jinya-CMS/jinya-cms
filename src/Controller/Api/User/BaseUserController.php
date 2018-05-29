@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\User;
 
-
 use Jinya\Entity\User;
 use Jinya\Framework\BaseApiController;
 
@@ -23,6 +22,7 @@ class BaseUserController extends BaseApiController
     protected function isCurrentUser(int $id): bool
     {
         $user = $this->getUser();
+
         return $user instanceof User && $user->getId() === $id;
     }
 }
