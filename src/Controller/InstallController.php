@@ -150,7 +150,7 @@ class InstallController extends AbstractController
             $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
 
             $user->setProfilePicture($path);
-            $this->userService->saveOrUpdate($user);
+            $this->userService->saveOrUpdate($user, false);
             $this->themeSyncService->syncThemes();
 
             $fs = new Filesystem();

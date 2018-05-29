@@ -1,8 +1,9 @@
 security:
   role_hierarchy:
-    ROLE_SUPER_ADMIN: ROLE_ADMIN
-    ROLE_ADMIN: ROLE_WRITER
-
+    ROLE_SUPER_ADMIN:
+      - ROLE_ADMIN
+    ROLE_ADMIN:
+      - ROLE_WRITER
   access_decision_manager:
     strategy: consensus
     allow_if_all_abstain: false

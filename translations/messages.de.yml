@@ -165,6 +165,8 @@ menu:
             like: Ja? Dann zeigs uns
             dont_like: Nein? Dann schick uns eine Mail
 routes:
+  error:
+    not_allowed: Zugriff verweigert
   art:
     artworks:
       saved_in_jinya:
@@ -578,3 +580,7 @@ support:
       details: Meine Nachricht an die Entwickler
       submit: Like senden
       cancel: Abbrechen
+error:
+  not_allowed:
+    title: Zugriff verweigert
+    content: Du hast auf die Seite keinen Zugriff, wende dich bitte an deinen Administrator.

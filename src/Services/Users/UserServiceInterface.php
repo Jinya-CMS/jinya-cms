@@ -57,9 +57,10 @@ interface UserServiceInterface
      * Creates a user
      *
      * @param User $user
+     * @param bool $ignorePassword
      * @return User
      */
-    public function saveOrUpdate(User $user): User;
+    public function saveOrUpdate(User $user, bool $ignorePassword = false): User;
 
     /**
      * Activates the given user

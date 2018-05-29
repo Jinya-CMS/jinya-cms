@@ -198,11 +198,14 @@ class UserService implements UserServiceInterface
      * Creates a user
      *
      * @param User $user
+     * @param bool $ignorePassword
      * @return User
      */
-    public function saveOrUpdate(User $user): User
+    public function saveOrUpdate(User $user, bool $ignorePassword = false): User
     {
-        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
+        if (!$ignorePassword) {
+            $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
+        }
 
         if ($this->entityManager->getUnitOfWork()->getEntityState($user) === UnitOfWork::STATE_NEW) {
             if (!$this->entityManager->isOpen()) {
