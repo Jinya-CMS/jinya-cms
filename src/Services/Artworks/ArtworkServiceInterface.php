@@ -14,7 +14,6 @@ use Jinya\Services\Base\LabelEntityServiceInterface;
 
 interface ArtworkServiceInterface extends LabelEntityServiceInterface
 {
-
     /**
      * Gets a list of artworks in the given range and filtered by the given keyword
      *
@@ -47,7 +46,6 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Deletes the given gallery
      *
      * @param Artwork $artwork
-     * @return void
      */
     public function delete($artwork): void;
 

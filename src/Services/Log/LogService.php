@@ -37,14 +37,14 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array
     {
         $queryBuilder = $this->getFilterQueryBuilder($level, $filter)
             ->setMaxResults($count)
             ->setFirstResult($offset);
-        if ($sortOrder === 'asc') {
+        if ('asc' === $sortOrder) {
             $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->asc('le.' . $sortBy));
         } else {
             $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->desc('le.' . $sortBy));
@@ -73,7 +73,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get(int $id): LogEntry
     {
@@ -81,11 +81,12 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function countAll(): int
     {
         $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
+
         return $queryBuilder
             ->select($queryBuilder->expr()->count('le'))
             ->getQuery()
@@ -93,11 +94,12 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function countFiltered(string $level, string $filter): int
     {
         $queryBuilder = $this->getFilterQueryBuilder($level, $filter);
+
         return $queryBuilder
             ->select($queryBuilder->expr()->count('le'))
             ->getQuery()
@@ -105,7 +107,7 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUsedLevels(): array
     {
@@ -121,12 +123,13 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clear()
     {
         $connection = $this->entityManager->getConnection();
         $connection->beginTransaction();
+
         try {
             $connection->query('SET FOREIGN_KEY_CHECKS=0');
             $truncate = $connection->getDatabasePlatform()->getTruncateTableSQL($this->entityManager->getClassMetadata(LogEntry::class)->getTableName());

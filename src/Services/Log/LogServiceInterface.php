@@ -55,8 +55,6 @@ interface LogServiceInterface
 
     /**
      * Removes all log entries from the database and deletes the log files
-     *
-     * @return void
      */
     public function clear();
 }
