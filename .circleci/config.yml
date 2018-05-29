@@ -95,8 +95,8 @@ workflows:
     jobs:
       - build
       - deployEdge
-        requires:
-          - build
+          requires:
+            - build
 
   stable:
     triggers:
@@ -109,8 +109,8 @@ workflows:
     jobs:
       - build
       - deployStable
-        requires:
-          - build
+          requires:
+            - build
 
   nightly:
     triggers:
@@ -123,5 +123,5 @@ workflows:
     jobs:
       - build
       - deployNightly
-        requires:
-          - build
+          requires:
+            - build
