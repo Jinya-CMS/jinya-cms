@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Mailing;
 
-
 use Jinya\Entity\Form;
 
 interface MailerServiceInterface

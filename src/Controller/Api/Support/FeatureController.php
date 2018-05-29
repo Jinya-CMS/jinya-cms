@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Support;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Entity\User;
@@ -43,8 +42,8 @@ class FeatureController extends BaseApiController
             $response = $client->request('POST', 'https://api.jinya.de/tracker/feature', [
                 RequestOptions::JSON => $feature,
                 RequestOptions::HEADERS => [
-                    'Content-Type' => 'application/json'
-                ]
+                    'Content-Type' => 'application/json',
+                ],
             ]);
 
             return json_decode($response->getBody()->getContents(), true);
