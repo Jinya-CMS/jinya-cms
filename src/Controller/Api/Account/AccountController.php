@@ -94,6 +94,7 @@ class AccountController extends BaseApiController
             return $userFormatter
                 ->init($user)
                 ->profile()
+                ->roles()
                 ->createdPages()
                 ->createdGalleries()
                 ->createdForms()

@@ -12,7 +12,8 @@ export default [
     component: ArtworksSavedInJinyaOverview,
     meta: {
       title: 'routes.art.artworks.saved_in_jinya.overview',
-      searchEnabled: true
+      searchEnabled: true,
+      role: 'ROLE_WRITER'
     }
   },
   {
@@ -20,40 +21,57 @@ export default [
     name: Routes.Art.Artworks.SavedInJinya.Add.name,
     component: ArtworksSavedInJinyaAdd,
     meta: {
-      title: 'routes.art.artworks.saved_in_jinya.add'
+      title: 'routes.art.artworks.saved_in_jinya.add',
+      role: 'ROLE_WRITER'
     }
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Details.route,
     name: Routes.Art.Artworks.SavedInJinya.Details.name,
-    component: ArtworksSavedInJinyaDetails
+    component: ArtworksSavedInJinyaDetails,
+    meta: {
+      role: 'ROLE_WRITER'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedInJinya.Edit.route,
     name: Routes.Art.Artworks.SavedInJinya.Edit.name,
     component: ArtworksSavedInJinyaEdit,
     meta: {
-      title: 'routes.art.artworks.saved_in_jinya.edit'
+      title: 'routes.art.artworks.saved_in_jinya.edit',
+      role: 'ROLE_WRITER'
     }
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Overview.route,
     name: Routes.Art.Artworks.SavedExternal.Overview.name,
-    component: Missing
+    component: Missing,
+    meta: {
+      role: 'ROLE_WRITER'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Add.route,
     name: Routes.Art.Artworks.SavedExternal.Add.name,
-    component: Missing
+    component: Missing,
+    meta: {
+      role: 'ROLE_WRITER'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Details.route,
     name: Routes.Art.Artworks.SavedExternal.Details.name,
-    component: Missing
+    component: Missing,
+    meta: {
+      role: 'ROLE_WRITER'
+    }
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Edit.route,
     name: Routes.Art.Artworks.SavedExternal.Edit.name,
-    component: Missing
+    component: Missing,
+    meta: {
+      role: 'ROLE_WRITER'
+    }
   }
 ];

@@ -28,6 +28,7 @@
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'art'">
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.artworks.header">
                     <jinya-menu-flyout-menu-item to="Art.Artworks.SavedInJinya.Overview"
+                                                 :v-jinya-permission="'Art.Artworks.SavedExternal.Overview'"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Art.Artworks.SavedExternal.Overview"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_external"/>
@@ -44,6 +45,7 @@
                 </jinya-menu-flyout-menu-section>
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header">
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Art.Overview"
+                                                 :v-jinya-permission="'Art.Galleries.Art.Overview'"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.video_galleries"/>
