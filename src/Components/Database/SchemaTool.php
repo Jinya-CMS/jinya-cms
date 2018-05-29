@@ -24,9 +24,8 @@ class SchemaTool implements SchemaToolInterface
         $this->entityManager = $entityManager;
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateSchema(): void
     {

@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter;
 
-
 interface FormatterInterface
 {
     /**

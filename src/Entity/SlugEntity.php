@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 trait SlugEntity
 {
     use BaseEntity;
