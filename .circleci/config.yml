@@ -68,7 +68,7 @@ jobs:
         run: 
           command: |
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update edge"
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms edge"
           name: "Deploy via SCP"
     working_directory: ~/jinya
   deployNightly: 
@@ -83,7 +83,7 @@ jobs:
         run:
           command: |
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update nightly"
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms nightly"
           name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable: 
@@ -98,7 +98,7 @@ jobs:
         run: 
           command: |
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update stable"
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms stable"
           name: "Deploy via SCP"
     working_directory: ~/jinya
 version: 2
