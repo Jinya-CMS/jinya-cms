@@ -8,7 +8,6 @@
 
 namespace Jinya\Components\DataTables;
 
-
 use Symfony\Component\HttpFoundation\Request;
 
 interface DatatablesRequestParserInterface
