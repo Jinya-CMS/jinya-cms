@@ -8,11 +8,11 @@
 
 namespace Jinya\Components\DataTables;
 
-
 class DatatablesOrderModel
 {
     /** @var string */
     private $column;
+
     /** @var string */
     private $dir;
 
