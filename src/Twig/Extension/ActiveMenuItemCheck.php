@@ -31,7 +31,7 @@ class ActiveMenuItemCheck extends \Twig_Extension
     {
         return [
             'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem']),
-            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'])
+            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem']),
         ];
     }
 

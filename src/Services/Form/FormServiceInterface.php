@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Form;
 
-
 use Jinya\Entity\Form;
 use Jinya\Services\Base\StaticContentServiceInterface;
 
@@ -52,7 +51,6 @@ interface FormServiceInterface extends StaticContentServiceInterface
      * Deletes the given @see Form
      *
      * @param Form $entity
-     * @return void
      */
     public function delete($entity): void;
 
@@ -62,7 +60,6 @@ interface FormServiceInterface extends StaticContentServiceInterface
      * @param string $key
      * @param string $value
      * @param int $id
-     * @return void
      */
     public function updateField(string $key, string $value, int $id);
 }

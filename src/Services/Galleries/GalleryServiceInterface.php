@@ -54,7 +54,6 @@ interface GalleryServiceInterface extends LabelEntityServiceInterface
      * Deletes the given gallery
      *
      * @param Gallery $gallery
-     * @return void
      */
     public function delete($gallery): void;
 
@@ -64,7 +63,6 @@ interface GalleryServiceInterface extends LabelEntityServiceInterface
      * @param string $key
      * @param string $value
      * @param int $id
-     * @return void
      */
     public function updateField(string $key, string $value, int $id);
 }
