@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Page;
 
-
 use Jinya\Entity\Page;
 use Jinya\Formatter\User\UserFormatterInterface;
 
@@ -16,6 +15,7 @@ class PageFormatter implements PageFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var Page */
     private $page;
 
@@ -97,7 +97,6 @@ class PageFormatter implements PageFormatterInterface
 
         return $this;
     }
-
 
     /**
      * Formats the history
