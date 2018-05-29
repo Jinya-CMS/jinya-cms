@@ -14,18 +14,18 @@ use function transliterator_transliterate;
 
 class SlugService implements SlugServiceInterface
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateSlug(string $name): string
     {
         if (function_exists('transliterator_transliterate')) {
-            $slug = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $name);
+            $slug = transliterator_transliterate('Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();', $name);
             $slug = preg_replace('/[-\s]+/', '-', $slug);
         } else {
             $slug = Transliterator::transliterate($name, '-');
         }
+
         return trim($slug, '-');
     }
 }

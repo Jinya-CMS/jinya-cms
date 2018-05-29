@@ -41,7 +41,7 @@ class AccessLogController extends BaseApiController
                 'offset' => $offset,
                 'count' => $count,
                 'sortBy' => $sortBy,
-                'sortOrder' => $sortOrder
+                'sortOrder' => $sortOrder,
             ];
 
             return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_accessLog_get_all', $entities);

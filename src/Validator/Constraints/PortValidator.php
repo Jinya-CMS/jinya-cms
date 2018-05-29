@@ -8,19 +8,17 @@
 
 namespace Jinya\Validator\Constraints;
 
-
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class PortValidator extends ConstraintValidator
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value, Constraint $constraint)
     {
-        if (!preg_match('/\\d{1,5}/', $value) || ((int)$value < 0 && (int)$value > 65535)) {
+        if (!preg_match('/\\d{1,5}/', $value) || ((int) $value < 0 && (int) $value > 65535)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

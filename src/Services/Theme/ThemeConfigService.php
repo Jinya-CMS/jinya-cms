@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Theme;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme;
@@ -21,15 +20,18 @@ use function preg_replace;
 
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
-
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var MenuServiceInterface */
     private $menuService;
+
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var MediaServiceInterface */
     private $mediaService;
+
     /** @var ArrayUtilInterface */
     private $arrayUtils;
 
@@ -51,7 +53,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function saveConfig(string $themeName, array $config, bool $override = true): void
     {
@@ -75,7 +77,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeConfig(string $name): array
     {
@@ -85,7 +87,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getThemeNamespace(Theme $theme): string
     {
@@ -93,7 +95,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConfigForm(string $name): array
     {
@@ -101,7 +103,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getForms(string $name): array
     {
@@ -113,7 +115,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getVariablesForm(string $name): array
     {
@@ -122,12 +124,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         $themeConfig = $this->getThemeConfig($theme->getName());
 
         $variablesPath = $stylesPath . DIRECTORY_SEPARATOR . $themeConfig['styles']['variables']['file'];
-        $handle = fopen($variablesPath, "r");
+        $handle = fopen($variablesPath, 'r');
         $variables = [];
 
         try {
             if ($handle) {
-                while (($line = fgets($handle)) !== false) {
+                while (false !== ($line = fgets($handle))) {
                     if (preg_match('/^\$.*!default;\s$/', $line)) {
                         $replaced = preg_replace('/ !default;$/', '', $line);
                         $exploded = explode(':', $replaced);
@@ -143,7 +145,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStylesPath(Theme $theme): string
     {
@@ -159,7 +161,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setVariables(string $name, array $variables): void
     {
@@ -169,7 +171,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMenus(string $name, array $menus): void
     {
@@ -179,21 +181,21 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $primaryMenu = $menus['primary'];
 
             if ($primaryMenu) {
-                $theme->setPrimaryMenu($primaryMenu === 'unset' ? null : $this->menuService->get($primaryMenu));
+                $theme->setPrimaryMenu('unset' === $primaryMenu ? null : $this->menuService->get($primaryMenu));
             }
         }
         if (array_key_exists('secondary', $menus)) {
             $secondaryMenu = $menus['secondary'];
 
             if ($secondaryMenu) {
-                $theme->setSecondaryMenu($secondaryMenu === 'unset' ? null : $this->menuService->get($secondaryMenu));
+                $theme->setSecondaryMenu('unset' === $secondaryMenu ? null : $this->menuService->get($secondaryMenu));
             }
         }
         if (array_key_exists('footer', $menus)) {
             $footerMenu = $menus['footer'];
 
             if ($footerMenu) {
-                $theme->setFooterMenu($footerMenu === 'unset' ? null : $this->menuService->get($footerMenu));
+                $theme->setFooterMenu('unset' === $footerMenu ? null : $this->menuService->get($footerMenu));
             }
         }
 
