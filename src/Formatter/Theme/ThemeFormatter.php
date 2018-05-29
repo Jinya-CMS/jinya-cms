@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Theme;
 
-
 use Jinya\Entity\Menu;
 use Jinya\Entity\Theme;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
@@ -19,11 +18,13 @@ class ThemeFormatter implements ThemeFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var Theme */
     private $theme;
 
     /** @var MenuFormatterInterface */
     private $menuFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
