@@ -40,7 +40,10 @@ jobs:
             yarn build
       - 
         run: 
-          command: cd themes/jinya_gallery_default_theme/Frontend/ && node_modules/.bin/gulp
+          command: |
+            cd themes/jinya_gallery_default_theme/Frontend/
+            yarn
+            node_modules/.bin/gulp
       - 
         run: 
           command: |
