@@ -33,9 +33,13 @@
 class Requirement
 {
     private $fulfilled;
+
     private $testMessage;
+
     private $helpText;
+
     private $helpHtml;
+
     private $optional;
 
     /**
@@ -118,7 +122,7 @@ class PhpIniRequirement extends Requirement
      * Constructor that initializes the requirement.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -223,7 +227,7 @@ class RequirementCollection implements IteratorAggregate
      * Adds a mandatory requirement in form of a php.ini configuration.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -241,7 +245,7 @@ class RequirementCollection implements IteratorAggregate
      * Adds an optional recommendation in form of a php.ini configuration.
      *
      * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param bool|callable $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
      * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
@@ -260,7 +264,7 @@ class RequirementCollection implements IteratorAggregate
      *
      * @param RequirementCollection $collection A RequirementCollection instance
      */
-    public function addCollection(RequirementCollection $collection)
+    public function addCollection(self $collection)
     {
         $this->requirements = array_merge($this->requirements, $collection->all());
     }
@@ -380,6 +384,7 @@ class RequirementCollection implements IteratorAggregate
 class SymfonyRequirements extends RequirementCollection
 {
     const LEGACY_REQUIRED_PHP_VERSION = '5.3.3';
+
     const REQUIRED_PHP_VERSION = '5.5.9';
 
     /**
@@ -417,13 +422,13 @@ class SymfonyRequirements extends RequirementCollection
         );
 
         $this->addRequirement(
-            is_dir(__DIR__.'/../vendor/composer'),
+            is_dir(__DIR__ . '/../vendor/composer'),
             'Vendor libraries must be installed',
-            'Vendor libraries are missing. Install composer following instructions from <a href="http://getcomposer.org/">http://getcomposer.org/</a>. '.
+            'Vendor libraries are missing. Install composer following instructions from <a href="http://getcomposer.org/">http://getcomposer.org/</a>. ' .
                 'Then run "<strong>php composer.phar install</strong>" to install them.'
         );
 
-        $cacheDir = is_dir(__DIR__.'/../var/cache') ? __DIR__.'/../var/cache' : __DIR__.'/cache';
+        $cacheDir = is_dir(__DIR__ . '/../var/cache') ? __DIR__ . '/../var/cache' : __DIR__ . '/cache';
 
         $this->addRequirement(
             is_writable($cacheDir),
@@ -431,7 +436,7 @@ class SymfonyRequirements extends RequirementCollection
             'Change the permissions of either "<strong>app/cache/</strong>" or  "<strong>var/cache/</strong>" directory so that the web server can write into it.'
         );
 
-        $logsDir = is_dir(__DIR__.'/../var/logs') ? __DIR__.'/../var/logs' : __DIR__.'/logs';
+        $logsDir = is_dir(__DIR__ . '/../var/logs') ? __DIR__ . '/../var/logs' : __DIR__ . '/logs';
 
         $this->addRequirement(
             is_writable($logsDir),
@@ -564,13 +569,13 @@ class SymfonyRequirements extends RequirementCollection
 
         /* optional recommendations follow */
 
-        if (file_exists(__DIR__.'/../vendor/composer')) {
-            require_once __DIR__.'/../vendor/autoload.php';
+        if (file_exists(__DIR__ . '/../vendor/composer')) {
+            require_once __DIR__ . '/../vendor/autoload.php';
 
             try {
                 $r = new ReflectionClass('Sensio\Bundle\DistributionBundle\SensioDistributionBundle');
 
-                $contents = file_get_contents(dirname($r->getFileName()).'/Resources/skeleton/app/SymfonyRequirements.php');
+                $contents = file_get_contents(dirname($r->getFileName()) . '/Resources/skeleton/app/SymfonyRequirements.php');
             } catch (ReflectionException $e) {
                 $contents = '';
             }
@@ -731,7 +736,7 @@ class SymfonyRequirements extends RequirementCollection
             'Install and/or enable a <strong>PHP accelerator</strong> (highly recommended).'
         );
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->addRecommendation(
                 $this->getRealpathCacheSize() >= 5 * 1024 * 1024,
                 'realpath_cache_size should be at least 5M in php.ini',
@@ -798,7 +803,7 @@ class SymfonyRequirements extends RequirementCollection
      */
     protected function getPhpRequiredVersion()
     {
-        if (!file_exists($path = __DIR__.'/../composer.lock')) {
+        if (!file_exists($path = __DIR__ . '/../composer.lock')) {
             return false;
         }
 

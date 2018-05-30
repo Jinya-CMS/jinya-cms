@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Form;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form;
@@ -22,6 +21,7 @@ class FormItemService implements FormItemServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var FormServiceInterface */
     private $formService;
 
