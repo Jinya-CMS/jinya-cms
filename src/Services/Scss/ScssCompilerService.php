@@ -8,13 +8,11 @@
 
 namespace Jinya\Services\Scss;
 
-
 use Leafo\ScssPhp\Compiler;
 use Leafo\ScssPhp\Formatter\Compressed;
 
 class ScssCompilerService implements ScssCompilerServiceInterface
 {
-
     /**
      * Compiles the given source path into a css file
      *

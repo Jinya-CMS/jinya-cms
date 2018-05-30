@@ -8,17 +8,20 @@
 
 namespace Jinya\Components\DataTables;
 
-
 class DatatablesColumnModel
 {
     /** @var string */
     private $data;
+
     /** @var string */
     private $name;
+
     /** @var bool */
     private $orderable;
+
     /** @var bool */
     private $searchable;
+
     /** @var DatatablesSearchModel */
     private $search;
 

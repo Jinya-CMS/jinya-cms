@@ -8,12 +8,14 @@
 
 namespace Jinya\Services\Routing;
 
-
 interface RouteRetrievalServiceInterface
 {
     public const PAGE_DETAIL_ROUTE = 'frontend_page_details';
+
     public const FORM_DETAIL_ROUTE = 'frontend_form_details';
+
     public const ARTWORK_DETAIL_ROUTE = 'frontend_artwork_details';
+
     public const GALLERY_DETAIL_ROUTE = 'frontend_gallery_details';
 
     /**
