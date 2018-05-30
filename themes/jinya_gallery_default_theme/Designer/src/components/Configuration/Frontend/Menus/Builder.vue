@@ -297,19 +297,19 @@
 
         if (type === 'galleries' && this.galleries.length === 0) {
           const galleries = await
-            JinyaRequest.get(`/api/gallery?count=${Number.MAX_SAFE_INTEGER}`);
+            JinyaRequest.get(`/api/gallery?count=40000`);
           this.galleries = galleries.items.map(item => this.generateTemplateItem('gallery', item.name, item.slug));
 
           this.selectedTemplateItems = this.galleries;
         } else if (type === 'forms' && this.forms.length === 0) {
           const forms = await
-            JinyaRequest.get(`/api/form?count=${Number.MAX_SAFE_INTEGER}`);
+            JinyaRequest.get(`/api/form?count=40000`);
           this.forms = forms.items.map(item => this.generateTemplateItem('form', item.title, item.slug));
 
           this.selectedTemplateItems = this.forms;
         } else if (type === 'pages' && this.pages.length === 0) {
           const pages = await
-            JinyaRequest.get(`/api/page?count=${Number.MAX_SAFE_INTEGER}`);
+            JinyaRequest.get(`/api/page?count=40000`);
           this.pages = pages.items.map(item => this.generateTemplateItem('page', item.title, item.slug));
 
           this.selectedTemplateItems = this.pages;
