@@ -20,6 +20,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
     private $kernelProjectDir;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
@@ -55,7 +56,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'onSymfonyRequest'
+            KernelEvents::REQUEST => 'onSymfonyRequest',
         ];
     }
 
