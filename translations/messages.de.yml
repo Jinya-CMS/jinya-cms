@@ -64,6 +64,12 @@ update:
     title: Update abgeschlossen
     content: Das Update wurde abgeschlossen, du kannst jetzt wieder in den Designer
     designer: Zum Designer
+  channel: Updatechannel
+  recommended: empfohlen
+  choose:
+    channel: Bitte einen Updatechannel wählen
+  loading:
+    channel: Der Updatechannel wird geladen
 account:
   login:
     title: An Jinya anmelden
