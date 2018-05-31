@@ -8,13 +8,11 @@
 
 namespace DoctrineMigrations;
 
-
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 class Version20180519211300 extends AbstractMigration
 {
-
     /**
      * @param Schema $schema
      * @throws \Doctrine\DBAL\DBALException
@@ -22,7 +20,7 @@ class Version20180519211300 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName());
 
         // Create api key table
         $this->addSql('CREATE TABLE api_key (
@@ -101,6 +99,6 @@ class Version20180519211300 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName());
     }
 }
