@@ -1,11 +1,15 @@
 import Routes from "../Routes";
 import Missing from '@/components/Home/Missing'
+import Update from '@/components/Maintenance/System/Update'
 
 export default [
   {
     path: Routes.Maintenance.System.Updates.route,
     name: Routes.Maintenance.System.Updates.name,
-    component: Missing
+    component: Update,
+    meta: {
+      title: 'routes.maintenance.system.updates'
+    }
   },
   {
     path: Routes.Maintenance.System.Environment.route,

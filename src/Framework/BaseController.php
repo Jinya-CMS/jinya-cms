@@ -167,7 +167,7 @@ abstract class BaseController
      *
      * @see json_decode()
      * @see JsonResponse
-     * @param array|null $data
+     * @param array|string|null $data
      * @param int $status
      * @return JsonResponse
      */

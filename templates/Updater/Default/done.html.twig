@@ -1,0 +1,8 @@
+{% extends '@Jinya/Installer/base.html.twig' %}
+
+{% block content %}
+    <h1>{{ 'update.done.title'|trans }}</h1>
+    <p>{{ 'update.done.content'|trans }}</p>
+    <a class="btn btn-primary" href="{{ path('designer_home_index') }}">{{ 'update.done.designer'|trans }}</a>
+{% endblock %}
+

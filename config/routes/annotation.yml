@@ -10,6 +10,15 @@ install_database:
 install_done:
     controller: Jinya\Controller\InstallController::doneAction
     path: /install/done
+update_index:
+    controller: Jinya\Controller\UpdateController::indexAction
+    path: /_update
+update_database:
+    controller: Jinya\Controller\UpdateController::updateDatabaseAction
+    path: /_update/database
+update_done:
+    controller: Jinya\Controller\UpdateController::doneAction
+    path: /_update/done
 jinya:
     resource: "../src/Controller/"
     type: annotation
