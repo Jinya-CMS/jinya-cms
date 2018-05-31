@@ -167,6 +167,9 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
     },
@@ -190,9 +193,6 @@
             "version": "4.0",
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
-    },
-    "symfony/security": {
-        "version": "v4.0.4"
     },
     "symfony/security-bundle": {
         "version": "3.3",

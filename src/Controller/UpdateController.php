@@ -70,9 +70,6 @@ class UpdateController extends AbstractController
      */
     public function indexAction(Request $request): Response
     {
-        $response = $this->client->get('https://files.jinya.de/versions.json');
-        $versions = json_decode($response->getBody()->getContents(), true)['cms'];
-
         if ($request->isMethod('POST')) {
             if ($request->get('action') === 'cancel') {
                 $this->finishUpdate();
@@ -86,7 +83,6 @@ class UpdateController extends AbstractController
         }
 
         return $this->render('@Jinya/Updater/Default/index.html.twig', [
-            'versions' => $versions,
             'currentVersion' => $this->currentVersion
         ]);
     }

@@ -48,7 +48,7 @@
       a.active {
         @if $menu-enable-blurr {
           @include menu-blurred();
-        } @else {          
+        } @else {
           @include menu-item-hover-background-gradient();
         }
       }
@@ -197,6 +197,7 @@
     background: $primary;
     position: fixed;
     top: 0;
+    z-index: 99999;
 
     .burger {
       position: fixed;
