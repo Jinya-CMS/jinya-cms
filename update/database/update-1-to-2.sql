@@ -1,3 +1,10 @@
+CREATE TABLE migration_versions
+(
+	version VARCHAR (255) NOT NULL PRIMARY KEY
+)
+  DEFAULT CHARACTER SET utf8
+  COLLATE utf8_unicode_ci
+  ENGINE = InnoDB;
 CREATE TABLE api_key (
   api_key     VARCHAR(255) NOT NULL,
   user_id     INT DEFAULT NULL,

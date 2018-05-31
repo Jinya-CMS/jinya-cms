@@ -18,24 +18,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class InstallController
+ * @package Jinya\Controller
  */
 class InstallController extends AbstractController
 {
     /** @var SchemaToolInterface */
     private $schemaTool;
-
     /** @var string */
     private $kernelProjectDir;
-
     /** @var UserServiceInterface */
     private $userService;
-
     /** @var \Twig_Environment */
     private $twig;
-
     /** @var MediaServiceInterface */
     private $mediaService;
-
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
 
@@ -79,7 +75,7 @@ class InstallController extends AbstractController
                 'appSecret' => uniqid(),
                 'appEnv' => 'prod',
                 'mailerUrl' => $mailerUrl,
-                'mailerSender' => $formData->getMailerSender(),
+                'mailerSender' => $formData->getMailerSender()
             ];
 
             $this->writeEnv($parameters);
@@ -88,7 +84,7 @@ class InstallController extends AbstractController
         }
 
         return $this->render('@Jinya\Installer\Default\index.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -113,8 +109,7 @@ class InstallController extends AbstractController
     public function createDatabaseAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
-            $this->schemaTool->updateSchema();
-
+            $this->schemaTool->createSchema();
             return $this->redirectToRoute('install_admin');
         }
 
@@ -155,7 +150,7 @@ class InstallController extends AbstractController
             $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
 
             $user->setProfilePicture($path);
-            $this->userService->saveOrUpdate($user, false);
+            $this->userService->saveOrUpdate($user);
             $this->themeSyncService->syncThemes();
 
             $fs = new Filesystem();
@@ -165,7 +160,7 @@ class InstallController extends AbstractController
         }
 
         return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 }

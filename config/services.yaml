@@ -29,6 +29,9 @@ services:
     Jinya\EventSubscriber\RedirectToInstallWizardEventSubscriber:
       arguments:
         $kernelProjectDir: '%kernel.project_dir%'
+    Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
+      arguments:
+        $kernelProjectDir: '%kernel.project_dir%'
 
     Jinya\Services\Theme\ThemeSyncService:
       arguments:
@@ -114,9 +117,25 @@ services:
     Jinya\Controller\InstallController:
         arguments:
           $kernelProjectDir: '%kernel.project_dir%'
+        tags: ['controller.service_arguments']
+    Jinya\Controller\UpdateController:
+        arguments:
+          $currentVersion: '%jinya_version%'
+          $kernelProjectDir: '%kernel.project_dir%'
+          $cacheClearer: '@cache_clearer'
+        tags: ['controller.service_arguments']
     Jinya\Controller\Api\Support\BugController:
-      calls:
-        - [setJinyaVersion, ['%jinya_version%']]
+        calls:
+            - [setJinyaVersion, ['%jinya_version%']]
+        tags: ['controller.service_arguments']
+    Jinya\Controller\Api\Maintenance\VersionController:
+        calls:
+            - [setJinyaVersion, ['%jinya_version%']]
+        tags: ['controller.service_arguments']
+    Jinya\Controller\Api\Maintenance\UpdateController:
+        calls:
+            - [setKernelProjectDir, ['%kernel.project_dir%']]
+        tags: ['controller.service_arguments']
 
     # Security
     Jinya\Framework\Security\UserVoter:
