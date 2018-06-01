@@ -18,6 +18,7 @@ class SchemaTool implements SchemaToolInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var KernelInterface */
     private $kernel;
 
@@ -43,7 +44,7 @@ class SchemaTool implements SchemaToolInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Exception
      */
     public function migrateSchema(): void
@@ -52,7 +53,7 @@ class SchemaTool implements SchemaToolInterface
         $application->setAutoExit(false);
 
         $input = new ArrayInput(array(
-            'command' => 'doctrine:migrations:migrate'
+            'command' => 'doctrine:migrations:migrate',
         ));
 
         $output = new NullOutput();
