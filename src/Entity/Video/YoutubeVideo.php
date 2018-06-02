@@ -30,7 +30,7 @@ class YoutubeVideo extends HistoryEnabledEntity
      * @ORM\Column(type="string")
      * @var string
      */
-    private $url;
+    private $videoKey;
 
     /**
      * @return string
@@ -51,17 +51,17 @@ class YoutubeVideo extends HistoryEnabledEntity
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getVideoKey(): string
     {
-        return $this->url;
+        return $this->videoKey;
     }
 
     /**
-     * @param string $url
+     * @param string $videoKey
      */
-    public function setUrl(string $url): void
+    public function setVideoKey(string $videoKey): void
     {
-        $this->url = $url;
+        $this->videoKey = $videoKey;
     }
 
     /**
@@ -78,7 +78,7 @@ class YoutubeVideo extends HistoryEnabledEntity
             'description' => $this->description,
             'slug' => $this->slug,
             'id' => $this->id,
-            'url' => $this->url,
+            'url' => $this->videoKey,
             'createdAt' => $this->getCreatedAt(),
             'createdBy' => $this->getCreator(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
