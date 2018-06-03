@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Components\Database\SchemaToolInterface;
@@ -26,18 +25,25 @@ class UpdateController extends AbstractController
 {
     /** @var string */
     private $currentVersion;
+
     /** @var string */
     private $kernelProjectDir;
+
     /** @var Client */
     private $client;
+
     /** @var CacheClearerInterface */
     private $cacheClearer;
+
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
+
     /** @var ThemeCompilerServiceInterface */
     private $themeCompilerService;
+
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var SchemaToolInterface */
     private $schemaTool;
 
@@ -71,11 +77,11 @@ class UpdateController extends AbstractController
     public function indexAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
-            if ($request->get('action') === 'cancel') {
+            if ('cancel' === $request->get('action')) {
                 $this->finishUpdate();
 
                 return $this->redirectToRoute('designer_home_index');
-            } elseif ($request->get('action') === 'start') {
+            } elseif ('start' === $request->get('action')) {
                 $this->performFileUpdate($request->get('newVersion'));
 
                 return $this->redirectToRoute('update_database');
@@ -83,7 +89,7 @@ class UpdateController extends AbstractController
         }
 
         return $this->render('@Jinya/Updater/Default/index.html.twig', [
-            'currentVersion' => $this->currentVersion
+            'currentVersion' => $this->currentVersion,
         ]);
     }
 
