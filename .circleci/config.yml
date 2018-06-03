@@ -139,8 +139,15 @@ workflows:
           filters:
             branches:
               ignore: /.*/
+            tags:
+              only: /.*/
       - 
-        deployStable: 
+        deployStable:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
           requires: 
             - build
 
