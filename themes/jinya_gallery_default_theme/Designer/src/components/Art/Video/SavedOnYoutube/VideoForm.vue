@@ -112,6 +112,11 @@
         }
       }
     },
+    watch: {
+      video(newValue) {
+        this.videoKeyOrUrl = newValue.videoKey;
+      }
+    },
     computed: {
       videoUrl() {
         return `https://www.youtube-nocookie.com/embed/${this.video.videoKey}?rel=0`;

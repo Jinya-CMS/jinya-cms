@@ -71,15 +71,19 @@ class YoutubeVideoController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($slug, $formatter, $youtubeVideoService) {
             $video = $youtubeVideoService->get($slug);
 
-            return $formatter
-                ->init($video)
-                ->slug()
-                ->description()
-                ->name()
-                ->created()
-                ->updated()
-                ->history()
-                ->format();
+            return [
+                'success' => true,
+                'item' => $formatter
+                    ->init($video)
+                    ->slug()
+                    ->description()
+                    ->name()
+                    ->videoKey()
+                    ->created()
+                    ->updated()
+                    ->history()
+                    ->format()
+            ];
         });
 
         return $this->json($data, $status);

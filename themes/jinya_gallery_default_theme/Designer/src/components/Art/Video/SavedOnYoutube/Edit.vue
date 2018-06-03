@@ -9,6 +9,8 @@
   import Routes from "../../../../router/Routes";
   import Timing from "@/framework/Utils/Timing";
   import DOMUtils from "@/framework/Utils/DOMUtils";
+  import Events from "@/framework/Events/Events";
+  import EventBus from "@/framework/Events/EventBus";
 
   // noinspection JSUnusedGlobalSymbols
   export default {
@@ -22,7 +24,7 @@
         loading: false,
         enable: false,
         video: {
-          background: '',
+          videoKey: '',
           name: '',
           slug: '',
           description: ''
@@ -33,39 +35,35 @@
     async mounted() {
       this.state = 'loading';
       this.enable = false;
-      this.message = Translator.message('art.videos.details.loading');
+      this.message = Translator.message('art.videos.youtube.details.loading');
       try {
-        const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
+        const video = await JinyaRequest.get(`/api/video/youtube/${this.$route.params.slug}`);
         this.video = video.item;
         this.state = '';
         this.enable = true;
-        DOMUtils.changeTitle(Translator.message('art.videos.edit.title', this.video));
+        DOMUtils.changeTitle(Translator.message('art.videos.youtube.edit.title', this.video));
+        EventBus.$emit(Events.header.change, Translator.message('art.videos.youtube.edit.title', this.video));
       } catch (error) {
         this.state = 'error';
-        this.message = Translator.validator(`art.videos.${error.message}`);
+        this.message = Translator.validator(`art.videos.youtube.${error.message}`);
       }
     },
     methods: {
       async save(video) {
-        const picture = video.picture;
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('art.videos.edit.saving', {name: video.name});
+          this.message = Translator.message('art.videos.youtube.edit.saving', {name: video.name});
 
-          await JinyaRequest.put(`/api/video/${this.$route.params.slug}`, {
+          await JinyaRequest.put(`/api/video/youtube/${this.$route.params.slug}`, {
             name: video.name,
             slug: video.slug,
+            videoKey: video.videoKey,
             description: video.description
           });
 
-          if (picture) {
-            this.message = Translator.message('art.videos.edit.uploading', {name: video.name});
-            await JinyaRequest.upload(`/api/video/${video.slug}/picture`, picture);
-          }
-
           this.state = 'success';
-          this.message = Translator.message('art.videos.edit.success', {name: video.name});
+          this.message = Translator.message('art.videos.youtube.edit.success', {name: video.name});
 
           await Timing.wait();
           this.$router.push({
@@ -83,4 +81,3 @@
     }
   }
 </script>
-F
