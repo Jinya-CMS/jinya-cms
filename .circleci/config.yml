@@ -113,7 +113,12 @@ workflows:
     jobs: 
       - build
       - 
-        deployEdge: 
+        deployEdge:
+          schedule:
+            filters:
+              branches:
+                only:
+                  - develop
           requires: 
             - build
   nightly: 
@@ -135,9 +140,10 @@ workflows:
     jobs: 
       -
         build:
-          filters:
-            branches:
-              ignore: /.*/
+          schedule:
+            filters:
+              branches:
+                ignore: /.*/
       - 
         deployStable: 
           requires: 
