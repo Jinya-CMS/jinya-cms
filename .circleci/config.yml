@@ -57,9 +57,6 @@ jobs:
           root: ~/
     working_directory: ~/jinya
   deployEdge:
-    branches:
-      only:
-        - develop
     docker: 
       - 
         image: circleci/php
@@ -70,7 +67,7 @@ jobs:
       - 
         run: 
           command: |
-            mv ~/jinya/jinya-cms.zip ~/jinya/$(date +"%Y-%m-%d_%H-%M-%S").zip
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
             ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms edge"
           name: "Deploy via SCP"
@@ -86,16 +83,12 @@ jobs:
       - 
         run:
           command: |
-            mv ~/jinya/jinya-cms.zip ~/jinya/$(date +"%Y-%m-%d_%H-%M-%S").zip
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
             ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms nightly"
           name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable:
-    branches:
-      ignore: /.*/
-    tags:
-      only: /^\d\.\d\.\d$/
     docker: 
       - 
         image: circleci/php
@@ -106,7 +99,7 @@ jobs:
       - 
         run: 
           command: |
-            mv ~/jinya/jinya-cms.zip ~/jinya/$(CIRCLE_TAG).zip
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
             scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
             ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms stable"
           name: "Deploy via SCP"
@@ -117,7 +110,11 @@ workflows:
     jobs: 
       - build
       - 
-        deployEdge: 
+        deployEdge:
+          filters:
+            branches:
+              only:
+                - develop
           requires: 
             - build
   nightly: 
@@ -137,9 +134,20 @@ workflows:
                 - develop
   stable: 
     jobs: 
-      - build
+      -
+        build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
       - 
-        deployStable: 
+        deployStable:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
           requires: 
             - build
 
