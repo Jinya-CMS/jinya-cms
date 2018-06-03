@@ -92,10 +92,6 @@ jobs:
           name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable:
-    branches:
-      ignore: /.*/
-    tags:
-      only: /^\d\.\d\.\d$/
     docker: 
       - 
         image: circleci/php
@@ -137,7 +133,11 @@ workflows:
                 - develop
   stable: 
     jobs: 
-      - build
+      -
+        build:
+          filters:
+            branches:
+              ignore: /.*/
       - 
         deployStable: 
           requires: 
