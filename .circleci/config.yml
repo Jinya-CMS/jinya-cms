@@ -57,9 +57,6 @@ jobs:
           root: ~/
     working_directory: ~/jinya
   deployEdge:
-    branches:
-      only:
-        - develop
     docker: 
       - 
         image: circleci/php
