@@ -18,6 +18,7 @@ class SchemaTool implements SchemaToolInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var KernelInterface */
     private $kernel;
 
@@ -39,11 +40,11 @@ class SchemaTool implements SchemaToolInterface
     public function createSchema(): void
     {
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-        $schemaTool->createSchema();
+        $schemaTool->createSchema($this->entityManager->getMetadataFactory()->getAllMetadata());
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Exception
      */
     public function migrateSchema(): void
@@ -51,9 +52,9 @@ class SchemaTool implements SchemaToolInterface
         $application = new Application($this->kernel);
         $application->setAutoExit(false);
 
-        $input = new ArrayInput(array(
-            'command' => 'doctrine:migrations:migrate'
-        ));
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:migrate',
+        ]);
 
         $output = new NullOutput();
         $application->run($input, $output);
