@@ -82,7 +82,7 @@ class YoutubeVideoController extends BaseApiController
                     ->created()
                     ->updated()
                     ->history()
-                    ->format()
+                    ->format(),
             ];
         });
 
