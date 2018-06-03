@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Video;
 
-
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Video\YoutubeVideoFormatterInterface;

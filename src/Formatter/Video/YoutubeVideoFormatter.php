@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Video;
 
-
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Formatter\User\UserFormatterInterface;
 
@@ -16,8 +15,10 @@ class YoutubeVideoFormatter implements YoutubeVideoFormatterInterface
 {
     /** @var array */
     private $formattedData;
+
     /** @var YoutubeVideo */
     private $youtubeVideo;
+
     /** @var UserFormatterInterface */
     private $userFormatter;
 

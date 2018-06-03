@@ -12,7 +12,6 @@ use Jinya\Entity\Video\YoutubeVideo;
 
 interface YoutubeVideoServiceInterface
 {
-
     /**
      * Gets a list of artworks in the given range and filtered by the given keyword
      *

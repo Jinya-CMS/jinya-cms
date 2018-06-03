@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Video;
 
-
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Formatter\FormatterInterface;
 
