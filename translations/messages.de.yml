@@ -48,9 +48,28 @@ install:
     password_repeat: Passwort wiederholen
     profilepicture: Profilbild
   done:
-    title: Einrichtung abschließen
+    title: Einrichtung abgeschlossen
     content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
     designer: Zum Designer
+update:
+  title: Jinya Update
+  version: Version
+  update: Update starten
+  cancel: Update abbrechen
+  database:
+    title: Datenbank aktualisieren
+    content: Um das Update abzuschließen, muss noch die Datenbank aktualisiert werden, dazu musst du auf "Aktualisieren" klicken.
+    submit: Aktualisieren
+  done:
+    title: Update abgeschlossen
+    content: Das Update wurde abgeschlossen, du kannst jetzt wieder in den Designer
+    designer: Zum Designer
+  channel: Updatechannel
+  recommended: empfohlen
+  choose:
+    channel: Bitte einen Updatechannel wählen
+  loading:
+    channel: Der Updatechannel wird geladen
 account:
   login:
     title: An Jinya anmelden
@@ -165,6 +184,8 @@ menu:
             like: Ja? Dann zeigs uns
             dont_like: Nein? Dann schick uns eine Mail
 routes:
+  error:
+    not_allowed: Zugriff verweigert
   art:
     artworks:
       saved_in_jinya:
@@ -209,6 +230,9 @@ routes:
   my_jinya:
     account:
       password: Passwort ändern
+  maintenance:
+    system:
+      updates: Updates
 authentication:
   roles:
     -
@@ -578,3 +602,15 @@ support:
       details: Meine Nachricht an die Entwickler
       submit: Like senden
       cancel: Abbrechen
+error:
+  not_allowed:
+    title: Zugriff verweigert
+    content: Du hast auf die Seite keinen Zugriff, wende dich bitte an deinen Administrator.
+maintenance:
+  system:
+    updates:
+      message: Aktuell ist Jinya in der Version %version% installiert.
+      disclaimer: Bevor du das Update durchführst, mach <strong>unbedingt</strong> eine Datensicherung von deiner Datenbank und deinen Dateien. Falls du nicht genau weißt wie das geht, kannst du dich gerne an <a href="mailto:developers@jinya.de">developers@jinya.de</a> wenden, wir werden versuchen dir zu helfen.
+      start: Ich habe eine Sicherung und möchte das Update starten
+      started: Das Update wird gestartet
+      back: Abbrechen

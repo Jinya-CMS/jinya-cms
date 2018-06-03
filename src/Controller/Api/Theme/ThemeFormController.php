@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Theme;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThemeFormController extends BaseApiController
 {
-
     /**
      * @Route("/api/theme/{name}/form/config", methods={"GET"}, name="api_theme_form_config_get")
      * @IsGranted("ROLE_WRITER")

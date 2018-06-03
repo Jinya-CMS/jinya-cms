@@ -5,6 +5,12 @@ export default {
       route: '/designer/login'
     }
   },
+  Error: {
+    NotAllowed: {
+      name: 'ErrorNotAllowed',
+      route: '/designer/error/not-allowed'
+    }
+  },
   Home: {
     StartPage: {
       name: 'HomeStartPage',

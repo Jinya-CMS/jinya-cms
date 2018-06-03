@@ -1,0 +1,79 @@
+{% extends '@Jinya/Updater/base.html.twig' %}
+
+{% block content %}
+    <form method="post">
+        <h1>{{ 'update.title'|trans }}</h1>
+        <div class="form-group">
+            <label for="updateChannel">{{ 'update.channel'|trans }}</label>
+            <select class="form-control" name="updateChannel" id="updateChannel">
+                <option value="edge">Edge</option>
+                <option value="nightly">Nightly</option>
+                <option selected value="stable">Stable ({{ 'update.recommended'|trans }})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newVersion">{{ 'update.version'|trans }}</label>
+            <select class="form-control" name="newVersion" id="newVersion">
+                <option value="">{{ 'update.choose.channel'|trans }}</option>
+            </select>
+        </div>
+        <button class="btn btn-secondary" value="cancel" name="action" type="submit">
+            {{ 'update.cancel'|trans }}
+        </button>
+        <button class="btn btn-primary" value="start" name="action" type="submit">{{ 'update.update'|trans }}</button>
+    </form>
+    <script>
+      (function () {
+        var currentVersion = '{{ currentVersion }}';
+        var updateChannel = document.querySelector('#updateChannel');
+        var newVersion = document.querySelector('#newVersion');
+        var loadItems = function (selectedChannel) {
+          newVersion.innerHTML = '<option>{{ 'update.loading.channel'|trans }}</option>';
+          fetch('https://files.jinya.de/' + selectedChannel + '.json', {
+            mode: 'cors'
+          }).then(value => {
+            return value.json();
+          }).then(versions => {
+            var items = [];
+            for (var key in versions.cms) {
+              var item = versions.cms[key];
+              var element = document.createElement('option');
+              var text = new Date();
+              var keyParts = key.split('_');
+
+              if (keyParts.length > 1) {
+                var dateParts = keyParts[0].split('-');
+                var timeParts = keyParts[1].split('-');
+
+                text.setUTCFullYear(parseInt(dateParts[0]), parseInt(dateParts[1]), parseInt(dateParts[2]));
+                text.setUTCHours(parseInt(timeParts[0]), parseInt(timeParts[1]), parseInt(timeParts[2]));
+              } else {
+                text.setTime('not valid');
+              }
+
+              if (key === currentVersion) {
+                element.selected = true;
+              }
+
+              element.value = item;
+              element.innerText = isNaN(text.getTime()) ? key : text.toLocaleString();
+
+              items.push(element);
+            }
+
+            items = items.reverse();
+            newVersion.innerHTML = '';
+            for (var i = 0; i < items.length; i++) {
+              newVersion.appendChild(items[i]);
+            }
+          });
+        };
+        updateChannel.addEventListener('change', function (item) {
+          var selectedChannel = updateChannel.value;
+          loadItems(selectedChannel);
+        });
+
+        loadItems('stable');
+      })();
+    </script>
+{% endblock %}

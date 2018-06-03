@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\User;
 
-
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Form;
 use Jinya\Entity\Gallery;
@@ -19,6 +18,8 @@ use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use function array_map;
 
 class UserFormatter implements UserFormatterInterface
@@ -31,22 +32,31 @@ class UserFormatter implements UserFormatterInterface
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
     /** @var GalleryFormatterInterface */
     private $galleryFormatter;
+
     /** @var ArtworkFormatterInterface */
     private $artworkFormatter;
+
     /** @var PageFormatterInterface */
     private $pageFormatter;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
+
+    /** @var RoleHierarchyInterface */
+    private $roleHierarchy;
 
     /**
      * UserFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param RoleHierarchyInterface $roleHierarchy
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, RoleHierarchyInterface $roleHierarchy)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->roleHierarchy = $roleHierarchy;
     }
 
     /**
@@ -124,7 +134,11 @@ class UserFormatter implements UserFormatterInterface
      */
     public function roles(): UserFormatterInterface
     {
-        $this->formattedData['roles'] = $this->user->getRoles();
+        $this->formattedData['roles'] = array_map(function (Role $role) {
+            return $role->getRole();
+        }, $this->roleHierarchy->getReachableRoles(array_map(function (string $role) {
+            return new Role($role);
+        }, $this->user->getRoles())));
 
         return $this;
     }

@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework;
 
-
 use Jinya\Entity\RoutingEntry;
 use Jinya\Entity\Theme;
 use Jinya\Entity\User;
@@ -33,22 +32,31 @@ abstract class BaseController
 {
     /** @var ThemeConfigServiceInterface */
     private $themeConfigService;
+
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @var ConfigurationServiceInterface */
     private $configurationService;
+
     /** @var ThemeCompilerServiceInterface */
     private $themeCompilerService;
+
     /** @var RequestStack */
     private $requestStack;
+
     /** @var HttpKernelInterface */
     private $kernel;
+
     /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
+
     /** @var \Twig_Environment */
     private $twig;
+
     /** @var TokenStorageInterface */
     private $tokenStorage;
+
     /** @var RouterInterface */
     private $router;
 
@@ -89,16 +97,16 @@ abstract class BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    protected final function render(string $view, array $parameters = array()): Response
+    final protected function render(string $view, array $parameters = array()): Response
     {
         $response = new Response();
 
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
         $themeViewPath = $view;
-        if (strpos($view, '@Frontend') === 0) {
+        if (0 === strpos($view, '@Frontend')) {
             list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
-        } elseif (strpos($view, '@Designer') === 0) {
+        } elseif (0 === strpos($view, '@Designer')) {
             list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
         }
 
@@ -140,7 +148,7 @@ abstract class BaseController
      * @return Response
      * @throws \Exception
      */
-    protected final function forwardToRoute(RoutingEntry $route): Response
+    final protected function forwardToRoute(RoutingEntry $route): Response
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -159,11 +167,11 @@ abstract class BaseController
      *
      * @see json_decode()
      * @see JsonResponse
-     * @param array|null $data
+     * @param array|string|null $data
      * @param int $status
      * @return JsonResponse
      */
-    protected final function json($data, int $status = Response::HTTP_OK): JsonResponse
+    final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
         return new JsonResponse($data, $status);
     }
@@ -176,7 +184,7 @@ abstract class BaseController
      * @param string $disposition
      * @return BinaryFileResponse
      */
-    protected final function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
+    final protected function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
     {
         $response = new BinaryFileResponse($file);
         $response->setContentDisposition($disposition, $fileName);
@@ -190,7 +198,7 @@ abstract class BaseController
      * @param array|string $attributes
      * @return bool
      */
-    protected final function isGranted($attributes): bool
+    final protected function isGranted($attributes): bool
     {
         return $this->authorizationChecker->isGranted($attributes);
     }
@@ -204,7 +212,7 @@ abstract class BaseController
      *
      * @return AccessDeniedException
      */
-    protected final function createAccessDeniedException(): AccessDeniedException
+    final protected function createAccessDeniedException(): AccessDeniedException
     {
         return new AccessDeniedException('Access Denied.');
     }
@@ -215,7 +223,7 @@ abstract class BaseController
      * @return User|null
      * @see TokenInterface::getUser()
      */
-    protected final function getUser(): ?User
+    final protected function getUser(): ?User
     {
         $token = $this->tokenStorage->getToken();
         if (null === $token) {
@@ -237,6 +245,7 @@ abstract class BaseController
     private function convertRouteToControllerName(string $routeName): string
     {
         $routes = $this->router->getRouteCollection();
+
         return $routes->get($routeName)->getDefaults()['_controller'];
     }
 }

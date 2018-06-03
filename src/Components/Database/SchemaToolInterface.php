@@ -11,7 +11,12 @@ namespace Jinya\Components\Database;
 interface SchemaToolInterface
 {
     /**
-     * Updates the database schema
+     * Migrates the database schema
      */
-    public function updateSchema(): void;
+    public function migrateSchema(): void;
+
+    /**
+     * Creates the database schema
+     */
+    public function createSchema(): void;
 }

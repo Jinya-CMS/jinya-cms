@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity;
 
-
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,6 +23,7 @@ class ApiKey
      * @var User
      */
     private $user;
+
     /**
      * @ORM\Column(type="string", name="api_key")
      * @ORM\Id
@@ -31,6 +31,7 @@ class ApiKey
      * @var string
      */
     private $key;
+
     /**
      * @ORM\Column(type="datetime")
      *

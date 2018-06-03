@@ -8,7 +8,6 @@
 
 namespace Jinya\Formatter\Form;
 
-
 use Jinya\Entity\FormItem;
 use Jinya\Formatter\FormatterInterface;
 
@@ -19,70 +18,70 @@ interface FormItemFormatterInterface extends FormatterInterface
      *
      * @return FormItemFormatterInterface
      */
-    public function id(): FormItemFormatterInterface;
+    public function id(): self;
 
     /**
      * Formats the type
      *
      * @return FormItemFormatterInterface
      */
-    public function type(): FormItemFormatterInterface;
+    public function type(): self;
 
     /**
      * Formats the options
      *
      * @return FormItemFormatterInterface
      */
-    public function options(): FormItemFormatterInterface;
+    public function options(): self;
 
     /**
      * Formats the label
      *
      * @return FormItemFormatterInterface
      */
-    public function label(): FormItemFormatterInterface;
+    public function label(): self;
 
     /**
      * Formats the help text
      *
      * @return FormItemFormatterInterface
      */
-    public function helpText(): FormItemFormatterInterface;
+    public function helpText(): self;
 
     /**
      * Formats the form
      *
      * @return FormItemFormatterInterface
      */
-    public function form(): FormItemFormatterInterface;
+    public function form(): self;
 
     /**
      * Formats the position
      *
      * @return FormItemFormatterInterface
      */
-    public function position(): FormItemFormatterInterface;
+    public function position(): self;
 
     /**
      * Formats the created info
      *
      * @return FormItemFormatterInterface
      */
-    public function created(): FormItemFormatterInterface;
+    public function created(): self;
 
     /**
      * Formats the updated info
      *
      * @return FormItemFormatterInterface
      */
-    public function updated(): FormItemFormatterInterface;
+    public function updated(): self;
 
     /**
      * Formats the history
      *
      * @return FormItemFormatterInterface
      */
-    public function history(): FormItemFormatterInterface;
+    public function history(): self;
 
     /**
      * Initializes the formatter
@@ -90,5 +89,5 @@ interface FormItemFormatterInterface extends FormatterInterface
      * @param FormItem $formItem
      * @return FormItemFormatterInterface
      */
-    public function init(FormItem $formItem): FormItemFormatterInterface;
+    public function init(FormItem $formItem): self;
 }
