@@ -37,12 +37,14 @@ class YoutubeVideoController extends BaseApiController
             $keyword = $request->get('keyword', '');
             $videos = $youtubeVideoService->getAll($offset, $count, $keyword);
             $allCount = $youtubeVideoService->countAll($keyword);
+
             $videos = array_map(function (YoutubeVideo $video) use ($formatter) {
-                $formatter
+                return $formatter
                     ->init($video)
                     ->slug()
                     ->description()
                     ->name()
+                    ->videoKey()
                     ->created()
                     ->updated()
                     ->history()

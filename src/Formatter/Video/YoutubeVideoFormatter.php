@@ -23,6 +23,15 @@ class YoutubeVideoFormatter implements YoutubeVideoFormatterInterface
     private $userFormatter;
 
     /**
+     * YoutubeVideoFormatter constructor.
+     * @param UserFormatterInterface $userFormatter
+     */
+    public function __construct(UserFormatterInterface $userFormatter)
+    {
+        $this->userFormatter = $userFormatter;
+    }
+
+    /**
      * Formats the content of the @see FormatterInterface into an array
      *
      * @return array

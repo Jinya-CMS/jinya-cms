@@ -51,7 +51,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
             ->setMaxResults($count)
             ->setFirstResult($offset)
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 
     /**
