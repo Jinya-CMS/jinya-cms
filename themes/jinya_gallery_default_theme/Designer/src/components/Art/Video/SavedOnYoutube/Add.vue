@@ -3,13 +3,12 @@
 </template>
 
 <script>
-  import JinyaVideoForm from "@/components/Art/Videos/SavedOnYoutube/VideoForm";
+  import JinyaVideoForm from "@/components/Art/Video/SavedOnYoutube/VideoForm";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
   import Routes from "@/router/Routes";
   import Timing from "@/framework/Utils/Timing";
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaVideoForm
@@ -25,20 +24,17 @@
     name: "add",
     methods: {
       async save(video) {
-        const picture = video.picture;
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('art.videos.add.saving', {name: video.name});
+          this.message = Translator.message('art.videos.youtube.add.saving', {name: video.name});
 
-          await JinyaRequest.post('/api/video', {
+          await JinyaRequest.post('/api/video/youtube', {
             name: video.name,
             slug: video.slug,
-            description: video.description
+            description: video.description,
+            videoKey: video.videoKey
           });
-
-          this.message = Translator.message('art.videos.youtube.add.uploading', {name: video.name});
-          await JinyaRequest.upload(`/api/video/youtube/${video.slug}/picture`, picture);
 
           this.state = 'success';
           this.message = Translator.message('art.videos.youtube.add.success', {name: video.name});
