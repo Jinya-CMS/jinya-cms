@@ -140,10 +140,30 @@ art:
           generic: Das Kunstwerk konnte nicht gefunden werden.
         409:
           exists: Das Kunstwerk existiert bereits.
+  videos:
+    youtube:
+      overview:
+        no_videos:
+          Bisher wurden keine Youtube Videos angelegt.
+        nothing_found:
+          Leider gibt es zu deinem Suchbegriff keine Youtube Videos.
+        delete:
+          api:
+            state:
+              409:
+                foreign_key_failed: Das Youtube Video wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
+              500:
+                generic: Beim Löschen des Youtube Videos ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
+      api:
+        state:
+          404:
+            generic: Das Youtube Video konnte nicht gefunden werden.
+          409:
+            exists: Das Youtube Video existiert bereits.
   galleries:
     overview:
       no_galleries:
-        Bisher wurden keine Galerien hochgeladen.
+        Bisher wurden keine Galerien angelegt.
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Galerien.
     designer:

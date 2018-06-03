@@ -14,6 +14,7 @@ use Jinya\Formatter\Video\YoutubeVideoFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Videos\YoutubeVideoServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,16 +24,17 @@ class YoutubeVideoController extends BaseApiController
      * @Route("/api/video/youtube", name="api_video_youtube_get_all", methods={"GET"})
      * @IsGranted("ROLE_WRITER")
      *
+     * @param Request $request
      * @param YoutubeVideoServiceInterface $youtubeVideoService
      * @param YoutubeVideoFormatterInterface $formatter
      * @return Response
      */
-    public function getAllAction(YoutubeVideoServiceInterface $youtubeVideoService, YoutubeVideoFormatterInterface $formatter): Response
+    public function getAllAction(Request $request, YoutubeVideoServiceInterface $youtubeVideoService, YoutubeVideoFormatterInterface $formatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($formatter, $youtubeVideoService) {
-            $offset = $this->getValue('offset', 0);
-            $count = $this->getValue('count', 10);
-            $keyword = $this->getValue('keyword', '');
+        list($data, $status) = $this->tryExecute(function () use ($request, $formatter, $youtubeVideoService) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
             $videos = $youtubeVideoService->getAll($offset, $count, $keyword);
             $allCount = $youtubeVideoService->countAll($keyword);
             $videos = array_map(function (YoutubeVideo $video) use ($formatter) {

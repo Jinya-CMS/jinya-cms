@@ -3,12 +3,14 @@
         <span class="jinya-message__progress jinya-message__progress--increase" v-if="state === 'loading'"></span>
         <span class="jinya-message__progress" v-if="state === 'loading'"></span>
         <span class="jinya-message__progress jinya-message__progress--decrease" v-if="state === 'loading'"></span>
-        <span v-html="message"></span>
+        <span v-html="realMessage"></span>
         <slot/>
     </section>
 </template>
 
 <script>
+  import Translator from "@/framework/i18n/Translator";
+
   export default {
     name: "jinya-message",
     props: {
@@ -27,6 +29,14 @@
         default() {
           return 'info';
         }
+      }
+    },
+    computed: {
+      realMessage() {
+        if (/<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[\^'">\s]+))?)+\s*|\s*)\/?>/gi.test(this.message)) {
+          return this.message;
+        }
+        return Translator.validator(this.message);
       }
     }
   }

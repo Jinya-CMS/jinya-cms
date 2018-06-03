@@ -192,6 +192,11 @@ routes:
         overview: In Jinya gespeicherte Kunstwerke
         add: Kunstwerk hinzufügen
         edit: Kunstwerk bearbeiten
+    videos:
+      saved_on_youtube:
+        overview: Auf Youtube gespeicherte Videos
+        add: Video hinzufügen
+        edit: Video bearbeiten
     galleries:
       art:
         overview: Kunstgalerien
@@ -503,6 +508,32 @@ art:
       save: Kunstwerk speichern
       back: Zurück
       search: Suchen
+  videos:
+    youtube:
+      delete:
+        title: Youtube Video aus Jinya entfernen?
+        content: Soll das Youtube Video "%name%" wirklich aus Jinya entfernt werden?
+        yes: Video entfernen
+        no: Video nicht entfernen
+      add:
+        saving: Das Youtube Video "%name%" wird gespeichert.
+        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
+      edit:
+        title: Youtube Video %name% bearbeiten
+        saving: Das Youtube Video "%name%" wird gespeichert.
+        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
+        loading: Das Youtube Video wird geladen
+      details:
+        edit: Bearbeiten
+        loading: Das Youtube Video wird geladen
+      video_form:
+        name: Name
+        slug: Slug
+        video_key_or_url: Videokey oder Videolink
+        description: Beschreibung (optional)
+        save: Video speichern
+        back: Zurück
+        search: Suchen
   galleries:
     delete:
       title: Soll die Galerie wirklich gelöscht werden?

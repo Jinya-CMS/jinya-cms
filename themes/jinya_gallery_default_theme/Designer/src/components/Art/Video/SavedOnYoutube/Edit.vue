@@ -1,0 +1,86 @@
+<template>
+    <jinya-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
+</template>
+
+<script>
+  import JinyaVideoForm from "./VideoForm";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import Translator from "@/framework/i18n/Translator";
+  import Routes from "../../../../router/Routes";
+  import Timing from "@/framework/Utils/Timing";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+
+  // noinspection JSUnusedGlobalSymbols
+  export default {
+    components: {
+      JinyaVideoForm
+    },
+    data() {
+      return {
+        message: '',
+        state: '',
+        loading: false,
+        enable: false,
+        video: {
+          background: '',
+          name: '',
+          slug: '',
+          description: ''
+        }
+      };
+    },
+    name: "edit",
+    async mounted() {
+      this.state = 'loading';
+      this.enable = false;
+      this.message = Translator.message('art.videos.details.loading');
+      try {
+        const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
+        this.video = video.item;
+        this.state = '';
+        this.enable = true;
+        DOMUtils.changeTitle(Translator.message('art.videos.edit.title', this.video));
+      } catch (error) {
+        this.state = 'error';
+        this.message = Translator.validator(`art.videos.${error.message}`);
+      }
+    },
+    methods: {
+      async save(video) {
+        const picture = video.picture;
+        try {
+          this.enable = false;
+          this.state = 'loading';
+          this.message = Translator.message('art.videos.edit.saving', {name: video.name});
+
+          await JinyaRequest.put(`/api/video/${this.$route.params.slug}`, {
+            name: video.name,
+            slug: video.slug,
+            description: video.description
+          });
+
+          if (picture) {
+            this.message = Translator.message('art.videos.edit.uploading', {name: video.name});
+            await JinyaRequest.upload(`/api/video/${video.slug}/picture`, picture);
+          }
+
+          this.state = 'success';
+          this.message = Translator.message('art.videos.edit.success', {name: video.name});
+
+          await Timing.wait();
+          this.$router.push({
+            name: Routes.Art.Videos.SavedOnYoutube.Details.name,
+            params: {
+              slug: this.video.slug
+            }
+          });
+        } catch (error) {
+          this.message = error.message;
+          this.state = 'error';
+          this.enable = true;
+        }
+      }
+    }
+  }
+</script>
+F
