@@ -72,10 +72,16 @@ api:
     field:
       name:
         missing: Der Name muss bereitgestellt werden
+  video:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
   label:
     field:
       name:
         missing: Der Name muss bereitgestellt werden
+      video_key:
+        missing: Der Videokey muss bereitgestellt werden
   menu:
     field:
       name:

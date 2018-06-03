@@ -11,14 +11,30 @@ namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Video\YoutubeVideo;
-use Jinya\Services\Base\BaseService;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Slug\SlugServiceInterface;
 
 class YoutubeVideoService implements YoutubeVideoServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var BaseService */
+    /** @var BaseSlugEntityService */
     private $baseService;
+    /** @var SlugServiceInterface */
+    private $slugService;
+
+    /**
+     * YoutubeVideoService constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param SlugServiceInterface $slugService
+     */
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService)
+    {
+        $this->entityManager = $entityManager;
+        $this->baseService = new BaseSlugEntityService($entityManager, $slugService, YoutubeVideo::class);
+        $this->slugService = $slugService;
+    }
+
 
     /**
      * Gets a list of videos in the given range and filtered by the given keyword
@@ -71,6 +87,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      *
      * @param YoutubeVideo $video
      * @return YoutubeVideo
+     * @throws \Jinya\Exceptions\EmptySlugException
      */
     public function saveOrUpdate(YoutubeVideo $video): YoutubeVideo
     {
@@ -94,9 +111,11 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      *
      * @param string $slug
      * @return YoutubeVideo
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(string $slug): ?YoutubeVideo
     {
-        return $this->entityManager->getRepository(YoutubeVideo::class)->findOneBy(['slug' => $slug]);
+        return $this->baseService->get($slug);
     }
 }
