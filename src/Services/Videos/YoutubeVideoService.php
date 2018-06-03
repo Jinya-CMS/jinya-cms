@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Videos;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Services\Base\BaseSlugEntityService;
@@ -18,8 +17,10 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var BaseSlugEntityService */
     private $baseService;
+
     /** @var SlugServiceInterface */
     private $slugService;
 
@@ -34,7 +35,6 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, YoutubeVideo::class);
         $this->slugService = $slugService;
     }
-
 
     /**
      * Gets a list of videos in the given range and filtered by the given keyword
