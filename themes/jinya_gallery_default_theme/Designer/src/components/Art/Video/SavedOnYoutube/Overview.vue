@@ -3,6 +3,8 @@
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card :header="video.name" v-for="video in videos" v-if="!loading" :key="video.slug">
+                <iframe class="jinya-video__youtube" :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
+                        frameborder="0"></iframe>
                 <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" slot="footer" icon="monitor"
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"
@@ -157,4 +159,8 @@
 </script>
 
 <style scoped lang="scss">
+    .jinya-video__youtube {
+        width: 100%;
+        height: 100%;
+    }
 </style>
