@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Maintenance;
 
-
 use Jinya\Framework\BaseApiController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
