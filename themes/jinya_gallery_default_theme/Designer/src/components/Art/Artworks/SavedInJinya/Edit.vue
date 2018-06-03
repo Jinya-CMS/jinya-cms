@@ -22,7 +22,7 @@
         loading: false,
         enable: false,
         artwork: {
-          background: '',
+          picture: '',
           name: '',
           slug: '',
           description: ''
@@ -83,4 +83,3 @@
     }
   }
 </script>
-F
