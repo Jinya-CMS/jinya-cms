@@ -39,7 +39,7 @@ class SchemaTool implements SchemaToolInterface
     public function createSchema(): void
     {
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-        $schemaTool->createSchema();
+        $schemaTool->createSchema($this->entityManager->getMetadataFactory()->getAllMetadata());
     }
 
     /**
@@ -51,9 +51,9 @@ class SchemaTool implements SchemaToolInterface
         $application = new Application($this->kernel);
         $application->setAutoExit(false);
 
-        $input = new ArrayInput(array(
+        $input = new ArrayInput([
             'command' => 'doctrine:migrations:migrate'
-        ));
+        ]);
 
         $output = new NullOutput();
         $application->run($input, $output);
