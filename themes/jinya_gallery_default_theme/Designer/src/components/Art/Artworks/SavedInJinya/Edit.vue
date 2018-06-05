@@ -9,8 +9,9 @@
   import Routes from "../../../../router/Routes";
   import Timing from "@/framework/Utils/Timing";
   import DOMUtils from "@/framework/Utils/DOMUtils";
+  import Events from "@/framework/Events/Events";
+  import EventBus from "@/framework/Events/EventBus";
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaArtworkForm
@@ -22,7 +23,7 @@
         loading: false,
         enable: false,
         artwork: {
-          background: '',
+          picture: '',
           name: '',
           slug: '',
           description: ''
@@ -40,6 +41,7 @@
         this.state = '';
         this.enable = true;
         DOMUtils.changeTitle(Translator.message('art.artworks.edit.title', this.artwork));
+        EventBus.$emit(Events.header.change, Translator.message('art.artworks.edit.title', this.video));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.artworks.${error.message}`);
@@ -83,4 +85,3 @@
     }
   }
 </script>
-F
