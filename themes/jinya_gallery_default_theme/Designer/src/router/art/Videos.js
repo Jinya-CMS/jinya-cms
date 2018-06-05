@@ -2,6 +2,7 @@ import Routes from "../Routes";
 import YoutubeVideoOverview from '@/components/Art/Video/SavedOnYoutube/Overview';
 import YoutubeVideoAdd from '@/components/Art/Video/SavedOnYoutube/Add';
 import YoutubeVideoEdit from '@/components/Art/Video/SavedOnYoutube/Edit';
+import YoutubeVideoDetails from '@/components/Art/Video/SavedOnYoutube/Details';
 import Missing from '@/components/Home/Missing'
 
 export default [
@@ -45,7 +46,7 @@ export default [
   {
     path: Routes.Art.Videos.SavedOnYoutube.Details.route,
     name: Routes.Art.Videos.SavedOnYoutube.Details.name,
-    component: Missing
+    component: YoutubeVideoDetails
   },
   {
     path: Routes.Art.Videos.SavedOnYoutube.Edit.route,

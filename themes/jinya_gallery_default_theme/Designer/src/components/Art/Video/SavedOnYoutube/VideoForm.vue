@@ -14,14 +14,14 @@
                 <iframe :src="videoUrl" frameborder="0" width="560" height="315"></iframe>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" label="art.videos.youtube.video_form.name"
-                             v-model="video.name" @change="nameChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.videos.youtube.video_form.slug"
-                             v-model="video.slug" @change="slugChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.videos.youtube.video_form.video_key_or_url"
+                <jinya-input :enable="enable" label="art.videos.youtube.video_form.name" v-model="video.name"
+                             @change="nameChanged"/>
+                <jinya-input :enable="enable" label="art.videos.youtube.video_form.slug" v-model="video.slug"
+                             @change="slugChanged"/>
+                <jinya-input :enable="enable" label="art.videos.youtube.video_form.video_key_or_url"
                              v-model="videoKeyOrUrl" @change="videoKeyChanged"/>
-                <jinya-textarea :static="static" :enable="enable" label="art.videos.youtube.video_form.description"
-                                v-model="video.description"/>
+                <jinya-tiny-mce :enable="enable" label="art.videos.youtube.video_form.description" height="300px"
+                                v-model="video.description" :content="video.description"/>
             </jinya-editor-pane>
         </jinya-form>
     </jinya-editor>
@@ -31,17 +31,17 @@
   import JinyaForm from "@/framework/Markup/Form/Form";
   import JinyaInput from "@/framework/Markup/Form/Input";
   import JinyaButton from "@/framework/Markup/Button";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
   import slugify from "slugify";
   import Routes from "../../../../router/Routes";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
   import JinyaEditor from "@/framework/Markup/Form/Editor";
   import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import JinyaTinyMce from "@/framework/Markup/Form/TinyMce";
 
   export default {
     components: {
-      JinyaTextarea,
+      JinyaTinyMce,
       JinyaInput,
       JinyaEditorPane,
       JinyaForm,

@@ -1,5 +1,6 @@
 <template>
-    <router-link class="jinya-floating-action-button" :class="additionalClasses" v-if="!isDisabled" :to="routeTarget">
+    <router-link class="jinya-floating-action-button" :class="additionalClasses" v-if="routeTarget && !isDisabled"
+                 :to="routeTarget">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </router-link>
     <button class="jinya-floating-action-button" :class="additionalClasses" v-else-if="!routeTarget && !isDisabled"
