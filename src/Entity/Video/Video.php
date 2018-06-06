@@ -32,6 +32,27 @@ class Video extends HistoryEnabledEntity
      * @var string|null
      */
     private $video;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string|null
+     */
+    private $poster;
+
+    /**
+     * @return null|string
+     */
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    /**
+     * @param null|string $poster
+     */
+    public function setPoster(?string $poster): void
+    {
+        $this->poster = $poster;
+    }
 
     /**
      * @return null|string
