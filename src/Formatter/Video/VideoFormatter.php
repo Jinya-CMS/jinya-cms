@@ -10,6 +10,7 @@ namespace Jinya\Formatter\Video;
 
 use Jinya\Entity\Video\Video;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class VideoFormatter implements VideoFormatterInterface
 {
@@ -22,13 +23,18 @@ class VideoFormatter implements VideoFormatterInterface
     /** @var UserFormatterInterface */
     private $userFormatter;
 
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
     /**
      * VideoFormatter constructor.
      * @param UserFormatterInterface $userFormatter
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UserFormatterInterface $userFormatter)
+    public function __construct(UserFormatterInterface $userFormatter, UrlGeneratorInterface $urlGenerator)
     {
         $this->userFormatter = $userFormatter;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -61,7 +67,9 @@ class VideoFormatter implements VideoFormatterInterface
      */
     public function video(): VideoFormatterInterface
     {
-        $this->formattedData['video'] = $this->video->getVideo();
+        $this->formattedData['video'] = $this->urlGenerator->generate('api_video_get_video', [
+            'slug' => $this->video->getSlug()
+        ]);
 
         return $this;
     }
@@ -142,6 +150,20 @@ class VideoFormatter implements VideoFormatterInterface
     public function history(): VideoFormatterInterface
     {
         $this->formattedData['history'] = $this->video->getHistory();
+
+        return $this;
+    }
+
+    /**
+     * Formats the poster
+     *
+     * @return VideoFormatterInterface
+     */
+    public function poster(): VideoFormatterInterface
+    {
+        $this->formattedData['poster'] = $this->urlGenerator->generate('api_video_get_poster', [
+            'slug' => $this->video->getSlug()
+        ]);
 
         return $this;
     }

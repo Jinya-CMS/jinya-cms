@@ -79,6 +79,7 @@ class VideoController extends BaseApiController
                     ->description()
                     ->name()
                     ->video()
+                    ->poster()
                     ->created()
                     ->updated()
                     ->history()

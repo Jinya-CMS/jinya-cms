@@ -69,4 +69,11 @@ interface VideoFormatterInterface extends FormatterInterface
      * @return VideoFormatterInterface
      */
     public function history(): self;
+
+    /**
+     * Formats the poster
+     *
+     * @return VideoFormatterInterface
+     */
+    public function poster(): self;
 }
