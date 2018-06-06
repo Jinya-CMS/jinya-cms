@@ -28,23 +28,23 @@ class Video extends HistoryEnabledEntity
     private $description;
 
     /**
-     * @ORM\Column(type="string")
-     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     * @var string|null
      */
     private $video;
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getVideo(): string
+    public function getVideo(): ?string
     {
         return $this->video;
     }
 
     /**
-     * @param string $video
+     * @param null|string $video
      */
-    public function setVideo(string $video): void
+    public function setVideo(?string $video): void
     {
         $this->video = $video;
     }
