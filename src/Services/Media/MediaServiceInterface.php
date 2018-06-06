@@ -21,6 +21,8 @@ interface MediaServiceInterface
 
     public const MENU_LOGO = 'menu_logo';
 
+    public const VIDEO_POSTER = 'video_poster';
+
     /**
      * Saves the media to the storage and return the http url
      *

@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoController extends BaseApiController
 {
     /**
-     * @Route("/api/video/youtube", name="api_video_get_all", methods={"GET"})
+     * @Route("/api/video", name="api_video_get_all", methods={"GET"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param Request $request
@@ -91,7 +91,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/youtube", name="api_video_post", methods={"POST"})
+     * @Route("/api/video", name="api_video_post", methods={"POST"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param VideoServiceInterface $VideoService
