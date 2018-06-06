@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\HistoryEnabledEntity;
 use Jinya\Entity\SlugEntity;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="video")
+ */
 class Video extends HistoryEnabledEntity
 {
     use SlugEntity;
