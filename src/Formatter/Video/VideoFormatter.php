@@ -68,7 +68,7 @@ class VideoFormatter implements VideoFormatterInterface
     public function video(): VideoFormatterInterface
     {
         $this->formattedData['video'] = $this->urlGenerator->generate('api_video_get_video', [
-            'slug' => $this->video->getSlug()
+            'slug' => $this->video->getSlug(),
         ]);
 
         return $this;
@@ -162,7 +162,7 @@ class VideoFormatter implements VideoFormatterInterface
     public function poster(): VideoFormatterInterface
     {
         $this->formattedData['poster'] = $this->urlGenerator->generate('api_video_get_poster', [
-            'slug' => $this->video->getSlug()
+            'slug' => $this->video->getSlug(),
         ]);
 
         return $this;

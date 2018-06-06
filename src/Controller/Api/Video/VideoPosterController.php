@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Video;
 
-
 use Jinya\Entity\Video\Video;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
