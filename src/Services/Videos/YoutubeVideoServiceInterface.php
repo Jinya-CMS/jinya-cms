@@ -13,7 +13,7 @@ use Jinya\Entity\Video\YoutubeVideo;
 interface YoutubeVideoServiceInterface
 {
     /**
-     * Gets a list of artworks in the given range and filtered by the given keyword
+     * Gets a list of videos in the given range and filtered by the given keyword
      *
      * @param int $offset
      * @param int $count
@@ -23,7 +23,7 @@ interface YoutubeVideoServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
 
     /**
-     * Counts all artworks filtered by the given keyword
+     * Counts all videos filtered by the given keyword
      *
      * @param string $keyword
      * @return int
@@ -31,7 +31,7 @@ interface YoutubeVideoServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or update the given artwork
+     * Saves or update the given video
      *
      * @param YoutubeVideo $video
      * @return YoutubeVideo
@@ -39,17 +39,19 @@ interface YoutubeVideoServiceInterface
     public function saveOrUpdate(YoutubeVideo $video): YoutubeVideo;
 
     /**
-     * Deletes the given gallery
+     * Deletes the given video
      *
      * @param YoutubeVideo $video
      */
     public function delete(YoutubeVideo $video): void;
 
     /**
-     * Gets the artwork by slug or id
+     * Gets the video by slug
      *
      * @param string $slug
      * @return YoutubeVideo
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(string $slug): ?YoutubeVideo;
 }
