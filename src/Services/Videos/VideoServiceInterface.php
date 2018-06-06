@@ -8,12 +8,10 @@
 
 namespace Jinya\Services\Videos;
 
-
 use Jinya\Entity\Video\Video;
 
 interface VideoServiceInterface
 {
-
     /**
      * Gets a list of videos in the given range and filtered by the given keyword
      *

@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity\Video;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\HistoryEnabledEntity;
 use Jinya\Entity\SlugEntity;
