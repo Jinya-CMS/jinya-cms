@@ -31,6 +31,7 @@ class Video extends HistoryEnabledEntity
      * @var string|null
      */
     private $video;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      * @var string|null
