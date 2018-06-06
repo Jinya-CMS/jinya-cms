@@ -78,7 +78,7 @@ class YoutubeVideo extends HistoryEnabledEntity
             'description' => $this->description,
             'slug' => $this->slug,
             'id' => $this->id,
-            'url' => $this->videoKey,
+            'videoKey' => $this->videoKey,
             'createdAt' => $this->getCreatedAt(),
             'createdBy' => $this->getCreator(),
             'lastUpdatedAt' => $this->getLastUpdatedAt(),
