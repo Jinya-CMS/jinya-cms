@@ -1,9 +1,8 @@
 <template>
-    <div class="jinya-video__youtube">
+    <div class="jinya-video__jinya">
         <jinya-message :message="message" :state="state" v-if="state"/>
         <div class="jinya-video__video-details" v-else>
-            <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" frameborder="0" width="960"
-                    height="540" class="jinya-video__video--youtube"></iframe>
+            <video :src="video.video" :poster="video.poster" class="jinya-video__video--jinya"></video>
             <div class="jinya-video__video-description" v-html="video.description"></div>
             <jinya-floating-action-button icon="pencil" @click="edit"/>
         </div>
@@ -67,7 +66,7 @@
 </script>
 
 <style lang="scss">
-    .jinya-video__youtube {
+    .jinya-video__jinya {
         padding-top: 1rem;
     }
 
@@ -80,8 +79,8 @@
     }
 
     .jinya-video__video {
-        &.jinya-video__video--youtube {
-            width: 960px;
+        &.jinya-video__video--jinya {
+            width: 560px;
         }
     }
 </style>

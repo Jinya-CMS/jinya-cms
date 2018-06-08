@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class VideoPosterController extends BaseApiController
 {
     /**
-     * @Route("/api/video/{slug}/poster", name="api_video_get_poster")
+     * @Route("/api/video/{slug}/poster", name="api_video_get_poster", methods={"GET"})
      *
      * @param string $slug
      * @param VideoServiceInterface $videoService
