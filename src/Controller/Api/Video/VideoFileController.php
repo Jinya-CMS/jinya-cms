@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class VideoVideoController extends BaseApiController
+class VideoFileController extends BaseApiController
 {
     /**
      * @Route("/api/video/{slug}/video", name="api_video_get_video")
