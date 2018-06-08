@@ -158,20 +158,12 @@ menu:
             application_log: Anwendungsprotokoll
             access_log: Zugrifsprotokoll
       my_jinya:
-        navbar: Mein Jinya
+        navbar: Mein Konto
         sections:
           account:
             header: Mein Account
             profile: Mein Profil
             password: Passwort ändern
-          created_by_me:
-            header: Von mir erstellt
-            galleries: Galerien
-            artworks: Kunstwerke
-            pages: Seiten
-            videos: Videos
-            forms: Formulare
-            menus: Menüs
       support:
         navbar: Support
         sections:
