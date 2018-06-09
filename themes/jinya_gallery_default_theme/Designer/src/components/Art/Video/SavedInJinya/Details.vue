@@ -2,7 +2,8 @@
     <div class="jinya-video__jinya">
         <jinya-message :message="message" :state="state" v-if="state"/>
         <div class="jinya-video__video-details" v-else>
-            <video :src="video.video" :poster="video.poster" class="jinya-video__video--jinya"></video>
+            <video :src="video.video" :poster="video.poster" class="jinya-video__video jinya-video__video--jinya"
+                   controls></video>
             <div class="jinya-video__video-description" v-html="video.description"></div>
             <jinya-floating-action-button icon="pencil" @click="edit"/>
         </div>
@@ -76,11 +77,12 @@
 
     .jinya-video__video-description {
         margin-left: 1rem;
+        width: 50%;
     }
 
     .jinya-video__video {
         &.jinya-video__video--jinya {
-            width: 560px;
+            width: 50%;
         }
     }
 </style>

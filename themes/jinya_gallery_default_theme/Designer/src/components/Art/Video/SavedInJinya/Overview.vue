@@ -3,8 +3,8 @@
         <jinya-loader :loading="loading"/>
         <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
             <jinya-card :header="video.name" v-for="video in videos" v-if="!loading" :key="video.slug">
-                <img v-if="video.poster" :src="video.poster" class="jinya-video__poster"/>
-                <video v-else-if="video.video" :src="video.video" class="jinya-video__video"></video>
+                <video v-if="video.poster || video.video" :poster="video.poster" :src="video.video" controls
+                       class="jinya-video__video"></video>
                 <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" slot="footer" icon="monitor"
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"

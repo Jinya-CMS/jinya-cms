@@ -11,7 +11,7 @@
         <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--video" @back="back"
                     :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
             <jinya-editor-pane>
-                <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster"></video>
+                <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster" controls></video>
             </jinya-editor-pane>
             <jinya-editor-pane>
                 <jinya-input :enable="enable" label="art.videos.video_form.name" v-model="video.name"
