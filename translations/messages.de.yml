@@ -592,6 +592,7 @@ art:
         delete: Kunstwerk entfernen
       artwork_view:
         search: Suchen…
+        loading: Die Kunstwerke werden geladen
         pick: Auswählen
     gallery_form:
       name: Name
