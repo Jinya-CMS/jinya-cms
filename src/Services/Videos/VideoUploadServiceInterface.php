@@ -14,10 +14,9 @@ interface VideoUploadServiceInterface
     /**
      * Starts the upload
      *
-     * @param resource $chunk
      * @param string $slug
      */
-    public function startUpload($chunk, string $slug): void;
+    public function startUpload(string $slug): void;
 
     /**
      * Uploads a chunk
