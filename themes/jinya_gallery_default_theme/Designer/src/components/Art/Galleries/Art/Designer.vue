@@ -64,7 +64,7 @@
     },
     methods: {
       scroll($event) {
-        if (!$event.deltaX) {
+        if (!$event.deltaX && !this.addModel.show && !this.editModel.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
             left: $event.deltaY > 0 ? 100 : -100
