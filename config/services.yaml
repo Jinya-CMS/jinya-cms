@@ -59,6 +59,10 @@ services:
       arguments:
         $mailerSender: '%mailer_sender%'
 
+    Jinya\Services\Videos\VideoUploadService:
+      arguments:
+        $tmpDir: '%jinya_gallery.temp_dir%'
+
     # EventSubscriber
     Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
       tags:
