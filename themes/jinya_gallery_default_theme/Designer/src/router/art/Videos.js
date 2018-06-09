@@ -7,6 +7,7 @@ import VideoOverview from '@/components/Art/Video/SavedInJinya/Overview';
 import VideoAdd from '@/components/Art/Video/SavedInJinya/Add';
 import VideoEdit from '@/components/Art/Video/SavedInJinya/Edit';
 import VideoDetails from '@/components/Art/Video/SavedInJinya/Details';
+import VideoUploader from '@/components/Art/Video/SavedInJinya/Uploader';
 import Missing from '@/components/Home/Missing'
 
 export default [
@@ -36,6 +37,11 @@ export default [
     path: Routes.Art.Videos.SavedInJinya.Edit.route,
     name: Routes.Art.Videos.SavedInJinya.Edit.name,
     component: VideoEdit
+  },
+  {
+    path: Routes.Art.Videos.SavedInJinya.Uploader.route,
+    name: Routes.Art.Videos.SavedInJinya.Uploader.name,
+    component: VideoUploader
   },
   {
     path: Routes.Art.Videos.SavedOnYoutube.Overview.route,
