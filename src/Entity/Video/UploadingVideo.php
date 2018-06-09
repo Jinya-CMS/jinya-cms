@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity\Video;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +29,7 @@ class UploadingVideo
      * @var Video
      */
     private $video;
+
     /**
      * @ORM\Column(type="string")
      * @var string
