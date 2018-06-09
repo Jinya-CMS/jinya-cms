@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Videos;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Video\UploadingVideo;
 use Jinya\Entity\Video\UploadingVideoChunk;
@@ -18,10 +17,13 @@ class VideoUploadService implements VideoUploadServiceInterface
 {
     /** @var VideoServiceInterface */
     private $videoService;
+
     /** @var MediaServiceInterface */
     private $mediaService;
+
     /** @var string */
     private $tmpDir;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
