@@ -8,6 +8,8 @@
 
 namespace Jinya\Entity\Video;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,16 +27,40 @@ class UploadingVideo
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Video\Video", inversedBy="id")
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\Video\Video", inversedBy="id")
      * @var Video
      */
     private $video;
 
     /**
-     * @ORM\Column(type="string")
-     * @var string
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\UploadingVideoChunk", mappedBy="uploadingVideo")
+     * @var Collection
      */
-    private $chunkPath;
+    private $chunks;
+
+    /**
+     * UploadingVideo constructor.
+     */
+    public function __construct()
+    {
+        $this->chunks = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getChunks(): Collection
+    {
+        return $this->chunks;
+    }
+
+    /**
+     * @param Collection $chunks
+     */
+    public function setChunks(Collection $chunks): void
+    {
+        $this->chunks = $chunks;
+    }
 
     /**
      * @return Video
@@ -66,21 +92,5 @@ class UploadingVideo
     public function setId(string $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getChunkPath(): string
-    {
-        return $this->chunkPath;
-    }
-
-    /**
-     * @param string $chunkPath
-     */
-    public function setChunkPath(string $chunkPath): void
-    {
-        $this->chunkPath = $chunkPath;
     }
 }
