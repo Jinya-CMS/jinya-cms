@@ -1,7 +1,7 @@
 <template>
     <jinya-modal modal-modifiers="jinya-modal--add-artwork" title="art.galleries.designer.add.title"
                  @close="$emit('close')">
-        <jinya-message message="art.galleries.designer.artwork_view.loading" state="loading" v-if="loading"
+        <jinya-message :message="'art.galleries.designer.artwork_view.loading'|jmessage" state="loading" v-if="loading"
                        slot="message"/>
         <jinya-gallery-designer-artwork-view @picked="pick" @load-start="loading = true" @load-end="loading = false"/>
         <jinya-modal-button slot="buttons-right" :closes-modal="true" label="art.galleries.designer.add_view.cancel"
