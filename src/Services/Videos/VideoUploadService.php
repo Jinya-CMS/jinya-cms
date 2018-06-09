@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Videos;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
 use Exception;
@@ -22,12 +21,16 @@ class VideoUploadService implements VideoUploadServiceInterface
 {
     /** @var VideoServiceInterface */
     private $videoService;
+
     /** @var MediaServiceInterface */
     private $mediaService;
+
     /** @var string */
     private $tmpDir;
+
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var LoggerInterface */
     private $logger;
 

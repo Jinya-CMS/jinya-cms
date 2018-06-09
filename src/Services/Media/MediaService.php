@@ -40,7 +40,6 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-
         $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
         file_put_contents($tmpFilename, $file);
 
