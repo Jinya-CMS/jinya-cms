@@ -34,4 +34,11 @@ interface VideoUploadServiceInterface
      * @return string
      */
     public function finishUpload(string $slug): string;
+
+    /**
+     * Removes all chunk data after upload
+     *
+     * @param string $slug
+     */
+    public function cleanupAfterUpload(string $slug): void;
 }

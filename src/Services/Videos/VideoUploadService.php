@@ -10,9 +10,13 @@ namespace Jinya\Services\Videos;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr;
+use Exception;
 use Jinya\Entity\Video\UploadingVideo;
 use Jinya\Entity\Video\UploadingVideoChunk;
+use Jinya\Entity\Video\Video;
 use Jinya\Services\Media\MediaServiceInterface;
+use Psr\Log\LoggerInterface;
 
 class VideoUploadService implements VideoUploadServiceInterface
 {
@@ -24,6 +28,8 @@ class VideoUploadService implements VideoUploadServiceInterface
     private $tmpDir;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var LoggerInterface */
+    private $logger;
 
     /**
      * VideoUploadService constructor.
@@ -68,14 +74,16 @@ class VideoUploadService implements VideoUploadServiceInterface
     public function uploadChunk($chunk, int $position, string $slug): void
     {
         $uploadingVideo = $this->getUploadingVideo($slug);
-        $chunkDirectory = $this->tmpDir . DIRECTORY_SEPARATOR . 'uploading_video' . DIRECTORY_SEPARATOR;
+        $chunkDirectory = $this->tmpDir;
+        $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug);
 
         @mkdir($chunkDirectory);
-        file_put_contents($chunkDirectory . uniqid($slug), $chunk);
+        file_put_contents($chunkPath, $chunk);
 
         $chunk = new UploadingVideoChunk();
         $chunk->setUploadingVideo($uploadingVideo);
         $chunk->setChunkPosition($position);
+        $chunk->setChunkPath($chunkPath);
 
         $this->entityManager->persist($chunk);
         $this->entityManager->flush();
@@ -92,7 +100,8 @@ class VideoUploadService implements VideoUploadServiceInterface
         return $this->entityManager->createQueryBuilder()
             ->select('uv')
             ->from(UploadingVideo::class, 'uv')
-            ->where('uv.video.slug = :slug')
+            ->join(Video::class, 'video', Expr\Join::WITH, 'video = uv.video')
+            ->where('video.slug = :slug')
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getSingleResult();
@@ -103,9 +112,76 @@ class VideoUploadService implements VideoUploadServiceInterface
      *
      * @param string $slug
      * @return string
+     * @throws Exception
      */
     public function finishUpload(string $slug): string
     {
-        return '';
+        $chunks = $this->getChunks($slug);
+
+        $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
+        $newFileHandle = fopen($newFile, 'a');
+
+        try {
+            /** @var UploadingVideoChunk $chunk */
+            foreach ($chunks as $chunk) {
+                $chunkFileHandle = fopen($chunk->getChunkPath(), 'rb');
+
+                try {
+                    $chunkData = fread($chunkFileHandle, filesize($chunk->getChunkPath()));
+                    fwrite($newFileHandle, $chunkData);
+                } finally {
+                    fclose($chunkFileHandle);
+                }
+            }
+        } catch (Exception $exception) {
+            throw $exception;
+        } finally {
+            fclose($newFileHandle);
+        }
+
+        return $this->mediaService->moveMedia($newFile, MediaServiceInterface::VIDEO_VIDEO);
+    }
+
+    /**
+     * @param string $slug
+     * @return array
+     */
+    private function getChunks(string $slug): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('uvc')
+            ->from(UploadingVideoChunk::class, 'uvc')
+            ->join(UploadingVideo::class, 'uv')
+            ->join(Video::class, 'video')
+            ->where('video.slug = :slug')
+            ->orderBy('uvc.chunkPosition')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Removes all chunk data after upload
+     *
+     * @param string $slug
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function cleanupAfterUpload(string $slug): void
+    {
+        $chunks = $this->getChunks($slug);
+
+        /** @var UploadingVideoChunk $chunk */
+        foreach ($chunks as $chunk) {
+            try {
+                @unlink($chunk->getChunkPath());
+            } catch (Exception $exception) {
+                $this->logger->warning("Couldn't unlink chunk " . $chunk->getChunkPath());
+            }
+        }
+
+        $uploadingVideo = $this->getUploadingVideo($slug);
+        $this->entityManager->remove($uploadingVideo);
+        $this->entityManager->flush();
     }
 }

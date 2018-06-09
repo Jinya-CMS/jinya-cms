@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoFileController extends BaseApiController
 {
     /**
-     * @Route("/api/video/{slug}/video", name="api_video_get_video")
+     * @Route("/api/video/{slug}/video", name="api_video_get_video", methods={"GET"})
      *
      * @param string $slug
      * @param VideoServiceInterface $videoService
@@ -66,16 +66,16 @@ class VideoFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}/video/{position}", methods={"PUT"})
+     * @Route("/api/video/{slug}/video/{position}", methods={"PUT"}, requirements={"position": "^\d*$"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
-     * @param string $position
+     * @param int $position
      * @param Request $request
      * @param VideoUploadServiceInterface $videoUploadService
      * @return Response
      */
-    public function uploadChunkAction(string $slug, string $position, Request $request, VideoUploadServiceInterface $videoUploadService): Response
+    public function uploadChunkAction(string $slug, int $position, Request $request, VideoUploadServiceInterface $videoUploadService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $position, $request, $videoUploadService) {
             $data = $request->getContent(true);
@@ -91,13 +91,21 @@ class VideoFileController extends BaseApiController
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
+     * @param VideoServiceInterface $videoService
      * @param VideoUploadServiceInterface $videoUploadService
      * @return Response
      */
-    public function finishUploadAction(string $slug, VideoUploadServiceInterface $videoUploadService): Response
+    public function finishUploadAction(string $slug, VideoServiceInterface $videoService, VideoUploadServiceInterface $videoUploadService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $videoUploadService) {
-            $videoUploadService->finishUpload($slug);
+        list($data, $status) = $this->tryExecute(function () use ($slug, $videoService, $videoUploadService) {
+            $video = $videoService->get($slug);
+            $path = $videoUploadService->finishUpload($slug);
+
+            $video->setVideo($path);
+
+            $videoService->saveOrUpdate($video);
+
+            $videoUploadService->cleanupAfterUpload($slug);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

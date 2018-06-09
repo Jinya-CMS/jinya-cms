@@ -23,6 +23,8 @@ interface MediaServiceInterface
 
     public const VIDEO_POSTER = 'video_poster';
 
+    public const VIDEO_VIDEO = 'video_video';
+
     /**
      * Saves the media to the storage and return the http url
      *
@@ -31,6 +33,15 @@ interface MediaServiceInterface
      * @return string
      */
     public function saveMedia($file, string $type): string;
+
+    /**
+     * Moves a file from the given path to the correct media path
+     *
+     * @param string $from
+     * @param string $type
+     * @return string
+     */
+    public function moveMedia(string $from, string $type): string;
 
     /**
      * Deletes the media saved under the given url

@@ -27,13 +27,13 @@ class UploadingVideo
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\Video\Video", inversedBy="id")
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\Video\Video")
      * @var Video
      */
     private $video;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\UploadingVideoChunk", mappedBy="uploadingVideo")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\UploadingVideoChunk", mappedBy="uploadingVideo", cascade={"REMOVE"})
      * @var Collection
      */
     private $chunks;

@@ -11,29 +11,24 @@ namespace Jinya\Services\Media;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use function array_reverse;
-use function file_put_contents;
-use function hash_final;
-use function hash_init;
-use function hash_update_file;
-use function mkdir;
-use function preg_split;
-use function uniqid;
-use function unlink;
-use const DIRECTORY_SEPARATOR;
 
 class MediaService implements MediaServiceInterface
 {
     /** @var string */
     private $kernelProjectDir;
 
+    /** @var string */
+    private $tmpDir;
+
     /**
      * MediaService constructor.
      * @param string $kernelProjectDir
+     * @param string $tmpDir
      */
-    public function __construct(string $kernelProjectDir)
+    public function __construct(string $kernelProjectDir, string $tmpDir)
     {
         $this->kernelProjectDir = $kernelProjectDir;
+        $this->tmpDir = $tmpDir;
     }
 
     /**
@@ -45,20 +40,31 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-        $directory = $this->getFilePath($type);
-        @mkdir($directory, 775, true);
 
-        $tmpFilename = $directory . uniqid();
+        $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
         file_put_contents($tmpFilename, $file);
 
+        return $this->moveFile($tmpFilename, $type);
+    }
+
+    /**
+     * @param string $type
+     * @param string $oldFile
+     * @return string
+     */
+    private function moveFile(string $oldFile, string $type): string
+    {
+        $directory = $this->getFilePath($type);
+        @mkdir($directory, 0775, true);
+
         $hashCtx = hash_init('sha256');
-        hash_update_file($hashCtx, $tmpFilename);
+        hash_update_file($hashCtx, $oldFile);
         $hash = hash_final($hashCtx);
 
         $filename = $directory . $hash;
 
         $fs = new Filesystem();
-        $fs->rename($tmpFilename, $filename, true);
+        $fs->rename($oldFile, $filename, true);
 
         return "/public/$type/${hash}";
     }
@@ -91,5 +97,17 @@ class MediaService implements MediaServiceInterface
     public function getMedia(string $path): SplFileInfo
     {
         return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
+    }
+
+    /**
+     * Moves a file from the given path to the correct media path
+     *
+     * @param string $from
+     * @param string $type
+     * @return string
+     */
+    public function moveMedia(string $from, string $type): string
+    {
+        return $this->moveFile($from, $type);
     }
 }

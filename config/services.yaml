@@ -54,6 +54,7 @@ services:
     Jinya\Services\Media\MediaService:
       arguments:
         $kernelProjectDir: '%kernel.project_dir%'
+        $tmpDir: '%jinya_gallery.temp_dir%'
 
     Jinya\Services\Mailing\MailerService:
       arguments:
