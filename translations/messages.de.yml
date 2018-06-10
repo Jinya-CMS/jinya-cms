@@ -531,6 +531,11 @@ art:
       save: Video speichern
       back: Zurück
       search: Suchen
+    uploader:
+      title: Video %name% hochladen
+      file: Video
+      upload: Hochladen
+      queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
     youtube:
       delete:
         title: Youtube Video aus Jinya entfernen?
@@ -668,3 +673,7 @@ maintenance:
       start: Ich habe eine Sicherung und möchte das Update starten
       started: Das Update wird gestartet
       back: Abbrechen
+background:
+  video:
+    uploaded: Das Video %name% wurde erfolgreich hochgeladen
+    upload_started: Das Video %name% wird hochgeladen
