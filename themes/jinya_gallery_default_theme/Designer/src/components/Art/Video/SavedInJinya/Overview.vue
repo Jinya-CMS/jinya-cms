@@ -9,6 +9,8 @@
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
+                <jinya-card-button :to="{name: uploadRoute, params: {slug: video.slug}}" slot="footer" icon="upload"
+                                   type="edit"/>
                 <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(video)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
@@ -39,10 +41,10 @@
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
   import Translator from "@/framework/i18n/Translator";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
 
   export default {
@@ -61,6 +63,18 @@
     computed: {
       addRoute() {
         return Routes.Art.Videos.SavedInJinya.Add;
+      },
+      uploadRoute() {
+        return Routes.Art.Videos.SavedInJinya.Uploader.name;
+      },
+      editRoute() {
+        return Routes.Art.Videos.SavedInJinya.Edit.name;
+      },
+      detailsRoute() {
+        return Routes.Art.Videos.SavedInJinya.Details.name;
+      },
+      nothingFound() {
+        return this.$route.query.keyword ? 'art.videos.overview.nothing_found' : 'art.videos.overview.no_videos';
       }
     },
     methods: {
@@ -149,10 +163,7 @@
           error: '',
           show: false,
           loading: false
-        },
-        editRoute: Routes.Art.Videos.SavedInJinya.Edit.name,
-        detailsRoute: Routes.Art.Videos.SavedInJinya.Details.name,
-        nothingFound: this.$route.query.keyword ? 'art.videos.overview.nothing_found' : 'art.videos.overview.no_videos'
+        }
       };
     }
   }

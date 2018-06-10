@@ -1,26 +1,29 @@
 import JinyaWorkerRequest from "@/framework/Worker/JinyaWorkerRequest";
 
 // noinspection PointlessArithmeticExpressionJS Might change at some point
-const chunkSize = 1 * 1024 * 1024 * 1024;
+const chunkSize = 1 * 1024 * 1024;
 
 async function startUpload(slug, apiKey) {
   console.log(`Start upload for slug ${slug}`);
-  await JinyaWorkerRequest.post(`/api/video/${slug}/video`, apiKey);
+  await JinyaWorkerRequest.post(`/api/video/${slug}/video`, {}, apiKey);
   console.log(`Started upload for slug ${slug}`);
 }
 
 onmessage = async e => {
   if (e.data?.video && e.data?.slug && e.data?.apiKey) {
-    postMessage('background.video.upload_started');
     console.log('Received message with file to upload');
 
-    const apiKey = e.data.apiKey;
     /** @var File videoFile */
     const videoFile = e.data.video;
+    const slug = e.data.slug;
+    const apiKey = e.data.apiKey;
 
-    await startUpload(e.data.slug, apiKey);
+    console.log(apiKey);
 
-    console.log('Upload chunks of 1MB size to the server');
+    await startUpload(slug, apiKey);
+    postMessage({message: 'background.video.upload_started', started: true});
+
+    console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
 
     let offset = 0;
     const uploadPromises = [];
@@ -29,17 +32,19 @@ onmessage = async e => {
       const blob = videoFile.slice(offset, offset + chunkSize);
 
       console.log(`Uploading chunk from ${offset} to ${offset + chunkSize} for slug ${slug}`);
-      uploadPromises.push(JinyaWorkerRequest.upload(`/api/video/${e.data.slug}/video/${offset}`, blob, apiKey));
+      uploadPromises.push(JinyaWorkerRequest.upload(`/api/video/${slug}/video/${offset}`, blob, apiKey));
+
+      offset = offset + chunkSize;
     }
 
     await Promise.all(uploadPromises);
     console.log(`Uploaded file for slug ${slug}`);
 
     console.log(`Finish upload for slug ${slug}`);
-    await JinyaWorkerRequest.post(`/api/video/${e.data.slug}/video/finish`, {}, apiKey);
+    await JinyaWorkerRequest.post(`/api/video/${slug}/video/finish`, {}, apiKey);
 
     console.log(`Finished upload for slug ${slug} close worker now`);
-    postMessage('background.video.uploaded');
+    postMessage({message: 'background.video.uploaded', finished: true});
     close();
   }
 };
