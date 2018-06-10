@@ -1,5 +1,14 @@
 <template>
-    <jinya-progress-bar v-if="uploading" class="jinya-video-uploader__indicator"/>
+    <div>
+        <jinya-progress-bar v-if="uploading" class="jinya-video-uploader__indicator"/>
+        <jinya-modal title="background.video.exists.title" @close="showReupload = false" v-if="showReupload">
+            <span>{{reuploadMessage}}</span>
+            <jinya-modal-button slot="buttons-right" :closes-modal="true" @click="reupload"
+                                label="background.video.exists.reupload" :is-primary="true"></jinya-modal-button>
+            <jinya-modal-button slot="buttons-left" :closes-modal="true" label="background.video.exists.cancel"
+                                :is-secondary="true"></jinya-modal-button>
+        </jinya-modal>
+    </div>
 </template>
 
 <script>
@@ -10,14 +19,26 @@
   // noinspection ES6CheckImport
   import VideoUploader from "@/worker/VideoUploader";
   import JinyaProgressBar from "@/framework/Markup/Waiting/ProgressBar";
+  import JinyaModal from "@/framework/Markup/Modal/Modal";
+  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
 
   export default {
     name: "jinya-video-uploader",
-    components: {JinyaProgressBar},
+    components: {JinyaModalButton, JinyaModal, JinyaProgressBar},
     data() {
       return {
-        uploading: false
+        uploading: false,
+        showReupload: false,
+        currentWorkerData: {
+          name: ''
+        }
       };
+    },
+    computed: {
+      reuploadMessage() {
+        return Translator.message('background.video.exists.message', this.currentWorkerData);
+      }
     },
     created() {
       EventBus.$on(Events.video.uploadStarted, async data => {
@@ -37,23 +58,31 @@
 
           worker.postMessage(workerData);
           worker.onmessage = ev => {
-            const message = Translator.message(ev.data.message, workerData);
-
-            if (ev.data.started) this.uploading = true;
-            if (ev.data.finished) this.uploading = false;
-
-            if (allowNotification) {
-              const notify = new Notification(title, {
-                body: message,
-                icon: icon
-              });
+            if (ev.data.error) {
+              this.showReupload = true;
+              this.currentWorker = worker;
+              this.currentWorkerData = workerData;
             } else {
-              alert(message);
+              const message = Translator.message(ev.data.message, workerData);
+
+              if (ev.data.started) this.uploading = true;
+              if (ev.data.finished) this.uploading = false;
+
+              if (allowNotification) {
+                const notify = new Notification(title, {
+                  body: message,
+                  icon: icon
+                });
+              } else {
+                alert(message);
+              }
             }
           };
           worker.onerror = ev => {
             const message = ev.message;
             console.error(message);
+            this.uploading = false;
+
             if (allowNotification) {
               const notify = new Notification(title, {
                 body: Translator.validator(message),
@@ -65,6 +94,14 @@
           }
         }
       });
+    },
+    methods: {
+      async reupload() {
+        await JinyaRequest.delete(`/api/video/${this.currentWorkerData.slug}/video/state`);
+        this.currentWorker.postMessage(this.currentWorkerData);
+        delete this.currentWorker;
+        delete this.currentWorkerData;
+      }
     }
   }
 </script>

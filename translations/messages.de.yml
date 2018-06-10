@@ -677,3 +677,8 @@ background:
   video:
     uploaded: Das Video %name% wurde erfolgreich hochgeladen
     upload_started: Das Video %name% wird hochgeladen
+    exists:
+      title: Upload existert
+      message: Es wurde schon einmal versucht %name% hochzuladen ohne es abzuschließen. Soll der Upload erneut starten?
+      reupload: Erneut hochladen
+      cancel: Nicht hochladen

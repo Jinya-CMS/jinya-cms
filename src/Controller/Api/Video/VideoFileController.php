@@ -87,6 +87,23 @@ class VideoFileController extends BaseApiController
     }
 
     /**
+     * @Route("/api/video/{slug}/video/state", methods={"DELETE"})
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param string $slug
+     * @param VideoUploadServiceInterface $videoUploadService
+     * @return Response
+     */
+    public function resetStateAction(string $slug, VideoUploadServiceInterface $videoUploadService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $videoUploadService) {
+            $videoUploadService->cleanupAfterUpload($slug);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
      * @Route("/api/video/{slug}/video/finish", methods={"PUT"})
      * @IsGranted("ROLE_WRITER")
      *
