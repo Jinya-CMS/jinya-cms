@@ -23,7 +23,7 @@
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaChoice from "@/framework/Markup/Form/Choice";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";
   import Timing from "@/framework/Utils/Timing";

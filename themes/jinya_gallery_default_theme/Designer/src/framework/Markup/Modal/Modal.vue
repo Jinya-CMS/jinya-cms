@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
 
   export default {
     name: "jinya-modal",

@@ -34,7 +34,7 @@
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
   import Routes from "@/router/Routes";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import JinyaPager from "@/framework/Markup/Listing/Pager";
   import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaMessage from "@/framework/Markup/Validation/Message";

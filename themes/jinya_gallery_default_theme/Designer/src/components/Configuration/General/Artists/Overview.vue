@@ -73,7 +73,7 @@
   import JinyaCard from "@/framework/Markup/Listing/Card/Card";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
   import Routes from "@/router/Routes";
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";

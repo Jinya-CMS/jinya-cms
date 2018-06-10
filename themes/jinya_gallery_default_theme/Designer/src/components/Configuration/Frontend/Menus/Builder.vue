@@ -58,7 +58,7 @@
   import DOMUtils from "@/framework/Utils/DOMUtils";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import Translator from "@/framework/i18n/Translator";
   import ObjectUtils from "@/framework/Utils/ObjectUtils";
   import JinyaMessage from "@/framework/Markup/Validation/Message";

@@ -39,7 +39,7 @@
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
   import Translator from "@/framework/i18n/Translator";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
   import Routes from "../../../../router/Routes";
