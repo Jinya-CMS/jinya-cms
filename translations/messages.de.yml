@@ -535,6 +535,7 @@ art:
       title: Video %name% hochladen
       file: Video
       upload: Hochladen
+      back: Zurück
       queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
     youtube:
       delete:

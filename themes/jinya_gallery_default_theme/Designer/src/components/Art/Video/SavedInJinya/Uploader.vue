@@ -1,13 +1,18 @@
 <template>
     <jinya-loader v-if="loading" :loading="loading"/>
-    <div v-else class="jinya-video__uploader">
-        <jinya-message :message="'art.videos.uploader.queued'|jmessage" state="success"
-                       v-if="uploadQueued"></jinya-message>
-        <h1>{{'art.videos.uploader.title'|jmessage(video)}}</h1>
-        <jinya-file-input :enable="true" accept="video/mp4" label="art.videos.uploader.file"
-                          @picked="videoFile = $event.item(0)"/>
-        <jinya-button :is-primary="true" label="art.videos.uploader.upload" @click="queueUpload"/>
-    </div>
+    <jinya-editor v-else class="jinya-video__uploader">
+        <jinya-form save-label="art.videos.uploader.upload" cancel-label="art.videos.uploader.back"
+                    @submit="queueUpload">
+            <jinya-message :message="'art.videos.uploader.queued'|jmessage" state="success" v-if="uploadQueued"/>
+            <jinya-editor-pane>
+                <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster" controls></video>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
+                <jinya-file-input :enable="true" accept="video/mp4" label="art.videos.uploader.file"
+                                  @picked="filePicked"/>
+            </jinya-editor-pane>
+        </jinya-form>
+    </jinya-editor>
 </template>
 
 <script>
@@ -20,10 +25,16 @@
   import Events from "@/framework/Events/Events";
   import Timing from "@/framework/Utils/Timing";
   import Routes from "@/router/Routes";
+  import JinyaEditor from "@/framework/Markup/Form/Editor";
+  import JinyaForm from "@/framework/Markup/Form/Form";
+  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import Translator from "@/framework/i18n/Translator";
+  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import FileUtils from "@/framework/IO/FileUtils";
 
   export default {
     name: "Uploader",
-    components: {JinyaMessage, JinyaLoader, JinyaButton, JinyaFileInput},
+    components: {JinyaEditorPane, JinyaForm, JinyaEditor, JinyaMessage, JinyaLoader, JinyaButton, JinyaFileInput},
     data() {
       return {
         video: {
@@ -39,6 +50,8 @@
       this.loading = true;
       const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
       this.video = video.item;
+      DOMUtils.changeTitle(Translator.message('art.videos.uploader.title', this.video));
+      EventBus.$emit(Events.header.change, Translator.message('art.videos.uploader.title', this.video));
       this.loading = false;
     },
     methods: {
@@ -51,6 +64,10 @@
         this.uploadQueued = true;
         await Timing.wait();
         this.$router.push(Routes.Art.Videos.SavedInJinya.Overview);
+      },
+      async filePicked(files) {
+        this.videoFile = files.item(0);
+        this.video.video = await FileUtils.getAsDataUrl(this.videoFile);
       }
     }
   }

@@ -4,7 +4,7 @@
         <jinya-modal title="background.video.exists.title" @close="showReupload = false" v-if="showReupload">
             <span>{{reuploadMessage}}</span>
             <jinya-modal-button slot="buttons-right" :closes-modal="true" @click="reupload"
-                                label="background.video.exists.reupload" :is-primary="true"></jinya-modal-button>
+                                label="background.video.exists.reupload" :is-success="true"></jinya-modal-button>
             <jinya-modal-button slot="buttons-left" :closes-modal="true" label="background.video.exists.cancel"
                                 :is-secondary="true"></jinya-modal-button>
         </jinya-modal>
