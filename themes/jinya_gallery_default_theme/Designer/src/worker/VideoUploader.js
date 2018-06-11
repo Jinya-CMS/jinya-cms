@@ -21,35 +21,42 @@ async function startUpload(slug, apiKey) {
   }
 }
 
+async function chunkUpload(slug, videoFile, apiKey, offset) {
+  async function uploadChunk(offset) {
+    const blob = videoFile.slice(offset, offset + chunkSize);
+
+    console.log(`Uploading chunk from ${offset} to ${offset + chunkSize} for slug ${slug}`);
+    await JinyaWorkerRequest.upload(`/api/video/${slug}/video/${offset}`, blob, apiKey);
+  }
+
+  const uploadPromises = [];
+  let currentOffset = offset || 0;
+
+  for (let i = 0; i < 5; i++) {
+    uploadPromises.push(uploadChunk(currentOffset + chunkSize));
+    currentOffset += chunkSize;
+  }
+  
+  await Promise.all(uploadPromises);
+
+  if (currentOffset < videoFile.size) {
+    await chunkUpload(slug, videoFile, apiKey, offset + currentOffset);
+  }
+}
+
 onmessage = async e => {
   if (e.data?.video && e.data?.slug && e.data?.apiKey) {
     console.log('Received message with file to upload');
 
-    /** @var File videoFile */
     const videoFile = e.data.video;
     const slug = e.data.slug;
     const apiKey = e.data.apiKey;
-
-    console.log(apiKey);
 
     if (await startUpload(slug, apiKey)) {
       postMessage({message: 'background.video.upload_started', started: true});
 
       console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
-
-      let offset = 0;
-      const uploadPromises = [];
-
-      while (videoFile.size > offset) {
-        const blob = videoFile.slice(offset, offset + chunkSize);
-
-        console.log(`Uploading chunk from ${offset} to ${offset + chunkSize} for slug ${slug}`);
-        uploadPromises.push(JinyaWorkerRequest.upload(`/api/video/${slug}/video/${offset}`, blob, apiKey));
-
-        offset = offset + chunkSize;
-      }
-
-      await Promise.all(uploadPromises);
+      await chunkUpload(slug, videoFile, apiKey);
       console.log(`Uploaded file for slug ${slug}`);
 
       console.log(`Finish upload for slug ${slug}`);
