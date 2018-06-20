@@ -6,7 +6,7 @@
             <jinya-button label="framework.markup.form.file_input.reset" class="jinya-button--reset" :is-primary="true"
                           :is-inverse="true" type="button" :is-disabled="!enable" @click="reset"/>
         </div>
-        <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
+        <!--suppress HtmlFormInputWithoutLabel -->
         <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
                style="display: none;" @change="updateValue($event)"/>
     </div>

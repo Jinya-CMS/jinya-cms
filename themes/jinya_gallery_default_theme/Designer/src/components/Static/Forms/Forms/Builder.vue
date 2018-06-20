@@ -60,7 +60,7 @@
   import JinyaFormBuilderTextAreaType from "@/components/Static/Forms/Forms/Builder/TextAreaType";
   import draggable from 'vuedraggable';
   import JinyaFormBuilderItem from "@/components/Static/Forms/Forms/Builder/Item";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import Timing from "@/framework/Utils/Timing";
   import Routes from "@/router/Routes";

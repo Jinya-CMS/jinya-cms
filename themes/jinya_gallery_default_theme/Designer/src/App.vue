@@ -13,6 +13,7 @@
         <jinya-bug-dialog @close="showBugDialog = false" :show="showBugDialog" v-if="showBugDialog"/>
         <jinya-feature-dialog @close="showFeatureDialog = false" :show="showFeatureDialog" v-if="showFeatureDialog"/>
         <jinya-like-dialog @close="showLikeDialog = false" :show="showLikeDialog" v-if="showLikeDialog"/>
+        <jinya-video-uploader/>
     </section>
 </template>
 
@@ -24,9 +25,11 @@
   import JinyaBugDialog from "@/components/Support/BugDialog";
   import JinyaFeatureDialog from "@/components/Support/FeatureDialog";
   import JinyaLikeDialog from "@/components/Support/LikeDialog";
+  import JinyaVideoUploader from "@/components/Background/VideoUploader";
 
   export default {
     components: {
+      JinyaVideoUploader,
       JinyaLikeDialog,
       JinyaFeatureDialog,
       JinyaBugDialog,

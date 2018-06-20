@@ -11,7 +11,7 @@
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
   import DOMUtils from "@/framework/Utils/DOMUtils";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";

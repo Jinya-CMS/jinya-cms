@@ -54,10 +54,15 @@ services:
     Jinya\Services\Media\MediaService:
       arguments:
         $kernelProjectDir: '%kernel.project_dir%'
+        $tmpDir: '%jinya_gallery.temp_dir%'
 
     Jinya\Services\Mailing\MailerService:
       arguments:
         $mailerSender: '%mailer_sender%'
+
+    Jinya\Services\Videos\VideoUploadService:
+      arguments:
+        $tmpDir: '%jinya_gallery.temp_dir%'
 
     # EventSubscriber
     Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:

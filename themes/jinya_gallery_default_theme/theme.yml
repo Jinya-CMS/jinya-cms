@@ -68,6 +68,8 @@ scripts:
       - designer/vendor.js
     designer.app.js!:
       - designer/app.js
+    designer.worker.videoUploader.js!:
+      - public/jinya_gallery_default_theme/scripts/designer.worker.videoUploader.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren

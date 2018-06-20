@@ -76,6 +76,10 @@ export default {
         Details: {
           name: 'ArtVideosSavedInJinyaDetails',
           route: '/designer/art/video/jinya/:slug'
+        },
+        Uploader: {
+          name: 'ArtVideosSavedInJinyaUploader',
+          route: '/designer/art/video/jinya/:slug/upload'
         }
       },
       SavedOnYoutube: {

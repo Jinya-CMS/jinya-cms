@@ -141,6 +141,24 @@ art:
         409:
           exists: Das Kunstwerk existiert bereits.
   videos:
+    overview:
+      no_videos:
+        Bisher wurden keine Videos hochgeladen.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Videos.
+      delete:
+        api:
+          state:
+            409:
+              foreign_key_failed: Das Video wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
+            500:
+              generic: Beim Löschen des Videos ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
+    api:
+      state:
+        404:
+          generic: Das Video konnte nicht gefunden werden.
+        409:
+          exists: Das Video existiert bereits.
     youtube:
       overview:
         no_videos:

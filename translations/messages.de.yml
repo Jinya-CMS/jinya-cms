@@ -185,6 +185,10 @@ routes:
         add: Kunstwerk hinzufügen
         edit: Kunstwerk bearbeiten
     videos:
+      saved_in_jinya:
+        overview: In Jinya gespeicherte Videos
+        add: Video hinzufügen
+        edit: Video bearbeiten
       saved_on_youtube:
         overview: Auf Youtube gespeicherte Videos
         add: Video hinzufügen
@@ -501,6 +505,38 @@ art:
       back: Zurück
       search: Suchen
   videos:
+    delete:
+      title: Video aus Jinya entfernen?
+      content: Soll das Video "%name%" wirklich aus Jinya entfernt werden?
+      yes: Video entfernen
+      no: Video nicht entfernen
+    add:
+      saving: Das Video "%name%" wird gespeichert.
+      success: Das Video "%name%" wurde erfolgreich gespeichert.
+      upload_poster: Das Vorschaubild zum Video "%name%" wird hochgeladen.
+    edit:
+      title: Video %name% bearbeiten
+      saving: Das Video "%name%" wird gespeichert.
+      upload_poster: Das Vorschaubild zum Video "%name%" wird hochgeladen.
+      success: Das Video "%name%" wurde erfolgreich gespeichert.
+      loading: Das Video wird geladen
+    details:
+      edit: Bearbeiten
+      loading: Das Video wird geladen
+    video_form:
+      name: Name
+      slug: Slug
+      poster: Vorschaubild
+      description: Beschreibung (optional)
+      save: Video speichern
+      back: Zurück
+      search: Suchen
+    uploader:
+      title: Video %name% hochladen
+      file: Video
+      upload: Hochladen
+      back: Zurück
+      queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
     youtube:
       delete:
         title: Youtube Video aus Jinya entfernen?
@@ -638,3 +674,12 @@ maintenance:
       start: Ich habe eine Sicherung und möchte das Update starten
       started: Das Update wird gestartet
       back: Abbrechen
+background:
+  video:
+    uploaded: Das Video %name% wurde erfolgreich hochgeladen
+    upload_started: Das Video %name% wird hochgeladen
+    exists:
+      title: Upload existert
+      message: Es wurde schon einmal versucht %name% hochzuladen ohne es abzuschließen. Soll der Upload erneut starten?
+      reupload: Erneut hochladen
+      cancel: Nicht hochladen
