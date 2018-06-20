@@ -11,7 +11,7 @@ namespace Jinya\Services\Artworks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\ArtworkPosition;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 
@@ -67,9 +67,9 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param int $oldPosition
      * @param int $newPosition
      * @param ArtworkPosition $artworkPosition
-     * @param Gallery $gallery
+     * @param ArtGallery $gallery
      */
-    private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
+    private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, ArtGallery $gallery): void
     {
         $positions = $gallery->getArtworks()->toArray();
         $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);

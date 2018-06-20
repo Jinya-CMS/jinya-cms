@@ -9,14 +9,14 @@
 namespace Jinya\Formatter\Gallery;
 
 use Jinya\Entity\ArtworkPosition;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GalleryFormatter implements GalleryFormatterInterface
 {
-    /** @var Gallery */
+    /** @var ArtGallery */
     private $gallery;
 
     /** @var array */
@@ -69,10 +69,10 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Gallery $gallery
+     * @param ArtGallery $gallery
      * @return GalleryFormatterInterface
      */
-    public function init(Gallery $gallery): GalleryFormatterInterface
+    public function init(ArtGallery $gallery): GalleryFormatterInterface
     {
         $this->gallery = $gallery;
         $this->formattedData = [];

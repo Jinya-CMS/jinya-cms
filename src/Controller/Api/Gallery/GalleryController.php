@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Gallery\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
@@ -94,7 +94,7 @@ class GalleryController extends BaseApiController
                 throw new MissingFieldsException(['name' => 'api.gallery.field.name.missing']);
             }
 
-            $gallery = new Gallery();
+            $gallery = new ArtGallery();
             $gallery->setName($name);
             $gallery->setSlug($slug);
             $gallery->setDescription($description);

@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Formatter\FormatterInterface;
 
 interface GalleryFormatterInterface extends FormatterInterface
@@ -16,10 +16,10 @@ interface GalleryFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Gallery $gallery
+     * @param ArtGallery $gallery
      * @return GalleryFormatterInterface
      */
-    public function init(Gallery $gallery): self;
+    public function init(ArtGallery $gallery): self;
 
     /**
      * Formats the slug

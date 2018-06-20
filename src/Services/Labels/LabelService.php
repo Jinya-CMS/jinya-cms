@@ -9,7 +9,7 @@
 namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Entity\Label;
 use function array_map;
 
@@ -55,7 +55,7 @@ class LabelService implements LabelServiceInterface
      */
     public function getAllLabelsWithGalleries(): array
     {
-        $galleryRepo = $this->entityManager->getRepository(Gallery::class);
+        $galleryRepo = $this->entityManager->getRepository(ArtGallery::class);
 
         return $galleryRepo
             ->createQueryBuilder('g')

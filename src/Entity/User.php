@@ -127,7 +127,7 @@ class User implements JsonSerializable, UserInterface
     private $createdArtworks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="ArtGallery", mappedBy="creator")
      *
      * @var Collection
      */

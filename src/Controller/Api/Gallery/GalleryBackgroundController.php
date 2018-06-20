@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\GalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
@@ -32,7 +32,7 @@ class GalleryBackgroundController extends BaseApiController
      */
     public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data Gallery|array */
+        /** @var $data ArtGallery|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
             $gallery = $galleryService->get($slug);
             if (empty($gallery->getBackground())) {
