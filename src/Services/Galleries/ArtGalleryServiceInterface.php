@@ -12,7 +12,7 @@ use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Entity\Label;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 
-interface GalleryServiceInterface extends LabelEntityServiceInterface
+interface ArtGalleryServiceInterface extends LabelEntityServiceInterface
 {
     /**
      * Gets the specified gallery by slug

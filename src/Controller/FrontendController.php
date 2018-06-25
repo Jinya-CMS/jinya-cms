@@ -10,7 +10,7 @@ use Jinya\Entity\Galleries\ArtworkPosition;
 use Jinya\Framework\BaseController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
@@ -73,13 +73,13 @@ class FrontendController extends BaseController
      * @Route("/gallery/{slug}", name="frontend_gallery_details")
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
+    public function galleryDetailAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
     {
         $gallery = $galleryService->get($slug);
 

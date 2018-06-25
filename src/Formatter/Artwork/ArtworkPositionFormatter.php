@@ -10,7 +10,7 @@ namespace Jinya\Formatter\Artwork;
 
 use Jinya\Entity\Galleries\ArtworkPosition;
 use Jinya\Formatter\FormatterInterface;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 
 class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
 {
@@ -20,16 +20,16 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     /** @var ArtworkPosition */
     private $artworkPosition;
 
-    /** @var GalleryFormatterInterface */
+    /** @var ArtGalleryFormatterInterface */
     private $galleryFormatterInterface;
 
     /** @var ArtworkFormatterInterface */
     private $artworkFormatterInterface;
 
     /**
-     * @param GalleryFormatterInterface $galleryFormatterInterface
+     * @param ArtGalleryFormatterInterface $galleryFormatterInterface
      */
-    public function setGalleryFormatterInterface(GalleryFormatterInterface $galleryFormatterInterface): void
+    public function setGalleryFormatterInterface(ArtGalleryFormatterInterface $galleryFormatterInterface): void
     {
         $this->galleryFormatterInterface = $galleryFormatterInterface;
     }

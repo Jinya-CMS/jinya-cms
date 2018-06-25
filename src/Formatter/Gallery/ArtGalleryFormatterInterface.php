@@ -11,90 +11,90 @@ namespace Jinya\Formatter\Gallery;
 use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Formatter\FormatterInterface;
 
-interface GalleryFormatterInterface extends FormatterInterface
+interface ArtGalleryFormatterInterface extends FormatterInterface
 {
     /**
      * Initializes the formatting
      *
      * @param ArtGallery $gallery
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function init(ArtGallery $gallery): self;
 
     /**
      * Formats the slug
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function slug(): self;
 
     /**
      * Formats the name
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function name(): self;
 
     /**
      * Formats the description
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function description(): self;
 
     /**
      * Formats the created info
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function created(): self;
 
     /**
      * Formats the updated info
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function updated(): self;
 
     /**
      * Formats the history
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function history(): self;
 
     /**
      * Formats the orientation
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function orientation(): self;
 
     /**
      * Formats the artworks
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function artworks(): self;
 
     /**
      * Formats the background
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function background(): self;
 
     /**
      * Formats the labels
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function labels(): self;
 
     /**
      * Formats the id
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
     public function id(): self;
 }

@@ -10,7 +10,7 @@ namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -26,11 +26,11 @@ class GalleryBackgroundController extends BaseApiController
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function getBackgroundImageAction(string $slug, Request $request, ArtGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         /** @var $data ArtGallery|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
@@ -55,12 +55,12 @@ class GalleryBackgroundController extends BaseApiController
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function putBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
+    public function putBackgroundImageAction(string $slug, Request $request, ArtGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $urlGenerator, $slug) {
             $gallery = $galleryService->get($slug);
@@ -86,11 +86,11 @@ class GalleryBackgroundController extends BaseApiController
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function deleteBackgroundImageAction(string $slug, Request $request, ArtGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $slug) {
             $gallery = $galleryService->get($slug);

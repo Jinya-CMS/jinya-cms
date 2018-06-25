@@ -10,7 +10,7 @@ namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Formatter\Label\LabelFormatterInterface;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +23,11 @@ class GalleryLabelController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function getAction(string $slug, GalleryServiceInterface $galleryService, LabelFormatterInterface $labelFormatter): Response
+    public function getAction(string $slug, ArtGalleryServiceInterface $galleryService, LabelFormatterInterface $labelFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $labelFormatter) {
             $gallery = $galleryService->get($slug);
@@ -52,11 +52,11 @@ class GalleryLabelController extends BaseApiController
      *
      * @param string $slug
      * @param string $name
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function putAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
+    public function putAction(string $slug, string $name, ArtGalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $name, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
@@ -72,11 +72,11 @@ class GalleryLabelController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function putBatchAction(string $slug, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
+    public function putBatchAction(string $slug, ArtGalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
@@ -102,11 +102,11 @@ class GalleryLabelController extends BaseApiController
      *
      * @param string $slug
      * @param string $name
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function deleteAction(string $slug, string $name, GalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
+    public function deleteAction(string $slug, string $name, ArtGalleryServiceInterface $galleryService, LabelServiceInterface $labelService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $name, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
@@ -123,10 +123,10 @@ class GalleryLabelController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @return Response
      */
-    public function deleteBatchAction(string $slug, GalleryServiceInterface $galleryService): Response
+    public function deleteBatchAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService) {
             $gallery = $galleryService->get($slug);

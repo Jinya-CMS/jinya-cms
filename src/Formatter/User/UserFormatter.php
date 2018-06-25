@@ -15,7 +15,7 @@ use Jinya\Entity\Page;
 use Jinya\Entity\User;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Role\Role;
@@ -33,7 +33,7 @@ class UserFormatter implements UserFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var GalleryFormatterInterface */
+    /** @var ArtGalleryFormatterInterface */
     private $galleryFormatter;
 
     /** @var ArtworkFormatterInterface */
@@ -60,9 +60,9 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      */
-    public function setGalleryFormatter(GalleryFormatterInterface $galleryFormatter): void
+    public function setGalleryFormatter(ArtGalleryFormatterInterface $galleryFormatter): void
     {
         $this->galleryFormatter = $galleryFormatter;
     }

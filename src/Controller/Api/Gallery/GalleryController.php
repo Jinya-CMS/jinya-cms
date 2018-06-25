@@ -10,9 +10,9 @@ namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +24,11 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
      *
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAllAction(ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         return $this->getAllArt($galleryService, function ($gallery) use ($galleryFormatter) {
             return $galleryFormatter
@@ -46,11 +46,11 @@ class GalleryController extends BaseApiController
      * @Route("/api/gallery/{slug}", methods={"GET"}, name="api_gallery_get")
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAction(string $slug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         /* @noinspection PhpParamsInspection */
         return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
@@ -78,11 +78,11 @@ class GalleryController extends BaseApiController
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function postAction(Request $request, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
@@ -117,11 +117,11 @@ class GalleryController extends BaseApiController
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function putAction(string $slug, Request $request, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
@@ -156,11 +156,11 @@ class GalleryController extends BaseApiController
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(string $slug, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function deleteAction(string $slug, ArtGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);

@@ -14,7 +14,7 @@ use Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class GalleryFormatter implements GalleryFormatterInterface
+class ArtGalleryFormatter implements ArtGalleryFormatterInterface
 {
     /** @var ArtGallery */
     private $gallery;
@@ -70,9 +70,9 @@ class GalleryFormatter implements GalleryFormatterInterface
      * Initializes the formatting
      *
      * @param ArtGallery $gallery
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function init(ArtGallery $gallery): GalleryFormatterInterface
+    public function init(ArtGallery $gallery): ArtGalleryFormatterInterface
     {
         $this->gallery = $gallery;
         $this->formattedData = [];
@@ -83,9 +83,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the slug
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function slug(): GalleryFormatterInterface
+    public function slug(): ArtGalleryFormatterInterface
     {
         $this->formattedData['slug'] = $this->gallery->getSlug();
 
@@ -95,9 +95,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the name
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function name(): GalleryFormatterInterface
+    public function name(): ArtGalleryFormatterInterface
     {
         $this->formattedData['name'] = $this->gallery->getName();
 
@@ -107,9 +107,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the description
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function description(): GalleryFormatterInterface
+    public function description(): ArtGalleryFormatterInterface
     {
         $this->formattedData['description'] = $this->gallery->getDescription();
 
@@ -119,9 +119,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the created info
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function created(): GalleryFormatterInterface
+    public function created(): ArtGalleryFormatterInterface
     {
         $this->formattedData['created']['by'] = $this->userFormatter
             ->init($this->gallery->getCreator())
@@ -135,9 +135,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the updated info
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function updated(): GalleryFormatterInterface
+    public function updated(): ArtGalleryFormatterInterface
     {
         $this->formattedData['updated']['by'] = $this->userFormatter
             ->init($this->gallery->getUpdatedBy())
@@ -151,9 +151,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the history
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function history(): GalleryFormatterInterface
+    public function history(): ArtGalleryFormatterInterface
     {
         $this->formattedData['history'] = $this->gallery->getHistory();
 
@@ -163,9 +163,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the orientation
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function orientation(): GalleryFormatterInterface
+    public function orientation(): ArtGalleryFormatterInterface
     {
         $this->formattedData['orientation'] = $this->gallery->getOrientation();
 
@@ -175,11 +175,11 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the artworks
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function artworks(): GalleryFormatterInterface
+    public function artworks(): ArtGalleryFormatterInterface
     {
         $this->formattedData['artworks'] = [];
 
@@ -206,9 +206,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the background
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function background(): GalleryFormatterInterface
+    public function background(): ArtGalleryFormatterInterface
     {
         $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -218,9 +218,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the labels
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function labels(): GalleryFormatterInterface
+    public function labels(): ArtGalleryFormatterInterface
     {
         $this->formattedData['labels'] = [];
 
@@ -234,9 +234,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the id
      *
-     * @return GalleryFormatterInterface
+     * @return ArtGalleryFormatterInterface
      */
-    public function id(): GalleryFormatterInterface
+    public function id(): ArtGalleryFormatterInterface
     {
         $this->formattedData['id'] = $this->gallery->getId();
 

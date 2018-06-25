@@ -15,7 +15,7 @@ use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
-class GalleryService extends BaseSlugEntityService implements GalleryServiceInterface
+class ArtArtGalleryService extends BaseSlugEntityService implements ArtGalleryServiceInterface
 {
     use LabelEntityServiceTrait;
 

@@ -13,13 +13,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Entity\Galleries\ArtworkPosition;
 use Jinya\Services\Base\ArrangementServiceTrait;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
     use ArrangementServiceTrait;
 
-    /** @var GalleryServiceInterface */
+    /** @var ArtGalleryServiceInterface */
     private $galleryService;
 
     /** @var ArtworkServiceInterface */
@@ -30,11 +30,11 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /**
      * ArtworkPositionService constructor.
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(GalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
+    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
     {
         $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;

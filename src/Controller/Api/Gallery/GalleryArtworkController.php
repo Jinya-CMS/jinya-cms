@@ -9,10 +9,10 @@
 namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkPositionServiceInterface;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,11 +23,11 @@ class GalleryArtworkController extends BaseApiController
      * @Route("/api/gallery/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
      *
      * @param string $gallerySlug
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $gallerySlug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAction(string $gallerySlug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
