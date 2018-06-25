@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity\Galleries;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\BaseEntity;
 use Jinya\Entity\Video\Video;
@@ -39,6 +38,7 @@ class VideoPosition
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Video\YoutubeVideo", inversedBy="positions", cascade={"persist"})
      */
     private $youtubeVideo;
+
     /**
      * @var int
      * @ORM\Column(type="integer")
