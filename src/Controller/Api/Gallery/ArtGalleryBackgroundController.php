@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class GalleryBackgroundController extends BaseApiController
+class ArtGalleryBackgroundController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{slug}/background", methods={"GET"}, name="api_gallery_background_get")

@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GalleryController extends BaseApiController
+class ArtGalleryController extends BaseApiController
 {
     /**
      * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")

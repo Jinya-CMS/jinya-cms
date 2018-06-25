@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GalleryLabelController extends BaseApiController
+class ArtGalleryLabelController extends BaseApiController
 {
     /**
      * @Route("/api/gallery/{slug}/label", methods={"GET"}, name="api_gallery_label_get")
