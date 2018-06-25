@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Galleries;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Galleries\VideoGallery;
@@ -18,6 +17,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @var BaseService */
     private $baseService;
 
@@ -30,7 +30,6 @@ class VideoGalleryService implements VideoGalleryServiceInterface
         $this->entityManager = $entityManager;
         $this->baseService = new BaseService($entityManager, VideoGallery::class);
     }
-
 
     /**
      * Gets the specified gallery by slug
