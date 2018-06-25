@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -13,7 +15,7 @@ final class Version20180620170105 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE art_gallery RENAME INDEX uniq_472b783a5e237e06 TO UNIQ_F36F79465E237E06');
         $this->addSql('ALTER TABLE art_gallery RENAME INDEX uniq_472b783a989d9b62 TO UNIQ_F36F7946989D9B62');
@@ -32,7 +34,7 @@ final class Version20180620170105 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE art_gallery RENAME INDEX uniq_f36f79465e237e06 TO UNIQ_472B783A5E237E06');
         $this->addSql('ALTER TABLE art_gallery RENAME INDEX uniq_f36f7946989d9b62 TO UNIQ_472B783A989D9B62');
