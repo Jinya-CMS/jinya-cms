@@ -13,5 +13,6 @@ use Jinya\Entity\ArtEntityInterface;
 interface GalleryInterface extends ArtEntityInterface
 {
     public const HORIZONTAL = 'horizontal';
+
     public const VERTICAL = 'vertical';
 }
