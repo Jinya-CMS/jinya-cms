@@ -252,7 +252,7 @@ class UserFormatter implements UserFormatterInterface
                 ->description()
                 ->background()
                 ->format();
-        }, $this->user->getCreatedGalleries()->toArray());
+        }, $this->user->getCreatedArtGalleries()->toArray());
 
         return $this;
     }

@@ -127,11 +127,11 @@ class User implements JsonSerializable, UserInterface
     private $createdArtworks;
 
     /**
-     * @ORM\OneToMany(targetEntity="ArtGallery", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\ArtGallery", mappedBy="creator")
      *
      * @var Collection
      */
-    private $createdGalleries;
+    private $createdArtGalleries;
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page", mappedBy="creator")
@@ -157,7 +157,7 @@ class User implements JsonSerializable, UserInterface
         $this->salt = uniqid();
         $this->createdArtworks = new ArrayCollection();
         $this->createdForms = new ArrayCollection();
-        $this->createdGalleries = new ArrayCollection();
+        $this->createdArtGalleries = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
     }
 
@@ -180,17 +180,17 @@ class User implements JsonSerializable, UserInterface
     /**
      * @return Collection
      */
-    public function getCreatedGalleries(): Collection
+    public function getCreatedArtGalleries(): Collection
     {
-        return $this->createdGalleries;
+        return $this->createdArtGalleries;
     }
 
     /**
-     * @param Collection $createdGalleries
+     * @param Collection $createdArtGalleries
      */
-    public function setCreatedGalleries(Collection $createdGalleries): void
+    public function setCreatedArtGalleries(Collection $createdArtGalleries): void
     {
-        $this->createdGalleries = $createdGalleries;
+        $this->createdArtGalleries = $createdArtGalleries;
     }
 
     /**
