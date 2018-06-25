@@ -33,7 +33,7 @@
       this.state = 'loading';
       this.message = Translator.message('art.galleries.details.loading');
       try {
-        const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
+        const gallery = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}`);
         this.gallery = gallery.item;
         this.state = '';
         DOMUtils.changeTitle(this.gallery.name);

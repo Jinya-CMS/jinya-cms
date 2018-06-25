@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtGalleryArtworkController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
      *
      * @param string $gallerySlug
      * @param ArtGalleryServiceInterface $galleryService
@@ -39,7 +39,7 @@ class ArtGalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_artwork_position_post")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_artwork_position_post")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $gallerySlug
@@ -63,7 +63,7 @@ class ArtGalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork/{id}", methods={"DELETE"}, name="api_gallery_artwork_position_delete")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork/{id}", methods={"DELETE"}, name="api_gallery_artwork_position_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int id$
@@ -80,7 +80,7 @@ class ArtGalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_artwork_position_put")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_artwork_position_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int $id

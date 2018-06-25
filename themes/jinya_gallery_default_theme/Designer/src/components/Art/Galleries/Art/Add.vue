@@ -29,7 +29,7 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.add.saving', {name: gallery.name});
 
-          await JinyaRequest.post('/api/gallery', {
+          await JinyaRequest.post('/api/gallery/art', {
             name: gallery.name,
             slug: gallery.slug,
             description: gallery.description,

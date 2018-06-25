@@ -54,9 +54,9 @@
     async mounted() {
       this.loading = true;
       try {
-        const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
+        const gallery = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}`);
         this.gallery = gallery.item;
-        this.artworks = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}/artwork`);
+        this.artworks = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}/artwork`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
       }
@@ -81,7 +81,7 @@
           this.artworks.splice(newPosition, 0, artworkPosition);
           this.artworks.splice(oldPosition + 1, 1);
         }
-        await JinyaRequest.put(`/api/gallery/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
+        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
           position: newPosition
         });
         this.state = '';
@@ -90,7 +90,7 @@
       async saveAdd(artwork) {
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.add.pending', artwork);
-        const id = await JinyaRequest.post(`/api/gallery/${this.gallery.slug}/artwork`, {
+        const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
           position: this.currentPosition,
           artwork: artwork.slug
         });
@@ -107,7 +107,7 @@
       async saveEdit(artwork) {
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
-        await JinyaRequest.put(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
+        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
           artwork: artwork.slug
         });
 
@@ -122,7 +122,7 @@
       },
       async deleteArtwork() {
         this.state = 'loading';
-        await JinyaRequest.delete(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
+        await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
 
         this.artworks.splice(this.currentPosition, 1);
 
