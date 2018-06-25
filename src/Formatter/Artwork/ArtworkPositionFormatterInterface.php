@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Artwork;
 
-use Jinya\Entity\ArtworkPosition;
+use Jinya\Entity\Galleries\ArtworkPosition;
 use Jinya\Formatter\FormatterInterface;
 
 interface ArtworkPositionFormatterInterface extends FormatterInterface

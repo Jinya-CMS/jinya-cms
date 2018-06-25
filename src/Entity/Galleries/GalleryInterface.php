@@ -8,8 +8,9 @@
 
 namespace Jinya\Entity\Galleries;
 
+use Jinya\Entity\ArtEntityInterface;
 
-interface GalleryInterface
+interface GalleryInterface extends ArtEntityInterface
 {
     public const HORIZONTAL = 'horizontal';
     public const VERTICAL = 'vertical';

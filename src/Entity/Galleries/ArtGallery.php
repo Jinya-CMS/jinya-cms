@@ -11,7 +11,6 @@ namespace Jinya\Entity\Galleries;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\ArtEntityInterface;
 use Jinya\Entity\BaseArtEntity;
 use Jinya\Entity\HistoryEnabledEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -23,13 +22,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("name", message="backend.galleries.name.not_unique")
  * @UniqueEntity("slug", message="backend.galleries.slug.not_unique")
  */
-class ArtGallery extends HistoryEnabledEntity implements ArtEntityInterface, GalleryInterface
+class ArtGallery extends HistoryEnabledEntity implements GalleryInterface
 {
     use BaseArtEntity;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $artworks;
 
