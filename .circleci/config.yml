@@ -20,6 +20,13 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
             sudo apt update
             sudo apt install -y nodejs build-essential yarn
+      -
+        run:
+          command: |
+            sudo mkdir -p /opt/sonar
+            cd /opt/sonar
+            sudo wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
+            sudo unzip sonar-scanner-cli-3.2.0.1227-linux.zip
       - 
         restore_cache: 
           keys: 
@@ -44,6 +51,10 @@ jobs:
             cd themes/jinya_gallery_default_theme/Frontend/
             yarn
             node_modules/.bin/gulp
+      -
+        run:
+          command: |
+            /opt/sonar/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.projectKey=JinyaCMS -Dsonar.organization=jinya -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       - 
         run: 
           command: |
