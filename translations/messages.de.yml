@@ -199,6 +199,11 @@ routes:
         add: Galerie hinzufügen
         edit: Galerie bearbeiten
         designer: Galeriedesigner
+      video:
+        overview: Videogalerien
+        add: Galerie hinzufügen
+        edit: Galerie bearbeiten
+        designer: Galeriedesigner
   static:
     pages:
       saved_in_jinya:

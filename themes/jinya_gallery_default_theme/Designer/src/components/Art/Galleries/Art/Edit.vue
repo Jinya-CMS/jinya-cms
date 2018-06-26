@@ -1,5 +1,6 @@
 <template>
-    <jinya-gallery-form :gallery="gallery" @save="save" :enable="enable" :message="message" :state="state"/>
+    <jinya-gallery-form :back-target="backRoute" :gallery="gallery" @save="save" :enable="enable" :message="message"
+                        :state="state"/>
 </template>
 
 <script>
@@ -28,6 +29,11 @@
           description: ''
         }
       };
+    },
+    computed: {
+      backRoute() {
+        return Routes.Art.Galleries.Art.Overview;
+      }
     },
     name: "edit",
     async mounted() {

@@ -1,10 +1,14 @@
 import Routes from "../Routes";
-import Missing from '@/components/Home/Missing'
 import GalleriesArtOverview from '@/components/Art/Galleries/Art/Overview'
 import GalleriesArtAdd from '@/components/Art/Galleries/Art/Add'
 import GalleriesArtEdit from '@/components/Art/Galleries/Art/Edit'
 import GalleriesArtDetails from '@/components/Art/Galleries/Art/Details'
 import GalleriesArtDesigner from '@/components/Art/Galleries/Art/Designer'
+import GalleriesVideoOverview from '@/components/Art/Galleries/Video/Overview'
+import GalleriesVideoAdd from '@/components/Art/Galleries/Video/Add'
+import GalleriesVideoEdit from '@/components/Art/Galleries/Video/Edit'
+import GalleriesVideoDetails from '@/components/Art/Galleries/Video/Details'
+import GalleriesVideoDesigner from '@/components/Art/Galleries/Video/Designer'
 
 export default [
   {
@@ -48,21 +52,39 @@ export default [
   {
     path: Routes.Art.Galleries.Video.Overview.route,
     name: Routes.Art.Galleries.Video.Overview.name,
-    component: Missing
+    component: GalleriesVideoOverview,
+    meta: {
+      title: 'routes.art.galleries.video.overview',
+      searchEnabled: true
+    }
   },
   {
     path: Routes.Art.Galleries.Video.Add.route,
     name: Routes.Art.Galleries.Video.Add.name,
-    component: Missing
+    component: GalleriesVideoAdd,
+    meta: {
+      title: 'routes.art.galleries.video.add'
+    }
   },
   {
     path: Routes.Art.Galleries.Video.Details.route,
     name: Routes.Art.Galleries.Video.Details.name,
-    component: Missing
+    component: GalleriesVideoDetails
+  },
+  {
+    path: Routes.Art.Galleries.Video.Designer.route,
+    name: Routes.Art.Galleries.Video.Designer.name,
+    component: GalleriesVideoDesigner,
+    meta: {
+      title: 'routes.art.galleries.video.designer'
+    }
   },
   {
     path: Routes.Art.Galleries.Video.Edit.route,
     name: Routes.Art.Galleries.Video.Edit.name,
-    component: Missing
+    component: GalleriesVideoEdit,
+    meta: {
+      title: 'routes.art.galleries.video.edit'
+    }
   }
 ];
