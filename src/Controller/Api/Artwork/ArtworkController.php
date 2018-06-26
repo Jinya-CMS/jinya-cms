@@ -30,7 +30,7 @@ class ArtworkController extends BaseApiController
      */
     public function getAllAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getAllArt($artworkService, function ($artwork) use ($artworkFormatter) {
+        return $this->getAllLabeled($artworkService, function ($artwork) use ($artworkFormatter) {
             return $artworkFormatter
                 ->init($artwork)
                 ->name()
