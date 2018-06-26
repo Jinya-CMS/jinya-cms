@@ -70,21 +70,30 @@ services:
         - { name: doctrine.event_subscriber }
 
     # Formatter
-    Jinya\Formatter\Gallery\GalleryFormatterInterface:
-      class: Jinya\Formatter\Gallery\GalleryFormatter
+    Jinya\Formatter\Gallery\ArtGalleryFormatterInterface:
+      class: Jinya\Formatter\Gallery\ArtGalleryFormatter
       calls:
         - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
         - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
     Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface:
       class: Jinya\Formatter\Artwork\ArtworkPositionFormatter
       calls:
-        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\GalleryFormatterInterface']]
+        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
         - [setArtworkFormatterInterface, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
     Jinya\Formatter\Artwork\ArtworkFormatterInterface:
       class: Jinya\Formatter\Artwork\ArtworkFormatter
       calls:
         - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
         - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+    Jinya\Formatter\Video\VideoPositionFormatterInterface:
+      class: Jinya\Formatter\Video\VideoPositionFormatter
+      calls:
+        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\VideoGalleryFormatterInterface']]
+        - [setVideoFormatterInterface, ['@Jinya\Formatter\Video\VideoFormatterInterface']]
+    Jinya\Formatter\Video\VideoFormatterInterface:
+      class: Jinya\Formatter\Video\VideoFormatter
+      calls:
+        - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
     Jinya\Formatter\Form\FormFormatterInterface:
       class: Jinya\Formatter\Form\FormFormatter
       calls:
@@ -114,7 +123,7 @@ services:
         $roleHierarchy: '@security.role_hierarchy'
       calls:
         - [setPageFormatter, ['@Jinya\Formatter\Page\PageFormatterInterface']]
-        - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\GalleryFormatterInterface']]
+        - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
         - [setArtworkFormatter, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
         - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
 
