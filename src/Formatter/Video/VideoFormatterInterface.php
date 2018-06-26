@@ -83,5 +83,4 @@ interface VideoFormatterInterface extends FormatterInterface
      * @return VideoFormatterInterface
      */
     public function galleries(): self;
-
 }
