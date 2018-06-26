@@ -5,8 +5,8 @@
 <script>
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
-  import Routes from "../../../../router/Routes";
-  import JinyaGalleryForm from "../GalleryForm";
+  import Routes from "@/router/Routes";
+  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
   import Timing from "@/framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols

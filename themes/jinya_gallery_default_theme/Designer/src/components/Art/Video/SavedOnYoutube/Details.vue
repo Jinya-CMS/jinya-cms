@@ -12,7 +12,7 @@
 
 <script>
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";
   import DOMUtils from "@/framework/Utils/DOMUtils";
   import JinyaMessage from "@/framework/Markup/Validation/Message";

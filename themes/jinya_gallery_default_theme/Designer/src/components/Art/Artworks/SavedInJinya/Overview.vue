@@ -41,7 +41,7 @@
   import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
 
   export default {

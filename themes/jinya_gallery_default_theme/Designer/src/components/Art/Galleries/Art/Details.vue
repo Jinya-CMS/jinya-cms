@@ -4,8 +4,8 @@
 </template>
 
 <script>
-  import JinyaGalleryForm from "../GalleryForm";
-  import Routes from "../../../../router/Routes";
+  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
+  import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import DOMUtils from "@/framework/Utils/DOMUtils";

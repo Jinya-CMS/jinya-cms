@@ -6,7 +6,7 @@
   import JinyaVideoForm from "./VideoForm";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import Timing from "@/framework/Utils/Timing";
   import DOMUtils from "@/framework/Utils/DOMUtils";
   import Events from "@/framework/Events/Events";
