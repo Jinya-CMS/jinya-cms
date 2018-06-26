@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtGalleryLabelController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/art/{slug}/label", methods={"GET"}, name="api_gallery_label_get")
+     * @Route("/api/gallery/art/{slug}/label", methods={"GET"}, name="api_gallery_art_label_get")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -47,7 +47,7 @@ class ArtGalleryLabelController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/label/{name}", methods={"PUT"}, name="api_gallery_label_put")
+     * @Route("/api/gallery/art/{slug}/label/{name}", methods={"PUT"}, name="api_gallery_art_label_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -68,7 +68,7 @@ class ArtGalleryLabelController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/label", methods={"PUT"}, name="api_gallery_label_put_batch")
+     * @Route("/api/gallery/art/{slug}/label", methods={"PUT"}, name="api_gallery_art_label_put_batch")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -97,7 +97,7 @@ class ArtGalleryLabelController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/label/{name}", methods={"DELETE"}, name="api_gallery_label_delete")
+     * @Route("/api/gallery/art/{slug}/label/{name}", methods={"DELETE"}, name="api_gallery_art_label_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -119,7 +119,7 @@ class ArtGalleryLabelController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/label", methods={"DELETE"}, name="api_gallery_label_delete_batch")
+     * @Route("/api/gallery/art/{slug}/label", methods={"DELETE"}, name="api_gallery_art_label_delete_batch")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug

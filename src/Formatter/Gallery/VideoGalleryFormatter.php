@@ -10,8 +10,8 @@ namespace Jinya\Formatter\Gallery;
 
 use Jinya\Entity\Galleries\VideoGallery;
 use Jinya\Entity\Galleries\VideoPosition;
-use Jinya\Formatter\Video\VideoPositionFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Jinya\Formatter\Video\VideoPositionFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class VideoGalleryFormatter implements VideoGalleryFormatterInterface
@@ -210,7 +210,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
      */
     public function background(): VideoGalleryFormatterInterface
     {
-        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_art_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this;
     }

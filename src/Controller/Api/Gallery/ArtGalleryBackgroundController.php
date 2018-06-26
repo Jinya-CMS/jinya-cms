@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class ArtGalleryBackgroundController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/art/{slug}/background", methods={"GET"}, name="api_gallery_background_get")
+     * @Route("/api/gallery/art/{slug}/background", methods={"GET"}, name="api_gallery_art_background_get")
      *
      * @param string $slug
      * @param Request $request
@@ -50,7 +50,7 @@ class ArtGalleryBackgroundController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/background", methods={"PUT"}, name="api_gallery_background_put")
+     * @Route("/api/gallery/art/{slug}/background", methods={"PUT"}, name="api_gallery_art_background_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -74,14 +74,14 @@ class ArtGalleryBackgroundController extends BaseApiController
 
             $galleryService->saveOrUpdate($gallery);
 
-            return $urlGenerator->generate('api_gallery_background_get', ['slug' => $gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $urlGenerator->generate('api_gallery_art_background_get', ['slug' => $gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}/background", methods={"DELETE"}, name="api_gallery_background_delete")
+     * @Route("/api/gallery/art/{slug}/background", methods={"DELETE"}, name="api_gallery_art_background_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug

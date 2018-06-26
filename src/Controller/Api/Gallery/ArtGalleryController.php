@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtGalleryController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/art", methods={"GET"}, name="api_gallery_get_all")
+     * @Route("/api/gallery/art", methods={"GET"}, name="api_gallery_art_get_all")
      *
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtGalleryFormatterInterface $galleryFormatter
@@ -43,7 +43,7 @@ class ArtGalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}", methods={"GET"}, name="api_gallery_get")
+     * @Route("/api/gallery/art/{slug}", methods={"GET"}, name="api_gallery_art_get")
      *
      * @param string $slug
      * @param ArtGalleryServiceInterface $galleryService
@@ -74,7 +74,7 @@ class ArtGalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art", methods={"POST"}, name="api_gallery_post")
+     * @Route("/api/gallery/art", methods={"POST"}, name="api_gallery_art_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param Request $request
@@ -112,7 +112,7 @@ class ArtGalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}", methods={"PUT"}, name="api_gallery_put")
+     * @Route("/api/gallery/art/{slug}", methods={"PUT"}, name="api_gallery_art_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
@@ -152,7 +152,7 @@ class ArtGalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/art/{slug}", methods={"DELETE"}, name="api_gallery_delete")
+     * @Route("/api/gallery/art/{slug}", methods={"DELETE"}, name="api_gallery_art_delete")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $slug

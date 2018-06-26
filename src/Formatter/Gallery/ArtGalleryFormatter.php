@@ -210,7 +210,7 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
      */
     public function background(): ArtGalleryFormatterInterface
     {
-        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_art_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this;
     }
