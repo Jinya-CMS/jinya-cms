@@ -43,7 +43,7 @@
 
           if (background) {
             this.message = Translator.message('art.galleries.add.uploading', {name: gallery.name});
-            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
           }
 
           this.state = 'success';
