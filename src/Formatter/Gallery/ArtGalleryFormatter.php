@@ -8,8 +8,8 @@
 
 namespace Jinya\Formatter\Gallery;
 
+use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Galleries\ArtGallery;
-use Jinya\Entity\Galleries\ArtworkPosition;
 use Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

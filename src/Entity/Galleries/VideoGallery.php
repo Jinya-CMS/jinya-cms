@@ -24,7 +24,7 @@ class VideoGallery extends HistoryEnabledEntity implements GalleryInterface
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\VideoPosition", mappedBy="gallery", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\VideoPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $videos;
 

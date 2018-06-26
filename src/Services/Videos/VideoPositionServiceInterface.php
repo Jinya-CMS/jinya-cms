@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Videos;
 
-use Jinya\Entity\Galleries\VideoPosition;
+use Jinya\Entity\Video\VideoPosition;
 
 interface VideoPositionServiceInterface
 {

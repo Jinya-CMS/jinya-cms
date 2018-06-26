@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Video;
 
-use Jinya\Entity\Galleries\VideoPosition;
+use Jinya\Entity\Video\VideoPosition;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
 
@@ -67,7 +67,8 @@ class VideoPositionFormatter implements VideoPositionFormatterInterface
             ->init($this->videoPosition->getVideo())
             ->slug()
             ->name()
-            ->picture()
+            ->poster()
+            ->video()
             ->description()
             ->format();
 

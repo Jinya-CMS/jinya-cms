@@ -28,7 +28,7 @@ class ArtGallery extends HistoryEnabledEntity implements GalleryInterface
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $artworks;
 

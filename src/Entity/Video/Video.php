@@ -42,7 +42,7 @@ class Video extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\VideoPosition", mappedBy="video")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\VideoPosition", mappedBy="video")
      */
     private $positions;
 

@@ -36,7 +36,7 @@ class YoutubeVideo extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\VideoPosition", mappedBy="youtubeVideo")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\VideoPosition", mappedBy="youtubeVideo")
      */
     private $positions;
 

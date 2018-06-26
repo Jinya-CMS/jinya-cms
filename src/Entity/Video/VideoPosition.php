@@ -6,12 +6,11 @@
  * Time: 18:45
  */
 
-namespace Jinya\Entity\Galleries;
+namespace Jinya\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\BaseEntity;
-use Jinya\Entity\Video\Video;
-use Jinya\Entity\Video\YoutubeVideo;
+use Jinya\Entity\Galleries\VideoGallery;
 
 /**
  * @ORM\Entity

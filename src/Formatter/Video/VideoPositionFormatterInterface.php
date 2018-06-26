@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Video;
 
-use Jinya\Entity\Galleries\VideoPosition;
+use Jinya\Entity\Video\VideoPosition;
 use Jinya\Formatter\FormatterInterface;
 
 interface VideoPositionFormatterInterface extends FormatterInterface

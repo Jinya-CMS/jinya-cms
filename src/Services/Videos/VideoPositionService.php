@@ -11,7 +11,7 @@ namespace Jinya\Services\Videos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Galleries\VideoGallery;
-use Jinya\Entity\Galleries\VideoPosition;
+use Jinya\Entity\Video\VideoPosition;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 
