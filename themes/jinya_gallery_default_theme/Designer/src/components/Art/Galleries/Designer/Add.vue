@@ -3,7 +3,8 @@
                  @close="$emit('close')">
         <jinya-message :message="'art.galleries.designer.artwork_view.loading'|jmessage" state="loading" v-if="loading"
                        slot="message"/>
-        <jinya-gallery-designer-artwork-view @picked="pick" @load-start="loading = true" @load-end="loading = false"/>
+        <jinya-gallery-designer-artwork-view v-if="galleryType === 'art'" @picked="pick" @load-start="loading = true"
+                                             @load-end="loading = false"/>
         <jinya-modal-button slot="buttons-right" :closes-modal="true" label="art.galleries.designer.add_view.cancel"
                             :is-secondary="true" :is-disabled="picked"/>
     </jinya-modal>
@@ -23,6 +24,12 @@
       JinyaModal
     },
     name: "jinya-gallery-designer-add-view",
+    props: {
+      galleryType: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         loading: false,
@@ -30,8 +37,8 @@
       };
     },
     methods: {
-      pick(artwork) {
-        this.$emit('picked', artwork);
+      pick(item) {
+        this.$emit('picked', item);
         this.picked = true;
       }
     }

@@ -16,9 +16,10 @@
             </jinya-gallery-designer-item>
             <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
         </template>
-        <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
+        <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
+                                         gallery-type="art"/>
         <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"
-                                          @delete="deleteArtwork"/>
+                                          @delete="deleteArtwork" gallery-type="art"/>
     </div>
 </template>
 
@@ -64,7 +65,7 @@
     },
     methods: {
       scroll($event) {
-        if (!$event.deltaX && !this.addModel.show && !this.editModel.show) {
+        if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
             left: $event.deltaY > 0 ? 100 : -100
