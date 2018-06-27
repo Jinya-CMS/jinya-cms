@@ -51,12 +51,13 @@ class VideoGalleryVideoController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $videoPositionService) {
             $position = $this->getValue('position', -1);
             $videoSlug = $this->getValue('video', null);
+            $videoType = $this->getValue('type', null);
 
             if (empty($videoSlug)) {
                 throw new MissingFieldsException(['video' => 'api.gallery.field.videoSlug.missing']);
             }
 
-            return $videoPositionService->savePosition($gallerySlug, $videoSlug, $position);
+            return $videoPositionService->savePosition($gallerySlug, $videoSlug, $position, $videoType);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
@@ -94,9 +95,10 @@ class VideoGalleryVideoController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $id, $oldPosition, $videoPositionService) {
             $newPosition = $this->getValue('position', null);
             $videoSlug = $this->getValue('video', null);
+            $videoType = $this->getValue('type', null);
 
             if (!empty($videoSlug)) {
-                $videoPositionService->updateVideo($id, $videoSlug);
+                $videoPositionService->updateVideo($id, $videoSlug, $videoType);
             }
             if (isset($newPosition) && null !== $newPosition) {
                 $videoPositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);

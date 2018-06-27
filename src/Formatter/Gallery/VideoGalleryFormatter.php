@@ -192,12 +192,20 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
 
         /** @var VideoPosition $videoPosition */
         foreach ($videos as $videoPosition) {
-            $this->formattedData['videos'][] = $this->videoPositionFormatter
+            $this->videoPositionFormatter
                 ->init($videoPosition)
                 ->position()
-                ->id()
-                ->video()
-                ->format();
+                ->id();
+
+            if (!empty($videoPosition->getYoutubeVideo())) {
+                $this->videoPositionFormatter
+                    ->youtubeVideo();
+            } else {
+                $this->videoPositionFormatter
+                    ->video();
+            }
+
+            $this->formattedData['videos'][] = $this->videoPositionFormatter->format();
         }
 
         return $this;

@@ -50,8 +50,6 @@ interface YoutubeVideoServiceInterface
      *
      * @param string $slug
      * @return YoutubeVideo
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(string $slug): ?YoutubeVideo;
 }

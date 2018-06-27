@@ -18,9 +18,10 @@ interface VideoPositionServiceInterface
      * @param string $gallerySlug
      * @param string $videoSlug
      * @param int $position
+     * @param string $type
      * @return int
      */
-    public function savePosition(string $gallerySlug, string $videoSlug, int $position): int;
+    public function savePosition(string $gallerySlug, string $videoSlug, int $position, string $type): int;
 
     /**
      * Sets the videos position to the new position
@@ -52,6 +53,8 @@ interface VideoPositionServiceInterface
      *
      * @param int $id
      * @param string $videoSlug
+     * @param string $type
+     * @return
      */
-    public function updateVideo(int $id, string $videoSlug);
+    public function updateVideo(int $id, string $videoSlug, string $type);
 }

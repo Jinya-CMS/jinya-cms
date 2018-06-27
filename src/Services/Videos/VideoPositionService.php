@@ -25,6 +25,9 @@ class VideoPositionService implements VideoPositionServiceInterface
     /** @var VideoServiceInterface */
     private $videoService;
 
+    /** @var YoutubeVideoServiceInterface */
+    private $youtubeVideoService;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -32,12 +35,14 @@ class VideoPositionService implements VideoPositionServiceInterface
      * VideoPositionService constructor.
      * @param VideoGalleryServiceInterface $galleryService
      * @param VideoServiceInterface $videoService
+     * @param YoutubeVideoServiceInterface $youtubeVideoService
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(VideoGalleryServiceInterface $galleryService, VideoServiceInterface $videoService, EntityManagerInterface $entityManager)
+    public function __construct(VideoGalleryServiceInterface $galleryService, VideoServiceInterface $videoService, YoutubeVideoServiceInterface $youtubeVideoService, EntityManagerInterface $entityManager)
     {
         $this->galleryService = $galleryService;
         $this->videoService = $videoService;
+        $this->youtubeVideoService = $youtubeVideoService;
         $this->entityManager = $entityManager;
     }
 
@@ -47,15 +52,22 @@ class VideoPositionService implements VideoPositionServiceInterface
      * @param string $gallerySlug
      * @param string $videoSlug
      * @param int $position
+     * @param string $type
      * @return int
      */
-    public function savePosition(string $gallerySlug, string $videoSlug, int $position): int
+    public function savePosition(string $gallerySlug, string $videoSlug, int $position, string $type): int
     {
         $gallery = $this->galleryService->get($gallerySlug);
-        $video = $this->videoService->get($videoSlug);
-
         $videoPosition = new VideoPosition();
-        $videoPosition->setVideo($video);
+
+        if ($type === 'youtube') {
+            $video = $this->youtubeVideoService->get($videoSlug);
+            $videoPosition->setYoutubeVideo($video);
+        } else {
+            $video = $this->videoService->get($videoSlug);
+            $videoPosition->setVideo($video);
+        }
+
         $videoPosition->setGallery($gallery);
 
         $this->rearrangeVideos(-1, $position, $videoPosition, $gallery);
@@ -125,14 +137,22 @@ class VideoPositionService implements VideoPositionServiceInterface
      *
      * @param int $id
      * @param string $videoSlug
+     * @param string $type
      */
-    public function updateVideo(int $id, string $videoSlug)
+    public function updateVideo(int $id, string $videoSlug, string $type)
     {
-        $video = $this->videoService->get($videoSlug);
+        if ($type === 'youtube') {
+            $video = $this->youtubeVideoService->get($videoSlug);
+            $field = 'e.youtubeVideo';
+        } else {
+            $video = $this->videoService->get($videoSlug);
+            $field = 'e.video';
+        }
+
         $this->entityManager
             ->createQueryBuilder()
             ->update(VideoPosition::class, 'e')
-            ->set('e.video', $video->getId())
+            ->set($field, $video->getId())
             ->where('e.id = :id')
             ->setParameter('id', $id)
             ->getQuery()

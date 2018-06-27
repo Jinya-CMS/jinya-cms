@@ -48,4 +48,11 @@ interface VideoPositionFormatterInterface extends FormatterInterface
      * @return VideoPositionFormatterInterface
      */
     public function id(): self;
+
+    /**
+     * Formats the youtube video
+     *
+     * @return VideoPositionFormatterInterface
+     */
+    public function youtubeVideo(): self;
 }
