@@ -52,14 +52,14 @@ class VideoController extends BaseApiController
                     ->format();
             }, $videos);
 
-            return $this->formatListResult($allCount, $offset, $count, [], 'api_video_get_all', $videos);
+            return $this->formatListResult($allCount, $offset, $count, ['keyword' => $keyword], 'api_video_get_all', $videos);
         });
 
         return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_get", methods={"GET"})
+     * @Route("/api/video/{slug}", name="api_video_get", methods={"GET"}, requirements={"slug": "/\/api\/video((?!\/)|(\/))(?!youtube|any)/"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -127,7 +127,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_put", methods={"PUT"})
+     * @Route("/api/video/{slug}", name="api_video_put", methods={"PUT"}, requirements={"slug": "/\/api\/video((?!\/)|(\/))(?!youtube|any)/"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -154,7 +154,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_delete", methods={"DELETE"})
+     * @Route("/api/video/{slug}", name="api_video_delete", methods={"DELETE"}, requirements={"slug": "/\/api\/video((?!\/)|(\/))(?!youtube|any)/"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
