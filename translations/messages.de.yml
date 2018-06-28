@@ -589,21 +589,43 @@ art:
     designer:
       title: Galerie %name% anordnen
       loading: Die Galerie wird geladen
-      moving: Das Kunstwerk "%name%" wird verschoben
+      art:
+        moving: Das Kunstwerk "%name%" wird verschoben
+      video:
+        moving: Das Video "%name%" wird verschoben
       add:
-        title: Kunstwerk einfügen
-        pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
+        video:
+          title: Video einfügen
+          pending: Das Video "%name%" wird in die Galerie eingefügt
+        art:
+          title: Kunstwerk einfügen
+          pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
       edit:
-        title: Kunstwerk tauschen
-        pending: Das Kunstwerk "%name%" wird getauscht
+        video:
+          title: Video tauschen
+          pending: Das Video "%name%" wird getauscht
+        art:
+          title: Kunstwerk tauschen
+          pending: Das Kunstwerk "%name%" wird getauscht
       add_view:
-        cancel: Schließen
+        video:
+          cancel: Schließen
+        art:
+          cancel: Schließen
       edit_view:
-        cancel: Schließen
-        delete: Kunstwerk entfernen
-      artwork_view:
+        video:
+          cancel: Schließen
+          delete: Video entfernen
+        art:
+          cancel: Schließen
+          delete: Kunstwerk entfernen
+      art_view:
         search: Suchen…
         loading: Die Kunstwerke werden geladen
+        pick: Auswählen
+      video_view:
+        search: Suchen…
+        loading: Die Videos werden geladen
         pick: Auswählen
     gallery_form:
       name: Name

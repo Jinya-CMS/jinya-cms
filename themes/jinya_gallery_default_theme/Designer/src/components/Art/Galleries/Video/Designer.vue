@@ -2,24 +2,25 @@
     <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-        <template v-if="!loading" v-for="(position, index) in artworks"
-                  :key="`${position.position}-${position.artwork.slug}`">
+        <template v-if="!loading" v-for="(position, index) in videos"
+                  :key="`${position.position}-${position.video.slug}`">
             <jinya-gallery-designer-item @wheel.native="scroll">
                 <template>
-                    <jinya-gallery-designer-image @wheel.native="scroll" :src="position.artwork.picture"/>
+                    <jinya-gallery-designer-video @wheel.native="scroll" :src="position.video.video"
+                                                  :poster="position.video.poster" :video-key="position.video.videoKey"/>
                     <jinya-gallery-designer-button @wheel.native="scroll" type="edit" @click="edit(position, index)"/>
                     <jinya-gallery-designer-position-button v-if="index > 0" :decrease="true" @wheel.native="scroll"
                                                             @click="move(position, index, index - 1)"/>
-                    <jinya-gallery-designer-position-button v-if="index + 1 < artworks.length" @wheel.native="scroll"
+                    <jinya-gallery-designer-position-button v-if="index + 1 < videos.length" @wheel.native="scroll"
                                                             :increase="true" @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
             <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
-                                         gallery-type="art"/>
+                                         gallery-type="video"/>
         <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"
-                                          @delete="deleteArtwork" gallery-type="art"/>
+                                          @delete="deleteVideo" gallery-type="video"/>
     </div>
 </template>
 
@@ -32,19 +33,19 @@
   import JinyaGalleryDesignerPositionButton from "@/components/Art/Galleries/Designer/PositionButton";
   import JinyaGalleryDesignerButton from "@/components/Art/Galleries/Designer/Button";
   import JinyaGalleryDesignerItem from "@/components/Art/Galleries/Designer/Item";
-  import JinyaGalleryDesignerImage from "@/components/Art/Galleries/Designer/Image";
   import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
+  import JinyaGalleryDesignerVideo from "@/components/Art/Galleries/Designer/Video";
 
   export default {
     components: {
+      JinyaGalleryDesignerVideo,
       JinyaGalleryDesignerEditView,
       JinyaMessage,
       JinyaGalleryDesignerAddView,
       JinyaModal,
-      JinyaGalleryDesignerImage,
       JinyaGalleryDesignerItem,
       JinyaGalleryDesignerButton,
       JinyaGalleryDesignerPositionButton,
@@ -55,9 +56,8 @@
     async mounted() {
       this.loading = true;
       try {
-        const gallery = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}`);
-        this.gallery = gallery.item;
-        this.artworks = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}/artwork`);
+        this.gallery = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}`);
+        this.videos = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}/video`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
       }
@@ -65,67 +65,69 @@
     },
     methods: {
       scroll($event) {
-        if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
+        if (!$event.deltaX && !this.addModel.show && !this.editModel.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
             left: $event.deltaY > 0 ? 100 : -100
           });
         }
       },
-      async move(artworkPosition, oldPosition, newPosition) {
+      async move(videoPosition, oldPosition, newPosition) {
         this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.art.moving', artworkPosition.artwork);
+        this.message = Translator.message(`art.galleries.designer.video.moving`, videoPosition.video);
         if (oldPosition < newPosition) {
-          this.artworks.splice(newPosition + 1, 0, artworkPosition);
-          this.artworks.splice(oldPosition, 1);
+          this.videos.splice(newPosition + 1, 0, videoPosition);
+          this.videos.splice(oldPosition, 1);
         } else {
-          this.artworks.splice(newPosition, 0, artworkPosition);
-          this.artworks.splice(oldPosition + 1, 1);
+          this.videos.splice(newPosition, 0, videoPosition);
+          this.videos.splice(oldPosition + 1, 1);
         }
-        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
+        await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${videoPosition.id}/${oldPosition}`, {
           position: newPosition
         });
         this.state = '';
         this.message = '';
       },
-      async saveAdd(artwork) {
+      async saveAdd(video) {
         this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.add.pending', artwork);
-        const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
+        this.message = Translator.message('art.galleries.designer.add.pending', video);
+        const id = await JinyaRequest.post(`/api/gallery/video/${this.gallery.slug}/video`, {
           position: this.currentPosition,
-          artwork: artwork.slug
+          video: video.slug,
+          type: video.type
         });
 
-        this.artworks.splice(this.currentPosition + 1, 0, {
+        this.videos.splice(this.currentPosition + 1, 0, {
           id: id,
-          artwork: artwork
+          video: video
         });
 
         this.state = '';
         this.message = '';
         this.addModal.show = false;
       },
-      async saveEdit(artwork) {
+      async saveEdit(video) {
         this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
-        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
-          artwork: artwork.slug
+        this.message = Translator.message('art.galleries.designer.edit.pending', video);
+        await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}/${this.currentPosition}`, {
+          video: video.slug,
+          type: video.type
         });
 
-        this.artworks.splice(this.currentPosition, 1, {
-          artwork: artwork,
-          id: this.artworkPosition.id
+        this.videos.splice(this.currentPosition, 1, {
+          video: video,
+          id: this.videoPosition.id
         });
 
         this.state = '';
         this.message = '';
         this.addModal.show = false;
       },
-      async deleteArtwork() {
+      async deleteVideo() {
         this.state = 'loading';
-        await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
+        await JinyaRequest.delete(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}`);
 
-        this.artworks.splice(this.currentPosition, 1);
+        this.videos.splice(this.currentPosition, 1);
 
         this.state = '';
         this.editModal.show = false;
@@ -135,11 +137,11 @@
         this.addModal.loading = true;
         this.currentPosition = position;
       },
-      edit(artworkPosition, position) {
+      edit(videoPosition, position) {
         this.editModal.show = true;
         this.editModal.loading = true;
         this.currentPosition = position;
-        this.artworkPosition = artworkPosition;
+        this.videoPosition = videoPosition;
       }
     },
     data() {
@@ -152,7 +154,7 @@
         },
         state: '',
         message: '',
-        artworks: [],
+        videos: [],
         loading: false,
         addModal: {
           show: false,

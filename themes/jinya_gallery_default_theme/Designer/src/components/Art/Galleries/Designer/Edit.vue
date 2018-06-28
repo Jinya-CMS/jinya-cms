@@ -1,13 +1,17 @@
 <template>
-    <jinya-modal modal-modifiers="jinya-modal--edit-artwork" title="art.galleries.designer.edit.title"
+    <jinya-modal modal-modifiers="jinya-modal--edit-artwork" :title="`art.galleries.designer.edit.${galleryType}.title`"
                  @close="$emit('close')">
-        <jinya-message :message="'art.galleries.designer.artwork_view.loading'|jmessage" state="loading" v-if="loading"
+        <jinya-message :message="`art.galleries.designer.${galleryType}_view.loading`|jmessage" state="loading"
+                       v-if="loading"
                        slot="message"/>
         <jinya-gallery-designer-artwork-view v-if="galleryType === 'art'" @picked="pick" @load-start="loading = true"
                                              @load-end="loading = false"/>
-        <jinya-modal-button slot="buttons-left" label="art.galleries.designer.edit_view.delete"
+        <jinya-gallery-designer-video-view v-else-if="galleryType === 'video'" @picked="pick"
+                                           @load-start="loading = true" @load-end="loading = false"/>
+        <jinya-modal-button slot="buttons-left" :label="`art.galleries.designer.edit_view.${galleryType}.delete`"
                             :is-danger="true" :is-disabled="picked" @click="$emit('delete')"/>
-        <jinya-modal-button slot="buttons-right" :closes-modal="true" label="art.galleries.designer.edit_view.cancel"
+        <jinya-modal-button slot="buttons-right" :closes-modal="true"
+                            :label="`art.galleries.designer.edit_view.${galleryType}.cancel`"
                             :is-secondary="true" :is-disabled="picked"/>
     </jinya-modal>
 </template>
@@ -17,9 +21,11 @@
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
   import JinyaGalleryDesignerArtworkView from "@/components/Art/Galleries/Designer/ArtworkView";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaGalleryDesignerVideoView from "@/components/Art/Galleries/Designer/VideoView";
 
   export default {
     components: {
+      JinyaGalleryDesignerVideoView,
       JinyaMessage,
       JinyaGalleryDesignerArtworkView,
       JinyaModalButton,
