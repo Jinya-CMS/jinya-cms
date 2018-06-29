@@ -93,24 +93,6 @@ class VideoUploadService implements VideoUploadServiceInterface
     }
 
     /**
-     * @param string $slug
-     * @return UploadingVideo
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    private function getUploadingVideo(string $slug): UploadingVideo
-    {
-        return $this->entityManager->createQueryBuilder()
-            ->select('uv')
-            ->from(UploadingVideo::class, 'uv')
-            ->join(Video::class, 'video', Expr\Join::WITH, 'video = uv.video')
-            ->where('video.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getSingleResult();
-    }
-
-    /**
      * Finishes the upload
      *
      * @param string $slug
@@ -130,8 +112,10 @@ class VideoUploadService implements VideoUploadServiceInterface
                 $chunkFileHandle = fopen($chunk->getChunkPath(), 'rb');
 
                 try {
-                    $chunkData = fread($chunkFileHandle, filesize($chunk->getChunkPath()));
-                    fwrite($newFileHandle, $chunkData);
+                    if (filesize($chunk->getChunkPath()) > 0) {
+                        $chunkData = fread($chunkFileHandle, filesize($chunk->getChunkPath()));
+                        fwrite($newFileHandle, $chunkData);
+                    }
                 } finally {
                     fclose($chunkFileHandle);
                 }
@@ -143,24 +127,6 @@ class VideoUploadService implements VideoUploadServiceInterface
         }
 
         return $this->mediaService->moveMedia($newFile, MediaServiceInterface::VIDEO_VIDEO);
-    }
-
-    /**
-     * @param string $slug
-     * @return array
-     */
-    private function getChunks(string $slug): array
-    {
-        return $this->entityManager->createQueryBuilder()
-            ->select('uvc')
-            ->from(UploadingVideoChunk::class, 'uvc')
-            ->join(UploadingVideo::class, 'uv')
-            ->join(Video::class, 'video')
-            ->where('video.slug = :slug')
-            ->orderBy('uvc.chunkPosition')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getResult();
     }
 
     /**
@@ -186,5 +152,41 @@ class VideoUploadService implements VideoUploadServiceInterface
         $uploadingVideo = $this->getUploadingVideo($slug);
         $this->entityManager->remove($uploadingVideo);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $slug
+     * @return UploadingVideo
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function getUploadingVideo(string $slug): UploadingVideo
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('uv')
+            ->from(UploadingVideo::class, 'uv')
+            ->join(Video::class, 'video', Expr\Join::WITH, 'video = uv.video')
+            ->where('video.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    /**
+     * @param string $slug
+     * @return array
+     */
+    private function getChunks(string $slug): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('uvc')
+            ->from(UploadingVideoChunk::class, 'uvc')
+            ->join(UploadingVideo::class, 'uv')
+            ->join(Video::class, 'video')
+            ->where('video.slug = :slug')
+            ->orderBy('uvc.chunkPosition')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult();
     }
 }
