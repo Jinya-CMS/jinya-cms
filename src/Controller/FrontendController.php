@@ -2,15 +2,13 @@
 
 namespace Jinya\Controller;
 
-use ArrayIterator;
-use Doctrine\Common\Collections\ArrayCollection;
 use Jinya\Components\Form\FormGeneratorInterface;
-use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Form;
 use Jinya\Framework\BaseController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
+use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
@@ -70,7 +68,8 @@ class FrontendController extends BaseController
     }
 
     /**
-     * @Route("/gallery/{slug}", name="frontend_gallery_details")
+     * @Route("/gallery/art/{slug}", name="frontend_gallery_details")
+     * @Route("/gallery/art/{slug}", name="frontend_art_gallery_details")
      *
      * @param string $slug
      * @param ArtGalleryServiceInterface $galleryService
@@ -79,21 +78,33 @@ class FrontendController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function galleryDetailAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
+    public function artGalleryDetailAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
     {
         $gallery = $galleryService->get($slug);
 
-        $artworks = $gallery->getArtworks();
+        return $this->render('@Frontend/Gallery/detail.html.twig', [
+            'gallery' => $gallery,
+            'type' => 'art'
+        ]);
+    }
 
-        /** @var ArrayIterator $iterator */
-        $iterator = $artworks->getIterator();
-        $iterator->uasort(function (ArtworkPosition $a, ArtworkPosition $b) {
-            return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
-        });
-        $gallery->setArtworks(new ArrayCollection(iterator_to_array($iterator)));
+    /**
+     * @Route("/video/art/{slug}", name="frontend_video_gallery_details")
+     *
+     * @param string $slug
+     * @param VideoGalleryServiceInterface $galleryService
+     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function videoGalleryDetailAction(string $slug, VideoGalleryServiceInterface $galleryService): Response
+    {
+        $gallery = $galleryService->get($slug);
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
             'gallery' => $gallery,
+            'type' => 'video'
         ]);
     }
 
