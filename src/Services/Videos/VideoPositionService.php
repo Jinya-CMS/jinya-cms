@@ -60,7 +60,7 @@ class VideoPositionService implements VideoPositionServiceInterface
         $gallery = $this->galleryService->get($gallerySlug);
         $videoPosition = new VideoPosition();
 
-        if ($type === 'youtube') {
+        if ('youtube' === $type) {
             $video = $this->youtubeVideoService->get($videoSlug);
             $videoPosition->setYoutubeVideo($video);
         } else {
@@ -141,7 +141,7 @@ class VideoPositionService implements VideoPositionServiceInterface
      */
     public function updateVideo(int $id, string $videoSlug, string $type)
     {
-        if ($type === 'youtube') {
+        if ('youtube' === $type) {
             $video = $this->youtubeVideoService->get($videoSlug);
             $field = 'e.youtubeVideo';
         } else {
