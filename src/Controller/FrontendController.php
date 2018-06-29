@@ -84,7 +84,7 @@ class FrontendController extends BaseController
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
             'gallery' => $gallery,
-            'type' => 'art'
+            'type' => 'art',
         ]);
     }
 
@@ -104,7 +104,7 @@ class FrontendController extends BaseController
 
         return $this->render('@Frontend/Gallery/detail.html.twig', [
             'gallery' => $gallery,
-            'type' => 'video'
+            'type' => 'video',
         ]);
     }
 
