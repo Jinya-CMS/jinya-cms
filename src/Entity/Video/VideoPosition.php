@@ -69,9 +69,9 @@ class VideoPosition
     }
 
     /**
-     * @param YoutubeVideo $youtubeVideo
+     * @param YoutubeVideo|null $youtubeVideo
      */
-    public function setYoutubeVideo(YoutubeVideo $youtubeVideo): void
+    public function setYoutubeVideo(?YoutubeVideo $youtubeVideo): void
     {
         $this->youtubeVideo = $youtubeVideo;
     }
@@ -85,9 +85,9 @@ class VideoPosition
     }
 
     /**
-     * @param Video $video
+     * @param Video|null $video
      */
-    public function setVideo(Video $video): void
+    public function setVideo(?Video $video): void
     {
         $this->video = $video;
     }

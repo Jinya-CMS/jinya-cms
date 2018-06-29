@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoFileController extends BaseApiController
 {
     /**
-     * @Route("/api/video/{slug}/video", name="api_video_get_video", methods={"GET"})
+     * @Route("/api/video/jinya/{slug}/video", name="api_video_get_video", methods={"GET"})
      *
      * @param string $slug
      * @param VideoServiceInterface $videoService
@@ -49,7 +49,7 @@ class VideoFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}/video", methods={"POST"})
+     * @Route("/api/video/jinya/{slug}/video", methods={"POST"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -66,7 +66,7 @@ class VideoFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}/video/{position}", methods={"PUT"}, requirements={"position": "^\d*$"})
+     * @Route("/api/video/jinya/{slug}/video/{position}", methods={"PUT"}, requirements={"position": "^\d*$"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -87,7 +87,7 @@ class VideoFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}/video/state", methods={"DELETE"})
+     * @Route("/api/video/jinya/{slug}/video/state", methods={"DELETE"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -104,7 +104,7 @@ class VideoFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}/video/finish", methods={"PUT"})
+     * @Route("/api/video/jinya/{slug}/video/finish", methods={"PUT"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug

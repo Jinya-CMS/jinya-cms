@@ -122,17 +122,6 @@ class VideoPositionService implements VideoPositionServiceInterface
     }
 
     /**
-     * Gets the video position for the given id
-     *
-     * @param int $id
-     * @return VideoPosition
-     */
-    public function getPosition(int $id): VideoPosition
-    {
-        return $this->entityManager->find(VideoPosition::class, $id);
-    }
-
-    /**
      * Sets the video of the given video position to the new slug
      *
      * @param int $id
@@ -141,21 +130,27 @@ class VideoPositionService implements VideoPositionServiceInterface
      */
     public function updateVideo(int $id, string $videoSlug, string $type)
     {
+        $position = $this->getPosition($id);
+        $position->setYoutubeVideo(null);
+        $position->setVideo(null);
+
         if ($type === 'youtube') {
-            $video = $this->youtubeVideoService->get($videoSlug);
-            $field = 'e.youtubeVideo';
+            $position->setYoutubeVideo($this->youtubeVideoService->get($videoSlug));
         } else {
-            $video = $this->videoService->get($videoSlug);
-            $field = 'e.video';
+            $position->setVideo($this->videoService->get($videoSlug));
         }
 
-        $this->entityManager
-            ->createQueryBuilder()
-            ->update(VideoPosition::class, 'e')
-            ->set($field, $video->getId())
-            ->where('e.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Gets the video position for the given id
+     *
+     * @param int $id
+     * @return VideoPosition
+     */
+    public function getPosition(int $id): VideoPosition
+    {
+        return $this->entityManager->find(VideoPosition::class, $id);
     }
 }

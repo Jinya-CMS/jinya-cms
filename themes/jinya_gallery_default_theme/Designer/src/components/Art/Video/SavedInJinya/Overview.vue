@@ -92,7 +92,7 @@
       },
       async fetchVideos(offset = 0, count = 10, keyword = '') {
         this.loading = true;
-        this.currentUrl = `/api/video?offset=${offset}&count=${count}&keyword=${keyword}`;
+        this.currentUrl = `/api/video/jinya?offset=${offset}&count=${count}&keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.videos = value.items;
@@ -107,7 +107,7 @@
       async remove() {
         this.delete.loading = true;
         try {
-          await JinyaRequest.delete(`/api/video/${this.selectedVideo.slug}`);
+          await JinyaRequest.delete(`/api/video/jinya/${this.selectedVideo.slug}`);
           this.delete.show = false;
           const url = new URL(location.href);
           await this.fetchVideos(0, 10, url.searchParams.get('keyword'));

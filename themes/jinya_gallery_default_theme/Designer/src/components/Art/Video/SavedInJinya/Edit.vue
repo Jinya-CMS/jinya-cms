@@ -35,7 +35,7 @@
       this.enable = false;
       this.message = Translator.message('art.videos.details.loading');
       try {
-        const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
+        const video = await JinyaRequest.get(`/api/video/jinya/${this.$route.params.slug}`);
         this.video = video.item;
         this.state = '';
         this.enable = true;
@@ -53,7 +53,7 @@
           this.state = 'loading';
           this.message = Translator.message('art.videos.edit.saving', {name: video.name});
 
-          await JinyaRequest.put(`/api/video/${this.$route.params.slug}`, {
+          await JinyaRequest.put(`/api/video/jinya/${this.$route.params.slug}`, {
             name: video.name,
             slug: video.slug,
             description: video.description
@@ -61,7 +61,7 @@
 
           if (video.poster) {
             this.message = Translator.message('art.videos.edit.upload_poster', video);
-            await JinyaRequest.upload(`/api/video/${video.slug}/poster`, video.poster);
+            await JinyaRequest.upload(`/api/video/jinya/${video.slug}/poster`, video.poster);
           }
 
           this.state = 'success';
