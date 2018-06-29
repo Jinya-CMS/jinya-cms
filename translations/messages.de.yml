@@ -342,7 +342,9 @@ configuration:
         success: Das Menü "%name%" wurde gespeichert
         title: "%name% bearbeiten"
       builder:
-        galleries: Galerien
+        galleries:
+          art: Kunstgalerien
+          video: Videogalerien
         forms: Formulare
         pages: Seiten
         other: Andere
