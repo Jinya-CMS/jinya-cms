@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpInconsistentReturnPointsInspection */
+<?php
+
+/** @noinspection PhpInconsistentReturnPointsInspection */
 
 /**
  * Created by PhpStorm.
@@ -43,15 +45,15 @@ class AllVideoController extends BaseApiController
                         'type' => 'youtube',
                         'viewKey' => $item['videoKey'],
                         'slug' => $item['slug'],
-                        'name' => $item['name']
+                        'name' => $item['name'],
                     ];
-                } else if (array_key_exists('video', $item)) {
+                } elseif (array_key_exists('video', $item)) {
                     return [
                         'type' => 'jinya',
                         'poster' => $urlGenerator->generate('api_video_get_poster', ['slug' => $item['slug']]),
                         'video' => $urlGenerator->generate('api_video_get_video', ['slug' => $item['slug']]),
                         'slug' => $item['slug'],
-                        'name' => $item['name']
+                        'name' => $item['name'],
                     ];
                 }
             }, $allVideoService->getAll($offset, $count, $keyword));
