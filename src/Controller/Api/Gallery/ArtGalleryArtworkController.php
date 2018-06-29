@@ -9,25 +9,25 @@
 namespace Jinya\Controller\Api\Gallery;
 
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkPositionServiceInterface;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GalleryArtworkController extends BaseApiController
+class ArtGalleryArtworkController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_artwork_get")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork", methods={"GET"}, name="api_gallery_art_artwork_get")
      *
      * @param string $gallerySlug
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryServiceInterface $galleryService
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $gallerySlug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAction(string $gallerySlug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
@@ -39,7 +39,7 @@ class GalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_artwork_position_post")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork", methods={"POST"}, name="api_gallery_art_artwork_position_post")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $gallerySlug
@@ -63,7 +63,7 @@ class GalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork/{id}", methods={"DELETE"}, name="api_gallery_artwork_position_delete")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork/{id}", methods={"DELETE"}, name="api_gallery_art_artwork_position_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int id$
@@ -80,7 +80,7 @@ class GalleryArtworkController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_artwork_position_put")
+     * @Route("/api/gallery/art/{gallerySlug}/artwork/{id}/{oldPosition}", methods={"PUT"}, name="api_gallery_art_artwork_position_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int $id

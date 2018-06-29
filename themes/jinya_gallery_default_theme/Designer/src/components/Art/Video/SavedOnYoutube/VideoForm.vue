@@ -32,7 +32,7 @@
   import JinyaInput from "@/framework/Markup/Form/Input";
   import JinyaButton from "@/framework/Markup/Button";
   import slugify from "slugify";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
   import JinyaEditor from "@/framework/Markup/Form/Editor";

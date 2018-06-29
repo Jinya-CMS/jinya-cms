@@ -53,7 +53,7 @@
                                                 v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Art.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
-                    <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview" v-if="false"
+                    <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.video_galleries"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>

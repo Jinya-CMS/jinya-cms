@@ -6,31 +6,29 @@
  * Time: 17:33
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Galleries;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\BaseArtEntity;
+use Jinya\Entity\HistoryEnabledEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gallery")
+ * @ORM\Table(name="art_gallery")
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity("name", message="backend.galleries.name.not_unique")
  * @UniqueEntity("slug", message="backend.galleries.slug.not_unique")
  */
-class Gallery extends HistoryEnabledEntity implements ArtEntityInterface
+class ArtGallery extends HistoryEnabledEntity implements GalleryInterface
 {
     use BaseArtEntity;
 
-    public const VERTICAL = 'vertical';
-
-    public const HORIZONTAL = 'horizontal';
-
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\ArtworkPosition", mappedBy="gallery", cascade={"persist"})
      */
     private $artworks;
 

@@ -32,7 +32,7 @@ class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\ArtworkPosition", mappedBy="artwork")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\ArtworkPosition", mappedBy="artwork")
      */
     private $positions;
 

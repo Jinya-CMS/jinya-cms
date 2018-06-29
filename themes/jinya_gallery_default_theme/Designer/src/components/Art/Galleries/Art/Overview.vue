@@ -43,7 +43,7 @@
   import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
 
   export default {
@@ -79,7 +79,7 @@
       },
       async fetchGalleries(offset = 0, count = 10, keyword = '') {
         this.loading = true;
-        this.currentUrl = `/api/gallery?offset=${offset}&count=${count}&keyword=${keyword}`;
+        this.currentUrl = `/api/gallery/art?offset=${offset}&count=${count}&keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.galleries = value.items;
@@ -94,7 +94,7 @@
       async remove() {
         this.delete.loading = true;
         try {
-          await JinyaRequest.delete(`/api/gallery/${this.selectedGallery.slug}`);
+          await JinyaRequest.delete(`/api/gallery/art/${this.selectedGallery.slug}`);
           this.delete.show = false;
           const url = new URL(location.href);
           this.load.call(this, 0, 10, url.searchParams.get('keyword'));

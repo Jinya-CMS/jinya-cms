@@ -91,7 +91,8 @@
         },
         items: [],
         selectedTemplateItems: [],
-        galleries: [],
+        art_galleries: [],
+        video_galleries: [],
         forms: [],
         pages: [],
         itemsLoading: false,
@@ -121,12 +122,12 @@
             allowDecrease: nestingLevel > 0
           };
 
-          return [elem].concat(flattenChildren(item, nestingLevel + 1, item.children));
+          return [elem, ...flattenChildren(item, nestingLevel + 1, item.children)];
         };
 
         return items
           .map(item => flatten(item, items))
-          .reduce((acc, val) => acc.concat(val), [])
+          .reduce((acc, val) => [...acc, ...val], [])
           .filter(item => !Array.isArray(item));
       };
 
@@ -150,8 +151,12 @@
       types() {
         return [
           {
-            title: Translator.message('configuration.frontend.menus.builder.galleries'),
-            name: 'galleries'
+            title: Translator.message('configuration.frontend.menus.builder.galleries.art'),
+            name: 'art_galleries'
+          },
+          {
+            title: Translator.message('configuration.frontend.menus.builder.galleries.video'),
+            name: 'video_galleries'
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.forms'),
@@ -282,6 +287,7 @@
         return {
           title: title,
           pageType: type,
+          // highlighted: false,
           route: {
             name: `frontend_${type}_details`,
             parameter: {
@@ -295,22 +301,32 @@
       async selectTemplateItems(type) {
         this.itemsLoading = true;
 
-        if (type === 'galleries' && this.galleries.length === 0) {
-          const galleries = await
-            JinyaRequest.get(`/api/gallery?count=40000`);
-          this.galleries = galleries.items.map(item => this.generateTemplateItem('gallery', item.name, item.slug));
+        if (type === 'art_galleries') {
+          if (this.art_galleries.length === 0) {
+            const galleries = await JinyaRequest.get(`/api/gallery/art?count=40000`);
+            this.art_galleries = galleries.items.map(item => this.generateTemplateItem('art_gallery', item.name, item.slug));
+          }
 
-          this.selectedTemplateItems = this.galleries;
-        } else if (type === 'forms' && this.forms.length === 0) {
-          const forms = await
-            JinyaRequest.get(`/api/form?count=40000`);
-          this.forms = forms.items.map(item => this.generateTemplateItem('form', item.title, item.slug));
+          this.selectedTemplateItems = this.art_galleries;
+        } else if (type === 'video_galleries') {
+          if (this.video_galleries.length === 0) {
+            const galleries = await JinyaRequest.get(`/api/gallery/video?count=40000`);
+            this.video_galleries = galleries.items.map(item => this.generateTemplateItem('video_gallery', item.name, item.slug));
+          }
+
+          this.selectedTemplateItems = this.video_galleries;
+        } else if (type === 'forms') {
+          if (this.forms.length === 0) {
+            const forms = await JinyaRequest.get(`/api/form?count=40000`);
+            this.forms = forms.items.map(item => this.generateTemplateItem('form', item.title, item.slug));
+          }
 
           this.selectedTemplateItems = this.forms;
-        } else if (type === 'pages' && this.pages.length === 0) {
-          const pages = await
-            JinyaRequest.get(`/api/page?count=40000`);
-          this.pages = pages.items.map(item => this.generateTemplateItem('page', item.title, item.slug));
+        } else if (type === 'pages') {
+          if (this.pages.length === 0) {
+            const pages = await JinyaRequest.get(`/api/page?count=40000`);
+            this.pages = pages.items.map(item => this.generateTemplateItem('page', item.title, item.slug));
+          }
 
           this.selectedTemplateItems = this.pages;
         } else if (type === 'other') {

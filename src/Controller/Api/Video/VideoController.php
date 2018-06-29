@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoController extends BaseApiController
 {
     /**
-     * @Route("/api/video", name="api_video_get_all", methods={"GET"})
+     * @Route("/api/video/jinya", name="api_video_get_all", methods={"GET"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param Request $request
@@ -52,14 +52,14 @@ class VideoController extends BaseApiController
                     ->format();
             }, $videos);
 
-            return $this->formatListResult($allCount, $offset, $count, [], 'api_video_get_all', $videos);
+            return $this->formatListResult($allCount, $offset, $count, ['keyword' => $keyword], 'api_video_get_all', $videos);
         });
 
         return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_get", methods={"GET"})
+     * @Route("/api/video/jinya/{slug}", name="api_video_get", methods={"GET"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -92,7 +92,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video", name="api_video_post", methods={"POST"})
+     * @Route("/api/video/jinya", name="api_video_post", methods={"POST"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param VideoServiceInterface $VideoService
@@ -127,7 +127,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_put", methods={"PUT"})
+     * @Route("/api/video/jinya/{slug}", name="api_video_put", methods={"PUT"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
@@ -154,7 +154,7 @@ class VideoController extends BaseApiController
     }
 
     /**
-     * @Route("/api/video/{slug}", name="api_video_delete", methods={"DELETE"})
+     * @Route("/api/video/jinya/{slug}", name="api_video_delete", methods={"DELETE"})
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug

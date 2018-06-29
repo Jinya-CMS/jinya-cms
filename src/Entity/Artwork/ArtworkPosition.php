@@ -6,9 +6,12 @@
  * Time: 17:05
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Artwork;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Artwork;
+use Jinya\Entity\BaseEntity;
+use Jinya\Entity\Galleries\ArtGallery;
 use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -22,8 +25,8 @@ class ArtworkPosition implements JsonSerializable
     use BaseEntity;
 
     /**
-     * @var Gallery
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery", inversedBy="artworks")
+     * @var ArtGallery
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Galleries\ArtGallery", inversedBy="artworks")
      */
     private $gallery;
 
@@ -68,17 +71,17 @@ class ArtworkPosition implements JsonSerializable
     }
 
     /**
-     * @return Gallery
+     * @return ArtGallery
      */
-    public function getGallery(): Gallery
+    public function getGallery(): ArtGallery
     {
         return $this->gallery;
     }
 
     /**
-     * @param Gallery $gallery
+     * @param ArtGallery $gallery
      */
-    public function setGallery(Gallery $gallery): void
+    public function setGallery(ArtGallery $gallery): void
     {
         $this->gallery = $gallery;
     }

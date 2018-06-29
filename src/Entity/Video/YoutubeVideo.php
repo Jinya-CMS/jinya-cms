@@ -8,6 +8,8 @@
 
 namespace Jinya\Entity\Video;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\HistoryEnabledEntity;
 use Jinya\Entity\SlugEntity;
@@ -31,6 +33,36 @@ class YoutubeVideo extends HistoryEnabledEntity
      * @var string
      */
     private $videoKey;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Video\VideoPosition", mappedBy="youtubeVideo")
+     */
+    private $positions;
+
+    /**
+     * YoutubeVideo constructor.
+     */
+    public function __construct()
+    {
+        $this->positions = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPositions(): Collection
+    {
+        return $this->positions;
+    }
+
+    /**
+     * @param Collection $positions
+     */
+    public function setPositions(Collection $positions): void
+    {
+        $this->positions = $positions;
+    }
 
     /**
      * @return string

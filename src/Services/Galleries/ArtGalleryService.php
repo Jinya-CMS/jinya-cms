@@ -9,13 +9,13 @@
 namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
-class GalleryService extends BaseSlugEntityService implements GalleryServiceInterface
+class ArtGalleryService extends BaseSlugEntityService implements ArtGalleryServiceInterface
 {
     use LabelEntityServiceTrait;
 
@@ -27,7 +27,7 @@ class GalleryService extends BaseSlugEntityService implements GalleryServiceInte
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
     {
-        parent::__construct($entityManager, $slugService, Gallery::class);
+        parent::__construct($entityManager, $slugService, ArtGallery::class);
         $this->labelService = $labelService;
     }
 }

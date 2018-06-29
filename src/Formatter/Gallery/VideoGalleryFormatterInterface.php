@@ -8,93 +8,86 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\VideoGallery;
 use Jinya\Formatter\FormatterInterface;
 
-interface GalleryFormatterInterface extends FormatterInterface
+interface VideoGalleryFormatterInterface extends FormatterInterface
 {
     /**
      * Initializes the formatting
      *
-     * @param Gallery $gallery
-     * @return GalleryFormatterInterface
+     * @param VideoGallery $gallery
+     * @return VideoGalleryFormatterInterface
      */
-    public function init(Gallery $gallery): self;
+    public function init(VideoGallery $gallery): self;
 
     /**
      * Formats the slug
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function slug(): self;
 
     /**
      * Formats the name
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function name(): self;
 
     /**
      * Formats the description
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function description(): self;
 
     /**
      * Formats the created info
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function created(): self;
 
     /**
      * Formats the updated info
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function updated(): self;
 
     /**
      * Formats the history
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function history(): self;
 
     /**
      * Formats the orientation
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function orientation(): self;
 
     /**
-     * Formats the artworks
+     * Formats the videos
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function artworks(): self;
+    public function videos(): self;
 
     /**
      * Formats the background
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function background(): self;
 
     /**
-     * Formats the labels
-     *
-     * @return GalleryFormatterInterface
-     */
-    public function labels(): self;
-
-    /**
      * Formats the id
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
     public function id(): self;
 }

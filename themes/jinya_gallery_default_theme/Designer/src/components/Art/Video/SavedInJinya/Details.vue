@@ -12,7 +12,7 @@
 
 <script>
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";
   import DOMUtils from "@/framework/Utils/DOMUtils";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
@@ -43,7 +43,7 @@
       this.state = 'loading';
       this.message = Translator.message('art.videos.details.loading');
       try {
-        const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
+        const video = await JinyaRequest.get(`/api/video/jinya/${this.$route.params.slug}`);
         this.video = video.item;
         this.state = '';
         EventBus.$emit(Events.header.change, this.video.name);

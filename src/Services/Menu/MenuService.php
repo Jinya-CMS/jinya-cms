@@ -77,28 +77,27 @@ class MenuService implements MenuServiceInterface
      */
     public function fillFromArray(int $id, array $data): void
     {
-        $menu = $this->get($id);
+        $this->entityManager->transactional(function ($em) use ($data, $id) {
+            $menu = $this->get($id);
 
-        $menu->setMenuItems(new ArrayCollection());
-        $this->entityManager->flush();
+            $menu->setMenuItems(new ArrayCollection());
 
-        $menuItems = [];
+            $menuItems = [];
 
-        foreach ($data as $key => $item) {
-            if (0 === $item['nestingLevel']) {
-                $tail = array_slice($data, $key + 1, count($data));
-                $menuItem = $this->createSubmenu($item, $tail);
-                $menuItem->setMenu($menu);
-                $menuItems[] = $menuItem;
+            foreach ($data as $key => $item) {
+                if (0 === $item['nestingLevel']) {
+                    $tail = array_slice($data, $key + 1, count($data));
+                    $menuItem = $this->createSubmenu($item, $tail, $em);
+                    $menuItem->setMenu($menu);
+                    $menuItems[] = $menuItem;
+                }
             }
-        }
 
-        $this->fixPositions($menuItems);
-
-        $this->entityManager->flush();
+            $this->fixPositions($menuItems);
+        });
     }
 
-    private function createSubmenu(array $currentItem, array $tail)
+    private function createSubmenu(array $currentItem, array $tail, EntityManagerInterface $entityManager)
     {
         $menuItem = MenuItem::fromArray($currentItem);
 
@@ -109,9 +108,9 @@ class MenuService implements MenuServiceInterface
 
             foreach ($tail as $key => $item) {
                 if ($nestingLevel + 1 === $item['nestingLevel']) {
-                    $child = $this->createSubmenu($item, array_slice($tail, $key + 1, count($tail)));
+                    $child = $this->createSubmenu($item, array_slice($tail, $key + 1, count($tail)), $entityManager);
                     $child->setParent($menuItem);
-                    $this->entityManager->persist($child);
+                    $entityManager->persist($child);
                     $children[] = $child;
                 } elseif ($nestingLevel >= $item['nestingLevel']) {
                     break;
@@ -122,8 +121,7 @@ class MenuService implements MenuServiceInterface
         $children = $this->fixPositions($children);
 
         $menuItem->setChildren(new ArrayCollection($children));
-        $this->entityManager->persist($menuItem);
-        $this->entityManager->flush();
+        $entityManager->persist($menuItem);
 
         return $menuItem;
     }

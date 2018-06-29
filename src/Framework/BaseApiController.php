@@ -164,7 +164,7 @@ abstract class BaseApiController extends BaseController
      * @param callable $formatter
      * @return Response
      */
-    protected function getAllArt(LabelEntityServiceInterface $baseService, callable $formatter): Response
+    protected function getAllLabeled(LabelEntityServiceInterface $baseService, callable $formatter): Response
     {
         list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $baseService) {
             $offset = $this->request->get('offset', 0);

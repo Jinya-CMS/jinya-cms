@@ -16,9 +16,10 @@
             </jinya-gallery-designer-item>
             <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
         </template>
-        <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"/>
+        <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
+                                         gallery-type="art"/>
         <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"
-                                          @delete="deleteArtwork"/>
+                                          @delete="deleteArtwork" gallery-type="art"/>
     </div>
 </template>
 
@@ -54,9 +55,9 @@
     async mounted() {
       this.loading = true;
       try {
-        const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
+        const gallery = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}`);
         this.gallery = gallery.item;
-        this.artworks = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}/artwork`);
+        this.artworks = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}/artwork`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
       }
@@ -64,7 +65,7 @@
     },
     methods: {
       scroll($event) {
-        if (!$event.deltaX && !this.addModel.show && !this.editModel.show) {
+        if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
             left: $event.deltaY > 0 ? 100 : -100
@@ -73,7 +74,7 @@
       },
       async move(artworkPosition, oldPosition, newPosition) {
         this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.moving', artworkPosition.artwork);
+        this.message = Translator.message('art.galleries.designer.art.moving', artworkPosition.artwork);
         if (oldPosition < newPosition) {
           this.artworks.splice(newPosition + 1, 0, artworkPosition);
           this.artworks.splice(oldPosition, 1);
@@ -81,7 +82,7 @@
           this.artworks.splice(newPosition, 0, artworkPosition);
           this.artworks.splice(oldPosition + 1, 1);
         }
-        await JinyaRequest.put(`/api/gallery/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
+        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
           position: newPosition
         });
         this.state = '';
@@ -90,7 +91,7 @@
       async saveAdd(artwork) {
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.add.pending', artwork);
-        const id = await JinyaRequest.post(`/api/gallery/${this.gallery.slug}/artwork`, {
+        const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
           position: this.currentPosition,
           artwork: artwork.slug
         });
@@ -107,7 +108,7 @@
       async saveEdit(artwork) {
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
-        await JinyaRequest.put(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
+        await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
           artwork: artwork.slug
         });
 
@@ -122,7 +123,7 @@
       },
       async deleteArtwork() {
         this.state = 'loading';
-        await JinyaRequest.delete(`/api/gallery/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
+        await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
 
         this.artworks.splice(this.currentPosition, 1);
 

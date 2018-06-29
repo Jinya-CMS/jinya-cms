@@ -8,53 +8,68 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\VideoGallery;
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GalleryController extends BaseApiController
+class VideoGalleryController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery", methods={"GET"}, name="api_gallery_get_all")
+     * @Route("/api/gallery/video", methods={"GET"}, name="api_gallery_video_get_all")
      *
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param Request $request
+     * @param VideoGalleryServiceInterface $galleryService
+     * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAllAction(Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getAllArt($galleryService, function ($gallery) use ($galleryFormatter) {
-            return $galleryFormatter
-                ->init($gallery)
-                ->name()
-                ->background()
-                ->orientation()
-                ->slug()
-                ->description()
-                ->format();
+        list($data, $statusCode) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
+
+            $entityCount = $galleryService->countAll($keyword);
+            $entities = array_map(function ($gallery) use ($galleryFormatter) {
+                return $galleryFormatter
+                    ->init($gallery)
+                    ->name()
+                    ->background()
+                    ->orientation()
+                    ->slug()
+                    ->description()
+                    ->format();
+            }, $galleryService->getAll($offset, $count, $keyword));
+
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_gallery_video_get_all', $entities);
         });
+
+        return $this->json($data, $statusCode);
     }
 
     /**
-     * @Route("/api/gallery/{slug}", methods={"GET"}, name="api_gallery_get")
+     * @Route("/api/gallery/video/{slug}", methods={"GET"}, name="api_gallery_video_get")
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param VideoGalleryServiceInterface $galleryService
+     * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $slug, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function getAction(string $slug, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
     {
-        /* @noinspection PhpParamsInspection */
-        return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
-            $result = $galleryFormatter->init($gallery)
+        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
+            $gallery = $galleryService->get($slug);
+
+            $galleryFormatter->init($gallery)
                 ->name()
                 ->slug()
                 ->background()
@@ -62,27 +77,28 @@ class GalleryController extends BaseApiController
                 ->orientation();
 
             if ($this->isGranted('ROLE_WRITER')) {
-                $result = $result->updated()
+                $galleryFormatter->updated()
                     ->id()
                     ->created()
-                    ->labels()
-                    ->artworks();
+                    ->videos();
             }
 
-            return $result->format();
+            return $galleryFormatter->format();
         });
+
+        return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/gallery", methods={"POST"}, name="api_gallery_post")
+     * @Route("/api/gallery/video", methods={"POST"}, name="api_gallery_video_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param VideoGalleryServiceInterface $galleryService
+     * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function postAction(Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
@@ -94,7 +110,7 @@ class GalleryController extends BaseApiController
                 throw new MissingFieldsException(['name' => 'api.gallery.field.name.missing']);
             }
 
-            $gallery = new Gallery();
+            $gallery = new VideoGallery();
             $gallery->setName($name);
             $gallery->setSlug($slug);
             $gallery->setDescription($description);
@@ -112,16 +128,16 @@ class GalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
+     * @Route("/api/gallery/video/{slug}", methods={"PUT"}, name="api_gallery_video_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param VideoGalleryServiceInterface $galleryService
+     * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, GalleryServiceInterface $galleryService, GalleryFormatterInterface $galleryFormatter): Response
+    public function putAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
@@ -152,15 +168,15 @@ class GalleryController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
+     * @Route("/api/gallery/video/{slug}", methods={"DELETE"}, name="api_gallery_video_delete")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param string $slug
-     * @param GalleryServiceInterface $galleryService
+     * @param VideoGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(string $slug, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function deleteAction(string $slug, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);

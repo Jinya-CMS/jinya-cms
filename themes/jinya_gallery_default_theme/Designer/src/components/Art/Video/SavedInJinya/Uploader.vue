@@ -48,7 +48,7 @@
     },
     async mounted() {
       this.loading = true;
-      const video = await JinyaRequest.get(`/api/video/${this.$route.params.slug}`);
+      const video = await JinyaRequest.get(`/api/video/jinya/${this.$route.params.slug}`);
       this.video = video.item;
       DOMUtils.changeTitle(Translator.message('art.videos.uploader.title', this.video));
       EventBus.$emit(Events.header.change, Translator.message('art.videos.uploader.title', this.video));

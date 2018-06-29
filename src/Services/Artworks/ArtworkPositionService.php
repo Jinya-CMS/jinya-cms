@@ -10,16 +10,16 @@ namespace Jinya\Services\Artworks;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\ArtworkPosition;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Artwork\ArtworkPosition;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Services\Base\ArrangementServiceTrait;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
     use ArrangementServiceTrait;
 
-    /** @var GalleryServiceInterface */
+    /** @var ArtGalleryServiceInterface */
     private $galleryService;
 
     /** @var ArtworkServiceInterface */
@@ -30,11 +30,11 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /**
      * ArtworkPositionService constructor.
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(GalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
+    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
     {
         $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;
@@ -67,9 +67,9 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param int $oldPosition
      * @param int $newPosition
      * @param ArtworkPosition $artworkPosition
-     * @param Gallery $gallery
+     * @param ArtGallery $gallery
      */
-    private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, Gallery $gallery): void
+    private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, ArtGallery $gallery): void
     {
         $positions = $gallery->getArtworks()->toArray();
         $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);

@@ -16,7 +16,6 @@
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
   import Translator from "@/framework/i18n/Translator";
-  // noinspection ES6CheckImport
   import VideoUploader from "@/worker/VideoUploader";
   import JinyaProgressBar from "@/framework/Markup/Waiting/ProgressBar";
   import JinyaModal from "@/framework/Markup/Modal/Modal";
@@ -97,7 +96,7 @@
     },
     methods: {
       async reupload() {
-        await JinyaRequest.delete(`/api/video/${this.currentWorkerData.slug}/video/state`);
+        await JinyaRequest.delete(`/api/video/jinya/${this.currentWorkerData.slug}/video/state`);
         this.currentWorker.postMessage(this.currentWorkerData);
         delete this.currentWorker;
         delete this.currentWorkerData;

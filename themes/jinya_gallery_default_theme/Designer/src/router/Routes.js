@@ -169,6 +169,10 @@ export default {
           name: 'ArtGalleriesVideoDetails',
           route: '/designer/art/gallery/video/:slug'
         },
+        Designer: {
+          name: 'ArtGalleriesVideoDesigner',
+          route: '/designer/art/gallery/video/:slug/designer'
+        },
         Add: {
           name: 'ArtGalleriesVideoAdd',
           route: '/designer/art/gallery/video/add'

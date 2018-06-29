@@ -23,6 +23,9 @@ class VideoFormatter implements VideoFormatterInterface
     /** @var UserFormatterInterface */
     private $userFormatter;
 
+    /** @var VideoPositionFormatterInterface */
+    private $videoPositionFormatter;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
@@ -35,6 +38,14 @@ class VideoFormatter implements VideoFormatterInterface
     {
         $this->userFormatter = $userFormatter;
         $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @param VideoPositionFormatterInterface $videoPositionFormatter
+     */
+    public function setVideoPositionFormatter(VideoPositionFormatterInterface $videoPositionFormatter): void
+    {
+        $this->videoPositionFormatter = $videoPositionFormatter;
     }
 
     /**
@@ -164,6 +175,27 @@ class VideoFormatter implements VideoFormatterInterface
         $this->formattedData['poster'] = $this->urlGenerator->generate('api_video_get_poster', [
             'slug' => $this->video->getSlug(),
         ]);
+
+        return $this;
+    }
+
+    /**
+     * Formats the galleries
+     *
+     * @return VideoFormatterInterface
+     */
+    public function galleries(): VideoFormatterInterface
+    {
+        $this->formattedData['galleries'] = [];
+
+        foreach ($this->video->getPositions() as $position) {
+            $this->formattedData['galleries'][] = $this->videoPositionFormatter
+                ->init($position)
+                ->position()
+                ->id()
+                ->gallery()
+                ->format();
+        }
 
         return $this;
     }

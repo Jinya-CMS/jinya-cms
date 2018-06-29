@@ -8,15 +8,15 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Entity\ArtworkPosition;
-use Jinya\Entity\Gallery;
-use Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface;
+use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Video\VideoPosition;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Jinya\Formatter\Video\VideoPositionFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class GalleryFormatter implements GalleryFormatterInterface
+class VideoGalleryFormatter implements VideoGalleryFormatterInterface
 {
-    /** @var Gallery */
+    /** @var VideoGallery */
     private $gallery;
 
     /** @var array */
@@ -25,8 +25,8 @@ class GalleryFormatter implements GalleryFormatterInterface
     /** @var UserFormatterInterface */
     private $userFormatter;
 
-    /** @var ArtworkPositionFormatterInterface */
-    private $artworkPositionFormatter;
+    /** @var VideoPositionFormatterInterface */
+    private $videoPositionFormatter;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
@@ -49,11 +49,11 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * @param ArtworkPositionFormatterInterface $artworkPositionFormatter
+     * @param VideoPositionFormatterInterface $videoPositionFormatter
      */
-    public function setArtworkPositionFormatter(ArtworkPositionFormatterInterface $artworkPositionFormatter): void
+    public function setVideoPositionFormatter(VideoPositionFormatterInterface $videoPositionFormatter): void
     {
-        $this->artworkPositionFormatter = $artworkPositionFormatter;
+        $this->videoPositionFormatter = $videoPositionFormatter;
     }
 
     /**
@@ -69,10 +69,10 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Gallery $gallery
-     * @return GalleryFormatterInterface
+     * @param VideoGallery $gallery
+     * @return VideoGalleryFormatterInterface
      */
-    public function init(Gallery $gallery): GalleryFormatterInterface
+    public function init(VideoGallery $gallery): VideoGalleryFormatterInterface
     {
         $this->gallery = $gallery;
         $this->formattedData = [];
@@ -83,9 +83,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the slug
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function slug(): GalleryFormatterInterface
+    public function slug(): VideoGalleryFormatterInterface
     {
         $this->formattedData['slug'] = $this->gallery->getSlug();
 
@@ -95,9 +95,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the name
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function name(): GalleryFormatterInterface
+    public function name(): VideoGalleryFormatterInterface
     {
         $this->formattedData['name'] = $this->gallery->getName();
 
@@ -107,9 +107,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the description
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function description(): GalleryFormatterInterface
+    public function description(): VideoGalleryFormatterInterface
     {
         $this->formattedData['description'] = $this->gallery->getDescription();
 
@@ -119,9 +119,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the created info
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function created(): GalleryFormatterInterface
+    public function created(): VideoGalleryFormatterInterface
     {
         $this->formattedData['created']['by'] = $this->userFormatter
             ->init($this->gallery->getCreator())
@@ -135,9 +135,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the updated info
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function updated(): GalleryFormatterInterface
+    public function updated(): VideoGalleryFormatterInterface
     {
         $this->formattedData['updated']['by'] = $this->userFormatter
             ->init($this->gallery->getUpdatedBy())
@@ -151,9 +151,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the history
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function history(): GalleryFormatterInterface
+    public function history(): VideoGalleryFormatterInterface
     {
         $this->formattedData['history'] = $this->gallery->getHistory();
 
@@ -163,9 +163,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the orientation
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function orientation(): GalleryFormatterInterface
+    public function orientation(): VideoGalleryFormatterInterface
     {
         $this->formattedData['orientation'] = $this->gallery->getOrientation();
 
@@ -173,31 +173,39 @@ class GalleryFormatter implements GalleryFormatterInterface
     }
 
     /**
-     * Formats the artworks
+     * Formats the videos
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function artworks(): GalleryFormatterInterface
+    public function videos(): VideoGalleryFormatterInterface
     {
-        $this->formattedData['artworks'] = [];
+        $this->formattedData['videos'] = [];
 
-        $artworkPositions = $this->gallery->getArtworks()->toArray();
-        uasort($artworkPositions, function (ArtworkPosition $a, ArtworkPosition $b) {
+        $videoPositions = $this->gallery->getVideos()->toArray();
+        uasort($videoPositions, function (VideoPosition $a, VideoPosition $b) {
             return $a->getPosition() > $b->getPosition();
         });
 
-        $artworks = array_values($artworkPositions);
+        $videos = array_values($videoPositions);
 
-        /** @var ArtworkPosition $artworkPosition */
-        foreach ($artworks as $artworkPosition) {
-            $this->formattedData['artworks'][] = $this->artworkPositionFormatter
-                ->init($artworkPosition)
+        /** @var VideoPosition $videoPosition */
+        foreach ($videos as $videoPosition) {
+            $this->videoPositionFormatter
+                ->init($videoPosition)
                 ->position()
-                ->id()
-                ->artwork()
-                ->format();
+                ->id();
+
+            if (!empty($videoPosition->getYoutubeVideo())) {
+                $this->videoPositionFormatter
+                    ->youtubeVideo();
+            } else {
+                $this->videoPositionFormatter
+                    ->video();
+            }
+
+            $this->formattedData['videos'][] = $this->videoPositionFormatter->format();
         }
 
         return $this;
@@ -206,27 +214,11 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the background
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function background(): GalleryFormatterInterface
+    public function background(): VideoGalleryFormatterInterface
     {
-        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        return $this;
-    }
-
-    /**
-     * Formats the labels
-     *
-     * @return GalleryFormatterInterface
-     */
-    public function labels(): GalleryFormatterInterface
-    {
-        $this->formattedData['labels'] = [];
-
-        foreach ($this->gallery->getLabels() as $label) {
-            $this->formattedData['labels'][] = ['name' => $label->getName()];
-        }
+        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_art_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this;
     }
@@ -234,9 +226,9 @@ class GalleryFormatter implements GalleryFormatterInterface
     /**
      * Formats the id
      *
-     * @return GalleryFormatterInterface
+     * @return VideoGalleryFormatterInterface
      */
-    public function id(): GalleryFormatterInterface
+    public function id(): VideoGalleryFormatterInterface
     {
         $this->formattedData['id'] = $this->gallery->getId();
 

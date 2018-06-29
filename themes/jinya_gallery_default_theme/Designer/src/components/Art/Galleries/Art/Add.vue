@@ -1,12 +1,12 @@
 <template>
-    <jinya-gallery-form @save="save" :enable="enable" :message="message" :state="state"/>
+    <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
-  import Routes from "../../../../router/Routes";
-  import JinyaGalleryForm from "../GalleryForm";
+  import Routes from "@/router/Routes";
+  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
   import Timing from "@/framework/Utils/Timing";
 
   // noinspection JSUnusedGlobalSymbols
@@ -20,6 +20,11 @@
         enable: true
       }
     },
+    computed: {
+      backRoute() {
+        return Routes.Art.Galleries.Art.Overview;
+      }
+    },
     name: "add",
     methods: {
       async save(gallery) {
@@ -29,7 +34,7 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.add.saving', {name: gallery.name});
 
-          await JinyaRequest.post('/api/gallery', {
+          await JinyaRequest.post('/api/gallery/art', {
             name: gallery.name,
             slug: gallery.slug,
             description: gallery.description,
@@ -38,7 +43,7 @@
 
           if (background) {
             this.message = Translator.message('art.galleries.add.uploading', {name: gallery.name});
-            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
           }
 
           this.state = 'success';

@@ -76,4 +76,11 @@ interface VideoFormatterInterface extends FormatterInterface
      * @return VideoFormatterInterface
      */
     public function poster(): self;
+
+    /**
+     * Formats the galleries
+     *
+     * @return VideoFormatterInterface
+     */
+    public function galleries(): self;
 }

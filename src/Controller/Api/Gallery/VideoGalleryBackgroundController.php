@@ -8,9 +8,9 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\VideoGallery;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -19,20 +19,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class GalleryBackgroundController extends BaseApiController
+class VideoGalleryBackgroundController extends BaseApiController
 {
     /**
-     * @Route("/api/gallery/{slug}/background", methods={"GET"}, name="api_gallery_background_get")
+     * @Route("/api/gallery/video/{slug}/background", methods={"GET"}, name="api_gallery_video_background_get")
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param VideoGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function getBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data Gallery|array */
+        /** @var $data VideoGallery|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
             $gallery = $galleryService->get($slug);
             if (empty($gallery->getBackground())) {
@@ -50,17 +50,17 @@ class GalleryBackgroundController extends BaseApiController
     }
 
     /**
-     * @Route("/api/gallery/{slug}/background", methods={"PUT"}, name="api_gallery_background_put")
+     * @Route("/api/gallery/video/{slug}/background", methods={"PUT"}, name="api_gallery_video_background_put")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param VideoGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function putBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
+    public function putBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $urlGenerator, $slug) {
             $gallery = $galleryService->get($slug);
@@ -74,23 +74,23 @@ class GalleryBackgroundController extends BaseApiController
 
             $galleryService->saveOrUpdate($gallery);
 
-            return $urlGenerator->generate('api_gallery_background_get', ['slug' => $gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $urlGenerator->generate('api_gallery_video_background_get', ['slug' => $gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
     }
 
     /**
-     * @Route("/api/gallery/{slug}/background", methods={"DELETE"}, name="api_gallery_background_delete")
+     * @Route("/api/gallery/video/{slug}/background", methods={"DELETE"}, name="api_gallery_video_background_delete")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
      * @param Request $request
-     * @param GalleryServiceInterface $galleryService
+     * @param VideoGalleryServiceInterface $galleryService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteBackgroundImageAction(string $slug, Request $request, GalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
+    public function deleteBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $slug) {
             $gallery = $galleryService->get($slug);

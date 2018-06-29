@@ -3,13 +3,8 @@
 </template>
 
 <script>
-  import JinyaTabContainer from "@/framework/Markup/Tab/TabContainer";
-
   export default {
     name: "jinya-menu-builder-template-entry",
-    components: {
-      JinyaTabContainer
-    },
     props: {
       item: {
         type: Object,

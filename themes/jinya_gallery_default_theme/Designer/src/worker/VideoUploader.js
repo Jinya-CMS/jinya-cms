@@ -6,7 +6,7 @@ const chunkSize = 1 * 1024 * 1024;
 async function startUpload(slug, apiKey) {
   try {
     console.log(`Start upload for slug ${slug}`);
-    await JinyaWorkerRequest.post(`/api/video/${slug}/video`, {}, apiKey);
+    await JinyaWorkerRequest.post(`/api/video/jinya/${slug}/video`, {}, apiKey);
     console.log(`Started upload for slug ${slug}`);
 
     return true;
@@ -21,27 +21,27 @@ async function startUpload(slug, apiKey) {
   }
 }
 
-async function chunkUpload(slug, videoFile, apiKey, offset) {
+async function chunkUpload(slug, videoFile, apiKey, offset = 0) {
   async function uploadChunk(offset) {
     const blob = videoFile.slice(offset, offset + chunkSize);
 
-    console.log(`Uploading chunk from ${offset} to ${offset + chunkSize} for slug ${slug}`);
-    await JinyaWorkerRequest.upload(`/api/video/${slug}/video/${offset}`, blob, apiKey);
+    if (blob.size > 0) {
+      console.log(`Uploading chunk from ${offset} to ${offset + chunkSize} for slug ${slug}`);
+      await JinyaWorkerRequest.upload(`/api/video/jinya/${slug}/video/${offset}`, blob, apiKey);
+    }
   }
 
-  const uploadPromises = [];
-  let currentOffset = offset || 0;
+  let currentOffset = 0;
 
-  for (let i = 0; i < 5; i++) {
-    uploadPromises.push(uploadChunk(currentOffset + chunkSize));
-    currentOffset += chunkSize;
-  }
-  
-  await Promise.all(uploadPromises);
+  do {
+    const chunks = [];
+    for (let i = 0; i < 5; i++) {
+      chunks.push(uploadChunk(currentOffset));
+      currentOffset += chunkSize;
+    }
 
-  if (currentOffset < videoFile.size) {
-    await chunkUpload(slug, videoFile, apiKey, offset + currentOffset);
-  }
+    await Promise.all(chunks);
+  } while (currentOffset < videoFile.size);
 }
 
 onmessage = async e => {
@@ -56,11 +56,11 @@ onmessage = async e => {
       postMessage({message: 'background.video.upload_started', started: true});
 
       console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
-      await chunkUpload(slug, videoFile, apiKey);
+      await chunkUpload(slug, videoFile, apiKey, chunkSize * -1);
       console.log(`Uploaded file for slug ${slug}`);
 
       console.log(`Finish upload for slug ${slug}`);
-      await JinyaWorkerRequest.put(`/api/video/${slug}/video/finish`, {}, apiKey);
+      await JinyaWorkerRequest.put(`/api/video/jinya/${slug}/video/finish`, {}, apiKey);
 
       console.log(`Finished upload for slug ${slug} close worker now`);
       postMessage({message: 'background.video.uploaded', finished: true});
