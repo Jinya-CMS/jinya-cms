@@ -17,7 +17,7 @@ final class Version20180606192325 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE video ADD poster VARCHAR(255) DEFAULT NULL, CHANGE history history JSON NOT NULL');
+        $this->addSql('ALTER TABLE video ADD poster VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -25,6 +25,6 @@ final class Version20180606192325 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE video DROP poster, CHANGE history history LONGTEXT NOT NULL COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE video DROP poster');
     }
 }
