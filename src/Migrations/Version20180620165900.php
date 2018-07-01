@@ -17,8 +17,8 @@ final class Version20180620165900 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('RENAME TABLE gallery_label TO art_gallery_label');
-        $this->addSql('RENAME TABLE gallery TO art_gallery');
+        $this->addSql('ALTER TABLE gallery_label RENAME TO art_gallery_label');
+        $this->addSql('ALTER TABLE gallery RENAME TO art_gallery');
     }
 
     public function down(Schema $schema): void
@@ -26,7 +26,7 @@ final class Version20180620165900 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('RENAME TABLE art_gallery_label TO gallery_label');
-        $this->addSql('RENAME TABLE art_gallery TO gallery');
+        $this->addSql('ALTER TABLE art_gallery_label RENAME TO gallery_label');
+        $this->addSql('ALTER TABLE art_gallery RENAME TO gallery');
     }
 }
