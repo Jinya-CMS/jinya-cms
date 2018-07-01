@@ -1,12 +1,13 @@
 <template>
-    <jinya-gallery-form :gallery="gallery" @save="save" :enable="enable" :message="message" :state="state"/>
+    <jinya-gallery-form :back-target="backRoute" :gallery="gallery" @save="save" :enable="enable" :message="message"
+                        :state="state"/>
 </template>
 
 <script>
-  import JinyaGalleryForm from "../GalleryForm";
+  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Translator from "@/framework/i18n/Translator";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import Timing from "@/framework/Utils/Timing";
   import DOMUtils from "@/framework/Utils/DOMUtils";
 
@@ -29,13 +30,18 @@
         }
       };
     },
+    computed: {
+      backRoute() {
+        return Routes.Art.Galleries.Art.Overview;
+      }
+    },
     name: "edit",
     async mounted() {
       this.state = 'loading';
       this.enable = false;
       this.message = Translator.message('art.galleries.details.loading');
       try {
-        const gallery = await JinyaRequest.get(`/api/gallery/${this.$route.params.slug}`);
+        const gallery = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}`);
         this.gallery = gallery.item;
         this.state = '';
         this.enable = true;
@@ -53,7 +59,7 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.edit.saving', {name: gallery.name});
 
-          await JinyaRequest.put(`/api/gallery/${this.$route.params.slug}`, {
+          await JinyaRequest.put(`/api/gallery/art/${this.$route.params.slug}`, {
             name: gallery.name,
             slug: gallery.slug,
             description: gallery.description,
@@ -62,7 +68,7 @@
 
           if (background) {
             this.message = Translator.message('art.galleries.edit.uploading', {name: gallery.name});
-            await JinyaRequest.upload(`/api/gallery/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
           }
 
           this.state = 'success';

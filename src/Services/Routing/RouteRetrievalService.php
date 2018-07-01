@@ -11,11 +11,11 @@ namespace Jinya\Services\Routing;
 use Jinya\Entity\SlugEntity;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
-use Jinya\Services\Galleries\GalleryServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Symfony\Component\Routing\RouterInterface;
-use const PHP_INT_MAX;
 use function array_map;
+use const PHP_INT_MAX;
 
 class RouteRetrievalService implements RouteRetrievalServiceInterface
 {
@@ -30,7 +30,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     private $formService;
 
     /**
-     * @var GalleryServiceInterface
+     * @var ArtGalleryServiceInterface
      */
     private $galleryService;
 
@@ -48,11 +48,11 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
      * RouteRetrievalService constructor.
      * @param PageServiceInterface $pageService
      * @param FormServiceInterface $formService
-     * @param GalleryServiceInterface $galleryService
+     * @param ArtGalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param RouterInterface $router
      */
-    public function __construct(PageServiceInterface $pageService, FormServiceInterface $formService, GalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, RouterInterface $router)
+    public function __construct(PageServiceInterface $pageService, FormServiceInterface $formService, ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, RouterInterface $router)
     {
         $this->pageService = $pageService;
         $this->formService = $formService;

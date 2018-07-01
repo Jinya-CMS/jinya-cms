@@ -38,7 +38,7 @@
   import FileUtils from "@/framework/IO/FileUtils";
   import JinyaTextarea from "@/framework/Markup/Form/Textarea";
   import slugify from "slugify";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
   import JinyaEditor from "@/framework/Markup/Form/Editor";

@@ -36,7 +36,7 @@
   import JinyaPager from "@/framework/Markup/Listing/Pager";
   import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
   import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaLoader from "@/framework/Markup/Loader";
+  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
   import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";

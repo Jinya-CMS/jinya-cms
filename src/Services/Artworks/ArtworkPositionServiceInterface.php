@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Artworks;
 
-use Jinya\Entity\ArtworkPosition;
+use Jinya\Entity\Artwork\ArtworkPosition;
 
 interface ArtworkPositionServiceInterface
 {

@@ -19,7 +19,8 @@
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "worker-loader": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",

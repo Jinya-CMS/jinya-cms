@@ -38,22 +38,22 @@
                     <jinya-menu-flyout-menu-item to="Art.Artworks.SavedExternal.Overview" v-if="false"
                                                  text="menu.designer.flyout.art.sections.artworks.saved_external"/>
                 </jinya-menu-flyout-menu-section>
-                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header" v-if="false"
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.videos.header"
                                                 v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Videos.SavedInJinya.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_in_jinya"/>
                     <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnYoutube.Overview"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_youtube"/>
-                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnVimeo.Overview"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnVimeo.Overview" v-if="false"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_vimeo"/>
-                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnNewgrounds.Overview"
+                    <jinya-menu-flyout-menu-item to="Art.Videos.SavedOnNewgrounds.Overview" v-if="false"
                                                  text="menu.designer.flyout.art.sections.videos.saved_on_newgrounds"/>
                 </jinya-menu-flyout-menu-section>
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.art.sections.galleries.header"
                                                 v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item to="Art.Galleries.Art.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.artwork_galleries"/>
-                    <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview" v-if="false"
+                    <jinya-menu-flyout-menu-item to="Art.Galleries.Video.Overview"
                                                  text="menu.designer.flyout.art.sections.galleries.video_galleries"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>

@@ -17,6 +17,8 @@ defaultConfig:
   gallery:
     artwork:
       show_description: false
+    video:
+      show_description: false
   startpage:
     background:
       image: http://c1.staticflickr.com/4/3804/33589584740_b4bb597b73_h.jpg
@@ -68,6 +70,8 @@ scripts:
       - designer/vendor.js
     designer.app.js!:
       - designer/app.js
+    designer.worker.videoUploader.js!:
+      - public/jinya_gallery_default_theme/scripts/designer.worker.videoUploader.js
 form:
   config:
     title: Jinya Gallery Theme konfigurieren
@@ -113,6 +117,12 @@ form:
         groups:
           - name: artwork
             title: Kunstwerk
+            fields:
+              - name: show_description
+                type: boolean
+                label: Beschreibung anzeigen
+          - name: video
+            title: Video
             fields:
               - name: show_description
                 type: boolean

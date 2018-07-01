@@ -41,7 +41,7 @@ class Label implements JsonSerializable
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Gallery", mappedBy="labels", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Galleries\ArtGallery", mappedBy="labels", cascade={"persist"})
      */
     private $galleries;
 

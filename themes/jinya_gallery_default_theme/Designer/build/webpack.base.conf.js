@@ -30,6 +30,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /worker\/VideoUploader\.js$/,
+        loader: 'worker-loader',
+        options: {name: 'public/jinya_gallery_default_theme/scripts/designer.worker.videoUploader.js'}
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig

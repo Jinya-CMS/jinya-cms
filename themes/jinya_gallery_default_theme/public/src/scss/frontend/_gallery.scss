@@ -5,13 +5,16 @@
     white-space: nowrap;
     height: 100%;
 
-    .artwork {
+    .artwork,
+    .video {
       display: inline-block;
       white-space: normal;
       vertical-align: top;
       margin: $gallery-content-figure-margin-top $gallery-content-figure-margin-right $gallery-content-figure-margin-bottom $gallery-content-figure-margin-left;
       width: auto;
+    }
 
+    .artwork {
       > a {
         display: inline;
         width: auto;
@@ -32,7 +35,8 @@
     overflow-x: hidden;
     height: 100%;
 
-    .artwork {
+    .artwork,
+    .video {
       width: 100%;
     }
   }
@@ -54,11 +58,14 @@
       white-space: normal;
       overflow-y: auto;
 
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;
+      }
 
+      .artwork {
         > a {
           > img {
             height: auto;
@@ -66,12 +73,25 @@
           }
         }
       }
+
+      .video {
+        iframe {
+          height: 56.25%;
+          width: 100%;
+        }
+
+        video {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
 
     &.vertical {
       height: 100%;
 
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;
@@ -89,20 +109,35 @@
     margin-right: $gallery-content-margin-right-mobile;
 
     &.horizontal {
-      .artwork {
+      .artwork,
+      .video {
         width: $gallery-content-figure-width-mobile;
         max-height: 100%;
+      }
 
+      .artwork {
         > a {
           > img {
             height: $gallery-content-figure-height-mobile;
           }
         }
       }
+
+      .video {
+        iframe {
+          height: $gallery-content-figure-height-mobile;
+          width: calc(16 / 9 * #{$gallery-content-figure-height-mobile});
+        }
+
+        video {
+          height: $gallery-content-figure-height-mobile;
+        }
+      }
     }
 
     &.vertical {
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;
@@ -120,20 +155,35 @@
     margin-right: $gallery-content-margin-right-tablet-portrait;
 
     &.horizontal {
-      .artwork {
+      .artwork,
+      .video {
         width: $gallery-content-figure-width-tablet-portrait;
         max-height: 100%;
+      }
 
+      .artwork {
         > a {
           > img {
             height: $gallery-content-figure-height-tablet-portrait;
           }
         }
       }
+
+      .video {
+        iframe {
+          height: $gallery-content-figure-height-tablet-portrait;
+          width: calc(16 / 9 * #{$gallery-content-figure-height-tablet-portrait});
+        }
+
+        video {
+          height: $gallery-content-figure-height-tablet-portrait;
+        }
+      }
     }
 
     &.vertical {
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;
@@ -151,20 +201,35 @@
     margin-right: $gallery-content-margin-right-tablet-landscape;
 
     &.horizontal {
-      .artwork {
+      .artwork,
+      .video {
         width: $gallery-content-figure-width-tablet-landscape;
         max-height: 100%;
+      }
 
+      .artwork {
         > a {
           > img {
             height: $gallery-content-figure-height-tablet-landscape;
           }
         }
       }
+
+      .video {
+        iframe {
+          height: $gallery-content-figure-height-tablet-landscape;
+          width: calc(16 / 9 * #{$gallery-content-figure-height-tablet-landscape});
+        }
+
+        video {
+          height: $gallery-content-figure-height-tablet-landscape;
+        }
+      }
     }
 
     &.vertical {
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;
@@ -182,19 +247,34 @@
     margin-right: $gallery-content-margin-right-desktop;
 
     &.horizontal {
-      .artwork {
+      .artwork,
+      .video {
         max-height: 100%;
+      }
 
+      .artwork {
         > a {
           > img {
             height: $gallery-content-figure-height-desktop;
           }
         }
       }
+
+      .video {
+        iframe {
+          height: $gallery-content-figure-height-desktop;
+          width: calc(16 / 9 * #{$gallery-content-figure-height-desktop});
+        }
+
+        video {
+          height: $gallery-content-figure-height-desktop;
+        }
+      }
     }
 
     &.vertical {
-      .artwork {
+      .artwork,
+      .video {
         display: block;
         vertical-align: initial;
         margin: 0;

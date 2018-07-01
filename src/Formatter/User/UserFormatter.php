@@ -10,12 +10,12 @@ namespace Jinya\Formatter\User;
 
 use Jinya\Entity\Artwork;
 use Jinya\Entity\Form;
-use Jinya\Entity\Gallery;
+use Jinya\Entity\Galleries\ArtGallery;
 use Jinya\Entity\Page;
 use Jinya\Entity\User;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
-use Jinya\Formatter\Gallery\GalleryFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Role\Role;
@@ -33,7 +33,7 @@ class UserFormatter implements UserFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var GalleryFormatterInterface */
+    /** @var ArtGalleryFormatterInterface */
     private $galleryFormatter;
 
     /** @var ArtworkFormatterInterface */
@@ -60,9 +60,9 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * @param GalleryFormatterInterface $galleryFormatter
+     * @param ArtGalleryFormatterInterface $galleryFormatter
      */
-    public function setGalleryFormatter(GalleryFormatterInterface $galleryFormatter): void
+    public function setGalleryFormatter(ArtGalleryFormatterInterface $galleryFormatter): void
     {
         $this->galleryFormatter = $galleryFormatter;
     }
@@ -244,7 +244,7 @@ class UserFormatter implements UserFormatterInterface
      */
     public function createdGalleries(): UserFormatterInterface
     {
-        $this->formattedData['created']['galleries'] = array_map(function (Gallery $gallery) {
+        $this->formattedData['created']['galleries'] = array_map(function (ArtGallery $gallery) {
             return $this->galleryFormatter
                 ->init($gallery)
                 ->name()
@@ -252,7 +252,7 @@ class UserFormatter implements UserFormatterInterface
                 ->description()
                 ->background()
                 ->format();
-        }, $this->user->getCreatedGalleries()->toArray());
+        }, $this->user->getCreatedArtGalleries()->toArray());
 
         return $this;
     }

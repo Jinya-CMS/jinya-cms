@@ -5,7 +5,3 @@ monolog:
             type: service
             id: Jinya\Logging\MySqlHandler
             channels: ['!doctrine', '!logging']
-        accesslog:
-            type: service
-            id: Jinya\Logging\AccessLogHandler
-            channels: ['request']

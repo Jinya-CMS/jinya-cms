@@ -6,7 +6,7 @@
 <script>
   import JinyaArtworkForm from "./ArtworkForm";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "../../../../router/Routes";
+  import Routes from "@/router/Routes";
   import Translator from "@/framework/i18n/Translator";
   import DOMUtils from "@/framework/Utils/DOMUtils";
 

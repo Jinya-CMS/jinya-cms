@@ -12,5 +12,8 @@ export default {
   },
   header: {
     change: 'change-menu-header'
+  },
+  video: {
+    uploadStarted: 'video-upload-started'
   }
 }
