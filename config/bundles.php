@@ -14,12 +14,12 @@ $bundles = [
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
 ];
 
-if ($appEnv === 'dev') {
+if ('dev' === $appEnv) {
     $bundles[Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class] = ['dev' => true];
     $bundles[Symfony\Bundle\DebugBundle\DebugBundle::class] = ['dev' => true];
     $bundles[Symfony\Bundle\MakerBundle\MakerBundle::class] = ['dev' => true];
     $bundles[Symfony\Bundle\WebServerBundle\WebServerBundle::class] = ['dev' => true];
-} elseif ($appEnv === 'test') {
+} elseif ('test' === $appEnv) {
     $bundles[Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class] = ['test' => true];
     $bundles[Symfony\Bundle\DebugBundle\DebugBundle::class] = ['test' => true];
 }
