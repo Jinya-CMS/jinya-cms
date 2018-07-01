@@ -58,7 +58,7 @@ jobs:
       - 
         run: 
           command: |
-            rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public
+            rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public public/.htaccess
             mkdir -p ~/dist
             zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
       - 
