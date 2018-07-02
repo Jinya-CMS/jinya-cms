@@ -16,7 +16,7 @@ security:
   providers:
     jinya_db_provider:
       entity:
-        class: Jinya\Entity\User
+        class: Jinya\Entity\Artist\User
         property: email
     jinya_api_key_provider:
       id: Jinya\Framework\Security\Api\ApiKeyUserProvider

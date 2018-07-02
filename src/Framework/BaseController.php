@@ -8,9 +8,9 @@
 
 namespace Jinya\Framework;
 
+use Jinya\Entity\Artist\User;
 use Jinya\Entity\RoutingEntry;
 use Jinya\Entity\Theme;
-use Jinya\Entity\User;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
@@ -220,7 +220,7 @@ abstract class BaseController
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return User|null
+     * @return \Jinya\Entity\Artist\User|null
      * @see TokenInterface::getUser()
      */
     final protected function getUser(): ?User

@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Users;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 
 interface UserServiceInterface
 {
@@ -26,7 +26,7 @@ interface UserServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @return User[]
+     * @return \Jinya\Entity\Artist\User[]
      */
     public function getAll(int $offset, int $count = 10, string $keyword): array;
 
@@ -56,7 +56,7 @@ interface UserServiceInterface
     /**
      * Creates a user
      *
-     * @param User $user
+     * @param \Jinya\Entity\Artist\User $user
      * @param bool $ignorePassword
      * @return User
      */
@@ -66,7 +66,7 @@ interface UserServiceInterface
      * Activates the given user
      *
      * @param int $id
-     * @return User
+     * @return \Jinya\Entity\Artist\User
      */
     public function activate(int $id): User;
 

@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\User;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

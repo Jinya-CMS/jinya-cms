@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\User;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Formatter\FormatterInterface;
 
 interface UserFormatterInterface extends FormatterInterface
@@ -16,7 +16,7 @@ interface UserFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param User $user
+     * @param \Jinya\Entity\Artist\User $user
      * @return UserFormatterInterface
      */
     public function init(User $user): self;

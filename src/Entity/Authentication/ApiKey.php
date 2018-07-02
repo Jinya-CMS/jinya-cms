@@ -6,10 +6,11 @@
  * Time: 22:39
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Authentication;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Artist\User;
 
 /**
  * @ORM\Entity

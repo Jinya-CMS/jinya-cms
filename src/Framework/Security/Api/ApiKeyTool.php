@@ -12,8 +12,8 @@ use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
-use Jinya\Entity\ApiKey;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\ApiKey;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use function uniqid;
 
