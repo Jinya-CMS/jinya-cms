@@ -6,9 +6,10 @@
  * Time: 17:59
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Theme;
 
 /**
  * @ORM\Entity
