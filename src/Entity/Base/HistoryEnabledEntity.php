@@ -6,7 +6,7 @@
  * Time: 16:29
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Base;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

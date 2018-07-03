@@ -13,7 +13,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Jinya\Entity\HistoryEnabledEntity;
+use Jinya\Entity\Base\HistoryEnabledEntity;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use function strtolower;
 

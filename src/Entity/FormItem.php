@@ -9,6 +9,7 @@
 namespace Jinya\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\HistoryEnabledEntity;
 use function array_key_exists;
 use function implode;
 
