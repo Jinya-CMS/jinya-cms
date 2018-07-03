@@ -11,8 +11,8 @@ namespace Jinya\Entity\Video;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\SlugEntity;
 use Jinya\Entity\HistoryEnabledEntity;
-use Jinya\Entity\SlugEntity;
 
 /**
  * @ORM\Entity

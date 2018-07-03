@@ -6,7 +6,7 @@
  * Time: 16:56
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Base;
 
 trait BaseEntity
 {

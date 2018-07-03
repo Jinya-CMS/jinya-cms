@@ -9,9 +9,8 @@
 namespace Jinya\Entity\Artwork;
 
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\Artwork;
-use Jinya\Entity\BaseEntity;
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Base\BaseEntity;
+use Jinya\Entity\Gallery\ArtGallery;
 use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

@@ -6,12 +6,12 @@
  * Time: 18:44
  */
 
-namespace Jinya\Entity\Galleries;
+namespace Jinya\Entity\Gallery;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\BaseArtEntity;
+use Jinya\Entity\Base\BaseArtEntity;
 use Jinya\Entity\HistoryEnabledEntity;
 
 /**

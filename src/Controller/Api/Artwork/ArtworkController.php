@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
-use Jinya\Entity\Artwork;
+use Jinya\Entity\Artwork\Artwork;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Framework\BaseApiController;

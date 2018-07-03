@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Artworks;
 
-use Jinya\Entity\Artwork;
+use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Label;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 
@@ -38,7 +38,7 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Saves or update the given artwork
      *
      * @param Artwork $artwork
-     * @return Artwork
+     * @return \Jinya\Entity\Artwork\Artwork
      */
     public function saveOrUpdate($artwork);
 

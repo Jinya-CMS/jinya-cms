@@ -9,7 +9,7 @@
 namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label;
 use function array_map;
 

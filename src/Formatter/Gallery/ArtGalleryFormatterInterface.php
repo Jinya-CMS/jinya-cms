@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Formatter\FormatterInterface;
 
 interface ArtGalleryFormatterInterface extends FormatterInterface

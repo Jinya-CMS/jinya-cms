@@ -6,11 +6,13 @@
  * Time: 16:52
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Artwork;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\BaseArtEntity;
+use Jinya\Entity\HistoryEnabledEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -20,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("name", message="backend.artworks.name.not_unique")
  * @UniqueEntity("slug", message="backend.artworks.slug.not_unique")
  */
-class Artwork extends HistoryEnabledEntity implements ArtEntityInterface
+class Artwork extends HistoryEnabledEntity
 {
     use BaseArtEntity;
 

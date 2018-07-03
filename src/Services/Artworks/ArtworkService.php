@@ -9,7 +9,7 @@
 namespace Jinya\Services\Artworks;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Artwork;
+use Jinya\Entity\Artwork\Artwork;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;

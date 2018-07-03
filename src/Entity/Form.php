@@ -11,6 +11,7 @@ namespace Jinya\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\SlugEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

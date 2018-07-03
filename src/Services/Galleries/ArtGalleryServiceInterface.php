@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Galleries;
 
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 

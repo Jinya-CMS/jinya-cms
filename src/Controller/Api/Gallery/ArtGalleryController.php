@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;

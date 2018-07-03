@@ -6,11 +6,9 @@
  * Time: 18:58
  */
 
-namespace Jinya\Entity\Galleries;
+namespace Jinya\Entity\Gallery;
 
-use Jinya\Entity\ArtEntityInterface;
-
-interface GalleryInterface extends ArtEntityInterface
+interface GalleryInterface
 {
     public const HORIZONTAL = 'horizontal';
 
