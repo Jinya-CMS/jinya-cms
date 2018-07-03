@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Theme;
 
-use Jinya\Entity\Menu;
+use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Theme;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

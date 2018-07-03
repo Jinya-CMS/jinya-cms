@@ -10,8 +10,8 @@ namespace Jinya\Services\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Menu;
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\Menu;
+use Jinya\Entity\Menu\MenuItem;
 
 class MenuService implements MenuServiceInterface
 {

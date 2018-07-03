@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Menu;
 
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\MenuItem;
 use Jinya\Formatter\Route\RouteFormatterInterface;
 
 class MenuItemFormatter implements MenuItemFormatterInterface
@@ -16,7 +16,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var MenuItem */
+    /** @var \Jinya\Entity\Menu\MenuItem */
     private $menuItem;
 
     /** @var MenuFormatterInterface */
@@ -128,7 +128,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param MenuItem $menuItem
+     * @param \Jinya\Entity\Menu\MenuItem $menuItem
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): MenuItemFormatterInterface

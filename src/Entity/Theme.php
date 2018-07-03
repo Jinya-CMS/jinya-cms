@@ -9,6 +9,7 @@
 namespace Jinya\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Menu\Menu;
 
 /**
  * @ORM\Entity

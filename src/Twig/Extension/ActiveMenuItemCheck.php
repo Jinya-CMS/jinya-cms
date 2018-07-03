@@ -2,7 +2,7 @@
 
 namespace Jinya\Twig\Extension;
 
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\MenuItem;
 use Symfony\Component\Routing\RequestContext;
 
 class ActiveMenuItemCheck extends \Twig_Extension

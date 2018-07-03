@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Route;
 
-use Jinya\Entity\RoutingEntry;
+use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Formatter\FormatterInterface;
 
 interface RouteFormatterInterface extends FormatterInterface
@@ -44,7 +44,7 @@ interface RouteFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param RoutingEntry $routingEntry
+     * @param \Jinya\Entity\Menu\RoutingEntry $routingEntry
      * @return RouteFormatterInterface
      */
     public function init(RoutingEntry $routingEntry): self;

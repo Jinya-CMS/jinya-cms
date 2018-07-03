@@ -8,8 +8,8 @@
 
 namespace Jinya\Services\Menu;
 
-use Jinya\Entity\Menu;
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\Menu;
+use Jinya\Entity\Menu\MenuItem;
 
 interface MenuServiceInterface
 {

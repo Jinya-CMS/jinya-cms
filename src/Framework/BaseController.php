@@ -9,7 +9,7 @@
 namespace Jinya\Framework;
 
 use Jinya\Entity\Artist\User;
-use Jinya\Entity\RoutingEntry;
+use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Entity\Theme;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
@@ -144,7 +144,7 @@ abstract class BaseController
      * Forwards the request to the given RoutingEntry
      *
      * @see RoutingEntry
-     * @param RoutingEntry $route
+     * @param \Jinya\Entity\Menu\RoutingEntry $route
      * @return Response
      * @throws \Exception
      */

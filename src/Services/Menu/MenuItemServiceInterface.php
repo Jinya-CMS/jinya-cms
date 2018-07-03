@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Menu;
 
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\MenuItem;
 
 interface MenuItemServiceInterface
 {
@@ -31,7 +31,7 @@ interface MenuItemServiceInterface
      * @param int $parentId
      * @param int $position
      * @param string $type
-     * @return MenuItem
+     * @return \Jinya\Entity\Menu\MenuItem
      */
     public function get(int $parentId, int $position, string $type = self::PARENT): MenuItem;
 
@@ -56,7 +56,7 @@ interface MenuItemServiceInterface
     /**
      * Updates the given @see MenuItem
      *
-     * @param MenuItem $item
+     * @param \Jinya\Entity\Menu\MenuItem $item
      * @return MenuItem
      */
     public function updateItem(MenuItem $item): MenuItem;
