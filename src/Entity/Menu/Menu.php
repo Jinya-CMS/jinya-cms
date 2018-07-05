@@ -33,7 +33,7 @@ class Menu implements JsonSerializable
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
      * @var Collection
      */
     private $menuItems;

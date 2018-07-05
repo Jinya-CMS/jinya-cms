@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Form;
 
-use Jinya\Entity\FormItem;
+use Jinya\Entity\Form\FormItem;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Form\FormItemFormatterInterface;
 use Jinya\Framework\BaseApiController;

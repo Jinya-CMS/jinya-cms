@@ -8,8 +8,7 @@
 
 namespace Jinya\Components\Form;
 
-use Jinya\Entity\Form;
-use Jinya\Entity\FormItem;
+use Jinya\Entity\Form\Form;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -40,7 +39,7 @@ class FormGenerator implements FormGeneratorInterface
     public function generateForm(Form $form): FormInterface
     {
         $formBuilder = $this->formFactory->createBuilder();
-        /** @var FormItem $item */
+        /** @var \Jinya\Entity\Form\FormItem $item */
         foreach ($form->getItems() as $item) {
             $options = $item->getOptions();
             $options['label'] = $item->getLabel();

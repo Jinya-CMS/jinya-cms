@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,7 +25,7 @@ class Form extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(mappedBy="form", targetEntity="Jinya\Entity\FormItem", cascade={"persist", "remove"})
+     * @ORM\OneToMany(mappedBy="form", targetEntity="Jinya\Entity\Form\FormItem", cascade={"persist", "remove"})
      */
     private $items;
 

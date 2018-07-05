@@ -22,7 +22,7 @@ class VideoPosition
 
     /**
      * @var VideoGallery
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Galleries\VideoGallery", inversedBy="artworks")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\VideoGallery", inversedBy="artworks")
      */
     private $gallery;
 

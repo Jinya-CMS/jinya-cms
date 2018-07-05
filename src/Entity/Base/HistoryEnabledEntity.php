@@ -39,13 +39,13 @@ abstract class HistoryEnabledEntity implements JsonSerializable
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
     private $creator;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
     private $updatedBy;
 

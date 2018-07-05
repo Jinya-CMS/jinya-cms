@@ -40,7 +40,7 @@ class Artwork extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label", inversedBy="artworks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label\Label", inversedBy="artworks", cascade={"persist"})
      */
     private $labels;
 

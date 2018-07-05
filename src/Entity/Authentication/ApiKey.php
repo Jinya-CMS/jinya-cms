@@ -19,7 +19,7 @@ use Jinya\Entity\Artist\User;
 class ApiKey
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", cascade={"remove"})
      *
      * @var User
      */

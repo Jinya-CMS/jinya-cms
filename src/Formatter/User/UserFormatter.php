@@ -10,7 +10,7 @@ namespace Jinya\Formatter\User;
 
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Artwork\Artwork;
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Page\Page;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;

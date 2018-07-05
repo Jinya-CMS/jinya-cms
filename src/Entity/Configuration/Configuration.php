@@ -28,7 +28,7 @@ class Configuration
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme")
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme\Theme")
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
      * @var \Jinya\Entity\Theme\Theme
      */

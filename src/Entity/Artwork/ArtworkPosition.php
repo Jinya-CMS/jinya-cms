@@ -25,13 +25,13 @@ class ArtworkPosition implements JsonSerializable
 
     /**
      * @var ArtGallery
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Galleries\ArtGallery", inversedBy="artworks")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\ArtGallery", inversedBy="artworks")
      */
     private $gallery;
 
     /**
      * @var Artwork
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artwork", inversedBy="positions", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artwork\Artwork", inversedBy="positions", cascade={"persist"})
      */
     private $artwork;
 

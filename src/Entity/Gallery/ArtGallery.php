@@ -34,7 +34,7 @@ class ArtGallery extends HistoryEnabledEntity implements GalleryInterface
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label", inversedBy="galleries", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label\Label", inversedBy="galleries", cascade={"persist"})
      */
     private $labels;
 

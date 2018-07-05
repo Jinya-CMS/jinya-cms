@@ -10,8 +10,8 @@ namespace Jinya\Services\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Form;
-use Jinya\Entity\FormItem;
+use Jinya\Entity\Form\Form;
+use Jinya\Entity\Form\FormItem;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use function array_values;
 
@@ -66,7 +66,7 @@ class FormItemService implements FormItemServiceInterface
     /**
      * Deletes the item at the given position
      *
-     * @param Form $form
+     * @param \Jinya\Entity\Form\Form $form
      * @param int $position
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException

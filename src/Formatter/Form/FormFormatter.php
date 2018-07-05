@@ -8,8 +8,7 @@
 
 namespace Jinya\Formatter\Form;
 
-use Jinya\Entity\Form;
-use Jinya\Entity\FormItem;
+use Jinya\Entity\Form\Form;
 use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormFormatter implements FormFormatterInterface
@@ -17,7 +16,7 @@ class FormFormatter implements FormFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var Form */
+    /** @var \Jinya\Entity\Form\Form */
     private $form;
 
     /** @var FormItemFormatterInterface */
@@ -112,7 +111,7 @@ class FormFormatter implements FormFormatterInterface
     {
         $data = [];
 
-        /** @var FormItem $item */
+        /** @var \Jinya\Entity\Form\FormItem $item */
         foreach ($this->form->getItems() as $item) {
             $data[] = $this->formItemFormatter
                 ->init($item)

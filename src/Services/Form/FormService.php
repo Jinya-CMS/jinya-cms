@@ -9,7 +9,7 @@
 namespace Jinya\Services\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\StaticContentServiceTrait;
 use Jinya\Services\Slug\SlugServiceInterface;
