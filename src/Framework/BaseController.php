@@ -10,7 +10,7 @@ namespace Jinya\Framework;
 
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Menu\RoutingEntry;
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;

@@ -9,7 +9,7 @@
 namespace Jinya\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 
 /**
  * @ORM\Entity
@@ -30,7 +30,7 @@ class Configuration
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme")
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
-     * @var Theme
+     * @var \Jinya\Entity\Theme\Theme
      */
     private $currentTheme;
 
@@ -74,7 +74,7 @@ class Configuration
     }
 
     /**
-     * @return Theme
+     * @return \Jinya\Entity\Theme\Theme
      */
     public function getCurrentTheme(): Theme
     {
@@ -82,7 +82,7 @@ class Configuration
     }
 
     /**
-     * @param Theme $currentTheme
+     * @param \Jinya\Entity\Theme\Theme $currentTheme
      */
     public function setCurrentTheme(Theme $currentTheme): void
     {

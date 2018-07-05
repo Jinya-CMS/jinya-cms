@@ -6,7 +6,7 @@
  * Time: 17:09
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Theme;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Menu\Menu;

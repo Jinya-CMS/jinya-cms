@@ -10,7 +10,7 @@ namespace Jinya\Services\Theme;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Twig\Loader\FilesystemLoader;
 
 class ThemeService implements ThemeServiceInterface
@@ -99,6 +99,7 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Twig_Error_Loader
      */
     public function registerThemes(): void
     {

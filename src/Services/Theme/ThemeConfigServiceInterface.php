@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Theme;
 
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 
 interface ThemeConfigServiceInterface
 {
@@ -39,7 +39,7 @@ interface ThemeConfigServiceInterface
     /**
      * Gets the namespace for the given theme
      *
-     * @param Theme $theme
+     * @param \Jinya\Entity\Theme\Theme $theme
      * @return string
      */
     public function getThemeNamespace(Theme $theme): string;

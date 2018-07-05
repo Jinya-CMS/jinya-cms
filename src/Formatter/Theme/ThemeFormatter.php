@@ -9,7 +9,7 @@
 namespace Jinya\Formatter\Theme;
 
 use Jinya\Entity\Menu\Menu;
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function array_key_exists;
