@@ -6,7 +6,7 @@
  * Time: 19:54
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Label;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

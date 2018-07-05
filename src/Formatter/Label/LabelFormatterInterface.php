@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Label;
 
-use Jinya\Entity\Label;
+use Jinya\Entity\Label\Label;
 use Jinya\Formatter\FormatterInterface;
 
 interface LabelFormatterInterface extends FormatterInterface
@@ -16,7 +16,7 @@ interface LabelFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Label $label
+     * @param \Jinya\Entity\Label\Label $label
      * @return LabelFormatterInterface
      */
     public function init(Label $label): self;

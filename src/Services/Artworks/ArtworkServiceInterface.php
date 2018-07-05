@@ -9,7 +9,7 @@
 namespace Jinya\Services\Artworks;
 
 use Jinya\Entity\Artwork\Artwork;
-use Jinya\Entity\Label;
+use Jinya\Entity\Label\Label;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 
 interface ArtworkServiceInterface extends LabelEntityServiceInterface

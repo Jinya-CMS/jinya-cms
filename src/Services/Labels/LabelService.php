@@ -10,7 +10,7 @@ namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Gallery\ArtGallery;
-use Jinya\Entity\Label;
+use Jinya\Entity\Label\Label;
 use function array_map;
 
 class LabelService implements LabelServiceInterface
@@ -122,7 +122,7 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @param Label $label
+     * @param \Jinya\Entity\Label\Label $label
      * @return bool
      */
     private function labelExists(Label $label): bool
@@ -157,7 +157,7 @@ class LabelService implements LabelServiceInterface
      *
      * @param string $name
      * @param string $newName
-     * @return Label
+     * @return \Jinya\Entity\Label\Label
      */
     public function rename(string $name, string $newName): Label
     {

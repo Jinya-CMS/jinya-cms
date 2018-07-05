@@ -9,7 +9,7 @@
 namespace Jinya\Services\Base;
 
 use Doctrine\ORM\QueryBuilder;
-use Jinya\Entity\Label;
+use Jinya\Entity\Label\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
 
 trait LabelEntityServiceTrait
@@ -64,7 +64,7 @@ trait LabelEntityServiceTrait
      * Counts all entities based on keyword and label
      *
      * @param string $keyword
-     * @param Label|null $label
+     * @param \Jinya\Entity\Label\Label|null $label
      * @return int
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
