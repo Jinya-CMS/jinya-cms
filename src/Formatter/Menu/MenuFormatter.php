@@ -8,8 +8,8 @@
 
 namespace Jinya\Formatter\Menu;
 
-use Jinya\Entity\Menu;
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\Menu;
+use Jinya\Entity\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function array_map;
 
@@ -18,7 +18,7 @@ class MenuFormatter implements MenuFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var Menu */
+    /** @var \Jinya\Entity\Menu\Menu */
     private $menu;
 
     /** @var MenuItemFormatterInterface */
@@ -57,7 +57,7 @@ class MenuFormatter implements MenuFormatterInterface
     /**
      * Initializes the @see MenuFormatterInterface
      *
-     * @param Menu $menu
+     * @param \Jinya\Entity\Menu\Menu $menu
      * @return MenuFormatterInterface
      */
     public function init(Menu $menu): MenuFormatterInterface

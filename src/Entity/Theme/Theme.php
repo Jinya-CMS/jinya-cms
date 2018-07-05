@@ -6,9 +6,10 @@
  * Time: 17:09
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Theme;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Menu\Menu;
 
 /**
  * @ORM\Entity
@@ -62,21 +63,21 @@ class Theme
 
     /**
      * @var Menu
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
      */
     private $primaryMenu;
 
     /**
      * @var Menu
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="secondary_menu_id", referencedColumnName="id", nullable=true)
      */
     private $secondaryMenu;
 
     /**
      * @var Menu
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
      */
     private $footerMenu;

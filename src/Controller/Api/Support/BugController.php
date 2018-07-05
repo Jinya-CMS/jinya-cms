@@ -10,7 +10,7 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +36,7 @@ class BugController extends BaseApiController
             $phpInfo = ob_get_contents();
             ob_clean();
 
-            /** @var User $user */
+            /** @var \Jinya\Entity\Artist\User $user */
             $user = $this->getUser();
 
             $bug = [

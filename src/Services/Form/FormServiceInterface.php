@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Form;
 
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Jinya\Services\Base\StaticContentServiceInterface;
 
 interface FormServiceInterface extends StaticContentServiceInterface
@@ -43,14 +43,14 @@ interface FormServiceInterface extends StaticContentServiceInterface
      * Saves or updates the given @see Form
      *
      * @param Form $form
-     * @return Form
+     * @return \Jinya\Entity\Form\Form
      */
     public function saveOrUpdate($form);
 
     /**
      * Deletes the given @see Form
      *
-     * @param Form $entity
+     * @param \Jinya\Entity\Form\Form $entity
      */
     public function delete($entity): void;
 

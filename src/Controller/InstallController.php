@@ -3,7 +3,7 @@
 namespace Jinya\Controller;
 
 use Jinya\Components\Database\SchemaToolInterface;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Form\Install\AdminData;
 use Jinya\Form\Install\AdminType;
 use Jinya\Form\Install\SetupData;

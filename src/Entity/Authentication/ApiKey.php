@@ -6,10 +6,11 @@
  * Time: 22:39
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Authentication;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Artist\User;
 
 /**
  * @ORM\Entity
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ApiKey
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", cascade={"remove"})
      *
      * @var User
      */

@@ -6,7 +6,7 @@
  * Time: 16:51
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Menu;
 
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
@@ -46,7 +46,7 @@ class RoutingEntry implements JsonSerializable
     private $routeParameter;
 
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="route")
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="route")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @var MenuItem
      */

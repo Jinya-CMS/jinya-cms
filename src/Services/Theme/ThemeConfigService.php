@@ -10,7 +10,7 @@ namespace Jinya\Services\Theme;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;

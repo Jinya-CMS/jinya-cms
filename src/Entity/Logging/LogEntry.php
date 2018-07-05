@@ -6,7 +6,7 @@
  * Time: 15:32
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Logging;
 
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;

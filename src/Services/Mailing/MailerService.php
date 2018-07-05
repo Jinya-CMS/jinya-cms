@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Mailing;
 
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Swift_Mailer;
 use Swift_Message;
 

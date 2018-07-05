@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Form;
 
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Jinya\Formatter\FormatterInterface;
 
 interface FormFormatterInterface extends FormatterInterface

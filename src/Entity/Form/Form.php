@@ -6,11 +6,13 @@
  * Time: 17:40
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\HistoryEnabledEntity;
+use Jinya\Entity\Base\SlugEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,7 +25,7 @@ class Form extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(mappedBy="form", targetEntity="Jinya\Entity\FormItem", cascade={"persist", "remove"})
+     * @ORM\OneToMany(mappedBy="form", targetEntity="Jinya\Entity\Form\FormItem", cascade={"persist", "remove"})
      */
     private $items;
 

@@ -6,7 +6,7 @@
  * Time: 11:44.
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Artist;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -120,28 +120,28 @@ class User implements JsonSerializable, UserInterface
     private $profilePicture;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\Artwork", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtworks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Galleries\ArtGallery", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery\ArtGallery", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtGalleries;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Page", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdPages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Form", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Form\Form", mappedBy="creator")
      *
      * @var Collection
      */

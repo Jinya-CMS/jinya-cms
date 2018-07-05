@@ -6,10 +6,11 @@
  * Time: 16:29
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Base;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Artist\User;
 use JsonSerializable;
 
 /**
@@ -38,13 +39,13 @@ abstract class HistoryEnabledEntity implements JsonSerializable
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
     private $creator;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
     private $updatedBy;
 

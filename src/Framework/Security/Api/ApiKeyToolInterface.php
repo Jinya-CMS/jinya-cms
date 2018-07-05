@@ -8,14 +8,14 @@
 
 namespace Jinya\Framework\Security\Api;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 
 interface ApiKeyToolInterface
 {
     /**
      * Creates an api key for the given user
      *
-     * @param User $user
+     * @param \Jinya\Entity\Artist\User $user
      * @return string
      */
     public function createApiKey(User $user): string;
@@ -24,7 +24,7 @@ interface ApiKeyToolInterface
      * Gets the user for the given api key
      *
      * @param string $key
-     * @return User
+     * @return \Jinya\Entity\Artist\User
      */
     public function getUserByKey(string $key): User;
 

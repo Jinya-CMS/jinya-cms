@@ -3,7 +3,6 @@
 namespace Jinya\Controller;
 
 use Jinya\Components\Form\FormGeneratorInterface;
-use Jinya\Entity\Form;
 use Jinya\Framework\BaseController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
@@ -123,7 +122,7 @@ class FrontendController extends BaseController
      */
     public function formDetailAction(string $slug, Request $request, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService): Response
     {
-        /** @var Form $formEntity */
+        /** @var \Jinya\Entity\Form\Form $formEntity */
         $formEntity = $formService->get($slug);
 
         $form = $formGenerator->generateForm($formEntity);

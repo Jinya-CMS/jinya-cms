@@ -6,7 +6,7 @@
  * Time: 17:36
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Base;
 
 trait SlugEntity
 {

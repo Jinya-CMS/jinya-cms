@@ -6,7 +6,7 @@
  * Time: 16:51
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Menu;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,7 +33,7 @@ class Menu implements JsonSerializable
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
      * @var Collection
      */
     private $menuItems;

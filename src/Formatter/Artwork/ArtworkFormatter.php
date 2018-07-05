@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Artwork;
 
-use Jinya\Entity\Artwork;
+use Jinya\Entity\Artwork\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

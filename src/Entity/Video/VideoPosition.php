@@ -9,8 +9,8 @@
 namespace Jinya\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\BaseEntity;
-use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Base\BaseEntity;
+use Jinya\Entity\Gallery\VideoGallery;
 
 /**
  * @ORM\Entity
@@ -22,7 +22,7 @@ class VideoPosition
 
     /**
      * @var VideoGallery
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Galleries\VideoGallery", inversedBy="artworks")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\VideoGallery", inversedBy="artworks")
      */
     private $gallery;
 

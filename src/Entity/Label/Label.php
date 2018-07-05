@@ -6,7 +6,7 @@
  * Time: 19:54
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Label;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -35,13 +35,13 @@ class Label implements JsonSerializable
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Artwork", mappedBy="labels", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Artwork\Artwork", mappedBy="labels", cascade={"persist"})
      */
     private $artworks;
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Galleries\ArtGallery", mappedBy="labels", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Gallery\ArtGallery", mappedBy="labels", cascade={"persist"})
      */
     private $galleries;
 

@@ -10,7 +10,7 @@ namespace Jinya\Logging;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Jinya\Entity\LogEntry;
+use Jinya\Entity\Logging\LogEntry;
 use Monolog\Handler\AbstractProcessingHandler;
 use Psr\Log\LoggerInterface;
 use function array_key_exists;

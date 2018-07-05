@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\User;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
 
 class BaseUserController extends BaseApiController

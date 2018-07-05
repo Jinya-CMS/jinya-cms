@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
@@ -110,7 +110,7 @@ class UserService implements UserServiceInterface
      */
     public function activate(int $id): User
     {
-        /** @var User $user */
+        /** @var \Jinya\Entity\Artist\User $user */
         $user = $this->entityManager->find(User::class, $id);
 
         $user->setEnabled(true);
@@ -198,9 +198,9 @@ class UserService implements UserServiceInterface
     /**
      * Creates a user
      *
-     * @param User $user
+     * @param \Jinya\Entity\Artist\User $user
      * @param bool $ignorePassword
-     * @return User
+     * @return \Jinya\Entity\Artist\User
      */
     public function saveOrUpdate(User $user, bool $ignorePassword = false): User
     {
@@ -229,7 +229,7 @@ class UserService implements UserServiceInterface
      *
      * @param string $username
      * @param string $password
-     * @return User
+     * @return \Jinya\Entity\Artist\User
      */
     public function getUser(string $username, string $password): User
     {

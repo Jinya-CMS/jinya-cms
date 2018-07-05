@@ -8,8 +8,8 @@
 
 namespace Jinya\Controller\Api\Menu;
 
-use Jinya\Entity\MenuItem;
-use Jinya\Entity\RoutingEntry;
+use Jinya\Entity\Menu\MenuItem;
+use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Jinya\Formatter\Menu\MenuItemFormatterInterface;

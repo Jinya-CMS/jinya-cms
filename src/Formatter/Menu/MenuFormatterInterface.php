@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Menu;
 
-use Jinya\Entity\Menu;
+use Jinya\Entity\Menu\Menu;
 use Jinya\Formatter\FormatterInterface;
 
 interface MenuFormatterInterface extends FormatterInterface

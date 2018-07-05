@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Pages;
 
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Services\Base\StaticContentServiceInterface;
 
 interface PageServiceInterface extends StaticContentServiceInterface
@@ -27,7 +27,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @return Page[]
+     * @return \Jinya\Entity\Page\Page[]
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
 
@@ -42,7 +42,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
     /**
      * Saves or updates the given @see Page
      *
-     * @param Page $page
+     * @param \Jinya\Entity\Page\Page $page
      * @return Page
      */
     public function saveOrUpdate($page);

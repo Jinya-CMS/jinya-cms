@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Theme;
 
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 
 interface ThemeCompilerServiceInterface
 {

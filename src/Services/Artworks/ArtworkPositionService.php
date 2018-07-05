@@ -11,7 +11,7 @@ namespace Jinya\Services\Artworks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Artwork\ArtworkPosition;
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 

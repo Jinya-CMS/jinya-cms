@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Log;
 
-use Jinya\Entity\LogEntry;
+use Jinya\Entity\Logging\LogEntry;
 
 interface LogServiceInterface
 {

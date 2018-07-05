@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Account;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;

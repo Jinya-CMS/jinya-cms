@@ -8,11 +8,11 @@
 
 namespace Jinya\Formatter\Label;
 
-use Jinya\Entity\Label;
+use Jinya\Entity\Label\Label;
 
 class LabelFormatter implements LabelFormatterInterface
 {
-    /** @var Label */
+    /** @var \Jinya\Entity\Label\Label */
     private $label;
 
     /** @var array */
@@ -21,7 +21,7 @@ class LabelFormatter implements LabelFormatterInterface
     /**
      * Formats the given label into an array
      *
-     * @param Label $label
+     * @param \Jinya\Entity\Label\Label $label
      * @return LabelFormatterInterface
      */
     public function init(Label $label): LabelFormatterInterface

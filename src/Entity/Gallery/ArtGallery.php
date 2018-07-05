@@ -6,13 +6,13 @@
  * Time: 17:33
  */
 
-namespace Jinya\Entity\Galleries;
+namespace Jinya\Entity\Gallery;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\BaseArtEntity;
-use Jinya\Entity\HistoryEnabledEntity;
+use Jinya\Entity\Base\BaseArtEntity;
+use Jinya\Entity\Base\HistoryEnabledEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -34,7 +34,7 @@ class ArtGallery extends HistoryEnabledEntity implements GalleryInterface
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label", inversedBy="galleries", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Label\Label", inversedBy="galleries", cascade={"persist"})
      */
     private $labels;
 

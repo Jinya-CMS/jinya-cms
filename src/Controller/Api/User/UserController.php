@@ -10,7 +10,7 @@ namespace Jinya\Controller\Api\User;
 
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Services\Users\UserServiceInterface;

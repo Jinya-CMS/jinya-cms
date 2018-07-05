@@ -6,9 +6,10 @@
  * Time: 17:40
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Form;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jinya\Entity\Base\HistoryEnabledEntity;
 use function array_key_exists;
 use function implode;
 
@@ -51,7 +52,7 @@ class FormItem extends HistoryEnabledEntity
     private $helpText;
 
     /**
-     * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form", cascade={"persist"})
+     * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form\Form", cascade={"persist"})
      * @var Form
      */
     private $form;

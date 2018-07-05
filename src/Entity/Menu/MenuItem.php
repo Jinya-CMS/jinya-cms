@@ -6,7 +6,7 @@
  * Time: 17:06
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -32,26 +32,26 @@ class MenuItem implements JsonSerializable
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu", inversedBy="menuItems", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu", inversedBy="menuItems", cascade={"persist"})
      * @var Menu
      */
     private $menu;
 
     /**
-     * @ORM\OneToOne(targetEntity="Jinya\Entity\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
      * @var RoutingEntry
      */
     private $route;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\MenuItem", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * @var MenuItem
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
      * @var Collection
      */
     private $children;

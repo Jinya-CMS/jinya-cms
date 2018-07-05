@@ -9,7 +9,7 @@
 namespace Jinya\Services\Routing;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\RoutingEntry;
+use Jinya\Entity\Menu\RoutingEntry;
 
 class RouteService implements RouteServiceInterface
 {
