@@ -12,7 +12,7 @@ use Jinya\Entity\Artist\User;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Form;
 use Jinya\Entity\Gallery\ArtGallery;
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;

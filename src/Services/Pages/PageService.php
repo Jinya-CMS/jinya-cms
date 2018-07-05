@@ -9,7 +9,7 @@
 namespace Jinya\Services\Pages;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\StaticContentServiceTrait;
 use Jinya\Services\Slug\SlugServiceInterface;

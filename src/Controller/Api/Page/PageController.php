@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Page;
 
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Jinya\Framework\BaseApiController;

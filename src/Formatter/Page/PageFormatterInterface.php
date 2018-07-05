@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Page;
 
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Formatter\FormatterInterface;
 
 interface PageFormatterInterface extends FormatterInterface

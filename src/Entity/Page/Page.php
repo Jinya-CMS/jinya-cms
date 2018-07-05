@@ -6,7 +6,7 @@
  * Time: 17:36
  */
 
-namespace Jinya\Entity;
+namespace Jinya\Entity\Page;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Base\HistoryEnabledEntity;

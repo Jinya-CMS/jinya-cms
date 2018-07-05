@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Page;
 
-use Jinya\Entity\Page;
+use Jinya\Entity\Page\Page;
 use Jinya\Formatter\User\UserFormatterInterface;
 
 class PageFormatter implements PageFormatterInterface
@@ -16,7 +16,7 @@ class PageFormatter implements PageFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var Page */
+    /** @var \Jinya\Entity\Page\Page */
     private $page;
 
     /** @var UserFormatterInterface */
@@ -44,7 +44,7 @@ class PageFormatter implements PageFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Page $page
+     * @param \Jinya\Entity\Page\Page $page
      * @return PageFormatterInterface
      */
     public function init(Page $page): PageFormatterInterface
