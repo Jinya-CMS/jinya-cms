@@ -15,6 +15,7 @@ use Jinya\Services\Base\LabelEntityServiceTrait;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
+// FIXME I need a refactoring
 class ArtGalleryService extends BaseSlugEntityService implements ArtGalleryServiceInterface
 {
     use LabelEntityServiceTrait;

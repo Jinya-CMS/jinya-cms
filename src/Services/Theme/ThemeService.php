@@ -9,6 +9,8 @@
 namespace Jinya\Services\Theme;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Exception;
 use Jinya\Entity\Theme\Theme;
 use Twig\Loader\FilesystemLoader;
@@ -68,13 +70,14 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function getTheme(string $name): Theme
     {
-        $repository = $this->entityManager->getRepository(Theme::class);
-
-        return $repository
-            ->createQueryBuilder('theme')
+        return $this->entityManager
+            ->createQueryBuilder()
+            ->from(Theme::class, 'theme')
             ->where('theme.name = :name')
             ->setParameter('name', $name)
             ->getQuery()
@@ -91,6 +94,8 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function getDefaultJinyaTheme(): Theme
     {
