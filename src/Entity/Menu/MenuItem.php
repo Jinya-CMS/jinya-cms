@@ -176,9 +176,9 @@ class MenuItem implements JsonSerializable
     }
 
     /**
-     * @param MenuItem $parent
+     * @param MenuItem|null $parent
      */
-    public function setParent(?self $parent): void
+    public function setParent(?MenuItem $parent): void
     {
         $this->parent = $parent;
     }
