@@ -44,7 +44,7 @@ interface VideoGalleryServiceInterface
      * @param VideoGallery $gallery
      * @return VideoGallery
      */
-    public function saveOrUpdate(VideoGallery $gallery): \Jinya\Entity\Gallery\VideoGallery;
+    public function saveOrUpdate(VideoGallery $gallery): VideoGallery;
 
     /**
      * Deletes the given gallery
