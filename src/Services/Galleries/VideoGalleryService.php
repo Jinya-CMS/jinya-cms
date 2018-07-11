@@ -92,7 +92,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      */
     public function saveOrUpdate(VideoGallery $gallery): VideoGallery
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->baseService->saveOrUpdate($gallery);
     }
 
