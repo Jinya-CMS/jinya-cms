@@ -484,7 +484,7 @@ class User implements JsonSerializable, UserInterface
 
     public function addRole(string $role)
     {
-        if (false === ($key = array_search($role, $this->roles))) {
+        if (false === (array_search($role, $this->roles))) {
             $this->roles[] = $role;
         }
     }
@@ -495,4 +495,5 @@ class User implements JsonSerializable, UserInterface
             unset($this->roles[$key]);
         }
     }
+
 }
