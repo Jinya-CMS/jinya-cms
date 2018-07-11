@@ -60,7 +60,7 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        return $this->labelEntityService->getAll($this->entityManager->createQueryBuilder(), $offset, $count, $keyword, $label);
+        return $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
     }
 
     /**
@@ -72,7 +72,7 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function countAll(string $keyword = '', Label $label = null): int
     {
-        return $this->labelEntityService->countAll($this->entityManager->createQueryBuilder(), $keyword, $label);
+        return $this->labelEntityService->countAll($this->getBasicQueryBuilder(), $keyword, $label);
     }
 
     /**
@@ -110,5 +110,15 @@ class ArtworkService implements ArtworkServiceInterface
     public function get(string $slug): ?Artwork
     {
         return $this->baseService->get($slug);
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function getBasicQueryBuilder(): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('entity')
+            ->from(Artwork::class, 'entity');
     }
 }

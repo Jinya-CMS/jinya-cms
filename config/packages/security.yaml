@@ -10,7 +10,7 @@ security:
     allow_if_equal_granted_denied: false
 
   encoders:
-    Jinya\Entity\User:
+    Jinya\Entity\Artist\User:
       algorithm: bcrypt
 
   providers:

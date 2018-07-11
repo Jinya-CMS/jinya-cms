@@ -13,6 +13,7 @@ use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
+use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,22 +25,42 @@ class ArtGalleryController extends BaseApiController
     /**
      * @Route("/api/gallery/art", methods={"GET"}, name="api_gallery_art_get_all")
      *
+     * @param Request $request
+     * @param LabelServiceInterface $labelService
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
+    public function getAllAction(Request $request, LabelServiceInterface $labelService, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
-        return $this->getAllLabeled($galleryService, function ($gallery) use ($galleryFormatter) {
-            return $galleryFormatter
-                ->init($gallery)
-                ->name()
-                ->background()
-                ->orientation()
-                ->slug()
-                ->description()
-                ->format();
+        list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $request, $galleryFormatter, $galleryService) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
+            $label = $request->get('label', null);
+
+            if ($label) {
+                $label = $labelService->getLabel($label);
+            }
+
+            $entityCount = $galleryService->countAll($keyword);
+            $entities = array_map(function ($gallery) use ($galleryFormatter) {
+                return $galleryFormatter
+                    ->init($gallery)
+                    ->name()
+                    ->background()
+                    ->orientation()
+                    ->slug()
+                    ->description()
+                    ->format();
+            }, $galleryService->getAll($offset, $count, $keyword, $label));
+
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_gallery_art_get_all', $entities);
         });
+
+        return $this->json($data, $statusCode);
     }
 
     /**
@@ -52,8 +73,8 @@ class ArtGalleryController extends BaseApiController
      */
     public function getAction(string $slug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
-        /* @noinspection PhpParamsInspection */
-        return $this->getArt($slug, $galleryService, function ($gallery) use ($galleryFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($galleryFormatter, $slug, $galleryService) {
+            $gallery = $galleryService->get($slug);
             $result = $galleryFormatter->init($gallery)
                 ->name()
                 ->slug()
@@ -69,22 +90,26 @@ class ArtGalleryController extends BaseApiController
                     ->artworks();
             }
 
-            return $result->format();
+            return [
+                'success' => true,
+                'item' => $result->format(),
+            ];
         });
+
+        return $this->json($data, $status);
     }
 
     /**
      * @Route("/api/gallery/art", methods={"POST"}, name="api_gallery_art_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(Request $request, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
+    public function postAction(ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
@@ -116,14 +141,13 @@ class ArtGalleryController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param Request $request
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
+    public function putAction(string $slug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
             $name = $this->getValue('name', $gallery->getName());
