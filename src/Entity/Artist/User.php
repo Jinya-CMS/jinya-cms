@@ -495,5 +495,4 @@ class User implements JsonSerializable, UserInterface
             unset($this->roles[$key]);
         }
     }
-
 }
