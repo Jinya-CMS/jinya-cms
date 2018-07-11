@@ -19,7 +19,7 @@ interface ArtGalleryServiceInterface
      * @param string $slug
      * @return ArtGallery
      */
-    public function get(string $slug);
+    public function get(string $slug): ArtGallery;
 
     /**
      * Gets all galleries by the given parameters
@@ -47,7 +47,7 @@ interface ArtGalleryServiceInterface
      * @param ArtGallery $gallery
      * @return ArtGallery
      */
-    public function saveOrUpdate(ArtGallery $gallery);
+    public function saveOrUpdate(ArtGallery $gallery): ArtGallery;
 
     /**
      * Deletes the given gallery
@@ -55,13 +55,4 @@ interface ArtGalleryServiceInterface
      * @param ArtGallery $gallery
      */
     public function delete(ArtGallery $gallery): void;
-
-    /**
-     * Updates the given field
-     *
-     * @param string $key
-     * @param string $value
-     * @param int $id
-     */
-    public function updateField(string $key, string $value, int $id);
 }

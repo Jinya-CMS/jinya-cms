@@ -9,6 +9,7 @@
 namespace Jinya\Services\Artworks;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Label\Label;
 use Jinya\Services\Base\BaseSlugEntityService;
@@ -34,7 +35,7 @@ class ArtworkService implements ArtworkServiceInterface
     private $labelEntityService;
 
     /**
-     * GalleryService constructor.
+     * ArtworkService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService
@@ -113,9 +114,9 @@ class ArtworkService implements ArtworkServiceInterface
     }
 
     /**
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    private function getBasicQueryBuilder(): \Doctrine\ORM\QueryBuilder
+    private function getBasicQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->select('entity')

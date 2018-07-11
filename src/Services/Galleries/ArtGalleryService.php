@@ -9,24 +9,45 @@
 namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label\Label;
-use Jinya\Services\Base\LabelEntityServiceTrait;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 
 class ArtGalleryService implements ArtGalleryServiceInterface
 {
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    /** @var BaseSlugEntityService */
+    private $baseService;
+
+    /** @var SlugServiceInterface */
+    private $slugService;
+
+    /** @var LabelServiceInterface */
+    private $labelService;
+
+    /** @var LabelEntityServiceInterface */
+    private $labelEntityService;
 
     /**
-     * GalleryService constructor.
+     * ArtGalleryService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService
+     * @param LabelEntityServiceInterface $labelEntityService
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService)
     {
         $this->labelService = $labelService;
+        $this->labelEntityService = $labelEntityService;
+        $this->entityManager = $entityManager;
+        $this->slugService = $slugService;
+        $this->baseService = new BaseSlugEntityService($entityManager, $slugService, ArtGallery::class);
     }
 
     /**
@@ -34,10 +55,12 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param string $slug
      * @return ArtGallery
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function get(string $slug)
+    public function get(string $slug): ArtGallery
     {
-        // TODO: Implement get() method.
+        return $this->baseService->get($slug);
     }
 
     /**
@@ -51,7 +74,18 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        // TODO: Implement getAll() method.
+        return $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
+    }
+
+
+    /**
+     * @return QueryBuilder
+     */
+    private function getBasicQueryBuilder(): QueryBuilder
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('entity')
+            ->from(ArtGallery::class, 'entity');
     }
 
     /**
@@ -63,7 +97,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function countAll(string $keyword = '', Label $label = null): int
     {
-        // TODO: Implement countAll() method.
+        return $this->labelEntityService->countAll($this->getBasicQueryBuilder(), $keyword, $label);
     }
 
     /**
@@ -71,10 +105,13 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param ArtGallery $gallery
      * @return ArtGallery
+     * @throws \Jinya\Exceptions\EmptySlugException
      */
-    public function saveOrUpdate(ArtGallery $gallery)
+    public function saveOrUpdate(ArtGallery $gallery): ArtGallery
     {
-        // TODO: Implement saveOrUpdate() method.
+        $this->baseService->saveOrUpdate($gallery);
+
+        return $gallery;
     }
 
     /**
@@ -84,18 +121,6 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function delete(ArtGallery $gallery): void
     {
-        // TODO: Implement delete() method.
-    }
-
-    /**
-     * Updates the given field
-     *
-     * @param string $key
-     * @param string $value
-     * @param int $id
-     */
-    public function updateField(string $key, string $value, int $id)
-    {
-        // TODO: Implement updateField() method.
+        $this->baseService->delete($gallery);
     }
 }
