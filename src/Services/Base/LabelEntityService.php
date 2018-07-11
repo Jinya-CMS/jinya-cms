@@ -12,23 +12,33 @@ use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
 
-trait LabelEntityServiceTrait
+class LabelEntityService implements LabelEntityServiceInterface
 {
     /** @var LabelServiceInterface */
-    protected $labelService;
+    private $labelService;
+
+    /**
+     * LabelEntityService constructor.
+     * @param LabelServiceInterface $labelService
+     */
+    public function __construct(LabelServiceInterface $labelService)
+    {
+        $this->labelService = $labelService;
+    }
 
     /**
      * Gets the specified amount of entities by keyword and label
      *
+     * @param QueryBuilder $queryBuilder
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @param Label|null $label
+     * @param Label $label
      * @return array
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
+    public function getAll(QueryBuilder $queryBuilder, int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        return $this->getFilteredQueryBuilder($keyword, $label)
+        return $this->getFilteredQueryBuilder($queryBuilder, $keyword, $label)
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->getQuery()
@@ -38,15 +48,13 @@ trait LabelEntityServiceTrait
     /**
      * Gets a @see QueryBuilder with a keyword filter
      *
+     * @param QueryBuilder $queryBuilder
      * @param string $keyword
      * @param Label|null $label
      * @return QueryBuilder
      */
-    protected function getFilteredQueryBuilder(string $keyword, Label $label = null): QueryBuilder
+    protected function getFilteredQueryBuilder(QueryBuilder $queryBuilder, string $keyword, Label $label = null): QueryBuilder
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $this->getQueryBuilder();
-
         $queryBuilder = $queryBuilder
             ->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->like('entity.description', ':keyword'),
@@ -64,16 +72,15 @@ trait LabelEntityServiceTrait
     /**
      * Counts all entities based on keyword and label
      *
+     * @param QueryBuilder $queryBuilder
      * @param string $keyword
-     * @param \Jinya\Entity\Label\Label|null $label
+     * @param Label $label
      * @return int
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function countAll(string $keyword = '', Label $label = null): int
+    public function countAll(QueryBuilder $queryBuilder, string $keyword = '', Label $label = null): int
     {
-        $queryBuilder = $this->getFilteredQueryBuilder($keyword, $label);
-
-        return $queryBuilder
+        return $this->getFilteredQueryBuilder($queryBuilder, $keyword, $label)
             ->select($queryBuilder->expr()->count('entity'))
             ->getQuery()
             ->getSingleScalarResult();

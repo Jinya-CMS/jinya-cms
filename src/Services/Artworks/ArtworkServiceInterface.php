@@ -10,9 +10,8 @@ namespace Jinya\Services\Artworks;
 
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Label\Label;
-use Jinya\Services\Base\LabelEntityServiceInterface;
 
-interface ArtworkServiceInterface extends LabelEntityServiceInterface
+interface ArtworkServiceInterface
 {
     /**
      * Gets a list of artworks in the given range and filtered by the given keyword
@@ -38,16 +37,16 @@ interface ArtworkServiceInterface extends LabelEntityServiceInterface
      * Saves or update the given artwork
      *
      * @param Artwork $artwork
-     * @return \Jinya\Entity\Artwork\Artwork
+     * @return Artwork
      */
-    public function saveOrUpdate($artwork);
+    public function saveOrUpdate($artwork): Artwork;
 
     /**
      * Deletes the given gallery
      *
      * @param Artwork $artwork
      */
-    public function delete($artwork): void;
+    public function delete(Artwork $artwork): void;
 
     /**
      * Gets the artwork by slug or id
