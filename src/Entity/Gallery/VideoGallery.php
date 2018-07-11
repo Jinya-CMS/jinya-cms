@@ -46,7 +46,6 @@ class VideoGallery extends HistoryEnabledEntity implements GalleryInterface
     public function __construct()
     {
         $this->videos = new ArrayCollection();
-        $this->labels = new ArrayCollection();
     }
 
     /**

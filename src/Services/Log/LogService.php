@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Log;
 
+use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
@@ -45,11 +46,11 @@ class LogService implements LogServiceInterface
             ->setMaxResults($count)
             ->setFirstResult($offset);
         if ('asc' === $sortOrder) {
-            $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->asc('le.' . $sortBy));
+            $queryBuilder = $queryBuilder->orderBy(':sortBy', 'asc');
         } else {
-            $queryBuilder = $queryBuilder->orderBy($queryBuilder->expr()->desc('le.' . $sortBy));
+            $queryBuilder = $queryBuilder->orderBy(':sortBy', 'desc');
         }
-        $query = $queryBuilder->getQuery();
+        $query = $queryBuilder->setParameter('sortBy', $sortBy)->getQuery();
 
         return $query->getResult();
     }
@@ -63,13 +64,22 @@ class LogService implements LogServiceInterface
      */
     private function getFilterQueryBuilder(string $level, string $filter)
     {
-        $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
+        $uppercaseLevel = strtoupper($level);
 
-        return $queryBuilder
-            ->where($queryBuilder->expr()->like('le.message', ':filter'))
-            ->andWhere($queryBuilder->expr()->like('le.levelName', $queryBuilder->expr()->upper(':level')))
+        return $this->createQueryBuilder()
+            ->where('le.message LIKE :filter')
+            ->andWhere('le.levelName LIKE :level')
             ->setParameter('filter', "%$filter%")
-            ->setParameter('level', "%$level%");
+            ->setParameter('level', "%$uppercaseLevel%");
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    private function createQueryBuilder(): QueryBuilder
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->from(LogEntry::class, 'le');
     }
 
     /**
@@ -82,12 +92,14 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(): int
     {
-        $queryBuilder = $this->entityManager->getRepository(LogEntry::class)->createQueryBuilder('le');
+        $queryBuilder = $this->entityManager->createQueryBuilder();
 
         return $queryBuilder
+            ->from(LogEntry::class, 'le')
             ->select($queryBuilder->expr()->count('le'))
             ->getQuery()
             ->getSingleScalarResult();
@@ -95,6 +107,7 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countFiltered(string $level, string $filter): int
     {
@@ -111,19 +124,18 @@ class LogService implements LogServiceInterface
      */
     public function getUsedLevels(): array
     {
-        $queryBuilder = $this->entityManager
-            ->getRepository(LogEntry::class)
-            ->createQueryBuilder('le')
+        return $this->entityManager
+            ->createQueryBuilder()
+            ->from(LogEntry::class, 'le')
             ->select(['le.level', 'le.levelName'])
-            ->distinct(true);
-
-        return $queryBuilder
+            ->distinct(true)
             ->getQuery()
             ->getResult();
     }
 
     /**
      * {@inheritdoc}
+     * @throws ConnectionException
      */
     public function clear()
     {
@@ -136,8 +148,6 @@ class LogService implements LogServiceInterface
             $connection->executeUpdate($truncate);
             $connection->query('SET FOREIGN_KEY_CHECKS=1');
             $connection->commit();
-            $repository = $this->entityManager->getRepository(LogEntry::class);
-            $repository->clear();
         } catch (Exception $exception) {
             $connection->rollBack();
             $this->logger->error('Could not clear database log');
@@ -146,11 +156,10 @@ class LogService implements LogServiceInterface
         }
 
         $fs = new Filesystem();
+        /* @noinspection PhpUndefinedMethodInspection */
         foreach ($this->logger->getHandlers() as $handler) {
             try {
-                if ($handler instanceof StreamHandler) {
-                    $fs->remove($handler->getUrl());
-                } elseif ($handler instanceof RotatingFileHandler) {
+                if ($handler instanceof StreamHandler || $handler instanceof RotatingFileHandler) {
                     $fs->remove($handler->getUrl());
                 }
             } catch (Exception $exception) {

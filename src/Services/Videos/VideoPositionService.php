@@ -128,7 +128,7 @@ class VideoPositionService implements VideoPositionServiceInterface
      * @param string $videoSlug
      * @param string $type
      */
-    public function updateVideo(int $id, string $videoSlug, string $type)
+    public function updateVideo(int $id, string $videoSlug, string $type): void
     {
         $position = $this->getPosition($id);
         $position->setYoutubeVideo(null);

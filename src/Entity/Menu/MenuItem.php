@@ -95,7 +95,7 @@ class MenuItem implements JsonSerializable
         $route->setMenuItem($menuItem);
 
         $menuItem->route = $route;
-        $menuItem->highlighted = array_key_exists('highlighted', $item) ? $item['highlighted'] : false;
+        $menuItem->highlighted = array_key_exists('highlighted', $item) || $item['highlighted'];
         $menuItem->pageType = $item['pageType'];
         $menuItem->position = $item['position'];
         $menuItem->title = $item['title'];
@@ -176,7 +176,7 @@ class MenuItem implements JsonSerializable
     }
 
     /**
-     * @param MenuItem $parent
+     * @param MenuItem|null $parent
      */
     public function setParent(?self $parent): void
     {

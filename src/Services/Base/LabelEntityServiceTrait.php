@@ -44,6 +44,7 @@ trait LabelEntityServiceTrait
      */
     protected function getFilteredQueryBuilder(string $keyword, Label $label = null): QueryBuilder
     {
+        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->getQueryBuilder();
 
         $queryBuilder = $queryBuilder
