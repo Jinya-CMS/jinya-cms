@@ -77,7 +77,6 @@ class ArtGalleryService implements ArtGalleryServiceInterface
         return $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
     }
 
-
     /**
      * @return QueryBuilder
      */
