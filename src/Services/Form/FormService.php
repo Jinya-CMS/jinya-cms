@@ -106,7 +106,7 @@ class FormService implements FormServiceInterface
      */
     public function saveOrUpdate(Form $form): Form
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->baseService->saveOrUpdate($form);
     }
 
