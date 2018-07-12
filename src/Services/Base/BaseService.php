@@ -59,9 +59,9 @@ class BaseService
     }
 
     /**
-     * Deletes the given @see BaseEntity
+     * Deletes the given Entity
      *
-     * @param BaseEntity $entity
+     * @param $entity
      */
     public function delete($entity): void
     {
