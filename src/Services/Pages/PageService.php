@@ -106,7 +106,7 @@ class PageService implements PageServiceInterface
      */
     public function saveOrUpdate(Page $page): Page
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->baseService->saveOrUpdate($page);
     }
 
@@ -119,5 +119,4 @@ class PageService implements PageServiceInterface
     {
         $this->baseService->delete($page);
     }
-
 }
