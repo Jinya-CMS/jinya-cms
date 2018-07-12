@@ -16,7 +16,6 @@ use Doctrine\ORM\NoResultException;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
-use Jinya\Services\Base\StaticContentServiceInterface;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
@@ -37,7 +36,6 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
-use function array_map;
 use function json_decode;
 use function property_exists;
 use function simplexml_load_string;
@@ -125,8 +123,6 @@ abstract class BaseApiController extends BaseController
      */
     protected function getValue(string $key, $default = null)
     {
-        $result = [];
-
         switch ($this->contentType) {
             case 'application/json':
                 if (empty($this->bodyAsJson)) {
@@ -160,32 +156,6 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Gets all static contents from the given service
-     *
-     * @param StaticContentServiceInterface $baseService
-     * @param callable $formatter
-     * @return Response
-     */
-    protected function getAllStaticContent(StaticContentServiceInterface $baseService, callable $formatter): Response
-    {
-        list($data, $statusCode) = $this->tryExecute(function () use ($formatter, $baseService) {
-            $offset = $this->request->get('offset', 0);
-            $count = $this->request->get('count', 10);
-            $keyword = $this->request->get('keyword', '');
-
-            $entityCount = $baseService->countAll($keyword);
-            $entities = array_map($formatter, $baseService->getAll($offset, $count, $keyword));
-
-            $route = $this->request->get('_route');
-            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
-
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, $route, $entities);
-        });
-
-        return $this->json($data, $statusCode);
-    }
-
-    /**
      * Executes the given @see callable and return a formatted error if it fails
      *
      * @param callable $function
@@ -194,8 +164,6 @@ abstract class BaseApiController extends BaseController
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
-        $result = [];
-
         try {
             $result = [$function(), $successStatusCode];
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
@@ -327,22 +295,5 @@ abstract class BaseApiController extends BaseController
                 'previous' => $previous,
             ],
         ];
-    }
-
-    /**
-     * @param StaticContentServiceInterface $baseService
-     * @param string $slug
-     * @param callable $formatter
-     * @return Response
-     */
-    protected function getStaticContent(StaticContentServiceInterface $baseService, string $slug, callable $formatter): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($baseService, $slug, $formatter) {
-            $entity = $baseService->get($slug);
-
-            return $formatter($entity);
-        });
-
-        return $this->json($data, $status);
     }
 }
