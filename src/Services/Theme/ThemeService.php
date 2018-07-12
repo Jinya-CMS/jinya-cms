@@ -77,6 +77,7 @@ class ThemeService implements ThemeServiceInterface
     {
         return $this->entityManager
             ->createQueryBuilder()
+            ->select('theme')
             ->from(Theme::class, 'theme')
             ->where('theme.name = :name')
             ->setParameter('name', $name)

@@ -14,6 +14,7 @@ use Jinya\Formatter\Page\PageFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Pages\PageServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,19 +23,33 @@ class PageController extends BaseApiController
     /**
      * @Route("/api/page", methods={"GET"}, name="api_page_get_all")
      *
+     * @param Request $request
      * @param PageServiceInterface $pageService
      * @param PageFormatterInterface $pageFormatter
      * @return Response
      */
-    public function getAllAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
+    public function getAllAction(Request $request, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
     {
-        return $this->getAllStaticContent($pageService, function ($item) use ($pageFormatter) {
-            return $pageFormatter
-                ->init($item)
-                ->title()
-                ->slug()
-                ->format();
+        list($data, $statusCode) = $this->tryExecute(function () use ($request, $pageFormatter, $pageService) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
+
+            $entityCount = $pageService->countAll($keyword);
+            $entities = array_map(function (Page $page) use ($pageFormatter) {
+                return $pageFormatter
+                    ->init($page)
+                    ->title()
+                    ->slug()
+                    ->format();
+            }, $pageService->getAll($offset, $count, $keyword));
+
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_page_get_all', $entities);
         });
+
+        return $this->json($data, $statusCode);
     }
 
     /**
@@ -47,9 +62,11 @@ class PageController extends BaseApiController
      */
     public function getAction(string $slug, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
     {
-        return $this->getStaticContent($pageService, $slug, function ($item) use ($pageFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($pageFormatter, $pageService, $slug) {
+            $page = $pageService->get($slug);
+
             $pageFormatter
-                ->init($item)
+                ->init($page)
                 ->slug()
                 ->name()
                 ->title()
@@ -65,6 +82,8 @@ class PageController extends BaseApiController
 
             return $pageFormatter->format();
         });
+
+        return $this->json($data, $status);
     }
 
     /**

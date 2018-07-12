@@ -9,9 +9,8 @@
 namespace Jinya\Services\Pages;
 
 use Jinya\Entity\Page\Page;
-use Jinya\Services\Base\StaticContentServiceInterface;
 
-interface PageServiceInterface extends StaticContentServiceInterface
+interface PageServiceInterface
 {
     /**
      * Gets the specified @see Page by slug
@@ -19,7 +18,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param string $slug
      * @return Page
      */
-    public function get(string $slug);
+    public function get(string $slug): Page;
 
     /**
      * Gets all entities by the given parameters
@@ -27,7 +26,7 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @return \Jinya\Entity\Page\Page[]
+     * @return Page[]
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
 
@@ -45,21 +44,12 @@ interface PageServiceInterface extends StaticContentServiceInterface
      * @param \Jinya\Entity\Page\Page $page
      * @return Page
      */
-    public function saveOrUpdate($page);
+    public function saveOrUpdate(Page $page): Page;
 
     /**
      * Deletes the given @see Page
      *
      * @param Page $entity
      */
-    public function delete($entity): void;
-
-    /**
-     * Updates the given field
-     *
-     * @param string $key
-     * @param string $value
-     * @param int $id
-     */
-    public function updateField(string $key, string $value, int $id);
+    public function delete(Page $entity): void;
 }

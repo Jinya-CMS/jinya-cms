@@ -83,7 +83,10 @@ class VideoGalleryController extends BaseApiController
                     ->videos();
             }
 
-            return $galleryFormatter->format();
+            return [
+                'success' => true,
+                'item' => $galleryFormatter->format(),
+            ];
         });
 
         return $this->json($data, $status);

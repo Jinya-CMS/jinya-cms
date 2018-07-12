@@ -16,6 +16,7 @@ use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Form\FormServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -26,20 +27,34 @@ class FormController extends BaseApiController
     /**
      * @Route("/api/form", methods={"GET"}, name="api_form_get_all")
      *
+     * @param Request $request
      * @param FormServiceInterface $formService
      * @param FormFormatterInterface $formFormatter
      * @return Response
      */
-    public function getAllAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
+    public function getAllAction(Request $request, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
     {
-        return $this->getAllStaticContent($formService, function ($form) use ($formFormatter) {
-            return $formFormatter
-                ->init($form)
-                ->slug()
-                ->title()
-                ->description()
-                ->format();
+        list($data, $statusCode) = $this->tryExecute(function () use ($formFormatter, $formService, $request) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
+
+            $entityCount = $formService->countAll($keyword);
+            $entities = array_map(function ($form) use ($formFormatter) {
+                return $formFormatter
+                    ->init($form)
+                    ->slug()
+                    ->title()
+                    ->description()
+                    ->format();
+            }, $formService->getAll($offset, $count, $keyword));
+
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_form_get_all', $entities);
         });
+
+        return $this->json($data, $statusCode);
     }
 
     /**
@@ -52,7 +67,8 @@ class FormController extends BaseApiController
      */
     public function getAction(string $slug, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
     {
-        return $this->getStaticContent($formService, $slug, function ($form) use ($formFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $formFormatter) {
+            $form = $formService->get($slug);
             $formFormatter
                 ->init($form)
                 ->slug()
@@ -72,6 +88,8 @@ class FormController extends BaseApiController
 
             return $formFormatter->format();
         });
+
+        return $this->json($data, $status);
     }
 
     /**
