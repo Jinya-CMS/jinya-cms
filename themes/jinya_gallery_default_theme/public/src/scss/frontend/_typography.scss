@@ -4,10 +4,10 @@ body {
 }
 
 a {
-  color: $primary;
+  color: $link-color;
 
   &:hover {
-    color: $primary-darker;
+    color: $link-hover-color;
   }
 }
 
