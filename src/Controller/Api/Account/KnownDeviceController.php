@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Account;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class KnownDeviceController extends BaseApiController
 {
-
     /**
      * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
      *
@@ -28,7 +26,7 @@ class KnownDeviceController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($userService) {
             return [
                 'success' => true,
-                'items' => $userService->getKnownDevices($this->getUser()->getEmail())
+                'items' => $userService->getKnownDevices($this->getUser()->getEmail()),
             ];
         });
 

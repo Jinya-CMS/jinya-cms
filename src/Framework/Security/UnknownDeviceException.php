@@ -8,8 +8,6 @@
 
 namespace Jinya\Framework\Security;
 
-
 class UnknownDeviceException extends \Exception
 {
-
 }
