@@ -1,6 +1,7 @@
-export default class NotFoundError extends Error {
-  constructor(message) {
-    super();
-    this.message = message;
+import HttpError from "@/framework/Ajax/Error/HttpError";
+
+export default class NotFoundError extends HttpError {
+  constructor(error) {
+    super(404, error);
   }
 }

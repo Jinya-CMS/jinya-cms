@@ -71,6 +71,10 @@
             color: $primary;
             background: scale_color(pastelize($primary), $alpha: 80%);
         }
+        &.is--secondary {
+            color: $secondary;
+            background: scale_color(pastelize($secondary), $alpha: 80%);
+        }
 
         &.is--loading {
             background: scale_color(pastelize($primary), $alpha: 80%);

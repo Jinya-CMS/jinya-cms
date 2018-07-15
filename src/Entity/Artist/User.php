@@ -28,18 +28,30 @@ class User implements JsonSerializable, UserInterface
 
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
+    const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
+
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)
      */
     private $email;
-
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $enabled;
-
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    private $twoFactorToken;
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     *
+     * @var string[]
+     */
+    private $knownDevices;
     /**
      * The salt to use for hashing.
      *
@@ -47,7 +59,6 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $salt;
-
     /**
      * Encrypted password. Must be persisted.
      *
@@ -55,20 +66,17 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="text")
      */
     private $password;
-
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
      * @var string
      */
     private $plainPassword;
-
     /**
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastLogin;
-
     /**
      * Random string sent to the user email address in order to verify it.
      *
@@ -76,19 +84,16 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $confirmationToken;
-
     /**
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordRequestedAt;
-
     /**
      * @var array
      * @ORM\Column(type="array")
      */
     private $roles;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -97,49 +102,42 @@ class User implements JsonSerializable, UserInterface
      * @var int
      */
     private $id;
-
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
     private $firstname;
-
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
     private $lastname;
-
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $profilePicture;
-
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\Artwork", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtworks;
-
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery\ArtGallery", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtGalleries;
-
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdPages;
-
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Form\Form", mappedBy="creator")
      *
@@ -159,6 +157,41 @@ class User implements JsonSerializable, UserInterface
         $this->createdForms = new ArrayCollection();
         $this->createdArtGalleries = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getKnownDevices(): ?array
+    {
+        if (empty($this->knownDevices)) {
+            return [];
+        }
+        return $this->knownDevices;
+    }
+
+    /**
+     * @param string[] $knownDevices
+     */
+    public function setKnownDevices(array $knownDevices): void
+    {
+        $this->knownDevices = $knownDevices;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTwoFactorToken(): ?string
+    {
+        return $this->twoFactorToken;
+    }
+
+    /**
+     * @param string $twoFactorToken
+     */
+    public function setTwoFactorToken(string $twoFactorToken): void
+    {
+        $this->twoFactorToken = $twoFactorToken;
     }
 
     /**
@@ -474,6 +507,7 @@ class User implements JsonSerializable, UserInterface
      */
     public function eraseCredentials()
     {
+        // NOSONAR
         $this->plainPassword = '';
     }
 

@@ -14,6 +14,9 @@ use Doctrine\ORM\UnitOfWork;
 use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
+use Jinya\Framework\Security\UnknownDeviceException;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
@@ -28,23 +31,33 @@ class UserService implements UserServiceInterface
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
 
+    /** @var Swift_Mailer */
+    private $swift;
+
+    /** @var string */
+    private $mailerSender;
+
     /**
      * UserService constructor.
      * @param EntityManagerInterface $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param ApiKeyToolInterface $apiKeyTool
+     * @param Swift_Mailer $swift
+     * @param string $mailerSender
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool, Swift_Mailer $swift, string $mailerSender)
     {
         $this->entityManager = $entityManager;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->apiKeyTool = $apiKeyTool;
+        $this->swift = $swift;
+        $this->mailerSender = $mailerSender;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAll(int $offset, int $count = 10, string $keyword): array
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $queryBuilder = $this->createFilteredQueryBuilder($keyword);
 
@@ -229,26 +242,123 @@ class UserService implements UserServiceInterface
      *
      * @param string $username
      * @param string $password
-     * @return \Jinya\Entity\Artist\User
+     * @param string $twoFactorCode
+     * @param string $deviceCode
+     * @return User
+     * @throws UnknownDeviceException
+     * @throws BadCredentialsException
      */
-    public function getUser(string $username, string $password): User
+    public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {
         try {
-            $user = $this->entityManager->createQueryBuilder()
-                ->select('user')
-                ->from(User::class, 'user')
-                ->where('user.email = :username')
-                ->setParameter('username', $username)
-                ->getQuery()
-                ->getSingleResult();
+            $user = $this->getUserByEmail($username);
         } catch (Exception $e) {
             throw new BadCredentialsException($e->getMessage(), $e);
         }
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
             throw new BadCredentialsException('Invalid username or password');
+        } elseif (!empty($deviceCode) && !in_array($deviceCode, $user->getKnownDevices())) {
+            throw new UnknownDeviceException();
+        } elseif (empty($deviceCode) && $twoFactorCode !== $user->getTwoFactorToken()) {
+            throw new BadCredentialsException('No two factor code provided');
         }
 
         return $user;
+    }
+
+    /**
+     * @param string $email
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function getUserByEmail(string $email): User
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.email = :username')
+            ->setParameter('username', $email)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    /**
+     * Sets the two factor code and sends the verification mail
+     *
+     * @param string $username
+     * @param string $password
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function setTwoFactorCode(string $username, string $password): void
+    {
+        $user = $this->getUserByEmail($username);
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            try {
+                $code .= random_int(0, 9);
+            } catch (Exception $e) {
+                srand(time());
+                $code .= rand(0, 9);
+            }
+        }
+        $user->setTwoFactorToken($code);
+        $this->entityManager->flush();
+
+        /** @var Swift_Message $message */
+        $message = $this->swift->createMessage('message');
+        $message->addTo($user->getEmail());
+        $message->setSubject('Your two factor code');
+        $message->setBody($this->formatBody($user), 'text/html');
+        $message->setFrom($this->mailerSender);
+        $this->swift->send($message);
+
+    }
+
+    private function formatBody(User $user): string
+    {
+        $name = $user->getFirstname() . ' ' . $user->getLastname();
+        $code = $user->getTwoFactorToken();
+
+        return "<html>
+<head></head>
+<body>
+    <p>
+        Hello $name,<br />
+        you requested a two factor code, here it is:
+    </p>
+    <pre>$code</pre>
+    <p>Your Jinya Team</p>
+</body>
+</html>";
+    }
+
+    /**
+     * Adds a new device code to the user
+     *
+     * @param string $username
+     * @return string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws Exception
+     */
+    public function addDeviceKey(string $username): string
+    {
+        $user = $this->getUserByEmail($username);
+        $knownDevices = $user->getKnownDevices();
+        try {
+            $code = bin2hex(random_bytes(20));
+        } catch (Exception $exception) {
+            $code = sha1(strval(time()));
+        }
+
+        $knownDevices[] = $code;
+
+        $user->setKnownDevices($knownDevices);
+        $this->entityManager->flush();
+
+        return $code;
     }
 }

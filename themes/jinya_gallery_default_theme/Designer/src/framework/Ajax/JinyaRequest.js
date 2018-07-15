@@ -8,12 +8,12 @@ import EventBus from "../Events/EventBus";
 import Events from "../Events/Events";
 import ConflictError from "./Error/ConflictError";
 
-async function send(verb, url, data, contentType) {
+async function send(verb, url, data, contentType, additionalHeaders = {}) {
   EventBus.$emit(Events.request.started);
-  const headers = {
+  const headers = Object.assign({
     JinyaApiKey: Lockr.get('JinyaApiKey'),
     'Content-Type': contentType
-  };
+  }, additionalHeaders);
 
   const request = {
     headers: headers,
@@ -37,7 +37,7 @@ async function send(verb, url, data, contentType) {
         return response.json();
       }
     } else {
-      const error = await response.json().then(error => error.error.message);
+      const error = await response.json().then(error => error.error);
 
       switch (response.status) {
         case 400:
@@ -58,7 +58,7 @@ async function send(verb, url, data, contentType) {
 }
 
 export default {
-  async get (url) {
+  async get(url) {
     return await send('get', url);
   },
   async head(url) {
@@ -76,7 +76,7 @@ export default {
   async upload(url, file) {
     return await send('put', url, file, file.type);
   },
-  async send(verb, url, data) {
-    return await send(verb, url, data, 'application/json');
+  async send(verb, url, data, additionalHeaders = {}) {
+    return await send(verb, url, data, 'application/json', additionalHeaders);
   }
 }

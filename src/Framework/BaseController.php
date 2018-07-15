@@ -124,7 +124,7 @@ abstract class BaseController
      */
     private function includeTheme(string $view, array $parameters, Theme $theme): array
     {
-        if (!$this->themeCompilerService->isCompiled($theme)) {
+        if (!$this->themeCompilerService->isCompiled($theme) || getenv('APP_DEBUG')) {
             $this->themeCompilerService->compileTheme($theme);
         }
 
@@ -160,6 +160,17 @@ abstract class BaseController
         $subRequest = $request->duplicate([], null, $path);
 
         return $this->kernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+    }
+
+    /**
+     * @param string $routeName
+     * @return string
+     */
+    private function convertRouteToControllerName(string $routeName): string
+    {
+        $routes = $this->router->getRouteCollection();
+
+        return $routes->get($routeName)->getDefaults()['_controller'];
     }
 
     /**
@@ -236,16 +247,5 @@ abstract class BaseController
         }
 
         return $user;
-    }
-
-    /**
-     * @param string $routeName
-     * @return string
-     */
-    private function convertRouteToControllerName(string $routeName): string
-    {
-        $routes = $this->router->getRouteCollection();
-
-        return $routes->get($routeName)->getDefaults()['_controller'];
     }
 }

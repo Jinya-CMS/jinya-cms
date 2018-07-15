@@ -1,13 +1,15 @@
 <template>
     <div class="jinya-login">
         <jinya-message class="jinya-login__message" :message="message" :state="state" v-if="state"/>
-        <jinya-form class="jinya-login__form" @submit="login">
+        <jinya-form @submit="submit" class="jinya-login__form">
             <h1 class="jinya-login__title" v-jinya-message="'account.login.title'"
                 :class="{'no--margin-top': state}"></h1>
             <jinya-input :autofocus="true" autocomplete="login email" v-model="email" label="account.login.email"
-                         :required="true" type="email"/>
+                         key="email" :required="true" type="email" v-if="!twoFactorRequested"/>
             <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
-                         :required="true" type="password"/>
+                         key="password" :required="true" type="password" v-if="!twoFactorRequested"/>
+            <jinya-input v-model="twoFactorCode" label="account.login.2fa_code" key="2fa_code"
+                         :required="true" type="text" v-if="twoFactorRequested"/>
             <jinya-button :is-primary="true" label="account.login.submit" type="submit" slot="buttons"/>
         </jinya-form>
     </div>
@@ -36,22 +38,66 @@
         email: '',
         password: '',
         message: '',
+        twoFactorCode: '',
+        twoFactorRequested: false,
         state: ''
       };
     },
     methods: {
+      async submit() {
+        if (Lockr.get('JinyaDeviceCode') || this.twoFactorRequested) {
+          await this.login();
+        } else {
+          await this.requestTwoFactor();
+        }
+      },
+      async requestTwoFactor() {
+        try {
+          this.message = Translator.message('account.login.pending');
+          this.state = 'loading';
+
+          await JinyaRequest.post('/api/2fa', {
+            username: this.email,
+            password: this.password
+          });
+          this.twoFactorRequested = true;
+
+          this.state = "secondary";
+          this.message = Translator.message('account.login.two_factor_needed');
+        } catch (e) {
+          console.error(e);
+          this.message = Translator.validator(`account.login.login_failed`);
+          this.state = 'error';
+        }
+      },
       async login() {
         try {
           this.message = Translator.message('account.login.pending');
           this.state = 'loading';
 
-          const value = await JinyaRequest.post('/api/login', {username: this.email, password: this.password});
+          const headers = {};
+
+          if (Lockr.get('JinyaDeviceCode')) {
+            headers['JinyaDeviceCode'] = Lockr.get('JinyaDeviceCode');
+          }
+
+          const value = await JinyaRequest.send('POST', '/api/login', {
+            username: this.email,
+            password: this.password,
+            twoFactorCode: this.twoFactorCode
+          }, headers);
           Lockr.set('JinyaApiKey', value.apiKey);
+          Lockr.set('JinyaDeviceCode', value.deviceCode);
 
           this.$router.push(Routes.Home.StartPage);
         } catch (e) {
-          this.message = Translator.validator(`account.login.${e.message}`);
-          this.state = 'error';
+          if (e.type === 'UnknownDeviceException') {
+            Lockr.rm('JinyaDeviceCode');
+            await this.requestTwoFactor();
+          } else {
+            this.message = Translator.validator(`account.login.login_failed`);
+            this.state = 'error';
+          }
         }
       }
     }

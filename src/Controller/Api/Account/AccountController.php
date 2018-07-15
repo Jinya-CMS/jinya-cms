@@ -25,6 +25,24 @@ use function uniqid;
 class AccountController extends BaseApiController
 {
     /**
+     * @Route("/api/2fa", methods={"POST"}, name="api_account_2fa")
+     *
+     * @param UserServiceInterface $userService
+     * @return Response
+     */
+    public function twoFactorAction(UserServiceInterface $userService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($userService) {
+            $username = $this->getValue('username', '');
+            $password = $this->getValue('password', '');
+
+            $userService->setTwoFactorCode($username, $password);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
      * @Route("/api/login", methods={"POST"}, name="api_account_login")
      *
      * @param ApiKeyToolInterface $apiKeyTool
@@ -36,10 +54,16 @@ class AccountController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $userService) {
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
+            $twoFactorToken = $this->getValue('twoFactorCode', '');
+            $deviceCode = $this->getHeader('JinyaDeviceCode', '');
 
-            $user = $userService->getUser($username, $password);
+            $user = $userService->getUser($username, $password, $twoFactorToken, $deviceCode);
+            $newDeviceCode = $userService->addDeviceKey($username);
 
-            return ['apiKey' => $apiKeyTool->createApiKey($user)];
+            return [
+                'apiKey' => $apiKeyTool->createApiKey($user),
+                'deviceCode' => $newDeviceCode
+            ];
         });
 
         return $this->json($data, $status);

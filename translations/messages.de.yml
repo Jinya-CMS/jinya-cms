@@ -77,6 +77,8 @@ account:
     password: Passwort
     submit: Anmelden
     pending: Du wirst angemeldet
+    two_factor_needed: Du hast eine Email bekommen, bitte gib den Code hier ein.
+    2fa_code: Zwei Faktor Code
 api:
   state:
     401:
