@@ -123,6 +123,15 @@ interface UserServiceInterface
     public function addKnownDevice(string $username): string;
 
     /**
+     * Deletes the given known device
+     *
+     * @param string $username
+     * @param string $deviceCode
+     * @return void
+     */
+    public function deleteKnownDevice(string $username, string $deviceCode): void;
+
+    /**
      * Gets all known devices for the given user
      *
      * @param string $username

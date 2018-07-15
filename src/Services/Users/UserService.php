@@ -398,6 +398,39 @@ class UserService implements UserServiceInterface
      */
     public function getKnownDevices(string $username): array
     {
-        return [];
+        return $this->entityManager->createQueryBuilder()
+            ->select('known_device')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Deletes the given known device
+     *
+     * @param string $username
+     * @param string $deviceCode
+     * @return void
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function deleteKnownDevice(string $username, string $deviceCode): void
+    {
+        $knownDevice = $this->entityManager->createQueryBuilder()
+            ->select('known_device')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->andWhere('known_device.key = :deviceCode')
+            ->setParameter('deviceCode', $deviceCode)
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->entityManager->remove($knownDevice);
+        $this->entityManager->flush();
     }
 }

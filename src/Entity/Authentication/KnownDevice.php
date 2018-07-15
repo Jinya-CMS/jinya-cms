@@ -16,7 +16,7 @@ use Jinya\Entity\Artist\User;
  * @ORM\Entity
  * @ORM\Table(name="known_device")
  */
-class KnownDevice
+class KnownDevice implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -124,5 +124,21 @@ class KnownDevice
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'remoteAddress' => $this->remoteAddress,
+            'userAgent' => $this->userAgent,
+            'key' => $this->key
+        ];
     }
 }
