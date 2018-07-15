@@ -47,9 +47,9 @@ class User implements JsonSerializable, UserInterface
      */
     private $twoFactorToken;
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
      *
-     * @var string[]
+     * @var Collection
      */
     private $knownDevices;
     /**
@@ -157,6 +157,7 @@ class User implements JsonSerializable, UserInterface
         $this->createdForms = new ArrayCollection();
         $this->createdArtGalleries = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
+        $this->knownDevices = new ArrayCollection();
     }
 
     /**
@@ -507,7 +508,6 @@ class User implements JsonSerializable, UserInterface
      */
     public function eraseCredentials()
     {
-        // NOSONAR
         $this->plainPassword = '';
     }
 

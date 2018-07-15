@@ -58,7 +58,7 @@ class AccountController extends BaseApiController
             $deviceCode = $this->getHeader('JinyaDeviceCode', '');
 
             $user = $userService->getUser($username, $password, $twoFactorToken, $deviceCode);
-            $newDeviceCode = $userService->addDeviceKey($username);
+            $newDeviceCode = $userService->addKnownDevice($username);
 
             return [
                 'apiKey' => $apiKeyTool->createApiKey($user),

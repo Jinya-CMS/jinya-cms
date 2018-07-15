@@ -9,6 +9,7 @@
 namespace Jinya\Services\Users;
 
 use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\KnownDevice;
 
 interface UserServiceInterface
 {
@@ -119,5 +120,13 @@ interface UserServiceInterface
      * @param string $username
      * @return string
      */
-    public function addDeviceKey(string $username): string;
+    public function addKnownDevice(string $username): string;
+
+    /**
+     * Gets all known devices for the given user
+     *
+     * @param string $username
+     * @return KnownDevice[]
+     */
+    public function getKnownDevices(string $username): array;
 }

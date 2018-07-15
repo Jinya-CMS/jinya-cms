@@ -13,6 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
 use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\KnownDevice;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Jinya\Framework\Security\UnknownDeviceException;
 use Swift_Mailer;
@@ -247,6 +248,7 @@ class UserService implements UserServiceInterface
      * @return User
      * @throws UnknownDeviceException
      * @throws BadCredentialsException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {
@@ -258,7 +260,7 @@ class UserService implements UserServiceInterface
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
             throw new BadCredentialsException('Invalid username or password');
-        } elseif (!empty($deviceCode) && !in_array($deviceCode, $user->getKnownDevices())) {
+        } elseif (!empty($deviceCode) && !$this->isValidDevice($username, $deviceCode)) {
             throw new UnknownDeviceException();
         } elseif (empty($deviceCode) && $twoFactorCode !== $user->getTwoFactorToken()) {
             throw new BadCredentialsException('No two factor code provided');
@@ -282,6 +284,28 @@ class UserService implements UserServiceInterface
             ->setParameter('username', $email)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * Checks whether the given device code belongs to the given user
+     *
+     * @param string $username
+     * @param string $deviceCode
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function isValidDevice(string $username, string $deviceCode): bool
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('COUNT(known_device)')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->andWhere('known_device.key = :deviceCode')
+            ->setParameter('deviceCode', $deviceCode)
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**
@@ -344,21 +368,36 @@ class UserService implements UserServiceInterface
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws Exception
      */
-    public function addDeviceKey(string $username): string
+    public function addKnownDevice(string $username): string
     {
         $user = $this->getUserByEmail($username);
-        $knownDevices = $user->getKnownDevices();
+        $knownDevice = new KnownDevice();
+        $knownDevice->setUser($user);
+        $knownDevice->setRemoteAddress($_SERVER['REMOTE_ADDR']);
+        $knownDevice->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+
         try {
             $code = bin2hex(random_bytes(20));
         } catch (Exception $exception) {
             $code = sha1(strval(time()));
         }
 
-        $knownDevices[] = $code;
+        $knownDevice->setKey($code);
 
-        $user->setKnownDevices($knownDevices);
+        $this->entityManager->persist($knownDevice);
         $this->entityManager->flush();
 
         return $code;
+    }
+
+    /**
+     * Gets all known devices for the given user
+     *
+     * @param string $username
+     * @return KnownDevice[]
+     */
+    public function getKnownDevices(string $username): array
+    {
+        return [];
     }
 }
