@@ -24,6 +24,7 @@
   import Routes from "@/router/Routes";
   import JinyaMessage from "@/framework/Markup/Validation/Message";
   import Translator from "@/framework/i18n/Translator";
+  import {refreshMe} from "@/security/CurrentUser";
 
   export default {
     components: {
@@ -88,6 +89,8 @@
           }, headers);
           Lockr.set('JinyaApiKey', value.apiKey);
           Lockr.set('JinyaDeviceCode', value.deviceCode);
+
+          await refreshMe();
 
           this.$router.push(Routes.Home.StartPage);
         } catch (e) {

@@ -84,6 +84,7 @@
   import JinyaPager from "@/framework/Markup/Listing/Pager";
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
+  import {getMe} from "@/security/CurrentUser";
 
   export default {
     name: "Overview",
@@ -253,7 +254,7 @@
       const count = this.$route.query.count || 10;
       const keyword = this.$route.query.keyword || '';
 
-      this.me = await JinyaRequest.get('/api/account');
+      this.me = getMe();
       await this.fetchUsers(offset, count, keyword);
 
       EventBus.$on(Events.search.triggered, value => {

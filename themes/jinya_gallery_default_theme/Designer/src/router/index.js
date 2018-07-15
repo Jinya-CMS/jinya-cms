@@ -15,7 +15,7 @@ import Error from '@/router/error';
 import Events from "@/framework/Events/Events";
 import Translator from "@/framework/i18n/Translator";
 import DOMUtils from "@/framework/Utils/DOMUtils";
-import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+import {getRoles} from "@/security/CurrentUser";
 
 const routes = Home
   .concat(Account)
@@ -40,9 +40,9 @@ router.beforeEach(async (to, from, next) => {
     next(Routes.Account.Login.route);
   } else {
     try {
-      if (to.name !== Routes.Account.Login.name) {
-        to.meta.me = await JinyaRequest.get('/api/account');
-      }
+      to.meta.me = {
+        roles: getRoles()
+      };
 
       if (to.meta.role && !to.meta.me.roles.includes(to.meta.role)) {
         next(Routes.Error.NotAllowed.route);

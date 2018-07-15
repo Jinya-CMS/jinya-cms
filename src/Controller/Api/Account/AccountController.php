@@ -62,7 +62,8 @@ class AccountController extends BaseApiController
 
             return [
                 'apiKey' => $apiKeyTool->createApiKey($user),
-                'deviceCode' => $newDeviceCode
+                'deviceCode' => $newDeviceCode,
+                'roles' => $user->getRoles()
             ];
         });
 
@@ -173,7 +174,7 @@ class AccountController extends BaseApiController
         $user = $this->getUser();
 
         if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
-            list($data, $status) = $this->tryExecute(function () use ($user, $userPasswordEncoder, $userService) {
+            list($data, $status) = $this->tryExecute(function () use ($user, $userService) {
                 $userService->changePassword($user->getId(), $this->getValue('password'));
             }, Response::HTTP_NO_CONTENT);
 
