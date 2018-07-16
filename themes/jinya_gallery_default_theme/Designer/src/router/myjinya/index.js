@@ -1,3 +1,4 @@
-import MyAccount from "./MyAccount";
+import TwoFactor from "@/router/myjinya/TwoFactor";
+import MyAccount from "@/router/myjinya/MyAccount";
 
-export default MyAccount;
+export default [...MyAccount, ...TwoFactor];

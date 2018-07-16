@@ -166,6 +166,9 @@ menu:
             header: Mein Account
             profile: Mein Profil
             password: Passwort ändern
+          two_factor:
+            header: Zwei Faktor Authentifizierung
+            known_devices: Gespeicherte Geräte
       support:
         navbar: Support
         sections:
@@ -238,6 +241,8 @@ routes:
   my_jinya:
     account:
       password: Passwort ändern
+    two_factor:
+      known_devices: Gespeicherte Geräte
   maintenance:
     system:
       updates: Updates
@@ -654,6 +659,11 @@ my_jinya:
       asking_for_token: Änderung wird angefragt
       changing: Passwort wird geändert
       changed: Das Passwort wurde geändert, du wirst jetzt abgemeldet
+  two_factor:
+    known_devices:
+      delete: Gerät vergessen
+      device: "%browser% auf %os% IP Adresse: %ip%"
+      no_devices: Du hast noch keine Geräte gespeichert
 support:
   bug_dialog:
     title: Ich habe einen Fehler gefunden

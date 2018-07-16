@@ -128,6 +128,10 @@
                     <jinya-menu-flyout-menu-item to="MyJinya.Account.Password"
                                                  text="menu.designer.flyout.my_jinya.sections.account.password"/>
                 </jinya-menu-flyout-menu-section>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.two_factor.header">
+                    <jinya-menu-flyout-menu-item to="MyJinya.TwoFactor.KnownDevices"
+                                                 text="menu.designer.flyout.my_jinya.sections.two_factor.known_devices"/>
+                </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'support'">
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.support.sections.problems.header">

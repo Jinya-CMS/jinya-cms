@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Account;
 
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Users\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,6 +20,7 @@ class KnownDeviceController extends BaseApiController
 
     /**
      * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
+     * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param UserServiceInterface $userService
      * @return Response
@@ -36,7 +38,8 @@ class KnownDeviceController extends BaseApiController
     }
 
     /**
-     * @Route("/api/account/known_device/{key}", methods={"DELETE"}, name="api_known_device_get_all")
+     * @Route("/api/account/known_device/{key}", methods={"DELETE"}, name="api_known_device_delete")
+     * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param string $key
      * @param UserServiceInterface $userService

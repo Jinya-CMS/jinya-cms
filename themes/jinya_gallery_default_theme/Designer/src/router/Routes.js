@@ -415,6 +415,12 @@ export default {
         route: '/designer/myjinya/password'
       }
     },
+    TwoFactor: {
+      KnownDevices: {
+        name: 'MyJinyaAccountKnownDevices',
+        route: '/designer/myjinya/known-devices'
+      }
+    },
     CreatedByMe: {
       Artworks: {
         name: 'MyJinyaCreatedByMeArtworks',

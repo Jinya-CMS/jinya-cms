@@ -16,6 +16,7 @@
     "@tinymce/tinymce-vue": "^1.0.5",
     "deepmerge": "^2.1.0",
     "lockr": "^0.8.4",
+    "ua-parser-js": "^0.7.18",
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",

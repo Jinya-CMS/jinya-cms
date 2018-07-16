@@ -5,6 +5,7 @@ import App from './App'
 import router from '@/router'
 import i18n from '@/i18n'
 import {refreshMe} from "@/security/CurrentUser";
+import roles from "@/security/Roles";
 
 Vue.config.productionTip = false;
 

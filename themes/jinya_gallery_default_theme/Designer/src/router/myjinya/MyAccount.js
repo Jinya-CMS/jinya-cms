@@ -1,6 +1,6 @@
 import Routes from "../Routes";
-import Missing from '@/components/Home/Missing'
-import Password from '@/components/MyJinya/Account/Password'
+import Missing from '@/components/Home/Missing';
+import Password from '@/components/MyJinya/Account/Password';
 
 export default [
   {
