@@ -16,7 +16,7 @@ use Jinya\Entity\Artist\User;
  * @ORM\Entity
  * @ORM\Table(name="api_key")
  */
-class ApiKey
+class ApiKey implements \JsonSerializable
 {
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", cascade={"remove"})
@@ -41,11 +41,55 @@ class ApiKey
     private $validSince;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     */
+    private $userAgent;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
+     */
+    private $remoteAddress;
+
+    /**
      * ApiKey constructor.
      */
     public function __construct()
     {
         $this->validSince = new DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserAgent(): ?string
+    {
+        return $this->userAgent;
+    }
+
+    /**
+     * @param string $userAgent
+     */
+    public function setUserAgent(string $userAgent): void
+    {
+        $this->userAgent = $userAgent;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemoteAddress(): ?string
+    {
+        return $this->remoteAddress;
+    }
+
+    /**
+     * @param string $remoteAddress
+     */
+    public function setRemoteAddress(string $remoteAddress): void
+    {
+        $this->remoteAddress = $remoteAddress;
     }
 
     /**
@@ -94,5 +138,22 @@ class ApiKey
     public function setKey(string $key): void
     {
         $this->key = $key;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'remoteAddress' => $this->remoteAddress,
+            'userAgent' => $this->userAgent,
+            'key' => $this->key,
+            'validSince' => $this->validSince
+        ];
     }
 }

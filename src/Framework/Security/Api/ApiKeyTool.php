@@ -15,7 +15,6 @@ use Doctrine\ORM\Query\Expr\Join;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\ApiKey;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
-use function uniqid;
 
 class ApiKeyTool implements ApiKeyToolInterface
 {
@@ -47,7 +46,13 @@ class ApiKeyTool implements ApiKeyToolInterface
         $key = new ApiKey();
         $userId = $user->getId();
         $key->setUser($user);
-        $key->setKey(uniqid("jinya-api-token-$userId-"));
+        $key->setRemoteAddress($_SERVER['REMOTE_ADDR']);
+        $key->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+        try {
+            $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
+        } catch (\Exception $e) {
+            $key->setKey(uniqid("jinya-api-token-$userId-"));
+        }
 
         $this->entityManager->persist($key);
         $this->entityManager->flush();
@@ -143,5 +148,48 @@ class ApiKeyTool implements ApiKeyToolInterface
             ->setParameter('id', $userId)
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * Invalidates the given api key if it is owned by the given user
+     *
+     * @param string $username
+     * @param string $key
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function invalidateKeyOfUser(string $username, string $key): void
+    {
+        $apiKey = $this->entityManager->createQueryBuilder()
+            ->select('api_key')
+            ->from(ApiKey::class, 'api_key')
+            ->join('api_key.user', 'user')
+            ->where('user.email = :username')
+            ->andWhere('api_key.key = :key')
+            ->setParameter('key', $key)
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->entityManager->remove($apiKey);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Gets all api keys for the given user
+     *
+     * @param string $email
+     * @return array
+     */
+    public function getAllForUser(string $email): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('api_key')
+            ->from(ApiKey::class, 'api_key')
+            ->join('api_key.user', 'user')
+            ->where('user.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult();
     }
 }

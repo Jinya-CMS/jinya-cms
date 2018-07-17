@@ -56,4 +56,20 @@ interface ApiKeyToolInterface
      * @param int $userId
      */
     public function invalidateAll(int $userId): void;
+
+    /**
+     * Invalidates the given api key if it is owned by the given user
+     *
+     * @param string $username
+     * @param string $key
+     */
+    public function invalidateKeyOfUser(string $username, string $key): void;
+
+    /**
+     * Gets all api keys for the given user
+     *
+     * @param string $email
+     * @return array
+     */
+    public function getAllForUser(string $email): array;
 }
