@@ -8,7 +8,6 @@
 
 namespace Jinya\Controller\Api\Account;
 
-
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
@@ -18,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiKeyController extends BaseApiController
 {
-
     /**
      * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
@@ -33,7 +31,7 @@ class ApiKeyController extends BaseApiController
             return [
                 'success' => true,
                 'invalidateApiKeyAfter' => $configurationService->getConfig()->getInvalidateApiKeyAfter(),
-                'items' => $apiKeyTool->getAllForUser($this->getUser()->getEmail())
+                'items' => $apiKeyTool->getAllForUser($this->getUser()->getEmail()),
             ];
         });
 

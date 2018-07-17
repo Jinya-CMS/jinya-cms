@@ -8,7 +8,6 @@
 
 namespace Jinya\Entity\Authentication;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Artist\User;
 
@@ -25,21 +24,25 @@ class KnownDevice implements \JsonSerializable
      * @var int
      */
     private $id;
+
     /**
      * @ORM\Column(type="string", name="device_key")
      * @var string
      */
     private $key;
+
     /**
      * @ORM\Column(type="string")
      * @var string
      */
     private $userAgent;
+
     /**
      * @ORM\Column(type="string")
      * @var string
      */
     private $remoteAddress;
+
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", inversedBy="knownDevices")
      * @var User
@@ -128,9 +131,9 @@ class KnownDevice implements \JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     * which is a value of any type other than a resource
      * @since 5.4.0
      */
     public function jsonSerialize()
@@ -138,7 +141,7 @@ class KnownDevice implements \JsonSerializable
         return [
             'remoteAddress' => $this->remoteAddress,
             'userAgent' => $this->userAgent,
-            'key' => $this->key
+            'key' => $this->key,
         ];
     }
 }
