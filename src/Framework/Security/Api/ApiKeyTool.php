@@ -48,6 +48,7 @@ class ApiKeyTool implements ApiKeyToolInterface
         $key->setUser($user);
         $key->setRemoteAddress($_SERVER['REMOTE_ADDR']);
         $key->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+
         try {
             $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
         } catch (\Exception $e) {

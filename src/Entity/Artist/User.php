@@ -35,23 +35,27 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="string", unique=true)
      */
     private $email;
+
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
     private $enabled;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $twoFactorToken;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
      *
      * @var Collection
      */
     private $knownDevices;
+
     /**
      * The salt to use for hashing.
      *
@@ -59,6 +63,7 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $salt;
+
     /**
      * Encrypted password. Must be persisted.
      *
@@ -66,17 +71,20 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="text")
      */
     private $password;
+
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
      * @var string
      */
     private $plainPassword;
+
     /**
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastLogin;
+
     /**
      * Random string sent to the user email address in order to verify it.
      *
@@ -84,16 +92,19 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $confirmationToken;
+
     /**
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordRequestedAt;
+
     /**
      * @var array
      * @ORM\Column(type="array")
      */
     private $roles;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -102,42 +113,49 @@ class User implements JsonSerializable, UserInterface
      * @var int
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
     private $firstname;
+
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
     private $lastname;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $profilePicture;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\Artwork", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtworks;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery\ArtGallery", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdArtGalleries;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
      *
      * @var Collection
      */
     private $createdPages;
+
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Form\Form", mappedBy="creator")
      *
@@ -168,6 +186,7 @@ class User implements JsonSerializable, UserInterface
         if (empty($this->knownDevices)) {
             return [];
         }
+
         return $this->knownDevices;
     }
 

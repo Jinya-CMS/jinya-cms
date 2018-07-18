@@ -63,7 +63,7 @@ class AccountController extends BaseApiController
             return [
                 'apiKey' => $apiKeyTool->createApiKey($user),
                 'deviceCode' => $newDeviceCode,
-                'roles' => $user->getRoles()
+                'roles' => $user->getRoles(),
             ];
         });
 

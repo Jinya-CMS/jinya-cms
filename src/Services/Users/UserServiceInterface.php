@@ -127,7 +127,6 @@ interface UserServiceInterface
      *
      * @param string $username
      * @param string $deviceCode
-     * @return void
      */
     public function deleteKnownDevice(string $username, string $deviceCode): void;
 
