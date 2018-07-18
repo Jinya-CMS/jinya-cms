@@ -1,7 +1,7 @@
 <template>
     <div style="padding-top: 1rem">
         <jinya-loader :loading="loading"/>
-        <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info"/>
+        <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info" v-if="tokens.length === 0"/>
         <jinya-message message="my_jinya.two_factor.known_devices.device" v-for="token in tokens"
                        :params="getData(token)"
                        :key="`message-${token.key}`" state="info">
