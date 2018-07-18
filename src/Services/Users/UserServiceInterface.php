@@ -112,7 +112,7 @@ interface UserServiceInterface
      * @param string $username
      * @param string $password
      */
-    public function setTwoFactorCode(string $username, string $password): void;
+    public function setAndSendTwoFactorCode(string $username, string $password): void;
 
     /**
      * Adds a new device code to the user

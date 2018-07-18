@@ -316,7 +316,7 @@ class UserService implements UserServiceInterface
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function setTwoFactorCode(string $username, string $password): void
+    public function setAndSendTwoFactorCode(string $username, string $password): void
     {
         $user = $this->getUserByEmail($username);
         $code = '';
@@ -348,13 +348,29 @@ class UserService implements UserServiceInterface
 
         return "<html>
 <head></head>
-<body>
-    <p>
-        Hello $name,<br />
-        you requested a two factor code, here it is:
-    </p>
-    <pre>$code</pre>
-    <p>Your Jinya Team</p>
+<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\"'>
+    <table style='width: 100%; height: 100%;'>
+    <tr>
+        <td colspan='3' style='height: 15%;'></td>
+    </tr>
+    <tr>
+    <td style='width: 35%;'></td>
+    <td style='width: 30%;'>
+        <p style='margin-top: 15%;'>
+            Hello $name,<br /><br />
+            you tried to login from a new device, please verify with this code that this was actually you.
+        </p>
+        <p style='text-align: center;'>
+            <code style='background: #EFEFEF; padding: 6pt; text-align: center; font-size: 16pt; font-family: Consolas, monospace'>$code</code>
+        </p>
+        <p>
+            Greetings,<br />
+            Your Jinya Team
+        </p>
+    </td>
+    <td style='width: 35%;'></td>
+</tr>
+</table>
 </body>
 </html>";
     }
