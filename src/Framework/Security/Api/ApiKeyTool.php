@@ -61,6 +61,52 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
+     * Refreshes the validate since time
+     *
+     * @param string $key
+     */
+    public function refreshToken(string $key): void
+    {
+        $this->entityManager->createQueryBuilder()
+            ->update(ApiKey::class, 'key')
+            ->set('key.validSince', ':date')
+            ->setParameter('date', new DateTime())
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * Invalidates all tokens for the given user
+     *
+     * @param int $userId
+     */
+    public function invalidateAll(int $userId): void
+    {
+        $this->entityManager->createQueryBuilder()
+            ->delete(ApiKey::class, 'key')
+            ->where('key.user = :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * Invalidates the given api key if it is owned by the given user
+     *
+     * @param string $username
+     * @param string $key
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function invalidateKeyOfUser(string $username, string $key): void
+    {
+        $user = $this->getUserByKey($key);
+        if ($user->getEmail() === $username) {
+            $this->invalidate($key);
+        }
+    }
+
+    /**
      * Gets the user for the given api key
      *
      * @param string $key
@@ -96,18 +142,35 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Refreshes the validate since time
+     * Gets all api keys for the given user
      *
-     * @param string $key
+     * @param string $email
+     * @return array
+     * @throws \Exception
      */
-    public function refreshToken(string $key): void
+    public function getAllForUser(string $email): array
     {
-        $this->entityManager->createQueryBuilder()
-            ->update(ApiKey::class, 'key')
-            ->set('key.validSince', ':date')
-            ->setParameter('date', new DateTime())
+        /** @var ApiKey[] $keys */
+        $keys = $this->entityManager->createQueryBuilder()
+            ->select('api_key')
+            ->from(ApiKey::class, 'api_key')
+            ->join('api_key.user', 'user')
+            ->where('user.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
-            ->execute();
+            ->getResult();
+
+        $result = [];
+
+        foreach ($keys as $key) {
+            if ($this->shouldInvalidate($key->getKey())) {
+                $this->invalidate($key->getKey());
+            } else {
+                $result[] = $key;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -133,63 +196,5 @@ class ApiKeyTool implements ApiKeyToolInterface
         $validSince->add(new DateInterval("PT${keyInvalidation}S"));
 
         return (new DateTime())->getTimestamp() > $validSince->getTimestamp();
-    }
-
-    /**
-     * Invalidates all tokens for the given user
-     *
-     * @param int $userId
-     */
-    public function invalidateAll(int $userId): void
-    {
-        $this->entityManager->createQueryBuilder()
-            ->delete(ApiKey::class, 'key')
-            ->where('key.user = :id')
-            ->setParameter('id', $userId)
-            ->getQuery()
-            ->execute();
-    }
-
-    /**
-     * Invalidates the given api key if it is owned by the given user
-     *
-     * @param string $username
-     * @param string $key
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function invalidateKeyOfUser(string $username, string $key): void
-    {
-        $apiKey = $this->entityManager->createQueryBuilder()
-            ->select('api_key')
-            ->from(ApiKey::class, 'api_key')
-            ->join('api_key.user', 'user')
-            ->where('user.email = :username')
-            ->andWhere('api_key.key = :key')
-            ->setParameter('key', $key)
-            ->setParameter('username', $username)
-            ->getQuery()
-            ->getSingleResult();
-
-        $this->entityManager->remove($apiKey);
-        $this->entityManager->flush();
-    }
-
-    /**
-     * Gets all api keys for the given user
-     *
-     * @param string $email
-     * @return array
-     */
-    public function getAllForUser(string $email): array
-    {
-        return $this->entityManager->createQueryBuilder()
-            ->select('api_key')
-            ->from(ApiKey::class, 'api_key')
-            ->join('api_key.user', 'user')
-            ->where('user.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getResult();
     }
 }

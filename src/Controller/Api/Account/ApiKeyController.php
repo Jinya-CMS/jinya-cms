@@ -20,7 +20,7 @@ class ApiKeyController extends BaseApiController
 {
 
     /**
-     * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
+     * @Route("/api/account/api_key", methods={"GET"}, name="api_api_key_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param ApiKeyToolInterface $apiKeyTool

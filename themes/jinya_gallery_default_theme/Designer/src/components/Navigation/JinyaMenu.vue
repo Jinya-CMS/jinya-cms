@@ -127,6 +127,8 @@
                                                  text="menu.designer.flyout.my_jinya.sections.account.profile"/>
                     <jinya-menu-flyout-menu-item to="MyJinya.Account.Password"
                                                  text="menu.designer.flyout.my_jinya.sections.account.password"/>
+                    <jinya-menu-flyout-menu-item to="MyJinya.Account.ApiKeys"
+                                                 text="menu.designer.flyout.my_jinya.sections.account.api_keys"/>
                 </jinya-menu-flyout-menu-section>
                 <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.two_factor.header">
                     <jinya-menu-flyout-menu-item to="MyJinya.TwoFactor.KnownDevices"

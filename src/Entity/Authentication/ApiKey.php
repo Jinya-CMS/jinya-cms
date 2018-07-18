@@ -153,7 +153,7 @@ class ApiKey implements \JsonSerializable
             'remoteAddress' => $this->remoteAddress,
             'userAgent' => $this->userAgent,
             'key' => $this->key,
-            'validSince' => $this->validSince
+            'validSince' => $this->validSince->format(DATE_ATOM)
         ];
     }
 }

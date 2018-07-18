@@ -6,10 +6,11 @@ import router from '@/router'
 import i18n from '@/i18n'
 import {refreshMe} from "@/security/CurrentUser";
 import roles from "@/security/Roles";
+import Routes from "@/router/Routes";
 
 Vue.config.productionTip = false;
 
-refreshMe().then(() => {
+function startApp() {
   new Vue({
     el: '#app',
     router,
@@ -18,4 +19,9 @@ refreshMe().then(() => {
     components: {App},
     template: '<App/>'
   });
+}
+
+refreshMe().then(startApp).catch(() => {
+  startApp();
+  router.push(Routes.Account.Login);
 });
