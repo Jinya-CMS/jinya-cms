@@ -19,7 +19,6 @@ export async function refreshMe() {
       setCurrentUserRoles(user.roles);
     }
   } catch (e) {
-    console.error(e);
     throw e;
   }
 }

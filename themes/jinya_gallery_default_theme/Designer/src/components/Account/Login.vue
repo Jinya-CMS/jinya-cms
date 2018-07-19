@@ -50,8 +50,6 @@
 
           const loginResult = await login(this.email, this.password, this.twoFactorCode);
           if (loginResult) {
-            console.log(`Push to ${Routes.Home.StartPage.route}`);
-
             this.$router.push(Routes.Home.StartPage);
           } else {
             this.twoFactorRequested = true;
