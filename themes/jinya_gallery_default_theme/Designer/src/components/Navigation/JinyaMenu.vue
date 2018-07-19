@@ -127,6 +127,14 @@
                                                  text="menu.designer.flyout.my_jinya.sections.account.profile"/>
                     <jinya-menu-flyout-menu-item to="MyJinya.Account.Password"
                                                  text="menu.designer.flyout.my_jinya.sections.account.password"/>
+                    <jinya-menu-flyout-menu-item to="MyJinya.Account.ApiKeys"
+                                                 text="menu.designer.flyout.my_jinya.sections.account.api_keys"/>
+                    <jinya-menu-flyout-menu-item @selected="logout"
+                                                 text="menu.designer.flyout.my_jinya.sections.account.logout"/>
+                </jinya-menu-flyout-menu-section>
+                <jinya-menu-flyout-menu-section header="menu.designer.flyout.my_jinya.sections.two_factor.header">
+                    <jinya-menu-flyout-menu-item to="MyJinya.TwoFactor.KnownDevices"
+                                                 text="menu.designer.flyout.my_jinya.sections.two_factor.known_devices"/>
                 </jinya-menu-flyout-menu-section>
             </jinya-menu-flyout-menu>
             <jinya-menu-flyout-menu slot="flyout-menus" :is-open="isOpen && selectedHeader === 'support'">
@@ -162,6 +170,7 @@
   import JinyaMenuNavbarSearchItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
   import EventBus from "../../framework/Events/EventBus";
   import Events from "../../framework/Events/Events";
+  import {logout} from "@/security/Authentication";
 
   export default {
     components: {
@@ -179,6 +188,9 @@
       selectHeader(name) {
         this.selectedHeader = name;
         this.isOpen = true;
+      },
+      async logout() {
+        await logout();
       }
     },
     name: "jinya-menu",

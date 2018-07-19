@@ -28,6 +28,8 @@ class User implements JsonSerializable, UserInterface
 
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
+    const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
+
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)
@@ -39,6 +41,20 @@ class User implements JsonSerializable, UserInterface
      * @ORM\Column(type="boolean")
      */
     private $enabled;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    private $twoFactorToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
+     *
+     * @var Collection
+     */
+    private $knownDevices;
 
     /**
      * The salt to use for hashing.
@@ -159,6 +175,43 @@ class User implements JsonSerializable, UserInterface
         $this->createdForms = new ArrayCollection();
         $this->createdArtGalleries = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
+        $this->knownDevices = new ArrayCollection();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getKnownDevices(): ?array
+    {
+        if (empty($this->knownDevices)) {
+            return [];
+        }
+
+        return $this->knownDevices;
+    }
+
+    /**
+     * @param string[] $knownDevices
+     */
+    public function setKnownDevices(array $knownDevices): void
+    {
+        $this->knownDevices = $knownDevices;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTwoFactorToken(): ?string
+    {
+        return $this->twoFactorToken;
+    }
+
+    /**
+     * @param string $twoFactorToken
+     */
+    public function setTwoFactorToken(string $twoFactorToken): void
+    {
+        $this->twoFactorToken = $twoFactorToken;
     }
 
     /**

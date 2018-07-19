@@ -9,6 +9,7 @@
 namespace Jinya\Services\Users;
 
 use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\KnownDevice;
 
 interface UserServiceInterface
 {
@@ -26,9 +27,9 @@ interface UserServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @return \Jinya\Entity\Artist\User[]
+     * @return User[]
      */
-    public function getAll(int $offset, int $count = 10, string $keyword): array;
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
 
     /**
      * Counts all users
@@ -99,7 +100,41 @@ interface UserServiceInterface
      *
      * @param string $username
      * @param string $password
+     * @param string $twoFactorCode
+     * @param string $deviceCode
      * @return User
      */
-    public function getUser(string $username, string $password): User;
+    public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User;
+
+    /**
+     * Sets the two factor code and sends the verification mail
+     *
+     * @param string $username
+     * @param string $password
+     */
+    public function setAndSendTwoFactorCode(string $username, string $password): void;
+
+    /**
+     * Adds a new device code to the user
+     *
+     * @param string $username
+     * @return string
+     */
+    public function addKnownDevice(string $username): string;
+
+    /**
+     * Deletes the given known device
+     *
+     * @param string $username
+     * @param string $deviceCode
+     */
+    public function deleteKnownDevice(string $username, string $deviceCode): void;
+
+    /**
+     * Gets all known devices for the given user
+     *
+     * @param string $username
+     * @return KnownDevice[]
+     */
+    public function getKnownDevices(string $username): array;
 }

@@ -413,6 +413,16 @@ export default {
       Password: {
         name: 'MyJinyaAccountPassword',
         route: '/designer/myjinya/password'
+      },
+      ApiKeys: {
+        name: 'MyJinyaAccountApiKeys',
+        route: '/designer/myjinya/api-keys'
+      }
+    },
+    TwoFactor: {
+      KnownDevices: {
+        name: 'MyJinyaAccountKnownDevices',
+        route: '/designer/myjinya/known-devices'
       }
     },
     CreatedByMe: {

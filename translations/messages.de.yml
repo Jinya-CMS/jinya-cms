@@ -77,6 +77,8 @@ account:
     password: Passwort
     submit: Anmelden
     pending: Du wirst angemeldet
+    two_factor_needed: Du hast eine Email bekommen, bitte gib den Code hier ein.
+    2fa_code: Zwei Faktor Code
 api:
   state:
     401:
@@ -164,6 +166,11 @@ menu:
             header: Mein Account
             profile: Mein Profil
             password: Passwort ändern
+            api_keys: Aktuelle Zugänge
+            logout: Abmelden
+          two_factor:
+            header: Zwei Faktor Authentifizierung
+            known_devices: Gespeicherte Geräte
       support:
         navbar: Support
         sections:
@@ -236,6 +243,9 @@ routes:
   my_jinya:
     account:
       password: Passwort ändern
+      api_keys: Aktuelle Zugänge
+    two_factor:
+      known_devices: Gespeicherte Geräte
   maintenance:
     system:
       updates: Updates
@@ -652,6 +662,15 @@ my_jinya:
       asking_for_token: Änderung wird angefragt
       changing: Passwort wird geändert
       changed: Das Passwort wurde geändert, du wirst jetzt abgemeldet
+    api_key:
+      delete: Zugriff sperren
+      device: "%browser% auf %os% IP Adresse: %ip%"
+      invalidates_on: Wird am %date% um %time% gesperrt
+  two_factor:
+    known_devices:
+      delete: Gerät vergessen
+      device: "%browser% auf %os% IP Adresse: %ip%"
+      no_devices: Du hast noch keine Geräte gespeichert
 support:
   bug_dialog:
     title: Ich habe einen Fehler gefunden

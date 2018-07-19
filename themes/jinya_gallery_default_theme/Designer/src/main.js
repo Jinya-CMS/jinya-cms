@@ -4,15 +4,23 @@ import Vue from 'vue'
 import App from './App'
 import router from '@/router'
 import i18n from '@/i18n'
-import roles from '@/security/Roles';
+import {refreshMe} from "@/security/Authentication";
+import roles from "@/security/Roles";
 
 Vue.config.productionTip = false;
 
-new Vue({
-  el: '#app',
-  router,
-  i18n,
-  roles,
-  components: {App},
-  template: '<App/>'
+function startApp() {
+  new Vue({
+    el: '#app',
+    router,
+    i18n,
+    roles,
+    components: {App},
+    template: '<App/>'
+  });
+}
+
+refreshMe().then(startApp).catch(() => {
+  startApp();
+  // router.push(Routes.Account.Login);
 });

@@ -81,6 +81,12 @@
             &.is--disabled {
                 background: $gray-200;
             }
+
+            &:invalid {
+                box-shadow: none;
+                outline: none;
+                border-bottom-color: $danger;
+            }
         }
     }
 </style>

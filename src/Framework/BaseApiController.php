@@ -16,6 +16,7 @@ use Doctrine\ORM\NoResultException;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Framework\Security\UnknownDeviceException;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
@@ -156,6 +157,18 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
+     * Gets the given header
+     *
+     * @param string $header
+     * @param string $defaultValue
+     * @return string
+     */
+    protected function getHeader(string $header, string $defaultValue): string
+    {
+        return $this->request->headers->get($header, $defaultValue);
+    }
+
+    /**
      * Executes the given @see callable and return a formatted error if it fails
      *
      * @param callable $function
@@ -201,6 +214,10 @@ abstract class BaseApiController extends BaseController
             $this->logException($exception, 409);
 
             $result = [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
+        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UnknownDeviceException $exception) {
+            $this->logException($exception, 401);
+
+            $result = [$this->jsonFormatException('api.state.401.unknown_device', $exception), Response::HTTP_UNAUTHORIZED];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());
@@ -244,10 +261,16 @@ abstract class BaseApiController extends BaseController
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
     {
+        try {
+            $type = (new \ReflectionClass($throwable))->getShortName();
+        } catch (\ReflectionException $e) {
+            $type = 'unknown';
+        }
         $data = [
             'success' => false,
             'error' => [
                 'message' => $message,
+                'type' => $type,
             ],
         ];
         if ($this->isDebug()) {

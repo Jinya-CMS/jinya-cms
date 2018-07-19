@@ -21,6 +21,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Underscore\Types\Arrays;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
@@ -116,8 +117,9 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         $key = $request->headers->get('JinyaApiKey', '');
 
         $login = $this->urlGenerator->generate('api_account_login');
+        $twoFactor = $this->urlGenerator->generate('api_account_2fa');
 
-        if ($request->getPathInfo() === $login && 'HEAD' !== $request->getMethod()) {
+        if (Arrays::contains([$login, $twoFactor], $request->getPathInfo()) && 'HEAD' !== $request->getMethod()) {
             /* @noinspection PhpInconsistentReturnPointsInspection */
             return;
         }
