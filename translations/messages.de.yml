@@ -167,6 +167,7 @@ menu:
             profile: Mein Profil
             password: Passwort ändern
             api_keys: Aktuelle Zugänge
+            logout: Abmelden
           two_factor:
             header: Zwei Faktor Authentifizierung
             known_devices: Gespeicherte Geräte

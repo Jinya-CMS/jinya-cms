@@ -20,7 +20,7 @@
   import JinyaButton from "@/framework/Markup/Button";
   import UAParser from "ua-parser-js";
   import Routes from "@/router/Routes";
-  import Lockr from "lockr";
+  import {getApiKey} from "@/framework/Storage/AuthStorage";
 
   export default {
     name: "ApiKeys",
@@ -60,13 +60,13 @@
         invalidatesOn.setSeconds(invalidatesOn.getSeconds() + this.invalidateAfter);
 
         return {
-          date: invalidatesOn.toLocaleTimeString(),
-          time: invalidatesOn.toLocaleDateString()
+          time: invalidatesOn.toLocaleTimeString(),
+          date: invalidatesOn.toLocaleDateString()
         };
       },
       async deleteToken(token) {
         await JinyaRequest.delete(`/api/account/api_key/${token}`);
-        if (token === Lockr.get('JinyaApiKey')) {
+        if (token === getApiKey()) {
           this.$router.push(Routes.Account.Login);
         }
         await this.loadData();

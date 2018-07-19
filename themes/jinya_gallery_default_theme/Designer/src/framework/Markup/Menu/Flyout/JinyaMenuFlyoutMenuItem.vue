@@ -14,8 +14,7 @@
     name: "jinya-menu-flyout-menu-item",
     props: {
       to: {
-        type: String,
-        required: true
+        type: String
       },
       text: {
         type: String,
@@ -43,7 +42,11 @@
         }
       },
       route() {
-        return ObjectUtils.valueByKeypath(Routes, this.to);
+        if (ObjectUtils.valueByKeypath(Routes, this.to, false)) {
+          return ObjectUtils.valueByKeypath(Routes, this.to);
+        } else {
+          return {route: ''};
+        }
       },
       active() {
         return this.route.route === window.location.pathname;
@@ -59,7 +62,6 @@
           window.open(this.href);
         }
 
-        console.log('selected');
         this.$emit('selected');
       }
     }

@@ -4,9 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from '@/router'
 import i18n from '@/i18n'
-import {refreshMe} from "@/security/CurrentUser";
+import {refreshMe} from "@/security/Authentication";
 import roles from "@/security/Roles";
-import Routes from "@/router/Routes";
 
 Vue.config.productionTip = false;
 
@@ -23,5 +22,5 @@ function startApp() {
 
 refreshMe().then(startApp).catch(() => {
   startApp();
-  router.push(Routes.Account.Login);
+  // router.push(Routes.Account.Login);
 });

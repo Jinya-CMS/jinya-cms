@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import Lockr from 'lockr';
   import EventBus from "@/framework/Events/EventBus";
   import Events from "@/framework/Events/Events";
   import Translator from "@/framework/i18n/Translator";
@@ -21,6 +20,7 @@
   import JinyaModal from "@/framework/Markup/Modal/Modal";
   import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
   import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import {getApiKey} from "@/framework/Storage/AuthStorage";
 
   export default {
     name: "jinya-video-uploader",
@@ -49,7 +49,7 @@
             video: data.video,
             slug: data.slug,
             name: data.name,
-            apiKey: Lockr.get('JinyaApiKey')
+            apiKey: getApiKey()
           };
 
           const title = window.options.pageTitle;
@@ -68,7 +68,7 @@
               if (ev.data.finished) this.uploading = false;
 
               if (allowNotification) {
-                const notify = new Notification(title, {
+                new Notification(title, {
                   body: message,
                   icon: icon
                 });
@@ -83,7 +83,7 @@
             this.uploading = false;
 
             if (allowNotification) {
-              const notify = new Notification(title, {
+              new Notification(title, {
                 body: Translator.validator(message),
                 icon: icon
               });

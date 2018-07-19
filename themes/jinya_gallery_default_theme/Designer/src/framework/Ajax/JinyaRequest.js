@@ -1,4 +1,3 @@
-import Lockr from 'lockr';
 import NotFoundError from "@/framework/Ajax/Error/NotFoundError";
 import NotAllowedError from "@/framework/Ajax/Error/NotAllowedError";
 import UnauthorizedError from "@/framework/Ajax/Error/UnauthorizedError";
@@ -7,11 +6,12 @@ import HttpError from "@/framework/Ajax/Error/HttpError";
 import EventBus from "../Events/EventBus";
 import Events from "../Events/Events";
 import ConflictError from "./Error/ConflictError";
+import {getApiKey} from "@/framework/Storage/AuthStorage";
 
 async function send(verb, url, data, contentType, additionalHeaders = {}) {
   EventBus.$emit(Events.request.started);
   const headers = Object.assign({
-    JinyaApiKey: Lockr.get('JinyaApiKey'),
+    JinyaApiKey: getApiKey(),
     'Content-Type': contentType
   }, additionalHeaders);
 

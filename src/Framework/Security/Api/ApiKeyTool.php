@@ -71,6 +71,8 @@ class ApiKeyTool implements ApiKeyToolInterface
             ->update(ApiKey::class, 'key')
             ->set('key.validSince', ':date')
             ->setParameter('date', new DateTime())
+            ->where('key.key = :key')
+            ->setParameter('key', $key)
             ->getQuery()
             ->execute();
     }

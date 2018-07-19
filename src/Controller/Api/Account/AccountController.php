@@ -89,22 +89,6 @@ class AccountController extends BaseApiController
     }
 
     /**
-     * @Route("/api/logout", methods={"DELETE"}, name="api_account_logout")
-     *
-     * @param string $key
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @return Response
-     */
-    public function logoutAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($key, $apiKeyTool) {
-            $apiKeyTool->invalidate($key);
-        }, Response::HTTP_NO_CONTENT);
-
-        return $this->json($data, $status);
-    }
-
-    /**
      * @Route("/api/account", methods={"GET"}, name="api_account_get")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
