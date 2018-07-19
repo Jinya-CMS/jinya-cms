@@ -320,7 +320,7 @@ class UserService implements UserServiceInterface
     {
         $user = $this->getUserByEmail($username);
         $code = '';
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 6; ++$i) {
             try {
                 $code .= random_int(0, 9);
             } catch (Exception $e) {
@@ -338,7 +338,6 @@ class UserService implements UserServiceInterface
         $message->setBody($this->formatBody($user), 'text/html');
         $message->setFrom($this->mailerSender);
         $this->swift->send($message);
-
     }
 
     private function formatBody(User $user): string
@@ -429,7 +428,6 @@ class UserService implements UserServiceInterface
      *
      * @param string $username
      * @param string $deviceCode
-     * @return void
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
