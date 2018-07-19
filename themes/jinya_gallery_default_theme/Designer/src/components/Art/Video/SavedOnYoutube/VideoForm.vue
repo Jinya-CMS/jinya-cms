@@ -28,16 +28,16 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import slugify from "slugify";
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaTinyMce from "@/framework/Markup/Form/TinyMce";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import slugify from 'slugify';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
 
   export default {
     components: {
@@ -48,51 +48,51 @@
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
-    name: "jinya-video-form",
+    name: 'jinya-video-form',
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'art.videos.youtube.video_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'art.videos.youtube.video_form.back';
-        }
+        },
       },
       video: {
         type: Object,
@@ -101,30 +101,30 @@
             videoKey: '',
             name: '',
             slug: '',
-            description: ''
+            description: '',
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     watch: {
       video(newValue) {
         this.videoKeyOrUrl = newValue.videoKey;
-      }
+      },
     },
     computed: {
       videoUrl() {
         return `https://www.youtube-nocookie.com/embed/${this.video.videoKey}?rel=0`;
-      }
+      },
     },
     data() {
       return {
-        videoKeyOrUrl: ''
+        videoKeyOrUrl: '',
       };
     },
     methods: {
@@ -150,11 +150,11 @@
           name: this.video.name,
           slug: this.video.slug,
           videoKey: this.video.videoKey,
-          description: this.video.description
+          description: this.video.description,
         };
 
-        this.$emit('save', video)
-      }
-    }
-  }
+        this.$emit('save', video);
+      },
+    },
+  };
 </script>

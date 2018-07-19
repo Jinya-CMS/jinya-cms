@@ -1,5 +1,5 @@
-import Routes from "../Routes";
-import Login from '@/components/Account/Login'
+import Routes from '../Routes';
+import Login from '@/components/Account/Login';
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
     component: Login,
     meta: {
       title: 'routes.account.login',
-      background: window.options.startBackground
-    }
-  }
+      background: window.options.startBackground,
+    },
+  },
 ];

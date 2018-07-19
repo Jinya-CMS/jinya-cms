@@ -25,19 +25,19 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaGalleryDesignerPositionButton from "@/components/Art/Galleries/Designer/PositionButton";
-  import JinyaGalleryDesignerButton from "@/components/Art/Galleries/Designer/Button";
-  import JinyaGalleryDesignerItem from "@/components/Art/Galleries/Designer/Item";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
-  import JinyaGalleryDesignerVideo from "@/components/Art/Galleries/Designer/Video";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaGalleryDesignerPositionButton from '@/components/Art/Galleries/Designer/PositionButton';
+  import JinyaGalleryDesignerButton from '@/components/Art/Galleries/Designer/Button';
+  import JinyaGalleryDesignerItem from '@/components/Art/Galleries/Designer/Item';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaGalleryDesignerAddView from '@/components/Art/Galleries/Designer/Add';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaGalleryDesignerEditView from '@/components/Art/Galleries/Designer/Edit';
+  import JinyaGalleryDesignerVideo from '@/components/Art/Galleries/Designer/Video';
 
   export default {
     components: {
@@ -50,9 +50,9 @@
       JinyaGalleryDesignerButton,
       JinyaGalleryDesignerPositionButton,
       JinyaButton,
-      JinyaLoader
+      JinyaLoader,
     },
-    name: "designer",
+    name: 'designer',
     async mounted() {
       this.loading = true;
       try {
@@ -68,13 +68,13 @@
         if (!$event.deltaX && !this.addModel.show && !this.editModel.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
-            left: $event.deltaY > 0 ? 100 : -100
+            left: $event.deltaY > 0 ? 100 : -100,
           });
         }
       },
       async move(videoPosition, oldPosition, newPosition) {
         this.state = 'loading';
-        this.message = Translator.message(`art.galleries.designer.video.moving`, videoPosition.video);
+        this.message = Translator.message('art.galleries.designer.video.moving', videoPosition.video);
         if (oldPosition < newPosition) {
           this.videos.splice(newPosition + 1, 0, videoPosition);
           this.videos.splice(oldPosition, 1);
@@ -83,7 +83,7 @@
           this.videos.splice(oldPosition + 1, 1);
         }
         await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${videoPosition.id}/${oldPosition}`, {
-          position: newPosition
+          position: newPosition,
         });
         this.state = '';
         this.message = '';
@@ -94,12 +94,12 @@
         const id = await JinyaRequest.post(`/api/gallery/video/${this.gallery.slug}/video`, {
           position: this.currentPosition,
           video: video.slug,
-          type: video.type
+          type: video.type,
         });
 
         this.videos.splice(this.currentPosition + 1, 0, {
-          id: id,
-          video: video
+          id,
+          video,
         });
 
         this.state = '';
@@ -111,12 +111,12 @@
         this.message = Translator.message('art.galleries.designer.edit.pending', video);
         await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}/${this.currentPosition}`, {
           video: video.slug,
-          type: video.type
+          type: video.type,
         });
 
         this.videos.splice(this.currentPosition, 1, {
-          video: video,
-          id: this.videoPosition.id
+          video,
+          id: this.videoPosition.id,
         });
 
         this.state = '';
@@ -142,7 +142,7 @@
         this.editModal.loading = true;
         this.currentPosition = position;
         this.videoPosition = videoPosition;
-      }
+      },
     },
     data() {
       return {
@@ -150,7 +150,7 @@
           name: '',
           orientation: '',
           background: '',
-          slug: ''
+          slug: '',
         },
         state: '',
         message: '',
@@ -158,15 +158,15 @@
         loading: false,
         addModal: {
           show: false,
-          loading: false
+          loading: false,
         },
         editModal: {
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

@@ -15,19 +15,19 @@
 
 <script>
   export default {
-    name: "jinya-tab-container",
+    name: 'jinya-tab-container',
     props: {
       items: {
         type: Array,
         required: true,
         validate(input) {
           return input.every(value => value.title && value.name);
-        }
-      }
+        },
+      },
     },
     data() {
       return {
-        selectedItem: ''
+        selectedItem: '',
       };
     },
     mounted() {
@@ -40,9 +40,9 @@
       select(item) {
         this.selectedItem = item.name;
         this.$emit('select', item.name);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

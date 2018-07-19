@@ -13,18 +13,18 @@
 </template>
 
 <script>
-  import JinyaButton from "@/framework/Markup/Button";
-  import Routes from "@/router/Routes";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
+  import JinyaButton from '@/framework/Markup/Button';
+  import Routes from '@/router/Routes';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
 
   export default {
-    name: "Update",
+    name: 'Update',
     components: {
       JinyaMessage,
       JinyaMessageActionBar,
-      JinyaButton
+      JinyaButton,
     },
     async mounted() {
       this.jinyaVersion = await JinyaRequest.get('/api/maintenance/version');
@@ -33,7 +33,7 @@
       return {
         jinyaVersion: '',
         updateMessage: 'maintenance.system.updates.message',
-        updateState: 'info'
+        updateState: 'info',
       };
     },
     methods: {
@@ -44,9 +44,9 @@
         this.updateMessage = 'maintenance.system.updates.started';
         this.updateState = 'loading';
         window.location = await JinyaRequest.post('/api/maintenance/update');
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

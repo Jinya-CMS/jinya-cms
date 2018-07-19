@@ -7,17 +7,13 @@ const getHashCode = (obj) => {
   for (let i = 0; i < value.length; i++) {
     const character = value.charCodeAt(i);
     hash = ((hash << 5) - hash) + character;
-    hash = hash & hash;
+    hash &= hash;
   }
 
   return hash;
 };
-const equals = (obj1, obj2) => {
-  return getHashCode(obj1) === getHashCode(obj2);
-};
-const clone = (obj) => {
-  return JSON.parse(JSON.stringify(obj));
-};
+const equals = (obj1, obj2) => getHashCode(obj1) === getHashCode(obj2);
+const clone = obj => JSON.parse(JSON.stringify(obj));
 
 export default {
   equals,
@@ -41,17 +37,16 @@ export default {
     const value = key ? key.split('.').reduce((previous, current) => {
       if (previous) {
         return previous[current];
-      } else {
-        return current;
       }
+      return current;
     }, target) : '';
 
     if (defaultValue !== null && !value) {
       return defaultValue;
-    } else if (value) {
-      return value;
-    } else {
-      return key;
     }
-  }
-}
+    if (value) {
+      return value;
+    }
+    return key;
+  },
+};

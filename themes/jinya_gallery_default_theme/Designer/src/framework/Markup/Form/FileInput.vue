@@ -13,52 +13,52 @@
 </template>
 
 <script>
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaButton from "@/framework/Markup/Button";
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-file-input",
-    components: {JinyaButton},
+    name: 'jinya-file-input',
+    components: { JinyaButton },
     props: {
       required: Boolean,
       enable: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       multiple: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       accept: {
         type: String,
         default() {
           return '*';
-        }
+        },
       },
       hasValue: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     watch: {
       hasValue(newValue) {
         this.selectedFileName = newValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected');
-      }
+      },
     },
     data() {
       return {
         id: null,
-        selectedFileName: this.hasValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected')
+        selectedFileName: this.hasValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected'),
       };
     },
     mounted() {
@@ -78,9 +78,9 @@
           this.selectedFileName = event.target.files[0].name.split('\\').pop().split('/').pop();
         }
         this.$emit('picked', event.target.files);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

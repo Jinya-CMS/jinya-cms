@@ -31,19 +31,19 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import FileUtils from "@/framework/IO/FileUtils";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
-  import slugify from "slugify";
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import FileUtils from '@/framework/IO/FileUtils';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+  import slugify from 'slugify';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
 
   export default {
     components: {
@@ -56,51 +56,51 @@
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
-    name: "jinya-artwork-form",
+    name: 'jinya-artwork-form',
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'art.artworks.artwork_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'art.artworks.artwork_form.back';
-        }
+        },
       },
       artwork: {
         type: Object,
@@ -109,16 +109,16 @@
             picture: '',
             name: '',
             slug: '',
-            description: ''
+            description: '',
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       back() {
@@ -144,11 +144,11 @@
           name: this.artwork.name,
           slug: this.artwork.slug,
           picture: this.artwork.uploadedFile,
-          description: this.artwork.description
+          description: this.artwork.description,
         };
 
-        this.$emit('save', artwork)
-      }
-    }
-  }
+        this.$emit('save', artwork);
+      },
+    },
+  };
 </script>

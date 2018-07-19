@@ -1,4 +1,4 @@
-import Translator from "@/framework/i18n/Translator";
+import Translator from '@/framework/i18n/Translator';
 import Vue from 'vue';
 
 const i18n = {
@@ -9,7 +9,7 @@ const i18n = {
 
       bind(el, binding) {
         el.innerText = Translator.message(binding.value);
-      }
+      },
     });
     Vue.directive('jinya-validator', {
       isFn: true,
@@ -17,16 +17,12 @@ const i18n = {
 
       bind(el, binding) {
         el.innerText = Translator.validator(binding.value);
-      }
+      },
     });
 
-    Vue.filter('jmessage', (value, parameter = {}) => {
-      return Translator.message(value, parameter);
-    });
-    Vue.filter('jvalidator', (value, parameter = {}) => {
-      return Translator.validator(value, parameter);
-    });
-  }
+    Vue.filter('jmessage', (value, parameter = {}) => Translator.message(value, parameter));
+    Vue.filter('jvalidator', (value, parameter = {}) => Translator.validator(value, parameter));
+  },
 };
 Vue.use(i18n);
 

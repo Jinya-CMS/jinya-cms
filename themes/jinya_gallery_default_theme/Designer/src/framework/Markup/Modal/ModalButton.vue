@@ -4,11 +4,11 @@
 </template>
 
 <script>
-  import JinyaButton from "../Button";
+  import JinyaButton from '../Button';
 
   export default {
-    components: {JinyaButton},
-    name: "jinya-modal-button",
+    components: { JinyaButton },
+    name: 'jinya-modal-button',
     methods: {
       click() {
         this.$emit('click');
@@ -16,26 +16,26 @@
         if (this.closesModal) {
           this.$parent.$emit('close');
         }
-      }
+      },
     },
     props: {
       closesModal: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       isPrimary: Boolean,
       isSecondary: Boolean,
       isDanger: Boolean,
       isSuccess: Boolean,
       isDisabled: Boolean,
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

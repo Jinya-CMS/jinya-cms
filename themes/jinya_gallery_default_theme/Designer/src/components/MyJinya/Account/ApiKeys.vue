@@ -12,23 +12,23 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
-  import UAParser from "ua-parser-js";
-  import Routes from "@/router/Routes";
-  import {getApiKey} from "@/framework/Storage/AuthStorage";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
+  import UAParser from 'ua-parser-js';
+  import Routes from '@/router/Routes';
+  import { getApiKey } from '@/framework/Storage/AuthStorage';
 
   export default {
-    name: "ApiKeys",
+    name: 'ApiKeys',
     components: {
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaLoader
+      JinyaLoader,
     },
     data() {
       return {
@@ -36,8 +36,8 @@
         loading: true,
         message: '',
         state: '',
-        invalidateAfter: 0
-      }
+        invalidateAfter: 0,
+      };
     },
     methods: {
       getKeyMessage(apiKey) {
@@ -61,7 +61,7 @@
 
         return {
           time: invalidatesOn.toLocaleTimeString(),
-          date: invalidatesOn.toLocaleDateString()
+          date: invalidatesOn.toLocaleDateString(),
         };
       },
       async deleteToken(token) {
@@ -80,13 +80,13 @@
           this.state = 'error';
           this.message = Translator.validator(`my_jinya.account.api_key.${e.message}`);
         }
-      }
+      },
     },
     async mounted() {
       await this.loadData();
       this.loading = false;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

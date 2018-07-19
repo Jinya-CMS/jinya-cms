@@ -159,18 +159,18 @@
 </template>
 
 <script>
-  import JinyaMenuNavbar from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbar";
-  import JinyaMenuNavbarItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarItem";
-  import JinyaMenuFlyout from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyout";
-  import JinyaMenuFlyoutNavbarItem from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbarItem";
-  import JinyaMenuFlyoutNavbar from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbar";
-  import JinyaMenuFlyoutMenu from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenu";
-  import JinyaMenuFlyoutMenuSection from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection";
-  import JinyaMenuFlyoutMenuItem from "@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem";
-  import JinyaMenuNavbarSearchItem from "@/framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem";
-  import EventBus from "../../framework/Events/EventBus";
-  import Events from "../../framework/Events/Events";
-  import {logout} from "@/security/Authentication";
+  import JinyaMenuNavbar from '@/framework/Markup/Menu/Navbar/JinyaMenuNavbar';
+  import JinyaMenuNavbarItem from '@/framework/Markup/Menu/Navbar/JinyaMenuNavbarItem';
+  import JinyaMenuFlyout from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyout';
+  import JinyaMenuFlyoutNavbarItem from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbarItem';
+  import JinyaMenuFlyoutNavbar from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutNavbar';
+  import JinyaMenuFlyoutMenu from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenu';
+  import JinyaMenuFlyoutMenuSection from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuSection';
+  import JinyaMenuFlyoutMenuItem from '@/framework/Markup/Menu/Flyout/JinyaMenuFlyoutMenuItem';
+  import JinyaMenuNavbarSearchItem from '@/framework/Markup/Menu/Navbar/JinyaMenuNavbarSearchItem';
+  import EventBus from '../../framework/Events/EventBus';
+  import Events from '../../framework/Events/Events';
+  import { logout } from '@/security/Authentication';
 
   export default {
     components: {
@@ -182,7 +182,7 @@
       JinyaMenuFlyoutNavbarItem,
       JinyaMenuFlyout,
       JinyaMenuNavbarItem,
-      JinyaMenuNavbar
+      JinyaMenuNavbar,
     },
     methods: {
       selectHeader(name) {
@@ -191,9 +191,9 @@
       },
       async logout() {
         await logout();
-      }
+      },
     },
-    name: "jinya-menu",
+    name: 'jinya-menu',
     mounted() {
       EventBus.$on(Events.navigation.navigated, () => {
         this.isOpen = false;
@@ -206,10 +206,10 @@
       return {
         isOpen: false,
         selectedHeader: '',
-        title: this.$route.meta.title
-      }
-    }
-  }
+        title: this.$route.meta.title,
+      };
+    },
+  };
 </script>
 
 <style scoped lang="scss">

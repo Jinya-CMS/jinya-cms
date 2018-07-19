@@ -34,22 +34,22 @@
 </template>
 
 <script>
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import JinyaChoice from "@/framework/Markup/Form/Choice";
-  import Translator from "@/framework/i18n/Translator";
-  import FileUtils from "@/framework/IO/FileUtils";
-  import Routes from "@/router/Routes";
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import Translator from '@/framework/i18n/Translator';
+  import FileUtils from '@/framework/IO/FileUtils';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "jinya-artist-form",
+    name: 'jinya-artist-form',
     components: {
       JinyaChoice,
       JinyaFileInput,
@@ -60,56 +60,56 @@
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'configuration.general.artists.artist_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'configuration.general.artists.artist_form.back';
-        }
+        },
       },
       showPassword: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       artist: {
         type: Object,
@@ -121,29 +121,29 @@
             email: '',
             enabled: {
               text: '',
-              value: ''
+              value: '',
             },
-            roles: []
+            roles: [],
           };
-        }
-      }
+        },
+      },
     },
     computed: {
       activationOptions() {
         return [
           {
             value: true,
-            text: Translator.message('configuration.general.artists.artist_form.enabled')
+            text: Translator.message('configuration.general.artists.artist_form.enabled'),
           },
           {
             value: false,
-            text: Translator.message('configuration.general.artists.artist_form.disabled')
-          }
+            text: Translator.message('configuration.general.artists.artist_form.disabled'),
+          },
         ];
       },
       rolesOptions() {
         return window.messages.authentication.roles;
-      }
+      },
     },
     methods: {
       async picturePicked(files) {
@@ -159,7 +159,7 @@
           lastname: this.artist.lastname,
           email: this.artist.email,
           enabled: this.artist.enabled.value,
-          roles: this.artist.roles.map(role => role.value)
+          roles: this.artist.roles.map(role => role.value),
         };
 
         if (this.showPassword) {
@@ -184,9 +184,9 @@
       },
       back() {
         this.$router.push(Routes.Configuration.General.Artists.Overview);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

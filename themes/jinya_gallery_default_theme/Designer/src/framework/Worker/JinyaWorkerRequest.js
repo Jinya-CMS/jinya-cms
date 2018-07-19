@@ -1,20 +1,20 @@
-import HttpError from "@/framework/Ajax/Error/HttpError";
-import BadRequestError from "@/framework/Ajax/Error/BadRequestError";
-import ConflictError from "@/framework/Ajax/Error/ConflictError";
-import NotAllowedError from "@/framework/Ajax/Error/NotAllowedError";
-import UnauthorizedError from "@/framework/Ajax/Error/UnauthorizedError";
-import NotFoundError from "@/framework/Ajax/Error/NotFoundError";
+import HttpError from '@/framework/Ajax/Error/HttpError';
+import BadRequestError from '@/framework/Ajax/Error/BadRequestError';
+import ConflictError from '@/framework/Ajax/Error/ConflictError';
+import NotAllowedError from '@/framework/Ajax/Error/NotAllowedError';
+import UnauthorizedError from '@/framework/Ajax/Error/UnauthorizedError';
+import NotFoundError from '@/framework/Ajax/Error/NotFoundError';
 
 async function send(verb, url, data, contentType, apiKey) {
   const headers = {
     JinyaApiKey: apiKey,
-    'Content-Type': contentType
+    'Content-Type': contentType,
   };
 
   const request = {
-    headers: headers,
+    headers,
     credentials: 'same-origin',
-    method: verb
+    method: verb,
   };
 
   if (data) {
@@ -25,7 +25,7 @@ async function send(verb, url, data, contentType, apiKey) {
     }
   }
 
-  return await fetch(url, request).then(async response => {
+  return await fetch(url, request).then(async (response) => {
     if (response.ok) {
       if (response.status !== 204) {
         return response.json();
@@ -72,5 +72,5 @@ export default {
   },
   async send(verb, url, data, apiKey) {
     return await send(verb, url, data, 'application/json', apiKey);
-  }
-}
+  },
+};

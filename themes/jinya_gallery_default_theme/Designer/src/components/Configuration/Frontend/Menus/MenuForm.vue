@@ -22,19 +22,19 @@
 </template>
 
 <script>
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import FileUtils from "@/framework/IO/FileUtils";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import FileUtils from '@/framework/IO/FileUtils';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-menu-form",
+    name: 'jinya-menu-form',
     components: {
       JinyaButton,
       JinyaMessageActionBar,
@@ -44,36 +44,36 @@
       JinyaFileInput,
       JinyaEditorPreviewImage,
       JinyaEditorPane,
-      JinyaEditor
+      JinyaEditor,
     },
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       menu: {
         type: Object,
         default() {
           return {
             name: '',
-            logo: ''
-          }
-        }
+            logo: '',
+          };
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       async picked(files) {
@@ -85,9 +85,9 @@
       save() {
         this.$emit('save', {
           logo: this.menu.pickedLogo,
-          name: this.menu.name
+          name: this.menu.name,
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

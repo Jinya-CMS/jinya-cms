@@ -4,8 +4,8 @@
 
 <script>
   export default {
-    name: "details"
-  }
+    name: 'details',
+  };
 </script>
 
 <style scoped>

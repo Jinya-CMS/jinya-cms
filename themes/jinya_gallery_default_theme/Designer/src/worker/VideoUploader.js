@@ -1,4 +1,4 @@
-import JinyaWorkerRequest from "@/framework/Worker/JinyaWorkerRequest";
+import JinyaWorkerRequest from '@/framework/Worker/JinyaWorkerRequest';
 
 // noinspection PointlessArithmeticExpressionJS Might change at some point
 const chunkSize = 1 * 1024 * 1024;
@@ -14,8 +14,8 @@ async function startUpload(slug, apiKey) {
     postMessage({
       message: 'background.video.exists',
       error: {
-        type: 'exists'
-      }
+        type: 'exists',
+      },
     });
     return false;
   }
@@ -44,7 +44,7 @@ async function chunkUpload(slug, videoFile, apiKey, offset = 0) {
   } while (currentOffset < videoFile.size);
 }
 
-onmessage = async e => {
+onmessage = async (e) => {
   if (e.data?.video && e.data?.slug && e.data?.apiKey) {
     console.log('Received message with file to upload');
 
@@ -53,7 +53,7 @@ onmessage = async e => {
     const apiKey = e.data.apiKey;
 
     if (await startUpload(slug, apiKey)) {
-      postMessage({message: 'background.video.upload_started', started: true});
+      postMessage({ message: 'background.video.upload_started', started: true });
 
       console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
       await chunkUpload(slug, videoFile, apiKey, chunkSize * -1);
@@ -63,7 +63,7 @@ onmessage = async e => {
       await JinyaWorkerRequest.put(`/api/video/jinya/${slug}/video/finish`, {}, apiKey);
 
       console.log(`Finished upload for slug ${slug} close worker now`);
-      postMessage({message: 'background.video.uploaded', finished: true});
+      postMessage({ message: 'background.video.uploaded', finished: true });
       close();
     }
   }

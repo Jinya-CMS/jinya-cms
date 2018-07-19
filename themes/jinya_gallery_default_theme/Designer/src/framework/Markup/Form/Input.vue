@@ -11,38 +11,39 @@
 
 <script>
   export default {
-    name: "jinya-input",
+    name: 'jinya-input',
     props: {
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       value: String,
       placeholder: String,
       required: Boolean,
       type: {
-        type: String, default() {
+        type: String,
+        default() {
           return 'text';
-        }
+        },
       },
       autocomplete: String,
       autofocus: Boolean,
       label: {
         type: String,
-        required: false
-      }
+        required: false,
+      },
     },
     data() {
       return {
-        id: null
+        id: null,
       };
     },
     mounted() {
@@ -52,9 +53,9 @@
       keyup($event) {
         this.$emit('change', $event.target.value);
         this.$emit('keyup', $event);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

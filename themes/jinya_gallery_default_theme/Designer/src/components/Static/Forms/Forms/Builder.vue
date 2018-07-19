@@ -45,30 +45,30 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaFormBuilderTextType from "@/components/Static/Forms/Forms/Builder/TextType";
-  import JinyaFormBuilderEmailType from "@/components/Static/Forms/Forms/Builder/EmailType";
-  import JinyaFormBuilderCheckboxType from "@/components/Static/Forms/Forms/Builder/CheckboxType";
-  import JinyaFormBuilderChoiceType from "@/components/Static/Forms/Forms/Builder/ChoiceType";
-  import JinyaFormBuilderTextAreaType from "@/components/Static/Forms/Forms/Builder/TextAreaType";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaFormBuilderTextType from '@/components/Static/Forms/Forms/Builder/TextType';
+  import JinyaFormBuilderEmailType from '@/components/Static/Forms/Forms/Builder/EmailType';
+  import JinyaFormBuilderCheckboxType from '@/components/Static/Forms/Forms/Builder/CheckboxType';
+  import JinyaFormBuilderChoiceType from '@/components/Static/Forms/Forms/Builder/ChoiceType';
+  import JinyaFormBuilderTextAreaType from '@/components/Static/Forms/Forms/Builder/TextAreaType';
   import draggable from 'vuedraggable';
-  import JinyaFormBuilderItem from "@/components/Static/Forms/Forms/Builder/Item";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Timing from "@/framework/Utils/Timing";
-  import Routes from "@/router/Routes";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
+  import JinyaFormBuilderItem from '@/components/Static/Forms/Forms/Builder/Item';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Timing from '@/framework/Utils/Timing';
+  import Routes from '@/router/Routes';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
 
   export default {
-    name: "Builder",
+    name: 'Builder',
     components: {
       JinyaModalButton,
       JinyaModal,
@@ -83,7 +83,7 @@
       JinyaForm,
       JinyaEditorPane,
       JinyaEditor,
-      draggable
+      draggable,
     },
     beforeRouteLeave(to, from, next) {
       if (this.actions.length > 0) {
@@ -128,8 +128,8 @@
       deleteItem(item) {
         this.actions.push({
           action: 'delete',
-          where: item.oldIndex
-        })
+          where: item.oldIndex,
+        });
       },
       itemAdded(add) {
         const position = add.newIndex;
@@ -142,7 +142,7 @@
         this.actions.push({
           action: 'add',
           where: position,
-          data: clone
+          data: clone,
         });
       },
       itemsChange(data) {
@@ -155,7 +155,7 @@
           this.actions.push({
             action: 'move',
             from: oldPosition,
-            to: newPosition
+            to: newPosition,
           });
         }
       },
@@ -163,18 +163,18 @@
         this.actions.push({
           action: 'edit',
           where: item.position,
-          data: item.data
+          data: item.data,
         });
       },
       toggleSettings(item) {
-        this.items = this.items.map(elem => {
+        this.items = this.items.map((elem) => {
           if (item.position !== elem.position) {
             elem.showSettings = false;
           }
 
           return elem;
         });
-      }
+      },
     },
     computed: {
       originOptions() {
@@ -184,17 +184,17 @@
           group: {
             name: 'edit',
             pull: 'clone',
-            put: false
-          }
-        }
+            put: false,
+          },
+        };
       },
       destinationOptions() {
         return {
           handle: '.jinya-form-builder__component',
           disabled: !this.enable,
-          group: 'edit'
-        }
-      }
+          group: 'edit',
+        };
+      },
     },
     async mounted() {
       this.loading = true;
@@ -213,46 +213,46 @@
           type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
           label: Translator.message('static.forms.forms.builder.default_label.text_type'),
           options: {
-            required: false
-          }
+            required: false,
+          },
         },
         {
           type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
           label: Translator.message('static.forms.forms.builder.default_label.email_type'),
           options: {
-            required: false
-          }
+            required: false,
+          },
         },
         {
           type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
           label: Translator.message('static.forms.forms.builder.default_label.choice_type'),
           options: {
             required: false,
-            choices: []
-          }
+            choices: [],
+          },
         },
         {
           type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
           label: Translator.message('static.forms.forms.builder.default_label.checkbox_type'),
           options: {
-            required: false
-          }
+            required: false,
+          },
         },
         {
           type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
           label: Translator.message('static.forms.forms.builder.default_label.textarea_type'),
           options: {
-            required: false
-          }
-        }
+            required: false,
+          },
+        },
       ];
 
       return {
         form: {
           title: '',
-          slug: this.$route.params.slug
+          slug: this.$route.params.slug,
         },
-        availableItemTypes: availableItemTypes,
+        availableItemTypes,
         message: '',
         state: '',
         enable: true,
@@ -260,10 +260,10 @@
         loading: false,
         actions: [],
         drag: false,
-        leaving: false
+        leaving: false,
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

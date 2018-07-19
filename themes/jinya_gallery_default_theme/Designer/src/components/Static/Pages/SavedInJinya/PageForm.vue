@@ -20,19 +20,19 @@
 </template>
 
 <script>
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaTinyMce from "@/framework/Markup/Form/TinyMce";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import Routes from "@/router/Routes";
-  import slugify from "slugify";
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import Routes from '@/router/Routes';
+  import slugify from 'slugify';
 
   export default {
-    name: "jinya-page-form",
+    name: 'jinya-page-form',
     components: {
       JinyaForm,
       JinyaMessageActionBar,
@@ -41,50 +41,50 @@
       JinyaEditor,
       JinyaInput,
       JinyaTinyMce,
-      JinyaButton
+      JinyaButton,
     },
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'static.pages.page_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'static.pages.page_form.back';
-        }
+        },
       },
       page: {
         type: Object,
@@ -92,16 +92,16 @@
           return {
             title: '',
             slug: '',
-            content: ''
+            content: '',
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       back() {
@@ -120,13 +120,13 @@
         const page = {
           title: this.page.title,
           slug: this.page.slug,
-          content: this.page.content
+          content: this.page.content,
         };
 
-        this.$emit('save', page)
-      }
-    }
-  }
+        this.$emit('save', page);
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

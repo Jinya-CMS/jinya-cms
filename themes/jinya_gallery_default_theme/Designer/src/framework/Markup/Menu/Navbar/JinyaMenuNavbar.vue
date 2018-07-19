@@ -11,8 +11,8 @@
 
 <script>
   export default {
-    name: "jinya-menu-navbar"
-  }
+    name: 'jinya-menu-navbar',
+  };
 </script>
 
 <style scoped lang="scss">

@@ -27,43 +27,43 @@
 </template>
 
 <script>
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
   export default {
-    name: "jinya-modal",
-    components: {JinyaLoader},
+    name: 'jinya-modal',
+    components: { JinyaLoader },
     props: {
       title: {
         type: String,
-        required: true
+        required: true,
       },
       loading: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       modalModifiers: {
         default() {
           return {};
-        }
+        },
       },
       isFullscreen: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     computed: {
       additionalClasses() {
         return {
           'is--fullscreen': this.isFullscreen,
-          ...this.modalModifiers
+          ...this.modalModifiers,
         };
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

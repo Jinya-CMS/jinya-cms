@@ -1,7 +1,7 @@
-import ObjectUtils from "@/framework/Utils/ObjectUtils";
-import Vue from "vue";
-import Permissions from "@/security/Permissions";
-import {getCurrentUserRoles} from "@/framework/Storage/AuthStorage";
+import ObjectUtils from '@/framework/Utils/ObjectUtils';
+import Vue from 'vue';
+import Permissions from '@/security/Permissions';
+import { getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
 const roles = {
   async install(Vue) {
@@ -16,7 +16,7 @@ const roles = {
         vnode.elm.parentElement?.removeChild(vnode.elm);
       }
     });
-  }
+  },
 };
 
 Vue.use(roles);

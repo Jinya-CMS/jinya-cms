@@ -24,19 +24,19 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaGalleryDesignerPositionButton from "@/components/Art/Galleries/Designer/PositionButton";
-  import JinyaGalleryDesignerButton from "@/components/Art/Galleries/Designer/Button";
-  import JinyaGalleryDesignerItem from "@/components/Art/Galleries/Designer/Item";
-  import JinyaGalleryDesignerImage from "@/components/Art/Galleries/Designer/Image";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaGalleryDesignerPositionButton from '@/components/Art/Galleries/Designer/PositionButton';
+  import JinyaGalleryDesignerButton from '@/components/Art/Galleries/Designer/Button';
+  import JinyaGalleryDesignerItem from '@/components/Art/Galleries/Designer/Item';
+  import JinyaGalleryDesignerImage from '@/components/Art/Galleries/Designer/Image';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaGalleryDesignerAddView from '@/components/Art/Galleries/Designer/Add';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaGalleryDesignerEditView from '@/components/Art/Galleries/Designer/Edit';
 
   export default {
     components: {
@@ -49,9 +49,9 @@
       JinyaGalleryDesignerButton,
       JinyaGalleryDesignerPositionButton,
       JinyaButton,
-      JinyaLoader
+      JinyaLoader,
     },
-    name: "designer",
+    name: 'designer',
     async mounted() {
       this.loading = true;
       try {
@@ -68,7 +68,7 @@
         if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
-            left: $event.deltaY > 0 ? 100 : -100
+            left: $event.deltaY > 0 ? 100 : -100,
           });
         }
       },
@@ -83,7 +83,7 @@
           this.artworks.splice(oldPosition + 1, 1);
         }
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
-          position: newPosition
+          position: newPosition,
         });
         this.state = '';
         this.message = '';
@@ -93,12 +93,12 @@
         this.message = Translator.message('art.galleries.designer.add.pending', artwork);
         const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
           position: this.currentPosition,
-          artwork: artwork.slug
+          artwork: artwork.slug,
         });
 
         this.artworks.splice(this.currentPosition + 1, 0, {
-          id: id,
-          artwork: artwork
+          id,
+          artwork,
         });
 
         this.state = '';
@@ -109,12 +109,12 @@
         this.state = 'loading';
         this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
-          artwork: artwork.slug
+          artwork: artwork.slug,
         });
 
         this.artworks.splice(this.currentPosition, 1, {
-          artwork: artwork,
-          id: this.artworkPosition.id
+          artwork,
+          id: this.artworkPosition.id,
         });
 
         this.state = '';
@@ -140,7 +140,7 @@
         this.editModal.loading = true;
         this.currentPosition = position;
         this.artworkPosition = artworkPosition;
-      }
+      },
     },
     data() {
       return {
@@ -148,7 +148,7 @@
           name: '',
           orientation: '',
           background: '',
-          slug: ''
+          slug: '',
         },
         state: '',
         message: '',
@@ -156,15 +156,15 @@
         loading: false,
         addModal: {
           show: false,
-          loading: false
+          loading: false,
         },
         editModal: {
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

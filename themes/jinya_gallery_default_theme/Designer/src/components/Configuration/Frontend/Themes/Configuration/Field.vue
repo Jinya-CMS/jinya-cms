@@ -8,55 +8,55 @@
 </template>
 
 <script>
-  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-theme-configuration-field",
+    name: 'jinya-theme-configuration-field',
     components: {
       JinyaButton,
       JinyaInput,
       JinyaFileInput,
-      JinyaCheckbox
+      JinyaCheckbox,
     },
     props: {
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       value: {
-        required: true
+        required: true,
       },
       type: {
         type: String,
         required: true,
         validate(input) {
           return ['string', 'file', 'boolean'].includes(input);
-        }
+        },
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       name: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
-        hasValue: !!this.value
-      }
+        hasValue: !!this.value,
+      };
     },
     methods: {
       changed($event) {
         const payload = {
           name: this.name,
-          type: this.type
+          type: this.type,
         };
 
         switch (this.type) {
@@ -72,9 +72,9 @@
             break;
         }
         this.$emit('changed', payload);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

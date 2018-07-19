@@ -9,14 +9,14 @@
 
 <script>
   export default {
-    name: "jinya-menu-flyout-menu-section",
+    name: 'jinya-menu-flyout-menu-section',
     props: {
       header: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

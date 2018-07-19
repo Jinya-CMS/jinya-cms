@@ -10,15 +10,15 @@
 </template>
 
 <script>
-  import ObjectUtils from "../Utils/ObjectUtils";
-  import Routes from "@/router/Routes";
+  import ObjectUtils from '../Utils/ObjectUtils';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "jinya-floating-action-button",
+    name: 'jinya-floating-action-button',
     props: {
       icon: {
         type: String,
-        required: true
+        required: true,
       },
       to: {},
       isPrimary: Boolean,
@@ -30,12 +30,12 @@
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     data() {
       const data = {
-        routeTarget: undefined
+        routeTarget: undefined,
       };
       if (this.to instanceof String) {
         data.routeTarget = ObjectUtils.valueByKeypath(Routes, this.to);
@@ -47,11 +47,11 @@
         'is--secondary': this.isSecondary,
         'is--danger': this.isDanger,
         'is--success': this.isSuccess,
-        'is--default': !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary)
+        'is--default': !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
       };
       return data;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

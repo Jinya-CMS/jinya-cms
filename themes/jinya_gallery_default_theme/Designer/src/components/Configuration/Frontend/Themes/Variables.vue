@@ -12,24 +12,24 @@
 </template>
 
 <script>
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import Routes from "@/router/Routes";
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "Variables",
+    name: 'Variables',
     components: {
       JinyaInput,
       JinyaForm,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
     data() {
       return {
@@ -38,7 +38,7 @@
         message: '',
         state: '',
         variables: [],
-        loading: false
+        loading: false,
       };
     },
     async mounted() {
@@ -80,7 +80,7 @@
           this.state = 'loading';
           this.message = Translator.message('configuration.frontend.themes.variables.saving', this.theme);
           await JinyaRequest.put(`/api/theme/${this.$route.params.name}`, {
-            scss: this.variables
+            scss: this.variables,
           });
           this.state = '';
           this.message = '';
@@ -95,21 +95,19 @@
         return this.variables[key];
       },
       mapFields(fields) {
-        return Object.keys(fields).map(key => {
-          return {
-            key: key,
-            value: fields[key],
-            label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, (x) => x.toUpperCase())
-          }
-        });
+        return Object.keys(fields).map(key => ({
+          key,
+          value: fields[key],
+          label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, x => x.toUpperCase()),
+        }));
       },
       search(keyword) {
         this.filteredFields = [];
         this.$forceUpdate();
         this.filteredFields = this.fields.filter(field => field.key.indexOf(keyword) > -1);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

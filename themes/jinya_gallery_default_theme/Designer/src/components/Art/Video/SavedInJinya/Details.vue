@@ -11,21 +11,21 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "@/router/Routes";
-  import Translator from "@/framework/i18n/Translator";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
 
   export default {
     components: {
       JinyaFloatingActionButton,
-      JinyaMessage
+      JinyaMessage,
     },
-    name: "details",
+    name: 'details',
     data() {
       return {
         message: '',
@@ -34,9 +34,9 @@
           background: '',
           name: '',
           slug: '',
-          description: ''
+          description: '',
         },
-        overviewRoute: Routes.Art.Videos.SavedInJinya.Overview.name
+        overviewRoute: Routes.Art.Videos.SavedInJinya.Overview.name,
       };
     },
     async mounted() {
@@ -58,12 +58,12 @@
         this.$router.push({
           name: Routes.Art.Videos.SavedInJinya.Edit.name,
           params: {
-            slug: this.video.slug
-          }
+            slug: this.video.slug,
+          },
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style lang="scss">

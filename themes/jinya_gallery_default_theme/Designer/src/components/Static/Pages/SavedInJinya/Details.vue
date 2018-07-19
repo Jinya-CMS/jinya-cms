@@ -8,22 +8,22 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
-  import Routes from "@/router/Routes";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "PageDetails",
+    name: 'PageDetails',
     components: {
       JinyaFloatingActionButton,
       JinyaMessage,
-      JinyaLoader
+      JinyaLoader,
     },
     data() {
       return {
@@ -32,19 +32,19 @@
         loading: false,
         page: {
           title: '',
-          content: ''
-        }
-      }
+          content: '',
+        },
+      };
     },
     computed: {
       editLink() {
         return {
           name: Routes.Static.Pages.SavedInJinya.Edit.name,
           params: {
-            slug: this.$route.params.slug
-          }
+            slug: this.$route.params.slug,
+          },
         };
-      }
+      },
     },
     async mounted() {
       this.enable = false;
@@ -57,8 +57,8 @@
         this.state = 'error';
         this.message = Translator.validator(`static.pages.${error.message}`);
       }
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

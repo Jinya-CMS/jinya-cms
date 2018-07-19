@@ -3,19 +3,19 @@
 </template>
 
 <script>
-  import JinyaVideoForm from "./VideoForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Events from "@/framework/Events/Events";
-  import EventBus from "@/framework/Events/EventBus";
+  import JinyaVideoForm from './VideoForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Events from '@/framework/Events/Events';
+  import EventBus from '@/framework/Events/EventBus';
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaVideoForm
+      JinyaVideoForm,
     },
     data() {
       return {
@@ -27,11 +27,11 @@
           videoKey: '',
           name: '',
           slug: '',
-          description: ''
-        }
+          description: '',
+        },
       };
     },
-    name: "edit",
+    name: 'edit',
     async mounted() {
       this.state = 'loading';
       this.enable = false;
@@ -53,31 +53,31 @@
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('art.videos.youtube.edit.saving', {name: video.name});
+          this.message = Translator.message('art.videos.youtube.edit.saving', { name: video.name });
 
           await JinyaRequest.put(`/api/video/youtube/${this.$route.params.slug}`, {
             name: video.name,
             slug: video.slug,
             videoKey: video.videoKey,
-            description: video.description
+            description: video.description,
           });
 
           this.state = 'success';
-          this.message = Translator.message('art.videos.youtube.edit.success', {name: video.name});
+          this.message = Translator.message('art.videos.youtube.edit.success', { name: video.name });
 
           await Timing.wait();
           this.$router.push({
             name: Routes.Art.Videos.SavedOnYoutube.Details.name,
             params: {
-              slug: this.video.slug
-            }
+              slug: this.video.slug,
+            },
           });
         } catch (error) {
           this.message = error.message;
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

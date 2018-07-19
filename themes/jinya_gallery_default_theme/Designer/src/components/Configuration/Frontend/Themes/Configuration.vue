@@ -27,46 +27,52 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Events from "@/framework/Events/Events";
-  import EventBus from "@/framework/Events/EventBus";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaChoice from "@/framework/Markup/Form/Choice";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
-  import JinyaFieldset from "@/framework/Markup/Form/Fieldset";
-  import ObjectUtils from "@/framework/Utils/ObjectUtils";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaThemeConfigurationField from "@/components/Configuration/Frontend/Themes/Configuration/Field";
-  import Timing from "@/framework/Utils/Timing";
-  import Routes from "@/router/Routes";
-  import ArrayUtils from "@/framework/Utils/ArrayUtils";
-  import JinyaTab from "@/framework/Markup/Tab/Tab";
-  import JinyaTabContainer from "@/framework/Markup/Tab/TabContainer";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Events from '@/framework/Events/Events';
+  import EventBus from '@/framework/Events/EventBus';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
+  import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaThemeConfigurationField from '@/components/Configuration/Frontend/Themes/Configuration/Field';
+  import Timing from '@/framework/Utils/Timing';
+  import Routes from '@/router/Routes';
+  import ArrayUtils from '@/framework/Utils/ArrayUtils';
+  import JinyaTab from '@/framework/Markup/Tab/Tab';
+  import JinyaTabContainer from '@/framework/Markup/Tab/TabContainer';
 
   export default {
-    name: "Configuration",
+    name: 'Configuration',
     components: {
       JinyaTabContainer,
       JinyaTab,
       JinyaThemeConfigurationField,
-      JinyaMessage, JinyaFieldset, JinyaCheckbox, JinyaFileInput, JinyaChoice, JinyaInput, JinyaForm
+      JinyaMessage,
+      JinyaFieldset,
+      JinyaCheckbox,
+      JinyaFileInput,
+      JinyaChoice,
+      JinyaInput,
+      JinyaForm,
     },
     data() {
       return {
         form: {
           title: '',
-          groups: []
+          groups: [],
         },
         theme: {},
         initial: true,
         message: '',
         state: '',
         files: {},
-        selected: ''
+        selected: '',
       };
     },
     methods: {
@@ -75,7 +81,7 @@
         this.state = 'loading';
         this.message = Translator.message('configuration.frontend.themes.configuration.saving', this.theme);
         await JinyaRequest.put(`/api/theme/${this.theme.name}`, {
-          config: this.theme.config
+          config: this.theme.config,
         });
 
         this.state = 'success';
@@ -84,16 +90,16 @@
 
         if (Object.keys(this.files).length > 0) {
           this.state = 'loading';
-          await ArrayUtils.asyncForeach(Object.keys(this.files), async key => {
+          await ArrayUtils.asyncForeach(Object.keys(this.files), async (key) => {
             const file = this.files[key];
             if (file.file) {
               this.message = Translator.message('configuration.frontend.themes.configuration.uploading', {
-                setting: file.name
+                setting: file.name,
               });
               await JinyaRequest.put(`/api/theme/${this.theme.name}/file/${key}`, file.file);
             } else {
               this.message = Translator.message('configuration.frontend.themes.configuration.deleting', {
-                setting: file.name
+                setting: file.name,
               });
               await JinyaRequest.delete(`/api/theme/${this.theme.name}/file/${key}`);
             }
@@ -115,18 +121,18 @@
           if (data.file !== null) {
             this.files[data.name] = {
               file: data.value,
-              name: data.label
+              name: data.label,
             };
           } else {
             this.files[data.name] = {
               file: null,
-              name: data.label
+              name: data.label,
             };
           }
         } else {
           this.theme.config = ObjectUtils.setValueByKeyPath(this.theme.config, data.name, data.value);
         }
-      }
+      },
     },
     async mounted() {
       try {
@@ -147,8 +153,8 @@
         this.message = e.message;
       }
       this.initial = false;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

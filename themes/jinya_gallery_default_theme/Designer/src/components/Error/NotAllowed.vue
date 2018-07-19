@@ -7,8 +7,8 @@
 
 <script>
   export default {
-    name: "NotAllowed"
-  }
+    name: 'NotAllowed',
+  };
 </script>
 
 <style scoped>

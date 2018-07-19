@@ -6,17 +6,17 @@
 
 <script>
   export default {
-    name: "jinya-menu-flyout-navbar",
+    name: 'jinya-menu-flyout-navbar',
     props: {
       isOpen: {
         type: Boolean,
         required: true,
         default() {
-          return false
-        }
-      }
-    }
-  }
+          return false;
+        },
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

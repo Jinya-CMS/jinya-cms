@@ -18,31 +18,31 @@
 </template>
 
 <script>
-  import infiniteScroll from 'vue-infinite-scroll'
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import infiniteScroll from 'vue-infinite-scroll';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
 
   export default {
     components: {
       JinyaCardButton,
       JinyaCard,
       JinyaCardList,
-      JinyaInput
+      JinyaInput,
     },
     directives: {
-      infiniteScroll
+      infiniteScroll,
     },
-    name: "jinya-gallery-designer-video-view",
+    name: 'jinya-gallery-designer-video-view',
     data() {
       return {
         videos: [],
         loading: true,
         initial: true,
         picked: false,
-        keyword: ''
+        keyword: '',
       };
     },
     methods: {
@@ -73,15 +73,15 @@
           this.more = `/api/video/any?keyword=${this.keyword}`;
           await this.load.call(this, [true]);
         }
-      }
+      },
     },
     async mounted() {
       this.initial = true;
       this.more = '/api/video/any';
       await this.load.call(this);
       this.initial = false;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

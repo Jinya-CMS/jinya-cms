@@ -3,23 +3,23 @@
 </template>
 
 <script>
-  import JinyaFormForm from "@/components/Static/Forms/Forms/FormForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Timing from "@/framework/Utils/Timing";
-  import Routes from "@/router/Routes";
+  import JinyaFormForm from '@/components/Static/Forms/Forms/FormForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Timing from '@/framework/Utils/Timing';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "Add",
+    name: 'Add',
     components: {
-      JinyaFormForm
+      JinyaFormForm,
     },
     data() {
       return {
         message: '',
         state: '',
-        enable: true
-      }
+        enable: true,
+      };
     },
     methods: {
       async save(form) {
@@ -40,9 +40,9 @@
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped>

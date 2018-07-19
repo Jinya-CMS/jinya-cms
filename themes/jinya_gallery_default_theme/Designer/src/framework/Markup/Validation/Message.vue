@@ -9,40 +9,40 @@
 </template>
 
 <script>
-  import Translator from "@/framework/i18n/Translator";
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
-    name: "jinya-message",
+    name: 'jinya-message',
     props: {
       message: {
         type: String,
-        required: true
+        required: true,
       },
       params: {
         type: Object,
         default() {
           return {};
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return 'info';
-        }
-      }
+        },
+      },
     },
     computed: {
       realMessage() {
         if (Translator.hasValidator(this.message)) {
           return Translator.validator(this.message, this.params);
-        } else if (Translator.hasMessage(this.message)) {
-          return Translator.message(this.message, this.params);
-        } else {
-          return this.message;
         }
-      }
-    }
-  }
+        if (Translator.hasMessage(this.message)) {
+          return Translator.message(this.message, this.params);
+        }
+        return this.message;
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

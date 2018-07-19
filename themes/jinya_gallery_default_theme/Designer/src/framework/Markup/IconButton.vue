@@ -12,11 +12,11 @@
 </template>
 
 <script>
-  import Routes from "@/router/Routes";
-  import ObjectUtils from "../Utils/ObjectUtils";
+  import Routes from '@/router/Routes';
+  import ObjectUtils from '../Utils/ObjectUtils';
 
   export default {
-    name: "jinya-icon-button",
+    name: 'jinya-icon-button',
     props: {
       href: String,
       to: String,
@@ -24,7 +24,7 @@
       query: Object,
       icon: {
         type: String,
-        required: true
+        required: true,
       },
       isPrimary: Boolean,
       isSecondary: Boolean,
@@ -34,9 +34,9 @@
       type: {
         type: String,
         default() {
-          return 'button'
-        }
-      }
+          return 'button';
+        },
+      },
     },
     methods: {
       getAdditionalClasses() {
@@ -47,20 +47,20 @@
           'is--success': this.isDisabled ? false : this.isSuccess,
           'is--default': this.isDisabled ? false : !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
           'is--inverse': true,
-          'is--disabled': this.isDisabled
+          'is--disabled': this.isDisabled,
         };
-      }
+      },
     },
     computed: {
       routeTarget() {
         return this.to ? {
           name: ObjectUtils.valueByKeypath(Routes, this.to).name,
           params: this.params,
-          query: this.query
+          query: this.query,
         } : undefined;
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

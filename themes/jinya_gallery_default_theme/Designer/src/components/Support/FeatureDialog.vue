@@ -15,18 +15,18 @@
 </template>
 
 <script>
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-feature-dialog",
+    name: 'jinya-feature-dialog',
     components: {
       JinyaButton,
       JinyaMessageActionBar,
@@ -34,22 +34,22 @@
       JinyaInput,
       JinyaTextarea,
       JinyaModalButton,
-      JinyaModal
+      JinyaModal,
     },
     props: {
       show: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     data() {
       return {
         title: '',
         details: '',
         message: Translator.message('support.feature_dialog.content'),
-        state: 'primary'
+        state: 'primary',
       };
     },
     methods: {
@@ -75,9 +75,9 @@
           this.message = Translator.message('support.feature_dialog.error');
           this.state = 'error';
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped>

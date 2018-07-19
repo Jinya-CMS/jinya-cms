@@ -6,19 +6,19 @@
 </template>
 
 <script>
-  import ObjectUtils from "../../../Utils/ObjectUtils";
-  import Routes from "@/router/Routes";
+  import ObjectUtils from '../../../Utils/ObjectUtils';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "jinya-menu-navbar-item",
+    name: 'jinya-menu-navbar-item',
     props: {
       to: {
         type: String,
-        required: true
+        required: true,
       },
       text: {
         type: String,
-        required: true
+        required: true,
       },
       align: {
         type: String,
@@ -27,15 +27,15 @@
         },
         validate(input) {
           return ['end', 'start'].includes(input);
-        }
-      }
+        },
+      },
     },
     data() {
       return {
-        routeTarget: ObjectUtils.valueByKeypath(Routes, this.to)
-      }
-    }
-  }
+        routeTarget: ObjectUtils.valueByKeypath(Routes, this.to),
+      };
+    },
+  };
 </script>
 
 <style scoped lang="scss">

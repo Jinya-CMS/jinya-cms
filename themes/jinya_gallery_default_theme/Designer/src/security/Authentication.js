@@ -1,5 +1,5 @@
-import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-import Routes from "@/router/Routes";
+import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+import Routes from '@/router/Routes';
 import router from '@/router';
 import {
   clearAuth,
@@ -8,8 +8,8 @@ import {
   setApiKey,
   setCurrentUser,
   setCurrentUserRoles,
-  setDeviceCode
-} from "@/framework/Storage/AuthStorage";
+  setDeviceCode,
+} from '@/framework/Storage/AuthStorage';
 
 export async function refreshMe() {
   try {
@@ -34,8 +34,8 @@ export async function logout() {
 
 export async function requestTwoFactor(username, password) {
   await JinyaRequest.post('/api/2fa', {
-    username: username,
-    password: password
+    username,
+    password,
   });
 }
 
@@ -44,13 +44,13 @@ export async function login(username, password, twoFactorCode) {
     if (getDeviceCode() || twoFactorCode) {
       const headers = {};
       if (getDeviceCode()) {
-        headers['JinyaDeviceCode'] = getDeviceCode();
+        headers.JinyaDeviceCode = getDeviceCode();
       }
 
       const value = await JinyaRequest.send('POST', '/api/login', {
-        username: username,
-        password: password,
-        twoFactorCode: twoFactorCode
+        username,
+        password,
+        twoFactorCode,
       }, headers);
 
       setApiKey(value.apiKey);
@@ -59,19 +59,17 @@ export async function login(username, password, twoFactorCode) {
       await refreshMe();
 
       return true;
-    } else {
-      await requestTwoFactor(username, password);
-
-      return false;
     }
+    await requestTwoFactor(username, password);
+
+    return false;
   } catch (e) {
     if (e.type === 'UnknownDeviceException') {
       clearAuth(true);
       await requestTwoFactor(username, password);
 
       return false;
-    } else {
-      throw e;
     }
+    throw e;
   }
 }

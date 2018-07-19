@@ -69,25 +69,25 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
-  import Routes from "@/router/Routes";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaPager from "@/framework/Markup/Listing/Pager";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import {getCurrentUser} from "@/framework/Storage/AuthStorage";
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import Routes from '@/router/Routes';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaPager from '@/framework/Markup/Listing/Pager';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import { getCurrentUser } from '@/framework/Storage/AuthStorage';
 
   export default {
-    name: "Overview",
+    name: 'Overview',
     components: {
       JinyaPager,
       JinyaFloatingActionButton,
@@ -99,7 +99,7 @@
       JinyaCardButton,
       JinyaCard,
       JinyaCardList,
-      JinyaLoader
+      JinyaLoader,
     },
     computed: {
       editRoute() {
@@ -113,7 +113,7 @@
       },
       addRoute() {
         return Routes.Configuration.General.Artists.Add;
-      }
+      },
     },
     data() {
       return {
@@ -121,31 +121,31 @@
         count: 0,
         control: {
           next: '',
-          previous: ''
+          previous: '',
         },
         artists: [],
         loading: true,
         selectedArtist: {
           firstname: '',
-          lastname: ''
+          lastname: '',
         },
         delete: {
           loading: false,
           show: false,
           error: '',
-          creator: false
+          creator: false,
         },
         enable: {
           loading: false,
           show: false,
-          error: ''
+          error: '',
         },
         disable: {
           loading: false,
           show: false,
-          error: ''
-        }
-      }
+          error: '',
+        },
+      };
     },
     beforeDestroy() {
       EventBus.$off(Events.search.triggered);
@@ -158,9 +158,9 @@
       mapArtists(artist) {
         const item = artist;
         item.me = artist.email === this.me.email;
-        item.deletable = !item.roles.includes('ROLE_SUPER_ADMIN') ||
-          !item.me ||
-          this.artists.filter(a => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
+        item.deletable = !item.roles.includes('ROLE_SUPER_ADMIN')
+          || !item.me
+          || this.artists.filter(a => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
 
         return item;
       },
@@ -203,7 +203,9 @@
         try {
           await JinyaRequest.put(`/api/user/${this.selectedArtist.id}/activation`);
           this.selectedArtist.enabled = true;
-          this.artists.splice(this.artists.findIndex(artist => artist.email === this.selectedArtist.email), 1, this.selectedArtist);
+          this.artists.splice(this.artists.findIndex(
+            artist => artist.email === this.selectedArtist.email,
+          ), 1, this.selectedArtist);
           this.artists = this.mapArtists(this.artists);
           this.enable.show = false;
         } catch (e) {
@@ -216,7 +218,9 @@
         try {
           await JinyaRequest.delete(`/api/user/${this.selectedArtist.id}/activation`);
           this.selectedArtist.enabled = false;
-          this.artists.splice(this.artists.findIndex(artist => artist.email === this.selectedArtist.email), 1, this.selectedArtist);
+          this.artists.splice(this.artists.findIndex(
+            artist => artist.email === this.selectedArtist.email,
+          ), 1, this.selectedArtist);
           this.artists = this.mapArtists(this.artists);
           this.disable.show = false;
           this.delete.show = false;
@@ -233,8 +237,8 @@
           query: {
             offset: url.searchParams.get('offset'),
             count: url.searchParams.get('count'),
-            keyword: url.searchParams.get('keyword')
-          }
+            keyword: url.searchParams.get('keyword'),
+          },
         });
       },
       async fetchUsers(offset = 0, count = 10, keyword = '') {
@@ -257,18 +261,18 @@
       this.me = getCurrentUser();
       await this.fetchUsers(offset, count, keyword);
 
-      EventBus.$on(Events.search.triggered, value => {
+      EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Configuration.General.Artists.Overview.name,
           query: {
             offset: 0,
             count: this.$route.query.count,
-            keyword: value.keyword
-          }
+            keyword: value.keyword,
+          },
         });
       });
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

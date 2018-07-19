@@ -31,48 +31,48 @@
 
 <script>
   export default {
-    name: "jinya-choice",
+    name: 'jinya-choice',
     props: {
       enforceSelect: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       static: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       multiple: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       selected: {
         default() {
           return {
             text: '',
-            value: ''
-          }
-        }
+            value: '',
+          };
+        },
       },
       choices: {
         type: Array,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       showSelect() {
@@ -87,31 +87,30 @@
       selectionText() {
         if (this.selected instanceof Array) {
           return this.selected.map(selection => selection.text).join(', ');
-        } else {
-          return this.selected.text;
         }
-      }
+        return this.selected.text;
+      },
     },
     methods: {
       isSelected(value) {
         if (this.selected instanceof Array) {
-          return this.selected.filter((item) => value.value.toString() === item.value.toString()).length > 0;
-        } else if (this.selected instanceof Object) {
-          return this.selected.value.toString() === value.value.toString();
-        } else {
-          return false;
+          return this.selected.filter(item => value.value.toString() === item.value.toString()).length > 0;
         }
-      }
+        if (this.selected instanceof Object) {
+          return this.selected.value.toString() === value.value.toString();
+        }
+        return false;
+      },
     },
     data() {
       return {
-        id: null
+        id: null,
       };
     },
     mounted() {
       this.id = this._uid;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

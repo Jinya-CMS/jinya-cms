@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    name: "jinya-textarea",
+    name: 'jinya-textarea',
     props: {
       value: String,
       required: Boolean,
@@ -19,28 +19,28 @@
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       label: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
-        id: null
+        id: null,
       };
     },
     mounted() {
       this.id = this._uid;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

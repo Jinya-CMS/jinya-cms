@@ -5,12 +5,12 @@
 
 <script>
   export default {
-    name: "jinya-gallery-designer-position-button",
+    name: 'jinya-gallery-designer-position-button',
     props: {
       increase: Boolean,
-      decrease: Boolean
-    }
-  }
+      decrease: Boolean,
+    },
+  };
 </script>
 
 <style lang="scss">
