@@ -7,7 +7,6 @@
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
-                <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(page)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
         </jinya-card-list>
@@ -72,7 +71,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
@@ -102,7 +101,7 @@
         try {
           await JinyaRequest.delete(`/api/page/${this.selectedPage.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchPages(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`static.pages.overview.delete.${reason.message}`);

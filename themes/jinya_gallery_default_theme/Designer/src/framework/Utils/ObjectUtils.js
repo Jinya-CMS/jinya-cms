@@ -1,9 +1,11 @@
+/* eslint-disable no-bitwise */
 import deepmerge from 'deepmerge';
 
 const getHashCode = (obj) => {
   const value = JSON.stringify(obj);
   let hash = 0;
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < value.length; i++) {
     const character = value.charCodeAt(i);
     hash = ((hash << 5) - hash) + character;
@@ -23,12 +25,13 @@ export default {
     const data = {};
     key.split('.').reduce((previousValue, currentValue, currentIndex, array) => {
       let newValue = {};
+      const returnValue = { ...previousValue };
       if (currentIndex + 1 === array.length) {
         newValue = value;
       }
 
-      previousValue[currentValue] = newValue;
-      return previousValue[currentValue];
+      returnValue[currentValue] = newValue;
+      return returnValue[currentValue];
     }, data);
 
     return deepmerge(target, data);

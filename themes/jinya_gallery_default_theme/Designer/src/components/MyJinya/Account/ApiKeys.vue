@@ -42,7 +42,8 @@
     methods: {
       getKeyMessage(apiKey) {
         const dataMessage = Translator.message('my_jinya.account.api_key.device', this.getData(apiKey));
-        const invalidatesOn = Translator.message('my_jinya.account.api_key.invalidates_on', this.getInvalidatesOn(apiKey.validSince));
+        const invalidatesOnParameters = this.getInvalidatesOn(apiKey.validSince);
+        const invalidatesOn = Translator.message('my_jinya.account.api_key.invalidates_on', invalidatesOnParameters);
 
         return [dataMessage, invalidatesOn].join('<br />');
       },
@@ -88,7 +89,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

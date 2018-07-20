@@ -84,7 +84,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Configuration.Frontend.Menu.Overview.name,

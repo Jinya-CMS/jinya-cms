@@ -1,7 +1,7 @@
 <template>
     <label class="jinya-checkbox">
         <input @change="$emit('input', $event.target.checked)" :checked="value" type="checkbox"
-               :disabled="!enable || static">
+               :disabled="!enable || isStatic">
         {{label|jmessage}}
     </label>
 </template>
@@ -10,7 +10,7 @@
   export default {
     name: 'jinya-checkbox',
     props: {
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
@@ -36,6 +36,7 @@
       };
     },
     mounted() {
+      // eslint-disable-next-line no-underscore-dangle
       this.id = this._uid;
     },
   };

@@ -1,13 +1,13 @@
 export default {
-  async getAsDataUrl(file) {
-    return await new Promise((resolve) => {
+  getAsDataUrl(file) {
+    return new Promise((resolve) => {
       const fileReader = new FileReader();
       fileReader.onload = evt => resolve(evt.target.result);
       fileReader.readAsDataURL(file);
     });
   },
-  async getAsArrayBuffer(file) {
-    return await new Promise((resolve) => {
+  getAsArrayBuffer(file) {
+    return new Promise((resolve) => {
       const fileReader = new FileReader();
       fileReader.onload = evt => resolve(evt.target.result);
       fileReader.readAsArrayBuffer(file);

@@ -10,9 +10,9 @@
         </jinya-message>
         <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--page"
                     @back="back" :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
-            <jinya-input v-model="page.title" label="static.pages.page_form.title" :static="static" :enable="enable"
-                         @change="titleChanged"/>
-            <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :static="static" :enable="enable"
+            <jinya-input v-model="page.title" label="static.pages.page_form.title" :is-static="isStatic"
+                         :enable="enable" @change="titleChanged"/>
+            <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :is-static="isStatic" :enable="enable"
                          @change="slugChanged"/>
             <jinya-tiny-mce v-model="page.content" :content="page.content" height="400px"/>
         </jinya-form>
@@ -56,7 +56,7 @@
           return '';
         },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;

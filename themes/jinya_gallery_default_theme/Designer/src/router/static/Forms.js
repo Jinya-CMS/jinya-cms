@@ -1,9 +1,9 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
 import FormsOverview from '@/components/Static/Forms/Forms/Overview';
 import FormsAdd from '@/components/Static/Forms/Forms/Add';
 import FormsEdit from '@/components/Static/Forms/Forms/Edit';
 import FormsBuilder from '@/components/Static/Forms/Forms/Builder';
+import Routes from '@/router/Routes';
 
 export default [
   {

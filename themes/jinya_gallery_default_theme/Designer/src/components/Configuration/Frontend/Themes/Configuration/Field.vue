@@ -70,6 +70,8 @@
           case 'boolean':
             payload.value = !!$event;
             break;
+          default:
+            break;
         }
         this.$emit('changed', payload);
       },

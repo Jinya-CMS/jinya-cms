@@ -9,7 +9,6 @@
   import JinyaGalleryForm from '@/components/Art/Galleries/GalleryForm';
   import Timing from '@/framework/Utils/Timing';
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: { JinyaGalleryForm },
     data() {
@@ -28,7 +27,7 @@
     name: 'add',
     methods: {
       async save(gallery) {
-        const background = gallery.background;
+        const { background } = gallery;
         try {
           this.enable = false;
           this.state = 'loading';

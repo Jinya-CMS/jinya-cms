@@ -50,7 +50,10 @@
         this.theme = theme;
         this.variables = theme.scssVariables;
         DOMUtils.changeTitle(Translator.message('configuration.frontend.themes.variables.title', theme));
-        EventBus.$emit(Events.header.change, Translator.message('configuration.frontend.themes.variables.title', theme));
+        EventBus.$emit(
+          Events.header.change,
+          Translator.message('configuration.frontend.themes.variables.title', theme),
+        );
 
         this.message = Translator.message('configuration.frontend.themes.variables.loading_variables', theme);
         const fields = await JinyaRequest.get(`/api/theme/${this.$route.params.name}/form/variables`);

@@ -1,4 +1,3 @@
-import Routes from '../Routes';
 import ThemeOverview from '@/components/Configuration/Frontend/Themes/Overview';
 import ThemeVariables from '@/components/Configuration/Frontend/Themes/Variables';
 import ThemeConfiguration from '@/components/Configuration/Frontend/Themes/Configuration';
@@ -7,6 +6,7 @@ import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 import MenuAdd from '@/components/Configuration/Frontend/Menus/Add';
 import MenuEdit from '@/components/Configuration/Frontend/Menus/Edit';
 import MenuBuilder from '@/components/Configuration/Frontend/Menus/Builder';
+import Routes from '@/router/Routes';
 
 export default [
   {

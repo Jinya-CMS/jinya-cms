@@ -23,7 +23,8 @@
     },
     computed: {
       urlLabel() {
-        return `configuration.frontend.menus.builder.settings.${this.item.pageType === 'external' ? 'target' : 'display'}_url`;
+        const pageType = this.item.pageType === 'external' ? 'target' : 'display';
+        return `configuration.frontend.menus.builder.settings.${pageType}_url`;
       },
     },
     props: {

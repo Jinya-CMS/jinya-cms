@@ -79,7 +79,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Art.Videos.SavedInJinya.Overview.name,
@@ -109,7 +109,7 @@
         try {
           await JinyaRequest.delete(`/api/video/jinya/${this.selectedVideo.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchVideos(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.videos.overview.delete.${reason.message}`);

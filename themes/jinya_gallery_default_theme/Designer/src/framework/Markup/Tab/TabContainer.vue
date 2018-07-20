@@ -2,7 +2,8 @@
     <div class="jinya-tab">
         <nav class="jinya-tab__list">
             <template v-for="item in items">
-                <a class="jinya-tab__link" @click="select(item)" :class="{'is--selected': item.name === selectedItem}">
+                <a class="jinya-tab__link" @click="select(item)" :class="{'is--selected': item.name === selectedItem}"
+                   :key="`${item.name}-${item.type}`">
                     {{item.title}}
                 </a>
             </template>

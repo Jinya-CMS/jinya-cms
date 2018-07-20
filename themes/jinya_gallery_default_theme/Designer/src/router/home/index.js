@@ -1,5 +1,5 @@
-import Routes from '../Routes';
 import StartPage from '@/components/Home/StartPage';
+import Routes from '@/router/Routes';
 
 export default [
   {

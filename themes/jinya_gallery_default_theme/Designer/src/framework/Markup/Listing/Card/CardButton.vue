@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import ObjectUtils from '../../../Utils/ObjectUtils';
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
   import Routes from '@/router/Routes';
 
   export default {

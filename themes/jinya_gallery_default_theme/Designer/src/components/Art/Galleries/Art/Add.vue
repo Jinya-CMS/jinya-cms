@@ -28,7 +28,7 @@
     name: 'add',
     methods: {
       async save(gallery) {
-        const background = gallery.background;
+        const { background } = gallery;
         try {
           this.enable = false;
           this.state = 'loading';

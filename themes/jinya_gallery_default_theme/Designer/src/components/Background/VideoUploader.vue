@@ -68,6 +68,7 @@
               if (ev.data.finished) this.uploading = false;
 
               if (allowNotification) {
+                // eslint-disable-next-line no-new
                 new Notification(title, {
                   body: message,
                   icon,
@@ -78,11 +79,13 @@
             }
           };
           worker.onerror = (ev) => {
-            const message = ev.message;
+            const { message } = ev;
+            // eslint-disable-next-line no-console
             console.error(message);
             this.uploading = false;
 
             if (allowNotification) {
+              // eslint-disable-next-line no-new
               new Notification(title, {
                 body: Translator.validator(message),
                 icon,

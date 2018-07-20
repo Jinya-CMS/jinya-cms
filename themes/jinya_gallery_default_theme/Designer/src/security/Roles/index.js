@@ -4,12 +4,12 @@ import Permissions from '@/security/Permissions';
 import { getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
 const roles = {
-  async install(Vue) {
-    Vue.directive('jinya-permission', async (el, binding, vnode) => {
+  async install(LocalVue) {
+    LocalVue.directive('jinya-permission', async (el, binding, vnode) => {
       try {
-        const roles = getCurrentUserRoles();
+        const currentRoles = getCurrentUserRoles();
 
-        if (!roles.includes(ObjectUtils.valueByKeypath(Permissions, binding.expression))) {
+        if (!currentRoles.includes(ObjectUtils.valueByKeypath(Permissions, binding.expression))) {
           vnode.elm.parentElement?.removeChild(vnode.elm);
         }
       } catch (e) {

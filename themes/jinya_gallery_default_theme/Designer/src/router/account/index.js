@@ -1,5 +1,5 @@
-import Routes from '../Routes';
 import Login from '@/components/Account/Login';
+import Routes from '@/router/Routes';
 
 export default [
   {

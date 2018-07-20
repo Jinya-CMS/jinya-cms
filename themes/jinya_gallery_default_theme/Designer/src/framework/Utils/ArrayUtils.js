@@ -1,7 +1,6 @@
 export default {
   async asyncForeach(array, callback) {
-    for (const item of array) {
-      await callback(item, array.indexOf(item));
-    }
+    const promises = array.map((item, index) => callback(item, index));
+    await Promise.all(promises);
   },
 };

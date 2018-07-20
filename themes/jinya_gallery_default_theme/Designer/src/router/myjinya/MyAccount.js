@@ -1,7 +1,7 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
 import Password from '@/components/MyJinya/Account/Password';
 import ApiKeys from '@/components/MyJinya/Account/ApiKeys';
+import Routes from '@/router/Routes';
 
 export default [
   {

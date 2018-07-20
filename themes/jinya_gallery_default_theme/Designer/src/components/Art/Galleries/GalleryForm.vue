@@ -15,16 +15,16 @@
                 <jinya-editor-preview-image :src="gallery.background"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.name"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.name"
                              v-model="gallery.name" @change="nameChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.slug"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.slug"
                              v-model="gallery.slug" @change="slugChanged"/>
-                <jinya-choice :static="static" label="art.galleries.gallery_form.orientation" :choices="orientations"
-                              :enable="enable" :selected="gallery.orientation"
+                <jinya-choice :is-static="isStatic" label="art.galleries.gallery_form.orientation"
+                              :choices="orientations" :enable="enable" :selected="gallery.orientation"
                               @selected="(value) => gallery.orientation = value"/>
-                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="backgroundPicked"
+                <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="backgroundPicked"
                                   label="art.galleries.gallery_form.background"/>
-                <jinya-textarea :static="static" :enable="enable" label="art.galleries.gallery_form.description"
+                <jinya-textarea :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.description"
                                 v-model="gallery.description"/>
             </jinya-editor-pane>
             <template slot="buttons">
@@ -82,7 +82,7 @@
           return '';
         },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;

@@ -1,6 +1,6 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
 import Update from '@/components/Maintenance/System/Update';
+import Routes from '@/router/Routes';
 
 export default [
   {

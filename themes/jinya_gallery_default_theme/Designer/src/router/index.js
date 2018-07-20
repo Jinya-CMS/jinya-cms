@@ -16,14 +16,7 @@ import Translator from '@/framework/i18n/Translator';
 import DOMUtils from '@/framework/Utils/DOMUtils';
 import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
-const routes = Home
-  .concat(Account)
-  .concat(Art)
-  .concat(Static)
-  .concat(Configuration)
-  .concat(Maintenance)
-  .concat(MyJinya)
-  .concat(Error);
+const routes = [...Home, ...Account, ...Art, ...Static, ...Configuration, ...Maintenance, ...MyJinya, ...Error];
 
 Vue.use(Router);
 
@@ -39,6 +32,7 @@ router.beforeEach(async (to, from, next) => {
     next(Routes.Account.Login.route);
   } else {
     try {
+      // eslint-disable-next-line no-param-reassign
       to.meta.me = {
         roles: getCurrentUserRoles(),
       };

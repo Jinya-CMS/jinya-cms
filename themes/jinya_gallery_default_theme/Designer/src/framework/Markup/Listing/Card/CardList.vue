@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import JinyaMessage from '../../Validation/Message';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
 
   export default {
     components: { JinyaMessage },

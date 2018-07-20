@@ -1,11 +1,10 @@
 <template>
     <div class="jinya-input">
         <label :for="id" class="jinya-input__label" v-jinya-message="label"></label>
-        <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <textarea v-if="!static" :disabled="!enable" :id="id" class="jinya-input__textarea" :type="type"
+        <textarea v-if="!isStatic" :disabled="!enable" :id="id" class="jinya-input__textarea" :type="type"
                   :required="required" :autocomplete="autocomplete" @keyup="$emit('change', $event.target.value)"
-                  @input="$emit('input', $event.target.value)">{{value}}</textarea>
-        <span v-if="static" :id="id" class="jinya-input__field jinya-input__field--no-break">{{value}}</span>
+                  @input="$emit('input', $event.target.value)" v-model="value"></textarea>
+        <span v-if="isStatic" :id="id" class="jinya-input__field jinya-input__field--no-break">{{value}}</span>
     </div>
 </template>
 
@@ -15,7 +14,7 @@
     props: {
       value: String,
       required: Boolean,
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
@@ -38,6 +37,7 @@
       };
     },
     mounted() {
+      // eslint-disable-next-line no-underscore-dangle
       this.id = this._uid;
     },
   };

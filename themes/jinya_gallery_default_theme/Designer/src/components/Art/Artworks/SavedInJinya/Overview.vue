@@ -8,7 +8,6 @@
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: artwork.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
-                <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(artwork)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
         </jinya-card-list>
@@ -64,7 +63,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Art.Artworks.SavedInJinya.Overview.name,
@@ -94,7 +93,7 @@
         try {
           await JinyaRequest.delete(`/api/artwork/${this.selectedArtwork.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchArtworks(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.artworks.overview.delete.${reason.message}`);
@@ -151,7 +150,9 @@
         },
         editRoute: Routes.Art.Artworks.SavedInJinya.Edit.name,
         detailsRoute: Routes.Art.Artworks.SavedInJinya.Details.name,
-        nothingFound: this.$route.query.keyword ? 'art.artworks.overview.nothing_found' : 'art.artworks.overview.no_artworks',
+        nothingFound: this.$route.query.keyword
+          ? 'art.artworks.overview.nothing_found'
+          : 'art.artworks.overview.no_artworks',
       };
     },
   };

@@ -25,7 +25,7 @@
     name: 'add',
     methods: {
       async save(artwork) {
-        const picture = artwork.picture;
+        const { picture } = artwork;
         try {
           this.enable = false;
           this.state = 'loading';

@@ -1,5 +1,5 @@
 <template>
-    <jinya-artist-form :artist="artist" :message="message" :static="true" :show-password="false"
+    <jinya-artist-form :artist="artist" :message="message" :is-static="true" :show-password="false"
                        save-label="configuration.general.artists.details.edit" @save="edit"/>
 </template>
 
@@ -38,7 +38,9 @@
       artist.roles = window.messages.authentication.roles.filter(role => artist.roles.includes(role.value));
       artist.enabled = {
         value: artist.enabled,
-        text: artist.enabled ? Translator.message('configuration.general.artists.artist_form.enabled') : Translator.message('configuration.general.artists.artist_form.disabled'),
+        text: artist.enabled
+          ? Translator.message('configuration.general.artists.artist_form.enabled')
+          : Translator.message('configuration.general.artists.artist_form.disabled'),
       };
 
       this.artist = artist;
@@ -59,7 +61,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

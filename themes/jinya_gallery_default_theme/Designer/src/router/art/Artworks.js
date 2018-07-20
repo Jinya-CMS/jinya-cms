@@ -1,9 +1,9 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
 import ArtworksSavedInJinyaOverview from '@/components/Art/Artworks/SavedInJinya/Overview';
 import ArtworksSavedInJinyaAdd from '@/components/Art/Artworks/SavedInJinya/Add';
 import ArtworksSavedInJinyaEdit from '@/components/Art/Artworks/SavedInJinya/Edit';
 import ArtworksSavedInJinyaDetails from '@/components/Art/Artworks/SavedInJinya/Details';
+import Routes from '@/router/Routes';
 
 export default [
   {

@@ -12,11 +12,11 @@
 </template>
 
 <script>
-  import JinyaButton from '../Button';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    components: { JinyaButton },
     name: 'jinya-pager',
+    components: { JinyaButton },
     props: {
       offset: {
         type: Number,

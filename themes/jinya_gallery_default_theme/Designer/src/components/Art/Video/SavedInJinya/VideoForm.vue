@@ -67,7 +67,7 @@
           return '';
         },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;

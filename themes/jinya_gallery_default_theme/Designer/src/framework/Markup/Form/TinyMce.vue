@@ -28,15 +28,10 @@
       },
     },
     data() {
+      const { height } = this;
       return {
         data: this.content,
-      };
-    },
-    computed: {
-      tinyMceOptions() {
-        const height = this.height;
-
-        return {
+        tinyMceOptions: {
           plugins: [
             'anchor',
             'autolink',
@@ -50,7 +45,12 @@
           ],
           height,
           menubar: 'edit insert view format table tools help',
-          toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor',
+          toolbar: 'undo redo | '
+          + 'styleselect | '
+          + 'bold italic | '
+          + 'alignleft aligncenter alignright alignjustify | '
+          + 'bullist numlist outdent indent | '
+          + 'forecolor backcolor',
           file_picker_type: 'image',
           file_picker_callback(cb) {
             const input = document.createElement('input');
@@ -60,7 +60,8 @@
             input.onchange = async (event) => {
               const file = event.target.files[0];
               const data = await FileUtils.getAsDataUrl(file);
-              const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+              // eslint-disable-next-line no-undef
+              const { blobCache } = tinymce.activeEditor.editorUpload;
               const blobInfo = blobCache.create(`blobid-${(new Date()).getTime()}`, file, data.split(',')[1]);
               blobCache.add(blobInfo);
 
@@ -69,8 +70,8 @@
 
             input.click();
           },
-        };
-      },
+        },
+      };
     },
   };
 </script>

@@ -1,4 +1,3 @@
-import Routes from '../Routes';
 import GalleriesArtOverview from '@/components/Art/Galleries/Art/Overview';
 import GalleriesArtAdd from '@/components/Art/Galleries/Art/Add';
 import GalleriesArtEdit from '@/components/Art/Galleries/Art/Edit';
@@ -9,6 +8,7 @@ import GalleriesVideoAdd from '@/components/Art/Galleries/Video/Add';
 import GalleriesVideoEdit from '@/components/Art/Galleries/Video/Edit';
 import GalleriesVideoDetails from '@/components/Art/Galleries/Video/Details';
 import GalleriesVideoDesigner from '@/components/Art/Galleries/Video/Designer';
+import Routes from '@/router/Routes';
 
 export default [
   {

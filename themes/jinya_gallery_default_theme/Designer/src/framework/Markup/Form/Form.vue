@@ -41,10 +41,9 @@
 <style lang="scss">
     .jinya-form {
         margin: 0;
-        padding: 0;
         font-size: 1rem;
         overflow: auto;
-        padding-top: 2em;
+        padding: 2em 0 0;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;

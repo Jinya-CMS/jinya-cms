@@ -23,7 +23,7 @@
     },
     methods: {
       async save(artist) {
-        const picture = artist.profilePicture;
+        const { profilePicture } = artist;
         try {
           this.enable = false;
           this.state = 'loading';
@@ -38,7 +38,7 @@
             firstname: artist.firstname,
             lastname: artist.lastname,
           });
-          await JinyaRequest.upload(`/api/user/${result.id}/profilepicture`, picture);
+          await JinyaRequest.upload(`/api/user/${result.id}/profilepicture`, profilePicture);
 
           this.state = 'success';
           this.message = Translator.message('configuration.general.artists.add.success', { name: artist.name });
@@ -54,7 +54,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

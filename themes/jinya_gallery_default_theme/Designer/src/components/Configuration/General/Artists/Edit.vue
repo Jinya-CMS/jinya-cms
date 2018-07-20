@@ -41,7 +41,9 @@
       artist.roles = window.messages.authentication.roles.filter(role => artist.roles.includes(role.value));
       artist.enabled = {
         value: artist.enabled,
-        text: artist.enabled ? Translator.message('configuration.general.artists.artist_form.enabled') : Translator.message('configuration.general.artists.artist_form.disabled'),
+        text: artist.enabled
+          ? Translator.message('configuration.general.artists.artist_form.enabled')
+          : Translator.message('configuration.general.artists.artist_form.disabled'),
       };
 
       this.artist = artist;

@@ -1,9 +1,9 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
 import OverviewSavedInJinya from '@/components/Static/Pages/SavedInJinya/Overview';
 import AddSavedInJinya from '@/components/Static/Pages/SavedInJinya/Add';
 import EditSavedInJinya from '@/components/Static/Pages/SavedInJinya/Edit';
 import DetailsSavedInJinya from '@/components/Static/Pages/SavedInJinya/Details';
+import Routes from '@/router/Routes';
 
 export default [
   {

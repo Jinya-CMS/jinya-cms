@@ -12,20 +12,21 @@
                 <jinya-editor-preview-image :src="artist.profilePicture"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" v-model="artist.firstname" class="is--half"
+                <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.firstname" class="is--half"
                              label="configuration.general.artists.artist_form.firstname"/>
-                <jinya-input :static="static" :enable="enable" v-model="artist.lastname" class="is--half"
+                <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.lastname" class="is--half"
                              label="configuration.general.artists.artist_form.lastname"/>
-                <jinya-input :static="static" :enable="enable" type="email" v-model="artist.email"
+                <jinya-input :is-static="isStatic" :enable="enable" type="email" v-model="artist.email"
                              label="configuration.general.artists.artist_form.email"/>
                 <jinya-input v-if="showPassword" :enable="enable" type="password" v-model="artist.password"
                              label="configuration.general.artists.artist_form.password"/>
-                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="picturePicked"
+                <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
                                   label="configuration.general.artists.artist_form.profile_picture"/>
-                <jinya-choice :static="static" label="configuration.general.artists.artist_form.activation"
+                <jinya-choice :is-static="isStatic" label="configuration.general.artists.artist_form.activation"
                               :selected="artist.enabled" :enable="enable" :choices="activationOptions"
                               @selected="enableChanged"/>
-                <jinya-choice :static="static" label="configuration.general.artists.artist_form.roles" :multiple="true"
+                <jinya-choice :is-static="isStatic" label="configuration.general.artists.artist_form.roles"
+                              :multiple="true"
                               :choices="rolesOptions" :enable="enable" @selected="rolesChanged"
                               :selected="artist.roles"/>
             </jinya-editor-pane>
@@ -69,7 +70,7 @@
           return '';
         },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
@@ -171,7 +172,7 @@
       enableChanged(choice) {
         const value = choice.value === 'true';
 
-        this.artist.enabled = this.activationOptions.filter(option => option.value === value)[0];
+        [this.artist.enabled] = this.activationOptions.filter(option => option.value === value);
       },
       rolesChanged(choice) {
         const idx = this.artist.roles.findIndex(role => role.value === choice.value);

@@ -1,10 +1,10 @@
 <template>
     <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
+        <jinya-message :message="message" :state="state" v-if="state"/>
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-        <template v-if="!loading" v-for="(position, index) in artworks"
-                  :key="`${position.position}-${position.artwork.slug}`">
-            <jinya-gallery-designer-item @wheel.native="scroll">
+        <template v-if="!loading" v-for="(position, index) in artworks">
+            <jinya-gallery-designer-item @wheel.native="scroll" :key="`${index}-${position.artwork.slug}`">
                 <template>
                     <jinya-gallery-designer-image @wheel.native="scroll" :src="position.artwork.picture"/>
                     <jinya-gallery-designer-button @wheel.native="scroll" type="edit" @click="edit(position, index)"/>
@@ -14,7 +14,8 @@
                                                             :increase="true" @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
-            <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
+            <jinya-gallery-designer-button :key="`button-${index}-${position.artwork.slug}`" type="add"
+                                           @wheel.native="scroll" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
                                          gallery-type="art"/>
@@ -60,6 +61,8 @@
         this.artworks = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}/artwork`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
+        this.message = Translator.message('art.galleries.designer.loading_failed');
+        this.state = 'error';
       }
       this.loading = false;
     },
@@ -73,8 +76,6 @@
         }
       },
       async move(artworkPosition, oldPosition, newPosition) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.art.moving', artworkPosition.artwork);
         if (oldPosition < newPosition) {
           this.artworks.splice(newPosition + 1, 0, artworkPosition);
           this.artworks.splice(oldPosition, 1);
@@ -85,12 +86,8 @@
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
           position: newPosition,
         });
-        this.state = '';
-        this.message = '';
       },
       async saveAdd(artwork) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.add.pending', artwork);
         const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
           position: this.currentPosition,
           artwork: artwork.slug,
@@ -100,14 +97,10 @@
           id,
           artwork,
         });
-
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async saveEdit(artwork) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
+        // eslint-disable-next-line max-len
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
           artwork: artwork.slug,
         });
@@ -116,18 +109,13 @@
           artwork,
           id: this.artworkPosition.id,
         });
-
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async deleteArtwork() {
-        this.state = 'loading';
         await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
 
         this.artworks.splice(this.currentPosition, 1);
 
-        this.state = '';
         this.editModal.show = false;
       },
       add(position) {

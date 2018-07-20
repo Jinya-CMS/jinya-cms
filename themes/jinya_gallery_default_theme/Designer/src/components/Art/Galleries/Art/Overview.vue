@@ -66,7 +66,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Art.Galleries.Art.Overview.name,
@@ -96,7 +96,7 @@
         try {
           await JinyaRequest.delete(`/api/gallery/art/${this.selectedGallery.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           this.load.call(this, 0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.galleries.overview.delete.${reason.message}`);
@@ -154,7 +154,9 @@
         editRoute: Routes.Art.Galleries.Art.Edit.name,
         detailsRoute: Routes.Art.Galleries.Art.Details.name,
         designerRoute: Routes.Art.Galleries.Art.Designer.name,
-        nothingFound: this.$route.query.keyword ? 'art.galleries.overview.nothing_found' : 'art.galleries.overview.no_galleries',
+        nothingFound: this.$route.query.keyword
+          ? 'art.galleries.overview.nothing_found'
+          : 'art.galleries.overview.no_galleries',
       };
     },
   };

@@ -10,6 +10,7 @@ import roles from '@/security/Roles';
 Vue.config.productionTip = false;
 
 function startApp() {
+  // eslint-disable-next-line no-new
   new Vue({
     el: '#app',
     router,

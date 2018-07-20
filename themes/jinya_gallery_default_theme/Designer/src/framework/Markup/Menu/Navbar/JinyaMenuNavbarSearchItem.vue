@@ -1,6 +1,5 @@
 <template>
     <div class="jinya-menu-navbar__item--search">
-        <!--suppress HtmlFormInputWithoutLabel -->
         <input class="jinya-menu-navbar__item--search__input" type="search" @keyup.enter="sendSearch"
                :aria-labelledby="id" v-model="keyword"
                :placeholder="'framework.markup.menu.navbar.search_item.placeholder' | jmessage"/>
@@ -64,7 +63,6 @@
             &:-ms-input-placeholder {
                 @include placeholder;
             }
-            //noinspection CssInvalidPseudoSelector
             &::-ms-input-placeholder {
                 @include placeholder;
             }

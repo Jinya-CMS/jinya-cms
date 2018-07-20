@@ -1,19 +1,19 @@
 <template>
-    <a v-if="href" :href="href" class="jinya-icon-button" :class="getAdditionalClasses()">
+    <a v-if="href" :href="href" class="jinya-icon-button" :class="additionalClasses">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </a>
-    <router-link v-else-if="to" :to="routeTarget" class="jinya-icon-button" :class="getAdditionalClasses()">
+    <router-link v-else-if="to" :to="routeTarget" class="jinya-icon-button" :class="additionalClasses">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </router-link>
     <button :type="type" v-else @click="$event => $emit('click', $event)" class="jinya-icon-button"
-            :disabled="isDisabled" :class="getAdditionalClasses()">
+            :disabled="isDisabled" :class="additionalClasses">
         <i class="mdi" :class="`mdi-${icon}`"></i>
     </button>
 </template>
 
 <script>
   import Routes from '@/router/Routes';
-  import ObjectUtils from '../Utils/ObjectUtils';
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
 
   export default {
     name: 'jinya-icon-button',
@@ -38,20 +38,18 @@
         },
       },
     },
-    methods: {
-      getAdditionalClasses() {
+    computed: {
+      additionalClasses() {
         return {
-          'is--primary': this.isDisabled ? false : this.isPrimary,
-          'is--secondary': this.isDisabled ? false : this.isSecondary,
-          'is--danger': this.isDisabled ? false : this.isDanger,
-          'is--success': this.isDisabled ? false : this.isSuccess,
-          'is--default': this.isDisabled ? false : !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
+          'is--primary': !this.isDisabled || this.isPrimary,
+          'is--secondary': !this.isDisabled || this.isSecondary,
+          'is--danger': !this.isDisabled || this.isDanger,
+          'is--success': !this.isDisabled || this.isSuccess,
+          'is--default': !this.isDisabled || !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
           'is--inverse': true,
           'is--disabled': this.isDisabled,
         };
       },
-    },
-    computed: {
       routeTarget() {
         return this.to ? {
           name: ObjectUtils.valueByKeypath(Routes, this.to).name,

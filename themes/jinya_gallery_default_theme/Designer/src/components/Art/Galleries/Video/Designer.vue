@@ -1,10 +1,11 @@
 <template>
     <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
+        <jinya-message :message="message" :state="state" v-if="state"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-        <template v-if="!loading" v-for="(position, index) in videos"
-                  :key="`${position.position}-${position.video.slug}`">
-            <jinya-gallery-designer-item @wheel.native="scroll">
+        <template v-if="!loading" v-for="(position, index) in videos">
+            <jinya-gallery-designer-item @wheel.native="scroll"
+                                         :key="`item-${position.position}-${position.video.slug}`">
                 <template>
                     <jinya-gallery-designer-video @wheel.native="scroll" :src="position.video.video"
                                                   :poster="position.video.poster" :video-key="position.video.videoKey"/>
@@ -15,7 +16,8 @@
                                                             :increase="true" @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
-            <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
+            <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"
+                                           :key="`button-${position.position}-${position.video.slug}`"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
                                          gallery-type="video"/>
@@ -60,6 +62,8 @@
         this.videos = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}/video`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
+        this.state = 'error';
+        this.message = Translator.message('art.galleries.designer.loading_failed');
       }
       this.loading = false;
     },
@@ -73,8 +77,6 @@
         }
       },
       async move(videoPosition, oldPosition, newPosition) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.video.moving', videoPosition.video);
         if (oldPosition < newPosition) {
           this.videos.splice(newPosition + 1, 0, videoPosition);
           this.videos.splice(oldPosition, 1);
@@ -85,12 +87,8 @@
         await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${videoPosition.id}/${oldPosition}`, {
           position: newPosition,
         });
-        this.state = '';
-        this.message = '';
       },
       async saveAdd(video) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.add.pending', video);
         const id = await JinyaRequest.post(`/api/gallery/video/${this.gallery.slug}/video`, {
           position: this.currentPosition,
           video: video.slug,
@@ -102,13 +100,10 @@
           video,
         });
 
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async saveEdit(video) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.edit.pending', video);
+        // eslint-disable-next-line max-len
         await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}/${this.currentPosition}`, {
           video: video.slug,
           type: video.type,
@@ -119,17 +114,13 @@
           id: this.videoPosition.id,
         });
 
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async deleteVideo() {
-        this.state = 'loading';
         await JinyaRequest.delete(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}`);
 
         this.videos.splice(this.currentPosition, 1);
 
-        this.state = '';
         this.editModal.show = false;
       },
       add(position) {

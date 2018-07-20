@@ -65,7 +65,7 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Art.Videos.SavedOnYoutube.Overview.name,
@@ -95,7 +95,7 @@
         try {
           await JinyaRequest.delete(`/api/video/youtube/${this.selectedVideo.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchVideos(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.videos.youtube.overview.delete.${reason.message}`);
@@ -152,7 +152,9 @@
         },
         editRoute: Routes.Art.Videos.SavedOnYoutube.Edit.name,
         detailsRoute: Routes.Art.Videos.SavedOnYoutube.Details.name,
-        nothingFound: this.$route.query.keyword ? 'art.videos.youtube.overview.nothing_found' : 'art.videos.youtube.overview.no_videos',
+        nothingFound: this.$route.query.keyword
+          ? 'art.videos.youtube.overview.nothing_found'
+          : 'art.videos.youtube.overview.no_videos',
       };
     },
   };

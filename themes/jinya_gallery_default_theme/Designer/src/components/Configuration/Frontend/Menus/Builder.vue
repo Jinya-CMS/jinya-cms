@@ -24,8 +24,8 @@
                 <draggable v-model="items" :options="itemsOptions" class="jinya-menu-builder__list" @add="itemsAdded"
                            @change="itemsChange" @start="drag = true" @end="drag = false">
                     <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
-                                              @increase="increase(item)" :allow-increase="item.allowIncrease"
-                                              @decrease="decrease(item)" :allow-decrease="item.allowDecrease"
+                                              @increase="increase(index)" :allow-increase="item.allowIncrease"
+                                              @decrease="decrease(index)" :allow-decrease="item.allowDecrease"
                                               :key="`${item.position}-${index}-${item.route.name}`"/>
                 </draggable>
             </jinya-editor-pane>
@@ -192,6 +192,7 @@
     },
     methods: {
       calculateNestingAllowance() {
+        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < this.items.length; i++) {
           const previous = this.findPrevious(this.items[i], i);
           const item = this.items[i];
@@ -201,69 +202,73 @@
         }
       },
       hasChildren(item, currentIdx = undefined) {
-        if (currentIdx === undefined) currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        return item.nestingLevel < this.findNext(item, currentIdx)?.nestingLevel;
+        return item.nestingLevel < this.findNext(item, curIdx)?.nestingLevel;
       },
       findParent(item, currentIdx = undefined) {
-        if (currentIdx === undefined) currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
         return this.items
-          .slice(0, currentIdx)
+          .slice(0, curIdx)
           .reverse()
           .find(elem => elem.nestingLevel === item.nestingLevel - 1);
       },
       findPrevious(item, currentIdx = undefined) {
-        if (currentIdx === undefined) currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        if (this.items.length > currentIdx && currentIdx > 0) {
-          return this.items[currentIdx - 1];
+        if (this.items.length > curIdx && curIdx > 0) {
+          return this.items[curIdx - 1];
         }
 
         return false;
       },
       findNext(item, currentIdx = undefined) {
-        if (currentIdx === undefined) currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        if (this.items.length > currentIdx && currentIdx < this.items.length) {
-          return this.items[currentIdx + 1];
+        if (this.items.length > curIdx && curIdx < this.items.length) {
+          return this.items[curIdx + 1];
         }
 
         return false;
       },
-      increase(item) {
-        item.nestingLevel += 1;
+      increase(index) {
+        this.items[index].nestingLevel += 1;
         this.calculateNestingAllowance();
       },
-      decrease(item) {
-        item.nestingLevel -= 1;
+      decrease(index) {
+        this.items[index].nestingLevel -= 1;
         this.calculateNestingAllowance();
       },
       itemsAdded(add) {
         const position = add.newIndex;
-        const item = this.items[position];
+        const currentItem = this.items[position];
 
         const clone = ((item) => {
-          const clone = JSON.parse(JSON.stringify(item));
-          clone.position = position;
-          clone.showSettings = true;
+          const elementClone = JSON.parse(JSON.stringify(item));
+          elementClone.position = position;
+          elementClone.showSettings = true;
 
           if (position === 0 || position === this.items.length) {
-            clone.nestingLevel = 0;
+            elementClone.nestingLevel = 0;
           } else {
             const previous = this.items[position + 1];
-            clone.nestingLevel = previous.nestingLevel;
+            elementClone.nestingLevel = previous.nestingLevel;
           }
 
-          return clone;
-        })(item);
+          return elementClone;
+        })(currentItem);
 
         this.items.splice(position, 1, clone);
 
         this.calculateNestingAllowance();
       },
       itemsChange(data) {
-        const moved = data.moved;
+        const { moved } = data;
 
         if (moved) {
           const newPosition = moved.newIndex;

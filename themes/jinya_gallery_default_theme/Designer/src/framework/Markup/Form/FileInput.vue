@@ -2,11 +2,12 @@
     <div class="jinya-input">
         <label :for="`label-${id}`" class="jinya-input__label" v-jinya-message="label"></label>
         <div class="jinya-input__wrapper">
-            <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">{{selectedFileName}}</label>
+            <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">
+                {{selectedFileName}}
+            </label>
             <jinya-button label="framework.markup.form.file_input.reset" class="jinya-button--reset" :is-primary="true"
                           :is-inverse="true" type="button" :is-disabled="!enable" @click="reset"/>
         </div>
-        <!--suppress HtmlFormInputWithoutLabel -->
         <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
                style="display: none;" @change="updateValue($event)"/>
     </div>
@@ -52,16 +53,21 @@
     },
     watch: {
       hasValue(newValue) {
-        this.selectedFileName = newValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected');
+        this.selectedFileName = newValue
+          ? Translator.message('framework.markup.form.file_input.already_set')
+          : Translator.validator('framework.markup.form.file_input.no_file_selected');
       },
     },
     data() {
       return {
         id: null,
-        selectedFileName: this.hasValue ? Translator.message('framework.markup.form.file_input.already_set') : Translator.validator('framework.markup.form.file_input.no_file_selected'),
+        selectedFileName: this.hasValue
+          ? Translator.message('framework.markup.form.file_input.already_set')
+          : Translator.validator('framework.markup.form.file_input.no_file_selected'),
       };
     },
     mounted() {
+      // eslint-disable-next-line no-underscore-dangle
       this.id = this._uid;
     },
     methods: {

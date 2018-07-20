@@ -56,7 +56,9 @@
     },
     computed: {
       nothingFound() {
-        return this.keyword ? Translator.validator('static.forms.forms.overview.nothing_found') : Translator.validator('static.forms.forms.overview.no_forms');
+        return this.keyword
+          ? Translator.validator('static.forms.forms.overview.nothing_found')
+          : Translator.validator('static.forms.forms.overview.no_forms');
       },
       editRoute() {
         return Routes.Static.Forms.Forms.Edit.name;
@@ -98,7 +100,7 @@
         try {
           await JinyaRequest.delete(`/api/form/${this.selectedForm.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchForms(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(reason.message);

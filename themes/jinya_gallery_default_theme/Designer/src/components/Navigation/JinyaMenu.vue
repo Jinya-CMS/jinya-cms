@@ -1,4 +1,5 @@
 <template>
+    <!-- eslint-disable max-len -->
     <header class="jinya-menu">
         <jinya-menu-navbar @hamburger-click="isOpen = !isOpen">
             <span class="jinya-menu__header" v-if="title">{{title|jmessage}}</span>
@@ -200,7 +201,9 @@
         this.selectedHeader = '';
         this.title = this.$route.meta.title || this.title;
       });
-      EventBus.$on(Events.header.change, header => this.title = header);
+      EventBus.$on(Events.header.change, (header) => {
+        this.title = header;
+      });
     },
     data() {
       return {

@@ -1,11 +1,10 @@
 <template>
     <div class="jinya-input">
         <label v-if="label" :for="id" class="jinya-input__label" v-jinya-message="label"></label>
-        <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
-        <input v-if="!static" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
+        <input v-if="!isStatic" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
                :disabled="!enable" :autocomplete="autocomplete" @keyup="keyup" :placeholder="placeholder|jmessage"
                :autofocus="autofocus" @input="$emit('input', $event.target.value)"/>
-        <span v-if="static" :id="id" class="jinya-input__field">{{value}}</span>
+        <span v-if="isStatic" :id="id" class="jinya-input__field">{{value}}</span>
     </div>
 </template>
 
@@ -13,7 +12,7 @@
   export default {
     name: 'jinya-input',
     props: {
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
@@ -47,6 +46,7 @@
       };
     },
     mounted() {
+      // eslint-disable-next-line no-underscore-dangle
       this.id = this._uid;
     },
     methods: {

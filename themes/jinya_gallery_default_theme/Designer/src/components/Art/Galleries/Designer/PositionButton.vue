@@ -1,6 +1,6 @@
 <template>
     <button class="jinya-gallery-designer__button-position" @click="$emit('click')"
-            :class="{'jinya-gallery-designer__button-position--increase': increase, 'jinya-gallery-designer__button-position--decrease': decrease}"></button>
+            :class="classes"></button>
 </template>
 
 <script>
@@ -9,6 +9,14 @@
     props: {
       increase: Boolean,
       decrease: Boolean,
+    },
+    computed: {
+      classes() {
+        return {
+          'jinya-gallery-designer__button-position--increase': this.increase,
+          'jinya-gallery-designer__button-position--decrease': this.decrease,
+        };
+      },
     },
   };
 </script>

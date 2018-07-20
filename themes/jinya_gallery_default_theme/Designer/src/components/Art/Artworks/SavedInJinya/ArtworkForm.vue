@@ -14,13 +14,13 @@
                 <jinya-editor-preview-image :src="artwork.picture"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.name"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.name"
                              v-model="artwork.name" @change="nameChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.slug"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.slug"
                              v-model="artwork.slug" @change="slugChanged"/>
-                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="picturePicked"
+                <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
                                   label="art.artworks.artwork_form.artwork"/>
-                <jinya-textarea :static="static" :enable="enable" label="art.artworks.artwork_form.description"
+                <jinya-textarea :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.description"
                                 v-model="artwork.description"/>
             </jinya-editor-pane>
             <template slot="buttons">
@@ -72,7 +72,7 @@
           return '';
         },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;

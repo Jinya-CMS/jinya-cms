@@ -4,11 +4,11 @@
 </template>
 
 <script>
-  import JinyaButton from '../Button';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    components: { JinyaButton },
     name: 'jinya-modal-button',
+    components: { JinyaButton },
     methods: {
       click() {
         this.$emit('click');

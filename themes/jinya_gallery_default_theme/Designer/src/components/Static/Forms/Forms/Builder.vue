@@ -14,8 +14,8 @@
                 <jinya-editor-pane>
                     <draggable class="jinya-form-builder__draggable" :options="originOptions"
                                v-model="availableItemTypes">
-                        <jinya-form-builder-item v-for="item in availableItemTypes" :settings-available="false"
-                                                 :enable="enable" :item="item"/>
+                        <jinya-form-builder-item v-for="(item, index) in availableItemTypes" :settings-available="false"
+                                                 :enable="enable" :item="item" :key="`${item.type}-${index}`"/>
                     </draggable>
                 </jinya-editor-pane>
                 <jinya-editor-pane>
@@ -146,7 +146,7 @@
         });
       },
       itemsChange(data) {
-        const moved = data.moved;
+        const { moved } = data;
 
         if (moved) {
           const newPosition = moved.newIndex;
@@ -168,11 +168,12 @@
       },
       toggleSettings(item) {
         this.items = this.items.map((elem) => {
-          if (item.position !== elem.position) {
-            elem.showSettings = false;
+          const result = { ...elem };
+          if (item.position !== result.position) {
+            result.showSettings = false;
           }
 
-          return elem;
+          return result;
         });
       },
     },
@@ -195,6 +196,46 @@
           group: 'edit',
         };
       },
+      availableItemTypes() {
+        return [
+          {
+            type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+            label: Translator.message('static.forms.forms.builder.default_label.text_type'),
+            options: {
+              required: false,
+            },
+          },
+          {
+            type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+            label: Translator.message('static.forms.forms.builder.default_label.email_type'),
+            options: {
+              required: false,
+            },
+          },
+          {
+            type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+            label: Translator.message('static.forms.forms.builder.default_label.choice_type'),
+            options: {
+              required: false,
+              choices: [],
+            },
+          },
+          {
+            type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+            label: Translator.message('static.forms.forms.builder.default_label.checkbox_type'),
+            options: {
+              required: false,
+            },
+          },
+          {
+            type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+            label: Translator.message('static.forms.forms.builder.default_label.textarea_type'),
+            options: {
+              required: false,
+            },
+          },
+        ];
+      },
     },
     async mounted() {
       this.loading = true;
@@ -208,51 +249,11 @@
       this.loading = false;
     },
     data() {
-      const availableItemTypes = [
-        {
-          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
-          label: Translator.message('static.forms.forms.builder.default_label.text_type'),
-          options: {
-            required: false,
-          },
-        },
-        {
-          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
-          label: Translator.message('static.forms.forms.builder.default_label.email_type'),
-          options: {
-            required: false,
-          },
-        },
-        {
-          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-          label: Translator.message('static.forms.forms.builder.default_label.choice_type'),
-          options: {
-            required: false,
-            choices: [],
-          },
-        },
-        {
-          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
-          label: Translator.message('static.forms.forms.builder.default_label.checkbox_type'),
-          options: {
-            required: false,
-          },
-        },
-        {
-          type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
-          label: Translator.message('static.forms.forms.builder.default_label.textarea_type'),
-          options: {
-            required: false,
-          },
-        },
-      ];
-
       return {
         form: {
           title: '',
           slug: this.$route.params.slug,
         },
-        availableItemTypes,
         message: '',
         state: '',
         enable: true,

@@ -1,11 +1,12 @@
 <template>
+    <!-- eslint-disable max-len -->
     <div class="jinya-theme-configuration">
         <jinya-message :message="message" :state="state"/>
         <jinya-form save-label="configuration.frontend.themes.configuration.save" @submit="save" v-if="!initial"
                     cancel-label="configuration.frontend.themes.configuration.cancel" :enable="!loading">
             <jinya-tab-container :items="form.groups" @select="selected = $event">
-                <template v-for="tab in form.groups" :key="tab.name">
-                    <jinya-tab :is-selected="selected === tab.name">
+                <template v-for="tab in form.groups">
+                    <jinya-tab :is-selected="selected === tab.name" :key="tab.name">
                         <jinya-theme-configuration-field v-for="field in tab.fields" :key="`${tab.name}.${field.name}`"
                                                          :label="field.label" :name="`${tab.name}.${field.name}`"
                                                          :type="field.type" :enable="!loading" @changed="changed"
@@ -140,6 +141,7 @@
         this.message = Translator.message('configuration.frontend.themes.configuration.loading');
         this.theme = await JinyaRequest.get(`/api/theme/${this.$route.params.name}`);
 
+        // eslint-disable-next-line max-len
         this.message = Translator.message('configuration.frontend.themes.configuration.loading_configuration', this.theme);
         const form = await JinyaRequest.get(`/api/theme/${this.$route.params.name}/form/config`);
         EventBus.$emit(Events.header.change, form.title);

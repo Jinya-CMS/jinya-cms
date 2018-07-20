@@ -1,5 +1,5 @@
 <template>
-    <jinya-artwork-form :static="true" :artwork="artwork" @save="edit" :message="message" :state="state"
+    <jinya-artwork-form :is-static="true" :artwork="artwork" @save="edit" :message="message" :state="state"
                         :hide-on-error="true" save-label="art.artworks.details.edit"/>
 </template>
 

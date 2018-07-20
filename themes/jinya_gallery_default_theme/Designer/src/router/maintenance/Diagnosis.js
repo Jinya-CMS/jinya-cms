@@ -1,5 +1,5 @@
-import Routes from '../Routes';
 import Missing from '@/components/Home/Missing';
+import Routes from '@/router/Routes';
 
 export default [
   {

@@ -11,7 +11,6 @@
   import Timing from '@/framework/Utils/Timing';
   import DOMUtils from '@/framework/Utils/DOMUtils';
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaGalleryForm,
@@ -53,7 +52,7 @@
     },
     methods: {
       async save(gallery) {
-        const background = gallery.background;
+        const { background } = gallery;
         try {
           this.enable = false;
           this.state = 'loading';
