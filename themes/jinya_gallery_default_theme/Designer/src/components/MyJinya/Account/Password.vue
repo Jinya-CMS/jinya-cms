@@ -14,22 +14,22 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
 
   export default {
-    name: "Password",
+    name: 'Password',
     components: {
       JinyaMessage,
       JinyaEditor,
       JinyaInput,
-      JinyaForm
+      JinyaForm,
     },
     data() {
       return {
@@ -38,8 +38,8 @@
         oldPassword: '',
         newPassword: '',
         newPasswordRepeat: '',
-        enable: true
-      }
+        enable: true,
+      };
     },
     methods: {
       cancel() {
@@ -55,13 +55,13 @@
             this.state = 'loading';
             this.message = Translator.message('my_jinya.account.password.asking_for_token');
             const changeData = await JinyaRequest.put('/api/account/password', {
-              old_password: this.oldPassword
+              old_password: this.oldPassword,
             });
 
             this.message = Translator.message('my_jinya.account.password.changing');
             await JinyaRequest.put(changeData.url, {
               token: changeData.token,
-              password: this.newPassword
+              password: this.newPassword,
             });
 
             this.message = Translator.message('my_jinya.account.password.changed');
@@ -74,7 +74,7 @@
             this.state = 'error';
           }
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

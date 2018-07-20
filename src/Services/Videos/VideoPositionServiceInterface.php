@@ -54,7 +54,6 @@ interface VideoPositionServiceInterface
      * @param int $id
      * @param string $videoSlug
      * @param string $type
-     * @return
      */
-    public function updateVideo(int $id, string $videoSlug, string $type);
+    public function updateVideo(int $id, string $videoSlug, string $type): void;
 }

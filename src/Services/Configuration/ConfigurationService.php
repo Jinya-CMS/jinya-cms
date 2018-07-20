@@ -10,7 +10,7 @@ namespace Jinya\Services\Configuration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Jinya\Entity\Configuration;
+use Jinya\Entity\Configuration\Configuration;
 use Jinya\Services\Theme\ThemeServiceInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface

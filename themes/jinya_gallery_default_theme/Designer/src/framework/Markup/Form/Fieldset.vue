@@ -7,14 +7,14 @@
 
 <script>
   export default {
-    name: "jinya-fieldset",
+    name: 'jinya-fieldset',
     props: {
       legend: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

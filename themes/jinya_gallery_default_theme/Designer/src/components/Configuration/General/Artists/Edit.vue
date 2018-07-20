@@ -4,17 +4,17 @@
 </template>
 
 <script>
-  import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Timing from "@/framework/Utils/Timing";
-  import Routes from "@/router/Routes";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaArtistForm from '@/components/Configuration/General/Artists/ArtistForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Timing from '@/framework/Utils/Timing';
+  import Routes from '@/router/Routes';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   export default {
-    name: "Edit",
+    name: 'Edit',
     components: {
-      JinyaArtistForm
+      JinyaArtistForm,
     },
     data() {
       return {
@@ -26,12 +26,12 @@
           lastname: '',
           enabled: {
             text: '',
-            value: false
+            value: false,
           },
           roles: [],
-          email: ''
-        }
-      }
+          email: '',
+        },
+      };
     },
     async mounted() {
       this.state = 'loading';
@@ -41,7 +41,9 @@
       artist.roles = window.messages.authentication.roles.filter(role => artist.roles.includes(role.value));
       artist.enabled = {
         value: artist.enabled,
-        text: artist.enabled ? Translator.message('configuration.general.artists.artist_form.enabled') : Translator.message('configuration.general.artists.artist_form.disabled')
+        text: artist.enabled
+          ? Translator.message('configuration.general.artists.artist_form.enabled')
+          : Translator.message('configuration.general.artists.artist_form.disabled'),
       };
 
       this.artist = artist;
@@ -52,7 +54,7 @@
     },
     methods: {
       async save(artist) {
-        const picture = artist.profilePicture;
+        const { profilePicture } = artist;
         try {
           this.enable = false;
           this.state = 'loading';
@@ -60,9 +62,9 @@
 
           await JinyaRequest.put(`/api/user/${this.$route.params.id}`, artist);
 
-          if (picture) {
+          if (profilePicture) {
             this.message = Translator.message('configuration.general.artists.edit.uploading', artist);
-            await JinyaRequest.upload(`/api/user/${this.$route.params.id}/profilepicture`, picture);
+            await JinyaRequest.upload(`/api/user/${this.$route.params.id}/profilepicture`, profilePicture);
           }
 
           this.state = 'success';
@@ -75,9 +77,9 @@
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped>

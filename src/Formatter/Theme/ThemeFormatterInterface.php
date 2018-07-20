@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Theme;
 
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Formatter\FormatterInterface;
 
 interface ThemeFormatterInterface extends FormatterInterface
@@ -16,7 +16,7 @@ interface ThemeFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Theme $theme
+     * @param \Jinya\Entity\Theme\Theme $theme
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): self;

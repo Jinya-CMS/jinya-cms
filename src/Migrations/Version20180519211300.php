@@ -1,4 +1,7 @@
 <?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
+
 /**
  * Created by PhpStorm.
  * User: imanuel

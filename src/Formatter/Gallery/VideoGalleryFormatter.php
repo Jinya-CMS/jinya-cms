@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Gallery;
 
-use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Video\VideoPosition;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Formatter\Video\VideoPositionFormatterInterface;

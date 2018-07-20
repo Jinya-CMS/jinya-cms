@@ -12,8 +12,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\KnownDevice;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
+use Jinya\Framework\Security\UnknownDeviceException;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
@@ -28,23 +32,33 @@ class UserService implements UserServiceInterface
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
 
+    /** @var Swift_Mailer */
+    private $swift;
+
+    /** @var string */
+    private $mailerSender;
+
     /**
      * UserService constructor.
      * @param EntityManagerInterface $entityManager
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param ApiKeyToolInterface $apiKeyTool
+     * @param Swift_Mailer $swift
+     * @param string $mailerSender
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool, Swift_Mailer $swift, string $mailerSender)
     {
         $this->entityManager = $entityManager;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->apiKeyTool = $apiKeyTool;
+        $this->swift = $swift;
+        $this->mailerSender = $mailerSender;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAll(int $offset, int $count = 10, string $keyword): array
+    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $queryBuilder = $this->createFilteredQueryBuilder($keyword);
 
@@ -110,7 +124,7 @@ class UserService implements UserServiceInterface
      */
     public function activate(int $id): User
     {
-        /** @var User $user */
+        /** @var \Jinya\Entity\Artist\User $user */
         $user = $this->entityManager->find(User::class, $id);
 
         $user->setEnabled(true);
@@ -198,9 +212,9 @@ class UserService implements UserServiceInterface
     /**
      * Creates a user
      *
-     * @param User $user
+     * @param \Jinya\Entity\Artist\User $user
      * @param bool $ignorePassword
-     * @return User
+     * @return \Jinya\Entity\Artist\User
      */
     public function saveOrUpdate(User $user, bool $ignorePassword = false): User
     {
@@ -229,26 +243,208 @@ class UserService implements UserServiceInterface
      *
      * @param string $username
      * @param string $password
+     * @param string $twoFactorCode
+     * @param string $deviceCode
      * @return User
+     * @throws UnknownDeviceException
+     * @throws BadCredentialsException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getUser(string $username, string $password): User
+    public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {
         try {
-            $user = $this->entityManager->createQueryBuilder()
-                ->select('user')
-                ->from(User::class, 'user')
-                ->where('user.email = :username')
-                ->setParameter('username', $username)
-                ->getQuery()
-                ->getSingleResult();
+            $user = $this->getUserByEmail($username);
         } catch (Exception $e) {
             throw new BadCredentialsException($e->getMessage(), $e);
         }
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
             throw new BadCredentialsException('Invalid username or password');
+        } elseif (!empty($deviceCode) && !$this->isValidDevice($username, $deviceCode)) {
+            throw new UnknownDeviceException();
+        } elseif (empty($deviceCode) && $twoFactorCode !== $user->getTwoFactorToken()) {
+            throw new BadCredentialsException('No two factor code provided');
         }
 
         return $user;
+    }
+
+    /**
+     * @param string $email
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function getUserByEmail(string $email): User
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.email = :username')
+            ->setParameter('username', $email)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    /**
+     * Checks whether the given device code belongs to the given user
+     *
+     * @param string $username
+     * @param string $deviceCode
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function isValidDevice(string $username, string $deviceCode): bool
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('COUNT(known_device)')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->andWhere('known_device.key = :deviceCode')
+            ->setParameter('deviceCode', $deviceCode)
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Sets the two factor code and sends the verification mail
+     *
+     * @param string $username
+     * @param string $password
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function setAndSendTwoFactorCode(string $username, string $password): void
+    {
+        $user = $this->getUserByEmail($username);
+        $code = '';
+        for ($i = 0; $i < 6; ++$i) {
+            try {
+                $code .= random_int(0, 9);
+            } catch (Exception $e) {
+                srand(time());
+                $code .= rand(0, 9);
+            }
+        }
+        $user->setTwoFactorToken($code);
+        $this->entityManager->flush();
+
+        /** @var Swift_Message $message */
+        $message = $this->swift->createMessage('message');
+        $message->addTo($user->getEmail());
+        $message->setSubject('Your two factor code');
+        $message->setBody($this->formatBody($user), 'text/html');
+        $message->setFrom($this->mailerSender);
+        $this->swift->send($message);
+    }
+
+    private function formatBody(User $user): string
+    {
+        $name = $user->getFirstname() . ' ' . $user->getLastname();
+        $code = $user->getTwoFactorToken();
+
+        return "<html>
+<head></head>
+<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\"'>
+    <table style='width: 100%; height: 100%;'>
+    <tr>
+        <td colspan='3' style='height: 15%;'></td>
+    </tr>
+    <tr>
+    <td style='width: 35%;'></td>
+    <td style='width: 30%;'>
+        <p style='margin-top: 15%;'>
+            Hello $name,<br /><br />
+            you tried to login from a new device, please verify with this code that this was actually you.
+        </p>
+        <p style='text-align: center;'>
+            <code style='background: #EFEFEF; padding: 6pt; text-align: center; font-size: 16pt; font-family: Consolas, monospace'>$code</code>
+        </p>
+        <p>
+            Greetings,<br />
+            Your Jinya Team
+        </p>
+    </td>
+    <td style='width: 35%;'></td>
+</tr>
+</table>
+</body>
+</html>";
+    }
+
+    /**
+     * Adds a new device code to the user
+     *
+     * @param string $username
+     * @return string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws Exception
+     */
+    public function addKnownDevice(string $username): string
+    {
+        $user = $this->getUserByEmail($username);
+        $knownDevice = new KnownDevice();
+        $knownDevice->setUser($user);
+        $knownDevice->setRemoteAddress($_SERVER['REMOTE_ADDR']);
+        $knownDevice->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+
+        try {
+            $code = bin2hex(random_bytes(20));
+        } catch (Exception $exception) {
+            $code = sha1(strval(time()));
+        }
+
+        $knownDevice->setKey($code);
+
+        $this->entityManager->persist($knownDevice);
+        $this->entityManager->flush();
+
+        return $code;
+    }
+
+    /**
+     * Gets all known devices for the given user
+     *
+     * @param string $username
+     * @return KnownDevice[]
+     */
+    public function getKnownDevices(string $username): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('known_device')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Deletes the given known device
+     *
+     * @param string $username
+     * @param string $deviceCode
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function deleteKnownDevice(string $username, string $deviceCode): void
+    {
+        $knownDevice = $this->entityManager->createQueryBuilder()
+            ->select('known_device')
+            ->from(KnownDevice::class, 'known_device')
+            ->join('known_device.user', 'user')
+            ->where('user.email = :username')
+            ->andWhere('known_device.key = :deviceCode')
+            ->setParameter('deviceCode', $deviceCode)
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getSingleResult();
+
+        $this->entityManager->remove($knownDevice);
+        $this->entityManager->flush();
     }
 }

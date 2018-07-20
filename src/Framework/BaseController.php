@@ -8,9 +8,9 @@
 
 namespace Jinya\Framework;
 
-use Jinya\Entity\RoutingEntry;
-use Jinya\Entity\Theme;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
+use Jinya\Entity\Menu\RoutingEntry;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
@@ -124,7 +124,7 @@ abstract class BaseController
      */
     private function includeTheme(string $view, array $parameters, Theme $theme): array
     {
-        if (!$this->themeCompilerService->isCompiled($theme)) {
+        if (!$this->themeCompilerService->isCompiled($theme) || getenv('APP_DEBUG')) {
             $this->themeCompilerService->compileTheme($theme);
         }
 
@@ -144,7 +144,7 @@ abstract class BaseController
      * Forwards the request to the given RoutingEntry
      *
      * @see RoutingEntry
-     * @param RoutingEntry $route
+     * @param \Jinya\Entity\Menu\RoutingEntry $route
      * @return Response
      * @throws \Exception
      */
@@ -160,6 +160,17 @@ abstract class BaseController
         $subRequest = $request->duplicate([], null, $path);
 
         return $this->kernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+    }
+
+    /**
+     * @param string $routeName
+     * @return string
+     */
+    private function convertRouteToControllerName(string $routeName): string
+    {
+        $routes = $this->router->getRouteCollection();
+
+        return $routes->get($routeName)->getDefaults()['_controller'];
     }
 
     /**
@@ -220,7 +231,7 @@ abstract class BaseController
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return User|null
+     * @return \Jinya\Entity\Artist\User|null
      * @see TokenInterface::getUser()
      */
     final protected function getUser(): ?User
@@ -236,16 +247,5 @@ abstract class BaseController
         }
 
         return $user;
-    }
-
-    /**
-     * @param string $routeName
-     * @return string
-     */
-    private function convertRouteToControllerName(string $routeName): string
-    {
-        $routes = $this->router->getRouteCollection();
-
-        return $routes->get($routeName)->getDefaults()['_controller'];
     }
 }

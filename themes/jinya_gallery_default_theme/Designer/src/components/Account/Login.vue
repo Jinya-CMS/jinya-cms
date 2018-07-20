@@ -1,61 +1,69 @@
 <template>
     <div class="jinya-login">
         <jinya-message class="jinya-login__message" :message="message" :state="state" v-if="state"/>
-        <jinya-form class="jinya-login__form" @submit="login">
+        <jinya-form @submit="submit" class="jinya-login__form">
             <h1 class="jinya-login__title" v-jinya-message="'account.login.title'"
                 :class="{'no--margin-top': state}"></h1>
             <jinya-input :autofocus="true" autocomplete="login email" v-model="email" label="account.login.email"
-                         :required="true" type="email"/>
+                         key="email" :required="true" type="email" v-if="!twoFactorRequested"/>
             <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
-                         :required="true" type="password"/>
+                         key="password" :required="true" type="password" v-if="!twoFactorRequested"/>
+            <jinya-input v-model="twoFactorCode" label="account.login.2fa_code" key="2fa_code"
+                         :required="true" type="text" v-if="twoFactorRequested"/>
             <jinya-button :is-primary="true" label="account.login.submit" type="submit" slot="buttons"/>
         </jinya-form>
     </div>
 </template>
 
 <script>
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Lockr from 'lockr';
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Translator from "@/framework/i18n/Translator";
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Translator from '@/framework/i18n/Translator';
+  import { login } from '@/security/Authentication';
 
   export default {
     components: {
       JinyaMessage,
       JinyaForm,
       JinyaButton,
-      JinyaInput
+      JinyaInput,
     },
-    name: "Login",
+    name: 'Login',
     data() {
       return {
         email: '',
         password: '',
         message: '',
-        state: ''
+        twoFactorCode: '',
+        twoFactorRequested: false,
+        state: '',
       };
     },
     methods: {
-      async login() {
+      async submit() {
         try {
           this.message = Translator.message('account.login.pending');
           this.state = 'loading';
 
-          const value = await JinyaRequest.post('/api/login', {username: this.email, password: this.password});
-          Lockr.set('JinyaApiKey', value.apiKey);
+          const loginResult = await login(this.email, this.password, this.twoFactorCode);
+          if (loginResult) {
+            this.$router.push(Routes.Home.StartPage);
+          } else {
+            this.twoFactorRequested = true;
+          }
 
-          this.$router.push(Routes.Home.StartPage);
+          this.state = 'secondary';
+          this.message = Translator.message('account.login.two_factor_needed');
         } catch (e) {
-          this.message = Translator.validator(`account.login.${e.message}`);
+          this.message = Translator.validator('account.login.login_failed');
           this.state = 'error';
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

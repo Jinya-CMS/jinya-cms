@@ -1,19 +1,19 @@
 export default {
   navigation: {
     navigating: 'navigating',
-    navigated: 'navigated'
+    navigated: 'navigated',
   },
   search: {
-    triggered: 'search-triggered'
+    triggered: 'search-triggered',
   },
   request: {
     started: 'request-started',
-    finished: 'request-finished'
+    finished: 'request-finished',
   },
   header: {
-    change: 'change-menu-header'
+    change: 'change-menu-header',
   },
   video: {
-    uploadStarted: 'video-upload-started'
-  }
-}
+    uploadStarted: 'video-upload-started',
+  },
+};

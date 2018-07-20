@@ -8,11 +8,12 @@
 
 namespace Jinya\Controller\Api\Artwork;
 
-use Jinya\Entity\Artwork;
+use Jinya\Entity\Artwork\Artwork;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
+use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,21 +25,41 @@ class ArtworkController extends BaseApiController
     /**
      * @Route("/api/artwork", methods={"GET"}, name="api_artwork_get_all")
      *
+     * @param Request $request
+     * @param LabelServiceInterface $labelService
      * @param ArtworkServiceInterface $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAllAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
+    public function getAllAction(Request $request, LabelServiceInterface $labelService, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        return $this->getAllLabeled($artworkService, function ($artwork) use ($artworkFormatter) {
-            return $artworkFormatter
-                ->init($artwork)
-                ->name()
-                ->picture()
-                ->slug()
-                ->description()
-                ->format();
+        list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $request, $artworkFormatter, $artworkService) {
+            $offset = $request->get('offset', 0);
+            $count = $request->get('count', 10);
+            $keyword = $request->get('keyword', '');
+            $label = $request->get('label', null);
+
+            if ($label) {
+                $label = $labelService->getLabel($label);
+            }
+
+            $entityCount = $artworkService->countAll($keyword);
+            $entities = array_map(function ($artwork) use ($artworkFormatter) {
+                return $artworkFormatter
+                    ->init($artwork)
+                    ->name()
+                    ->picture()
+                    ->slug()
+                    ->description()
+                    ->format();
+            }, $artworkService->getAll($offset, $count, $keyword, $label));
+
+            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
+
+            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_artwork_get_all', $entities);
         });
+
+        return $this->json($data, $statusCode);
     }
 
     /**
@@ -51,8 +72,8 @@ class ArtworkController extends BaseApiController
      */
     public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        /* @noinspection PhpParamsInspection */
-        return $this->getArt($slug, $artworkService, function ($artwork) use ($artworkFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($artworkFormatter, $slug, $artworkService) {
+            $artwork = $artworkService->get($slug);
             $result = $artworkFormatter->init($artwork)
                 ->name()
                 ->slug()
@@ -67,22 +88,26 @@ class ArtworkController extends BaseApiController
                     ->galleries();
             }
 
-            return $result->format();
+            return [
+                'success' => true,
+                'item' => $result->format(),
+            ];
         });
+
+        return $this->json($data, $status);
     }
 
     /**
      * @Route("/api/artwork", methods={"POST"}, name="api_artwork_post")
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
-     * @param Request $request
      * @param ArtworkServiceInterface $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function postAction(Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
+    public function postAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $artworkFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($artworkService, $artworkFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $slug = $this->getValue('slug', '');
@@ -113,14 +138,13 @@ class ArtworkController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param Request $request
      * @param ArtworkServiceInterface $artworkService
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
+    public function putAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $artworkService, $artworkFormatter) {
+        list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $artworkFormatter) {
             $artwork = $artworkService->get($slug);
 
             $name = $this->getValue('name', $artwork->getName());

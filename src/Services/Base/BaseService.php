@@ -11,7 +11,7 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
-use Jinya\Entity\BaseEntity;
+use Jinya\Entity\Base\BaseEntity;
 
 class BaseService
 {
@@ -44,7 +44,7 @@ class BaseService
     /**
      * Saves the given entity
      *
-     * @param BaseEntity $entity
+     * @param \Jinya\Entity\Base\BaseEntity $entity
      * @return BaseEntity
      */
     public function saveOrUpdate($entity)
@@ -59,9 +59,9 @@ class BaseService
     }
 
     /**
-     * Deletes the given @see BaseEntity
+     * Deletes the given Entity
      *
-     * @param BaseEntity $entity
+     * @param $entity
      */
     public function delete($entity): void
     {

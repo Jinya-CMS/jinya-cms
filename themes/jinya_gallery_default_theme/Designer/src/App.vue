@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import JinyaMenu from "@/components/Navigation/JinyaMenu";
-  import Routes from "@/router/Routes";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import JinyaBugDialog from "@/components/Support/BugDialog";
-  import JinyaFeatureDialog from "@/components/Support/FeatureDialog";
-  import JinyaLikeDialog from "@/components/Support/LikeDialog";
-  import JinyaVideoUploader from "@/components/Background/VideoUploader";
+  import JinyaMenu from '@/components/Navigation/JinyaMenu';
+  import Routes from '@/router/Routes';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import JinyaBugDialog from '@/components/Support/BugDialog';
+  import JinyaFeatureDialog from '@/components/Support/FeatureDialog';
+  import JinyaLikeDialog from '@/components/Support/LikeDialog';
+  import JinyaVideoUploader from '@/components/Background/VideoUploader';
 
   export default {
     components: {
@@ -33,7 +33,7 @@
       JinyaLikeDialog,
       JinyaFeatureDialog,
       JinyaBugDialog,
-      JinyaMenu
+      JinyaMenu,
     },
     name: 'App',
     created() {
@@ -44,7 +44,7 @@
     methods: {
       hideMenu() {
         EventBus.$emit(Events.navigation.navigated);
-      }
+      },
     },
     data() {
       return {
@@ -52,10 +52,10 @@
         loginRoute: Routes.Account.Login,
         showBugDialog: false,
         showFeatureDialog: false,
-        showLikeDialog: false
+        showLikeDialog: false,
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -74,9 +74,9 @@
 
         .jinya-app__background {
             z-index: -1;
-            height: 100%;
             width: 100%;
             position: fixed;
+            object-fit: scale-down;
             top: 0;
             left: 0;
         }

@@ -1,18 +1,18 @@
 <template>
-    <jinya-artist-form :artist="artist" :message="message" :static="true" :show-password="false"
+    <jinya-artist-form :artist="artist" :message="message" :is-static="true" :show-password="false"
                        save-label="configuration.general.artists.details.edit" @save="edit"/>
 </template>
 
 <script>
-  import JinyaArtistForm from "@/components/Configuration/General/Artists/ArtistForm";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
+  import JinyaArtistForm from '@/components/Configuration/General/Artists/ArtistForm';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "Details",
-    components: {JinyaArtistForm},
+    name: 'Details',
+    components: { JinyaArtistForm },
     data() {
       return {
         enable: false,
@@ -23,12 +23,12 @@
           lastname: '',
           enabled: {
             text: '',
-            value: false
+            value: false,
           },
           roles: [],
-          email: ''
-        }
-      }
+          email: '',
+        },
+      };
     },
     async mounted() {
       this.state = 'loading';
@@ -38,7 +38,9 @@
       artist.roles = window.messages.authentication.roles.filter(role => artist.roles.includes(role.value));
       artist.enabled = {
         value: artist.enabled,
-        text: artist.enabled ? Translator.message('configuration.general.artists.artist_form.enabled') : Translator.message('configuration.general.artists.artist_form.disabled')
+        text: artist.enabled
+          ? Translator.message('configuration.general.artists.artist_form.enabled')
+          : Translator.message('configuration.general.artists.artist_form.disabled'),
       };
 
       this.artist = artist;
@@ -52,14 +54,10 @@
         this.$router.push({
           name: Routes.Configuration.General.Artists.Edit.name,
           params: {
-            id: this.$route.params.id
-          }
+            id: this.$route.params.id,
+          },
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
-
-<style scoped>
-
-</style>

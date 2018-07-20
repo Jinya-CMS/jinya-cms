@@ -8,11 +8,11 @@
 
 namespace Jinya\Formatter\User;
 
-use Jinya\Entity\Artwork;
-use Jinya\Entity\Form;
-use Jinya\Entity\Galleries\ArtGallery;
-use Jinya\Entity\Page;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
+use Jinya\Entity\Artwork\Artwork;
+use Jinya\Entity\Form\Form;
+use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Entity\Page\Page;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
@@ -24,7 +24,7 @@ use function array_map;
 
 class UserFormatter implements UserFormatterInterface
 {
-    /** @var User */
+    /** @var \Jinya\Entity\Artist\User */
     private $user;
 
     /** @var array */

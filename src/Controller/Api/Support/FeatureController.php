@@ -10,7 +10,7 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -4,39 +4,34 @@
 
 <script>
   import TinyMce from '@tinymce/tinymce-vue';
-  import FileUtils from "@/framework/IO/FileUtils";
+  import FileUtils from '@/framework/IO/FileUtils';
 
   export default {
-    name: "jinya-tiny-mce",
+    name: 'jinya-tiny-mce',
     components: {
-      TinyMce
+      TinyMce,
     },
     watch: {
       content(newValue) {
         this.data = newValue;
-      }
+      },
     },
     props: {
       content: {
-        type: String
+        type: String,
       },
       height: {
         type: String,
         default() {
           return '600px';
-        }
-      }
+        },
+      },
     },
     data() {
+      const { height } = this;
       return {
-        data: this.content
-      }
-    },
-    computed: {
-      tinyMceOptions() {
-        const height = this.height;
-
-        return {
+        data: this.content,
+        tinyMceOptions: {
           plugins: [
             'anchor',
             'autolink',
@@ -46,11 +41,16 @@
             'help',
             'image',
             'table',
-            'textcolor'
+            'textcolor',
           ],
-          height: height,
+          height,
           menubar: 'edit insert view format table tools help',
-          toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor",
+          toolbar: 'undo redo | '
+          + 'styleselect | '
+          + 'bold italic | '
+          + 'alignleft aligncenter alignright alignjustify | '
+          + 'bullist numlist outdent indent | '
+          + 'forecolor backcolor',
           file_picker_type: 'image',
           file_picker_callback(cb) {
             const input = document.createElement('input');
@@ -60,19 +60,20 @@
             input.onchange = async (event) => {
               const file = event.target.files[0];
               const data = await FileUtils.getAsDataUrl(file);
-              const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+              // eslint-disable-next-line no-undef
+              const { blobCache } = tinymce.activeEditor.editorUpload;
               const blobInfo = blobCache.create(`blobid-${(new Date()).getTime()}`, file, data.split(',')[1]);
               blobCache.add(blobInfo);
 
-              cb(blobInfo.blobUri(), {title: file.name});
+              cb(blobInfo.blobUri(), { title: file.name });
             };
 
             input.click();
-          }
-        }
-      }
-    }
-  }
+          },
+        },
+      };
+    },
+  };
 </script>
 
 <style lang="scss">

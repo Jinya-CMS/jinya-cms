@@ -7,7 +7,6 @@
                                    type="details"/>
                 <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" slot="footer" icon="pencil"
                                    type="edit"/>
-                <!--suppress JSUnnecessarySemicolon -->
                 <jinya-card-button @click="showDeleteModal(page)" slot="footer" icon="delete" type="delete"/>
             </jinya-card>
         </jinya-card-list>
@@ -28,23 +27,23 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaPager from "@/framework/Markup/Listing/Pager";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "@/router/Routes";
-  import Translator from "@/framework/i18n/Translator";
-  import Events from "@/framework/Events/Events";
-  import EventBus from "@/framework/Events/EventBus";
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaPager from '@/framework/Markup/Listing/Pager';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import Events from '@/framework/Events/Events';
+  import EventBus from '@/framework/Events/EventBus';
 
   export default {
-    name: "Overview",
+    name: 'Overview',
     components: {
       JinyaLoader,
       JinyaCard,
@@ -54,7 +53,7 @@
       JinyaMessage,
       JinyaModalButton,
       JinyaFloatingActionButton,
-      JinyaCardList
+      JinyaCardList,
     },
     computed: {
       addRoute() {
@@ -68,19 +67,19 @@
       },
       nothingFound() {
         return this.$route.query.keyword ? 'static.pages.overview.nothing_found' : 'static.pages.overview.no_pages';
-      }
+      },
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
             offset: url.searchParams.get('offset'),
             count: url.searchParams.get('count'),
-            keyword: url.searchParams.get('keyword')
-          }
+            keyword: url.searchParams.get('keyword'),
+          },
         });
       },
       async fetchPages(offset = 0, count = 10, keyword = '') {
@@ -102,7 +101,7 @@
         try {
           await JinyaRequest.delete(`/api/page/${this.selectedPage.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchPages(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`static.pages.overview.delete.${reason.message}`);
@@ -117,7 +116,7 @@
         this.delete.show = false;
         this.delete.loading = false;
         this.delete.error = '';
-      }
+      },
     },
     async mounted() {
       const offset = this.$route.query.offset || 0;
@@ -125,14 +124,14 @@
       const keyword = this.$route.query.keyword || '';
       await this.fetchPages(offset, count, keyword);
 
-      EventBus.$on(Events.search.triggered, value => {
+      EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
             offset: 0,
             count: this.$route.query.count,
-            keyword: value.keyword
-          }
+            keyword: value.keyword,
+          },
         });
       });
     },
@@ -146,7 +145,7 @@
     data() {
       return {
         pages: [],
-        control: {next: false, previous: false},
+        control: { next: false, previous: false },
         count: 0,
         offset: 0,
         loading: true,
@@ -155,9 +154,9 @@
         delete: {
           error: '',
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>

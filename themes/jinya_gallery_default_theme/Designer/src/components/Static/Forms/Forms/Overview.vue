@@ -28,21 +28,21 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import Routes from "@/router/Routes";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaPager from "@/framework/Markup/Listing/Pager";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import Routes from '@/router/Routes';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaPager from '@/framework/Markup/Listing/Pager';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
 
   export default {
-    name: "Overview",
+    name: 'Overview',
     components: {
       JinyaFloatingActionButton,
       JinyaModalButton,
@@ -52,11 +52,13 @@
       JinyaLoader,
       JinyaCardButton,
       JinyaCard,
-      JinyaCardList
+      JinyaCardList,
     },
     computed: {
       nothingFound() {
-        return this.keyword ? Translator.validator('static.forms.forms.overview.nothing_found') : Translator.validator('static.forms.forms.overview.no_forms');
+        return this.keyword
+          ? Translator.validator('static.forms.forms.overview.nothing_found')
+          : Translator.validator('static.forms.forms.overview.no_forms');
       },
       editRoute() {
         return Routes.Static.Forms.Forms.Edit.name;
@@ -66,7 +68,7 @@
       },
       addRoute() {
         return Routes.Static.Forms.Forms.Add;
-      }
+      },
     },
     async mounted() {
       const offset = this.$route.query.offset || 0;
@@ -98,7 +100,7 @@
         try {
           await JinyaRequest.delete(`/api/form/${this.selectedForm.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchForms(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(reason.message);
@@ -114,7 +116,7 @@
         this.delete.show = false;
         this.delete.loading = false;
         this.delete.error = '';
-      }
+      },
     },
     data() {
       return {
@@ -122,7 +124,7 @@
         keyword: '',
         control: {
           next: false,
-          previous: false
+          previous: false,
         },
         loading: true,
         count: 0,
@@ -130,11 +132,11 @@
         delete: {
           error: '',
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

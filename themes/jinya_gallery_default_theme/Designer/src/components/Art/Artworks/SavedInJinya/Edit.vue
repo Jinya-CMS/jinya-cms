@@ -3,18 +3,16 @@
 </template>
 
 <script>
-  import JinyaArtworkForm from "./ArtworkForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Events from "@/framework/Events/Events";
-  import EventBus from "@/framework/Events/EventBus";
+  import JinyaArtworkForm from './ArtworkForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   export default {
     components: {
-      JinyaArtworkForm
+      JinyaArtworkForm,
     },
     data() {
       return {
@@ -26,11 +24,11 @@
           picture: '',
           name: '',
           slug: '',
-          description: ''
-        }
+          description: '',
+        },
       };
     },
-    name: "edit",
+    name: 'edit',
     async mounted() {
       this.state = 'loading';
       this.enable = false;
@@ -41,7 +39,6 @@
         this.state = '';
         this.enable = true;
         DOMUtils.changeTitle(Translator.message('art.artworks.edit.title', this.artwork));
-        EventBus.$emit(Events.header.change, Translator.message('art.artworks.edit.title', this.video));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.artworks.${error.message}`);
@@ -49,39 +46,39 @@
     },
     methods: {
       async save(artwork) {
-        const picture = artwork.picture;
+        const { picture } = artwork;
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('art.artworks.edit.saving', {name: artwork.name});
+          this.message = Translator.message('art.artworks.edit.saving', artwork);
 
           await JinyaRequest.put(`/api/artwork/${this.$route.params.slug}`, {
             name: artwork.name,
             slug: artwork.slug,
-            description: artwork.description
+            description: artwork.description,
           });
 
           if (picture) {
-            this.message = Translator.message('art.artworks.edit.uploading', {name: artwork.name});
+            this.message = Translator.message('art.artworks.edit.uploading', artwork);
             await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
           }
 
           this.state = 'success';
-          this.message = Translator.message('art.artworks.edit.success', {name: artwork.name});
+          this.message = Translator.message('art.artworks.edit.success', artwork);
 
           await Timing.wait();
           this.$router.push({
             name: Routes.Art.Artworks.SavedInJinya.Details.name,
             params: {
-              slug: this.artwork.slug
-            }
+              slug: this.artwork.slug,
+            },
           });
         } catch (error) {
           this.message = error.message;
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

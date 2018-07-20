@@ -1,21 +1,20 @@
 <template>
-    <jinya-artwork-form :static="true" :artwork="artwork" @save="edit" :message="message" :state="state"
+    <jinya-artwork-form :is-static="true" :artwork="artwork" @save="edit" :message="message" :state="state"
                         :hide-on-error="true" save-label="art.artworks.details.edit"/>
 </template>
 
 <script>
-  import JinyaArtworkForm from "./ArtworkForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Routes from "@/router/Routes";
-  import Translator from "@/framework/i18n/Translator";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaArtworkForm from './ArtworkForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaArtworkForm
+      JinyaArtworkForm,
     },
-    name: "art-details",
+    name: 'art-details',
     data() {
       return {
         message: '',
@@ -24,9 +23,9 @@
           background: '',
           name: '',
           slug: '',
-          description: ''
+          description: '',
         },
-        overviewRoute: Routes.Art.Artworks.SavedInJinya.Overview.name
+        overviewRoute: Routes.Art.Artworks.SavedInJinya.Overview.name,
       };
     },
     async mounted() {
@@ -47,10 +46,10 @@
         this.$router.push({
           name: Routes.Art.Artworks.SavedInJinya.Edit.name,
           params: {
-            slug: this.artwork.slug
-          }
+            slug: this.artwork.slug,
+          },
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

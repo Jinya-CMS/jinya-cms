@@ -12,10 +12,9 @@ use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
-use Jinya\Entity\ApiKey;
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
+use Jinya\Entity\Authentication\ApiKey;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
-use function uniqid;
 
 class ApiKeyTool implements ApiKeyToolInterface
 {
@@ -47,12 +46,67 @@ class ApiKeyTool implements ApiKeyToolInterface
         $key = new ApiKey();
         $userId = $user->getId();
         $key->setUser($user);
-        $key->setKey(uniqid("jinya-api-token-$userId-"));
+        $key->setRemoteAddress($_SERVER['REMOTE_ADDR']);
+        $key->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+
+        try {
+            $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
+        } catch (\Exception $e) {
+            $key->setKey(uniqid("jinya-api-token-$userId-"));
+        }
 
         $this->entityManager->persist($key);
         $this->entityManager->flush();
 
         return $key->getKey();
+    }
+
+    /**
+     * Refreshes the validate since time
+     *
+     * @param string $key
+     */
+    public function refreshToken(string $key): void
+    {
+        $this->entityManager->createQueryBuilder()
+            ->update(ApiKey::class, 'key')
+            ->set('key.validSince', ':date')
+            ->setParameter('date', new DateTime())
+            ->where('key.key = :key')
+            ->setParameter('key', $key)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * Invalidates all tokens for the given user
+     *
+     * @param int $userId
+     */
+    public function invalidateAll(int $userId): void
+    {
+        $this->entityManager->createQueryBuilder()
+            ->delete(ApiKey::class, 'key')
+            ->where('key.user = :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * Invalidates the given api key if it is owned by the given user
+     *
+     * @param string $username
+     * @param string $key
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function invalidateKeyOfUser(string $username, string $key): void
+    {
+        $user = $this->getUserByKey($key);
+        if ($user->getEmail() === $username) {
+            $this->invalidate($key);
+        }
     }
 
     /**
@@ -91,18 +145,35 @@ class ApiKeyTool implements ApiKeyToolInterface
     }
 
     /**
-     * Refreshes the validate since time
+     * Gets all api keys for the given user
      *
-     * @param string $key
+     * @param string $email
+     * @return array
+     * @throws \Exception
      */
-    public function refreshToken(string $key): void
+    public function getAllForUser(string $email): array
     {
-        $this->entityManager->createQueryBuilder()
-            ->update(ApiKey::class, 'key')
-            ->set('key.validSince', ':date')
-            ->setParameter('date', new DateTime())
+        /** @var ApiKey[] $keys */
+        $keys = $this->entityManager->createQueryBuilder()
+            ->select('api_key')
+            ->from(ApiKey::class, 'api_key')
+            ->join('api_key.user', 'user')
+            ->where('user.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
-            ->execute();
+            ->getResult();
+
+        $result = [];
+
+        foreach ($keys as $key) {
+            if ($this->shouldInvalidate($key->getKey())) {
+                $this->invalidate($key->getKey());
+            } else {
+                $result[] = $key;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -128,20 +199,5 @@ class ApiKeyTool implements ApiKeyToolInterface
         $validSince->add(new DateInterval("PT${keyInvalidation}S"));
 
         return (new DateTime())->getTimestamp() > $validSince->getTimestamp();
-    }
-
-    /**
-     * Invalidates all tokens for the given user
-     *
-     * @param int $userId
-     */
-    public function invalidateAll(int $userId): void
-    {
-        $this->entityManager->createQueryBuilder()
-            ->delete(ApiKey::class, 'key')
-            ->where('key.user = :id')
-            ->setParameter('id', $userId)
-            ->getQuery()
-            ->execute();
     }
 }

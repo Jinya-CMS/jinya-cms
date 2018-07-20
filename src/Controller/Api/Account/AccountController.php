@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Account;
 
-use Jinya\Entity\User;
+use Jinya\Entity\Artist\User;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
@@ -25,6 +25,24 @@ use function uniqid;
 class AccountController extends BaseApiController
 {
     /**
+     * @Route("/api/2fa", methods={"POST"}, name="api_account_2fa")
+     *
+     * @param UserServiceInterface $userService
+     * @return Response
+     */
+    public function twoFactorAction(UserServiceInterface $userService): Response
+    {
+        list($data, $status) = $this->tryExecute(function () use ($userService) {
+            $username = $this->getValue('username', '');
+            $password = $this->getValue('password', '');
+
+            $userService->setAndSendTwoFactorCode($username, $password);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
      * @Route("/api/login", methods={"POST"}, name="api_account_login")
      *
      * @param ApiKeyToolInterface $apiKeyTool
@@ -36,10 +54,17 @@ class AccountController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $userService) {
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
+            $twoFactorToken = $this->getValue('twoFactorCode', '');
+            $deviceCode = $this->getHeader('JinyaDeviceCode', '');
 
-            $user = $userService->getUser($username, $password);
+            $user = $userService->getUser($username, $password, $twoFactorToken, $deviceCode);
+            $newDeviceCode = $userService->addKnownDevice($username);
 
-            return ['apiKey' => $apiKeyTool->createApiKey($user)];
+            return [
+                'apiKey' => $apiKeyTool->createApiKey($user),
+                'deviceCode' => $newDeviceCode,
+                'roles' => $user->getRoles(),
+            ];
         });
 
         return $this->json($data, $status);
@@ -61,22 +86,6 @@ class AccountController extends BaseApiController
 
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
-    }
-
-    /**
-     * @Route("/api/logout", methods={"DELETE"}, name="api_account_logout")
-     *
-     * @param string $key
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @return Response
-     */
-    public function logoutAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($key, $apiKeyTool) {
-            $apiKeyTool->invalidate($key);
-        }, Response::HTTP_NO_CONTENT);
-
-        return $this->json($data, $status);
     }
 
     /**
@@ -149,7 +158,7 @@ class AccountController extends BaseApiController
         $user = $this->getUser();
 
         if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
-            list($data, $status) = $this->tryExecute(function () use ($user, $userPasswordEncoder, $userService) {
+            list($data, $status) = $this->tryExecute(function () use ($user, $userService) {
                 $userService->changePassword($user->getId(), $this->getValue('password'));
             }, Response::HTTP_NO_CONTENT);
 

@@ -8,10 +8,9 @@
 
 namespace Jinya\Services\Form;
 
-use Jinya\Entity\Form;
-use Jinya\Services\Base\StaticContentServiceInterface;
+use Jinya\Entity\Form\Form;
 
-interface FormServiceInterface extends StaticContentServiceInterface
+interface FormServiceInterface
 {
     /**
      * Gets the specified @see Form by slug
@@ -19,7 +18,7 @@ interface FormServiceInterface extends StaticContentServiceInterface
      * @param string $slug
      * @return Form
      */
-    public function get(string $slug);
+    public function get(string $slug): Form;
 
     /**
      * Gets all entities by the given parameters
@@ -43,23 +42,14 @@ interface FormServiceInterface extends StaticContentServiceInterface
      * Saves or updates the given @see Form
      *
      * @param Form $form
-     * @return Form
+     * @return \Jinya\Entity\Form\Form
      */
-    public function saveOrUpdate($form);
+    public function saveOrUpdate(Form $form): Form;
 
     /**
      * Deletes the given @see Form
      *
-     * @param Form $entity
+     * @param Form $form
      */
-    public function delete($entity): void;
-
-    /**
-     * Updates the given field
-     *
-     * @param string $key
-     * @param string $value
-     * @param int $id
-     */
-    public function updateField(string $key, string $value, int $id);
+    public function delete(Form $form): void;
 }

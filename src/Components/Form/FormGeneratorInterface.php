@@ -8,7 +8,7 @@
 
 namespace Jinya\Components\Form;
 
-use Jinya\Entity\Form;
+use Jinya\Entity\Form\Form;
 use Symfony\Component\Form\FormInterface;
 
 interface FormGeneratorInterface

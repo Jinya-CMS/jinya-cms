@@ -12,34 +12,34 @@
 </template>
 
 <script>
-  import JinyaButton from "../Button";
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    components: {JinyaButton},
-    name: "jinya-pager",
+    name: 'jinya-pager',
+    components: { JinyaButton },
     props: {
       offset: {
         type: Number,
-        required: true
+        required: true,
       },
       count: {
         type: Number,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       const pages = Math.ceil((this.count / 10.0));
 
       return {
-        pages: pages,
+        pages,
         currentPage: this.offset / 10 + 1,
         disable: {
           next: this.offset + 10 >= this.count,
-          previous: this.offset === 0
-        }
-      }
-    }
-  }
+          previous: this.offset === 0,
+        },
+      };
+    },
+  };
 </script>
 
 <style scoped lang="scss">

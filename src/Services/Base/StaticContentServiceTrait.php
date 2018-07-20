@@ -42,6 +42,7 @@ trait StaticContentServiceTrait
 
     /**
      * {@inheritdoc}
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {

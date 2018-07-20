@@ -8,14 +8,14 @@
 
 <script>
   export default {
-    name: "jinya-progress-bar",
+    name: 'jinya-progress-bar',
     props: {
       title: {
         type: String,
-        required: false
-      }
-    }
-  }
+        required: false,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

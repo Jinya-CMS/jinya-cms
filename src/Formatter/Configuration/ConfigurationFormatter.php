@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Configuration;
 
-use Jinya\Entity\Configuration;
+use Jinya\Entity\Configuration\Configuration;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 
 class ConfigurationFormatter implements ConfigurationFormatterInterface
@@ -34,7 +34,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Configuration $configuration
+     * @param \Jinya\Entity\Configuration\Configuration $configuration
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): ConfigurationFormatterInterface

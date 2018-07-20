@@ -9,7 +9,7 @@
 namespace Jinya\Services\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\MenuItem;
+use Jinya\Entity\Menu\MenuItem;
 
 class MenuItemService implements MenuItemServiceInterface
 {

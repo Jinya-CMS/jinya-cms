@@ -4,14 +4,14 @@
 
 <script>
   export default {
-    name: "jinya-gallery-designer-image",
+    name: 'jinya-gallery-designer-image',
     props: {
       src: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style lang="scss">

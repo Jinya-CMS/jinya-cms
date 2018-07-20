@@ -4,14 +4,14 @@
 
 <script>
   export default {
-    name: "jinya-menu-builder-template-entry",
+    name: 'jinya-menu-builder-template-entry',
     props: {
       item: {
         type: Object,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

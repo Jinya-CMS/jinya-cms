@@ -24,8 +24,8 @@
                 <draggable v-model="items" :options="itemsOptions" class="jinya-menu-builder__list" @add="itemsAdded"
                            @change="itemsChange" @start="drag = true" @end="drag = false">
                     <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
-                                              @increase="increase(item)" :allow-increase="item.allowIncrease"
-                                              @decrease="decrease(item)" :allow-decrease="item.allowDecrease"
+                                              @increase="increase(index)" :allow-increase="item.allowIncrease"
+                                              @decrease="decrease(index)" :allow-decrease="item.allowDecrease"
                                               :key="`${item.position}-${index}-${item.route.name}`"/>
                 </draggable>
             </jinya-editor-pane>
@@ -47,28 +47,28 @@
 </template>
 
 <script>
-  import JinyaMenuBuilderGroup from "@/components/Configuration/Frontend/Menus/Builder/BuilderGroup";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import JinyaMenuBuilderGroup from '@/components/Configuration/Frontend/Menus/Builder/BuilderGroup';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
   import draggable from 'vuedraggable';
-  import JinyaMenuBuilderTemplateEntry from "@/components/Configuration/Frontend/Menus/Builder/TemplateEntry";
-  import JinyaTabContainer from "@/framework/Markup/Tab/TabContainer";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import Translator from "@/framework/i18n/Translator";
-  import ObjectUtils from "@/framework/Utils/ObjectUtils";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Routes from "@/router/Routes";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import Timing from "@/framework/Utils/Timing";
+  import JinyaMenuBuilderTemplateEntry from '@/components/Configuration/Frontend/Menus/Builder/TemplateEntry';
+  import JinyaTabContainer from '@/framework/Markup/Tab/TabContainer';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import Translator from '@/framework/i18n/Translator';
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Routes from '@/router/Routes';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import Timing from '@/framework/Utils/Timing';
 
   export default {
-    name: "Builder",
+    name: 'Builder',
     components: {
       JinyaModalButton,
       JinyaModal,
@@ -80,14 +80,14 @@
       JinyaEditor,
       JinyaForm,
       JinyaMenuBuilderGroup,
-      draggable
+      draggable,
     },
     data() {
       return {
         menu: {
           name: '',
           id: -1,
-          children: []
+          children: [],
         },
         items: [],
         selectedTemplateItems: [],
@@ -101,25 +101,25 @@
         state: '',
         message: '',
         enable: true,
-        leaving: false
-      }
+        leaving: false,
+      };
     },
     async mounted() {
       this.loading = true;
       this.menu = await JinyaRequest.get(`/api/menu/${this.$route.params.id}`);
 
       const flattenChildren = (parent, nestingLevel, items) => {
-        const flatten = item => {
+        const flatten = (item) => {
           const elem = {
             id: item.id,
             title: item.title,
             highlighted: item.highlighted,
-            nestingLevel: nestingLevel,
+            nestingLevel,
             pageType: item.pageType,
             position: item.position,
             route: item.route,
             allowIncrease: nestingLevel < 0,
-            allowDecrease: nestingLevel > 0
+            allowDecrease: nestingLevel > 0,
           };
 
           return [elem, ...flattenChildren(item, nestingLevel + 1, item.children)];
@@ -152,46 +152,47 @@
         return [
           {
             title: Translator.message('configuration.frontend.menus.builder.galleries.art'),
-            name: 'art_galleries'
+            name: 'art_galleries',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.galleries.video'),
-            name: 'video_galleries'
+            name: 'video_galleries',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.forms'),
-            name: 'forms'
+            name: 'forms',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.pages'),
-            name: 'pages'
+            name: 'pages',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.other'),
-            name: 'other'
-          }
-        ]
+            name: 'other',
+          },
+        ];
       },
       templateItemsOptions() {
         return {
           group: {
             name: 'menu',
             pull: 'clone',
-            put: false
+            put: false,
           },
           ghostClass: 'is--dragging',
-          sort: false
-        }
+          sort: false,
+        };
       },
       itemsOptions() {
         return {
           group: 'menu',
-          ghostClass: 'is--dragging'
-        }
-      }
+          ghostClass: 'is--dragging',
+        };
+      },
     },
     methods: {
       calculateNestingAllowance() {
+        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < this.items.length; i++) {
           const previous = this.findPrevious(this.items[i], i);
           const item = this.items[i];
@@ -201,73 +202,73 @@
         }
       },
       hasChildren(item, currentIdx = undefined) {
-        if (currentIdx === undefined)
-          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        return item.nestingLevel < this.findNext(item, currentIdx)?.nestingLevel;
+        return item.nestingLevel < this.findNext(item, curIdx)?.nestingLevel;
       },
       findParent(item, currentIdx = undefined) {
-        if (currentIdx === undefined)
-          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
         return this.items
-          .slice(0, currentIdx)
+          .slice(0, curIdx)
           .reverse()
           .find(elem => elem.nestingLevel === item.nestingLevel - 1);
       },
       findPrevious(item, currentIdx = undefined) {
-        if (currentIdx === undefined)
-          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        if (this.items.length > currentIdx && currentIdx > 0) {
-          return this.items[currentIdx - 1];
+        if (this.items.length > curIdx && curIdx > 0) {
+          return this.items[curIdx - 1];
         }
 
         return false;
       },
       findNext(item, currentIdx = undefined) {
-        if (currentIdx === undefined)
-          currentIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        let curIdx = currentIdx;
+        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
 
-        if (this.items.length > currentIdx && currentIdx < this.items.length) {
-          return this.items[currentIdx + 1];
+        if (this.items.length > curIdx && curIdx < this.items.length) {
+          return this.items[curIdx + 1];
         }
 
         return false;
       },
-      increase(item) {
-        item.nestingLevel = item.nestingLevel + 1;
+      increase(index) {
+        this.items[index].nestingLevel += 1;
         this.calculateNestingAllowance();
       },
-      decrease(item) {
-        item.nestingLevel = item.nestingLevel - 1;
+      decrease(index) {
+        this.items[index].nestingLevel -= 1;
         this.calculateNestingAllowance();
       },
       itemsAdded(add) {
         const position = add.newIndex;
-        const item = this.items[position];
+        const currentItem = this.items[position];
 
         const clone = ((item) => {
-          const clone = JSON.parse(JSON.stringify(item));
-          clone.position = position;
-          clone.showSettings = true;
+          const elementClone = JSON.parse(JSON.stringify(item));
+          elementClone.position = position;
+          elementClone.showSettings = true;
 
           if (position === 0 || position === this.items.length) {
-            clone.nestingLevel = 0;
+            elementClone.nestingLevel = 0;
           } else {
             const previous = this.items[position + 1];
-            clone.nestingLevel = previous.nestingLevel;
+            elementClone.nestingLevel = previous.nestingLevel;
           }
 
-          return clone;
-        })(item);
+          return elementClone;
+        })(currentItem);
 
         this.items.splice(position, 1, clone);
 
         this.calculateNestingAllowance();
       },
       itemsChange(data) {
-        const moved = data.moved;
+        const { moved } = data;
 
         if (moved) {
           const newPosition = moved.newIndex;
@@ -285,46 +286,50 @@
       },
       generateTemplateItem(type, title, slug) {
         return {
-          title: title,
+          title,
           pageType: type,
           // highlighted: false,
           route: {
             name: `frontend_${type}_details`,
             parameter: {
-              slug: slug
+              slug,
             },
-            url: `/${type}/${slug}`
+            url: `/${type}/${slug}`,
           },
-          parent: {}
-        }
+          parent: {},
+        };
       },
       async selectTemplateItems(type) {
         this.itemsLoading = true;
 
         if (type === 'art_galleries') {
           if (this.art_galleries.length === 0) {
-            const galleries = await JinyaRequest.get(`/api/gallery/art?count=40000`);
-            this.art_galleries = galleries.items.map(item => this.generateTemplateItem('art_gallery', item.name, item.slug));
+            const galleries = await JinyaRequest.get('/api/gallery/art?count=40000');
+            this.art_galleries = galleries.items.map(
+              item => this.generateTemplateItem('art_gallery', item.name, item.slug),
+            );
           }
 
           this.selectedTemplateItems = this.art_galleries;
         } else if (type === 'video_galleries') {
           if (this.video_galleries.length === 0) {
-            const galleries = await JinyaRequest.get(`/api/gallery/video?count=40000`);
-            this.video_galleries = galleries.items.map(item => this.generateTemplateItem('video_gallery', item.name, item.slug));
+            const galleries = await JinyaRequest.get('/api/gallery/video?count=40000');
+            this.video_galleries = galleries.items.map(
+              item => this.generateTemplateItem('video_gallery', item.name, item.slug),
+            );
           }
 
           this.selectedTemplateItems = this.video_galleries;
         } else if (type === 'forms') {
           if (this.forms.length === 0) {
-            const forms = await JinyaRequest.get(`/api/form?count=40000`);
+            const forms = await JinyaRequest.get('/api/form?count=40000');
             this.forms = forms.items.map(item => this.generateTemplateItem('form', item.title, item.slug));
           }
 
           this.selectedTemplateItems = this.forms;
         } else if (type === 'pages') {
           if (this.pages.length === 0) {
-            const pages = await JinyaRequest.get(`/api/page?count=40000`);
+            const pages = await JinyaRequest.get('/api/page?count=40000');
             this.pages = pages.items.map(item => this.generateTemplateItem('page', item.title, item.slug));
           }
 
@@ -334,19 +339,19 @@
             route: {
               name: '#',
               parameter: {},
-              url: ''
-            }
+              url: '',
+            },
           };
 
           this.selectedTemplateItems = [
             Object.assign({}, baseItem, {
               title: Translator.message('configuration.frontend.menus.builder.external'),
-              pageType: 'external'
+              pageType: 'external',
             }),
             Object.assign({}, baseItem, {
               title: Translator.message('configuration.frontend.menus.builder.group'),
-              pageType: 'empty'
-            })
+              pageType: 'empty',
+            }),
           ];
         }
 
@@ -382,9 +387,9 @@
       },
       leave() {
         this.next();
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

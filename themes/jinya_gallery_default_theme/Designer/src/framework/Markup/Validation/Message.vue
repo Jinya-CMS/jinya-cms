@@ -9,37 +9,40 @@
 </template>
 
 <script>
-  import Translator from "@/framework/i18n/Translator";
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
-    name: "jinya-message",
+    name: 'jinya-message',
     props: {
       message: {
         type: String,
-        required: true
+        required: true,
       },
       params: {
         type: Object,
         default() {
           return {};
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return 'info';
-        }
-      }
+        },
+      },
     },
     computed: {
       realMessage() {
-        if (/<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[\^'">\s]+))?)+\s*|\s*)\/?>/gi.test(this.message)) {
-          return this.message;
+        if (Translator.hasValidator(this.message)) {
+          return Translator.validator(this.message, this.params);
         }
-        return Translator.validator(this.message);
-      }
-    }
-  }
+        if (Translator.hasMessage(this.message)) {
+          return Translator.message(this.message, this.params);
+        }
+        return this.message;
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">
@@ -70,6 +73,11 @@
         &.is--primary {
             color: $primary;
             background: scale_color(pastelize($primary), $alpha: 80%);
+        }
+
+        &.is--secondary {
+            color: $secondary;
+            background: scale_color(pastelize($secondary), $alpha: 80%);
         }
 
         &.is--loading {

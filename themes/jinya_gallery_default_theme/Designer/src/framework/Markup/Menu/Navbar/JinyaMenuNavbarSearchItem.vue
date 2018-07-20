@@ -1,6 +1,5 @@
 <template>
     <div class="jinya-menu-navbar__item--search">
-        <!--suppress HtmlFormInputWithoutLabel -->
         <input class="jinya-menu-navbar__item--search__input" type="search" @keyup.enter="sendSearch"
                :aria-labelledby="id" v-model="keyword"
                :placeholder="'framework.markup.menu.navbar.search_item.placeholder' | jmessage"/>
@@ -12,25 +11,25 @@
 </template>
 
 <script>
-  import EventBus from "@/framework/Events/EventBus";
+  import EventBus from '@/framework/Events/EventBus';
 
   export default {
-    name: "jinya-menu-navbar-search-item",
+    name: 'jinya-menu-navbar-search-item',
     data() {
       return {
         keyword: this.$route.query.keyword,
-        id: Math.random()
+        id: Math.random(),
       };
     },
     methods: {
       sendSearch() {
         EventBus.$emit('search-triggered', {
           route: this.$route.name,
-          keyword: this.keyword
+          keyword: this.keyword,
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">
@@ -64,7 +63,6 @@
             &:-ms-input-placeholder {
                 @include placeholder;
             }
-            //noinspection CssInvalidPseudoSelector
             &::-ms-input-placeholder {
                 @include placeholder;
             }

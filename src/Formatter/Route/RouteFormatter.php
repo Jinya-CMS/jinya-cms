@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Route;
 
-use Jinya\Entity\RoutingEntry;
+use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Formatter\Menu\MenuItemFormatterInterface;
 
 class RouteFormatter implements RouteFormatterInterface

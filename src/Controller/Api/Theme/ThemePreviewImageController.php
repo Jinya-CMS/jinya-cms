@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Theme;
 
-use Jinya\Entity\Theme;
+use Jinya\Entity\Theme\Theme;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;

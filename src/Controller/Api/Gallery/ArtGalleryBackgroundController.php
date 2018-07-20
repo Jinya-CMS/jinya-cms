@@ -8,7 +8,7 @@
 
 namespace Jinya\Controller\Api\Gallery;
 
-use Jinya\Entity\Galleries\ArtGallery;
+use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;

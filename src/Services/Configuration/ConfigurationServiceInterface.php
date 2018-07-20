@@ -8,21 +8,21 @@
 
 namespace Jinya\Services\Configuration;
 
-use Jinya\Entity\Configuration;
+use Jinya\Entity\Configuration\Configuration;
 
 interface ConfigurationServiceInterface
 {
     /**
      * Gets the frontend configuration
      *
-     * @return Configuration
+     * @return \Jinya\Entity\Configuration\Configuration
      */
     public function getConfig(): Configuration;
 
     /**
      * Saves the frontend configuration
      *
-     * @param Configuration $configuration
+     * @param \Jinya\Entity\Configuration\Configuration $configuration
      */
     public function writeConfig(Configuration $configuration): void;
 }

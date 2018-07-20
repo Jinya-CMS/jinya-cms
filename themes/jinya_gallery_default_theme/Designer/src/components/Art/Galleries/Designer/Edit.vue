@@ -17,11 +17,11 @@
 </template>
 
 <script>
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaGalleryDesignerArtworkView from "@/components/Art/Galleries/Designer/ArtworkView";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaGalleryDesignerVideoView from "@/components/Art/Galleries/Designer/VideoView";
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaGalleryDesignerArtworkView from '@/components/Art/Galleries/Designer/ArtworkView';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaGalleryDesignerVideoView from '@/components/Art/Galleries/Designer/VideoView';
 
   export default {
     components: {
@@ -29,28 +29,28 @@
       JinyaMessage,
       JinyaGalleryDesignerArtworkView,
       JinyaModalButton,
-      JinyaModal
+      JinyaModal,
     },
-    name: "jinya-gallery-designer-edit-view",
+    name: 'jinya-gallery-designer-edit-view',
     props: {
       galleryType: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
         loading: false,
-        picked: false
+        picked: false,
       };
     },
     methods: {
       pick(item) {
         this.$emit('picked', item);
         this.picked = true;
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

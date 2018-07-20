@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Galleries;
 
-use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Gallery\VideoGallery;
 
 interface VideoGalleryServiceInterface
 {
@@ -44,7 +44,7 @@ interface VideoGalleryServiceInterface
      * @param VideoGallery $gallery
      * @return VideoGallery
      */
-    public function saveOrUpdate(VideoGallery $gallery): \Jinya\Entity\Galleries\VideoGallery;
+    public function saveOrUpdate(VideoGallery $gallery): VideoGallery;
 
     /**
      * Deletes the given gallery

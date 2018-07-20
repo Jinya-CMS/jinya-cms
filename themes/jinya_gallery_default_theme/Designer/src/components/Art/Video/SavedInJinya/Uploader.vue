@@ -16,34 +16,36 @@
 </template>
 
 <script>
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import Timing from "@/framework/Utils/Timing";
-  import Routes from "@/router/Routes";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import FileUtils from "@/framework/IO/FileUtils";
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import Timing from '@/framework/Utils/Timing';
+  import Routes from '@/router/Routes';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import FileUtils from '@/framework/IO/FileUtils';
 
   export default {
-    name: "Uploader",
-    components: {JinyaEditorPane, JinyaForm, JinyaEditor, JinyaMessage, JinyaLoader, JinyaButton, JinyaFileInput},
+    name: 'Uploader',
+    components: {
+      JinyaEditorPane, JinyaForm, JinyaEditor, JinyaMessage, JinyaLoader, JinyaButton, JinyaFileInput,
+    },
     data() {
       return {
         video: {
           name: '',
-          slug: ''
+          slug: '',
         },
         loading: true,
         uploadQueued: false,
-        videoFile: null
+        videoFile: null,
       };
     },
     async mounted() {
@@ -59,7 +61,7 @@
         EventBus.$emit(Events.video.uploadStarted, {
           slug: this.video.slug,
           name: this.video.name,
-          video: this.videoFile
+          video: this.videoFile,
         });
         this.uploadQueued = true;
         await Timing.wait();
@@ -68,9 +70,9 @@
       async filePicked(files) {
         this.videoFile = files.item(0);
         this.video.video = await FileUtils.getAsDataUrl(this.videoFile);
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

@@ -10,7 +10,7 @@ namespace Jinya\Services\Videos;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Video\VideoPosition;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
@@ -128,7 +128,7 @@ class VideoPositionService implements VideoPositionServiceInterface
      * @param string $videoSlug
      * @param string $type
      */
-    public function updateVideo(int $id, string $videoSlug, string $type)
+    public function updateVideo(int $id, string $videoSlug, string $type): void
     {
         $position = $this->getPosition($id);
         $position->setYoutubeVideo(null);

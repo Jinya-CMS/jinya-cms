@@ -9,8 +9,9 @@
 namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Galleries\ArtGallery;
-use Jinya\Entity\Label;
+use Jinya\Entity\Artwork\Artwork;
+use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Entity\Label\Label;
 use function array_map;
 
 class LabelService implements LabelServiceInterface
@@ -40,12 +41,10 @@ class LabelService implements LabelServiceInterface
      */
     public function getAllLabelsWithArtworks(): array
     {
-        $labelRepo = $this->entityManager->getRepository(Label::class);
-
-        return $labelRepo
-            ->createQueryBuilder('label')
-            ->select('label')
-            ->join('label.artworks', 'artworks')
+        return $this->entityManager->createQueryBuilder()
+            ->from(Artwork::class, 'artwork')
+            ->select('labels')
+            ->join('artwork.labels', 'labels')
             ->getQuery()
             ->getArrayResult();
     }
@@ -55,12 +54,10 @@ class LabelService implements LabelServiceInterface
      */
     public function getAllLabelsWithGalleries(): array
     {
-        $galleryRepo = $this->entityManager->getRepository(ArtGallery::class);
-
-        return $galleryRepo
-            ->createQueryBuilder('g')
-            ->select('l')
-            ->join('g.labels', 'l')
+        return $this->entityManager->createQueryBuilder()
+            ->from(ArtGallery::class, 'art_gallery')
+            ->select('labels')
+            ->join('art_gallery.labels', 'labels')
             ->getQuery()
             ->getArrayResult();
     }
@@ -97,15 +94,20 @@ class LabelService implements LabelServiceInterface
      */
     public function getAllLabelNames(): array
     {
-        return array_map('current', $this->entityManager->getRepository(Label::class)
-            ->createQueryBuilder('label')
+        return array_map('current', $this->createQueryBuilder()
             ->select('label.name')
             ->getQuery()
             ->getScalarResult());
     }
 
+    private function createQueryBuilder()
+    {
+        return $this->entityManager->createQueryBuilder()->from(Label::class, 'label');
+    }
+
     /**
      * {@inheritdoc}
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function createMissingLabels(array $labels): array
     {
@@ -122,15 +124,14 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @param Label $label
+     * @param \Jinya\Entity\Label\Label $label
      * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     private function labelExists(Label $label): bool
     {
-        $qb = $this->entityManager->getRepository(Label::class)->createQueryBuilder('label');
-
-        return $qb
-            ->select($qb->expr()->count('label.name'))
+        return $this->createQueryBuilder()
+            ->select('COUNT(label.name)')
             ->where('label.id = :id')
             ->orWhere('label.name = :name')
             ->setParameter('id', $label->getId())
@@ -157,7 +158,7 @@ class LabelService implements LabelServiceInterface
      *
      * @param string $name
      * @param string $newName
-     * @return Label
+     * @return \Jinya\Entity\Label\Label
      */
     public function rename(string $name, string $newName): Label
     {

@@ -6,22 +6,22 @@
 
 <script>
   export default {
-    name: "jinya-loader",
+    name: 'jinya-loader',
     props: {
       loading: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       mini: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

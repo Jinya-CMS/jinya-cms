@@ -12,35 +12,35 @@
 </template>
 
 <script>
-  import Lockr from 'lockr';
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import Translator from "@/framework/i18n/Translator";
-  import VideoUploader from "@/worker/VideoUploader";
-  import JinyaProgressBar from "@/framework/Markup/Waiting/ProgressBar";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import Translator from '@/framework/i18n/Translator';
+  import VideoUploader from '@/worker/VideoUploader';
+  import JinyaProgressBar from '@/framework/Markup/Waiting/ProgressBar';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import { getApiKey } from '@/framework/Storage/AuthStorage';
 
   export default {
-    name: "jinya-video-uploader",
-    components: {JinyaModalButton, JinyaModal, JinyaProgressBar},
+    name: 'jinya-video-uploader',
+    components: { JinyaModalButton, JinyaModal, JinyaProgressBar },
     data() {
       return {
         uploading: false,
         showReupload: false,
         currentWorkerData: {
-          name: ''
-        }
+          name: '',
+        },
       };
     },
     computed: {
       reuploadMessage() {
         return Translator.message('background.video.exists.message', this.currentWorkerData);
-      }
+      },
     },
     created() {
-      EventBus.$on(Events.video.uploadStarted, async data => {
+      EventBus.$on(Events.video.uploadStarted, async (data) => {
         if (data.video?.type?.toLowerCase() === 'video/mp4') {
           await Notification.requestPermission();
           const allowNotification = Notification.permission === 'granted';
@@ -49,14 +49,14 @@
             video: data.video,
             slug: data.slug,
             name: data.name,
-            apiKey: Lockr.get('JinyaApiKey')
+            apiKey: getApiKey(),
           };
 
           const title = window.options.pageTitle;
           const icon = window.options.favicon;
 
           worker.postMessage(workerData);
-          worker.onmessage = ev => {
+          worker.onmessage = (ev) => {
             if (ev.data.error) {
               this.showReupload = true;
               this.currentWorker = worker;
@@ -68,29 +68,32 @@
               if (ev.data.finished) this.uploading = false;
 
               if (allowNotification) {
-                const notify = new Notification(title, {
+                // eslint-disable-next-line no-new
+                new Notification(title, {
                   body: message,
-                  icon: icon
+                  icon,
                 });
               } else {
                 alert(message);
               }
             }
           };
-          worker.onerror = ev => {
-            const message = ev.message;
+          worker.onerror = (ev) => {
+            const { message } = ev;
+            // eslint-disable-next-line no-console
             console.error(message);
             this.uploading = false;
 
             if (allowNotification) {
-              const notify = new Notification(title, {
+              // eslint-disable-next-line no-new
+              new Notification(title, {
                 body: Translator.validator(message),
-                icon: icon
+                icon,
               });
             } else {
               alert(Translator.validator(message));
             }
-          }
+          };
         }
       });
     },
@@ -100,9 +103,9 @@
         this.currentWorker.postMessage(this.currentWorkerData);
         delete this.currentWorker;
         delete this.currentWorkerData;
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

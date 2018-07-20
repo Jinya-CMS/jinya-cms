@@ -18,19 +18,19 @@
 </template>
 
 <script>
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaChoice from "@/framework/Markup/Form/Choice";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-bug-dialog",
+    name: 'jinya-bug-dialog',
     components: {
       JinyaButton,
       JinyaMessageActionBar,
@@ -39,56 +39,56 @@
       JinyaInput,
       JinyaTextarea,
       JinyaModalButton,
-      JinyaModal
+      JinyaModal,
     },
     props: {
       show: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     computed: {
       severityLevels() {
         return [
           {
             value: 1,
-            text: Translator.message('support.bug_dialog.form.severity_levels.slightly_annoying')
+            text: Translator.message('support.bug_dialog.form.severity_levels.slightly_annoying'),
           },
           {
             value: 2,
-            text: Translator.message('support.bug_dialog.form.severity_levels.annoying')
+            text: Translator.message('support.bug_dialog.form.severity_levels.annoying'),
           },
           {
             value: 3,
-            text: Translator.message('support.bug_dialog.form.severity_levels.very_annoying')
+            text: Translator.message('support.bug_dialog.form.severity_levels.very_annoying'),
           },
           {
             value: 4,
-            text: Translator.message('support.bug_dialog.form.severity_levels.usability_issues')
+            text: Translator.message('support.bug_dialog.form.severity_levels.usability_issues'),
           },
           {
             value: 5,
-            text: Translator.message('support.bug_dialog.form.severity_levels.unusable')
+            text: Translator.message('support.bug_dialog.form.severity_levels.unusable'),
           },
           {
             value: 10,
-            text: Translator.message('support.bug_dialog.form.severity_levels.security')
+            text: Translator.message('support.bug_dialog.form.severity_levels.security'),
           },
         ];
-      }
+      },
     },
     data() {
       return {
         title: '',
         details: '',
         severity: {
-          value: '1'
+          value: '1',
         },
         reproduce: '',
         message: Translator.message('support.bug_dialog.content'),
-        state: 'primary'
+        state: 'primary',
       };
     },
     methods: {
@@ -96,7 +96,7 @@
         this.title = '';
         this.details = '';
         this.severity = {
-          value: '1'
+          value: '1',
         };
         this.reproduce = '';
         this.message = Translator.message('support.bug_dialog.content');
@@ -107,7 +107,7 @@
           title: this.title,
           details: this.details,
           severity: this.severity?.value,
-          reproduce: this.reproduce
+          reproduce: this.reproduce,
         };
 
         try {
@@ -120,11 +120,7 @@
           this.message = Translator.message('support.bug_dialog.error');
           this.state = 'error';
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
-
-<style scoped>
-
-</style>

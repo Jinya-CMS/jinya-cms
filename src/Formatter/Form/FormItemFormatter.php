@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Form;
 
-use Jinya\Entity\FormItem;
+use Jinya\Entity\Form\FormItem;
 use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormItemFormatter implements FormItemFormatterInterface

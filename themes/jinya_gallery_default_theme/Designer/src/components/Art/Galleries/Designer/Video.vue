@@ -6,19 +6,19 @@
 
 <script>
   export default {
-    name: "jinya-gallery-designer-video",
+    name: 'jinya-gallery-designer-video',
     props: {
       src: {
-        type: String
+        type: String,
       },
       poster: {
-        type: String
+        type: String,
       },
       videoKey: {
-        type: String
-      }
-    }
-  }
+        type: String,
+      },
+    },
+  };
 </script>
 
 <style lang="scss">

@@ -31,22 +31,22 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaPager from "@/framework/Markup/Listing/Pager";
-  import Routes from "@/router/Routes";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import JinyaPager from '@/framework/Markup/Listing/Pager';
+  import Routes from '@/router/Routes';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
 
   export default {
-    name: "Overview",
+    name: 'Overview',
     components: {
       JinyaFloatingActionButton,
       JinyaModalButton,
@@ -56,7 +56,7 @@
       JinyaCard,
       JinyaLoader,
       JinyaMessage,
-      JinyaCardList
+      JinyaCardList,
     },
     async mounted() {
       const offset = this.$route.query.offset || 0;
@@ -64,14 +64,14 @@
       const keyword = this.$route.query.keyword || '';
       await this.fetchMenus(offset, count, keyword);
 
-      EventBus.$on(Events.search.triggered, value => {
+      EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Configuration.Frontend.Menu.Overview.name,
           query: {
             offset: 0,
             count: this.$route.query.count,
-            keyword: value.keyword
-          }
+            keyword: value.keyword,
+          },
         });
       });
     },
@@ -84,15 +84,15 @@
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Configuration.Frontend.Menu.Overview.name,
           query: {
             offset: url.searchParams.get('offset'),
             count: url.searchParams.get('count'),
-            keyword: url.searchParams.get('keyword')
-          }
+            keyword: url.searchParams.get('keyword'),
+          },
         });
       },
       async fetchMenus(offset = 0, count = 10, keyword = '') {
@@ -124,7 +124,7 @@
         }
 
         this.delete.loading = false;
-      }
+      },
     },
     computed: {
       addRoute() {
@@ -135,7 +135,7 @@
       },
       editorRoute() {
         return Routes.Configuration.Frontend.Menu.Builder.name;
-      }
+      },
     },
     data() {
       return {
@@ -147,19 +147,19 @@
         count: 0,
         control: {
           next: '',
-          previous: ''
+          previous: '',
         },
         selectedMenu: {
-          name: ''
+          name: '',
         },
         delete: {
           loading: false,
           show: false,
           error: '',
-        }
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

@@ -1,10 +1,10 @@
 <template>
     <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
+        <jinya-message :message="message" :state="state" v-if="state"/>
         <jinya-loader class="jinya-loader--designer" :loading="loading"/>
         <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-        <template v-if="!loading" v-for="(position, index) in artworks"
-                  :key="`${position.position}-${position.artwork.slug}`">
-            <jinya-gallery-designer-item @wheel.native="scroll">
+        <template v-if="!loading" v-for="(position, index) in artworks">
+            <jinya-gallery-designer-item @wheel.native="scroll" :key="`${index}-${position.artwork.slug}`">
                 <template>
                     <jinya-gallery-designer-image @wheel.native="scroll" :src="position.artwork.picture"/>
                     <jinya-gallery-designer-button @wheel.native="scroll" type="edit" @click="edit(position, index)"/>
@@ -14,7 +14,8 @@
                                                             :increase="true" @click="move(position, index, index + 1)"/>
                 </template>
             </jinya-gallery-designer-item>
-            <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"/>
+            <jinya-gallery-designer-button :key="`button-${index}-${position.artwork.slug}`" type="add"
+                                           @wheel.native="scroll" @click="add(index)"/>
         </template>
         <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
                                          gallery-type="art"/>
@@ -24,19 +25,19 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaGalleryDesignerPositionButton from "@/components/Art/Galleries/Designer/PositionButton";
-  import JinyaGalleryDesignerButton from "@/components/Art/Galleries/Designer/Button";
-  import JinyaGalleryDesignerItem from "@/components/Art/Galleries/Designer/Item";
-  import JinyaGalleryDesignerImage from "@/components/Art/Galleries/Designer/Image";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaGalleryDesignerAddView from "@/components/Art/Galleries/Designer/Add";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaGalleryDesignerEditView from "@/components/Art/Galleries/Designer/Edit";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaGalleryDesignerPositionButton from '@/components/Art/Galleries/Designer/PositionButton';
+  import JinyaGalleryDesignerButton from '@/components/Art/Galleries/Designer/Button';
+  import JinyaGalleryDesignerItem from '@/components/Art/Galleries/Designer/Item';
+  import JinyaGalleryDesignerImage from '@/components/Art/Galleries/Designer/Image';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaGalleryDesignerAddView from '@/components/Art/Galleries/Designer/Add';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaGalleryDesignerEditView from '@/components/Art/Galleries/Designer/Edit';
 
   export default {
     components: {
@@ -49,9 +50,9 @@
       JinyaGalleryDesignerButton,
       JinyaGalleryDesignerPositionButton,
       JinyaButton,
-      JinyaLoader
+      JinyaLoader,
     },
-    name: "designer",
+    name: 'designer',
     async mounted() {
       this.loading = true;
       try {
@@ -60,6 +61,8 @@
         this.artworks = await JinyaRequest.get(`/api/gallery/art/${this.$route.params.slug}/artwork`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
+        this.message = Translator.message('art.galleries.designer.loading_failed');
+        this.state = 'error';
       }
       this.loading = false;
     },
@@ -68,13 +71,11 @@
         if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
           this.$refs.designer.scrollBy({
             behavior: 'auto',
-            left: $event.deltaY > 0 ? 100 : -100
+            left: $event.deltaY > 0 ? 100 : -100,
           });
         }
       },
       async move(artworkPosition, oldPosition, newPosition) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.art.moving', artworkPosition.artwork);
         if (oldPosition < newPosition) {
           this.artworks.splice(newPosition + 1, 0, artworkPosition);
           this.artworks.splice(oldPosition, 1);
@@ -83,51 +84,38 @@
           this.artworks.splice(oldPosition + 1, 1);
         }
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${artworkPosition.id}/${oldPosition}`, {
-          position: newPosition
+          position: newPosition,
         });
-        this.state = '';
-        this.message = '';
       },
       async saveAdd(artwork) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.add.pending', artwork);
         const id = await JinyaRequest.post(`/api/gallery/art/${this.gallery.slug}/artwork`, {
           position: this.currentPosition,
-          artwork: artwork.slug
+          artwork: artwork.slug,
         });
 
         this.artworks.splice(this.currentPosition + 1, 0, {
-          id: id,
-          artwork: artwork
+          id,
+          artwork,
         });
-
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async saveEdit(artwork) {
-        this.state = 'loading';
-        this.message = Translator.message('art.galleries.designer.edit.pending', artwork);
+        // eslint-disable-next-line max-len
         await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}/${this.currentPosition}`, {
-          artwork: artwork.slug
+          artwork: artwork.slug,
         });
 
         this.artworks.splice(this.currentPosition, 1, {
-          artwork: artwork,
-          id: this.artworkPosition.id
+          artwork,
+          id: this.artworkPosition.id,
         });
-
-        this.state = '';
-        this.message = '';
         this.addModal.show = false;
       },
       async deleteArtwork() {
-        this.state = 'loading';
         await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);
 
         this.artworks.splice(this.currentPosition, 1);
 
-        this.state = '';
         this.editModal.show = false;
       },
       add(position) {
@@ -140,7 +128,7 @@
         this.editModal.loading = true;
         this.currentPosition = position;
         this.artworkPosition = artworkPosition;
-      }
+      },
     },
     data() {
       return {
@@ -148,7 +136,7 @@
           name: '',
           orientation: '',
           background: '',
-          slug: ''
+          slug: '',
         },
         state: '',
         message: '',
@@ -156,15 +144,15 @@
         loading: false,
         addModal: {
           show: false,
-          loading: false
+          loading: false,
         },
         editModal: {
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

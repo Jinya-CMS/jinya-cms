@@ -10,29 +10,30 @@
 </template>
 
 <script>
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    name: "jinya-menu-builder-settings-editor",
+    name: 'jinya-menu-builder-settings-editor',
     components: {
       JinyaButton,
       JinyaCheckbox,
-      JinyaInput
+      JinyaInput,
     },
     computed: {
       urlLabel() {
-        return `configuration.frontend.menus.builder.settings.${this.item.pageType === 'external' ? 'target' : 'display'}_url`;
-      }
+        const pageType = this.item.pageType === 'external' ? 'target' : 'display';
+        return `configuration.frontend.menus.builder.settings.${pageType}_url`;
+      },
     },
     props: {
       item: {
         type: Object,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped>

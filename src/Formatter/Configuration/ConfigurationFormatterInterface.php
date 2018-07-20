@@ -8,7 +8,7 @@
 
 namespace Jinya\Formatter\Configuration;
 
-use Jinya\Entity\Configuration;
+use Jinya\Entity\Configuration\Configuration;
 use Jinya\Formatter\FormatterInterface;
 
 interface ConfigurationFormatterInterface extends FormatterInterface
@@ -16,7 +16,7 @@ interface ConfigurationFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Configuration $configuration
+     * @param \Jinya\Entity\Configuration\Configuration $configuration
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): self;

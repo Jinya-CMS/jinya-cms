@@ -14,13 +14,13 @@
                 <jinya-editor-preview-image :src="artwork.picture"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.name"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.name"
                              v-model="artwork.name" @change="nameChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.artworks.artwork_form.slug"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.slug"
                              v-model="artwork.slug" @change="slugChanged"/>
-                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="picturePicked"
+                <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
                                   label="art.artworks.artwork_form.artwork"/>
-                <jinya-textarea :static="static" :enable="enable" label="art.artworks.artwork_form.description"
+                <jinya-textarea :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.description"
                                 v-model="artwork.description"/>
             </jinya-editor-pane>
             <template slot="buttons">
@@ -31,19 +31,19 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import FileUtils from "@/framework/IO/FileUtils";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
-  import slugify from "slugify";
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import FileUtils from '@/framework/IO/FileUtils';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+  import slugify from 'slugify';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
 
   export default {
     components: {
@@ -56,51 +56,51 @@
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
-    name: "jinya-artwork-form",
+    name: 'jinya-artwork-form',
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'art.artworks.artwork_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'art.artworks.artwork_form.back';
-        }
+        },
       },
       artwork: {
         type: Object,
@@ -109,16 +109,16 @@
             picture: '',
             name: '',
             slug: '',
-            description: ''
+            description: '',
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       back() {
@@ -144,11 +144,11 @@
           name: this.artwork.name,
           slug: this.artwork.slug,
           picture: this.artwork.uploadedFile,
-          description: this.artwork.description
+          description: this.artwork.description,
         };
 
-        this.$emit('save', artwork)
-      }
-    }
-  }
+        this.$emit('save', artwork);
+      },
+    },
+  };
 </script>

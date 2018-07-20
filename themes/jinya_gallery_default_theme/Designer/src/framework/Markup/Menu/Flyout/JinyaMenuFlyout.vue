@@ -7,8 +7,8 @@
 
 <script>
   export default {
-    name: "jinya-menu-flyout"
-  }
+    name: 'jinya-menu-flyout',
+  };
 </script>
 
 <style scoped lang="scss">

@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: "jinya-editor-pane"
-  }
+    name: 'jinya-editor-pane',
+  };
 </script>
 
 <style scoped lang="scss">

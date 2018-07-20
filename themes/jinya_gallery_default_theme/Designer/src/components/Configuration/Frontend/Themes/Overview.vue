@@ -20,20 +20,20 @@
 </template>
 
 <script>
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import Routes from "@/router/Routes";
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "Overview",
+    name: 'Overview',
     components: {
       JinyaCardButton,
       JinyaLoader,
       JinyaCard,
-      JinyaCardList
+      JinyaCardList,
     },
     computed: {
       settingsRoute() {
@@ -44,25 +44,25 @@
       },
       menusRoute() {
         return Routes.Configuration.Frontend.Theme.Menus.name;
-      }
+      },
     },
     data() {
       return {
         themes: [],
-        loading: true
+        loading: true,
       };
     },
     methods: {
       async activate(theme) {
         await JinyaRequest.put(`/api/configuration/${theme.name}`);
-      }
+      },
     },
     async mounted() {
       const themes = await JinyaRequest.get('/api/theme');
       this.themes = themes.items;
       this.loading = false;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

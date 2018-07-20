@@ -10,7 +10,7 @@ namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use Jinya\Entity\Galleries\VideoGallery;
+use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Services\Base\BaseService;
 
 class VideoGalleryService implements VideoGalleryServiceInterface
@@ -92,6 +92,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      */
     public function saveOrUpdate(VideoGallery $gallery): VideoGallery
     {
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->baseService->saveOrUpdate($gallery);
     }
 

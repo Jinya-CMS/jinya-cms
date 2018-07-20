@@ -1,25 +1,25 @@
 <template>
     <div class="jinya-choice">
         <label :for="id" class="jinya-choice__label">{{label|jmessage}}</label>
-        <span :id="id" v-if="static" class="jinya-choice__field">{{selectionText}}</span>
+        <span :id="id" v-if="isStatic" class="jinya-choice__field">{{selectionText}}</span>
         <!--suppress HtmlFormInputWithoutLabel -->
         <select @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})" :id="id"
                 v-if="showSelect" class="jinya-choice__field" :disabled="!enable" :multiple="multiple"
                 :class="{'is--disabled': !enable}">
             <template v-for="choice in choices">
-                <option :selected="isSelected(choice)" :value="choice.value">
+                <option :selected="isSelected(choice)" :value="choice.value" :key="choice.value">
                     {{choice.text}}
                 </option>
             </template>
         </select>
         <template v-for="choice in choices">
-            <label :id="id" v-if="showCheckboxes" class="jinya-choice__checkbox">
+            <label :id="id" v-if="showCheckboxes" class="jinya-choice__checkbox" :key="choice.value">
                 <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
                        :name="label" type="checkbox" :checked="isSelected(choice)" :disabled="!enable"
                        :value="choice.value">
                 {{choice.text}}
             </label>
-            <label :id="id" v-if="showRadioButtons" class="jinya-choice__radio">
+            <label :id="id" v-if="showRadioButtons" class="jinya-choice__radio" :key="choice.value">
                 <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
                        :name="label" type="radio" :checked="isSelected(choice)" :disabled="!enable"
                        :value="choice.value">
@@ -31,87 +31,87 @@
 
 <script>
   export default {
-    name: "jinya-choice",
+    name: 'jinya-choice',
     props: {
       enforceSelect: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       multiple: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       label: {
         type: String,
-        required: true
+        required: true,
       },
       selected: {
         default() {
           return {
             text: '',
-            value: ''
-          }
-        }
+            value: '',
+          };
+        },
       },
       choices: {
         type: Array,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       showSelect() {
-        return this.enforceSelect || (!this.static && this.choices.length > 5);
+        return this.enforceSelect || (!this.isStatic && this.choices.length > 5);
       },
       showCheckboxes() {
-        return !this.enforceSelect && !this.static && (this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.isStatic && (this.multiple && this.choices.length <= 5);
       },
       showRadioButtons() {
-        return !this.enforceSelect && !this.static && (!this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.isStatic && (!this.multiple && this.choices.length <= 5);
       },
       selectionText() {
         if (this.selected instanceof Array) {
           return this.selected.map(selection => selection.text).join(', ');
-        } else {
-          return this.selected.text;
         }
-      }
+        return this.selected.text;
+      },
     },
     methods: {
       isSelected(value) {
         if (this.selected instanceof Array) {
-          return this.selected.filter((item) => value.value.toString() === item.value.toString()).length > 0;
-        } else if (this.selected instanceof Object) {
-          return this.selected.value.toString() === value.value.toString();
-        } else {
-          return false;
+          return this.selected.filter(item => value.value.toString() === item.value.toString()).length > 0;
         }
-      }
+        if (this.selected instanceof Object) {
+          return this.selected.value.toString() === value.value.toString();
+        }
+        return false;
+      },
     },
     data() {
       return {
-        id: null
+        id: null,
       };
     },
     mounted() {
+      // eslint-disable-next-line no-underscore-dangle
       this.id = this._uid;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

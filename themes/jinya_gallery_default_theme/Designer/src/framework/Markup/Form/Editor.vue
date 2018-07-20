@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: "jinya-editor"
-  }
+    name: 'jinya-editor',
+  };
 </script>
 
 <style scoped lang="scss">

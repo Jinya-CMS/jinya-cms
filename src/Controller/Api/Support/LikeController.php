@@ -10,10 +10,8 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Jinya\Entity\User;
 use Jinya\Framework\BaseApiController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,14 +24,13 @@ class LikeController extends BaseApiController
      * @Route("/api/support/like", methods={"POST"}, name="api_support_like")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
-     * @param Request $request
      * @param Client $client
      * @return Response
      */
-    public function submitAction(Request $request, Client $client): Response
+    public function submitAction(Client $client): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $client) {
-            /** @var User $user */
+        list($data, $status) = $this->tryExecute(function () use ($client) {
+            /** @var \Jinya\Entity\Artist\User $user */
             $user = $this->getUser();
             $like = [
                 'who' => $user->getFirstname(),

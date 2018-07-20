@@ -5,49 +5,50 @@
 </template>
 
 <script>
-  import ObjectUtils from "../../../Utils/ObjectUtils";
-  import Routes from "@/router/Routes";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
+  import ObjectUtils from '../../../Utils/ObjectUtils';
+  import Routes from '@/router/Routes';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
 
   export default {
-    name: "jinya-menu-flyout-menu-item",
+    name: 'jinya-menu-flyout-menu-item',
     props: {
       to: {
         type: String,
-        required: true
       },
       text: {
         type: String,
-        required: true
+        required: true,
       },
       navigate: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       directLink: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
     computed: {
       href() {
         if (this.directLink) {
           return this.to;
-        } else {
-          return this.route.route;
         }
+        return this.route.route;
       },
       route() {
-        return ObjectUtils.valueByKeypath(Routes, this.to);
+        if (ObjectUtils.valueByKeypath(Routes, this.to, false)) {
+          return ObjectUtils.valueByKeypath(Routes, this.to);
+        }
+        return { route: '' };
       },
       active() {
         return this.route.route === window.location.pathname;
-      }
+      },
     },
     methods: {
       navigated() {
@@ -59,11 +60,10 @@
           window.open(this.href);
         }
 
-        console.log('selected');
         this.$emit('selected');
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">
