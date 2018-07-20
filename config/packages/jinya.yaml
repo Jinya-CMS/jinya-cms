@@ -1,4 +1,4 @@
 parameters:
     mailer_sender: '%env(MAILER_SENDER)%'
-    jinya_version: 4.0.2
+    jinya_version: 5.0.0
     jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
