@@ -93,6 +93,12 @@ class UpdateController extends AbstractController
         ]);
     }
 
+    private function finishUpdate(): void
+    {
+        $fs = new Filesystem();
+        $fs->remove($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock');
+    }
+
     /**
      * @param string $url
      */
@@ -100,6 +106,8 @@ class UpdateController extends AbstractController
     {
         $tmpFile = $this->kernelProjectDir . '/var/tmp/update.zip';
         $this->client->get($url, [RequestOptions::SINK => $tmpFile]);
+
+        @rmdir($this->kernelProjectDir . '/src');
 
         $zipArchive = new ZipArchive();
         $zipArchive->open($tmpFile);
@@ -136,11 +144,5 @@ class UpdateController extends AbstractController
     public function doneAction(): Response
     {
         return $this->render('@Jinya/Updater/Default/done.html.twig');
-    }
-
-    private function finishUpdate(): void
-    {
-        $fs = new Filesystem();
-        $fs->remove($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock');
     }
 }
