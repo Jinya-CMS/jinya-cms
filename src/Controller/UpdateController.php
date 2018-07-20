@@ -93,6 +93,12 @@ class UpdateController extends AbstractController
         ]);
     }
 
+    private function finishUpdate(): void
+    {
+        $fs = new Filesystem();
+        $fs->remove($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock');
+    }
+
     /**
      * @param string $url
      */
@@ -100,17 +106,25 @@ class UpdateController extends AbstractController
     {
         $tmpFile = $this->kernelProjectDir . '/var/tmp/update.zip';
         $this->client->get($url, [RequestOptions::SINK => $tmpFile]);
+        $backupPath = $this->kernelProjectDir . '/var/tmp/backup/' . time();
 
-        $zipArchive = new ZipArchive();
-        $zipArchive->open($tmpFile);
-        $zipArchive->extractTo($this->kernelProjectDir);
+        @mkdir($backupPath, 0777, true);
+        @rename($this->kernelProjectDir . '/src', $backupPath);
 
-        $this->cacheClearer->clear($this->kernelProjectDir . '/var/cache');
+        try {
+            $zipArchive = new ZipArchive();
+            $zipArchive->open($tmpFile);
+            $zipArchive->extractTo($this->kernelProjectDir);
 
-        $this->themeSyncService->syncThemes();
-        $themes = $this->themeService->getAllThemes();
-        foreach ($themes as $theme) {
-            $this->themeCompilerService->compileTheme($theme);
+            $this->cacheClearer->clear($this->kernelProjectDir . '/var/cache');
+
+            $this->themeSyncService->syncThemes();
+            $themes = $this->themeService->getAllThemes();
+            foreach ($themes as $theme) {
+                $this->themeCompilerService->compileTheme($theme);
+            }
+        } catch (\Throwable $exception) {
+            rename($backupPath, $this->kernelProjectDir . '/src');
         }
     }
 
@@ -136,11 +150,5 @@ class UpdateController extends AbstractController
     public function doneAction(): Response
     {
         return $this->render('@Jinya/Updater/Default/done.html.twig');
-    }
-
-    private function finishUpdate(): void
-    {
-        $fs = new Filesystem();
-        $fs->remove($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock');
     }
 }
