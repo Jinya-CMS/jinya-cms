@@ -14,29 +14,29 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaButton from "@/framework/Markup/Button";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaButton from '@/framework/Markup/Button';
   import UAParser from 'ua-parser-js';
 
   export default {
-    name: "KnownDevices",
+    name: 'KnownDevices',
     components: {
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaLoader
+      JinyaLoader,
     },
     data() {
       return {
         tokens: [],
         loading: true,
         message: '',
-        state: ''
-      }
+        state: '',
+      };
     },
     methods: {
       getData(token) {
@@ -44,7 +44,7 @@
         return {
           browser: [parsed.getBrowser().name, parsed.getBrowser().version].join(' '),
           os: [parsed.getOS().name, parsed.getOS().version].join(' '),
-          ip: token.remoteAddress
+          ip: token.remoteAddress,
         };
       },
       async deleteToken(token) {
@@ -59,13 +59,13 @@
           this.state = 'error';
           this.message = Translator.validator(`my_jinya.account.two_factor.${e.message}`);
         }
-      }
+      },
     },
     async mounted() {
       await this.loadData();
       this.loading = false;
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

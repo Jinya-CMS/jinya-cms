@@ -5,14 +5,14 @@
 
 <script>
   export default {
-    name: "jinya-gallery-designer-button",
+    name: 'jinya-gallery-designer-button',
     props: {
       type: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style lang="scss">

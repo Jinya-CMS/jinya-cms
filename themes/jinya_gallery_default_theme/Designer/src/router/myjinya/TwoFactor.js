@@ -1,4 +1,4 @@
-import Routes from "@/router/Routes";
+import Routes from '@/router/Routes';
 import KnownDevices from '@/components/MyJinya/TwoFactor/KnownDevices';
 
 export default [
@@ -8,7 +8,7 @@ export default [
     component: KnownDevices,
     meta:
       {
-        title: 'routes.my_jinya.two_factor.known_devices'
-      }
-  }
-]
+        title: 'routes.my_jinya.two_factor.known_devices',
+      },
+  },
+];

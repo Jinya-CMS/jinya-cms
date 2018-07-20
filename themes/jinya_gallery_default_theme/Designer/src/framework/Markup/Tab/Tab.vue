@@ -8,16 +8,16 @@
 
 <script>
   export default {
-    name: "jinya-tab",
+    name: 'jinya-tab',
     props: {
       isSelected: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

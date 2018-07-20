@@ -16,22 +16,22 @@
 </template>
 
 <script>
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import Translator from "@/framework/i18n/Translator";
-  import {login} from "@/security/Authentication";
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Translator from '@/framework/i18n/Translator';
+  import { login } from '@/security/Authentication';
 
   export default {
     components: {
       JinyaMessage,
       JinyaForm,
       JinyaButton,
-      JinyaInput
+      JinyaInput,
     },
-    name: "Login",
+    name: 'Login',
     data() {
       return {
         email: '',
@@ -39,7 +39,7 @@
         message: '',
         twoFactorCode: '',
         twoFactorRequested: false,
-        state: ''
+        state: '',
       };
     },
     methods: {
@@ -50,22 +50,20 @@
 
           const loginResult = await login(this.email, this.password, this.twoFactorCode);
           if (loginResult) {
-            console.log(`Push to ${Routes.Home.StartPage.route}`);
-
             this.$router.push(Routes.Home.StartPage);
           } else {
             this.twoFactorRequested = true;
           }
 
-          this.state = "secondary";
+          this.state = 'secondary';
           this.message = Translator.message('account.login.two_factor_needed');
         } catch (e) {
-          this.message = Translator.validator(`account.login.login_failed`);
+          this.message = Translator.validator('account.login.login_failed');
           this.state = 'error';
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

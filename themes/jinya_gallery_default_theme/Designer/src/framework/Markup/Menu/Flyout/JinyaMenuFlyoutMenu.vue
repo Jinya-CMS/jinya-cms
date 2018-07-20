@@ -6,16 +6,16 @@
 
 <script>
   export default {
-    name: "jinya-menu-flyout-menu",
+    name: 'jinya-menu-flyout-menu',
     props: {
       isOpen: {
         type: Boolean,
         default() {
           return false;
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

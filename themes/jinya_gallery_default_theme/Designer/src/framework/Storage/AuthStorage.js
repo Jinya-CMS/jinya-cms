@@ -4,7 +4,7 @@ const lockrVariables = {
   ApiKey: 'jinya/auth/apiKey',
   CurrentUser: 'jinya/auth/user/current',
   CurrentUserRoles: 'jinya/auth/user/current/roles',
-  DeviceCode: 'jinya/auth/device/code'
+  DeviceCode: 'jinya/auth/device/code',
 };
 
 export function getApiKey() {

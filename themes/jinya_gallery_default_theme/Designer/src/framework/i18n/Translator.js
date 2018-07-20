@@ -1,10 +1,9 @@
-import ObjectUtils from "../Utils/ObjectUtils";
+import ObjectUtils from '../Utils/ObjectUtils';
 
-const replaceTokens = (parameter) => {
-  return (accumulator, currentValue) => {
-    return accumulator.replace(new RegExp(`%${currentValue}%`, 'g'), parameter[currentValue]);
-  };
-};
+const replaceTokens = parameter => (
+  accumulator,
+  currentValue,
+) => accumulator.replace(new RegExp(`%${currentValue}%`, 'g'), parameter[currentValue]);
 
 export default {
   hasMessage(key) {
@@ -22,5 +21,5 @@ export default {
     return Object
       .keys(parameter)
       .reduce(replaceTokens(parameter), ObjectUtils.valueByKeypath(window.validators, key));
-  }
-}
+  },
+};

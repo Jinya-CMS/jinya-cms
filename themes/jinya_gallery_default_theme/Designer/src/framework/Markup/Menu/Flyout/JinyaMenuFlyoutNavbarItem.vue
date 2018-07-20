@@ -8,21 +8,21 @@
 
 <script>
   export default {
-    name: "jinya-menu-flyout-navbar-item",
+    name: 'jinya-menu-flyout-navbar-item',
     props: {
       isSelected: {
         type: Boolean,
         required: false,
         default() {
           return false;
-        }
+        },
       },
       text: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

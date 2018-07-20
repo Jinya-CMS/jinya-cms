@@ -1,25 +1,25 @@
 <template>
-    <jinya-gallery-form :back-target="backRoute" :static="true" :gallery="gallery" @save="edit" :message="message"
+    <jinya-gallery-form :back-target="backRoute" :is-static="true" :gallery="gallery" @save="edit" :message="message"
                         :state="state" :hide-on-error="true" save-label="art.galleries.details.edit"/>
 </template>
 
 <script>
-  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
-  import Routes from "@/router/Routes";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaGalleryForm from '@/components/Art/Galleries/GalleryForm';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaGalleryForm
+      JinyaGalleryForm,
     },
-    name: "art-gallery-details",
+    name: 'art-gallery-details',
     computed: {
       backRoute() {
         return Routes.Art.Galleries.Art.Overview;
-      }
+      },
     },
     data() {
       return {
@@ -29,9 +29,9 @@
           background: '',
           name: '',
           slug: '',
-          description: ''
+          description: '',
         },
-        overviewRoute: Routes.Art.Galleries.Art.Overview.name
+        overviewRoute: Routes.Art.Galleries.Art.Overview.name,
       };
     },
     async mounted() {
@@ -52,10 +52,10 @@
         this.$router.push({
           name: Routes.Art.Galleries.Art.Edit.name,
           params: {
-            slug: this.gallery.slug
-          }
+            slug: this.gallery.slug,
+          },
         });
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

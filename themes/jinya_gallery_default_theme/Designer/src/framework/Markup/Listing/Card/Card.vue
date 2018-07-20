@@ -12,17 +12,17 @@
 
 <script>
   export default {
-    name: "jinya-card",
+    name: 'jinya-card',
     props: {
       header: {
         type: String,
-        required: true
+        required: true,
       },
       bodyModifier: {
-        type: String
-      }
-    }
-  }
+        type: String,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

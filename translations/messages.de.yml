@@ -600,7 +600,7 @@ art:
       loading: Die Galerie wird geladen
     designer:
       title: Galerie %name% anordnen
-      loading: Die Galerie wird geladen
+      loading_failed: Die Galerie konnte nicht geladen werden
       art:
         moving: Das Kunstwerk "%name%" wird verschoben
       video:

@@ -15,16 +15,16 @@
                 <jinya-editor-preview-image :src="gallery.background"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.name"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.name"
                              v-model="gallery.name" @change="nameChanged"/>
-                <jinya-input :static="static" :enable="enable" label="art.galleries.gallery_form.slug"
+                <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.slug"
                              v-model="gallery.slug" @change="slugChanged"/>
-                <jinya-choice :static="static" label="art.galleries.gallery_form.orientation" :choices="orientations"
-                              :enable="enable" :selected="gallery.orientation"
+                <jinya-choice :is-static="isStatic" label="art.galleries.gallery_form.orientation"
+                              :choices="orientations" :enable="enable" :selected="gallery.orientation"
                               @selected="(value) => gallery.orientation = value"/>
-                <jinya-file-input v-if="!static" :enable="enable" accept="image/*" @picked="backgroundPicked"
+                <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="backgroundPicked"
                                   label="art.galleries.gallery_form.background"/>
-                <jinya-textarea :static="static" :enable="enable" label="art.galleries.gallery_form.description"
+                <jinya-textarea :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.description"
                                 v-model="gallery.description"/>
             </jinya-editor-pane>
             <template slot="buttons">
@@ -35,20 +35,20 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import FileUtils from "@/framework/IO/FileUtils";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
-  import slugify from "slugify";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPreviewImage from "@/framework/Markup/Form/EditorPreviewImage";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaChoice from "@/framework/Markup/Form/Choice";
-  import Translator from "@/framework/i18n/Translator";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import FileUtils from '@/framework/IO/FileUtils';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+  import slugify from 'slugify';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
     components: {
@@ -62,55 +62,55 @@
       JinyaFileInput,
       JinyaButton,
       JinyaInput,
-      JinyaForm
+      JinyaForm,
     },
-    name: "jinya-gallery-form",
+    name: 'jinya-gallery-form',
     props: {
       backTarget: {
         type: String,
-        required: true
+        required: true,
       },
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'art.galleries.gallery_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'art.galleries.gallery_form.back';
-        }
+        },
       },
       gallery: {
         type: Object,
@@ -122,39 +122,39 @@
             description: '',
             orientation: {
               value: 'horizontal',
-              text: ''
-            }
+              text: '',
+            },
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     computed: {
       orientations() {
         return [
           {
             value: 'horizontal',
-            text: Translator.message('art.galleries.gallery_form.orientations.horizontal')
+            text: Translator.message('art.galleries.gallery_form.orientations.horizontal'),
           },
           {
             value: 'vertical',
-            text: Translator.message('art.galleries.gallery_form.orientations.vertical')
-          }
-        ]
-      }
+            text: Translator.message('art.galleries.gallery_form.orientations.vertical'),
+          },
+        ];
+      },
     },
     watch: {
       gallery(newVal) {
         this.gallery.orientation = {
           value: newVal.orientation,
-          text: Translator.message(`art.galleries.gallery_form.orientations.${newVal.orientation}`)
+          text: Translator.message(`art.galleries.gallery_form.orientations.${newVal.orientation}`),
         };
-      }
+      },
     },
     methods: {
       back() {
@@ -181,11 +181,11 @@
           slug: this.gallery.slug,
           background: this.gallery.uploadedFile,
           description: this.gallery.description,
-          orientation: this.gallery.orientation.value
+          orientation: this.gallery.orientation.value,
         };
 
-        this.$emit('save', gallery)
-      }
-    }
-  }
+        this.$emit('save', gallery);
+      },
+    },
+  };
 </script>

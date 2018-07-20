@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: "jinya-message-action-bar"
-  }
+    name: 'jinya-message-action-bar',
+  };
 </script>
 
 <style scoped lang="scss">

@@ -3,17 +3,17 @@
 </template>
 
 <script>
-  import JinyaPageForm from "@/components/Static/Pages/SavedInJinya/PageForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaPageForm from '@/components/Static/Pages/SavedInJinya/PageForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   export default {
-    name: "edit",
+    name: 'edit',
     components: {
-      JinyaPageForm
+      JinyaPageForm,
     },
     data() {
       return {
@@ -24,9 +24,9 @@
         page: {
           title: '',
           slug: '',
-          content: ''
-        }
-      }
+          content: '',
+        },
+      };
     },
     async mounted() {
       this.state = 'loading';
@@ -61,7 +61,7 @@
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

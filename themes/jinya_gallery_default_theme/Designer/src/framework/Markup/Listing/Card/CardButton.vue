@@ -11,32 +11,32 @@
 </template>
 
 <script>
-  import ObjectUtils from "../../../Utils/ObjectUtils";
-  import Routes from "@/router/Routes";
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
+  import Routes from '@/router/Routes';
 
   export default {
-    name: "jinya-card-button",
+    name: 'jinya-card-button',
     props: {
       type: {
         type: String,
         validate(input) {
           return ['details', 'edit', 'delete'].includes(input.toString().toLowerCase());
-        }
+        },
       },
       icon: {
         type: String,
         validate(input) {
           return this.text || input;
-        }
+        },
       },
       text: {
         type: String,
         validate(input) {
           return this.icon || input;
-        }
+        },
       },
       to: {},
-      isDisabled: Boolean
+      isDisabled: Boolean,
     },
     data() {
       const additionalClasses = {};
@@ -46,20 +46,20 @@
       if (this.to instanceof String) {
         return {
           routeTarget: ObjectUtils.valueByKeypath(Routes, this.to),
-          additionalClasses: additionalClasses
-        };
-      } else if (this.to instanceof Object) {
-        return {
-          routeTarget: this.to,
-          additionalClasses: additionalClasses
-        };
-      } else {
-        return {
-          additionalClasses: additionalClasses
+          additionalClasses,
         };
       }
-    }
-  }
+      if (this.to instanceof Object) {
+        return {
+          routeTarget: this.to,
+          additionalClasses,
+        };
+      }
+      return {
+        additionalClasses,
+      };
+    },
+  };
 </script>
 
 <style scoped lang="scss">

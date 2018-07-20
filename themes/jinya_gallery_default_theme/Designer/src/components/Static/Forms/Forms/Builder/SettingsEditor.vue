@@ -11,26 +11,26 @@
 </template>
 
 <script>
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaCheckbox from "@/framework/Markup/Form/Checkbox";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaTextarea from "@/framework/Markup/Form/Textarea";
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
 
   export default {
-    name: "jinya-form-builder-settings-editor",
+    name: 'jinya-form-builder-settings-editor',
     components: {
       JinyaTextarea,
       JinyaButton,
       JinyaCheckbox,
-      JinyaInput
+      JinyaInput,
     },
     props: {
       item: {
         type: Object,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import HttpError from "@/framework/Ajax/Error/HttpError";
+import HttpError from '@/framework/Ajax/Error/HttpError';
 
 export default class ConflictError extends HttpError {
   constructor(error) {

@@ -1,5 +1,5 @@
-import Routes from "../Routes";
-import StartPage from '@/components/Home/StartPage'
+import StartPage from '@/components/Home/StartPage';
+import Routes from '@/router/Routes';
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
     component: StartPage,
     meta: {
       title: 'routes.home.startpage',
-      background: window.options.startBackground
-    }
-  }
+      background: window.options.startBackground,
+    },
+  },
 ];

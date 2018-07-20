@@ -10,15 +10,15 @@
 </template>
 
 <script>
-  import ObjectUtils from "../Utils/ObjectUtils";
-  import Routes from "@/router/Routes";
+  import Routes from '@/router/Routes';
+  import ObjectUtils from '@/framework/Utils/ObjectUtils';
 
   export default {
-    name: "jinya-floating-action-button",
+    name: 'jinya-floating-action-button',
     props: {
       icon: {
         type: String,
-        required: true
+        required: true,
       },
       to: {},
       isPrimary: Boolean,
@@ -30,28 +30,31 @@
         type: Boolean,
         default() {
           return false;
-        }
-      }
+        },
+      },
     },
-    data() {
-      const data = {
-        routeTarget: undefined
-      };
-      if (this.to instanceof String) {
-        data.routeTarget = ObjectUtils.valueByKeypath(Routes, this.to);
-      } else if (this.to instanceof Object) {
-        data.routeTarget = this.to;
-      }
-      data.additionalClasses = {
-        'is--primary': this.isPrimary,
-        'is--secondary': this.isSecondary,
-        'is--danger': this.isDanger,
-        'is--success': this.isSuccess,
-        'is--default': !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary)
-      };
-      return data;
-    }
-  }
+    computed: {
+      routeTarget() {
+        if (this.to instanceof String) {
+          return ObjectUtils.valueByKeypath(Routes, this.to);
+        }
+        if (this.to instanceof Object) {
+          return this.to;
+        }
+
+        return undefined;
+      },
+      additionalClasses() {
+        return {
+          'is--primary': this.isPrimary,
+          'is--secondary': this.isSecondary,
+          'is--danger': this.isDanger,
+          'is--success': this.isSuccess,
+          'is--default': !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
+        };
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

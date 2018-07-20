@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: "jinya-gallery-designer-item"
-  }
+    name: 'jinya-gallery-designer-item',
+  };
 </script>
 
 <style lang="scss">

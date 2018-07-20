@@ -1,4 +1,5 @@
-import JinyaWorkerRequest from "@/framework/Worker/JinyaWorkerRequest";
+/* eslint-disable no-console */
+import JinyaWorkerRequest from '@/framework/Worker/JinyaWorkerRequest';
 
 // noinspection PointlessArithmeticExpressionJS Might change at some point
 const chunkSize = 1 * 1024 * 1024;
@@ -14,14 +15,14 @@ async function startUpload(slug, apiKey) {
     postMessage({
       message: 'background.video.exists',
       error: {
-        type: 'exists'
-      }
+        type: 'exists',
+      },
     });
     return false;
   }
 }
 
-async function chunkUpload(slug, videoFile, apiKey, offset = 0) {
+async function chunkUpload(slug, videoFile, apiKey) {
   async function uploadChunk(offset) {
     const blob = videoFile.slice(offset, offset + chunkSize);
 
@@ -35,35 +36,36 @@ async function chunkUpload(slug, videoFile, apiKey, offset = 0) {
 
   do {
     const chunks = [];
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 5; i++) {
       chunks.push(uploadChunk(currentOffset));
       currentOffset += chunkSize;
     }
 
+    // eslint-disable-next-line no-await-in-loop
     await Promise.all(chunks);
   } while (currentOffset < videoFile.size);
 }
 
-onmessage = async e => {
+onmessage = async (e) => {
   if (e.data?.video && e.data?.slug && e.data?.apiKey) {
     console.log('Received message with file to upload');
 
-    const videoFile = e.data.video;
-    const slug = e.data.slug;
-    const apiKey = e.data.apiKey;
+    const { video, slug, apiKey } = e.data;
 
     if (await startUpload(slug, apiKey)) {
-      postMessage({message: 'background.video.upload_started', started: true});
+      postMessage({ message: 'background.video.upload_started', started: true });
 
       console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
-      await chunkUpload(slug, videoFile, apiKey, chunkSize * -1);
+      await chunkUpload(slug, video, apiKey, chunkSize * -1);
       console.log(`Uploaded file for slug ${slug}`);
 
       console.log(`Finish upload for slug ${slug}`);
       await JinyaWorkerRequest.put(`/api/video/jinya/${slug}/video/finish`, {}, apiKey);
 
       console.log(`Finished upload for slug ${slug} close worker now`);
-      postMessage({message: 'background.video.uploaded', finished: true});
+      postMessage({ message: 'background.video.uploaded', finished: true });
+      // eslint-disable-next-line no-restricted-globals
       close();
     }
   }

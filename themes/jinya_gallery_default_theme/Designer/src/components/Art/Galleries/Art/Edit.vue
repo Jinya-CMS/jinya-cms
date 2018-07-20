@@ -4,17 +4,17 @@
 </template>
 
 <script>
-  import JinyaGalleryForm from "@/components/Art/Galleries/GalleryForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import JinyaGalleryForm from '@/components/Art/Galleries/GalleryForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaGalleryForm
+      JinyaGalleryForm,
     },
     data() {
       return {
@@ -26,16 +26,16 @@
           background: '',
           name: '',
           slug: '',
-          description: ''
-        }
+          description: '',
+        },
       };
     },
     computed: {
       backRoute() {
         return Routes.Art.Galleries.Art.Overview;
-      }
+      },
     },
-    name: "edit",
+    name: 'edit',
     async mounted() {
       this.state = 'loading';
       this.enable = false;
@@ -53,40 +53,40 @@
     },
     methods: {
       async save(gallery) {
-        const background = gallery.background;
+        const { background } = gallery;
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('art.galleries.edit.saving', {name: gallery.name});
+          this.message = Translator.message('art.galleries.edit.saving', { name: gallery.name });
 
           await JinyaRequest.put(`/api/gallery/art/${this.$route.params.slug}`, {
             name: gallery.name,
             slug: gallery.slug,
             description: gallery.description,
-            orientation: gallery.orientation
+            orientation: gallery.orientation,
           });
 
           if (background) {
-            this.message = Translator.message('art.galleries.edit.uploading', {name: gallery.name});
+            this.message = Translator.message('art.galleries.edit.uploading', { name: gallery.name });
             await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
           }
 
           this.state = 'success';
-          this.message = Translator.message('art.galleries.edit.success', {name: gallery.name});
+          this.message = Translator.message('art.galleries.edit.success', { name: gallery.name });
 
           await Timing.wait();
           this.$router.push({
             name: Routes.Art.Galleries.Art.Details.name,
             params: {
-              slug: this.gallery.slug
-            }
+              slug: this.gallery.slug,
+            },
           });
         } catch (error) {
           this.message = error.message;
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

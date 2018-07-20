@@ -3,24 +3,24 @@
 </template>
 
 <script>
-  import JinyaPageForm from "@/components/Static/Pages/SavedInJinya/PageForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
+  import JinyaPageForm from '@/components/Static/Pages/SavedInJinya/PageForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
 
   export default {
-    name: "add",
+    name: 'add',
     components: {
-      JinyaPageForm
+      JinyaPageForm,
     },
     data() {
       return {
         message: '',
         state: '',
         loading: false,
-        enable: true
-      }
+        enable: true,
+      };
     },
     methods: {
       async save(page) {
@@ -41,7 +41,7 @@
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

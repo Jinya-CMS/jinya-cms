@@ -18,45 +18,45 @@
 </template>
 
 <script>
-  import JinyaIconButton from "@/framework/Markup/IconButton";
-  import JinyaMenuBuilderSettingsEditor from "@/components/Configuration/Frontend/Menus/Builder/SettingsEditor";
+  import JinyaIconButton from '@/framework/Markup/IconButton';
+  import JinyaMenuBuilderSettingsEditor from '@/components/Configuration/Frontend/Menus/Builder/SettingsEditor';
 
   export default {
-    name: "jinya-menu-builder-group",
+    name: 'jinya-menu-builder-group',
     components: {
       JinyaMenuBuilderSettingsEditor,
-      JinyaIconButton
+      JinyaIconButton,
     },
     computed: {
       draggableOptions() {
         return {
           group: 'menu',
-        }
-      }
+        };
+      },
     },
     props: {
       item: {
         type: Object,
-        required: true
+        required: true,
       },
       allowIncrease: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       allowDecrease: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       editSettingsDone() {
@@ -66,14 +66,14 @@
       toggleSettingsClick() {
         this.showSettings = !this.showSettings;
         this.$emit('toggle-settings', this.item);
-      }
+      },
     },
     data() {
       return {
-        showSettings: false
+        showSettings: false,
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

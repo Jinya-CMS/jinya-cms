@@ -1,5 +1,5 @@
-import Routes from "@/router/Routes";
-import NotAllowed from "@/components/Error/NotAllowed";
+import Routes from '@/router/Routes';
+import NotAllowed from '@/components/Error/NotAllowed';
 
 export default [
   {
@@ -7,7 +7,7 @@ export default [
     name: Routes.Error.NotAllowed.name,
     component: NotAllowed,
     meta: {
-      title: 'routes.error.not_allowed'
-    }
-  }
-]
+      title: 'routes.error.not_allowed',
+    },
+  },
+];

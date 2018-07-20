@@ -1,12 +1,12 @@
-import Routes from "../Routes";
-import ThemeOverview from "@/components/Configuration/Frontend/Themes/Overview";
-import ThemeVariables from "@/components/Configuration/Frontend/Themes/Variables";
-import ThemeConfiguration from "@/components/Configuration/Frontend/Themes/Configuration";
-import ThemeMenus from "@/components/Configuration/Frontend/Themes/Menus";
+import ThemeOverview from '@/components/Configuration/Frontend/Themes/Overview';
+import ThemeVariables from '@/components/Configuration/Frontend/Themes/Variables';
+import ThemeConfiguration from '@/components/Configuration/Frontend/Themes/Configuration';
+import ThemeMenus from '@/components/Configuration/Frontend/Themes/Menus';
 import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 import MenuAdd from '@/components/Configuration/Frontend/Menus/Add';
 import MenuEdit from '@/components/Configuration/Frontend/Menus/Edit';
 import MenuBuilder from '@/components/Configuration/Frontend/Menus/Builder';
+import Routes from '@/router/Routes';
 
 export default [
   {
@@ -15,44 +15,44 @@ export default [
     component: MenuOverview,
     meta: {
       searchEnabled: true,
-      title: 'routes.configuration.frontend.menus.overview'
-    }
+      title: 'routes.configuration.frontend.menus.overview',
+    },
   },
   {
     path: Routes.Configuration.Frontend.Menu.Builder.route,
     name: Routes.Configuration.Frontend.Menu.Builder.name,
-    component: MenuBuilder
+    component: MenuBuilder,
   },
   {
     path: Routes.Configuration.Frontend.Menu.Edit.route,
     name: Routes.Configuration.Frontend.Menu.Edit.name,
-    component: MenuEdit
+    component: MenuEdit,
   },
   {
     path: Routes.Configuration.Frontend.Menu.Add.route,
     name: Routes.Configuration.Frontend.Menu.Add.name,
     component: MenuAdd,
     meta: {
-      title: 'routes.configuration.frontend.menus.add'
-    }
+      title: 'routes.configuration.frontend.menus.add',
+    },
   },
   {
     path: Routes.Configuration.Frontend.Theme.Overview.route,
     name: Routes.Configuration.Frontend.Theme.Overview.name,
     component: ThemeOverview,
     meta: {
-      title: 'routes.configuration.frontend.themes.overview'
-    }
+      title: 'routes.configuration.frontend.themes.overview',
+    },
   },
   {
     path: Routes.Configuration.Frontend.Theme.Settings.route,
     name: Routes.Configuration.Frontend.Theme.Settings.name,
-    component: ThemeConfiguration
+    component: ThemeConfiguration,
   },
   {
     path: Routes.Configuration.Frontend.Theme.Menus.route,
     name: Routes.Configuration.Frontend.Theme.Menus.name,
-    component: ThemeMenus
+    component: ThemeMenus,
   },
   {
     path: Routes.Configuration.Frontend.Theme.Variables.route,
@@ -60,7 +60,7 @@ export default [
     component: ThemeVariables,
     meta: {
       title: 'routes.configuration.frontend.themes.variables',
-      searchEnabled: true
-    }
-  }
-]
+      searchEnabled: true,
+    },
+  },
+];

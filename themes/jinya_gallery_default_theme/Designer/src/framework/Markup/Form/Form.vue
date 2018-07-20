@@ -13,38 +13,37 @@
 </template>
 
 <script>
-  import JinyaButton from "../Button";
+  import JinyaButton from '../Button';
 
   export default {
-    components: {JinyaButton},
-    name: "jinya-form",
+    components: { JinyaButton },
+    name: 'jinya-form',
     props: {
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       cancelLabel: {
-        type: String
+        type: String,
       },
       saveLabel: {
-        type: String
+        type: String,
       },
       buttonBarPaddingRight: {
-        type: String
-      }
-    }
-  }
+        type: String,
+      },
+    },
+  };
 </script>
 
 <style lang="scss">
     .jinya-form {
         margin: 0;
-        padding: 0;
         font-size: 1rem;
         overflow: auto;
-        padding-top: 2em;
+        padding: 2em 0 0;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;

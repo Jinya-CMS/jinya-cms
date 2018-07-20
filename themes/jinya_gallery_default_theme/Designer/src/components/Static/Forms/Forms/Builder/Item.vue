@@ -25,16 +25,16 @@
 </template>
 
 <script>
-  import JinyaFormBuilderTextType from "@/components/Static/Forms/Forms/Builder/TextType";
-  import JinyaFormBuilderEmailType from "@/components/Static/Forms/Forms/Builder/EmailType";
-  import JinyaFormBuilderCheckboxType from "@/components/Static/Forms/Forms/Builder/CheckboxType";
-  import JinyaFormBuilderChoiceType from "@/components/Static/Forms/Forms/Builder/ChoiceType";
-  import JinyaFormBuilderTextAreaType from "@/components/Static/Forms/Forms/Builder/TextAreaType";
-  import JinyaFormBuilderSettingsEditor from "@/components/Static/Forms/Forms/Builder/SettingsEditor";
-  import JinyaIconButton from "@/framework/Markup/IconButton";
+  import JinyaFormBuilderTextType from '@/components/Static/Forms/Forms/Builder/TextType';
+  import JinyaFormBuilderEmailType from '@/components/Static/Forms/Forms/Builder/EmailType';
+  import JinyaFormBuilderCheckboxType from '@/components/Static/Forms/Forms/Builder/CheckboxType';
+  import JinyaFormBuilderChoiceType from '@/components/Static/Forms/Forms/Builder/ChoiceType';
+  import JinyaFormBuilderTextAreaType from '@/components/Static/Forms/Forms/Builder/TextAreaType';
+  import JinyaFormBuilderSettingsEditor from '@/components/Static/Forms/Forms/Builder/SettingsEditor';
+  import JinyaIconButton from '@/framework/Markup/IconButton';
 
   export default {
-    name: "jinya-form-builder-item",
+    name: 'jinya-form-builder-item',
     components: {
       JinyaIconButton,
       JinyaFormBuilderSettingsEditor,
@@ -42,48 +42,48 @@
       JinyaFormBuilderChoiceType,
       JinyaFormBuilderCheckboxType,
       JinyaFormBuilderEmailType,
-      JinyaFormBuilderTextType
+      JinyaFormBuilderTextType,
     },
     methods: {
       editSettingsDone() {
         this.showSettings = false;
         this.$emit('edit-done', {
           data: this.item,
-          position: this.position
+          position: this.position,
         });
       },
       toggleSettingsClick() {
         this.showSettings = !this.showSettings;
         this.$emit('toggle-settings', this.item);
-      }
+      },
     },
     data() {
       return {
-        showSettings: false
+        showSettings: false,
       };
     },
     props: {
       item: {
         type: Object,
-        required: true
+        required: true,
       },
       position: {
-        type: Number
+        type: Number,
       },
       settingsAvailable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

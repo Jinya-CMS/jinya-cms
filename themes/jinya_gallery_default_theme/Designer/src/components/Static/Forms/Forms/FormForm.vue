@@ -17,18 +17,18 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaTinyMce from "@/framework/Markup/Form/TinyMce";
-  import Routes from "@/router/Routes";
-  import JinyaButton from "@/framework/Markup/Button";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import slugify from "slugify";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
+  import Routes from '@/router/Routes';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import slugify from 'slugify';
 
   export default {
-    name: "jinya-form-form",
+    name: 'jinya-form-form',
     components: {
       JinyaMessage,
       JinyaMessageActionBar,
@@ -36,26 +36,26 @@
       JinyaTinyMce,
       JinyaInput,
       JinyaEditor,
-      JinyaForm
+      JinyaForm,
     },
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       form: {
         type: Object,
@@ -64,16 +64,16 @@
             title: '',
             slug: '',
             toAddress: '',
-            description: ''
+            description: '',
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       back() {
@@ -93,13 +93,13 @@
           title: this.form.title,
           slug: this.form.slug,
           toAddress: this.form.toAddress,
-          description: this.form.description
+          description: this.form.description,
         };
 
-        this.$emit('save', form)
-      }
-    }
-  }
+        this.$emit('save', form);
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

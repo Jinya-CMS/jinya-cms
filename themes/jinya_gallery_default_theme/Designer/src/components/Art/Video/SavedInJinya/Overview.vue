@@ -32,20 +32,20 @@
 </template>
 
 <script>
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import JinyaCardList from "@/framework/Markup/Listing/Card/CardList";
-  import JinyaCard from "@/framework/Markup/Listing/Card/Card";
-  import JinyaPager from "@/framework/Markup/Listing/Pager";
-  import JinyaCardButton from "@/framework/Markup/Listing/Card/CardButton";
-  import JinyaModal from "@/framework/Markup/Modal/Modal";
-  import JinyaModalButton from "@/framework/Markup/Modal/ModalButton";
-  import Translator from "@/framework/i18n/Translator";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaLoader from "@/framework/Markup/Waiting/Loader";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
-  import Routes from "@/router/Routes";
-  import JinyaFloatingActionButton from "@/framework/Markup/FloatingActionButton";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
+  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
+  import JinyaPager from '@/framework/Markup/Listing/Pager';
+  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
+  import Routes from '@/router/Routes';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
 
   export default {
     components: {
@@ -57,9 +57,9 @@
       JinyaCardButton,
       JinyaPager,
       JinyaCard,
-      JinyaCardList
+      JinyaCardList,
     },
-    name: "jinya-videos-saved-on-youtube-overview",
+    name: 'jinya-videos-saved-on-youtube-overview',
     computed: {
       addRoute() {
         return Routes.Art.Videos.SavedInJinya.Add;
@@ -75,19 +75,19 @@
       },
       nothingFound() {
         return this.$route.query.keyword ? 'art.videos.overview.nothing_found' : 'art.videos.overview.no_videos';
-      }
+      },
     },
     methods: {
       load(target) {
-        const url = new URL(target, location.href);
+        const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Art.Videos.SavedInJinya.Overview.name,
           query: {
             offset: url.searchParams.get('offset'),
             count: url.searchParams.get('count'),
-            keyword: url.searchParams.get('keyword')
-          }
+            keyword: url.searchParams.get('keyword'),
+          },
         });
       },
       async fetchVideos(offset = 0, count = 10, keyword = '') {
@@ -109,7 +109,7 @@
         try {
           await JinyaRequest.delete(`/api/video/jinya/${this.selectedVideo.slug}`);
           this.delete.show = false;
-          const url = new URL(location.href);
+          const url = new URL(window.location.href);
           await this.fetchVideos(0, 10, url.searchParams.get('keyword'));
         } catch (reason) {
           this.delete.error = Translator.validator(`art.videos.overview.delete.${reason.message}`);
@@ -124,7 +124,7 @@
         this.delete.show = false;
         this.delete.loading = false;
         this.delete.error = '';
-      }
+      },
     },
     async mounted() {
       const offset = this.$route.query.offset || 0;
@@ -132,14 +132,14 @@
       const keyword = this.$route.query.keyword || '';
       await this.fetchVideos(offset, count, keyword);
 
-      EventBus.$on(Events.search.triggered, value => {
+      EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Art.Videos.SavedInJinya.Overview.name,
           query: {
             offset: 0,
             count: this.$route.query.count,
-            keyword: value.keyword
-          }
+            keyword: value.keyword,
+          },
         });
       });
     },
@@ -153,7 +153,7 @@
     data() {
       return {
         videos: [],
-        control: {next: false, previous: false},
+        control: { next: false, previous: false },
         count: 0,
         offset: 0,
         loading: true,
@@ -162,11 +162,11 @@
         delete: {
           error: '',
           show: false,
-          loading: false
-        }
+          loading: false,
+        },
       };
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped lang="scss">

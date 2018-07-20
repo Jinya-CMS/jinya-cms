@@ -7,18 +7,18 @@
 </template>
 
 <script>
-  import JinyaMessage from "../../Validation/Message";
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
 
   export default {
-    components: {JinyaMessage},
-    name: "jinya-card-list",
+    components: { JinyaMessage },
+    name: 'jinya-card-list',
     props: {
       nothingFound: {
         type: String,
-        required: true
-      }
-    }
-  }
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped lang="scss">

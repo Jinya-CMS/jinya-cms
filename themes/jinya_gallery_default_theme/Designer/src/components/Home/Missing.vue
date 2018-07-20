@@ -3,18 +3,18 @@
 </template>
 
 <script>
-  import DOMUtils from "@/framework/Utils/DOMUtils";
-  import Translator from "@/framework/i18n/Translator";
-  import EventBus from "@/framework/Events/EventBus";
-  import Events from "@/framework/Events/Events";
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import Translator from '@/framework/i18n/Translator';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
 
   export default {
-    name: "missing",
+    name: 'missing',
     mounted() {
       DOMUtils.changeTitle(Translator.message('home.missing.header'));
       EventBus.$emit(Events.header.change, Translator.message('home.missing.header'));
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

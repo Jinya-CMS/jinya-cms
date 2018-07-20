@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Routes from "@/router/Routes";
-import EventBus from "@/framework/Events/EventBus";
+import Routes from '@/router/Routes';
+import EventBus from '@/framework/Events/EventBus';
 
 import Account from './account';
 import Art from '@/router/art';
@@ -11,25 +11,18 @@ import Configuration from '@/router/configuration';
 import Maintenance from '@/router/maintenance';
 import MyJinya from '@/router/myjinya';
 import Error from '@/router/error';
-import Events from "@/framework/Events/Events";
-import Translator from "@/framework/i18n/Translator";
-import DOMUtils from "@/framework/Utils/DOMUtils";
-import {clearAuth, getApiKey, getCurrentUserRoles} from "@/framework/Storage/AuthStorage";
+import Events from '@/framework/Events/Events';
+import Translator from '@/framework/i18n/Translator';
+import DOMUtils from '@/framework/Utils/DOMUtils';
+import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
-const routes = Home
-  .concat(Account)
-  .concat(Art)
-  .concat(Static)
-  .concat(Configuration)
-  .concat(Maintenance)
-  .concat(MyJinya)
-  .concat(Error);
+const routes = [...Home, ...Account, ...Art, ...Static, ...Configuration, ...Maintenance, ...MyJinya, ...Error];
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: routes
+  routes,
 });
 
 router.beforeEach(async (to, from, next) => {
@@ -39,8 +32,9 @@ router.beforeEach(async (to, from, next) => {
     next(Routes.Account.Login.route);
   } else {
     try {
+      // eslint-disable-next-line no-param-reassign
       to.meta.me = {
-        roles: getCurrentUserRoles()
+        roles: getCurrentUserRoles(),
       };
 
       if (to.meta.role && !to.meta.me.roles.includes(to.meta.role)) {

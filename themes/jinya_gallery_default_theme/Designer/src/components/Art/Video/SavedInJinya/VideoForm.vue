@@ -28,18 +28,18 @@
 </template>
 
 <script>
-  import JinyaForm from "@/framework/Markup/Form/Form";
-  import JinyaInput from "@/framework/Markup/Form/Input";
-  import JinyaButton from "@/framework/Markup/Button";
-  import slugify from "slugify";
-  import Routes from "@/router/Routes";
-  import JinyaMessage from "@/framework/Markup/Validation/Message";
-  import JinyaMessageActionBar from "@/framework/Markup/Validation/MessageActionBar";
-  import JinyaEditor from "@/framework/Markup/Form/Editor";
-  import JinyaEditorPane from "@/framework/Markup/Form/EditorPane";
-  import JinyaTinyMce from "@/framework/Markup/Form/TinyMce";
-  import JinyaFileInput from "@/framework/Markup/Form/FileInput";
-  import FileUtils from "@/framework/IO/FileUtils";
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaButton from '@/framework/Markup/Button';
+  import slugify from 'slugify';
+  import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
+  import JinyaEditor from '@/framework/Markup/Form/Editor';
+  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
+  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
+  import FileUtils from '@/framework/IO/FileUtils';
 
   export default {
     components: {
@@ -51,51 +51,51 @@
       JinyaButton,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditor
+      JinyaEditor,
     },
-    name: "jinya-video-form",
+    name: 'jinya-video-form',
     props: {
       message: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
       state: {
         type: String,
         default() {
           return '';
-        }
+        },
       },
-      static: {
+      isStatic: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       enable: {
         type: Boolean,
         default() {
           return true;
-        }
+        },
       },
       hideOnError: {
         type: Boolean,
         default() {
           return false;
-        }
+        },
       },
       saveLabel: {
         type: String,
         default() {
           return 'art.videos.video_form.save';
-        }
+        },
       },
       cancelLabel: {
         type: String,
         default() {
           return 'art.videos.video_form.back';
-        }
+        },
       },
       video: {
         type: Object,
@@ -105,16 +105,16 @@
             slug: '',
             description: '',
             poster: '',
-            uploadedPoster: undefined
+            uploadedPoster: undefined,
           };
-        }
+        },
       },
       slugifyEnabled: {
         type: Boolean,
         default() {
           return true;
-        }
-      }
+        },
+      },
     },
     methods: {
       back() {
@@ -140,11 +140,11 @@
           name: this.video.name,
           slug: this.video.slug,
           description: this.video.description,
-          poster: this.video.uploadedPoster
+          poster: this.video.uploadedPoster,
         };
 
-        this.$emit('save', video)
-      }
-    }
-  }
+        this.$emit('save', video);
+      },
+    },
+  };
 </script>

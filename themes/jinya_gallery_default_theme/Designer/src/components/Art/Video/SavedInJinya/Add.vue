@@ -3,25 +3,25 @@
 </template>
 
 <script>
-  import JinyaVideoForm from "@/components/Art/Video/SavedInJinya/VideoForm";
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import Translator from "@/framework/i18n/Translator";
-  import Routes from "@/router/Routes";
-  import Timing from "@/framework/Utils/Timing";
+  import JinyaVideoForm from '@/components/Art/Video/SavedInJinya/VideoForm';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import Translator from '@/framework/i18n/Translator';
+  import Routes from '@/router/Routes';
+  import Timing from '@/framework/Utils/Timing';
 
   export default {
     components: {
-      JinyaVideoForm
+      JinyaVideoForm,
     },
     data() {
       return {
         message: '',
         state: '',
         loading: false,
-        enable: true
-      }
+        enable: true,
+      };
     },
-    name: "add",
+    name: 'add',
     methods: {
       async save(video) {
         try {
@@ -32,7 +32,7 @@
           await JinyaRequest.post('/api/video/jinya', {
             name: video.name,
             slug: video.slug,
-            description: video.description
+            description: video.description,
           });
 
           if (video.poster) {
@@ -50,7 +50,7 @@
           this.state = 'error';
           this.enable = true;
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
