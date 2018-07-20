@@ -106,19 +106,25 @@ class UpdateController extends AbstractController
     {
         $tmpFile = $this->kernelProjectDir . '/var/tmp/update.zip';
         $this->client->get($url, [RequestOptions::SINK => $tmpFile]);
+        $backupPath = $this->kernelProjectDir . '/var/tmp/backup/' . time();
 
-        @rmdir($this->kernelProjectDir . '/src');
+        @mkdir($backupPath, 0777, true);
+        @rename($this->kernelProjectDir . '/src', $backupPath);
 
-        $zipArchive = new ZipArchive();
-        $zipArchive->open($tmpFile);
-        $zipArchive->extractTo($this->kernelProjectDir);
+        try {
+            $zipArchive = new ZipArchive();
+            $zipArchive->open($tmpFile);
+            $zipArchive->extractTo($this->kernelProjectDir);
 
-        $this->cacheClearer->clear($this->kernelProjectDir . '/var/cache');
+            $this->cacheClearer->clear($this->kernelProjectDir . '/var/cache');
 
-        $this->themeSyncService->syncThemes();
-        $themes = $this->themeService->getAllThemes();
-        foreach ($themes as $theme) {
-            $this->themeCompilerService->compileTheme($theme);
+            $this->themeSyncService->syncThemes();
+            $themes = $this->themeService->getAllThemes();
+            foreach ($themes as $theme) {
+                $this->themeCompilerService->compileTheme($theme);
+            }
+        } catch (\Throwable $exception) {
+            rename($backupPath, $this->kernelProjectDir . '/src');
         }
     }
 
