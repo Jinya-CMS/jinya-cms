@@ -497,7 +497,7 @@ art:
   artworks:
     delete:
       title: Ist das Kunst oder kann das weg?
-      content: Soll das Kunstwerk "%artwork%" wirklich gelöscht werden?
+      content: Soll das Kunstwerk "%name%" wirklich gelöscht werden?
       yes: Kunstwerk löschen
       no: Kunstwerk nicht löschen
     add:

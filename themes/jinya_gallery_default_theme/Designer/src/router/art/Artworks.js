@@ -32,9 +32,6 @@ export default [
     path: Routes.Art.Artworks.SavedInJinya.Edit.route,
     name: Routes.Art.Artworks.SavedInJinya.Edit.name,
     component: ArtworksSavedInJinyaEdit,
-    meta: {
-      title: 'routes.art.artworks.saved_in_jinya.edit',
-    },
   },
   {
     path: Routes.Art.Artworks.SavedExternal.Overview.route,

@@ -54,7 +54,7 @@
     },
     methods: {
       async save(artist) {
-        const picture = artist.profilePicture;
+        const { profilePicture } = artist;
         try {
           this.enable = false;
           this.state = 'loading';
@@ -62,9 +62,9 @@
 
           await JinyaRequest.put(`/api/user/${this.$route.params.id}`, artist);
 
-          if (picture) {
+          if (profilePicture) {
             this.message = Translator.message('configuration.general.artists.edit.uploading', artist);
-            await JinyaRequest.upload(`/api/user/${this.$route.params.id}/profilepicture`, picture);
+            await JinyaRequest.upload(`/api/user/${this.$route.params.id}/profilepicture`, profilePicture);
           }
 
           this.state = 'success';

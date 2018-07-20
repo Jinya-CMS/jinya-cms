@@ -1,5 +1,5 @@
 <template>
-    <form class="jinya-form" @submit.prevent="$emit('submit', $event)">
+    <form class="jinya-form" novalidate @submit.prevent="submit">
         <slot/>
         <div class="jinya-form__buttons" :style="{'padding-right': buttonBarPaddingRight}">
             <slot name="buttons">
@@ -13,11 +13,11 @@
 </template>
 
 <script>
-  import JinyaButton from '../Button';
+  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
-    components: { JinyaButton },
     name: 'jinya-form',
+    components: { JinyaButton },
     props: {
       enable: {
         type: Boolean,
@@ -33,6 +33,13 @@
       },
       buttonBarPaddingRight: {
         type: String,
+      },
+    },
+    methods: {
+      submit($event) {
+        if ($event.target.checkValidity()) {
+          this.$emit('submit', $event);
+        }
       },
     },
   };

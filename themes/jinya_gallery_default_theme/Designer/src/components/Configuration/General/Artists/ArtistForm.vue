@@ -13,13 +13,13 @@
             </jinya-editor-pane>
             <jinya-editor-pane>
                 <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.firstname" class="is--half"
-                             label="configuration.general.artists.artist_form.firstname"/>
+                             label="configuration.general.artists.artist_form.firstname" :required="true"/>
                 <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.lastname" class="is--half"
-                             label="configuration.general.artists.artist_form.lastname"/>
+                             label="configuration.general.artists.artist_form.lastname" :required="true"/>
                 <jinya-input :is-static="isStatic" :enable="enable" type="email" v-model="artist.email"
-                             label="configuration.general.artists.artist_form.email"/>
+                             label="configuration.general.artists.artist_form.email" :required="true"/>
                 <jinya-input v-if="showPassword" :enable="enable" type="password" v-model="artist.password"
-                             label="configuration.general.artists.artist_form.password"/>
+                             label="configuration.general.artists.artist_form.password" :required="true"/>
                 <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
                                   label="configuration.general.artists.artist_form.profile_picture"/>
                 <jinya-choice :is-static="isStatic" label="configuration.general.artists.artist_form.activation"

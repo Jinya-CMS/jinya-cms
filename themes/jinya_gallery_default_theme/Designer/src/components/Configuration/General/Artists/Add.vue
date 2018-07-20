@@ -27,21 +27,17 @@
         try {
           this.enable = false;
           this.state = 'loading';
-          this.message = Translator.message('configuration.general.artists.add.saving', {
-            firstname: artist.firstname,
-            lastname: artist.lastname,
-          });
+          this.message = Translator.message('configuration.general.artists.add.saving', artist);
 
           const result = await JinyaRequest.post('/api/user', artist);
 
-          this.message = Translator.message('configuration.general.artists.add.uploading', {
-            firstname: artist.firstname,
-            lastname: artist.lastname,
-          });
-          await JinyaRequest.upload(`/api/user/${result.id}/profilepicture`, profilePicture);
+          if (profilePicture) {
+            this.message = Translator.message('configuration.general.artists.add.uploading', artist);
+            await JinyaRequest.upload(`/api/user/${result.id}/profilepicture`, profilePicture);
+          }
 
           this.state = 'success';
-          this.message = Translator.message('configuration.general.artists.add.success', { name: artist.name });
+          this.message = Translator.message('configuration.general.artists.add.success', artist);
 
           await Timing.wait();
           this.$router.push(Routes.Configuration.General.Artists.Overview);

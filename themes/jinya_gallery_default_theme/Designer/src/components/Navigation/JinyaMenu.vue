@@ -189,18 +189,20 @@
       selectHeader(name) {
         this.selectedHeader = name;
         this.isOpen = true;
+        EventBus.$on(Events.navigation.navigated, this.navigated);
       },
       async logout() {
         await logout();
       },
-    },
-    name: 'jinya-menu',
-    mounted() {
-      EventBus.$on(Events.navigation.navigated, () => {
+      navigated() {
         this.isOpen = false;
         this.selectedHeader = '';
         this.title = this.$route.meta.title || this.title;
-      });
+        EventBus.$off(Events.navigation.navigated, this.navigated);
+      },
+    },
+    name: 'jinya-menu',
+    mounted() {
       EventBus.$on(Events.header.change, (header) => {
         this.title = header;
       });

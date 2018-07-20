@@ -10,7 +10,6 @@
   import Translator from '@/framework/i18n/Translator';
   import DOMUtils from '@/framework/Utils/DOMUtils';
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
       JinyaArtworkForm,

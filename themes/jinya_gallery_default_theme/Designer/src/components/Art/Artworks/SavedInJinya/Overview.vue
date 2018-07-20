@@ -17,7 +17,7 @@
                      :loading="this.delete.loading">
             <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
                            slot="message"/>
-            {{'art.artworks.delete.content'|jmessage({artwork: selectedArtwork.name})}}
+            {{'art.artworks.delete.content'|jmessage(selectedArtwork)}}
             <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.artworks.delete.no"
                                 :closes-modal="true" :is-disabled="this.delete.loading"/>
             <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"
