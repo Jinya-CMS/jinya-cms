@@ -95,7 +95,7 @@ class MenuItem implements JsonSerializable
         $route->setMenuItem($menuItem);
 
         $menuItem->route = $route;
-        $menuItem->highlighted = array_key_exists('highlighted', $item) || $item['highlighted'];
+        $menuItem->highlighted = array_key_exists('highlighted', $item) && $item['highlighted'];
         $menuItem->pageType = $item['pageType'];
         $menuItem->position = $item['position'];
         $menuItem->title = $item['title'];
