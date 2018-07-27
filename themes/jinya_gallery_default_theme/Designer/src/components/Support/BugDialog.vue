@@ -113,8 +113,7 @@
         try {
           this.message = Translator.message('support.bug_dialog.sending');
           this.state = 'loading';
-          const response = await JinyaRequest.post('/api/support/bug', data);
-          window.open(response.followUpLink);
+          await JinyaRequest.post('/api/support/bug', data);
           this.$emit('close');
         } catch (e) {
           this.message = Translator.message('support.bug_dialog.error');
