@@ -675,7 +675,7 @@ support:
   bug_dialog:
     title: Ich habe einen Fehler gefunden
     content: Das tut uns leid, wir versuchen Jinya möglichst gut zu testen, damit keine Fehler vorkommen, bist du so nett und sagst uns was der Fehler ist und wie wir in nachstellen können?
-    sending: Der Fehler wird übermittelt, wir kümmern uns drum, versprochen. Dir wird gleich das Ticket geöffnet.
+    sending: Der Fehler wird übermittelt, wir kümmern uns drum, versprochen.
     error: Leider konnte der Fehler nicht übermittelt werden, magst du uns eine Mail schicken?
     send_mail: Mail schicken
     form:
@@ -695,7 +695,7 @@ support:
   feature_dialog:
     title: Ich habe einen Idee für um Jinya zu verbessern
     content: Das freut uns, jede Vorschlag ist wichtig um Jinya zu verbessern, bist du so nett und sagst uns was deine Idee ist?
-    sending: Deine Idee wird übermittelt, wir kümmern uns drum, versprochen. Dir wird gleich das Ticket geöffnet.
+    sending: Deine Idee wird übermittelt, wir kümmern uns drum, versprochen.
     error: Leider konnte deine Idee nicht übermittelt werden, magst du uns eine Mail schicken?
     send_mail: Mail schicken
     form:

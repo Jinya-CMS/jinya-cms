@@ -68,8 +68,7 @@
         try {
           this.message = Translator.message('support.feature_dialog.sending');
           this.state = 'loading';
-          const response = await JinyaRequest.post('/api/support/feature', data);
-          window.open(response.followUpLink);
+          await JinyaRequest.post('/api/support/feature', data);
           this.$emit('close');
         } catch (e) {
           this.message = Translator.message('support.feature_dialog.error');
