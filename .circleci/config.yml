@@ -65,7 +65,7 @@ jobs:
         command: |
           mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
           scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode edge"
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode edge"
         name: "Deploy via SCP"
     working_directory: ~/jinya
   deployNightly:
@@ -78,7 +78,7 @@ jobs:
         command: |
           mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
           scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode nightly"
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode nightly"
         name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable:
@@ -91,7 +91,7 @@ jobs:
         command: |
           mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
           scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode stable"
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode stable"
         name: "Deploy via SCP"
     working_directory: ~/jinya
 version: 2
