@@ -1,165 +1,139 @@
---- 
-defaults: 
-  docker: 
-    - 
-      image: circleci/php
+---
+defaults:
+  docker:
+  - image: circleci/php
   working_directory: ~/jinya
-jobs: 
-  build: 
-    docker: 
-      - 
-        image: circleci/php
-    steps: 
-      - checkout
-      - 
-        run: 
-          command: |
-            sudo apt install apt-transport-https
-            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-            curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-            sudo apt update
-            sudo apt install -y nodejs build-essential yarn
-      -
-        run:
-          command: |
-            sudo mkdir -p /opt/sonar
-            cd /opt/sonar
-            sudo wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
-            sudo unzip sonar-scanner-cli-3.2.0.1227-linux.zip
-      - 
-        restore_cache: 
-          keys: 
-            - "v1-dependencies-{{ checksum \"composer.json\" }}"
-            - v1-dependencies-
-      - 
-        run: "composer install -n --prefer-dist --no-scripts --no-dev"
-      - 
-        save_cache: 
-          key: "v1-dependencies-{{ checksum \"composer.json\" }}"
-          paths: 
-            - ./vendor
-      - 
-        run: 
-          command: |
-            cd themes/jinya_gallery_default_theme/Designer/
-            yarn
-            yarn build
-      - 
-        run: 
-          command: |
-            cd themes/jinya_gallery_default_theme/Frontend/
-            yarn
-            node_modules/.bin/gulp
-      -
-        run:
-          command: |
-            /opt/sonar/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.projectKey=JinyaCMS -Dsonar.organization=jinya -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.branch.name=$CIRCLE_BRANCH
-      - 
-        run: 
-          command: |
-            rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public public/.htaccess
-            mkdir -p ~/dist
-            zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
-      - 
-        persist_to_workspace: 
-          paths: 
-            - dist
-          root: ~/
+jobs:
+  build:
+    docker:
+    - image: circleci/php
+    steps:
+    - checkout
+    - run:
+        command: |
+          sudo apt install apt-transport-https
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+          sudo apt update
+          sudo apt install -y nodejs build-essential yarn
+    - run:
+        command: |
+          sudo mkdir -p /opt/sonar
+          cd /opt/sonar
+          sudo wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
+          sudo unzip sonar-scanner-cli-3.2.0.1227-linux.zip
+    - restore_cache:
+        keys:
+        - "v1-dependencies-{{ checksum \"composer.json\" }}"
+        - v1-dependencies-
+    - run: "composer install -n --prefer-dist --no-scripts --no-dev"
+    - save_cache:
+        key: "v1-dependencies-{{ checksum \"composer.json\" }}"
+        paths:
+        - ./vendor
+    - run:
+        command: |
+          cd themes/jinya_gallery_default_theme/Designer/
+          yarn
+          yarn build
+    - run:
+        command: |
+          cd themes/jinya_gallery_default_theme/Frontend/
+          yarn
+          node_modules/.bin/gulp
+    - run:
+        command: |
+          /opt/sonar/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.projectKey=JinyaCMS -Dsonar.organization=jinya -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.branch.name=$CIRCLE_BRANCH
+    - run:
+        command: |
+          rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public public/.htaccess
+          mkdir -p ~/dist
+          zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
+    - persist_to_workspace:
+        paths:
+        - dist
+        root: ~/
     working_directory: ~/jinya
   deployEdge:
-    docker: 
-      - 
-        image: circleci/php
-    steps: 
-      - 
-        attach_workspace: 
-          at: ~/jinya/
-      - 
-        run: 
-          command: |
-            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
-            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms edge"
-          name: "Deploy via SCP"
+    docker:
+    - image: circleci/php
+    steps:
+    - attach_workspace:
+        at: ~/jinya/
+    - run:
+        command: |
+          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
+          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode edge"
+        name: "Deploy via SCP"
     working_directory: ~/jinya
-  deployNightly: 
-    docker: 
-      - 
-        image: circleci/php
-    steps: 
-      - 
-        attach_workspace: 
-          at: ~/jinya/
-      - 
-        run:
-          command: |
-            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
-            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms nightly"
-          name: "Deploy via SCP"
+  deployNightly:
+    docker:
+    - image: circleci/php
+    steps:
+    - attach_workspace:
+        at: ~/jinya/
+    - run:
+        command: |
+          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
+          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode nightly"
+        name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable:
-    docker: 
-      - 
-        image: circleci/php
-    steps: 
-      - 
-        attach_workspace: 
-          at: ~/jinya/
-      - 
-        run: 
-          command: |
-            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
-            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
-            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "php_cli $DEPLOY_TARGET/bin/console jinya:version:update cms stable"
-          name: "Deploy via SCP"
+    docker:
+    - image: circleci/php
+    steps:
+    - attach_workspace:
+        at: ~/jinya/
+    - run:
+        command: |
+          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
+          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
+          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "$DEPLOY_TARGET/jinya-files --mode stable"
+        name: "Deploy via SCP"
     working_directory: ~/jinya
 version: 2
-workflows: 
-  edge: 
-    jobs: 
-      - build
-      - 
-        deployEdge:
-          filters:
-            branches:
-              only:
-                - develop
-          requires: 
-            - build
-  nightly: 
-    jobs: 
-      - build
-      - 
-        deployNightly: 
-          requires: 
-            - build
-    triggers: 
-      - 
-        schedule: 
-          cron: "0 0 * * *"
-          filters: 
-            branches: 
-              only: 
-                - develop
-  stable: 
-    jobs: 
-      -
-        build:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-      - 
-        deployStable:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
-          requires: 
-            - build
+workflows:
+  edge:
+    jobs:
+    - build
+    - deployEdge:
+        filters:
+          branches:
+            only:
+            - develop
+        requires:
+        - build
+  nightly:
+    jobs:
+    - build
+    - deployNightly:
+        requires:
+        - build
+    triggers:
+    - schedule:
+        cron: "0 0 * * *"
+        filters:
+          branches:
+            only:
+            - develop
+  stable:
+    jobs:
+    - build:
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /.*/
+    - deployStable:
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /.*/
+        requires:
+        - build
 
   version: 2
