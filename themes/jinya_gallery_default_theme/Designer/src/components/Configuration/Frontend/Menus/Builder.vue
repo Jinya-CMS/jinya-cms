@@ -1,49 +1,49 @@
 <template>
-    <jinya-editor class="jinya-menu-builder">
-        <jinya-loader :loading="loading"/>
-        <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save" @submit="save" @back="back"
-                    cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
-            <draggable v-show="drag" class="jinya-menu-builder__trash" :options="itemsOptions">
-                <i class="mdi mdi-delete is--big"></i>
-                <span>{{'configuration.frontend.menus.builder.delete'|jmessage}}</span>
-            </draggable>
-            <jinya-message :message="message" :state="state"/>
-            <jinya-editor-pane>
-                <jinya-tab-container :items="types" @select="selectTemplateItems"
-                                     :class="{'is--loading': itemsLoading}">
-                    <jinya-loader v-if="itemsLoading" :loading="itemsLoading"></jinya-loader>
-                    <draggable v-model="selectedTemplateItems" :options="templateItemsOptions" v-else
-                               class="jinya-menu-builder__list">
-                        <jinya-menu-builder-template-entry v-for="item in selectedTemplateItems" :item="item"
-                                                           :key="`${item.title}-${item.route.name}`"/>
-                    </draggable>
-                </jinya-tab-container>
-            </jinya-editor-pane>
-            <jinya-editor-pane>
-                <span class="jinya-menu-builder__header">{{'configuration.frontend.menus.builder.menu'|jmessage}}</span>
-                <draggable v-model="items" :options="itemsOptions" class="jinya-menu-builder__list" @add="itemsAdded"
-                           @change="itemsChange" @start="drag = true" @end="drag = false">
-                    <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
-                                              @increase="increase(index)" :allow-increase="item.allowIncrease"
-                                              @decrease="decrease(index)" :allow-decrease="item.allowDecrease"
-                                              :key="`${item.position}-${index}-${item.route.name}`"/>
-                </draggable>
-            </jinya-editor-pane>
-        </jinya-form>
-        <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
-            {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
-            <template slot="buttons-left">
-                <jinya-modal-button label="configuration.frontend.menus.builder.leave.cancel" :closes-modal="true"
-                                    @click="stay" :is-secondary="true"/>
-            </template>
-            <template slot="buttons-right">
-                <jinya-modal-button label="configuration.frontend.menus.builder.leave.no" :closes-modal="true"
-                                    @click="stayAndSaveChanges" :is-success="true"/>
-                <jinya-modal-button label="configuration.frontend.menus.builder.leave.yes" :closes-modal="true"
-                                    @click="leave" :is-danger="true"/>
-            </template>
-        </jinya-modal>
-    </jinya-editor>
+  <jinya-editor class="jinya-menu-builder">
+    <jinya-loader :loading="loading"/>
+    <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save" @submit="save" @back="back"
+                cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
+      <draggable v-show="drag" class="jinya-menu-builder__trash" :options="itemsOptions">
+        <i class="mdi mdi-delete is--big"></i>
+        <span>{{'configuration.frontend.menus.builder.delete'|jmessage}}</span>
+      </draggable>
+      <jinya-message :message="message" :state="state"/>
+      <jinya-editor-pane>
+        <jinya-tab-container :items="types" @select="selectTemplateItems"
+                             :class="{'is--loading': itemsLoading}">
+          <jinya-loader v-if="itemsLoading" :loading="itemsLoading"></jinya-loader>
+          <draggable v-model="selectedTemplateItems" :options="templateItemsOptions" v-else
+                     class="jinya-menu-builder__list">
+            <jinya-menu-builder-template-entry v-for="item in selectedTemplateItems" :item="item"
+                                               :key="`${item.title}-${item.route.name}`"/>
+          </draggable>
+        </jinya-tab-container>
+      </jinya-editor-pane>
+      <jinya-editor-pane>
+        <span class="jinya-menu-builder__header">{{'configuration.frontend.menus.builder.menu'|jmessage}}</span>
+        <draggable v-model="items" :options="itemsOptions" class="jinya-menu-builder__list" @add="itemsAdded"
+                   @change="itemsChange" @start="drag = true" @end="drag = false">
+          <jinya-menu-builder-group v-for="(item, index) in items" :item="item" :enable="enable"
+                                    @increase="increase(index)" :allow-increase="item.allowIncrease"
+                                    @decrease="decrease(index)" :allow-decrease="item.allowDecrease"
+                                    :key="`${item.position}-${index}-${item.route.name}`"/>
+        </draggable>
+      </jinya-editor-pane>
+    </jinya-form>
+    <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
+      {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
+      <template slot="buttons-left">
+        <jinya-modal-button label="configuration.frontend.menus.builder.leave.cancel" :closes-modal="true"
+                            @click="stay" :is-secondary="true"/>
+      </template>
+      <template slot="buttons-right">
+        <jinya-modal-button label="configuration.frontend.menus.builder.leave.no" :closes-modal="true"
+                            @click="stayAndSaveChanges" :is-success="true"/>
+        <jinya-modal-button label="configuration.frontend.menus.builder.leave.yes" :closes-modal="true"
+                            @click="leave" :is-danger="true"/>
+      </template>
+    </jinya-modal>
+  </jinya-editor>
 </template>
 
 <script>
@@ -393,41 +393,59 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-tab {
-        &.is--loading {
-            height: 15rem;
-        }
+  .jinya-tab {
+    &.is--loading {
+      height: 15rem;
     }
+  }
 
-    .is--dragging {
-        opacity: 0.4;
-    }
+  .is--dragging {
+    opacity: 0.4;
+  }
 
-    .jinya-menu-builder__list {
-        width: 100%;
-    }
+  .jinya-menu-builder__list {
+    width: 100%;
+    min-height: 5rem;
 
-    .jinya-menu-builder__header {
-        font-size: 1.4rem;
-        padding: 0.5em 1em 0;
-        margin-bottom: 1.2rem;
-        width: 100%;
+    &:empty {
+      background: $primary-lighter;
+      position: relative;
+
+      &::before {
+        //noinspection CssNoGenericFontName
+        font-family: "Material Design Icons";
+        content: "\f1db";
+        font-size: 3em;
         color: $primary;
-        border: 2px solid transparent;
-        border-bottom-color: $primary;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg);
+        position: absolute;
+      }
     }
+  }
 
-    .jinya-menu-builder__trash {
-        width: 100%;
-        display: flex;
-        transition: opacity 0.3s;
-        color: $danger;
-        justify-content: center;
-        flex-direction: row;
-        align-items: center;
-    }
+  .jinya-menu-builder__header {
+    font-size: 1.4rem;
+    padding: 0.5em 1em 0;
+    margin-bottom: 1.2rem;
+    width: 100%;
+    color: $primary;
+    border: 2px solid transparent;
+    border-bottom-color: $primary;
+  }
 
-    .jinya-menu-builder {
-        padding-bottom: 1rem;
-    }
+  .jinya-menu-builder__trash {
+    width: 100%;
+    display: flex;
+    transition: opacity 0.3s;
+    color: $danger;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .jinya-menu-builder {
+    padding-bottom: 1rem;
+  }
 </style>
