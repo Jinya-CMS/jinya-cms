@@ -47,7 +47,7 @@
 
 <style scoped lang="scss">
   @mixin message-type($color) {
-    background: $white;
+    background: color-yiq($color);
     color: $color;
     border: 1px solid $color;
     border-top-width: 0.6em;
