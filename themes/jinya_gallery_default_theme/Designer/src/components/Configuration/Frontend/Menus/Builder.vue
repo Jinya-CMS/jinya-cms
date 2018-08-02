@@ -3,9 +3,8 @@
     <jinya-loader :loading="loading"/>
     <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save" @submit="save" @back="back"
                 cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
-      <draggable v-show="drag" class="jinya-menu-builder__trash" :options="itemsOptions">
-        <i class="mdi mdi-delete is--big"></i>
-        <span>{{'configuration.frontend.menus.builder.delete'|jmessage}}</span>
+      <draggable v-show="drag" :data-message="'configuration.frontend.menus.builder.delete'|jmessage"
+                 class="jinya-menu-builder__trash" :options="itemsOptions">
       </draggable>
       <jinya-message :message="message" :state="state"/>
       <jinya-editor-pane>
@@ -439,10 +438,24 @@
     width: 100%;
     display: flex;
     transition: opacity 0.3s;
-    color: $danger;
+    background: $danger;
+    color: $white;
     justify-content: center;
     flex-direction: row;
     align-items: center;
+    min-height: 3rem;
+
+    &:empty {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '\f1c0' attr(data-message);
+        font-family: 'Material Design Icons', $font-family;
+        color: $white;
+        font-size: 1.25rem;
+      }
+    }
   }
 
   .jinya-menu-builder {
