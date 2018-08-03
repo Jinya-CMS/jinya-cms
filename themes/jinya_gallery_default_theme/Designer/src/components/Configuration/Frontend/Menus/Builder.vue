@@ -3,7 +3,8 @@
     <jinya-loader :loading="loading"/>
     <jinya-form v-if="!loading" save-label="configuration.frontend.menus.builder.save" @submit="save" @back="back"
                 cancel-label="configuration.frontend.menus.builder.cancel" button-bar-padding-right="0.5rem">
-      <draggable v-show="drag" :data-message="'configuration.frontend.menus.builder.delete'|jmessage"
+      <draggable v-show="drag" :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
+                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage"
                  class="jinya-menu-builder__trash" :options="itemsOptions">
       </draggable>
       <jinya-message :message="message" :state="state"/>
