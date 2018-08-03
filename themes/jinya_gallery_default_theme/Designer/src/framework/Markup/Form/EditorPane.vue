@@ -1,7 +1,7 @@
 <template>
-    <div class="jinya-editor-pane">
-        <slot/>
-    </div>
+  <div class="jinya-editor-pane">
+    <slot/>
+  </div>
 </template>
 
 <script>
@@ -11,19 +11,12 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-editor-pane {
-        width: 50%;
-        padding: 0.5em;
-        display: flex;
-        flex-wrap: wrap;
-        align-content: start;
-
-        &:nth-child(1) {
-            padding-left: 0;
-        }
-
-        &:nth-child(2) {
-            padding-right: 0;
-        }
-    }
+  .jinya-editor-pane {
+    width: 50%;
+    padding: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    box-sizing: border-box;
+  }
 </style>

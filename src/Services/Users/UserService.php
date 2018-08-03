@@ -255,7 +255,7 @@ class UserService implements UserServiceInterface
         try {
             $user = $this->getUserByEmail($username);
         } catch (Exception $e) {
-            throw new BadCredentialsException($e->getMessage(), $e);
+            throw new BadCredentialsException($e->getMessage(), 0, $e);
         }
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {

@@ -5,10 +5,9 @@
       <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel"
                   @submit="saveChanges" novalidate class="jinya-form-builder__form" @back="back"
                   button-bar-padding-right="0.5rem">
-        <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash"
-                   :options="destinationOptions">
-          <i class="mdi mdi-delete is--big"></i>
-          <span>{{'static.forms.forms.builder.delete'|jmessage}}</span>
+        <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash" :options="destinationOptions"
+                   :aria-label="'static.forms.forms.builder.delete'|jmessage"
+                   :data-message="'static.forms.forms.builder.delete'|jmessage">
         </draggable>
         <jinya-message :message="message" :state="state"/>
         <jinya-editor-pane>
@@ -294,13 +293,23 @@
     width: 100%;
     display: flex;
     transition: opacity 0.3s;
-    color: $danger;
+    background: $danger;
+    color: $white;
     justify-content: center;
     flex-direction: row;
     align-items: center;
-  }
+    min-height: 3rem;
 
-  .is--big {
-    font-size: 250%;
+    &:empty {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '\f1c0' attr(data-message);
+        font-family: 'Material Design Icons', $font-family;
+        color: $white;
+        font-size: 1.25rem;
+      }
+    }
   }
 </style>

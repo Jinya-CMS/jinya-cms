@@ -365,6 +365,8 @@ configuration:
         menu: Menü
         increase_alignment: Einzug erhöhen
         decrease_alignment: Einzug verringern
+        edit_entry: Eintreag bearbeiten
+        delete: Eintrag löschen
         saving: Die Anpassungen am Menü %name% werden gespeichert
         saved: Die Anpassungen am Menü %name% wurden gespeichert
         api:
