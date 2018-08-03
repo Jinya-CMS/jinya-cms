@@ -1,5 +1,5 @@
 <template>
-    <tiny-mce :init="tinyMceOptions" :initial-value="data" v-model="data" @input="$emit('input', data)"/>
+  <tiny-mce :init="tinyMceOptions" :initial-value="data" v-model="data" @input="input"/>
 </template>
 
 <script>
@@ -26,6 +26,24 @@
           return '600px';
         },
       },
+      required: {
+        type: Boolean,
+        default() {
+          return false;
+        },
+      },
+    },
+    methods: {
+      input($event) {
+        this.$emit('input', $event);
+        if (this.required && !$event) {
+          const validityState = new ValidityState();
+          validityState.valueMissing = true;
+          this.$emit('invalid', validityState);
+        } else {
+          this.$emit('valid');
+        }
+      },
     },
     data() {
       const { height } = this;
@@ -46,11 +64,11 @@
           height,
           menubar: 'edit insert view format table tools help',
           toolbar: 'undo redo | '
-          + 'styleselect | '
-          + 'bold italic | '
-          + 'alignleft aligncenter alignright alignjustify | '
-          + 'bullist numlist outdent indent | '
-          + 'forecolor backcolor',
+            + 'styleselect | '
+            + 'bold italic | '
+            + 'alignleft aligncenter alignright alignjustify | '
+            + 'bullist numlist outdent indent | '
+            + 'forecolor backcolor',
           file_picker_type: 'image',
           file_picker_callback(cb) {
             const input = document.createElement('input');
@@ -77,7 +95,7 @@
 </script>
 
 <style lang="scss">
-    .mce-container.mce-panel.mce-tinymce {
-        margin-bottom: 1em;
-    }
+  .mce-container.mce-panel.mce-tinymce {
+    margin-bottom: 1em;
+  }
 </style>
