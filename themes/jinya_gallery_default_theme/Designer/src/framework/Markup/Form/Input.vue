@@ -1,9 +1,9 @@
 <template>
-  <div class="jinya-input">
+  <div class="jinya-input" :class="{'is--invalid': invalid}" :data-validation-message="validationMessage">
     <label v-if="label" :for="id" class="jinya-input__label">{{label|jmessage}}</label>
     <input v-if="!isStatic" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
            :disabled="!enable" :autocomplete="autocomplete" @keyup="keyup" :placeholder="placeholder|jmessage"
-           :autofocus="autofocus" @input="$emit('input', $event.target.value)"/>
+           :autofocus="autofocus" @input="input" ref="input" @invalid="onInvalid" @change="change"/>
     <span v-if="isStatic" :id="id" class="jinya-input__field">{{value}}</span>
   </div>
 </template>
@@ -24,6 +24,7 @@
           return true;
         },
       },
+      validationMessage: String,
       value: String,
       placeholder: String,
       required: Boolean,
@@ -43,6 +44,7 @@
     data() {
       return {
         id: null,
+        invalid: false,
       };
     },
     mounted() {
@@ -50,14 +52,27 @@
       this.id = this._uid;
     },
     methods: {
-      keyup($event) {
+      onInvalid($event) {
+        this.invalid = true;
+        this.$emit('invalid', $event.target.validity);
+      },
+      change($event) {
         this.$emit('change', $event.target.value);
-        this.$emit('keyup', $event);
         if ($event.target.checkValidity()) {
+          this.invalid = false;
           this.$emit('valid');
         } else {
+          this.invalid = true;
           this.$emit('invalid', $event.target.validity);
         }
+      },
+      keyup($event) {
+        this.$emit('keyup', $event);
+        this.change($event);
+      },
+      input($event) {
+        this.$emit('input', $event.target.value);
+        this.change($event);
       },
     },
   };
@@ -66,8 +81,8 @@
 <style scoped lang="scss">
   .jinya-input {
     font-size: 1rem;
-    margin: 0 0 1em;
     width: 100%;
+    @include validation-message(3.4rem);
 
     .jinya-input__label {
       display: inline-block;
@@ -83,6 +98,7 @@
       transition: border-bottom-width 0.3s;
       font-family: $font-family;
       font-size: 90%;
+      position: relative;
 
       &.is--disabled {
         background: $gray-200;
