@@ -1,32 +1,32 @@
 <template>
-    <div class="jinya-video-overview">
-        <jinya-loader :loading="loading"/>
-        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="video.name" v-for="video in videos" v-if="!loading" :key="video.slug">
-                <iframe class="jinya-video__youtube" :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
-                        frameborder="0"></iframe>
-                <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" slot="footer" icon="monitor"
-                                   type="details"/>
-                <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"
-                                   type="edit"/>
-                <!--suppress JSUnnecessarySemicolon -->
-                <jinya-card-button @click="showDeleteModal(video)" slot="footer" icon="delete" type="delete"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
-                     :count="count"/>
-        <jinya-modal @close="closeDeleteModal()" title="art.videos.youtube.delete.title" v-if="this.delete.show"
-                     :loading="this.delete.loading">
-            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                           slot="message"/>
-            {{'art.videos.youtube.delete.content'|jmessage({video: selectedVideo.name})}}
-            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.videos.youtube.delete.no"
-                                :closes-modal="true" :is-disabled="this.delete.loading"/>
-            <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.videos.youtube.delete.yes"
-                                @click="remove" :is-disabled="this.delete.loading"/>
-        </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
-    </div>
+  <div class="jinya-video-overview">
+    <jinya-loader :loading="loading"/>
+    <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
+      <jinya-card :header="video.name" v-for="video in videos" v-if="!loading" :key="video.slug">
+        <iframe class="jinya-video__youtube" :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
+                frameborder="0"></iframe>
+        <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" slot="footer" icon="monitor"
+                           type="details"/>
+        <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"
+                           type="edit"/>
+        <!--suppress JSUnnecessarySemicolon -->
+        <jinya-card-button @click="showDeleteModal(video)" slot="footer" icon="delete" type="delete"/>
+      </jinya-card>
+    </jinya-card-list>
+    <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
+                 :count="count"/>
+    <jinya-modal @close="closeDeleteModal()" title="art.videos.youtube.delete.title" v-if="this.delete.show"
+                 :loading="this.delete.loading">
+      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                     slot="message"/>
+      {{'art.videos.youtube.delete.content'|jmessage({video: selectedVideo.name})}}
+      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.videos.youtube.delete.no"
+                          :closes-modal="true" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.videos.youtube.delete.yes"
+                          @click="remove" :is-disabled="this.delete.loading"/>
+    </jinya-modal>
+    <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
+  </div>
 </template>
 
 <script>
@@ -161,8 +161,8 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-video__youtube {
-        width: 100%;
-        height: 100%;
-    }
+  .jinya-video__youtube {
+    width: 100%;
+    height: 100%;
+  }
 </style>

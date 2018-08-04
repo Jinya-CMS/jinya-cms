@@ -1,18 +1,18 @@
 <template>
-    <jinya-loader v-if="loading" :loading="loading"/>
-    <jinya-editor v-else class="jinya-video__uploader">
-        <jinya-form save-label="art.videos.uploader.upload" cancel-label="art.videos.uploader.back"
-                    @submit="queueUpload">
-            <jinya-message :message="'art.videos.uploader.queued'|jmessage" state="success" v-if="uploadQueued"/>
-            <jinya-editor-pane>
-                <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster" controls></video>
-            </jinya-editor-pane>
-            <jinya-editor-pane>
-                <jinya-file-input :enable="true" accept="video/mp4" label="art.videos.uploader.file"
-                                  @picked="filePicked"/>
-            </jinya-editor-pane>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-loader v-if="loading" :loading="loading"/>
+  <jinya-editor v-else class="jinya-video__uploader">
+    <jinya-form save-label="art.videos.uploader.upload" cancel-label="art.videos.uploader.back"
+                @submit="queueUpload">
+      <jinya-message :message="'art.videos.uploader.queued'|jmessage" state="success" v-if="uploadQueued"/>
+      <jinya-editor-pane>
+        <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster" controls></video>
+      </jinya-editor-pane>
+      <jinya-editor-pane>
+        <jinya-file-input :enable="true" accept="video/mp4" label="art.videos.uploader.file"
+                          @picked="filePicked"/>
+      </jinya-editor-pane>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -76,7 +76,7 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-video__uploader {
-        padding-top: 1rem;
-    }
+  .jinya-video__uploader {
+    padding-top: 1rem;
+  }
 </style>

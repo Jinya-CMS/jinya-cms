@@ -1,20 +1,20 @@
 <template>
-    <jinya-modal @close="$emit('close')" title="support.bug_dialog.title" v-if="show" :is-fullscreen="true">
-        <jinya-message slot="message" :message="message" :state="state">
-            <jinya-message-action-bar v-if="state === 'error'">
-                <jinya-button label="support.bug_dialog.send_mail" href="mailto:developers@jinya.de"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-        <jinya-input :required="true" label="support.bug_dialog.form.title" v-model="title"/>
-        <jinya-textarea :required="true" label="support.bug_dialog.form.details" v-model="details"/>
-        <jinya-textarea :required="true" label="support.bug_dialog.form.reproduce" v-model="reproduce"/>
-        <jinya-choice :required="true" label="support.bug_dialog.form.severity" :choices="severityLevels"
-                      @selected="severity = $event" :selected="severity"/>
-        <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.bug_dialog.form.cancel"
-                            :is-secondary="true"/>
-        <jinya-modal-button slot="buttons-right" label="support.bug_dialog.form.submit" :is-success="true"
-                            @click="submit"/>
-    </jinya-modal>
+  <jinya-modal @close="$emit('close')" title="support.bug_dialog.title" v-if="show" :is-fullscreen="true">
+    <jinya-message slot="message" :message="message" :state="state">
+      <jinya-message-action-bar v-if="state === 'error'">
+        <jinya-button label="support.bug_dialog.send_mail" href="mailto:developers@jinya.de"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+    <jinya-input :required="true" label="support.bug_dialog.form.title" v-model="title"/>
+    <jinya-textarea :required="true" label="support.bug_dialog.form.details" v-model="details"/>
+    <jinya-textarea :required="true" label="support.bug_dialog.form.reproduce" v-model="reproduce"/>
+    <jinya-choice :required="true" label="support.bug_dialog.form.severity" :choices="severityLevels"
+                  @selected="severity = $event" :selected="severity"/>
+    <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.bug_dialog.form.cancel"
+                        :is-secondary="true"/>
+    <jinya-modal-button slot="buttons-right" label="support.bug_dialog.form.submit" :is-success="true"
+                        @click="submit"/>
+  </jinya-modal>
 </template>
 
 <script>

@@ -1,22 +1,22 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state" v-if="state">
-            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-                <jinya-button label="static.pages.page_form.back" to="Static.Pages.SavedInJinya.Overview"
-                              :is-danger="true"/>
-                <jinya-button label="static.pages.page_form.search" to="Static.Pages.SavedInJinya.Overview"
-                              :query="{keyword: $route.params.slug}" :is-secondary="true"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-        <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--page"
-                    @back="back" :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
-            <jinya-input v-model="page.title" label="static.pages.page_form.title" :is-static="isStatic"
-                         :enable="enable" @change="titleChanged"/>
-            <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :is-static="isStatic" :enable="enable"
-                         @change="slugChanged"/>
-            <jinya-tiny-mce v-model="page.content" :content="page.content" height="400px"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message :message="message" :state="state" v-if="state">
+      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+        <jinya-button label="static.pages.page_form.back" to="Static.Pages.SavedInJinya.Overview"
+                      :is-danger="true"/>
+        <jinya-button label="static.pages.page_form.search" to="Static.Pages.SavedInJinya.Overview"
+                      :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--page"
+                @back="back" :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+      <jinya-input v-model="page.title" label="static.pages.page_form.title" :is-static="isStatic"
+                   :enable="enable" @change="titleChanged"/>
+      <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :is-static="isStatic" :enable="enable"
+                   @change="slugChanged"/>
+      <jinya-tiny-mce v-model="page.content" :content="page.content" height="400px"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -130,8 +130,8 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-page-editor {
-        height: 400px;
-        flex: 1 1 auto;
-    }
+  .jinya-page-editor {
+    height: 400px;
+    flex: 1 1 auto;
+  }
 </style>

@@ -1,19 +1,19 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-form cancel-label="static.forms.forms.form_form.back" @back="$emit('back')" :enable="enable"
-                    save-label="static.forms.forms.form_form.save" @submit="save" class="jinya-form-form__form">
-            <jinya-input label="static.forms.forms.form_form.title" :enable="enable" @change="titleChanged"
-                         v-model="form.title"/>
-            <jinya-input label="static.forms.forms.form_form.slug" :enable="enable" @change="slugChanged"
-                         v-model="form.slug"/>
-            <jinya-input label="static.forms.forms.form_form.email" :enable="enable" type="email"
-                         v-model="form.toAddress"/>
-            <label>{{'static.forms.forms.form_form.description'|jmessage}}</label>
-            <jinya-tiny-mce :content="form.description" v-model="form.description"
-                            :aria-label="'static.forms.forms.form_form.description'|jmessage"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message :message="message" :state="state" v-if="state"/>
+    <jinya-form cancel-label="static.forms.forms.form_form.back" @back="$emit('back')" :enable="enable"
+                save-label="static.forms.forms.form_form.save" @submit="save" class="jinya-form-form__form">
+      <jinya-input label="static.forms.forms.form_form.title" :enable="enable" @change="titleChanged"
+                   v-model="form.title"/>
+      <jinya-input label="static.forms.forms.form_form.slug" :enable="enable" @change="slugChanged"
+                   v-model="form.slug"/>
+      <jinya-input label="static.forms.forms.form_form.email" :enable="enable" type="email"
+                   v-model="form.toAddress"/>
+      <label>{{'static.forms.forms.form_form.description'|jmessage}}</label>
+      <jinya-tiny-mce :content="form.description" v-model="form.description"
+                      :aria-label="'static.forms.forms.form_form.description'|jmessage"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -103,7 +103,7 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-form-form__form {
-        padding-bottom: 2rem;
-    }
+  .jinya-form-form__form {
+    padding-bottom: 2rem;
+  }
 </style>

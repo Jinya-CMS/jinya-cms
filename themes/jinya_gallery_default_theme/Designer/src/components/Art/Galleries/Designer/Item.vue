@@ -1,7 +1,7 @@
 <template>
-    <div class="jinya-gallery-designer__item">
-        <slot/>
-    </div>
+  <div class="jinya-gallery-designer__item">
+    <slot/>
+  </div>
 </template>
 
 <script>
@@ -11,11 +11,11 @@
 </script>
 
 <style lang="scss">
-    .jinya-gallery-designer__item {
-        display: grid;
+  .jinya-gallery-designer__item {
+    display: grid;
 
-        .is--vertical & {
-            grid-template-rows: auto 1fr auto;
-        }
+    .is--vertical & {
+      grid-template-rows: auto 1fr auto;
     }
+  }
 </style>

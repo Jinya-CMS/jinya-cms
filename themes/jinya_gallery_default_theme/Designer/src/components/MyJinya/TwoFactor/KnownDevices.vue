@@ -1,16 +1,16 @@
 <template>
-    <div style="padding-top: 1rem">
-        <jinya-loader :loading="loading"/>
-        <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info" v-if="tokens.length === 0"/>
-        <jinya-message message="my_jinya.two_factor.known_devices.device" v-for="token in tokens"
-                       :params="getData(token)"
-                       :key="`message-${token.key}`" state="info">
-            <jinya-message-action-bar :key="`message-action-bar-${token.key}`">
-                <jinya-button @click="deleteToken(token.key)" :isDanger="true"
-                              label="my_jinya.two_factor.known_devices.delete" :key="`button-${token.key}`"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-    </div>
+  <div style="padding-top: 1rem">
+    <jinya-loader :loading="loading"/>
+    <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info" v-if="tokens.length === 0"/>
+    <jinya-message message="my_jinya.two_factor.known_devices.device" v-for="token in tokens"
+                   :params="getData(token)"
+                   :key="`message-${token.key}`" state="info">
+      <jinya-message-action-bar :key="`message-action-bar-${token.key}`">
+        <jinya-button @click="deleteToken(token.key)" :isDanger="true"
+                      label="my_jinya.two_factor.known_devices.delete" :key="`button-${token.key}`"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+  </div>
 </template>
 
 <script>

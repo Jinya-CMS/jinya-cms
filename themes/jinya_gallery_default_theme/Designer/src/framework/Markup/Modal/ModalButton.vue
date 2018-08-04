@@ -1,6 +1,6 @@
 <template>
-    <jinya-button :label="label" :is-primary="isPrimary" :is-secondary="isSecondary" :is-danger="isDanger"
-                  :is-success="isSuccess" :is-inverse="false" :is-disabled="isDisabled" @click="click"/>
+  <jinya-button :label="label" :is-primary="isPrimary" :is-secondary="isSecondary" :is-danger="isDanger"
+                :is-success="isSuccess" :is-inverse="false" :is-disabled="isDisabled" @click="click"/>
 </template>
 
 <script>

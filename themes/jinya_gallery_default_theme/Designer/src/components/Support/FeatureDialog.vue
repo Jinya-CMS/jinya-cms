@@ -1,17 +1,17 @@
 <template>
-    <jinya-modal @close="$emit('close')" title="support.feature_dialog.title" v-if="show" :is-fullscreen="true">
-        <jinya-message slot="message" :message="message" :state="state">
-            <jinya-message-action-bar v-if="state === 'error'">
-                <jinya-button label="support.feature_dialog.send_mail" href="mailto:developers@jinya.de"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-        <jinya-input :required="true" label="support.feature_dialog.form.title" v-model="title"/>
-        <jinya-textarea :required="true" label="support.feature_dialog.form.details" v-model="details"/>
-        <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.feature_dialog.form.cancel"
-                            :is-secondary="true"/>
-        <jinya-modal-button slot="buttons-right" label="support.feature_dialog.form.submit" :is-success="true"
-                            @click="submit"/>
-    </jinya-modal>
+  <jinya-modal @close="$emit('close')" title="support.feature_dialog.title" v-if="show" :is-fullscreen="true">
+    <jinya-message slot="message" :message="message" :state="state">
+      <jinya-message-action-bar v-if="state === 'error'">
+        <jinya-button label="support.feature_dialog.send_mail" href="mailto:developers@jinya.de"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+    <jinya-input :required="true" label="support.feature_dialog.form.title" v-model="title"/>
+    <jinya-textarea :required="true" label="support.feature_dialog.form.details" v-model="details"/>
+    <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.feature_dialog.form.cancel"
+                        :is-secondary="true"/>
+    <jinya-modal-button slot="buttons-right" label="support.feature_dialog.form.submit" :is-success="true"
+                        @click="submit"/>
+  </jinya-modal>
 </template>
 
 <script>
