@@ -1,18 +1,18 @@
 <template>
   <div :style="{'margin-left':`${item.nestingLevel * 2}rem`, 'width':`calc(100% - ${item.nestingLevel * 2}rem)`}">
-        <span class="jinya-menu-builder__item"
-              :class="{'is--highlighted': item.highlighted, 'is--settings-open': showSettings}">
-            <jinya-icon-button v-if="allowDecrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
-                               @click="$emit('decrease')" icon="chevron-left"
-                               :title="'configuration.frontend.menus.builder.decrease_alignment'|jmessage"/>
-            {{item.title}}
-            <jinya-icon-button v-if="allowIncrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
-                               @click="$emit('increase')" icon="chevron-right"
-                               :title="'configuration.frontend.menus.builder.increase_alignment'|jmessage"/>
-            <jinya-icon-button :is-primary="item.highlighted" :is-secondary="!item.highlighted" class="is--right"
-                               @click="toggleSettingsClick" icon="pencil"
-                               :title="'configuration.frontend.menus.builder.edit_entry'|jmessage"/>
-        </span>
+    <span class="jinya-menu-builder__item"
+          :class="{'is--highlighted': item.highlighted, 'is--settings-open': showSettings}">
+      <jinya-icon-button v-if="allowDecrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
+                         @click="$emit('decrease')" icon="chevron-left"
+                         :title="'configuration.frontend.menus.builder.decrease_alignment'|jmessage"/>
+      {{item.title}}
+      <jinya-icon-button v-if="allowIncrease" :is-primary="item.highlighted" :is-secondary="!item.highlighted"
+                         @click="$emit('increase')" icon="chevron-right"
+                         :title="'configuration.frontend.menus.builder.increase_alignment'|jmessage"/>
+      <jinya-icon-button :is-primary="item.highlighted" :is-secondary="!item.highlighted" class="is--right"
+                         @click="toggleSettingsClick" icon="pencil"
+                         :title="'configuration.frontend.menus.builder.edit_entry'|jmessage"/>
+    </span>
     <transition enter-active-class="is--enter-active" leave-to-class="is--leave-to">
       <jinya-menu-builder-settings-editor :item="item" v-if="showSettings && enable" @done="editSettingsDone"/>
     </transition>

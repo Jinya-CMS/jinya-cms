@@ -13,7 +13,8 @@
             </jinya-editor-pane>
             <jinya-editor-pane>
                 <jinya-input label="configuration.frontend.menus.menu_form.name" v-model="menu.name" :enable="enable"
-                             :value="menu.name"/>
+                             :value="menu.name" :required="true"
+                             :validation-message="'configuration.frontend.menus.menu_form.name.empty'|jvalidator"/>
                 <jinya-file-input label="configuration.frontend.menus.menu_form.logo" @picked="picked" accept="image/*"
                                   :has-value="!!menu.logo" :enable="enable"/>
             </jinya-editor-pane>

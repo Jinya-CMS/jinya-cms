@@ -218,6 +218,17 @@ configuration:
     menus:
       overview:
         nothing_found: Es wurden keine Menüs gefunden
+      menu_form:
+        name:
+          empty: Es muss ein Name angegeben werden
+      builder:
+        settings:
+          title:
+            empty: Es muss ein Titel angegeben werden
+          display_url:
+            empty: Es muss eine Anzeigeurl angegeben werden
+          target_url:
+            empty: Es muss eine Zielurl angegeben werden
   general:
     artists:
       overview:
