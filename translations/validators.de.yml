@@ -145,6 +145,11 @@ art:
         409:
           exists: Das Kunstwerk existiert bereits.
   videos:
+    video_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
     overview:
       no_videos:
         Bisher wurden keine Videos hochgeladen.
@@ -164,6 +169,13 @@ art:
         409:
           exists: Das Video existiert bereits.
     youtube:
+      video_form:
+        name:
+          empty: Es muss ein Name angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        video_key_or_url:
+          empty: Es muss ein Videokey oder eine Videourl angegeben werden
       overview:
         no_videos:
           Bisher wurden keine Youtube Videos angelegt.
