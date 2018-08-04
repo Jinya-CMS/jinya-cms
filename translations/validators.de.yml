@@ -131,6 +131,13 @@ art:
               foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
             500:
               generic: Beim Löschen des Kunstwerks ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
+    artwork_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
+      artwork:
+        empty: Es muss ein Kunstwerk ausgewählt werden
     api:
       state:
         404:

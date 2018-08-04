@@ -15,11 +15,14 @@
       </jinya-editor-pane>
       <jinya-editor-pane>
         <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.name"
-                     v-model="artwork.name" @change="nameChanged" :required="true"/>
+                     v-model="artwork.name" @change="nameChanged" :required="true"
+                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"/>
         <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.slug"
-                     v-model="artwork.slug" @change="slugChanged" :required="true"/>
+                     v-model="artwork.slug" @change="slugChanged" :required="true"
+                     :validation-message="'art.artworks.artwork_form.slug.empty'|jvalidator"/>
         <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
-                          label="art.artworks.artwork_form.artwork" :required="true"/>
+                          label="art.artworks.artwork_form.artwork" :required="true"
+                          :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"/>
         <jinya-textarea :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.description"
                         v-model="artwork.description"/>
       </jinya-editor-pane>
