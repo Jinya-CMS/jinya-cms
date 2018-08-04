@@ -183,6 +183,11 @@ art:
           409:
             exists: Das Youtube Video existiert bereits.
   galleries:
+    gallery_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
     overview:
       no_galleries:
         Bisher wurden keine Galerien angelegt.
