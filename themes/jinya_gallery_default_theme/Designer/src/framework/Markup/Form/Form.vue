@@ -4,9 +4,9 @@
     <div class="jinya-form__buttons" :style="{'padding-right': buttonBarPaddingRight}">
       <slot name="buttons">
         <jinya-button :is-disabled="!enable" :is-secondary="true" :is-inverse="true" :label="cancelLabel"
-                      @click="$emit('back')"/>
+                      @click="$emit('back')" v-if="cancelLabel"/>
         <jinya-button :is-disabled="!enable" :is-primary="true" :is-inverse="true" :label="saveLabel"
-                      type="submit"/>
+                      type="submit" v-if="saveLabel"/>
       </slot>
     </div>
   </form>

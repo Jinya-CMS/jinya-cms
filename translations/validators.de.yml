@@ -282,3 +282,12 @@ framework:
     form:
       file_input:
         no_file_selected: Keine Datei ausgewählt
+support:
+  bug_dialog:
+    form:
+      title:
+        empty: Bitte gib einen Titel ein
+      details:
+        empty: Bitte gib uns ein paar Details zu dem Fehler
+      reproduce:
+        empty: Bitte gib uns ein paar Infos wie wir den Fehler nachstellen können
