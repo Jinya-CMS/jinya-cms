@@ -291,3 +291,9 @@ support:
         empty: Bitte gib uns ein paar Details zu dem Fehler
       reproduce:
         empty: Bitte gib uns ein paar Infos wie wir den Fehler nachstellen können
+  feature_dialog:
+    form:
+      title:
+        empty: Bitte gib einen Titel ein
+      details:
+        empty: Bitte gib uns ein paar Details zu deiner Idee

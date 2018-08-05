@@ -251,15 +251,12 @@ routes:
       updates: Updates
 authentication:
   roles:
-    -
-      text: Superadmin
-      value: ROLE_SUPER_ADMIN
-    -
-      text: Admin
-      value: ROLE_ADMIN
-    -
-      text: Schreiber
-      value: ROLE_WRITER
+  - text: Superadmin
+    value: ROLE_SUPER_ADMIN
+  - text: Admin
+    value: ROLE_ADMIN
+  - text: Schreiber
+    value: ROLE_WRITER
 framework:
   markup:
     menu:
@@ -695,8 +692,8 @@ support:
         unusable: Unbenutzbar
         security: Sicherheitsleck
   feature_dialog:
-    title: Ich habe einen Idee für um Jinya zu verbessern
-    content: Das freut uns, jede Vorschlag ist wichtig um Jinya zu verbessern, bist du so nett und sagst uns was deine Idee ist?
+    title: Ich habe einen Idee um Jinya zu verbessern
+    content: Das freut uns, jeder Vorschlag ist wichtig um Jinya zu verbessern, bist du so nett und sagst uns was deine Idee ist?
     sending: Deine Idee wird übermittelt, wir kümmern uns drum, versprochen.
     error: Leider konnte deine Idee nicht übermittelt werden, magst du uns eine Mail schicken?
     send_mail: Mail schicken
