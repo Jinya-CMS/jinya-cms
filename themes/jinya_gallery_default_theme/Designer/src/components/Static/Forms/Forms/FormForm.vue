@@ -4,11 +4,14 @@
     <jinya-form cancel-label="static.forms.forms.form_form.back" @back="$emit('back')" :enable="enable"
                 save-label="static.forms.forms.form_form.save" @submit="save" class="jinya-form-form__form">
       <jinya-input label="static.forms.forms.form_form.title" :enable="enable" @change="titleChanged"
-                   v-model="form.title"/>
+                   v-model="form.title" :required="true"
+                   :validation-message="'static.forms.forms.form_form.title.empty'|jvalidator"/>
       <jinya-input label="static.forms.forms.form_form.slug" :enable="enable" @change="slugChanged"
-                   v-model="form.slug"/>
+                   v-model="form.slug" :required="true"
+                   :validation-message="'static.forms.forms.form_form.slug.empty'|jvalidator"/>
       <jinya-input label="static.forms.forms.form_form.email" :enable="enable" type="email"
-                   v-model="form.toAddress"/>
+                   v-model="form.toAddress" :required="true"
+                   :validation-message="emailValidationMessage|jvalidator"/>
       <label>{{'static.forms.forms.form_form.description'|jmessage}}</label>
       <jinya-tiny-mce :content="form.description" v-model="form.description"
                       :aria-label="'static.forms.forms.form_form.description'|jmessage"/>
@@ -73,6 +76,20 @@
         default() {
           return true;
         },
+      },
+    },
+    data() {
+      return {
+        emailTypeMismatch: false,
+      };
+    },
+    computed: {
+      emailValidationMessage() {
+        if (this.emailTypeMismatch) {
+          return 'static.forms.forms.form_form.email.invalid';
+        }
+
+        return 'static.forms.forms.form_form.email.empty';
       },
     },
     methods: {

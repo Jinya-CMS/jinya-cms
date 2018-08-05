@@ -179,7 +179,7 @@
     computed: {
       originOptions() {
         return {
-          handle: '.jinya-form-builder__component',
+          handle: '.jinya-form-builder__input',
           disabled: !this.enable,
           group: {
             name: 'edit',
@@ -190,7 +190,7 @@
       },
       destinationOptions() {
         return {
-          handle: '.jinya-form-builder__component',
+          handle: '.jinya-form-builder__input',
           disabled: !this.enable,
           group: 'edit',
         };

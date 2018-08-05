@@ -1,9 +1,10 @@
+<!-- eslint-disable vue/no-textarea-mustache -->
 <template>
-  <div class="jinya-input">
+  <div class="jinya-input" :class="{'is--invalid': invalid}" :data-validation-message="validationMessage">
     <label :for="id" class="jinya-input__label">{{label|jmessage}}</label>
     <textarea v-if="!isStatic" :disabled="!enable" :id="id" class="jinya-input__textarea" :type="type"
               :required="required" :autocomplete="autocomplete" @keyup="keyup"
-              @input="$emit('input', $event.target.value)" v-model="value"></textarea>
+              @input="input" @invalid="onInvalid" @change="change">{{value}}</textarea>
     <span v-if="isStatic" :id="id" class="jinya-input__field jinya-input__field--no-break">{{value}}</span>
   </div>
 </template>
@@ -30,10 +31,12 @@
         type: String,
         required: true,
       },
+      validationMessage: String,
     },
     data() {
       return {
         id: null,
+        invalid: false,
       };
     },
     mounted() {
@@ -41,14 +44,27 @@
       this.id = this._uid;
     },
     methods: {
-      keyup($event) {
+      onInvalid($event) {
+        this.invalid = true;
+        this.$emit('invalid', $event.target.validity);
+      },
+      change($event) {
         this.$emit('change', $event.target.value);
-        this.$emit('keyup', $event);
         if ($event.target.checkValidity()) {
+          this.invalid = false;
           this.$emit('valid');
         } else {
+          this.invalid = true;
           this.$emit('invalid', $event.target.validity);
         }
+      },
+      keyup($event) {
+        this.$emit('keyup', $event);
+        this.change($event);
+      },
+      input($event) {
+        this.$emit('input', $event.target.value);
+        this.change($event);
       },
     },
   };
@@ -78,6 +94,12 @@
 
       &.is--disabled {
         background: $gray-200;
+      }
+
+      &:invalid {
+        box-shadow: none;
+        outline: none;
+        border-bottom-color: $danger;
       }
     }
     .jinya-input__field {

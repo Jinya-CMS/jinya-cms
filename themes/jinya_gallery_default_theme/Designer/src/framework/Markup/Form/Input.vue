@@ -3,7 +3,7 @@
     <label v-if="label" :for="id" class="jinya-input__label">{{label|jmessage}}</label>
     <input v-if="!isStatic" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
            :disabled="!enable" :autocomplete="autocomplete" @keyup="keyup" :placeholder="placeholder|jmessage"
-           :autofocus="autofocus" @input="input" ref="input" @invalid="onInvalid" @change="change"/>
+           :autofocus="autofocus" @input="input" @invalid="onInvalid" @change="change"/>
     <span v-if="isStatic" :id="id" class="jinya-input__field">{{value}}</span>
   </div>
 </template>

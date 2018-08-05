@@ -117,6 +117,20 @@ static:
           Bisher wurden keine Formulare angelegt.
         nothing_found:
           Leider gibt es zu deinem Suchbegriff keine Formulare.
+      builder:
+        settings:
+          label:
+            empty: Es muss ein Label angegeben werden
+          options:
+            empty: Es muss mindestens eine Auswahlmöglichkeit angegeben werden
+      form_form:
+        title:
+          empty: Es muss ein Titel angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        email:
+          empty: Es muss eine Emailadresse angegeben werden
+          invalid: Es muss eine gültige Emailadresse angegeben werden
 art:
   artworks:
     overview:
