@@ -13,13 +13,18 @@
       </jinya-editor-pane>
       <jinya-editor-pane>
         <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.firstname" class="is--half"
-                     label="configuration.general.artists.artist_form.firstname" :required="true"/>
+                     label="configuration.general.artists.artist_form.firstname" :required="true"
+                     :validation-message="'configuration.general.artists.artist_form.firstname.empty'|jvalidator"/>
         <jinya-input :is-static="isStatic" :enable="enable" v-model="artist.lastname" class="is--half"
-                     label="configuration.general.artists.artist_form.lastname" :required="true"/>
+                     label="configuration.general.artists.artist_form.lastname" :required="true"
+                     :validation-message="'configuration.general.artists.artist_form.lastname.empty'|jvalidator"/>
         <jinya-input :is-static="isStatic" :enable="enable" type="email" v-model="artist.email"
-                     label="configuration.general.artists.artist_form.email" :required="true"/>
+                     label="configuration.general.artists.artist_form.email" :required="true"
+                     @invalid="emailTypeMismatch = $event.typeMismatch"
+                     :validation-message="emailValidationMessage|jvalidator"/>
         <jinya-input v-if="showPassword" :enable="enable" type="password" v-model="artist.password"
-                     label="configuration.general.artists.artist_form.password" :required="true"/>
+                     label="configuration.general.artists.artist_form.password" :required="true"
+                     :validation-message="'configuration.general.artists.artist_form.password.empty'|jvalidator"/>
         <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
                           label="configuration.general.artists.artist_form.profile_picture"/>
         <jinya-choice :is-static="isStatic" label="configuration.general.artists.artist_form.activation"
@@ -145,6 +150,16 @@
       rolesOptions() {
         return window.messages.authentication.roles;
       },
+      emailValidationMessage() {
+        if (this.emailTypeMismatch) {
+          return 'configuration.general.artists.artist_form.email.invalid';
+        }
+
+        return 'configuration.general.artists.artist_form.email.empty';
+      },
+    },
+    data() {
+      return { emailTypeMismatch: false };
     },
     methods: {
       async picturePicked(files) {

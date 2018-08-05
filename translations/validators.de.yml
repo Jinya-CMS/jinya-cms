@@ -233,6 +233,14 @@ configuration:
     artists:
       overview:
         nothing_found: Es wurden keine Künstler gefunden
+      artist_form:
+        firstname:
+          empty: Es muss ein Vorname angegeben werden
+        lastname:
+          empty: Es muss ein Nachname angegeben werden
+        email:
+          empty: Es muss eine Emailadresse angegeben werden
+          invalid: Es muss eine gültige Emailadresse angegeben werden
       delete:
         api:
           state:
