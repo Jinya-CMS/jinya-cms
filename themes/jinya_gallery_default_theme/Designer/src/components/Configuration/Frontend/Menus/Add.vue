@@ -22,6 +22,9 @@
       };
     },
     methods: {
+      back() {
+        this.$router.push(Routes.Configuration.Frontend.Menu.Overview);
+      },
       async save(menu) {
         this.loading = true;
         this.enable = false;
