@@ -110,6 +110,15 @@ static:
         Bisher wurden keine Seiten angelegt.
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Seiten.
+    page_form:
+      title:
+        empty: Es muss ein Titel angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
+      content:
+        empty:
+          on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
+          on_input: Die Seite muss einen Inhalt haben
   forms:
     forms:
       overview:

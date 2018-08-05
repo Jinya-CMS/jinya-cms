@@ -37,8 +37,7 @@
       input($event) {
         this.$emit('input', $event);
         if (this.required && !$event) {
-          const validityState = new ValidityState();
-          validityState.valueMissing = true;
+          const validityState = { valueMissing: true };
           this.$emit('invalid', validityState);
         } else {
           this.$emit('valid');
