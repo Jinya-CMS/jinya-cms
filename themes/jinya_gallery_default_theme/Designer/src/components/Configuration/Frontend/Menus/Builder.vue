@@ -181,12 +181,16 @@
           },
           ghostClass: 'is--dragging',
           sort: false,
+          touchStartThreshold: 5,
+          handle: 'jinya-menu-builder__item',
         };
       },
       itemsOptions() {
         return {
           group: 'menu',
           ghostClass: 'is--dragging',
+          touchStartThreshold: 5,
+          handle: 'jinya-menu-builder__item',
         };
       },
     },

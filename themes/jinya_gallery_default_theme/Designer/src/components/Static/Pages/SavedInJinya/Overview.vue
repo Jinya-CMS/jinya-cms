@@ -1,29 +1,29 @@
 <template>
-    <div class="jinya-page-overview">
-        <jinya-loader :loading="loading"/>
-        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="page.title" v-for="page in pages" v-if="!loading" :key="page.slug">
-                <jinya-card-button :to="{name: detailsRoute, params: {slug: page.slug}}" slot="footer" icon="monitor"
-                                   type="details"/>
-                <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" slot="footer" icon="pencil"
-                                   type="edit"/>
-                <jinya-card-button @click="showDeleteModal(page)" slot="footer" icon="delete" type="delete"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
-                     :count="count"/>
-        <jinya-modal @close="closeDeleteModal()" title="static.pages.delete.title" v-if="this.delete.show"
-                     :loading="this.delete.loading">
-            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                           slot="message"/>
-            {{'static.pages.delete.content'|jmessage(selectedPage)}}
-            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="static.pages.delete.no"
-                                :closes-modal="true" :is-disabled="this.delete.loading"/>
-            <jinya-modal-button :is-danger="true" slot="buttons-right" label="static.pages.delete.yes" @click="remove"
-                                :is-disabled="this.delete.loading"/>
-        </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
-    </div>
+  <div class="jinya-page-overview">
+    <jinya-loader :loading="loading"/>
+    <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
+      <jinya-card :header="page.title" v-for="page in pages" v-if="!loading" :key="page.slug">
+        <jinya-card-button :to="{name: detailsRoute, params: {slug: page.slug}}" slot="footer" icon="monitor"
+                           type="details"/>
+        <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" slot="footer" icon="pencil"
+                           type="edit"/>
+        <jinya-card-button @click="showDeleteModal(page)" slot="footer" icon="delete" type="delete"/>
+      </jinya-card>
+    </jinya-card-list>
+    <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
+                 :count="count"/>
+    <jinya-modal @close="closeDeleteModal()" title="static.pages.delete.title" v-if="this.delete.show"
+                 :loading="this.delete.loading">
+      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                     slot="message"/>
+      {{'static.pages.delete.content'|jmessage(selectedPage)}}
+      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="static.pages.delete.no"
+                          :closes-modal="true" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :is-danger="true" slot="buttons-right" label="static.pages.delete.yes" @click="remove"
+                          :is-disabled="this.delete.loading"/>
+    </jinya-modal>
+    <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
+  </div>
 </template>
 
 <script>

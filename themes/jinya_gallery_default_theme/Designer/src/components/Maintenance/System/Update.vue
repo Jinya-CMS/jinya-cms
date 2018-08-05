@@ -1,15 +1,15 @@
 <template>
-    <div class="jinya-updater">
-        <jinya-message :message="updateMessage|jmessage({version: jinyaVersion})" :state="updateState"/>
-        <jinya-message :message="'maintenance.system.updates.disclaimer'|jmessage" state="warning"
-                       v-if="updateState === 'info'">
-            <jinya-message-action-bar>
-                <jinya-button label="maintenance.system.updates.back" @click="back" :is-secondary="true"></jinya-button>
-                <jinya-button label="maintenance.system.updates.start" @click="startUpdate"
-                              :is-primary="true"></jinya-button>
-            </jinya-message-action-bar>
-        </jinya-message>
-    </div>
+  <div class="jinya-updater">
+    <jinya-message :message="updateMessage|jmessage({version: jinyaVersion})" :state="updateState"/>
+    <jinya-message :message="'maintenance.system.updates.disclaimer'|jmessage" state="warning"
+                   v-if="updateState === 'info'">
+      <jinya-message-action-bar>
+        <jinya-button label="maintenance.system.updates.back" @click="back" :is-secondary="true"></jinya-button>
+        <jinya-button label="maintenance.system.updates.start" @click="startUpdate"
+                      :is-primary="true"></jinya-button>
+      </jinya-message-action-bar>
+    </jinya-message>
+  </div>
 </template>
 
 <script>
@@ -50,11 +50,11 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-updater {
-        padding-top: 1rem;
+  .jinya-updater {
+    padding-top: 1rem;
 
-        .jinya-message {
-            margin-bottom: 1rem;
-        }
+    .jinya-message {
+      margin-bottom: 1rem;
     }
+  }
 </style>

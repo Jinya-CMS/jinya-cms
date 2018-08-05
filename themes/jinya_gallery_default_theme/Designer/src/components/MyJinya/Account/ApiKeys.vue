@@ -1,14 +1,14 @@
 <template>
-    <div style="padding-top: 1rem">
-        <jinya-loader :loading="loading"/>
-        <jinya-message :message="getKeyMessage(apiKey)" v-for="apiKey in apiKeys"
-                       :key="`message-${apiKey.key}`" state="info">
-            <jinya-message-action-bar :key="`message-action-bar-${apiKey.key}`">
-                <jinya-button @click="deleteToken(apiKey.key)" :isDanger="true"
-                              label="my_jinya.account.api_key.delete" :key="`button-${apiKey.key}`"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-    </div>
+  <div style="padding-top: 1rem">
+    <jinya-loader :loading="loading"/>
+    <jinya-message :message="getKeyMessage(apiKey)" v-for="apiKey in apiKeys"
+                   :key="`message-${apiKey.key}`" state="info">
+      <jinya-message-action-bar :key="`message-action-bar-${apiKey.key}`">
+        <jinya-button @click="deleteToken(apiKey.key)" :isDanger="true"
+                      label="my_jinya.account.api_key.delete" :key="`button-${apiKey.key}`"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+  </div>
 </template>
 
 <script>

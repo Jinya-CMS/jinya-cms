@@ -1,22 +1,22 @@
 <template>
-    <div class="jinya-theme">
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <jinya-card-list nothing-found="impossible" v-else>
-            <jinya-card :header="theme.displayName" v-for="theme in themes" class="jinya-card__item--theme"
-                        :key="theme.name">
-                <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
-                <jinya-card-button type="edit" icon="settings" :to="{name: settingsRoute, params: {name: theme.name}}"
-                                   slot="footer" :title="'configuration.frontend.themes.overview.settings'|jmessage"/>
-                <jinya-card-button type="edit" icon="menu" :to="{name: menusRoute, params: {name: theme.name}}"
-                                   slot="footer" :title="'configuration.frontend.themes.overview.menus'|jmessage"/>
-                <jinya-card-button type="edit" icon="check" @click="activate(theme)" slot="footer"
-                                   :title="'configuration.frontend.themes.overview.activate'|jmessage"/>
-                <jinya-card-button type="edit" icon="sass" slot="footer" class="jinya-card-button--variables"
-                                   :to="{name: variablesRoute, params: {name: theme.name}}"
-                                   :title="'configuration.frontend.themes.overview.variables'|jmessage"/>
-            </jinya-card>
-        </jinya-card-list>
-    </div>
+  <div class="jinya-theme">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <jinya-card-list nothing-found="impossible" v-else>
+      <jinya-card :header="theme.displayName" v-for="theme in themes" class="jinya-card__item--theme"
+                  :key="theme.name">
+        <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
+        <jinya-card-button type="edit" icon="settings" :to="{name: settingsRoute, params: {name: theme.name}}"
+                           slot="footer" :title="'configuration.frontend.themes.overview.settings'|jmessage"/>
+        <jinya-card-button type="edit" icon="menu" :to="{name: menusRoute, params: {name: theme.name}}"
+                           slot="footer" :title="'configuration.frontend.themes.overview.menus'|jmessage"/>
+        <jinya-card-button type="edit" icon="check" @click="activate(theme)" slot="footer"
+                           :title="'configuration.frontend.themes.overview.activate'|jmessage"/>
+        <jinya-card-button type="edit" icon="sass" slot="footer" class="jinya-card-button--variables"
+                           :to="{name: variablesRoute, params: {name: theme.name}}"
+                           :title="'configuration.frontend.themes.overview.variables'|jmessage"/>
+      </jinya-card>
+    </jinya-card-list>
+  </div>
 </template>
 
 <script>
@@ -66,32 +66,32 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-card-button--variables {
-        border-color: $pink;
-        color: $pink;
+  .jinya-card-button--variables {
+    border-color: $pink;
+    color: $pink;
 
-        &:hover {
-            color: color-yiq($pink);
-            background: $pink;
-        }
+    &:hover {
+      color: color-yiq($pink);
+      background: $pink;
+    }
+  }
+
+  .jinya-card__item--theme {
+    max-width: 15em / 9 * 16;
+
+    &:only-child {
+      max-width: 30em / 9 * 16;
+
+      .jinya-theme__preview-image {
+        max-width: 30em / 9 * 16;
+        width: 30em / 9 * 16;
+      }
     }
 
-    .jinya-card__item--theme {
-        max-width: 15em / 9 * 16;
-
-        &:only-child {
-            max-width: 30em / 9 * 16;
-
-            .jinya-theme__preview-image {
-                max-width: 30em / 9 * 16;
-                width: 30em / 9 * 16;
-            }
-        }
-
-        .jinya-theme__preview-image {
-            max-width: 15em / 9 * 16;
-            width: 15em / 9 * 16;
-            object-fit: cover;
-        }
+    .jinya-theme__preview-image {
+      max-width: 15em / 9 * 16;
+      width: 15em / 9 * 16;
+      object-fit: cover;
     }
+  }
 </style>

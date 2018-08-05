@@ -1,10 +1,10 @@
 <template>
-    <jinya-input @change="changed" :label="label" :enable="enable" v-if="type === 'string'" :value="value"/>
-    <div v-else-if="type === 'file'" class="jinya-field__group">
-        <jinya-file-input @picked="changed" :label="label" :enable="enable" class="jinya-field__input"
-                          :has-value="hasValue"/>
-    </div>
-    <jinya-checkbox @input="changed" :label="label" :enable="enable" v-else-if="type === 'boolean'" :value="!!value"/>
+  <jinya-input @change="changed" :label="label" :enable="enable" v-if="type === 'string'" :value="value"/>
+  <div v-else-if="type === 'file'" class="jinya-field__group">
+    <jinya-file-input @picked="changed" :label="label" :enable="enable" class="jinya-field__input"
+                      :has-value="hasValue"/>
+  </div>
+  <jinya-checkbox @input="changed" :label="label" :enable="enable" v-else-if="type === 'boolean'" :value="!!value"/>
 </template>
 
 <script>
@@ -80,17 +80,17 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-field__group {
-        margin-bottom: 1em;
+  .jinya-field__group {
+    margin-bottom: 1em;
 
-        .jinya-field__input {
-            margin-bottom: 0;
-        }
-
-        .jinya-field__button {
-            width: 100%;
-            padding: 0;
-            vertical-align: bottom;
-        }
+    .jinya-field__input {
+      margin-bottom: 0;
     }
+
+    .jinya-field__button {
+      width: 100%;
+      padding: 0;
+      vertical-align: bottom;
+    }
+  }
 </style>

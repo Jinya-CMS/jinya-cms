@@ -1,10 +1,10 @@
 <template>
-    <div class="jinya-page">
-        <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <div v-html="page.content" v-else></div>
-        <jinya-floating-action-button icon="pencil" :to="editLink"/>
-    </div>
+  <div class="jinya-page">
+    <jinya-message :message="message" :state="state" v-if="state"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-html="page.content" v-else></div>
+    <jinya-floating-action-button icon="pencil" :to="editLink"/>
+  </div>
 </template>
 
 <script>
@@ -62,44 +62,44 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-page {
-        font-family: $page-font-family;
-        height: 100%;
+  .jinya-page {
+    font-family: $page-font-family;
+    height: 100%;
 
-        h1 {
-            font-family: $page-font-family-heading1;
-        }
-        h2 {
-            font-family: $page-font-family-heading2;
-        }
-        h3 {
-            font-family: $page-font-family-heading3;
-        }
-        h4 {
-            font-family: $page-font-family-heading4;
-        }
-        h5 {
-            font-family: $page-font-family-heading5;
-        }
-        h6 {
-            font-family: $page-font-family-heading6;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        .ql-video {
-            width: 100%;
-            height: 59%;
-        }
-
-        .ql-align-center {
-            text-align: center;
-        }
-
-        .ql-align-right {
-            text-align: right;
-        }
+    h1 {
+      font-family: $page-font-family-heading1;
     }
+    h2 {
+      font-family: $page-font-family-heading2;
+    }
+    h3 {
+      font-family: $page-font-family-heading3;
+    }
+    h4 {
+      font-family: $page-font-family-heading4;
+    }
+    h5 {
+      font-family: $page-font-family-heading5;
+    }
+    h6 {
+      font-family: $page-font-family-heading6;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .ql-video {
+      width: 100%;
+      height: 59%;
+    }
+
+    .ql-align-center {
+      text-align: center;
+    }
+
+    .ql-align-right {
+      text-align: right;
+    }
+  }
 </style>

@@ -1,30 +1,33 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state" v-if="state">
-            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-                <jinya-button label="art.videos.youtube.video_form.back" to="Art.Videos.SavedOnYoutube.Overview"
-                              :is-danger="true"/>
-                <jinya-button label="art.videos.youtube.video_form.search" to="Art.Videos.SavedOnYoutube.Overview"
-                              :query="{keyword: $route.params.slug}" :is-secondary="true"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-        <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--video" @back="back"
-                    :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
-            <jinya-editor-pane>
-                <iframe :src="videoUrl" frameborder="0" width="560" height="315"></iframe>
-            </jinya-editor-pane>
-            <jinya-editor-pane>
-                <jinya-input :enable="enable" label="art.videos.youtube.video_form.name" v-model="video.name"
-                             @change="nameChanged"/>
-                <jinya-input :enable="enable" label="art.videos.youtube.video_form.slug" v-model="video.slug"
-                             @change="slugChanged"/>
-                <jinya-input :enable="enable" label="art.videos.youtube.video_form.video_key_or_url"
-                             v-model="videoKeyOrUrl" @change="videoKeyChanged"/>
-                <jinya-tiny-mce :enable="enable" label="art.videos.youtube.video_form.description" height="300px"
-                                v-model="video.description" :content="video.description"/>
-            </jinya-editor-pane>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message :message="message" :state="state" v-if="state">
+      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+        <jinya-button label="art.videos.youtube.video_form.back" to="Art.Videos.SavedOnYoutube.Overview"
+                      :is-danger="true"/>
+        <jinya-button label="art.videos.youtube.video_form.search" to="Art.Videos.SavedOnYoutube.Overview"
+                      :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--video" @back="back"
+                :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+      <jinya-editor-pane>
+        <iframe :src="videoUrl" frameborder="0" width="560" height="315"></iframe>
+      </jinya-editor-pane>
+      <jinya-editor-pane>
+        <jinya-input :enable="enable" label="art.videos.youtube.video_form.name" v-model="video.name"
+                     @change="nameChanged" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.name.empty'|jvalidator"/>
+        <jinya-input :enable="enable" label="art.videos.youtube.video_form.slug" v-model="video.slug"
+                     @change="slugChanged" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.slug.empty'|jvalidator"/>
+        <jinya-input :enable="enable" label="art.videos.youtube.video_form.video_key_or_url"
+                     v-model="videoKeyOrUrl" @change="videoKeyChanged" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.video_key_or_url.empty'|jvalidator"/>
+        <jinya-tiny-mce :enable="enable" label="art.videos.youtube.video_form.description" height="300px"
+                        v-model="video.description" :content="video.description"/>
+      </jinya-editor-pane>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>

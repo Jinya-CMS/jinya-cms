@@ -110,6 +110,15 @@ static:
         Bisher wurden keine Seiten angelegt.
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Seiten.
+    page_form:
+      title:
+        empty: Es muss ein Titel angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
+      content:
+        empty:
+          on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
+          on_input: Die Seite muss einen Inhalt haben
   forms:
     forms:
       overview:
@@ -117,6 +126,20 @@ static:
           Bisher wurden keine Formulare angelegt.
         nothing_found:
           Leider gibt es zu deinem Suchbegriff keine Formulare.
+      builder:
+        settings:
+          label:
+            empty: Es muss ein Label angegeben werden
+          options:
+            empty: Es muss mindestens eine Auswahlmöglichkeit angegeben werden
+      form_form:
+        title:
+          empty: Es muss ein Titel angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        email:
+          empty: Es muss eine Emailadresse angegeben werden
+          invalid: Es muss eine gültige Emailadresse angegeben werden
 art:
   artworks:
     overview:
@@ -131,6 +154,13 @@ art:
               foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
             500:
               generic: Beim Löschen des Kunstwerks ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
+    artwork_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
+      artwork:
+        empty: Es muss ein Kunstwerk ausgewählt werden
     api:
       state:
         404:
@@ -138,6 +168,11 @@ art:
         409:
           exists: Das Kunstwerk existiert bereits.
   videos:
+    video_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
     overview:
       no_videos:
         Bisher wurden keine Videos hochgeladen.
@@ -157,6 +192,13 @@ art:
         409:
           exists: Das Video existiert bereits.
     youtube:
+      video_form:
+        name:
+          empty: Es muss ein Name angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        video_key_or_url:
+          empty: Es muss ein Videokey oder eine Videourl angegeben werden
       overview:
         no_videos:
           Bisher wurden keine Youtube Videos angelegt.
@@ -176,6 +218,11 @@ art:
           409:
             exists: Das Youtube Video existiert bereits.
   galleries:
+    gallery_form:
+      name:
+        empty: Es muss ein Name angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
     overview:
       no_galleries:
         Bisher wurden keine Galerien angelegt.
@@ -194,10 +241,29 @@ configuration:
     menus:
       overview:
         nothing_found: Es wurden keine Menüs gefunden
+      menu_form:
+        name:
+          empty: Es muss ein Name angegeben werden
+      builder:
+        settings:
+          title:
+            empty: Es muss ein Titel angegeben werden
+          display_url:
+            empty: Es muss eine Anzeigeurl angegeben werden
+          target_url:
+            empty: Es muss eine Zielurl angegeben werden
   general:
     artists:
       overview:
         nothing_found: Es wurden keine Künstler gefunden
+      artist_form:
+        firstname:
+          empty: Es muss ein Vorname angegeben werden
+        lastname:
+          empty: Es muss ein Nachname angegeben werden
+        email:
+          empty: Es muss eine Emailadresse angegeben werden
+          invalid: Es muss eine gültige Emailadresse angegeben werden
       delete:
         api:
           state:
@@ -216,3 +282,18 @@ framework:
     form:
       file_input:
         no_file_selected: Keine Datei ausgewählt
+support:
+  bug_dialog:
+    form:
+      title:
+        empty: Bitte gib einen Titel ein
+      details:
+        empty: Bitte gib uns ein paar Details zu dem Fehler
+      reproduce:
+        empty: Bitte gib uns ein paar Infos wie wir den Fehler nachstellen können
+  feature_dialog:
+    form:
+      title:
+        empty: Bitte gib einen Titel ein
+      details:
+        empty: Bitte gib uns ein paar Details zu deiner Idee

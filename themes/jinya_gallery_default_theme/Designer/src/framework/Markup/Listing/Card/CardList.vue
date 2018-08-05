@@ -1,9 +1,9 @@
 <template>
-    <div class="jinya-card-list">
-        <slot>
-            <jinya-message state="info" :message="nothingFound"/>
-        </slot>
-    </div>
+  <div class="jinya-card-list">
+    <slot>
+      <jinya-message state="info" :message="nothingFound"/>
+    </slot>
+  </div>
 </template>
 
 <script>
@@ -22,15 +22,15 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-card-list {
-        display: flex;
-        flex-flow: row wrap;
-        width: 100%;
-        overflow: hidden;
-        padding: 1% 0;
+  .jinya-card-list {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    overflow: hidden;
+    padding: 1% 0;
 
-        .jinya-message {
-            margin: 1em;
-        }
+    .jinya-message {
+      margin: 1em;
     }
+  }
 </style>

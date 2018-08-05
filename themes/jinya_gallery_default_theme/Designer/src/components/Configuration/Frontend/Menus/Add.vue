@@ -1,5 +1,5 @@
 <template>
-    <jinya-menu-form :message="message" :state="state" :enable="enable" @save="save"/>
+  <jinya-menu-form :message="message" :state="state" :enable="enable" @save="save"/>
 </template>
 
 <script>
@@ -22,6 +22,9 @@
       };
     },
     methods: {
+      back() {
+        this.$router.push(Routes.Configuration.Frontend.Menu.Overview);
+      },
       async save(menu) {
         this.loading = true;
         this.enable = false;

@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <jinya-menu-form :message="message" :state="state" :enable="enable" @save="save" :menu="menu" v-else/>
-    </div>
+  <div>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <jinya-menu-form :message="message" :state="state" :enable="enable" @save="save" @back="back" :menu="menu" v-else/>
+  </div>
 </template>
 
 <script>
@@ -47,6 +47,9 @@
       this.loading = false;
     },
     methods: {
+      back() {
+        this.$router.push(Routes.Configuration.Frontend.Menu.Overview);
+      },
       async save(menu) {
         this.enable = false;
         this.state = 'loading';

@@ -1,33 +1,33 @@
 <template>
-    <div class="jinya-menus">
-        <jinya-loader :loading="loading"/>
-        <jinya-message :message="message" :state="state" v-if="!loading"/>
-        <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
-            <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu" :key="menu.id">
-                <img class="jinya-menu__logo" :src="menu.logo" v-if="menu.logo"/>
-                <jinya-card-button slot="footer" type="edit" icon="pencil"
-                                   :to="{name: editRoute, params: {id: menu.id}}"
-                                   :title="'configuration.frontend.menus.overview.edit'|jmessage"/>
-                <jinya-card-button slot="footer" type="edit" icon="menu"
-                                   :to="{name: editorRoute, params: {id: menu.id}}"
-                                   :title="'configuration.frontend.menus.overview.editor'|jmessage"/>
-                <jinya-card-button slot="footer" type="delete" icon="delete" @click="showDelete(menu)"
-                                   :title="'configuration.frontend.menus.overview.delete'|jmessage"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
-        <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
-                     :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)">
-            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                           slot="message"/>
-            {{'configuration.frontend.menus.delete.message'|jmessage(selectedMenu)}}
-            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.frontend.menus.delete.no"
-                                :closes-modal="true" :is-disabled="this.delete.loading"/>
-            <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.frontend.menus.delete.yes"
-                                @click="remove" :is-disabled="this.delete.loading"/>
-        </jinya-modal>
-        <jinya-floating-action-button :is-primary="true" icon="plus" :to="addRoute"/>
-    </div>
+  <div class="jinya-menus">
+    <jinya-loader :loading="loading"/>
+    <jinya-message :message="message" :state="state" v-if="!loading"/>
+    <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
+      <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu" :key="menu.id">
+        <img class="jinya-menu__logo" :src="menu.logo" v-if="menu.logo"/>
+        <jinya-card-button slot="footer" type="edit" icon="pencil"
+                           :to="{name: editRoute, params: {id: menu.id}}"
+                           :title="'configuration.frontend.menus.overview.edit'|jmessage"/>
+        <jinya-card-button slot="footer" type="edit" icon="menu"
+                           :to="{name: editorRoute, params: {id: menu.id}}"
+                           :title="'configuration.frontend.menus.overview.editor'|jmessage"/>
+        <jinya-card-button slot="footer" type="delete" icon="delete" @click="showDelete(menu)"
+                           :title="'configuration.frontend.menus.overview.delete'|jmessage"/>
+      </jinya-card>
+    </jinya-card-list>
+    <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
+    <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
+                 :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)">
+      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                     slot="message"/>
+      {{'configuration.frontend.menus.delete.message'|jmessage(selectedMenu)}}
+      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.frontend.menus.delete.no"
+                          :closes-modal="true" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.frontend.menus.delete.yes"
+                          @click="remove" :is-disabled="this.delete.loading"/>
+    </jinya-modal>
+    <jinya-floating-action-button :is-primary="true" icon="plus" :to="addRoute"/>
+  </div>
 </template>
 
 <script>
@@ -163,16 +163,16 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-card--menu {
-        .jinya-card__body {
-            display: flex;
-            justify-content: center;
-        }
+  .jinya-card--menu {
+    .jinya-card__body {
+      display: flex;
+      justify-content: center;
     }
+  }
 
-    .jinya-menu__logo {
-        height: 100%;
-        width: auto;
-        object-fit: cover;
-    }
+  .jinya-menu__logo {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
 </style>

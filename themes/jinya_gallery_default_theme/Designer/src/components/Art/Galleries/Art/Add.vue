@@ -1,5 +1,5 @@
 <template>
-    <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -62,7 +62,7 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-gallery-add {
-        padding-top: 1em;
-    }
+  .jinya-gallery-add {
+    padding-top: 1em;
+  }
 </style>
