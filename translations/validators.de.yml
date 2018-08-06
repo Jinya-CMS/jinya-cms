@@ -103,43 +103,6 @@ api:
 account:
   login:
     login_failed: Benutzername und Passwort stimmen nicht überein
-static:
-  pages:
-    overview:
-      no_pages:
-        Bisher wurden keine Seiten angelegt.
-      nothing_found:
-        Leider gibt es zu deinem Suchbegriff keine Seiten.
-    page_form:
-      title:
-        empty: Es muss ein Titel angegeben werden
-      slug:
-        empty: Es muss ein Slug angegeben werden
-      content:
-        empty:
-          on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
-          on_input: Die Seite muss einen Inhalt haben
-  forms:
-    forms:
-      overview:
-        no_forms:
-          Bisher wurden keine Formulare angelegt.
-        nothing_found:
-          Leider gibt es zu deinem Suchbegriff keine Formulare.
-      builder:
-        settings:
-          label:
-            empty: Es muss ein Label angegeben werden
-          options:
-            empty: Es muss mindestens eine Auswahlmöglichkeit angegeben werden
-      form_form:
-        title:
-          empty: Es muss ein Titel angegeben werden
-        slug:
-          empty: Es muss ein Slug angegeben werden
-        email:
-          empty: Es muss eine Emailadresse angegeben werden
-          invalid: Es muss eine gültige Emailadresse angegeben werden
 art:
   artworks:
     overview:
@@ -166,7 +129,7 @@ art:
         404:
           generic: Das Kunstwerk konnte nicht gefunden werden.
         409:
-          exists: Das Kunstwerk existiert bereits.
+          exists: Ein Kunstwerk mit dem gleichen Namen oder Slug existiert bereits.
   videos:
     video_form:
       name:
@@ -236,6 +199,43 @@ art:
       state:
         404:
           generic: Das Galerie konnte nicht gefunden werden.
+static:
+  pages:
+    overview:
+      no_pages:
+        Bisher wurden keine Seiten angelegt.
+      nothing_found:
+        Leider gibt es zu deinem Suchbegriff keine Seiten.
+    page_form:
+      title:
+        empty: Es muss ein Titel angegeben werden
+      slug:
+        empty: Es muss ein Slug angegeben werden
+      content:
+        empty:
+          on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
+          on_input: Die Seite muss einen Inhalt haben
+  forms:
+    forms:
+      overview:
+        no_forms:
+          Bisher wurden keine Formulare angelegt.
+        nothing_found:
+          Leider gibt es zu deinem Suchbegriff keine Formulare.
+      builder:
+        settings:
+          label:
+            empty: Es muss ein Label angegeben werden
+          options:
+            empty: Es muss mindestens eine Auswahlmöglichkeit angegeben werden
+      form_form:
+        title:
+          empty: Es muss ein Titel angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        email:
+          empty: Es muss eine Emailadresse angegeben werden
+          invalid: Es muss eine gültige Emailadresse angegeben werden
 configuration:
   frontend:
     menus:

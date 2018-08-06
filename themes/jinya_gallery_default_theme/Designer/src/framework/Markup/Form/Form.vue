@@ -65,14 +65,6 @@
       .jinya-button {
         margin-right: 0.5em;
         margin-left: 0.5em;
-
-        &:first-child {
-          margin-left: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
       }
     }
   }
