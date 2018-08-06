@@ -153,7 +153,7 @@ art:
         404:
           generic: Das Video konnte nicht gefunden werden.
         409:
-          exists: Das Video existiert bereits.
+          exists: Ein Video mit dem gleichen Namen oder Slug existiert bereits.
     youtube:
       video_form:
         name:
@@ -179,7 +179,7 @@ art:
           404:
             generic: Das Youtube Video konnte nicht gefunden werden.
           409:
-            exists: Das Youtube Video existiert bereits.
+            exists: Ein Youtube Video mit dem gleichen Namen oder Slug existiert bereits.
   galleries:
     gallery_form:
       name:
