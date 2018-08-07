@@ -74,7 +74,7 @@
             },
           });
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.artworks.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

@@ -1,7 +1,7 @@
 <template>
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state">
-      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error' && isStatic">
         <jinya-button label="art.artworks.artwork_form.back" to="Art.Artworks.SavedInJinya.Overview"
                       :is-danger="true"/>
         <jinya-button label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"

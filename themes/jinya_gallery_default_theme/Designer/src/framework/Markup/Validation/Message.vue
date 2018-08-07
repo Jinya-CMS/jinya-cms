@@ -55,7 +55,7 @@
 
   .jinya-message {
     padding: 1rem;
-    width: 100%;
+    width: calc(100% - 1rem);
     box-sizing: border-box;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
