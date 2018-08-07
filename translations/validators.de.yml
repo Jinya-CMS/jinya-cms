@@ -239,6 +239,12 @@ static:
 configuration:
   frontend:
     menus:
+      api:
+        state:
+          404:
+            generic: Das Menü konnte nicht gefunden werden.
+          409:
+            exists: Ein Menü mit dem gleichen Namen existiert bereits.
       overview:
         nothing_found: Es wurden keine Menüs gefunden
       menu_form:
