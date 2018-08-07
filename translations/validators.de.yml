@@ -217,6 +217,12 @@ static:
           on_input: Die Seite muss einen Inhalt haben
   forms:
     forms:
+      api:
+        state:
+          404:
+            generic: Das Formular konnte nicht gefunden werden.
+          409:
+            exists: Ein Formular mit dem gleichen Namen oder Slug existiert bereits.
       overview:
         no_forms:
           Bisher wurden keine Formulare angelegt.
