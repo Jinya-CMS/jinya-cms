@@ -53,9 +53,6 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param ArtworkServiceInterface $artworkService
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function artworkDetailAction(string $slug, ArtworkServiceInterface $artworkService): Response
     {
@@ -73,9 +70,6 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param ArtGalleryServiceInterface $galleryService
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function artGalleryDetailAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
     {
@@ -93,9 +87,6 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param VideoGalleryServiceInterface $galleryService
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function videoGalleryDetailAction(string $slug, VideoGalleryServiceInterface $galleryService): Response
     {
@@ -116,13 +107,9 @@ class FrontendController extends BaseController
      * @param FormGeneratorInterface $formGenerator
      * @param MailerServiceInterface $mailerService
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function formDetailAction(string $slug, Request $request, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService): Response
     {
-        /** @var \Jinya\Entity\Form\Form $formEntity */
         $formEntity = $formService->get($slug);
 
         $form = $formGenerator->generateForm($formEntity);
@@ -148,9 +135,6 @@ class FrontendController extends BaseController
      * @param string $slug
      * @param PageServiceInterface $pageService
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function pageDetailAction(string $slug, PageServiceInterface $pageService): Response
     {
