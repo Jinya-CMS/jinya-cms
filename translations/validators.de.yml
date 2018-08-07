@@ -215,6 +215,12 @@ static:
         empty:
           on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
           on_input: Die Seite muss einen Inhalt haben
+    api:
+      state:
+        404:
+          generic: Die Seite konnte nicht gefunden werden.
+        409:
+          exists: Eine Seite mit dem gleichen Titel oder Slug existiert bereits.
   forms:
     forms:
       api:
@@ -222,7 +228,7 @@ static:
           404:
             generic: Das Formular konnte nicht gefunden werden.
           409:
-            exists: Ein Formular mit dem gleichen Namen oder Slug existiert bereits.
+            exists: Ein Formular mit dem gleichen Titel oder Slug existiert bereits.
       overview:
         no_forms:
           Bisher wurden keine Formulare angelegt.
