@@ -260,6 +260,12 @@ configuration:
             empty: Es muss eine Zielurl angegeben werden
   general:
     artists:
+      api:
+        state:
+          404:
+            generic: Der Künstler konnte nicht gefunden werden.
+          409:
+            exists: Ein Künstler mit der gleichen Email Adresse existiert bereits.
       overview:
         nothing_found: Es wurden keine Künstler gefunden
       artist_form:
