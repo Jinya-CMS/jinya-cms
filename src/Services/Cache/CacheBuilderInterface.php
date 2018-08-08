@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Cache;
 
+use Jinya\Entity\Menu\RoutingEntry;
 
 interface CacheBuilderInterface
 {
@@ -15,6 +16,21 @@ interface CacheBuilderInterface
      * Builds the cache
      */
     public function buildCache(): void;
+
+    /**
+     * Builds the cache for the given routing entry
+     *
+     * @param RoutingEntry $routingEntry
+     */
+    public function buildRouteCache(RoutingEntry $routingEntry): void;
+
+    /**
+     * Builds the cache for the given slug and type
+     *
+     * @param string $slug
+     * @param string $type
+     */
+    public function buildCacheBySlugAndType(string $slug, string $type): void;
 
     /**
      * Clears the cache

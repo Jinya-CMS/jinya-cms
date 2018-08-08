@@ -82,6 +82,28 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
+        $routes = $this->getRoutesFromTheme();
+
+        foreach ($routes as $route) {
+            if ($route->getMenuItem()->getPageType() !== 'empty' && $route->getMenuItem()->getPageType() !== 'external') {
+                $compiledTemplate = $this->compileRoute($route);
+                $file = $this->cacheTemplate($compiledTemplate, $route);
+                $this->addEntryToCacheList($file);
+            }
+        }
+
+        $startPageRoute = new RoutingEntry();
+        $startPageRoute->setUrl('index.html');
+        $compiledTemplate = $this->compileRoute($startPageRoute);
+        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
+        $this->addEntryToCacheList($file);
+    }
+
+    /**
+     * @return RoutingEntry[]
+     */
+    private function getRoutesFromTheme(): array
+    {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
         $routes = [];
         if ($currentTheme->getPrimaryMenu()) {
@@ -99,20 +121,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $routes[] = $route;
             }
         }
-
-        foreach ($routes as $route) {
-            if ($route->getMenuItem()->getPageType() !== 'empty' && $route->getMenuItem()->getPageType() !== 'external') {
-                $compiledTemplate = $this->compileRoute($route);
-                $file = $this->cacheTemplate($compiledTemplate, $route);
-                $this->addEntryToCacheList($file);
-            }
-        }
-
-        $startPageRoute = new RoutingEntry();
-        $startPageRoute->setUrl('index.html');
-        $compiledTemplate = $this->compileRoute($startPageRoute);
-        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
-        $this->addEntryToCacheList($file);
+        return $routes;
     }
 
     private function findRoutesInMenu(Menu $menu): array
@@ -230,6 +239,37 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 }
             } finally {
                 fclose($handle);
+            }
+        }
+    }
+
+    /**
+     * Builds the cache for the given routing entry
+     *
+     * @param RoutingEntry $routingEntry
+     */
+    public function buildRouteCache(RoutingEntry $routingEntry): void
+    {
+        $compiledTemplate = $this->compileRoute($routingEntry);
+        $file = $this->cacheTemplate($compiledTemplate, $routingEntry);
+        $this->addEntryToCacheList($file);
+    }
+
+    /**
+     * Builds the cache for the given slug and type
+     *
+     * @param string $slug
+     * @param string $type
+     */
+    public function buildCacheBySlugAndType(string $slug, string $type): void
+    {
+        $routes = $this->getRoutesFromTheme();
+        foreach ($routes as $route) {
+            $routeSlug = array_key_exists('slug', $route->getRouteParameter()) ? $route->getRouteParameter()['slug'] : '';
+            if ($route->getMenuItem()->getPageType() === $type && $slug === $routeSlug) {
+                $compiledTemplate = $this->compileRoute($route);
+                $file = $this->cacheTemplate($compiledTemplate, $route);
+                $this->addEntryToCacheList($file);
             }
         }
     }

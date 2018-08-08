@@ -10,6 +10,7 @@ namespace Jinya\Command;
 
 use Jinya\Services\Cache\CacheBuilderInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -35,7 +36,9 @@ class CompileCacheCommand extends ContainerAwareCommand
     {
         $this
             ->setName('jinya:cache:compile')
-            ->setDescription('Compiles the cache');
+            ->setDescription('Compiles the cache')
+            ->addArgument('type', InputArgument::OPTIONAL)
+            ->addArgument('slug', InputArgument::OPTIONAL);
     }
 
     /**
@@ -43,8 +46,16 @@ class CompileCacheCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Compiling all available routes in current theme');
-        $this->cacheBuilder->buildCache();
-        $output->writeln('Compiled all pages');
+        $type = $input->getArgument('type');
+        $slug = $input->getArgument('slug');
+        if (empty($type) || empty($slug)) {
+            $output->writeln('Compiling all available routes in current theme');
+            $this->cacheBuilder->buildCache();
+            $output->writeln('Compiled all routes');
+        } else {
+            $output->writeln(sprintf('Compiling all routes of type %s and with the slug %s', $type, $slug));
+            $this->cacheBuilder->buildCacheBySlugAndType($slug, $type);
+            $output->writeln(sprintf('Compiled all routes of type %s and with the slug %s', $type, $slug));
+        }
     }
 }
