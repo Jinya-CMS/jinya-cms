@@ -64,6 +64,11 @@ SetEnv MAILER_SENDER {{ mailerSender }}
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
+    # Rewrite startpage to index html if it exists
+    RewriteCond %{REQUEST_URI} /$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/index.html -f
+    RewriteRule ^ %{ENV:BASE}/index.html [L]
+
     # Rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_URI} !/index\.php$ [NC]
     RewriteRule ^ %{ENV:BASE}/index.php [L]

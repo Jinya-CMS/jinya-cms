@@ -107,6 +107,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $this->addEntryToCacheList($file);
             }
         }
+
+        $startPageRoute = new RoutingEntry();
+        $startPageRoute->setUrl('index.html');
+        $compiledTemplate = $this->compileRoute($startPageRoute);
+        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
+        $this->addEntryToCacheList($file);
     }
 
     private function findRoutesInMenu(Menu $menu): array
@@ -151,7 +157,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     {
         $routeParameter = $route->getRouteParameter();
 
-        if (array_key_exists('slug', $routeParameter)) {
+        if (is_array($routeParameter) && array_key_exists('slug', $routeParameter)) {
             $slug = $routeParameter['slug'];
         } else {
             $slug = '';
