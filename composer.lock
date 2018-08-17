@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3225526ab3b9f2c8605b33f37b414c4",
+    "content-hash": "3f3508033699796cd88f69bb51d5a8cb",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -3213,16 +3213,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.80",
+            "version": "v1.0.89",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "729aee08d62b47224e85b83c97e2824ff7d1735e"
+                "reference": "26be754f42c3c3f21139af2bdd74118ef8f82757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/729aee08d62b47224e85b83c97e2824ff7d1735e",
-                "reference": "729aee08d62b47224e85b83c97e2824ff7d1735e",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/26be754f42c3c3f21139af2bdd74118ef8f82757",
+                "reference": "26be754f42c3c3f21139af2bdd74118ef8f82757",
                 "shasum": ""
             },
             "require": {
@@ -3255,7 +3255,8 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-05-02T19:08:56+00:00"
+            "description": "Composer plugin for Symfony",
+            "time": "2018-07-29T16:20:30+00:00"
         },
         {
             "name": "symfony/form",
@@ -6270,7 +6271,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-hash": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
