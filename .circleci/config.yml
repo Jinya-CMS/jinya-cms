@@ -23,15 +23,7 @@ jobs:
           cd /opt/sonar
           sudo wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
           sudo unzip sonar-scanner-cli-3.2.0.1227-linux.zip
-    - restore_cache:
-        keys:
-        - "v1-dependencies-{{ checksum \"composer.json\" }}"
-        - v1-dependencies-
     - run: "composer install -n --prefer-dist --no-scripts --no-dev"
-    - save_cache:
-        key: "v1-dependencies-{{ checksum \"composer.json\" }}"
-        paths:
-        - ./vendor
     - run:
         command: |
           cd themes/jinya_gallery_default_theme/Designer/
