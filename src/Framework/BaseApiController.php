@@ -22,6 +22,7 @@ use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
+use Jinya\Services\Twig\CompilerInterface;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -84,9 +85,9 @@ abstract class BaseApiController extends BaseController
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
      */
-    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
+    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
     {
-        parent::__construct($themeConfigService, $themeService, $configurationService, $themeCompilerService, $requestStack, $kernel, $authorizationChecker, $twig, $tokenStorage, $router);
+        parent::__construct($requestStack, $kernel, $authorizationChecker, $tokenStorage, $router, $compiler);
         $this->translator = $translator;
         $this->labelService = $labelService;
         $this->logger = $logger;

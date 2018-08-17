@@ -12,6 +12,13 @@ use Jinya\Entity\Menu\RoutingEntry;
 
 interface CacheBuilderInterface
 {
+    public const GALLERY = 'gallery';
+    public const ART_GALLERY = 'art_gallery';
+    public const VIDEO_GALLERY = 'video_gallery';
+    public const ARTWORK = 'artwork';
+    public const FORM = 'form';
+    public const PAGE = 'page';
+
     /**
      * Builds the cache
      */
