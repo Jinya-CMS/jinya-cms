@@ -6,8 +6,7 @@
  * Time: 09:55
  */
 
-namespace Jinya\Framework\Events;
-
+namespace Jinya\Framework\Events\Common;
 
 use Symfony\Component\EventDispatcher\Event;
 

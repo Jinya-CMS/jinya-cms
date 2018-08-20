@@ -6,8 +6,7 @@
  * Time: 09:41
  */
 
-namespace Jinya\Framework\Events;
-
+namespace Jinya\Framework\Events\Artworks;
 
 use Jinya\Entity\Artwork\Artwork;
 use Symfony\Component\EventDispatcher\Event;
