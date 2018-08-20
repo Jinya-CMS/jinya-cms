@@ -152,7 +152,7 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function get(string $slug): ?Artwork
     {
-        /** @var ArtworkEvent $pre */
+        /* @var ArtworkEvent $pre */
         $this->eventDispatcher->dispatch(ArtworkEvent::PRE_GET, new ArtworkEvent(null, $slug));
 
         $artwork = $this->baseService->get($slug);

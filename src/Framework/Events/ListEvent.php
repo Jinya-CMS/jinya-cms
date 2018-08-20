@@ -8,19 +8,23 @@
 
 namespace Jinya\Framework\Events;
 
-
 use Symfony\Component\EventDispatcher\Event;
 
 class ListEvent extends Event
 {
     const ARTWORKS_POST_GET_ALL = 'ArtworksPostGetAll';
+
     const ARTWORKS_PRE_GET_ALL = 'ArtworksPreGetAll';
-    /** @var integer */
+
+    /** @var int */
     private $offset;
-    /** @var integer */
+
+    /** @var int */
     private $count;
+
     /** @var string */
     private $keyword;
+
     /** @var array */
     private $items;
 

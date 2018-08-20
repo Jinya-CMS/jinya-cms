@@ -8,17 +8,21 @@
 
 namespace Jinya\Framework\Events;
 
-
 use Jinya\Entity\Artwork\Artwork;
 use Symfony\Component\EventDispatcher\Event;
 
 class ArtworkEvent extends Event
 {
     public static const PRE_SAVE = 'ArtworkPreSave';
+
     public static const POST_SAVE = 'ArtworkPostSave';
+
     public static const PRE_GET = 'ArtworkPreGet';
+
     public static const POST_GET = 'ArtworkPostGet';
+
     public static const PRE_DELETE = 'ArtworkPreDelete';
+
     public static const POST_DELETE = 'ArtworkPostDelete';
 
     /** @var Artwork */
@@ -27,7 +31,7 @@ class ArtworkEvent extends Event
     /** @var string */
     private $slug;
 
-    /** @var boolean */
+    /** @var bool */
     private $cancel;
 
     /**
