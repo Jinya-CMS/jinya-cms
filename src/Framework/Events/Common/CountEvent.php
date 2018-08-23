@@ -12,8 +12,8 @@ use Symfony\Component\EventDispatcher\Event;
 
 class CountEvent extends Event
 {
-    public static const ARTWORKS_PRE_COUNT = 'ArtworksPreCount';
-    public static const ARTWORKS_POST_COUNT = 'ArtworksPostCount';
+    public const ARTWORKS_PRE_COUNT = 'ArtworksPreCount';
+    public const ARTWORKS_POST_COUNT = 'ArtworksPostCount';
 
     /** @var string */
     private $keyword;

@@ -9,25 +9,22 @@
 namespace Jinya\Framework\Events\Artworks;
 
 use Jinya\Entity\Artwork\Artwork;
-use Symfony\Component\EventDispatcher\Event;
+use Jinya\Framework\Events\Common\CancellableEvent;
 
-class ArtworkEvent extends Event
+class ArtworkEvent extends CancellableEvent
 {
-    public static const PRE_SAVE = 'ArtworkPreSave';
-    public static const POST_SAVE = 'ArtworkPostSave';
-    public static const PRE_GET = 'ArtworkPreGet';
-    public static const POST_GET = 'ArtworkPostGet';
-    public static const PRE_DELETE = 'ArtworkPreDelete';
-    public static const POST_DELETE = 'ArtworkPostDelete';
+    public const PRE_SAVE = 'ArtworkPreSave';
+    public const POST_SAVE = 'ArtworkPostSave';
+    public const PRE_GET = 'ArtworkPreGet';
+    public const POST_GET = 'ArtworkPostGet';
+    public const PRE_DELETE = 'ArtworkPreDelete';
+    public const POST_DELETE = 'ArtworkPostDelete';
 
     /** @var Artwork */
     private $artwork;
 
     /** @var string */
     private $slug;
-
-    /** @var boolean */
-    private $cancel;
 
     /**
      * ArtworkEvent constructor.
@@ -38,7 +35,6 @@ class ArtworkEvent extends Event
     {
         $this->artwork = $artwork;
         $this->slug = $slug;
-        $this->cancel = false;
     }
 
     /**
@@ -55,21 +51,5 @@ class ArtworkEvent extends Event
     public function getArtwork(): Artwork
     {
         return $this->artwork;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCancel(): bool
-    {
-        return $this->cancel;
-    }
-
-    /**
-     * @param bool $cancel
-     */
-    public function setCancel(bool $cancel): void
-    {
-        $this->cancel = $cancel;
     }
 }

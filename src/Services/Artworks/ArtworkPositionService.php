@@ -12,8 +12,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Framework\Events\Artworks\ArtworkPositionEvent;
+use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
@@ -28,17 +31,22 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var EventDispatcher */
+    private $eventDispatcher;
+
     /**
      * ArtworkPositionService constructor.
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param EntityManagerInterface $entityManager
+     * @param EventDispatcher $eventDispatcher
      */
-    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager)
+    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager, EventDispatcher $eventDispatcher)
     {
         $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -58,7 +66,13 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         $artworkPosition->setArtwork($artwork);
         $artworkPosition->setGallery($gallery);
 
-        $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_SAVE, new ArtworkPositionEvent($artworkPosition));
+
+        if (!$pre->isCancel()) {
+            $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
+
+            $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_SAVE, new ArtworkPositionEvent($artworkPosition));
+        }
 
         return $artworkPosition->getId();
     }
@@ -71,11 +85,16 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     private function rearrangeArtworks(int $oldPosition, int $newPosition, ArtworkPosition $artworkPosition, ArtGallery $gallery): void
     {
-        $positions = $gallery->getArtworks()->toArray();
-        $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);
+        $pre = $this->eventDispatcher->dispatch(RearrangeEvent::PRE_REARRANGE, new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition));
 
-        $gallery->setArtworks(new ArrayCollection($positions));
-        $this->entityManager->flush();
+        if (!$pre->isCancel()) {
+            $positions = $gallery->getArtworks()->toArray();
+            $positions = $this->rearrange($positions, $oldPosition, $newPosition, $artworkPosition);
+
+            $gallery->setArtworks(new ArrayCollection($positions));
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(RearrangeEvent::POST_REARRANGE, new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition));
+        }
     }
 
     /**
