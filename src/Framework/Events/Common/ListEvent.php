@@ -14,6 +14,10 @@ class ListEvent extends Event
 {
     const ARTWORKS_POST_GET_ALL = 'ArtworksPostGetAll';
     const ARTWORKS_PRE_GET_ALL = 'ArtworksPreGetAll';
+
+    const FORMS_POST_GET_ALL = 'FormsPostGetAll';
+    const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
+
     /** @var integer */
     private $offset;
     /** @var integer */
