@@ -19,7 +19,7 @@ use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkService implements ArtworkServiceInterface
 {
@@ -38,7 +38,7 @@ class ArtworkService implements ArtworkServiceInterface
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
 
-    /** @var EventDispatcher */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /**
@@ -47,8 +47,9 @@ class ArtworkService implements ArtworkServiceInterface
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService
      * @param LabelEntityServiceInterface $labelEntityService
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService, EventDispatcher $eventDispatcher)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
     {
         $this->labelService = $labelService;
         $this->labelEntityService = $labelEntityService;

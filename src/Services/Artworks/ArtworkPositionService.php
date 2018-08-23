@@ -16,7 +16,7 @@ use Jinya\Framework\Events\Artworks\ArtworkPositionEvent;
 use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
@@ -31,7 +31,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var EventDispatcher */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /**
@@ -39,9 +39,9 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param ArtGalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param EntityManagerInterface $entityManager
-     * @param EventDispatcher $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager, EventDispatcher $eventDispatcher)
+    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
         $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;
