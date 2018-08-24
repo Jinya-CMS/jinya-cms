@@ -17,7 +17,6 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -29,12 +28,6 @@ class ArtGalleryService implements ArtGalleryServiceInterface
     /** @var BaseSlugEntityService */
     private $baseService;
 
-    /** @var SlugServiceInterface */
-    private $slugService;
-
-    /** @var LabelServiceInterface */
-    private $labelService;
-
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
 
@@ -45,16 +38,13 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      * ArtGalleryService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
-     * @param LabelServiceInterface $labelService
      * @param LabelEntityServiceInterface $labelEntityService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
     {
-        $this->labelService = $labelService;
         $this->labelEntityService = $labelEntityService;
         $this->entityManager = $entityManager;
-        $this->slugService = $slugService;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, ArtGallery::class);
     }

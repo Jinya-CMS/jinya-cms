@@ -24,6 +24,10 @@ class CountEvent extends Event
 
     public const FORMS_POST_COUNT = 'FormsPostCount';
 
+    public const VIDEO_GALLERIES_PRE_COUNT = 'VideoGalleriesPreCount';
+
+    public const VIDEO_GALLERIES_POST_COUNT = 'VideoGalleriesPostCount';
+
     /** @var string */
     private $keyword;
 

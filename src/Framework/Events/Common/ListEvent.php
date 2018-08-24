@@ -24,6 +24,10 @@ class ListEvent extends Event
 
     public const ART_GALLERIES_PRE_GET_ALL = 'ArtGalleriesPreGetAll';
 
+    public const VIDEO_GALLERIES_POST_GET_ALL = 'VideoGalleriesPreGetAll';
+
+    public const VIDEO_GALLERIES_PRE_GET_ALL = 'VideoGalleriesPostGetAll';
+
     /** @var int */
     private $offset;
 
