@@ -14,10 +14,13 @@ use Doctrine\ORM\UnitOfWork;
 use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\KnownDevice;
+use Jinya\Framework\Events\User\TwoFactorCodeEvent;
+use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
 use Jinya\Framework\Security\UnknownDeviceException;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
@@ -38,6 +41,9 @@ class UserService implements UserServiceInterface
     /** @var string */
     private $mailerSender;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * UserService constructor.
      * @param EntityManagerInterface $entityManager
@@ -45,14 +51,16 @@ class UserService implements UserServiceInterface
      * @param ApiKeyToolInterface $apiKeyTool
      * @param Swift_Mailer $swift
      * @param string $mailerSender
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool, Swift_Mailer $swift, string $mailerSender)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool, Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->apiKeyTool = $apiKeyTool;
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -312,32 +320,43 @@ class UserService implements UserServiceInterface
      * Sets the two factor code and sends the verification mail
      *
      * @param string $username
-     * @param string $password
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function setAndSendTwoFactorCode(string $username, string $password): void
+    public function setAndSendTwoFactorCode(string $username): void
     {
+        $pre = $this->eventDispatcher->dispatch(TwoFactorCodeEvent::PRE_CODE_GENERATION, new TwoFactorCodeEvent($username));
         $user = $this->getUserByEmail($username);
         $code = '';
-        for ($i = 0; $i < 6; ++$i) {
-            try {
-                $code .= random_int(0, 9);
-            } catch (Exception $e) {
-                srand(time());
-                $code .= rand(0, 9);
+
+        if (empty($pre->getTwoFactorCode())) {
+            for ($i = 0; $i < 6; ++$i) {
+                try {
+                    $code .= random_int(0, 9);
+                } catch (Exception $e) {
+                    srand(time());
+                    $code .= rand(0, 9);
+                }
             }
+        } else {
+            $code = $pre->getTwoFactorCode();
         }
+
         $user->setTwoFactorToken($code);
         $this->entityManager->flush();
 
-        /** @var Swift_Message $message */
-        $message = $this->swift->createMessage('message');
-        $message->addTo($user->getEmail());
-        $message->setSubject('Your two factor code');
-        $message->setBody($this->formatBody($user), 'text/html');
-        $message->setFrom($this->mailerSender);
-        $this->swift->send($message);
+        $submissionEvent = $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
+        if (!$submissionEvent->isSent()) {
+            /** @var Swift_Message $message */
+            $message = $this->swift->createMessage('message');
+            $message->addTo($user->getEmail());
+            $message->setSubject('Your two factor code');
+            $message->setBody($this->formatBody($user), 'text/html');
+            $message->setFrom($this->mailerSender);
+            $this->swift->send($message);
+        }
+
+        $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
     }
 
     private function formatBody(User $user): string

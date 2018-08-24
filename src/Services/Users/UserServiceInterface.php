@@ -110,9 +110,8 @@ interface UserServiceInterface
      * Sets the two factor code and sends the verification mail
      *
      * @param string $username
-     * @param string $password
      */
-    public function setAndSendTwoFactorCode(string $username, string $password): void;
+    public function setAndSendTwoFactorCode(string $username): void;
 
     /**
      * Adds a new device code to the user

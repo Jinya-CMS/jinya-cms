@@ -36,7 +36,7 @@ class AccountController extends BaseApiController
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
 
-            $userService->setAndSendTwoFactorCode($username, $password);
+            $userService->setAndSendTwoFactorCode($username);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
