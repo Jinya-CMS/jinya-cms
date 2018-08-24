@@ -22,7 +22,7 @@ class TwoFactorCodeSubmissionEvent extends Event
     /** @var string */
     private $twoFactorCode;
 
-    /** @var boolean */
+    /** @var bool */
     private $sent = false;
 
     /**

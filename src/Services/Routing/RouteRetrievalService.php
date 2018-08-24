@@ -68,15 +68,19 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
         switch ($type) {
             case RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE:
                 $routes = $this->retrievePages();
+
                 break;
             case RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE:
                 $routes = $this->retrieveArtworks();
+
                 break;
             case RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE:
                 $routes = $this->retrieveGalleries();
+
                 break;
             case RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE:
                 $routes = $this->retrieveForms();
+
                 break;
             default:
                 $routes = [];
