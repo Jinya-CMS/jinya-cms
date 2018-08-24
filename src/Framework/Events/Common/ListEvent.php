@@ -28,6 +28,10 @@ class ListEvent extends Event
 
     public const VIDEO_GALLERIES_PRE_GET_ALL = 'VideoGalleriesPostGetAll';
 
+    public const MENU_POST_GET_ALL = 'MenuPreGetAll';
+
+    public const MENU_PRE_GET_ALL = 'MenuPostGetAll';
+
     /** @var int */
     private $offset;
 

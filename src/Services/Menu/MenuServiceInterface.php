@@ -17,7 +17,7 @@ interface MenuServiceInterface
      * @param Menu $menu
      * @return Menu
      */
-    public function save(Menu $menu): Menu;
+    public function saveOrUpdate(Menu $menu): Menu;
 
     /**
      * @param int $id
