@@ -60,7 +60,7 @@ services:
       arguments:
         $mailerSender: '%mailer_sender%'
 
-    Jinya\Services\Users\UserService:
+    Jinya\Services\Users\AuthenticationService:
       arguments:
         $mailerSender: '%mailer_sender%'
 

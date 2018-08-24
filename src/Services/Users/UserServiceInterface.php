@@ -9,7 +9,6 @@
 namespace Jinya\Services\Users;
 
 use Jinya\Entity\Artist\User;
-use Jinya\Entity\Authentication\KnownDevice;
 
 interface UserServiceInterface
 {
@@ -107,33 +106,10 @@ interface UserServiceInterface
     public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User;
 
     /**
-     * Sets the two factor code and sends the verification mail
+     * Gets the user with the given email address
      *
-     * @param string $username
+     * @param string $email
+     * @return User
      */
-    public function setAndSendTwoFactorCode(string $username): void;
-
-    /**
-     * Adds a new device code to the user
-     *
-     * @param string $username
-     * @return string
-     */
-    public function addKnownDevice(string $username): string;
-
-    /**
-     * Deletes the given known device
-     *
-     * @param string $username
-     * @param string $deviceCode
-     */
-    public function deleteKnownDevice(string $username, string $deviceCode): void;
-
-    /**
-     * Gets all known devices for the given user
-     *
-     * @param string $username
-     * @return KnownDevice[]
-     */
-    public function getKnownDevices(string $username): array;
+    public function getUserByEmail(string $email): User;
 }

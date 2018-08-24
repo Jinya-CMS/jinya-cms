@@ -42,7 +42,7 @@ class TwoFactorCodeEvent extends Event
     /**
      * @return string
      */
-    public function getTwoFactorCode(): string
+    public function getTwoFactorCode(): ?string
     {
         return $this->twoFactorCode;
     }

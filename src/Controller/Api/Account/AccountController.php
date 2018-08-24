@@ -12,6 +12,7 @@ use Jinya\Entity\Artist\User;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
+use Jinya\Services\Users\AuthenticationServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,16 +28,15 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/2fa", methods={"POST"}, name="api_account_2fa")
      *
-     * @param UserServiceInterface $userService
+     * @param AuthenticationServiceInterface $authenticationService
      * @return Response
      */
-    public function twoFactorAction(UserServiceInterface $userService): Response
+    public function twoFactorAction(AuthenticationServiceInterface $authenticationService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($userService) {
+        list($data, $status) = $this->tryExecute(function () use ($authenticationService) {
             $username = $this->getValue('username', '');
-            $password = $this->getValue('password', '');
 
-            $userService->setAndSendTwoFactorCode($username);
+            $authenticationService->setAndSendTwoFactorCode($username);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -49,16 +49,16 @@ class AccountController extends BaseApiController
      * @param UserServiceInterface $userService
      * @return Response
      */
-    public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService): Response
+    public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService, AuthenticationServiceInterface $authenticationService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $userService) {
+        list($data, $status) = $this->tryExecute(function () use ($authenticationService, $apiKeyTool, $userService) {
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
             $twoFactorToken = $this->getValue('twoFactorCode', '');
             $deviceCode = $this->getHeader('JinyaDeviceCode', '');
 
             $user = $userService->getUser($username, $password, $twoFactorToken, $deviceCode);
-            $newDeviceCode = $userService->addKnownDevice($username);
+            $newDeviceCode = $authenticationService->addKnownDevice($username);
 
             return [
                 'apiKey' => $apiKeyTool->createApiKey($user),
