@@ -12,11 +12,14 @@ use Symfony\Component\EventDispatcher\Event;
 
 class ListEvent extends Event
 {
-    const ARTWORKS_POST_GET_ALL = 'ArtworksPostGetAll';
-    const ARTWORKS_PRE_GET_ALL = 'ArtworksPreGetAll';
+    public const ARTWORKS_POST_GET_ALL = 'ArtworksPostGetAll';
+    public const ARTWORKS_PRE_GET_ALL = 'ArtworksPreGetAll';
 
-    const FORMS_POST_GET_ALL = 'FormsPostGetAll';
-    const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
+    public const FORMS_POST_GET_ALL = 'FormsPostGetAll';
+    public const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
+
+    public const ART_GALLERIES_POST_GET_ALL = 'ArtGalleriesPostGetAll';
+    public const ART_GALLERIES_PRE_GET_ALL = 'ArtGalleriesPreGetAll';
 
     /** @var integer */
     private $offset;

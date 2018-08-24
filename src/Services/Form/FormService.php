@@ -110,14 +110,14 @@ class FormService implements FormServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(ListEvent::FORMS_PRE_GET_ALL, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(CountEvent::FORMS_PRE_COUNT, new CountEvent($keyword, -1));
 
         $count = $this->getFilteredQueryBuilder($keyword)
             ->select('COUNT(form)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::FORMS_POST_GET_ALL, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(CountEvent::FORMS_POST_COUNT, new CountEvent($keyword, $count));
 
         return $count;
     }
