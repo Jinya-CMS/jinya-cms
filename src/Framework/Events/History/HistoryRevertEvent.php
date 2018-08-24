@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\History;
 
-
 use Jinya\Framework\Events\Common\CancellableEvent;
 
 class HistoryRevertEvent extends CancellableEvent
