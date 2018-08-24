@@ -6,7 +6,7 @@
  * Time: 09:41
  */
 
-namespace Jinya\Framework\Events\Forms;
+namespace Jinya\Framework\Events\Form;
 
 use Jinya\Entity\Form\Form;
 use Jinya\Framework\Events\Common\CancellableEvent;

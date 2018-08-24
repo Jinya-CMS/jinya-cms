@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Form\Form;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
-use Jinya\Framework\Events\Forms\FormEvent;
+use Jinya\Framework\Events\Form\FormEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

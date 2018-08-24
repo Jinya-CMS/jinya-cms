@@ -6,7 +6,7 @@
  * Time: 19:48
  */
 
-namespace Jinya\Framework\Events\Artworks;
+namespace Jinya\Framework\Events\Form;
 
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Form\FormItem;
