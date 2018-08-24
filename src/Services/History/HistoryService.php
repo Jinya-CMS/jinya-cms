@@ -9,6 +9,9 @@
 namespace Jinya\Services\History;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Jinya\Framework\Events\History\HistoryEvent;
+use Jinya\Framework\Events\History\HistoryRevertEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function method_exists;
 
@@ -17,13 +20,18 @@ class HistoryService implements HistoryServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * HistoryService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -31,7 +39,11 @@ class HistoryService implements HistoryServiceInterface
      */
     public function getHistory(string $class, int $id): array
     {
-        return $this->entityManager->find($this->getFullClassName($class), $id)->getHistory();
+        $this->eventDispatcher->dispatch(HistoryEvent::PRE_GET, new HistoryEvent($class, $id, []));
+        $history = $this->entityManager->find($this->getFullClassName($class), $id)->getHistory();
+        $this->eventDispatcher->dispatch(HistoryEvent::POST_GET, new HistoryEvent($class, $id, $history));
+
+        return $history;
     }
 
     /**
@@ -40,9 +52,7 @@ class HistoryService implements HistoryServiceInterface
      */
     protected function getFullClassName(string $class): string
     {
-        $class = "Jinya\\Entity\\$class";
-
-        return $class;
+        return "Jinya\\Entity\\$class";
     }
 
     /**
@@ -51,9 +61,15 @@ class HistoryService implements HistoryServiceInterface
     public function clearHistory(string $class, int $id): void
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
-        $entity->setHistory([]);
 
-        $this->entityManager->flush();
+        $pre = $this->eventDispatcher->dispatch(HistoryEvent::PRE_CLEAR, new HistoryEvent($class, $id, $entity->getHistory()));
+
+        if (!$pre->isCancel()) {
+            $entity->setHistory([]);
+
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(HistoryEvent::POST_CLEAR, new HistoryEvent($class, $id, []));
+        }
     }
 
     /**
@@ -69,11 +85,17 @@ class HistoryService implements HistoryServiceInterface
                 return $item['timestamp'] === $timestamp;
             })[0];
 
-            $revertedValue = $entry['entry'][$field][1];
-            $setter = "set$field";
-            $entity->$setter($revertedValue);
+            if (array_key_exists($field, $entry['entry'])) {
+                $pre = $this->eventDispatcher->dispatch(HistoryRevertEvent::PRE_REVERT, new HistoryRevertEvent($class, $id, $field, $timestamp, $entry));
+                if (!$pre->isCancel()) {
+                    $revertedValue = $entry['entry'][$field][1];
+                    $setter = "set$field";
+                    $entity->$setter($revertedValue);
 
-            $this->entityManager->flush();
+                    $this->entityManager->flush();
+                    $this->eventDispatcher->dispatch(HistoryRevertEvent::POST_REVERT, new HistoryRevertEvent($class, $id, $field, $timestamp, $entry));
+                }
+            }
         }
     }
 }
