@@ -14,8 +14,11 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 class ConfigurationEvent extends CancellableEvent
 {
     public const PRE_GET = 'ConfigurationPreGet';
+
     public const POST_GET = 'ConfigurationPostGet';
+
     public const PRE_WRITE = 'ConfigurationPreWrite';
+
     public const POST_WRITE = 'ConfigurationPostWrite';
 
     /** @var Configuration */

@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\Artworks;
 
-
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Form\FormItem;
 use Jinya\Framework\Events\Common\CancellableEvent;
@@ -16,6 +15,7 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 class FormItemPositionEvent extends CancellableEvent
 {
     public const PRE_UPDATE = 'FormItemPositionPreUpdate';
+
     public const POST_UPDATE = 'FormItemPositionPostUpdate';
 
     /** @var Form */
@@ -24,10 +24,10 @@ class FormItemPositionEvent extends CancellableEvent
     /** @var FormItem */
     private $formItem;
 
-    /** @var integer */
+    /** @var int */
     private $oldPosition;
 
-    /** @var integer */
+    /** @var int */
     private $newPosition;
 
     /**

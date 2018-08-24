@@ -13,18 +13,21 @@ use Symfony\Component\EventDispatcher\Event;
 class CountEvent extends Event
 {
     public const ARTWORKS_PRE_COUNT = 'ArtworksPreCount';
+
     public const ARTWORKS_POST_COUNT = 'ArtworksPostCount';
 
     public const ART_GALLERIES_PRE_COUNT = 'ArtGalleriesPreCount';
+
     public const ART_GALLERIES_POST_COUNT = 'ArtGalleriesPostCount';
 
     public const FORMS_PRE_COUNT = 'FormsPreCount';
+
     public const FORMS_POST_COUNT = 'FormsPostCount';
 
     /** @var string */
     private $keyword;
 
-    /** @var integer */
+    /** @var int */
     private $count;
 
     /**

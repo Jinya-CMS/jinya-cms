@@ -17,7 +17,7 @@ class FormItemGetItemEvent extends Event
     /** @var string */
     private $formSlug;
 
-    /** @var integer */
+    /** @var int */
     private $position;
 
     /**

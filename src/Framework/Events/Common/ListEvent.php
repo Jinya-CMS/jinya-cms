@@ -13,20 +13,26 @@ use Symfony\Component\EventDispatcher\Event;
 class ListEvent extends Event
 {
     public const ARTWORKS_POST_GET_ALL = 'ArtworksPostGetAll';
+
     public const ARTWORKS_PRE_GET_ALL = 'ArtworksPreGetAll';
 
     public const FORMS_POST_GET_ALL = 'FormsPostGetAll';
+
     public const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
 
     public const ART_GALLERIES_POST_GET_ALL = 'ArtGalleriesPostGetAll';
+
     public const ART_GALLERIES_PRE_GET_ALL = 'ArtGalleriesPreGetAll';
 
-    /** @var integer */
+    /** @var int */
     private $offset;
-    /** @var integer */
+
+    /** @var int */
     private $count;
+
     /** @var string */
     private $keyword;
+
     /** @var array */
     private $items;
 

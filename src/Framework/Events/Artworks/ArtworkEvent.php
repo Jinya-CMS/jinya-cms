@@ -14,10 +14,15 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 class ArtworkEvent extends CancellableEvent
 {
     public const PRE_SAVE = 'ArtworkPreSave';
+
     public const POST_SAVE = 'ArtworkPostSave';
+
     public const PRE_GET = 'ArtworkPreGet';
+
     public const POST_GET = 'ArtworkPostGet';
+
     public const PRE_DELETE = 'ArtworkPreDelete';
+
     public const POST_DELETE = 'ArtworkPostDelete';
 
     /** @var Artwork */

@@ -14,10 +14,15 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 class FormEvent extends CancellableEvent
 {
     public const PRE_SAVE = 'FormPreSave';
+
     public const POST_SAVE = 'FormPostSave';
+
     public const PRE_GET = 'FormPreGet';
+
     public const POST_GET = 'FormPostGet';
+
     public const PRE_DELETE = 'FormPreDelete';
+
     public const POST_DELETE = 'FormPostDelete';
 
     /** @var Form */
