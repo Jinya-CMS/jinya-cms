@@ -8,17 +8,18 @@
 
 namespace Jinya\Framework\Events\Form;
 
-
 use Jinya\Entity\Form\FormItem;
 use Symfony\Component\EventDispatcher\Event;
 
 class FormItemGetItemsEvent extends Event
 {
     public const PRE_GET_ITEMS = 'FormItemsPreGetItems';
+
     public const POST_GET_ITEMS = 'FormItemsPostGetItems';
 
     /** @var string */
     private $formSlug;
+
     /** @var FormItem[] */
     private $items;
 

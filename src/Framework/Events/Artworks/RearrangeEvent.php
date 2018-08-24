@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\Artworks;
 
-
 use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Framework\Events\Common\CancellableEvent;
@@ -16,6 +15,7 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 class RearrangeEvent extends CancellableEvent
 {
     public const PRE_REARRANGE = 'ArtworkPositionPreRearrange';
+
     public const POST_REARRANGE = 'ArtworkPositionPostRearrange';
 
     /** @var ArtGallery */
@@ -24,10 +24,10 @@ class RearrangeEvent extends CancellableEvent
     /** @var ArtworkPosition */
     private $artworkPosition;
 
-    /** @var integer */
+    /** @var int */
     private $oldPosition;
 
-    /** @var integer */
+    /** @var int */
     private $newPosition;
 
     /**

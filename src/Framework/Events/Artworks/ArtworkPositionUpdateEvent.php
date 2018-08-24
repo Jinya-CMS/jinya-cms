@@ -8,24 +8,24 @@
 
 namespace Jinya\Framework\Events\Artworks;
 
-
 use Jinya\Framework\Events\Common\CancellableEvent;
 
 class ArtworkPositionUpdateEvent extends CancellableEvent
 {
     public const PRE_UPDATE = 'ArtworkPositionPreUpdate';
+
     public const POST_UPDATE = 'ArtworkPositionPostUpdate';
 
     /** @var string */
     private $gallerySlug;
 
-    /** @var integer */
+    /** @var int */
     private $artworkPositionId;
 
-    /** @var integer */
+    /** @var int */
     private $oldPosition;
 
-    /** @var integer */
+    /** @var int */
     private $newPosition;
 
     /**

@@ -84,6 +84,7 @@ class FormService implements FormServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(ListEvent::FORMS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+
         return $items;
     }
 
