@@ -32,6 +32,18 @@ class CountEvent extends Event
 
     public const PAGES_PRE_COUNT = 'PagesPostCount';
 
+    public const ALL_VIDEOS_PRE_COUNT = 'AllVideosPreCount';
+
+    public const ALL_VIDEOS_POST_COUNT = 'AllVideosPostCount';
+
+    public const YOUTUBE_VIDEOS_PRE_COUNT = 'YoutubeVideosPreCount';
+
+    public const YOUTUBE_VIDEOS_POST_COUNT = 'YoutubeVideosPostCount';
+
+    public const VIDEOS_PRE_COUNT = 'VideosPreCount';
+
+    public const VIDEOS_POST_COUNT = 'VideosPostCount';
+
     /** @var string */
     private $keyword;
 

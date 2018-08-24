@@ -36,6 +36,18 @@ class ListEvent extends Event
 
     public const PAGE_PRE_GET_ALL = 'PagePostGetAll';
 
+    public const ALL_VIDEOS_PRE_GET_ALL = 'AllVideosPreGetAll';
+
+    public const ALL_VIDEOS_POST_GET_ALL = 'AllVideosPostGetAll';
+
+    public const YOUTUBE_VIDEOS_PRE_GET_ALL = 'YoutubeVideosPreGetAll';
+
+    public const YOUTUBE_VIDEOS_POST_GET_ALL = 'YoutubeVideosPostGetAll';
+
+    public const VIDEOS_PRE_GET_ALL = 'VideosPreGetAll';
+
+    public const VIDEOS_POST_GET_ALL = 'VideosPostGetAll';
+
     /** @var int */
     private $offset;
 
