@@ -31,7 +31,7 @@ class FormEvent extends CancellableEvent
      * @param Form $form
      * @param string $slug
      */
-    public function __construct(Form $form, string $slug)
+    public function __construct(?Form $form, string $slug)
     {
         $this->form = $form;
         $this->slug = $slug;
@@ -48,7 +48,7 @@ class FormEvent extends CancellableEvent
     /**
      * @return Form
      */
-    public function getForm(): Form
+    public function getForm(): ?Form
     {
         return $this->form;
     }
