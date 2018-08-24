@@ -28,6 +28,10 @@ class CountEvent extends Event
 
     public const VIDEO_GALLERIES_POST_COUNT = 'VideoGalleriesPostCount';
 
+    public const PAGES_POST_COUNT = 'PagesPreCount';
+
+    public const PAGES_PRE_COUNT = 'PagesPostCount';
+
     /** @var string */
     private $keyword;
 

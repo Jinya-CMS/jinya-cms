@@ -32,6 +32,10 @@ class ListEvent extends Event
 
     public const MENU_PRE_GET_ALL = 'MenuPostGetAll';
 
+    public const PAGE_POST_GET_ALL = 'PagePreGetAll';
+
+    public const PAGE_PRE_GET_ALL = 'PagePostGetAll';
+
     /** @var int */
     private $offset;
 
