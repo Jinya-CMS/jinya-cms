@@ -34,7 +34,7 @@ class FormItemEvent extends CancellableEvent
      * FormItemEvent constructor.
      * @param FormItem $formItem
      */
-    public function __construct(FormItem $formItem)
+    public function __construct(?FormItem $formItem)
     {
         $this->formItem = $formItem;
     }
@@ -42,7 +42,7 @@ class FormItemEvent extends CancellableEvent
     /**
      * @return FormItem
      */
-    public function getFormItem(): FormItem
+    public function getFormItem(): ?FormItem
     {
         return $this->formItem;
     }

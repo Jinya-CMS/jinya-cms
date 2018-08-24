@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
 class CancellableEvent extends Event
 {
     /** @var bool */
-    private $cancel;
+    private $cancel = false;
 
     /**
      * @return bool
