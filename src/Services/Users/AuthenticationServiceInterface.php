@@ -12,7 +12,6 @@ use Jinya\Entity\Authentication\KnownDevice;
 
 interface AuthenticationServiceInterface
 {
-
     /**
      * Sets the two factor code and sends the verification mail
      *
