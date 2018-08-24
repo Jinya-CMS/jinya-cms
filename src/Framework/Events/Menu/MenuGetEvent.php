@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\Menu;
 
-
 use Jinya\Entity\Menu\Menu;
 use Symfony\Component\EventDispatcher\Event;
 

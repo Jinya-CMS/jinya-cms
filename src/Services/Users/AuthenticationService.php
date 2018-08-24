@@ -20,7 +20,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
 

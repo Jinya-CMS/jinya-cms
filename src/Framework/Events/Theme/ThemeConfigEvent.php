@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\Theme;
 
-
 use Jinya\Framework\Events\Common\CancellableEvent;
 
 class ThemeConfigEvent extends CancellableEvent
@@ -23,7 +22,7 @@ class ThemeConfigEvent extends CancellableEvent
     /** @var array */
     private $config;
 
-    /** @var boolean */
+    /** @var bool */
     private $override;
 
     /**

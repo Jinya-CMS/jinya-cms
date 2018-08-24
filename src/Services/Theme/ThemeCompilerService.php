@@ -192,6 +192,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/scripts/';
+
         return $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
     }
 
