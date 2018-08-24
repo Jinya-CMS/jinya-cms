@@ -100,9 +100,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function getScssCodeForStyle(string $style, Theme $theme): string
     {
         $stylesPath = $this->themeConfigService->getStylesPath($theme);
-        $scssCode = file_get_contents($stylesPath . '/' . $style);
 
-        return $scssCode;
+        return file_get_contents($stylesPath . '/' . $style);
     }
 
     /**
@@ -113,9 +112,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function getCompilationCheckPathStyles(Theme $theme, string $filename): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
-        $compilationCheckPath = $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
 
-        return $compilationCheckPath;
+        return $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
     }
 
     private function getScssVariablesCompilationCheckPath(Theme $theme)
@@ -165,9 +163,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
             $scriptsBasePath = $themeConfig['scripts_base'];
         }
 
-        $scriptsPath = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
-
-        return $scriptsPath;
+        return $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
     }
 
     /**
@@ -196,9 +192,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/scripts/';
-        $compilationCheckPath = $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
-
-        return $compilationCheckPath;
+        return $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
     }
 
     /**
