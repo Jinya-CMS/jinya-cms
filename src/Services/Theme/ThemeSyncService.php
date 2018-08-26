@@ -50,9 +50,9 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $themeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        $absoluteThemeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
         $configFiles = $finder->files()
-            ->in($themeDirectory)
+            ->in($absoluteThemeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
 
         foreach ($configFiles as $configFile) {

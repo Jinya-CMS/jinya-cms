@@ -23,14 +23,10 @@ class ThemeService implements ThemeServiceInterface
 
     const THEMES_TWIG_NAMESPACE = 'Themes';
 
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
-    /**
-     * @var FilesystemLoader
-     */
+    /** @var FilesystemLoader */
     private $twigLoader;
 
     /** @var string */

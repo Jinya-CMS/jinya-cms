@@ -47,11 +47,11 @@ interface MenuItemServiceInterface
     /**
      * Removes the given menu item from the menu
      *
-     * @param int $id
+     * @param int $parentId
      * @param int $position
      * @param string $type
      */
-    public function removeItem(int $id, int $position, string $type = self::PARENT): void;
+    public function removeItem(int $parentId, int $position, string $type = self::PARENT): void;
 
     /**
      * Updates the given @see MenuItem

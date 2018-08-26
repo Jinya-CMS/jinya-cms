@@ -57,7 +57,7 @@ class MenuLogoController extends BaseApiController
             $menu = $menuService->get($id);
             $menu->setLogo($path);
 
-            $menuService->save($menu);
+            $menuService->saveOrUpdate($menu);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
@@ -80,7 +80,7 @@ class MenuLogoController extends BaseApiController
             $mediaService->deleteMedia($menu->getLogo());
 
             $menu->setLogo('');
-            $menuService->save($menu);
+            $menuService->saveOrUpdate($menu);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

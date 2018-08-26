@@ -54,7 +54,7 @@ interface MediaServiceInterface
      * Gets the media as SplFileInfo
      *
      * @param string $path
-     * @return SplFileInfo
+     * @return SplFileInfo|string
      */
-    public function getMedia(string $path): SplFileInfo;
+    public function getMedia(string $path);
 }

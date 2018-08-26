@@ -67,16 +67,26 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     {
         switch ($type) {
             case RouteRetrievalServiceInterface::PAGE_DETAIL_ROUTE:
-                return $this->retrievePages();
+                $routes = $this->retrievePages();
+
+                break;
             case RouteRetrievalServiceInterface::ARTWORK_DETAIL_ROUTE:
-                return $this->retrieveArtworks();
+                $routes = $this->retrieveArtworks();
+
+                break;
             case RouteRetrievalServiceInterface::GALLERY_DETAIL_ROUTE:
-                return $this->retrieveGalleries();
+                $routes = $this->retrieveGalleries();
+
+                break;
             case RouteRetrievalServiceInterface::FORM_DETAIL_ROUTE:
-                return $this->retrieveForms();
+                $routes = $this->retrieveForms();
+
+                break;
             default:
-                return [];
+                $routes = [];
         }
+
+        return $routes;
     }
 
     private function retrievePages(): array

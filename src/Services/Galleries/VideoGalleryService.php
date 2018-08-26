@@ -11,24 +11,35 @@ namespace Jinya\Services\Galleries;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Gallery\VideoGallery;
-use Jinya\Services\Base\BaseService;
+use Jinya\Framework\Events\Common\CountEvent;
+use Jinya\Framework\Events\Common\ListEvent;
+use Jinya\Framework\Events\Galleries\VideoGalleryEvent;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Slug\SlugServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class VideoGalleryService implements VideoGalleryServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var BaseService */
+    /** @var BaseSlugEntityService */
     private $baseService;
+
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
 
     /**
      * VideoGalleryService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param SlugServiceInterface $slugService
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
-        $this->baseService = new BaseService($entityManager, VideoGallery::class);
+        $this->eventDispatcher = $eventDispatcher;
+        $this->baseService = new BaseSlugEntityService($entityManager, $slugService, VideoGallery::class);
     }
 
     /**
@@ -36,10 +47,18 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      *
      * @param string $slug
      * @return VideoGallery
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(string $slug): VideoGallery
     {
-        return $this->entityManager->getRepository(VideoGallery::class)->findOneBy(['slug' => $slug]);
+        $this->eventDispatcher->dispatch(VideoGalleryEvent::PRE_GET, new VideoGalleryEvent(null, $slug));
+
+        $gallery = $this->baseService->get($slug);
+
+        $this->eventDispatcher->dispatch(VideoGalleryEvent::POST_GET, new VideoGalleryEvent($gallery, $slug));
+
+        return $gallery;
     }
 
     /**
@@ -52,12 +71,18 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        return $this->createQueryBuilder($keyword)
+        $this->eventDispatcher->dispatch(ListEvent::VIDEO_GALLERIES_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+
+        $galleries = $this->createQueryBuilder($keyword)
             ->select('video_gallery')
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->getQuery()
             ->getResult();
+
+        $this->eventDispatcher->dispatch(ListEvent::VIDEO_GALLERIES_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $galleries));
+
+        return $galleries;
     }
 
     private function createQueryBuilder(string $keyword): QueryBuilder
@@ -78,10 +103,16 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        return $this->createQueryBuilder($keyword)
+        $this->eventDispatcher->dispatch(CountEvent::VIDEO_GALLERIES_PRE_COUNT, new CountEvent($keyword, -1));
+
+        $count = $this->createQueryBuilder($keyword)
             ->select('count(video_gallery)')
             ->getQuery()
             ->getSingleScalarResult();
+
+        $this->eventDispatcher->dispatch(CountEvent::VIDEO_GALLERIES_POST_COUNT, new CountEvent($keyword, $count));
+
+        return $count;
     }
 
     /**
@@ -89,11 +120,18 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      *
      * @param VideoGallery $gallery
      * @return VideoGallery
+     * @throws \Jinya\Exceptions\EmptySlugException
      */
     public function saveOrUpdate(VideoGallery $gallery): VideoGallery
     {
-        /* @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->baseService->saveOrUpdate($gallery);
+        $pre = $this->eventDispatcher->dispatch(VideoGalleryEvent::PRE_SAVE, new VideoGalleryEvent($gallery, $gallery->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->saveOrUpdate($gallery);
+            $this->eventDispatcher->dispatch(VideoGalleryEvent::POST_SAVE, new VideoGalleryEvent($gallery, $gallery->getSlug()));
+        }
+
+        return $gallery;
     }
 
     /**
@@ -103,6 +141,11 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      */
     public function delete(VideoGallery $gallery): void
     {
-        $this->baseService->delete($gallery);
+        $pre = $this->eventDispatcher->dispatch(VideoGalleryEvent::PRE_DELETE, new VideoGalleryEvent($gallery, $gallery->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->delete($gallery);
+            $this->eventDispatcher->dispatch(VideoGalleryEvent::POST_DELETE, new VideoGalleryEvent($gallery, $gallery->getSlug()));
+        }
     }
 }

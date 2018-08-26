@@ -88,7 +88,7 @@ class MenuController extends BaseApiController
             $menu->setName($name);
             $menu->setLogo('');
 
-            $menuService->save($menu);
+            $menuService->saveOrUpdate($menu);
 
             return $menuFormatter
                 ->init($menu)
@@ -116,7 +116,7 @@ class MenuController extends BaseApiController
             $name = $this->getValue('name', $menu->getName());
             $menu->setName($name);
 
-            $menuService->save($menu);
+            $menuService->saveOrUpdate($menu);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
