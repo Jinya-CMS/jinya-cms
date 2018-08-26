@@ -8,7 +8,12 @@
 
 namespace Jinya\Services\Media;
 
+use Jinya\Framework\Events\Media\MediaDeleteEvent;
+use Jinya\Framework\Events\Media\MediaGetEvent;
+use Jinya\Framework\Events\Media\MediaMoveEvent;
+use Jinya\Framework\Events\Media\MediaSaveEvent;
 use SplFileInfo;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -20,15 +25,20 @@ class MediaService implements MediaServiceInterface
     /** @var string */
     private $tmpDir;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * MediaService constructor.
      * @param string $kernelProjectDir
      * @param string $tmpDir
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(string $kernelProjectDir, string $tmpDir)
+    public function __construct(string $kernelProjectDir, string $tmpDir, EventDispatcherInterface $eventDispatcher)
     {
         $this->kernelProjectDir = $kernelProjectDir;
         $this->tmpDir = $tmpDir;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -40,10 +50,22 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-        $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
-        file_put_contents($tmpFilename, $file);
+        $preSave = $this->eventDispatcher->dispatch(MediaSaveEvent::PRE_SAVE, new MediaSaveEvent($file, $type));
+        if (empty($preSave->getLocation())) {
+            $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
+            file_put_contents($tmpFilename, $file);
 
-        return $this->moveFile($tmpFilename, $type);
+            $location = $this->moveFile($tmpFilename, $type);
+        } else {
+            $location = $preSave->getLocation();
+        }
+
+        $event = new MediaSaveEvent($file, $type);
+        $event->setLocation($location);
+
+        $this->eventDispatcher->dispatch(MediaSaveEvent::POST_SAVE, $event);
+
+        return $location;
     }
 
     /**
@@ -84,18 +106,34 @@ class MediaService implements MediaServiceInterface
         $parts = array_reverse($parts);
         $filename = $parts[0];
         $type = $parts[1];
-        unlink($this->getFilePath($type) . $filename);
+
+        $pre = $this->eventDispatcher->dispatch(MediaDeleteEvent::PRE_DELETE, new MediaDeleteEvent($type, $filename));
+        if (!$pre->isCancel()) {
+            unlink($this->getFilePath($type) . $filename);
+            $this->eventDispatcher->dispatch(MediaDeleteEvent::POST_DELETE, new MediaDeleteEvent($type, $filename));
+        }
     }
 
     /**
      * Gets the media as SplFileInfo
      *
      * @param string $path
-     * @return SplFileInfo
+     * @return SplFileInfo|string
      */
-    public function getMedia(string $path): SplFileInfo
+    public function getMedia(string $path)
     {
-        return new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
+        $pre = $this->eventDispatcher->dispatch(MediaGetEvent::PRE_GET, new MediaGetEvent($path));
+        if (empty($pre->getResult())) {
+            $file = new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
+        } else {
+            $file = $pre->getResult();
+        }
+
+        $event = new MediaGetEvent($path);
+        $event->setResult($file);
+        $this->eventDispatcher->dispatch(MediaGetEvent::POST_GET, $event);
+
+        return $file;
     }
 
     /**
@@ -107,6 +145,17 @@ class MediaService implements MediaServiceInterface
      */
     public function moveMedia(string $from, string $type): string
     {
-        return $this->moveFile($from, $type);
+        $pre = $this->eventDispatcher->dispatch(MediaMoveEvent::PRE_MOVE, new MediaMoveEvent($from, $type));
+        if (empty($pre->getLocation())) {
+            $location = $this->moveFile($from, $type);
+        } else {
+            $location = $pre->getLocation();
+        }
+
+        $event = new MediaMoveEvent($from, $type);
+        $event->setLocation($location);
+        $this->eventDispatcher->dispatch(MediaMoveEvent::POST_MOVE, $event);
+
+        return $location;
     }
 }

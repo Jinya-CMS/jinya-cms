@@ -60,9 +60,9 @@ services:
     arguments:
       $mailerSender: '%mailer_sender%'
 
-  Jinya\Services\Users\UserService:
-    arguments:
-      $mailerSender: '%mailer_sender%'
+    Jinya\Services\Users\AuthenticationService:
+      arguments:
+        $mailerSender: '%mailer_sender%'
 
   Jinya\Services\Videos\VideoUploadService:
     arguments:

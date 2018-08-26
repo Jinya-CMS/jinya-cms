@@ -10,8 +10,12 @@ namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Video\YoutubeVideo;
+use Jinya\Framework\Events\Common\CountEvent;
+use Jinya\Framework\Events\Common\ListEvent;
+use Jinya\Framework\Events\Videos\YoutubeVideoEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class YoutubeVideoService implements YoutubeVideoServiceInterface
 {
@@ -21,19 +25,20 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
     /** @var BaseSlugEntityService */
     private $baseService;
 
-    /** @var SlugServiceInterface */
-    private $slugService;
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
 
     /**
      * YoutubeVideoService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, YoutubeVideo::class);
-        $this->slugService = $slugService;
     }
 
     /**
@@ -46,12 +51,18 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        return $this->createQueryBuilder($keyword)
-            ->select('yv')
+        $this->eventDispatcher->dispatch(ListEvent::YOUTUBE_VIDEOS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+
+        $items = $this->createQueryBuilder($keyword)
+            ->select('youtube_video')
             ->setMaxResults($count)
             ->setFirstResult($offset)
             ->getQuery()
             ->getResult();
+
+        $this->eventDispatcher->dispatch(ListEvent::YOUTUBE_VIDEOS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+
+        return $items;
     }
 
     /**
@@ -61,9 +72,9 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
     private function createQueryBuilder(string $keyword): \Doctrine\ORM\QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
-            ->from(YoutubeVideo::class, 'yv')
-            ->where('yv.name LIKE :keyword')
-            ->andWhere('yv.description LIKE :keyword')
+            ->from(YoutubeVideo::class, 'youtube_video')
+            ->where('youtube_video.name LIKE :keyword')
+            ->andWhere('youtube_video.description LIKE :keyword')
             ->setParameter('keyword', "%$keyword%");
     }
 
@@ -76,10 +87,16 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        return $this->createQueryBuilder($keyword)
-            ->select('count(yv)')
+        $this->eventDispatcher->dispatch(CountEvent::YOUTUBE_VIDEOS_PRE_COUNT, new CountEvent($keyword, -1));
+
+        $count = $this->createQueryBuilder($keyword)
+            ->select('count(youtube_video)')
             ->getQuery()
             ->getSingleScalarResult();
+
+        $this->eventDispatcher->dispatch(CountEvent::YOUTUBE_VIDEOS_POST_COUNT, new CountEvent($keyword, $count));
+
+        return $count;
     }
 
     /**
@@ -91,7 +108,12 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function saveOrUpdate(YoutubeVideo $video): YoutubeVideo
     {
-        $this->baseService->saveOrUpdate($video);
+        $pre = $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_SAVE, new YoutubeVideoEvent($video, $video->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->saveOrUpdate($video);
+            $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_SAVE, new YoutubeVideoEvent($video, $video->getSlug()));
+        }
 
         return $video;
     }
@@ -103,7 +125,12 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function delete(YoutubeVideo $video): void
     {
-        $this->baseService->delete($video);
+        $pre = $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_DELETE, new YoutubeVideoEvent($video, $video->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->delete($video);
+            $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_DELETE, new YoutubeVideoEvent($video, $video->getSlug()));
+        }
     }
 
     /**
@@ -116,6 +143,11 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function get(string $slug): ?YoutubeVideo
     {
-        return $this->baseService->get($slug);
+        $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_GET, new YoutubeVideoEvent(null, $slug));
+
+        $video = $this->baseService->get($slug);
+        $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_GET, new YoutubeVideoEvent($video, $slug));
+
+        return $video;
     }
 }

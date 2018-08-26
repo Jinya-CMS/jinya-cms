@@ -12,7 +12,9 @@ use Exception;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Underscore\Types\Strings;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
@@ -43,14 +45,16 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onRequest()
+    public function onRequest(GetResponseEvent $event)
     {
-        try {
-            $this->themeSyncService->syncThemes();
-        } catch (Exception $e) {
-            $this->logger->error('Error updating themes');
-            $this->logger->error($e->getMessage());
-            $this->logger->error($e->getTraceAsString());
+        if (Strings::startsWith($event->getRequest()->getBasePath(), '/designer')) {
+            try {
+                $this->themeSyncService->syncThemes();
+            } catch (Exception $e) {
+                $this->logger->error('Error updating themes');
+                $this->logger->error($e->getMessage());
+                $this->logger->error($e->getTraceAsString());
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
 namespace Jinya\Controller\Api\Account;
 
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Users\UserServiceInterface;
+use Jinya\Services\Users\AuthenticationServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,15 +20,15 @@ class KnownDeviceController extends BaseApiController
      * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
-     * @param UserServiceInterface $userService
+     * @param AuthenticationServiceInterface $authService
      * @return Response
      */
-    public function getAllAction(UserServiceInterface $userService): Response
+    public function getAllAction(AuthenticationServiceInterface $authService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($userService) {
+        list($data, $status) = $this->tryExecute(function () use ($authService) {
             return [
                 'success' => true,
-                'items' => $userService->getKnownDevices($this->getUser()->getEmail()),
+                'items' => $authService->getKnownDevices($this->getUser()->getEmail()),
             ];
         });
 
@@ -40,13 +40,13 @@ class KnownDeviceController extends BaseApiController
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
      * @param string $key
-     * @param UserServiceInterface $userService
+     * @param AuthenticationServiceInterface $authService
      * @return Response
      */
-    public function deleteAction(string $key, UserServiceInterface $userService): Response
+    public function deleteAction(string $key, AuthenticationServiceInterface $authService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($key, $userService) {
-            $userService->deleteKnownDevice($this->getUser()->getEmail(), $key);
+        list($data, $status) = $this->tryExecute(function () use ($key, $authService) {
+            $authService->deleteKnownDevice($this->getUser()->getEmail(), $key);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

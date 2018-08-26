@@ -9,8 +9,10 @@
 namespace Jinya\Services\Mailing;
 
 use Jinya\Entity\Form\Form;
+use Jinya\Framework\Events\Mailing\MailerEvent;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MailerService implements MailerServiceInterface
 {
@@ -20,15 +22,20 @@ class MailerService implements MailerServiceInterface
     /** @var string */
     private $mailerSender;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * MailerService constructor.
      * @param Swift_Mailer $swift
      * @param string $mailerSender
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(Swift_Mailer $swift, string $mailerSender)
+    public function __construct(Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher)
     {
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -36,13 +43,17 @@ class MailerService implements MailerServiceInterface
      */
     public function sendMail(Form $form, array $data): void
     {
-        /** @var Swift_Message $message */
-        $message = $this->swift->createMessage('message');
-        $message->addTo($form->getToAddress());
-        $message->setSubject('Form ' . $form->getTitle() . ' submitted');
-        $message->setBody($this->formatBody($data), 'text/html');
-        $message->setFrom($this->mailerSender);
-        $this->swift->send($message);
+        $pre = $this->eventDispatcher->dispatch(MailerEvent::PRE_SEND_MAIL, new MailerEvent($form, $data));
+        if (!$pre->isCancel()) {
+            /** @var Swift_Message $message */
+            $message = $this->swift->createMessage('message');
+            $message->addTo($form->getToAddress());
+            $message->setSubject('Form ' . $form->getTitle() . ' submitted');
+            $message->setBody($this->formatBody($data), 'text/html');
+            $message->setFrom($this->mailerSender);
+            $this->swift->send($message);
+            $this->eventDispatcher->dispatch(MailerEvent::POST_SEND_MAIL, new MailerEvent($form, $data));
+        }
     }
 
     private function formatBody(array $data): string
@@ -56,8 +67,6 @@ class MailerService implements MailerServiceInterface
                       </tr>";
         }
 
-        $body .= '</table></body></html>';
-
-        return $body;
+        return $body . '</table></body></html>';
     }
 }

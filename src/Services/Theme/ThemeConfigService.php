@@ -11,8 +11,10 @@ namespace Jinya\Services\Theme;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme\Theme;
+use Jinya\Framework\Events\Theme\ThemeConfigEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
 use function array_filter;
 use function array_replace_recursive;
@@ -35,6 +37,9 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     /** @var ArrayUtilInterface */
     private $arrayUtils;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * ThemeConfigService constructor.
      * @param ThemeServiceInterface $themeService
@@ -42,48 +47,16 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      * @param EntityManagerInterface $entityManager
      * @param MediaServiceInterface $mediaService
      * @param ArrayUtilInterface $arrayUtils
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(ThemeServiceInterface $themeService, MenuServiceInterface $menuService, EntityManagerInterface $entityManager, MediaServiceInterface $mediaService, ArrayUtilInterface $arrayUtils)
+    public function __construct(ThemeServiceInterface $themeService, MenuServiceInterface $menuService, EntityManagerInterface $entityManager, MediaServiceInterface $mediaService, ArrayUtilInterface $arrayUtils, EventDispatcherInterface $eventDispatcher)
     {
         $this->themeService = $themeService;
         $this->menuService = $menuService;
         $this->entityManager = $entityManager;
         $this->mediaService = $mediaService;
         $this->arrayUtils = $arrayUtils;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function saveConfig(string $themeName, array $config, bool $override = true): void
-    {
-        $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeConfig = $this->getThemeConfig($theme->getName());
-
-        if ($override) {
-            $targetConfig = $this->arrayUtils->removeEmptyRecursive($config);
-        } else {
-            $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
-            $targetConfig = $this->arrayUtils->removeEmptyRecursive($targetConfig);
-        }
-
-        if (array_key_exists('defaultConfig', $themeConfig)) {
-            $defaultConfig = $themeConfig['defaultConfig'];
-            if (is_array($defaultConfig)) {
-                $theme->setConfiguration(array_replace_recursive($defaultConfig, $targetConfig));
-            }
-        }
-        $this->entityManager->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getThemeConfig(string $name): array
-    {
-        $theme = $this->themeService->getTheme($name);
-
-        return Yaml::parse(file_get_contents($this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -155,9 +128,17 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $stylesBasePath = $themeConfig['styles_base'];
         }
 
-        $stylesPath = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $stylesBasePath;
+        return $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $stylesBasePath;
+    }
 
-        return $stylesPath;
+    /**
+     * {@inheritdoc}
+     */
+    public function getThemeConfig(string $name): array
+    {
+        $theme = $this->themeService->getTheme($name);
+
+        return Yaml::parse(file_get_contents($this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
     }
 
     /**
@@ -241,5 +222,34 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         @$this->mediaService->deleteMedia($file);
 
         $this->saveConfig($name, $this->arrayUtils->removeArrayValueByPath($config, $key), true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveConfig(string $themeName, array $config, bool $override = true): void
+    {
+        $pre = $this->eventDispatcher->dispatch(ThemeConfigEvent::PRE_SAVE, new ThemeConfigEvent($themeName, $config, $override));
+        if (!$pre->isCancel()) {
+            $theme = $this->themeService->getThemeOrNewTheme($themeName);
+            $themeConfig = $this->getThemeConfig($theme->getName());
+
+            if ($override) {
+                $targetConfig = $this->arrayUtils->removeEmptyRecursive($config);
+            } else {
+                $targetConfig = array_replace_recursive($theme->getConfiguration(), $config);
+                $targetConfig = $this->arrayUtils->removeEmptyRecursive($targetConfig);
+            }
+
+            if (array_key_exists('defaultConfig', $themeConfig)) {
+                $defaultConfig = $themeConfig['defaultConfig'];
+                if (is_array($defaultConfig)) {
+                    $theme->setConfiguration(array_replace_recursive($defaultConfig, $targetConfig));
+                }
+            }
+            $this->entityManager->flush();
+
+            $this->eventDispatcher->dispatch(ThemeConfigEvent::POST_SAVE, new ThemeConfigEvent($themeName, $config, $override));
+        }
     }
 }
