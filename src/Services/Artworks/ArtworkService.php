@@ -116,7 +116,6 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function saveOrUpdate(Artwork $artwork): Artwork
     {
-        /** @var ArtworkEvent $pre */
         $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_SAVE, new ArtworkEvent($artwork, $artwork->getSlug()));
 
         if (!$pre->isCancel()) {
@@ -134,7 +133,6 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function delete(Artwork $artwork): void
     {
-        /** @var ArtworkEvent $pre */
         $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_DELETE, new ArtworkEvent($artwork, $artwork->getSlug()));
 
         if (!$pre->isCancel()) {
@@ -153,7 +151,6 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function get(string $slug): ?Artwork
     {
-        /* @var ArtworkEvent $pre */
         $this->eventDispatcher->dispatch(ArtworkEvent::PRE_GET, new ArtworkEvent(null, $slug));
 
         $artwork = $this->baseService->get($slug);
