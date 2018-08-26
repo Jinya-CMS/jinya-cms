@@ -120,8 +120,6 @@ class VideoUploadService implements VideoUploadServiceInterface
                     fclose($chunkFileHandle);
                 }
             }
-        } catch (Exception $exception) {
-            throw $exception;
         } finally {
             fclose($newFileHandle);
         }
