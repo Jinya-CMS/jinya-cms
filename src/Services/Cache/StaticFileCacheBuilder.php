@@ -85,7 +85,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $routes = $this->getRoutesFromTheme();
 
         foreach ($routes as $route) {
-            if ($route->getMenuItem()->getPageType() !== 'empty' && $route->getMenuItem()->getPageType() !== 'external') {
+            if ('empty' !== $route->getMenuItem()->getPageType() && 'external' !== $route->getMenuItem()->getPageType()) {
                 $compiledTemplate = $this->compileRoute($route);
                 $file = $this->cacheTemplate($compiledTemplate, $route);
                 $this->addEntryToCacheList($file);
@@ -121,6 +121,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $routes[] = $route;
             }
         }
+
         return $routes;
     }
 
@@ -140,7 +141,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $routes = [];
 
         foreach ($items as $item) {
-            if ($item->getPageType() === 'empty') {
+            if ('empty' === $item->getPageType()) {
                 foreach ($this->findRoutesInMenuItem($item) as $entry) {
                     $routes[] = $entry;
                 }
@@ -148,6 +149,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $routes[] = $item->getRoute();
             }
         }
+
         return $routes;
     }
 
@@ -175,19 +177,19 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         if (Strings::find($route->getRouteName(), 'artwork')) {
             $viewData = ['artwork' => $this->artworkService->get($slug)];
             $template = '@Frontend/Artwork/detail.html.twig';
-        } else if (Strings::find($route->getRouteName(), 'video_gallery')) {
+        } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
             ];
             $template = '@Frontend/Gallery/detail.html.twig';
-        } else if (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
+        } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
             $viewData = [
                 'gallery' => $this->artGalleryService->get($slug),
                 'type' => 'art',
             ];
             $template = '@Frontend/Gallery/detail.html.twig';
-        } else if (Strings::find($route->getRouteName(), 'form')) {
+        } elseif (Strings::find($route->getRouteName(), 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
@@ -195,7 +197,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'form' => $form->createView(),
             ];
             $template = '@Frontend/Form/detail.html.twig';
-        } else if (Strings::find($route->getRouteName(), 'page')) {
+        } elseif (Strings::find($route->getRouteName(), 'page')) {
             $viewData = ['page' => $this->pageService->get($slug)];
             $template = '@Frontend/Page/detail.html.twig';
         } else {
@@ -234,7 +236,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $handle = fopen($this->getCacheFile(), 'r');
         if ($handle) {
             try {
-                while (($line = fgets($handle)) !== false) {
+                while (false !== ($line = fgets($handle))) {
                     @unlink($line);
                 }
             } finally {
