@@ -163,7 +163,6 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function updateArtwork(int $id, string $artworkSlug)
     {
-
         $artwork = $this->artworkService->get($artworkSlug);
         $pre = $this->eventDispatcher->dispatch(ArtworkPositionUpdateArtworkEvent::PRE_UPDATE_ARTWORK, new ArtworkPositionUpdateArtworkEvent($artwork, $id));
 
