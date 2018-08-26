@@ -17,22 +17,43 @@ class ArtworkPositionEvent extends CancellableEvent
 
     public const POST_SAVE = 'ArtworkPositionPostSave';
 
+    public const PRE_DELETE = 'ArtworkPositionPreDelete';
+
+    public const POST_DELETE = 'ArtworkPositionPostDelete';
+
+    public const PRE_GET = 'ArtworkPositionPreGet';
+
+    public const POST_GET = 'ArtworkPositionPostGet';
+
     /** @var ArtworkPosition */
     private $artworkPosition;
+
+    /** @var int */
+    private $id;
 
     /**
      * ArtworkPositionEvent constructor.
      * @param ArtworkPosition $artworkPosition
+     * @param int $id
      */
-    public function __construct(ArtworkPosition $artworkPosition)
+    public function __construct(?ArtworkPosition $artworkPosition, int $id)
     {
         $this->artworkPosition = $artworkPosition;
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
      * @return ArtworkPosition
      */
-    public function getArtworkPosition(): ArtworkPosition
+    public function getArtworkPosition(): ?ArtworkPosition
     {
         return $this->artworkPosition;
     }

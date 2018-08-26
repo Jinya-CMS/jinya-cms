@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Framework\Events\Artworks\ArtworkPositionEvent;
+use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateArtworkEvent;
+use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
 use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
@@ -66,12 +68,12 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         $artworkPosition->setArtwork($artwork);
         $artworkPosition->setGallery($gallery);
 
-        $pre = $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_SAVE, new ArtworkPositionEvent($artworkPosition));
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_SAVE, new ArtworkPositionEvent($artworkPosition, -1));
 
         if (!$pre->isCancel()) {
             $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
 
-            $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_SAVE, new ArtworkPositionEvent($artworkPosition));
+            $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_SAVE, new ArtworkPositionEvent($artworkPosition, $artworkPosition->getId()));
         }
 
         return $artworkPosition->getId();
@@ -102,14 +104,19 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition)
     {
-        $gallery = $this->galleryService->get($gallerySlug);
-        $artworks = $gallery->getArtworks();
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionUpdateEvent::PRE_UPDATE, new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition));
 
-        $artwork = $artworks->filter(function (ArtworkPosition $item) use ($oldPosition) {
-            return $item->getPosition() === $oldPosition;
-        })->first();
+        if (!$pre->isCancel()) {
+            $gallery = $this->galleryService->get($gallerySlug);
+            $artworks = $gallery->getArtworks();
 
-        $this->rearrangeArtworks($oldPosition, $newPosition, $artwork, $gallery);
+            $artwork = $artworks->filter(function (ArtworkPosition $item) use ($oldPosition) {
+                return $item->getPosition() === $oldPosition;
+            })->first();
+
+            $this->rearrangeArtworks($oldPosition, $newPosition, $artwork, $gallery);
+            $this->eventDispatcher->dispatch(ArtworkPositionUpdateEvent::POST_UPDATE, new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition));
+        }
     }
 
     /**
@@ -119,13 +126,18 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function deletePosition(int $id)
     {
-        $this->entityManager
-            ->createQueryBuilder()
-            ->delete(ArtworkPosition::class, 'e')
-            ->where('e.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_DELETE, new ArtworkPositionEvent(null, $id));
+
+        if (!$pre->isCancel()) {
+            $this->entityManager
+                ->createQueryBuilder()
+                ->delete(ArtworkPosition::class, 'e')
+                ->where('e.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->execute();
+            $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_DELETE, new ArtworkPositionEvent(null, $id));
+        }
     }
 
     /**
@@ -136,7 +148,11 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function getPosition(int $id): ArtworkPosition
     {
-        return $this->entityManager->find(ArtworkPosition::class, $id);
+        $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_GET, new ArtworkPositionEvent(null, $id));
+        $position = $this->entityManager->find(ArtworkPosition::class, $id);
+        $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_GET, new ArtworkPositionEvent($position, $id));
+
+        return $position;
     }
 
     /**
@@ -147,14 +163,21 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function updateArtwork(int $id, string $artworkSlug)
     {
+
         $artwork = $this->artworkService->get($artworkSlug);
-        $this->entityManager
-            ->createQueryBuilder()
-            ->update(ArtworkPosition::class, 'e')
-            ->set('e.artwork', $artwork->getId())
-            ->where('e.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->execute();
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionUpdateArtworkEvent::PRE_UPDATE_ARTWORK, new ArtworkPositionUpdateArtworkEvent($artwork, $id));
+
+        if (!$pre->isCancel()) {
+            $this->entityManager
+                ->createQueryBuilder()
+                ->update(ArtworkPosition::class, 'e')
+                ->set('e.artwork', $artwork->getId())
+                ->where('e.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->execute();
+
+            $this->eventDispatcher->dispatch(ArtworkPositionUpdateArtworkEvent::POST_UPDATE_ARTWORK, new ArtworkPositionUpdateArtworkEvent($artwork, $id));
+        }
     }
 }
