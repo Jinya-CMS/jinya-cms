@@ -21,7 +21,7 @@
     },
     computed: {
       backRoute() {
-        return Routes.Art.Galleries.Art.Overview;
+        return Routes.Art.Galleries.Video.Overview;
       },
     },
     name: 'add',
