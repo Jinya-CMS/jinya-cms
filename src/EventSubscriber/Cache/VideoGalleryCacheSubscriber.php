@@ -8,7 +8,6 @@
 
 namespace Jinya\EventSubscriber\Cache;
 
-use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
 use Jinya\Framework\Events\Galleries\VideoGalleryEvent;
 use Jinya\Services\Cache\CacheBuilderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,7 +33,7 @@ class VideoGalleryCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onVideoGallerySave(ArtGalleryEvent $event)
+    public function onVideoGallerySave(VideoGalleryEvent $event)
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::VIDEO_GALLERY);
     }
