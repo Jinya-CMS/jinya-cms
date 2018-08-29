@@ -112,7 +112,7 @@ class MenuCacheSubscriber implements EventSubscriberInterface
 
     public function onMenuItemRemove(MenuItemRemoveEvent $event)
     {
-        if ($event->getType() === MenuItemServiceInterface::MENU) {
+        if (MenuItemServiceInterface::MENU === $event->getType()) {
             $menu = $this->menuService->get($event->getParentId());
         } else {
             $menu = $this->findMenu($event->getParentId());
