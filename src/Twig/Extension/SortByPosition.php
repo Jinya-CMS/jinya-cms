@@ -15,7 +15,7 @@ class SortByPosition extends \Twig_Extension
     public function getFilters()
     {
         return [
-            'sortByPosition' => new \Twig_SimpleFilter('sortByPosition', [$this, 'sortByPosition'])
+            'sortByPosition' => new \Twig_SimpleFilter('sortByPosition', [$this, 'sortByPosition']),
         ];
     }
 
@@ -27,7 +27,10 @@ class SortByPosition extends \Twig_Extension
             $elements = $items;
         }
         usort($elements, function ($item1, $item2) {
-            if ($item1->getPosition() === $item2->getPosition()) return 0;
+            if ($item1->getPosition() === $item2->getPosition()) {
+                return 0;
+            }
+
             return $item1->getPosition() < $item2->getPosition() ? -1 : 1;
         });
 
