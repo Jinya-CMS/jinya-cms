@@ -109,7 +109,7 @@
           artwork,
           id: this.artworkPosition.id,
         });
-        this.addModal.show = false;
+        this.editModal.show = false;
       },
       async deleteArtwork() {
         await JinyaRequest.delete(`/api/gallery/art/${this.gallery.slug}/artwork/${this.artworkPosition.id}`);

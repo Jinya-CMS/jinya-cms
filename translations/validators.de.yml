@@ -192,7 +192,10 @@ art:
       nothing_found:
         Leider gibt es zu deinem Suchbegriff keine Galerien.
     designer:
-      artwork_view:
+      art_view:
+        nothing_found: Es wurden keine Kunstwerke gefunden
+        loading: Die Kunstwerke werden geladen
+      video_view:
         nothing_found: Es wurden keine Kunstwerke gefunden
         loading: Die Kunstwerke werden geladen
     api:

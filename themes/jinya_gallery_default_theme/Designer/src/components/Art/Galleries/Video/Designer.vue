@@ -115,7 +115,7 @@
           id: this.videoPosition.id,
         });
 
-        this.addModal.show = false;
+        this.editModal.show = false;
       },
       async deleteVideo() {
         await JinyaRequest.delete(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}`);
