@@ -16,6 +16,10 @@ class ThemeConfigEvent extends CancellableEvent
 
     public const POST_SAVE = 'ThemeConfigPostSave';
 
+    public const PRE_RESET = 'ThemeConfigPreReset';
+
+    public const POST_RESET = 'ThemeConfigPostReset';
+
     /** @var string */
     private $themeName;
 
