@@ -8,7 +8,6 @@
 
 namespace Jinya\Services\Twig;
 
-
 use Jinya\Entity\Theme\Theme;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;

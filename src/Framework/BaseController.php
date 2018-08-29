@@ -24,7 +24,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 abstract class BaseController
 {
-
     /** @var RequestStack */
     private $requestStack;
 
@@ -77,7 +76,6 @@ abstract class BaseController
 
         return $response;
     }
-
 
     /**
      * Forwards the request to the given RoutingEntry
