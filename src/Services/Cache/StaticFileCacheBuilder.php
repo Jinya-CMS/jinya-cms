@@ -8,7 +8,7 @@
 
 namespace Jinya\Services\Cache;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Form\FormGeneratorInterface;
 use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
@@ -52,6 +52,9 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     /** @var string */
     private $kernelProjectDir;
 
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
     /**
      * StaticFileCacheBuilder constructor.
      * @param ConfigurationServiceInterface $configurationService
@@ -63,8 +66,9 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      * @param FormGeneratorInterface $formGenerator
      * @param CompilerInterface $compiler
      * @param string $kernelProjectDir
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(ConfigurationServiceInterface $configurationService, ArtworkServiceInterface $artworkService, ArtGalleryServiceInterface $artGalleryService, VideoGalleryServiceInterface $videoGalleryService, PageServiceInterface $pageService, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, CompilerInterface $compiler, string $kernelProjectDir)
+    public function __construct(ConfigurationServiceInterface $configurationService, ArtworkServiceInterface $artworkService, ArtGalleryServiceInterface $artGalleryService, VideoGalleryServiceInterface $videoGalleryService, PageServiceInterface $pageService, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, CompilerInterface $compiler, string $kernelProjectDir, EntityManagerInterface $entityManager)
     {
         $this->configurationService = $configurationService;
         $this->artworkService = $artworkService;
@@ -75,6 +79,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $this->formGenerator = $formGenerator;
         $this->compiler = $compiler;
         $this->kernelProjectDir = $kernelProjectDir;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -82,6 +87,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
+        $this->entityManager->clear();
         $routes = $this->getRoutesFromTheme();
 
         foreach ($routes as $route) {
@@ -93,7 +99,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         }
 
         $startPageRoute = new RoutingEntry();
-        $startPageRoute->setUrl('index.html');
+        $startPageRoute->setUrl('/index.html');
         $compiledTemplate = $this->compileRoute($startPageRoute);
         $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
         $this->addEntryToCacheList($file);
@@ -126,16 +132,24 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     private function findRoutesInMenu(Menu $menu): array
     {
-        $items = $menu->getMenuItems();
+        $items = $this->entityManager
+            ->createQueryBuilder()
+            ->select('item')
+            ->from(MenuItem::class, 'item')
+            ->join('item.menu', 'menu')
+            ->where('menu.id = :id')
+            ->setParameter('id', $menu->getId())
+            ->getQuery()
+            ->getResult();
 
         return $this->getItems($items);
     }
 
     /**
-     * @param Collection $items
+     * @param array $items
      * @return array
      */
-    private function getItems(Collection $items): array
+    private function getItems(array $items): array
     {
         $routes = [];
 
@@ -157,7 +171,15 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     private function findRoutesInMenuItem(MenuItem $menuItem): array
     {
-        $items = $menuItem->getChildren();
+        $items = $this->entityManager
+            ->createQueryBuilder()
+            ->select('item')
+            ->from(MenuItem::class, 'item')
+            ->join('item.parent', 'parent')
+            ->where('parent.id = :id')
+            ->setParameter('id', $menuItem->getId())
+            ->getQuery()
+            ->getResult();
 
         return $this->getItems($items);
     }
@@ -208,7 +230,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     private function cacheTemplate(string $template, RoutingEntry $route): string
     {
-        $path = $this->kernelProjectDir . '/public/' . $route->getUrl();
+        $path = $this->kernelProjectDir . '/public' . $route->getUrl();
         $fs = new Filesystem();
         $fs->dumpFile($path, $template);
 
@@ -218,7 +240,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     private function addEntryToCacheList(string $entry): void
     {
         $fs = new Filesystem();
-        $fs->appendToFile($this->getCacheFile(), $entry);
+        $fs->appendToFile($this->getCacheFile(), $entry . PHP_EOL);
     }
 
     private function getCacheFile(): string
