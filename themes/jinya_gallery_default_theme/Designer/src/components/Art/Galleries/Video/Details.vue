@@ -17,7 +17,7 @@
     name: 'art-gallery-details',
     computed: {
       backRoute() {
-        return Routes.Art.Galleries.Art.Overview;
+        return Routes.Art.Galleries.Video.Overview;
       },
     },
     data() {

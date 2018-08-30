@@ -58,7 +58,8 @@
     async mounted() {
       this.loading = true;
       try {
-        this.gallery = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}`);
+        const gallery = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}`);
+        this.gallery = gallery.item;
         this.videos = await JinyaRequest.get(`/api/gallery/video/${this.$route.params.slug}/video`);
         DOMUtils.changeTitle(Translator.message('art.galleries.designer.title', this.gallery));
       } catch (error) {
@@ -114,7 +115,7 @@
           id: this.videoPosition.id,
         });
 
-        this.addModal.show = false;
+        this.editModal.show = false;
       },
       async deleteVideo() {
         await JinyaRequest.delete(`/api/gallery/video/${this.gallery.slug}/video/${this.videoPosition.id}`);

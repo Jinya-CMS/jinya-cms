@@ -182,7 +182,7 @@
           ghostClass: 'is--dragging',
           sort: false,
           touchStartThreshold: 5,
-          handle: 'jinya-menu-builder__item',
+          handle: '.jinya-menu-builder__template-item',
         };
       },
       itemsOptions() {
@@ -190,7 +190,7 @@
           group: 'menu',
           ghostClass: 'is--dragging',
           touchStartThreshold: 5,
-          handle: 'jinya-menu-builder__item',
+          handle: '.jinya-menu-builder__item',
         };
       },
     },

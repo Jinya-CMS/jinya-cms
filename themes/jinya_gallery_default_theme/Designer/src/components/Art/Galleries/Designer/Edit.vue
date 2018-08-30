@@ -2,8 +2,7 @@
   <jinya-modal modal-modifiers="jinya-modal--edit-artwork" :title="`art.galleries.designer.edit.${galleryType}.title`"
                @close="$emit('close')">
     <jinya-message :message="`art.galleries.designer.${galleryType}_view.loading`|jmessage" state="loading"
-                   v-if="loading"
-                   slot="message"/>
+                   v-if="loading" slot="message"/>
     <jinya-gallery-designer-artwork-view v-if="galleryType === 'art'" @picked="pick" @load-start="loading = true"
                                          @load-end="loading = false"/>
     <jinya-gallery-designer-video-view v-else-if="galleryType === 'video'" @picked="pick"

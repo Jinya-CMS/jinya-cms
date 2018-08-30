@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Framework\Events\Theme\ThemeConfigEvent;
+use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -146,9 +147,13 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function setVariables(string $name, array $variables): void
     {
-        $theme = $this->themeService->getTheme($name);
-        $theme->setScssVariables(array_filter($variables));
-        $this->entityManager->flush();
+        $pre = $this->eventDispatcher->dispatch(ThemeVariablesEvent::PRE_SAVE, new ThemeVariablesEvent($name, $variables));
+        if (!$pre->isCancel()) {
+            $theme = $this->themeService->getTheme($name);
+            $theme->setScssVariables(array_filter($variables));
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(ThemeVariablesEvent::POST_SAVE, new ThemeVariablesEvent($name, $variables));
+        }
     }
 
     /**
@@ -190,9 +195,13 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function resetConfig(string $name): void
     {
-        $theme = $this->themeService->getThemeOrNewTheme($name);
-        $theme->setConfiguration([]);
-        $this->entityManager->flush();
+        $pre = $this->eventDispatcher->dispatch(ThemeConfigEvent::PRE_RESET, new ThemeConfigEvent($name, [], true));
+        if (!$pre->isCancel()) {
+            $theme = $this->themeService->getThemeOrNewTheme($name);
+            $theme->setConfiguration([]);
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(ThemeConfigEvent::POST_RESET, new ThemeConfigEvent($name, [], true));
+        }
     }
 
     /**
@@ -202,9 +211,13 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function resetVariables(string $name): void
     {
-        $theme = $this->themeService->getThemeOrNewTheme($name);
-        $theme->setScssVariables([]);
-        $this->entityManager->flush();
+        $pre = $this->eventDispatcher->dispatch(ThemeVariablesEvent::PRE_RESET, new ThemeVariablesEvent($name, []));
+        if (!$pre->isCancel()) {
+            $theme = $this->themeService->getThemeOrNewTheme($name);
+            $theme->setScssVariables([]);
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(ThemeVariablesEvent::POST_RESET, new ThemeVariablesEvent($name, []));
+        }
     }
 
     /**
