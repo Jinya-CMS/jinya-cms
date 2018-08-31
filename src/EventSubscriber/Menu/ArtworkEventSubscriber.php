@@ -90,6 +90,7 @@ class ArtworkEventSubscriber implements EventSubscriberInterface
             $routes = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['routeName' => 'frontend_artwork_details']);
             $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
+
                 return array_key_exists('slug', $parameter) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
