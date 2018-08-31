@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Form\FormEvent;
+use Jinya\Framework\Events\Priority;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Underscore\Types\Strings;
 
@@ -54,7 +55,7 @@ class FormEventSubscriber implements EventSubscriberInterface
     {
         return [
             FormEvent::PRE_SAVE => 'onPreFormSave',
-            FormEvent::POST_SAVE => 'onPostFormSave',
+            FormEvent::POST_SAVE => ['onPostFormSave', Priority::CRITICAL],
         ];
     }
 

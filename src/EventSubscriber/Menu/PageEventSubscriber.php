@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Entity\Page\Page;
 use Jinya\Framework\Events\Pages\PageEvent;
+use Jinya\Framework\Events\Priority;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Underscore\Types\Strings;
 
@@ -54,7 +55,7 @@ class PageEventSubscriber implements EventSubscriberInterface
     {
         return [
             PageEvent::PRE_SAVE => 'onPrePageSave',
-            PageEvent::POST_SAVE => 'onPostPageSave',
+            PageEvent::POST_SAVE => ['onPostPageSave', Priority::CRITICAL],
         ];
     }
 

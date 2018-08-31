@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Galleries\VideoGalleryEvent;
+use Jinya\Framework\Events\Priority;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Underscore\Types\Strings;
 
@@ -54,7 +55,7 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
     {
         return [
             VideoGalleryEvent::PRE_SAVE => 'onPreVideoGallerySave',
-            VideoGalleryEvent::POST_SAVE => 'onPostVideoGallerySave',
+            VideoGalleryEvent::POST_SAVE => ['onPostVideoGallerySave', Priority::CRITICAL],
         ];
     }
 

@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Artworks\ArtworkEvent;
+use Jinya\Framework\Events\Priority;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Underscore\Types\Strings;
 
@@ -54,7 +55,7 @@ class ArtworkEventSubscriber implements EventSubscriberInterface
     {
         return [
             ArtworkEvent::PRE_SAVE => 'onPreArtworkSave',
-            ArtworkEvent::POST_SAVE => 'onPostArtworkSave',
+            ArtworkEvent::POST_SAVE => ['onPostArtworkSave', Priority::CRITICAL],
         ];
     }
 
