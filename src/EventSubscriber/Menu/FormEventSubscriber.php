@@ -92,6 +92,7 @@ class FormEventSubscriber implements EventSubscriberInterface
                 ->findBy(['routeName' => 'frontend_form_details']);
             $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
+
                 return array_key_exists('slug', $parameter) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
