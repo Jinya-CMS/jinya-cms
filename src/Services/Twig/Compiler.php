@@ -80,7 +80,9 @@ class Compiler implements CompilerInterface
      */
     private function includeTheme(string $view, array $parameters, Theme $theme): array
     {
-        if (!$this->themeCompilerService->isCompiled($theme) || getenv('APP_DEBUG')) {
+        $isCompiled = $this->themeCompilerService->isCompiled($theme);
+        header("Compiled: $isCompiled");
+        if (!$isCompiled || getenv('APP_DEBUG')) {
             $this->themeCompilerService->compileTheme($theme);
         }
 

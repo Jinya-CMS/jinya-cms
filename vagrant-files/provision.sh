@@ -17,6 +17,17 @@ sudo service mysql restart
 echo Install PHP 7.2
 sudo apt-get install -y php7.2 php7.2-json php7.2-xml php7.2-fpm php7.2-mysql php7.2-zip php7.2-cli php7.2-common php7.2-opcache php7.2-curl php7.2-intl php7.2-mbstring php-xdebug
 
+echo Install tideways
+sudo apt install -y php7.2-dev make
+git clone https://github.com/tideways/php-profiler-extension.git
+cd php-profiler-extension
+phpize
+./configure
+make
+sudo make install
+echo "extension=tideways_xhprof.so" | sudo tee /etc/php/7.2/mods-available/tideways_xhprof.ini
+sudo phpenmod tideways_xhprof
+
 echo Install apache2
 sudo apt-get install -y apache2 libapache2-mod-php
 

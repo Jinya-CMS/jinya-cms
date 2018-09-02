@@ -146,7 +146,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $targetPath = $webStylesBasePath . $key;
 
                 $fs->dumpFile($targetPath, $compiled);
-                $fs->dumpFile($compilationCheckPath, md5($compiled));
+                $fs->dumpFile($compilationCheckPath, md5($source));
             }
         }
     }
