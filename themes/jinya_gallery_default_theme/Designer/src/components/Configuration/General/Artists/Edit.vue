@@ -1,6 +1,6 @@
 <template>
-    <jinya-artist-form :state="state" :message="message" @save="save" :enable="enable" :artist="artist"
-                       :show-password="false"/>
+  <jinya-artist-form :state="state" :message="message" @save="save" :enable="enable" :artist="artist"
+                     :show-password="false"/>
 </template>
 
 <script>
@@ -73,7 +73,7 @@
           await Timing.wait();
           this.$router.push(Routes.Configuration.General.Artists.Overview);
         } catch (error) {
-          this.message = error.message;
+          this.message = Translator.validator(`configuration.general.artists.${error.message}`);
           this.state = 'error';
           this.enable = true;
         }

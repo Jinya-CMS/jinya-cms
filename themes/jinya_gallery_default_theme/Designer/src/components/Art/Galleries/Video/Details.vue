@@ -1,6 +1,6 @@
 <template>
-    <jinya-gallery-form :back-target="backRoute" :is-static="true" :gallery="gallery" @save="edit" :message="message"
-                        :state="state" :hide-on-error="true" save-label="art.galleries.details.edit"/>
+  <jinya-gallery-form :back-target="backRoute" :is-static="true" :gallery="gallery" @save="edit" :message="message"
+                      :state="state" :hide-on-error="true" save-label="art.galleries.details.edit"/>
 </template>
 
 <script>
@@ -17,7 +17,7 @@
     name: 'art-gallery-details',
     computed: {
       backRoute() {
-        return Routes.Art.Galleries.Art.Overview;
+        return Routes.Art.Galleries.Video.Overview;
       },
     },
     data() {

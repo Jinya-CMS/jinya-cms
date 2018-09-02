@@ -1,5 +1,5 @@
 <template>
-    <jinya-video-form @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-video-form @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -46,7 +46,7 @@
           await Timing.wait();
           this.$router.push(Routes.Art.Videos.SavedInJinya.Overview);
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.videos.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

@@ -1,9 +1,9 @@
 <template>
-    <li class="jinya-menu-flyout__navbar__item" :class="{'is--selected': isSelected}"
-        @click.prevent="$emit('selected')">
-        <a class="jinya-menu-flyout__navbar__item__link" href="#" v-jinya-message="text"
-           @click.prevent="$emit('selected')"></a>
-    </li>
+  <li class="jinya-menu-flyout__navbar__item" :class="{'is--selected': isSelected}"
+      @click.prevent="$emit('selected')">
+    <a class="jinya-menu-flyout__navbar__item__link" href="#" v-jinya-message="text"
+       @click.prevent="$emit('selected')"></a>
+  </li>
 </template>
 
 <script>
@@ -26,29 +26,29 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-menu-flyout__navbar__item {
+  .jinya-menu-flyout__navbar__item {
+    color: $white;
+    font-size: 1.2rem;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+
+    &.is--selected {
+      background: $primary;
+      color: $white;
+      font-size: 1.3rem;
+
+      .jinya-menu-flyout__navbar__item__link {
+        text-decoration: none;
         color: $white;
-        font-size: 1.2rem;
-        list-style: none;
-        text-align: center;
-        cursor: pointer;
-
-        &.is--selected {
-            background: $primary;
-            color: $white;
-            font-size: 1.3rem;
-
-            .jinya-menu-flyout__navbar__item__link {
-                text-decoration: none;
-                color: $white;
-                outline: none;
-            }
-        }
-
-        .jinya-menu-flyout__navbar__item__link {
-            text-decoration: none;
-            padding: 0 1em;
-            color: $primary;
-        }
+        outline: none;
+      }
     }
+
+    .jinya-menu-flyout__navbar__item__link {
+      text-decoration: none;
+      padding: 0 1em;
+      color: $primary;
+    }
+  }
 </style>

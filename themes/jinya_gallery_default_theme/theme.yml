@@ -23,6 +23,7 @@ defaultConfig:
     background:
       image: http://c1.staticflickr.com/4/3804/33589584740_b4bb597b73_h.jpg
       mobile:
+      description:
   socialmedia:
     facebook:
     artstation:
@@ -139,6 +140,9 @@ form:
               - name: mobile
                 type: file
                 label: Mobiles Hintergrundbild
+              - name: description
+                type: string
+                label: Beschreibung (SEO)
       - name: socialmedia
         title: Soziale Medien
         fields:

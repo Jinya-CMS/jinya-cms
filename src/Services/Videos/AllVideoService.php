@@ -12,19 +12,27 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Video\Video;
 use Jinya\Entity\Video\YoutubeVideo;
+use Jinya\Framework\Events\Common\CountEvent;
+use Jinya\Framework\Events\Common\ListEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AllVideoService implements AllVideoServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * AllVideoService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -37,12 +45,18 @@ class AllVideoService implements AllVideoServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        return $this->createQueryBuilder($keyword)
+        $this->eventDispatcher->dispatch(ListEvent::ALL_VIDEOS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+
+        $videos = $this->createQueryBuilder($keyword)
             ->select('youtube_video, video')
             ->setMaxResults($count)
             ->setFirstResult($offset)
             ->getQuery()
             ->getArrayResult();
+
+        $this->eventDispatcher->dispatch(ListEvent::ALL_VIDEOS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $videos));
+
+        return $videos;
     }
 
     private function createQueryBuilder(string $keyword): QueryBuilder
@@ -67,9 +81,15 @@ class AllVideoService implements AllVideoServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        return array_sum($this->createQueryBuilder($keyword)
+        $this->eventDispatcher->dispatch(CountEvent::ALL_VIDEOS_POST_COUNT, new CountEvent($keyword, -1));
+
+        $count = array_sum($this->createQueryBuilder($keyword)
             ->select('count(video), count(youtube_video)')
             ->getQuery()
             ->getSingleResult());
+
+        $this->eventDispatcher->dispatch(CountEvent::ALL_VIDEOS_PRE_COUNT, new CountEvent($keyword, $count));
+
+        return $count;
     }
 }

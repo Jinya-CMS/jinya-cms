@@ -1,20 +1,20 @@
 <template>
-    <jinya-loader v-if="loading" :loading="loading"/>
-    <jinya-editor v-else>
-        <jinya-message :message="message" :state="state"/>
-        <jinya-form save-label="configuration.frontend.themes.menus.save" @submit="change" :enable="enable"
-                    cancel-label="configuration.frontend.themes.menus.cancel" @back="cancel">
-            <jinya-choice :choices="menus" @selected="primaryMenu = $event" :enable="enable"
-                          :selected="primaryMenu"
-                          label="configuration.frontend.themes.menus.primary"/>
-            <jinya-choice :choices="menus" @selected="secondaryMenu = $event" :enable="enable"
-                          :selected="secondaryMenu"
-                          label="configuration.frontend.themes.menus.secondary"/>
-            <jinya-choice :choices="menus" @selected="footerMenu = $event" :enable="enable"
-                          :selected="footerMenu"
-                          label="configuration.frontend.themes.menus.footer"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-loader v-if="loading" :loading="loading"/>
+  <jinya-editor v-else>
+    <jinya-message :message="message" :state="state"/>
+    <jinya-form save-label="configuration.frontend.themes.menus.save" @submit="change" :enable="enable"
+                cancel-label="configuration.frontend.themes.menus.cancel" @back="cancel">
+      <jinya-choice :choices="menus" @selected="primaryMenu = $event" :enable="enable"
+                    :selected="primaryMenu"
+                    label="configuration.frontend.themes.menus.primary"/>
+      <jinya-choice :choices="menus" @selected="secondaryMenu = $event" :enable="enable"
+                    :selected="secondaryMenu"
+                    label="configuration.frontend.themes.menus.secondary"/>
+      <jinya-choice :choices="menus" @selected="footerMenu = $event" :enable="enable"
+                    :selected="footerMenu"
+                    label="configuration.frontend.themes.menus.footer"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>

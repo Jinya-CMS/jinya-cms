@@ -1,178 +1,182 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'de'
-    jinya_gallery.theme.directory: themes
+  locale: 'de'
+  jinya_gallery.theme.directory: themes
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false       # Allows optimizing the container by removing unused services; this also means
+    # fetching services directly from the container via $container->get() won't work.
+    # The best practice is to be explicit about your dependencies anyway.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    Jinya\:
-        resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Jinya\:
+    resource: '../src/*'
+    exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    Jinya\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  Jinya\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
 
-    # Parameter injection
-    Jinya\EventSubscriber\RedirectToInstallWizardEventSubscriber:
-      arguments:
-        $kernelProjectDir: '%kernel.project_dir%'
-    Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
-      arguments:
-        $kernelProjectDir: '%kernel.project_dir%'
+  # Parameter injection
+  Jinya\EventSubscriber\RedirectToInstallWizardEventSubscriber:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
+  Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
 
-    Jinya\Services\Theme\ThemeSyncService:
-      arguments:
-        $kernelProjectDir: '%kernel.project_dir%'
-        $themeDirectory: '%jinya_gallery.theme.directory%'
+  Jinya\Services\Theme\ThemeSyncService:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
+      $themeDirectory: '%jinya_gallery.theme.directory%'
 
-    Jinya\Services\Theme\ThemeCompilerService:
-      arguments:
-        $kernelProjectDir: '%kernel.project_dir%'
+  Jinya\Services\Theme\ThemeCompilerService:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
 
-    Jinya\Services\Configuration\FrontendConfigurationService:
-      lazy: true
+  Jinya\Services\Configuration\FrontendConfigurationService:
+    lazy: true
 
-    Jinya\Services\Theme\ThemeService:
-      arguments:
-        $twigLoader: '@twig.loader.filesystem'
-        $kernelProjectDir: '%kernel.project_dir%'
-        $themeDirectory: '%jinya_gallery.theme.directory%'
+  Jinya\Services\Theme\ThemeService:
+    arguments:
+      $twigLoader: '@twig.loader.filesystem'
+      $kernelProjectDir: '%kernel.project_dir%'
+      $themeDirectory: '%jinya_gallery.theme.directory%'
 
-    Jinya\Services\Media\MediaService:
-      arguments:
-        $kernelProjectDir: '%kernel.project_dir%'
-        $tmpDir: '%jinya_gallery.temp_dir%'
+  Jinya\Services\Media\MediaService:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
+      $tmpDir: '%jinya_gallery.temp_dir%'
 
-    Jinya\Services\Mailing\MailerService:
-      arguments:
-        $mailerSender: '%mailer_sender%'
+  Jinya\Services\Mailing\MailerService:
+    arguments:
+      $mailerSender: '%mailer_sender%'
 
-    Jinya\Services\Users\UserService:
-      arguments:
-        $mailerSender: '%mailer_sender%'
+  Jinya\Services\Users\AuthenticationService:
+    arguments:
+      $mailerSender: '%mailer_sender%'
 
-    Jinya\Services\Videos\VideoUploadService:
-      arguments:
-        $tmpDir: '%jinya_gallery.temp_dir%'
+  Jinya\Services\Videos\VideoUploadService:
+    arguments:
+      $tmpDir: '%jinya_gallery.temp_dir%'
 
-    # EventSubscriber
-    Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
-      tags:
-        - { name: doctrine.event_subscriber }
+  Jinya\Services\Cache\StaticFileCacheBuilder:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
 
-    # Formatter
-    Jinya\Formatter\Gallery\ArtGalleryFormatterInterface:
-      class: Jinya\Formatter\Gallery\ArtGalleryFormatter
-      calls:
-        - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
-        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
-    Jinya\Formatter\Gallery\VideoGalleryFormatterInterface:
-      class: Jinya\Formatter\Gallery\VideoGalleryFormatter
-      calls:
-        - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
-        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
-    Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface:
-      class: Jinya\Formatter\Artwork\ArtworkPositionFormatter
-      calls:
-        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
-        - [setArtworkFormatterInterface, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
-    Jinya\Formatter\Artwork\ArtworkFormatterInterface:
-      class: Jinya\Formatter\Artwork\ArtworkFormatter
-      calls:
-        - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
-        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
-    Jinya\Formatter\Video\VideoPositionFormatterInterface:
-      class: Jinya\Formatter\Video\VideoPositionFormatter
-      calls:
-        - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\VideoGalleryFormatterInterface']]
-        - [setVideoFormatterInterface, ['@Jinya\Formatter\Video\VideoFormatterInterface']]
-        - [setYoutubeVideoFormatterInterface, ['@Jinya\Formatter\Video\YoutubeVideoFormatterInterface']]
-    Jinya\Formatter\Video\VideoFormatterInterface:
-      class: Jinya\Formatter\Video\VideoFormatter
-      calls:
-        - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
-    Jinya\Formatter\Form\FormFormatterInterface:
-      class: Jinya\Formatter\Form\FormFormatter
-      calls:
-        - [setFormItemFormatter, ['@Jinya\Formatter\Form\FormItemFormatterInterface']]
-        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
-    Jinya\Formatter\Form\FormItemFormatterInterface:
-      class: Jinya\Formatter\Form\FormItemFormatter
-      calls:
-        - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
-        - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
-    Jinya\Formatter\Menu\MenuItemFormatterInterface:
-      class: Jinya\Formatter\Menu\MenuItemFormatter
-      calls:
-        - [setMenuFormatter, ['@Jinya\Formatter\Menu\MenuFormatterInterface']]
-        - [setRouteFormatter, ['@Jinya\Formatter\Route\RouteFormatterInterface']]
-    Jinya\Formatter\Route\RouteFormatterInterface:
-      class: Jinya\Formatter\Route\RouteFormatter
-      calls:
-        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
-    Jinya\Formatter\Menu\MenuFormatterInterface:
-      class: Jinya\Formatter\Menu\MenuFormatter
-      calls:
-        - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
-    Jinya\Formatter\User\UserFormatterInterface:
-      class: Jinya\Formatter\User\UserFormatter
-      arguments:
-        $roleHierarchy: '@security.role_hierarchy'
-      calls:
-        - [setPageFormatter, ['@Jinya\Formatter\Page\PageFormatterInterface']]
-        - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
-        - [setArtworkFormatter, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
-        - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
+  # EventSubscriber
+  Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
+    tags:
+    - { name: doctrine.event_subscriber }
 
-    # Controllers
-    Jinya\Controller\InstallController:
-        arguments:
-          $kernelProjectDir: '%kernel.project_dir%'
-        tags: ['controller.service_arguments']
-    Jinya\Controller\UpdateController:
-        arguments:
-          $currentVersion: '%jinya_version%'
-          $kernelProjectDir: '%kernel.project_dir%'
-          $cacheClearer: '@cache_clearer'
-        tags: ['controller.service_arguments']
-    Jinya\Controller\Api\Support\BugController:
-        calls:
-            - [setJinyaVersion, ['%jinya_version%']]
-        tags: ['controller.service_arguments']
-    Jinya\Controller\Api\Maintenance\VersionController:
-        calls:
-            - [setJinyaVersion, ['%jinya_version%']]
-        tags: ['controller.service_arguments']
-    Jinya\Controller\Api\Maintenance\UpdateController:
-        calls:
-            - [setKernelProjectDir, ['%kernel.project_dir%']]
-        tags: ['controller.service_arguments']
+  # Formatter
+  Jinya\Formatter\Gallery\ArtGalleryFormatterInterface:
+    class: Jinya\Formatter\Gallery\ArtGalleryFormatter
+    calls:
+    - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
+    - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+  Jinya\Formatter\Gallery\VideoGalleryFormatterInterface:
+    class: Jinya\Formatter\Gallery\VideoGalleryFormatter
+    calls:
+    - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
+    - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+  Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface:
+    class: Jinya\Formatter\Artwork\ArtworkPositionFormatter
+    calls:
+    - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
+    - [setArtworkFormatterInterface, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
+  Jinya\Formatter\Artwork\ArtworkFormatterInterface:
+    class: Jinya\Formatter\Artwork\ArtworkFormatter
+    calls:
+    - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
+    - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+  Jinya\Formatter\Video\VideoPositionFormatterInterface:
+    class: Jinya\Formatter\Video\VideoPositionFormatter
+    calls:
+    - [setGalleryFormatterInterface, ['@Jinya\Formatter\Gallery\VideoGalleryFormatterInterface']]
+    - [setVideoFormatterInterface, ['@Jinya\Formatter\Video\VideoFormatterInterface']]
+    - [setYoutubeVideoFormatterInterface, ['@Jinya\Formatter\Video\YoutubeVideoFormatterInterface']]
+  Jinya\Formatter\Video\VideoFormatterInterface:
+    class: Jinya\Formatter\Video\VideoFormatter
+    calls:
+    - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
+  Jinya\Formatter\Form\FormFormatterInterface:
+    class: Jinya\Formatter\Form\FormFormatter
+    calls:
+    - [setFormItemFormatter, ['@Jinya\Formatter\Form\FormItemFormatterInterface']]
+    - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+  Jinya\Formatter\Form\FormItemFormatterInterface:
+    class: Jinya\Formatter\Form\FormItemFormatter
+    calls:
+    - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
+    - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
+  Jinya\Formatter\Menu\MenuItemFormatterInterface:
+    class: Jinya\Formatter\Menu\MenuItemFormatter
+    calls:
+    - [setMenuFormatter, ['@Jinya\Formatter\Menu\MenuFormatterInterface']]
+    - [setRouteFormatter, ['@Jinya\Formatter\Route\RouteFormatterInterface']]
+  Jinya\Formatter\Route\RouteFormatterInterface:
+    class: Jinya\Formatter\Route\RouteFormatter
+    calls:
+    - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
+  Jinya\Formatter\Menu\MenuFormatterInterface:
+    class: Jinya\Formatter\Menu\MenuFormatter
+    calls:
+    - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
+  Jinya\Formatter\User\UserFormatterInterface:
+    class: Jinya\Formatter\User\UserFormatter
+    arguments:
+      $roleHierarchy: '@security.role_hierarchy'
+    calls:
+    - [setPageFormatter, ['@Jinya\Formatter\Page\PageFormatterInterface']]
+    - [setGalleryFormatter, ['@Jinya\Formatter\Gallery\ArtGalleryFormatterInterface']]
+    - [setArtworkFormatter, ['@Jinya\Formatter\Artwork\ArtworkFormatterInterface']]
+    - [setFormFormatter, ['@Jinya\Formatter\Form\FormFormatterInterface']]
 
-    # Security
-    Jinya\Framework\Security\UserVoter:
-        tags:
-            - { name: security.voter }
+  # Controllers
+  Jinya\Controller\InstallController:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
+    tags: ['controller.service_arguments']
+  Jinya\Controller\UpdateController:
+    arguments:
+      $currentVersion: '%jinya_version%'
+      $kernelProjectDir: '%kernel.project_dir%'
+      $cacheClearer: '@cache_clearer'
+    tags: ['controller.service_arguments']
+  Jinya\Controller\Api\Support\BugController:
+    calls:
+    - [setJinyaVersion, ['%jinya_version%']]
+    tags: ['controller.service_arguments']
+  Jinya\Controller\Api\Maintenance\VersionController:
+    calls:
+    - [setJinyaVersion, ['%jinya_version%']]
+    tags: ['controller.service_arguments']
+  Jinya\Controller\Api\Maintenance\UpdateController:
+    calls:
+    - [setKernelProjectDir, ['%kernel.project_dir%']]
+    tags: ['controller.service_arguments']
 
-    # Twig
-    Jinya\Twig\Extension\TranslationUtils:
-        arguments:
-          $kernelProjectDir: '%kernel.project_dir%'
+  # Security
+  Jinya\Framework\Security\UserVoter:
+    tags:
+    - { name: security.voter }
 
-    # External Services
-    GuzzleHttp\Client:
+  # Twig
+  Jinya\Twig\Extension\TranslationUtils:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  # External Services
+  GuzzleHttp\Client:
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones

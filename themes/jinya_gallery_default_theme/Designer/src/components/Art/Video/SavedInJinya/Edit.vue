@@ -1,5 +1,5 @@
 <template>
-    <jinya-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -75,7 +75,7 @@
             },
           });
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.videos.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

@@ -39,7 +39,7 @@ interface ArtworkServiceInterface
      * @param Artwork $artwork
      * @return Artwork
      */
-    public function saveOrUpdate($artwork): Artwork;
+    public function saveOrUpdate(Artwork $artwork): Artwork;
 
     /**
      * Deletes the given gallery

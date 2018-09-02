@@ -1,5 +1,5 @@
 <template>
-    <jinya-artwork-form :artwork="artwork" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-artwork-form :artwork="artwork" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -74,7 +74,7 @@
             },
           });
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.artworks.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

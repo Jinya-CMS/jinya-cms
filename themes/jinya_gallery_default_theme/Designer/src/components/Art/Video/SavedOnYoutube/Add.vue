@@ -1,9 +1,9 @@
 <template>
-    <jinya-video-form @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-youtube-video-form @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
-  import JinyaVideoForm from '@/components/Art/Video/SavedOnYoutube/VideoForm';
+  import JinyaYoutubeVideoForm from '@/components/Art/Video/SavedOnYoutube/YoutubeVideoForm';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Translator from '@/framework/i18n/Translator';
   import Routes from '@/router/Routes';
@@ -11,7 +11,7 @@
 
   export default {
     components: {
-      JinyaVideoForm,
+      JinyaYoutubeVideoForm,
     },
     data() {
       return {
@@ -42,7 +42,7 @@
           await Timing.wait();
           this.$router.push(Routes.Art.Videos.SavedOnYoutube.Overview);
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.videos.youtube.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

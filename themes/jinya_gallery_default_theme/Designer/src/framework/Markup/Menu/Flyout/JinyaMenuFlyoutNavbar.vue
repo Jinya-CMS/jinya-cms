@@ -1,7 +1,7 @@
 <template>
-    <ul class="jinya-menu-flyout__navbar" :class="{'is--open': isOpen}">
-        <slot/>
-    </ul>
+  <ul class="jinya-menu-flyout__navbar" :class="{'is--open': isOpen}">
+    <slot/>
+  </ul>
 </template>
 
 <script>
@@ -20,21 +20,21 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-menu-flyout__navbar {
-        width: 100%;
-        display: none;
-        border-bottom: 3px solid $primary;
-        background: $white;
-        position: fixed;
-        top: 0;
-        left: 75px;
-        margin: 0;
-        padding: 0;
-        justify-content: center;
-        line-height: 57px;
+  .jinya-menu-flyout__navbar {
+    width: 100%;
+    display: none;
+    border-bottom: 3px solid $primary;
+    background: $white;
+    position: fixed;
+    top: 0;
+    left: 75px;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    line-height: 57px;
 
-        &.is--open {
-            display: flex;
-        }
+    &.is--open {
+      display: flex;
     }
+  }
 </style>

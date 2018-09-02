@@ -1,5 +1,5 @@
 <template>
-    <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -21,7 +21,7 @@
     },
     computed: {
       backRoute() {
-        return Routes.Art.Galleries.Art.Overview;
+        return Routes.Art.Galleries.Video.Overview;
       },
     },
     name: 'add',
@@ -61,7 +61,7 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-gallery-add {
-        padding-top: 1em;
-    }
+  .jinya-gallery-add {
+    padding-top: 1em;
+  }
 </style>

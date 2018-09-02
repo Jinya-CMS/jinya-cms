@@ -1,9 +1,9 @@
 <template>
-    <jinya-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-youtube-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
-  import JinyaVideoForm from './VideoForm';
+  import JinyaYoutubeVideoForm from './YoutubeVideoForm';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Translator from '@/framework/i18n/Translator';
   import Routes from '@/router/Routes';
@@ -12,10 +12,9 @@
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
 
-  // noinspection JSUnusedGlobalSymbols
   export default {
     components: {
-      JinyaVideoForm,
+      JinyaYoutubeVideoForm,
     },
     data() {
       return {
@@ -73,7 +72,7 @@
             },
           });
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.videos.youtube.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

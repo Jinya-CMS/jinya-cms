@@ -1,22 +1,25 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state" v-if="state">
-            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-                <jinya-button label="static.pages.page_form.back" to="Static.Pages.SavedInJinya.Overview"
-                              :is-danger="true"/>
-                <jinya-button label="static.pages.page_form.search" to="Static.Pages.SavedInJinya.Overview"
-                              :query="{keyword: $route.params.slug}" :is-secondary="true"/>
-            </jinya-message-action-bar>
-        </jinya-message>
-        <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--page"
-                    @back="back" :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
-            <jinya-input v-model="page.title" label="static.pages.page_form.title" :is-static="isStatic"
-                         :enable="enable" @change="titleChanged"/>
-            <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :is-static="isStatic" :enable="enable"
-                         @change="slugChanged"/>
-            <jinya-tiny-mce v-model="page.content" :content="page.content" height="400px"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message class="is--page-editor" :message="validationMessage" :state="validationState" v-if="validationState">
+      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+        <jinya-button label="static.pages.page_form.back" to="Static.Pages.SavedInJinya.Overview"
+                      :is-danger="true"/>
+        <jinya-button label="static.pages.page_form.search" to="Static.Pages.SavedInJinya.Overview"
+                      :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+      </jinya-message-action-bar>
+    </jinya-message>
+    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--page"
+                @back="back" :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+      <jinya-input v-model="page.title" label="static.pages.page_form.title" :is-static="isStatic"
+                   :enable="enable" @change="titleChanged" :required="true"
+                   :validation-message="'static.pages.page_form.title.empty'|jvalidator"/>
+      <jinya-input v-model="page.slug" label="static.pages.page_form.slug" :is-static="isStatic" :enable="enable"
+                   @change="slugChanged" :required="true"
+                   :validation-message="'static.pages.page_form.slug.empty'|jvalidator"/>
+      <jinya-tiny-mce @invalid="contentInvalid" @valid="contentValid" v-model="page.content" :content="page.content"
+                      height="400px" :required="true"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -30,6 +33,7 @@
   import JinyaForm from '@/framework/Markup/Form/Form';
   import Routes from '@/router/Routes';
   import slugify from 'slugify';
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
     name: 'jinya-page-form',
@@ -103,7 +107,37 @@
         },
       },
     },
+    computed: {
+      validationMessage() {
+        if (this.internalMessage) {
+          return this.internalMessage;
+        }
+
+        return this.message;
+      },
+      validationState() {
+        if (this.internalState) {
+          return this.internalState;
+        }
+
+        return this.state;
+      },
+    },
+    data() {
+      return {
+        internalMessage: null,
+        internalState: null,
+      };
+    },
     methods: {
+      contentInvalid() {
+        this.internalState = 'error';
+        this.internalMessage = Translator.validator('static.pages.page_form.content.empty.on_input');
+      },
+      contentValid() {
+        this.internalState = null;
+        this.internalMessage = null;
+      },
       back() {
         this.$router.push(Routes.Static.Pages.SavedInJinya.Overview);
       },
@@ -117,21 +151,30 @@
         this.page.slug = slugify(value);
       },
       save() {
-        const page = {
-          title: this.page.title,
-          slug: this.page.slug,
-          content: this.page.content,
-        };
+        if (this.page.content) {
+          const page = {
+            title: this.page.title,
+            slug: this.page.slug,
+            content: this.page.content,
+          };
 
-        this.$emit('save', page);
+          this.$emit('save', page);
+        } else {
+          this.internalState = 'error';
+          this.internalMessage = Translator.validator('static.pages.page_form.content.empty.on_save');
+        }
       },
     },
   };
 </script>
 
 <style scoped lang="scss">
-    .jinya-page-editor {
-        height: 400px;
-        flex: 1 1 auto;
-    }
+  .jinya-page-editor {
+    height: 400px;
+    flex: 1 1 auto;
+  }
+
+  .is--page-editor {
+    margin: 0;
+  }
 </style>

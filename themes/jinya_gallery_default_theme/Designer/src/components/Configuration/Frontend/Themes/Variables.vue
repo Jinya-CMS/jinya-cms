@@ -1,14 +1,14 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state"/>
-        <jinya-form @submit="save" save-label="configuration.frontend.themes.variables.save" :enable="!loading"
-                    cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
-                    @back="back">
-            <jinya-input v-for="field in filteredFields" :label="field.label" :placeholder="field.value"
-                         :key="field.key" :value="getValue(field.key)" class="jinya-input--variables" :enable="!loading"
-                         @change="value => changeVariable(field, value)"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message :message="message" :state="state"/>
+    <jinya-form @submit="save" save-label="configuration.frontend.themes.variables.save" :enable="!loading"
+                cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
+                @back="back">
+      <jinya-input v-for="field in filteredFields" :label="field.label" :placeholder="field.value"
+                   :key="field.key" :value="getValue(field.key)" class="jinya-input--variables" :enable="!loading"
+                   @change="value => changeVariable(field, value)"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -114,25 +114,25 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-form--variables {
-        display: flex;
-        margin-bottom: 1em;
+  .jinya-form--variables {
+    display: flex;
+    margin-bottom: 1em;
+  }
+
+  .jinya-input--variables {
+    flex: 0 0 100% / 3 - 1%;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+
+    &:first-child,
+    &:nth-child(n) {
+      margin-left: 0;
+      flex-basis: 100% / 3 - 0.5%;
     }
 
-    .jinya-input--variables {
-        flex: 0 0 100% / 3 - 1%;
-        margin-right: 0.5%;
-        margin-left: 0.5%;
-
-        &:first-child,
-        &:nth-child(n) {
-            margin-left: 0;
-            flex-basis: 100% / 3 - 0.5%;
-        }
-
-        &:nth-child(3n) {
-            margin-right: 0;
-            flex-basis: 100% / 3 - 0.5%;
-        }
+    &:nth-child(3n) {
+      margin-right: 0;
+      flex-basis: 100% / 3 - 0.5%;
     }
+  }
 </style>

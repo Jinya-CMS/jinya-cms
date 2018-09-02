@@ -12,10 +12,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Label\Label;
+use Jinya\Framework\Events\Artworks\ArtworkEvent;
+use Jinya\Framework\Events\Common\CountEvent;
+use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkService implements ArtworkServiceInterface
 {
@@ -34,19 +38,24 @@ class ArtworkService implements ArtworkServiceInterface
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     /**
      * ArtworkService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
      * @param LabelServiceInterface $labelService
      * @param LabelEntityServiceInterface $labelEntityService
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService)
+    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelServiceInterface $labelService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
     {
         $this->labelService = $labelService;
         $this->labelEntityService = $labelEntityService;
         $this->entityManager = $entityManager;
         $this->slugService = $slugService;
+        $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Artwork::class);
     }
 
@@ -61,7 +70,23 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        return $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
+        $this->eventDispatcher->dispatch(ListEvent::ARTWORKS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+
+        $artworks = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
+
+        $this->eventDispatcher->dispatch(ListEvent::ARTWORKS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $artworks));
+
+        return $artworks;
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    private function getBasicQueryBuilder(): QueryBuilder
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('entity')
+            ->from(Artwork::class, 'entity');
     }
 
     /**
@@ -73,7 +98,13 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function countAll(string $keyword = '', Label $label = null): int
     {
-        return $this->labelEntityService->countAll($this->getBasicQueryBuilder(), $keyword, $label);
+        $this->eventDispatcher->dispatch(CountEvent::ARTWORKS_PRE_COUNT, new CountEvent($keyword, -1));
+
+        $count = $this->labelEntityService->countAll($this->getBasicQueryBuilder(), $keyword, $label);
+
+        $this->eventDispatcher->dispatch(CountEvent::ARTWORKS_POST_COUNT, new CountEvent($keyword, $count));
+
+        return $count;
     }
 
     /**
@@ -83,9 +114,14 @@ class ArtworkService implements ArtworkServiceInterface
      * @return Artwork
      * @throws \Jinya\Exceptions\EmptySlugException
      */
-    public function saveOrUpdate($artwork): Artwork
+    public function saveOrUpdate(Artwork $artwork): Artwork
     {
-        $this->baseService->saveOrUpdate($artwork);
+        $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_SAVE, new ArtworkEvent($artwork, $artwork->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->saveOrUpdate($artwork);
+            $this->eventDispatcher->dispatch(ArtworkEvent::POST_SAVE, new ArtworkEvent($artwork, $artwork->getSlug()));
+        }
 
         return $artwork;
     }
@@ -97,7 +133,12 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function delete(Artwork $artwork): void
     {
-        $this->baseService->delete($artwork);
+        $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_DELETE, new ArtworkEvent($artwork, $artwork->getSlug()));
+
+        if (!$pre->isCancel()) {
+            $this->baseService->delete($artwork);
+            $this->eventDispatcher->dispatch(ArtworkEvent::POST_DELETE, new ArtworkEvent($artwork, $artwork->getSlug()));
+        }
     }
 
     /**
@@ -110,16 +151,11 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function get(string $slug): ?Artwork
     {
-        return $this->baseService->get($slug);
-    }
+        $this->eventDispatcher->dispatch(ArtworkEvent::PRE_GET, new ArtworkEvent(null, $slug));
 
-    /**
-     * @return QueryBuilder
-     */
-    private function getBasicQueryBuilder(): QueryBuilder
-    {
-        return $this->entityManager->createQueryBuilder()
-            ->select('entity')
-            ->from(Artwork::class, 'entity');
+        $artwork = $this->baseService->get($slug);
+        $this->eventDispatcher->dispatch(ArtworkEvent::POST_GET, new ArtworkEvent($artwork, $slug));
+
+        return $artwork;
     }
 }

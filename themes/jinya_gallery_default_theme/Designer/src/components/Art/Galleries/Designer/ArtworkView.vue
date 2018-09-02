@@ -1,17 +1,17 @@
 <template>
-    <div class="jinya-artwork-view">
-        <jinya-input placeholder="art.galleries.designer.artwork_view.search" type="search" @keyup="search"
-                     v-if="!initial" v-model="keyword" class="jinya-input--artwork-search"/>
-        <jinya-card-list nothing-found="art.galleries.designer.artwork_view.nothing_found" v-infinite-scroll="loadMore"
-                         v-show="!initial" infinite-scroll-disabled="loading" infinite-scroll-distance="10"
-                         class="jinya-card-list--artwork-view">
-            <jinya-card :header="artwork.name" v-for="artwork in artworks" :key="artwork.slug">
-                <img class="jinya-artwork-view__picture" :src="artwork.picture"/>
-                <jinya-card-button text="art.galleries.designer.artwork_view.pick" type="details" slot="footer"
-                                   @click="pick(artwork)" :is-disabled="picked"/>
-            </jinya-card>
-        </jinya-card-list>
-    </div>
+  <div class="jinya-artwork-view">
+    <jinya-input placeholder="art.galleries.designer.art_view.search" type="search" @keyup="search"
+                 v-if="!initial" v-model="keyword" class="jinya-input--artwork-search"/>
+    <jinya-card-list nothing-found="art.galleries.designer.art_view.nothing_found" v-infinite-scroll="loadMore"
+                     v-show="!initial" infinite-scroll-disabled="loading" infinite-scroll-distance="10"
+                     class="jinya-card-list--artwork-view">
+      <jinya-card :header="artwork.name" v-for="artwork in artworks" :key="artwork.slug">
+        <img class="jinya-artwork-view__picture" :src="artwork.picture"/>
+        <jinya-card-button text="art.galleries.designer.art_view.pick" type="details" slot="footer"
+                           @click="pick(artwork)" :is-disabled="picked"/>
+      </jinya-card>
+    </jinya-card-list>
+  </div>
 </template>
 
 <script>
@@ -82,42 +82,42 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-artwork-view {
-        width: 50em;
-        max-height: 40em;
-        margin: -2em;
-        padding: 2em 0 0;
-        position: relative;
+  .jinya-artwork-view {
+    width: 50em;
+    max-height: 40em;
+    margin: -2em;
+    padding: 2em 0 0;
+    position: relative;
 
-        @include breakpoint-768-height {
-            max-height: 30em;
-        }
+    @include breakpoint-768-height {
+      max-height: 30em;
     }
+  }
 
-    .jinya-card-list--artwork-view {
-        overflow-y: auto;
-        max-height: 38em;
+  .jinya-card-list--artwork-view {
+    overflow-y: auto;
+    max-height: 38em;
 
-        @include breakpoint-768-height {
-            max-height: 28em;
-        }
+    @include breakpoint-768-height {
+      max-height: 28em;
     }
+  }
 
-    .jinya-artwork-view__picture {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.3s;
+  .jinya-artwork-view__picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s;
 
-        &:hover {
-            object-fit: scale-down;
-        }
+    &:hover {
+      object-fit: scale-down;
     }
+  }
 
-    .jinya-input--artwork-search {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
+  .jinya-input--artwork-search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <jinya-form-form @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-form-form @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -36,7 +36,7 @@
           await Timing.wait();
           this.$router.push(Routes.Static.Forms.Forms.Overview);
         } catch (error) {
-          this.message = error.message;
+          this.message = Translator.validator(`static.forms.forms.${error.message}`);
           this.state = 'error';
           this.enable = true;
         }

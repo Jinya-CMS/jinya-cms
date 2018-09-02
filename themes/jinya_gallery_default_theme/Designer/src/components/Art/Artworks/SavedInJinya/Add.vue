@@ -1,5 +1,5 @@
 <template>
-    <jinya-artwork-form @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-artwork-form @save="save" :enable="enable" :message="message" :state="state"/>
 </template>
 
 <script>
@@ -46,7 +46,7 @@
           await Timing.wait();
           this.$router.push(Routes.Art.Artworks.SavedInJinya.Overview);
         } catch (error) {
-          this.message = error.message;
+          this.message = `art.artworks.${error.message}`;
           this.state = 'error';
           this.enable = true;
         }

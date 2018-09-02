@@ -10,11 +10,7 @@ namespace Jinya\Framework;
 
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Menu\RoutingEntry;
-use Jinya\Entity\Theme\Theme;
-use Jinya\Services\Configuration\ConfigurationServiceInterface;
-use Jinya\Services\Theme\ThemeCompilerServiceInterface;
-use Jinya\Services\Theme\ThemeConfigServiceInterface;
-use Jinya\Services\Theme\ThemeServiceInterface;
+use Jinya\Services\Twig\CompilerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,23 +21,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use function str_replace;
-use function strpos;
 
 abstract class BaseController
 {
-    /** @var ThemeConfigServiceInterface */
-    private $themeConfigService;
-
-    /** @var ThemeServiceInterface */
-    private $themeService;
-
-    /** @var ConfigurationServiceInterface */
-    private $configurationService;
-
-    /** @var ThemeCompilerServiceInterface */
-    private $themeCompilerService;
-
     /** @var RequestStack */
     private $requestStack;
 
@@ -51,40 +33,32 @@ abstract class BaseController
     /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
 
-    /** @var \Twig_Environment */
-    private $twig;
-
     /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /** @var RouterInterface */
     private $router;
 
+    /** @var CompilerInterface */
+    private $compiler;
+
     /**
      * BaseController constructor.
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param RequestStack $requestStack
      * @param HttpKernelInterface $kernel
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param \Twig_Environment $twig
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
+     * @param CompilerInterface $compiler
      */
-    public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router)
+    public function __construct(RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
     {
-        $this->themeConfigService = $themeConfigService;
-        $this->themeService = $themeService;
-        $this->configurationService = $configurationService;
-        $this->themeCompilerService = $themeCompilerService;
         $this->requestStack = $requestStack;
         $this->kernel = $kernel;
         $this->authorizationChecker = $authorizationChecker;
-        $this->twig = $twig;
         $this->tokenStorage = $tokenStorage;
         $this->router = $router;
+        $this->compiler = $compiler;
     }
 
     /**
@@ -93,51 +67,14 @@ abstract class BaseController
      * @param string $view
      * @param array $parameters
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     final protected function render(string $view, array $parameters = array()): Response
     {
         $response = new Response();
 
-        $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
-
-        $themeViewPath = $view;
-        if (0 === strpos($view, '@Frontend')) {
-            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
-        } elseif (0 === strpos($view, '@Designer')) {
-            list($themeViewPath, $parameters) = $this->includeTheme($view, $parameters, $currentTheme);
-        }
-
-        $content = $this->twig->render($themeViewPath, $parameters);
-        $response->setContent($content);
+        $response->setContent($this->compiler->compile($view, $parameters));
 
         return $response;
-    }
-
-    /**
-     * @param string $view
-     * @param array $parameters
-     * @param $theme
-     * @return array
-     */
-    private function includeTheme(string $view, array $parameters, Theme $theme): array
-    {
-        if (!$this->themeCompilerService->isCompiled($theme) || getenv('APP_DEBUG')) {
-            $this->themeCompilerService->compileTheme($theme);
-        }
-
-        $this->themeService->registerThemes();
-        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme) . str_replace('@', '/', $view);
-
-        $parameters['themeConfig'] = $theme->getConfiguration();
-        $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
-
-        $parameters['theme']['active'] = $theme;
-        $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR;
-
-        return array($themeViewPath, $parameters);
     }
 
     /**

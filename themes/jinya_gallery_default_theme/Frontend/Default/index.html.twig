@@ -1,5 +1,11 @@
 {% extends '@Theme/jinya_gallery_default_theme/Frontend/base.html.twig' %}
 
+{% block custom_meta %}
+    {% if themeConfig.startpage.description is defined %}
+        <meta name="description" content="{{ themeConfig.startpage.description }}">
+    {% endif %}
+{% endblock %}
+
 {% block background %}
     {% if themeConfig.startpage.background.image is defined %}
         <img src="{{ themeConfig.startpage.background.image }}" alt="" class="background not ultra-mobile full-size">

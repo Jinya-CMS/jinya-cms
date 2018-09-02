@@ -1,30 +1,30 @@
 <template>
-    <div class="jinya-form-overview">
-        <jinya-loader :loading="loading"/>
-        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card v-for="form in forms" :header="form.title" :key="form.slug">
-                <p class="jinya-form__description">{{form.description}}</p>
-                <jinya-card-button icon="pencil" type="edit" :to="{name: editRoute, params: {slug: form.slug}}"
-                                   slot="footer"/>
-                <jinya-card-button icon="television-guide" type="edit" slot="footer"
-                                   :to="{name: itemsRoute, params: {slug: form.slug}}"/>
-                <jinya-card-button icon="delete" type="delete" @click="showDeleteModal(form)" slot="footer"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
-                     :count="count"/>
-        <jinya-modal @close="closeDeleteModal()" title="static.forms.forms.delete.title" v-if="this.delete.show"
-                     :loading="this.delete.loading">
-            <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                           slot="message"/>
-            {{'static.forms.forms.delete.content'|jmessage({artwork: selectedArtwork.name})}}
-            <jinya-modal-button :is-secondary="true" slot="buttons-left" label="static.forms.forms.delete.no"
-                                :closes-modal="true" :is-disabled="this.delete.loading"/>
-            <jinya-modal-button :is-danger="true" slot="buttons-right" label="static.forms.forms.delete.yes"
-                                @click="remove" :is-disabled="this.delete.loading"/>
-        </jinya-modal>
-        <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
-    </div>
+  <div class="jinya-form-overview">
+    <jinya-loader :loading="loading"/>
+    <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
+      <jinya-card v-for="form in forms" :header="form.title" :key="form.slug">
+        <p class="jinya-form__description">{{form.description}}</p>
+        <jinya-card-button icon="pencil" type="edit" :to="{name: editRoute, params: {slug: form.slug}}"
+                           slot="footer"/>
+        <jinya-card-button icon="television-guide" type="edit" slot="footer"
+                           :to="{name: itemsRoute, params: {slug: form.slug}}"/>
+        <jinya-card-button icon="delete" type="delete" @click="showDeleteModal(form)" slot="footer"/>
+      </jinya-card>
+    </jinya-card-list>
+    <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
+                 :count="count"/>
+    <jinya-modal @close="closeDeleteModal()" title="static.forms.forms.delete.title" v-if="this.delete.show"
+                 :loading="this.delete.loading">
+      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
+                     slot="message"/>
+      {{'static.forms.forms.delete.content'|jmessage({artwork: selectedArtwork.name})}}
+      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="static.forms.forms.delete.no"
+                          :closes-modal="true" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :is-danger="true" slot="buttons-right" label="static.forms.forms.delete.yes"
+                          @click="remove" :is-disabled="this.delete.loading"/>
+    </jinya-modal>
+    <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
+  </div>
 </template>
 
 <script>
@@ -140,8 +140,8 @@
 </script>
 
 <style scoped lang="scss">
-    .jinya-form__description {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+  .jinya-form__description {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 </style>
