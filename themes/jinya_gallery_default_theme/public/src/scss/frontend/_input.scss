@@ -21,4 +21,8 @@
   label {
     display: inline-block;
   }
+
+  @include breakpoint-ultra-mobile {
+    font-size: 1.5rem;
+  }
 }

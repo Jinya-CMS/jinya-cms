@@ -257,25 +257,25 @@ $gallery-content-figure-height-tablet-portrait: 45em;
 $gallery-content-figure-height-tablet-landscape: 45em;
 $gallery-content-figure-height-desktop: 45em;
 
-$gallery-content-margin-left-ultra-mobile: 1rem !default;
+$gallery-content-margin-left-ultra-mobile: 0 !default;
 $gallery-content-margin-left-mobile: 22.5rem !default;
 $gallery-content-margin-left-tablet-portrait: 22.5rem !default;
 $gallery-content-margin-left-tablet-landscape: 27.5rem !default;
 $gallery-content-margin-left-desktop: 27.5rem !default;
 
-$gallery-content-margin-right-ultra-mobile: 1rem !default;
+$gallery-content-margin-right-ultra-mobile: 0 !default;
 $gallery-content-margin-right-mobile: 5rem !default;
 $gallery-content-margin-right-tablet-portrait: 5rem !default;
 $gallery-content-margin-right-tablet-landscape: 5rem !default;
 $gallery-content-margin-right-desktop: 5rem !default;
 
-$gallery-content-padding-left-ultra-mobile: 0 !default;
+$gallery-content-padding-left-ultra-mobile: 1rem !default;
 $gallery-content-padding-left-mobile: 0 !default;
 $gallery-content-padding-left-tablet-portrait: 0 !default;
 $gallery-content-padding-left-tablet-landscape: 0 !default;
 $gallery-content-padding-left-desktop: 0 !default;
 
-$gallery-content-padding-right-ultra-mobile: 0 !default;
+$gallery-content-padding-right-ultra-mobile: 1rem !default;
 $gallery-content-padding-right-mobile: 0 !default;
 $gallery-content-padding-right-tablet-portrait: 0 !default;
 $gallery-content-padding-right-tablet-landscape: 0 !default;
@@ -284,17 +284,19 @@ $gallery-content-padding-right-desktop: 0 !default;
 /**
  + Pages
  */
-$page-content-margin-left-ultra-mobile: 1rem;
-$page-content-margin-left-mobile: 25rem;
-$page-content-margin-left-tablet-portrait: 25rem;
-$page-content-margin-left-tablet-landscape: 27.5rem;
-$page-content-margin-left-desktop: 27.5rem;
+$page-content-padding-left-ultra-mobile: 1rem;
 
-$page-content-margin-right-ultra-mobile: 1rem;
-$page-content-margin-right-mobile: 2.5rem;
-$page-content-margin-right-tablet-portrait: 2.5rem;
-$page-content-margin-right-tablet-landscape: 5rem;
-$page-content-margin-right-desktop: 27.5rem;
+$page-content-padding-right-ultra-mobile: 1rem;
+
+$page-content-padding-left-mobile: 25rem;
+$page-content-padding-left-tablet-portrait: 25rem;
+$page-content-padding-left-tablet-landscape: 27.5rem;
+$page-content-padding-left-desktop: 27.5rem;
+
+$page-content-padding-right-mobile: 2.5rem;
+$page-content-padding-right-tablet-portrait: 2.5rem;
+$page-content-padding-right-tablet-landscape: 5rem;
+$page-content-padding-right-desktop: 27.5rem;
 
 $page-font-family: $font-family !default;
 $page-font-family-heading1: $font-family-heading !default;

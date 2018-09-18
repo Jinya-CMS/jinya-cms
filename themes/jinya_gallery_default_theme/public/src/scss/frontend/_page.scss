@@ -38,27 +38,28 @@
   }
 
   @include breakpoint-desktop {
-    padding-left: $page-content-margin-left-desktop;
-    padding-right: $page-content-margin-right-desktop;
+    padding-left: $page-content-padding-left-desktop;
+    padding-right: $page-content-padding-right-desktop;
   }
 
   @include breakpoint-tablet-landscape {
-    padding-left: $page-content-margin-left-tablet-landscape;
-    padding-right: $page-content-margin-right-tablet-landscape;
+    padding-left: $page-content-padding-left-tablet-landscape;
+    padding-right: $page-content-padding-right-tablet-landscape;
   }
 
   @include breakpoint-tablet-portrait {
-    padding-left: $page-content-margin-left-tablet-portrait;
-    padding-right: $page-content-margin-right-tablet-portrait;
+    padding-left: $page-content-padding-left-tablet-portrait;
+    padding-right: $page-content-padding-right-tablet-portrait;
   }
 
   @include breakpoint-mobile {
-    padding-left: $page-content-margin-left-mobile;
-    padding-right: $page-content-margin-right-mobile;
+    padding-left: $page-content-padding-left-mobile;
+    padding-right: $page-content-padding-right-mobile;
   }
 
   @include breakpoint-ultra-mobile {
-    padding-left: $page-content-margin-left-ultra-mobile;
-    padding-right: $page-content-margin-right-ultra-mobile;
+    padding-left: $page-content-padding-left-ultra-mobile;
+    padding-right: $page-content-padding-right-ultra-mobile;
+    font-size: 1.5rem;
   }
 }
