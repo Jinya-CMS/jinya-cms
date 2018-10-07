@@ -1,14 +1,12 @@
 Vagrant.configure("2") do |jinya|
-  jinya.vm.box = "generic/ubuntu1804"
-  jinya.vm.provider :libvirt do |libvirt|
-    libvirt.driver = "kvm"
-    libvirt.cpus = 2
-    libvirt.memory = 2048
+  jinya.vm.box = "bento/ubuntu-18.04"
+  jinya.vm.provider :virtualbox do |virtualbox|
+    virtualbox.name = "jinya"
+    virtualbox.cpus = 2
+    virtualbox.memory = 2048
   end
 
   jinya.vm.network :private_network, ip: "33.33.33.10"
-  # jinya.vm.network :forwarded_port, guest: 80, host: 80
-  # jinya.vm.network :forwarded_port, guest: 8025, host: 8025
-  jinya.vm.synced_folder ".", "/jinya", type: "nfs"
+  jinya.vm.synced_folder ".", "/jinya"
   jinya.vm.provision "shell", path: "./vagrant-files/provision.sh", keep_color: true
 end

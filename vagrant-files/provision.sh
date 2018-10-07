@@ -4,6 +4,11 @@ echo I am provisioning...
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 
+echo Copy files
+sudo mkdir -p /opt/jinya/
+sudo rsync -a --exclude '.git' --exclude '.idea' --exclude '.vagrant' --exclude '.scannerwork' --exclude '.circleci' --exclude 'vagrant-files' /jinya /opt/
+sudo chmod -R 777 /opt/jinya/
+
 echo Install database
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password start'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password start'
