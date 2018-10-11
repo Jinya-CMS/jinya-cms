@@ -122,8 +122,10 @@ class FrontendController extends BaseController
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $mailerService->sendMail($formEntity, $form->getData());
-            $viewData['mail_sent'] = true;
+            if (empty($request->get('contact_via_fax'))) {
+                $mailerService->sendMail($formEntity, $form->getData());
+                $viewData['mail_sent'] = true;
+            }
         }
 
         return $this->render('@Frontend/Form/detail.html.twig', $viewData);
