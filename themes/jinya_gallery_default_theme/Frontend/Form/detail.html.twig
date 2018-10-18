@@ -21,6 +21,7 @@
         {% endif %}
         {{ form_start(form) }}
         {{ form_row(form) }}
+        <input type="text" tabindex="-1" style="display: none" name="contact_via_fax">
         <button class="button" type="submit"><i
                     class="icon envelope"></i><span>{{ themeConfig.form.buttons.submit }}</span>
         </button>
