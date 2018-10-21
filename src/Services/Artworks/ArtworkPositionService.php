@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Framework\Events\Artworks\ArtworkPositionDeleteEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateArtworkEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
@@ -123,10 +124,21 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * Deletes the given artwork position
      *
      * @param int $id
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function deletePosition(int $id)
     {
-        $pre = $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_DELETE, new ArtworkPositionEvent(null, $id));
+        $gallery = $this->entityManager
+            ->createQueryBuilder()
+            ->select('gallery')
+            ->from(ArtGallery::class, 'gallery')
+            ->join('gallery.artworks', 'position')
+            ->where('position.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        $pre = $this->eventDispatcher->dispatch(ArtworkPositionDeleteEvent::PRE_DELETE, new ArtworkPositionDeleteEvent($gallery, $id));
 
         if (!$pre->isCancel()) {
             $this->entityManager
@@ -136,7 +148,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
                 ->setParameter('id', $id)
                 ->getQuery()
                 ->execute();
-            $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_DELETE, new ArtworkPositionEvent(null, $id));
+            $this->eventDispatcher->dispatch(ArtworkPositionDeleteEvent::POST_DELETE, new ArtworkPositionDeleteEvent($gallery, $id));
         }
     }
 

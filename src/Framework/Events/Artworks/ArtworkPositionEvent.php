@@ -17,10 +17,6 @@ class ArtworkPositionEvent extends CancellableEvent
 
     public const POST_SAVE = 'ArtworkPositionPostSave';
 
-    public const PRE_DELETE = 'ArtworkPositionPreDelete';
-
-    public const POST_DELETE = 'ArtworkPositionPostDelete';
-
     public const PRE_GET = 'ArtworkPositionPreGet';
 
     public const POST_GET = 'ArtworkPositionPostGet';

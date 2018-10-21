@@ -10,6 +10,7 @@ namespace Jinya\EventSubscriber\Cache;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Framework\Events\Artworks\ArtworkPositionDeleteEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateArtworkEvent;
 use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
@@ -39,17 +40,16 @@ class ArtworkPositionCacheSubscriber implements EventSubscriberInterface
     {
         return [
             ArtworkPositionEvent::POST_SAVE => 'onArtworkPositionSave',
-            ArtworkPositionEvent::POST_DELETE => 'onArtworkPositionDelete',
+            ArtworkPositionDeleteEvent::POST_DELETE => 'onArtworkPositionDelete',
             ArtworkPositionUpdateEvent::POST_UPDATE => 'onArtworkPositionUpdate',
             ArtworkPositionUpdateArtworkEvent::POST_UPDATE_ARTWORK => 'onArtworkPositionUpdateArtwork',
         ];
     }
 
-    public function onArtworkPositionDelete(ArtworkPositionEvent $event)
+    public function onArtworkPositionDelete(ArtworkPositionDeleteEvent $event)
     {
-        $artworkPosition = $event->getArtworkPosition();
-        $this->cacheBuilder->buildCacheBySlugAndType($artworkPosition->getGallery()->getSlug(), CacheBuilderInterface::ART_GALLERY);
-        $this->cacheBuilder->buildCacheBySlugAndType($artworkPosition->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
+        $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::ART_GALLERY);
+        $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
     }
 
     public function onArtworkPositionSave(ArtworkPositionEvent $event)
