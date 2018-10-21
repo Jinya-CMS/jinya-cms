@@ -6,7 +6,7 @@ sudo apt-get update
 
 echo Copy files
 sudo mkdir -p /opt/jinya/
-sudo rsync -a --exclude '.git' --exclude '.idea' --exclude '.vagrant' --exclude '.scannerwork' --exclude '.circleci' --exclude 'vagrant-files' /jinya /opt/
+sudo rsync -a --exclude '.git' --exclude '.idea' --exclude '.vagrant' --exclude '.scannerwork' --exclude '.circleci' /jinya /opt/
 sudo chmod -R 777 /opt/jinya/
 
 echo Install database
@@ -65,5 +65,23 @@ EOL
 
 sudo systemctl enable mailhog
 sudo systemctl start mailhog
+
+echo Prepare service to sync files to profiles folder
+sudo chmod +x /opt/jinya/vagrant-files/inotify.sh
+sudo tee /etc/systemd/system/profiler.service <<EOL
+[Unit]
+Description=Profiler copy Service
+After=network.service vagrant.mount
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env /opt/jinya/vagrant-files/inotify.sh > /dev/null 2>&1 &
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl enable profiler
+sudo systemctl start profiler
 
 echo I finished provisioning
