@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Video\VideoPosition;
+use Jinya\Framework\Events\Artworks\VideoPositionDeleteEvent;
 use Jinya\Framework\Events\Videos\RearrangeEvent;
 use Jinya\Framework\Events\Videos\VideoPositionEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateEvent;
@@ -134,10 +135,21 @@ class VideoPositionService implements VideoPositionServiceInterface
      * Deletes the given video position
      *
      * @param int $id
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function deletePosition(int $id)
     {
-        $pre = $this->eventDispatcher->dispatch(VideoPositionEvent::PRE_DELETE, new VideoPositionEvent(null, $id));
+        $gallery = $this->entityManager
+            ->createQueryBuilder()
+            ->select('gallery')
+            ->from(VideoGallery::class, 'gallery')
+            ->join('gallery.artworks', 'position')
+            ->where('position.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        $pre = $this->eventDispatcher->dispatch(VideoPositionDeleteEvent::PRE_DELETE, new VideoPositionDeleteEvent($gallery, $id));
 
         if (!$pre->isCancel()) {
             $this->entityManager
@@ -148,7 +160,7 @@ class VideoPositionService implements VideoPositionServiceInterface
                 ->getQuery()
                 ->execute();
 
-            $this->eventDispatcher->dispatch(VideoPositionEvent::POST_DELETE, new VideoPositionEvent(null, $id));
+            $this->eventDispatcher->dispatch(VideoPositionDeleteEvent::POST_DELETE, new VideoPositionDeleteEvent($gallery, $id));
         }
     }
 
