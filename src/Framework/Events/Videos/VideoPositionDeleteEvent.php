@@ -6,7 +6,7 @@
  * Time: 19:12
  */
 
-namespace Jinya\Framework\Events\Artworks;
+namespace Jinya\Framework\Events\Videos;
 
 use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Framework\Events\Common\CancellableEvent;
