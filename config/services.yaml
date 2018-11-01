@@ -2,7 +2,6 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   locale: 'de'
-  jinya_gallery.theme.directory: themes
 
 services:
   # default configuration for services in *this* file
@@ -32,6 +31,9 @@ services:
   Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
+  Jinya\EventSubscriber\Profiling\JinyaProfilerEventSubscriber:
+    arguments:
+      $jinyaProfilerOutDir: '%jinya_gallery.profiler.out_dir%'
 
   Jinya\Services\Theme\ThemeSyncService:
     arguments:
@@ -177,6 +179,13 @@ services:
 
   # External Services
   GuzzleHttp\Client:
+
+  Symfony\Component\HttpKernel\Profiler\Profiler:
+
+  Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface:
+    class: Symfony\Component\HttpKernel\Profiler\FileProfilerStorage
+    arguments:
+      $dsn: '%profiler.storage.dsn%'
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
