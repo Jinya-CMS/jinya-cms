@@ -28,13 +28,11 @@ class TwigDataCollectorFormatter implements TwigDataCollectorFormatterInterface
     private function formatTwigProfile(Profile $twigProfile): array
     {
         return [
-            $twigProfile->getName() => [
-                'memoryUsage' => $twigProfile->getMemoryUsage(),
-                'peakMemoryUsage' => $twigProfile->getPeakMemoryUsage(),
-                'duration' => $twigProfile->getDuration(),
-                'type' => $twigProfile->getName(),
-                'profiles' => array_map([$this, 'formatTwigProfile'], $twigProfile->getProfiles())
-            ],
+            'template' => $twigProfile->getName(),
+            'memoryUsage' => $twigProfile->getMemoryUsage(),
+            'peakMemoryUsage' => $twigProfile->getPeakMemoryUsage(),
+            'duration' => $twigProfile->getDuration(),
+            'profiles' => array_map([$this, 'formatTwigProfile'], $twigProfile->getProfiles())
         ];
     }
 }
