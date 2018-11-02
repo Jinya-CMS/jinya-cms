@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
 
 class RequestDataCollectorFormatter implements RequestDataCollectorFormatterInterface
 {
-
     /** @var callable $formatCallable */
     private $formatCallable;
 
@@ -52,7 +51,7 @@ class RequestDataCollectorFormatter implements RequestDataCollectorFormatterInte
             'environment' => [
                 'server' => $this->dataFormatter->convertAssocToList(array_map($this->formatCallable, $collector->getRequestServer()->all())),
                 'dotenv' => $this->dataFormatter->convertAssocToList(array_map($this->formatCallable, $collector->getDotenvVars()->all())),
-            ]
+            ],
         ];
     }
 }

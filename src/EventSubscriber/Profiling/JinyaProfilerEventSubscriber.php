@@ -47,11 +47,11 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
         $this->profilerOutDir = $profilerOutDir;
         $this->fs = new Filesystem();
         $this->profileFormatter = $profileFormatter;
-        $this->profilerEnabled = getenv('APP_PROFILING') === 'yes';
+        $this->profilerEnabled = 'yes' === getenv('APP_PROFILING');
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
