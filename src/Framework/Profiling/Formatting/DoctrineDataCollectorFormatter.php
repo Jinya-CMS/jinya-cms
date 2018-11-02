@@ -25,13 +25,18 @@ class DoctrineDataCollectorFormatter implements DoctrineDataCollectorFormatterIn
     /** @var ContainerInterface */
     private $container;
 
+    /** @var DataFormatterInterface */
+    private $dataFormatter;
+
     /**
      * DoctrineDataCollectorFormatter constructor.
      * @param ContainerInterface $container
+     * @param DataFormatterInterface $dataFormatter
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, DataFormatterInterface $dataFormatter)
     {
         $this->container = $container;
+        $this->dataFormatter = $dataFormatter;
     }
 
     /**
@@ -69,7 +74,7 @@ class DoctrineDataCollectorFormatter implements DoctrineDataCollectorFormatterIn
         return [
             'sql' => $query['sql'],
             'executionTime' => $query['executionMS'],
-            'params' => array_values(array_map([$this, 'formatParam'], iterator_to_array($params->getIterator()))),
+            'params' => array_values(array_map([$this, 'formatParam'], $params->getValue())),
         ];
     }
 
@@ -145,10 +150,10 @@ class DoctrineDataCollectorFormatter implements DoctrineDataCollectorFormatterIn
             'configuration' => [
                 'proxyDir' => $configuration->getProxyDir(),
                 'proxyNamespace' => $configuration->getProxyNamespace(),
-                'entityNamespaces' => $configuration->getEntityNamespaces(),
-                'repositoryFactory' => array_map(function (EntityRepository $repository) {
-                    return ['entityName' => $repository->getClassName()];
-                }, $managedRepositories),
+                'entityNamespaces' => $this->dataFormatter->convertAssocToList($configuration->getEntityNamespaces()),
+                'repositoryFactory' => $this->dataFormatter->convertAssocToList(array_map(function (EntityRepository $repository) {
+                    return $repository->getClassName();
+                }, $managedRepositories)),
             ],
             'mappingDrivers' => array_map(function (MappingDriver $driver) {
                 return ['classes' => $driver->getAllClassNames()];
