@@ -10,6 +10,7 @@ namespace Jinya\Framework\Profiling\Formatting;
 
 use Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector;
 use Symfony\Bridge\Twig\DataCollector\TwigDataCollector;
+use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProfileFormatter implements ProfileFormatterInterface
@@ -20,15 +21,20 @@ class ProfileFormatter implements ProfileFormatterInterface
     /** @var DoctrineDataCollectorFormatterInterface */
     private $doctrineFormatter;
 
+    /** @var RequestDataCollectorFormatterInterface */
+    private $requestFormatter;
+
     /**
      * ProfileFormatter constructor.
      * @param TwigDataCollectorFormatterInterface $twigFormatter
      * @param DoctrineDataCollectorFormatterInterface $doctrineFormatter
+     * @param RequestDataCollectorFormatterInterface $requestFormatter
      */
-    public function __construct(TwigDataCollectorFormatterInterface $twigFormatter, DoctrineDataCollectorFormatterInterface $doctrineFormatter)
+    public function __construct(TwigDataCollectorFormatterInterface $twigFormatter, DoctrineDataCollectorFormatterInterface $doctrineFormatter, RequestDataCollectorFormatterInterface $requestFormatter)
     {
         $this->twigFormatter = $twigFormatter;
         $this->doctrineFormatter = $doctrineFormatter;
+        $this->requestFormatter = $requestFormatter;
     }
 
     /**
@@ -39,16 +45,17 @@ class ProfileFormatter implements ProfileFormatterInterface
      */
     public function format(Profile $profile): array
     {
-        $relevantData = [];
+        /** @var RequestDataCollector $requestCollector */
+        $requestCollector = $profile->getCollector('request');
+        /** @var DoctrineDataCollector $doctrineCollector */
+        $doctrineCollector = $profile->getCollector('db');
+        /** @var TwigDataCollector $twigCollector */
+        $twigCollector = $profile->getCollector('twig');
 
-        foreach ($profile->getCollectors() as $collector) {
-            if ($collector instanceof DoctrineDataCollector) {
-                $relevantData['doctrine'] = $this->doctrineFormatter->format($collector);
-            } elseif ($collector instanceof TwigDataCollector) {
-                $relevantData['twig'] = $this->twigFormatter->format($collector);
-            }
-        }
-
-        return $relevantData;
+        return [
+            'request' => $this->requestFormatter->format($requestCollector),
+            'twig' => $this->twigFormatter->format($twigCollector),
+            'doctrine' => $this->doctrineFormatter->format($doctrineCollector),
+        ];
     }
 }
