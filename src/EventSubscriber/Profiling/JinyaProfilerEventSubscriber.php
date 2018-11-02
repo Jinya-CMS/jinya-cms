@@ -24,7 +24,7 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
     private $profiler;
 
     /** @var string */
-    private $jinyaProfilerOutDir;
+    private $profilerOutDir;
 
     /** @var Filesystem */
     private $fs;
@@ -32,36 +32,26 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
     /** @var ProfileFormatterInterface */
     private $profileFormatter;
 
+    /** @var string */
+    private $profilerEnabled;
+
     /**
      * JinyaProfilerEventSubscriber constructor.
      * @param Profiler $profiler
-     * @param string $jinyaProfilerOutDir
+     * @param string $profilerOutDir
+     * @param ProfileFormatterInterface $profileFormatter
      */
-    public function __construct(Profiler $profiler, string $jinyaProfilerOutDir, ProfileFormatterInterface $profileFormatter)
+    public function __construct(Profiler $profiler, string $profilerOutDir, ProfileFormatterInterface $profileFormatter)
     {
         $this->profiler = $profiler;
-        $this->jinyaProfilerOutDir = $jinyaProfilerOutDir;
+        $this->profilerOutDir = $profilerOutDir;
         $this->fs = new Filesystem();
         $this->profileFormatter = $profileFormatter;
+        $this->profilerEnabled = getenv('APP_PROFILING') === 'yes';
     }
 
     /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The array keys are event names and the value can be:
-     *
-     *  * The method name to call (priority defaults to 0)
-     *  * An array composed of the method name to call and the priority
-     *  * An array of arrays composed of the method names to call and respective
-     *    priorities, or 0 if unset
-     *
-     * For instance:
-     *
-     *  * array('eventName' => 'methodName')
-     *  * array('eventName' => array('methodName', $priority))
-     *  * array('eventName' => array(array('methodName1', $priority), array('methodName2')))
-     *
-     * @return array The event names to listen to
+     * @inheritdoc
      */
     public static function getSubscribedEvents()
     {
@@ -73,16 +63,16 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (getenv('APP_ENV') === 'dev' && function_exists('tideways_xhprof_enable') && $event->isMasterRequest()) {
+        if ($this->profilerEnabled && function_exists('tideways_xhprof_enable') && $event->isMasterRequest()) {
             tideways_xhprof_enable(TIDEWAYS_XHPROF_FLAGS_CPU | TIDEWAYS_XHPROF_FLAGS_MEMORY_MU | TIDEWAYS_XHPROF_FLAGS_MEMORY_PMU | TIDEWAYS_XHPROF_FLAGS_MEMORY | TIDEWAYS_XHPROF_FLAGS_NO_BUILTINS);
         }
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        if (getenv('APP_ENV') === 'dev') {
+        if ($this->profilerEnabled) {
             $profile = $this->profiler->loadProfileFromResponse($event->getResponse());
-            $baseDir = $this->jinyaProfilerOutDir . '/' . $_SERVER['REQUEST_URI'] . '/';
+            $baseDir = $this->profilerOutDir . '/' . $_SERVER['REQUEST_URI'] . '/';
             if (!file_exists($baseDir)) {
                 mkdir($baseDir, 0777, true);
             }
@@ -111,7 +101,7 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
                 $xhprofFile = $baseDir . "$date.jinya.xhprof";
                 $this->fs->dumpFile($xhprofFile, $data);
             } catch (Throwable $exception) {
-                $errorLog = $this->jinyaProfilerOutDir . '/error.log';
+                $errorLog = $this->profilerOutDir . '/error.log';
                 $this->fs->appendToFile($errorLog, $exception->getMessage() . PHP_EOL . $exception->getTraceAsString());
             }
         }
