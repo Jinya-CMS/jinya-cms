@@ -8,8 +8,7 @@
 
 namespace Jinya\EventSubscriber\Profiling;
 
-use Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector;
-use Symfony\Bridge\Twig\DataCollector\TwigDataCollector;
+use Jinya\Framework\Profiling\Formatting\ProfileFormatterInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Yaml\Yaml;
 use Throwable;
-use Twig\Profiler\Profile;
 
 class JinyaProfilerEventSubscriber implements EventSubscriberInterface
 {
@@ -31,16 +29,20 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
     /** @var Filesystem */
     private $fs;
 
+    /** @var ProfileFormatterInterface */
+    private $profileFormatter;
+
     /**
      * JinyaProfilerEventSubscriber constructor.
      * @param Profiler $profiler
      * @param string $jinyaProfilerOutDir
      */
-    public function __construct(Profiler $profiler, string $jinyaProfilerOutDir)
+    public function __construct(Profiler $profiler, string $jinyaProfilerOutDir, ProfileFormatterInterface $profileFormatter)
     {
         $this->profiler = $profiler;
         $this->jinyaProfilerOutDir = $jinyaProfilerOutDir;
         $this->fs = new Filesystem();
+        $this->profileFormatter = $profileFormatter;
     }
 
     /**
@@ -87,52 +89,14 @@ class JinyaProfilerEventSubscriber implements EventSubscriberInterface
             $date = date(DATE_ISO8601);
 
             if ($profile) {
-                $relevantData = [];
+                $relevantData = $this->profileFormatter->format($profile);
                 $symfonyFile = $baseDir . "$date.jinya.symfony";
-
-                foreach ($profile->getCollectors() as $collector) {
-                    if ($collector instanceof DoctrineDataCollector) {
-                        $relevantData['doctrine'] = $this->formatDoctrine($collector);
-                    } elseif ($collector instanceof TwigDataCollector) {
-                        $relevantData['twig'] = $this->formatTwigProfile($collector->getProfile());
-                    }
-                }
 
                 $this->fs->dumpFile($symfonyFile, Yaml::dump($relevantData, 1024));
             }
 
             $this->dumpTidewaysData($baseDir, $date);
         }
-    }
-
-    /**
-     * @param DoctrineDataCollector $collector
-     * @return array
-     */
-    private function formatDoctrine(DoctrineDataCollector $collector): array
-    {
-        return [
-            'queries' => $collector->getQueries(),
-            'connections' => $collector->getConnections(),
-            'queryCount' => $collector->getQueryCount(),
-            'managers' => $collector->getManagers(),
-            'time' => $collector->getTime(),
-        ];
-    }
-
-    private function formatTwigProfile(Profile $twigProfile)
-    {
-        return [
-            $twigProfile->getName() => [
-                'memoryUsage' => $twigProfile->getMemoryUsage(),
-                'peakMemoryUsage' => $twigProfile->getPeakMemoryUsage(),
-                'duration' => $twigProfile->getDuration(),
-                'type' => $twigProfile->getName(),
-                'profiles' => array_map(function (Profile $profile) {
-                    return $this->formatTwigProfile($profile);
-                }, $twigProfile->getProfiles())
-            ],
-        ];
     }
 
     /**
