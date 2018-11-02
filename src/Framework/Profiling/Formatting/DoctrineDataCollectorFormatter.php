@@ -21,7 +21,6 @@ use Symfony\Component\VarDumper\Cloner\Data;
 
 class DoctrineDataCollectorFormatter implements DoctrineDataCollectorFormatterInterface
 {
-
     /** @var ContainerInterface */
     private $container;
 

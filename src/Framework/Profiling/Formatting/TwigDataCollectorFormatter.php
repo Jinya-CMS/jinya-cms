@@ -13,7 +13,6 @@ use Twig\Profiler\Profile;
 
 class TwigDataCollectorFormatter implements TwigDataCollectorFormatterInterface
 {
-
     /**
      * Formats the doctrine data into a profiling array
      *
@@ -33,7 +32,7 @@ class TwigDataCollectorFormatter implements TwigDataCollectorFormatterInterface
                 'peakMemoryUsage' => $twigProfile->getPeakMemoryUsage(),
                 'duration' => $twigProfile->getDuration(),
                 'type' => $twigProfile->getName(),
-                'profiles' => array_map([$this, 'formatTwigProfile'], $twigProfile->getProfiles())
+                'profiles' => array_map([$this, 'formatTwigProfile'], $twigProfile->getProfiles()),
             ],
         ];
     }
