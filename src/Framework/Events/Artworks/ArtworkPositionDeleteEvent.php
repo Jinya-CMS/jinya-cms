@@ -13,7 +13,6 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 
 class ArtworkPositionDeleteEvent extends CancellableEvent
 {
-
     public const PRE_DELETE = 'ArtworkPositionPreDelete';
 
     public const POST_DELETE = 'ArtworkPositionPostDelete';

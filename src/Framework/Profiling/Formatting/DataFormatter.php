@@ -12,7 +12,6 @@ use Symfony\Component\VarDumper\Cloner\Data;
 
 class DataFormatter implements DataFormatterInterface
 {
-
     /**
      * Converts the associative array to a norma index array
      *
@@ -55,12 +54,11 @@ class DataFormatter implements DataFormatterInterface
         foreach ($data as $key => $item) {
             if (is_array($item)) {
                 $value = array_map([$this, 'format'], $item);
-            } else if ($item instanceof Data) {
+            } elseif ($item instanceof Data) {
                 $value = $this->format($item);
             } else {
                 $value = $item;
             }
-
 
             $result[] = [
                 'key' => $key,
