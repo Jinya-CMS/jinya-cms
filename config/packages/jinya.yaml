@@ -4,3 +4,7 @@ parameters:
   jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
   jinya_gallery.profiler.out_dir: '%kernel.project_dir%/var/profiler'
   jinya_gallery.theme.directory: themes
+
+jinya_profiling:
+  profiler:
+    out_dir: '%jinya_gallery.profiler.out_dir%'
