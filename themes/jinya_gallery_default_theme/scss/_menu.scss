@@ -60,7 +60,7 @@
         text-transform: uppercase;
       }
       text-decoration: none;
-      color: $primary;
+      color: $primary; // FIXME: I need a config var
       padding: $menu-item-link-padding;
       background: $menu-item-link-background;
       letter-spacing: $menu-item-link-letter-spacing;
@@ -194,7 +194,7 @@
     display: block;
     height: $menu-ultra-mobile-menu-bar-height;
     width: 100%;
-    background: $primary;
+    background: $primary; // FIXME: I need a config var
     position: fixed;
     top: 0;
     z-index: 99999;

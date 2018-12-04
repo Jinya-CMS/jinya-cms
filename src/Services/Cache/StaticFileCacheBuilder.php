@@ -198,19 +198,19 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
         if (Strings::find($route->getRouteName(), 'artwork')) {
             $viewData = ['artwork' => $this->artworkService->get($slug)];
-            $template = '@Frontend/Artwork/detail.html.twig';
+            $template = '@Theme/Artwork/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
             ];
-            $template = '@Frontend/Gallery/detail.html.twig';
+            $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
             $viewData = [
                 'gallery' => $this->artGalleryService->get($slug),
                 'type' => 'art',
             ];
-            $template = '@Frontend/Gallery/detail.html.twig';
+            $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
@@ -218,13 +218,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'formEntity' => $formEntity,
                 'form' => $form->createView(),
             ];
-            $template = '@Frontend/Form/detail.html.twig';
+            $template = '@Theme/Form/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'page')) {
             $viewData = ['page' => $this->pageService->get($slug)];
-            $template = '@Frontend/Page/detail.html.twig';
+            $template = '@Theme/Page/detail.html.twig';
         } else {
             $viewData = [];
-            $template = '@Frontend/Default/index.html.twig';
+            $template = '@Theme/Default/index.html.twig';
         }
 
         return $this->compiler->compile($template, $viewData);
