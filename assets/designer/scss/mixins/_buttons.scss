@@ -1,0 +1,178 @@
+@mixin button-variations($inverseBackground: $white) {
+  &.is--default {
+    background: $gray-600;
+    color: $white;
+    border-color: $gray-600;
+
+    &:hover {
+      background: $white;
+      color: $gray-600;
+    }
+
+    &.is--inverse {
+      background: $inverseBackground;
+      color: $gray-600;
+      border-color: $gray-600;
+
+      &:hover {
+        background: $gray-600;
+        color: $white;
+      }
+    }
+  }
+  &.is--primary {
+    background: $primary;
+    color: $white;
+    border-color: $primary;
+
+    &:hover {
+      background: $white;
+      color: $primary;
+    }
+
+    &.is--inverse {
+      background: $inverseBackground;
+      color: $primary;
+      border-color: $primary;
+
+      &:hover {
+        background: $primary;
+        color: $white;
+      }
+    }
+  }
+  &.is--secondary {
+    background: $secondary;
+    color: $white;
+    border-color: $secondary;
+
+    &:hover {
+      background: $white;
+      color: $secondary;
+    }
+
+    &.is--inverse {
+      background: $inverseBackground;
+      color: $secondary;
+      border-color: $secondary;
+
+      &:hover {
+        background: $secondary;
+        color: $white;
+      }
+    }
+  }
+  &.is--danger {
+    background: $danger;
+    color: $white;
+    border-color: $danger;
+
+    &:hover {
+      background: $white;
+      color: $danger;
+    }
+
+    &.is--inverse {
+      background: $inverseBackground;
+      color: $danger;
+      border-color: $danger;
+
+      &:hover {
+        background: $danger;
+        color: $white;
+      }
+    }
+  }
+  &.is--success {
+    background: $success;
+    color: $white;
+    border-color: $success;
+
+    &:hover {
+      background: $white;
+      color: $success;
+    }
+
+    &.is--inverse {
+      background: $inverseBackground;
+      color: $success;
+      border-color: $success;
+
+      &:hover {
+        background: $success;
+        color: $white;
+      }
+    }
+  }
+
+  &[disabled],
+  &.is--disabled {
+    background: $gray-600;
+    border-color: $gray-600;
+    color: color-yiq($gray-600);
+    cursor: not-allowed;
+
+    &.is--inverse {
+      background: $inverseBackground;
+      border-color: $gray-600;
+      color: $gray-600;
+    }
+
+    &:hover {
+      background: $gray-600;
+      color: $white;
+
+      &.is--inverse {
+        background: $inverseBackground;
+        border-color: $gray-600;
+        color: $gray-600;
+      }
+    }
+  }
+}
+
+@mixin card-footer-edit-buttons($name, $color) {
+  &.#{$name} {
+    color: $color;
+    border: 1px solid $color;
+    background: $white;
+
+    &:hover {
+      background: $color;
+      color: color-yiq($color);
+    }
+  }
+}
+
+@mixin card-footer-button($classname) {
+  .#{$classname} {
+    border: none;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    padding: 0.5em;
+    transition: color 0.3s, background 0.3s;
+    outline: none;
+    font-size: 1.2em;
+    text-align: center;
+    cursor: pointer;
+
+    @include card-footer-edit-buttons('#{$classname}--details', $details-color);
+    @include card-footer-edit-buttons('#{$classname}--edit', $edit-color);
+    @include card-footer-edit-buttons('#{$classname}--delete', $delete-color);
+
+    &:focus {
+      outline: none;
+    }
+
+    &:first-child {
+      border-bottom-left-radius: 10px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 10px;
+    }
+
+    @include button-variations;
+  }
+}

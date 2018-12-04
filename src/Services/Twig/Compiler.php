@@ -69,7 +69,7 @@ class Compiler implements CompilerInterface
             return $this->twig->render($themeViewPath, $parameters);
         }
 
-        return '';
+        return $this->twig->render($path, $context);
     }
 
     /**

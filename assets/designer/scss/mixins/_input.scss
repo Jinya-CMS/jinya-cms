@@ -1,0 +1,20 @@
+@mixin validation-message($top) {
+  position: relative;
+  margin: 0 0 1.5em;
+
+  &.is--invalid {
+    &::before {
+      position: absolute;
+      content: attr(data-validation-message);
+      background: #fff;
+      left: 0;
+      bottom: -1.25em;
+      width: 100%;
+      box-sizing: border-box;
+      border-top-width: 0;
+      color: $danger;
+      padding-left: 0;
+      font-size: 0.75em;
+    }
+  }
+}

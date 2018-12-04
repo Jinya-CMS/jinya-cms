@@ -135,8 +135,6 @@ node_modules/
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###
-/assets
-!/assets/.htaccess
 !/public/apple-touch-icon.png
 !/public/favicon.ico
 !/public/robots.txt
