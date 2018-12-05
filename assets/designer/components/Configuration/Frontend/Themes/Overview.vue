@@ -67,12 +67,12 @@
 
 <style scoped lang="scss">
   .jinya-card-button--variables {
-    border-color: $pink;
-    color: $pink;
+    border-color: $pink !important;
+    color: $pink !important;
 
     &:hover {
-      color: color-yiq($pink);
-      background: $pink;
+      color: color-yiq($pink) !important;
+      background: $pink !important;
     }
   }
 

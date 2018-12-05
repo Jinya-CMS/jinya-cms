@@ -2,23 +2,26 @@
   <!-- eslint-disable max-len -->
   <div class="jinya-theme-configuration">
     <jinya-message :message="message" :state="state"/>
-    <jinya-form save-label="configuration.frontend.themes.configuration.save" @submit="save" v-if="!initial"
-                cancel-label="configuration.frontend.themes.configuration.cancel" :enable="!loading">
+    <jinya-form :enable="!loading" @back="back" @submit="save"
+                cancel-label="configuration.frontend.themes.configuration.cancel"
+                save-label="configuration.frontend.themes.configuration.save" v-if="!initial">
       <jinya-tab-container :items="form.groups" @select="selected = $event">
         <template v-for="tab in form.groups">
           <jinya-tab :is-selected="selected === tab.name" :key="tab.name">
-            <jinya-theme-configuration-field v-for="field in tab.fields" :key="`${tab.name}.${field.name}`"
+            <jinya-theme-configuration-field :enable="!loading" :key="`${tab.name}.${field.name}`"
                                              :label="field.label" :name="`${tab.name}.${field.name}`"
-                                             :type="field.type" :enable="!loading" @changed="changed"
-                                             :value="getValue(`${tab.name}.${field.name}`)"/>
+                                             :type="field.type" :value="getValue(`${tab.name}.${field.name}`)"
+                                             @changed="changed"
+                                             v-for="field in tab.fields"/>
 
-            <jinya-fieldset v-for="group in tab.groups" :legend="group.title"
-                            :key="`${tab.name}.${group.name}`">
-              <jinya-theme-configuration-field v-for="field in group.fields" :enable="!loading"
-                                               :type="field.type" :label="field.label" @changed="changed"
-                                               :key="`${tab.name}.${group.name}.${field.name}`"
-                                               :name="`${tab.name}.${group.name}.${field.name}`"
-                                               :value="getValue(`${tab.name}.${group.name}.${field.name}`)"/>
+            <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
+                            v-for="group in tab.groups">
+              <jinya-theme-configuration-field :enable="!loading" :key="`${tab.name}.${group.name}.${field.name}`"
+                                               :label="field.label" :name="`${tab.name}.${group.name}.${field.name}`"
+                                               :type="field.type"
+                                               :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
+                                               @changed="changed"
+                                               v-for="field in group.fields"/>
             </jinya-fieldset>
           </jinya-tab>
         </template>
@@ -133,6 +136,9 @@
         } else {
           this.theme.config = ObjectUtils.setValueByKeyPath(this.theme.config, data.name, data.value);
         }
+      },
+      back() {
+        this.$router.push(Routes.Configuration.Frontend.Theme.Overview);
       },
     },
     async mounted() {
