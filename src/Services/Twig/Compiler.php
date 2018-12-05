@@ -87,7 +87,7 @@ class Compiler implements CompilerInterface
         }
 
         $this->themeService->registerThemes();
-        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme) . str_replace('@', '/', $view);
+        $themeViewPath = '@Themes/' . $this->themeConfigService->getThemeNamespace($theme) . str_replace('@Theme', '/', $view);
 
         $parameters['themeConfig'] = $theme->getConfiguration();
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());

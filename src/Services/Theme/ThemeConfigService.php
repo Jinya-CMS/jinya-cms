@@ -65,7 +65,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function getThemeNamespace(Theme $theme): string
     {
-        return '@Themes/';
+        return $theme->getName();
     }
 
     /**
