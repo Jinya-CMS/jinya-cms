@@ -3,9 +3,9 @@ const path = require('path');
 
 Encore
 // directory where compiled assets will be stored
-  .setOutputPath('public/public/designer')
+  .setOutputPath('public/designer')
   // public path used by the web server to access the output path
-  .setPublicPath('/public/designer')
+  .setPublicPath('/designer')
   // only needed for CDN's or sub-directory deploy
   .setManifestKeyPrefix('designer/')
 
