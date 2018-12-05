@@ -141,10 +141,7 @@ node_modules/
 /public/
 !/public/.htaccess
 !/public/index.php
-/themes/jinya_gallery_default_theme/public/dist/
-/themes/jinya_gallery_default_theme/public/src/designer/_designer.scss
-/themes/jinya_gallery_default_theme/public/src/scss/designer/_designer.scss
-/.scannerwork/
-/.vagrant/
-/themes/jinya_gallery_default_theme/Designer/report.html
-/themes/jinya_gallery_default_theme/js/dist/
+/themes
+!/themes/jinya_gallery_default_theme
+.vagrant
+.scannerwork
