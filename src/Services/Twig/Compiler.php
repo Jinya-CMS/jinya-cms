@@ -63,13 +63,13 @@ class Compiler implements CompilerInterface
     {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
-        if (Strings::find($path, '@Frontend') || Strings::find($path, '@Designer')) {
+        if (Strings::find($path, '@Theme')) {
             list($themeViewPath, $parameters) = $this->includeTheme($path, $context, $currentTheme);
 
             return $this->twig->render($themeViewPath, $parameters);
         }
 
-        return '';
+        return $this->twig->render($path, $context);
     }
 
     /**

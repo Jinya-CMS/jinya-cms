@@ -36,7 +36,7 @@ class FrontendController extends BaseController
             return $this->forwardToRoute($routeEntry);
         } catch (Throwable $throwable) {
             if (empty($route)) {
-                return $this->render('@Frontend/Default/index.html.twig');
+                return $this->render('@Theme/Default/index.html.twig');
             } else {
                 $logger->error("Failed to load route $route");
                 $logger->error($throwable->getMessage());
@@ -58,7 +58,7 @@ class FrontendController extends BaseController
     {
         $artwork = $artworkService->get($slug);
 
-        return $this->render('@Frontend/Artwork/detail.html.twig', [
+        return $this->render('@Theme/Artwork/detail.html.twig', [
             'artwork' => $artwork,
         ]);
     }
@@ -75,7 +75,7 @@ class FrontendController extends BaseController
     {
         $gallery = $galleryService->get($slug);
 
-        return $this->render('@Frontend/Gallery/detail.html.twig', [
+        return $this->render('@Theme/Gallery/detail.html.twig', [
             'gallery' => $gallery,
             'type' => 'art',
         ]);
@@ -92,7 +92,7 @@ class FrontendController extends BaseController
     {
         $gallery = $galleryService->get($slug);
 
-        return $this->render('@Frontend/Gallery/detail.html.twig', [
+        return $this->render('@Theme/Gallery/detail.html.twig', [
             'gallery' => $gallery,
             'type' => 'video',
         ]);
@@ -128,7 +128,7 @@ class FrontendController extends BaseController
             }
         }
 
-        return $this->render('@Frontend/Form/detail.html.twig', $viewData);
+        return $this->render('@Theme/Form/detail.html.twig', $viewData);
     }
 
     /**
@@ -142,7 +142,7 @@ class FrontendController extends BaseController
     {
         $page = $pageService->get($slug);
 
-        return $this->render('@Frontend/Page/detail.html.twig', [
+        return $this->render('@Theme/Page/detail.html.twig', [
             'page' => $page,
         ]);
     }
