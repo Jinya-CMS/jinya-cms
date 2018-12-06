@@ -134,7 +134,9 @@
             };
           }
         } else {
+          console.log(data);
           this.theme.config = ObjectUtils.setValueByKeyPath(this.theme.config, data.name, data.value);
+          console.log(JSON.parse(JSON.stringify(this.theme.config)));
         }
       },
       back() {

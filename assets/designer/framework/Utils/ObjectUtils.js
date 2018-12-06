@@ -1,5 +1,7 @@
 /* eslint-disable no-bitwise */
 import deepmerge from 'deepmerge';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 
 const getHashCode = (obj) => {
   const value = JSON.stringify(obj);
@@ -17,22 +19,33 @@ const getHashCode = (obj) => {
 const equals = (obj1, obj2) => getHashCode(obj1) === getHashCode(obj2);
 const clone = obj => JSON.parse(JSON.stringify(obj));
 
+function assign(obj, key, value) {
+  if (isString(key)) {
+    // eslint-disable-next-line
+    key = key.split('.');
+  }
+
+  if (key.length > 1) {
+    const e = key.shift();
+    // eslint-disable-next-line
+    assign(obj[e] = isObject(obj[e])
+      ? obj[e]
+      : {},
+      key,
+      value);
+  } else {
+    // eslint-disable-next-line
+    obj[key[0]] = value;
+  }
+}
+
 export default {
   equals,
   getHashCode,
   clone,
   setValueByKeyPath(target, key, value) {
     const data = {};
-    key.split('.').reduce((previousValue, currentValue, currentIndex, array) => {
-      let newValue = {};
-      const returnValue = { ...previousValue };
-      if (currentIndex + 1 === array.length) {
-        newValue = value;
-      }
-
-      returnValue[currentValue] = newValue;
-      return returnValue[currentValue];
-    }, data);
+    assign(data, key, value);
 
     return deepmerge(target, data);
   },
