@@ -142,6 +142,6 @@ node_modules/
 !/public/.htaccess
 !/public/index.php
 /themes
-!/themes/jinya_gallery_default_theme
+!/themes/jinya-default-theme
 .vagrant
 .scannerwork
