@@ -46,6 +46,10 @@ sudo cp /jinya/vagrant-files/20-xdebug.ini /etc/php/7.2/mods-available/xdebug.in
 sudo phpenmod xdebug
 sudo service apache2 start
 
+echo Install nodejs
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
 echo Install mailhog
 sudo wget --quiet -O /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
 sudo chmod +x /usr/local/bin/mailhog
@@ -67,7 +71,7 @@ sudo systemctl enable mailhog
 sudo systemctl start mailhog
 
 echo Prepare service to sync files to profiles folder
-sudo chmod +x /opt/jinya/vagrant-files/inotify.sh
+sudo chmod +x /opt/jinya/vagrant-files/sync-profiler.sh
 sudo tee /etc/systemd/system/profiler.service <<EOL
 [Unit]
 Description=Profiler copy Service
@@ -75,7 +79,7 @@ After=network.service vagrant.mount
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env /opt/jinya/vagrant-files/inotify.sh > /dev/null 2>&1 &
+ExecStart=/usr/bin/env /opt/jinya/vagrant-files/sync-profiler.sh > /dev/null 2>&1 &
 
 [Install]
 WantedBy=multi-user.target

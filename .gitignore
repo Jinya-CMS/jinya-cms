@@ -145,3 +145,5 @@ node_modules/
 !/themes/jinya-default-theme
 .vagrant
 .scannerwork
+/vagrant-files/jinya-gallery-cms.sql
+!/themes/jinya-default-theme/
