@@ -24,12 +24,7 @@ jobs:
           yarn encore prod
     - run:
         command: |
-          cd themes/jinya_gallery_default_theme
-          yarn
-          yarn build
-    - run:
-        command: |
-          rm -rf themes/jinya_gallery_default_theme/node_modules node_modules var/cache var/log public/public public/.htaccess
+          rm -rf node_modules var/cache var/log public/public public/.htaccess
           mkdir -p ~/dist
           zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
     - persist_to_workspace:
