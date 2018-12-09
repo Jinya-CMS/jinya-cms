@@ -2,8 +2,9 @@
   <div class="jinya-tab">
     <nav class="jinya-tab__list">
       <template v-for="item in items">
-        <a class="jinya-tab__link" @click="select(item)" :class="{'is--selected': item.name === selectedItem}"
-           :key="`${item.name}-${item.type}`">
+        <a :class="{'is--selected': item.name === selectedItem}" :key="`${item.name}-${item.type}`"
+           @click="select(item)"
+           class="jinya-tab__link">
           {{item.title}}
         </a>
       </template>
@@ -54,7 +55,7 @@
       width: 100%;
       display: flex;
       flex-wrap: nowrap;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin-bottom: -2px;
 
       .jinya-tab__link {
