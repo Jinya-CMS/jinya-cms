@@ -141,9 +141,8 @@ node_modules/
 /public/
 !/public/.htaccess
 !/public/index.php
-/themes
-!/themes/jinya-default-theme
 .vagrant
 .scannerwork
 /vagrant-files/jinya-gallery-cms.sql
+/themes/*
 !/themes/jinya-default-theme/

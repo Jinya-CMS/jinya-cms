@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>{{ themeConfig.page.title }} {% block head_title %}{% endblock %}</title>
+    {% block styles %}
+        {% block styles_fontawesome %}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+        {% endblock %}
+        {% block styles_theme %}
+            <link rel="stylesheet"
+                  href="{{ asset('public/jinya-default-theme/styles/frontend.css') }}">
+        {% endblock %}
+        {% block styles_additional_fonts %}
+            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+            {% endif %}
+        {% endblock %}
+        {% block styles_custom %}
+        {% endblock %}
+    {% endblock %}
+    {% block favicon %}
+        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
+    {% endblock %}
+    {% block meta %}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {% block custom_meta %}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% block header %}
+        {% include '@Themes/jinya-default-theme/include/header.html.twig' %}
+    {% endblock %}
+    {% block menu %}
+        {% include '@Themes/jinya-default-theme/include/menu/menu.html.twig' %}
+    {% endblock %}
+    {% block maincontent %}
+    {% endblock %}
+    {% block footer %}
+        {% include '@Themes/jinya-default-theme/include/footer.html.twig' %}
+    {% endblock %}
+{% endblock %}
+{% block scripts %}
+{% block polyfills %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js"
+            integrity="sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4=" crossorigin="anonymous"></script>
+{% endblock %}
+</body>
+</html>

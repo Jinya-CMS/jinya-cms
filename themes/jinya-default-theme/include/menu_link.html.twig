@@ -1,0 +1,6 @@
+<a class="{{ class }}"
+   href="{% if item.route.url is not empty and item.route.url != '/#' %}{{ item.route.url }}{% endif %}"
+   {% if item.pageType == 'external' %}target="_blank"{% endif %}
+>
+    {{- item.title -}}
+</a>

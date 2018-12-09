@@ -1,0 +1,96 @@
+displayName: Jinya Default Theme
+description: The default theme of the jinya cms is modern and provides a good looking user interface.
+previewImage: jinya-default-theme-preview.png
+styles_base: scss
+scripts_base: js/dist
+styles:
+  variables:
+    file: _variables.scss
+  files:
+    - frontend.scss
+scripts:
+defaultConfig:
+  page:
+    title: Jinya CMS
+  footer:
+    copyright:
+  favicon:
+    small:
+    shortcut_icon:
+    large:
+  fonts:
+    menu: https://fonts.googleapis.com/css?family=Open+Sans
+    heading: https://fonts.googleapis.com/css?family=Raleway
+    paragraph: https://fonts.googleapis.com/css?family=Open+Sans
+    caption: https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900
+  form:
+    buttons:
+      submit: Submit
+    dropdowns:
+      placeholder: Please choose...
+    messages:
+      mail_sent_message: Mail was sent successfully
+form:
+  config:
+    title: Jinya default Theme konfigurieren
+    groups:
+      - name: page
+        title: Seite
+        fields:
+          - name: title
+            type: string
+            label: Titel
+      - name: footer
+        title: Footer
+        fields:
+          - name: copyright
+            type: string
+            label: Copyright Nachricht
+      - name: favicon
+        title: Favicon
+        fields:
+          - name: small
+            type: file
+            label: Kleines Icon 64x64 Pixel
+          - name: large
+            type: file
+            label: Großes Icon 512x512 Pixel
+          - name: shortcut_icon
+            type: file
+            label: Favicon im Icon Format
+      - name: fonts
+        title: Fontlinks
+        fields:
+          - name: menu
+            type: string
+            label: Menueinträge
+          - name: heading
+            type: string
+            label: Überschriften
+          - name: paragraph
+            type: string
+            label: Fließtext
+          - name: caption
+            type: string
+            label: Kunstwerkunterschrift
+      - name: form
+        title: Formulare
+        groups:
+          - name: buttons
+            title: Button Beschriftungen
+            fields:
+              - name: submit
+                type: string
+                label: Abschicken
+          - name: dropdowns
+            title: Dropdowns
+            fields:
+              - name: placeholder
+                type: string
+                label: Standardtext
+          - name: messages
+            title: Meldungen
+            fields:
+              - name: mail_sent_message
+                type: string
+                label: Email gesendet

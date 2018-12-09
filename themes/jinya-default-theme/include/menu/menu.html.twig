@@ -1,0 +1,7 @@
+{% block menu %}
+    <ul class="jinya-menu">
+        {% for item in theme.active.primaryMenu.menuItems %}
+            {% include '@Theme/jinya-default-theme/include/menu/menuitem.html.twig' with {'item': child} %}
+        {% endfor %}
+    </ul>
+{% endblock %}
