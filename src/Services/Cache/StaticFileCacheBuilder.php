@@ -87,8 +87,14 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
-        $this->entityManager->clear();
+//        $this->entityManager->clear();
         $routes = $this->getRoutesFromTheme();
+
+        $startPageRoute = new RoutingEntry();
+        $startPageRoute->setUrl('/index.html');
+        $compiledTemplate = $this->compileRoute($startPageRoute);
+        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
+        $this->addEntryToCacheList($file);
 
         foreach ($routes as $route) {
             if ('empty' !== $route->getMenuItem()->getPageType() && 'external' !== $route->getMenuItem()->getPageType()) {
@@ -97,12 +103,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $this->addEntryToCacheList($file);
             }
         }
-
-        $startPageRoute = new RoutingEntry();
-        $startPageRoute->setUrl('/index.html');
-        $compiledTemplate = $this->compileRoute($startPageRoute);
-        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
-        $this->addEntryToCacheList($file);
     }
 
     /**
