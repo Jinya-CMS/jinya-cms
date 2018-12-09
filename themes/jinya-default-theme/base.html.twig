@@ -11,16 +11,29 @@
             <link rel="stylesheet"
                   href="{{ asset('public/jinya-default-theme/styles/frontend.css') }}">
         {% endblock %}
-        {% block styles_additional_fonts %}
-            {% if themeConfig.page.fontlink is defined and themeConfig.page.fontlink is not empty %}
-                <link rel="stylesheet" href="{{ themeConfig.page.fontlink }}">
+        {%- block styles_additional_fonts -%}
+            {% if themeConfig.fonts.menu is defined and themeConfig.fonts.menu is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.menu }}">
             {% endif %}
-        {% endblock %}
+            {% if themeConfig.fonts.heading is defined and themeConfig.fonts.heading is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.heading }}">
+            {% endif %}
+            {% if themeConfig.fonts.paragraph is defined and themeConfig.fonts.paragraph is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.paragraph }}">
+            {% endif %}
+            {% if themeConfig.fonts.caption is defined and themeConfig.fonts.caption is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.caption }}">
+            {% endif %}
+        {%- endblock -%}
         {% block styles_custom %}
         {% endblock %}
     {% endblock %}
     {% block favicon %}
-        <link href="{{ themeConfig.page.favicon }}" rel="shortcut icon">
+        <link href="{{ themeConfig.favicon.shortcut_icon }}" rel="shortcut icon">
+        <link rel="apple-touch-icon" sizes="512x512" href="{{ themeConfig.favicon.large }}">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ themeConfig.favicon.small }}">
+        <meta name="apple-mobile-web-app-title" content="{{ themeConfig.page.title }}">
+        <meta name="application-name" content="{{ themeConfig.page.title }}">
     {% endblock %}
     {% block meta %}
         <meta charset="utf-8"/>
@@ -45,9 +58,10 @@
     {% endblock %}
 {% endblock %}
 {% block scripts %}
-{% block polyfills %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js"
-            integrity="sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4=" crossorigin="anonymous"></script>
+    {% block polyfills %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js"
+                integrity="sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4=" crossorigin="anonymous"></script>
+    {% endblock %}
 {% endblock %}
 </body>
 </html>

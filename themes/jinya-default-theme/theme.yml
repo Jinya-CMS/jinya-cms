@@ -22,7 +22,7 @@ defaultConfig:
     menu: https://fonts.googleapis.com/css?family=Open+Sans
     heading: https://fonts.googleapis.com/css?family=Raleway
     paragraph: https://fonts.googleapis.com/css?family=Open+Sans
-    caption: https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900
+    caption: https://fonts.googleapis.com/css?family=Roboto
   form:
     buttons:
       submit: Submit

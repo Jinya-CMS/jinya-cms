@@ -251,12 +251,12 @@ routes:
       updates: Updates
 authentication:
   roles:
-  - text: Superadmin
-    value: ROLE_SUPER_ADMIN
-  - text: Admin
-    value: ROLE_ADMIN
-  - text: Schreiber
-    value: ROLE_WRITER
+    - text: Superadmin
+      value: ROLE_SUPER_ADMIN
+    - text: Admin
+      value: ROLE_ADMIN
+    - text: Schreiber
+      value: ROLE_WRITER
 framework:
   markup:
     menu:
@@ -390,6 +390,9 @@ configuration:
         settings: Einstellungen
         menus: Menüs
         activate: Aktivieren
+        activating: Das Theme %displayName% wird aktiviert
+        activated: Das Theme %displayName% wurde erfolgreich aktiviert
+        activation_failed: Das Theme %displayName% konnte nicht aktiviert werden
       variables:
         title: Variablen für %displayName%
         search: Variablen durchsuchen...

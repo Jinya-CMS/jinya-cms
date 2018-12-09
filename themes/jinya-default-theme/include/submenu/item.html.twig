@@ -1,11 +1,10 @@
 {%- block menuitem -%}
     <li class="jinya-submenu__item {% if isChildActiveMenuItem(item) %}jinya-submenu__item--active{% endif %} {% if item.highlighted %}jinya-submenu__item--highlight{% endif %}">
         {% if item.children is not empty %}
-            {% for child in item.children %}
-                {% include '@Themes/jenny-jinya-theme/include/submenu/submenu.html.twig' with {'item': child} %}
-            {% endfor %}
+            {{- item.title -}}
+            {% include '@Theme/jinya-default-theme/include/submenu/submenu.html.twig' with {'item': item} %}
         {% else %}
-            {% include '@Themes/jenny-jinya-theme/include/menu_link.html.twig' with {'item': child, 'class': 'jinya-submenu__link'} %}
+            {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-submenu__link'} %}
         {% endif %}
     </li>
 {%- endblock -%}

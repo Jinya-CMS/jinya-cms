@@ -4,7 +4,7 @@
             <nav>
                 {% if theme.active.footerMenu is defined %}
                     {% for item in theme.active.footerMenu.menuItems %}
-                        {% include '@Themes/jenny-jinya-theme/include/menu_link.html.twig' with {'item': child, 'class': 'jinya-footer-menu__item'} %}
+                        {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-footer-menu__item'} %}
                     {% endfor %}
                 {% endif %}
             </nav>
