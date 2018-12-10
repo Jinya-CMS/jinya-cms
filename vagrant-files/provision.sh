@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 echo I am provisioning...
+echo Update system
+sudo apt-get update
+sudo apt-get ugrade
+
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 
@@ -87,5 +91,23 @@ EOL
 
 sudo systemctl enable profiler
 sudo systemctl start profiler
+
+echo Prepare service to compile theme on changes
+sudo chmod +x /opt/jinya/vagrant-files/compile-theme.sh
+sudo tee /etc/systemd/system/theme-compiler.service <<EOL
+[Unit]
+Description=Theme compiler service
+After=network.service vagrant.mount
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env /opt/jinya/vagrant-files/compile-theme.sh > /dev/null 2>&1 &
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl enable theme-compiler
+sudo systemctl start theme-compiler
 
 echo I finished provisioning
