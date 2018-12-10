@@ -97,4 +97,15 @@ class Compiler implements CompilerInterface
 
         return [$themeViewPath, $parameters];
     }
+
+    /**
+     * Adds a global variable to template engine
+     *
+     * @param string $name
+     * @param $value
+     */
+    public function addGlobal(string $name, $value): void
+    {
+        $this->twig->addGlobal($name, $value);
+    }
 }

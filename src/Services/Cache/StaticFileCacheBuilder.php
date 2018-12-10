@@ -87,7 +87,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
-//        $this->entityManager->clear();
         $routes = $this->getRoutesFromTheme();
 
         $startPageRoute = new RoutingEntry();
@@ -197,18 +196,23 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         }
 
         if (Strings::find($route->getRouteName(), 'artwork')) {
-            $viewData = ['artwork' => $this->artworkService->get($slug)];
+            $viewData = [
+                'artwork' => $this->artworkService->get($slug),
+                'active' => $route->getUrl(),
+            ];
             $template = '@Theme/Artwork/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
+                'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
             $viewData = [
                 'gallery' => $this->artGalleryService->get($slug),
                 'type' => 'art',
+                'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'form')) {
@@ -217,15 +221,21 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $viewData = [
                 'formEntity' => $formEntity,
                 'form' => $form->createView(),
+                'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'page')) {
-            $viewData = ['page' => $this->pageService->get($slug)];
+            $viewData = [
+                'page' => $this->pageService->get($slug),
+                'active' => $route->getUrl(),
+            ];
             $template = '@Theme/Page/detail.html.twig';
         } else {
-            $viewData = [];
+            $viewData = ['active' => '/'];
             $template = '@Theme/Default/index.html.twig';
         }
+
+        $this->compiler->addGlobal('active', $viewData['active']);
 
         return $this->compiler->compile($template, $viewData);
     }

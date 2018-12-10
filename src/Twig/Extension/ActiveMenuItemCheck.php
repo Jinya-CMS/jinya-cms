@@ -30,8 +30,14 @@ class ActiveMenuItemCheck extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem']),
-            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem']),
+            'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
+                'needs_context' => true,
+                'needs_environment' => true,
+            ]),
+            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
+                'needs_context' => true,
+                'needs_environment' => true,
+            ]),
         ];
     }
 
@@ -39,10 +45,10 @@ class ActiveMenuItemCheck extends \Twig_Extension
      * @param MenuItem $menuItem
      * @return bool
      */
-    public function isChildActiveMenuItem(MenuItem $menuItem): bool
+    public function isChildActiveMenuItem(\Twig_Environment $environment, $context, MenuItem $menuItem): bool
     {
         foreach ($menuItem->getChildren()->toArray() as $item) {
-            if ($this->isActiveMenuItem($item) || $this->isChildActiveMenuItem($item)) {
+            if ($this->isActiveMenuItem($environment, $context, $item) || $this->isChildActiveMenuItem($environment, $context, $item)) {
                 return true;
             }
         }
@@ -54,10 +60,14 @@ class ActiveMenuItemCheck extends \Twig_Extension
      * @param MenuItem $menuItem
      * @return bool
      */
-    public function isActiveMenuItem(MenuItem $menuItem): bool
+    public function isActiveMenuItem(\Twig_Environment $environment, $context, MenuItem $menuItem): bool
     {
         $url = $menuItem->getRoute()->getUrl();
         $pathInfo = $this->requestContext->getPathInfo();
+
+        if (array_key_exists('active', $context) && $context['active'] == $url) {
+            return true;
+        }
 
         return $url === $pathInfo;
     }
