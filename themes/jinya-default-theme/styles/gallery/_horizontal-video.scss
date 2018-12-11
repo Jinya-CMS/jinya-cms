@@ -1,4 +1,4 @@
-.jinya-horizontal-gallery {
+.jinya-horizontal-video-gallery {
   display: flex;
   flex-flow: row nowrap;
   width: 100vw;
@@ -7,28 +7,28 @@
   margin-left: -10vw;
 }
 
-.jinya-horizontal-gallery__video-container {
+.jinya-horizontal-video-gallery__video-container {
   margin: 0 1rem;
   padding: 0;
 }
 
-.jinya-horizontal-gallery__video--jinya,
-.jinya-horizontal-gallery__video--youtube {
+.jinya-horizontal-video-gallery__video--jinya,
+.jinya-horizontal-video-gallery__video--youtube {
   height: 60vh;
   object-fit: scale-down;
   width: auto;
 }
 
-.jinya-horizontal-gallery__video--youtube {
+.jinya-horizontal-video-gallery__video--youtube {
   width: 110vh;
 }
 
-.jinya-horizontal-gallery-caption__title {
+.jinya-horizontal-video-gallery-caption__title {
   margin: 1rem 0 0;
   font-family: $caption-font-family;
   font-weight: bold;
 }
 
-.jinya-horizontal-gallery-caption__content {
+.jinya-horizontal-video-gallery-caption__content {
   margin: 1rem 0 0;
 }

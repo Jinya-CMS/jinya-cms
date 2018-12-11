@@ -1,5 +1,5 @@
 (() => {
-  const scrollItem = document.querySelector('.jinya-horizontal-gallery');
+  const scrollItem = document.querySelector('.is--horizontal');
   if (scrollItem) {
     scrollItem.addEventListener('wheel', (e) => {
       if (!e.deltaX) {

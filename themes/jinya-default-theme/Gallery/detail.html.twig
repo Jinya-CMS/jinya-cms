@@ -10,48 +10,55 @@
 {% endblock %}
 
 {% block maincontent %}
-    <main class="jinya-{{- gallery.orientation -}}-gallery">
-        {% if gallery.artworks is defined %}
-            {% for artworkPosition in gallery.artworks|sortByPosition %}
-                {% set artwork = artworkPosition.artwork %}
-                <figure class="jinya-{{- gallery.orientation -}}-gallery__artwork">
-                    <img class="jinya-{{- gallery.orientation -}}-gallery-artwork__image" src="{{ artwork.picture }}"
+    {%- set galleryType = null -%}
+    {%- if gallery.artworks is defined -%}
+        {%- set galleryType = 'art' -%}
+    {%- elseif gallery.videos is defined -%}
+        {%- set galleryType = 'video' -%}
+    {%- endif -%}
+    {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-' ~ galleryType ~ '-gallery' -%}
+    <main class="{{- bemClassBlock }} is--{{ gallery.orientation -}}">
+        {%- if gallery.artworks is defined -%}
+            {%- for artworkPosition in gallery.artworks|sortByPosition -%}
+                {%- set artwork = artworkPosition.artwork -%}
+                <figure class="{{- bemClassBlock -}}__artwork">
+                    <img class="{{- bemClassBlock -}}-artwork__image" src="{{ artwork.picture }}"
                          alt="{{ artwork.name }}">
-                    <figcaption class="jinya-{{- gallery.orientation -}}-gallery__caption">
-                        <h4 class="jinya-{{- gallery.orientation -}}-gallery-caption__title">{{ artwork.name }}</h4>
-                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ artwork.description|raw }}</p>
+                    <figcaption class="{{- bemClassBlock -}}__caption">
+                        <h4 class="{{- bemClassBlock -}}-caption__title">{{ artwork.name }}</h4>
+                        <p class="{{- bemClassBlock -}}-caption__content">{{ artwork.description|raw }}</p>
                     </figcaption>
                 </figure>
-            {% endfor %}
-        {% elseif gallery.videos is defined %}
-            {% for videoPosition in gallery.videos|sortByPosition %}
-                {% set video = null %}
-                {% set isJinya = videoPosition.video is not null %}
-                {% set isYoutube = videoPosition.youtubeVideo is not null %}
-                {% if isJinya %}
-                    {% set video = videoPosition.video %}
-                {% elseif isYoutube %}
-                    {% set video = videoPosition.youtubeVideo %}
-                {% endif %}
-                <figure class="jinya-{{- gallery.orientation -}}-gallery__video-container">
-                    {% if isJinya %}
-                        <video class="jinya-{{- gallery.orientation -}}-gallery__video--jinya"
+            {%- endfor -%}
+        {%- elseif gallery.videos is defined -%}
+            {%- for videoPosition in gallery.videos|sortByPosition -%}
+                {%- set video = null -%}
+                {%- set isJinya = videoPosition.video is not null -%}
+                {%- set isYoutube = videoPosition.youtubeVideo is not null -%}
+                {%- if isJinya -%}
+                    {%- set video = videoPosition.video -%}
+                {%- elseif isYoutube -%}
+                    {%- set video = videoPosition.youtubeVideo -%}
+                {%- endif -%}
+                <figure class="{{- bemClassBlock -}}__video-container">
+                    {%- if isJinya -%}
+                        <video class="{{- bemClassBlock -}}__video--jinya"
                                controls
                                src="{{ video.video }}"
                                poster="{{ video.poster }}"></video>
-                    {% elseif isYoutube %}
-                        <iframe class="jinya-{{- gallery.orientation -}}-gallery__video--youtube"
+                    {%- elseif isYoutube -%}
+                        <iframe class="{{- bemClassBlock -}}__video--youtube"
                                 src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
-                    {% endif %}
-                    <figcaption class="jinya-{{- gallery.orientation -}}-gallery__caption">
-                        <h4 class="jinya-{{- gallery.orientation -}}-gallery-caption__title">{{ video.name }}</h4>
-                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ video.description|raw }}</p>
+                    {%- endif -%}
+                    <figcaption class="{{- bemClassBlock -}}__caption">
+                        <h4 class="{{- bemClassBlock -}}-caption__title">{{ video.name }}</h4>
+                        <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
                     </figcaption>
                 </figure>
-            {% endfor %}
-        {% endif %}
+            {%- endfor -%}
+        {%- endif -%}
     </main>
-{% endblock %}
+{%- endblock -%}
 
 {%- block scripts_frontend -%}
     {{- parent() -}}
