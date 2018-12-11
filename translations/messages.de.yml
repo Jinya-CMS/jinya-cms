@@ -548,6 +548,7 @@ art:
       poster: Vorschaubild
       description: Beschreibung (optional)
       save: Video speichern
+      back: Zurück
     uploader:
       title: Video %name% hochladen
       file: Video
