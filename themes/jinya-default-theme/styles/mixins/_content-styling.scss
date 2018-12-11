@@ -1,0 +1,23 @@
+@mixin content-styling {
+  a {
+    color: $link-color-primary;
+
+    &:hover {
+      color: $link-hover-color-primary;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $heading-font-family;
+  }
+
+  img {
+    max-width: 100%;
+    object-fit: scale-down;
+  }
+}
