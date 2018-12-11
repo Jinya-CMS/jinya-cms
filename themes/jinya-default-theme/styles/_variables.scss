@@ -1,0 +1,44 @@
+$white: #fff !default;
+$primary: #da9c8a !default;
+$primary-light: scale_color($primary, $lightness: 25%);
+$primary-lighter: scale_color($primary, $lightness: 50%);
+$primary-lightest: scale_color($primary, $lightness: 75%);
+
+$primary-dark: scale_color($primary, $lightness: -25%);
+$primary-darker: scale_color($primary, $lightness: -50%);
+$primary-darkest: scale_color($primary, $lightness: -75%);
+
+$secondary: #8ac8da !default;
+$secondary-light: scale_color($secondary, $lightness: 25%);
+$secondary-lighter: scale_color($secondary, $lightness: 50%);
+$secondary-lightest: scale_color($secondary, $lightness: 75%);
+
+$secondary-dark: scale_color($secondary, $lightness: -25%);
+$secondary-darker: scale_color($secondary, $lightness: -50%);
+$secondary-darkest: scale_color($secondary, $lightness: -75%);
+
+$jinya-header-font-size: 1.5em !default;
+$jinya-header-font-family: 'Open Sans', 'sans serif' !default;
+$jinya-header-color: $primary !default;
+$jinya-header-border-bottom-color: $secondary !default;
+$jinya-header-padding: 1rem !default;
+
+$jinya-brand-font-size: $jinya-header-font-size !default;
+$jinya-brand-font-family: 'Josefin Sans', 'sans serif' !default;
+$jinya-brand-color: $jinya-header-color !default;
+$jinya-brand-padding: 0.5rem !default;
+
+$jinya-menu-font-size: $jinya-header-font-size !default;
+$jinya-menu-font-family: $jinya-header-font-family !default;
+
+$jinya-menu-item-color: $secondary !default;
+$jinya-menu-item-active-color: $primary !default;
+$jinya-menu-item-hover-color: $secondary-darker !default;
+$jinya-menu-item-padding: 0.5rem !default;
+
+$jinya-submenu-margin: 2rem -0.5rem 0 !default;
+$jinya-submenu-background: $secondary-lightest;
+$jinya-submenu-item-color: $secondary-darker !default;
+$jinya-submenu-item-active-color: $primary !default;
+$jinya-submenu-item-hover-color: $secondary-darkest !default;
+$jinya-submenu-item-padding: 0.5rem !default;

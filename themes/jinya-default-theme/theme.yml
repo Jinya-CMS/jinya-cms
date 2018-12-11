@@ -1,8 +1,8 @@
 displayName: Jinya Default Theme
 description: The default theme of the jinya cms is modern and provides a good looking user interface.
 previewImage: jinya-default-theme-preview.png
-styles_base: scss
-scripts_base: js/dist
+styles_base: styles
+scripts_base: scripts
 styles:
   variables:
     file: _variables.scss
@@ -23,6 +23,7 @@ defaultConfig:
     heading: https://fonts.googleapis.com/css?family=Raleway
     paragraph: https://fonts.googleapis.com/css?family=Open+Sans
     caption: https://fonts.googleapis.com/css?family=Roboto
+    brand: https://fonts.googleapis.com/css?family=Josefin+Sans
   form:
     buttons:
       submit: Submit
@@ -73,6 +74,9 @@ form:
           - name: caption
             type: string
             label: Kunstwerkunterschrift
+          - name: brand
+            type: string
+            label: Branding
       - name: form
         title: Formulare
         groups:

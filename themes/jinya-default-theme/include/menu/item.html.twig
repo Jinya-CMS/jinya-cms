@@ -1,7 +1,7 @@
 {%- block menuitem -%}
-    <li class="jinya-menu__item {% if isChildActiveMenuItem(item) %}jinya-menu__item--active{% endif %} {% if item.highlighted %}jinya-menu__item--highlight{% endif %}">
+    <li class="jinya-menu__item">
         {% if item.children is not empty %}
-            {{- item.title -}}
+            <span class="jinya-menu__link {% if isChildActiveMenuItem(item) %}is--active{% endif %} {% if item.highlighted %}is--highlight{% endif %}">{{- item.title -}}</span>
             {% include '@Theme/jinya-default-theme/include/submenu/submenu.html.twig' with {'item': item} %}
         {% else %}
             {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-menu__link'} %}

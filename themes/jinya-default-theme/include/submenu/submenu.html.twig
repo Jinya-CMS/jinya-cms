@@ -1,5 +1,5 @@
 {%- block submenu -%}
-    <ul class="jinya-menu__submenu">
+    <ul class="jinya-submenu">
         {% for child in item.children %}
             {% include '@Theme/jinya-default-theme/include/submenu/item.html.twig' with {'item': child} %}
         {% endfor %}

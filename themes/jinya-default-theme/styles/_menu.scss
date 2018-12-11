@@ -1,0 +1,46 @@
+.jinya-menu {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.jinya-menu__item {
+  padding: $jinya-menu-item-padding;
+  list-style: none;
+  color: $jinya-menu-item-color;
+  display: inline-flex;
+  flex-flow: column wrap;
+  align-self: flex-end;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    .jinya-submenu {
+      display: flex;
+    }
+
+    .jinya-menu__link {
+      color: $jinya-menu-item-hover-color;
+    }
+  }
+
+  &:first-child {
+    padding-left: 0;
+  }
+}
+
+.jinya-menu__link {
+  transition: color 0.3s;
+  color: $jinya-menu-item-color;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &.is--active {
+    color: $jinya-menu-item-active-color;
+  }
+
+  &.is--highlight {
+    font-weight: bold;
+  }
+}

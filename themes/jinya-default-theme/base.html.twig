@@ -43,13 +43,10 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body>
+<body class="jinya-body">
 {% block body %}
     {% block header %}
         {% include '@Themes/jinya-default-theme/include/header.html.twig' %}
-    {% endblock %}
-    {% block menu %}
-        {% include '@Themes/jinya-default-theme/include/menu/menu.html.twig' %}
     {% endblock %}
     {% block maincontent %}
     {% endblock %}
@@ -57,11 +54,11 @@
         {% include '@Themes/jinya-default-theme/include/footer.html.twig' %}
     {% endblock %}
 {% endblock %}
-{% block scripts %}
-    {% block polyfills %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js"
-                integrity="sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4=" crossorigin="anonymous"></script>
-    {% endblock %}
+{% block scripts_frontend %}
+    <script src="{{ asset('public/jinya-default-theme/scripts/frontend.js') }}"></script>
+{% endblock %}
+{% block scripts_polyfills %}
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 {% endblock %}
 </body>
 </html>

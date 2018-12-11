@@ -1,5 +1,12 @@
 {% block header %}
     <header class="jinya-header">
+        {% block menu %}
+            {% include '@Themes/jinya-default-theme/include/menu/menu.html.twig' %}
+        {% endblock %}
+        {% block brand %}
+            <span class="jinya-brand">
         {{ theme.active.primaryMenu.name }}
+    </span>
+        {% endblock %}
     </header>
 {% endblock %}
