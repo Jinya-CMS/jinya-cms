@@ -1,4 +1,6 @@
 $white: #fff !default;
+$black: #000 !default;
+
 $primary: #da9c8a !default;
 $primary-light: scale_color($primary, $lightness: 25%);
 $primary-lighter: scale_color($primary, $lightness: 50%);
@@ -17,19 +19,43 @@ $secondary-dark: scale_color($secondary, $lightness: -25%);
 $secondary-darker: scale_color($secondary, $lightness: -50%);
 $secondary-darkest: scale_color($secondary, $lightness: -75%);
 
+$text-color-primary: grayscale($primary-darker);
+$text-color-secondary: grayscale($secondary-darker);
+
+$link-color-primary: $primary-dark;
+$link-hover-color-primary: $primary-darker;
+
+$breakpoint-ultra-mobile-max-width: 639px !default;
+
+$breakpoint-mobile-min-width: 640px !default;
+$breakpoint-mobile-max-width: 1199px !default;
+
+$breakpoint-tablet-portrait-min-width: 1200px !default;
+$breakpoint-tablet-portrait-max-width: 1439px !default;
+
+$breakpoint-tablet-landscape-min-width: 1440px !default;
+$breakpoint-tablet-landscape-max-width: 1919px !default;
+
+$breakpoint-desktop-min-width: 1920px !default;
+
+$menu-font-family: 'Open Sans', 'sans serif' !default;
+$paragraph-font-family: 'Open Sans', 'sans serif' !default;
+$heading-font-family: Raleway, 'sans serif' !default;
+$caption-font-family: Roboto, 'sans serif' !default;
+$brand-font-family: 'Josefin Sans', 'sans serif' !default;
+
 $jinya-header-font-size: 1.5em !default;
-$jinya-header-font-family: 'Open Sans', 'sans serif' !default;
 $jinya-header-color: $primary !default;
 $jinya-header-border-bottom-color: $secondary !default;
 $jinya-header-padding: 1rem !default;
 
 $jinya-brand-font-size: $jinya-header-font-size !default;
-$jinya-brand-font-family: 'Josefin Sans', 'sans serif' !default;
+$jinya-brand-font-family: $brand-font-family !default;
 $jinya-brand-color: $jinya-header-color !default;
 $jinya-brand-padding: 0.5rem !default;
 
 $jinya-menu-font-size: $jinya-header-font-size !default;
-$jinya-menu-font-family: $jinya-header-font-family !default;
+$jinya-menu-font-family: $menu-font-family !default;
 
 $jinya-menu-item-color: $secondary !default;
 $jinya-menu-item-active-color: $primary !default;
@@ -43,22 +69,11 @@ $jinya-submenu-item-active-color: $primary !default;
 $jinya-submenu-item-hover-color: $secondary-darkest !default;
 $jinya-submenu-item-padding: 0.5rem !default;
 
-$jinya-breakpoint-ultra-mobile-max-width: 639px !default;
-
-$jinya-breakpoint-mobile-min-width: 640px !default;
-;
-$jinya-breakpoint-mobile-max-width: 1199px !default;
-;
-
-$jinya-breakpoint-tablet-portrait-min-width: 1200px !default;
-;
-$jinya-breakpoint-tablet-portrait-max-width: 1439px !default;
-;
-
-$jinya-breakpoint-tablet-landscape-min-width: 1440px !default;
-;
-$jinya-breakpoint-tablet-landscape-max-width: 1919px !default;
-;
-
-$jinya-breakpoint-desktop-min-width: 1920px !default;
-;
+$jinya-footer-padding: 0.5rem 0 !default;
+$jinya-footer-margin: 2rem 0 !default;
+$jinya-footer-border-top-color: $secondary-light !default;
+$jinya-footer-menu-item-padding: 0 0.5rem !default;
+$jinya-footer-menu-item-color: $secondary-dark !default;
+$jinya-footer-menu-item-hover-color: $secondary-darkest !default;
+$jinya-footer-menu-item-padding: 0.5rem !default;
+$jinya-footer-menu-item-font-family: $menu-font-family
