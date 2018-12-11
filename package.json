@@ -6,9 +6,10 @@
   "author": "Imanuel Ulbricht <imanuel@ulbricht.codes>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix",
-    "lint:report": "eslint --ext .js,.vue src -f node_modules/eslint-html-reporter/reporter.js -o report.html"
+    "lint": "eslint --ext .js,.vue",
+    "lint:fix": "eslint --ext .js,.vue --fix",
+    "lint:report": "eslint --ext .js,.vue -f node_modules/eslint-html-reporter/reporter.js -o report.html",
+    "theme:compile:js": "gulp --gulpfile themes/jinya-default-theme/Gulpfile.js"
   },
   "dependencies": {
     "@mdi/font": "^3.2.89",
@@ -47,6 +48,9 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.7.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^1.4.0",
     "node-sass": "^4.10.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",

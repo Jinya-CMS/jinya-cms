@@ -9,6 +9,9 @@ styles:
   files:
     - frontend.scss
 scripts:
+  files:
+    gallery.horizontal.js:
+      - scrollhelper.dist.js
 defaultConfig:
   page:
     title: Jinya CMS

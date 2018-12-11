@@ -146,3 +146,4 @@ node_modules/
 /vagrant-files/jinya-gallery-cms.sql
 /themes/*
 !/themes/jinya-default-theme/
+*.dist.js
