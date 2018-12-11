@@ -19,7 +19,7 @@
                          alt="{{ artwork.name }}">
                     <figcaption class="jinya-{{- gallery.orientation -}}-gallery__caption">
                         <h4 class="jinya-{{- gallery.orientation -}}-gallery-caption__title">{{ artwork.name }}</h4>
-                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ artwork.description }}</p>
+                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ artwork.description|raw }}</p>
                     </figcaption>
                 </figure>
             {% endfor %}
@@ -45,7 +45,7 @@
                     {% endif %}
                     <figcaption class="jinya-{{- gallery.orientation -}}-gallery__caption">
                         <h4 class="jinya-{{- gallery.orientation -}}-gallery-caption__title">{{ video.name }}</h4>
-                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ video.description }}</p>
+                        <p class="jinya-{{- gallery.orientation -}}-gallery-caption__content">{{ video.description|raw }}</p>
                     </figcaption>
                 </figure>
             {% endfor %}
