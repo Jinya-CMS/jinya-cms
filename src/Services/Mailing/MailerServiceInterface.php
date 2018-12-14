@@ -17,6 +17,7 @@ interface MailerServiceInterface
      *
      * @param Form $form
      * @param array $data
+     * @return array
      */
-    public function sendMail(Form $form, array $data): void;
+    public function sendMail(Form $form, array $data): array;
 }

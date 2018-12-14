@@ -1,4 +1,4 @@
-$jinya-debug: false;
+$jinya-debug: false !default;
 
 $white: #fff !default;
 $black: #000 !default;
@@ -21,14 +21,14 @@ $secondary-dark: scale_color($secondary, $lightness: -25%);
 $secondary-darker: scale_color($secondary, $lightness: -50%);
 $secondary-darkest: scale_color($secondary, $lightness: -75%);
 
-$negative: #dc3545;
-$positive: #28a745;
+$negative: #dc3545 !default;
+$positive: #28a745 !default;
 
 $text-color-primary: grayscale($primary-darker);
 $text-color-secondary: grayscale($secondary-darker);
 
-$link-color-primary: $primary-dark;
-$link-hover-color-primary: $primary-darker;
+$link-color-primary: $primary-dark !default;
+$link-hover-color-primary: $primary-darker !default;
 
 $breakpoint-ultra-mobile-max-width: 639px !default;
 
@@ -53,12 +53,12 @@ $jinya-header-color: $primary !default;
 $jinya-header-border-bottom-color: $secondary !default;
 $jinya-header-padding: 1rem !default;
 
-$blockquote-color: $secondary-light;
+$blockquote-color: $secondary-light !default;
 
 $jinya-brand-font-size: $jinya-header-font-size !default;
 $jinya-brand-font-family: $brand-font-family !default;
 $jinya-brand-color: $jinya-header-color !default;
-$jinya-brand-padding: 0.5rem !default;
+$jinya-brand-padding: 0.5rem 0 0.5rem 0.5rem !default;
 
 $jinya-menu-font-size: $jinya-header-font-size !default;
 $jinya-menu-font-family: $menu-font-family !default;
@@ -82,7 +82,7 @@ $jinya-footer-menu-item-padding: 0 0.5rem !default;
 $jinya-footer-menu-item-color: $secondary-dark !default;
 $jinya-footer-menu-item-hover-color: $secondary-darkest !default;
 $jinya-footer-menu-item-padding: 0.5rem !default;
-$jinya-footer-menu-item-font-family: $menu-font-family;
+$jinya-footer-menu-item-font-family: $menu-font-family !default;
 
 $jinya-vertical-art-gallery-artwork-width: calc(50% - 0.5rem) !default;
 $jinya-vertical-art-gallery-caption-width: calc(50% - 0.5rem) !default;
@@ -94,20 +94,20 @@ $jinya-vertical-video-gallery-caption-width: calc(50% - 0.5rem) !default;
 $jinya-vertical-video-gallery-caption-font-weight: lighter !default;
 $jinya-vertical-video-gallery-video-border-bottom-color: $secondary-lightest !default;
 
-$jinya-form-center-items: true;
+$jinya-form-center-items: true !default;
 
 $jinya-form-page-title-font-family: $heading-font-family !default;
-$jinya-form-page-center-title: true;
+$jinya-form-page-center-title: true !default;
 
 $jinya-form-input-width: 30rem !default;
 $jinya-form-input-font-family: $paragraph-font-family !default;
 $jinya-form-input-font-size: 0.875rem !default;
-$jinya-form-input-border-color: $secondary-light;
-$jinya-form-input-padding: 0.5em;
-$jinya-form-input-border-radius: 5px;
-$jinya-form-input-focus-box-shadow-blur-radius: 1px;
-$jinya-form-input-focus-box-shadow-spread-radius: 1px;
-$jinya-form-input-focus-box-shadow-color: $primary;
-$jinya-form-input-invalid-color: $negative;
+$jinya-form-input-border-color: $secondary-light !default;
+$jinya-form-input-padding: 0.5em !default;
+$jinya-form-input-border-radius: 5px !default;
+$jinya-form-input-focus-box-shadow-blur-radius: 1px !default;
+$jinya-form-input-focus-box-shadow-spread-radius: 1px !default;
+$jinya-form-input-focus-box-shadow-color: $primary !default;
+$jinya-form-input-invalid-color: $negative !default;
 
-$jinya-form-button-padding: 0.5rem 1rem;
+$jinya-form-button-padding: 0.5rem 1rem !default;

@@ -123,8 +123,12 @@ class FrontendController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (empty($request->get('contact_via_fax'))) {
-                $mailerService->sendMail($formEntity, $form->getData());
-                $viewData['mail_sent'] = true;
+                try {
+                    $failedRecipients = $mailerService->sendMail($formEntity, $form->getData());
+                    $viewData['mail_sent'] = empty($failedRecipients);
+                } catch (Throwable $error) {
+                    $viewData['error'] = $error;
+                }
             }
         }
 
