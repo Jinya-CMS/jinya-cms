@@ -44,12 +44,12 @@
                 {%- endif -%}
                 <figure class="{{- bemClassBlock -}}__video-container">
                     {%- if isJinya -%}
-                        <video class="{{- bemClassBlock -}}__video--jinya"
+                        <video class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--jinya"
                                controls
                                src="{{ video.video }}"
                                poster="{{ video.poster }}"></video>
                     {%- elseif isYoutube -%}
-                        <iframe class="{{- bemClassBlock -}}__video--youtube"
+                        <iframe class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--youtube"
                                 src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
                     {%- endif -%}
                     <figcaption class="{{- bemClassBlock -}}__caption">
