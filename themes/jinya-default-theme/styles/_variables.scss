@@ -1,3 +1,5 @@
+$jinya-debug: false;
+
 $white: #fff !default;
 $black: #000 !default;
 
@@ -18,6 +20,9 @@ $secondary-lightest: scale_color($secondary, $lightness: 75%);
 $secondary-dark: scale_color($secondary, $lightness: -25%);
 $secondary-darker: scale_color($secondary, $lightness: -50%);
 $secondary-darkest: scale_color($secondary, $lightness: -75%);
+
+$negative: #dc3545;
+$positive: #28a745;
 
 $text-color-primary: grayscale($primary-darker);
 $text-color-secondary: grayscale($secondary-darker);
@@ -89,4 +94,20 @@ $jinya-vertical-video-gallery-caption-width: calc(50% - 0.5rem) !default;
 $jinya-vertical-video-gallery-caption-font-weight: lighter !default;
 $jinya-vertical-video-gallery-video-border-bottom-color: $secondary-lightest !default;
 
-$jinya-debug: true;
+$jinya-form-center-items: true;
+
+$jinya-form-page-title-font-family: $heading-font-family !default;
+$jinya-form-page-center-title: true;
+
+$jinya-form-input-width: 30rem !default;
+$jinya-form-input-font-family: $paragraph-font-family !default;
+$jinya-form-input-font-size: 0.875rem !default;
+$jinya-form-input-border-color: $secondary-light;
+$jinya-form-input-padding: 0.5em;
+$jinya-form-input-border-radius: 5px;
+$jinya-form-input-focus-box-shadow-blur-radius: 1px;
+$jinya-form-input-focus-box-shadow-spread-radius: 1px;
+$jinya-form-input-focus-box-shadow-color: $primary;
+$jinya-form-input-invalid-color: $negative;
+
+$jinya-form-button-padding: 0.5rem 1rem;

@@ -1,3 +1,4 @@
+@import "functions/functions";
 @import "variables";
 @import "mixins/mixins";
 @import "debug";
@@ -9,6 +10,7 @@
 @import "footer";
 @import "footer-menu";
 @import "page";
+@import "form";
 @import "gallery/horizontal-artwork";
 @import "gallery/vertical-artwork";
 @import "gallery/horizontal-video";

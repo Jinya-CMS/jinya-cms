@@ -1,4 +1,4 @@
-<a class="{{ class }} {% if isChildActiveMenuItem(item) or active == item.route.url %}is--active{% endif %} {% if item.highlighted %}is--highlight{% endif %}"
+<a class="{{ class }} {% if isChildActiveMenuItem(item) or (active is defined and active == item.route.url) %}is--active{% endif %} {% if item.highlighted %}is--highlight{% endif %}"
    href="
         {%- if item.route.url is not empty and item.route.url != '/#' -%}
             {{- item.route.url -}}

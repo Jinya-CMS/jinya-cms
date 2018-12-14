@@ -7,12 +7,9 @@
 {%- endblock hidden_widget -%}
 
 {%- block choice_widget -%}
-    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
-        {% set required = false %}
-    {%- endif -%}
-    <div class="jinya-form__field">
+    <div class="jinya-form__row--field">
         {{ form_label(form) }}
-        <select id="{{ id }}" class="jinya-select" {{ block('widget_attributes') }}>
+        <select id="{{ id }}" class="jinya-form__select" {{ block('widget_attributes') }}>
             <option value="" disabled
                     {% if value is empty %}selected="selected"{% endif %}>
                 {% if placeholder is defined %}
@@ -36,21 +33,24 @@
 {%- endblock choice_widget -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="jinya-form__row--checkbox">
+        <input class="jinya-form__checkbox"
+               type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /> {{ form_label(form) }}
+    </div>
 {%- endblock checkbox_widget -%}
 
 {%- block textarea_widget -%}
-    <div class="jinya-form__field">
+    <div class="jinya-form__row--field">
         {{ form_label(form) }}
         <textarea id="{{ id }}" class="jinya-form__textarea" {{ block('widget_attributes') }}>
-            {{ value }}
+            {{- value -}}
         </textarea>
         {{- form_errors(form) -}}
     </div>
 {%- endblock textarea_widget -%}
 
 {% block form_widget_simple -%}
-    <div class="jinya-form__field">
+    <div class="jinya-form__row--field">
         {%- set type = type|default('text') -%}
         {{- form_label(form) -}}
         <input id="{{ id }}"
@@ -70,6 +70,12 @@
                 {% endwith %}
             {% endif %}>
         {{ label }}
+        {%- if required is defined and required == false %}
+            {{ themeConfig.form.input.optional }}
+        {% elseif required is not defined %}
+            {{ dump(attr) }}
+            {{ themeConfig.form.input.optional }}
+        {%- endif -%}
     </label>
 {%- endblock %}
 
@@ -82,7 +88,7 @@
         {% set form_method = "POST" %}
     {%- endif -%}
     <form
-        class="form"
+        class="jinya-form"
         name="{{ name }}"
         method="{{ form_method|lower }}"
         {% if action != '' %}

@@ -5,17 +5,23 @@
 
 {% block maincontent %}
     {% form_theme form '@Themes/jinya-default-theme/Form/themes/jinya-cms.html.twig' %}
-    <div class="jinya-form">
-        <h1>{{ formEntity.title }}</h1>
+    <div class="jinya-form-page">
+        <h1 class="jinya-form-page__title">{{ formEntity.title }}</h1>
         {% if mail_sent is defined and mail_sent == true %}
-            <div class="jinya-message jinya-message--success">
+            <div class="jinya-message--positive">
                 {{ themeConfig.form.messages.mail_sent_message }}
+            </div>
+        {% elseif (mail_sent is defined and mail_sent == false) or error is defined %}
+            <div class="jinya-message--negative">
+                {{ themeConfig.form.messages.mail_not_sent_message }}
             </div>
         {% endif %}
         {{ form_start(form) }}
         {{ form_row(form) }}
-        <input type="text" tabindex="-1" style="display: none" name="contact_via_fax">
-        <button class="jinya-button" type="submit">{{ themeConfig.form.buttons.submit }}</button>
+        <input type="text" tabindex="-1" style="display: none" name="contact_via_fax"/>
+        <div class="jinya-form__row--buttons">
+            <button class="jinya-button" type="submit">{{ themeConfig.form.buttons.submit }}</button>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}
