@@ -23,9 +23,8 @@ defaultConfig:
     large:
   fonts:
     menu: https://fonts.googleapis.com/css?family=Open+Sans
-    heading: https://fonts.googleapis.com/css?family=Raleway
+    heading: https://fonts.googleapis.com/css?family=Raleway:300,400
     paragraph: https://fonts.googleapis.com/css?family=Open+Sans
-    caption: https://fonts.googleapis.com/css?family=Roboto
     brand: https://fonts.googleapis.com/css?family=Josefin+Sans
   form:
     buttons:
@@ -74,9 +73,6 @@ form:
           - name: paragraph
             type: string
             label: Fließtext
-          - name: caption
-            type: string
-            label: Kunstwerkunterschrift
           - name: brand
             type: string
             label: Branding

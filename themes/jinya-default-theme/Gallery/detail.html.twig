@@ -25,8 +25,10 @@
                     <img class="{{- bemClassBlock -}}-artwork__image" src="{{ artwork.picture }}"
                          alt="{{ artwork.name }}">
                     <figcaption class="{{- bemClassBlock -}}__caption">
-                        <h4 class="{{- bemClassBlock -}}-caption__title">{{ artwork.name }}</h4>
-                        <p class="{{- bemClassBlock -}}-caption__content">{{ artwork.description|raw }}</p>
+                        <span class="{{- bemClassBlock -}}-caption__title {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
+                        {% if artwork.description is defined and artwork.description is not empty %}
+                            <p class="{{- bemClassBlock -}}-caption__content">{{ artwork.description|raw }}</p>
+                        {% endif %}
                     </figcaption>
                 </figure>
             {%- endfor -%}
@@ -51,8 +53,10 @@
                                 src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
                     {%- endif -%}
                     <figcaption class="{{- bemClassBlock -}}__caption">
-                        <h4 class="{{- bemClassBlock -}}-caption__title">{{ video.name }}</h4>
-                        <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
+                        <span class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
+                        {% if video.description is defined and video.description is not empty %}
+                            <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
+                        {% endif %}
                     </figcaption>
                 </figure>
             {%- endfor -%}
