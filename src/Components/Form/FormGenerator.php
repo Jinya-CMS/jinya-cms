@@ -10,6 +10,7 @@ namespace Jinya\Components\Form;
 
 use Jinya\Entity\Form\Form;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
+use Jinya\Services\Slug\SlugServiceInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use function array_key_exists;
@@ -17,23 +18,26 @@ use function strpos;
 
 class FormGenerator implements FormGeneratorInterface
 {
-    /**
-     * @var FormFactoryInterface
-     */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
     /** @var ConfigurationServiceInterface */
     private $frontendConfigurationService;
 
+    /** @var SlugServiceInterface */
+    private $slugService;
+
     /**
      * FormGenerator constructor.
      * @param FormFactoryInterface $formFactory
      * @param ConfigurationServiceInterface $frontendConfigurationService
+     * @param SlugServiceInterface $slugService
      */
-    public function __construct(FormFactoryInterface $formFactory, ConfigurationServiceInterface $frontendConfigurationService)
+    public function __construct(FormFactoryInterface $formFactory, ConfigurationServiceInterface $frontendConfigurationService, SlugServiceInterface $slugService)
     {
         $this->formFactory = $formFactory;
         $this->frontendConfigurationService = $frontendConfigurationService;
+        $this->slugService = $slugService;
     }
 
     public function generateForm(Form $form): FormInterface
@@ -60,7 +64,7 @@ class FormGenerator implements FormGeneratorInterface
                 ];
             }
 
-            $formBuilder->add($item->getLabel(), $item->getType(), $options);
+            $formBuilder->add($this->slugService->generateSlug($item->getLabel()), $item->getType(), $options);
         }
 
         return $formBuilder->getForm();
