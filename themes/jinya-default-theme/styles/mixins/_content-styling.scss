@@ -20,4 +20,12 @@
     max-width: 100%;
     object-fit: scale-down;
   }
+
+  blockquote {
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    border-left: 2px solid $blockquote-color;
+  }
 }

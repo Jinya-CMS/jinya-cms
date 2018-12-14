@@ -41,13 +41,14 @@ $breakpoint-desktop-min-width: 1920px !default;
 $menu-font-family: 'Open Sans', 'sans serif' !default;
 $paragraph-font-family: 'Open Sans', 'sans serif' !default;
 $heading-font-family: Raleway, 'sans serif' !default;
-$caption-font-family: Roboto, 'sans serif' !default;
 $brand-font-family: 'Josefin Sans', 'sans serif' !default;
 
 $jinya-header-font-size: 1.5em !default;
 $jinya-header-color: $primary !default;
 $jinya-header-border-bottom-color: $secondary !default;
 $jinya-header-padding: 1rem !default;
+
+$blockquote-color: $secondary-light;
 
 $jinya-brand-font-size: $jinya-header-font-size !default;
 $jinya-brand-font-family: $brand-font-family !default;
@@ -76,4 +77,11 @@ $jinya-footer-menu-item-padding: 0 0.5rem !default;
 $jinya-footer-menu-item-color: $secondary-dark !default;
 $jinya-footer-menu-item-hover-color: $secondary-darkest !default;
 $jinya-footer-menu-item-padding: 0.5rem !default;
-$jinya-footer-menu-item-font-family: $menu-font-family
+$jinya-footer-menu-item-font-family: $menu-font-family;
+
+$jinya-vertical-art-gallery-artwork-width: calc(50% - 0.5rem) !default;
+$jinya-vertical-art-gallery-caption-width: calc(50% - 0.5rem) !default;
+$jinya-vertical-art-gallery-caption-font-weight: lighter !default;
+$jinya-vertical-art-gallery-artwork-border-bottom-color: $secondary-lightest !default;
+
+$jinya-debug: true;
