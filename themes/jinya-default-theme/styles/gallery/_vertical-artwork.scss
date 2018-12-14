@@ -14,6 +14,7 @@
   padding: 3rem 0;
   border-bottom: 1px solid $jinya-vertical-art-gallery-artwork-border-bottom-color;
   box-sizing: border-box;
+  object-fit: scale-down;
 
   &:nth-child(2n) {
     flex-direction: row-reverse;
