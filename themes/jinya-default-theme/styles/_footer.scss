@@ -6,7 +6,7 @@
   padding: $jinya-footer-padding;
   margin: $jinya-footer-margin;
 
-  @include jinya-breakpoint-ultra-mobile {
+  @include jinya-breakpoint-small {
     justify-content: flex-start;
     flex-flow: column wrap;
   }
@@ -15,7 +15,7 @@
 .jinya-footer__copyright {
   justify-self: flex-start;
 
-  @include jinya-breakpoint-ultra-mobile {
+  @include jinya-breakpoint-small {
     margin-bottom: 1rem;
   }
 }

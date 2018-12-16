@@ -30,18 +30,12 @@ $text-color-secondary: grayscale($secondary-darker);
 $link-color-primary: $primary-dark !default;
 $link-hover-color-primary: $primary-darker !default;
 
-$breakpoint-ultra-mobile-max-width: 639px !default;
+$breakpoint-small-max-width: 1199px !default;
 
-$breakpoint-mobile-min-width: 640px !default;
-$breakpoint-mobile-max-width: 1199px !default;
+$breakpoint-medium-min-width: 1200px !default;
+$breakpoint-medium-max-width: 1439px !default;
 
-$breakpoint-tablet-portrait-min-width: 1200px !default;
-$breakpoint-tablet-portrait-max-width: 1439px !default;
-
-$breakpoint-tablet-landscape-min-width: 1440px !default;
-$breakpoint-tablet-landscape-max-width: 1919px !default;
-
-$breakpoint-desktop-min-width: 1920px !default;
+$breakpoint-large-min-width: 1920px !default;
 
 $menu-font-family: 'Open Sans', 'sans serif' !default;
 $paragraph-font-family: 'Open Sans', 'sans serif' !default;

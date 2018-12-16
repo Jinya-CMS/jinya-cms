@@ -1,29 +1,17 @@
-@mixin jinya-breakpoint-desktop {
-  @media only screen and (min-width: $breakpoint-desktop-min-width) {
+@mixin jinya-breakpoint-large {
+  @media only screen and (min-width: $breakpoint-large-min-width) {
     @content;
   }
 }
 
-@mixin jinya-breakpoint-tablet-landscape {
-  @media only screen and (min-width: $breakpoint-tablet-landscape-min-width) and (max-width: $breakpoint-tablet-landscape-max-width) {
+@mixin jinya-breakpoint-medium {
+  @media only screen and (min-width: $breakpoint-medium-min-width) and (max-width: $breakpoint-medium-max-width) {
     @content;
   }
 }
 
-@mixin jinya-breakpoint-tablet-portrait {
-  @media only screen and (min-width: $breakpoint-tablet-portrait-min-width) and (max-width: $breakpoint-tablet-portrait-max-width) {
-    @content;
-  }
-}
-
-@mixin jinya-breakpoint-mobile {
-  @media only screen and (min-width: $breakpoint-mobile-min-width) and (max-width: $breakpoint-mobile-max-width) {
-    @content;
-  }
-}
-
-@mixin jinya-breakpoint-ultra-mobile {
-  @media only screen and (max-width: $breakpoint-ultra-mobile-max-width) {
+@mixin jinya-breakpoint-small {
+  @media only screen and (max-width: $breakpoint-small-max-width) {
     @content;
   }
 }
