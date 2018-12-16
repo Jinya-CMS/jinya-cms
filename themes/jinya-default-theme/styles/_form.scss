@@ -3,6 +3,10 @@
     margin: 0 auto;
   }
   width: $jinya-form-input-width;
+
+  @include jinya-breakpoint-ultra-mobile {
+    width: 100%;
+  }
 }
 
 .jinya-form-page__title {
@@ -47,6 +51,7 @@
   border-radius: $jinya-form-input-border-radius;
   padding: $jinya-form-input-padding;
   box-sizing: border-box;
+  background: $jinya-form-input-background-color;
 
   &:focus {
     box-shadow: 0 0 $jinya-form-input-focus-box-shadow-blur-radius $jinya-form-input-focus-box-shadow-spread-radius $jinya-form-input-focus-box-shadow-color;
@@ -75,7 +80,6 @@
 
 .jinya-form__select {
   @extend %jinya-field__input;
-  background: $white;
 
   &:empty {
     font-size: $text-color-secondary;
@@ -103,16 +107,16 @@
   justify-self: flex-end;
   padding: $jinya-form-button-padding;
   font-size: 1rem;
-  border: 2px solid $primary;
+  border: 2px solid $jinya-form-button-primary-color;
   border-radius: 5px;
-  background: $white;
-  color: $primary;
+  background: $jinya-form-button-white-color;
+  color: $jinya-form-button-primary-color;
   cursor: pointer;
   box-sizing: border-box;
 
   &:hover {
-    background: $primary;
-    color: $white;
+    background: $jinya-form-button-primary-color;
+    color: $jinya-form-button-white-color;
   }
 }
 

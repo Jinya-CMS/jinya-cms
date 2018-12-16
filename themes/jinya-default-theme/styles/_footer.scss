@@ -5,8 +5,17 @@
   border-top: 1px solid $jinya-footer-border-top-color;
   padding: $jinya-footer-padding;
   margin: $jinya-footer-margin;
+
+  @include jinya-breakpoint-ultra-mobile {
+    justify-content: flex-start;
+    flex-flow: column wrap;
+  }
 }
 
 .jinya-footer__copyright {
   justify-self: flex-start;
+
+  @include jinya-breakpoint-ultra-mobile {
+    margin-bottom: 1rem;
+  }
 }
