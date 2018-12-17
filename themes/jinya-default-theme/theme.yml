@@ -10,6 +10,8 @@ styles:
     - frontend.scss
 scripts:
   files:
+    menu.js:
+      - menu.dist.js
     gallery.horizontal.js:
       - scrollhelper.dist.js
 defaultConfig:

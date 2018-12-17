@@ -1,5 +1,8 @@
 {% block menu %}
     <ul class="jinya-menu">
+        <li class="jinya-menu__item has--back-arrow">
+            <a class="jinya-menu__back-arrow"></a>
+        </li>
         {% for item in theme.active.primaryMenu.menuItems %}
             {% include '@Theme/jinya-default-theme/include/menu/item.html.twig' with {'item': item} %}
         {% endfor %}

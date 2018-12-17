@@ -9,13 +9,6 @@
   }
 }
 
-.jinya-form-page__title {
-  @if ($jinya-form-page-center-title) {
-    text-align: center;
-  }
-  font-family: $jinya-form-page-title-font-family;
-}
-
 %jinya-form__row {
   flex-flow: column wrap;
   display: flex;

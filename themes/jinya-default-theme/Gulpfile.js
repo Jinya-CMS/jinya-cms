@@ -3,9 +3,15 @@ const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 
 gulp.task('default', () => gulp
-  .src('scripts/scrollhelper.js')
+  .src([
+    'scripts/scrollhelper.js',
+    'scripts/menu.js',
+  ])
   .pipe(babel({
     presets: ['@babel/env'],
   }))
-  .pipe(rename('scrollhelper.dist.js'))
+  .pipe(rename((path) => {
+    // eslint-disable-next-line
+    path.basename += '.dist';
+  }))
   .pipe(gulp.dest('scripts')));

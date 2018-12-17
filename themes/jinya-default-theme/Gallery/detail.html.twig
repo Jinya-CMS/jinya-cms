@@ -17,6 +17,7 @@
         {%- set galleryType = 'video' -%}
     {%- endif -%}
     {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-' ~ galleryType ~ '-gallery' -%}
+    <span class="jinya-page__title">{{ gallery.name }}</span>
     <main class="{{- bemClassBlock }} is--{{ gallery.orientation -}}">
         {%- if gallery.artworks is defined -%}
             {%- for artworkPosition in gallery.artworks|sortByPosition -%}

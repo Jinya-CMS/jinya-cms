@@ -1,5 +1,5 @@
 {%- block menuitem -%}
-    <li class="jinya-submenu__item">
+    <li class="jinya-submenu__item {% if isChildActiveMenuItem(item) %}is--active{% endif %}">
         {% if item.children is not empty %}
             <span class="jinya-submenu__link {% if isChildActiveMenuItem(item) %}is--active{% endif %} {% if item.highlighted %}is--highlight{% endif %}">{{- item.title -}}</span>
             {% include '@Theme/jinya-default-theme/include/submenu/submenu.html.twig' with {'item': item} %}
