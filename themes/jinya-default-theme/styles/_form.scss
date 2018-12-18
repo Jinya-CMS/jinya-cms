@@ -96,6 +96,10 @@
   }
 }
 
+.jinya-form__title {
+  @extend %jinya-page-title;
+}
+
 .jinya-button {
   justify-self: flex-end;
   padding: $jinya-form-button-padding;

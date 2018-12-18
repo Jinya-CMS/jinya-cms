@@ -7,6 +7,10 @@
   margin-left: -10vw;
 }
 
+.jinya-horizontal-art-gallery__page-title {
+  @extend %jinya-page-title;
+}
+
 .jinya-horizontal-art-gallery__artwork {
   margin: 0 1rem;
   padding: 0;

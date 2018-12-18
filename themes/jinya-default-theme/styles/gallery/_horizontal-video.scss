@@ -7,6 +7,10 @@
   margin-left: -10vw;
 }
 
+.jinya-horizontal-video-gallery__page-title {
+  @extend %jinya-page-title;
+}
+
 .jinya-horizontal-video-gallery__video-container {
   margin: 0 1rem;
   padding: 0;

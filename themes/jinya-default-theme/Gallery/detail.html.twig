@@ -17,51 +17,53 @@
         {%- set galleryType = 'video' -%}
     {%- endif -%}
     {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-' ~ galleryType ~ '-gallery' -%}
-    <span class="jinya-page__title">{{ gallery.name }}</span>
-    <main class="{{- bemClassBlock }} is--{{ gallery.orientation -}}">
-        {%- if gallery.artworks is defined -%}
-            {%- for artworkPosition in gallery.artworks|sortByPosition -%}
-                {%- set artwork = artworkPosition.artwork -%}
-                <figure class="{{- bemClassBlock -}}__artwork">
-                    <img class="{{- bemClassBlock -}}-artwork__image" src="{{ artwork.picture }}"
-                         alt="{{ artwork.name }}">
-                    <figcaption class="{{- bemClassBlock -}}__caption">
-                        <span class="{{- bemClassBlock -}}-caption__title {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
-                        {% if artwork.description is defined and artwork.description is not empty %}
-                            <p class="{{- bemClassBlock -}}-caption__content">{{ artwork.description|raw }}</p>
-                        {% endif %}
-                    </figcaption>
-                </figure>
-            {%- endfor -%}
-        {%- elseif gallery.videos is defined -%}
-            {%- for videoPosition in gallery.videos|sortByPosition -%}
-                {%- set video = null -%}
-                {%- set isJinya = videoPosition.video is not null -%}
-                {%- set isYoutube = videoPosition.youtubeVideo is not null -%}
-                {%- if isJinya -%}
-                    {%- set video = videoPosition.video -%}
-                {%- elseif isYoutube -%}
-                    {%- set video = videoPosition.youtubeVideo -%}
-                {%- endif -%}
-                <figure class="{{- bemClassBlock -}}__video-container">
+    <main>
+        <span class="{{- bemClassBlock -}}__page-title">{{ gallery.name }}</span>
+        <div class="{{- bemClassBlock }} is--{{ gallery.orientation -}}">
+            {%- if gallery.artworks is defined -%}
+                {%- for artworkPosition in gallery.artworks|sortByPosition -%}
+                    {%- set artwork = artworkPosition.artwork -%}
+                    <figure class="{{- bemClassBlock -}}__artwork">
+                        <img class="{{- bemClassBlock -}}-artwork__image" src="{{ artwork.picture }}"
+                             alt="{{ artwork.name }}">
+                        <figcaption class="{{- bemClassBlock -}}__caption">
+                            <span class="{{- bemClassBlock -}}-caption__title {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
+                            {% if artwork.description is defined and artwork.description is not empty %}
+                                <p class="{{- bemClassBlock -}}-caption__content">{{ artwork.description|raw }}</p>
+                            {% endif %}
+                        </figcaption>
+                    </figure>
+                {%- endfor -%}
+            {%- elseif gallery.videos is defined -%}
+                {%- for videoPosition in gallery.videos|sortByPosition -%}
+                    {%- set video = null -%}
+                    {%- set isJinya = videoPosition.video is not null -%}
+                    {%- set isYoutube = videoPosition.youtubeVideo is not null -%}
                     {%- if isJinya -%}
-                        <video class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--jinya"
-                               controls
-                               src="{{ video.video }}"
-                               poster="{{ video.poster }}"></video>
+                        {%- set video = videoPosition.video -%}
                     {%- elseif isYoutube -%}
-                        <iframe class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--youtube"
-                                src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
+                        {%- set video = videoPosition.youtubeVideo -%}
                     {%- endif -%}
-                    <figcaption class="{{- bemClassBlock -}}__caption">
-                        <span class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
-                        {% if video.description is defined and video.description is not empty %}
-                            <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
-                        {% endif %}
-                    </figcaption>
-                </figure>
-            {%- endfor -%}
-        {%- endif -%}
+                    <figure class="{{- bemClassBlock -}}__video-container">
+                        {%- if isJinya -%}
+                            <video class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--jinya"
+                                   controls
+                                   src="{{ video.video }}"
+                                   poster="{{ video.poster }}"></video>
+                        {%- elseif isYoutube -%}
+                            <iframe class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--youtube"
+                                    src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
+                        {%- endif -%}
+                        <figcaption class="{{- bemClassBlock -}}__caption">
+                            <span class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
+                            {% if video.description is defined and video.description is not empty %}
+                                <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
+                            {% endif %}
+                        </figcaption>
+                    </figure>
+                {%- endfor -%}
+            {%- endif -%}
+        </div>
     </main>
 {%- endblock -%}
 

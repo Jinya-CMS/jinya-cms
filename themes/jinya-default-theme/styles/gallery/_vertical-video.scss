@@ -5,6 +5,10 @@
   margin-top: 2rem;
 }
 
+.jinya-vertical-video-gallery__page-title {
+  @extend %jinya-page-title;
+}
+
 .jinya-vertical-video-gallery__video-container {
   display: flex;
   flex-flow: row nowrap;

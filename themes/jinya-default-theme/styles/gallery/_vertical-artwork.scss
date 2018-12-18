@@ -5,6 +5,10 @@
   margin-top: 2rem;
 }
 
+.jinya-vertical-art-gallery__page-title {
+  @extend %jinya-page-title;
+}
+
 .jinya-vertical-art-gallery__artwork {
   display: flex;
   flex-flow: row nowrap;
