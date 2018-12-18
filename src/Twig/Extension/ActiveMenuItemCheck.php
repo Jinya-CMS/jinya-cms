@@ -2,7 +2,10 @@
 
 namespace Jinya\Twig\Extension;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
+use Jinya\Entity\Menu\RoutingEntry;
 use Symfony\Component\Routing\RequestContext;
 
 class ActiveMenuItemCheck extends \Twig_Extension
@@ -10,13 +13,18 @@ class ActiveMenuItemCheck extends \Twig_Extension
     /** @var RequestContext */
     private $requestContext;
 
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
     /**
      * ActiveMenuItemCheck constructor.
      * @param RequestContext $requestContext
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(RequestContext $requestContext)
+    public function __construct(RequestContext $requestContext, EntityManagerInterface $entityManager)
     {
         $this->requestContext = $requestContext;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -32,23 +40,25 @@ class ActiveMenuItemCheck extends \Twig_Extension
         return [
             'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
                 'needs_context' => true,
-                'needs_environment' => true,
             ]),
             'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
                 'needs_context' => true,
-                'needs_environment' => true,
+            ]),
+            'getActiveMenuItem' => new \Twig_Function('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
+                'needs_context' => true
             ]),
         ];
     }
 
     /**
+     * @param array $context
      * @param MenuItem $menuItem
      * @return bool
      */
-    public function isChildActiveMenuItem(\Twig_Environment $environment, $context, MenuItem $menuItem): bool
+    public function isChildActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
         foreach ($menuItem->getChildren()->toArray() as $item) {
-            if ($this->isActiveMenuItem($environment, $context, $item) || $this->isChildActiveMenuItem($environment, $context, $item)) {
+            if ($this->isActiveMenuItem($context, $item) || $this->isChildActiveMenuItem($context, $item)) {
                 return true;
             }
         }
@@ -57,10 +67,11 @@ class ActiveMenuItemCheck extends \Twig_Extension
     }
 
     /**
+     * @param array $context
      * @param MenuItem $menuItem
      * @return bool
      */
-    public function isActiveMenuItem(\Twig_Environment $environment, $context, MenuItem $menuItem): bool
+    public function isActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
         $url = $menuItem->getRoute()->getUrl();
         $pathInfo = $this->requestContext->getPathInfo();
@@ -70,5 +81,28 @@ class ActiveMenuItemCheck extends \Twig_Extension
         }
 
         return $url === $pathInfo;
+    }
+
+    public function getActiveMenuItem(array $context)
+    {
+        $pathInfo = array_key_exists('active', $context) ? $context['active'] : $this->requestContext->getPathInfo();
+        $relevantEntries = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['url' => $pathInfo]);
+
+        $primaryMenu = $context['theme']['active']->getPrimaryMenu();
+        foreach ($relevantEntries as $relevantEntry) {
+            $menu = $this->findMenuForEntry($relevantEntry->getMenuItem());
+            if ($menu->getId() === $primaryMenu->getId()) {
+                return $relevantEntry->getMenuItem();
+            }
+        }
+    }
+
+    private function findMenuForEntry(MenuItem $menuItem): Menu
+    {
+        if ($menuItem->getMenu()) {
+            return $menuItem->getMenu();
+        } else {
+            return $this->findMenuForEntry($menuItem->getParent());
+        }
     }
 }

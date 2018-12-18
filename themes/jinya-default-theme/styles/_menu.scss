@@ -27,13 +27,15 @@
     padding-left: 0;
   }
 
-  &.is--current {
+  &.is--current,
+  &.is--active {
     .jinya-menu__link {
-      color: $primary;
+      cursor: default;
+      color: $jinya-menu-item-active-color;
       font-weight: bold;
 
-      @include jinya-breakpoint-small {
-        width: calc(100% - 20px);
+      &:hover {
+        color: $jinya-menu-item-active-color;
       }
     }
 
@@ -49,15 +51,6 @@
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-
-  &.is--active {
-    cursor: default;
-    color: $jinya-menu-item-active-color;
-
-    &:hover {
-      color: $jinya-menu-item-active-color;
-    }
-  }
 
   &.is--highlight {
     font-style: italic;
@@ -80,6 +73,17 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 
+  &.is--active {
+    .jinya-submenu__link {
+      color: $jinya-submenu-item-active-color;
+      cursor: default;
+
+      &:hover {
+        color: $jinya-menu-item-active-color;
+      }
+    }
+  }
+
   .jinya-submenu {
     display: flex;
   }
@@ -96,15 +100,6 @@
 
   &:hover {
     color: $jinya-submenu-item-hover-color;
-  }
-
-  &.is--active {
-    color: $jinya-submenu-item-active-color;
-    cursor: default;
-
-    &:hover {
-      color: $jinya-menu-item-active-color;
-    }
   }
 
   &.is--highlight {

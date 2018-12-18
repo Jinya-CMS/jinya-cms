@@ -34,15 +34,14 @@
     });
   };
 
-  menu.querySelectorAll('.has-children').forEach((item) => {
+  menu.querySelectorAll('.has--children').forEach((item) => {
     item.addEventListener('click', (event) => {
-      event.preventDefault();
-      hideAllExceptCurrent(event.target.parentElement);
+      if (event.target.classList.contains('has--children')) {
+        event.preventDefault();
+        hideAllExceptCurrent(event.target.parentElement);
+      }
     });
   });
-
-  const currentItem = document.querySelector('.jinya-menu__item.is--active');
-  hideAllExceptCurrent(currentItem);
 
   backArrow.addEventListener('click', () => {
     document.querySelector('.is--current').classList.remove('is--current');

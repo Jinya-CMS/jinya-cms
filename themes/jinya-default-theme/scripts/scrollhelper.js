@@ -1,4 +1,4 @@
-(() => {
+!document.addEventListener('DOMContentLoaded', () => {
   const scrollItem = document.querySelector('.is--horizontal');
   if (scrollItem) {
     scrollItem.addEventListener('wheel', (e) => {
@@ -10,4 +10,4 @@
       }
     });
   }
-})();
+});
