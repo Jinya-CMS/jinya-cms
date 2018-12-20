@@ -30,12 +30,21 @@ $text-color-secondary: grayscale($secondary-darker);
 $link-color-primary: $primary-dark !default;
 $link-hover-color-primary: $primary-darker !default;
 
-$breakpoint-small-max-width: 1279px !default;
+$breakpoint-small-max-width: 799px !default;
 
-$breakpoint-medium-min-width: 1280px !default;
-$breakpoint-medium-max-width: 1919px !default;
+$breakpoint-medium-min-width: 800px !default;
+$breakpoint-medium-max-width: 1365px !default;
 
-$breakpoint-large-min-width: 1920px !default;
+$breakpoint-large-min-width: 1366px !default;
+$breakpoint-large-max-width: 1919px !default;
+
+$breakpoint-extra-large-min-width: 1920px !default;
+
+$screen-media-query: only screen;
+$small-media-query: (max-width: $breakpoint-small-max-width);
+$medium-media-query: (min-width: $breakpoint-medium-min-width) and (max-width: $breakpoint-medium-max-width);
+$large-media-query: (min-width: $breakpoint-large-min-width) and (max-width: $breakpoint-large-max-width);
+$extra-large-media-query: (min-width: $breakpoint-extra-large-min-width);
 
 $menu-font-family: 'Open Sans', 'sans serif' !default;
 $paragraph-font-family: 'Open Sans', 'sans serif' !default;

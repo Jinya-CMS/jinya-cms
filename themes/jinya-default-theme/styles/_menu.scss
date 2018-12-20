@@ -2,11 +2,6 @@
   display: flex;
   padding: 0;
   margin: 0;
-
-  @include jinya-breakpoint-small {
-    width: 100%;
-    overflow-x: auto;
-  }
 }
 
 .jinya-menu__item {

@@ -41,7 +41,7 @@
 }
 
 .jinya-vertical-art-gallery-artwork__image {
-  flex: 0 0 50%;
+  flex: 0 0;
   flex-basis: $jinya-vertical-art-gallery-artwork-width;
   min-width: $jinya-vertical-art-gallery-artwork-width;
   max-width: $jinya-vertical-art-gallery-artwork-width;
@@ -50,7 +50,7 @@
 }
 
 .jinya-vertical-art-gallery__caption {
-  flex: 0 0 50%;
+  flex: 0 0;
   flex-basis: $jinya-vertical-art-gallery-caption-width;
   min-width: $jinya-vertical-art-gallery-caption-width;
   max-width: $jinya-vertical-art-gallery-caption-width;

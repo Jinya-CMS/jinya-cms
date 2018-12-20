@@ -4,7 +4,7 @@
   }
   width: $jinya-form-input-width;
 
-  @include jinya-breakpoint-small {
+  @include jinya-media-query($screen: true, $small: true) {
     width: 100%;
   }
 }

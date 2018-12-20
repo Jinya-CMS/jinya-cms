@@ -5,7 +5,7 @@
   border-bottom: 1px solid $jinya-header-border-bottom-color;
   box-sizing: border-box;
 
-  @include jinya-breakpoint-small {
+  @include jinya-media-query($screen: true, $small: true, $medium: true) {
     flex-flow: column-reverse wrap;
   }
 }
