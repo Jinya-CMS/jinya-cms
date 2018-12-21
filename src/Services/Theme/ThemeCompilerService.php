@@ -138,7 +138,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $compiled = $source;
 
                 if (!Strings::endsWith($key, '!')) {
-                    if (getenv('APP_DEBUG') !== 'yes') {
+                    if ('yes' !== getenv('APP_DEBUG')) {
                         $compiled = $jsQueeze->squeeze($source);
                     }
                 } else {
