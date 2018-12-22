@@ -6,6 +6,7 @@
   box-sizing: border-box;
 
   @include jinya-media-query($screen: true, $small: true, $medium: true) {
-    flex-flow: column-reverse wrap;
+    flex-flow: row wrap;
+    padding-bottom: 1rem;
   }
 }

@@ -2,6 +2,36 @@
   display: flex;
   padding: 0;
   margin: 0;
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    top: 4rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $white;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    &.is--open {
+      display: flex;
+      opacity: 1;
+      animation: fadeIn 0.3s;
+    }
+  }
 }
 
 .jinya-menu__item {
@@ -38,6 +68,17 @@
       display: flex;
     }
   }
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    align-self: center;
+    padding: 0.5rem;
+    flex-flow: column nowrap;
+
+    &:nth-child(2),
+    &:first-child {
+      padding: 0.5rem;
+    }
+  }
 }
 
 .jinya-menu__link {
@@ -50,6 +91,10 @@
   &.is--highlight {
     font-style: italic;
   }
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    color: $jinya-menu-item-mobile-color;
+  }
 }
 
 .jinya-submenu {
@@ -58,6 +103,12 @@
   flex-flow: row nowrap;
   padding: 0;
   overflow: auto;
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0.5rem;
+  }
 }
 
 .jinya-submenu--open {
@@ -81,6 +132,11 @@
 
   .jinya-submenu {
     display: flex;
+  }
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    padding: 0.5rem;
+    color: $jinya-submenu-item-mobile-color;
   }
 }
 

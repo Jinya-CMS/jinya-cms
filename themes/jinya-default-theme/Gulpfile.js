@@ -4,8 +4,8 @@ const rename = require('gulp-rename');
 
 gulp.task('default', () => gulp
   .src([
-    'scripts/scrollhelper.js',
-    'scripts/menu.js',
+    'scripts/*.js',
+    '!scripts/*.dist.js',
   ])
   .pipe(babel({
     presets: ['@babel/env'],

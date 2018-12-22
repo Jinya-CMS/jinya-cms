@@ -11,7 +11,7 @@
     $query-parts: append($query-parts, $medium-media-query);
   }
   @if ($large) {
-    $query-parts: append($query-parts, $small-media-query);
+    $query-parts: append($query-parts, $large-media-query);
   }
   @if ($extra-large) {
     $query-parts: append($query-parts, $extra-large-media-query);

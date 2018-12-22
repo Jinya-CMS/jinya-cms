@@ -12,6 +12,7 @@ scripts:
   files:
     menu.js:
       - menu.dist.js
+      - menu-mobile.dist.js
     gallery.horizontal.js:
       - scrollhelper.dist.js
 defaultConfig:

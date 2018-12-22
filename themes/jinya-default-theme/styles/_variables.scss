@@ -51,7 +51,7 @@ $paragraph-font-family: 'Open Sans', 'sans serif' !default;
 $heading-font-family: Raleway, 'sans serif' !default;
 $brand-font-family: 'Josefin Sans', 'sans serif' !default;
 
-$jinya-header-font-size: 1.5em !default;
+$jinya-header-font-size: 1.5rem !default;
 $jinya-header-color: $primary !default;
 $jinya-header-border-bottom-color: $secondary !default;
 $jinya-header-padding: 1rem !default;
@@ -73,6 +73,10 @@ $jinya-menu-item-color: $secondary !default;
 $jinya-menu-item-active-color: $primary !default;
 $jinya-menu-item-hover-color: $secondary-darker !default;
 $jinya-menu-item-padding: 0.5rem !default;
+$jinya-menu-item-mobile-color: $primary-dark !default;
+
+$jinya-menu-hamburger-background: $white;
+$jinya-menu-hamburger-bar-color: $primary;
 
 $jinya-submenu-margin: 2rem -0.5rem 0 !default;
 $jinya-submenu-background: $secondary-lightest;
@@ -80,6 +84,7 @@ $jinya-submenu-item-color: $secondary-darker !default;
 $jinya-submenu-item-active-color: $primary !default;
 $jinya-submenu-item-hover-color: $secondary-darkest !default;
 $jinya-submenu-item-padding: 0.5rem !default;
+$jinya-submenu-item-mobile-color: $secondary-dark !default;
 
 $jinya-footer-padding: 0.5rem 0 !default;
 $jinya-footer-margin: 2rem 0 !default;

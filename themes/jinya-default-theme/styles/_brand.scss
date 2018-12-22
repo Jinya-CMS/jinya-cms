@@ -3,4 +3,9 @@
   font-size: $jinya-brand-font-size;
   font-family: $jinya-brand-font-family;
   padding: $jinya-brand-padding;
+
+  @include jinya-media-query($small: true, $medium: true, $screen: true) {
+    padding: 0;
+    z-index: 1;
+  }
 }
