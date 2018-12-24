@@ -1,10 +1,15 @@
 {
-  "name": "jinya_gallery_default_theme",
-  "version": "2.0.0",
-  "license": "MIT",
+  "name": "jinya-gallery-default-theme",
+  "version": "0.0.1",
+  "dependencies": {
+    "gulp": "^4.0.0"
+  },
   "scripts": {
-    "build-frontend": "cd Frontend && gulp",
-    "build-designer": "cd Designer && yarn build",
-    "build": "yarn build-designer && yarn build-frontend"
+    "build": "node_modules/.bin/gulp"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "gulp-babel": "^8.0.0"
   }
 }
