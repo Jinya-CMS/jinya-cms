@@ -260,7 +260,7 @@
           if (position === 0 || position === this.items.length) {
             elementClone.nestingLevel = 0;
           } else {
-            const previous = this.items[position + 1];
+            const previous = this.items[position - 1];
             elementClone.nestingLevel = previous.nestingLevel;
           }
 

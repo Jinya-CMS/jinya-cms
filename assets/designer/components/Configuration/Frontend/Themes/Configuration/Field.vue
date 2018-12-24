@@ -1,5 +1,5 @@
 <template>
-  <jinya-input @change="changed" :label="label" :enable="enable" v-if="type === 'string'" :value="value"/>
+  <jinya-input :enable="enable" :label="label" :value="value" @input="changed" v-if="type === 'string'"/>
   <div v-else-if="type === 'file'" class="jinya-field__group">
     <jinya-file-input @picked="changed" :label="label" :enable="enable" class="jinya-field__input"
                       :has-value="hasValue"/>

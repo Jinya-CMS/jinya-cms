@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 echo I am provisioning...
+echo Update system
+sudo apt-get update
+sudo apt-get ugrade
+
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 
@@ -46,6 +50,10 @@ sudo cp /jinya/vagrant-files/20-xdebug.ini /etc/php/7.2/mods-available/xdebug.in
 sudo phpenmod xdebug
 sudo service apache2 start
 
+echo Install nodejs
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
 echo Install mailhog
 sudo wget --quiet -O /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
 sudo chmod +x /usr/local/bin/mailhog
@@ -67,7 +75,7 @@ sudo systemctl enable mailhog
 sudo systemctl start mailhog
 
 echo Prepare service to sync files to profiles folder
-sudo chmod +x /opt/jinya/vagrant-files/inotify.sh
+sudo chmod +x /opt/jinya/vagrant-files/sync-profiler.sh
 sudo tee /etc/systemd/system/profiler.service <<EOL
 [Unit]
 Description=Profiler copy Service
@@ -75,7 +83,7 @@ After=network.service vagrant.mount
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env /opt/jinya/vagrant-files/inotify.sh > /dev/null 2>&1 &
+ExecStart=/usr/bin/env /opt/jinya/vagrant-files/sync-profiler.sh > /dev/null 2>&1 &
 
 [Install]
 WantedBy=multi-user.target
@@ -83,5 +91,23 @@ EOL
 
 sudo systemctl enable profiler
 sudo systemctl start profiler
+
+echo Prepare service to compile theme on changes
+sudo chmod +x /opt/jinya/vagrant-files/compile-theme.sh
+sudo tee /etc/systemd/system/theme-compiler.service <<EOL
+[Unit]
+Description=Theme compiler service
+After=network.service vagrant.mount
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env /opt/jinya/vagrant-files/compile-theme.sh > /dev/null 2>&1 &
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl enable theme-compiler
+sudo systemctl start theme-compiler
 
 echo I finished provisioning

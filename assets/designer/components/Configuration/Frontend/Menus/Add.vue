@@ -45,7 +45,7 @@
 
           await Timing.wait();
           this.$router.push({
-            name: Routes.Configuration.Frontend.Menu.Editor.name,
+            name: Routes.Configuration.Frontend.Menu.Builder.name,
             params: {
               id: savedMenu.id,
             },

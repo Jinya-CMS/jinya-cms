@@ -55,7 +55,7 @@ class MediaMoveEvent extends Event
     /**
      * @return string
      */
-    public function getLocation(): string
+    public function getLocation(): ?string
     {
         return $this->location;
     }

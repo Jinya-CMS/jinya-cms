@@ -10,6 +10,7 @@ namespace Jinya\Services\Mailing;
 
 use Jinya\Entity\Form\Form;
 use Jinya\Framework\Events\Mailing\MailerEvent;
+use Psr\Log\LoggerInterface;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,35 +26,50 @@ class MailerService implements MailerServiceInterface
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * MailerService constructor.
      * @param Swift_Mailer $swift
      * @param string $mailerSender
      * @param EventDispatcherInterface $eventDispatcher
+     * @param LoggerInterface $logger
      */
-    public function __construct(Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher)
+    public function __construct(Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher, LoggerInterface $logger)
     {
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
         $this->eventDispatcher = $eventDispatcher;
+        $this->logger = $logger;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function sendMail(Form $form, array $data): void
+    public function sendMail(Form $form, array $data): array
     {
         $pre = $this->eventDispatcher->dispatch(MailerEvent::PRE_SEND_MAIL, new MailerEvent($form, $data));
         if (!$pre->isCancel()) {
+            $this->logger->info('Send message to ' . $form->getToAddress());
             /** @var Swift_Message $message */
             $message = $this->swift->createMessage('message');
             $message->addTo($form->getToAddress());
             $message->setSubject('Form ' . $form->getTitle() . ' submitted');
             $message->setBody($this->formatBody($data), 'text/html');
             $message->setFrom($this->mailerSender);
-            $this->swift->send($message);
+            $failedRecipients = [];
+            $this->swift->send($message, $failedRecipients);
+            if (!empty($failedRecipients)) {
+                $this->logger->error("Couldn't send message for recepients", $failedRecipients);
+            }
+
             $this->eventDispatcher->dispatch(MailerEvent::POST_SEND_MAIL, new MailerEvent($form, $data));
+
+            return $failedRecipients;
         }
+
+        return [];
     }
 
     private function formatBody(array $data): string
