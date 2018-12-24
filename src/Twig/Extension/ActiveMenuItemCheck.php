@@ -45,7 +45,7 @@ class ActiveMenuItemCheck extends \Twig_Extension
                 'needs_context' => true,
             ]),
             'getActiveMenuItem' => new \Twig_Function('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
-                'needs_context' => true
+                'needs_context' => true,
             ]),
         ];
     }
