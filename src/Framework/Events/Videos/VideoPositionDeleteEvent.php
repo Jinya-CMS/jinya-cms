@@ -13,7 +13,6 @@ use Jinya\Framework\Events\Common\CancellableEvent;
 
 class VideoPositionDeleteEvent extends CancellableEvent
 {
-
     public const PRE_DELETE = 'VideoPositionPreDelete';
 
     public const POST_DELETE = 'VideoPositionPostDelete';
