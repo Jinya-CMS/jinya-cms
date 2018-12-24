@@ -25,6 +25,12 @@
           return true;
         },
       },
+      novalidate: {
+        type: Boolean,
+        default() {
+          return false;
+        },
+      },
       cancelLabel: {
         type: String,
       },
@@ -37,7 +43,7 @@
     },
     methods: {
       submit($event) {
-        if ($event.target.checkValidity()) {
+        if (this.novalidate || $event.target.checkValidity()) {
           this.$emit('submit', $event);
         } else {
           this.$emit('invalid', $event);

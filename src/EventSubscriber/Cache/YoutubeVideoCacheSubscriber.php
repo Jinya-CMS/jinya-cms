@@ -45,7 +45,7 @@ class YoutubeVideoCacheSubscriber implements EventSubscriberInterface
         $galleries = $this->entityManager->createQueryBuilder()
             ->select('gallery.slug')
             ->from(VideoGallery::class, 'gallery')
-            ->join('gallery.youtubeVideos', 'position')
+            ->join('gallery.videos', 'position')
             ->join('position.youtubeVideo', 'youtubeVideo')
             ->where('youtubeVideo.slug = :slug')
             ->setParameter('slug', $event->getSlug())

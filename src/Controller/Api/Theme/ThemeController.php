@@ -12,7 +12,6 @@ use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
-use Jinya\Services\Menu\MenuServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -89,12 +88,11 @@ class ThemeController extends BaseApiController
      *
      * @param string $name
      * @param ThemeConfigServiceInterface $themeConfigService
-     * @param MenuServiceInterface $menuService
      * @return Response
      */
-    public function putAction(string $name, ThemeConfigServiceInterface $themeConfigService, MenuServiceInterface $menuService): Response
+    public function putAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($menuService, $name, $themeConfigService) {
+        list($data, $status) = $this->tryExecute(function () use ($name, $themeConfigService) {
             $config = $this->getValue('config');
             $scss = $this->getValue('scss');
             $menus = $this->getValue('menus');

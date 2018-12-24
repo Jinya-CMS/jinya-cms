@@ -1,0 +1,18 @@
+{% block footer %}
+    <footer class="jinya-footer">
+        {% block footer_copyright %}
+            <div class="jinya-footer__copyright">
+                {{ themeConfig.footer.copyright }}
+            </div>
+        {% endblock %}
+        {% block footer_menu %}
+            <nav class="jinya-footer__menu">
+                {% if theme.active.footerMenu is defined %}
+                    {% for item in theme.active.footerMenu.menuItems %}
+                        {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-footer-menu__item'} %}
+                    {% endfor %}
+                {% endif %}
+            </nav>
+        {% endblock %}
+    </footer>
+{% endblock %}

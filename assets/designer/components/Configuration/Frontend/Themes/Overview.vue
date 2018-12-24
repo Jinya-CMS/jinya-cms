@@ -1,19 +1,25 @@
 <template>
   <div class="jinya-theme">
+    <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
     <jinya-loader :loading="loading" v-if="loading"/>
     <jinya-card-list nothing-found="impossible" v-else>
-      <jinya-card :header="theme.displayName" v-for="theme in themes" class="jinya-card__item--theme"
-                  :key="theme.name">
+      <jinya-card :header="theme.displayName" :key="theme.name" class="jinya-card__item--theme"
+                  v-for="theme in themes">
         <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
-        <jinya-card-button type="edit" icon="settings" :to="{name: settingsRoute, params: {name: theme.name}}"
-                           slot="footer" :title="'configuration.frontend.themes.overview.settings'|jmessage"/>
-        <jinya-card-button type="edit" icon="menu" :to="{name: menusRoute, params: {name: theme.name}}"
-                           slot="footer" :title="'configuration.frontend.themes.overview.menus'|jmessage"/>
-        <jinya-card-button type="edit" icon="check" @click="activate(theme)" slot="footer"
-                           :title="'configuration.frontend.themes.overview.activate'|jmessage"/>
-        <jinya-card-button type="edit" icon="sass" slot="footer" class="jinya-card-button--variables"
-                           :to="{name: variablesRoute, params: {name: theme.name}}"
-                           :title="'configuration.frontend.themes.overview.variables'|jmessage"/>
+        <jinya-card-button :title="'configuration.frontend.themes.overview.settings'|jmessage"
+                           :to="{name: settingsRoute, params: {name: theme.name}}" icon="settings"
+                           slot="footer" type="edit"/>
+        <jinya-card-button :title="'configuration.frontend.themes.overview.menus'|jmessage"
+                           :to="{name: menusRoute, params: {name: theme.name}}" icon="menu"
+                           slot="footer" type="edit"/>
+        <jinya-card-button :title="'configuration.frontend.themes.overview.activate'|jmessage" @click="activate(theme)"
+                           icon="check" slot="footer"
+                           type="edit"/>
+        <jinya-card-button :title="'configuration.frontend.themes.overview.variables'|jmessage"
+                           :to="{name: variablesRoute, params: {name: theme.name}}" class="jinya-card-button--variables"
+                           icon="sass"
+                           slot="footer"
+                           type="edit"/>
       </jinya-card>
     </jinya-card-list>
   </div>
@@ -26,10 +32,13 @@
   import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
   import Routes from '@/router/Routes';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
     name: 'Overview',
     components: {
+      JinyaMessage,
       JinyaCardButton,
       JinyaLoader,
       JinyaCard,
@@ -50,11 +59,24 @@
       return {
         themes: [],
         loading: true,
+        message: '',
+        state: '',
       };
     },
     methods: {
       async activate(theme) {
-        await JinyaRequest.put(`/api/configuration/${theme.name}`);
+        try {
+          this.state = 'loading';
+          this.message = Translator.message('configuration.frontend.themes.overview.activating', theme);
+
+          await JinyaRequest.put(`/api/configuration/${theme.name}`);
+
+          this.state = 'success';
+          this.message = Translator.message('configuration.frontend.themes.overview.activated', theme);
+        } catch (e) {
+          this.state = 'error';
+          this.message = Translator.message('configuration.frontend.themes.overview.activation_failed', theme);
+        }
       },
     },
     async mounted() {
@@ -66,13 +88,17 @@
 </script>
 
 <style scoped lang="scss">
+  .jinya-theme {
+    padding-top: 1rem;
+  }
+
   .jinya-card-button--variables {
-    border-color: $pink;
-    color: $pink;
+    border-color: $pink !important;
+    color: $pink !important;
 
     &:hover {
-      color: color-yiq($pink);
-      background: $pink;
+      color: color-yiq($pink) !important;
+      background: $pink !important;
     }
   }
 

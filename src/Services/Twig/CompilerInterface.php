@@ -18,4 +18,12 @@ interface CompilerInterface
      * @return string
      */
     public function compile(string $path, array $context): string;
+
+    /**
+     * Adds a global variable to template engine
+     *
+     * @param string $name
+     * @param $value
+     */
+    public function addGlobal(string $name, $value): void;
 }
