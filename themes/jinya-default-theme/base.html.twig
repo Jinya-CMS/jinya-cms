@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{- themeConfig.page.title }} {% block head_title -%}{%- endblock -%}</title>
+    {%- block meta -%}
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width"/>
+        {%- block custom_meta -%}
+        {%- endblock -%}
+    {%- endblock -%}
+    {%- block styles -%}
+        {%- block styles_fontawesome -%}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+        {%- endblock -%}
+        {%- block styles_theme -%}
+            <link rel="stylesheet"
+                  href="{{ asset('public/jinya-default-theme/styles/frontend.css') }}">
+        {%- endblock -%}
+        {%- block styles_additional_fonts -%}
+            {% if themeConfig.fonts.menu is defined and themeConfig.fonts.menu is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.menu }}">
+            {% endif %}
+            {% if themeConfig.fonts.heading is defined and themeConfig.fonts.heading is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.heading }}">
+            {% endif %}
+            {% if themeConfig.fonts.paragraph is defined and themeConfig.fonts.paragraph is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.paragraph }}">
+            {% endif %}
+            {% if themeConfig.fonts.brand is defined and themeConfig.fonts.brand is not empty %}
+                <link rel="stylesheet" href="{{ themeConfig.fonts.brand }}">
+            {% endif %}
+        {%- endblock -%}
+        {%- block styles_custom -%}
+        {%- endblock -%}
+    {%- endblock -%}
+    {%- block favicon -%}
+        <link href="{{ themeConfig.favicon.shortcut_icon }}" rel="shortcut icon">
+        <link rel="apple-touch-icon" sizes="512x512" href="{{ themeConfig.favicon.large }}">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ themeConfig.favicon.small }}">
+        <meta name="apple-mobile-web-app-title" content="{{ themeConfig.page.title }}">
+        <meta name="application-name" content="{{ themeConfig.page.title }}">
+    {%- endblock -%}
+</head>
+<body class="jinya-body">
+{%- block body -%}
+    {%- block header -%}
+        {%- include '@Themes/jinya-default-theme/include/header.html.twig' -%}
+    {%- endblock -%}
+    {%- block maincontent -%}
+    {%- endblock -%}
+    {%- block footer -%}
+        {%- include '@Themes/jinya-default-theme/include/footer.html.twig' -%}
+    {%- endblock -%}
+{%- endblock -%}
+{%- block scripts_frontend -%}
+    <script src="{{ asset('public/jinya-default-theme/scripts/menu.js') }}"></script>
+{%- endblock -%}
+{%- block scripts_polyfills -%}
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+{%- endblock -%}
+</body>
+</html>

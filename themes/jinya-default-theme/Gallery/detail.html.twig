@@ -1,0 +1,75 @@
+{% extends '@Themes/jinya-default-theme/base.html.twig' %}
+{% block head_title %}
+    &mdash; {{ gallery.name }}
+{% endblock %}
+
+{% block custom_meta %}
+    {% if gallery.description is not empty %}
+        <meta name="Description" content="{{ gallery.description }}">
+    {% endif %}
+{% endblock %}
+
+{% block maincontent %}
+    {%- set galleryType = null -%}
+    {%- if gallery.artworks is defined -%}
+        {%- set galleryType = 'art' -%}
+    {%- elseif gallery.videos is defined -%}
+        {%- set galleryType = 'video' -%}
+    {%- endif -%}
+    {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-' ~ galleryType ~ '-gallery' -%}
+    <main>
+        <span class="{{- bemClassBlock -}}__page-title">{{ gallery.name }}</span>
+        <div class="{{- bemClassBlock }} jinya-art-gallery--mobile is--{{ gallery.orientation -}}">
+            {%- if gallery.artworks is defined -%}
+                {%- for artworkPosition in gallery.artworks|sortByPosition -%}
+                    {%- set artwork = artworkPosition.artwork -%}
+                    <figure class="{{- bemClassBlock -}}__artwork jinya-art-gallery__artwork--mobile">
+                        <img class="{{- bemClassBlock -}}-artwork__image jinya-art-gallery__image--mobile"
+                             src="{{ artwork.picture }}"
+                             alt="{{ artwork.name }}">
+                        <figcaption class="{{- bemClassBlock -}}__caption jinya-art-gallery__caption--mobile">
+                            <span class="{{- bemClassBlock -}}-caption__title jinya-art-gallery-caption__title--mobile {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
+                            {% if artwork.description is defined and artwork.description is not empty %}
+                                <div class="{{- bemClassBlock -}}-caption__content jinya-art-gallery-caption__content--mobile">{{ artwork.description|raw }}</div>
+                            {% endif %}
+                        </figcaption>
+                    </figure>
+                {%- endfor -%}
+            {%- elseif gallery.videos is defined -%}
+                {%- for videoPosition in gallery.videos|sortByPosition -%}
+                    {%- set video = null -%}
+                    {%- set isJinya = videoPosition.video is not null -%}
+                    {%- set isYoutube = videoPosition.youtubeVideo is not null -%}
+                    {%- if isJinya -%}
+                        {%- set video = videoPosition.video -%}
+                    {%- elseif isYoutube -%}
+                        {%- set video = videoPosition.youtubeVideo -%}
+                    {%- endif -%}
+                    <figure class="{{- bemClassBlock -}}__video-container">
+                        {%- if isJinya -%}
+                            <video class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--jinya"
+                                   controls
+                                   src="{{ video.video }}"
+                                   poster="{{ video.poster }}"></video>
+                        {%- elseif isYoutube -%}
+                            <iframe class="{{- bemClassBlock -}}__video {{ bemClassBlock -}}__video--youtube"
+                                    src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
+                        {%- endif -%}
+                        <figcaption class="{{- bemClassBlock -}}__caption">
+                            <span class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
+                            {% if video.description is defined and video.description is not empty %}
+                                <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
+                            {% endif %}
+                        </figcaption>
+                    </figure>
+                {%- endfor -%}
+            {%- endif -%}
+        </div>
+    </main>
+{%- endblock -%}
+
+{%- block scripts_frontend -%}
+    {{- parent() -}}
+    <script src="{{ asset('public/jinya-default-theme/scripts/gallery.' ~ gallery.orientation ~ '.js') }}"></script>
+    <script src="{{ asset('public/jinya-default-theme/scripts/gallery.mobile.js') }}"></script>
+{%- endblock -%}

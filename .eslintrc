@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/essential"
+  ],
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "vue"
+  ],
+  "settings": {
+    "import/resolver": "webpack"
+  },
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "rules": {
+    "import/no-unresolved": [
+      "off"
+    ],
+    "no-unused-expressions": [
+      "off"
+    ],
+    "no-param-reassign": "off",
+    "indent": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{% extends '@Themes/jinya-default-theme/base.html.twig' %}
+
+{% block head_title %}
+    &mdash; {{ page.title }}
+{% endblock %}
+
+{% block maincontent %}
+    <main class="jinya-page">
+        {{ page.content|raw }}
+    </main>
+{% endblock %}

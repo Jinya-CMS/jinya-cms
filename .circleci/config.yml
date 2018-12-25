@@ -20,17 +20,11 @@ jobs:
     - run: "composer install -n --prefer-dist --no-scripts --no-dev"
     - run:
         command: |
-          cd themes/jinya_gallery_default_theme/Designer/
           yarn
-          yarn build
+          yarn encore prod
     - run:
         command: |
-          cd themes/jinya_gallery_default_theme/Frontend/
-          yarn
-          node_modules/.bin/gulp
-    - run:
-        command: |
-          rm -rf themes/jinya_gallery_default_theme/Frontend/node_modules themes/jinya_gallery_default_theme/Designer/node_modules var/cache var/log public/public public/.htaccess
+          rm -rf node_modules var/cache var/log public/public public/.htaccess
           mkdir -p ~/dist
           zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
     - persist_to_workspace:

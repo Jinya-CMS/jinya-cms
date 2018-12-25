@@ -135,17 +135,15 @@ node_modules/
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###
-/assets
-!/assets/.htaccess
 !/public/apple-touch-icon.png
 !/public/favicon.ico
 !/public/robots.txt
 /public/
 !/public/.htaccess
 !/public/index.php
-/themes/jinya_gallery_default_theme/public/dist/
-/themes/jinya_gallery_default_theme/public/src/designer/_designer.scss
-/themes/jinya_gallery_default_theme/public/src/scss/designer/_designer.scss
-/.scannerwork/
-/.vagrant/
-/themes/jinya_gallery_default_theme/Designer/report.html
+.vagrant
+.scannerwork
+/vagrant-files/jinya-gallery-cms.sql
+/themes/*
+!/themes/jinya-default-theme/
+*.dist.js

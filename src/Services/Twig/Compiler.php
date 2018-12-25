@@ -63,13 +63,13 @@ class Compiler implements CompilerInterface
     {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
-        if (Strings::find($path, '@Frontend') || Strings::find($path, '@Designer')) {
+        if (Strings::find($path, '@Theme')) {
             list($themeViewPath, $parameters) = $this->includeTheme($path, $context, $currentTheme);
 
             return $this->twig->render($themeViewPath, $parameters);
         }
 
-        return '';
+        return $this->twig->render($path, $context);
     }
 
     /**
@@ -87,7 +87,7 @@ class Compiler implements CompilerInterface
         }
 
         $this->themeService->registerThemes();
-        $themeViewPath = $this->themeConfigService->getThemeNamespace($theme) . str_replace('@', '/', $view);
+        $themeViewPath = '@Themes/' . $this->themeConfigService->getThemeNamespace($theme) . str_replace('@Theme', '/', $view);
 
         $parameters['themeConfig'] = $theme->getConfiguration();
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
@@ -96,5 +96,16 @@ class Compiler implements CompilerInterface
         $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR;
 
         return [$themeViewPath, $parameters];
+    }
+
+    /**
+     * Adds a global variable to template engine
+     *
+     * @param string $name
+     * @param $value
+     */
+    public function addGlobal(string $name, $value): void
+    {
+        $this->twig->addGlobal($name, $value);
     }
 }

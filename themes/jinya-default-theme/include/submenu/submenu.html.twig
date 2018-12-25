@@ -1,0 +1,7 @@
+{%- block submenu -%}
+    <ul class="jinya-submenu {% if activeMenuItem and activeMenuItem.children is empty %}is--hidden{% endif %}">
+        {% for child in item.children %}
+            {% include '@Theme/jinya-default-theme/include/submenu/item.html.twig' with {'item': child} %}
+        {% endfor %}
+    </ul>
+{%- endblock -%}

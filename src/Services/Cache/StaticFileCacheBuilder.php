@@ -87,8 +87,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
-        $this->entityManager->clear();
         $routes = $this->getRoutesFromTheme();
+
+        $startPageRoute = new RoutingEntry();
+        $startPageRoute->setUrl('/index.html');
+        $compiledTemplate = $this->compileRoute($startPageRoute);
+        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
+        $this->addEntryToCacheList($file);
 
         foreach ($routes as $route) {
             if ('empty' !== $route->getMenuItem()->getPageType() && 'external' !== $route->getMenuItem()->getPageType()) {
@@ -97,12 +102,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $this->addEntryToCacheList($file);
             }
         }
-
-        $startPageRoute = new RoutingEntry();
-        $startPageRoute->setUrl('/index.html');
-        $compiledTemplate = $this->compileRoute($startPageRoute);
-        $file = $this->cacheTemplate($compiledTemplate, $startPageRoute);
-        $this->addEntryToCacheList($file);
     }
 
     /**
@@ -197,35 +196,46 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         }
 
         if (Strings::find($route->getRouteName(), 'artwork')) {
-            $viewData = ['artwork' => $this->artworkService->get($slug)];
-            $template = '@Frontend/Artwork/detail.html.twig';
+            $viewData = [
+                'artwork' => $this->artworkService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/Artwork/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
+                'active' => $route->getUrl(),
             ];
-            $template = '@Frontend/Gallery/detail.html.twig';
+            $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
             $viewData = [
                 'gallery' => $this->artGalleryService->get($slug),
                 'type' => 'art',
+                'active' => $route->getUrl(),
             ];
-            $template = '@Frontend/Gallery/detail.html.twig';
+            $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
                 'formEntity' => $formEntity,
                 'form' => $form->createView(),
+                'active' => $route->getUrl(),
             ];
-            $template = '@Frontend/Form/detail.html.twig';
+            $template = '@Theme/Form/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'page')) {
-            $viewData = ['page' => $this->pageService->get($slug)];
-            $template = '@Frontend/Page/detail.html.twig';
+            $viewData = [
+                'page' => $this->pageService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/Page/detail.html.twig';
         } else {
-            $viewData = [];
-            $template = '@Frontend/Default/index.html.twig';
+            $viewData = ['active' => '/'];
+            $template = '@Theme/Default/index.html.twig';
         }
+
+        $this->compiler->addGlobal('active', $viewData['active']);
 
         return $this->compiler->compile($template, $viewData);
     }
@@ -255,16 +265,18 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function clearCache(): void
     {
-        $handle = fopen($this->getCacheFile(), 'r');
+        $handle = fopen($this->getCacheFile(), 'rw+');
         if ($handle) {
             try {
                 while (false !== ($line = fgets($handle))) {
-                    @unlink($line);
+                    unlink($line);
                 }
             } finally {
                 fclose($handle);
             }
         }
+
+        unlink($this->getCacheFile());
     }
 
     /**

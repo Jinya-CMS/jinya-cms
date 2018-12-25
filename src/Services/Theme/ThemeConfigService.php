@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Framework\Events\Theme\ThemeConfigEvent;
+use Jinya\Framework\Events\Theme\ThemeMenuEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
@@ -65,7 +66,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function getThemeNamespace(Theme $theme): string
     {
-        return '@Themes/' . $theme->getName();
+        return $theme->getName();
     }
 
     /**
@@ -163,29 +164,33 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     {
         $theme = $this->themeService->getTheme($name);
 
-        if (array_key_exists('primary', $menus)) {
-            $primaryMenu = $menus['primary'];
+        $pre = $this->eventDispatcher->dispatch(ThemeMenuEvent::PRE_SAVE, new ThemeMenuEvent($name, $menus));
+        if (!$pre->isCancel()) {
+            if (array_key_exists('primary', $menus)) {
+                $primaryMenu = $menus['primary'];
 
-            if ($primaryMenu) {
-                $theme->setPrimaryMenu('unset' === $primaryMenu ? null : $this->menuService->get($primaryMenu));
+                if ($primaryMenu) {
+                    $theme->setPrimaryMenu('unset' === $primaryMenu ? null : $this->menuService->get($primaryMenu));
+                }
             }
-        }
-        if (array_key_exists('secondary', $menus)) {
-            $secondaryMenu = $menus['secondary'];
+            if (array_key_exists('secondary', $menus)) {
+                $secondaryMenu = $menus['secondary'];
 
-            if ($secondaryMenu) {
-                $theme->setSecondaryMenu('unset' === $secondaryMenu ? null : $this->menuService->get($secondaryMenu));
+                if ($secondaryMenu) {
+                    $theme->setSecondaryMenu('unset' === $secondaryMenu ? null : $this->menuService->get($secondaryMenu));
+                }
             }
-        }
-        if (array_key_exists('footer', $menus)) {
-            $footerMenu = $menus['footer'];
+            if (array_key_exists('footer', $menus)) {
+                $footerMenu = $menus['footer'];
 
-            if ($footerMenu) {
-                $theme->setFooterMenu('unset' === $footerMenu ? null : $this->menuService->get($footerMenu));
+                if ($footerMenu) {
+                    $theme->setFooterMenu('unset' === $footerMenu ? null : $this->menuService->get($footerMenu));
+                }
             }
-        }
 
-        $this->entityManager->flush();
+            $this->entityManager->flush();
+            $this->eventDispatcher->dispatch(ThemeMenuEvent::POST_SAVE, new ThemeMenuEvent($name, $menus));
+        }
     }
 
     /**
