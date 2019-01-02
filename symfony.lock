@@ -302,6 +302,9 @@
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
     },
+    "symfony/polyfill-php73": {
+        "version": "v1.10.0"
+    },
     "symfony/process": {
         "version": "v4.0.4"
     },
