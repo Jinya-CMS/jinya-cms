@@ -31,10 +31,6 @@ services:
   Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
-  Jinya\EventSubscriber\Profiling\JinyaProfilerEventSubscriber:
-    arguments:
-      $profilerOutDir: '%jinya_gallery.profiler.out_dir%'
-
   Jinya\Services\Theme\ThemeSyncService:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
@@ -43,9 +39,6 @@ services:
   Jinya\Services\Theme\ThemeCompilerService:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
-
-  Jinya\Services\Configuration\FrontendConfigurationService:
-    lazy: true
 
   Jinya\Services\Theme\ThemeService:
     arguments:

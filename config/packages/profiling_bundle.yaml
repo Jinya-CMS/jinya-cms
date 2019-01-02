@@ -6,5 +6,5 @@ parameters:
   jinya_gallery.theme.directory: themes
 
 jinya_profiling:
-  profiler:
-    out_dir: '%jinya_gallery.profiler.out_dir%'
+  out_dir: '%jinya_gallery.profiler.out_dir%'
+  enabled: true
