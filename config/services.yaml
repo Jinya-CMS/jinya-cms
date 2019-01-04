@@ -76,11 +76,15 @@ services:
   # Formatter
   Jinya\Formatter\Gallery\ArtGalleryFormatterInterface:
     class: Jinya\Formatter\Gallery\ArtGalleryFormatter
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
     calls:
     - [setArtworkPositionFormatter, ['@Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface']]
     - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]
   Jinya\Formatter\Gallery\VideoGalleryFormatterInterface:
     class: Jinya\Formatter\Gallery\VideoGalleryFormatter
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
     calls:
     - [setVideoPositionFormatter, ['@Jinya\Formatter\Video\VideoPositionFormatterInterface']]
     - [setUserFormatter, ['@Jinya\Formatter\User\UserFormatterInterface']]

@@ -42,6 +42,7 @@ class VideoGalleryController extends BaseApiController
                     ->init($gallery)
                     ->name()
                     ->background()
+                    ->backgroundDimensions()
                     ->orientation()
                     ->slug()
                     ->description()
@@ -73,6 +74,7 @@ class VideoGalleryController extends BaseApiController
                 ->name()
                 ->slug()
                 ->background()
+                ->backgroundDimensions()
                 ->description()
                 ->orientation();
 

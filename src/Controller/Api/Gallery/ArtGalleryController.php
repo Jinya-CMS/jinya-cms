@@ -49,6 +49,7 @@ class ArtGalleryController extends BaseApiController
                     ->init($gallery)
                     ->name()
                     ->background()
+                    ->backgroundDimensions()
                     ->orientation()
                     ->slug()
                     ->description()
@@ -79,6 +80,7 @@ class ArtGalleryController extends BaseApiController
                 ->name()
                 ->slug()
                 ->background()
+                ->backgroundDimensions()
                 ->description()
                 ->orientation();
 

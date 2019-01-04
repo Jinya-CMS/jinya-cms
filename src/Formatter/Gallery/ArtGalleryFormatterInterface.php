@@ -97,4 +97,11 @@ interface ArtGalleryFormatterInterface extends FormatterInterface
      * @return ArtGalleryFormatterInterface
      */
     public function id(): self;
+
+    /**
+     * Formats the background dimensions
+     *
+     * @return ArtGalleryFormatterInterface
+     */
+    public function backgroundDimensions(): self;
 }

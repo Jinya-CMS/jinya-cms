@@ -70,6 +70,8 @@
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    font-family: $font-family;
+    font-weight: normal;
 
     &:focus {
       outline: none;

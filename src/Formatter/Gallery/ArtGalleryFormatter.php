@@ -31,13 +31,17 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
+    /** @var string */
+    private $kernelProjectDir;
+
     /**
      * GalleryFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     /**
@@ -239,6 +243,23 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     public function id(): ArtGalleryFormatterInterface
     {
         $this->formattedData['id'] = $this->gallery->getId();
+
+        return $this;
+    }
+
+    /**
+     * Formats the background dimensions
+     *
+     * @return ArtGalleryFormatterInterface
+     */
+    public function backgroundDimensions(): ArtGalleryFormatterInterface
+    {
+        $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->gallery->getBackground();
+        if (is_file($imagePath)) {
+            $imageSize = getimagesize($imagePath);
+            $this->formattedData['dimensions']['width'] = $imageSize[0];
+            $this->formattedData['dimensions']['height'] = $imageSize[1];
+        }
 
         return $this;
     }
