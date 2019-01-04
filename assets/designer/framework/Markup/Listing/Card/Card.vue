@@ -60,6 +60,7 @@
     .jinya-card__body {
       height: 15em;
       width: auto;
+      display: flex;
     }
 
     .jinya-card__footer {
