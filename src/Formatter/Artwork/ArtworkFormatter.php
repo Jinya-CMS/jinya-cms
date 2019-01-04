@@ -30,13 +30,18 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     /** @var ArtworkPositionFormatterInterface */
     private $artworkPositionFormatter;
 
+    /** @var string */
+    private $kernelProjectDir;
+
     /**
      * ArtworkFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     /**
@@ -218,6 +223,23 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     public function id(): ArtworkFormatterInterface
     {
         $this->formattedData['id'] = $this->artwork->getId();
+
+        return $this;
+    }
+
+    /**
+     * Gets the dimensions of the artwork
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function dimensions(): ArtworkFormatterInterface
+    {
+        $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->artwork->getPicture();
+        if (file_exists($imagePath)) {
+            $imageSize = getimagesize($imagePath);
+            $this->formattedData['dimensions']['width'] = $imageSize[0];
+            $this->formattedData['dimensions']['height'] = $imageSize[1];
+        }
 
         return $this;
     }

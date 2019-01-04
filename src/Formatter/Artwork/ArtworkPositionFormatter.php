@@ -69,6 +69,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
             ->name()
             ->picture()
             ->description()
+            ->dimensions()
             ->format();
 
         return $this;
