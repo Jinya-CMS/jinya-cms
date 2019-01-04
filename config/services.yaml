@@ -31,6 +31,7 @@ services:
   Jinya\EventSubscriber\RedirectToUpdaterEventSubscriber:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
+
   Jinya\Services\Theme\ThemeSyncService:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
