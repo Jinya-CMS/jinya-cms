@@ -147,3 +147,10 @@ node_modules/
 /themes/*
 !/themes/jinya-default-theme/
 *.dist.js
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
