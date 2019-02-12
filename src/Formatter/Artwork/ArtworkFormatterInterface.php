@@ -90,4 +90,11 @@ interface ArtworkFormatterInterface extends FormatterInterface
      * @return ArtworkFormatterInterface
      */
     public function id(): self;
+
+    /**
+     * Gets the dimensions of the artwork
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function dimensions(): self;
 }

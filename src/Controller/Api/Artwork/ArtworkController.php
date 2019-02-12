@@ -51,6 +51,7 @@ class ArtworkController extends BaseApiController
                     ->picture()
                     ->slug()
                     ->description()
+                    ->dimensions()
                     ->format();
             }, $artworkService->getAll($offset, $count, $keyword, $label));
 
@@ -78,6 +79,7 @@ class ArtworkController extends BaseApiController
                 ->name()
                 ->slug()
                 ->picture()
+                ->dimensions()
                 ->description();
 
             if ($this->isGranted('ROLE_WRITER')) {
