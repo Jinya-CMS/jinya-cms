@@ -2,112 +2,58 @@
 
 echo I am provisioning...
 echo Update system
-sudo apt-get update
-sudo apt-get ugrade
+sudo apk update
+sudo apk upgrade
 
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-
-echo Copy files
-sudo mkdir -p /opt/jinya/
-sudo rsync -a --exclude '.git' --exclude '.idea' --exclude '.vagrant' --exclude '.scannerwork' --exclude '.circleci' /jinya /opt/
-sudo chmod -R 777 /opt/jinya/
+sudo apk add rsync
 
 echo Install database
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password start'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password start'
-sudo apt-get -y install mysql-server mysql-client
-mysql -u root -pstart -Bse "CREATE DATABASE IF NOT EXISTS jinya;GRANT ALL PRIVILEGES ON *.* TO 'jinya'@'%' IDENTIFIED BY 'jinya';FLUSH PRIVILEGES;"
-mysql -u jinya -pjinya -Bse "quit"
-mysql -u jinya -pjinya "jinya" < "/jinya/vagrant-files/jinya-gallery-cms.sql"
-sudo cp /jinya/vagrant-files/mysqld.cnf /etc/mysql/mysql.conf.d/
-sudo service mysql restart
+DB_DATA_PATH="/var/lib/mysql"
+DB_ROOT_PASS="start"
+DB_USER="jinya"
+DB_PASS="jinya"
+MAX_ALLOWED_PACKET="200M"
 
-echo Install PHP 7.2
-sudo apt-get install -y php7.2 php7.2-json php7.2-xml php7.2-fpm php7.2-mysql php7.2-zip php7.2-cli php7.2-common php7.2-opcache php7.2-curl php7.2-intl php7.2-mbstring php-xdebug
+sudo apk add mysql mysql-client
+sudo mysql_install_db --user=mysql --datadir=${DB_DATA_PATH}
+sudo rc-service mariadb restart
+sudo mysqladmin -u root password "${DB_ROOT_PASS}"
 
-echo Install tideways
-sudo apt install -y php7.2-dev make
-git clone https://github.com/tideways/php-profiler-extension.git
-cd php-profiler-extension
-phpize
-./configure
-make
-sudo make install
-echo "extension=tideways_xhprof.so" | sudo tee /etc/php/7.2/mods-available/tideways_xhprof.ini
-sudo phpenmod tideways_xhprof
+sudo mysql -u root -pstart -Bse "CREATE DATABASE IF NOT EXISTS jinya;GRANT ALL PRIVILEGES ON *.* TO 'jinya'@'%' IDENTIFIED BY 'jinya';FLUSH PRIVILEGES;"
+sudo mysql -u root -pstart -Bse "quit"
+sudo mysql -u root -pstart "jinya" < "/vagrant/vagrant-files/jinya-gallery-cms.sql"
+sudo cp /vagrant/vagrant-files/maria-server-jinya.cnf /etc/my.cnf.d/maria-server-jinya.cnf
+
+echo Install PHP 7
+sudo apk add php7 php7-json php7-xml php7-fpm php7-pdo_mysql php7-zip php7-cli php7-common php7-opcache php7-curl php7-intl php7-mbstring php7-pecl-xdebug
 
 echo Install apache2
-sudo apt-get install -y apache2 libapache2-mod-php
+sudo apk add apache2 php7-apache2
+sudo mkdir -p /var/www/log
 
 echo Set vhost
-sudo service apache2 stop
-sudo a2enmod rewrite
-sudo cp /jinya/vagrant-files/000-default.conf /etc/apache2/sites-available/000-default.conf
+sudo rc-service apache2 stop
+sudo cp /vagrant/vagrant-files/000-default.conf /etc/apache2/conf.d/default.conf
 
 echo Enable xdebug
-sudo cp /jinya/vagrant-files/20-xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
-sudo phpenmod xdebug
-sudo service apache2 start
+sudo cp /vagrant/vagrant-files/20-xdebug.ini /etc/php7/conf.d/xdebug.ini
+sudo rc-service apache2 start
 
-echo Install nodejs
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apk add nodejs
 
 echo Install mailhog
 sudo wget --quiet -O /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
-sudo chmod +x /usr/local/bin/mailhog
 
-sudo tee /etc/systemd/system/mailhog.service <<EOL
-[Unit]
-Description=MailHog Service
-After=network.service vagrant.mount
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/env /usr/local/bin/mailhog > /dev/null 2>&1 &
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-sudo systemctl enable mailhog
-sudo systemctl start mailhog
-
-echo Prepare service to sync files to profiles folder
-sudo chmod +x /opt/jinya/vagrant-files/sync-profiler.sh
-sudo tee /etc/systemd/system/profiler.service <<EOL
-[Unit]
-Description=Profiler copy Service
-After=network.service vagrant.mount
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/env /opt/jinya/vagrant-files/sync-profiler.sh > /dev/null 2>&1 &
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-sudo systemctl enable profiler
-sudo systemctl start profiler
+sudo ln -s /vagrant/vagrant-files/mailhog.sh /etc/init.d/mailhog
+sudo chmod +x /etc/init.d/mailhog
+sudo rc-update add mailhog default
+sudo rc-service mailhog start
 
 echo Prepare service to compile theme on changes
-sudo chmod +x /opt/jinya/vagrant-files/compile-theme.sh
-sudo tee /etc/systemd/system/theme-compiler.service <<EOL
-[Unit]
-Description=Theme compiler service
-After=network.service vagrant.mount
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/env /opt/jinya/vagrant-files/compile-theme.sh > /dev/null 2>&1 &
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-sudo systemctl enable theme-compiler
-sudo systemctl start theme-compiler
+sudo apk add inotify-tools rsync
+sudo ln -s /vagrant/vagrant-files/compile-theme.sh /etc/init.d/compile-theme
+sudo chmod +x /etc/init.d/compile-theme
+sudo rc-update add compile-theme default
+sudo rc-service compile-theme start
 
 echo I finished provisioning
