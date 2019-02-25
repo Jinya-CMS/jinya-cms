@@ -1,0 +1,29 @@
+---
+- name: Install packages
+  apk:
+    name:
+      - apache2
+  become: true
+- name: Create log directory
+  file:
+    path: /var/www/log
+    state: directory
+    mode: 0755
+  become: true
+- name: Remove default vhost
+  file:
+    path: /etc/apache2/conf.d/default.conf
+    state: absent
+  become: yes
+- name: Link the vhost
+  file:
+    path: /etc/apache2/conf.d/default.conf
+    src: /vagrant/vagrant-files/roles/apache/files/default.conf
+    state: link
+    mode: 0755
+  become: yes
+- name: Enable and start apache
+  service:
+    name: apache2
+    state: restarted
+  become: yes

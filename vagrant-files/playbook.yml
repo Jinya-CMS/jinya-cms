@@ -1,0 +1,11 @@
+---
+- name: Install requirements for Jinya
+  hosts: all
+  roles:
+    - common
+    - mysql
+    - apache
+    - php
+    - mailhog
+    - theme-compiler
+    - jinya

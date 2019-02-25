@@ -1,0 +1,8 @@
+---
+- name: Install rsync, inotify and utilities
+  apk:
+    name:
+      - rsync
+      - inotify-tools
+      - git
+  become: true

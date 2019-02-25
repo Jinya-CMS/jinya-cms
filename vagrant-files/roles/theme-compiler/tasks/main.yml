@@ -1,0 +1,14 @@
+---
+- name: Link theme-compiler service
+  file:
+    path: /etc/init.d/theme-compiler
+    src: /vagrant/vagrant-files/roles/theme-compiler/files/service.sh
+    state: link
+    mode: o=rwx,g=x,u=x
+  become: yes
+- name: Create and start theme-compiler service
+  service:
+    state: started
+    name: theme-compiler
+    enabled: yes
+  become: yes

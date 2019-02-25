@@ -1,0 +1,53 @@
+---
+- name: Install packages
+  apk:
+    name:
+      - mysql
+      - mysql-client
+      - py3-mysqlclient
+  become: true
+- name: Prepare mysql
+  shell: mysql_install_db --user=mysql --datadir=/var/lib/mysql && /etc/init.d/mariadb setup
+  args:
+    creates: ~/mysql_install.lock
+  become: true
+- name: Start mysql
+  service:
+    name: mariadb
+    state: started
+  become: true
+- name: Set root password
+  shell: mysqladmin -u {{mysql_root_user}} password {{mysql_root_password}}
+  become: true
+- name: Copy config
+  copy:
+    dest: /etc/my.cnf.d/mariadb-server.cnf
+    src: /vagrant/vagrant-files/roles/mysql/files/maria-server-jinya.cnf
+  become: true
+- name: Create database jinya-gallery-cms
+  mysql_db:
+    name: jinya-gallery-cms
+    state: present
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+- name:
+  mysql_user:
+    name: "{{mysql_jinya_user}}"
+    password: "{{mysql_jinya_password}}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+  become: true
+- name: Import database jinya-gallery-cms
+  mysql_db:
+    name: jinya-gallery-cms
+    state: import
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+    target: /vagrant/vagrant-files/jinya-gallery-cms.sql
+- name: Restart mysql
+  service:
+    name: mariadb
+    state: restarted
+  become: true

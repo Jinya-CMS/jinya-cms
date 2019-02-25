@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 1025, host: 1025, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 8025, host: 8025, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 3306, host: 3306, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 3306, host: 33306, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -72,5 +72,15 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.provision "shell", path: "./vagrant-files/provision.sh", keep_color: true
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apk update
+    sudo apk upgrade || true
+    sudo apk add python3 ansible || true
+    sudo ln -s /usr/bin/python3 /usr/bin/python
+    sudo apk fix
+  SHELL
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.compatibility_mode = "2.0"
+    ansible.playbook = "vagrant-files/playbook.yml"
+  end
 end

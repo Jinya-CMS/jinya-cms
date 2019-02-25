@@ -1,0 +1,41 @@
+---
+- name: Install packages
+  apk:
+    name:
+      - php7
+      - php7-json
+      - php7-xml
+      - php7-fpm
+      - php7-pdo_mysql
+      - php7-zip
+      - php7-cli
+      - php7-common
+      - php7-opcache
+      - php7-curl
+      - php7-intl
+      - php7-mbstring
+      - php7-pecl-xdebug
+      - php7-apache2
+      - php7-dom
+      - php7-tokenizer
+      - php7-iconv
+      - php7-simplexml
+      - php7-fileinfo
+  become: yes
+- name: Remove default xdebug config
+  file:
+    path: /etc/php7/conf.d/xdebug.ini
+    state: absent
+  become: yes
+- name: Link the xdebug config
+  file:
+    path: /etc/php7/conf.d/xdebug.ini
+    src: /vagrant/vagrant-files/xdebug.ini
+    state: link
+    mode: 0755
+  become: yes
+- name: Restart apache
+  service:
+    name: apache2
+    state: restarted
+  become: yes
