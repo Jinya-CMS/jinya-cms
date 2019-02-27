@@ -72,14 +72,19 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "Upgrade system", type: "shell", inline: <<-SHELL
+    sudo apk update
+    sudo apk upgrade
+    sudo apk fix
+  SHELL, run: "always"
+  config.vm.provision "Install Ansible", type: "shell", inline: <<-SHELL
     sudo apk update
     sudo apk upgrade || true
     sudo apk add python3 ansible || true
     sudo ln -s /usr/bin/python3 /usr/bin/python
     sudo apk fix
   SHELL
-  config.vm.provision "ansible_local" do |ansible|
+  config.vm.provision "Run Ansible", type: "ansible_local" do |ansible|
     ansible.compatibility_mode = "2.0"
     ansible.playbook = "vagrant-files/playbook.yml"
   end
