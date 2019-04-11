@@ -1,6 +1,6 @@
 <template>
   <jinya-card :header="artwork.name" :key="artwork.slug" @mouseenter.native="isHovered = true"
-              @mouseleave.native="isHovered=false" v-if="!loading">
+              @mouseleave.native="isHovered=false">
     <img :alt="artwork.name" :src="artwork.picture" :style="dimensions" class="jinya-art-picture"/>
     <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" icon="monitor" slot="footer"
                        type="details"/>
@@ -13,6 +13,7 @@
 <script>
   import JinyaCard from '@/framework/Markup/Listing/Card/Card';
   import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
+  import Routes from '@/router/Routes';
 
   export default {
     name: 'JinyaArtworkCard',
@@ -38,6 +39,12 @@
           height: '15em',
           width: this.isHovered ? `${(15 * aspectRatio).toString(10)}em` : '100%',
         };
+      },
+      editRoute() {
+        return Routes.Art.Artworks.SavedInJinya.Edit.name;
+      },
+      detailsRoute() {
+        return Routes.Art.Artworks.SavedInJinya.Details.name;
       },
     },
     data() {

@@ -2,7 +2,8 @@
   <div class="jinya-art-overview">
     <jinya-loader :loading="loading"/>
     <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-artwork-card :artwork="artwork" :key="artwork.slug" v-for="artwork in artworks"/>
+      <jinya-artwork-card :artwork="artwork" :key="artwork.slug" :show-delete-modal="showDeleteModal"
+                          v-for="artwork in artworks"/>
     </jinya-card-list>
     <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
                  v-if="!loading"/>
@@ -80,9 +81,6 @@
         this.offset = value.offset;
         this.loading = false;
       },
-      selectArtwork(index, artwork) {
-        this.selectedArtwork = artwork;
-      },
       async remove() {
         this.delete.loading = true;
         try {
@@ -96,7 +94,7 @@
         this.delete.loading = false;
       },
       showDeleteModal(artwork) {
-        this.selectArtwork(artwork);
+        this.selectedArtwork = artwork;
         this.delete.show = true;
       },
       closeDeleteModal() {
