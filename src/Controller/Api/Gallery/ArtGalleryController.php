@@ -51,6 +51,7 @@ class ArtGalleryController extends BaseApiController
                     ->background()
                     ->backgroundDimensions()
                     ->orientation()
+                    ->masonry()
                     ->slug()
                     ->description()
                     ->format();
@@ -82,14 +83,14 @@ class ArtGalleryController extends BaseApiController
                 ->background()
                 ->backgroundDimensions()
                 ->description()
-                ->orientation();
+                ->orientation()
+                ->artworks();
 
             if ($this->isGranted('ROLE_WRITER')) {
                 $result = $result->updated()
                     ->id()
                     ->created()
-                    ->labels()
-                    ->artworks();
+                    ->labels();
             }
 
             return [
@@ -115,6 +116,7 @@ class ArtGalleryController extends BaseApiController
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
+            $masonry = $this->getValue('masonry', false);
             $slug = $this->getValue('slug', '');
 
             if (!$name) {
@@ -126,6 +128,7 @@ class ArtGalleryController extends BaseApiController
             $gallery->setSlug($slug);
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
+            $gallery->setMasonry($masonry);
 
             return $galleryFormatter->init($galleryService->saveOrUpdate($gallery))
                 ->name()
@@ -155,6 +158,7 @@ class ArtGalleryController extends BaseApiController
             $name = $this->getValue('name', $gallery->getName());
             $description = $this->getValue('description', $gallery->getDescription());
             $orientation = $this->getValue('orientation', $gallery->getOrientation());
+            $masonry = $this->getValue('masonry', false);
             $slug = $this->getValue('slug', $gallery->getSlug());
 
             if (!$name) {
@@ -165,6 +169,7 @@ class ArtGalleryController extends BaseApiController
             $gallery->setSlug($slug);
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
+            $gallery->setMasonry($masonry);
 
             return $galleryFormatter->init($galleryService->saveOrUpdate($gallery))
                 ->name()

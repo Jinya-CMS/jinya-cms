@@ -44,6 +44,7 @@ class VideoGalleryController extends BaseApiController
                     ->background()
                     ->backgroundDimensions()
                     ->orientation()
+                    ->masonry()
                     ->slug()
                     ->description()
                     ->format();
@@ -76,13 +77,14 @@ class VideoGalleryController extends BaseApiController
                 ->background()
                 ->backgroundDimensions()
                 ->description()
+                ->masonry()
+                ->videos()
                 ->orientation();
 
             if ($this->isGranted('ROLE_WRITER')) {
                 $galleryFormatter->updated()
                     ->id()
-                    ->created()
-                    ->videos();
+                    ->created();
             }
 
             return [

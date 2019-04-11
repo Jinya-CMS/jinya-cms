@@ -9,9 +9,12 @@
 namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label\Label;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
@@ -54,8 +57,8 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param string $slug
      * @return ArtGallery
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): ArtGallery
     {
@@ -102,7 +105,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      * Counts all galleries
      *
      * @param string $keyword
-     * @param \Jinya\Entity\Label\Label|null $label
+     * @param Label|null $label
      * @return int
      */
     public function countAll(string $keyword = '', Label $label = null): int
@@ -121,7 +124,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param ArtGallery $gallery
      * @return ArtGallery
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(ArtGallery $gallery): ArtGallery
     {
