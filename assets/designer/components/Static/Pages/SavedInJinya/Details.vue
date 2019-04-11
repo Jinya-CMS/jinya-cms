@@ -2,8 +2,8 @@
   <div class="jinya-page">
     <jinya-message :message="message" :state="state" v-if="state"/>
     <jinya-loader :loading="loading" v-if="loading"/>
-    <div v-html="page.content" v-else></div>
-    <jinya-floating-action-button icon="pencil" :to="editLink"/>
+    <div v-else v-html="page.content"></div>
+    <jinya-floating-action-button :to="editLink" icon="pencil"/>
   </div>
 </template>
 
@@ -61,7 +61,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-page {
     font-family: $page-font-family;
     height: 100%;
@@ -69,18 +69,23 @@
     h1 {
       font-family: $page-font-family-heading1;
     }
+
     h2 {
       font-family: $page-font-family-heading2;
     }
+
     h3 {
       font-family: $page-font-family-heading3;
     }
+
     h4 {
       font-family: $page-font-family-heading4;
     }
+
     h5 {
       font-family: $page-font-family-heading5;
     }
+
     h6 {
       font-family: $page-font-family-heading6;
     }

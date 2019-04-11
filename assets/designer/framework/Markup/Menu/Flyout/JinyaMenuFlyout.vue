@@ -11,7 +11,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu__flyout {
     width: 100%;
   }

@@ -24,7 +24,7 @@ use function array_map;
 
 class UserFormatter implements UserFormatterInterface
 {
-    /** @var \Jinya\Entity\Artist\User */
+    /** @var User */
     private $user;
 
     /** @var array */

@@ -8,6 +8,7 @@
 
 namespace Jinya\Framework\Events\Media;
 
+use SplFileInfo;
 use Symfony\Component\EventDispatcher\Event;
 
 class MediaGetEvent extends Event
@@ -19,7 +20,7 @@ class MediaGetEvent extends Event
     /** @var string */
     private $path;
 
-    /** @var string|\SplFileInfo */
+    /** @var string|SplFileInfo */
     private $result;
 
     /**
@@ -40,7 +41,7 @@ class MediaGetEvent extends Event
     }
 
     /**
-     * @return \SplFileInfo|string
+     * @return SplFileInfo|string
      */
     public function getResult()
     {
@@ -48,7 +49,7 @@ class MediaGetEvent extends Event
     }
 
     /**
-     * @param \SplFileInfo|string $result
+     * @param SplFileInfo|string $result
      */
     public function setResult($result): void
     {

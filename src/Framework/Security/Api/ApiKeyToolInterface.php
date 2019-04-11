@@ -15,7 +15,7 @@ interface ApiKeyToolInterface
     /**
      * Creates an api key for the given user
      *
-     * @param \Jinya\Entity\Artist\User $user
+     * @param User $user
      * @return string
      */
     public function createApiKey(User $user): string;
@@ -24,7 +24,7 @@ interface ApiKeyToolInterface
      * Gets the user for the given api key
      *
      * @param string $key
-     * @return \Jinya\Entity\Artist\User
+     * @return User
      */
     public function getUserByKey(string $key): User;
 

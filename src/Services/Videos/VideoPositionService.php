@@ -10,10 +10,12 @@ namespace Jinya\Services\Videos;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Video\VideoPosition;
-use Jinya\Framework\Events\Artworks\VideoPositionDeleteEvent;
 use Jinya\Framework\Events\Videos\RearrangeEvent;
+use Jinya\Framework\Events\Videos\VideoPositionDeleteEvent;
 use Jinya\Framework\Events\Videos\VideoPositionEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateVideoEvent;
@@ -135,8 +137,8 @@ class VideoPositionService implements VideoPositionServiceInterface
      * Deletes the given video position
      *
      * @param int $id
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deletePosition(int $id)
     {

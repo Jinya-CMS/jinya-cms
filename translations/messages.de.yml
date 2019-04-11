@@ -649,6 +649,7 @@ art:
       save: Galerie speichern
       back: Zurück
       search: Suchen
+      masonry: Grid
       orientations:
         horizontal: Horizontal
         vertical: Vertikal

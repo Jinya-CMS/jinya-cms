@@ -16,7 +16,7 @@ interface UserFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param \Jinya\Entity\Artist\User $user
+     * @param User $user
      * @return UserFormatterInterface
      */
     public function init(User $user): self;

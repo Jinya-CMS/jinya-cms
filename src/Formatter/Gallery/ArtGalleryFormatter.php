@@ -39,6 +39,7 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     /**
      * GalleryFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {

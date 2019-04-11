@@ -8,6 +8,7 @@
 
 namespace Jinya\Entity\Logging;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -178,7 +179,7 @@ class LogEntry implements JsonSerializable
      */
     public function onPrePersist()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     /**

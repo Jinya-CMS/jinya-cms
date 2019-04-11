@@ -2,12 +2,12 @@
   <div style="padding-top: 1rem">
     <jinya-loader :loading="loading"/>
     <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info" v-if="tokens.length === 0"/>
-    <jinya-message message="my_jinya.two_factor.known_devices.device" v-for="token in tokens"
-                   :params="getData(token)"
-                   :key="`message-${token.key}`" state="info">
+    <jinya-message :key="`message-${token.key}`" :params="getData(token)"
+                   message="my_jinya.two_factor.known_devices.device"
+                   state="info" v-for="token in tokens">
       <jinya-message-action-bar :key="`message-action-bar-${token.key}`">
-        <jinya-button @click="deleteToken(token.key)" :isDanger="true"
-                      label="my_jinya.two_factor.known_devices.delete" :key="`button-${token.key}`"/>
+        <jinya-button :isDanger="true" :key="`button-${token.key}`"
+                      @click="deleteToken(token.key)" label="my_jinya.two_factor.known_devices.delete"/>
       </jinya-message-action-bar>
     </jinya-message>
   </div>

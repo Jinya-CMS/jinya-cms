@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="jinya-loader" :class="{'is--mini': mini}">
+  <div :class="{'is--mini': mini}" class="jinya-loader" v-if="loading">
     <div class="jinya-loader__spinner"></div>
   </div>
 </template>
@@ -24,7 +24,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-loader {
     display: flex;
     justify-content: center;

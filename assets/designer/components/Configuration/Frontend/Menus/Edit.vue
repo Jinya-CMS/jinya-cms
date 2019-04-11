@@ -1,7 +1,7 @@
 <template>
   <div>
     <jinya-loader :loading="loading" v-if="loading"/>
-    <jinya-menu-form :message="message" :state="state" :enable="enable" @save="save" @back="back" :menu="menu" v-else/>
+    <jinya-menu-form :enable="enable" :menu="menu" :message="message" :state="state" @back="back" @save="save" v-else/>
   </div>
 </template>
 

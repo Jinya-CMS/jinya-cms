@@ -1,7 +1,7 @@
 <template>
   <label class="jinya-checkbox">
-    <input @change="$emit('input', $event.target.checked)" :checked="value" type="checkbox"
-           :disabled="!enable || isStatic">
+    <input :checked="value" :disabled="!enable || isStatic" @change="$emit('input', $event.target.checked)"
+           type="checkbox">
     {{label|jmessage}}
   </label>
 </template>
@@ -42,7 +42,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-checkbox {
     font-size: 1rem;
   }

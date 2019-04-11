@@ -47,7 +47,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-tab {
     width: 100%;
 

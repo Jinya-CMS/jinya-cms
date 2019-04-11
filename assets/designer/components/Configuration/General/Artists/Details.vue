@@ -1,6 +1,6 @@
 <template>
-  <jinya-artist-form :artist="artist" :message="message" :is-static="true" :show-password="false"
-                     save-label="configuration.general.artists.details.edit" @save="edit"/>
+  <jinya-artist-form :artist="artist" :is-static="true" :message="message" :show-password="false"
+                     @save="edit" save-label="configuration.general.artists.details.edit"/>
 </template>
 
 <script>

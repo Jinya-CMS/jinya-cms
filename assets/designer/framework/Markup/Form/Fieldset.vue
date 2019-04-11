@@ -17,7 +17,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-fieldset {
     border: none;
     margin: 0 0 1em;

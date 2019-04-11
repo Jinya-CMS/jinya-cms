@@ -1,5 +1,5 @@
 <template>
-  <div class="jinya-menu-flyout__menu" v-if="isOpen" :class="{'is--open': isOpen}">
+  <div :class="{'is--open': isOpen}" class="jinya-menu-flyout__menu" v-if="isOpen">
     <slot/>
   </div>
 </template>
@@ -18,7 +18,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-flyout__menu {
     background: $primary;
     display: none;

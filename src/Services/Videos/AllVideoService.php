@@ -9,6 +9,8 @@
 namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Video\Video;
 use Jinya\Entity\Video\YoutubeVideo;
@@ -76,8 +78,8 @@ class AllVideoService implements AllVideoServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {

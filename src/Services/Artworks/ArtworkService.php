@@ -9,9 +9,12 @@
 namespace Jinya\Services\Artworks;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Label\Label;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Artworks\ArtworkEvent;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
@@ -112,7 +115,7 @@ class ArtworkService implements ArtworkServiceInterface
      *
      * @param Artwork $artwork
      * @return Artwork
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(Artwork $artwork): Artwork
     {
@@ -146,8 +149,8 @@ class ArtworkService implements ArtworkServiceInterface
      *
      * @param string $slug
      * @return Artwork
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): ?Artwork
     {

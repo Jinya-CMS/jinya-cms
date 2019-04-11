@@ -39,6 +39,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
     /**
      * GalleryFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {

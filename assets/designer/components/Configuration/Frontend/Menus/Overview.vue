@@ -3,30 +3,34 @@
     <jinya-loader :loading="loading"/>
     <jinya-message :message="message" :state="state" v-if="!loading"/>
     <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
-      <jinya-card v-for="menu in menus" :header="menu.name" class="jinya-card--menu" :key="menu.id">
-        <img class="jinya-menu__logo" :src="menu.logo" v-if="menu.logo"/>
-        <jinya-card-button slot="footer" type="edit" icon="pencil"
-                           :to="{name: editRoute, params: {id: menu.id}}"
-                           :title="'configuration.frontend.menus.overview.edit'|jmessage"/>
-        <jinya-card-button slot="footer" type="edit" icon="menu"
-                           :to="{name: editorRoute, params: {id: menu.id}}"
-                           :title="'configuration.frontend.menus.overview.editor'|jmessage"/>
-        <jinya-card-button slot="footer" type="delete" icon="delete" @click="showDelete(menu)"
-                           :title="'configuration.frontend.menus.overview.delete'|jmessage"/>
+      <jinya-card :header="menu.name" :key="menu.id" class="jinya-card--menu" v-for="menu in menus">
+        <img :src="menu.logo" class="jinya-menu__logo" v-if="menu.logo"/>
+        <jinya-card-button :title="'configuration.frontend.menus.overview.edit'|jmessage"
+                           :to="{name: editRoute, params: {id: menu.id}}" icon="pencil"
+                           slot="footer"
+                           type="edit"/>
+        <jinya-card-button :title="'configuration.frontend.menus.overview.editor'|jmessage"
+                           :to="{name: editorRoute, params: {id: menu.id}}" icon="menu"
+                           slot="footer"
+                           type="edit"/>
+        <jinya-card-button :title="'configuration.frontend.menus.overview.delete'|jmessage" @click="showDelete(menu)"
+                           icon="delete" slot="footer"
+                           type="delete"/>
       </jinya-card>
     </jinya-card-list>
     <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
-    <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
-                 :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)">
-      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                     slot="message"/>
+    <jinya-modal :loading="this.delete.loading"
+                 :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)" @close="closeDeleteModal()"
+                 v-if="this.delete.show">
+      <jinya-message :message="this.delete.error" slot="message" state="error"
+                     v-if="this.delete.error && !this.delete.loading"/>
       {{'configuration.frontend.menus.delete.message'|jmessage(selectedMenu)}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.frontend.menus.delete.no"
-                          :closes-modal="true" :is-disabled="this.delete.loading"/>
-      <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.frontend.menus.delete.yes"
-                          @click="remove" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                          label="configuration.frontend.menus.delete.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                          label="configuration.frontend.menus.delete.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-floating-action-button :is-primary="true" icon="plus" :to="addRoute"/>
+    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus"/>
   </div>
 </template>
 
@@ -162,7 +166,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-card--menu {
     .jinya-card__body {
       display: flex;

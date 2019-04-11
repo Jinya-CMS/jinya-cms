@@ -1,11 +1,11 @@
 <template>
-  <router-link class="jinya-floating-action-button" :class="additionalClasses" v-if="routeTarget && !isDisabled"
-               :to="routeTarget">
-    <i class="mdi" :class="`mdi-${icon}`"></i>
+  <router-link :class="additionalClasses" :to="routeTarget" class="jinya-floating-action-button"
+               v-if="routeTarget && !isDisabled">
+    <i :class="`mdi-${icon}`" class="mdi"></i>
   </router-link>
-  <button class="jinya-floating-action-button" :class="additionalClasses" v-else-if="!routeTarget && !isDisabled"
-          @click="$emit('click')">
-    <i class="mdi" :class="`mdi-${icon}`"></i>
+  <button :class="additionalClasses" @click="$emit('click')" class="jinya-floating-action-button"
+          v-else-if="!routeTarget && !isDisabled">
+    <i :class="`mdi-${icon}`" class="mdi"></i>
   </button>
 </template>
 
@@ -57,7 +57,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-floating-action-button {
     border: 2px solid;
     border-radius: 50%;
@@ -92,6 +92,7 @@
         color: $gray-600;
       }
     }
+
     &.is--primary {
       background: $primary;
       color: $white;
@@ -102,6 +103,7 @@
         color: $primary;
       }
     }
+
     &.is--secondary {
       background: $secondary;
       color: $white;
@@ -112,6 +114,7 @@
         color: $secondary;
       }
     }
+
     &.is--danger {
       background: $danger;
       color: $white;
@@ -122,6 +125,7 @@
         color: $danger;
       }
     }
+
     &.is--success {
       background: $success;
       color: $white;

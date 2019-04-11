@@ -1,5 +1,5 @@
 <template>
-  <transition v-if="isSelected" enter-class="is--entering" leave-to-class="is--leaving">
+  <transition enter-class="is--entering" leave-to-class="is--leaving" v-if="isSelected">
     <div class="jinya-tab__item">
       <slot/>
     </div>
@@ -20,7 +20,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-tab__item {
     width: 100%;
     max-height: 100%;

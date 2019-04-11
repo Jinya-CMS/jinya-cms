@@ -39,10 +39,10 @@ interface FormServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or updates the given @see Form
+     * Saves or updates the given @param Form $form
+     * @return Form
+     * @see Form
      *
-     * @param Form $form
-     * @return \Jinya\Entity\Form\Form
      */
     public function saveOrUpdate(Form $form): Form;
 

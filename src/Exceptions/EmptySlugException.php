@@ -8,9 +8,10 @@
 
 namespace Jinya\Exceptions;
 
+use Exception;
 use Throwable;
 
-class EmptySlugException extends \Exception
+class EmptySlugException extends Exception
 {
     public function __construct(string $message = 'The slug cannot be empty', int $code = 0, Throwable $previous = null)
     {

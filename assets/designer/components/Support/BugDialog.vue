@@ -1,22 +1,25 @@
 <template>
   <jinya-form @submit="submit">
-    <jinya-modal @close="$emit('close')" title="support.bug_dialog.title" v-if="show" :is-fullscreen="true">
-      <jinya-message class="is--bug-dialog" slot="message" :message="message" :state="state">
+    <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.bug_dialog.title" v-if="show">
+      <jinya-message :message="message" :state="state" class="is--bug-dialog" slot="message">
         <jinya-message-action-bar v-if="state === 'error'">
-          <jinya-button label="support.bug_dialog.send_mail" href="mailto:developers@jinya.de"/>
+          <jinya-button href="mailto:developers@jinya.de" label="support.bug_dialog.send_mail"/>
         </jinya-message-action-bar>
       </jinya-message>
-      <jinya-input :required="true" label="support.bug_dialog.form.title" v-model="title"
-                   :validation-message="'support.bug_dialog.form.title.empty'|jvalidator"/>
-      <jinya-textarea :required="true" label="support.bug_dialog.form.details" v-model="details"
-                      :validation-message="'support.bug_dialog.form.details.empty'|jvalidator"/>
-      <jinya-textarea :required="true" label="support.bug_dialog.form.reproduce" v-model="reproduce"
-                      :validation-message="'support.bug_dialog.form.reproduce.empty'|jvalidator"/>
-      <jinya-choice label="support.bug_dialog.form.severity" :choices="severityLevels"
-                    @selected="severity = $event" :selected="severity"/>
-      <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.bug_dialog.form.cancel"
-                          :is-secondary="true"/>
-      <jinya-modal-button slot="buttons-right" label="support.bug_dialog.form.submit" :is-success="true" type="submit"/>
+      <jinya-input :required="true" :validation-message="'support.bug_dialog.form.title.empty'|jvalidator"
+                   label="support.bug_dialog.form.title"
+                   v-model="title"/>
+      <jinya-textarea :required="true" :validation-message="'support.bug_dialog.form.details.empty'|jvalidator"
+                      label="support.bug_dialog.form.details"
+                      v-model="details"/>
+      <jinya-textarea :required="true" :validation-message="'support.bug_dialog.form.reproduce.empty'|jvalidator"
+                      label="support.bug_dialog.form.reproduce"
+                      v-model="reproduce"/>
+      <jinya-choice :choices="severityLevels" :selected="severity"
+                    @selected="severity = $event" label="support.bug_dialog.form.severity"/>
+      <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.bug_dialog.form.cancel"
+                          slot="buttons-left"/>
+      <jinya-modal-button :is-success="true" label="support.bug_dialog.form.submit" slot="buttons-right" type="submit"/>
     </jinya-modal>
   </jinya-form>
 </template>

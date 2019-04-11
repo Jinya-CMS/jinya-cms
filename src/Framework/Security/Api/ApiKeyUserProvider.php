@@ -9,6 +9,8 @@
 namespace Jinya\Framework\Security\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Artist\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,8 +44,8 @@ class ApiKeyUserProvider implements UserProviderInterface
      * @param string $username The username
      *
      * @return UserInterface
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function loadUserByUsername($username)
     {

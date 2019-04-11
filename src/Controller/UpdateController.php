@@ -19,6 +19,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
+use Throwable;
 use ZipArchive;
 
 class UpdateController extends AbstractController
@@ -123,7 +124,7 @@ class UpdateController extends AbstractController
             foreach ($themes as $theme) {
                 $this->themeCompilerService->compileTheme($theme);
             }
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             rename($backupPath, $this->kernelProjectDir . '/src');
         }
     }

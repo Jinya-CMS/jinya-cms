@@ -1,12 +1,13 @@
 <template>
   <jinya-editor>
     <jinya-message :message="message" :state="state"/>
-    <jinya-form @submit="save" save-label="configuration.frontend.themes.variables.save" :enable="!loading"
+    <jinya-form :enable="!loading" @back="back" @submit="save"
                 cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
-                @back="back">
-      <jinya-input v-for="field in filteredFields" :label="field.label" :placeholder="field.value"
-                   :key="field.key" :value="getValue(field.key)" class="jinya-input--variables" :enable="!loading"
-                   @change="value => changeVariable(field, value)"/>
+                save-label="configuration.frontend.themes.variables.save">
+      <jinya-input :enable="!loading" :key="field.key" :label="field.label"
+                   :placeholder="field.value" :value="getValue(field.key)"
+                   @change="value => changeVariable(field, value)" class="jinya-input--variables"
+                   v-for="field in filteredFields"/>
     </jinya-form>
   </jinya-editor>
 </template>
@@ -113,7 +114,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-form--variables {
     display: flex;
     margin-bottom: 1em;

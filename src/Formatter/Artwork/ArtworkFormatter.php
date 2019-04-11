@@ -11,6 +11,8 @@ namespace Jinya\Formatter\Artwork;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ArtworkFormatter implements ArtworkFormatterInterface
@@ -196,8 +198,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Formats the galleries
      *
      * @return ArtworkFormatterInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {

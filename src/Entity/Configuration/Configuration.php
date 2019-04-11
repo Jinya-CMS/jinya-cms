@@ -30,7 +30,7 @@ class Configuration
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme\Theme")
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
-     * @var \Jinya\Entity\Theme\Theme
+     * @var Theme
      */
     private $currentTheme;
 
@@ -74,7 +74,7 @@ class Configuration
     }
 
     /**
-     * @return \Jinya\Entity\Theme\Theme
+     * @return Theme
      */
     public function getCurrentTheme(): Theme
     {
@@ -82,7 +82,7 @@ class Configuration
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $currentTheme
+     * @param Theme $currentTheme
      */
     public function setCurrentTheme(Theme $currentTheme): void
     {

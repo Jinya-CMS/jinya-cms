@@ -39,10 +39,10 @@ interface PageServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or updates the given @see Page
-     *
-     * @param \Jinya\Entity\Page\Page $page
+     * Saves or updates the given @param Page $page
      * @return Page
+     *@see Page
+     *
      */
     public function saveOrUpdate(Page $page): Page;
 

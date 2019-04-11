@@ -16,7 +16,7 @@ interface RouteServiceInterface
      * Gets a route by its url
      *
      * @param string $url
-     * @return \Jinya\Entity\Menu\RoutingEntry
+     * @return RoutingEntry
      */
     public function findByUrl(string $url): RoutingEntry;
 }

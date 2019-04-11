@@ -1,6 +1,6 @@
 <template>
-  <button :class="`jinya-gallery-designer__button--${type}`" class="jinya-gallery-designer__button"
-          @click="$emit('click')"></button>
+  <button :class="`jinya-gallery-designer__button--${type}`" @click="$emit('click')"
+          class="jinya-gallery-designer__button"></button>
 </template>
 
 <script>

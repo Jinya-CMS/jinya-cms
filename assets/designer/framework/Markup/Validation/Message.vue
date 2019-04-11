@@ -1,5 +1,5 @@
 <template>
-  <section class="jinya-message" :class="`is--${state}`">
+  <section :class="`is--${state}`" class="jinya-message">
     <span class="jinya-message__progress jinya-message__progress--increase" v-if="state === 'loading'"></span>
     <span class="jinya-message__progress" v-if="state === 'loading'"></span>
     <span class="jinya-message__progress jinya-message__progress--decrease" v-if="state === 'loading'"></span>
@@ -45,7 +45,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @mixin message-type($color) {
     background: color-yiq($color);
     color: $color;

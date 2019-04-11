@@ -13,6 +13,10 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
+use Twig_Environment;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 use Underscore\Types\Strings;
 
 class Compiler implements CompilerInterface
@@ -29,7 +33,7 @@ class Compiler implements CompilerInterface
     /** @var ThemeServiceInterface */
     private $themeService;
 
-    /** @var \Twig_Environment */
+    /** @var Twig_Environment */
     private $twig;
 
     /**
@@ -38,9 +42,9 @@ class Compiler implements CompilerInterface
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param ThemeConfigServiceInterface $themeConfigService
      * @param ThemeServiceInterface $themeService
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      */
-    public function __construct(ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, \Twig_Environment $twig)
+    public function __construct(ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, Twig_Environment $twig)
     {
         $this->configurationService = $configurationService;
         $this->themeCompilerService = $themeCompilerService;
@@ -55,9 +59,9 @@ class Compiler implements CompilerInterface
      * @param string $path
      * @param array $context
      * @return string
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
      */
     public function compile(string $path, array $context): string
     {

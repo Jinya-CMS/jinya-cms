@@ -14,6 +14,7 @@ use Doctrine\ORM\NoResultException;
 use Exception;
 use Jinya\Entity\Theme\Theme;
 use Twig\Loader\FilesystemLoader;
+use Twig_Error_Loader;
 
 class ThemeService implements ThemeServiceInterface
 {
@@ -101,7 +102,7 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Twig_Error_Loader
+     * @throws Twig_Error_Loader
      */
     public function registerThemes(): void
     {

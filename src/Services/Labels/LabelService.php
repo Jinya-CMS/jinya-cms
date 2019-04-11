@@ -9,6 +9,7 @@
 namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label\Label;
@@ -107,7 +108,7 @@ class LabelService implements LabelServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function createMissingLabels(array $labels): array
     {
@@ -124,9 +125,9 @@ class LabelService implements LabelServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Label\Label $label
+     * @param Label $label
      * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     private function labelExists(Label $label): bool
     {
@@ -158,7 +159,7 @@ class LabelService implements LabelServiceInterface
      *
      * @param string $name
      * @param string $newName
-     * @return \Jinya\Entity\Label\Label
+     * @return Label
      */
     public function rename(string $name, string $newName): Label
     {

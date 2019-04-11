@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/no-textarea-mustache -->
 <template>
-  <div class="jinya-input" :class="{'is--invalid': invalid}" :data-validation-message="validationMessage">
+  <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
     <label :for="id" class="jinya-input__label">{{label|jmessage}}</label>
-    <textarea v-if="!isStatic" :disabled="!enable" :id="id" class="jinya-input__textarea" :type="type"
-              :required="required" :autocomplete="autocomplete" @keyup="keyup"
-              @input="input" @invalid="onInvalid" @change="change">{{value}}</textarea>
-    <span v-if="isStatic" :id="id" class="jinya-input__field jinya-input__field--no-break">{{value}}</span>
+    <textarea :autocomplete="autocomplete" :disabled="!enable" :id="id" :required="required" :type="type"
+              @change="change" @input="input" @invalid="onInvalid"
+              @keyup="keyup" class="jinya-input__textarea" v-if="!isStatic">{{value}}</textarea>
+    <span :id="id" class="jinya-input__field jinya-input__field--no-break" v-if="isStatic">{{value}}</span>
   </div>
 </template>
 
@@ -70,7 +70,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-input {
     font-size: 1rem;
     width: 100%;
@@ -102,6 +102,7 @@
         border-bottom-color: $danger;
       }
     }
+
     .jinya-input__field {
       padding: 0.5em;
       outline: none;

@@ -9,6 +9,8 @@
 namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr;
 use Exception;
 use Jinya\Entity\Video\UploadingVideo;
@@ -87,8 +89,8 @@ class VideoUploadService implements VideoUploadServiceInterface
      * @param resource $chunk
      * @param int $position
      * @param string $slug
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function uploadChunk($chunk, int $position, string $slug): void
     {
@@ -116,8 +118,8 @@ class VideoUploadService implements VideoUploadServiceInterface
     /**
      * @param string $slug
      * @return UploadingVideo
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     private function getUploadingVideo(string $slug): UploadingVideo
     {
@@ -199,8 +201,8 @@ class VideoUploadService implements VideoUploadServiceInterface
      * Removes all chunk data after upload
      *
      * @param string $slug
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function cleanupAfterUpload(string $slug): void
     {

@@ -1,6 +1,6 @@
 <template>
-  <button class="jinya-gallery-designer__button-position" @click="$emit('click')"
-          :class="classes"></button>
+  <button :class="classes" @click="$emit('click')"
+          class="jinya-gallery-designer__button-position"></button>
 </template>
 
 <script>
@@ -48,6 +48,7 @@
         }
       }
     }
+
     &.is--vertical {
       .jinya-gallery-designer__button-position {
         &.jinya-gallery-designer__button-position--decrease {

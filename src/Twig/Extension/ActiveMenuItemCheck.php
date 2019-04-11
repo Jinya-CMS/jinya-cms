@@ -7,8 +7,10 @@ use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Entity\Menu\RoutingEntry;
 use Symfony\Component\Routing\RequestContext;
+use Twig_Extension;
+use Twig_Function;
 
-class ActiveMenuItemCheck extends \Twig_Extension
+class ActiveMenuItemCheck extends Twig_Extension
 {
     /** @var RequestContext */
     private $requestContext;
@@ -38,13 +40,13 @@ class ActiveMenuItemCheck extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'isActiveMenuItem' => new \Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
+            'isActiveMenuItem' => new Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
                 'needs_context' => true,
             ]),
-            'isChildActiveMenuItem' => new \Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
+            'isChildActiveMenuItem' => new Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
                 'needs_context' => true,
             ]),
-            'getActiveMenuItem' => new \Twig_Function('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
+            'getActiveMenuItem' => new Twig_Function('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
                 'needs_context' => true,
             ]),
         ];
@@ -88,6 +90,7 @@ class ActiveMenuItemCheck extends \Twig_Extension
         $pathInfo = array_key_exists('active', $context) ? $context['active'] : $this->requestContext->getPathInfo();
         $relevantEntries = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['url' => $pathInfo]);
 
+        /** @var Menu $primaryMenu */
         $primaryMenu = $context['theme']['active']->getPrimaryMenu();
         foreach ($relevantEntries as $relevantEntry) {
             $menu = $this->findMenuForEntry($relevantEntry->getMenuItem());
@@ -95,6 +98,8 @@ class ActiveMenuItemCheck extends \Twig_Extension
                 return $relevantEntry->getMenuItem();
             }
         }
+
+        return null;
     }
 
     private function findMenuForEntry(MenuItem $menuItem): Menu

@@ -38,7 +38,7 @@ Encore
     ],
   }))
 
-  .addAliases({ '@': 'assets/designer' })
+  .addAliases({ '@': path.resolve(__dirname, 'assets', 'designer') })
   .addRule({
     test: /worker\/VideoUploader\.js$/,
     include: path.resolve(__dirname, './assets/designer/'),

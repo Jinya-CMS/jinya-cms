@@ -1,5 +1,5 @@
 <template>
-  <ul class="jinya-menu-flyout__navbar" :class="{'is--open': isOpen}">
+  <ul :class="{'is--open': isOpen}" class="jinya-menu-flyout__navbar">
     <slot/>
   </ul>
 </template>
@@ -19,7 +19,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-flyout__navbar {
     width: 100%;
     display: none;

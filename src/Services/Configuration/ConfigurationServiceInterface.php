@@ -15,14 +15,14 @@ interface ConfigurationServiceInterface
     /**
      * Gets the frontend configuration
      *
-     * @return \Jinya\Entity\Configuration\Configuration
+     * @return Configuration
      */
     public function getConfig(): Configuration;
 
     /**
      * Saves the frontend configuration
      *
-     * @param \Jinya\Entity\Configuration\Configuration $configuration
+     * @param Configuration $configuration
      */
     public function writeConfig(Configuration $configuration): void;
 }

@@ -1,10 +1,10 @@
 <template>
   <jinya-input :enable="enable" :label="label" :value="value" @input="changed" v-if="type === 'string'"/>
-  <div v-else-if="type === 'file'" class="jinya-field__group">
-    <jinya-file-input @picked="changed" :label="label" :enable="enable" class="jinya-field__input"
-                      :has-value="hasValue"/>
+  <div class="jinya-field__group" v-else-if="type === 'file'">
+    <jinya-file-input :enable="enable" :has-value="hasValue" :label="label" @picked="changed"
+                      class="jinya-field__input"/>
   </div>
-  <jinya-checkbox @input="changed" :label="label" :enable="enable" v-else-if="type === 'boolean'" :value="!!value"/>
+  <jinya-checkbox :enable="enable" :label="label" :value="!!value" @input="changed" v-else-if="type === 'boolean'"/>
 </template>
 
 <script>
@@ -79,7 +79,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-field__group {
     margin-bottom: 1em;
 

@@ -31,7 +31,7 @@ interface MenuItemServiceInterface
      * @param int $parentId
      * @param int $position
      * @param string $type
-     * @return \Jinya\Entity\Menu\MenuItem
+     * @return MenuItem
      */
     public function get(int $parentId, int $position, string $type = self::PARENT): MenuItem;
 
@@ -54,10 +54,10 @@ interface MenuItemServiceInterface
     public function removeItem(int $parentId, int $position, string $type = self::PARENT): void;
 
     /**
-     * Updates the given @see MenuItem
-     *
-     * @param \Jinya\Entity\Menu\MenuItem $item
+     * Updates the given @param MenuItem $item
      * @return MenuItem
+     * @see MenuItem
+     *
      */
     public function updateItem(MenuItem $item): MenuItem;
 }

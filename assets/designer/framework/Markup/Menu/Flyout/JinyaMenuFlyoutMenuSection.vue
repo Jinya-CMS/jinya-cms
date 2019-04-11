@@ -19,7 +19,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-flyout__menu__section {
     margin: 1em 2.5em 3em;
 

@@ -1,10 +1,11 @@
 <template>
-  <div class="jinya-input" :class="{'is--invalid': invalid}" :data-validation-message="validationMessage">
-    <label v-if="label" :for="id" class="jinya-input__label">{{label|jmessage}}</label>
-    <input v-if="!isStatic" :id="id" class="jinya-input__field" :type="type" :required="required" :value="value"
-           :disabled="!enable" :autocomplete="autocomplete" @keyup="keyup" :placeholder="placeholder|jmessage"
-           :autofocus="autofocus" @input="input" @invalid="onInvalid" @change="change"/>
-    <span v-if="isStatic" :id="id" class="jinya-input__field">{{value}}</span>
+  <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
+    <label :for="id" class="jinya-input__label" v-if="label">{{label|jmessage}}</label>
+    <input :autocomplete="autocomplete" :autofocus="autofocus" :disabled="!enable" :id="id"
+           :placeholder="placeholder|jmessage" :required="required"
+           :type="type" :value="value" @change="change" @input="input"
+           @invalid="onInvalid" @keyup="keyup" class="jinya-input__field" v-if="!isStatic"/>
+    <span :id="id" class="jinya-input__field" v-if="isStatic">{{value}}</span>
   </div>
 </template>
 
@@ -78,7 +79,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-input {
     font-size: 1rem;
     width: 100%;

@@ -18,7 +18,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-progress-bar {
     height: 1rem;
   }
