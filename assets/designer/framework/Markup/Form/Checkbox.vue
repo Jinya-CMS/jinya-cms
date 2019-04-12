@@ -45,5 +45,6 @@
 <style lang="scss" scoped>
   .jinya-checkbox {
     font-size: 1rem;
+    width: 100%;
   }
 </style>

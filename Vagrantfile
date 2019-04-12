@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
     sudo apk update
     sudo apk upgrade
     sudo apk fix
-  SHELL, run: "always"
+  SHELL
   config.vm.provision "Install Ansible", type: "shell", inline: <<-SHELL
     sudo apk update
     sudo apk upgrade || true

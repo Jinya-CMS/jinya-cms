@@ -84,6 +84,7 @@ class ArtGalleryController extends BaseApiController
                 ->backgroundDimensions()
                 ->description()
                 ->orientation()
+                ->masonry()
                 ->artworks();
 
             if ($this->isGranted('ROLE_WRITER')) {

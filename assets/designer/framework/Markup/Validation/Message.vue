@@ -55,10 +55,8 @@
 
   .jinya-message {
     padding: 1rem;
-    width: calc(100% - 1rem);
+    width: 100%;
     box-sizing: border-box;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
 
     &.is--error {
       @include message-type($red);

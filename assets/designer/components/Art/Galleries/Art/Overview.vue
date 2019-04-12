@@ -4,12 +4,13 @@
     <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
       <jinya-card :header="gallery.name" :key="gallery.slug" v-for="gallery in galleries" v-if="!loading">
         <p :style="{ 'background-image': `url(${gallery.background})` }" class="jinya-gallery-description">
-          {{gallery.description}}</p>
+          {{gallery.description}}
+        </p>
         <jinya-card-button :to="{name: detailsRoute, params: {slug: gallery.slug}}" icon="monitor" slot="footer"
                            type="details"/>
         <jinya-card-button :to="{name: editRoute, params: {slug: gallery.slug}}" icon="pencil" slot="footer"
                            type="edit"/>
-        <jinya-card-button :icon="gallery.orientation === 'horizontal' ? 'view-parallel' : 'view-sequential'"
+        <jinya-card-button :icon="designerIcon(gallery)"
                            :to="{name: designerRoute, params: {slug: gallery.slug}}" slot="footer" type="edit"/>
         <jinya-card-button @click="showDeleteModal(gallery)" icon="delete" slot="footer" type="delete"/>
       </jinya-card>
@@ -65,6 +66,21 @@
       },
     },
     methods: {
+      designerIcon(gallery) {
+        if (!gallery) {
+          return '';
+        }
+
+        if (gallery.masonry === true) {
+          return 'view-module';
+        }
+
+        if (gallery.orientation === 'horizontal') {
+          return 'view-parallel';
+        }
+
+        return 'view-sequential';
+      },
       load(target) {
         const url = new URL(target, window.location.href);
 

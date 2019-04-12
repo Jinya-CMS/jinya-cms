@@ -8,4 +8,5 @@
     - php
     - mailhog
     - theme-compiler
+    - encore
     - jinya

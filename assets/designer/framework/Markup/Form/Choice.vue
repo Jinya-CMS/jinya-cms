@@ -122,6 +122,7 @@
   .jinya-choice {
     font-size: 1rem;
     margin: 0 0 1em;
+    width: 100%;
 
     .jinya-choice__label {
       display: block;

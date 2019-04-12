@@ -22,54 +22,6 @@
 </script>
 
 <style lang="scss">
-  .jinya-gallery-designer {
-    &.is--horizontal {
-      .jinya-gallery-designer__button-position {
-        width: 10em;
-
-        &.jinya-gallery-designer__button-position--decrease {
-          grid-row: 2;
-          grid-column: 1;
-          justify-self: start;
-
-          &::before {
-            content: '\f04e';
-          }
-        }
-
-        &.jinya-gallery-designer__button-position--increase {
-          grid-row: 2;
-          grid-column: 1;
-          justify-self: end;
-
-          &::before {
-            content: '\f055';
-          }
-        }
-      }
-    }
-
-    &.is--vertical {
-      .jinya-gallery-designer__button-position {
-        &.jinya-gallery-designer__button-position--decrease {
-          grid-row: 1;
-
-          &::before {
-            content: '\f05e';
-          }
-        }
-
-        &.jinya-gallery-designer__button-position--increase {
-          grid-row: 3;
-
-          &::before {
-            content: '\f046';
-          }
-        }
-      }
-    }
-  }
-
   .jinya-gallery-designer__button-position {
     cursor: pointer;
     background: $primary;
@@ -89,6 +41,70 @@
     &:hover {
       background: $primary-lighter;
       color: $primary;
+    }
+
+    .is--horizontal & {
+      width: 10em;
+
+      &.jinya-gallery-designer__button-position--decrease {
+        grid-row: 2;
+        grid-column: 1;
+        justify-self: start;
+
+        &::before {
+          content: '\f04e';
+        }
+      }
+
+      &.jinya-gallery-designer__button-position--increase {
+        grid-row: 2;
+        grid-column: 1;
+        justify-self: end;
+
+        &::before {
+          content: '\f055';
+        }
+      }
+    }
+
+    .is--vertical & {
+      &.jinya-gallery-designer__button-position--decrease {
+        grid-row: 1;
+
+        &::before {
+          content: '\f05e';
+        }
+      }
+
+      &.jinya-gallery-designer__button-position--increase {
+        grid-row: 3;
+
+        &::before {
+          content: '\f046';
+        }
+      }
+    }
+
+    .is--masonry & {
+      &.jinya-gallery-designer__button-position--decrease {
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: start;
+
+        &::before {
+          content: '\f04e';
+        }
+      }
+
+      &.jinya-gallery-designer__button-position--increase {
+        grid-row: 1;
+        grid-column: 3;
+        justify-self: end;
+
+        &::before {
+          content: '\f055';
+        }
+      }
     }
   }
 </style>

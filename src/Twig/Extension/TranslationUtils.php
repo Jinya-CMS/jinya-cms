@@ -3,7 +3,7 @@
 namespace Jinya\Twig\Extension;
 
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_Function;
 use const DIRECTORY_SEPARATOR;
@@ -13,15 +13,15 @@ class TranslationUtils extends Twig_Extension
     /** @var string */
     private $kernelProjectDir;
 
-    /** @var LocaleAwareInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     /**
      * TranslationUtils constructor.
      * @param string $kernelProjectDir
-     * @param LocaleAwareInterface $translator
+     * @param TranslatorInterface $translator
      */
-    public function __construct(string $kernelProjectDir, LocaleAwareInterface $translator)
+    public function __construct(string $kernelProjectDir, TranslatorInterface $translator)
     {
         $this->kernelProjectDir = $kernelProjectDir;
         $this->translator = $translator;

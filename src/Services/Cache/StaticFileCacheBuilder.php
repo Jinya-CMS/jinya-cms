@@ -209,8 +209,10 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             ];
             $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
+            $artGallery = $this->artGalleryService->get($slug);
+
             $viewData = [
-                'gallery' => $this->artGalleryService->get($slug),
+                'gallery' => $artGallery,
                 'type' => 'art',
                 'active' => $route->getUrl(),
             ];

@@ -29,5 +29,11 @@
       grid-column: 1;
       grid-row: 1;
     }
+
+    .is--masonry & {
+      height: 10rem;
+      grid-column: 2;
+      grid-row: 1;
+    }
   }
 </style>

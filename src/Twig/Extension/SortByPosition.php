@@ -22,13 +22,14 @@ class SortByPosition extends Twig_Extension
         ];
     }
 
-    public function sortByPosition(array $items)
+    public function sortByPosition($items)
     {
         if ($items instanceof Collection) {
             $elements = $items->toArray();
         } else {
             $elements = $items;
         }
+
         usort($elements, function ($item1, $item2) {
             /** @var MenuItem $item1 */
             /** @var MenuItem $item2 */
