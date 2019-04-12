@@ -66,7 +66,6 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
-     *
      */
     public function format(): array
     {
