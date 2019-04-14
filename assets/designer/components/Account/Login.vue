@@ -72,6 +72,12 @@
     padding-top: 10%;
   }
 
+  .jinya-login__container {
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-top: 10%;
+  }
+
   .jinya-login {
     height: auto;
     overflow: auto;
