@@ -55,7 +55,6 @@ class PageService implements PageServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see Page by slug
-     *
      */
     public function get(string $slug): Page
     {
@@ -130,7 +129,6 @@ class PageService implements PageServiceInterface
      * @return Page
      * @throws EmptySlugException
      * @see Page
-     *
      */
     public function saveOrUpdate(Page $page): Page
     {

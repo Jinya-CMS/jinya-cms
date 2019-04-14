@@ -13,7 +13,6 @@ use Doctrine\ORM\QueryBuilder;
 
 /**
  * Trait StaticContentServiceTrait
- * @package Jinya\Services\Base
  * @method getQueryBuilder()
  */
 trait StaticContentServiceTrait

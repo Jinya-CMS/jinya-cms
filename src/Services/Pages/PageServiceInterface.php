@@ -42,7 +42,6 @@ interface PageServiceInterface
      * Saves or updates the given @param Page $page
      * @return Page
      *@see Page
-     *
      */
     public function saveOrUpdate(Page $page): Page;
 

@@ -42,7 +42,6 @@ interface FormServiceInterface
      * Saves or updates the given @param Form $form
      * @return Form
      * @see Form
-     *
      */
     public function saveOrUpdate(Form $form): Form;
 

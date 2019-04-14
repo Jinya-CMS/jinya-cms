@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection HtmlRequiredTitleElement */
 /** @noinspection HtmlRequiredLangAttribute */
 
