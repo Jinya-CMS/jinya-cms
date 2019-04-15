@@ -55,7 +55,6 @@ class FormService implements FormServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see Form by slug
-     *
      */
     public function get(string $slug): Form
     {
@@ -132,7 +131,6 @@ class FormService implements FormServiceInterface
      * @return Form
      * @throws EmptySlugException
      * @see Form
-     *
      */
     public function saveOrUpdate(Form $form): Form
     {

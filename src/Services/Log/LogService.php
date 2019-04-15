@@ -61,7 +61,6 @@ class LogService implements LogServiceInterface
      * @param string $filter
      * @return QueryBuilder
      *@see QueryBuilder filtered by level and filter
-     *
      */
     private function getFilterQueryBuilder(string $level, string $filter)
     {
