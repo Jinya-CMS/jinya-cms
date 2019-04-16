@@ -196,7 +196,6 @@ class MenuItemService implements MenuItemServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see MenuItem
-     *
      */
     public function removeItem(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): void
     {

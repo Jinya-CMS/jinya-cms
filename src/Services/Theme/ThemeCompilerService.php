@@ -49,7 +49,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     /**
      * Compiles the scss and javascript of the given @param Theme $theme
      * @see \Jinya\Entity\Theme\Theme
-     *
      */
     public function compileTheme(Theme $theme): void
     {
