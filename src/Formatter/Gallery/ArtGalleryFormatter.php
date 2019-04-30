@@ -15,6 +15,7 @@ use Jinya\Formatter\User\UserFormatterInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
 
 class ArtGalleryFormatter implements ArtGalleryFormatterInterface
 {
@@ -257,11 +258,16 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
      */
     public function backgroundDimensions(): ArtGalleryFormatterInterface
     {
-        $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->gallery->getBackground();
-        if (is_file($imagePath)) {
-            $imageSize = getimagesize($imagePath);
-            $this->formattedData['dimensions']['width'] = $imageSize[0];
-            $this->formattedData['dimensions']['height'] = $imageSize[1];
+        try {
+            $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->gallery->getBackground();
+            if (is_file($imagePath)) {
+                $imageSize = getimagesize($imagePath);
+                $this->formattedData['dimensions']['width'] = $imageSize[0];
+                $this->formattedData['dimensions']['height'] = $imageSize[1];
+            }
+        } catch (Throwable $exception) {
+            $this->formattedData['dimensions']['width'] = 0;
+            $this->formattedData['dimensions']['height'] = 0;
         }
 
         return $this;
