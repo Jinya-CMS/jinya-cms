@@ -58,7 +58,6 @@ class MenuFormatter implements MenuFormatterInterface
      * Initializes the @param Menu $menu
      * @return MenuFormatterInterface
      * @see MenuFormatterInterface
-     *
      */
     public function init(Menu $menu): MenuFormatterInterface
     {
