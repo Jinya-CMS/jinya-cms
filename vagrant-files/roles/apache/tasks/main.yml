@@ -1,8 +1,8 @@
 ---
 - name: Install packages
-  apk:
+  yum:
     name:
-      - apache2
+      - httpd
   become: true
 - name: Create log directory
   file:
@@ -10,20 +10,17 @@
     state: directory
     mode: 0755
   become: true
-- name: Remove default vhost
-  file:
-    path: /etc/apache2/conf.d/default.conf
-    state: absent
-  become: yes
-- name: Link the vhost
-  file:
-    path: /etc/apache2/conf.d/default.conf
+- name: Copy the vhost
+  copy:
     src: /vagrant/vagrant-files/roles/apache/files/default.conf
-    state: link
-    mode: 0755
+    dest: /etc/httpd/conf.d/default.conf
+    owner: root
+    group: root
+    mode: o=rw,g=r,u=r
   become: yes
-- name: Enable and start apache
+- name: Start apache
   service:
-    name: apache2
+    name: httpd
     state: restarted
+    enabled: true
   become: yes

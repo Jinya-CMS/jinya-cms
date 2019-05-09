@@ -1,9 +1,14 @@
 ---
 - name: Install rsync, inotify and utilities
-  apk:
+  yum:
     name:
       - rsync
       - inotify-tools
       - git
-      - yarn
+      - vim
+  become: true
+- name: Update SELinux
+  selinux:
+    policy: targeted
+    state: permissive
   become: true

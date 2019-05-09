@@ -2,11 +2,12 @@
 - name: Install requirements for Jinya
   hosts: all
   roles:
+    - jinya
     - common
+    - node
     - mysql
     - apache
     - php
     - mailhog
     - theme-compiler
     - encore
-    - jinya

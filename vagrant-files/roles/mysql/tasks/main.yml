@@ -1,27 +1,29 @@
 ---
+- name: Move repo
+  copy:
+    src: /vagrant/vagrant-files/roles/mysql/files/maria.repo
+    dest: /etc/yum.repos.d/maria.repo
+  become: true
 - name: Install packages
-  apk:
+  yum:
     name:
-      - mysql
-      - mysql-client
-      - py3-mysqlclient
+      - MariaDB-server
+      - MariaDB-client
+      - python-PyMySQL
   become: true
-- name: Check if mysql is installed
+- name: Check if mariadb is installed
   stat:
-    path: ~/mysql_install.lock
+    path: ~/mariadb_install.lock
   register: install_lock
-- name: Prepare mysql
-  shell: mysql_install_db --user=mysql --datadir=/var/lib/mysql && /etc/init.d/mariadb setup
-  become: true
-  when: install_lock.stat.exists == false
 - name: Touch installed file
   file:
     state: touch
-    path: ~/mysql_install.lock
-- name: Start mysql
+    path: ~/mariadb_install.lock
+- name: Start and enable mariabd
   service:
     name: mariadb
     state: started
+    enabled: true
   become: true
   when: install_lock.stat.exists == false
 - name: Set root password
@@ -32,6 +34,12 @@
   copy:
     dest: /etc/my.cnf.d/mariadb-server.cnf
     src: /vagrant/vagrant-files/roles/mysql/files/maria-server-jinya.cnf
+  become: true
+  when: install_lock.stat.exists == false
+- name: Restart mariadb
+  service:
+    name: mariadb
+    state: restarted
   become: true
   when: install_lock.stat.exists == false
 - name: Create database jinya-gallery-cms
@@ -59,7 +67,7 @@
     login_password: "{{mysql_root_password}}"
     target: /vagrant/vagrant-files/jinya-gallery-cms.sql
   when: install_lock.stat.exists == false
-- name: Restart mysql
+- name: Restart mariadb
   service:
     name: mariadb
     state: restarted

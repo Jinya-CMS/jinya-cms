@@ -1,6 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
 
+Encore.configureRuntimeEnvironment('dev');
 Encore
 // directory where compiled assets will be stored
   .setOutputPath('public/designer')

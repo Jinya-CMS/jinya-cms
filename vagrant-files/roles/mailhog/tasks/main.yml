@@ -6,10 +6,9 @@
     mode: o=rwx,g=rwx,u=x
   become: yes
 - name: Link mailhog service
-  file:
-    src: /vagrant/vagrant-files/roles/mailhog/files/service.sh
-    path: /etc/init.d/mailhog
-    state: link
+  copy:
+    dest: /etc/systemd/system/mailhog.service
+    src: /vagrant/vagrant-files/roles/mailhog/files/mailhog.service
   become: yes
 - name: Create and start mailhog service
   service:

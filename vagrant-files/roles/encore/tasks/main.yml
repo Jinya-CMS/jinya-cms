@@ -1,9 +1,8 @@
 ---
-- name: Link encore service
-  file:
-    path: /etc/init.d/encore
-    src: /vagrant/vagrant-files/roles/encore/files/service.sh
-    state: link
+- name: Copy encore service
+  copy:
+    src: /vagrant/vagrant-files/roles/encore/files/encore.service
+    dest: /etc/systemd/system/encore.service
     mode: o=rwx,g=x,u=x
   become: yes
 - name: Create and start encore service
