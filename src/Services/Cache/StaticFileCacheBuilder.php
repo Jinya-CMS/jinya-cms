@@ -267,18 +267,18 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function clearCache(): void
     {
-        $handle = fopen($this->getCacheFile(), 'rw+');
+        $handle = @fopen($this->getCacheFile(), 'rwb+');
         if ($handle) {
             try {
                 while (false !== ($line = fgets($handle))) {
-                    unlink($line);
+                    @unlink($line);
                 }
             } finally {
-                fclose($handle);
+                @fclose($handle);
             }
         }
 
-        unlink($this->getCacheFile());
+        @unlink($this->getCacheFile());
     }
 
     /**

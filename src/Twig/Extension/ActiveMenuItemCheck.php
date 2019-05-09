@@ -6,7 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Entity\Menu\RoutingEntry;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\RequestContext;
+use Throwable;
 use Twig_Extension;
 use Twig_Function;
 
@@ -18,15 +20,20 @@ class ActiveMenuItemCheck extends Twig_Extension
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * ActiveMenuItemCheck constructor.
      * @param RequestContext $requestContext
      * @param EntityManagerInterface $entityManager
+     * @param LoggerInterface $logger
      */
-    public function __construct(RequestContext $requestContext, EntityManagerInterface $entityManager)
+    public function __construct(RequestContext $requestContext, EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
         $this->requestContext = $requestContext;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     /**
@@ -87,27 +94,33 @@ class ActiveMenuItemCheck extends Twig_Extension
 
     public function getActiveMenuItem(array $context)
     {
-        $pathInfo = array_key_exists('active', $context) ? $context['active'] : $this->requestContext->getPathInfo();
-        $relevantEntries = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['url' => $pathInfo]);
+        try {
+            $pathInfo = array_key_exists('active', $context) ? $context['active'] : $this->requestContext->getPathInfo();
+            $relevantEntries = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['url' => $pathInfo]);
 
-        /** @var Menu $primaryMenu */
-        $primaryMenu = $context['theme']['active']->getPrimaryMenu();
-        foreach ($relevantEntries as $relevantEntry) {
-            $menu = $this->findMenuForEntry($relevantEntry->getMenuItem());
-            if ($menu->getId() === $primaryMenu->getId()) {
-                return $relevantEntry->getMenuItem();
+            /** @var Menu $primaryMenu */
+            $primaryMenu = $context['theme']['active']->getPrimaryMenu();
+            foreach ($relevantEntries as $relevantEntry) {
+                $menu = $this->findMenuForEntry($relevantEntry->getMenuItem());
+                if ($menu->getId() === $primaryMenu->getId()) {
+                    return $relevantEntry->getMenuItem();
+                }
             }
-        }
 
-        return null;
+            return null;
+        } catch (Throwable $exception) {
+            $this->logger->warning($exception->getMessage());
+            $this->logger->warning($exception->getTraceAsString());
+            return null;
+        }
     }
 
     private function findMenuForEntry(MenuItem $menuItem): Menu
     {
         if ($menuItem->getMenu()) {
             return $menuItem->getMenu();
-        } else {
-            return $this->findMenuForEntry($menuItem->getParent());
         }
+
+        return $this->findMenuForEntry($menuItem->getParent());
     }
 }
