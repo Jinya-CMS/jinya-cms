@@ -55,11 +55,11 @@ class Requirement
      */
     public function __construct($fulfilled, $testMessage, $helpHtml, $helpText = null, $optional = false)
     {
-        $this->fulfilled = (bool)$fulfilled;
-        $this->testMessage = (string)$testMessage;
-        $this->helpHtml = (string)$helpHtml;
-        $this->helpText = null === $helpText ? strip_tags($this->helpHtml) : (string)$helpText;
-        $this->optional = (bool)$optional;
+        $this->fulfilled = (bool) $fulfilled;
+        $this->testMessage = (string) $testMessage;
+        $this->helpHtml = (string) $helpHtml;
+        $this->helpText = null === $helpText ? strip_tags($this->helpHtml) : (string) $helpText;
+        $this->optional = (bool) $optional;
     }
 
     /**
@@ -551,7 +551,7 @@ class SymfonyRequirements extends RequirementCollection
             );
         }
 
-        $pcreVersion = defined('PCRE_VERSION') ? (float)PCRE_VERSION : null;
+        $pcreVersion = defined('PCRE_VERSION') ? (float) PCRE_VERSION : null;
 
         $this->addRequirement(
             null !== $pcreVersion,
@@ -787,7 +787,7 @@ class SymfonyRequirements extends RequirementCollection
                 continue;
             }
 
-            return (int)$package['version'][1] > 2 ? self::REQUIRED_PHP_VERSION : self::LEGACY_REQUIRED_PHP_VERSION;
+            return (int) $package['version'][1] > 2 ? self::REQUIRED_PHP_VERSION : self::LEGACY_REQUIRED_PHP_VERSION;
         }
 
         return false;
@@ -807,7 +807,7 @@ class SymfonyRequirements extends RequirementCollection
         $unit = '';
         if (!ctype_digit($size)) {
             $unit = strtolower(substr($size, -1, 1));
-            $size = (int)substr($size, 0, -1);
+            $size = (int) substr($size, 0, -1);
         }
         switch ($unit) {
             case 'g':
@@ -817,7 +817,7 @@ class SymfonyRequirements extends RequirementCollection
             case 'k':
                 return $size * 1024;
             default:
-                return (int)$size;
+                return (int) $size;
         }
     }
 }
