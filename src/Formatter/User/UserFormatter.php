@@ -94,7 +94,6 @@ class UserFormatter implements UserFormatterInterface
     /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
-     *
      */
     public function format(): array
     {
@@ -182,7 +181,6 @@ class UserFormatter implements UserFormatterInterface
     /**
      * Shorthand for @return UserFormatterInterface
      * @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
-     *
      */
     public function profile(): UserFormatterInterface
     {
