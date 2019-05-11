@@ -1,0 +1,50 @@
+.jinya-vertical-art-gallery {
+  flex-flow: row wrap;
+  margin-left: -1rem;
+  flex: 0 0 100%;
+  margin-top: 2rem;
+  display: flex;
+  width: calc(100% + 1rem);
+}
+
+.jinya-vertical-art-gallery__page-title {
+  @extend %jinya-page-title;
+}
+
+.jinya-vertical-art-gallery__artwork {
+  height: 15rem;
+  padding: 0.5rem;
+  border: none;
+  width: auto;
+  box-sizing: content-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  margin: 0;
+  max-width: 27rem;
+}
+
+.jinya-vertical-art-gallery-artwork__image {
+  flex: 1 1 auto;
+  height: 15rem;
+  width: 100%;
+  margin: 0;
+  object-fit: cover;
+  max-width: 27rem;
+  cursor: pointer;
+}
+
+.jinya-vertical-art-gallery__caption {
+  display: none;
+
+  @include content-styling;
+}
+
+.jinya-vertical-art-gallery-caption__title {
+  margin: 0 0 1rem;
+  display: block;
+  font-size: $jinya-vertical-art-gallery-caption-font-size;
+  font-weight: $jinya-vertical-art-gallery-caption-font-weight;
+  font-family: $heading-font-family;
+}

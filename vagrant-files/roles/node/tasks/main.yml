@@ -16,3 +16,6 @@
       - make
       - yarn
   become: true
+- name: Install node_modules
+  yarn:
+    path: /var/www/jinya
