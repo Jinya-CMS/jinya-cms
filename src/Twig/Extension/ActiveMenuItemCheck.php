@@ -111,6 +111,7 @@ class ActiveMenuItemCheck extends Twig_Extension
         } catch (Throwable $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
+
             return null;
         }
     }
