@@ -12,21 +12,17 @@
 }
 
 .jinya-vertical-art-gallery__artwork {
-  height: 15rem;
   padding: 0.5rem;
   border: none;
   width: auto;
   box-sizing: content-box;
-  display: flex;
+  display: block;
   flex: 1 1 auto;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
   margin: 0;
   max-width: 27rem;
 }
 
 .jinya-vertical-art-gallery-artwork__image {
-  flex: 1 1 auto;
   height: 15rem;
   width: 100%;
   margin: 0;
