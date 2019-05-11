@@ -1,9 +1,8 @@
 .jinya-vertical-art-gallery {
-  flex-flow: row wrap;
   margin-left: -1rem;
   flex: 0 0 100%;
   margin-top: 2rem;
-  display: flex;
+  display: block;
   width: calc(100% + 1rem);
 }
 
@@ -16,15 +15,14 @@
   border: none;
   width: auto;
   box-sizing: content-box;
-  display: block;
-  flex: 1 1 auto;
+  display: inline-block;
   margin: 0;
   max-width: 27rem;
 }
 
 .jinya-vertical-art-gallery-artwork__image {
   height: 15rem;
-  width: 100%;
+  width: auto;
   margin: 0;
   object-fit: cover;
   max-width: 27rem;
