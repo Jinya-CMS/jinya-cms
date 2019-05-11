@@ -2,7 +2,7 @@
 Description=Encore watch service
 
 [Service]
-ExecStart=/vagrant/vagrant-files/encore.sh > /dev/null 2>&1 &
+ExecStart=/vagrant/vagrant-files/roles/encore/files/encore.sh
 
 [Install]
 WantedBy=multi-user.target
