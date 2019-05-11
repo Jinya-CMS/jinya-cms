@@ -24,7 +24,7 @@ use function array_map;
 
 class UserFormatter implements UserFormatterInterface
 {
-    /** @var \Jinya\Entity\Artist\User */
+    /** @var User */
     private $user;
 
     /** @var array */
@@ -92,9 +92,8 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -174,15 +173,14 @@ class UserFormatter implements UserFormatterInterface
      */
     public function profilePicture(): UserFormatterInterface
     {
-        $this->formattedData['profilePicture'] = $this->urlGenerator->generate('api_user_profilepicture_get', ['id' => $this->user->getId()]);
+        $this->formattedData['profilePicture'] = $this->urlGenerator->generate('api_user_profilepicture_get', ['id' => $this->user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this;
     }
 
     /**
-     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
-     *
-     * @return UserFormatterInterface
+     * Shorthand for @return UserFormatterInterface
+     * @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
      */
     public function profile(): UserFormatterInterface
     {

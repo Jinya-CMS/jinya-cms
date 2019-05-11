@@ -9,6 +9,8 @@
 namespace Jinya\Controller\Api\Account;
 
 use Jinya\Entity\Artist\User;
+use Jinya\Exceptions\EmptyBodyException;
+use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
@@ -47,6 +49,7 @@ class AccountController extends BaseApiController
      *
      * @param ApiKeyToolInterface $apiKeyTool
      * @param UserServiceInterface $userService
+     * @param AuthenticationServiceInterface $authenticationService
      * @return Response
      */
     public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService, AuthenticationServiceInterface $authenticationService): Response
@@ -148,8 +151,8 @@ class AccountController extends BaseApiController
      * @param UserServiceInterface $userService
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
-     * @throws \Jinya\Exceptions\EmptyBodyException
-     * @throws \Jinya\Exceptions\InvalidContentTypeException
+     * @throws EmptyBodyException
+     * @throws InvalidContentTypeException
      */
     public function putPasswordAction(UserPasswordEncoderInterface $userPasswordEncoder, UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
     {

@@ -10,6 +10,7 @@ namespace Jinya\Controller\Api\Support;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class LikeController extends BaseApiController
     public function submitAction(Client $client): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($client) {
-            /** @var \Jinya\Entity\Artist\User $user */
+            /** @var User $user */
             $user = $this->getUser();
             $like = [
                 'who' => $user->getFirstname(),

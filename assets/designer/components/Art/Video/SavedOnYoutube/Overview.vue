@@ -2,30 +2,29 @@
   <div class="jinya-video-overview">
     <jinya-loader :loading="loading"/>
     <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-card :header="video.name" v-for="video in videos" v-if="!loading" :key="video.slug">
-        <iframe class="jinya-video__youtube" :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
-                frameborder="0"></iframe>
-        <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" slot="footer" icon="monitor"
+      <jinya-card :header="video.name" :key="video.slug" v-for="video in videos" v-if="!loading">
+        <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" class="jinya-video__youtube"></iframe>
+        <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" icon="monitor" slot="footer"
                            type="details"/>
-        <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" slot="footer" icon="pencil"
+        <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" icon="pencil" slot="footer"
                            type="edit"/>
         <!--suppress JSUnnecessarySemicolon -->
-        <jinya-card-button @click="showDeleteModal(video)" slot="footer" icon="delete" type="delete"/>
+        <jinya-card-button @click="showDeleteModal(video)" icon="delete" slot="footer" type="delete"/>
       </jinya-card>
     </jinya-card-list>
-    <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
-                 :count="count"/>
-    <jinya-modal @close="closeDeleteModal()" title="art.videos.youtube.delete.title" v-if="this.delete.show"
-                 :loading="this.delete.loading">
-      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                     slot="message"/>
+    <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
+                 v-if="!loading"/>
+    <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="art.videos.youtube.delete.title"
+                 v-if="this.delete.show">
+      <jinya-message :message="this.delete.error" slot="message" state="error"
+                     v-if="this.delete.error && !this.delete.loading"/>
       {{'art.videos.youtube.delete.content'|jmessage({video: selectedVideo.name})}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.videos.youtube.delete.no"
-                          :closes-modal="true" :is-disabled="this.delete.loading"/>
-      <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.videos.youtube.delete.yes"
-                          @click="remove" :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                          label="art.videos.youtube.delete.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                          label="art.videos.youtube.delete.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
+    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
   </div>
 </template>
 
@@ -160,7 +159,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-video__youtube {
     width: 100%;
     height: 100%;

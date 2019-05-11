@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Base;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label\Label;
 use Jinya\Services\Labels\LabelServiceInterface;
@@ -76,7 +77,7 @@ class LabelEntityService implements LabelEntityServiceInterface
      * @param string $keyword
      * @param Label $label
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(QueryBuilder $queryBuilder, string $keyword = '', Label $label = null): int
     {

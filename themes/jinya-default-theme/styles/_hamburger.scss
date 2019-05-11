@@ -4,7 +4,6 @@
   border: none;
   display: block;
   padding: 0;
-  z-index: 1;
   transition: width 0.3s;
 
   @include jinya-media-query($large: true, $extra-large: true, $screen: true) {

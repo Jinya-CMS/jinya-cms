@@ -8,6 +8,7 @@
 
 namespace Jinya\Controller\Api\Menu;
 
+use Jinya\Entity\Menu\Menu;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
@@ -28,7 +29,7 @@ class MenuLogoController extends BaseApiController
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
-        /** @var $data \Jinya\Entity\Menu\Menu|array */
+        /** @var $data Menu|array */
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
             return $menuService->get($id);
         });

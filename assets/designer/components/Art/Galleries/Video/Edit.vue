@@ -1,6 +1,6 @@
 <template>
-  <jinya-gallery-form :back-target="backRoute" :gallery="gallery" @save="save" :enable="enable" :message="message"
-                      :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" :enable="enable" :gallery="gallery" :message="message" :state="state"
+                      @save="save"/>
 </template>
 
 <script>

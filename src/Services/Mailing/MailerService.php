@@ -1,4 +1,8 @@
 <?php
+
+/** @noinspection HtmlRequiredTitleElement */
+/** @noinspection HtmlRequiredLangAttribute */
+
 /**
  * Created by PhpStorm.
  * User: imanu
@@ -61,7 +65,7 @@ class MailerService implements MailerServiceInterface
             $failedRecipients = [];
             $this->swift->send($message, $failedRecipients);
             if (!empty($failedRecipients)) {
-                $this->logger->error("Couldn't send message for recepients", $failedRecipients);
+                $this->logger->error("Couldn't send message for recipients", $failedRecipients);
             }
 
             $this->eventDispatcher->dispatch(MailerEvent::POST_SEND_MAIL, new MailerEvent($form, $data));

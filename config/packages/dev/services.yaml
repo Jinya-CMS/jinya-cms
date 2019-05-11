@@ -1,0 +1,8 @@
+services:
+  Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface:
+    class: Symfony\Component\HttpKernel\Profiler\FileProfilerStorage
+    arguments:
+      $dsn: '%profiler.storage.dsn%'
+
+  Symfony\Component\HttpKernel\Profiler\Profiler:
+    autowire: true

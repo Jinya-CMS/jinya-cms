@@ -2,22 +2,24 @@
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state">
     </jinya-message>
-    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--video" @back="back"
-                :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                @submit="save" class="jinya-form--video" v-if="!(hideOnError && state === 'error')">
       <jinya-editor-pane>
-        <video :src="video.video" :poster="video.poster" v-if="video.video || video.poster" controls></video>
+        <video :poster="video.poster" :src="video.video" controls v-if="video.video || video.poster"></video>
       </jinya-editor-pane>
       <jinya-editor-pane>
-        <jinya-input :enable="enable" label="art.videos.video_form.name" v-model="video.name"
-                     @change="nameChanged" :required="true"
-                     :validation-message="'art.videos.video_form.name.empty'|jvalidator"/>
-        <jinya-input :enable="enable" label="art.videos.video_form.slug" v-model="video.slug"
-                     @change="slugChanged" :required="true"
-                     :validation-message="'art.videos.video_form.slug.empty'|jvalidator"/>
-        <jinya-file-input :enable="enable" label="art.videos.video_form.poster" v-model="video.poster"
-                          @picked="posterPicked"/>
-        <jinya-tiny-mce :enable="enable" label="art.videos.video_form.description" height="300px"
-                        v-model="video.description" :content="video.description"/>
+        <jinya-input :enable="enable" :required="true"
+                     :validation-message="'art.videos.video_form.name.empty'|jvalidator"
+                     @change="nameChanged" label="art.videos.video_form.name"
+                     v-model="video.name"/>
+        <jinya-input :enable="enable" :required="true"
+                     :validation-message="'art.videos.video_form.slug.empty'|jvalidator"
+                     @change="slugChanged" label="art.videos.video_form.slug"
+                     v-model="video.slug"/>
+        <jinya-file-input :enable="enable" @picked="posterPicked" label="art.videos.video_form.poster"
+                          v-model="video.poster"/>
+        <jinya-tiny-mce :content="video.description" :enable="enable" height="300px"
+                        label="art.videos.video_form.description" v-model="video.description"/>
       </jinya-editor-pane>
     </jinya-form>
   </jinya-editor>

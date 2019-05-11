@@ -1,28 +1,32 @@
 <template>
   <div class="jinya-choice">
     <label :for="id" class="jinya-choice__label">{{label|jmessage}}</label>
-    <span :id="id" v-if="isStatic" class="jinya-choice__field">{{selectionText}}</span>
+    <span :id="id" class="jinya-choice__field" v-if="isStatic">{{selectionText}}</span>
     <!--suppress HtmlFormInputWithoutLabel -->
-    <select @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})" :id="id"
-            v-if="showSelect" class="jinya-choice__field" :disabled="!enable" :multiple="multiple"
-            :class="{'is--disabled': !enable}">
+    <select :class="{'is--disabled': !enable}" :disabled="!enable"
+            :id="id" :multiple="multiple"
+            @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
+            class="jinya-choice__field"
+            v-if="showSelect">
       <template v-for="choice in choices">
-        <option :selected="isSelected(choice)" :value="choice.value" :key="choice.value">
+        <option :key="choice.value" :selected="isSelected(choice)" :value="choice.value">
           {{choice.text}}
         </option>
       </template>
     </select>
     <template v-for="choice in choices">
-      <label :id="id" v-if="showCheckboxes" class="jinya-choice__checkbox" :key="choice.value">
-        <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
-               :name="label" type="checkbox" :checked="isSelected(choice)" :disabled="!enable"
-               :value="choice.value">
+      <label :id="id" :key="choice.value" class="jinya-choice__checkbox" v-if="showCheckboxes">
+        <input :checked="isSelected(choice)"
+               :disabled="!enable" :name="label" :value="choice.value"
+               @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
+               type="checkbox">
         {{choice.text}}
       </label>
-      <label :id="id" v-if="showRadioButtons" class="jinya-choice__radio" :key="choice.value">
-        <input @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
-               :name="label" type="radio" :checked="isSelected(choice)" :disabled="!enable"
-               :value="choice.value">
+      <label :id="id" :key="choice.value" class="jinya-choice__radio" v-if="showRadioButtons">
+        <input :checked="isSelected(choice)"
+               :disabled="!enable" :name="label" :value="choice.value"
+               @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
+               type="radio">
         {{choice.text}}
       </label>
     </template>
@@ -114,10 +118,11 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-choice {
     font-size: 1rem;
     margin: 0 0 1em;
+    width: 100%;
 
     .jinya-choice__label {
       display: block;

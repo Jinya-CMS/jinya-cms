@@ -1,18 +1,20 @@
 <template>
   <jinya-form @submit="submit">
-    <jinya-modal @close="$emit('close')" title="support.feature_dialog.title" v-if="show" :is-fullscreen="true">
-      <jinya-message slot="message" class="is--feature-dialog" :message="message" :state="state">
+    <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.feature_dialog.title" v-if="show">
+      <jinya-message :message="message" :state="state" class="is--feature-dialog" slot="message">
         <jinya-message-action-bar v-if="state === 'error'">
-          <jinya-button label="support.feature_dialog.send_mail" href="mailto:developers@jinya.de"/>
+          <jinya-button href="mailto:developers@jinya.de" label="support.feature_dialog.send_mail"/>
         </jinya-message-action-bar>
       </jinya-message>
-      <jinya-input :required="true" label="support.feature_dialog.form.title" v-model="title"
-                   :validation-message="'support.feature_dialog.form.title.empty'|jvalidator"/>
-      <jinya-textarea :required="true" label="support.feature_dialog.form.details" v-model="details"
-                      :validation-message="'support.feature_dialog.form.details.empty'|jvalidator"/>
-      <jinya-modal-button slot="buttons-left" :closes-modal="true" label="support.feature_dialog.form.cancel"
-                          :is-secondary="true"/>
-      <jinya-modal-button slot="buttons-right" label="support.feature_dialog.form.submit" :is-success="true"
+      <jinya-input :required="true" :validation-message="'support.feature_dialog.form.title.empty'|jvalidator"
+                   label="support.feature_dialog.form.title"
+                   v-model="title"/>
+      <jinya-textarea :required="true" :validation-message="'support.feature_dialog.form.details.empty'|jvalidator"
+                      label="support.feature_dialog.form.details"
+                      v-model="details"/>
+      <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.feature_dialog.form.cancel"
+                          slot="buttons-left"/>
+      <jinya-modal-button :is-success="true" label="support.feature_dialog.form.submit" slot="buttons-right"
                           type="submit"/>
     </jinya-modal>
   </jinya-form>

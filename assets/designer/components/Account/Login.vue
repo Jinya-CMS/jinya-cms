@@ -1,17 +1,18 @@
 <template>
-  <div class="jinya-login">
-    <jinya-message class="jinya-login__message" :message="message" :state="state" v-if="state"/>
-    <jinya-form @submit="submit" class="jinya-login__form">
-      <h1 class="jinya-login__title" v-jinya-message="'account.login.title'"
-          :class="{'no--margin-top': state}"></h1>
-      <jinya-input :autofocus="true" autocomplete="login email" v-model="email" label="account.login.email"
-                   key="email" :required="true" type="email" v-if="!twoFactorRequested"/>
-      <jinya-input autocomplete="login current-password" v-model="password" label="account.login.password"
-                   key="password" :required="true" type="password" v-if="!twoFactorRequested"/>
-      <jinya-input v-model="twoFactorCode" label="account.login.2fa_code" key="2fa_code"
-                   :required="true" type="text" v-if="twoFactorRequested"/>
-      <jinya-button :is-primary="true" label="account.login.submit" type="submit" slot="buttons"/>
-    </jinya-form>
+  <div class="jinya-login__container">
+    <div class="jinya-login">
+      <jinya-message :message="message" :state="state" class="jinya-login__message" v-if="state"/>
+      <jinya-form @submit="submit" class="jinya-login__form">
+        <h1 :class="{'no--margin-top': state}" class="jinya-login__title" v-jinya-message="'account.login.title'"></h1>
+        <jinya-input :autofocus="true" :required="true" autocomplete="login email" key="email"
+                     label="account.login.email" type="email" v-if="!twoFactorRequested" v-model="email"/>
+        <jinya-input :required="true" autocomplete="login current-password" key="password"
+                     label="account.login.password" type="password" v-if="!twoFactorRequested" v-model="password"/>
+        <jinya-input :required="true" key="2fa_code" label="account.login.2fa_code"
+                     type="text" v-if="twoFactorRequested" v-model="twoFactorCode"/>
+        <jinya-button :is-primary="true" label="account.login.submit" slot="buttons" type="submit"/>
+      </jinya-form>
+    </div>
   </div>
 </template>
 
@@ -66,12 +67,21 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
+  .jinya-app {
+    padding-top: 10%;
+  }
+
+  .jinya-login__container {
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-top: 10%;
+  }
+
   .jinya-login {
     height: auto;
     overflow: auto;
     background-color: scale_color($gray-200, $alpha: 80%);
-    margin: 10% 35% auto;
 
     .jinya-login__form {
       padding: 1.5em 3em;

@@ -1,6 +1,6 @@
 <template>
   <div class="jinya-menu__navbar">
-    <div class="jinya-menu__hamburger" @click="$emit('hamburger-click')">
+    <div @click="$emit('hamburger-click')" class="jinya-menu__hamburger">
       <span class="jinya-menu__hamburger__bar"></span>
       <span class="jinya-menu__hamburger__bar"></span>
       <span class="jinya-menu__hamburger__bar"></span>
@@ -15,7 +15,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu__navbar {
     width: 100%;
     display: flex;

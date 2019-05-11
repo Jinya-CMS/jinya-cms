@@ -1,14 +1,15 @@
 <template>
   <div class="jinya-artwork-view">
-    <jinya-input placeholder="art.galleries.designer.art_view.search" type="search" @keyup="search"
-                 v-if="!initial" v-model="keyword" class="jinya-input--artwork-search"/>
-    <jinya-card-list nothing-found="art.galleries.designer.art_view.nothing_found" v-infinite-scroll="loadMore"
-                     v-show="!initial" infinite-scroll-disabled="loading" infinite-scroll-distance="10"
-                     class="jinya-card-list--artwork-view">
-      <jinya-card :header="artwork.name" v-for="artwork in artworks" :key="artwork.slug">
-        <img class="jinya-artwork-view__picture" :src="artwork.picture"/>
-        <jinya-card-button text="art.galleries.designer.art_view.pick" type="details" slot="footer"
-                           @click="pick(artwork)" :is-disabled="picked"/>
+    <jinya-input @keyup="search" class="jinya-input--artwork-search"
+                 placeholder="art.galleries.designer.art_view.search"
+                 type="search" v-if="!initial" v-model="keyword"/>
+    <jinya-card-list class="jinya-card-list--artwork-view" infinite-scroll-disabled="loading"
+                     infinite-scroll-distance="10" nothing-found="art.galleries.designer.art_view.nothing_found"
+                     v-infinite-scroll="loadMore" v-show="!initial">
+      <jinya-card :header="artwork.name" :key="artwork.slug" v-for="artwork in artworks">
+        <img :src="artwork.picture" class="jinya-artwork-view__picture"/>
+        <jinya-card-button :is-disabled="picked" @click="pick(artwork)" slot="footer"
+                           text="art.galleries.designer.art_view.pick" type="details"/>
       </jinya-card>
     </jinya-card-list>
   </div>
@@ -81,7 +82,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-artwork-view {
     width: 50em;
     max-height: 40em;

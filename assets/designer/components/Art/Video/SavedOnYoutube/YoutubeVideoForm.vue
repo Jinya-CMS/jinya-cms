@@ -1,23 +1,26 @@
 <template>
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
-    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--video" @back="back"
-                :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                @submit="save" class="jinya-form--video" v-if="!(hideOnError && state === 'error')">
       <jinya-editor-pane>
-        <iframe :src="videoUrl" frameborder="0" width="560" height="315"></iframe>
+        <iframe :src="videoUrl" height="315" width="560"></iframe>
       </jinya-editor-pane>
       <jinya-editor-pane>
-        <jinya-input :enable="enable" label="art.videos.youtube.video_form.name" v-model="video.name"
-                     @change="nameChanged" :required="true"
-                     :validation-message="'art.videos.youtube.video_form.name.empty'|jvalidator"/>
-        <jinya-input :enable="enable" label="art.videos.youtube.video_form.slug" v-model="video.slug"
-                     @change="slugChanged" :required="true"
-                     :validation-message="'art.videos.youtube.video_form.slug.empty'|jvalidator"/>
-        <jinya-input :enable="enable" label="art.videos.youtube.video_form.video_key_or_url"
-                     v-model="videoKeyOrUrl" @change="videoKeyChanged" :required="true"
-                     :validation-message="'art.videos.youtube.video_form.video_key_or_url.empty'|jvalidator"/>
-        <jinya-tiny-mce :enable="enable" label="art.videos.youtube.video_form.description" height="300px"
-                        v-model="video.description" :content="video.description"/>
+        <jinya-input :enable="enable" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.name.empty'|jvalidator"
+                     @change="nameChanged" label="art.videos.youtube.video_form.name"
+                     v-model="video.name"/>
+        <jinya-input :enable="enable" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.slug.empty'|jvalidator"
+                     @change="slugChanged" label="art.videos.youtube.video_form.slug"
+                     v-model="video.slug"/>
+        <jinya-input :enable="enable" :required="true"
+                     :validation-message="'art.videos.youtube.video_form.video_key_or_url.empty'|jvalidator"
+                     @change="videoKeyChanged" label="art.videos.youtube.video_form.video_key_or_url"
+                     v-model="videoKeyOrUrl"/>
+        <jinya-tiny-mce :content="video.description" :enable="enable" height="300px"
+                        label="art.videos.youtube.video_form.description" v-model="video.description"/>
       </jinya-editor-pane>
     </jinya-form>
   </jinya-editor>

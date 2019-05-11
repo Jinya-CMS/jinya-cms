@@ -9,7 +9,11 @@
 namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Video\YoutubeVideo;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\YoutubeVideoEvent;
@@ -67,9 +71,9 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
 
     /**
      * @param string $keyword
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    private function createQueryBuilder(string $keyword): \Doctrine\ORM\QueryBuilder
+    private function createQueryBuilder(string $keyword): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->from(YoutubeVideo::class, 'youtube_video')
@@ -83,7 +87,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {
@@ -104,7 +108,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      *
      * @param YoutubeVideo $video
      * @return YoutubeVideo
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(YoutubeVideo $video): YoutubeVideo
     {
@@ -138,8 +142,8 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      *
      * @param string $slug
      * @return YoutubeVideo
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): ?YoutubeVideo
     {

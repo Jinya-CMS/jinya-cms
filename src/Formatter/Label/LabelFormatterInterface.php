@@ -16,7 +16,7 @@ interface LabelFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param \Jinya\Entity\Label\Label $label
+     * @param Label $label
      * @return LabelFormatterInterface
      */
     public function init(Label $label): self;

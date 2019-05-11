@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Routing;
 
+use Jinya\Entity\Base\SlugEntity;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
@@ -98,7 +99,7 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/* @var \Jinya\Entity\Base\SlugEntity $item */
+        return function (/* @var SlugEntity $item */
             $item) use ($route) {
             return [
                 'name' => $route,

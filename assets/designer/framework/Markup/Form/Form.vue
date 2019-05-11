@@ -1,11 +1,11 @@
 <template>
-  <form class="jinya-form" novalidate @submit.prevent="submit">
+  <form @submit.prevent="submit" class="jinya-form" novalidate>
     <slot/>
-    <div class="jinya-form__buttons" :style="{'padding-right': buttonBarPaddingRight}">
+    <div :style="{'padding-right': buttonBarPaddingRight}" class="jinya-form__buttons">
       <slot name="buttons">
-        <jinya-button :is-disabled="!enable" :is-secondary="true" :is-inverse="true" :label="cancelLabel"
+        <jinya-button :is-disabled="!enable" :is-inverse="true" :is-secondary="true" :label="cancelLabel"
                       @click="$emit('back')" v-if="cancelLabel"/>
-        <jinya-button :is-disabled="!enable" :is-primary="true" :is-inverse="true" :label="saveLabel"
+        <jinya-button :is-disabled="!enable" :is-inverse="true" :is-primary="true" :label="saveLabel"
                       type="submit" v-if="saveLabel"/>
       </slot>
     </div>

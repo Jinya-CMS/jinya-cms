@@ -8,6 +8,7 @@
 
 namespace Jinya\Entity\Artist;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -80,7 +81,7 @@ class User implements JsonSerializable, UserInterface
     private $plainPassword;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastLogin;
@@ -94,7 +95,7 @@ class User implements JsonSerializable, UserInterface
     private $confirmationToken;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordRequestedAt;
@@ -187,7 +188,7 @@ class User implements JsonSerializable, UserInterface
             return [];
         }
 
-        return $this->knownDevices;
+        return $this->knownDevices->getValues();
     }
 
     /**
@@ -359,17 +360,17 @@ class User implements JsonSerializable, UserInterface
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getLastLogin(): ?\DateTime
+    public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }
 
     /**
-     * @param \DateTime|null $lastLogin
+     * @param DateTime|null $lastLogin
      */
-    public function setLastLogin(?\DateTime $lastLogin): void
+    public function setLastLogin(?DateTime $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
     }
@@ -391,17 +392,17 @@ class User implements JsonSerializable, UserInterface
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getPasswordRequestedAt(): ?\DateTime
+    public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->passwordRequestedAt;
     }
 
     /**
-     * @param \DateTime|null $passwordRequestedAt
+     * @param DateTime|null $passwordRequestedAt
      */
-    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): void
+    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
     }

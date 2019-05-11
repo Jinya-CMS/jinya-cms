@@ -1,7 +1,7 @@
 <template>
   <div class="jinya-card-list">
     <slot>
-      <jinya-message state="info" :message="nothingFound"/>
+      <jinya-message :message="nothingFound" state="info"/>
     </slot>
   </div>
 </template>
@@ -21,7 +21,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-card-list {
     display: flex;
     flex-flow: row wrap;

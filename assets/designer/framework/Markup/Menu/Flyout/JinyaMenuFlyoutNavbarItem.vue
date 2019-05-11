@@ -1,8 +1,8 @@
 <template>
-  <li class="jinya-menu-flyout__navbar__item" :class="{'is--selected': isSelected}"
-      @click.prevent="$emit('selected')">
-    <a class="jinya-menu-flyout__navbar__item__link" href="#" v-jinya-message="text"
-       @click.prevent="$emit('selected')"></a>
+  <li :class="{'is--selected': isSelected}" @click.prevent="$emit('selected')"
+      class="jinya-menu-flyout__navbar__item">
+    <a @click.prevent="$emit('selected')" class="jinya-menu-flyout__navbar__item__link" href="#"
+       v-jinya-message="text"></a>
   </li>
 </template>
 
@@ -25,7 +25,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-flyout__navbar__item {
     color: $white;
     font-size: 1.2rem;

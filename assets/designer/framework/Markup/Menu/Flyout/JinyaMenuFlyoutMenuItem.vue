@@ -1,5 +1,5 @@
 <template>
-  <li class="jinya-menu-flyout__menu__item" :class="{'is--active': active}">
+  <li :class="{'is--active': active}" class="jinya-menu-flyout__menu__item">
     <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
   </li>
 </template>
@@ -66,7 +66,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-flyout__menu__item {
     color: $white;
     margin: 0 0 1em;

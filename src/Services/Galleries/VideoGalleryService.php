@@ -9,8 +9,11 @@
 namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Gallery\VideoGallery;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Galleries\VideoGalleryEvent;
@@ -47,8 +50,8 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      *
      * @param string $slug
      * @return VideoGallery
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): VideoGallery
     {
@@ -99,7 +102,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {
@@ -120,7 +123,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
      *
      * @param VideoGallery $gallery
      * @return VideoGallery
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(VideoGallery $gallery): VideoGallery
     {

@@ -1,13 +1,13 @@
 <template>
-  <a v-if="href" :href="href" class="jinya-icon-button" :class="additionalClasses">
-    <i class="mdi" :class="`mdi-${icon}`"></i>
+  <a :class="additionalClasses" :href="href" class="jinya-icon-button" v-if="href">
+    <i :class="`mdi-${icon}`" class="mdi"></i>
   </a>
-  <router-link v-else-if="to" :to="routeTarget" class="jinya-icon-button" :class="additionalClasses">
-    <i class="mdi" :class="`mdi-${icon}`"></i>
+  <router-link :class="additionalClasses" :to="routeTarget" class="jinya-icon-button" v-else-if="to">
+    <i :class="`mdi-${icon}`" class="mdi"></i>
   </router-link>
-  <button :type="type" v-else @click="$event => $emit('click', $event)" class="jinya-icon-button"
-          :disabled="isDisabled" :class="additionalClasses">
-    <i class="mdi" :class="`mdi-${icon}`"></i>
+  <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
+          class="jinya-icon-button" v-else>
+    <i :class="`mdi-${icon}`" class="mdi"></i>
   </button>
 </template>
 
@@ -61,7 +61,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-icon-button {
     border-width: 0;
     display: inline-block;

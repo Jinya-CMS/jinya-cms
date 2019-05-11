@@ -11,7 +11,10 @@ namespace Jinya\Formatter\Artwork;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
 
 class ArtworkFormatter implements ArtworkFormatterInterface
 {
@@ -183,9 +186,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -196,8 +198,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Formats the galleries
      *
      * @return ArtworkFormatterInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {
@@ -234,11 +236,16 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      */
     public function dimensions(): ArtworkFormatterInterface
     {
-        $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->artwork->getPicture();
-        if (file_exists($imagePath)) {
-            $imageSize = getimagesize($imagePath);
-            $this->formattedData['dimensions']['width'] = $imageSize[0];
-            $this->formattedData['dimensions']['height'] = $imageSize[1];
+        try {
+            $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->artwork->getPicture();
+            if (file_exists($imagePath)) {
+                $imageSize = getimagesize($imagePath);
+                $this->formattedData['dimensions']['width'] = $imageSize[0];
+                $this->formattedData['dimensions']['height'] = $imageSize[1];
+            }
+        } catch (Throwable $exception) {
+            $this->formattedData['dimensions']['width'] = 0;
+            $this->formattedData['dimensions']['height'] = 0;
         }
 
         return $this;

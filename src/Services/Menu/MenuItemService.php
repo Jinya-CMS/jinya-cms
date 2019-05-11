@@ -9,6 +9,8 @@
 namespace Jinya\Services\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Framework\Events\Menu\MenuItemAddEvent;
 use Jinya\Framework\Events\Menu\MenuItemGetAllEvent;
@@ -82,8 +84,8 @@ class MenuItemService implements MenuItemServiceInterface
      * @param int $position
      * @param string $type
      * @return MenuItem
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): MenuItem
     {
@@ -188,13 +190,12 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Removes the given @see MenuItem
-     *
-     * @param int $parentId
+     * Removes the given @param int $parentId
      * @param int $position
      * @param string $type
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     * @see MenuItem
      */
     public function removeItem(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): void
     {

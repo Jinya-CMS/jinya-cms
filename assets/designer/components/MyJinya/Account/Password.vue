@@ -1,14 +1,15 @@
 <template>
   <jinya-editor>
     <jinya-message :message="message" :state="state"/>
-    <jinya-form save-label="my_jinya.account.password.save" cancel-label="my_jinya.account.password.cancel"
-                @submit="change" @back="cancel" :enable="enable">
-      <jinya-input :required="true" type="password" label="my_jinya.account.password.old_password"
-                   v-model="oldPassword" :enable="enable"/>
-      <jinya-input :required="true" type="password" label="my_jinya.account.password.new_password"
-                   v-model="newPassword" :enable="enable"/>
-      <jinya-input :required="true" type="password" label="my_jinya.account.password.new_password_repeat"
-                   v-model="newPasswordRepeat" :enable="enable"/>
+    <jinya-form :enable="enable" @back="cancel"
+                @submit="change" cancel-label="my_jinya.account.password.cancel"
+                save-label="my_jinya.account.password.save">
+      <jinya-input :enable="enable" :required="true" label="my_jinya.account.password.old_password"
+                   type="password" v-model="oldPassword"/>
+      <jinya-input :enable="enable" :required="true" label="my_jinya.account.password.new_password"
+                   type="password" v-model="newPassword"/>
+      <jinya-input :enable="enable" :required="true" label="my_jinya.account.password.new_password_repeat"
+                   type="password" v-model="newPasswordRepeat"/>
     </jinya-form>
   </jinya-editor>
 </template>

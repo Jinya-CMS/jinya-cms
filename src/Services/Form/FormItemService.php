@@ -10,6 +10,8 @@ namespace Jinya\Services\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Form\FormItem;
 use Jinya\Framework\Events\Form\FormItemEvent;
@@ -83,10 +85,10 @@ class FormItemService implements FormItemServiceInterface
     /**
      * Deletes the item at the given position
      *
-     * @param \Jinya\Entity\Form\Form $form
+     * @param Form $form
      * @param int $position
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deleteItem(Form $form, int $position): void
     {
@@ -153,8 +155,8 @@ class FormItemService implements FormItemServiceInterface
      * @param string $slug
      * @param int $position
      * @return FormItem
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getItem(string $slug, int $position): FormItem
     {

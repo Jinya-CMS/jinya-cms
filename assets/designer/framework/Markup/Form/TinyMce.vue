@@ -1,5 +1,5 @@
 <template>
-  <tiny-mce :init="tinyMceOptions" :initial-value="data" v-model="data" @input="input"/>
+  <tiny-mce :init="tinyMceOptions" :initial-value="data" @input="input" v-model="data"/>
 </template>
 
 <script>

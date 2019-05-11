@@ -16,7 +16,7 @@ interface ThemeFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): self;

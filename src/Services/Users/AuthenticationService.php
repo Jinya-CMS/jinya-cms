@@ -1,4 +1,7 @@
 <?php
+
+/** @noinspection HtmlRequiredTitleElement */
+/** @noinspection HtmlRequiredLangAttribute */
 /**
  * Created by PhpStorm.
  * User: imanuel
@@ -9,6 +12,8 @@
 namespace Jinya\Services\Users;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\KnownDevice;
@@ -178,8 +183,8 @@ class AuthenticationService implements AuthenticationServiceInterface
      *
      * @param string $username
      * @param string $deviceCode
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deleteKnownDevice(string $username, string $deviceCode): void
     {

@@ -8,9 +8,11 @@
 
 namespace Jinya\Framework;
 
+use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Services\Twig\CompilerInterface;
+use SplFileInfo;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -80,10 +82,10 @@ abstract class BaseController
     /**
      * Forwards the request to the given RoutingEntry
      *
-     * @see RoutingEntry
-     * @param \Jinya\Entity\Menu\RoutingEntry $route
+     * @param RoutingEntry $route
      * @return Response
-     * @throws \Exception
+     * @throws Exception
+     * @see RoutingEntry
      */
     final protected function forwardToRoute(RoutingEntry $route): Response
     {
@@ -127,7 +129,7 @@ abstract class BaseController
     /**
      * Returns a BinaryFileResponse object with original or customized file name and disposition header.
      *
-     * @param \SplFileInfo|string $file File object or path to file to be sent as response
+     * @param SplFileInfo|string $file File object or path to file to be sent as response
      * @param string|null $fileName
      * @param string $disposition
      * @return BinaryFileResponse
@@ -168,7 +170,7 @@ abstract class BaseController
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return \Jinya\Entity\Artist\User|null
+     * @return User|null
      * @see TokenInterface::getUser()
      */
     final protected function getUser(): ?User
@@ -178,6 +180,7 @@ abstract class BaseController
             return null;
         }
 
+        /** @var User $user */
         $user = $token->getUser();
         if (!is_object($user)) {
             return null;

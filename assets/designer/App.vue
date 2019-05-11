@@ -77,8 +77,9 @@
     .jinya-app__background {
       z-index: -1;
       width: 100%;
+      height: 100%;
       position: fixed;
-      object-fit: scale-down;
+      object-fit: cover;
       top: 0;
       left: 0;
     }

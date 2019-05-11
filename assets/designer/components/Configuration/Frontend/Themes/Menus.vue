@@ -1,17 +1,18 @@
 <template>
-  <jinya-loader v-if="loading" :loading="loading"/>
+  <jinya-loader :loading="loading" v-if="loading"/>
   <jinya-editor v-else>
     <jinya-message :message="message" :state="state"/>
-    <jinya-form save-label="configuration.frontend.themes.menus.save" @submit="change" :enable="enable"
-                cancel-label="configuration.frontend.themes.menus.cancel" @back="cancel">
-      <jinya-choice :choices="menus" @selected="primaryMenu = $event" :enable="enable"
-                    :selected="primaryMenu"
+    <jinya-form :enable="enable" @back="cancel" @submit="change"
+                cancel-label="configuration.frontend.themes.menus.cancel"
+                save-label="configuration.frontend.themes.menus.save">
+      <jinya-choice :choices="menus" :enable="enable" :selected="primaryMenu"
+                    @selected="primaryMenu = $event"
                     label="configuration.frontend.themes.menus.primary"/>
-      <jinya-choice :choices="menus" @selected="secondaryMenu = $event" :enable="enable"
-                    :selected="secondaryMenu"
+      <jinya-choice :choices="menus" :enable="enable" :selected="secondaryMenu"
+                    @selected="secondaryMenu = $event"
                     label="configuration.frontend.themes.menus.secondary"/>
-      <jinya-choice :choices="menus" @selected="footerMenu = $event" :enable="enable"
-                    :selected="footerMenu"
+      <jinya-choice :choices="menus" :enable="enable" :selected="footerMenu"
+                    @selected="footerMenu = $event"
                     label="configuration.frontend.themes.menus.footer"/>
     </jinya-form>
   </jinya-editor>

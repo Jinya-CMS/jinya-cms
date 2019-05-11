@@ -53,6 +53,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
                 if (!$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
                     $lastUpdatedBy = $entity->getUpdatedBy();
                     $entity->setLastUpdatedAt(new DateTime());
+                    /* @noinspection PhpParamsInspection */
                     $entity->setUpdatedBy($token->getUser());
                     $history = $entity->getHistory();
                     $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
@@ -86,6 +87,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
             $entity = $eventArgs->getEntity();
             if ($entity instanceof HistoryEnabledEntity) {
                 $entity->setLastUpdatedAt(new DateTime());
+                /* @noinspection PhpParamsInspection */
                 $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
             }
         }
@@ -97,7 +99,9 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
         if ($entity instanceof HistoryEnabledEntity) {
             $entity->setCreatedAt(new DateTime());
             $entity->setLastUpdatedAt(new DateTime());
+            /* @noinspection PhpParamsInspection */
             $entity->setCreator($this->tokenStorage->getToken()->getUser());
+            /* @noinspection PhpParamsInspection */
             $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
             $historyEntry = $entity->jsonSerialize();
             $historyEntry = array_map(function ($item) {

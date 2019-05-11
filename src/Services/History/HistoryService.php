@@ -81,6 +81,7 @@ class HistoryService implements HistoryServiceInterface
 
         if (method_exists($entity, "set$field")) {
             $history = $entity->getHistory();
+            /** @var array $entry */
             $entry = array_filter($history, function (array $item) use ($timestamp) {
                 return $item['timestamp'] === $timestamp;
             })[0];

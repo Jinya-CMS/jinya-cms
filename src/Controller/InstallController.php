@@ -15,6 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig_Environment;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 
 /**
  * Class InstallController
@@ -30,7 +34,7 @@ class InstallController extends AbstractController
     /** @var UserServiceInterface */
     private $userService;
 
-    /** @var \Twig_Environment */
+    /** @var Twig_Environment */
     private $twig;
 
     /** @var MediaServiceInterface */
@@ -44,10 +48,10 @@ class InstallController extends AbstractController
      * @param SchemaToolInterface $schemaTool
      * @param string $kernelProjectDir
      * @param UserServiceInterface $userService
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      * @param MediaServiceInterface $mediaService
      */
-    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, \Twig_Environment $twig, MediaServiceInterface $mediaService)
+    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Twig_Environment $twig, MediaServiceInterface $mediaService)
     {
         $this->schemaTool = $schemaTool;
         $this->kernelProjectDir = $kernelProjectDir;
@@ -59,9 +63,9 @@ class InstallController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
      */
     public function indexAction(Request $request): Response
     {
@@ -94,9 +98,9 @@ class InstallController extends AbstractController
 
     /**
      * @param array $parameters
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
      */
     private function writeEnv(array $parameters)
     {

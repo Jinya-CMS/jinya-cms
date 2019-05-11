@@ -2,27 +2,31 @@
   <div class="jinya-form-builder">
     <jinya-loader :loading="loading"/>
     <jinya-editor v-if="!loading">
-      <jinya-form save-label="static.forms.forms.builder.save" cancel-label="static.forms.forms.builder.cancel"
-                  @submit="saveChanges" novalidate class="jinya-form-builder__form" @back="back"
-                  button-bar-padding-right="0.5rem">
-        <draggable @add="deleteItem" v-show="drag" class="jinya-form-builder__trash" :options="destinationOptions"
-                   :aria-label="'static.forms.forms.builder.delete'|jmessage"
-                   :data-message="'static.forms.forms.builder.delete'|jmessage">
+      <jinya-form @back="back" @submit="saveChanges"
+                  button-bar-padding-right="0.5rem" cancel-label="static.forms.forms.builder.cancel"
+                  class="jinya-form-builder__form" novalidate
+                  save-label="static.forms.forms.builder.save">
+        <draggable :aria-label="'static.forms.forms.builder.delete'|jmessage"
+                   :data-message="'static.forms.forms.builder.delete'|jmessage" :options="destinationOptions"
+                   @add="deleteItem"
+                   class="jinya-form-builder__trash"
+                   v-show="drag">
         </draggable>
         <jinya-message :message="message" :state="state"/>
         <jinya-editor-pane>
-          <draggable class="jinya-form-builder__draggable" :options="originOptions"
+          <draggable :options="originOptions" class="jinya-form-builder__draggable"
                      v-model="availableItemTypes">
-            <jinya-form-builder-item v-for="(item, index) in availableItemTypes" :settings-available="false"
-                                     :enable="enable" :item="item" :key="`${item.type}-${index}`"/>
+            <jinya-form-builder-item :enable="enable" :item="item"
+                                     :key="`${item.type}-${index}`" :settings-available="false"
+                                     v-for="(item, index) in availableItemTypes"/>
           </draggable>
         </jinya-editor-pane>
         <jinya-editor-pane>
-          <draggable @change="itemsChange" class="jinya-form-builder__draggable" :options="destinationOptions"
-                     v-model="items" @add="itemAdded" @start="drag = true" @end="drag = false">
-            <jinya-form-builder-item v-for="(item, index) in items" :key="`${item.position}-${index}`"
-                                     :item="item" :enable="enable" @toggle-settings="toggleSettings"
-                                     :position="index" @edit-done="editSettingsDone"/>
+          <draggable :options="destinationOptions" @add="itemAdded" @change="itemsChange"
+                     @end="drag = false" @start="drag = true" class="jinya-form-builder__draggable" v-model="items">
+            <jinya-form-builder-item :enable="enable" :item="item"
+                                     :key="`${item.position}-${index}`" :position="index" @edit-done="editSettingsDone"
+                                     @toggle-settings="toggleSettings" v-for="(item, index) in items"/>
           </draggable>
         </jinya-editor-pane>
       </jinya-form>
@@ -30,14 +34,14 @@
     <jinya-modal title="static.forms.forms.builder.leave.title" v-if="leaving">
       {{'static.forms.forms.builder.leave.content'|jmessage(form)}}
       <template slot="buttons-left">
-        <jinya-modal-button label="static.forms.forms.builder.leave.cancel" :closes-modal="true"
-                            @click="stay" :is-secondary="true"/>
+        <jinya-modal-button :closes-modal="true" :is-secondary="true"
+                            @click="stay" label="static.forms.forms.builder.leave.cancel"/>
       </template>
       <template slot="buttons-right">
-        <jinya-modal-button label="static.forms.forms.builder.leave.no" :closes-modal="true"
-                            @click="stayAndSaveChanges" :is-success="true"/>
-        <jinya-modal-button label="static.forms.forms.builder.leave.yes" :closes-modal="true"
-                            @click="leave" :is-danger="true"/>
+        <jinya-modal-button :closes-modal="true" :is-success="true"
+                            @click="stayAndSaveChanges" label="static.forms.forms.builder.leave.no"/>
+        <jinya-modal-button :closes-modal="true" :is-danger="true"
+                            @click="leave" label="static.forms.forms.builder.leave.yes"/>
       </template>
     </jinya-modal>
   </div>
@@ -266,7 +270,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-form-builder__draggable {
     width: 100%;
     min-height: 2rem;

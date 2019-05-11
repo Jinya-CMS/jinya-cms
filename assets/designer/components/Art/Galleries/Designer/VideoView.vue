@@ -1,17 +1,19 @@
 <template>
   <div class="jinya-video-view">
-    <jinya-input placeholder="art.galleries.designer.video_view.search" type="search" @keyup="search"
-                 v-if="!initial" v-model="keyword" class="jinya-input--video-search"/>
-    <jinya-card-list nothing-found="art.galleries.designer.video_view.nothing_found" v-infinite-scroll="loadMore"
-                     v-show="!initial" infinite-scroll-disabled="loading" infinite-scroll-distance="10"
-                     class="jinya-card-list--video-view">
-      <jinya-card :header="video.name" v-for="video in videos" :key="video.slug">
-        <video v-if="video.type === 'jinya'" class="jinya-video-view__video" :src="video.video"
-               controls :poster="video.poster"></video>
-        <iframe v-else-if="video.type === 'youtube'" class="jinya-video-view__video"
-                :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"></iframe>
-        <jinya-card-button text="art.galleries.designer.video_view.pick" type="details" slot="footer"
-                           @click="pick(video)" :is-disabled="picked"/>
+    <jinya-input @keyup="search" class="jinya-input--video-search"
+                 placeholder="art.galleries.designer.video_view.search"
+                 type="search" v-if="!initial" v-model="keyword"/>
+    <jinya-card-list class="jinya-card-list--video-view" infinite-scroll-disabled="loading"
+                     infinite-scroll-distance="10" nothing-found="art.galleries.designer.video_view.nothing_found"
+                     v-infinite-scroll="loadMore"
+                     v-show="!initial">
+      <jinya-card :header="video.name" :key="video.slug" v-for="video in videos">
+        <video :poster="video.poster" :src="video.video" class="jinya-video-view__video"
+               controls v-if="video.type === 'jinya'"></video>
+        <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" class="jinya-video-view__video"
+                v-else-if="video.type === 'youtube'"></iframe>
+        <jinya-card-button :is-disabled="picked" @click="pick(video)" slot="footer"
+                           text="art.galleries.designer.video_view.pick" type="details"/>
       </jinya-card>
     </jinya-card-list>
   </div>
@@ -84,7 +86,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-video-view {
     width: 50em;
     max-height: 40em;

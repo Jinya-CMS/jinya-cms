@@ -2,31 +2,39 @@
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state">
       <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-        <jinya-button label="art.galleries.gallery_form.back" to="Art.Galleries.Art.Overview"
-                      :is-danger="true"/>
-        <jinya-button label="art.galleries.gallery_form.search" to="Art.Galleries.Art.Overview"
-                      :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+        <jinya-button :is-danger="true" label="art.galleries.gallery_form.back"
+                      to="Art.Galleries.Art.Overview"/>
+        <jinya-button :is-secondary="true" :query="{keyword: $route.params.slug}"
+                      label="art.galleries.gallery_form.search" to="Art.Galleries.Art.Overview"/>
       </jinya-message-action-bar>
     </jinya-message>
-    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--gallery" @back="back"
-                :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                @submit="save" class="jinya-form--gallery" v-if="!(hideOnError && state === 'error')">
       <jinya-editor-pane>
         <label>Hintergrund</label>
         <jinya-editor-preview-image :src="gallery.background"/>
       </jinya-editor-pane>
       <jinya-editor-pane>
-        <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.name"
-                     v-model="gallery.name" @change="nameChanged" :required="true"
-                     :validation-message="'art.galleries.gallery_form.name.empty'|jvalidator"/>
-        <jinya-input :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.slug"
-                     v-model="gallery.slug" @change="slugChanged" :required="true"
-                     :validation-message="'art.galleries.gallery_form.slug.empty'|jvalidator"/>
-        <jinya-choice :is-static="isStatic" label="art.galleries.gallery_form.orientation"
-                      :choices="orientations" :enable="enable" :selected="gallery.orientation"
-                      @selected="(value) => gallery.orientation = value"/>
-        <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="backgroundPicked"
-                          label="art.galleries.gallery_form.background"/>
-        <jinya-textarea :is-static="isStatic" :enable="enable" label="art.galleries.gallery_form.description"
+        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                     :validation-message="'art.galleries.gallery_form.name.empty'|jvalidator" @change="nameChanged"
+                     label="art.galleries.gallery_form.name"
+                     v-model="gallery.name"/>
+        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                     :validation-message="'art.galleries.gallery_form.slug.empty'|jvalidator" @change="slugChanged"
+                     label="art.galleries.gallery_form.slug"
+                     v-model="gallery.slug"/>
+        <jinya-choice :choices="masonry_options" :enable="enable"
+                      :is-static="isStatic" :selected="gallery.masonry"
+                      @selected="(value) => gallery.masonry = value"
+                      label="art.galleries.gallery_form.masonry"/>
+        <jinya-choice :choices="orientations" :enable="enable"
+                      :is-static="isStatic" :selected="gallery.orientation"
+                      @selected="(value) => gallery.orientation = value"
+                      label="art.galleries.gallery_form.orientation"/>
+        <jinya-file-input :enable="enable" @picked="backgroundPicked" accept="image/*"
+                          label="art.galleries.gallery_form.background"
+                          v-if="!isStatic"/>
+        <jinya-textarea :enable="enable" :is-static="isStatic" label="art.galleries.gallery_form.description"
                         v-model="gallery.description"/>
       </jinya-editor-pane>
       <template slot="buttons">
@@ -51,9 +59,11 @@
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
   import JinyaChoice from '@/framework/Markup/Form/Choice';
   import Translator from '@/framework/i18n/Translator';
+  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
 
   export default {
     components: {
+      JinyaCheckbox,
       JinyaChoice,
       JinyaEditorPane,
       JinyaEditorPreviewImage,
@@ -122,6 +132,10 @@
             name: '',
             slug: '',
             description: '',
+            masonry: {
+              value: false,
+              text: '',
+            },
             orientation: {
               value: 'horizontal',
               text: '',
@@ -149,12 +163,28 @@
           },
         ];
       },
+      masonry_options() {
+        return [
+          {
+            value: true,
+            text: Translator.message('art.galleries.gallery_form.masonry_options.yes'),
+          },
+          {
+            value: false,
+            text: Translator.message('art.galleries.gallery_form.masonry_options.no'),
+          },
+        ];
+      },
     },
     watch: {
       gallery(newVal) {
         this.gallery.orientation = {
           value: newVal.orientation,
           text: Translator.message(`art.galleries.gallery_form.orientations.${newVal.orientation}`),
+        };
+        this.gallery.masonry = {
+          value: newVal.masonry,
+          text: Translator.message(`art.galleries.gallery_form.masonry_options.${newVal.masonry ? 'yes' : 'no'}`),
         };
       },
     },
@@ -183,6 +213,7 @@
           slug: this.gallery.slug,
           background: this.gallery.uploadedFile,
           description: this.gallery.description,
+          masonry: this.gallery.masonry.value,
           orientation: this.gallery.orientation.value,
         };
 

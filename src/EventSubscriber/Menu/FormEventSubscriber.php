@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Form\FormEvent;
@@ -72,7 +73,7 @@ class FormEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param FormEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPreFormSave(FormEvent $event)
     {

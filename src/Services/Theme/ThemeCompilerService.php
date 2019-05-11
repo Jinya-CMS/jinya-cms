@@ -47,9 +47,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * Compiles the scss and javascript of the given @see \Jinya\Entity\Theme\Theme
-     *
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * Compiles the scss and javascript of the given @param Theme $theme
+     * @see \Jinya\Entity\Theme\Theme
      */
     public function compileTheme(Theme $theme): void
     {
@@ -58,7 +57,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      */
     private function compileStyles(Theme $theme): void
     {
@@ -84,7 +83,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return string
      */
     private function getTargetBasePath(Theme $theme): string
@@ -154,7 +153,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return string
      */
     private function getScriptsPath(Theme $theme): string
@@ -187,7 +186,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @param string $filename
      * @return string
      */
@@ -207,7 +206,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return bool
      */
     private function isStylesCompiled(Theme $theme): bool
@@ -231,7 +230,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return bool
      */
     private function isScriptsCompiled(Theme $theme): bool

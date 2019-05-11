@@ -2,10 +2,10 @@
   <div class="jinya-video__jinya">
     <jinya-message :message="message" :state="state" v-if="state"/>
     <div class="jinya-video__video-details" v-else>
-      <video :src="video.video" :poster="video.poster" class="jinya-video__video jinya-video__video--jinya"
+      <video :poster="video.poster" :src="video.video" class="jinya-video__video jinya-video__video--jinya"
              controls></video>
       <div class="jinya-video__video-description" v-html="video.description"></div>
-      <jinya-floating-action-button icon="pencil" @click="edit"/>
+      <jinya-floating-action-button @click="edit" icon="pencil"/>
     </div>
   </div>
 </template>

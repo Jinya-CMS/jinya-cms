@@ -10,6 +10,8 @@ namespace Jinya\Services\Artworks;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Framework\Events\Artworks\ArtworkPositionDeleteEvent;
@@ -124,8 +126,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * Deletes the given artwork position
      *
      * @param int $id
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deletePosition(int $id)
     {

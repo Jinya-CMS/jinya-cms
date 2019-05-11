@@ -1,5 +1,5 @@
 <template>
-  <jinya-youtube-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-youtube-video-form :enable="enable" :message="message" :state="state" :video="video" @save="save"/>
 </template>
 
 <script>

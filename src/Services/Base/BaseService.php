@@ -44,7 +44,7 @@ class BaseService
     /**
      * Saves the given entity
      *
-     * @param \Jinya\Entity\Base\BaseEntity $entity
+     * @param BaseEntity $entity
      * @return BaseEntity
      */
     public function saveOrUpdate($entity)

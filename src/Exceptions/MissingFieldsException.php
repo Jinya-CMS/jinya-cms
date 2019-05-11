@@ -21,6 +21,7 @@ class MissingFieldsException extends Exception
      */
     public function __construct(array $fields)
     {
+        parent::__construct();
         $this->fields = $fields;
     }
 

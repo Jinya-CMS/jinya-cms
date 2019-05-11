@@ -9,8 +9,11 @@
 namespace Jinya\Services\Pages;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Page\Page;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Pages\PageEvent;
@@ -36,6 +39,7 @@ class PageService implements PageServiceInterface
      * PageService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
     {
@@ -46,12 +50,11 @@ class PageService implements PageServiceInterface
     }
 
     /**
-     * Gets the specified @see Page by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Page
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     * @see Page by slug
      */
     public function get(string $slug): Page
     {
@@ -105,7 +108,7 @@ class PageService implements PageServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {
@@ -122,11 +125,10 @@ class PageService implements PageServiceInterface
     }
 
     /**
-     * Saves or updates the given @see Page
-     *
-     * @param Page $page
+     * Saves or updates the given @param Page $page
      * @return Page
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
+     * @see Page
      */
     public function saveOrUpdate(Page $page): Page
     {

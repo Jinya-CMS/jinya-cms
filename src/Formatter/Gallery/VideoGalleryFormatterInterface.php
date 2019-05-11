@@ -97,4 +97,11 @@ interface VideoGalleryFormatterInterface extends FormatterInterface
      * @return VideoGalleryFormatterInterface
      */
     public function backgroundDimensions(): self;
+
+    /**
+     * Formats the masonry option
+     *
+     * @return VideoGalleryFormatterInterface
+     */
+    public function masonry(): self;
 }

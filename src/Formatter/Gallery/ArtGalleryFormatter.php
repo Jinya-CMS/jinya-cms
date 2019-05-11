@@ -12,7 +12,10 @@ use Jinya\Entity\Artwork\ArtworkPosition;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Formatter\Artwork\ArtworkPositionFormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
 
 class ArtGalleryFormatter implements ArtGalleryFormatterInterface
 {
@@ -37,6 +40,7 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     /**
      * GalleryFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {
@@ -61,9 +65,8 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -180,8 +183,8 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
      * Formats the artworks
      *
      * @return ArtGalleryFormatterInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function artworks(): ArtGalleryFormatterInterface
     {
@@ -254,12 +257,29 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
      */
     public function backgroundDimensions(): ArtGalleryFormatterInterface
     {
-        $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->gallery->getBackground();
-        if (is_file($imagePath)) {
-            $imageSize = getimagesize($imagePath);
-            $this->formattedData['dimensions']['width'] = $imageSize[0];
-            $this->formattedData['dimensions']['height'] = $imageSize[1];
+        try {
+            $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->gallery->getBackground();
+            if (is_file($imagePath)) {
+                $imageSize = getimagesize($imagePath);
+                $this->formattedData['dimensions']['width'] = $imageSize[0];
+                $this->formattedData['dimensions']['height'] = $imageSize[1];
+            }
+        } catch (Throwable $exception) {
+            $this->formattedData['dimensions']['width'] = 0;
+            $this->formattedData['dimensions']['height'] = 0;
         }
+
+        return $this;
+    }
+
+    /**
+     * Formats the masonry property
+     *
+     * @return ArtGalleryFormatterInterface
+     */
+    public function masonry(): ArtGalleryFormatterInterface
+    {
+        $this->formattedData['masonry'] = $this->gallery->isMasonry();
 
         return $this;
     }

@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Entity\Page\Page;
 use Jinya\Framework\Events\Pages\PageEvent;
@@ -72,7 +73,7 @@ class PageEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param PageEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPrePageSave(PageEvent $event)
     {

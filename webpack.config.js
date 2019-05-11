@@ -1,6 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
 
+Encore.configureRuntimeEnvironment('dev');
 Encore
 // directory where compiled assets will be stored
   .setOutputPath('public/designer')
@@ -38,7 +39,7 @@ Encore
     ],
   }))
 
-  .addAliases({ '@': 'assets/designer' })
+  .addAliases({ '@': path.resolve(__dirname, 'assets', 'designer') })
   .addRule({
     test: /worker\/VideoUploader\.js$/,
     include: path.resolve(__dirname, './assets/designer/'),

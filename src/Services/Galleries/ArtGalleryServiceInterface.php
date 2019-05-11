@@ -36,7 +36,7 @@ interface ArtGalleryServiceInterface
      * Counts all galleries
      *
      * @param string $keyword
-     * @param \Jinya\Entity\Label\Label|null $label
+     * @param Label|null $label
      * @return int
      */
     public function countAll(string $keyword = '', Label $label = null): int;

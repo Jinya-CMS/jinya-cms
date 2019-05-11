@@ -1,6 +1,6 @@
 <template>
-  <jinya-gallery-form :back-target="backRoute" :gallery="gallery" @save="save" :enable="enable" :message="message"
-                      :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" :enable="enable" :gallery="gallery" :message="message" :state="state"
+                      @save="save"/>
 </template>
 
 <script>
@@ -45,7 +45,7 @@
         this.gallery = gallery.item;
         this.state = '';
         this.enable = true;
-        DOMUtils.changeTitle(Translator.message('art.galleries.art.edit.title', this.gallery));
+        DOMUtils.changeTitle(Translator.message('art.galleries.edit.title', this.gallery));
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`art.galleries.${error.message}`);
@@ -64,6 +64,7 @@
             slug: gallery.slug,
             description: gallery.description,
             orientation: gallery.orientation,
+            masonry: gallery.masonry,
           });
 
           if (background) {

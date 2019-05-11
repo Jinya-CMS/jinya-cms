@@ -9,12 +9,12 @@
 namespace Jinya\Command;
 
 use Jinya\Services\Cache\CacheBuilderInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CompileCacheCommand extends ContainerAwareCommand
+class CompileCacheCommand extends Command
 {
     /** @var CacheBuilderInterface */
     private $cacheBuilder;

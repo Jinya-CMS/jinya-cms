@@ -1,28 +1,30 @@
 <template>
-  <div ref="designer" class="jinya-gallery-designer" :class="`is--${gallery.orientation}`" @wheel="scroll">
-    <jinya-loader class="jinya-loader--designer" :loading="loading"/>
+  <div :class="`is--${gallery.orientation}`" @wheel="scroll" class="jinya-gallery-designer" ref="designer">
+    <jinya-loader :loading="loading" class="jinya-loader--designer"/>
     <jinya-message :message="message" :state="state" v-if="state"/>
-    <jinya-gallery-designer-button type="add" v-if="!loading" @click="add(-1)"/>
-    <template v-if="!loading" v-for="(position, index) in videos">
-      <jinya-gallery-designer-item @wheel.native="scroll"
-                                   :key="`item-${position.position}-${position.video.slug}`">
+    <jinya-gallery-designer-button @click="add(-1)" type="add" v-if="!loading"/>
+    <template v-for="(position, index) in videos" v-if="!loading">
+      <jinya-gallery-designer-item :key="`item-${position.position}-${position.video.slug}`"
+                                   @wheel.native="scroll">
         <template>
-          <jinya-gallery-designer-video @wheel.native="scroll" :src="position.video.video"
-                                        :poster="position.video.poster" :video-key="position.video.videoKey"/>
-          <jinya-gallery-designer-button @wheel.native="scroll" type="edit" @click="edit(position, index)"/>
-          <jinya-gallery-designer-position-button v-if="index > 0" :decrease="true" @wheel.native="scroll"
-                                                  @click="move(position, index, index - 1)"/>
-          <jinya-gallery-designer-position-button v-if="index + 1 < videos.length" @wheel.native="scroll"
-                                                  :increase="true" @click="move(position, index, index + 1)"/>
+          <jinya-gallery-designer-video :poster="position.video.poster" :src="position.video.video"
+                                        :video-key="position.video.videoKey" @wheel.native="scroll"/>
+          <jinya-gallery-designer-button @click="edit(position, index)" @wheel.native="scroll" type="edit"/>
+          <jinya-gallery-designer-position-button :decrease="true" @click="move(position, index, index - 1)"
+                                                  @wheel.native="scroll"
+                                                  v-if="index > 0"/>
+          <jinya-gallery-designer-position-button :increase="true" @click="move(position, index, index + 1)"
+                                                  @wheel.native="scroll" v-if="index + 1 < videos.length"/>
         </template>
       </jinya-gallery-designer-item>
-      <jinya-gallery-designer-button type="add" @wheel.native="scroll" @click="add(index)"
-                                     :key="`button-${position.position}-${position.video.slug}`"/>
+      <jinya-gallery-designer-button :key="`button-${position.position}-${position.video.slug}`" @click="add(index)"
+                                     @wheel.native="scroll"
+                                     type="add"/>
     </template>
-    <jinya-gallery-designer-add-view @close="addModal.show = false" v-if="addModal.show" @picked="saveAdd"
-                                     gallery-type="video"/>
-    <jinya-gallery-designer-edit-view @close="editModal.show = false" v-if="editModal.show" @picked="saveEdit"
-                                      @delete="deleteVideo" gallery-type="video"/>
+    <jinya-gallery-designer-add-view @close="addModal.show = false" @picked="saveAdd" gallery-type="video"
+                                     v-if="addModal.show"/>
+    <jinya-gallery-designer-edit-view @close="editModal.show = false" @delete="deleteVideo" @picked="saveEdit"
+                                      gallery-type="video" v-if="editModal.show"/>
   </div>
 </template>
 
@@ -161,7 +163,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-message--designer {
     margin-right: -12.5%;
     margin-left: -12.5%;

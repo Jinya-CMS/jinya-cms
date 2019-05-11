@@ -1,7 +1,7 @@
 <template>
-  <video v-if="poster && src" :src="src" class="jinya-gallery-designer__video" :poster="poster"></video>
-  <iframe v-else-if="videoKey" class="jinya-gallery-designer__iframe"
-          :src="`https://www.youtube-nocookie.com/embed/${videoKey}`"></iframe>
+  <video :poster="poster" :src="src" class="jinya-gallery-designer__video" v-if="poster && src"></video>
+  <iframe :src="`https://www.youtube-nocookie.com/embed/${videoKey}`" class="jinya-gallery-designer__iframe"
+          v-else-if="videoKey"></iframe>
 </template>
 
 <script>

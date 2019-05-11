@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
@@ -72,7 +73,7 @@ class ArtGalleryEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param ArtGalleryEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPreArtGallerySave(ArtGalleryEvent $event)
     {

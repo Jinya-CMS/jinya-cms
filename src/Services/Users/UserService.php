@@ -9,6 +9,8 @@
 namespace Jinya\Services\Users;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 use Exception;
@@ -76,7 +78,7 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function delete(int $id): void
     {
@@ -89,7 +91,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     private function isLastSuperAdmin(): bool
     {
@@ -112,7 +114,7 @@ class UserService implements UserServiceInterface
      */
     public function activate(int $id): User
     {
-        /** @var \Jinya\Entity\Artist\User $user */
+        /** @var User $user */
         $user = $this->entityManager->find(User::class, $id);
 
         $user->setEnabled(true);
@@ -124,7 +126,7 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function deactivate(int $id): User
     {
@@ -158,7 +160,7 @@ class UserService implements UserServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function revokeRole(int $userId, string $role): void
     {
@@ -185,7 +187,7 @@ class UserService implements UserServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword): int
     {
@@ -200,9 +202,9 @@ class UserService implements UserServiceInterface
     /**
      * Creates a user
      *
-     * @param \Jinya\Entity\Artist\User $user
+     * @param User $user
      * @param bool $ignorePassword
-     * @return \Jinya\Entity\Artist\User
+     * @return User
      */
     public function saveOrUpdate(User $user, bool $ignorePassword = false): User
     {
@@ -236,7 +238,7 @@ class UserService implements UserServiceInterface
      * @return User
      * @throws UnknownDeviceException
      * @throws BadCredentialsException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {
@@ -262,8 +264,8 @@ class UserService implements UserServiceInterface
      *
      * @param string $email
      * @return User
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getUserByEmail(string $email): User
     {
@@ -282,7 +284,7 @@ class UserService implements UserServiceInterface
      * @param string $username
      * @param string $deviceCode
      * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     private function isValidDevice(string $username, string $deviceCode): bool
     {

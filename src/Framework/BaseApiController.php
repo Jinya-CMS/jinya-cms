@@ -17,14 +17,13 @@ use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\Security\UnknownDeviceException;
-use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Labels\LabelServiceInterface;
-use Jinya\Services\Theme\ThemeCompilerServiceInterface;
-use Jinya\Services\Theme\ThemeConfigServiceInterface;
-use Jinya\Services\Theme\ThemeServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Psr\Log\LoggerInterface;
+use ReflectionClass;
+use ReflectionException;
 use SimpleXMLElement;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -35,7 +34,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 use function array_key_exists;
 use function json_decode;
@@ -74,18 +73,14 @@ abstract class BaseApiController extends BaseController
      * @param LabelServiceInterface $labelService
      * @param LoggerInterface $logger
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param RequestStack $requestStack
      * @param HttpKernelInterface $kernel
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param \Twig_Environment $twig
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
+     * @param CompilerInterface $compiler
      */
-    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, \Twig_Environment $twig, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
+    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
     {
         parent::__construct($requestStack, $kernel, $authorizationChecker, $tokenStorage, $router, $compiler);
         $this->translator = $translator;
@@ -191,7 +186,7 @@ abstract class BaseApiController extends BaseController
             }
 
             $result = [$data, Response::HTTP_BAD_REQUEST];
-        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | \Symfony\Component\Finder\Exception\AccessDeniedException | BadCredentialsException $exception) {
+        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
             $this->logException($exception, 403);
 
             $result = [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
@@ -263,8 +258,8 @@ abstract class BaseApiController extends BaseController
     protected function jsonFormatException(string $message, Throwable $throwable): array
     {
         try {
-            $type = (new \ReflectionClass($throwable))->getShortName();
-        } catch (\ReflectionException $e) {
+            $type = (new ReflectionClass($throwable))->getShortName();
+        } catch (ReflectionException $e) {
             $type = 'unknown';
         }
         $data = [

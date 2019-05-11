@@ -16,7 +16,5 @@
   file:
     path: /var/www/jinya/
     mode: u=xrw,g=xrw,o=xrw
-    owner: apache
-    group: apache
     recurse: yes
   become: yes

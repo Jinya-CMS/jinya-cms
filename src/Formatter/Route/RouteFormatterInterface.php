@@ -44,7 +44,7 @@ interface RouteFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Menu\RoutingEntry $routingEntry
+     * @param RoutingEntry $routingEntry
      * @return RouteFormatterInterface
      */
     public function init(RoutingEntry $routingEntry): self;

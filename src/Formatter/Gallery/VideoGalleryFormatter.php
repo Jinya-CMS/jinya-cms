@@ -12,6 +12,8 @@ use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Video\VideoPosition;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Formatter\Video\VideoPositionFormatterInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class VideoGalleryFormatter implements VideoGalleryFormatterInterface
@@ -37,6 +39,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
     /**
      * GalleryFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {
@@ -61,9 +64,8 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -180,8 +182,8 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
      * Formats the videos
      *
      * @return VideoGalleryFormatterInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function videos(): VideoGalleryFormatterInterface
     {
@@ -252,6 +254,18 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
             $this->formattedData['dimensions']['width'] = $imageSize[0];
             $this->formattedData['dimensions']['height'] = $imageSize[1];
         }
+
+        return $this;
+    }
+
+    /**
+     * Formats the masonry option
+     *
+     * @return VideoGalleryFormatterInterface
+     */
+    public function masonry(): VideoGalleryFormatterInterface
+    {
+        $this->formattedData['masonry'] = $this->gallery->isMasonry();
 
         return $this;
     }

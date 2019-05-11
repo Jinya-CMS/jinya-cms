@@ -209,8 +209,10 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             ];
             $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
+            $artGallery = $this->artGalleryService->get($slug);
+
             $viewData = [
-                'gallery' => $this->artGalleryService->get($slug),
+                'gallery' => $artGallery,
                 'type' => 'art',
                 'active' => $route->getUrl(),
             ];
@@ -265,18 +267,18 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function clearCache(): void
     {
-        $handle = fopen($this->getCacheFile(), 'rw+');
+        $handle = @fopen($this->getCacheFile(), 'rwb+');
         if ($handle) {
             try {
                 while (false !== ($line = fgets($handle))) {
-                    unlink($line);
+                    @unlink($line);
                 }
             } finally {
-                fclose($handle);
+                @fclose($handle);
             }
         }
 
-        unlink($this->getCacheFile());
+        @unlink($this->getCacheFile());
     }
 
     /**

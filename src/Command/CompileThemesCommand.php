@@ -4,11 +4,11 @@ namespace Jinya\Command;
 
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CompileThemesCommand extends ContainerAwareCommand
+class CompileThemesCommand extends Command
 {
     /** @var ThemeServiceInterface */
     private $themeService;

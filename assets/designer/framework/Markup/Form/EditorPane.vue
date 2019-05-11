@@ -10,7 +10,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-editor-pane {
     width: 50%;
     padding: 0.5em;
