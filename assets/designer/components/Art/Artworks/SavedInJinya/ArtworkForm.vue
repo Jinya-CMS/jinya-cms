@@ -17,9 +17,6 @@
         <jinya-input :enable="enable" :is-static="isStatic" :required="true"
                      :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator" @change="nameChanged"
                      label="art.artworks.artwork_form.name" v-model="artwork.name"/>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'art.artworks.artwork_form.slug.empty'|jvalidator" @change="slugChanged"
-                     label="art.artworks.artwork_form.slug" v-model="artwork.slug"/>
         <jinya-file-input :enable="enable" :required="true"
                           :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"
                           @picked="picturePicked"
@@ -43,7 +40,6 @@
   import JinyaFileInput from '@/framework/Markup/Form/FileInput';
   import FileUtils from '@/framework/IO/FileUtils';
   import JinyaTextarea from '@/framework/Markup/Form/Textarea';
-  import slugify from 'slugify';
   import Routes from '@/router/Routes';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
@@ -159,19 +155,9 @@
         this.artwork.picture = await FileUtils.getAsDataUrl(file);
         this.artwork.uploadedFile = file;
       },
-      nameChanged(value) {
-        if (this.slugifyEnabled) {
-          this.artwork.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.artwork.slug = slugify(value);
-      },
       save() {
         const artwork = {
           name: this.artwork.name,
-          slug: this.artwork.slug,
           picture: this.artwork.uploadedFile,
           description: this.artwork.description,
           type: this.artwork.type,
