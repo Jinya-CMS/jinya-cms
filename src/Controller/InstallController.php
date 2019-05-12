@@ -116,9 +116,11 @@ class InstallController extends AbstractController
     private function writeEnv(array $parameters): void
     {
         $fs = new Filesystem();
-        $data = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
+        $htaccess = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
+        $dotenv = $this->twig->load('@Jinya\Installer\Config\.env.twig')->render($parameters);
 
-        $fs->dumpFile($this->kernelProjectDir . '/public/.htaccess', $data);
+        $fs->dumpFile($this->kernelProjectDir . '/public/.htaccess', $htaccess);
+        $fs->dumpFile($this->kernelProjectDir . '/.env', $dotenv);
     }
 
     /**
