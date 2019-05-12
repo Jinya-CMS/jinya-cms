@@ -67,7 +67,7 @@ class ArtworkPictureController extends BaseApiController
         list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $mediaService, $urlGenerator, $conversionService, $slug) {
             $artwork = $artworkService->get($slug);
 
-            $convertArtworkTargetType = (int)$request->get('conversionType', 0);
+            $convertArtworkTargetType = (int) $request->get('conversionType', 0);
             $picture = $conversionService->convertImage($request->getContent(), $convertArtworkTargetType);
 
             $picturePath = $mediaService->saveMedia($picture, MediaServiceInterface::CONTENT_IMAGE);
