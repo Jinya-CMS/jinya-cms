@@ -10,7 +10,6 @@ use Doctrine\DBAL\Migrations\MigrationException;
 
 class DatabaseMigrator implements DatabaseMigratorInterface
 {
-
     /** @var Connection */
     private $connection;
 
@@ -36,6 +35,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
         $this->tableName = $tableName;
         $this->namespace = $namespace;
         $this->kernelRootDir = $kernelRootDir;
+
         try {
             $this->createTableIfNotExists();
         } catch (DBALException $e) {
@@ -47,7 +47,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
      */
     private function createTableIfNotExists(): void
     {
-        if ($this->connection->getDatabasePlatform()->getName() !== 'mysql') {
+        if ('mysql' !== $this->connection->getDatabasePlatform()->getName()) {
             return;
         }
 
@@ -120,11 +120,13 @@ class DatabaseMigrator implements DatabaseMigratorInterface
     public function setMigrationVersion(string $version): void
     {
         $this->connection->beginTransaction();
+
         try {
             $this->connection->insert($this->tableName, ['version' => $version]);
             $this->connection->commit();
         } catch (DBALException $exception) {
             $this->connection->rollBack();
+
             throw $exception;
         }
     }
@@ -137,6 +139,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
     {
         $versions = $this->getAllMigrations();
         $this->connection->beginTransaction();
+
         try {
             foreach ($versions as $version => $item) {
                 $this->connection->insert($this->tableName, ['version' => $version]);
@@ -144,6 +147,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
             $this->connection->commit();
         } catch (DBALException $exception) {
             $this->connection->rollBack();
+
             throw $exception;
         }
     }
