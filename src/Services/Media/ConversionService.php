@@ -32,7 +32,7 @@ class ConversionService implements ConversionServiceInterface
         if ($targetType >= 0) {
             if (extension_loaded('imagick')) {
                 $returnData = $this->imagickConvertImage($data, $targetType);
-            } else if (extension_loaded('gd')) {
+            } elseif (extension_loaded('gd')) {
                 $returnData = $this->gdConvertImage($data, $targetType);
             }
         }
@@ -51,6 +51,7 @@ class ConversionService implements ConversionServiceInterface
     {
         $this->logger->debug('Convert file using imagick');
         $inputFile = tmpfile();
+
         try {
             fwrite($inputFile, $data);
             fflush($inputFile);
@@ -70,18 +71,23 @@ class ConversionService implements ConversionServiceInterface
                 switch ($targetType) {
                     case IMAGETYPE_BMP:
                         $mergedImage->setFormat('bmp');
+
                         break;
                     case IMAGETYPE_GIF:
                         $mergedImage->setFormat('gif');
+
                         break;
                     case IMAGETYPE_PNG:
                         $mergedImage->setFormat('png');
+
                         break;
                     case IMAGETYPE_JPEG:
                         $mergedImage->setFormat('jpg');
+
                         break;
                     case IMAGETYPE_WEBP:
                         $mergedImage->setFormat('webp');
+
                         break;
                 }
 
@@ -110,18 +116,23 @@ class ConversionService implements ConversionServiceInterface
                 switch ($targetType) {
                     case IMAGETYPE_BMP:
                         imagebmp($imageData);
+
                         break;
                     case IMAGETYPE_GIF:
                         imagegif($imageData);
+
                         break;
                     case IMAGETYPE_PNG:
                         imagepng($imageData);
+
                         break;
                     case IMAGETYPE_JPEG:
                         imagejpeg($imageData);
+
                         break;
                     case IMAGETYPE_WEBP:
                         imagewebp($imageData);
+
                         break;
                 }
                 imagedestroy($imageData);
