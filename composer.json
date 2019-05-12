@@ -26,7 +26,7 @@
     "patchwork/jsqueeze": "2.0.5",
     "sensio/framework-extra-bundle": "5.2.4",
     "symfony/asset": "4.2.1",
-    "symfony/console": "4.2.1",
+    "symfony/console": "4.2.8",
     "symfony/debug-pack": "1.0.7",
     "symfony/dotenv": "4.2.1",
     "symfony/expression-language": "4.2.1",
