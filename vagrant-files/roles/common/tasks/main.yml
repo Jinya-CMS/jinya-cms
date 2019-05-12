@@ -6,6 +6,7 @@
       - inotify-tools
       - git
       - vim
+      - unzip
   become: true
 - name: Update SELinux
   selinux:

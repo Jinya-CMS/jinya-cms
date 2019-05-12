@@ -4,11 +4,11 @@ const path = require('path');
 Encore.configureRuntimeEnvironment('dev');
 Encore
 // directory where compiled assets will be stored
-  .setOutputPath('public/designer')
+  .setOutputPath('public/designer-app')
   // public path used by the web server to access the output path
-  .setPublicPath('/designer')
+  .setPublicPath('/designer-app')
   // only needed for CDN's or sub-directory deploy
-  .setManifestKeyPrefix('designer/')
+  .setManifestKeyPrefix('designer-app/')
 
   /*
    * ENTRY CONFIG
