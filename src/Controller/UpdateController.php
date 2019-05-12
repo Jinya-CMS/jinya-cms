@@ -95,7 +95,7 @@ class UpdateController extends AbstractController
             }
 
             $response = $this->client->request('GET', 'https://files.jinya.de/stable.json');
-            if ($response->getStatusCode() === Response::HTTP_OK) {
+            if (Response::HTTP_OK === $response->getStatusCode()) {
                 $jsonData = json_decode($response->getBody()->getContents(), true);
                 $cmsData = $jsonData['cms'];
                 $versions = [];
@@ -119,7 +119,7 @@ class UpdateController extends AbstractController
                 'currentVersion' => $this->currentVersion,
                 'not_found' => true,
             ]);
-        } catch (GuzzleException|Exception $e) {
+        } catch (GuzzleException | Exception $e) {
             return $this->render('@Jinya/Updater/Default/index.html.twig', [
                 'currentVersion' => $this->currentVersion,
                 'exception' => $e,
