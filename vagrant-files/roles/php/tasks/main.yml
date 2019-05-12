@@ -34,6 +34,7 @@
       - php-iconv
       - php-simplexml
       - php-fileinfo
+      - composer
   become: yes
 - name: Remove default xdebug config
   file:
