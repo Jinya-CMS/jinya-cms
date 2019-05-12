@@ -33,16 +33,15 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.add.saving', { name: gallery.name });
 
-          await JinyaRequest.post('/api/gallery/video', {
+          const savedData = await JinyaRequest.post('/api/gallery/video', {
             name: gallery.name,
-            slug: gallery.slug,
             description: gallery.description,
             orientation: gallery.orientation,
           });
 
           if (background) {
             this.message = Translator.message('art.galleries.add.uploading', { name: gallery.name });
-            await JinyaRequest.upload(`/api/gallery/video/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/video/${savedData.slug}/background`, background);
           }
 
           this.state = 'success';
