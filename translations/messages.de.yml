@@ -60,6 +60,10 @@ update:
   version: Version
   update: Update starten
   cancel: Update abbrechen
+  error:
+    not_found:
+      title: Daten nicht gefunden
+      description: Die Daten für das Update konnten nicht gefunden werden
   database:
     title: Datenbank aktualisieren
     content: Um das Update abzuschließen, muss noch die Datenbank aktualisiert werden, dazu musst du auf "Aktualisieren" klicken.
@@ -70,10 +74,19 @@ update:
     designer: Zum Designer
   channel: Updatechannel
   recommended: empfohlen
-  choose:
-    channel: Bitte einen Updatechannel wählen
+  steps:
+    choose_package: Version wählen
+    database_migration: Datenbank updaten
+    finish: Update fertigstellen
   loading:
     channel: Der Updatechannel wird geladen
+  general:
+    not_found:
+      title: Keine Updates gefunden
+      content: Es konnten keine Updates auf den Servern von jinya.de gefunden werden
+  no_update_available:
+    title: Kein Update verfügbar
+    content: Du hast aktuell Version %currentVersion% installiert, dies ist die aktuellste Version und es ist kein Update verfügbar.
 account:
   login:
     title: An Jinya anmelden

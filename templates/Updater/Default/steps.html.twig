@@ -1,0 +1,20 @@
+<div class="ui steps">
+    <div class="{% if activeStep == 0 %}active {% endif %}step">
+        <i class="file archive icon"></i>
+        <div class="content">
+            <div class="title">{{ 'update.steps.choose_package'|trans }}</div>
+        </div>
+    </div>
+    <div class="{% if activeStep == 1 %}active {% endif %}step">
+        <i class="database icon"></i>
+        <div class="content">
+            <div class="title">{{ 'update.steps.database_migration'|trans }}</div>
+        </div>
+    </div>
+    <div class="{% if activeStep == 2 %}active {% endif %}step">
+        <i class="check icon"></i>
+        <div class="content">
+            <div class="title">{{ 'update.steps.finish'|trans }}</div>
+        </div>
+    </div>
+</div>

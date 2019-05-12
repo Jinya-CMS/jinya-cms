@@ -1,8 +1,12 @@
 {% extends '@Jinya/Installer/base.html.twig' %}
 
 {% block content %}
-    <h1>{{ 'update.done.title'|trans }}</h1>
-    <p>{{ 'update.done.content'|trans }}</p>
-    <a class="btn btn-primary" href="{{ path('designer_home_index') }}">{{ 'update.done.designer'|trans }}</a>
+    {{ include('@Jinya/Updater/Default/steps.html.twig', {'activeStep': 2}) }}
+    <div class="ui info message">
+        <div class="header"></div>
+        <p>{{ 'update.done.content'|trans }}</p>
+    </div>
+    <form method="post">
+        <button class="ui primary right floated button" type="submit">{{ 'update.done.designer'|trans }}</button>
+    </form>
 {% endblock %}
-
