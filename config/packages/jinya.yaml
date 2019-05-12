@@ -4,3 +4,5 @@ parameters:
   jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
   jinya_gallery.profiler.out_dir: '%kernel.project_dir%/var/profiler'
   jinya_gallery.theme.directory: themes
+  jinya_gallery.migrations_table_name: migration_versions
+  jinya_gallery.migrations_namespace: DoctrineMigrations

@@ -3,7 +3,7 @@ app:
 install:
   general:
     title: Ersteinrichtung
-    submit: Einrichten
+    submit: Weiter
     database:
       title: Datenbank
       host:
@@ -37,7 +37,7 @@ install:
   database:
     title: Datenbank erstellen
     content: Damit Jinya funktioniert, müssen wir als nächstes die Datenbank einrichten, bitte bestätige diese Aktion.
-    submit: Erstellen
+    submit: Datenbank erstellen
   admin:
     title: Erster Administrator
     submit: Administrator anlegen
@@ -51,6 +51,10 @@ install:
     title: Einrichtung abgeschlossen
     content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
     designer: Zum Designer
+  steps:
+    config: Einstellungen
+    database_creation: Datenbank erstellen
+    admin: Admin anlegen
 update:
   title: Jinya Update
   version: Version

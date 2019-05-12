@@ -64,7 +64,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     /**
      * {@inheritdoc}
      */
-    private function saveTheme(string $configString, string $name)
+    private function saveTheme(string $configString, string $name): void
     {
         $config = Yaml::parse($configString, Yaml::PARSE_OBJECT);
         $theme = $this->themeService->getThemeOrNewTheme($name);

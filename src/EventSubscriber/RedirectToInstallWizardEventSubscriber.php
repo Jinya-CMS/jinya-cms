@@ -54,7 +54,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         if (!Strings::find($event->getRequest()->getPathInfo(), '/install') && !$installed) {
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_index')));
         } elseif (Strings::find($event->getRequest()->getPathInfo(), '/install') && $installed) {
-            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index')));
+            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index_specific', ['route' => 'login'])));
         }
     }
 }

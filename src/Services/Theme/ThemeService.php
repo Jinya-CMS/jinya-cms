@@ -18,11 +18,11 @@ use Twig_Error_Loader;
 
 class ThemeService implements ThemeServiceInterface
 {
-    const THEME_CONFIG_YML = 'theme.yml';
+    public const THEME_CONFIG_YML = 'theme.yml';
 
-    const JINYA_GALLERY_DEFAULT_THEME_NAME = 'jinya_gallery_default_theme';
+    public const JINYA_GALLERY_DEFAULT_THEME_NAME = 'jinya-default-theme';
 
-    const THEMES_TWIG_NAMESPACE = 'Themes';
+    public const THEMES_TWIG_NAMESPACE = 'Theme';
 
     /** @var EntityManagerInterface */
     private $entityManager;

@@ -2,6 +2,9 @@
 
 namespace Jinya\Controller;
 
+use Doctrine\DBAL\DBALException;
+use Exception;
+use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Components\Database\SchemaToolInterface;
 use Jinya\Entity\Artist\User;
 use Jinya\Form\Install\AdminData;
@@ -43,6 +46,9 @@ class InstallController extends AbstractController
     /** @var ThemeSyncServiceInterface */
     private $themeSyncService;
 
+    /** @var DatabaseMigratorInterface */
+    private $databaseMigrator;
+
     /**
      * InstallController constructor.
      * @param SchemaToolInterface $schemaTool
@@ -50,14 +56,18 @@ class InstallController extends AbstractController
      * @param UserServiceInterface $userService
      * @param Twig_Environment $twig
      * @param MediaServiceInterface $mediaService
+     * @param ThemeSyncServiceInterface $themeSyncService
+     * @param DatabaseMigratorInterface $databaseMigrator
      */
-    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Twig_Environment $twig, MediaServiceInterface $mediaService)
+    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Twig_Environment $twig, MediaServiceInterface $mediaService, ThemeSyncServiceInterface $themeSyncService, DatabaseMigratorInterface $databaseMigrator)
     {
         $this->schemaTool = $schemaTool;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->userService = $userService;
         $this->twig = $twig;
         $this->mediaService = $mediaService;
+        $this->themeSyncService = $themeSyncService;
+        $this->databaseMigrator = $databaseMigrator;
     }
 
     /**
@@ -66,6 +76,7 @@ class InstallController extends AbstractController
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime
      * @throws Twig_Error_Syntax
+     * @throws Exception
      */
     public function indexAction(Request $request): Response
     {
@@ -80,7 +91,7 @@ class InstallController extends AbstractController
 
             $parameters = [
                 'databaseUrl' => $databaseUrl,
-                'appSecret' => uniqid(),
+                'appSecret' => bin2hex(random_bytes(50)),
                 'appEnv' => 'prod',
                 'mailerUrl' => $mailerUrl,
                 'mailerSender' => $formData->getMailerSender(),
@@ -102,7 +113,7 @@ class InstallController extends AbstractController
      * @throws Twig_Error_Runtime
      * @throws Twig_Error_Syntax
      */
-    private function writeEnv(array $parameters)
+    private function writeEnv(array $parameters): void
     {
         $fs = new Filesystem();
         $data = $this->twig->load('@Jinya\Installer\Config\.htaccess.twig')->render($parameters);
@@ -118,6 +129,12 @@ class InstallController extends AbstractController
     {
         if ($request->isMethod('POST')) {
             $this->schemaTool->createSchema();
+
+            try {
+                $this->databaseMigrator->activateAllMigrations();
+            } catch (DBALException $e) {
+                return $this->render('@Jinya\Installer\Default\createDatabase.html.twig', ['exception' => $e]);
+            }
 
             return $this->redirectToRoute('install_admin');
         }
@@ -143,27 +160,34 @@ class InstallController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var AdminData $formData */
-            $formData = $form->getData();
-            $user = new User();
-            $user->setEmail($formData->getEmail());
-            $user->setLastname($formData->getLastname());
-            $user->setFirstname($formData->getFirstname());
-            $user->setPassword($formData->getPassword());
+            try {
+                /** @var AdminData $formData */
+                $formData = $form->getData();
+                $user = new User();
+                $user->setEmail($formData->getEmail());
+                $user->setLastname($formData->getLastname());
+                $user->setFirstname($formData->getFirstname());
+                $user->setPassword($formData->getPassword());
 
-            $user->addRole(User::ROLE_SUPER_ADMIN);
-            $user->addRole(User::ROLE_ADMIN);
-            $user->addRole(User::ROLE_WRITER);
-            $user->setEnabled(true);
+                $user->addRole(User::ROLE_SUPER_ADMIN);
+                $user->addRole(User::ROLE_ADMIN);
+                $user->addRole(User::ROLE_WRITER);
+                $user->setEnabled(true);
 
-            $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
+                $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
 
-            $user->setProfilePicture($path);
-            $this->userService->saveOrUpdate($user);
-            $this->themeSyncService->syncThemes();
+                $user->setProfilePicture($path);
+                $this->userService->saveOrUpdate($user);
+                $this->themeSyncService->syncThemes();
 
-            $fs = new Filesystem();
-            $fs->touch($this->kernelProjectDir . '/config/install.lock');
+                $fs = new Filesystem();
+                $fs->touch($this->kernelProjectDir . '/config/install.lock');
+            } catch (Exception $exception) {
+                return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
+                    'form' => $form->createView(),
+                    'exception' => $exception,
+                ]);
+            }
 
             return $this->redirectToRoute('install_done');
         }

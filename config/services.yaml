@@ -172,6 +172,13 @@ services:
     tags:
     - { name: security.voter }
 
+  # Components
+  Jinya\Components\Database\DatabaseMigrator:
+    arguments:
+      $tableName: '%jinya_gallery.migrations_table_name%'
+      $namespace: '%jinya_gallery.migrations_namespace%'
+      $kernelRootDir: '%kernel.root_dir%'
+
   # Twig
   Jinya\Twig\Extension\TranslationUtils:
     arguments:

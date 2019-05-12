@@ -2,18 +2,23 @@
 <head>
     <title>{{ 'app.name'|trans() }}{% block title %}{% endblock %}</title>
     {% block styles %}
-        {% block styles_fontawesome %}
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-                  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-                  crossorigin="anonymous">
-        {% endblock %}
         {% block styles_bootstrap %}
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <style>
-                body {
-                    padding-top: 40px;
-                }
-            </style>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/button.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/segment.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/form.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/message.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/label.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/container.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/step.min.css"/>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/icon.min.css"/>
         {% endblock %}
     {% endblock %}
     {% block meta %}
@@ -27,11 +32,12 @@
 <body>
 {% block body %}
     {% if form is defined %}
-        {% form_theme form with ['bootstrap_4_horizontal_layout.html.twig'] %}
+        {% form_theme form with ['@Jinya/Installer/fomantic-form-theme.html.twig'] %}
     {% endif %}
-    <div class="container">
-    {% block content %}{% endblock %}
-    </div>
+    <main class="ui container">
+        <h1>{{ 'install.general.title'|trans }}</h1>
+        {% block content %}{% endblock %}
+    </main>
 {% endblock %}
 {% block scripts %}{% endblock %}
 </body>
