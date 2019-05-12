@@ -24,6 +24,8 @@
                           :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"
                           @picked="picturePicked"
                           accept="image/*" label="art.artworks.artwork_form.artwork" v-if="!isStatic"/>
+        <jinya-choice :choices="types" :enforceSelect="true" @selected="value=> artwork.type = value.value"
+                      label="art.artworks.artwork_form.convert.label" v-if="!isStatic"/>
         <jinya-textarea :enable="enable" :is-static="isStatic" label="art.artworks.artwork_form.description"
                         v-model="artwork.description"/>
       </jinya-editor-pane>
@@ -48,9 +50,13 @@
   import JinyaEditor from '@/framework/Markup/Form/Editor';
   import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
     components: {
+      JinyaChoice,
       JinyaTextarea,
       JinyaFileInput,
       JinyaInput,
@@ -114,6 +120,7 @@
             name: '',
             slug: '',
             description: '',
+            type: 0,
           };
         },
       },
@@ -123,6 +130,24 @@
           return true;
         },
       },
+    },
+    data() {
+      return {
+        types: [],
+      };
+    },
+    async created() {
+      const supportedTypes = await JinyaRequest.get('/api/media/conversion/type');
+
+      this.types = [
+        {
+          value: 0,
+          text: Translator.message('art.artworks.artwork_form.convert.not_convert'),
+        },
+      ].concat(supportedTypes.map(item => ({
+        value: Object.keys(item)[0],
+        text: Object.values(item)[0],
+      })));
     },
     methods: {
       back() {
@@ -149,6 +174,7 @@
           slug: this.artwork.slug,
           picture: this.artwork.uploadedFile,
           description: this.artwork.description,
+          type: this.artwork.type,
         };
 
         this.$emit('save', artwork);

@@ -38,7 +38,7 @@
           });
 
           this.message = Translator.message('art.artworks.add.uploading', artwork);
-          await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
+          await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture?conversionType=${artwork.type}`, picture);
 
           this.state = 'success';
           this.message = Translator.message('art.artworks.add.success', artwork);

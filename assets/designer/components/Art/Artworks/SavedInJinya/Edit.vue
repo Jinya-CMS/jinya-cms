@@ -60,7 +60,7 @@
 
           if (picture) {
             this.message = Translator.message('art.artworks.edit.uploading', artwork);
-            await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
+            await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture?conversionType=${artwork.type}`, picture);
           }
 
           this.state = 'success';

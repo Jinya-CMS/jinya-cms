@@ -5,11 +5,11 @@ namespace Jinya\Services\Media;
 interface ConversionServiceInterface
 {
     /**
-     * @param resource $data
+     * @param string $data
      * @param int $targetType
      * @return resource
      */
-    public function convertImage($data, int $targetType);
+    public function convertImage(string $data, int $targetType);
 
     /**
      * @return array

@@ -5,7 +5,7 @@
     <!--suppress HtmlFormInputWithoutLabel -->
     <select :class="{'is--disabled': !enable}" :disabled="!enable"
             :id="id" :multiple="multiple"
-            @change="$emit('selected', {value:$event.target.value, text: $event.target.innerText})"
+            @change="$emit('selected', {value: $event.target.value, text: $event.target.innerText})"
             class="jinya-choice__field"
             v-if="showSelect">
       <template v-for="choice in choices">
@@ -80,13 +80,13 @@
     },
     computed: {
       showSelect() {
-        return this.enforceSelect || (!this.isStatic && this.choices.length > 5);
+        return (this.enforceSelect && !this.isStatic) || (!this.isStatic && this.choices.length > 5);
       },
       showCheckboxes() {
-        return !this.enforceSelect && !this.isStatic && (this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.isStatic && this.multiple && this.choices.length <= 5;
       },
       showRadioButtons() {
-        return !this.enforceSelect && !this.isStatic && (!this.multiple && this.choices.length <= 5);
+        return !this.enforceSelect && !this.isStatic && !this.multiple && this.choices.length <= 5;
       },
       selectionText() {
         if (this.selected instanceof Array) {

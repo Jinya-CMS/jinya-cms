@@ -2,49 +2,138 @@
 
 namespace Jinya\Services\Media;
 
+use Imagick;
+use ImagickException;
+use Psr\Log\LoggerInterface;
+
 class ConversionService implements ConversionServiceInterface
 {
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
-     * @param resource $data
+     * ConversionService constructor.
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @param string $data
      * @param int $targetType
      * @return resource
      */
-    public function convertImage($data, int $targetType)
+    public function convertImage(string $data, int $targetType)
     {
-        if (extension_loaded('gd') && imagetypes() & $targetType) {
-            $imageString = @imagecreatefromstring($data);
-            if (!empty($data)) {
+        $this->logger->debug('Start image conversion');
+        $returnData = null;
+        if ($targetType >= 0) {
+            if (extension_loaded('imagick')) {
+                $returnData = $this->imagickConvertImage($data, $targetType);
+            } else if (extension_loaded('gd')) {
+                $returnData = $this->gdConvertImage($data, $targetType);
+            }
+        }
+
+        $returnStream = fopen('php://temp', 'wrb+');
+        fwrite($returnStream, empty($returnData) ? $data : $returnData);
+        fflush($returnStream);
+        rewind($returnStream);
+
+        $this->logger->debug('Finished image conversion');
+
+        return $returnStream;
+    }
+
+    private function imagickConvertImage(string $data, int $targetType): ?string
+    {
+        $this->logger->debug('Convert file using imagick');
+        $inputFile = tmpfile();
+        try {
+            fwrite($inputFile, $data);
+            fflush($inputFile);
+            rewind($inputFile);
+
+            $inputPath = stream_get_meta_data($inputFile)['uri'];
+
+            try {
+                $inputImage = new Imagick($inputPath);
+                $outputImage = new Imagick();
+
+                foreach ($inputImage as $image) {
+                    $outputImage->addImage($image);
+                }
+
+                $mergedImage = $outputImage->flattenImages();
+                switch ($targetType) {
+                    case IMAGETYPE_BMP:
+                        $mergedImage->setFormat('bmp');
+                        break;
+                    case IMAGETYPE_GIF:
+                        $mergedImage->setFormat('gif');
+                        break;
+                    case IMAGETYPE_PNG:
+                        $mergedImage->setFormat('png');
+                        break;
+                    case IMAGETYPE_JPEG:
+                        $mergedImage->setFormat('jpg');
+                        break;
+                    case IMAGETYPE_WEBP:
+                        $mergedImage->setFormat('webp');
+                        break;
+                }
+
+                $mergedImage->writeImage($inputPath);
+
+                return file_get_contents($inputPath);
+            } catch (ImagickException $e) {
+                $this->logger->error($e->getMessage());
+                $this->logger->error($e->getTraceAsString());
+            }
+        } finally {
+            fclose($inputFile);
+        }
+
+        return null;
+    }
+
+    private function gdConvertImage(string $data, int $targetType): ?string
+    {
+        $this->logger->debug('Convert file using gd');
+        if (imagetypes() & $targetType) {
+            $imageData = @imagecreatefromstring($data);
+
+            if (!empty($imageData)) {
                 ob_start();
                 switch ($targetType) {
                     case IMAGETYPE_BMP:
-                        imagebmp($imageString);
+                        imagebmp($imageData);
                         break;
                     case IMAGETYPE_GIF:
-                        imagegif($imageString);
+                        imagegif($imageData);
                         break;
                     case IMAGETYPE_PNG:
-                        imagepng($imageString);
+                        imagepng($imageData);
                         break;
                     case IMAGETYPE_JPEG:
-                        imagejpeg($imageString);
+                        imagejpeg($imageData);
                         break;
                     case IMAGETYPE_WEBP:
-                        imagewebp($imageString);
+                        imagewebp($imageData);
                         break;
                 }
-                imagedestroy($imageString);
+                imagedestroy($imageData);
 
                 $image = ob_get_contents();
                 ob_clean();
 
-                $returnStream = fopen('php://temp', 'wrb+');
-                fwrite($returnStream, $image);
-
-                return $returnStream;
+                return $image;
             }
         }
 
-        return $data;
+        return null;
     }
 
     /**
