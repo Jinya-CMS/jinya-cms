@@ -11,6 +11,7 @@ namespace Jinya\Controller\Api\Artwork;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
+use Jinya\Services\Media\ConversionServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -58,14 +59,17 @@ class ArtworkPictureController extends BaseApiController
      * @param ArtworkServiceInterface $artworkService
      * @param MediaServiceInterface $mediaService
      * @param UrlGeneratorInterface $urlGenerator
+     * @param ConversionServiceInterface $conversionService
      * @return Response
      */
-    public function putPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
+    public function putPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator, ConversionServiceInterface $conversionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $mediaService, $urlGenerator, $slug) {
+        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $mediaService, $urlGenerator, $conversionService, $slug) {
             $artwork = $artworkService->get($slug);
 
-            $picture = $request->getContent(true);
+            $convertArtworkTargetType = (int) $request->get('conversionType', 0);
+            $picture = $conversionService->convertImage($request->getContent(), $convertArtworkTargetType);
+
             $picturePath = $mediaService->saveMedia($picture, MediaServiceInterface::CONTENT_IMAGE);
 
             if ($picture) {

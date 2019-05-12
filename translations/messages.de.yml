@@ -536,6 +536,9 @@ art:
       name: Name
       slug: Slug
       artwork: Kunstwerk
+      convert:
+        label: Beim hochladen konvertieren (optional)
+        not_convert: Nicht konvertieren
       description: Beschreibung (optional)
       save: Kunstwerk speichern
       back: Zurück
