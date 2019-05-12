@@ -2,24 +2,22 @@
 <head>
     <title>{{ 'app.name'|trans() }}{% block title %}{% endblock %}</title>
     {% block styles %}
-        {% block styles_bootstrap %}
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/button.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/segment.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/form.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/message.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/label.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/container.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/step.min.css"/>
-            <link rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/icon.min.css"/>
-        {% endblock %}
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/button.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/segment.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/form.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/message.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/label.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/container.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/step.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.4/components/icon.min.css"/>
     {% endblock %}
     {% block meta %}
         <meta charset="utf-8"/>
@@ -32,7 +30,7 @@
 <body>
 {% block body %}
     {% if form is defined %}
-        {% form_theme form with ['@Jinya/Installer/fomantic-form-theme.html.twig'] %}
+        {% form_theme form with ['@Jinya/fomantic-form-theme.html.twig'] %}
     {% endif %}
     <main class="ui container">
         <h1>{{ 'install.general.title'|trans }}</h1>
