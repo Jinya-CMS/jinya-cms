@@ -24,7 +24,6 @@
           title: '',
           description: '',
           toAddress: '',
-          slug: '',
         },
       };
     },
