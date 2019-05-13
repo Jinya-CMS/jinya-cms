@@ -15,8 +15,10 @@ jobs:
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
           curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+          sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+          echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.3.list
           sudo apt update
-          sudo apt install -y nodejs build-essential yarn php7-imagick php7-gd
+          sudo apt install -y nodejs build-essential yarn php7.3-imagick php7.3-gd
     - run: "composer install -n --prefer-dist --no-scripts --no-dev"
     - run:
         command: |
