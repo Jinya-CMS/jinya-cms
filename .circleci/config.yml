@@ -16,7 +16,7 @@ jobs:
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
           curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
           sudo apt update
-          sudo apt install -y nodejs build-essential yarn
+          sudo apt install -y nodejs build-essential yarn php7-imagick php7-gd
     - run: "composer install -n --prefer-dist --no-scripts --no-dev"
     - run:
         command: |
