@@ -99,7 +99,7 @@ class YoutubeVideoController extends BaseApiController
     public function postAction(YoutubeVideoServiceInterface $youtubeVideoService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($youtubeVideoService) {
-            $slug = $this->getValue('slug');
+            $slug = $this->getValue('slug', '');
             $name = $this->getValue('name');
             $description = $this->getValue('description');
             $videoKey = $this->getValue('videoKey');

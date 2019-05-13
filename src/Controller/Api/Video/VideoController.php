@@ -101,7 +101,7 @@ class VideoController extends BaseApiController
     public function postAction(VideoServiceInterface $VideoService): Response
     {
         list($data, $status) = $this->tryExecute(function () use ($VideoService) {
-            $slug = $this->getValue('slug');
+            $slug = $this->getValue('slug', '');
             $name = $this->getValue('name');
             $description = $this->getValue('description');
 

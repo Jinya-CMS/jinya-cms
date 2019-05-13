@@ -22,7 +22,6 @@
         artwork: {
           background: '',
           name: '',
-          slug: '',
           description: '',
         },
         overviewRoute: Routes.Art.Artworks.SavedInJinya.Overview.name,

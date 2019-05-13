@@ -11,13 +11,9 @@
     <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel"
                 @back="back" @submit="save" class="jinya-form--page" v-if="!(hideOnError && state === 'error')">
       <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                   :validation-message="'static.pages.page_form.title.empty'|jvalidator" @change="titleChanged"
+                   :validation-message="'static.pages.page_form.title.empty'|jvalidator"
                    label="static.pages.page_form.title"
                    v-model="page.title"/>
-      <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                   :validation-message="'static.pages.page_form.slug.empty'|jvalidator"
-                   @change="slugChanged" label="static.pages.page_form.slug"
-                   v-model="page.slug"/>
       <jinya-tiny-mce :content="page.content" :required="true" @invalid="contentInvalid" @valid="contentValid"
                       height="400px" v-model="page.content"/>
     </jinya-form>
@@ -34,7 +30,6 @@
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaForm from '@/framework/Markup/Form/Form';
   import Routes from '@/router/Routes';
-  import slugify from 'slugify';
   import Translator from '@/framework/i18n/Translator';
 
   export default {
@@ -97,15 +92,8 @@
         default() {
           return {
             title: '',
-            slug: '',
             content: '',
           };
-        },
-      },
-      slugifyEnabled: {
-        type: Boolean,
-        default() {
-          return true;
         },
       },
     },
@@ -143,20 +131,10 @@
       back() {
         this.$router.push(Routes.Static.Pages.SavedInJinya.Overview);
       },
-      titleChanged(value) {
-        if (this.slugifyEnabled) {
-          this.page.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.page.slug = slugify(value);
-      },
       save() {
         if (this.page.content) {
           const page = {
             title: this.page.title,
-            slug: this.page.slug,
             content: this.page.content,
           };
 

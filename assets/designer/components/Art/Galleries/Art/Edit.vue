@@ -59,7 +59,7 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.edit.saving', { name: gallery.name });
 
-          await JinyaRequest.put(`/api/gallery/art/${this.$route.params.slug}`, {
+          const savedData = await JinyaRequest.put(`/api/gallery/art/${this.gallery.slug}`, {
             name: gallery.name,
             slug: gallery.slug,
             description: gallery.description,
@@ -69,7 +69,7 @@
 
           if (background) {
             this.message = Translator.message('art.galleries.edit.uploading', { name: gallery.name });
-            await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/art/${savedData.slug}/background`, background);
           }
 
           this.state = 'success';
@@ -79,7 +79,7 @@
           this.$router.push({
             name: Routes.Art.Galleries.Art.Details.name,
             params: {
-              slug: this.gallery.slug,
+              slug: savedData.slug,
             },
           });
         } catch (error) {

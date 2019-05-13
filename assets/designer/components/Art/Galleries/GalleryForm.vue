@@ -16,13 +16,9 @@
       </jinya-editor-pane>
       <jinya-editor-pane>
         <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'art.galleries.gallery_form.name.empty'|jvalidator" @change="nameChanged"
+                     :validation-message="'art.galleries.gallery_form.name.empty'|jvalidator"
                      label="art.galleries.gallery_form.name"
                      v-model="gallery.name"/>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'art.galleries.gallery_form.slug.empty'|jvalidator" @change="slugChanged"
-                     label="art.galleries.gallery_form.slug"
-                     v-model="gallery.slug"/>
         <jinya-choice :choices="masonry_options" :enable="enable"
                       :is-static="isStatic" :selected="gallery.masonry"
                       @selected="(value) => gallery.masonry = value"
@@ -51,7 +47,6 @@
   import JinyaFileInput from '@/framework/Markup/Form/FileInput';
   import FileUtils from '@/framework/IO/FileUtils';
   import JinyaTextarea from '@/framework/Markup/Form/Textarea';
-  import slugify from 'slugify';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaEditor from '@/framework/Markup/Form/Editor';
@@ -130,7 +125,6 @@
           return {
             background: '',
             name: '',
-            slug: '',
             description: '',
             masonry: {
               value: false,
@@ -141,12 +135,6 @@
               text: '',
             },
           };
-        },
-      },
-      slugifyEnabled: {
-        type: Boolean,
-        default() {
-          return true;
         },
       },
     },
@@ -198,19 +186,9 @@
         this.gallery.background = await FileUtils.getAsDataUrl(file);
         this.gallery.uploadedFile = file;
       },
-      nameChanged(value) {
-        if (this.slugifyEnabled) {
-          this.gallery.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.gallery.slug = slugify(value);
-      },
       save() {
         const gallery = {
           name: this.gallery.name,
-          slug: this.gallery.slug,
           background: this.gallery.uploadedFile,
           description: this.gallery.description,
           masonry: this.gallery.masonry.value,

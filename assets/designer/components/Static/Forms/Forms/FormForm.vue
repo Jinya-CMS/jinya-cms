@@ -6,12 +6,8 @@
                 save-label="static.forms.forms.form_form.save">
       <jinya-input :enable="enable" :required="true"
                    :validation-message="'static.forms.forms.form_form.title.empty'|jvalidator"
-                   @change="titleChanged" label="static.forms.forms.form_form.title"
+                   label="static.forms.forms.form_form.title"
                    v-model="form.title"/>
-      <jinya-input :enable="enable" :required="true"
-                   :validation-message="'static.forms.forms.form_form.slug.empty'|jvalidator"
-                   @change="slugChanged" label="static.forms.forms.form_form.slug"
-                   v-model="form.slug"/>
       <jinya-input :enable="enable" :required="true" :validation-message="emailValidationMessage|jvalidator"
                    label="static.forms.forms.form_form.email" type="email"
                    v-model="form.toAddress"/>
@@ -31,7 +27,6 @@
   import JinyaButton from '@/framework/Markup/Button';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
-  import slugify from 'slugify';
 
   export default {
     name: 'jinya-form-form',
@@ -68,16 +63,9 @@
         default() {
           return {
             title: '',
-            slug: '',
             toAddress: '',
             description: '',
           };
-        },
-      },
-      slugifyEnabled: {
-        type: Boolean,
-        default() {
-          return true;
         },
       },
     },
@@ -99,19 +87,9 @@
       back() {
         this.$router.push(Routes.Static.Forms.Forms.Overview);
       },
-      titleChanged(value) {
-        if (this.slugifyEnabled) {
-          this.form.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.form.slug = slugify(value);
-      },
       save() {
         const form = {
           title: this.form.title,
-          slug: this.form.slug,
           toAddress: this.form.toAddress,
           description: this.form.description,
         };
