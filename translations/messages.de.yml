@@ -129,7 +129,7 @@ menu:
           videos:
             header: Videos
             saved_in_jinya: Im Jinya CMS gespeichert
-            saved_on_youtube: Auf Youtube gespeichert
+            saved_on_youtube: Auf YouTube gespeichert
             saved_on_vimeo: Auf Vimeo gespeichert
             saved_on_newgrounds: Auf Newgrounds gespeichert
           galleries:
@@ -214,7 +214,7 @@ routes:
         add: Video hinzufügen
         edit: Video bearbeiten
       saved_on_youtube:
-        overview: Auf Youtube gespeicherte Videos
+        overview: Auf YouTube gespeicherte Videos
         add: Video hinzufügen
         edit: Video bearbeiten
     galleries:
@@ -577,21 +577,21 @@ art:
       queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
     youtube:
       delete:
-        title: Youtube Video aus Jinya entfernen?
-        content: Soll das Youtube Video "%name%" wirklich aus Jinya entfernt werden?
+        title: YouTube Video aus Jinya entfernen?
+        content: Soll das YouTube Video "%name%" wirklich aus Jinya entfernt werden?
         yes: Video entfernen
         no: Video nicht entfernen
       add:
-        saving: Das Youtube Video "%name%" wird gespeichert.
-        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
+        saving: Das YouTube Video "%name%" wird gespeichert.
+        success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
       edit:
-        title: Youtube Video %name% bearbeiten
-        saving: Das Youtube Video "%name%" wird gespeichert.
-        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
-        loading: Das Youtube Video wird geladen
+        title: YouTube Video %name% bearbeiten
+        saving: Das YouTube Video "%name%" wird gespeichert.
+        success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
+        loading: Das YouTube Video wird geladen
       details:
         edit: Bearbeiten
-        loading: Das Youtube Video wird geladen
+        loading: Das YouTube Video wird geladen
       video_form:
         name: Name
         slug: Slug
