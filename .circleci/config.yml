@@ -18,7 +18,7 @@ jobs:
             sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
             sudo apt update
             sudo apt install -y nodejs build-essential yarn
-            sudo apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+            sudo apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev imagick
             sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
             sudo docker-php-ext-install -j$(nproc) gd
             sudo pecl install imagick
