@@ -10,12 +10,8 @@
       <jinya-editor-pane>
         <jinya-input :enable="enable" :required="true"
                      :validation-message="'art.videos.video_form.name.empty'|jvalidator"
-                     @change="nameChanged" label="art.videos.video_form.name"
+                     label="art.videos.video_form.name"
                      v-model="video.name"/>
-        <jinya-input :enable="enable" :required="true"
-                     :validation-message="'art.videos.video_form.slug.empty'|jvalidator"
-                     @change="slugChanged" label="art.videos.video_form.slug"
-                     v-model="video.slug"/>
         <jinya-file-input :enable="enable" @picked="posterPicked" label="art.videos.video_form.poster"
                           v-model="video.poster"/>
         <jinya-tiny-mce :content="video.description" :enable="enable" height="300px"
@@ -29,7 +25,6 @@
   import JinyaForm from '@/framework/Markup/Form/Form';
   import JinyaInput from '@/framework/Markup/Form/Input';
   import JinyaButton from '@/framework/Markup/Button';
-  import slugify from 'slugify';
   import Routes from '@/router/Routes';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
@@ -100,32 +95,16 @@
         default() {
           return {
             name: '',
-            slug: '',
             description: '',
             poster: '',
             uploadedPoster: undefined,
           };
         },
       },
-      slugifyEnabled: {
-        type: Boolean,
-        default() {
-          return true;
-        },
-      },
     },
     methods: {
       back() {
         this.$router.push(Routes.Art.Videos.SavedInJinya.Overview);
-      },
-      nameChanged(value) {
-        if (this.slugifyEnabled) {
-          this.video.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.video.slug = slugify(value);
       },
       async posterPicked(files) {
         const file = files.item(0);
@@ -136,7 +115,6 @@
       save() {
         const video = {
           name: this.video.name,
-          slug: this.video.slug,
           description: this.video.description,
           poster: this.video.uploadedPoster,
         };

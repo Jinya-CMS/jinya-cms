@@ -24,7 +24,6 @@
         enable: false,
         video: {
           name: '',
-          slug: '',
           description: '',
         },
       };
@@ -55,13 +54,12 @@
 
           await JinyaRequest.put(`/api/video/jinya/${this.$route.params.slug}`, {
             name: video.name,
-            slug: video.slug,
             description: video.description,
           });
 
           if (video.poster) {
             this.message = Translator.message('art.videos.edit.upload_poster', video);
-            await JinyaRequest.upload(`/api/video/jinya/${video.slug}/poster`, video.poster);
+            await JinyaRequest.upload(`/api/video/jinya/${this.video.slug}/poster`, video.poster);
           }
 
           this.state = 'success';

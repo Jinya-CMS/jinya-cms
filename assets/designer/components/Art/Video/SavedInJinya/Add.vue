@@ -29,15 +29,14 @@
           this.state = 'loading';
           this.message = Translator.message('art.videos.add.saving', video);
 
-          await JinyaRequest.post('/api/video/jinya', {
+          const savedData = await JinyaRequest.post('/api/video/jinya', {
             name: video.name,
-            slug: video.slug,
             description: video.description,
           });
 
           if (video.poster) {
             this.message = Translator.message('art.videos.add.upload_poster', video);
-            await JinyaRequest.upload(`/api/video/jinya/${video.slug}/poster`, video.poster);
+            await JinyaRequest.upload(`/api/video/jinya/${savedData.slug}/poster`, video.poster);
           }
 
           this.state = 'success';

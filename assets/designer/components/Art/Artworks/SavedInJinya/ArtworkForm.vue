@@ -15,7 +15,7 @@
       </jinya-editor-pane>
       <jinya-editor-pane>
         <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator" @change="nameChanged"
+                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"
                      label="art.artworks.artwork_form.name" v-model="artwork.name"/>
         <jinya-file-input :enable="enable" :required="true"
                           :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"

@@ -31,7 +31,6 @@
 
           await JinyaRequest.post('/api/video/youtube', {
             name: video.name,
-            slug: video.slug,
             description: video.description,
             videoKey: video.videoKey,
           });
