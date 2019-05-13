@@ -23,7 +23,6 @@
         enable: true,
         page: {
           title: '',
-          slug: '',
           content: '',
         },
       };
@@ -49,7 +48,7 @@
           this.state = 'loading';
           this.message = Translator.message('static.pages.edit.saving', page);
 
-          await JinyaRequest.put(`/api/page/${this.$route.params.slug}`, page);
+          await JinyaRequest.put(`/api/page/${this.page.slug}`, page);
 
           this.state = 'success';
           this.message = Translator.message('static.pages.edit.success', page);
