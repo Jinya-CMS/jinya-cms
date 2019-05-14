@@ -55,7 +55,8 @@
     "symfony/yaml": "4.2.1",
     "twig/extensions": "1.5.4",
     "twig/twig": "2.6.0",
-    "ext-zip": "*"
+    "ext-zip": "*",
+    "ext-fileinfo": "*"
   },
   "require-dev": {
     "symfony/browser-kit": "4.2.1",
