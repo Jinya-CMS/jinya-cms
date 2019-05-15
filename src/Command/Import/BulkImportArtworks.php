@@ -76,7 +76,7 @@ class BulkImportArtworks extends AuthenticatedCommand
         $convert = $input->getOption('convert');
         $targetType = $input->getOption('conversion-target');
 
-        ProgressBar::setFormatDefinition('custom', " %current%/%max% [%bar%] %percent:3s%% -- %message%");
+        ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %percent:3s%% -- %message%');
 
         [$files, $count] = $this->scanDirectory($directory, $recursive);
         $progressBar = new ProgressBar($output, $count);
@@ -119,7 +119,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                 ->getIterator(),
             $finder
                 ->in($directory)
-                ->count()
+                ->count(),
         ];
     }
 
@@ -129,7 +129,7 @@ class BulkImportArtworks extends AuthenticatedCommand
         $error = false;
 
         foreach ($files as $file) {
-            /** @var $file SplFileInfo */
+            /* @var $file SplFileInfo */
             try {
                 $progressBar->setMessage(sprintf('Importing file %s', $file->getPathname()));
                 [$artwork, $action] = $this->addOrUpdateFile($file, $convert, $targetType);
@@ -147,6 +147,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                 ];
                 if ($stopOnError) {
                     $error = true;
+
                     break;
                 }
             }
@@ -163,15 +164,19 @@ class BulkImportArtworks extends AuthenticatedCommand
             switch ($targetType) {
                 case 'png':
                     $type = IMAGETYPE_PNG;
+
                     break;
                 case 'gif':
                     $type = IMAGETYPE_GIF;
+
                     break;
                 case 'webp':
                     $type = IMAGETYPE_WEBP;
+
                     break;
                 case 'jpg':
                     $type = IMAGETYPE_JPEG;
+
                     break;
                 default:
                     throw new InvalidArgumentException('Target type must be one of png, jpg, webp or gif');
@@ -185,6 +190,7 @@ class BulkImportArtworks extends AuthenticatedCommand
 
         $name = $file->getBasename(sprintf('.%s', $file->getExtension()));
         $slug = $this->slugService->generateSlug($name);
+
         try {
             $artwork = $this->artworkService->get($slug);
             $action = 'updated';
@@ -225,7 +231,7 @@ class BulkImportArtworks extends AuthenticatedCommand
         $error = false;
 
         foreach ($files as $file) {
-            /** @var $file SplFileInfo */
+            /* @var $file SplFileInfo */
             try {
                 $galleryName = basename($file->getPath());
                 $progressBar->setMessage(sprintf('Import gallery %s', $galleryName));
@@ -240,7 +246,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                     'artwork' => $artworkSlug,
                 ];
 
-                $position++;
+                ++$position;
                 $progressBar->advance();
             } catch (Throwable $exception) {
                 $result[] = [
@@ -250,6 +256,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                 ];
                 if ($stopOnError) {
                     $error = true;
+
                     break;
                 }
             }
@@ -261,6 +268,7 @@ class BulkImportArtworks extends AuthenticatedCommand
     private function createGalleryIfNotExists(string $galleryName): ArtGallery
     {
         $slug = $this->slugService->generateSlug($galleryName);
+
         try {
             $gallery = $this->galleryService->get($slug);
         } catch (Throwable $exception) {

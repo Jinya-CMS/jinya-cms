@@ -39,6 +39,7 @@ abstract class AuthenticatedCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $error = false;
+
         try {
             $user = $this->userService->getUserByEmail($input->getOption('user'));
             $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
