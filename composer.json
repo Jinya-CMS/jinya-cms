@@ -61,7 +61,7 @@
   "require-dev": {
     "symfony/browser-kit": "4.2.1",
     "symfony/css-selector": "4.2.1",
-    "symfony/maker-bundle": "1.11.1",
+    "symfony/maker-bundle": "1.11.6",
     "symfony/profiler-pack": "1.0.4",
     "symfony/web-server-bundle": "4.2.1"
   },
