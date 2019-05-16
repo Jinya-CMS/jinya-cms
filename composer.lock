@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40e7440d5241b1ed6d562fd4cbcab04b",
+    "content-hash": "067253e9773b5c3111651022986e8747",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4513,7 +4513,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -6836,16 +6836,16 @@
         },
         {
             "name": "symfony/web-server-bundle",
-            "version": "v4.2.1",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-server-bundle.git",
-                "reference": "6291444989fc753df2a9c86e5f6d5af4616804f5"
+                "reference": "91945ba7f59f2a4b4194f018da9d7aaedaf88418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/6291444989fc753df2a9c86e5f6d5af4616804f5",
-                "reference": "6291444989fc753df2a9c86e5f6d5af4616804f5",
+                "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/91945ba7f59f2a4b4194f018da9d7aaedaf88418",
+                "reference": "91945ba7f59f2a4b4194f018da9d7aaedaf88418",
                 "shasum": ""
             },
             "require": {
@@ -6891,7 +6891,7 @@
             ],
             "description": "Symfony WebServerBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-11-13T19:11:56+00:00"
+            "time": "2019-03-04T10:37:56+00:00"
         }
     ],
     "aliases": [],
