@@ -100,7 +100,8 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
     private function generateRouteEntry(string $route)
     {
         return function (/* @var SlugEntity $item */
-            $item) use ($route) {
+            $item
+        ) use ($route) {
             return [
                 'name' => $route,
                 'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),

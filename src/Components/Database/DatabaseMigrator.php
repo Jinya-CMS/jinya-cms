@@ -51,11 +51,13 @@ class DatabaseMigrator implements DatabaseMigratorInterface
             return;
         }
 
-        $tableExists = $this->connection->fetchColumn('SELECT table_name FROM information_schema.tables WHERE table_schema = :databaseName AND table_name = :tableName',
+        $tableExists = $this->connection->fetchColumn(
+            'SELECT table_name FROM information_schema.tables WHERE table_schema = :databaseName AND table_name = :tableName',
             [
                 'tableName' => $this->tableName,
                 'databaseName' => $this->connection->getDatabase(),
-            ]);
+            ]
+        );
 
         if (!$tableExists) {
             $tableName = $this->tableName;
