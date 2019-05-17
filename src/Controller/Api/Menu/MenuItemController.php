@@ -62,18 +62,20 @@ class MenuItemController extends BaseApiController
      */
     public function getAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuItemFormatterInterface $menuItemFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $position, $menuItemService, $menuItemFormatter) {
-            return $menuItemFormatter
-                ->init($menuItemService->get($id, $position, MenuItemServiceInterface::MENU))
-                ->title()
-                ->id()
-                ->route()
-                ->parent()
-                ->highlighted()
-                ->position()
-                ->children()
-                ->format();
-        });
+        [$data, $status] = $this->tryExecute(
+            static function () use ($id, $position, $menuItemService, $menuItemFormatter) {
+                return $menuItemFormatter
+                    ->init($menuItemService->get($id, $position, MenuItemServiceInterface::MENU))
+                    ->title()
+                    ->id()
+                    ->route()
+                    ->parent()
+                    ->highlighted()
+                    ->position()
+                    ->children()
+                    ->format();
+            }
+        );
 
         return $this->json($data, $status);
     }
@@ -91,7 +93,14 @@ class MenuItemController extends BaseApiController
      */
     public function postMenuParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuFormatterInterface $menuFormatter, MenuItemFormatterInterface $menuItemFormatter): Response
     {
-        list($data, $status) = $this->tryExecute($this->addItem(MenuItemServiceInterface::MENU, $id, $position, $menuItemService, $menuFormatter, $menuItemFormatter), Response::HTTP_CREATED);
+        [$data, $status] = $this->tryExecute($this->addItem(
+            MenuItemServiceInterface::MENU,
+            $id,
+            $position,
+            $menuItemService,
+            $menuFormatter,
+            $menuItemFormatter
+        ), Response::HTTP_CREATED);
 
         return $this->json($data, $status);
     }
@@ -164,14 +173,14 @@ class MenuItemController extends BaseApiController
                     ->name()
                     ->items()
                     ->format();
-            } else {
-                return $menuItemFormatter
-                    ->init($item->getParent())
-                    ->title()
-                    ->route()
-                    ->children()
-                    ->format();
             }
+
+            return $menuItemFormatter
+                ->init($item->getParent())
+                ->title()
+                ->route()
+                ->children()
+                ->format();
         };
     }
 
@@ -188,7 +197,14 @@ class MenuItemController extends BaseApiController
      */
     public function postMenuItemParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService, MenuFormatterInterface $menuFormatter, MenuItemFormatterInterface $menuItemFormatter): Response
     {
-        list($data, $status) = $this->tryExecute($this->addItem(MenuItemServiceInterface::PARENT, $id, $position, $menuItemService, $menuFormatter, $menuItemFormatter), Response::HTTP_CREATED);
+        [$data, $status] = $this->tryExecute($this->addItem(
+            MenuItemServiceInterface::PARENT,
+            $id,
+            $position,
+            $menuItemService,
+            $menuFormatter,
+            $menuItemFormatter
+        ), Response::HTTP_CREATED);
 
         return $this->json($data, $status);
     }
@@ -204,7 +220,7 @@ class MenuItemController extends BaseApiController
      */
     public function deleteMenuParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $position, $menuItemService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $position, $menuItemService) {
             $menuItemService->removeItem($id, $position, MenuItemServiceInterface::MENU);
         }, Response::HTTP_NO_CONTENT);
 
@@ -222,7 +238,7 @@ class MenuItemController extends BaseApiController
      */
     public function deleteMenuItemParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $position, $menuItemService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $position, $menuItemService) {
             $menuItemService->removeItem($id, $position, MenuItemServiceInterface::PARENT);
         }, Response::HTTP_NO_CONTENT);
 
@@ -240,7 +256,7 @@ class MenuItemController extends BaseApiController
      */
     public function batchChangeItems(Request $request, int $id, MenuServiceInterface $menuService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $id, $menuService) {
+        [$data, $status] = $this->tryExecute(static function () use ($request, $id, $menuService) {
             $data = json_decode($request->getContent(), true);
 
             $menuService->fillFromArray($id, $data);

@@ -96,7 +96,8 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $this->addEntryToCacheList($file);
 
         foreach ($routes as $route) {
-            if ('empty' !== $route->getMenuItem()->getPageType() && 'external' !== $route->getMenuItem()->getPageType()) {
+            $pageType = $route->getMenuItem()->getPageType();
+            if ('empty' !== $pageType && 'external' !== $pageType) {
                 $compiledTemplate = $this->compileRoute($route);
                 $file = $this->cacheTemplate($compiledTemplate, $route);
                 $this->addEntryToCacheList($file);
@@ -188,6 +189,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     private function compileRoute(RoutingEntry $route): string
     {
         $routeParameter = $route->getRouteParameter();
+        $routeName = $route->getRouteName();
 
         if (is_array($routeParameter) && array_key_exists('slug', $routeParameter)) {
             $slug = $routeParameter['slug'];
@@ -195,20 +197,20 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $slug = '';
         }
 
-        if (Strings::find($route->getRouteName(), 'artwork')) {
+        if (Strings::find($routeName, 'artwork')) {
             $viewData = [
                 'artwork' => $this->artworkService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Artwork/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
+        } elseif (Strings::find($routeName, 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
+        } elseif (Strings::find($routeName, 'art_gallery') || Strings::find($routeName, 'gallery')) {
             $artGallery = $this->artGalleryService->get($slug);
 
             $viewData = [
@@ -217,7 +219,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'form')) {
+        } elseif (Strings::find($routeName, 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
@@ -226,7 +228,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'page')) {
+        } elseif (Strings::find($routeName, 'page')) {
             $viewData = [
                 'page' => $this->pageService->get($slug),
                 'active' => $route->getUrl(),
@@ -302,9 +304,11 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     public function buildCacheBySlugAndType(string $slug, string $type): void
     {
         $routes = $this->getRoutesFromTheme();
+
         foreach ($routes as $route) {
-            $routeSlug = array_key_exists('slug', $route->getRouteParameter()) ? $route->getRouteParameter()['slug'] : '';
-            if ($route->getMenuItem()->getPageType() === $type && $slug === $routeSlug) {
+            $routeParameter = $route->getRouteParameter();
+            $routeSlug = array_key_exists('slug', $routeParameter) ? $routeParameter['slug'] : '';
+            if ($slug === $routeSlug && $route->getMenuItem()->getPageType() === $type) {
                 $compiledTemplate = $this->compileRoute($route);
                 $file = $this->cacheTemplate($compiledTemplate, $route);
                 $this->addEntryToCacheList($file);

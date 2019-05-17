@@ -13,10 +13,10 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig_Environment;
-use Twig_Error_Loader;
-use Twig_Error_Runtime;
-use Twig_Error_Syntax;
 use Underscore\Types\Strings;
 
 class Compiler implements CompilerInterface
@@ -59,16 +59,16 @@ class Compiler implements CompilerInterface
      * @param string $path
      * @param array $context
      * @return string
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function compile(string $path, array $context): string
     {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
 
         if (Strings::find($path, '@Theme')) {
-            list($themeViewPath, $parameters) = $this->includeTheme($path, $context, $currentTheme);
+            [$themeViewPath, $parameters] = $this->includeTheme($path, $context, $currentTheme);
 
             return $this->twig->render($themeViewPath, $parameters);
         }
