@@ -34,7 +34,7 @@ class UserController extends BaseUserController
      */
     public function getAllAction(Request $request, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $userFormatter, $userService) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $userFormatter, $userService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -77,7 +77,7 @@ class UserController extends BaseUserController
      */
     public function getAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService, $userFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $userService, $userFormatter) {
             $user = $userService->get($id);
 
             $userFormatter = $userFormatter
@@ -106,9 +106,8 @@ class UserController extends BaseUserController
      */
     public function postAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($userService, $userFormatter, $translator) {
-            $firstname = $this->getValue('firstname');
-            $lastname = $this->getValue('lastname');
+        [$data, $status] = $this->tryExecute(function () use ($userService, $userFormatter, $translator) {
+            $artistName = $this->getValue('artistName');
             $email = $this->getValue('email');
             $password = $this->getValue('password');
             $enabled = $this->getValue('enabled', false);
@@ -116,12 +115,8 @@ class UserController extends BaseUserController
 
             $emptyFields = [];
 
-            if (empty($firstname)) {
-                $emptyFields['firstname'] = 'api.user.field.firstname.missing';
-            }
-
-            if (empty($lastname)) {
-                $emptyFields['lastname'] = 'api.user.field.lastname.missing';
+            if (empty($artistName)) {
+                $emptyFields['artistName'] = 'api.user.field.artist_name.missing';
             }
 
             if (empty($email)) {
@@ -138,14 +133,15 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
+                throw new ValidatorException(
+                    $translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators')
+                );
             }
 
             $user = new User();
             $user->setEnabled($enabled);
             $user->setEmail($email);
-            $user->setFirstname($firstname);
-            $user->setLastname($lastname);
+            $user->setArtistName($artistName);
             $user->setRoles($roles);
             $user->setPassword($password);
 
@@ -175,23 +171,18 @@ class UserController extends BaseUserController
      */
     public function putAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService, $userFormatter, $translator) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $userService, $userFormatter, $translator) {
             $user = $userService->get($id);
 
-            $firstname = $this->getValue('firstname', $user->getFirstname());
-            $lastname = $this->getValue('lastname', $user->getLastname());
+            $artistName = $this->getValue('artistName', $user->getArtistName());
             $email = $this->getValue('email', $user->getEmail());
             $enabled = $this->getValue('enabled', $user->isEnabled());
             $roles = $this->getValue('roles', $user->getRoles());
 
             $emptyFields = [];
 
-            if (empty($firstname)) {
-                $emptyFields['firstname'] = 'api.user.field.firstname.missing';
-            }
-
-            if (empty($lastname)) {
-                $emptyFields['lastname'] = 'api.user.field.lastname.missing';
+            if (empty($artistName)) {
+                $emptyFields['artistName'] = 'api.user.field.artist_name.missing';
             }
 
             if (empty($email)) {
@@ -204,7 +195,9 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
+                throw new ValidatorException(
+                    $translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators')
+                );
             }
 
             if (!$this->isCurrentUser($id)) {
@@ -212,8 +205,7 @@ class UserController extends BaseUserController
             }
 
             $user->setEmail($email);
-            $user->setFirstname($firstname);
-            $user->setLastname($lastname);
+            $user->setArtistName($artistName);
             $user->setRoles($roles);
 
             $user = $userService->saveOrUpdate($user, true);
@@ -224,7 +216,7 @@ class UserController extends BaseUserController
                 ->enabled()
                 ->roles()
                 ->format();
-        }, Response::HTTP_OK);
+        });
 
         return $this->json($data, $status);
     }
@@ -240,13 +232,13 @@ class UserController extends BaseUserController
     public function deleteAction(int $id, UserServiceInterface $userService): Response
     {
         if (!$this->isCurrentUser($id)) {
-            list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
+            [$data, $status] = $this->tryExecute(static function () use ($id, $userService) {
                 $userService->delete($id);
             }, Response::HTTP_NO_CONTENT);
 
             return $this->json($data, $status);
-        } else {
-            return $this->json(['message' => 'Cannot delete own user'], Response::HTTP_FORBIDDEN);
         }
+
+        return $this->json(['message' => 'Cannot delete own user'], Response::HTTP_FORBIDDEN);
     }
 }

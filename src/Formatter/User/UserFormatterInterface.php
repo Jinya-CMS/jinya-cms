@@ -36,6 +36,13 @@ interface UserFormatterInterface extends FormatterInterface
     public function lastname(): self;
 
     /**
+     * Formats the artist name
+     *
+     * @return UserFormatterInterface
+     */
+    public function artistName(): self;
+
+    /**
      * Formats the roles
      *
      * @return UserFormatterInterface

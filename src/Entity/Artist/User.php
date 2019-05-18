@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use function in_array;
-use function uniqid;
 
 /**
  * @ORM\Entity
@@ -23,13 +22,13 @@ use function uniqid;
  */
 class User implements JsonSerializable, UserInterface
 {
-    const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
-    const ROLE_WRITER = 'ROLE_WRITER';
+    public const ROLE_WRITER = 'ROLE_WRITER';
 
-    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
+    public const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
 
     /**
      * @var string
@@ -56,14 +55,6 @@ class User implements JsonSerializable, UserInterface
      * @var Collection
      */
     private $knownDevices;
-
-    /**
-     * The salt to use for hashing.
-     *
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $salt;
 
     /**
      * Encrypted password. Must be persisted.
@@ -116,18 +107,25 @@ class User implements JsonSerializable, UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $lastname;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    private $artistName;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -171,7 +169,6 @@ class User implements JsonSerializable, UserInterface
     {
         $this->enabled = false;
         $this->roles = [];
-        $this->salt = uniqid();
         $this->createdArtworks = new ArrayCollection();
         $this->createdForms = new ArrayCollection();
         $this->createdArtGalleries = new ArrayCollection();
@@ -316,15 +313,7 @@ class User implements JsonSerializable, UserInterface
      */
     public function getSalt(): ?string
     {
-        return $this->salt;
-    }
-
-    /**
-     * @param string $salt
-     */
-    public function setSalt(string $salt): void
-    {
-        $this->salt = $salt;
+        return null;
     }
 
     /**
@@ -504,6 +493,7 @@ class User implements JsonSerializable, UserInterface
             'id' => $this->id,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
+            'artistname' => $this->artistName,
             'profilepicture' => $this->profilePicture,
             'email' => $this->email,
             'roles' => $this->roles,
@@ -533,20 +523,36 @@ class User implements JsonSerializable, UserInterface
 
     public function hasRole(string $role)
     {
-        return in_array($role, $this->roles);
+        return in_array($role, $this->roles, true);
     }
 
     public function addRole(string $role)
     {
-        if (false === (array_search($role, $this->roles))) {
+        if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
     }
 
     public function removeRole(string $role)
     {
-        if (false !== ($key = array_search($role, $this->roles))) {
+        if (false !== ($key = array_search($role, $this->roles, true))) {
             unset($this->roles[$key]);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getArtistName(): ?string
+    {
+        return $this->artistName;
+    }
+
+    /**
+     * @param string $artistName
+     */
+    public function setArtistName(string $artistName): void
+    {
+        $this->artistName = $artistName;
     }
 }

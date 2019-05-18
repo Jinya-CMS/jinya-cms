@@ -8,6 +8,7 @@
 
 namespace Jinya\Controller\Api\Account;
 
+use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
@@ -23,7 +24,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use function uniqid;
 
 class AccountController extends BaseApiController
 {
@@ -84,11 +84,11 @@ class AccountController extends BaseApiController
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new Response('', Response::HTTP_NO_CONTENT);
-        } else {
-            $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
-
-            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
+
+        $apiKeyTool->invalidate($request->headers->get('JinyaApiKey'));
+
+        return new Response('', Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -127,14 +127,12 @@ class AccountController extends BaseApiController
      */
     public function putDataAction(UserServiceInterface $userService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($userService) {
+        [$data, $status] = $this->tryExecute(function () use ($userService) {
             $user = $userService->get($this->getUser()->getId());
-            $firstname = $this->getValue('firstname', $user->getFirstname());
-            $lastname = $this->getValue('lastname', $user->getLastname());
+            $artistName = $this->getValue('artistName', $user->getLastname());
             $email = $this->getValue('email', $user->getEmail());
 
-            $user->setFirstname($firstname);
-            $user->setLastname($lastname);
+            $user->setArtistName($artistName);
             $user->setEmail($email);
 
             $userService->saveOrUpdate($user);
@@ -153,21 +151,24 @@ class AccountController extends BaseApiController
      * @return Response
      * @throws EmptyBodyException
      * @throws InvalidContentTypeException
+     * @throws Exception
      */
     public function putPasswordAction(UserPasswordEncoderInterface $userPasswordEncoder, UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
     {
-        $confirmToken = $this->getValue('token', uniqid());
+        $confirmToken = $this->getValue('token', base64_encode(random_bytes(10)));
         /** @var User $user */
         $user = $this->getUser();
 
         if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
-            list($data, $status) = $this->tryExecute(function () use ($user, $userService) {
+            [$data, $status] = $this->tryExecute(function () use ($user, $userService) {
                 $userService->changePassword($user->getId(), $this->getValue('password'));
             }, Response::HTTP_NO_CONTENT);
 
             return $this->json($data, $status);
-        } else {
-            list($data, $status) = $this->tryExecute(function () use ($urlGenerator, $confirmToken, $user, $userService, $userPasswordEncoder) {
+        }
+
+        [$data, $status] = $this->tryExecute(
+            function () use ($urlGenerator, $confirmToken, $user, $userService, $userPasswordEncoder) {
                 $user = $userService->get($user->getId());
                 if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password'))) {
                     $user->setConfirmationToken($confirmToken);
@@ -178,12 +179,12 @@ class AccountController extends BaseApiController
                         'url' => $urlGenerator->generate('api_account_password_put'),
                         'token' => $confirmToken,
                     ];
-                } else {
-                    throw new AccessDeniedException();
                 }
-            });
 
-            return $this->json($data, $status);
-        }
+                throw new AccessDeniedException();
+            }
+        );
+
+        return $this->json($data, $status);
     }
 }

@@ -41,8 +41,7 @@ install:
   admin:
     title: Erster Administrator
     submit: Administrator anlegen
-    firstname: Vorname
-    lastname: Nachname
+    artist_name: Künstlername
     email: Emailadresse
     password: Passwort
     password_repeat: Passwort wiederholen
@@ -304,36 +303,35 @@ configuration:
         change_password: Passwort ändern
         details: Profil
       delete:
-        title: "%firstname% %lastname% wirklich löschen?"
-        message: Soll %firstname% %lastname% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
+        title: "%artistName% wirklich löschen?"
+        message: Soll %artistName% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
         yes: Künstler löschen
         no: Künstler nicht löschen
         disable: Künstler deaktivieren
       enable:
-        title: "%firstname% %lastname% aktivieren?"
-        message: Soll %firstname% %lastname% aktiviert werden? Dadurch kann sich %firstname% %lastname% wieder anmelden und Inhalte erstellen.
+        title: "%artistName% aktivieren?"
+        message: Soll %artistName% aktiviert werden? Dadurch kann sich %artistName% wieder anmelden und Inhalte erstellen.
         yes: Künstler aktivieren
         no: Künstler nicht aktivieren
       disable:
-        title: "%firstname% %lastname% wirklich deaktivieren?"
-        message: Soll %firstname% %lastname% deaktiviert werden? Dadurch kann sich %firstname% %lastname% nicht mehr anmelden und keine Inhalte erstellen.
+        title: "%artistName% wirklich deaktivieren?"
+        message: Soll %artistName% deaktiviert werden? Dadurch kann sich %artistName% nicht mehr anmelden und keine Inhalte erstellen.
         yes: Künstler deaktivieren
         no: Künstler nicht deaktivieren
       add:
-        saving: "%firstname% %lastname% wird gespeichert"
-        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
-        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        saving: "%artistName% wird gespeichert"
+        uploading: Das Profilbild von %artistName% wird hochgeladen
+        success: "%artistName% wurde erfolgreich gespeichert"
       details:
         edit: Künstler bearbeiten
       edit:
-        saving: "%firstname% %lastname% wird gespeichert"
-        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
-        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        saving: "%artistName% wird gespeichert"
+        uploading: Das Profilbild von %artistName% wird hochgeladen
+        success: "%artistName% wurde erfolgreich gespeichert"
         loading: Der Künstler wird geladen
-        title: "%firstname% %lastname% bearbeiten"
+        title: "%artistName% bearbeiten"
       artist_form:
-        firstname: Vorname
-        lastname: Nachname
+        artist_name: Künstlername
         email: Email
         profile_picture: Profilbild
         password: Passwort

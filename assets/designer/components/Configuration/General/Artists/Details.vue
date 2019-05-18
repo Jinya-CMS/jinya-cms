@@ -1,6 +1,6 @@
 <template>
-  <jinya-artist-form :artist="artist" :is-static="true" :message="message" :show-password="false"
-                     @save="edit" save-label="configuration.general.artists.details.edit"/>
+  <jinya-artist-form :artist="artist" :is-static="true" :message="message" :show-password="false" @save="edit"
+                     save-label="configuration.general.artists.details.edit"/>
 </template>
 
 <script>
@@ -19,8 +19,7 @@
         state: '',
         message: '',
         artist: {
-          firstname: '',
-          lastname: '',
+          artistName: '',
           enabled: {
             text: '',
             value: false,
@@ -47,7 +46,7 @@
       this.state = '';
       this.message = '';
       this.enable = true;
-      DOMUtils.changeTitle(`${artist.firstname} ${artist.lastname}`);
+      DOMUtils.changeTitle(artist.artistName);
     },
     methods: {
       edit() {

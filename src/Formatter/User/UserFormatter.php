@@ -185,8 +185,7 @@ class UserFormatter implements UserFormatterInterface
     public function profile(): UserFormatterInterface
     {
         return $this
-            ->firstname()
-            ->lastname()
+            ->artistName()
             ->email()
             ->profilePicture();
     }
@@ -287,6 +286,18 @@ class UserFormatter implements UserFormatterInterface
                 ->slug()
                 ->format();
         }, $this->user->getCreatedForms()->toArray());
+
+        return $this;
+    }
+
+    /**
+     * Formats the artist name
+     *
+     * @return UserFormatterInterface
+     */
+    public function artistName(): UserFormatterInterface
+    {
+        $this->formattedData['artistName'] = $this->user->getArtistName();
 
         return $this;
     }
