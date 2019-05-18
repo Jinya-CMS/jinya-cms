@@ -675,6 +675,8 @@ art:
         horizontal: Horizontal
         vertical: Vertikal
 my_jinya:
+  my_jinya:
+    about_me: Über mich
   account:
     password:
       save: Passwort ändern
