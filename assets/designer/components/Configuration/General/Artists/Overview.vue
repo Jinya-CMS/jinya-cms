@@ -2,7 +2,7 @@
   <div class="jinya-artist-overview">
     <jinya-loader :loading="loading" v-if="loading"/>
     <jinya-card-list nothing-found="configuration.general.artists.overview.nothing_found" v-else>
-      <jinya-card :header="`${artist.firstname} ${artist.lastname}`" :key="artist.email" class="jinya-artist"
+      <jinya-card :header="`${artist.artistName}`" :key="artist.email" class="jinya-artist"
                   v-for="artist in artists">
         <img :src="artist.profilePicture" class="jinya-artist__profile-picture"/>
         <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage"
@@ -38,7 +38,7 @@
                         label="configuration.general.artists.delete.disable"/>
         </jinya-message-action-bar>
       </jinya-message>
-      {{'configuration.general.artists.delete.message'|jmessage(selectedArtist )}}
+      {{'configuration.general.artists.delete.message'|jmessage(selectedArtist)}}
       <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
                           label="configuration.general.artists.delete.no" slot="buttons-left"/>
       <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
@@ -131,8 +131,9 @@
         artists: [],
         loading: true,
         selectedArtist: {
-          firstname: '',
-          lastname: '',
+          artistName: '',
+          id: '',
+          email: '',
         },
         delete: {
           loading: false,

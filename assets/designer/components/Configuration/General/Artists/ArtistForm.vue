@@ -13,13 +13,9 @@
       </jinya-editor-pane>
       <jinya-editor-pane>
         <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'configuration.general.artists.artist_form.firstname.empty'|jvalidator"
-                     class="is--half" label="configuration.general.artists.artist_form.firstname"
-                     v-model="artist.firstname"/>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'configuration.general.artists.artist_form.lastname.empty'|jvalidator"
-                     class="is--half" label="configuration.general.artists.artist_form.lastname"
-                     v-model="artist.lastname"/>
+                     :validation-message="'configuration.general.artists.artist_form.artist_name.empty'|jvalidator"
+                     label="configuration.general.artists.artist_form.artist_name"
+                     v-model="artist.artistName"/>
         <jinya-input :enable="enable" :is-static="isStatic" :required="true"
                      :validation-message="emailValidationMessage|jvalidator"
                      @invalid="emailTypeMismatch = $event.typeMismatch"
@@ -178,8 +174,7 @@
       save() {
         const artist = {
           profilePicture: this.artist.uploadedFile,
-          firstname: this.artist.firstname,
-          lastname: this.artist.lastname,
+          artistName: this.artist.artistName,
           email: this.artist.email,
           enabled: this.artist.enabled.value,
           roles: this.artist.roles.map(role => role.value),
@@ -211,22 +206,3 @@
     },
   };
 </script>
-
-<style lang="scss" scoped>
-  .jinya-input,
-  .jinya-choice {
-    flex: 0 0 100%;
-
-    &.is--half {
-      flex-basis: 49%;
-
-      &:nth-child(odd) {
-        margin-right: 1%;
-      }
-
-      &:nth-child(even) {
-        margin-left: 1%;
-      }
-    }
-  }
-</style>
