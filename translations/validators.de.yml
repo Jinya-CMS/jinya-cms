@@ -42,6 +42,8 @@ api:
       empty: Der Requestbody ist leer
   user:
     field:
+      artist_name:
+        missing: Der Künstlername muss bereitgestellt weren
       firstname:
         missing: Der Vorname muss bereitgestellt weren
       lastname:
