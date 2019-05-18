@@ -16,11 +16,8 @@ class AdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class, [
-                'label' => 'install.admin.firstname',
-            ])
-            ->add('lastname', TextType::class, [
-                'label' => 'install.admin.lastname',
+            ->add('artistName', TextType::class, [
+                'label' => 'install.admin.artist_name',
             ])
             ->add('email', EmailType::class, [
                 'label' => 'install.admin.email',

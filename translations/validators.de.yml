@@ -25,10 +25,8 @@ install:
     password:
       repeat: Die Passwörter müssen übereinstimmen
       not_blank: Das Passwort ist erforderlich
-    firstname:
-      not_blank: Der Vorname ist erforderlich
-    lastname:
-      not_blank: Der Nachname ist erforderlich
+    artist_name:
+      not_blank: Der Künstlername ist erforderlich
     username:
       not_blank: Der Benutzername ist erforderlich
     email:

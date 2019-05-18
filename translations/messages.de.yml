@@ -41,8 +41,7 @@ install:
   admin:
     title: Erster Administrator
     submit: Administrator anlegen
-    firstname: Vorname
-    lastname: Nachname
+    artist_name: Künstlername
     email: Emailadresse
     password: Passwort
     password_repeat: Passwort wiederholen

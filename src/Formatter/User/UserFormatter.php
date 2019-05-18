@@ -298,5 +298,7 @@ class UserFormatter implements UserFormatterInterface
     public function artistName(): UserFormatterInterface
     {
         $this->formattedData['artistName'] = $this->user->getArtistName();
+
+        return $this;
     }
 }

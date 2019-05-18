@@ -15,15 +15,9 @@ class AdminData
 {
     /**
      * @var string
-     * @Assert\NotBlank(message="install.users.firstname.not_blank")
+     * @Assert\NotBlank(message="install.users.artist_name.not_blank")
      */
-    private $firstname;
-
-    /**
-     * @var string
-     * @Assert\NotBlank(message="install.users.lastname.not_blank")
-     */
-    private $lastname;
+    private $artistName;
 
     /**
      * @var string
@@ -52,7 +46,7 @@ class AdminData
     /**
      * @param string $password
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -68,7 +62,7 @@ class AdminData
     /**
      * @param UploadedFile|string $profilePicture
      */
-    public function setProfilePicture($profilePicture)
+    public function setProfilePicture($profilePicture): void
     {
         $this->profilePicture = $profilePicture;
     }
@@ -76,33 +70,17 @@ class AdminData
     /**
      * @return string
      */
-    public function getFirstname(): ?string
+    public function getArtistName(): ?string
     {
-        return $this->firstname;
+        return $this->artistName;
     }
 
     /**
-     * @param string $firstname
+     * @param string $artistName
      */
-    public function setFirstname(string $firstname)
+    public function setArtistName(string $artistName): void
     {
-        $this->firstname = $firstname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string $lastname
-     */
-    public function setLastname(string $lastname)
-    {
-        $this->lastname = $lastname;
+        $this->artistName = $artistName;
     }
 
     /**
@@ -116,7 +94,7 @@ class AdminData
     /**
      * @param string $email
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }

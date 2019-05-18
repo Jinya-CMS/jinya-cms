@@ -18,7 +18,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig_Environment;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
 use Twig_Error_Syntax;
@@ -37,7 +40,7 @@ class InstallController extends AbstractController
     /** @var UserServiceInterface */
     private $userService;
 
-    /** @var Twig_Environment */
+    /** @var Environment */
     private $twig;
 
     /** @var MediaServiceInterface */
@@ -54,12 +57,12 @@ class InstallController extends AbstractController
      * @param SchemaToolInterface $schemaTool
      * @param string $kernelProjectDir
      * @param UserServiceInterface $userService
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @param MediaServiceInterface $mediaService
      * @param ThemeSyncServiceInterface $themeSyncService
      * @param DatabaseMigratorInterface $databaseMigrator
      */
-    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Twig_Environment $twig, MediaServiceInterface $mediaService, ThemeSyncServiceInterface $themeSyncService, DatabaseMigratorInterface $databaseMigrator)
+    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Environment $twig, MediaServiceInterface $mediaService, ThemeSyncServiceInterface $themeSyncService, DatabaseMigratorInterface $databaseMigrator)
     {
         $this->schemaTool = $schemaTool;
         $this->kernelProjectDir = $kernelProjectDir;
@@ -86,8 +89,22 @@ class InstallController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SetupData $formData */
             $formData = $form->getData();
-            $databaseUrl = 'mysql://' . $formData->getDatabaseUser() . ':' . $formData->getDatabasePassword() . '@' . $formData->getDatabaseHost() . ':' . $formData->getDatabasePort() . '/' . $formData->getDatabaseName();
-            $mailerUrl = $formData->getMailerTransport() . '://' . $formData->getMailerUser() . ':' . $formData->getMailerPassword() . '@' . $formData->getMailerHost() . ':' . $formData->getMailerPort();
+            $databaseUrl = sprintf(
+                'mysql://%s:%s@%s:%d/%s',
+                $formData->getDatabaseUser(),
+                $formData->getDatabasePassword(),
+                $formData->getDatabaseHost(),
+                $formData->getDatabasePort(),
+                $formData->getDatabaseName()
+            );
+            $mailerUrl = sprintf(
+                '%s://%s:%s@%s:%d',
+                $formData->getMailerTransport(),
+                $formData->getMailerUser(),
+                $formData->getMailerPassword(),
+                $formData->getMailerHost(),
+                $formData->getMailerPort()
+            );
 
             $parameters = [
                 'databaseUrl' => $databaseUrl,
@@ -109,9 +126,9 @@ class InstallController extends AbstractController
 
     /**
      * @param array $parameters
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     private function writeEnv(array $parameters): void
     {
@@ -167,8 +184,7 @@ class InstallController extends AbstractController
                 $formData = $form->getData();
                 $user = new User();
                 $user->setEmail($formData->getEmail());
-                $user->setLastname($formData->getLastname());
-                $user->setFirstname($formData->getFirstname());
+                $user->setArtistName($formData->getArtistName());
                 $user->setPassword($formData->getPassword());
 
                 $user->addRole(User::ROLE_SUPER_ADMIN);
@@ -176,7 +192,10 @@ class InstallController extends AbstractController
                 $user->addRole(User::ROLE_WRITER);
                 $user->setEnabled(true);
 
-                $path = $this->mediaService->saveMedia($formData->getProfilePicture(), MediaServiceInterface::PROFILE_PICTURE);
+                $path = $this->mediaService->saveMedia(
+                    $formData->getProfilePicture(),
+                    MediaServiceInterface::PROFILE_PICTURE
+                );
 
                 $user->setProfilePicture($path);
                 $this->userService->saveOrUpdate($user);
