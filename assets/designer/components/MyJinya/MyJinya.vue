@@ -9,7 +9,7 @@
       <span class="jinya-my-jinya__about-me-title">{{'my_jinya.my_jinya.about_me'|jmessage}}</span>
       <section class="jinya-my-jinya__about-me-content" v-html="aboutMe" v-if="!editMode"></section>
     </div>
-    <jinya-floating-action-button @click="editMode = true" icon="pencil" v-if="!editMode && isMe"/>
+    <jinya-floating-action-button @click="editProfile()" icon="pencil" v-if="!editMode"/>
   </div>
 </template>
 
@@ -35,6 +35,20 @@
       this.aboutMe = await JinyaRequest.get(`/api/user/${this.artist.id}/about`);
 
       DOMUtils.changeTitle(this.artist.artistName);
+    },
+    methods: {
+      editProfile() {
+        if (this.isMe) {
+          this.editMode = true;
+        } else {
+          this.$router.push({
+            name: Routes.Configuration.General.Artists.Edit.name,
+            params: {
+              id: this.$route.params.id,
+            },
+          });
+        }
+      },
     },
     data() {
       const isMe = this.$route.name === Routes.MyJinya.Account.Profile.name;
