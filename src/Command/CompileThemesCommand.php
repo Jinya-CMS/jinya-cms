@@ -21,8 +21,10 @@ class CompileThemesCommand extends Command
      * @param ThemeServiceInterface $themeService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      */
-    public function __construct(ThemeServiceInterface $themeService, ThemeCompilerServiceInterface $themeCompilerService)
-    {
+    public function __construct(
+        ThemeServiceInterface $themeService,
+        ThemeCompilerServiceInterface $themeCompilerService
+    ) {
         parent::__construct();
         $this->themeService = $themeService;
         $this->themeCompilerService = $themeCompilerService;

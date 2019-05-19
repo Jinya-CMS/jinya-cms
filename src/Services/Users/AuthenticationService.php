@@ -48,8 +48,13 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param UserServiceInterface $userService
      */
-    public function __construct(EntityManagerInterface $entityManager, Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher, UserServiceInterface $userService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        Swift_Mailer $swift,
+        string $mailerSender,
+        EventDispatcherInterface $eventDispatcher,
+        UserServiceInterface $userService
+    ) {
         $this->entityManager = $entityManager;
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
@@ -64,7 +69,10 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function setAndSendTwoFactorCode(string $username): void
     {
-        $pre = $this->eventDispatcher->dispatch(TwoFactorCodeEvent::PRE_CODE_GENERATION, new TwoFactorCodeEvent($username));
+        $pre = $this->eventDispatcher->dispatch(
+            TwoFactorCodeEvent::PRE_CODE_GENERATION,
+            new TwoFactorCodeEvent($username)
+        );
         $user = $this->userService->getUserByEmail($username);
         $code = '';
 
@@ -84,7 +92,10 @@ class AuthenticationService implements AuthenticationServiceInterface
         $user->setTwoFactorToken($code);
         $this->entityManager->flush();
 
-        $submissionEvent = $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
+        $submissionEvent = $this->eventDispatcher->dispatch(
+            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION,
+            new TwoFactorCodeSubmissionEvent($username, $code)
+        );
         if (!$submissionEvent->isSent()) {
             /** @var Swift_Message $message */
             $message = $this->swift->createMessage('message');
@@ -95,7 +106,10 @@ class AuthenticationService implements AuthenticationServiceInterface
             $this->swift->send($message);
         }
 
-        $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
+        $this->eventDispatcher->dispatch(
+            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION,
+            new TwoFactorCodeSubmissionEvent($username, $code)
+        );
     }
 
     private function formatBody(User $user): string

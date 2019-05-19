@@ -70,9 +70,9 @@ class BaseService
     }
 
     /**
-     * Gets a @see QueryBuilder for the current entity type
+     * Gets a @return QueryBuilder
+     * @see QueryBuilder for the current entity type
      *
-     * @return QueryBuilder
      */
     protected function getQueryBuilder(): QueryBuilder
     {

@@ -34,8 +34,11 @@ class FormGenerator implements FormGeneratorInterface
      * @param ConfigurationServiceInterface $frontendConfigurationService
      * @param SlugServiceInterface $slugService
      */
-    public function __construct(FormFactoryInterface $formFactory, ConfigurationServiceInterface $frontendConfigurationService, SlugServiceInterface $slugService)
-    {
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        ConfigurationServiceInterface $frontendConfigurationService,
+        SlugServiceInterface $slugService
+    ) {
         $this->formFactory = $formFactory;
         $this->frontendConfigurationService = $frontendConfigurationService;
         $this->slugService = $slugService;

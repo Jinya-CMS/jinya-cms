@@ -53,8 +53,14 @@ abstract class BaseController
      * @param RouterInterface $router
      * @param CompilerInterface $compiler
      */
-    public function __construct(RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        HttpKernelInterface $kernel,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage,
+        RouterInterface $router,
+        CompilerInterface $compiler
+    ) {
         $this->requestStack = $requestStack;
         $this->kernel = $kernel;
         $this->authorizationChecker = $authorizationChecker;
@@ -115,11 +121,11 @@ abstract class BaseController
     /**
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
-     * @see json_decode()
-     * @see JsonResponse
      * @param array|string|null $data
      * @param int $status
      * @return JsonResponse
+     * @see JsonResponse
+     * @see json_decode()
      */
     final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
@@ -134,8 +140,11 @@ abstract class BaseController
      * @param string $disposition
      * @return BinaryFileResponse
      */
-    final protected function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
-    {
+    final protected function file(
+        $file,
+        string $fileName,
+        string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT
+    ): BinaryFileResponse {
         $response = new BinaryFileResponse($file);
         $response->setContentDisposition($disposition, $fileName);
 
@@ -158,9 +167,9 @@ abstract class BaseController
      *
      * This will result in a 403 response code.
      *
+     * @return AccessDeniedException
      * @example throw $this->createAccessDeniedException('Unable to access this page!');
      *
-     * @return AccessDeniedException
      */
     final protected function createAccessDeniedException(): AccessDeniedException
     {

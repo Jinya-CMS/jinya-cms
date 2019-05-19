@@ -41,8 +41,14 @@ class LogService implements LogServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array
-    {
+    public function getAll(
+        int $offset = 0,
+        int $count = 20,
+        $sortBy = 'createdAt',
+        $sortOrder = 'desc',
+        $level = 'info',
+        $filter = ''
+    ): array {
         $queryBuilder = $this->getFilterQueryBuilder($level, $filter)
             ->setMaxResults($count)
             ->setFirstResult($offset);
@@ -60,7 +66,7 @@ class LogService implements LogServiceInterface
      * Gets a @param string $level
      * @param string $filter
      * @return QueryBuilder
-     *@see QueryBuilder filtered by level and filter
+     * @see QueryBuilder filtered by level and filter
      */
     private function getFilterQueryBuilder(string $level, string $filter)
     {

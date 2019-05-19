@@ -62,8 +62,15 @@ class InstallController extends AbstractController
      * @param ThemeSyncServiceInterface $themeSyncService
      * @param DatabaseMigratorInterface $databaseMigrator
      */
-    public function __construct(SchemaToolInterface $schemaTool, string $kernelProjectDir, UserServiceInterface $userService, Environment $twig, MediaServiceInterface $mediaService, ThemeSyncServiceInterface $themeSyncService, DatabaseMigratorInterface $databaseMigrator)
-    {
+    public function __construct(
+        SchemaToolInterface $schemaTool,
+        string $kernelProjectDir,
+        UserServiceInterface $userService,
+        Environment $twig,
+        MediaServiceInterface $mediaService,
+        ThemeSyncServiceInterface $themeSyncService,
+        DatabaseMigratorInterface $databaseMigrator
+    ) {
         $this->schemaTool = $schemaTool;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->userService = $userService;

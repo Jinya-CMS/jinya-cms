@@ -61,8 +61,16 @@ class UpdateController extends AbstractController
      * @param ThemeServiceInterface $themeService
      * @param DatabaseMigratorInterface $databaseMigrator
      */
-    public function __construct(string $currentVersion, string $kernelProjectDir, Client $client, CacheClearerInterface $cacheClearer, ThemeSyncServiceInterface $themeSyncService, ThemeCompilerServiceInterface $themeCompilerService, ThemeServiceInterface $themeService, DatabaseMigratorInterface $databaseMigrator)
-    {
+    public function __construct(
+        string $currentVersion,
+        string $kernelProjectDir,
+        Client $client,
+        CacheClearerInterface $cacheClearer,
+        ThemeSyncServiceInterface $themeSyncService,
+        ThemeCompilerServiceInterface $themeCompilerService,
+        ThemeServiceInterface $themeService,
+        DatabaseMigratorInterface $databaseMigrator
+    ) {
         $this->currentVersion = $currentVersion;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->client = $client;
@@ -106,7 +114,10 @@ class UpdateController extends AbstractController
                 }
 
                 if (empty($versions)) {
-                    return $this->render('@Jinya/Updater/Default/no_update_available.html.twig', ['currentVersion' => $this->currentVersion]);
+                    return $this->render(
+                        '@Jinya/Updater/Default/no_update_available.html.twig',
+                        ['currentVersion' => $this->currentVersion]
+                    );
                 }
 
                 return $this->render('@Jinya/Updater/Default/index.html.twig', [

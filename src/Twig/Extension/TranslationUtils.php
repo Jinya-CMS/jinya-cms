@@ -38,7 +38,10 @@ class TranslationUtils extends Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_translation_catalogue' => new Twig_Function('get_translation_catalogue', [$this, 'getTranslationCatalogue']),
+            'get_translation_catalogue' => new Twig_Function(
+                'get_translation_catalogue',
+                [$this, 'getTranslationCatalogue']
+            ),
         ];
     }
 

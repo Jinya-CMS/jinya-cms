@@ -29,8 +29,11 @@ class YoutubeVideoController extends BaseApiController
      * @param YoutubeVideoFormatterInterface $formatter
      * @return Response
      */
-    public function getAllAction(Request $request, YoutubeVideoServiceInterface $youtubeVideoService, YoutubeVideoFormatterInterface $formatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        YoutubeVideoServiceInterface $youtubeVideoService,
+        YoutubeVideoFormatterInterface $formatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $formatter, $youtubeVideoService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
@@ -66,8 +69,11 @@ class YoutubeVideoController extends BaseApiController
      * @param YoutubeVideoFormatterInterface $formatter
      * @return Response
      */
-    public function getAction(string $slug, YoutubeVideoServiceInterface $youtubeVideoService, YoutubeVideoFormatterInterface $formatter): Response
-    {
+    public function getAction(
+        string $slug,
+        YoutubeVideoServiceInterface $youtubeVideoService,
+        YoutubeVideoFormatterInterface $formatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $formatter, $youtubeVideoService) {
             $video = $youtubeVideoService->get($slug);
 

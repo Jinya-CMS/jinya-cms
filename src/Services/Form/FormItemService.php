@@ -41,8 +41,11 @@ class FormItemService implements FormItemServiceInterface
      * @param FormServiceInterface $formService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, FormServiceInterface $formService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        FormServiceInterface $formService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->formService = $formService;
         $this->eventDispatcher = $eventDispatcher;
@@ -71,14 +74,20 @@ class FormItemService implements FormItemServiceInterface
      */
     private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form)
     {
-        $pre = $this->eventDispatcher->dispatch(FormItemPositionEvent::PRE_UPDATE, new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition));
+        $pre = $this->eventDispatcher->dispatch(
+            FormItemPositionEvent::PRE_UPDATE,
+            new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition)
+        );
         if (!$pre->isCancel()) {
             $positions = $form->getItems()->toArray();
             $positions = $this->rearrange($positions, $oldPosition, $newPosition, $formItem);
 
             $form->setItems(new ArrayCollection($positions));
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(FormItemPositionEvent::POST_UPDATE, new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition));
+            $this->eventDispatcher->dispatch(
+                FormItemPositionEvent::POST_UPDATE,
+                new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition)
+            );
         }
     }
 
@@ -119,7 +128,10 @@ class FormItemService implements FormItemServiceInterface
      */
     public function getItems(string $formSlug): array
     {
-        $this->eventDispatcher->dispatch(FormItemGetItemsEvent::PRE_GET_ITEMS, new FormItemGetItemsEvent($formSlug, []));
+        $this->eventDispatcher->dispatch(
+            FormItemGetItemsEvent::PRE_GET_ITEMS,
+            new FormItemGetItemsEvent($formSlug, [])
+        );
         $items = array_values($this->entityManager->createQueryBuilder()
             ->select('item')
             ->from(FormItem::class, 'item')
@@ -130,7 +142,10 @@ class FormItemService implements FormItemServiceInterface
             ->getQuery()
             ->getResult());
 
-        $this->eventDispatcher->dispatch(FormItemGetItemsEvent::POST_GET_ITEMS, new FormItemGetItemsEvent($formSlug, $items));
+        $this->eventDispatcher->dispatch(
+            FormItemGetItemsEvent::POST_GET_ITEMS,
+            new FormItemGetItemsEvent($formSlug, $items)
+        );
 
         return $items;
     }

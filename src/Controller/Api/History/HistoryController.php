@@ -45,8 +45,13 @@ class HistoryController extends BaseApiController
      * @param HistoryServiceInterface $historyService
      * @return Response
      */
-    public function revertAction(string $class, int $id, string $timestamp, string $field, HistoryServiceInterface $historyService): Response
-    {
+    public function revertAction(
+        string $class,
+        int $id,
+        string $timestamp,
+        string $field,
+        HistoryServiceInterface $historyService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($class, $id, $timestamp, $field, $historyService) {
             $historyService->revert($class, $id, $field, $timestamp);
         }, Response::HTTP_NO_CONTENT);

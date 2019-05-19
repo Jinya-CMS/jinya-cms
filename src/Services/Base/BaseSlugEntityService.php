@@ -27,8 +27,11 @@ class BaseSlugEntityService extends BaseService
      * @param SlugServiceInterface $slugService
      * @param string $entityType
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, string $entityType)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        string $entityType
+    ) {
         parent::__construct($entityManager, $entityType);
         $this->slugService = $slugService;
     }

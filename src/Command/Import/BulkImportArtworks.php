@@ -56,8 +56,16 @@ class BulkImportArtworks extends AuthenticatedCommand
      * @param UserServiceInterface $userService
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService, ConversionServiceInterface $conversionService, SlugServiceInterface $slugService, ArtworkPositionServiceInterface $artworkPositionService, UserServiceInterface $userService, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        ArtGalleryServiceInterface $galleryService,
+        ArtworkServiceInterface $artworkService,
+        MediaServiceInterface $mediaService,
+        ConversionServiceInterface $conversionService,
+        SlugServiceInterface $slugService,
+        ArtworkPositionServiceInterface $artworkPositionService,
+        UserServiceInterface $userService,
+        TokenStorageInterface $tokenStorage
+    ) {
         parent::__construct($tokenStorage, $userService);
         $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;
@@ -123,8 +131,13 @@ class BulkImportArtworks extends AuthenticatedCommand
         ];
     }
 
-    private function importFiles(Iterator $files, bool $convert, string $targetType, bool $stopOnError, ProgressBar $progressBar): array
-    {
+    private function importFiles(
+        Iterator $files,
+        bool $convert,
+        string $targetType,
+        bool $stopOnError,
+        ProgressBar $progressBar
+    ): array {
         $result = [];
         $error = false;
 
@@ -307,7 +320,13 @@ class BulkImportArtworks extends AuthenticatedCommand
             ->addArgument('directory', InputArgument::REQUIRED, 'The directory where the files are located')
             ->addOption('recursive', 'r', InputOption::VALUE_NONE, 'Go recursive through all directories')
             ->addOption('convert', 'o', InputOption::VALUE_NONE, 'Should convert the file before import')
-            ->addOption('conversion-target', 't', InputOption::VALUE_OPTIONAL, 'The type the file should be converted to, can be any of png, jpg, webp or gif', 'png')
+            ->addOption(
+                'conversion-target',
+                't',
+                InputOption::VALUE_OPTIONAL,
+                'The type the file should be converted to, can be any of png, jpg, webp or gif',
+                'png'
+            )
             ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE)
             ->addOption('create-gallery', 'c', InputOption::VALUE_NONE, 'Create galleries based on directories');
     }

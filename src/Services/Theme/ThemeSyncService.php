@@ -36,8 +36,12 @@ class ThemeSyncService implements ThemeSyncServiceInterface
      * @param string $kernelProjectDir
      * @param string $themeDirectory
      */
-    public function __construct(ThemeServiceInterface $themeService, EntityManagerInterface $entityManager, string $kernelProjectDir, string $themeDirectory)
-    {
+    public function __construct(
+        ThemeServiceInterface $themeService,
+        EntityManagerInterface $entityManager,
+        string $kernelProjectDir,
+        string $themeDirectory
+    ) {
         $this->themeService = $themeService;
         $this->entityManager = $entityManager;
         $this->kernelProjectDir = $kernelProjectDir;

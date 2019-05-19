@@ -45,9 +45,9 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      *
-     * @return array
      */
     public function format(): array
     {
@@ -97,7 +97,11 @@ class MenuFormatter implements MenuFormatterInterface
      */
     public function logo(): MenuFormatterInterface
     {
-        $this->formattedData['logo'] = $this->urLGenerator->generate('api_menu_logo_get', ['id' => $this->menu->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['logo'] = $this->urLGenerator->generate(
+            'api_menu_logo_get',
+            ['id' => $this->menu->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }

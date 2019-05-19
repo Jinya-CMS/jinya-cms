@@ -29,8 +29,11 @@ class VideoController extends BaseApiController
      * @param VideoFormatterInterface $formatter
      * @return Response
      */
-    public function getAllAction(Request $request, VideoServiceInterface $VideoService, VideoFormatterInterface $formatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        VideoServiceInterface $VideoService,
+        VideoFormatterInterface $formatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $formatter, $VideoService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
@@ -52,7 +55,14 @@ class VideoController extends BaseApiController
                     ->format();
             }, $videos);
 
-            return $this->formatListResult($allCount, $offset, $count, ['keyword' => $keyword], 'api_video_get_all', $videos);
+            return $this->formatListResult(
+                $allCount,
+                $offset,
+                $count,
+                ['keyword' => $keyword],
+                'api_video_get_all',
+                $videos
+            );
         });
 
         return $this->json($data, $status);
@@ -67,8 +77,11 @@ class VideoController extends BaseApiController
      * @param VideoFormatterInterface $formatter
      * @return Response
      */
-    public function getAction(string $slug, VideoServiceInterface $VideoService, VideoFormatterInterface $formatter): Response
-    {
+    public function getAction(
+        string $slug,
+        VideoServiceInterface $VideoService,
+        VideoFormatterInterface $formatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $formatter, $VideoService) {
             $video = $VideoService->get($slug);
 

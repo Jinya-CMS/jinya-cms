@@ -14,10 +14,10 @@ use Jinya\Formatter\FormatterInterface;
 interface MenuFormatterInterface extends FormatterInterface
 {
     /**
-     * Initializes the @see MenuFormatterInterface
-     *
-     * @param Menu $menu
+     * Initializes the @param Menu $menu
      * @return MenuFormatterInterface
+     * @see MenuFormatterInterface
+     *
      */
     public function init(Menu $menu): self;
 

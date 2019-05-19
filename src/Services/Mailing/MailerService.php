@@ -40,8 +40,12 @@ class MailerService implements MailerServiceInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param LoggerInterface $logger
      */
-    public function __construct(Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher, LoggerInterface $logger)
-    {
+    public function __construct(
+        Swift_Mailer $swift,
+        string $mailerSender,
+        EventDispatcherInterface $eventDispatcher,
+        LoggerInterface $logger
+    ) {
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
         $this->eventDispatcher = $eventDispatcher;

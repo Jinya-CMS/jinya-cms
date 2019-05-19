@@ -80,8 +80,18 @@ abstract class BaseApiController extends BaseController
      * @param RouterInterface $router
      * @param CompilerInterface $compiler
      */
-    public function __construct(TranslatorInterface $translator, LabelServiceInterface $labelService, LoggerInterface $logger, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        LabelServiceInterface $labelService,
+        LoggerInterface $logger,
+        UrlGeneratorInterface $urlGenerator,
+        RequestStack $requestStack,
+        HttpKernelInterface $kernel,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage,
+        RouterInterface $router,
+        CompilerInterface $compiler
+    ) {
         parent::__construct($requestStack, $kernel, $authorizationChecker, $tokenStorage, $router, $compiler);
         $this->translator = $translator;
         $this->labelService = $labelService;
@@ -108,7 +118,11 @@ abstract class BaseApiController extends BaseController
      */
     protected function generateUrl(string $route, array $parameter = [], bool $fullUrl = false): string
     {
-        return $this->urlGenerator->generate($route, $parameter, $fullUrl ? UrlGeneratorInterface::ABSOLUTE_PATH : UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->urlGenerator->generate(
+            $route,
+            $parameter,
+            $fullUrl ? UrlGeneratorInterface::ABSOLUTE_PATH : UrlGeneratorInterface::ABSOLUTE_URL
+        );
     }
 
     /**
@@ -146,7 +160,14 @@ abstract class BaseApiController extends BaseController
 
                 break;
             default:
-                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
+                throw new InvalidContentTypeException(
+                    $this->contentType ?? '',
+                    $this->translator->trans(
+                        'api.generic.headers.contenttype',
+                        ['contentType' => $this->contentType],
+                        'validators'
+                    )
+                );
         }
 
         return $result;
@@ -165,11 +186,11 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Executes the given @see callable and return a formatted error if it fails
-     *
-     * @param callable $function
+     * Executes the given @param callable $function
      * @param int $successStatusCode
      * @return array
+     * @see callable and return a formatted error if it fails
+     *
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
@@ -205,20 +226,32 @@ abstract class BaseApiController extends BaseController
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
-            $result = [$this->jsonFormatException('api.state.409.foreign_key_failed', $exception), Response::HTTP_CONFLICT];
+            $result = [
+                $this->jsonFormatException('api.state.409.foreign_key_failed', $exception),
+                Response::HTTP_CONFLICT
+            ];
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
-            $result = [$this->jsonFormatException('api.state.409.not_null_failed', $exception), Response::HTTP_CONFLICT];
+            $result = [
+                $this->jsonFormatException('api.state.409.not_null_failed', $exception),
+                Response::HTTP_CONFLICT
+            ];
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UnknownDeviceException $exception) {
             $this->logException($exception, 401);
 
-            $result = [$this->jsonFormatException('api.state.401.unknown_device', $exception), Response::HTTP_UNAUTHORIZED];
+            $result = [
+                $this->jsonFormatException('api.state.401.unknown_device', $exception),
+                Response::HTTP_UNAUTHORIZED
+            ];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
             $this->logger->error($throwable->getTraceAsString());
 
-            $result = [$this->jsonFormatException('api.state.500.generic', $throwable), Response::HTTP_INTERNAL_SERVER_ERROR];
+            $result = [
+                $this->jsonFormatException('api.state.500.generic', $throwable),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            ];
         }
 
         return $result;
@@ -249,11 +282,11 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * Formats the given @see Throwable as array
-     *
-     * @param string $message
+     * Formats the given @param string $message
      * @param Throwable $throwable
      * @return array
+     * @see Throwable as array
+     *
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
     {
@@ -288,8 +321,14 @@ abstract class BaseApiController extends BaseController
      * @param array $entities
      * @return array
      */
-    protected function formatListResult(int $totalCount, int $offset, int $count, array $parameter, string $route, array $entities): array
-    {
+    protected function formatListResult(
+        int $totalCount,
+        int $offset,
+        int $count,
+        array $parameter,
+        string $route,
+        array $entities
+    ): array {
         if ($totalCount > $offset + $count) {
             $parameter['offset'] = $offset + $count;
             $next = $this->urlGenerator->generate($route, $parameter);

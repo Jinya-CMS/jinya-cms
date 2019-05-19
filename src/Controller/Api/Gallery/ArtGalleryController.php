@@ -31,9 +31,18 @@ class ArtGalleryController extends BaseApiController
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, LabelServiceInterface $labelService, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
-    {
-        list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $request, $galleryFormatter, $galleryService) {
+    public function getAllAction(
+        Request $request,
+        LabelServiceInterface $labelService,
+        ArtGalleryServiceInterface $galleryService,
+        ArtGalleryFormatterInterface $galleryFormatter
+    ): Response {
+        list($data, $statusCode) = $this->tryExecute(function () use (
+            $labelService,
+            $request,
+            $galleryFormatter,
+            $galleryService
+        ) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -59,7 +68,14 @@ class ArtGalleryController extends BaseApiController
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_gallery_art_get_all', $entities);
+            return $this->formatListResult(
+                $entityCount,
+                $offset,
+                $count,
+                $parameter,
+                'api_gallery_art_get_all',
+                $entities
+            );
         });
 
         return $this->json($data, $statusCode);
@@ -73,8 +89,11 @@ class ArtGalleryController extends BaseApiController
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $slug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        ArtGalleryServiceInterface $galleryService,
+        ArtGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($galleryFormatter, $slug, $galleryService) {
             $gallery = $galleryService->get($slug);
             $result = $galleryFormatter->init($gallery)
@@ -111,8 +130,10 @@ class ArtGalleryController extends BaseApiController
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function postAction(
+        ArtGalleryServiceInterface $galleryService,
+        ArtGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
@@ -151,8 +172,11 @@ class ArtGalleryController extends BaseApiController
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function putAction(
+        string $slug,
+        ArtGalleryServiceInterface $galleryService,
+        ArtGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
@@ -192,8 +216,11 @@ class ArtGalleryController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(string $slug, ArtGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteAction(
+        string $slug,
+        ArtGalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);
             if (!empty($gallery->getBackground())) {

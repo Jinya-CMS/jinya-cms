@@ -17,7 +17,10 @@ final class Version20180620170105 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('ALTER TABLE art_gallery_label DROP FOREIGN KEY FK_EA3A80CB4E7AF8F');
         $this->addSql('DROP INDEX IDX_EA3A80CB4E7AF8F ON art_gallery_label');
@@ -31,7 +34,10 @@ final class Version20180620170105 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('ALTER TABLE art_gallery_label DROP FOREIGN KEY FK_7D9BFD6731A68AC7');
         $this->addSql('DROP INDEX IDX_7D9BFD6731A68AC7 ON art_gallery_label');

@@ -13,10 +13,10 @@ use Jinya\Entity\Form\Form;
 interface FormServiceInterface
 {
     /**
-     * Gets the specified @see Form by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Form
+     * @see Form by slug
+     *
      */
     public function get(string $slug): Form;
 
@@ -46,9 +46,9 @@ interface FormServiceInterface
     public function saveOrUpdate(Form $form): Form;
 
     /**
-     * Deletes the given @see Form
+     * Deletes the given @param Form $form
+     * @see Form
      *
-     * @param Form $form
      */
     public function delete(Form $form): void;
 }

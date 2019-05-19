@@ -173,7 +173,11 @@ class UserFormatter implements UserFormatterInterface
      */
     public function profilePicture(): UserFormatterInterface
     {
-        $this->formattedData['profilePicture'] = $this->urlGenerator->generate('api_user_profilepicture_get', ['id' => $this->user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['profilePicture'] = $this->urlGenerator->generate(
+            'api_user_profilepicture_get',
+            ['id' => $this->user->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }
@@ -188,6 +192,18 @@ class UserFormatter implements UserFormatterInterface
             ->artistName()
             ->email()
             ->profilePicture();
+    }
+
+    /**
+     * Formats the artist name
+     *
+     * @return UserFormatterInterface
+     */
+    public function artistName(): UserFormatterInterface
+    {
+        $this->formattedData['artistName'] = $this->user->getArtistName();
+
+        return $this;
     }
 
     /**
@@ -286,18 +302,6 @@ class UserFormatter implements UserFormatterInterface
                 ->slug()
                 ->format();
         }, $this->user->getCreatedForms()->toArray());
-
-        return $this;
-    }
-
-    /**
-     * Formats the artist name
-     *
-     * @return UserFormatterInterface
-     */
-    public function artistName(): UserFormatterInterface
-    {
-        $this->formattedData['artistName'] = $this->user->getArtistName();
 
         return $this;
     }

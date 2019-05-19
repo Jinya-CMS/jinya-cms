@@ -224,7 +224,11 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
      */
     public function background(): VideoGalleryFormatterInterface
     {
-        $this->formattedData['background'] = $this->urlGenerator->generate('api_gallery_art_background_get', ['slug' => $this->gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['background'] = $this->urlGenerator->generate(
+            'api_gallery_art_background_get',
+            ['slug' => $this->gallery->getSlug()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }

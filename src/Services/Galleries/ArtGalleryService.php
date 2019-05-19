@@ -44,8 +44,12 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      * @param LabelEntityServiceInterface $labelEntityService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        LabelEntityServiceInterface $labelEntityService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->labelEntityService = $labelEntityService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -82,11 +86,23 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::ART_GALLERIES_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(
+            ListEvent::ART_GALLERIES_PRE_GET_ALL,
+            new ListEvent($offset, $count, $keyword, [])
+        );
 
-        $galleries = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
+        $galleries = $this->labelEntityService->getAll(
+            $this->getBasicQueryBuilder(),
+            $offset,
+            $count,
+            $keyword,
+            $label
+        );
 
-        $this->eventDispatcher->dispatch(ListEvent::ART_GALLERIES_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $galleries));
+        $this->eventDispatcher->dispatch(
+            ListEvent::ART_GALLERIES_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $galleries)
+        );
 
         return $galleries;
     }
@@ -128,11 +144,17 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function saveOrUpdate(ArtGallery $gallery): ArtGallery
     {
-        $pre = $this->eventDispatcher->dispatch(ArtGalleryEvent::PRE_SAVE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtGalleryEvent::PRE_SAVE,
+            new ArtGalleryEvent($gallery, $gallery->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($gallery);
-            $this->eventDispatcher->dispatch(ArtGalleryEvent::POST_SAVE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+            $this->eventDispatcher->dispatch(
+                ArtGalleryEvent::POST_SAVE,
+                new ArtGalleryEvent($gallery, $gallery->getSlug())
+            );
         }
 
         return $gallery;
@@ -145,11 +167,17 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function delete(ArtGallery $gallery): void
     {
-        $pre = $this->eventDispatcher->dispatch(ArtGalleryEvent::PRE_DELETE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtGalleryEvent::PRE_DELETE,
+            new ArtGalleryEvent($gallery, $gallery->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($gallery);
-            $this->eventDispatcher->dispatch(ArtGalleryEvent::POST_DELETE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+            $this->eventDispatcher->dispatch(
+                ArtGalleryEvent::POST_DELETE,
+                new ArtGalleryEvent($gallery, $gallery->getSlug())
+            );
         }
     }
 }

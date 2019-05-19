@@ -29,8 +29,11 @@ class LogController extends BaseApiController
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function getAllAction(Request $request, LogServiceInterface $logService, UrlGeneratorInterface $urlGenerator): Response
-    {
+    public function getAllAction(
+        Request $request,
+        LogServiceInterface $logService,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $logService, $urlGenerator) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 20);

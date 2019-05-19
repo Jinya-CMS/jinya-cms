@@ -164,7 +164,11 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      */
     public function picture(): ArtworkFormatterInterface
     {
-        $this->formattedData['picture'] = $this->urlGenerator->generate('api_artwork_picture_get', ['slug' => $this->artwork->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['picture'] = $this->urlGenerator->generate(
+            'api_artwork_picture_get',
+            ['slug' => $this->artwork->getSlug()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }

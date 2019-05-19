@@ -29,8 +29,11 @@ class ActiveMenuItemCheck extends Twig_Extension
      * @param EntityManagerInterface $entityManager
      * @param LoggerInterface $logger
      */
-    public function __construct(RequestContext $requestContext, EntityManagerInterface $entityManager, LoggerInterface $logger)
-    {
+    public function __construct(
+        RequestContext $requestContext,
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
+    ) {
         $this->requestContext = $requestContext;
         $this->entityManager = $entityManager;
         $this->logger = $logger;
@@ -95,7 +98,10 @@ class ActiveMenuItemCheck extends Twig_Extension
     public function getActiveMenuItem(array $context)
     {
         try {
-            $pathInfo = array_key_exists('active', $context) ? $context['active'] : $this->requestContext->getPathInfo();
+            $pathInfo = array_key_exists(
+                'active',
+                $context
+            ) ? $context['active'] : $this->requestContext->getPathInfo();
             $relevantEntries = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['url' => $pathInfo]);
 
             /** @var Menu $primaryMenu */

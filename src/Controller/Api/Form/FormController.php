@@ -32,8 +32,11 @@ class FormController extends BaseApiController
      * @param FormFormatterInterface $formFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        FormServiceInterface $formService,
+        FormFormatterInterface $formFormatter
+    ): Response {
         list($data, $statusCode) = $this->tryExecute(function () use ($formFormatter, $formService, $request) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
@@ -65,8 +68,11 @@ class FormController extends BaseApiController
      * @param FormFormatterInterface $formFormatter
      * @return Response
      */
-    public function getAction(string $slug, FormServiceInterface $formService, FormFormatterInterface $formFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        FormServiceInterface $formService,
+        FormFormatterInterface $formFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $formFormatter) {
             $form = $formService->get($slug);
             $formFormatter
@@ -101,8 +107,11 @@ class FormController extends BaseApiController
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function postAction(FormServiceInterface $formService, FormFormatterInterface $formFormatter, TranslatorInterface $translator): Response
-    {
+    public function postAction(
+        FormServiceInterface $formService,
+        FormFormatterInterface $formFormatter,
+        TranslatorInterface $translator
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($formService, $formFormatter, $translator) {
             $title = $this->getValue('title');
             $slug = $this->getValue('slug', '');
@@ -123,7 +132,11 @@ class FormController extends BaseApiController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
+                throw new ValidatorException($translator->trans(
+                    'api.form.field.toAddress.invalid',
+                    ['toAddress' => $toAddress],
+                    'validators'
+                ));
             }
 
             $form = new Form();
@@ -157,8 +170,11 @@ class FormController extends BaseApiController
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function putAction(string $slug, FormServiceInterface $formService, TranslatorInterface $translator): Response
-    {
+    public function putAction(
+        string $slug,
+        FormServiceInterface $formService,
+        TranslatorInterface $translator
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $translator) {
             $form = $formService->get($slug);
 
@@ -181,7 +197,11 @@ class FormController extends BaseApiController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
+                throw new ValidatorException($translator->trans(
+                    'api.form.field.toAddress.invalid',
+                    ['toAddress' => $toAddress],
+                    'validators'
+                ));
             }
 
             $form->setName($name);

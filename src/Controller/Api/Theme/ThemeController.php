@@ -60,8 +60,11 @@ class ThemeController extends BaseApiController
      * @param ThemeFormatterInterface $themeFormatter
      * @return Response
      */
-    public function getAction(string $name, ThemeServiceInterface $themeService, ThemeFormatterInterface $themeFormatter): Response
-    {
+    public function getAction(
+        string $name,
+        ThemeServiceInterface $themeService,
+        ThemeFormatterInterface $themeFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($name, $themeFormatter, $themeService) {
             $item = $themeService->getTheme($name);
 
@@ -101,7 +104,7 @@ class ThemeController extends BaseApiController
                 if (array_key_exists('primary', $menus)) {
                     if ($menus['primary']['id'] !== null && $menus['primary']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int) $menus['primary']['id'];
+                        $menu = (int)$menus['primary']['id'];
                     } else {
                         $menu = 'unset';
                     }
@@ -111,7 +114,7 @@ class ThemeController extends BaseApiController
                 if (array_key_exists('secondary', $menus)) {
                     if ($menus['secondary']['id'] !== null && $menus['secondary']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int) $menus['secondary']['id'];
+                        $menu = (int)$menus['secondary']['id'];
                     } else {
                         $menu = 'unset';
                     }
@@ -121,7 +124,7 @@ class ThemeController extends BaseApiController
                 if (array_key_exists('footer', $menus)) {
                     if ($menus['footer']['id'] !== null && $menus['footer']['id'] !== '') {
                         /** @noinspection PhpParamsInspection */
-                        $menu = (int) $menus['footer']['id'];
+                        $menu = (int)$menus['footer']['id'];
                     } else {
                         $menu = 'unset';
                     }
@@ -151,8 +154,11 @@ class ThemeController extends BaseApiController
      * @param ThemeConfigServiceInterface $themeConfigService
      * @return Response
      */
-    public function deleteFileAction(string $name, string $key, ThemeConfigServiceInterface $themeConfigService): Response
-    {
+    public function deleteFileAction(
+        string $name,
+        string $key,
+        ThemeConfigServiceInterface $themeConfigService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($name, $key, $themeConfigService) {
             $themeConfigService->removeFile($name, $key);
         }, Response::HTTP_NO_CONTENT);
@@ -172,9 +178,22 @@ class ThemeController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function putFileAction(string $name, string $key, Request $request, ArrayUtilInterface $arrayUtil, ThemeConfigServiceInterface $themeConfigService, MediaServiceInterface $mediaService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($arrayUtil, $name, $key, $request, $themeConfigService, $mediaService) {
+    public function putFileAction(
+        string $name,
+        string $key,
+        Request $request,
+        ArrayUtilInterface $arrayUtil,
+        ThemeConfigServiceInterface $themeConfigService,
+        MediaServiceInterface $mediaService
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $arrayUtil,
+            $name,
+            $key,
+            $request,
+            $themeConfigService,
+            $mediaService
+        ) {
             $content = $request->getContent(true);
             $path = $mediaService->saveMedia($content, "themeconfig-$name");
             $data = $arrayUtil->buildArrayFromPath($key);
@@ -198,9 +217,20 @@ class ThemeController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function putFieldAction(string $name, string $key, ArrayUtilInterface $arrayUtil, ThemeConfigServiceInterface $themeConfigService, MediaServiceInterface $mediaService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($arrayUtil, $name, $key, $themeConfigService, $mediaService) {
+    public function putFieldAction(
+        string $name,
+        string $key,
+        ArrayUtilInterface $arrayUtil,
+        ThemeConfigServiceInterface $themeConfigService,
+        MediaServiceInterface $mediaService
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $arrayUtil,
+            $name,
+            $key,
+            $themeConfigService,
+            $mediaService
+        ) {
             $content = $this->getValue('value');
             $data = $arrayUtil->buildArrayFromPath($key);
 

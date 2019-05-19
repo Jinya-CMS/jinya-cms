@@ -30,8 +30,12 @@ class VideoGalleryBackgroundController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
-    {
+    public function getBackgroundImageAction(
+        string $slug,
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService
+    ): Response {
         /** @var $data VideoGallery|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
             $gallery = $galleryService->get($slug);
@@ -60,9 +64,20 @@ class VideoGalleryBackgroundController extends BaseApiController
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function putBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $urlGenerator, $slug) {
+    public function putBackgroundImageAction(
+        string $slug,
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $request,
+            $galleryService,
+            $mediaService,
+            $urlGenerator,
+            $slug
+        ) {
             $gallery = $galleryService->get($slug);
 
             $background = $request->getContent(true);
@@ -74,7 +89,11 @@ class VideoGalleryBackgroundController extends BaseApiController
 
             $galleryService->saveOrUpdate($gallery);
 
-            return $urlGenerator->generate('api_gallery_video_background_get', ['slug' => $gallery->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $urlGenerator->generate(
+                'api_gallery_video_background_get',
+                ['slug' => $gallery->getSlug()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
@@ -90,8 +109,12 @@ class VideoGalleryBackgroundController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteBackgroundImageAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteBackgroundImageAction(
+        string $slug,
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $slug) {
             $gallery = $galleryService->get($slug);
             $mediaService->deleteMedia($gallery->getBackground());

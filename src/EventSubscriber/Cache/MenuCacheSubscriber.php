@@ -43,8 +43,12 @@ class MenuCacheSubscriber implements EventSubscriberInterface
      * @param MenuService $menuService
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(ConfigurationServiceInterface $configService, CacheBuilderInterface $cacheBuilder, MenuService $menuService, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        ConfigurationServiceInterface $configService,
+        CacheBuilderInterface $cacheBuilder,
+        MenuService $menuService,
+        EntityManagerInterface $entityManager
+    ) {
         $this->configService = $configService;
         $this->cacheBuilder = $cacheBuilder;
         $this->menuService = $menuService;

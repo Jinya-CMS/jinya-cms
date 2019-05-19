@@ -40,9 +40,9 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      *
-     * @return array
      */
     public function format(): array
     {
@@ -69,7 +69,11 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function previewImage(): ThemeFormatterInterface
     {
-        $this->formattedData['previewImage'] = $this->urlGenerator->generate('api_theme_preview_get', ['name' => $this->theme->getName()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['previewImage'] = $this->urlGenerator->generate(
+            'api_theme_preview_get',
+            ['name' => $this->theme->getName()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }

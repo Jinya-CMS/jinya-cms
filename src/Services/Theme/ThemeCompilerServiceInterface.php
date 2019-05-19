@@ -13,9 +13,9 @@ use Jinya\Entity\Theme\Theme;
 interface ThemeCompilerServiceInterface
 {
     /**
-     * Compiles the scss and javascript of the given @see Theme
+     * Compiles the scss and javascript of the given @param Theme $theme
+     * @see Theme
      *
-     * @param Theme $theme
      */
     public function compileTheme(Theme $theme): void;
 

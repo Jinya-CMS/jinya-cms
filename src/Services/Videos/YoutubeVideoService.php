@@ -38,8 +38,11 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      * @param SlugServiceInterface $slugService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, YoutubeVideo::class);
@@ -55,7 +58,10 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::YOUTUBE_VIDEOS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(
+            ListEvent::YOUTUBE_VIDEOS_PRE_GET_ALL,
+            new ListEvent($offset, $count, $keyword, [])
+        );
 
         $items = $this->createQueryBuilder($keyword)
             ->select('youtube_video')
@@ -64,7 +70,10 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::YOUTUBE_VIDEOS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+        $this->eventDispatcher->dispatch(
+            ListEvent::YOUTUBE_VIDEOS_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $items)
+        );
 
         return $items;
     }
@@ -112,11 +121,17 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function saveOrUpdate(YoutubeVideo $video): YoutubeVideo
     {
-        $pre = $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_SAVE, new YoutubeVideoEvent($video, $video->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            YoutubeVideoEvent::PRE_SAVE,
+            new YoutubeVideoEvent($video, $video->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($video);
-            $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_SAVE, new YoutubeVideoEvent($video, $video->getSlug()));
+            $this->eventDispatcher->dispatch(
+                YoutubeVideoEvent::POST_SAVE,
+                new YoutubeVideoEvent($video, $video->getSlug())
+            );
         }
 
         return $video;
@@ -129,11 +144,17 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function delete(YoutubeVideo $video): void
     {
-        $pre = $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_DELETE, new YoutubeVideoEvent($video, $video->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            YoutubeVideoEvent::PRE_DELETE,
+            new YoutubeVideoEvent($video, $video->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($video);
-            $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_DELETE, new YoutubeVideoEvent($video, $video->getSlug()));
+            $this->eventDispatcher->dispatch(
+                YoutubeVideoEvent::POST_DELETE,
+                new YoutubeVideoEvent($video, $video->getSlug())
+            );
         }
     }
 

@@ -52,8 +52,11 @@ class AccountController extends BaseApiController
      * @param AuthenticationServiceInterface $authenticationService
      * @return Response
      */
-    public function loginAction(ApiKeyToolInterface $apiKeyTool, UserServiceInterface $userService, AuthenticationServiceInterface $authenticationService): Response
-    {
+    public function loginAction(
+        ApiKeyToolInterface $apiKeyTool,
+        UserServiceInterface $userService,
+        AuthenticationServiceInterface $authenticationService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($authenticationService, $apiKeyTool, $userService) {
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
@@ -154,8 +157,11 @@ class AccountController extends BaseApiController
      * @throws InvalidContentTypeException
      * @throws Exception
      */
-    public function putPasswordAction(UserPasswordEncoderInterface $userPasswordEncoder, UserServiceInterface $userService, UrlGeneratorInterface $urlGenerator): Response
-    {
+    public function putPasswordAction(
+        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserServiceInterface $userService,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
         $confirmToken = $this->getValue('token', base64_encode(random_bytes(10)));
         /** @var User $user */
         $user = $this->getUser();

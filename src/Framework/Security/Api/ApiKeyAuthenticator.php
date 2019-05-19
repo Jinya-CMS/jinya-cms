@@ -47,8 +47,12 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
      * @param ApiKeyToolInterface $apiKeyTool
      * @param LoggerInterface $logger
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ApiKeyToolInterface $apiKeyTool, LoggerInterface $logger)
-    {
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator,
+        ApiKeyToolInterface $apiKeyTool,
+        LoggerInterface $logger
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->apiKeyTool = $apiKeyTool;
@@ -77,13 +81,19 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             if ($this->apiKeyTool->shouldInvalidate($apiKey)) {
                 $this->apiKeyTool->invalidate($apiKey);
 
-                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiKey]));
+                throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                    'api.state.401.expired',
+                    ['apiKey' => $apiKey]
+                ));
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiKey]));
+            throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                'api.state.401.generic',
+                ['apiKey' => $apiKey]
+            ));
         }
 
         $username = $userProvider->getUsernameFromApiKey($apiKey);

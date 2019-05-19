@@ -38,8 +38,11 @@ class VideoService implements VideoServiceInterface
      * @param SlugServiceInterface $slugService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Video::class);

@@ -44,8 +44,12 @@ class ArtworkService implements ArtworkServiceInterface
      * @param LabelEntityServiceInterface $labelEntityService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        LabelEntityServiceInterface $labelEntityService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->labelEntityService = $labelEntityService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -67,7 +71,10 @@ class ArtworkService implements ArtworkServiceInterface
 
         $artworks = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
 
-        $this->eventDispatcher->dispatch(ListEvent::ARTWORKS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $artworks));
+        $this->eventDispatcher->dispatch(
+            ListEvent::ARTWORKS_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $artworks)
+        );
 
         return $artworks;
     }
@@ -109,7 +116,10 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function saveOrUpdate(Artwork $artwork): Artwork
     {
-        $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_SAVE, new ArtworkEvent($artwork, $artwork->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtworkEvent::PRE_SAVE,
+            new ArtworkEvent($artwork, $artwork->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($artwork);
@@ -126,11 +136,17 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function delete(Artwork $artwork): void
     {
-        $pre = $this->eventDispatcher->dispatch(ArtworkEvent::PRE_DELETE, new ArtworkEvent($artwork, $artwork->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtworkEvent::PRE_DELETE,
+            new ArtworkEvent($artwork, $artwork->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($artwork);
-            $this->eventDispatcher->dispatch(ArtworkEvent::POST_DELETE, new ArtworkEvent($artwork, $artwork->getSlug()));
+            $this->eventDispatcher->dispatch(
+                ArtworkEvent::POST_DELETE,
+                new ArtworkEvent($artwork, $artwork->getSlug())
+            );
         }
     }
 

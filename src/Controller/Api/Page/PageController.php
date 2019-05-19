@@ -28,8 +28,11 @@ class PageController extends BaseApiController
      * @param PageFormatterInterface $pageFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        PageServiceInterface $pageService,
+        PageFormatterInterface $pageFormatter
+    ): Response {
         list($data, $statusCode) = $this->tryExecute(function () use ($request, $pageFormatter, $pageService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
@@ -60,8 +63,11 @@ class PageController extends BaseApiController
      * @param PageFormatterInterface $pageFormatter
      * @return Response
      */
-    public function getAction(string $slug, PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        PageServiceInterface $pageService,
+        PageFormatterInterface $pageFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($pageFormatter, $pageService, $slug) {
             $page = $pageService->get($slug);
 

@@ -32,8 +32,10 @@ class ApiKeyTool implements ApiKeyToolInterface
      * @param EntityManagerInterface $entityManager
      * @param ConfigurationServiceInterface $configurationService
      */
-    public function __construct(EntityManagerInterface $entityManager, ConfigurationServiceInterface $configurationService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ConfigurationServiceInterface $configurationService
+    ) {
         $this->entityManager = $entityManager;
         $this->configurationService = $configurationService;
     }

@@ -52,8 +52,13 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
      * @param ArtworkServiceInterface $artworkService
      * @param RouterInterface $router
      */
-    public function __construct(PageServiceInterface $pageService, FormServiceInterface $formService, ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, RouterInterface $router)
-    {
+    public function __construct(
+        PageServiceInterface $pageService,
+        FormServiceInterface $formService,
+        ArtGalleryServiceInterface $galleryService,
+        ArtworkServiceInterface $artworkService,
+        RouterInterface $router
+    ) {
         $this->pageService = $pageService;
         $this->formService = $formService;
         $this->galleryService = $galleryService;
@@ -99,7 +104,8 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/* @var SlugEntity $item */
+        return function (
+            /* @var SlugEntity $item */
             $item
         ) use ($route) {
             return [

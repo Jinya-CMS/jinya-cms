@@ -31,9 +31,18 @@ class ArtworkController extends BaseApiController
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, LabelServiceInterface $labelService, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
-    {
-        list($data, $statusCode) = $this->tryExecute(function () use ($labelService, $request, $artworkFormatter, $artworkService) {
+    public function getAllAction(
+        Request $request,
+        LabelServiceInterface $labelService,
+        ArtworkServiceInterface $artworkService,
+        ArtworkFormatterInterface $artworkFormatter
+    ): Response {
+        list($data, $statusCode) = $this->tryExecute(function () use (
+            $labelService,
+            $request,
+            $artworkFormatter,
+            $artworkService
+        ) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -71,8 +80,11 @@ class ArtworkController extends BaseApiController
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function getAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        ArtworkServiceInterface $artworkService,
+        ArtworkFormatterInterface $artworkFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($artworkFormatter, $slug, $artworkService) {
             $artwork = $artworkService->get($slug);
             $result = $artworkFormatter->init($artwork)
@@ -107,8 +119,10 @@ class ArtworkController extends BaseApiController
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function postAction(ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
-    {
+    public function postAction(
+        ArtworkServiceInterface $artworkService,
+        ArtworkFormatterInterface $artworkFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($artworkService, $artworkFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
@@ -144,8 +158,11 @@ class ArtworkController extends BaseApiController
      * @param ArtworkFormatterInterface $artworkFormatter
      * @return Response
      */
-    public function putAction(string $slug, ArtworkServiceInterface $artworkService, ArtworkFormatterInterface $artworkFormatter): Response
-    {
+    public function putAction(
+        string $slug,
+        ArtworkServiceInterface $artworkService,
+        ArtworkFormatterInterface $artworkFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $artworkFormatter) {
             $artwork = $artworkService->get($slug);
 
@@ -181,8 +198,11 @@ class ArtworkController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(string $slug, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteAction(
+        string $slug,
+        ArtworkServiceInterface $artworkService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $mediaService) {
             $artwork = $artworkService->get($slug);
             $picture = $artwork->getPicture();

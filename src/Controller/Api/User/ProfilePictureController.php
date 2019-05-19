@@ -28,8 +28,11 @@ class ProfilePictureController extends BaseUserController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
-    {
+    public function getProfilePictureAction(
+        int $id,
+        UserServiceInterface $userService,
+        MediaServiceInterface $mediaService
+    ): Response {
         /** @var $data User|array */
         list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
             $user = $userService->get($id);
@@ -43,7 +46,10 @@ class ProfilePictureController extends BaseUserController
         if (200 !== $status) {
             return $this->json($data, $status);
         } else {
-            return $this->file($mediaService->getMedia($data->getProfilePicture()), $data->getFirstname() . ' ' . $data->getLastname() . '.jpg');
+            return $this->file(
+                $mediaService->getMedia($data->getProfilePicture()),
+                $data->getFirstname() . ' ' . $data->getLastname() . '.jpg'
+            );
         }
     }
 
@@ -58,9 +64,20 @@ class ProfilePictureController extends BaseUserController
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function putProfilePictureAction(int $id, Request $request, UserServiceInterface $userService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($id, $request, $userService, $mediaService, $urlGenerator) {
+    public function putProfilePictureAction(
+        int $id,
+        Request $request,
+        UserServiceInterface $userService,
+        MediaServiceInterface $mediaService,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $id,
+            $request,
+            $userService,
+            $mediaService,
+            $urlGenerator
+        ) {
             if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $picture = $request->getContent(true);
                 $picturePath = $mediaService->saveMedia($picture, MediaServiceInterface::PROFILE_PICTURE);
@@ -70,7 +87,11 @@ class ProfilePictureController extends BaseUserController
 
                 $userService->saveOrUpdate($user, true);
 
-                return $urlGenerator->generate('api_user_profilepicture_get', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+                return $urlGenerator->generate(
+                    'api_user_profilepicture_get',
+                    ['id' => $user->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                );
             } else {
                 throw $this->createAccessDeniedException();
             }
@@ -88,8 +109,11 @@ class ProfilePictureController extends BaseUserController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteProfilePictureAction(int $id, UserServiceInterface $userService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteProfilePictureAction(
+        int $id,
+        UserServiceInterface $userService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($id, $userService, $mediaService) {
             if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $user = $userService->get($id);

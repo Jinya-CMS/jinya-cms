@@ -54,8 +54,11 @@ class MenuController extends BaseApiController
      * @param MenuFormatterInterface $menuFormatter
      * @return Response
      */
-    public function getAction(int $id, MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
-    {
+    public function getAction(
+        int $id,
+        MenuServiceInterface $menuService,
+        MenuFormatterInterface $menuFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $menuFormatter) {
             return $menuFormatter->init($menuService->get($id))
                 ->id()
@@ -130,8 +133,11 @@ class MenuController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteAction(
+        int $id,
+        MenuServiceInterface $menuService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
             if (!empty($menu->getLogo())) {

@@ -51,8 +51,12 @@ class MenuLogoController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function postAction(int $id, Request $request, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
-    {
+    public function postAction(
+        int $id,
+        Request $request,
+        MenuServiceInterface $menuService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($id, $request, $menuService, $mediaService) {
             $path = $mediaService->saveMedia($request->getContent(true), MediaServiceInterface::MENU_LOGO);
             $menu = $menuService->get($id);
@@ -73,8 +77,11 @@ class MenuLogoController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteAction(
+        int $id,
+        MenuServiceInterface $menuService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
 

@@ -32,7 +32,8 @@ class VideoPositionFormatter implements VideoPositionFormatterInterface
     /**
      * @param YoutubeVideoFormatterInterface $youtubeVideoFormatterInterface
      */
-    public function setYoutubeVideoFormatterInterface(YoutubeVideoFormatterInterface $youtubeVideoFormatterInterface): void
+    public function setYoutubeVideoFormatterInterface(YoutubeVideoFormatterInterface $youtubeVideoFormatterInterface
+    ): void
     {
         $this->youtubeVideoFormatterInterface = $youtubeVideoFormatterInterface;
     }
@@ -128,9 +129,9 @@ class VideoPositionFormatter implements VideoPositionFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      *
-     * @return array
      */
     public function format(): array
     {

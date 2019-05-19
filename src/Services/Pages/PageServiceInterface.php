@@ -13,10 +13,10 @@ use Jinya\Entity\Page\Page;
 interface PageServiceInterface
 {
     /**
-     * Gets the specified @see Page by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Page
+     * @see Page by slug
+     *
      */
     public function get(string $slug): Page;
 
@@ -41,14 +41,14 @@ interface PageServiceInterface
     /**
      * Saves or updates the given @param Page $page
      * @return Page
-     *@see Page
+     * @see Page
      */
     public function saveOrUpdate(Page $page): Page;
 
     /**
-     * Deletes the given @see Page
+     * Deletes the given @param Page $entity
+     * @see Page
      *
-     * @param Page $entity
      */
     public function delete(Page $entity): void;
 }

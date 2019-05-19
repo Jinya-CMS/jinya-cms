@@ -37,8 +37,13 @@ class LabelEntityService implements LabelEntityServiceInterface
      * @param Label $label
      * @return array
      */
-    public function getAll(QueryBuilder $queryBuilder, int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
-    {
+    public function getAll(
+        QueryBuilder $queryBuilder,
+        int $offset = 0,
+        int $count = 10,
+        string $keyword = '',
+        Label $label = null
+    ): array {
         return $this->getFilteredQueryBuilder($queryBuilder, $keyword, $label)
             ->setFirstResult($offset)
             ->setMaxResults($count)
@@ -47,15 +52,18 @@ class LabelEntityService implements LabelEntityServiceInterface
     }
 
     /**
-     * Gets a @see QueryBuilder with a keyword filter
-     *
-     * @param QueryBuilder $queryBuilder
+     * Gets a @param QueryBuilder $queryBuilder
      * @param string $keyword
      * @param Label|null $label
      * @return QueryBuilder
+     * @see QueryBuilder with a keyword filter
+     *
      */
-    protected function getFilteredQueryBuilder(QueryBuilder $queryBuilder, string $keyword, Label $label = null): QueryBuilder
-    {
+    protected function getFilteredQueryBuilder(
+        QueryBuilder $queryBuilder,
+        string $keyword,
+        Label $label = null
+    ): QueryBuilder {
         $queryBuilder = $queryBuilder
             ->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->like('entity.description', ':keyword'),

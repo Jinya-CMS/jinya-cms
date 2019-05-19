@@ -38,8 +38,11 @@ class UserService implements UserServiceInterface
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param ApiKeyToolInterface $apiKeyTool
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, ApiKeyToolInterface $apiKeyTool)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $userPasswordEncoder,
+        ApiKeyToolInterface $apiKeyTool
+    ) {
         $this->entityManager = $entityManager;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->apiKeyTool = $apiKeyTool;

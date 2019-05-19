@@ -71,9 +71,9 @@ interface UserFormatterInterface extends FormatterInterface
     public function profilePicture(): self;
 
     /**
-     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
+     * Shorthand for @return UserFormatterInterface
+     * @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
      *
-     * @return UserFormatterInterface
      */
     public function profile(): self;
 

@@ -43,8 +43,12 @@ class ThemeService implements ThemeServiceInterface
      * @param string $themeDirectory
      * @param string $kernelProjectDir
      */
-    public function __construct(EntityManagerInterface $entityManager, FilesystemLoader $twigLoader, string $themeDirectory, string $kernelProjectDir)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        FilesystemLoader $twigLoader,
+        string $themeDirectory,
+        string $kernelProjectDir
+    ) {
         $this->entityManager = $entityManager;
         $this->twigLoader = $twigLoader;
         $this->themeDirectory = $themeDirectory;

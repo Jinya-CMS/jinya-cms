@@ -23,7 +23,13 @@ interface LabelEntityServiceInterface
      * @param Label|null $label
      * @return array
      */
-    public function getAll(QueryBuilder $queryBuilder, int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array;
+    public function getAll(
+        QueryBuilder $queryBuilder,
+        int $offset = 0,
+        int $count = 10,
+        string $keyword = '',
+        Label $label = null
+    ): array;
 
     /**
      * Counts all entities based on keyword and label

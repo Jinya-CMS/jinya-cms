@@ -29,8 +29,11 @@ class VideoPosterController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getAction(string $slug, VideoServiceInterface $videoService, MediaServiceInterface $mediaService): Response
-    {
+    public function getAction(
+        string $slug,
+        VideoServiceInterface $videoService,
+        MediaServiceInterface $mediaService
+    ): Response {
         /** @var $data Video|array */
         list($data, $status) = $this->tryExecute(function () use ($videoService, $slug) {
             $video = $videoService->get($slug);
@@ -59,9 +62,20 @@ class VideoPosterController extends BaseApiController
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function putAction(string $slug, Request $request, VideoServiceInterface $videoService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($request, $videoService, $mediaService, $urlGenerator, $slug) {
+    public function putAction(
+        string $slug,
+        Request $request,
+        VideoServiceInterface $videoService,
+        MediaServiceInterface $mediaService,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $request,
+            $videoService,
+            $mediaService,
+            $urlGenerator,
+            $slug
+        ) {
             $video = $videoService->get($slug);
 
             $poster = $request->getContent(true);
@@ -73,7 +87,11 @@ class VideoPosterController extends BaseApiController
 
             $videoService->saveOrUpdate($video);
 
-            return $urlGenerator->generate('api_video_get_video', ['slug' => $video->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $urlGenerator->generate(
+                'api_video_get_video',
+                ['slug' => $video->getSlug()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);

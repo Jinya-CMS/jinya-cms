@@ -41,8 +41,11 @@ class PageService implements PageServiceInterface
      * @param SlugServiceInterface $slugService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Page::class);
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -84,7 +87,10 @@ class PageService implements PageServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::PAGE_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+        $this->eventDispatcher->dispatch(
+            ListEvent::PAGE_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $items)
+        );
 
         return $items;
     }
@@ -143,9 +149,9 @@ class PageService implements PageServiceInterface
     }
 
     /**
-     * Deletes the given @see Page
+     * Deletes the given @param Page $page
+     * @see Page
      *
-     * @param Page $page
      */
     public function delete(Page $page): void
     {

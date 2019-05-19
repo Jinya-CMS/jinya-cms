@@ -31,8 +31,12 @@ class ArtworkPictureController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService): Response
-    {
+    public function getPictureAction(
+        string $slug,
+        Request $request,
+        ArtworkServiceInterface $artworkService,
+        MediaServiceInterface $mediaService
+    ): Response {
         /** @var $data Artwork|array */
         list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $slug) {
             $artwork = $artworkService->get($slug);
@@ -62,12 +66,25 @@ class ArtworkPictureController extends BaseApiController
      * @param ConversionServiceInterface $conversionService
      * @return Response
      */
-    public function putPictureAction(string $slug, Request $request, ArtworkServiceInterface $artworkService, MediaServiceInterface $mediaService, UrlGeneratorInterface $urlGenerator, ConversionServiceInterface $conversionService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $mediaService, $urlGenerator, $conversionService, $slug) {
+    public function putPictureAction(
+        string $slug,
+        Request $request,
+        ArtworkServiceInterface $artworkService,
+        MediaServiceInterface $mediaService,
+        UrlGeneratorInterface $urlGenerator,
+        ConversionServiceInterface $conversionService
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $request,
+            $artworkService,
+            $mediaService,
+            $urlGenerator,
+            $conversionService,
+            $slug
+        ) {
             $artwork = $artworkService->get($slug);
 
-            $convertArtworkTargetType = (int) $request->get('conversionType', 0);
+            $convertArtworkTargetType = (int)$request->get('conversionType', 0);
             $picture = $conversionService->convertImage($request->getContent(), $convertArtworkTargetType);
 
             $picturePath = $mediaService->saveMedia($picture, MediaServiceInterface::CONTENT_IMAGE);
@@ -78,7 +95,11 @@ class ArtworkPictureController extends BaseApiController
 
             $artworkService->saveOrUpdate($artwork);
 
-            return $urlGenerator->generate('api_artwork_picture_get', ['slug' => $artwork->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $urlGenerator->generate(
+                'api_artwork_picture_get',
+                ['slug' => $artwork->getSlug()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);

@@ -41,8 +41,11 @@ class FormService implements FormServiceInterface
      * @param SlugServiceInterface $slugService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Form::class);
         $this->entityManager = $entityManager;
         $this->slugService = $slugService;
@@ -86,7 +89,10 @@ class FormService implements FormServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::FORMS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+        $this->eventDispatcher->dispatch(
+            ListEvent::FORMS_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $items)
+        );
 
         return $items;
     }
@@ -145,9 +151,9 @@ class FormService implements FormServiceInterface
     }
 
     /**
-     * Deletes the given @see Form
+     * Deletes the given @param Form $form
+     * @see Form
      *
-     * @param Form $form
      */
     public function delete(Form $form): void
     {

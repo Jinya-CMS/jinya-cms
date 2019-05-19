@@ -29,8 +29,11 @@ class VideoFileController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function getAction(string $slug, VideoServiceInterface $videoService, MediaServiceInterface $mediaService): Response
-    {
+    public function getAction(
+        string $slug,
+        VideoServiceInterface $videoService,
+        MediaServiceInterface $mediaService
+    ): Response {
         /** @var $data Video|array */
         list($data, $status) = $this->tryExecute(function () use ($videoService, $slug) {
             $video = $videoService->get($slug);
@@ -75,8 +78,12 @@ class VideoFileController extends BaseApiController
      * @param VideoUploadServiceInterface $videoUploadService
      * @return Response
      */
-    public function uploadChunkAction(string $slug, int $position, Request $request, VideoUploadServiceInterface $videoUploadService): Response
-    {
+    public function uploadChunkAction(
+        string $slug,
+        int $position,
+        Request $request,
+        VideoUploadServiceInterface $videoUploadService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $position, $request, $videoUploadService) {
             $data = $request->getContent(true);
 
@@ -112,8 +119,11 @@ class VideoFileController extends BaseApiController
      * @param VideoUploadServiceInterface $videoUploadService
      * @return Response
      */
-    public function finishUploadAction(string $slug, VideoServiceInterface $videoService, VideoUploadServiceInterface $videoUploadService): Response
-    {
+    public function finishUploadAction(
+        string $slug,
+        VideoServiceInterface $videoService,
+        VideoUploadServiceInterface $videoUploadService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $videoService, $videoUploadService) {
             $video = $videoService->get($slug);
             $path = $videoUploadService->finishUpload($slug);
