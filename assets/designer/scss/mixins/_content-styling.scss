@@ -13,8 +13,21 @@
   h4,
   h5,
   h6 {
-    margin-top: 0;
+    margin-bottom: 0;
     font-family: $font-family-heading;
+
+    + h1,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6 {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    margin-top: 0;
   }
 
   img {
@@ -28,5 +41,36 @@
     padding-right: 1rem;
     box-sizing: border-box;
     border-left: 2px solid $blockquote-color;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      border-bottom: 2px solid $secondary;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    td {
+      border-bottom: 1px solid $secondary-lighter;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      font-weight: normal;
+    }
+
+    tr {
+      &:nth-child(2n) {
+        background: $secondary-lighter;
+      }
+
+      &:hover {
+        td {
+          background: $secondary;
+        }
+      }
+    }
   }
 }
