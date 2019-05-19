@@ -24,27 +24,21 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     private $entityManager;
 
     /** @var string */
-    private $kernelProjectDir;
-
-    /** @var string */
     private $themeDirectory;
 
     /**
      * ThemeSyncService constructor.
      * @param ThemeServiceInterface $themeService
      * @param EntityManagerInterface $entityManager
-     * @param string $kernelProjectDir
      * @param string $themeDirectory
      */
     public function __construct(
         ThemeServiceInterface $themeService,
         EntityManagerInterface $entityManager,
-        string $kernelProjectDir,
         string $themeDirectory
     ) {
         $this->themeService = $themeService;
         $this->entityManager = $entityManager;
-        $this->kernelProjectDir = $kernelProjectDir;
         $this->themeDirectory = $themeDirectory;
     }
 
@@ -54,7 +48,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
     public function syncThemes(): void
     {
         $finder = new Finder();
-        $absoluteThemeDirectory = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        $absoluteThemeDirectory = $this->themeDirectory;
         $configFiles = $finder->files()
             ->in($absoluteThemeDirectory)
             ->name(ThemeService::THEME_CONFIG_YML);
@@ -86,7 +80,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             $theme->setConfiguration([]);
         }
         if (array_key_exists('previewImage', $config)) {
-            $previewImagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
+            $previewImagePath = $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
             $theme->setPreviewImage($previewImagePath);
         }
 

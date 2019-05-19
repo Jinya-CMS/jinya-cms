@@ -34,7 +34,6 @@ services:
 
   Jinya\Services\Theme\ThemeSyncService:
     arguments:
-      $kernelProjectDir: '%kernel.project_dir%'
       $themeDirectory: '%jinya_gallery.theme.directory%'
 
   Jinya\Services\Theme\ThemeCompilerService:
@@ -183,6 +182,11 @@ services:
   Jinya\Twig\Extension\TranslationUtils:
     arguments:
       $kernelProjectDir: '%kernel.project_dir%'
+
+  # Commands
+  Jinya\Command\CreateThemeCommand:
+    arguments:
+      $themesDir: '%jinya_gallery.theme.directory%'
 
   # External Services
   GuzzleHttp\Client:
