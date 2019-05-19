@@ -98,6 +98,7 @@
         video_galleries: [],
         forms: [],
         pages: [],
+        profiles: [],
         itemsLoading: false,
         loading: false,
         drag: false,
@@ -168,6 +169,10 @@
           {
             title: Translator.message('configuration.frontend.menus.builder.pages'),
             name: 'pages',
+          },
+          {
+            title: Translator.message('configuration.frontend.menus.builder.profiles'),
+            name: 'profiles',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.other'),
@@ -341,6 +346,13 @@
           }
 
           this.selectedTemplateItems = this.pages;
+        } else if (type === 'profiles') {
+          if (this.profiles.length === 0) {
+            const profiles = await JinyaRequest.get('/api/user?count=40000');
+            this.profiles = profiles.items.map(item => this.generateTemplateItem('profile', item.artistName, item.id));
+          }
+
+          this.selectedTemplateItems = this.profiles;
         } else if (type === 'other') {
           const baseItem = {
             route: {

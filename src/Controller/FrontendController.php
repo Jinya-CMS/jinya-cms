@@ -11,6 +11,7 @@ use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
+use Jinya\Services\Users\UserServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,13 +38,13 @@ class FrontendController extends BaseController
         } catch (Throwable $throwable) {
             if (empty($route)) {
                 return $this->render('@Theme/Default/index.html.twig');
-            } else {
-                $logger->error("Failed to load route $route");
-                $logger->error($throwable->getMessage());
-                $logger->error($throwable->getTraceAsString());
-
-                throw $throwable;
             }
+
+            $logger->error("Failed to load route $route");
+            $logger->error($throwable->getMessage());
+            $logger->error($throwable->getTraceAsString());
+
+            throw $throwable;
         }
     }
 
@@ -108,8 +109,13 @@ class FrontendController extends BaseController
      * @param MailerServiceInterface $mailerService
      * @return Response
      */
-    public function formDetailAction(string $slug, Request $request, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, MailerServiceInterface $mailerService): Response
-    {
+    public function formDetailAction(
+        string $slug,
+        Request $request,
+        FormServiceInterface $formService,
+        FormGeneratorInterface $formGenerator,
+        MailerServiceInterface $mailerService
+    ): Response {
         $formEntity = $formService->get($slug);
 
         $form = $formGenerator->generateForm($formEntity);
@@ -148,6 +154,22 @@ class FrontendController extends BaseController
 
         return $this->render('@Theme/Page/detail.html.twig', [
             'page' => $page,
+        ]);
+    }
+
+    /**
+     * @Route("/profile/{id}", name="frontend_profile_details")
+     *
+     * @param int $id
+     * @param UserServiceInterface $userService
+     * @return Response
+     */
+    public function profileDetailAction(int $id, UserServiceInterface $userService): Response
+    {
+        $user = $userService->get($id);
+
+        return $this->render('@Theme/Profile/detail.html.twig', [
+            'profile' => $user,
         ]);
     }
 }

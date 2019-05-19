@@ -1,9 +1,9 @@
 @mixin content-styling {
   a {
-    color: $link-color-primary;
+    color: $link-color;
 
     &:hover {
-      color: $link-hover-color-primary;
+      color: $link-hover-color;
     }
   }
 
@@ -13,7 +13,21 @@
   h4,
   h5,
   h6 {
-    font-family: $heading-font-family;
+    margin-bottom: 0;
+    font-family: $font-family-heading;
+
+    + h1,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6 {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    margin-top: 0;
   }
 
   img {
@@ -44,7 +58,7 @@
       border-bottom: 1px solid $secondary-lighter;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
-      font-weight: bold;
+      font-weight: normal;
     }
 
     tr {

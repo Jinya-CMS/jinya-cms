@@ -101,11 +101,12 @@ class AccountController extends BaseApiController
      */
     public function getAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($userService, $userFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($userService, $userFormatter) {
             $user = $userService->get($this->getUser()->getId());
 
             return $userFormatter
                 ->init($user)
+                ->id()
                 ->profile()
                 ->roles()
                 ->createdPages()

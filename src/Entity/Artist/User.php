@@ -163,6 +163,13 @@ class User implements JsonSerializable, UserInterface
     private $createdForms;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    private $aboutMe;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -554,5 +561,21 @@ class User implements JsonSerializable, UserInterface
     public function setArtistName(string $artistName): void
     {
         $this->artistName = $artistName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutMe(): ?string
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * @param string $aboutMe
+     */
+    public function setAboutMe(string $aboutMe): void
+    {
+        $this->aboutMe = $aboutMe;
     }
 }

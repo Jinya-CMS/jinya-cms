@@ -365,10 +365,11 @@ configuration:
         title: "%name% bearbeiten"
       builder:
         galleries:
-          art: Kunstgalerien
-          video: Videogalerien
+          art: Kunstwerke
+          video: Videos
         forms: Formulare
         pages: Seiten
+        profiles: Profile
         other: Andere
         external: Externe Seite
         group: Gruppe
@@ -675,6 +676,20 @@ art:
         horizontal: Horizontal
         vertical: Vertikal
 my_jinya:
+  my_jinya:
+    about_me: Über mich
+    cancel: Abbrechen
+    save: Speichern
+    artist_name: Künstlername
+    email: Emailadresse
+    profile:
+      saved: Alle Änderungen wurden erfolgreich gespeichert
+      data_saving: Emailadresse und Künstlername werden gespeichert
+      data_not_saved: Emailadresse und Künstlername konnten nicht gespeichert werden, das Profilbild und Über mich werden nicht gespeichert
+      about_saving: Über mich wird gespeichert
+      about_not_saved: Über mich konnte nicht gespeichert werden, das Profilbild wird nicht gespeichert
+      picture_saving: Das Profilbild wird gespeichert
+      picture_not_saved: Das Profilbild konnte nicht gespeichert werden
   account:
     password:
       save: Passwort ändern

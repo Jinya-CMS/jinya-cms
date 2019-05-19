@@ -2,7 +2,7 @@
   <div class="jinya-page-overview">
     <jinya-loader :loading="loading"/>
     <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-card :header="page.title" :key="page.slug" v-for="page in pages" v-if="!loading">
+      <jinya-card :header="page.title" :key="page.slug" v-for="page in pages">
         <jinya-card-button :to="{name: detailsRoute, params: {slug: page.slug}}" icon="monitor" slot="footer"
                            type="details"/>
         <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" icon="pencil" slot="footer"
