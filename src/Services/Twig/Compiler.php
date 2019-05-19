@@ -13,10 +13,10 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
+use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig_Environment;
 use Underscore\Types\Strings;
 
 class Compiler implements CompilerInterface
@@ -33,7 +33,7 @@ class Compiler implements CompilerInterface
     /** @var ThemeServiceInterface */
     private $themeService;
 
-    /** @var Twig_Environment */
+    /** @var Environment */
     private $twig;
 
     /**
@@ -42,10 +42,15 @@ class Compiler implements CompilerInterface
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param ThemeConfigServiceInterface $themeConfigService
      * @param ThemeServiceInterface $themeService
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      */
-    public function __construct(ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService, ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, Twig_Environment $twig)
-    {
+    public function __construct(
+        ConfigurationServiceInterface $configurationService,
+        ThemeCompilerServiceInterface $themeCompilerService,
+        ThemeConfigServiceInterface $themeConfigService,
+        ThemeServiceInterface $themeService,
+        Environment $twig
+    ) {
         $this->configurationService = $configurationService;
         $this->themeCompilerService = $themeCompilerService;
         $this->themeConfigService = $themeConfigService;
@@ -66,14 +71,25 @@ class Compiler implements CompilerInterface
     public function compile(string $path, array $context): string
     {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
+        $parameters = $context;
 
         if (Strings::find($path, '@Theme')) {
             [$themeViewPath, $parameters] = $this->includeTheme($path, $context, $currentTheme);
 
-            return $this->twig->render($themeViewPath, $parameters);
+            if ($this->twig->getLoader()->exists($themeViewPath)) {
+                $renderPath = $themeViewPath;
+            } else {
+                [$renderPath, $parameters] = $this->includeTheme(
+                    '@Theme/Default/index.html.twig',
+                    $context,
+                    $currentTheme
+                );
+            }
+        } else {
+            $renderPath = $path;
         }
 
-        return $this->twig->render($path, $context);
+        return $this->twig->render($renderPath, $parameters);
     }
 
     /**
@@ -85,19 +101,26 @@ class Compiler implements CompilerInterface
     private function includeTheme(string $view, array $parameters, Theme $theme): array
     {
         $isCompiled = $this->themeCompilerService->isCompiled($theme);
-        header("Compiled: $isCompiled");
+
         if (!$isCompiled || getenv('APP_DEBUG')) {
             $this->themeCompilerService->compileTheme($theme);
         }
 
         $this->themeService->registerThemes();
-        $themeViewPath = '@Themes/' . $this->themeConfigService->getThemeNamespace($theme) . str_replace('@Theme', '/', $view);
+        $themeViewPath = sprintf(
+            '@Theme/%s%s',
+            $this->themeConfigService->getThemeNamespace($theme),
+            str_replace('@Theme', '/', $view)
+        );
 
         $parameters['themeConfig'] = $theme->getConfiguration();
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
 
         $parameters['theme']['active'] = $theme;
-        $parameters['theme']['path'] = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR;
+        $parameters['theme']['path'] = $this->themeService->getThemeDirectory()
+            . DIRECTORY_SEPARATOR
+            . $theme->getName()
+            . DIRECTORY_SEPARATOR;
 
         return [$themeViewPath, $parameters];
     }
