@@ -365,10 +365,11 @@ configuration:
         title: "%name% bearbeiten"
       builder:
         galleries:
-          art: Kunstgalerien
-          video: Videogalerien
+          art: Kunstwerke
+          video: Videos
         forms: Formulare
         pages: Seiten
+        profiles: Profile
         other: Andere
         external: Externe Seite
         group: Gruppe

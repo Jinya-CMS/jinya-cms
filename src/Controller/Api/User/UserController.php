@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -25,16 +26,22 @@ class UserController extends BaseUserController
 {
     /**
      * @Route("/api/user", methods={"GET"}, name="api_user_get_all")
-     * @IsGranted("ROLE_ADMIN")
      *
      * @param Request $request
      * @param UserServiceInterface $userService
      * @param UserFormatterInterface $userFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        UserServiceInterface $userService,
+        UserFormatterInterface $userFormatter
+    ): Response {
         [$data, $status] = $this->tryExecute(function () use ($request, $userFormatter, $userService) {
+            if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+                throw new AccessDeniedException();
+            }
+
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -47,11 +54,14 @@ class UserController extends BaseUserController
                 $userFormatter
                     ->init($user)
                     ->profile()
-                    ->enabled()
                     ->id();
 
                 if ($this->isGranted('ROLE_SUPER_ADMIN')) {
                     $userFormatter->roles();
+                }
+
+                if ($this->isGranted('ROLE_ADMIN')) {
+                    $userFormatter->enabled();
                 }
 
                 $entities[] = $userFormatter->format();
@@ -75,8 +85,11 @@ class UserController extends BaseUserController
      * @param UserFormatterInterface $userFormatter
      * @return Response
      */
-    public function getAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
-    {
+    public function getAction(
+        int $id,
+        UserServiceInterface $userService,
+        UserFormatterInterface $userFormatter
+    ): Response {
         [$data, $status] = $this->tryExecute(function () use ($id, $userService, $userFormatter) {
             $user = $userService->get($id);
 
@@ -104,8 +117,11 @@ class UserController extends BaseUserController
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function postAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
-    {
+    public function postAction(
+        UserServiceInterface $userService,
+        UserFormatterInterface $userFormatter,
+        TranslatorInterface $translator
+    ): Response {
         [$data, $status] = $this->tryExecute(function () use ($userService, $userFormatter, $translator) {
             $artistName = $this->getValue('artistName');
             $email = $this->getValue('email');
@@ -169,8 +185,12 @@ class UserController extends BaseUserController
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function putAction(int $id, UserServiceInterface $userService, UserFormatterInterface $userFormatter, TranslatorInterface $translator): Response
-    {
+    public function putAction(
+        int $id,
+        UserServiceInterface $userService,
+        UserFormatterInterface $userFormatter,
+        TranslatorInterface $translator
+    ): Response {
         [$data, $status] = $this->tryExecute(function () use ($id, $userService, $userFormatter, $translator) {
             $user = $userService->get($id);
 
