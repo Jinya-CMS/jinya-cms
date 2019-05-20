@@ -34,7 +34,6 @@ class YoutubeVideoFormatter implements YoutubeVideoFormatterInterface
     /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
-     *
      */
     public function format(): array
     {

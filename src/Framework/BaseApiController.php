@@ -190,7 +190,6 @@ abstract class BaseApiController extends BaseController
      * @param int $successStatusCode
      * @return array
      * @see callable and return a formatted error if it fails
-     *
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
     {
@@ -228,21 +227,21 @@ abstract class BaseApiController extends BaseController
 
             $result = [
                 $this->jsonFormatException('api.state.409.foreign_key_failed', $exception),
-                Response::HTTP_CONFLICT
+                Response::HTTP_CONFLICT,
             ];
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
             $result = [
                 $this->jsonFormatException('api.state.409.not_null_failed', $exception),
-                Response::HTTP_CONFLICT
+                Response::HTTP_CONFLICT,
             ];
         } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UnknownDeviceException $exception) {
             $this->logException($exception, 401);
 
             $result = [
                 $this->jsonFormatException('api.state.401.unknown_device', $exception),
-                Response::HTTP_UNAUTHORIZED
+                Response::HTTP_UNAUTHORIZED,
             ];
         } catch (Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
@@ -250,7 +249,7 @@ abstract class BaseApiController extends BaseController
 
             $result = [
                 $this->jsonFormatException('api.state.500.generic', $throwable),
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_INTERNAL_SERVER_ERROR,
             ];
         }
 
@@ -286,7 +285,6 @@ abstract class BaseApiController extends BaseController
      * @param Throwable $throwable
      * @return array
      * @see Throwable as array
-     *
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
     {

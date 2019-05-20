@@ -15,7 +15,6 @@ interface ThemeCompilerServiceInterface
     /**
      * Compiles the scss and javascript of the given @param Theme $theme
      * @see Theme
-     *
      */
     public function compileTheme(Theme $theme): void;
 

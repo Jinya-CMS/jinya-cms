@@ -17,7 +17,6 @@ interface FormGeneratorInterface
      * Generates a @param Form $form
      * @return FormInterface
      * @see FormInterface based on the given @see Form
-     *
      */
     public function generateForm(Form $form): FormInterface;
 }

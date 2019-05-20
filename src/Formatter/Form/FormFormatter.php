@@ -132,7 +132,6 @@ class FormFormatter implements FormFormatterInterface
     /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
-     *
      */
     public function format(): array
     {

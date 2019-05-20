@@ -260,7 +260,6 @@ class MenuItemService implements MenuItemServiceInterface
      * Updates the given @param MenuItem $item
      * @return MenuItem
      * @see MenuItem
-     *
      */
     public function updateItem(MenuItem $item): MenuItem
     {
