@@ -169,7 +169,6 @@ abstract class BaseController
      *
      * @return AccessDeniedException
      * @example throw $this->createAccessDeniedException('Unable to access this page!');
-     *
      */
     final protected function createAccessDeniedException(): AccessDeniedException
     {

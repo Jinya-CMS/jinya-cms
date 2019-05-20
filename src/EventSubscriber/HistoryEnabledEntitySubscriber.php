@@ -113,7 +113,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
                     'entry' => $historyEntry,
                     'timestamp' => $entity->getLastUpdatedAt()->format('c'),
                     'initial' => true,
-                ]
+                ],
             ]);
         }
     }
