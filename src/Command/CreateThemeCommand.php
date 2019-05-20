@@ -10,6 +10,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
+use Twig\Environment;
 use Underscore\Types\Strings;
 
 class CreateThemeCommand extends Command
@@ -20,16 +21,21 @@ class CreateThemeCommand extends Command
     /** @var string */
     private $themesDir;
 
+    /** @var Environment */
+    private $twig;
+
     /**
      * CreateThemeCommand constructor.
      * @param SlugServiceInterface $slugService
      * @param string $themesDir
+     * @param Environment $twig
      */
-    public function __construct(SlugServiceInterface $slugService, string $themesDir)
+    public function __construct(SlugServiceInterface $slugService, string $themesDir, Environment $twig)
     {
         parent::__construct();
         $this->slugService = $slugService;
         $this->themesDir = $themesDir;
+        $this->twig = $twig;
     }
 
     protected function configure()
@@ -40,21 +46,40 @@ class CreateThemeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $helper = $this->getHelper('question');
-        $displayName = $helper->ask($input, $output, new Question('Display name'));
+        $displayName = $helper->ask($input, $output, new Question('<question>Display name:</question> '));
+        $identifierName = $this->slugService->generateSlug($displayName);
         $identifierName = $helper->ask(
             $input,
             $output,
-            new Question('Identifier', $this->slugService->generateSlug($displayName))
+            new Question("<question>Identifier:</question> <comment>$identifierName:</comment> ", $identifierName)
         );
-        $description = $helper->ask($input, $output, new Question('Description', ''));
-        $previewImage = $helper->ask($input, $output, new Question('Preview image', ''));
-        $stylesBase = $helper->ask($input, $output, new Question('SCSS style directory', 'styles'));
-        $scriptsBase = $helper->ask($input, $output, new Question('JavaScript directory', 'scripts'));
-        $stylesVariablesFile = $helper->ask($input, $output, new Question('SCSS variables file', '_variables.scss'));
+        $description = $helper->ask($input, $output, new Question('<question>Description:</question> ', ''));
+        $previewImage = $helper->ask($input, $output, new Question('<question>Preview image:</question> ', ''));
+        $stylesBase = $helper->ask(
+            $input,
+            $output,
+            new Question('<question>SCSS style directory:</question> <comment>styles:</comment> ', 'styles')
+        );
+        $scriptsBase = $helper->ask(
+            $input,
+            $output,
+            new Question('<question>JavaScript directory:</question> <comment>scripts:</comment> ', 'scripts')
+        );
+        $stylesVariablesFile = $helper->ask(
+            $input,
+            $output,
+            new Question(
+                '<question>SCSS variables file:</question> <comment>_variables.scss:</comment> ',
+                '_variables.scss'
+            )
+        );
         $stylesFiles = $helper->ask(
             $input,
             $output,
-            new Question('SCSS files to compile, comma seperated', 'frontend.scss')
+            new Question(
+                '<question>SCSS files to compile, comma separated:</question> <comment>frontend.scss:</comment> ',
+                'frontend.scss'
+            )
         );
 
         $config = [
@@ -71,38 +96,63 @@ class CreateThemeCommand extends Command
             ],
         ];
 
-        $configYaml = Yaml::dump($config);
+        $configYaml = Yaml::dump($config, 4);
         $output->writeln("Theme $identifierName has the following config");
         $output->writeln($configYaml);
 
-        $dumpData = $helper->ask($input, $output, new ConfirmationQuestion('Is this correct?', 'y', '/^y/i'));
+        $dumpData = $helper->ask(
+            $input,
+            $output,
+            new ConfirmationQuestion('<question>Is this correct?</question> <comment>y:</comment> ', 'y', '/^y/i')
+        );
+
         if ($dumpData) {
             $themePath = sprintf('%s/%s', $this->themesDir, $identifierName);
 
             $fs = new Filesystem();
             $fs->dumpFile(sprintf('%s/%s', $themePath, '/theme.yml'), $dumpData);
+            $fs->mkdir([
+                "$themePath/$scriptsBase",
+                "$themePath/$stylesBase",
+                "$themePath/Default",
+                "$themePath/Form",
+                "$themePath/Gallery",
+                "$themePath/Page",
+                "$themePath/Profile",
+            ]);
+
             $fs->touch([
                 sprintf('%s/Default/index.html.twig', $themePath),
                 sprintf('%s/Form/detail.html.twig', $themePath),
                 sprintf('%s/Gallery/detail.html.twig', $themePath),
                 sprintf('%s/Page/detail.html.twig', $themePath),
                 sprintf('%s/Profile/detail.html.twig', $themePath),
-                array_map(static function ($item) use ($themePath, $stylesBase) {
-                    return "$themePath/$stylesBase/$item";
-                }, $config['styles']['files']),
             ]);
-            $fs->mkdir("$themePath/$scriptsBase");
+            $fs->touch(array_map(static function ($item) use ($themePath, $stylesBase) {
+                return "$themePath/$stylesBase/$item";
+            }, $config['styles']['files']));
+
+            $gulpfile = $this->twig->render('@Jinya/ThemeCreator/Gulpfile.js.twig', ['scriptsPath' => $scriptsBase]);
+            $fs->dumpFile(sprintf('%s/Gulpfile.js', $themePath), $gulpfile);
 
             $addGitRepo = $helper->ask(
                 $input,
                 $output,
-                new ConfirmationQuestion('Do you want to add a git repo?', 'n', '/^y/i')
+                new ConfirmationQuestion(
+                    '<question>Do you want to add a git repo?</question> <comment>n:</comment> ',
+                    'n',
+                    '/^y/i'
+                )
             );
 
             if ($addGitRepo) {
-                $repo = $helper->ask($input, $output, new Question('Git remote repo'));
-                $output->writeln(passthru('git init'));
-                $output->writeln(passthru("git remote add origin $repo"));
+                $repo = $helper->ask(
+                    $input,
+                    $output,
+                    new Question('<question>Git remote repo:</question> ')
+                );
+                $output->writeln(passthru("cd $themePath && git init"));
+                $output->writeln(passthru("cd $themePath && git remote add origin $repo"));
             }
         }
     }
