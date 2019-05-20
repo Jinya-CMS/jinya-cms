@@ -33,26 +33,20 @@ class ThemeService implements ThemeServiceInterface
     /** @var string */
     private $themeDirectory;
 
-    /** @var string */
-    private $kernelProjectDir;
-
     /**
      * ThemeService constructor.
      * @param EntityManagerInterface $entityManager
      * @param FilesystemLoader $twigLoader
      * @param string $themeDirectory
-     * @param string $kernelProjectDir
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         FilesystemLoader $twigLoader,
-        string $themeDirectory,
-        string $kernelProjectDir
+        string $themeDirectory
     ) {
         $this->entityManager = $entityManager;
         $this->twigLoader = $twigLoader;
         $this->themeDirectory = $themeDirectory;
-        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     /**
@@ -118,6 +112,6 @@ class ThemeService implements ThemeServiceInterface
      */
     public function getThemeDirectory(): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . $this->themeDirectory;
+        return $this->themeDirectory;
     }
 }

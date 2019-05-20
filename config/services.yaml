@@ -43,7 +43,6 @@ services:
   Jinya\Services\Theme\ThemeService:
     arguments:
       $twigLoader: '@twig.loader.filesystem'
-      $kernelProjectDir: '%kernel.project_dir%'
       $themeDirectory: '%jinya_gallery.theme.directory%'
 
   Jinya\Services\Media\MediaService:
