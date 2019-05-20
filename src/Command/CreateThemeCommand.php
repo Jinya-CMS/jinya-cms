@@ -110,7 +110,7 @@ class CreateThemeCommand extends Command
             $themePath = sprintf('%s/%s', $this->themesDir, $identifierName);
 
             $fs = new Filesystem();
-            $fs->dumpFile(sprintf('%s/%s', $themePath, '/theme.yml'), $dumpData);
+            $fs->dumpFile(sprintf('%s/%s', $themePath, '/theme.yml'), $configYaml);
             $fs->mkdir([
                 "$themePath/$scriptsBase",
                 "$themePath/$stylesBase",
