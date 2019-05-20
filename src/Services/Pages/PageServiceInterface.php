@@ -16,7 +16,6 @@ interface PageServiceInterface
      * Gets the specified @param string $slug
      * @return Page
      * @see Page by slug
-     *
      */
     public function get(string $slug): Page;
 
@@ -48,7 +47,6 @@ interface PageServiceInterface
     /**
      * Deletes the given @param Page $entity
      * @see Page
-     *
      */
     public function delete(Page $entity): void;
 }
