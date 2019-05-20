@@ -114,7 +114,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
     private function formatBody(User $user): string
     {
-        $name = $user->getFirstname() . ' ' . $user->getLastname();
+        $name = $user->getArtistName();
         $code = $user->getTwoFactorToken();
 
         return "<html>

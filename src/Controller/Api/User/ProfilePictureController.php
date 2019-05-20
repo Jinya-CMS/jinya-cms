@@ -34,7 +34,7 @@ class ProfilePictureController extends BaseUserController
         MediaServiceInterface $mediaService
     ): Response {
         /** @var $data User|array */
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $userService) {
             $user = $userService->get($id);
             if (empty($user->getProfilePicture())) {
                 throw new FileNotFoundException($user->getEmail());
@@ -45,12 +45,12 @@ class ProfilePictureController extends BaseUserController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file(
-                $mediaService->getMedia($data->getProfilePicture()),
-                $data->getFirstname() . ' ' . $data->getLastname() . '.jpg'
-            );
         }
+
+        return $this->file(
+            $mediaService->getMedia($data->getProfilePicture()),
+            $data->getArtistName() . '.jpg'
+        );
     }
 
     /**
@@ -71,7 +71,7 @@ class ProfilePictureController extends BaseUserController
         MediaServiceInterface $mediaService,
         UrlGeneratorInterface $urlGenerator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $id,
             $request,
             $userService,
@@ -92,9 +92,9 @@ class ProfilePictureController extends BaseUserController
                     ['id' => $user->getId()],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 );
-            } else {
-                throw $this->createAccessDeniedException();
             }
+
+            throw $this->createAccessDeniedException();
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
@@ -114,12 +114,12 @@ class ProfilePictureController extends BaseUserController
         UserServiceInterface $userService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService, $mediaService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $userService, $mediaService) {
             if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $user = $userService->get($id);
                 $mediaService->deleteMedia($user->getProfilePicture());
                 $user->setProfilePicture('');
-                $userService->saveOrUpdate($user, false);
+                $userService->saveOrUpdate($user, true);
             } else {
                 throw $this->createAccessDeniedException();
             }

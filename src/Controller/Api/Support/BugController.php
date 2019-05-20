@@ -45,7 +45,7 @@ class BugController extends BaseApiController
                 'details' => $this->getValue('details'),
                 'reproduce' => $this->getValue('reproduce'),
                 'severity' => $this->getValue('severity'),
-                'who' => $user->getFirstname(),
+                'who' => $user->getArtistName(),
                 'url' => $request->headers->has('referer') ? $request->headers->get('referer') : '',
                 'jinyaVersion' => $this->jinyaVersion,
             ];

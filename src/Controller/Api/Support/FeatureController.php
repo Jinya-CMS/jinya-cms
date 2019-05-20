@@ -36,7 +36,7 @@ class FeatureController extends BaseApiController
             $feature = [
                 'title' => $this->getValue('title'),
                 'details' => $this->getValue('details'),
-                'who' => $user->getFirstname(),
+                'who' => $user->getArtistName(),
             ];
 
             $response = $client->request('POST', 'https://api.jinya.de/tracker/feature', [
