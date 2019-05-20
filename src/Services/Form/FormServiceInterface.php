@@ -16,7 +16,6 @@ interface FormServiceInterface
      * Gets the specified @param string $slug
      * @return Form
      * @see Form by slug
-     *
      */
     public function get(string $slug): Form;
 
@@ -48,7 +47,6 @@ interface FormServiceInterface
     /**
      * Deletes the given @param Form $form
      * @see Form
-     *
      */
     public function delete(Form $form): void;
 }

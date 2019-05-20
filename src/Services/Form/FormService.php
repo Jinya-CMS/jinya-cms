@@ -153,7 +153,6 @@ class FormService implements FormServiceInterface
     /**
      * Deletes the given @param Form $form
      * @see Form
-     *
      */
     public function delete(Form $form): void
     {

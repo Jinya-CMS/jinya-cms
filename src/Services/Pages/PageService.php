@@ -151,7 +151,6 @@ class PageService implements PageServiceInterface
     /**
      * Deletes the given @param Page $page
      * @see Page
-     *
      */
     public function delete(Page $page): void
     {

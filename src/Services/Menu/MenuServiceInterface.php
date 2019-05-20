@@ -28,14 +28,12 @@ interface MenuServiceInterface
     /**
      * Gets all @return array
      * @see MenuItem
-     *
      */
     public function getAll(): array;
 
     /**
      * Deletes the @param int $id
      * @see Menu with the given id
-     *
      */
     public function delete(int $id): void;
 

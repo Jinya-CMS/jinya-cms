@@ -57,7 +57,6 @@ class LabelEntityService implements LabelEntityServiceInterface
      * @param Label|null $label
      * @return QueryBuilder
      * @see QueryBuilder with a keyword filter
-     *
      */
     protected function getFilteredQueryBuilder(
         QueryBuilder $queryBuilder,

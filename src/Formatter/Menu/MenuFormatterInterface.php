@@ -17,7 +17,6 @@ interface MenuFormatterInterface extends FormatterInterface
      * Initializes the @param Menu $menu
      * @return MenuFormatterInterface
      * @see MenuFormatterInterface
-     *
      */
     public function init(Menu $menu): self;
 
