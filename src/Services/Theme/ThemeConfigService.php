@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Framework\Events\Theme\ThemeConfigEvent;
-use Jinya\Framework\Events\Theme\ThemeMenuEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;

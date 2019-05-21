@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThemeFileController extends BaseApiController
 {
-
     /**
      * @Route("/api/theme/{name}/file/{key}", methods={"DELETE"}, name="api_theme_delete_file")
      * @IsGranted("ROLE_WRITER")

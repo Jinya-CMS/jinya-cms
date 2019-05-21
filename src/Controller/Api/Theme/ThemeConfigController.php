@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThemeConfigController extends BaseApiController
 {
-
     /**
      * @Route("/api/theme/{name}/field/{key}", methods={"PUT"}, name="api_theme_put_field")
      * @IsGranted("ROLE_WRITER")
