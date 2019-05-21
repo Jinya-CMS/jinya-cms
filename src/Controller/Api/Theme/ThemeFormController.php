@@ -26,7 +26,7 @@ class ThemeFormController extends BaseApiController
      */
     public function getConfigFormAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($name, $themeConfigService) {
+        [$data, $status] = $this->tryExecute(static function () use ($name, $themeConfigService) {
             return $themeConfigService->getConfigForm($name);
         });
 
@@ -43,7 +43,7 @@ class ThemeFormController extends BaseApiController
      */
     public function getVariablesFormAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($name, $themeConfigService) {
+        [$data, $status] = $this->tryExecute(static function () use ($name, $themeConfigService) {
             return $themeConfigService->getVariablesForm($name);
         });
 

@@ -51,7 +51,7 @@ class ThemeForm
     }
 
     /**
-     * @return int
+     * @return Form
      */
     public function getForm(): Form
     {
@@ -59,9 +59,9 @@ class ThemeForm
     }
 
     /**
-     * @param int $form
+     * @param Form $form
      */
-    public function setForm(int $form): void
+    public function setForm(Form $form): void
     {
         $this->form = $form;
     }
