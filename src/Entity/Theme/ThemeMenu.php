@@ -14,7 +14,7 @@ class ThemeMenu
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Theme\Theme")
-     * @ORM\JoinColumn(nullable=false, name="themeId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
     private $theme;
@@ -22,7 +22,7 @@ class ThemeMenu
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
-     * @ORM\JoinColumn(nullable=false, name="menuId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="menu_id", referencedColumnName="id")
      * @var Menu
      */
     private $menu;

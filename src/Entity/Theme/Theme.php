@@ -9,6 +9,7 @@
 namespace Jinya\Entity\Theme;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Menu\Menu;
 
@@ -64,37 +65,37 @@ class Theme
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="theme")
      */
     private $menus;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtGallery", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtGallery", mappedBy="theme")
      */
     private $artGalleries;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeVideoGallery", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeVideoGallery", mappedBy="theme")
      */
     private $videoGalleries;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
     private $pages;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
     private $forms;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtwork", mappedBy="themeId")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtwork", mappedBy="theme")
      */
     private $artworks;
 
@@ -133,97 +134,97 @@ class Theme
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getMenus(): ArrayCollection
+    public function getMenus(): Collection
     {
         return $this->menus;
     }
 
     /**
-     * @param ArrayCollection $menus
+     * @param Collection $menus
      */
-    public function setMenus(ArrayCollection $menus): void
+    public function setMenus(Collection $menus): void
     {
         $this->menus = $menus;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getArtGalleries(): ArrayCollection
+    public function getArtGalleries(): Collection
     {
         return $this->artGalleries;
     }
 
     /**
-     * @param ArrayCollection $artGalleries
+     * @param Collection $artGalleries
      */
-    public function setArtGalleries(ArrayCollection $artGalleries): void
+    public function setArtGalleries(Collection $artGalleries): void
     {
         $this->artGalleries = $artGalleries;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getVideoGalleries(): ArrayCollection
+    public function getVideoGalleries(): Collection
     {
         return $this->videoGalleries;
     }
 
     /**
-     * @param ArrayCollection $videoGalleries
+     * @param Collection $videoGalleries
      */
-    public function setVideoGalleries(ArrayCollection $videoGalleries): void
+    public function setVideoGalleries(Collection $videoGalleries): void
     {
         $this->videoGalleries = $videoGalleries;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getPages(): ArrayCollection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
 
     /**
-     * @param ArrayCollection $pages
+     * @param Collection $pages
      */
-    public function setPages(ArrayCollection $pages): void
+    public function setPages(Collection $pages): void
     {
         $this->pages = $pages;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getForms(): ArrayCollection
+    public function getForms(): Collection
     {
         return $this->forms;
     }
 
     /**
-     * @param ArrayCollection $forms
+     * @param Collection $forms
      */
-    public function setForms(ArrayCollection $forms): void
+    public function setForms(Collection $forms): void
     {
         $this->forms = $forms;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getArtworks(): ArrayCollection
+    public function getArtworks(): Collection
     {
         return $this->artworks;
     }
 
     /**
-     * @param ArrayCollection $artworks
+     * @param Collection $artworks
      */
-    public function setArtworks(ArrayCollection $artworks): void
+    public function setArtworks(Collection $artworks): void
     {
         $this->artworks = $artworks;
     }

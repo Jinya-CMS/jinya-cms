@@ -8,13 +8,13 @@
 
 namespace Jinya\Formatter\Theme;
 
-use Jinya\Entity\Artwork\Artwork;
-use Jinya\Entity\Form\Form;
-use Jinya\Entity\Gallery\ArtGallery;
-use Jinya\Entity\Gallery\VideoGallery;
-use Jinya\Entity\Menu\Menu;
-use Jinya\Entity\Page\Page;
 use Jinya\Entity\Theme\Theme;
+use Jinya\Entity\Theme\ThemeArtGallery;
+use Jinya\Entity\Theme\ThemeArtwork;
+use Jinya\Entity\Theme\ThemeForm;
+use Jinya\Entity\Theme\ThemeMenu;
+use Jinya\Entity\Theme\ThemePage;
+use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
@@ -190,7 +190,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof Menu
+        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof int
             ? $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format()
             : [];
 
@@ -208,7 +208,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu
+        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof int
             ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format()
             : [];
 
@@ -226,7 +226,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu
+        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof int
             ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format()
             : [];
 
@@ -240,22 +240,9 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function menus(): ThemeFormatterInterface
     {
-        $this->formattedData['menus'] = $this->theme->getMenus()->map(function (Menu $menu) {
-            return $this->menuFormatter->init($menu)->id()->name();
-        })->getValues();
-
-        return $this;
-    }
-
-    /**
-     * Formats the art galleries
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function artGalleries(): ThemeFormatterInterface
-    {
-        $this->formattedData['artGalleries'] = $this->theme->getArtGalleries()->map(function (ArtGallery $gallery) {
-            return $this->artGalleryFormatter->init($gallery)->id()->name();
+        // TODO Refactor using key
+        $this->formattedData['menus'] = $this->theme->getMenus()->map(function (ThemeMenu $menu) {
+            return $this->menuFormatter->init($menu->getMenu())->id()->name()->format();
         })->getValues();
 
         return $this;
@@ -268,9 +255,10 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function videoGalleries(): ThemeFormatterInterface
     {
+        // TODO Refactor using key
         $this->formattedData['videoGalleries'] = $this->theme->getVideoGalleries()
-            ->map(function (VideoGallery $gallery) {
-                return $this->videoGalleryFormatter->init($gallery)->id()->name();
+            ->map(function (ThemeVideoGallery $gallery) {
+                return $this->videoGalleryFormatter->init($gallery->getVideoGallery())->id()->name()->format();
             })->getValues();
 
         return $this;
@@ -283,8 +271,9 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function pages(): ThemeFormatterInterface
     {
-        $this->formattedData['pages'] = $this->theme->getPages()->map(function (Page $page) {
-            return $this->pageFormatter->init($page)->id()->name();
+        // TODO Refactor using key
+        $this->formattedData['pages'] = $this->theme->getPages()->map(function (ThemePage $page) {
+            return $this->pageFormatter->init($page->getPage())->id()->name()->format();
         })->getValues();
 
         return $this;
@@ -297,8 +286,9 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function forms(): ThemeFormatterInterface
     {
-        $this->formattedData['forms'] = $this->theme->getForms()->map(function (Form $form) {
-            return $this->formFormatter->init($form)->id()->name();
+        // TODO Refactor using key
+        $this->formattedData['forms'] = $this->theme->getForms()->map(function (ThemeForm $form) {
+            return $this->formFormatter->init($form->getForm())->id()->name()->format();
         })->getValues();
 
         return $this;
@@ -311,9 +301,38 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function artworks(): ThemeFormatterInterface
     {
-        $this->formattedData['artworks'] = $this->theme->getArtworks()->map(function (Artwork $artwork) {
-            return $this->artworkFormatter->init($artwork)->id()->name();
+        // TODO Refactor using key
+        $this->formattedData['artworks'] = $this->theme->getArtworks()->map(function (ThemeArtwork $artwork) {
+            return $this->artworkFormatter->init($artwork->getArtwork())->id()->name()->format();
         })->getValues();
+
+        return $this;
+    }
+
+    /**
+     * Formats the links
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function links(): ThemeFormatterInterface
+    {
+        return $this->artGalleries()->artworks()->videoGalleries()->pages()->forms()->menus();
+    }
+
+    /**
+     * Formats the art galleries
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function artGalleries(): ThemeFormatterInterface
+    {
+        // TODO Refactor using key
+        $this->formattedData['artGalleries'] = $this
+            ->theme
+            ->getArtGalleries()
+            ->map(function (ThemeArtGallery $gallery) {
+                return $this->artGalleryFormatter->init($gallery->getArtGallery())->id()->name()->format();
+            })->getValues();
 
         return $this;
     }

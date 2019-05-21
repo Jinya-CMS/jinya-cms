@@ -14,7 +14,7 @@ class ThemeVideoGallery
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Theme\Theme")
-     * @ORM\JoinColumn(nullable=false, name="themeId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
     private $theme;
@@ -22,7 +22,7 @@ class ThemeVideoGallery
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\VideoGallery")
-     * @ORM\JoinColumn(nullable=false, name="galleryId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="video_gallery_id", referencedColumnName="id")
      * @var VideoGallery
      */
     private $videoGallery;

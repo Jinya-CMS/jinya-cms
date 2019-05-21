@@ -14,7 +14,7 @@ class ThemeArtGallery
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Theme\Theme")
-     * @ORM\JoinColumn(nullable=false, name="themeId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
     private $theme;
@@ -22,7 +22,7 @@ class ThemeArtGallery
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\ArtGallery")
-     * @ORM\JoinColumn(nullable=false, name="galleryId", referencedColumnName="id")
+     * @ORM\JoinColumn(nullable=false, name="art_gallery_id", referencedColumnName="id")
      * @var ArtGallery
      */
     private $artGallery;

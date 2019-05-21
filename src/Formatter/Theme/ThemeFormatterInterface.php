@@ -125,4 +125,11 @@ interface ThemeFormatterInterface extends FormatterInterface
      * @return ThemeFormatterInterface
      */
     public function artworks(): self;
+
+    /**
+     * Formats the links
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function links(): self;
 }
