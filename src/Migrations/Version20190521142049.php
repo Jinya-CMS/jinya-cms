@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -14,7 +16,7 @@ final class Version20190521142049 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf(
-            $this->connection->getDatabasePlatform()->getName() !== 'mysql',
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
         );
 
@@ -45,13 +47,13 @@ final class Version20190521142049 extends AbstractMigration
                 $secondaryMenu = $theme['secondary_menu_id'];
                 $footerMenu = $theme['footer_menu_id'];
 
-                if ($primaryMenu !== null) {
+                if (null !== $primaryMenu) {
                     $this->addSql("INSERT INTO theme_menu (theme_id, menu_id, name) VALUES ($id, $primaryMenu, 'primary')");
                 }
-                if ($secondaryMenu !== null) {
+                if (null !== $secondaryMenu) {
                     $this->addSql("INSERT INTO theme_menu (theme_id, menu_id, name) VALUES ($id, $secondaryMenu, 'secondary')");
                 }
-                if ($footerMenu !== null) {
+                if (null !== $footerMenu) {
                     $this->addSql("INSERT INTO theme_menu (theme_id, menu_id, name) VALUES ($id, $footerMenu, 'footer')");
                 }
             } catch (\Throwable $exception) {
@@ -64,7 +66,7 @@ final class Version20190521142049 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf(
-            $this->connection->getDatabasePlatform()->getName() !== 'mysql',
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
         );
 

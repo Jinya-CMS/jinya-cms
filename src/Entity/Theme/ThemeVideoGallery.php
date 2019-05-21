@@ -26,6 +26,7 @@ class ThemeVideoGallery
      * @var VideoGallery
      */
     private $videoGallery;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="string", nullable=false)

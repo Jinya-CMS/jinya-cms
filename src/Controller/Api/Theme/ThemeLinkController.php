@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThemeLinkController extends BaseApiController
 {
-
     /**
      * @Route("/api/theme/{themeName}/links", methods={"GET"}, name="api_theme_get_links")
      * @IsGranted("ROLE_WRITER")
