@@ -71,6 +71,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function savePage(string $key, string $themeName, string $pageSlug): void
     {
+        // TODO add event
         $page = $this->entityManager->find(Page::class, $pageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemePage();
@@ -93,6 +94,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function saveForm(string $key, string $themeName, string $formSlug): void
     {
+        // TODO add event
         $form = $this->entityManager->find(Page::class, $formSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemeForm();
@@ -115,6 +117,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function saveMenu(string $key, string $themeName, string $menuSlug): void
     {
+        // TODO add event
         $menu = $this->entityManager->find(Menu::class, $menuSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemeMenu();
@@ -137,6 +140,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function saveArtwork(string $key, string $themeName, string $artworkSlug): void
     {
+        // TODO add event
         $artwork = $this->entityManager->find(Artwork::class, $artworkSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemeArtwork();
@@ -159,6 +163,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function saveArtGallery(string $key, string $themeName, string $artGallerySlug): void
     {
+        // TODO add event
         $gallery = $this->entityManager->find(ArtGallery::class, $artGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemeArtGallery();
@@ -181,6 +186,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function saveVideoGallery(string $key, string $themeName, string $videoGallerySlug): void
     {
+        // TODO add event
         $gallery = $this->entityManager->find(VideoGallery::class, $videoGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemeVideoGallery();
