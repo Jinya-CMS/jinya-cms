@@ -8,6 +8,7 @@
 
 namespace Jinya\Entity\Theme;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Menu\Menu;
 
@@ -62,6 +63,42 @@ class Theme
     private $scssVariables;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="themeId")
+     */
+    private $menus;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtGallery", mappedBy="themeId")
+     */
+    private $artGalleries;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeVideoGallery", mappedBy="themeId")
+     */
+    private $videoGalleries;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="themeId")
+     */
+    private $pages;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="themeId")
+     */
+    private $forms;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtwork", mappedBy="themeId")
+     */
+    private $artworks;
+
+    /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
@@ -81,6 +118,115 @@ class Theme
      * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
      */
     private $footerMenu;
+
+    /**
+     * Theme constructor.
+     */
+    public function __construct()
+    {
+        $this->menus = new ArrayCollection();
+        $this->artGalleries = new ArrayCollection();
+        $this->videoGalleries = new ArrayCollection();
+        $this->pages = new ArrayCollection();
+        $this->forms = new ArrayCollection();
+        $this->artworks = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMenus(): ArrayCollection
+    {
+        return $this->menus;
+    }
+
+    /**
+     * @param ArrayCollection $menus
+     */
+    public function setMenus(ArrayCollection $menus): void
+    {
+        $this->menus = $menus;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getArtGalleries(): ArrayCollection
+    {
+        return $this->artGalleries;
+    }
+
+    /**
+     * @param ArrayCollection $artGalleries
+     */
+    public function setArtGalleries(ArrayCollection $artGalleries): void
+    {
+        $this->artGalleries = $artGalleries;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVideoGalleries(): ArrayCollection
+    {
+        return $this->videoGalleries;
+    }
+
+    /**
+     * @param ArrayCollection $videoGalleries
+     */
+    public function setVideoGalleries(ArrayCollection $videoGalleries): void
+    {
+        $this->videoGalleries = $videoGalleries;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPages(): ArrayCollection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param ArrayCollection $pages
+     */
+    public function setPages(ArrayCollection $pages): void
+    {
+        $this->pages = $pages;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getForms(): ArrayCollection
+    {
+        return $this->forms;
+    }
+
+    /**
+     * @param ArrayCollection $forms
+     */
+    public function setForms(ArrayCollection $forms): void
+    {
+        $this->forms = $forms;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getArtworks(): ArrayCollection
+    {
+        return $this->artworks;
+    }
+
+    /**
+     * @param ArrayCollection $artworks
+     */
+    public function setArtworks(ArrayCollection $artworks): void
+    {
+        $this->artworks = $artworks;
+    }
 
     /**
      * @return Menu
