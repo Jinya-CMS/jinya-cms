@@ -8,17 +8,13 @@
 
 namespace Jinya\Controller\Api\Theme;
 
-use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Formatter\Theme\ThemeFormatterInterface;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function array_key_exists;
 use function array_map;
 use function count;
 

@@ -18,7 +18,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class ThemeLinkService implements ThemeLinkServiceInterface
 {
-
     /** @var EntityManagerInterface */
     private $entityManager;
 
