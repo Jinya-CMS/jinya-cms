@@ -72,7 +72,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function savePage(string $key, string $themeName, string $pageSlug): void
     {
         // TODO add event
-        $page =  $this->entityManager->getRepository(Page::class)->findOneBy(['slug' => $pageSlug]);
+        $page = $this->entityManager->getRepository(Page::class)->findOneBy(['slug' => $pageSlug]);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemePage();
         $themePage->setPage($page);
