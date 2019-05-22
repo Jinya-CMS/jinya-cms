@@ -52,11 +52,12 @@
     async mounted() {
       if (this.isMe) {
         this.artist = getCurrentUser();
+        this.aboutMe = await JinyaRequest.get(`/api/user/${this.artist.id}/about`);
       } else {
         this.artist = await JinyaRequest.get(`/api/user/${this.$route.params.id}`);
+        this.aboutMe = await JinyaRequest.get(`/api/user/${this.$route.params.id}/about`);
       }
 
-      this.aboutMe = await JinyaRequest.get(`/api/user/${this.artist.id}/about`);
 
       DOMUtils.changeTitle(this.artist.artistName);
     },
