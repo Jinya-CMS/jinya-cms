@@ -17,6 +17,10 @@ scripts:
       - scrollhelper.dist.js
     gallery.masonry.js:
       - gallery-masonry.dist.js
+links:
+  menus:
+    primary: Kopfmenü
+    footer: Fußzeilenmenü
 defaultConfig:
   page:
     title: Jinya CMS

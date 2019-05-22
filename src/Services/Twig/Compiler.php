@@ -9,9 +9,16 @@
 namespace Jinya\Services\Twig;
 
 use Jinya\Entity\Theme\Theme;
+use Jinya\Entity\Theme\ThemeArtGallery;
+use Jinya\Entity\Theme\ThemeArtwork;
+use Jinya\Entity\Theme\ThemeForm;
+use Jinya\Entity\Theme\ThemeMenu;
+use Jinya\Entity\Theme\ThemePage;
+use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeConfigServiceInterface;
+use Jinya\Services\Theme\ThemeLinkServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -33,6 +40,9 @@ class Compiler implements CompilerInterface
     /** @var ThemeServiceInterface */
     private $themeService;
 
+    /** @var ThemeLinkServiceInterface */
+    private $themeLinkService;
+
     /** @var Environment */
     private $twig;
 
@@ -42,6 +52,7 @@ class Compiler implements CompilerInterface
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param ThemeConfigServiceInterface $themeConfigService
      * @param ThemeServiceInterface $themeService
+     * @param ThemeLinkServiceInterface $themeLinkService
      * @param Environment $twig
      */
     public function __construct(
@@ -49,12 +60,14 @@ class Compiler implements CompilerInterface
         ThemeCompilerServiceInterface $themeCompilerService,
         ThemeConfigServiceInterface $themeConfigService,
         ThemeServiceInterface $themeService,
+        ThemeLinkServiceInterface $themeLinkService,
         Environment $twig
     ) {
         $this->configurationService = $configurationService;
         $this->themeCompilerService = $themeCompilerService;
         $this->themeConfigService = $themeConfigService;
         $this->themeService = $themeService;
+        $this->themeLinkService = $themeLinkService;
         $this->twig = $twig;
     }
 
@@ -117,6 +130,42 @@ class Compiler implements CompilerInterface
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
 
         $parameters['theme']['active'] = $theme;
+        $parameters['theme']['links'] = [];
+        $links = $this->themeLinkService->getLinkConfigStructure($theme->getName());
+        foreach ($links as $linkType => $data) {
+            $parameters['theme']['links'][$linkType] = [];
+        }
+
+        foreach ($theme->getMenus() as $item) {
+            /** @var $item ThemeMenu */
+            $parameters['theme']['links']['menus'][$item->getName()] = $item->getMenu();
+        }
+
+        foreach ($theme->getPages() as $item) {
+            /** @var $item ThemePage */
+            $parameters['theme']['links']['pages'][$item->getName()] = $item->getPage();
+        }
+
+        foreach ($theme->getForms() as $item) {
+            /** @var $item ThemeForm */
+            $parameters['theme']['links']['forms'][$item->getName()] = $item->getForm();
+        }
+
+        foreach ($theme->getArtworks() as $item) {
+            /** @var $item ThemeArtwork */
+            $parameters['theme']['links']['artworks'][$item->getName()] = $item->getArtwork();
+        }
+
+        foreach ($theme->getArtGalleries() as $item) {
+            /** @var $item ThemeArtGallery */
+            $parameters['theme']['links']['artGalleries'][$item->getName()] = $item->getArtGallery();
+        }
+
+        foreach ($theme->getVideoGalleries() as $item) {
+            /** @var $item ThemeVideoGallery */
+            $parameters['theme']['links']['videoGalleries'][$item->getName()] = $item->getVideoGallery();
+        }
+
         $parameters['theme']['path'] = $this->themeService->getThemeDirectory()
             . DIRECTORY_SEPARATOR
             . $theme->getName()
