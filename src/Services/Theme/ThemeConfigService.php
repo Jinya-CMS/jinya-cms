@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Components\Arrays\ArrayUtilInterface;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Framework\Events\Theme\ThemeConfigEvent;
-use Jinya\Framework\Events\Theme\ThemeMenuEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
@@ -88,7 +87,14 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function getForms(string $name): array
     {
-        $themeYml = $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML;
+        $themeYml = sprintf(
+            '%s%s%s%s%s',
+            $this->themeService->getThemeDirectory(),
+            DIRECTORY_SEPARATOR,
+            $name,
+            DIRECTORY_SEPARATOR,
+            ThemeService::THEME_CONFIG_YML
+        );
 
         $themeData = Yaml::parseFile($themeYml);
 
@@ -105,7 +111,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         $themeConfig = $this->getThemeConfig($theme->getName());
 
         $variablesPath = $stylesPath . DIRECTORY_SEPARATOR . $themeConfig['styles']['variables']['file'];
-        $handle = fopen($variablesPath, 'r');
+        $handle = fopen($variablesPath, 'rb+');
         $variables = [];
 
         try {
@@ -136,7 +142,14 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $stylesBasePath = $themeConfig['styles_base'];
         }
 
-        return $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $stylesBasePath;
+        return sprintf(
+            '%s%s%s%s%s',
+            $this->themeService->getThemeDirectory(),
+            DIRECTORY_SEPARATOR,
+            $theme->getName(),
+            DIRECTORY_SEPARATOR,
+            $stylesBasePath
+        );
     }
 
     /**
@@ -146,7 +159,14 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     {
         $theme = $this->themeService->getTheme($name);
 
-        return Yaml::parse(file_get_contents($this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . ThemeService::THEME_CONFIG_YML));
+        return Yaml::parse(file_get_contents(sprintf(
+            '%s%s%s%s%s',
+            $this->themeService->getThemeDirectory(),
+            DIRECTORY_SEPARATOR,
+            $theme->getName(),
+            DIRECTORY_SEPARATOR,
+            ThemeService::THEME_CONFIG_YML
+        )));
     }
 
     /**
@@ -166,42 +186,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
                 ThemeVariablesEvent::POST_SAVE,
                 new ThemeVariablesEvent($name, $variables)
             );
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setMenus(string $name, array $menus): void
-    {
-        $theme = $this->themeService->getTheme($name);
-
-        $pre = $this->eventDispatcher->dispatch(ThemeMenuEvent::PRE_SAVE, new ThemeMenuEvent($name, $menus));
-        if (!$pre->isCancel()) {
-            if (array_key_exists('primary', $menus)) {
-                $primaryMenu = $menus['primary'];
-
-                if ($primaryMenu) {
-                    $theme->setPrimaryMenu('unset' === $primaryMenu ? null : $this->menuService->get($primaryMenu));
-                }
-            }
-            if (array_key_exists('secondary', $menus)) {
-                $secondaryMenu = $menus['secondary'];
-
-                if ($secondaryMenu) {
-                    $theme->setSecondaryMenu('unset' === $secondaryMenu ? null : $this->menuService->get($secondaryMenu));
-                }
-            }
-            if (array_key_exists('footer', $menus)) {
-                $footerMenu = $menus['footer'];
-
-                if ($footerMenu) {
-                    $theme->setFooterMenu('unset' === $footerMenu ? null : $this->menuService->get($footerMenu));
-                }
-            }
-
-            $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(ThemeMenuEvent::POST_SAVE, new ThemeMenuEvent($name, $menus));
         }
     }
 
@@ -263,6 +247,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             ThemeConfigEvent::PRE_SAVE,
             new ThemeConfigEvent($themeName, $config, $override)
         );
+
         if (!$pre->isCancel()) {
             $theme = $this->themeService->getThemeOrNewTheme($themeName);
             $themeConfig = $this->getThemeConfig($theme->getName());

@@ -8,9 +8,13 @@
 
 namespace Jinya\Formatter\Theme;
 
-use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Theme\Theme;
+use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
+use Jinya\Formatter\Form\FormFormatterInterface;
+use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
+use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
+use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function array_key_exists;
 
@@ -28,15 +32,47 @@ class ThemeFormatter implements ThemeFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
+    /** @var ArtworkFormatterInterface */
+    private $artworkFormatter;
+
+    /** @var ArtGalleryFormatterInterface */
+    private $artGalleryFormatter;
+
+    /** @var VideoGalleryFormatterInterface */
+    private $videoGalleryFormatter;
+
+    /** @var PageFormatterInterface */
+    private $pageFormatter;
+
+    /** @var FormFormatterInterface */
+    private $formFormatter;
+
     /**
      * ThemeFormatter constructor.
      * @param MenuFormatterInterface $menuFormatter
      * @param UrlGeneratorInterface $urlGenerator
+     * @param ArtworkFormatterInterface $artworkFormatter
+     * @param ArtGalleryFormatterInterface $artGalleryFormatter
+     * @param VideoGalleryFormatterInterface $videoGalleryFormatter
+     * @param PageFormatterInterface $pageFormatter
+     * @param FormFormatterInterface $formFormatter
      */
-    public function __construct(MenuFormatterInterface $menuFormatter, UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        MenuFormatterInterface $menuFormatter,
+        UrlGeneratorInterface $urlGenerator,
+        ArtworkFormatterInterface $artworkFormatter,
+        ArtGalleryFormatterInterface $artGalleryFormatter,
+        VideoGalleryFormatterInterface $videoGalleryFormatter,
+        PageFormatterInterface $pageFormatter,
+        FormFormatterInterface $formFormatter
+    ) {
         $this->menuFormatter = $menuFormatter;
         $this->urlGenerator = $urlGenerator;
+        $this->artworkFormatter = $artworkFormatter;
+        $this->artGalleryFormatter = $artGalleryFormatter;
+        $this->videoGalleryFormatter = $videoGalleryFormatter;
+        $this->pageFormatter = $pageFormatter;
+        $this->formFormatter = $formFormatter;
     }
 
     /**
@@ -148,7 +184,9 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format() : [];
+        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof int
+            ? $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format()
+            : [];
 
         return $this;
     }
@@ -164,7 +202,9 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format() : [];
+        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof int
+            ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format()
+            : [];
 
         return $this;
     }
@@ -180,7 +220,144 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format() : [];
+        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof int
+            ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format()
+            : [];
+
+        return $this;
+    }
+
+    /**
+     * Formats the menus
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function menus(): ThemeFormatterInterface
+    {
+        $this->formattedData['menus'] = [];
+        foreach ($this->theme->getMenus() as $menu) {
+            $this->formattedData['menus'][$menu->getName()] = $this
+                ->menuFormatter
+                ->init($menu->getMenu())
+                ->id()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the video galleries
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function videoGalleries(): ThemeFormatterInterface
+    {
+        $this->formattedData['videoGalleries'] = [];
+        foreach ($this->theme->getVideoGalleries() as $videoGallery) {
+            $this->formattedData['videoGalleries'][$videoGallery->getName()] = $this
+                ->videoGalleryFormatter
+                ->init($videoGallery->getVideoGallery())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the pages
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function pages(): ThemeFormatterInterface
+    {
+        $this->formattedData['pages'] = [];
+        foreach ($this->theme->getPages() as $page) {
+            $this->formattedData['pages'][$page->getName()] = $this
+                ->pageFormatter
+                ->init($page->getPage())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the forms
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function forms(): ThemeFormatterInterface
+    {
+        $this->formattedData['forms'] = [];
+        foreach ($this->theme->getForms() as $form) {
+            $this->formattedData['forms'][$form->getName()] = $this
+                ->formFormatter
+                ->init($form->getForm())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the artworks
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function artworks(): ThemeFormatterInterface
+    {
+        $this->formattedData['artworks'] = [];
+        foreach ($this->theme->getArtworks() as $artwork) {
+            $this->formattedData['artworks'][$artwork->getName()] = $this
+                ->artworkFormatter
+                ->init($artwork->getArtwork())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the links
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function links(): ThemeFormatterInterface
+    {
+        return $this->artGalleries()->artworks()->videoGalleries()->pages()->forms()->menus();
+    }
+
+    /**
+     * Formats the art galleries
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function artGalleries(): ThemeFormatterInterface
+    {
+        $this->formattedData['artGalleries'] = [];
+        foreach ($this->theme->getArtGalleries() as $artGallery) {
+            $this->formattedData['artGalleries'][$artGallery->getName()] = $this
+                ->artGalleryFormatter
+                ->init($artGallery->getArtGallery())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }

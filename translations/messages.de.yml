@@ -417,14 +417,16 @@ configuration:
         loading_variables: Die Variablen für das Theme %displayName% werden geladen
         save: Variablen speichern
         cancel: Zurück
-      menus:
-        primary: Primäres Menü
-        secondary: Sekundäres Menü
-        footer: Footer Menü
-        please_choose: Kein Menü
-        saving: Die Menüs für das Theme %displayName% werden gespeichert
-        saved: Die Menüs für das Theme %displayName% wurden gespeichert
-        save: Menüs speichern
+      links:
+        saving: Die Links für das Theme %displayName% werden gespeichert
+        saved: Die Link für das Theme %displayName% wurden gespeichert
+        no_structure_found: Es wurden keine Links in der Themekonfiguration gefunden
+        art_galleries: Kunstgallerien
+        video_galleries: Kunstgallerien
+        menus: Menüs
+        pages: Seiten
+        forms: Formulare
+        save: Links speichern
         cancel: Zurück
       configuration:
         title: Variablen für %displayName%

@@ -111,6 +111,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
+        $this->clearCache();
         $this->themeSyncService->syncThemes();
         $routes = $this->getRoutesFromTheme();
 

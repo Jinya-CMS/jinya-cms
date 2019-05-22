@@ -34,7 +34,7 @@ class LikeController extends BaseApiController
             /** @var User $user */
             $user = $this->getUser();
             $like = [
-                'who' => $user->getFirstname(),
+                'who' => $user->getArtistName(),
                 'message' => $this->getValue('message', null),
             ];
 

@@ -1,7 +1,7 @@
 {% block menu %}
-    {% if theme.active.primaryMenu is defined and theme.active.primaryMenu is not null %}
+    {% if theme.links.menus.primary is defined and theme.links.menus.primary is not null %}
         <ul class="jinya-menu">
-            {% set activeMenuItem = getActiveMenuItem(theme.active.primaryMenu) %}
+            {% set activeMenuItem = getActiveMenuItem(theme.links.menus.primary) %}
             {% if activeMenuItem and activeMenuItem.parent is not empty %}
                 <li class="jinya-menu__item has--back-arrow ">
                     <a class="jinya-menu__back-arrow"></a>
@@ -11,7 +11,7 @@
                     <a class="jinya-menu__back-arrow"></a>
                 </li>
             {% endif %}
-            {% for item in theme.active.primaryMenu.menuItems %}
+            {% for item in theme.links.menus.primary.menuItems %}
                 {% include '@Theme/jinya-default-theme/include/menu/item.html.twig' with {'item': item, 'activeMenuItem': activeMenuItem} %}
             {% endfor %}
         </ul>
