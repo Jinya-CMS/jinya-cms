@@ -137,32 +137,32 @@ class Compiler implements CompilerInterface
         }
 
         foreach ($theme->getMenus() as $item) {
-            /** @var $item ThemeMenu */
+            /* @var $item ThemeMenu */
             $parameters['theme']['links']['menus'][$item->getName()] = $item->getMenu();
         }
 
         foreach ($theme->getPages() as $item) {
-            /** @var $item ThemePage */
+            /* @var $item ThemePage */
             $parameters['theme']['links']['pages'][$item->getName()] = $item->getPage();
         }
 
         foreach ($theme->getForms() as $item) {
-            /** @var $item ThemeForm */
+            /* @var $item ThemeForm */
             $parameters['theme']['links']['forms'][$item->getName()] = $item->getForm();
         }
 
         foreach ($theme->getArtworks() as $item) {
-            /** @var $item ThemeArtwork */
+            /* @var $item ThemeArtwork */
             $parameters['theme']['links']['artworks'][$item->getName()] = $item->getArtwork();
         }
 
         foreach ($theme->getArtGalleries() as $item) {
-            /** @var $item ThemeArtGallery */
+            /* @var $item ThemeArtGallery */
             $parameters['theme']['links']['artGalleries'][$item->getName()] = $item->getArtGallery();
         }
 
         foreach ($theme->getVideoGalleries() as $item) {
-            /** @var $item ThemeVideoGallery */
+            /* @var $item ThemeVideoGallery */
             $parameters['theme']['links']['videoGalleries'][$item->getName()] = $item->getVideoGallery();
         }
 
