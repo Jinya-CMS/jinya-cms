@@ -63,7 +63,7 @@ class ThemeLinkController extends BaseApiController
      * @param ThemeLinkServiceInterface $themeLinkService
      * @return Response
      */
-    public function postMenusAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
+    public function putMenusAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
     {
         [$data, $status] = $this->tryExecute(function () use ($themeName, $themeLinkService) {
             $menus = $this->getValue('menus', []);
@@ -73,28 +73,40 @@ class ThemeLinkController extends BaseApiController
             $artGalleries = $this->getValue('artGalleries', []);
             $videoGalleries = $this->getValue('videoGalleries', []);
 
-            foreach ($menus as $menu) {
-                $themeLinkService->saveMenu($menu['key'], $themeName, $menu['slug']);
+            foreach ($menus as $key => $menu) {
+                if (array_key_exists('slug', $menu)) {
+                    $themeLinkService->saveMenu($key, $themeName, $menu['slug']);
+                }
             }
 
-            foreach ($pages as $page) {
-                $themeLinkService->savePage($page['key'], $themeName, $page['slug']);
+            foreach ($pages as $key => $page) {
+                if (array_key_exists('slug', $page)) {
+                    $themeLinkService->savePage($key, $themeName, $page['slug']);
+                }
             }
 
-            foreach ($forms as $form) {
-                $themeLinkService->saveForm($form['key'], $themeName, $form['slug']);
+            foreach ($forms as $key => $form) {
+                if (array_key_exists('slug', $form)) {
+                    $themeLinkService->saveForm($key, $themeName, $form['slug']);
+                }
             }
 
-            foreach ($artworks as $artwork) {
-                $themeLinkService->saveMenu($artwork['key'], $themeName, $artwork['slug']);
+            foreach ($artworks as $key => $artwork) {
+                if (array_key_exists('slug', $artwork)) {
+                    $themeLinkService->saveArtwork($key, $themeName, $artwork['slug']);
+                }
             }
 
-            foreach ($artGalleries as $artGallery) {
-                $themeLinkService->saveMenu($artGallery['key'], $themeName, $artGallery['slug']);
+            foreach ($artGalleries as $key => $artGallery) {
+                if (array_key_exists('slug', $artGallery)) {
+                    $themeLinkService->saveArtGallery($key, $themeName, $artGallery['slug']);
+                }
             }
 
-            foreach ($videoGalleries as $videoGallery) {
-                $themeLinkService->saveMenu($videoGallery['key'], $themeName, $videoGallery['slug']);
+            foreach ($videoGalleries as $key => $videoGallery) {
+                if (array_key_exists('slug', $videoGallery)) {
+                    $themeLinkService->saveVideoGallery($key, $themeName, $videoGallery['slug']);
+                }
             }
         }, Response::HTTP_NO_CONTENT);
 

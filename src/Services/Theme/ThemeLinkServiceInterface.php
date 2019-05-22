@@ -35,9 +35,9 @@ interface ThemeLinkServiceInterface
      *
      * @param string $key
      * @param string $themeName
-     * @param string $menuSlug
+     * @param int $menuId
      */
-    public function saveMenu(string $key, string $themeName, string $menuSlug): void;
+    public function saveMenu(string $key, string $themeName, int $menuId): void;
 
     /**
      * Links the given artwork with the given theme

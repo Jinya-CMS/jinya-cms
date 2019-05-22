@@ -9,12 +9,6 @@
 namespace Jinya\Formatter\Theme;
 
 use Jinya\Entity\Theme\Theme;
-use Jinya\Entity\Theme\ThemeArtGallery;
-use Jinya\Entity\Theme\ThemeArtwork;
-use Jinya\Entity\Theme\ThemeForm;
-use Jinya\Entity\Theme\ThemeMenu;
-use Jinya\Entity\Theme\ThemePage;
-use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
@@ -240,10 +234,15 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function menus(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['menus'] = $this->theme->getMenus()->map(function (ThemeMenu $menu) {
-            return $this->menuFormatter->init($menu->getMenu())->id()->name()->format();
-        })->getValues();
+        $this->formattedData['menus'] = [];
+        foreach ($this->theme->getMenus() as $menu) {
+            $this->formattedData['menus'][$menu->getName()] = $this
+                ->menuFormatter
+                ->init($menu->getMenu())
+                ->id()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }
@@ -255,11 +254,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function videoGalleries(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['videoGalleries'] = $this->theme->getVideoGalleries()
-            ->map(function (ThemeVideoGallery $gallery) {
-                return $this->videoGalleryFormatter->init($gallery->getVideoGallery())->id()->name()->format();
-            })->getValues();
+        $this->formattedData['videoGalleries'] = [];
+        foreach ($this->theme->getVideoGalleries() as $videoGallery) {
+            $this->formattedData['videoGalleries'][$videoGallery->getName()] = $this
+                ->videoGalleryFormatter
+                ->init($videoGallery->getVideoGallery())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }
@@ -271,10 +275,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function pages(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['pages'] = $this->theme->getPages()->map(function (ThemePage $page) {
-            return $this->pageFormatter->init($page->getPage())->id()->name()->format();
-        })->getValues();
+        $this->formattedData['pages'] = [];
+        foreach ($this->theme->getPages() as $page) {
+            $this->formattedData['pages'][$page->getName()] = $this
+                ->pageFormatter
+                ->init($page->getPage())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }
@@ -286,10 +296,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function forms(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['forms'] = $this->theme->getForms()->map(function (ThemeForm $form) {
-            return $this->formFormatter->init($form->getForm())->id()->name()->format();
-        })->getValues();
+        $this->formattedData['forms'] = [];
+        foreach ($this->theme->getForms() as $form) {
+            $this->formattedData['forms'][$form->getName()] = $this
+                ->formFormatter
+                ->init($form->getForm())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }
@@ -301,10 +317,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function artworks(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['artworks'] = $this->theme->getArtworks()->map(function (ThemeArtwork $artwork) {
-            return $this->artworkFormatter->init($artwork->getArtwork())->id()->name()->format();
-        })->getValues();
+        $this->formattedData['artworks'] = [];
+        foreach ($this->theme->getArtworks() as $artwork) {
+            $this->formattedData['artworks'][$artwork->getName()] = $this
+                ->artworkFormatter
+                ->init($artwork->getArtwork())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }
@@ -326,13 +348,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function artGalleries(): ThemeFormatterInterface
     {
-        // TODO Refactor using key
-        $this->formattedData['artGalleries'] = $this
-            ->theme
-            ->getArtGalleries()
-            ->map(function (ThemeArtGallery $gallery) {
-                return $this->artGalleryFormatter->init($gallery->getArtGallery())->id()->name()->format();
-            })->getValues();
+        $this->formattedData['artGalleries'] = [];
+        foreach ($this->theme->getArtGalleries() as $artGallery) {
+            $this->formattedData['artGalleries'][$artGallery->getName()] = $this
+                ->artGalleryFormatter
+                ->init($artGallery->getArtGallery())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
 
         return $this;
     }

@@ -418,9 +418,14 @@ configuration:
         save: Variablen speichern
         cancel: Zurück
       links:
-        saving: Die Menüs für das Theme %displayName% werden gespeichert
-        saved: Die Menüs für das Theme %displayName% wurden gespeichert
+        saving: Die Links für das Theme %displayName% werden gespeichert
+        saved: Die Link für das Theme %displayName% wurden gespeichert
         no_structure_found: Es wurden keine Links in der Themekonfiguration gefunden
+        art_galleries: Kunstgallerien
+        video_galleries: Kunstgallerien
+        menus: Menüs
+        pages: Seiten
+        forms: Formulare
         save: Links speichern
         cancel: Zurück
       configuration:
