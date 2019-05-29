@@ -65,7 +65,7 @@
     "symfony/css-selector": "4.2.8",
     "symfony/maker-bundle": "1.11.6",
     "symfony/profiler-pack": "1.0.4",
-    "symfony/web-server-bundle": "4.2.8"
+    "symfony/web-server-bundle": "4.2.9"
   },
   "config": {
     "preferred-install": {
