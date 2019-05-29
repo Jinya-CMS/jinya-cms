@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1822a294da3fda4fa7ef891099a2c25",
+    "content-hash": "d0622c6227403626de6d0ed55f096b5e",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2757,7 +2757,7 @@
         },
         {
             "name": "symfony/asset",
-            "version": "v4.2.8",
+            "version": "v4.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",
