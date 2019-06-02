@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-class InstallCommand extends Command
+class CreateDbCommand extends Command
 {
     /** @var DatabaseMigratorInterface */
     private $databaseMigrator;
