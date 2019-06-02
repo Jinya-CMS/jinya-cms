@@ -44,6 +44,10 @@ class CountEvent extends Event
 
     public const VIDEOS_POST_COUNT = 'VideosPostCount';
 
+    public const SEGMENT_PAGES_PRE_COUNT = 'SegmentPagesPreCount';
+
+    public const SEGMENT_PAGES_POST_COUNT = 'SegmentPagesPostCount';
+
     /** @var string */
     private $keyword;
 
