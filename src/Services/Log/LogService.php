@@ -10,6 +10,7 @@ namespace Jinya\Services\Log;
 
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
 use Jinya\Entity\Logging\LogEntry;
@@ -40,8 +41,14 @@ class LogService implements LogServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array
-    {
+    public function getAll(
+        int $offset = 0,
+        int $count = 20,
+        $sortBy = 'createdAt',
+        $sortOrder = 'desc',
+        $level = 'info',
+        $filter = ''
+    ): array {
         $queryBuilder = $this->getFilterQueryBuilder($level, $filter)
             ->setMaxResults($count)
             ->setFirstResult($offset);
@@ -56,11 +63,10 @@ class LogService implements LogServiceInterface
     }
 
     /**
-     * Gets a @see QueryBuilder filtered by level and filter
-     *
-     * @param string $level
+     * Gets a @param string $level
      * @param string $filter
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
+     * @see QueryBuilder filtered by level and filter
      */
     private function getFilterQueryBuilder(string $level, string $filter)
     {
@@ -92,7 +98,7 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(): int
     {
@@ -107,7 +113,7 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countFiltered(string $level, string $filter): int
     {

@@ -101,6 +101,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jinya/profiling-bundle": {
+        "version": "0.5.0"
+    },
     "leafo/scssphp": {
         "version": "v0.7.6"
     },
@@ -154,6 +157,18 @@
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "phpcs.xml.dist"
+        ]
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.0.2"
@@ -299,6 +314,9 @@
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
     },
+    "symfony/polyfill-php73": {
+        "version": "v1.10.0"
+    },
     "symfony/process": {
         "version": "v4.0.4"
     },
@@ -320,9 +338,6 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
-    "symfony/security": {
-        "version": "v4.1.0"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -332,8 +347,17 @@
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
+    "symfony/security-core": {
+        "version": "v4.2.8"
+    },
     "symfony/security-csrf": {
         "version": "v4.0.4"
+    },
+    "symfony/security-guard": {
+        "version": "v4.2.8"
+    },
+    "symfony/security-http": {
+        "version": "v4.2.8"
     },
     "symfony/serializer": {
         "version": "v4.0.4"
@@ -402,6 +426,15 @@
             "branch": "master",
             "version": "3.3",
             "ref": "c72d107d077f1654428edaed69415d0228c1aefe"
+        }
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "9aea6366d216792824dc4985fc56617fabdaf82b"
         }
     },
     "symfony/yaml": {

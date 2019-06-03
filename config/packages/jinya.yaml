@@ -1,4 +1,8 @@
 parameters:
-    mailer_sender: '%env(MAILER_SENDER)%'
-    jinya_version: 7.0.0
-    jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
+  mailer_sender: '%env(MAILER_SENDER)%'
+  jinya_version: 8.0.0
+  jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
+  jinya_gallery.profiler.out_dir: '%kernel.project_dir%/var/profiler'
+  jinya_gallery.theme.directory: '%kernel.project_dir%/themes'
+  jinya_gallery.migrations_table_name: migration_versions
+  jinya_gallery.migrations_namespace: DoctrineMigrations

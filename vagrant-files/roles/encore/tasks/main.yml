@@ -1,0 +1,13 @@
+---
+- name: Copy encore service
+  copy:
+    src: /vagrant/vagrant-files/roles/encore/files/encore.service
+    dest: /etc/systemd/system/encore.service
+    mode: o=rwx,g=x,u=x
+  become: yes
+- name: Create and start encore service
+  service:
+    state: started
+    name: encore
+    enabled: yes
+  become: yes

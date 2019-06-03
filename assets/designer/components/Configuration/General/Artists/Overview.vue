@@ -2,69 +2,74 @@
   <div class="jinya-artist-overview">
     <jinya-loader :loading="loading" v-if="loading"/>
     <jinya-card-list nothing-found="configuration.general.artists.overview.nothing_found" v-else>
-      <jinya-card v-for="artist in artists" :key="artist.email" class="jinya-artist"
-                  :header="`${artist.firstname} ${artist.lastname}`">
-        <img class="jinya-artist__profile-picture" :src="artist.profilePicture"/>
-        <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage" type="details"
+      <jinya-card :header="`${artist.artistName}`" :key="artist.email" class="jinya-artist"
+                  v-for="artist in artists">
+        <img :src="artist.profilePicture" class="jinya-artist__profile-picture"/>
+        <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage"
                            :to="{name: artist.me ? profileRoute : detailsRoute, params: {id: artist.id}}"
                            icon="account-card-details"
-                           slot="footer"/>
-        <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage" type="edit"
-                           :to="{name: editRoute, params: {id: artist.id}}" icon="account-edit"
-                           v-if="!artist.me" slot="footer"/>
-        <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" type="edit"
-                           icon="account-check" @click="showEnable(artist)" v-if="!artist.me"
-                           v-show="!artist.enabled" slot="footer"/>
-        <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage" type="delete"
-                           icon="account-off" @click="showDisable(artist)" v-if="artist.deletable"
-                           v-show="artist.enabled" slot="footer"/>
-        <jinya-card-button :title="'configuration.general.artists.overview.delete'|jmessage" type="delete"
-                           icon="account-remove" @click="showDelete(artist)"
-                           v-if="artist.deletable" slot="footer"/>
+                           slot="footer"
+                           type="details"/>
+        <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage"
+                           :to="{name: editRoute, params: {id: artist.id}}"
+                           icon="account-edit" slot="footer"
+                           type="edit" v-if="!artist.me"/>
+        <jinya-card-button :title="'configuration.general.artists.overview.enable'|jmessage" @click="showEnable(artist)"
+                           icon="account-check" slot="footer" type="edit"
+                           v-if="!artist.me" v-show="!artist.enabled"/>
+        <jinya-card-button :title="'configuration.general.artists.overview.disable'|jmessage"
+                           @click="showDisable(artist)"
+                           icon="account-off" slot="footer" type="delete"
+                           v-if="artist.deletable" v-show="artist.enabled"/>
+        <jinya-card-button :title="'configuration.general.artists.overview.delete'|jmessage" @click="showDelete(artist)"
+                           icon="account-remove" slot="footer"
+                           type="delete" v-if="artist.deletable"/>
       </jinya-card>
     </jinya-card-list>
     <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
-    <jinya-modal @close="closeDeleteModal()" v-if="this.delete.show" :loading="this.delete.loading"
-                 :title="'configuration.general.artists.delete.title'|jmessage(selectedArtist)">
-      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                     slot="message">
+    <jinya-modal :loading="this.delete.loading"
+                 :title="'configuration.general.artists.delete.title'|jmessage(selectedArtist)"
+                 @close="closeDeleteModal()"
+                 v-if="this.delete.show">
+      <jinya-message :message="this.delete.error" slot="message" state="error"
+                     v-if="this.delete.error && !this.delete.loading">
         <jinya-message-action-bar v-if="this.delete.creator">
-          <jinya-button label="configuration.general.artists.delete.disable" :is-danger="true"
-                        @click="deactivate"/>
+          <jinya-button :is-danger="true" @click="deactivate"
+                        label="configuration.general.artists.delete.disable"/>
         </jinya-message-action-bar>
       </jinya-message>
-      {{'configuration.general.artists.delete.message'|jmessage(selectedArtist )}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.general.artists.delete.no"
-                          :closes-modal="true" :is-disabled="this.delete.loading"/>
-      <jinya-modal-button :is-danger="true" slot="buttons-right" label="configuration.general.artists.delete.yes"
-                          @click="remove" :is-disabled="this.delete.loading"/>
+      {{'configuration.general.artists.delete.message'|jmessage(selectedArtist)}}
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                          label="configuration.general.artists.delete.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                          label="configuration.general.artists.delete.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-modal @close="closeEnableModal()"
+    <jinya-modal :loading="this.enable.loading"
                  :title="'configuration.general.artists.enable.title'|jmessage(selectedArtist)"
-                 v-if="this.enable.show" :loading="this.enable.loading">
-      <jinya-message :message="this.enable.error" state="error" v-if="this.enable.error && !this.enable.loading"
-                     slot="message"/>
+                 @close="closeEnableModal()" v-if="this.enable.show">
+      <jinya-message :message="this.enable.error" slot="message" state="error"
+                     v-if="this.enable.error && !this.enable.loading"/>
       {{'configuration.general.artists.enable.message'|jmessage(selectedArtist )}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="configuration.general.artists.enable.no"
-                          :closes-modal="true" :is-disabled="this.enable.loading"/>
-      <jinya-modal-button :is-success="true" slot="buttons-right" label="configuration.general.artists.enable.yes"
-                          @click="activate" :is-disabled="this.enable.loading"/>
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.enable.loading" :is-secondary="true"
+                          label="configuration.general.artists.enable.no" slot="buttons-left"/>
+      <jinya-modal-button :is-disabled="this.enable.loading" :is-success="true" @click="activate"
+                          label="configuration.general.artists.enable.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-modal @close="closeDisableModal()"
+    <jinya-modal :loading="this.disable.loading"
                  :title="'configuration.general.artists.disable.title'|jmessage(selectedArtist)"
-                 v-if="this.disable.show" :loading="this.disable.loading">
-      <jinya-message :message="this.disable.error" state="error"
-                     v-if="this.disable.error && !this.disable.loading"
-                     slot="message"/>
+                 @close="closeDisableModal()" v-if="this.disable.show">
+      <jinya-message :message="this.disable.error" slot="message"
+                     state="error"
+                     v-if="this.disable.error && !this.disable.loading"/>
       {{'configuration.general.artists.disable.message'|jmessage(selectedArtist )}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left"
-                          label="configuration.general.artists.disable.no"
-                          :closes-modal="true" :is-disabled="this.disable.loading"/>
-      <jinya-modal-button :is-danger="true" slot="buttons-right"
-                          label="configuration.general.artists.disable.yes"
-                          @click="deactivate" :is-disabled="this.disable.loading"/>
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.disable.loading"
+                          :is-secondary="true"
+                          label="configuration.general.artists.disable.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.disable.loading"
+                          @click="deactivate"
+                          label="configuration.general.artists.disable.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-floating-action-button icon="account-plus" :is-primary="true" :to="addRoute"/>
+    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="account-plus"/>
   </div>
 </template>
 
@@ -126,8 +131,9 @@
         artists: [],
         loading: true,
         selectedArtist: {
-          firstname: '',
-          lastname: '',
+          artistName: '',
+          id: '',
+          email: '',
         },
         delete: {
           loading: false,
@@ -275,7 +281,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-artist__profile-picture {
     height: 100%;
     width: 100%;

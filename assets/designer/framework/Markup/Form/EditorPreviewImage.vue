@@ -1,5 +1,5 @@
 <template>
-  <img class="jinya-form__preview-image" :src="imgSrc"/>
+  <img :src="imgSrc" class="jinya-form__preview-image"/>
 </template>
 
 <script>
@@ -26,7 +26,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-form__preview-image {
     width: 100%;
     max-height: 35em;

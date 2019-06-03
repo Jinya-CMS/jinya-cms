@@ -34,8 +34,11 @@ class ConfigurationService implements ConfigurationServiceInterface
      * @param ThemeServiceInterface $themeService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, ThemeServiceInterface $themeService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ThemeServiceInterface $themeService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->themeService = $themeService;
         $this->eventDispatcher = $eventDispatcher;

@@ -43,8 +43,12 @@ class MenuCacheSubscriber implements EventSubscriberInterface
      * @param MenuService $menuService
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(ConfigurationServiceInterface $configService, CacheBuilderInterface $cacheBuilder, MenuService $menuService, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        ConfigurationServiceInterface $configService,
+        CacheBuilderInterface $cacheBuilder,
+        MenuService $menuService,
+        EntityManagerInterface $entityManager
+    ) {
         $this->configService = $configService;
         $this->cacheBuilder = $cacheBuilder;
         $this->menuService = $menuService;
@@ -80,13 +84,13 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onMenuFillFromArray(MenuFillFromArrayEvent $event)
+    public function onMenuFillFromArray(MenuFillFromArrayEvent $event): void
     {
         $menu = $this->menuService->get($event->getId());
         $this->compileCache($menu);
     }
 
-    private function compileCache(Menu $menu)
+    private function compileCache(Menu $menu): void
     {
         $config = $this->configService->getConfig();
         $primaryMenu = $config->getCurrentTheme()->getPrimaryMenu();
@@ -98,19 +102,20 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         $footerMenu = $config->getCurrentTheme()->getFooterMenu();
         $footerId = $footerMenu ? $footerMenu->getId() : -1;
 
-        if ($menu->getId() === $primaryId || $menu->getId() === $secondaryId || $menu->getId() === $footerId) {
+        $menuId = $menu->getId();
+        if ($menuId === $primaryId || $menuId === $secondaryId || $menuId === $footerId) {
             @$this->cacheBuilder->clearCache();
             $this->cacheBuilder->buildCache();
         }
     }
 
-    public function onMenuItemAdd(MenuSaveEvent $event)
+    public function onMenuItemAdd(MenuSaveEvent $event): void
     {
         $menu = $event->getMenu();
         $this->compileCache($menu);
     }
 
-    public function onMenuItemRemove(MenuItemRemoveEvent $event)
+    public function onMenuItemRemove(MenuItemRemoveEvent $event): void
     {
         if (MenuItemServiceInterface::MENU === $event->getType()) {
             $menu = $this->menuService->get($event->getParentId());
@@ -140,7 +145,7 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         return $this->findMenu($ids['parentId']);
     }
 
-    public function onMenuItemUpdate(MenuItemUpdateEvent $event)
+    public function onMenuItemUpdate(MenuItemUpdateEvent $event): void
     {
         if ($event->getItem()->getMenu()) {
             $menu = $event->getItem()->getMenu();
@@ -151,7 +156,7 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         $this->compileCache($menu);
     }
 
-    public function onMenuSave(MenuSaveEvent $event)
+    public function onMenuSave(MenuSaveEvent $event): void
     {
         $this->compileCache($event->getMenu());
     }

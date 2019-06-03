@@ -56,7 +56,7 @@ interface UserServiceInterface
     /**
      * Creates a user
      *
-     * @param \Jinya\Entity\Artist\User $user
+     * @param User $user
      * @param bool $ignorePassword
      * @return User
      */
@@ -66,7 +66,7 @@ interface UserServiceInterface
      * Activates the given user
      *
      * @param int $id
-     * @return \Jinya\Entity\Artist\User
+     * @return User
      */
     public function activate(int $id): User;
 

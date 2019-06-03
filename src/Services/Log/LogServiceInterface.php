@@ -22,7 +22,14 @@ interface LogServiceInterface
      * @param string $filter
      * @return array
      */
-    public function getAll(int $offset = 0, int $count = 20, $sortBy = 'createdAt', $sortOrder = 'desc', $level = 'info', $filter = ''): array;
+    public function getAll(
+        int $offset = 0,
+        int $count = 20,
+        $sortBy = 'createdAt',
+        $sortOrder = 'desc',
+        $level = 'info',
+        $filter = ''
+    ): array;
 
     /**
      * Finds the log message for the given id

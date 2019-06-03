@@ -1,5 +1,5 @@
 <template>
-  <jinya-artwork-form @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-artwork-form :enable="enable" :message="message" :state="state" @save="save"/>
 </template>
 
 <script>
@@ -31,14 +31,13 @@
           this.state = 'loading';
           this.message = Translator.message('art.artworks.add.saving', artwork);
 
-          await JinyaRequest.post('/api/artwork', {
+          const savedData = await JinyaRequest.post('/api/artwork', {
             name: artwork.name,
-            slug: artwork.slug,
             description: artwork.description,
           });
 
           this.message = Translator.message('art.artworks.add.uploading', artwork);
-          await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
+          await JinyaRequest.upload(`/api/artwork/${savedData.slug}/picture?conversionType=${artwork.type}`, picture);
 
           this.state = 'success';
           this.message = Translator.message('art.artworks.add.success', artwork);

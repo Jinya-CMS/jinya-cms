@@ -1,6 +1,6 @@
 <template>
-  <jinya-gallery-form :back-target="backRoute" :gallery="gallery" @save="save" :enable="enable" :message="message"
-                      :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" :enable="enable" :gallery="gallery" :message="message" :state="state"
+                      @save="save"/>
 </template>
 
 <script>
@@ -29,7 +29,6 @@
         gallery: {
           background: '',
           name: '',
-          slug: '',
           description: '',
         },
       };
@@ -58,16 +57,15 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.edit.saving', { name: gallery.name });
 
-          await JinyaRequest.put(`/api/gallery/video/${this.$route.params.slug}`, {
+          await JinyaRequest.put(`/api/gallery/video/${this.gallery.slug}`, {
             name: gallery.name,
-            slug: gallery.slug,
             description: gallery.description,
             orientation: gallery.orientation,
           });
 
           if (background) {
             this.message = Translator.message('art.galleries.edit.uploading', { name: gallery.name });
-            await JinyaRequest.upload(`/api/gallery/video/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/video/${this.gallery.slug}/background`, background);
           }
 
           this.state = 'success';

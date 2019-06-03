@@ -27,8 +27,11 @@ class AssetsController extends BaseApiController
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @return Response
      */
-    public function compileAssetsAction(string $area, ConfigurationServiceInterface $configurationService, ThemeCompilerServiceInterface $themeCompilerService): Response
-    {
+    public function compileAssetsAction(
+        string $area,
+        ConfigurationServiceInterface $configurationService,
+        ThemeCompilerServiceInterface $themeCompilerService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($area, $configurationService, $themeCompilerService) {
             $config = $configurationService->getConfig();
             $method = "getCurrent${area}Theme()";

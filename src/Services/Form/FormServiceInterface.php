@@ -13,10 +13,9 @@ use Jinya\Entity\Form\Form;
 interface FormServiceInterface
 {
     /**
-     * Gets the specified @see Form by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Form
+     * @see Form by slug
      */
     public function get(string $slug): Form;
 
@@ -39,17 +38,15 @@ interface FormServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or updates the given @see Form
-     *
-     * @param Form $form
-     * @return \Jinya\Entity\Form\Form
+     * Saves or updates the given @param Form $form
+     * @return Form
+     * @see Form
      */
     public function saveOrUpdate(Form $form): Form;
 
     /**
-     * Deletes the given @see Form
-     *
-     * @param Form $form
+     * Deletes the given @param Form $form
+     * @see Form
      */
     public function delete(Form $form): void;
 }

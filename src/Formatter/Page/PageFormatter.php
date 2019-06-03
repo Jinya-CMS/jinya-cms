@@ -16,7 +16,7 @@ class PageFormatter implements PageFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var \Jinya\Entity\Page\Page */
+    /** @var Page */
     private $page;
 
     /** @var UserFormatterInterface */
@@ -32,9 +32,8 @@ class PageFormatter implements PageFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -44,7 +43,7 @@ class PageFormatter implements PageFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Page\Page $page
+     * @param Page $page
      * @return PageFormatterInterface
      */
     public function init(Page $page): PageFormatterInterface

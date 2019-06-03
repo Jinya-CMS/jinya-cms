@@ -53,4 +53,11 @@ interface ThemeServiceInterface
      * @return string
      */
     public function getThemeDirectory(): string;
+
+    /**
+     * Updates the theme
+     *
+     * @param Theme $theme
+     */
+    public function update(Theme $theme): void;
 }

@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable max-len -->
   <div class="jinya-theme-configuration">
     <jinya-message :message="message" :state="state"/>
     <jinya-form :enable="!loading" @back="back" @submit="save"
@@ -134,9 +133,7 @@
             };
           }
         } else {
-          console.log(data);
           this.theme.config = ObjectUtils.setValueByKeyPath(this.theme.config, data.name, data.value);
-          console.log(JSON.parse(JSON.stringify(this.theme.config)));
         }
       },
       back() {
@@ -167,7 +164,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-theme-configuration {
     padding-top: 1em;
   }

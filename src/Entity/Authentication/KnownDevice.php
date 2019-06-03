@@ -10,12 +10,13 @@ namespace Jinya\Entity\Authentication;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Artist\User;
+use JsonSerializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="known_device")
  */
-class KnownDevice implements \JsonSerializable
+class KnownDevice implements JsonSerializable
 {
     /**
      * @ORM\Id

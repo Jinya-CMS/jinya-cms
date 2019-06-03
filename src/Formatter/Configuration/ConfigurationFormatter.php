@@ -34,7 +34,7 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Configuration\Configuration $configuration
+     * @param Configuration $configuration
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): ConfigurationFormatterInterface
@@ -62,9 +62,8 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {

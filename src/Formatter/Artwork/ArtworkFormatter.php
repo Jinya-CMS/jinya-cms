@@ -11,7 +11,10 @@ namespace Jinya\Formatter\Artwork;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Formatter\FormatterInterface;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
 
 class ArtworkFormatter implements ArtworkFormatterInterface
 {
@@ -30,13 +33,18 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     /** @var ArtworkPositionFormatterInterface */
     private $artworkPositionFormatter;
 
+    /** @var string */
+    private $kernelProjectDir;
+
     /**
      * ArtworkFormatter constructor.
      * @param UrlGeneratorInterface $urlGenerator
+     * @param string $kernelProjectDir
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, string $kernelProjectDir)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     /**
@@ -156,7 +164,11 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      */
     public function picture(): ArtworkFormatterInterface
     {
-        $this->formattedData['picture'] = $this->urlGenerator->generate('api_artwork_picture_get', ['slug' => $this->artwork->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['picture'] = $this->urlGenerator->generate(
+            'api_artwork_picture_get',
+            ['slug' => $this->artwork->getSlug()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }
@@ -178,9 +190,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -191,8 +202,8 @@ class ArtworkFormatter implements ArtworkFormatterInterface
      * Formats the galleries
      *
      * @return ArtworkFormatterInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function galleries(): ArtworkFormatterInterface
     {
@@ -218,6 +229,28 @@ class ArtworkFormatter implements ArtworkFormatterInterface
     public function id(): ArtworkFormatterInterface
     {
         $this->formattedData['id'] = $this->artwork->getId();
+
+        return $this;
+    }
+
+    /**
+     * Gets the dimensions of the artwork
+     *
+     * @return ArtworkFormatterInterface
+     */
+    public function dimensions(): ArtworkFormatterInterface
+    {
+        try {
+            $imagePath = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $this->artwork->getPicture();
+            if (file_exists($imagePath)) {
+                $imageSize = getimagesize($imagePath);
+                $this->formattedData['dimensions']['width'] = $imageSize[0];
+                $this->formattedData['dimensions']['height'] = $imageSize[1];
+            }
+        } catch (Throwable $exception) {
+            $this->formattedData['dimensions']['width'] = 0;
+            $this->formattedData['dimensions']['height'] = 0;
+        }
 
         return $this;
     }

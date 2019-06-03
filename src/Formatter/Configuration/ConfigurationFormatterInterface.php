@@ -16,7 +16,7 @@ interface ConfigurationFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Configuration\Configuration $configuration
+     * @param Configuration $configuration
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): self;

@@ -41,11 +41,33 @@ class VideoGallery extends HistoryEnabledEntity implements GalleryInterface
     private $orientation = self::HORIZONTAL;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $masonry = false;
+
+    /**
      * Gallery constructor.
      */
     public function __construct()
     {
         $this->videos = new ArrayCollection();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMasonry(): bool
+    {
+        return $this->masonry;
+    }
+
+    /**
+     * @param bool $masonry
+     */
+    public function setMasonry(bool $masonry): void
+    {
+        $this->masonry = $masonry;
     }
 
     /**

@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import deepmerge from 'deepmerge';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
@@ -10,7 +9,9 @@ const getHashCode = (obj) => {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < value.length; i++) {
     const character = value.charCodeAt(i);
+    // eslint-disable-next-line no-bitwise
     hash = ((hash << 5) - hash) + character;
+    // eslint-disable-next-line no-bitwise
     hash &= hash;
   }
 
@@ -21,20 +22,17 @@ const clone = obj => JSON.parse(JSON.stringify(obj));
 
 function assign(obj, key, value) {
   if (isString(key)) {
-    // eslint-disable-next-line
     key = key.split('.');
   }
 
   if (key.length > 1) {
     const e = key.shift();
-    // eslint-disable-next-line
     assign(obj[e] = isObject(obj[e])
       ? obj[e]
       : {},
       key,
       value);
   } else {
-    // eslint-disable-next-line
     obj[key[0]] = value;
   }
 }

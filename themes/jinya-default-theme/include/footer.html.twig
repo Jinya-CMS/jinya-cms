@@ -7,8 +7,8 @@
         {% endblock %}
         {% block footer_menu %}
             <nav class="jinya-footer__menu">
-                {% if theme.active.footerMenu is defined %}
-                    {% for item in theme.active.footerMenu.menuItems %}
+                {% if theme.links.menus.footer is defined and theme.links.menus.footer is not null %}
+                    {% for item in theme.links.menus.footer.menuItems %}
                         {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-footer-menu__item'} %}
                     {% endfor %}
                 {% endif %}

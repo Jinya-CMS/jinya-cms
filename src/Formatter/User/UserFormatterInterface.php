@@ -16,7 +16,7 @@ interface UserFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param \Jinya\Entity\Artist\User $user
+     * @param User $user
      * @return UserFormatterInterface
      */
     public function init(User $user): self;
@@ -34,6 +34,13 @@ interface UserFormatterInterface extends FormatterInterface
      * @return UserFormatterInterface
      */
     public function lastname(): self;
+
+    /**
+     * Formats the artist name
+     *
+     * @return UserFormatterInterface
+     */
+    public function artistName(): self;
 
     /**
      * Formats the roles
@@ -64,9 +71,8 @@ interface UserFormatterInterface extends FormatterInterface
     public function profilePicture(): self;
 
     /**
-     * Shorthand for @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
-     *
-     * @return UserFormatterInterface
+     * Shorthand for @return UserFormatterInterface
+     * @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
      */
     public function profile(): self;
 

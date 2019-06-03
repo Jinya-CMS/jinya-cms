@@ -2,28 +2,28 @@
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state">
       <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error' && isStatic">
-        <jinya-button label="art.artworks.artwork_form.back" to="Art.Artworks.SavedInJinya.Overview"
-                      :is-danger="true"/>
-        <jinya-button label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"
-                      :query="{keyword: $route.params.slug}" :is-secondary="true"/>
+        <jinya-button :is-danger="true" label="art.artworks.artwork_form.back"
+                      to="Art.Artworks.SavedInJinya.Overview"/>
+        <jinya-button :is-secondary="true" :query="{keyword: $route.params.slug}"
+                      label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"/>
       </jinya-message-action-bar>
     </jinya-message>
-    <jinya-form v-if="!(hideOnError && state === 'error')" @submit="save" class="jinya-form--artwork" @back="back"
-                :enable="enable" :cancel-label="cancelLabel" :save-label="saveLabel">
+    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                @submit="save" class="jinya-form--artwork" v-if="!(hideOnError && state === 'error')">
       <jinya-editor-pane>
         <jinya-editor-preview-image :src="artwork.picture"/>
       </jinya-editor-pane>
       <jinya-editor-pane>
-        <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.name"
-                     v-model="artwork.name" @change="nameChanged" :required="true"
-                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"/>
-        <jinya-input :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.slug"
-                     v-model="artwork.slug" @change="slugChanged" :required="true"
-                     :validation-message="'art.artworks.artwork_form.slug.empty'|jvalidator"/>
-        <jinya-file-input v-if="!isStatic" :enable="enable" accept="image/*" @picked="picturePicked"
-                          label="art.artworks.artwork_form.artwork" :required="true"
-                          :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"/>
-        <jinya-textarea :is-static="isStatic" :enable="enable" label="art.artworks.artwork_form.description"
+        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"
+                     label="art.artworks.artwork_form.name" v-model="artwork.name"/>
+        <jinya-file-input :enable="enable" :required="true"
+                          :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"
+                          @picked="picturePicked"
+                          accept="image/*" label="art.artworks.artwork_form.artwork" v-if="!isStatic"/>
+        <jinya-choice :choices="types" :enforceSelect="true" @selected="value=> artwork.type = value.value"
+                      label="art.artworks.artwork_form.convert.label" v-if="!isStatic"/>
+        <jinya-textarea :enable="enable" :is-static="isStatic" label="art.artworks.artwork_form.description"
                         v-model="artwork.description"/>
       </jinya-editor-pane>
       <template slot="buttons">
@@ -40,16 +40,19 @@
   import JinyaFileInput from '@/framework/Markup/Form/FileInput';
   import FileUtils from '@/framework/IO/FileUtils';
   import JinyaTextarea from '@/framework/Markup/Form/Textarea';
-  import slugify from 'slugify';
   import Routes from '@/router/Routes';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaEditor from '@/framework/Markup/Form/Editor';
   import JinyaEditorPreviewImage from '@/framework/Markup/Form/EditorPreviewImage';
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import Translator from '@/framework/i18n/Translator';
 
   export default {
     components: {
+      JinyaChoice,
       JinyaTextarea,
       JinyaFileInput,
       JinyaInput,
@@ -113,6 +116,7 @@
             name: '',
             slug: '',
             description: '',
+            type: 0,
           };
         },
       },
@@ -122,6 +126,24 @@
           return true;
         },
       },
+    },
+    data() {
+      return {
+        types: [],
+      };
+    },
+    async created() {
+      const supportedTypes = await JinyaRequest.get('/api/media/conversion/type');
+
+      this.types = [
+        {
+          value: 0,
+          text: Translator.message('art.artworks.artwork_form.convert.not_convert'),
+        },
+      ].concat(supportedTypes.map(item => ({
+        value: Object.keys(item)[0],
+        text: Object.values(item)[0],
+      })));
     },
     methods: {
       back() {
@@ -133,21 +155,12 @@
         this.artwork.picture = await FileUtils.getAsDataUrl(file);
         this.artwork.uploadedFile = file;
       },
-      nameChanged(value) {
-        if (this.slugifyEnabled) {
-          this.artwork.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.artwork.slug = slugify(value);
-      },
       save() {
         const artwork = {
           name: this.artwork.name,
-          slug: this.artwork.slug,
           picture: this.artwork.uploadedFile,
           description: this.artwork.description,
+          type: this.artwork.type,
         };
 
         this.$emit('save', artwork);

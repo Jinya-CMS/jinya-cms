@@ -25,8 +25,10 @@ class ApiKeyController extends BaseApiController
      * @param ConfigurationServiceInterface $configurationService
      * @return Response
      */
-    public function getAllAction(ApiKeyToolInterface $apiKeyTool, ConfigurationServiceInterface $configurationService): Response
-    {
+    public function getAllAction(
+        ApiKeyToolInterface $apiKeyTool,
+        ConfigurationServiceInterface $configurationService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $configurationService) {
             return [
                 'success' => true,

@@ -1,0 +1,34 @@
+---
+- name: Install packages
+  yum:
+    name:
+      - httpd
+  become: true
+- name: Create log directory
+  file:
+    path: /var/www/log
+    state: directory
+    mode: 0755
+  become: true
+- name: Set jinya user permissions
+  file:
+    path: /var/www/jinya
+    state: directory
+    mode: 0755
+    owner: apache
+    group: apache
+  become: true
+- name: Copy the vhost
+  copy:
+    src: /vagrant/vagrant-files/roles/apache/files/default.conf
+    dest: /etc/httpd/conf.d/default.conf
+    owner: root
+    group: root
+    mode: o=rw,g=r,u=r
+  become: yes
+- name: Start apache
+  service:
+    name: httpd
+    state: restarted
+    enabled: true
+  become: yes

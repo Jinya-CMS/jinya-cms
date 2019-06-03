@@ -25,7 +25,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-card__item {
     flex: auto;
     margin: 1em;
@@ -60,6 +60,7 @@
     .jinya-card__body {
       height: 15em;
       width: auto;
+      display: flex;
     }
 
     .jinya-card__footer {

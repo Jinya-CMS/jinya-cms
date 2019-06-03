@@ -39,7 +39,7 @@ interface ThemeConfigServiceInterface
     /**
      * Gets the namespace for the given theme
      *
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return string
      */
     public function getThemeNamespace(Theme $theme): string;
@@ -68,14 +68,6 @@ interface ThemeConfigServiceInterface
      * @param array $variables
      */
     public function setVariables(string $name, array $variables): void;
-
-    /**
-     * Sets the menus for the given theme
-     *
-     * @param string $name
-     * @param array $menus
-     */
-    public function setMenus(string $name, array $menus): void;
 
     /**
      * Gets the forms for the given theme

@@ -8,13 +8,13 @@
 
 namespace Jinya\Entity\Artist;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use function in_array;
-use function uniqid;
 
 /**
  * @ORM\Entity
@@ -22,13 +22,13 @@ use function uniqid;
  */
 class User implements JsonSerializable, UserInterface
 {
-    const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
-    const ROLE_WRITER = 'ROLE_WRITER';
+    public const ROLE_WRITER = 'ROLE_WRITER';
 
-    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
+    public const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
 
     /**
      * @var string
@@ -57,14 +57,6 @@ class User implements JsonSerializable, UserInterface
     private $knownDevices;
 
     /**
-     * The salt to use for hashing.
-     *
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $salt;
-
-    /**
      * Encrypted password. Must be persisted.
      *
      * @var string
@@ -80,7 +72,7 @@ class User implements JsonSerializable, UserInterface
     private $plainPassword;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastLogin;
@@ -94,7 +86,7 @@ class User implements JsonSerializable, UserInterface
     private $confirmationToken;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordRequestedAt;
@@ -115,18 +107,25 @@ class User implements JsonSerializable, UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
     private $lastname;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    private $artistName;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -164,13 +163,19 @@ class User implements JsonSerializable, UserInterface
     private $createdForms;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    private $aboutMe;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->enabled = false;
         $this->roles = [];
-        $this->salt = uniqid();
         $this->createdArtworks = new ArrayCollection();
         $this->createdForms = new ArrayCollection();
         $this->createdArtGalleries = new ArrayCollection();
@@ -187,7 +192,7 @@ class User implements JsonSerializable, UserInterface
             return [];
         }
 
-        return $this->knownDevices;
+        return $this->knownDevices->getValues();
     }
 
     /**
@@ -315,15 +320,7 @@ class User implements JsonSerializable, UserInterface
      */
     public function getSalt(): ?string
     {
-        return $this->salt;
-    }
-
-    /**
-     * @param string $salt
-     */
-    public function setSalt(string $salt): void
-    {
-        $this->salt = $salt;
+        return null;
     }
 
     /**
@@ -359,17 +356,17 @@ class User implements JsonSerializable, UserInterface
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getLastLogin(): ?\DateTime
+    public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }
 
     /**
-     * @param \DateTime|null $lastLogin
+     * @param DateTime|null $lastLogin
      */
-    public function setLastLogin(?\DateTime $lastLogin): void
+    public function setLastLogin(?DateTime $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
     }
@@ -391,17 +388,17 @@ class User implements JsonSerializable, UserInterface
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getPasswordRequestedAt(): ?\DateTime
+    public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->passwordRequestedAt;
     }
 
     /**
-     * @param \DateTime|null $passwordRequestedAt
+     * @param DateTime|null $passwordRequestedAt
      */
-    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): void
+    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
     }
@@ -503,6 +500,7 @@ class User implements JsonSerializable, UserInterface
             'id' => $this->id,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
+            'artistname' => $this->artistName,
             'profilepicture' => $this->profilePicture,
             'email' => $this->email,
             'roles' => $this->roles,
@@ -532,20 +530,52 @@ class User implements JsonSerializable, UserInterface
 
     public function hasRole(string $role)
     {
-        return in_array($role, $this->roles);
+        return in_array($role, $this->roles, true);
     }
 
     public function addRole(string $role)
     {
-        if (false === (array_search($role, $this->roles))) {
+        if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
     }
 
     public function removeRole(string $role)
     {
-        if (false !== ($key = array_search($role, $this->roles))) {
+        if (false !== ($key = array_search($role, $this->roles, true))) {
             unset($this->roles[$key]);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getArtistName(): ?string
+    {
+        return $this->artistName;
+    }
+
+    /**
+     * @param string $artistName
+     */
+    public function setArtistName(string $artistName): void
+    {
+        $this->artistName = $artistName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutMe(): ?string
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * @param string $aboutMe
+     */
+    public function setAboutMe(string $aboutMe): void
+    {
+        $this->aboutMe = $aboutMe;
     }
 }

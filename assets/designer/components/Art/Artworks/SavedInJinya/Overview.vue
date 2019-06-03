@@ -2,28 +2,22 @@
   <div class="jinya-art-overview">
     <jinya-loader :loading="loading"/>
     <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-card :header="artwork.name" v-for="artwork in artworks" v-if="!loading" :key="artwork.slug">
-        <img class="jinya-art-picture" :src="artwork.picture"/>
-        <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" slot="footer" icon="monitor"
-                           type="details"/>
-        <jinya-card-button :to="{name: editRoute, params: {slug: artwork.slug}}" slot="footer" icon="pencil"
-                           type="edit"/>
-        <jinya-card-button @click="showDeleteModal(artwork)" slot="footer" icon="delete" type="delete"/>
-      </jinya-card>
+      <jinya-artwork-card :artwork="artwork" :key="artwork.slug" :show-delete-modal="showDeleteModal"
+                          v-for="artwork in artworks"/>
     </jinya-card-list>
-    <jinya-pager @previous="load(control.previous)" @next="load(control.next)" v-if="!loading" :offset="offset"
-                 :count="count"/>
-    <jinya-modal @close="closeDeleteModal()" title="art.artworks.delete.title" v-if="this.delete.show"
-                 :loading="this.delete.loading">
-      <jinya-message :message="this.delete.error" state="error" v-if="this.delete.error && !this.delete.loading"
-                     slot="message"/>
+    <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
+                 v-if="!loading"/>
+    <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="art.artworks.delete.title"
+                 v-if="this.delete.show">
+      <jinya-message :message="this.delete.error" slot="message" state="error"
+                     v-if="this.delete.error && !this.delete.loading"/>
       {{'art.artworks.delete.content'|jmessage(selectedArtwork)}}
-      <jinya-modal-button :is-secondary="true" slot="buttons-left" label="art.artworks.delete.no"
-                          :closes-modal="true" :is-disabled="this.delete.loading"/>
-      <jinya-modal-button :is-danger="true" slot="buttons-right" label="art.artworks.delete.yes" @click="remove"
-                          :is-disabled="this.delete.loading"/>
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                          label="art.artworks.delete.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                          label="art.artworks.delete.yes" slot="buttons-right"/>
     </jinya-modal>
-    <jinya-floating-action-button v-if="!loading" :is-primary="true" icon="plus" :to="addRoute"/>
+    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
   </div>
 </template>
 
@@ -42,9 +36,11 @@
   import Events from '@/framework/Events/Events';
   import Routes from '@/router/Routes';
   import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import JinyaArtworkCard from '@/components/Art/Artworks/SavedInJinya/ArtworkCard';
 
   export default {
     components: {
+      JinyaArtworkCard,
       JinyaFloatingActionButton,
       JinyaLoader,
       JinyaMessage,
@@ -85,9 +81,6 @@
         this.offset = value.offset;
         this.loading = false;
       },
-      selectArtwork(artwork) {
-        this.selectedArtwork = artwork;
-      },
       async remove() {
         this.delete.loading = true;
         try {
@@ -101,7 +94,7 @@
         this.delete.loading = false;
       },
       showDeleteModal(artwork) {
-        this.selectArtwork(artwork);
+        this.selectedArtwork = artwork;
         this.delete.show = true;
       },
       closeDeleteModal() {
@@ -157,16 +150,3 @@
     },
   };
 </script>
-
-<style scoped lang="scss">
-  .jinya-art-picture {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.3s;
-
-    &:hover {
-      object-fit: scale-down;
-    }
-  }
-</style>

@@ -8,7 +8,6 @@ const i18n = {
       acceptStatement: false,
 
       bind(el, binding) {
-        // eslint-disable-next-line no-param-reassign
         el.innerText = Translator.message(binding.value);
       },
     });
@@ -17,7 +16,6 @@ const i18n = {
       acceptStatement: false,
 
       bind(el, binding) {
-        // eslint-disable-next-line no-param-reassign
         el.innerText = Translator.validator(binding.value);
       },
     });

@@ -1,13 +1,14 @@
 <template>
   <nav class="jinya-navigation-pager" v-if="!(disable.previous && disable.next)">
-    <jinya-button :is-disabled="disable.previous" label="framework.markup.navigation.pager.previous"
-                  :is-primary="true" :is-inverse="true"
+    <jinya-button :is-disabled="disable.previous" :is-inverse="true"
+                  :is-primary="true" @click="$emit('previous')"
                   class="jinya-navigation-pager__button jinya-navigation-pager__button--previous"
-                  @click="$emit('previous')"/>
+                  label="framework.markup.navigation.pager.previous"/>
     {{'framework.markup.navigation.pager.page_indicator'|jmessage({page: currentPage, count: pages})}}
-    <jinya-button class="jinya-navigation-pager__button jinya-navigation-pager__button--next" :is-primary="true"
-                  :is-inverse="true" label="framework.markup.navigation.pager.next" @click="$emit('next')"
-                  :is-disabled="disable.next"/>
+    <jinya-button :is-disabled="disable.next" :is-inverse="true"
+                  :is-primary="true" @click="$emit('next')"
+                  class="jinya-navigation-pager__button jinya-navigation-pager__button--next"
+                  label="framework.markup.navigation.pager.next"/>
   </nav>
 </template>
 
@@ -42,7 +43,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-navigation-pager {
     width: 100%;
     display: flex;

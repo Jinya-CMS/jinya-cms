@@ -1,116 +1,120 @@
 ---
 defaults:
   docker:
-  - image: circleci/php
+    - image: circleci/php
   working_directory: ~/jinya
 jobs:
   build:
     docker:
-    - image: circleci/php
+      - image: circleci/php
     steps:
-    - checkout
-    - run:
-        command: |
-          sudo apt install apt-transport-https
-          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-          sudo apt update
-          sudo apt install -y nodejs build-essential yarn
-    - run: "composer install -n --prefer-dist --no-scripts --no-dev"
-    - run:
-        command: |
-          yarn
-          yarn encore prod
-    - run:
-        command: |
-          rm -rf node_modules var/cache var/log public/public public/.htaccess
-          mkdir -p ~/dist
-          zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
-    - persist_to_workspace:
-        paths:
-        - dist
-        root: ~/
+      - checkout
+      - run:
+          command: |
+            sudo apt install apt-transport-https
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+            sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+            sudo apt update
+            sudo apt install -y nodejs build-essential yarn
+            sudo apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+            sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+            sudo docker-php-ext-install -j$(nproc) gd
+      - run: "composer install -n --prefer-dist --no-scripts --no-dev"
+      - run:
+          command: |
+            yarn
+            yarn encore prod
+      - run:
+          command: |
+            rm -rf node_modules var/cache var/log public/public public/.htaccess
+            mkdir -p ~/dist
+            zip -r ~/dist/jinya-cms.zip ./* --exclude .git/
+      - persist_to_workspace:
+          paths:
+            - dist
+          root: ~/
     working_directory: ~/jinya
   deployEdge:
     docker:
-    - image: circleci/php
+      - image: circleci/php
     steps:
-    - attach_workspace:
-        at: ~/jinya/
-    - run:
-        command: |
-          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
-          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode edge"
-        name: "Deploy via SCP"
+      - attach_workspace:
+          at: ~/jinya/
+      - run:
+          command: |
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
+            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/edge
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode edge"
+          name: "Deploy via SCP"
     working_directory: ~/jinya
   deployNightly:
     docker:
-    - image: circleci/php
+      - image: circleci/php
     steps:
-    - attach_workspace:
-        at: ~/jinya/
-    - run:
-        command: |
-          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
-          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode nightly"
-        name: "Deploy via SCP"
+      - attach_workspace:
+          at: ~/jinya/
+      - run:
+          command: |
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$(date +"%Y-%m-%d_%H-%M-%S").zip
+            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/nightly
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode nightly"
+          name: "Deploy via SCP"
     working_directory: ~/jinya
   deployStable:
     docker:
-    - image: circleci/php
+      - image: circleci/php
     steps:
-    - attach_workspace:
-        at: ~/jinya/
-    - run:
-        command: |
-          mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
-          scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
-          ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode stable"
-        name: "Deploy via SCP"
+      - attach_workspace:
+          at: ~/jinya/
+      - run:
+          command: |
+            mv ~/jinya/dist/jinya-cms.zip ~/jinya/dist/$CIRCLE_TAG.zip
+            scp -oStrictHostKeyChecking=no -r ~/jinya/dist/* $DEPLOY_LOGIN@$DEPLOY_SERVER:$DEPLOY_TARGET/cms/stable
+            ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode stable"
+          name: "Deploy via SCP"
     working_directory: ~/jinya
 version: 2
 workflows:
   edge:
     jobs:
-    - build
-    - deployEdge:
-        filters:
-          branches:
-            only:
-            - develop
-        requires:
-        - build
+      - build
+      - deployEdge:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - build
   nightly:
     jobs:
-    - build
-    - deployNightly:
-        requires:
-        - build
+      - build
+      - deployNightly:
+          requires:
+            - build
     triggers:
-    - schedule:
-        cron: "0 0 * * *"
-        filters:
-          branches:
-            only:
-            - develop
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - develop
   stable:
     jobs:
-    - build:
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /.*/
-    - deployStable:
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /.*/
-        requires:
-        - build
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+      - deployStable:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+          requires:
+            - build
 
   version: 2

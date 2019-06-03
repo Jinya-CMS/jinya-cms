@@ -1,15 +1,17 @@
 <template>
-  <jinya-form class="jinya-form-builder__settings" @submit="$emit('done')">
-    <jinya-input label="static.forms.forms.builder.settings.label" v-model="item.label" :required="true"
-                 :validation-message="'static.forms.forms.builder.settings.label.empty'|jvalidator"/>
+  <jinya-form @submit="$emit('done')" class="jinya-form-builder__settings">
+    <jinya-input :required="true" :validation-message="'static.forms.forms.builder.settings.label.empty'|jvalidator"
+                 label="static.forms.forms.builder.settings.label"
+                 v-model="item.label"/>
     <jinya-input label="static.forms.forms.builder.settings.help_text" v-model="item.helpText"/>
-    <jinya-checkbox label="static.forms.forms.builder.settings.required" v-model="item.options.required"
-                    class="jinya-form-builder__settings-checkbox"/>
-    <jinya-textarea @change="item.options.choices = $event.split('\n')" v-if="item.type.endsWith('ChoiceType')"
-                    label="static.forms.forms.builder.settings.options" :value="item.options.choices.join('\n')"
-                    :required="true"
-                    :validation-message="'static.forms.forms.builder.settings.options.empty'|jvalidator"/>
-    <jinya-button type="submit" slot="buttons" label="static.forms.forms.builder.settings.save" :is-primary="true"/>
+    <jinya-checkbox class="jinya-form-builder__settings-checkbox" label="static.forms.forms.builder.settings.required"
+                    v-model="item.options.required"/>
+    <jinya-textarea :required="true"
+                    :validation-message="'static.forms.forms.builder.settings.options.empty'|jvalidator"
+                    :value="item.options.choices.join('\n')" @change="item.options.choices = $event.split('\n')"
+                    label="static.forms.forms.builder.settings.options"
+                    v-if="item.type.endsWith('ChoiceType')"/>
+    <jinya-button :is-primary="true" label="static.forms.forms.builder.settings.save" slot="buttons" type="submit"/>
   </jinya-form>
 </template>
 

@@ -3,14 +3,13 @@
     <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
     <jinya-loader :loading="loading" v-if="loading"/>
     <jinya-card-list nothing-found="impossible" v-else>
-      <jinya-card :header="theme.displayName" :key="theme.name" class="jinya-card__item--theme"
-                  v-for="theme in themes">
+      <jinya-card :header="theme.displayName" :key="theme.name" class="jinya-card__item--theme" v-for="theme in themes">
         <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
         <jinya-card-button :title="'configuration.frontend.themes.overview.settings'|jmessage"
                            :to="{name: settingsRoute, params: {name: theme.name}}" icon="settings"
                            slot="footer" type="edit"/>
-        <jinya-card-button :title="'configuration.frontend.themes.overview.menus'|jmessage"
-                           :to="{name: menusRoute, params: {name: theme.name}}" icon="menu"
+        <jinya-card-button :title="'configuration.frontend.themes.overview.links'|jmessage"
+                           :to="{name: linksRoute, params: {name: theme.name}}" icon="link"
                            slot="footer" type="edit"/>
         <jinya-card-button :title="'configuration.frontend.themes.overview.activate'|jmessage" @click="activate(theme)"
                            icon="check" slot="footer"
@@ -51,8 +50,8 @@
       variablesRoute() {
         return Routes.Configuration.Frontend.Theme.Variables.name;
       },
-      menusRoute() {
-        return Routes.Configuration.Frontend.Theme.Menus.name;
+      linksRoute() {
+        return Routes.Configuration.Frontend.Theme.Links.name;
       },
     },
     data() {
@@ -87,7 +86,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-theme {
     padding-top: 1rem;
   }

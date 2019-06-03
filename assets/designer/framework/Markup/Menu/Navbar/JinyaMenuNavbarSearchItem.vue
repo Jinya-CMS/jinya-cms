@@ -1,11 +1,12 @@
 <template>
   <div class="jinya-menu-navbar__item--search">
-    <input class="jinya-menu-navbar__item--search__input" type="search" @keyup.enter="sendSearch"
-           :aria-labelledby="id" v-model="keyword"
-           :placeholder="'framework.markup.menu.navbar.search_item.placeholder' | jmessage"/>
-    <button class="jinya-menu-navbar__item--search__button" @click.prevent="sendSearch">
+    <input :aria-labelledby="id" :placeholder="'framework.markup.menu.navbar.search_item.placeholder' | jmessage"
+           @keyup.enter="sendSearch"
+           class="jinya-menu-navbar__item--search__input" type="search"
+           v-model="keyword"/>
+    <button @click.prevent="sendSearch" class="jinya-menu-navbar__item--search__button">
       <span class="mdi mdi-magnify"></span>
-      <span class="sr--only" :id="id">{{'generic.search'|jmessage}}</span>
+      <span :id="id" class="sr--only">{{'generic.search'|jmessage}}</span>
     </button>
   </div>
 </template>
@@ -32,7 +33,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-navbar__item--search {
     margin-left: auto;
     display: flex;
@@ -57,18 +58,23 @@
       &::-webkit-input-placeholder {
         @include placeholder;
       }
+
       &::-moz-placeholder {
         @include placeholder;
       }
+
       &:-moz-placeholder {
         @include placeholder;
       }
+
       &:-ms-input-placeholder {
         @include placeholder;
       }
+
       &::-ms-input-placeholder {
         @include placeholder;
       }
+
       &::placeholder {
         @include placeholder;
       }

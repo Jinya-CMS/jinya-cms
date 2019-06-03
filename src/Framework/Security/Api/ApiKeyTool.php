@@ -11,7 +11,10 @@ namespace Jinya\Framework\Security\Api;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr\Join;
+use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\ApiKey;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
@@ -29,8 +32,10 @@ class ApiKeyTool implements ApiKeyToolInterface
      * @param EntityManagerInterface $entityManager
      * @param ConfigurationServiceInterface $configurationService
      */
-    public function __construct(EntityManagerInterface $entityManager, ConfigurationServiceInterface $configurationService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ConfigurationServiceInterface $configurationService
+    ) {
         $this->entityManager = $entityManager;
         $this->configurationService = $configurationService;
     }
@@ -51,7 +56,7 @@ class ApiKeyTool implements ApiKeyToolInterface
 
         try {
             $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $key->setKey(uniqid("jinya-api-token-$userId-"));
         }
 
@@ -65,6 +70,7 @@ class ApiKeyTool implements ApiKeyToolInterface
      * Refreshes the validate since time
      *
      * @param string $key
+     * @throws Exception
      */
     public function refreshToken(string $key): void
     {
@@ -98,8 +104,8 @@ class ApiKeyTool implements ApiKeyToolInterface
      *
      * @param string $username
      * @param string $key
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function invalidateKeyOfUser(string $username, string $key): void
     {
@@ -114,8 +120,8 @@ class ApiKeyTool implements ApiKeyToolInterface
      *
      * @param string $key
      * @return User
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getUserByKey(string $key): User
     {
@@ -149,7 +155,7 @@ class ApiKeyTool implements ApiKeyToolInterface
      *
      * @param string $email
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getAllForUser(string $email): array
     {
@@ -181,7 +187,7 @@ class ApiKeyTool implements ApiKeyToolInterface
      *
      * @param string $key
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function shouldInvalidate(string $key): bool
     {

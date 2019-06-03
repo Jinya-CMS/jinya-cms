@@ -1,10 +1,20 @@
 {% extends '@Jinya/Installer/base.html.twig' %}
 
 {% block content %}
-    <form method="post">
-        <h1>{{ 'update.database.title'|trans }}</h1>
+    {{ include('@Jinya/Updater/Default/steps.html.twig', {'activeStep': 1}) }}
+    {% if exception is defined %}
+        <div class="ui negative message">
+            <div class="header">
+                {{ exception.getMessage() }}
+            </div>
+            <p>{{ exception.getTraceAsString() }}</p>
+        </div>
+    {% endif %}
+    <div class="ui info message">
+        <div class="header">{{ 'update.database.title'|trans }}</div>
         <p>{{ 'update.database.content'|trans }}</p>
-        <button class="btn btn-primary" type="submit">{{ 'update.database.submit'|trans }}</button>
+    </div>
+    <form method="post">
+        <button class="ui primary right floated button" type="submit">{{ 'update.database.submit'|trans }}</button>
     </form>
 {% endblock %}
-

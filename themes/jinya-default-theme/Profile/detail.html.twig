@@ -1,0 +1,20 @@
+{% extends '@Theme/jinya-default-theme/base.html.twig' %}
+
+{% block head_title %}
+    &mdash; {{ profile.artistName }}
+{% endblock %}
+
+{% block maincontent %}
+    <main class="jinya-profile">
+        <aside class="jinya-profile__sidebar">
+            <h1 class="jinya-profile__artist-name">{{ profile.artistName }}</h1>
+            <img src="{{ profile.profilePicture }}" alt="{{ profile.artistName }}" class="jinya-profile__picture">
+            {% if themeConfig.profile.show_email %}
+                <a href="mailto:{{ profile.email }}" class="jinya-profile__email">{{ profile.email }}</a>
+            {% endif %}
+        </aside>
+        <section class="jinya-profile__about-me">
+            {{ profile.aboutMe|raw }}
+        </section>
+    </main>
+{% endblock %}

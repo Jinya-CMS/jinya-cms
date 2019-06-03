@@ -12,7 +12,7 @@ use Jinya\Entity\Label\Label;
 
 class LabelFormatter implements LabelFormatterInterface
 {
-    /** @var \Jinya\Entity\Label\Label */
+    /** @var Label */
     private $label;
 
     /** @var array */
@@ -21,7 +21,7 @@ class LabelFormatter implements LabelFormatterInterface
     /**
      * Formats the given label into an array
      *
-     * @param \Jinya\Entity\Label\Label $label
+     * @param Label $label
      * @return LabelFormatterInterface
      */
     public function init(Label $label): LabelFormatterInterface
@@ -33,9 +33,8 @@ class LabelFormatter implements LabelFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {

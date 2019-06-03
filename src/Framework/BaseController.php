@@ -8,9 +8,11 @@
 
 namespace Jinya\Framework;
 
+use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Services\Twig\CompilerInterface;
+use SplFileInfo;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -51,8 +53,14 @@ abstract class BaseController
      * @param RouterInterface $router
      * @param CompilerInterface $compiler
      */
-    public function __construct(RequestStack $requestStack, HttpKernelInterface $kernel, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, RouterInterface $router, CompilerInterface $compiler)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        HttpKernelInterface $kernel,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage,
+        RouterInterface $router,
+        CompilerInterface $compiler
+    ) {
         $this->requestStack = $requestStack;
         $this->kernel = $kernel;
         $this->authorizationChecker = $authorizationChecker;
@@ -80,10 +88,10 @@ abstract class BaseController
     /**
      * Forwards the request to the given RoutingEntry
      *
-     * @see RoutingEntry
-     * @param \Jinya\Entity\Menu\RoutingEntry $route
+     * @param RoutingEntry $route
      * @return Response
-     * @throws \Exception
+     * @throws Exception
+     * @see RoutingEntry
      */
     final protected function forwardToRoute(RoutingEntry $route): Response
     {
@@ -113,11 +121,11 @@ abstract class BaseController
     /**
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
-     * @see json_decode()
-     * @see JsonResponse
      * @param array|string|null $data
      * @param int $status
      * @return JsonResponse
+     * @see JsonResponse
+     * @see json_decode()
      */
     final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
@@ -127,13 +135,16 @@ abstract class BaseController
     /**
      * Returns a BinaryFileResponse object with original or customized file name and disposition header.
      *
-     * @param \SplFileInfo|string $file File object or path to file to be sent as response
+     * @param SplFileInfo|string $file File object or path to file to be sent as response
      * @param string|null $fileName
      * @param string $disposition
      * @return BinaryFileResponse
      */
-    final protected function file($file, string $fileName, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): BinaryFileResponse
-    {
+    final protected function file(
+        $file,
+        string $fileName,
+        string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT
+    ): BinaryFileResponse {
         $response = new BinaryFileResponse($file);
         $response->setContentDisposition($disposition, $fileName);
 
@@ -156,9 +167,8 @@ abstract class BaseController
      *
      * This will result in a 403 response code.
      *
-     * @example throw $this->createAccessDeniedException('Unable to access this page!');
-     *
      * @return AccessDeniedException
+     * @example throw $this->createAccessDeniedException('Unable to access this page!');
      */
     final protected function createAccessDeniedException(): AccessDeniedException
     {
@@ -168,7 +178,7 @@ abstract class BaseController
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return \Jinya\Entity\Artist\User|null
+     * @return User|null
      * @see TokenInterface::getUser()
      */
     final protected function getUser(): ?User
@@ -178,6 +188,7 @@ abstract class BaseController
             return null;
         }
 
+        /** @var User $user */
         $user = $token->getUser();
         if (!is_object($user)) {
             return null;

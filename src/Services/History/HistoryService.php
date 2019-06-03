@@ -62,7 +62,10 @@ class HistoryService implements HistoryServiceInterface
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
-        $pre = $this->eventDispatcher->dispatch(HistoryEvent::PRE_CLEAR, new HistoryEvent($class, $id, $entity->getHistory()));
+        $pre = $this->eventDispatcher->dispatch(
+            HistoryEvent::PRE_CLEAR,
+            new HistoryEvent($class, $id, $entity->getHistory())
+        );
 
         if (!$pre->isCancel()) {
             $entity->setHistory([]);
@@ -81,19 +84,26 @@ class HistoryService implements HistoryServiceInterface
 
         if (method_exists($entity, "set$field")) {
             $history = $entity->getHistory();
+            /** @var array $entry */
             $entry = array_filter($history, function (array $item) use ($timestamp) {
                 return $item['timestamp'] === $timestamp;
             })[0];
 
             if (array_key_exists($field, $entry['entry'])) {
-                $pre = $this->eventDispatcher->dispatch(HistoryRevertEvent::PRE_REVERT, new HistoryRevertEvent($class, $id, $field, $timestamp, $entry));
+                $pre = $this->eventDispatcher->dispatch(
+                    HistoryRevertEvent::PRE_REVERT,
+                    new HistoryRevertEvent($class, $id, $field, $timestamp, $entry)
+                );
                 if (!$pre->isCancel()) {
                     $revertedValue = $entry['entry'][$field][1];
                     $setter = "set$field";
                     $entity->$setter($revertedValue);
 
                     $this->entityManager->flush();
-                    $this->eventDispatcher->dispatch(HistoryRevertEvent::POST_REVERT, new HistoryRevertEvent($class, $id, $field, $timestamp, $entry));
+                    $this->eventDispatcher->dispatch(
+                        HistoryRevertEvent::POST_REVERT,
+                        new HistoryRevertEvent($class, $id, $field, $timestamp, $entry)
+                    );
                 }
             }
         }

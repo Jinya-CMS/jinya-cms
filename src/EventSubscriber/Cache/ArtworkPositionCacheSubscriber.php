@@ -48,16 +48,28 @@ class ArtworkPositionCacheSubscriber implements EventSubscriberInterface
 
     public function onArtworkPositionDelete(ArtworkPositionDeleteEvent $event)
     {
-        $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::ART_GALLERY);
+        $this->cacheBuilder->buildCacheBySlugAndType(
+            $event->getGallery()->getSlug(),
+            CacheBuilderInterface::ART_GALLERY
+        );
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
     }
 
     public function onArtworkPositionSave(ArtworkPositionEvent $event)
     {
         $artworkPosition = $event->getArtworkPosition();
-        $this->cacheBuilder->buildCacheBySlugAndType($artworkPosition->getArtwork()->getSlug(), CacheBuilderInterface::ARTWORK);
-        $this->cacheBuilder->buildCacheBySlugAndType($artworkPosition->getGallery()->getSlug(), CacheBuilderInterface::ART_GALLERY);
-        $this->cacheBuilder->buildCacheBySlugAndType($artworkPosition->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
+        $this->cacheBuilder->buildCacheBySlugAndType(
+            $artworkPosition->getArtwork()->getSlug(),
+            CacheBuilderInterface::ARTWORK
+        );
+        $this->cacheBuilder->buildCacheBySlugAndType(
+            $artworkPosition->getGallery()->getSlug(),
+            CacheBuilderInterface::ART_GALLERY
+        );
+        $this->cacheBuilder->buildCacheBySlugAndType(
+            $artworkPosition->getGallery()->getSlug(),
+            CacheBuilderInterface::GALLERY
+        );
     }
 
     public function onArtworkPositionUpdate(ArtworkPositionUpdateEvent $event)

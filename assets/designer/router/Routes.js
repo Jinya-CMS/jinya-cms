@@ -325,9 +325,9 @@ export default {
           name: 'ConfigurationFrontendThemeSettings',
           route: '/designer/configuration/frontend/theme/:name/settings',
         },
-        Menus: {
-          name: 'ConfigurationFrontendThemeMenus',
-          route: '/designer/configuration/frontend/theme/:name/menus',
+        Links: {
+          name: 'ConfigurationFrontendThemeLinks',
+          route: '/designer/configuration/frontend/theme/:name/links',
         },
         Variables: {
           name: 'ConfigurationFrontendThemeVariables',
@@ -446,7 +446,7 @@ export default {
         name: 'MyJinyaCreatedByMeForms',
         route: '/designer/createdbyme/forms',
       },
-      Menus: {
+      Links: {
         name: 'MyJinyaCreatedByMeMenus',
         route: '/designer/createdbyme/menus',
       },

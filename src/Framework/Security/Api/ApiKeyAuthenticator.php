@@ -8,7 +8,10 @@
 
 namespace Jinya\Framework\Security\Api;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Exception;
+use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +23,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Underscore\Types\Arrays;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
@@ -44,8 +47,12 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
      * @param ApiKeyToolInterface $apiKeyTool
      * @param LoggerInterface $logger
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ApiKeyToolInterface $apiKeyTool, LoggerInterface $logger)
-    {
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator,
+        ApiKeyToolInterface $apiKeyTool,
+        LoggerInterface $logger
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->apiKeyTool = $apiKeyTool;
@@ -54,13 +61,13 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
     /**
      * {@inheritdoc}
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         if (!$userProvider instanceof ApiKeyUserProvider) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
                     get_class($userProvider)
@@ -74,13 +81,19 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             if ($this->apiKeyTool->shouldInvalidate($apiKey)) {
                 $this->apiKeyTool->invalidate($apiKey);
 
-                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiKey]));
+                throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                    'api.state.401.expired',
+                    ['apiKey' => $apiKey]
+                ));
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiKey]));
+            throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                'api.state.401.generic',
+                ['apiKey' => $apiKey]
+            ));
         }
 
         $username = $userProvider->getUsernameFromApiKey($apiKey);

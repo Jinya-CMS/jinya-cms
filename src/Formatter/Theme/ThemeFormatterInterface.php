@@ -16,7 +16,7 @@ interface ThemeFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): self;
@@ -83,4 +83,53 @@ interface ThemeFormatterInterface extends FormatterInterface
      * @return ThemeFormatterInterface
      */
     public function footerMenu(): self;
+
+    /**
+     * Formats the menus
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function menus(): self;
+
+    /**
+     * Formats the art galleries
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function artGalleries(): self;
+
+    /**
+     * Formats the video galleries
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function videoGalleries(): self;
+
+    /**
+     * Formats the pages
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function pages(): self;
+
+    /**
+     * Formats the forms
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function forms(): self;
+
+    /**
+     * Formats the artworks
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function artworks(): self;
+
+    /**
+     * Formats the links
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function links(): self;
 }

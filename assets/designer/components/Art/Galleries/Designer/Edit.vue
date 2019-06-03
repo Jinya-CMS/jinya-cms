@@ -1,17 +1,18 @@
 <template>
-  <jinya-modal modal-modifiers="jinya-modal--edit-artwork" :title="`art.galleries.designer.edit.${galleryType}.title`"
-               @close="$emit('close')">
-    <jinya-message :message="`art.galleries.designer.${galleryType}_view.loading`|jmessage" state="loading"
-                   v-if="loading" slot="message"/>
-    <jinya-gallery-designer-artwork-view v-if="galleryType === 'art'" @picked="pick" @load-start="loading = true"
-                                         @load-end="loading = false"/>
-    <jinya-gallery-designer-video-view v-else-if="galleryType === 'video'" @picked="pick"
-                                       @load-start="loading = true" @load-end="loading = false"/>
-    <jinya-modal-button slot="buttons-left" :label="`art.galleries.designer.edit_view.${galleryType}.delete`"
-                        :is-danger="true" :is-disabled="picked" @click="$emit('delete')"/>
-    <jinya-modal-button slot="buttons-right" :closes-modal="true"
-                        :label="`art.galleries.designer.edit_view.${galleryType}.cancel`"
-                        :is-secondary="true" :is-disabled="picked"/>
+  <jinya-modal :title="`art.galleries.designer.edit.${galleryType}.title`" @close="$emit('close')"
+               modal-modifiers="jinya-modal--edit-artwork">
+    <jinya-message :message="`art.galleries.designer.${galleryType}_view.loading`|jmessage" slot="message"
+                   state="loading" v-if="loading"/>
+    <jinya-gallery-designer-artwork-view @load-end="loading = false" @load-start="loading = true" @picked="pick"
+                                         v-if="galleryType === 'art'"/>
+    <jinya-gallery-designer-video-view @load-end="loading = false" @load-start="loading = true"
+                                       @picked="pick" v-else-if="galleryType === 'video'"/>
+    <jinya-modal-button :is-danger="true" :is-disabled="picked"
+                        :label="`art.galleries.designer.edit_view.${galleryType}.delete`" @click="$emit('delete')"
+                        slot="buttons-left"/>
+    <jinya-modal-button :closes-modal="true" :is-disabled="picked"
+                        :is-secondary="true"
+                        :label="`art.galleries.designer.edit_view.${galleryType}.cancel`" slot="buttons-right"/>
   </jinya-modal>
 </template>
 
@@ -52,7 +53,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-modal--edit-artwork {
     .jinya-modal__content {
       padding: 0;

@@ -36,7 +36,7 @@ class ArtworkEvent extends CancellableEvent
      * @param Artwork $artwork
      * @param string $slug
      */
-    public function __construct(?Artwork $artwork, string $slug)
+    public function __construct(?Artwork $artwork, ?string $slug)
     {
         $this->artwork = $artwork;
         $this->slug = $slug;
@@ -45,7 +45,7 @@ class ArtworkEvent extends CancellableEvent
     /**
      * @return string
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

@@ -1,0 +1,8 @@
+[Unit]
+Description=Encore watch service
+
+[Service]
+ExecStart=/vagrant/vagrant-files/roles/encore/files/encore.sh
+
+[Install]
+WantedBy=multi-user.target

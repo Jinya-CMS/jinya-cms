@@ -1,10 +1,10 @@
-{% extends '@Themes/jinya-default-theme/base.html.twig' %}
+{% extends '@Theme/jinya-default-theme/base.html.twig' %}
 {% block head_title %}
     &mdash; {{ formEntity.title }}
 {% endblock %}
 
 {% block maincontent %}
-    {% form_theme form '@Themes/jinya-default-theme/Form/themes/jinya-cms.html.twig' %}
+    {% form_theme form '@Theme/jinya-default-theme/Form/themes/jinya-cms.html.twig' %}
     <main class="jinya-form-page">
         <h1 class="jinya-form__title">{{ formEntity.title }}</h1>
         <div class="jinya-form__description">

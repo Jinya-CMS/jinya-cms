@@ -1,0 +1,74 @@
+---
+- name: Install requirements
+  yum:
+    name:
+      - epel-release
+      - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+      - yum-utils
+  become: yes
+- name: Enable EPEL repo
+  ini_file:
+    dest: /etc/yum.repos.d/remi-php73.repo
+    section: remi-php73
+    option: enabled
+    value: 1
+  become: yes
+- name: Install packages
+  yum:
+    name:
+      - php
+      - php-json
+      - php-xml
+      - php-fpm
+      - php-pdo_mysql
+      - php-zip
+      - php-cli
+      - php-common
+      - php-opcache
+      - php-curl
+      - php-intl
+      - php-mbstring
+      - php-pecl-xdebug
+      - php-dom
+      - php-tokenizer
+      - php-iconv
+      - php-simplexml
+      - php-fileinfo
+      - php-imagick
+      - composer
+  become: yes
+- name: Remove default xdebug config
+  file:
+    path: /etc/php.d/15-xdebug.ini
+    state: absent
+  become: yes
+- name: Link the xdebug config
+  copy:
+    src: /vagrant/vagrant-files/roles/php/files/xdebug.ini
+    dest: /etc/php.d/15-xdebug.ini
+  become: yes
+- file:
+    path: /var/www/jinya/public
+    state: directory
+    mode: 0755
+- name: Copy phpinfo
+  copy:
+    src: /vagrant/vagrant-files/roles/php/files/phpinfo.php
+    dest: /var/www/jinya/public/phpinfo.php
+- name: Install adminer
+  get_url:
+    url: https://github.com/vrana/adminer/releases/download/v4.7.1/adminer-4.7.1-mysql.php
+    dest: /var/www/jinya/public/adminer.php
+    mode: o=rwx,g=rwx,u=x
+  become: true
+- name: Install adminer theme
+  get_url:
+    url: https://raw.githubusercontent.com/vrana/adminer/master/designs/nette/adminer.css
+    dest: /var/www/jinya/public/adminer.php
+    mode: o=rwx,g=rwx,u=x
+  become: true
+- name: Restart apache
+  service:
+    name: httpd
+    state: restarted
+  become: yes

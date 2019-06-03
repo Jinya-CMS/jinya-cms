@@ -1,5 +1,5 @@
 <template>
-  <jinya-form-form @save="save" :enable="enable" :message="message" :state="state" :form="form"/>
+  <jinya-form-form :enable="enable" :form="form" :message="message" :state="state" @save="save"/>
 </template>
 
 <script>
@@ -24,7 +24,6 @@
           title: '',
           description: '',
           toAddress: '',
-          slug: '',
         },
       };
     },

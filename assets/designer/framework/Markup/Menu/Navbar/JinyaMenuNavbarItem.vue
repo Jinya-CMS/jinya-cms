@@ -1,7 +1,7 @@
 <template>
-  <div class="jinya-menu-navbar__item"
-       :class="{ 'is--selected': $route.name === to, 'is--end': align === 'end', 'is--start': align === 'start' }">
-    <router-link class="jinya-menu-navbar__link" :to="routeTarget" v-jinya-message="text"/>
+  <div :class="{ 'is--selected': $route.name === to, 'is--end': align === 'end', 'is--start': align === 'start' }"
+       class="jinya-menu-navbar__item">
+    <router-link :to="routeTarget" class="jinya-menu-navbar__link" v-jinya-message="text"/>
   </div>
 </template>
 
@@ -38,7 +38,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-navbar__item {
     line-height: 60px;
     color: $white;

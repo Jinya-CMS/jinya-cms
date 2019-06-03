@@ -1,5 +1,5 @@
 <template>
-  <jinya-checkbox :label="label" :required="required" :enable="enable"/>
+  <jinya-checkbox :enable="enable" :label="label" :required="required"/>
 </template>
 
 <script>

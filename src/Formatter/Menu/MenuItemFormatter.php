@@ -16,7 +16,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var \Jinya\Entity\Menu\MenuItem */
+    /** @var MenuItem */
     private $menuItem;
 
     /** @var MenuFormatterInterface */
@@ -26,9 +26,8 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     private $routeFormatter;
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -128,7 +127,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Menu\MenuItem $menuItem
+     * @param MenuItem $menuItem
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): MenuItemFormatterInterface

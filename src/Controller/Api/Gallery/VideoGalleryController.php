@@ -29,8 +29,11 @@ class VideoGalleryController extends BaseApiController
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAllAction(Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function getAllAction(
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        VideoGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $statusCode) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
@@ -42,7 +45,9 @@ class VideoGalleryController extends BaseApiController
                     ->init($gallery)
                     ->name()
                     ->background()
+                    ->backgroundDimensions()
                     ->orientation()
+                    ->masonry()
                     ->slug()
                     ->description()
                     ->format();
@@ -50,7 +55,14 @@ class VideoGalleryController extends BaseApiController
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
-            return $this->formatListResult($entityCount, $offset, $count, $parameter, 'api_gallery_video_get_all', $entities);
+            return $this->formatListResult(
+                $entityCount,
+                $offset,
+                $count,
+                $parameter,
+                'api_gallery_video_get_all',
+                $entities
+            );
         });
 
         return $this->json($data, $statusCode);
@@ -64,8 +76,11 @@ class VideoGalleryController extends BaseApiController
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $slug, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        VideoGalleryServiceInterface $galleryService,
+        VideoGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
@@ -73,14 +88,16 @@ class VideoGalleryController extends BaseApiController
                 ->name()
                 ->slug()
                 ->background()
+                ->backgroundDimensions()
                 ->description()
+                ->masonry()
+                ->videos()
                 ->orientation();
 
             if ($this->isGranted('ROLE_WRITER')) {
                 $galleryFormatter->updated()
                     ->id()
-                    ->created()
-                    ->videos();
+                    ->created();
             }
 
             return [
@@ -101,8 +118,11 @@ class VideoGalleryController extends BaseApiController
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function postAction(Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function postAction(
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        VideoGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
@@ -140,8 +160,12 @@ class VideoGalleryController extends BaseApiController
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function putAction(string $slug, Request $request, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function putAction(
+        string $slug,
+        Request $request,
+        VideoGalleryServiceInterface $galleryService,
+        VideoGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
@@ -179,8 +203,11 @@ class VideoGalleryController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function deleteAction(string $slug, VideoGalleryServiceInterface $galleryService, MediaServiceInterface $mediaService): Response
-    {
+    public function deleteAction(
+        string $slug,
+        VideoGalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);
             if (!empty($gallery->getBackground())) {

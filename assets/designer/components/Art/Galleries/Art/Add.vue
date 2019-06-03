@@ -1,5 +1,5 @@
 <template>
-  <jinya-gallery-form :back-target="backRoute" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-gallery-form :back-target="backRoute" :enable="enable" :message="message" :state="state" @save="save"/>
 </template>
 
 <script>
@@ -34,16 +34,15 @@
           this.state = 'loading';
           this.message = Translator.message('art.galleries.add.saving', { name: gallery.name });
 
-          await JinyaRequest.post('/api/gallery/art', {
+          const savedData = await JinyaRequest.post('/api/gallery/art', {
             name: gallery.name,
-            slug: gallery.slug,
             description: gallery.description,
             orientation: gallery.orientation,
           });
 
           if (background) {
             this.message = Translator.message('art.galleries.add.uploading', { name: gallery.name });
-            await JinyaRequest.upload(`/api/gallery/art/${gallery.slug}/background`, background);
+            await JinyaRequest.upload(`/api/gallery/art/${savedData.slug}/background`, background);
           }
 
           this.state = 'success';
@@ -61,7 +60,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-gallery-add {
     padding-top: 1em;
   }

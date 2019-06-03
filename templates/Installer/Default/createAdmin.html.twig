@@ -1,14 +1,23 @@
 {% extends '@Jinya/Installer/base.html.twig' %}
 
 {% block content %}
-    {{ form_start(form) }}
-    <h1>{{ 'install.admin.title'|trans }}</h1>
-    {{ form_widget(form) }}
-    <div class="form-group row">
-        <div class="offset-sm-2 col-sm-10">
-            <button class="btn btn-primary" type="submit">{{ 'install.admin.submit'|trans }}</button>
+    {{ include('@Jinya/Installer/Default/steps.html.twig', {'activeStep': 2}) }}
+    {% if exception is defined %}
+        <div class="ui negative message">
+            <div class="header">
+                {{ exception.getMessage() }}
+            </div>
+            <p>{{ exception.getTraceAsString() }}</p>
         </div>
+    {% endif %}
+    {{ form_start(form) }}
+    <div class="ui green segment">
+        <div class="ui green ribbon label">
+            {{ 'install.admin.title'|trans }}
+        </div>
+        {{ form_widget(form) }}
     </div>
+    <button class="ui green right floated button" type="submit">{{ 'install.admin.submit'|trans }}</button>
     {{ form_end(form) }}
 {% endblock %}
 

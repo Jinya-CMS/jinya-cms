@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Form\FormEvent;
@@ -72,7 +73,7 @@ class FormEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param FormEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPreFormSave(FormEvent $event)
     {
@@ -93,7 +94,10 @@ class FormEventSubscriber implements EventSubscriberInterface
             $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
-                return array_key_exists('slug', $parameter) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                return array_key_exists(
+                    'slug',
+                    $parameter
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

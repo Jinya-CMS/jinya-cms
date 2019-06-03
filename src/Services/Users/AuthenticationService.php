@@ -1,4 +1,7 @@
 <?php
+
+/** @noinspection HtmlRequiredTitleElement */
+/** @noinspection HtmlRequiredLangAttribute */
 /**
  * Created by PhpStorm.
  * User: imanuel
@@ -9,6 +12,8 @@
 namespace Jinya\Services\Users;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Exception;
 use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\KnownDevice;
@@ -43,8 +48,13 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @param EventDispatcherInterface $eventDispatcher
      * @param UserServiceInterface $userService
      */
-    public function __construct(EntityManagerInterface $entityManager, Swift_Mailer $swift, string $mailerSender, EventDispatcherInterface $eventDispatcher, UserServiceInterface $userService)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        Swift_Mailer $swift,
+        string $mailerSender,
+        EventDispatcherInterface $eventDispatcher,
+        UserServiceInterface $userService
+    ) {
         $this->entityManager = $entityManager;
         $this->swift = $swift;
         $this->mailerSender = $mailerSender;
@@ -59,7 +69,10 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function setAndSendTwoFactorCode(string $username): void
     {
-        $pre = $this->eventDispatcher->dispatch(TwoFactorCodeEvent::PRE_CODE_GENERATION, new TwoFactorCodeEvent($username));
+        $pre = $this->eventDispatcher->dispatch(
+            TwoFactorCodeEvent::PRE_CODE_GENERATION,
+            new TwoFactorCodeEvent($username)
+        );
         $user = $this->userService->getUserByEmail($username);
         $code = '';
 
@@ -79,7 +92,10 @@ class AuthenticationService implements AuthenticationServiceInterface
         $user->setTwoFactorToken($code);
         $this->entityManager->flush();
 
-        $submissionEvent = $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
+        $submissionEvent = $this->eventDispatcher->dispatch(
+            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION,
+            new TwoFactorCodeSubmissionEvent($username, $code)
+        );
         if (!$submissionEvent->isSent()) {
             /** @var Swift_Message $message */
             $message = $this->swift->createMessage('message');
@@ -90,12 +106,15 @@ class AuthenticationService implements AuthenticationServiceInterface
             $this->swift->send($message);
         }
 
-        $this->eventDispatcher->dispatch(TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION, new TwoFactorCodeSubmissionEvent($username, $code));
+        $this->eventDispatcher->dispatch(
+            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION,
+            new TwoFactorCodeSubmissionEvent($username, $code)
+        );
     }
 
     private function formatBody(User $user): string
     {
-        $name = $user->getFirstname() . ' ' . $user->getLastname();
+        $name = $user->getArtistName();
         $code = $user->getTwoFactorToken();
 
         return "<html>
@@ -178,8 +197,8 @@ class AuthenticationService implements AuthenticationServiceInterface
      *
      * @param string $username
      * @param string $deviceCode
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deleteKnownDevice(string $username, string $deviceCode): void
     {

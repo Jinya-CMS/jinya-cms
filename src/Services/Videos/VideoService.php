@@ -9,7 +9,11 @@
 namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Video\Video;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\VideoEvent;
@@ -34,8 +38,11 @@ class VideoService implements VideoServiceInterface
      * @param SlugServiceInterface $slugService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Video::class);
@@ -67,9 +74,9 @@ class VideoService implements VideoServiceInterface
 
     /**
      * @param string $keyword
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    private function createQueryBuilder(string $keyword): \Doctrine\ORM\QueryBuilder
+    private function createQueryBuilder(string $keyword): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->from(Video::class, 'video')
@@ -83,7 +90,7 @@ class VideoService implements VideoServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {
@@ -104,7 +111,7 @@ class VideoService implements VideoServiceInterface
      *
      * @param Video $video
      * @return Video
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(Video $video): Video
     {
@@ -138,8 +145,8 @@ class VideoService implements VideoServiceInterface
      *
      * @param string $slug
      * @return Video
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): ?Video
     {

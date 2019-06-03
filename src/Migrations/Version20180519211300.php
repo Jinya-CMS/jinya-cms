@@ -1,6 +1,6 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection ALL */
 
 /**
  * Created by PhpStorm.
@@ -11,15 +11,17 @@
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Migrations\AbortMigrationException;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20180519211300 extends AbstractMigration
 {
     /**
      * @param Schema $schema
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Migrations\AbortMigrationException
+     * @throws DBALException
+     * @throws AbortMigrationException
      */
     public function up(Schema $schema)
     {
@@ -97,8 +99,8 @@ class Version20180519211300 extends AbstractMigration
 
     /**
      * @param Schema $schema
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Migrations\AbortMigrationException
+     * @throws DBALException
+     * @throws AbortMigrationException
      */
     public function down(Schema $schema)
     {

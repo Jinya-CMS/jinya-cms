@@ -69,6 +69,7 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
             ->name()
             ->picture()
             ->description()
+            ->dimensions()
             ->format();
 
         return $this;
@@ -116,9 +117,8 @@ class ArtworkPositionFormatter implements ArtworkPositionFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {

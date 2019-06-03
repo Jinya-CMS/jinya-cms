@@ -4,11 +4,11 @@ namespace Jinya\Command;
 
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CompileThemesCommand extends ContainerAwareCommand
+class CompileThemesCommand extends Command
 {
     /** @var ThemeServiceInterface */
     private $themeService;
@@ -21,8 +21,10 @@ class CompileThemesCommand extends ContainerAwareCommand
      * @param ThemeServiceInterface $themeService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      */
-    public function __construct(ThemeServiceInterface $themeService, ThemeCompilerServiceInterface $themeCompilerService)
-    {
+    public function __construct(
+        ThemeServiceInterface $themeService,
+        ThemeCompilerServiceInterface $themeCompilerService
+    ) {
         parent::__construct();
         $this->themeService = $themeService;
         $this->themeCompilerService = $themeCompilerService;

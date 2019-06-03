@@ -1,0 +1,13 @@
+---
+- name: Copy theme-compiler service
+  copy:
+    dest: /etc/systemd/system/theme-compiler.service
+    src: /vagrant/vagrant-files/roles/theme-compiler/files/theme-compiler.service
+    mode: o=rwx,g=x,u=x
+  become: yes
+- name: Create and start theme-compiler service
+  service:
+    state: started
+    name: theme-compiler
+    enabled: yes
+  become: yes

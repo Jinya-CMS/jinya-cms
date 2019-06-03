@@ -1,20 +1,19 @@
 <template>
   <jinya-editor>
     <jinya-message :message="message" :state="state" v-if="state"/>
-    <jinya-form cancel-label="static.forms.forms.form_form.back" @back="$emit('back')" :enable="enable"
-                save-label="static.forms.forms.form_form.save" @submit="save" class="jinya-form-form__form">
-      <jinya-input label="static.forms.forms.form_form.title" :enable="enable" @change="titleChanged"
-                   v-model="form.title" :required="true"
-                   :validation-message="'static.forms.forms.form_form.title.empty'|jvalidator"/>
-      <jinya-input label="static.forms.forms.form_form.slug" :enable="enable" @change="slugChanged"
-                   v-model="form.slug" :required="true"
-                   :validation-message="'static.forms.forms.form_form.slug.empty'|jvalidator"/>
-      <jinya-input label="static.forms.forms.form_form.email" :enable="enable" type="email"
-                   v-model="form.toAddress" :required="true"
-                   :validation-message="emailValidationMessage|jvalidator"/>
+    <jinya-form :enable="enable" @back="$emit('back')" @submit="save"
+                cancel-label="static.forms.forms.form_form.back" class="jinya-form-form__form"
+                save-label="static.forms.forms.form_form.save">
+      <jinya-input :enable="enable" :required="true"
+                   :validation-message="'static.forms.forms.form_form.title.empty'|jvalidator"
+                   label="static.forms.forms.form_form.title"
+                   v-model="form.title"/>
+      <jinya-input :enable="enable" :required="true" :validation-message="emailValidationMessage|jvalidator"
+                   label="static.forms.forms.form_form.email" type="email"
+                   v-model="form.toAddress"/>
       <label>{{'static.forms.forms.form_form.description'|jmessage}}</label>
-      <jinya-tiny-mce :content="form.description" v-model="form.description"
-                      :aria-label="'static.forms.forms.form_form.description'|jmessage"/>
+      <jinya-tiny-mce :aria-label="'static.forms.forms.form_form.description'|jmessage" :content="form.description"
+                      v-model="form.description"/>
     </jinya-form>
   </jinya-editor>
 </template>
@@ -28,7 +27,6 @@
   import JinyaButton from '@/framework/Markup/Button';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
-  import slugify from 'slugify';
 
   export default {
     name: 'jinya-form-form',
@@ -65,16 +63,9 @@
         default() {
           return {
             title: '',
-            slug: '',
             toAddress: '',
             description: '',
           };
-        },
-      },
-      slugifyEnabled: {
-        type: Boolean,
-        default() {
-          return true;
         },
       },
     },
@@ -96,19 +87,9 @@
       back() {
         this.$router.push(Routes.Static.Forms.Forms.Overview);
       },
-      titleChanged(value) {
-        if (this.slugifyEnabled) {
-          this.form.slug = slugify(value);
-        }
-      },
-      slugChanged(value) {
-        this.slugifyEnabled = false;
-        this.form.slug = slugify(value);
-      },
       save() {
         const form = {
           title: this.form.title,
-          slug: this.form.slug,
           toAddress: this.form.toAddress,
           description: this.form.description,
         };
@@ -119,7 +100,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-form-form__form {
     padding-bottom: 2rem;
   }

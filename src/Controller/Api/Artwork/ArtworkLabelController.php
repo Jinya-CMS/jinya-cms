@@ -27,8 +27,11 @@ class ArtworkLabelController extends BaseApiController
      * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function getAction(string $slug, ArtworkServiceInterface $artworkService, LabelFormatterInterface $labelFormatter): Response
-    {
+    public function getAction(
+        string $slug,
+        ArtworkServiceInterface $artworkService,
+        LabelFormatterInterface $labelFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $labelFormatter) {
             $artwork = $artworkService->get($slug);
             $labels = [];
@@ -56,8 +59,12 @@ class ArtworkLabelController extends BaseApiController
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function putAction(string $slug, string $name, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
-    {
+    public function putAction(
+        string $slug,
+        string $name,
+        ArtworkServiceInterface $artworkService,
+        LabelServiceInterface $labelService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $name, $artworkService, $labelService) {
             $artwork = $artworkService->get($slug);
 
@@ -78,8 +85,11 @@ class ArtworkLabelController extends BaseApiController
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function putBatchAction(string $slug, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
-    {
+    public function putBatchAction(
+        string $slug,
+        ArtworkServiceInterface $artworkService,
+        LabelServiceInterface $labelService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $labelService) {
             $artwork = $artworkService->get($slug);
             $labels = $this->getValue('labels', []);
@@ -108,8 +118,12 @@ class ArtworkLabelController extends BaseApiController
      * @param LabelServiceInterface $labelService
      * @return Response
      */
-    public function deleteAction(string $slug, string $name, ArtworkServiceInterface $artworkService, LabelServiceInterface $labelService): Response
-    {
+    public function deleteAction(
+        string $slug,
+        string $name,
+        ArtworkServiceInterface $artworkService,
+        LabelServiceInterface $labelService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $name, $artworkService, $labelService) {
             $artwork = $artworkService->get($slug);
 

@@ -1,11 +1,11 @@
 {% block header %}
     <header class="jinya-header">
         {% block menu %}
-            {% include '@Themes/jinya-default-theme/include/menu/menu.html.twig' %}
+            {% include '@Theme/jinya-default-theme/include/menu/menu.html.twig' %}
         {% endblock %}
         {% block brand %}
             <span class="jinya-brand">
-                {{ theme.active.primaryMenu.name }}
+                {{ theme.links.menus.primary.name }}
             </span>
             <button class="jinya-menu__hamburger">
                 <span class="jinya-menu-hamburger__bar"></span>

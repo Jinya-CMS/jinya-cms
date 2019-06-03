@@ -10,7 +10,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-message__action-bar {
     display: block;
     padding-top: 1em;
@@ -21,6 +21,7 @@
       &:first-child {
         margin-left: 0;
       }
+
       &:last-child {
         margin-right: 0;
       }

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <jinya-progress-bar v-if="uploading" class="jinya-video-uploader__indicator"/>
-    <jinya-modal title="background.video.exists.title" @close="showReupload = false" v-if="showReupload">
+    <jinya-progress-bar class="jinya-video-uploader__indicator" v-if="uploading"/>
+    <jinya-modal @close="showReupload = false" title="background.video.exists.title" v-if="showReupload">
       <span>{{reuploadMessage}}</span>
-      <jinya-modal-button slot="buttons-right" :closes-modal="true" @click="reupload"
-                          label="background.video.exists.reupload" :is-success="true"></jinya-modal-button>
-      <jinya-modal-button slot="buttons-left" :closes-modal="true" label="background.video.exists.cancel"
-                          :is-secondary="true"></jinya-modal-button>
+      <jinya-modal-button :closes-modal="true" :is-success="true" @click="reupload"
+                          label="background.video.exists.reupload" slot="buttons-right"></jinya-modal-button>
+      <jinya-modal-button :closes-modal="true" :is-secondary="true" label="background.video.exists.cancel"
+                          slot="buttons-left"></jinya-modal-button>
     </jinya-modal>
   </div>
 </template>
@@ -74,6 +74,7 @@
                   Favicon,
                 });
               } else {
+                // eslint-disable-next-line no-alert
                 alert(message);
               }
             }
@@ -91,6 +92,7 @@
                 Favicon,
               });
             } else {
+              // eslint-disable-next-line no-alert
               alert(Translator.validator(message));
             }
           };
@@ -108,7 +110,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-video-uploader__indicator {
     position: fixed;
     bottom: 0;

@@ -2,10 +2,10 @@
   <div class="jinya-video__youtube">
     <jinya-message :message="message" :state="state" v-if="state"/>
     <div class="jinya-video__video-details" v-else>
-      <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" frameborder="0" width="960"
-              height="540" class="jinya-video__video--youtube"></iframe>
+      <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" class="jinya-video__video--youtube"
+              height="540" width="960"></iframe>
       <div class="jinya-video__video-description" v-html="video.description"></div>
-      <jinya-floating-action-button icon="pencil" @click="edit"/>
+      <jinya-floating-action-button @click="edit" icon="pencil"/>
     </div>
   </div>
 </template>

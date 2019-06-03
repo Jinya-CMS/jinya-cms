@@ -1,5 +1,5 @@
 <template>
-  <jinya-artwork-form :artwork="artwork" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-artwork-form :artwork="artwork" :enable="enable" :message="message" :state="state" @save="save"/>
 </template>
 
 <script>
@@ -23,7 +23,6 @@
         artwork: {
           picture: '',
           name: '',
-          slug: '',
           description: '',
         },
       };
@@ -52,15 +51,14 @@
           this.state = 'loading';
           this.message = Translator.message('art.artworks.edit.saving', artwork);
 
-          await JinyaRequest.put(`/api/artwork/${this.$route.params.slug}`, {
+          const savedData = await JinyaRequest.put(`/api/artwork/${this.$route.params.slug}`, {
             name: artwork.name,
-            slug: artwork.slug,
             description: artwork.description,
           });
 
           if (picture) {
             this.message = Translator.message('art.artworks.edit.uploading', artwork);
-            await JinyaRequest.upload(`/api/artwork/${artwork.slug}/picture`, picture);
+            await JinyaRequest.upload(`/api/artwork/${savedData.slug}/picture?conversionType=${artwork.type}`, picture);
           }
 
           this.state = 'success';
@@ -70,7 +68,7 @@
           this.$router.push({
             name: Routes.Art.Artworks.SavedInJinya.Details.name,
             params: {
-              slug: this.artwork.slug,
+              slug: savedData.slug,
             },
           });
         } catch (error) {

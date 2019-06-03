@@ -1,5 +1,5 @@
 <template>
-  <jinya-textarea :label="label" :required="required" :enable="enable"/>
+  <jinya-textarea :enable="enable" :label="label" :required="required"/>
 </template>
 
 <script>

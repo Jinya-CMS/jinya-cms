@@ -15,6 +15,12 @@ scripts:
       - menu-mobile.dist.js
     gallery.horizontal.js:
       - scrollhelper.dist.js
+    gallery.masonry.js:
+      - gallery-masonry.dist.js
+links:
+  menus:
+    primary: Kopfmenü
+    footer: Fußzeilenmenü
 defaultConfig:
   page:
     title: Jinya CMS
@@ -39,6 +45,8 @@ defaultConfig:
     messages:
       mail_sent_message: Mail was sent successfully
       mail_not_sent_message: Mail could not be sent
+  profile:
+    show_email: false
 form:
   config:
     title: Jinya default Theme konfigurieren
@@ -112,3 +120,9 @@ form:
               - name: mail_not_sent_message
                 type: string
                 label: Fehler beim senden
+      - name: profile
+        title: Profilseiten
+        fields:
+          - name: show_email
+            type: boolean
+            label: Emailadresse anzeigen

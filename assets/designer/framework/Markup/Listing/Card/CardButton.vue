@@ -1,11 +1,11 @@
 <template>
-  <router-link :disabled="isDisabled" v-if="to" class="jinya-card-button" :class="additionalClasses"
-               :to="routeTarget">
-    <span v-if="icon" class="mdi" :class="`mdi-${icon}`"></span>
+  <router-link :class="additionalClasses" :disabled="isDisabled" :to="routeTarget" class="jinya-card-button"
+               v-if="to">
+    <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
     <span v-if="text">{{text|jmessage}}</span>
   </router-link>
-  <button :disabled="isDisabled" v-else class="jinya-card-button" :class="additionalClasses" @click="$emit('click')">
-    <span v-if="icon" class="mdi" :class="`mdi-${icon}`"></span>
+  <button :class="additionalClasses" :disabled="isDisabled" @click="$emit('click')" class="jinya-card-button" v-else>
+    <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
     <span v-if="text">{{text|jmessage}}</span>
   </button>
 </template>
@@ -62,6 +62,6 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @include card-footer-button('jinya-card-button');
 </style>

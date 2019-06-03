@@ -2,14 +2,16 @@
   <div class="jinya-input">
     <label :for="`label-${id}`" class="jinya-input__label">{{label|jmessage}}</label>
     <div class="jinya-input__wrapper">
-      <label :id="`label-${id}`" :class="{'is--disabled': !enable}" :for="id" class="jinya-input__field">
+      <label :class="{'is--disabled': !enable}" :for="id" :id="`label-${id}`" class="jinya-input__field">
         {{selectedFileName}}
       </label>
-      <jinya-button label="framework.markup.form.file_input.reset" class="jinya-button--reset" :is-primary="true"
-                    :is-inverse="true" type="button" :is-disabled="!enable" @click="reset"/>
+      <jinya-button :is-disabled="!enable" :is-inverse="true" :is-primary="true"
+                    @click="reset" class="jinya-button--reset" label="framework.markup.form.file_input.reset"
+                    type="button"/>
     </div>
-    <input :disabled="!enable" :multiple="multiple" :id="id" type="file" :required="required" :accept="accept"
-           style="display: none;" @change="updateValue($event)"/>
+    <input :accept="accept" :disabled="!enable" :id="id" :multiple="multiple" :required="required"
+           @change="updateValue($event)"
+           style="display: none;" type="file"/>
   </div>
 </template>
 
@@ -91,7 +93,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-input {
     font-size: 1rem;
     width: 100%;

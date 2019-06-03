@@ -16,7 +16,7 @@ interface MenuItemFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param \Jinya\Entity\Menu\MenuItem $menuItem
+     * @param MenuItem $menuItem
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): self;

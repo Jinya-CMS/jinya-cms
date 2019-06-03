@@ -44,7 +44,7 @@ class BaseService
     /**
      * Saves the given entity
      *
-     * @param \Jinya\Entity\Base\BaseEntity $entity
+     * @param BaseEntity $entity
      * @return BaseEntity
      */
     public function saveOrUpdate($entity)
@@ -70,9 +70,8 @@ class BaseService
     }
 
     /**
-     * Gets a @see QueryBuilder for the current entity type
-     *
-     * @return QueryBuilder
+     * Gets a @return QueryBuilder
+     * @see QueryBuilder for the current entity type
      */
     protected function getQueryBuilder(): QueryBuilder
     {

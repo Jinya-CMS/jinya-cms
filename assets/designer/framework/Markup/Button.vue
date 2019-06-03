@@ -1,9 +1,10 @@
 <template>
-  <a v-if="href" :href="href" v-jinya-message="label" class="jinya-button" :class="additionalClasses"></a>
-  <router-link v-else-if="to" :to="routeTarget" v-jinya-message="label" class="jinya-button"
-               :class="additionalClasses"/>
-  <button :type="type" v-else @click="$event => $emit('click', $event)" v-jinya-message="label" class="jinya-button"
-          :disabled="isDisabled" :class="additionalClasses"></button>
+  <a :class="additionalClasses" :href="href" class="jinya-button" v-if="href" v-jinya-message="label"></a>
+  <router-link :class="additionalClasses" :to="routeTarget" class="jinya-button" v-else-if="to"
+               v-jinya-message="label"/>
+  <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
+          class="jinya-button"
+          v-else v-jinya-message="label"></button>
 </template>
 
 <script>
@@ -57,7 +58,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-button {
     border: 2px solid;
     background: $white;
@@ -70,6 +71,8 @@
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    font-family: $font-family;
+    font-weight: normal;
 
     &:focus {
       outline: none;

@@ -1,11 +1,11 @@
 <template>
   <div style="padding-top: 1rem">
     <jinya-loader :loading="loading"/>
-    <jinya-message :message="getKeyMessage(apiKey)" v-for="apiKey in apiKeys"
-                   :key="`message-${apiKey.key}`" state="info">
+    <jinya-message :key="`message-${apiKey.key}`" :message="getKeyMessage(apiKey)"
+                   state="info" v-for="apiKey in apiKeys">
       <jinya-message-action-bar :key="`message-action-bar-${apiKey.key}`">
-        <jinya-button @click="deleteToken(apiKey.key)" :isDanger="true"
-                      label="my_jinya.account.api_key.delete" :key="`button-${apiKey.key}`"/>
+        <jinya-button :isDanger="true" :key="`button-${apiKey.key}`"
+                      @click="deleteToken(apiKey.key)" label="my_jinya.account.api_key.delete"/>
       </jinya-message-action-bar>
     </jinya-message>
   </div>

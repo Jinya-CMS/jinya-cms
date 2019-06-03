@@ -11,12 +11,13 @@ namespace Jinya\Entity\Authentication;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Artist\User;
+use JsonSerializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="api_key")
  */
-class ApiKey implements \JsonSerializable
+class ApiKey implements JsonSerializable
 {
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", cascade={"remove"})

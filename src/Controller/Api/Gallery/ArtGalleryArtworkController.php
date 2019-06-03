@@ -27,8 +27,11 @@ class ArtGalleryArtworkController extends BaseApiController
      * @param ArtGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $gallerySlug, ArtGalleryServiceInterface $galleryService, ArtGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function getAction(
+        string $gallerySlug,
+        ArtGalleryServiceInterface $galleryService,
+        ArtGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
 
@@ -89,9 +92,18 @@ class ArtGalleryArtworkController extends BaseApiController
      * @param ArtworkPositionServiceInterface $artworkPositionService
      * @return Response
      */
-    public function putPositionAction(int $id, int $oldPosition, string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $id, $oldPosition, $artworkPositionService) {
+    public function putPositionAction(
+        int $id,
+        int $oldPosition,
+        string $gallerySlug,
+        ArtworkPositionServiceInterface $artworkPositionService
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $gallerySlug,
+            $id,
+            $oldPosition,
+            $artworkPositionService
+        ) {
             $newPosition = $this->getValue('position', null);
             $artworkSlug = $this->getValue('artwork', null);
 

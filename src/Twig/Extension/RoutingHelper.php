@@ -3,8 +3,10 @@
 namespace Jinya\Twig\Extension;
 
 use Symfony\Component\Routing\RequestContext;
+use Twig_Extension;
+use Twig_Function;
 
-class RoutingHelper extends \Twig_Extension
+class RoutingHelper extends Twig_Extension
 {
     /** @var RequestContext */
     private $request;
@@ -29,7 +31,7 @@ class RoutingHelper extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_url' => new \Twig_Function('get_url', [$this, 'getUrl']),
+            'get_url' => new Twig_Function('get_url', [$this, 'getUrl']),
         ];
     }
 

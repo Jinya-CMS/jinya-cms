@@ -55,8 +55,11 @@ class LabelController extends BaseApiController
      * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function getAction(string $name, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
-    {
+    public function getAction(
+        string $name,
+        LabelServiceInterface $labelService,
+        LabelFormatterInterface $labelFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($name, $labelService, $labelFormatter) {
             $label = $labelService->getLabel($name);
 
@@ -80,8 +83,11 @@ class LabelController extends BaseApiController
      * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function postAction(Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
-    {
+    public function postAction(
+        Request $request,
+        LabelServiceInterface $labelService,
+        LabelFormatterInterface $labelFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($request, $labelService, $labelFormatter) {
             $name = $this->getValue('name', null);
             if (empty($name)) {
@@ -104,8 +110,12 @@ class LabelController extends BaseApiController
      * @param LabelFormatterInterface $labelFormatter
      * @return Response
      */
-    public function putAction(string $name, Request $request, LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
-    {
+    public function putAction(
+        string $name,
+        Request $request,
+        LabelServiceInterface $labelService,
+        LabelFormatterInterface $labelFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($name, $request, $labelService, $labelFormatter) {
             $newName = $this->getValue('name', $name);
 

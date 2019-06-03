@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Gallery\VideoGallery;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Framework\Events\Galleries\VideoGalleryEvent;
@@ -72,7 +73,7 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param VideoGalleryEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPreVideoGallerySave(VideoGalleryEvent $event)
     {
@@ -98,7 +99,10 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
             $this->affectedRoutes = array_filter($galleryRoutes, function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
-                return array_key_exists('slug', $parameter) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                return array_key_exists(
+                    'slug',
+                    $parameter
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

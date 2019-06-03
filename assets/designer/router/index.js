@@ -32,7 +32,6 @@ router.beforeEach(async (to, from, next) => {
     next(Routes.Account.Login.route);
   } else {
     try {
-      // eslint-disable-next-line no-param-reassign
       to.meta.me = {
         roles: getCurrentUserRoles(),
       };

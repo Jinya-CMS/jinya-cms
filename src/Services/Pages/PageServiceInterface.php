@@ -13,10 +13,9 @@ use Jinya\Entity\Page\Page;
 interface PageServiceInterface
 {
     /**
-     * Gets the specified @see Page by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Page
+     * @see Page by slug
      */
     public function get(string $slug): Page;
 
@@ -39,17 +38,15 @@ interface PageServiceInterface
     public function countAll(string $keyword = ''): int;
 
     /**
-     * Saves or updates the given @see Page
-     *
-     * @param \Jinya\Entity\Page\Page $page
+     * Saves or updates the given @param Page $page
      * @return Page
+     * @see Page
      */
     public function saveOrUpdate(Page $page): Page;
 
     /**
-     * Deletes the given @see Page
-     *
-     * @param Page $entity
+     * Deletes the given @param Page $entity
+     * @see Page
      */
     public function delete(Page $entity): void;
 }

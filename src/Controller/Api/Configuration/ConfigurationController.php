@@ -26,8 +26,10 @@ class ConfigurationController extends BaseApiController
      * @param ConfigurationFormatterInterface $configurationFormatter
      * @return Response
      */
-    public function getAction(ConfigurationServiceInterface $configurationService, ConfigurationFormatterInterface $configurationFormatter): Response
-    {
+    public function getAction(
+        ConfigurationServiceInterface $configurationService,
+        ConfigurationFormatterInterface $configurationFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($configurationService, $configurationFormatter) {
             return $configurationFormatter
                 ->init($configurationService->getConfig())
@@ -47,8 +49,11 @@ class ConfigurationController extends BaseApiController
      * @param ThemeServiceInterface $themeService
      * @return Response
      */
-    public function putThemeAction(string $themeName, ConfigurationServiceInterface $configurationService, ThemeServiceInterface $themeService): Response
-    {
+    public function putThemeAction(
+        string $themeName,
+        ConfigurationServiceInterface $configurationService,
+        ThemeServiceInterface $themeService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($themeName, $configurationService, $themeService) {
             $configuration = $configurationService->getConfig();
             $configuration->setCurrentTheme($themeService->getTheme($themeName));

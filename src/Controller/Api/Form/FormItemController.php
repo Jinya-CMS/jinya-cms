@@ -32,8 +32,11 @@ class FormItemController extends BaseApiController
      * @param FormItemFormatterInterface $formItemFormatter
      * @return Response
      */
-    public function getAllAction(string $slug, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
-    {
+    public function getAllAction(
+        string $slug,
+        FormItemServiceInterface $formItemService,
+        FormItemFormatterInterface $formItemFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $formItemService, $formItemFormatter) {
             return array_map(function ($item) use ($formItemFormatter) {
                 return $formItemFormatter
@@ -59,9 +62,18 @@ class FormItemController extends BaseApiController
      * @param FormItemFormatterInterface $formItemFormatter
      * @return Response
      */
-    public function getAction(string $slug, int $position, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formItemService, $formItemFormatter) {
+    public function getAction(
+        string $slug,
+        int $position,
+        FormItemServiceInterface $formItemService,
+        FormItemFormatterInterface $formItemFormatter
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $slug,
+            $position,
+            $formItemService,
+            $formItemFormatter
+        ) {
             $formItemFormatter
                 ->init($formItemService->getItem($slug, $position))
                 ->form()
@@ -92,8 +104,12 @@ class FormItemController extends BaseApiController
      * @param FormItemServiceInterface $formItemService
      * @return Response
      */
-    public function batchAction(string $slug, Request $request, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response
-    {
+    public function batchAction(
+        string $slug,
+        Request $request,
+        FormServiceInterface $formService,
+        FormItemServiceInterface $formItemService
+    ): Response {
         list($status, $data) = $this->tryExecute(function () use ($slug, $request, $formService, $formItemService) {
             $actions = json_decode($request->getContent(), true);
             $form = $formService->get($slug);
@@ -150,9 +166,20 @@ class FormItemController extends BaseApiController
      * @param FormItemFormatterInterface $formItemFormatter
      * @return Response
      */
-    public function postAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formService, $formItemService, $formItemFormatter) {
+    public function postAction(
+        string $slug,
+        int $position,
+        FormServiceInterface $formService,
+        FormItemServiceInterface $formItemService,
+        FormItemFormatterInterface $formItemFormatter
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $slug,
+            $position,
+            $formService,
+            $formItemService,
+            $formItemFormatter
+        ) {
             $form = $formService->get($slug);
             $label = $this->getValue('label');
             $helpText = $this->getValue('helpText', '');
@@ -201,9 +228,18 @@ class FormItemController extends BaseApiController
      * @param FormItemServiceInterface $formItemService
      * @return Response
      */
-    public function moveAction(string $slug, int $oldPosition, int $newPosition, FormItemServiceInterface $formItemService): Response
-    {
-        list($result, $status) = $this->tryExecute(function () use ($slug, $oldPosition, $newPosition, $formItemService) {
+    public function moveAction(
+        string $slug,
+        int $oldPosition,
+        int $newPosition,
+        FormItemServiceInterface $formItemService
+    ): Response {
+        list($result, $status) = $this->tryExecute(function () use (
+            $slug,
+            $oldPosition,
+            $newPosition,
+            $formItemService
+        ) {
             $formItemService->updatePosition($slug, $oldPosition, $newPosition);
         }, Response::HTTP_NO_CONTENT);
 
@@ -221,9 +257,20 @@ class FormItemController extends BaseApiController
      * @param FormItemFormatterInterface $formItemFormatter
      * @return Response
      */
-    public function putAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService, FormItemFormatterInterface $formItemFormatter): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formService, $formItemService, $formItemFormatter) {
+    public function putAction(
+        string $slug,
+        int $position,
+        FormServiceInterface $formService,
+        FormItemServiceInterface $formItemService,
+        FormItemFormatterInterface $formItemFormatter
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $slug,
+            $position,
+            $formService,
+            $formItemService,
+            $formItemFormatter
+        ) {
             $item = $formItemService->getItem($slug, $position);
             $label = $this->getValue('label', $item->getLabel());
             $helpText = $this->getValue('helpText', $item->getHelpText());
@@ -255,8 +302,12 @@ class FormItemController extends BaseApiController
      * @param FormItemServiceInterface $formItemService
      * @return Response
      */
-    public function deleteAction(string $slug, int $position, FormServiceInterface $formService, FormItemServiceInterface $formItemService): Response
-    {
+    public function deleteAction(
+        string $slug,
+        int $position,
+        FormServiceInterface $formService,
+        FormItemServiceInterface $formItemService
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formService, $formItemService) {
             $formItemService->deleteItem($formService->get($slug), $position);
         }, Response::HTTP_NO_CONTENT);

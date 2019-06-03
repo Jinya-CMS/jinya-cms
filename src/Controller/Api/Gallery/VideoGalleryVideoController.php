@@ -27,8 +27,11 @@ class VideoGalleryVideoController extends BaseApiController
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
-    public function getAction(string $gallerySlug, VideoGalleryServiceInterface $galleryService, VideoGalleryFormatterInterface $galleryFormatter): Response
-    {
+    public function getAction(
+        string $gallerySlug,
+        VideoGalleryServiceInterface $galleryService,
+        VideoGalleryFormatterInterface $galleryFormatter
+    ): Response {
         list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
 
@@ -90,9 +93,18 @@ class VideoGalleryVideoController extends BaseApiController
      * @param VideoPositionServiceInterface $videoPositionService
      * @return Response
      */
-    public function putPositionAction(int $id, int $oldPosition, string $gallerySlug, VideoPositionServiceInterface $videoPositionService): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $id, $oldPosition, $videoPositionService) {
+    public function putPositionAction(
+        int $id,
+        int $oldPosition,
+        string $gallerySlug,
+        VideoPositionServiceInterface $videoPositionService
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $gallerySlug,
+            $id,
+            $oldPosition,
+            $videoPositionService
+        ) {
             $newPosition = $this->getValue('position', null);
             $videoSlug = $this->getValue('video', null);
             $videoType = $this->getValue('type', null);

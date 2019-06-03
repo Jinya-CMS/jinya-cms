@@ -19,7 +19,9 @@ use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
+use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
+use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Underscore\Types\Strings;
 
@@ -36,6 +38,9 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /** @var VideoGalleryServiceInterface */
     private $videoGalleryService;
+
+    /** @var UserServiceInterface */
+    private $userService;
 
     /** @var PageServiceInterface */
     private $pageService;
@@ -55,31 +60,50 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var ThemeSyncServiceInterface */
+    private $themeSyncService;
+
     /**
      * StaticFileCacheBuilder constructor.
      * @param ConfigurationServiceInterface $configurationService
      * @param ArtworkServiceInterface $artworkService
      * @param ArtGalleryServiceInterface $artGalleryService
      * @param VideoGalleryServiceInterface $videoGalleryService
+     * @param UserServiceInterface $userService
      * @param PageServiceInterface $pageService
      * @param FormServiceInterface $formService
      * @param FormGeneratorInterface $formGenerator
      * @param CompilerInterface $compiler
      * @param string $kernelProjectDir
      * @param EntityManagerInterface $entityManager
+     * @param ThemeSyncServiceInterface $themeSyncService
      */
-    public function __construct(ConfigurationServiceInterface $configurationService, ArtworkServiceInterface $artworkService, ArtGalleryServiceInterface $artGalleryService, VideoGalleryServiceInterface $videoGalleryService, PageServiceInterface $pageService, FormServiceInterface $formService, FormGeneratorInterface $formGenerator, CompilerInterface $compiler, string $kernelProjectDir, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        ConfigurationServiceInterface $configurationService,
+        ArtworkServiceInterface $artworkService,
+        ArtGalleryServiceInterface $artGalleryService,
+        VideoGalleryServiceInterface $videoGalleryService,
+        UserServiceInterface $userService,
+        PageServiceInterface $pageService,
+        FormServiceInterface $formService,
+        FormGeneratorInterface $formGenerator,
+        CompilerInterface $compiler,
+        string $kernelProjectDir,
+        EntityManagerInterface $entityManager,
+        ThemeSyncServiceInterface $themeSyncService
+    ) {
         $this->configurationService = $configurationService;
         $this->artworkService = $artworkService;
         $this->artGalleryService = $artGalleryService;
         $this->videoGalleryService = $videoGalleryService;
+        $this->userService = $userService;
         $this->pageService = $pageService;
         $this->formService = $formService;
         $this->formGenerator = $formGenerator;
         $this->compiler = $compiler;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->entityManager = $entityManager;
+        $this->themeSyncService = $themeSyncService;
     }
 
     /**
@@ -87,6 +111,8 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCache(): void
     {
+        $this->clearCache();
+        $this->themeSyncService->syncThemes();
         $routes = $this->getRoutesFromTheme();
 
         $startPageRoute = new RoutingEntry();
@@ -96,7 +122,8 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $this->addEntryToCacheList($file);
 
         foreach ($routes as $route) {
-            if ('empty' !== $route->getMenuItem()->getPageType() && 'external' !== $route->getMenuItem()->getPageType()) {
+            $pageType = $route->getMenuItem()->getPageType();
+            if ('empty' !== $pageType && 'external' !== $pageType) {
                 $compiledTemplate = $this->compileRoute($route);
                 $file = $this->cacheTemplate($compiledTemplate, $route);
                 $this->addEntryToCacheList($file);
@@ -188,6 +215,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     private function compileRoute(RoutingEntry $route): string
     {
         $routeParameter = $route->getRouteParameter();
+        $routeName = $route->getRouteName();
 
         if (is_array($routeParameter) && array_key_exists('slug', $routeParameter)) {
             $slug = $routeParameter['slug'];
@@ -195,27 +223,29 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $slug = '';
         }
 
-        if (Strings::find($route->getRouteName(), 'artwork')) {
+        if (Strings::find($routeName, 'artwork')) {
             $viewData = [
                 'artwork' => $this->artworkService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Artwork/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'video_gallery')) {
+        } elseif (Strings::find($routeName, 'video_gallery')) {
             $viewData = [
                 'gallery' => $this->videoGalleryService->get($slug),
                 'type' => 'video',
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'art_gallery') || Strings::find($route->getRouteName(), 'gallery')) {
+        } elseif (Strings::find($routeName, 'art_gallery') || Strings::find($routeName, 'gallery')) {
+            $artGallery = $this->artGalleryService->get($slug);
+
             $viewData = [
-                'gallery' => $this->artGalleryService->get($slug),
+                'gallery' => $artGallery,
                 'type' => 'art',
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'form')) {
+        } elseif (Strings::find($routeName, 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
@@ -224,12 +254,18 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
-        } elseif (Strings::find($route->getRouteName(), 'page')) {
+        } elseif (Strings::find($routeName, 'page')) {
             $viewData = [
                 'page' => $this->pageService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Page/detail.html.twig';
+        } elseif (Strings::find($routeName, 'profile')) {
+            $viewData = [
+                'profile' => $this->userService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/Profile/detail.html.twig';
         } else {
             $viewData = ['active' => '/'];
             $template = '@Theme/Default/index.html.twig';
@@ -265,18 +301,18 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function clearCache(): void
     {
-        $handle = fopen($this->getCacheFile(), 'rw+');
+        $handle = @fopen($this->getCacheFile(), 'rwb+');
         if ($handle) {
             try {
                 while (false !== ($line = fgets($handle))) {
-                    unlink($line);
+                    @unlink($line);
                 }
             } finally {
-                fclose($handle);
+                @fclose($handle);
             }
         }
 
-        unlink($this->getCacheFile());
+        @unlink($this->getCacheFile());
     }
 
     /**
@@ -286,6 +322,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildRouteCache(RoutingEntry $routingEntry): void
     {
+        $this->themeSyncService->syncThemes();
         $compiledTemplate = $this->compileRoute($routingEntry);
         $file = $this->cacheTemplate($compiledTemplate, $routingEntry);
         $this->addEntryToCacheList($file);
@@ -299,10 +336,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function buildCacheBySlugAndType(string $slug, string $type): void
     {
+        $this->themeSyncService->syncThemes();
         $routes = $this->getRoutesFromTheme();
+
         foreach ($routes as $route) {
-            $routeSlug = array_key_exists('slug', $route->getRouteParameter()) ? $route->getRouteParameter()['slug'] : '';
-            if ($route->getMenuItem()->getPageType() === $type && $slug === $routeSlug) {
+            $routeParameter = $route->getRouteParameter();
+            $routeSlug = array_key_exists('slug', $routeParameter) ? $routeParameter['slug'] : '';
+            if ($slug === $routeSlug && $route->getMenuItem()->getPageType() === $type) {
                 $compiledTemplate = $this->compileRoute($route);
                 $file = $this->cacheTemplate($compiledTemplate, $route);
                 $this->addEntryToCacheList($file);

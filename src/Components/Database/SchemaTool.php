@@ -9,6 +9,8 @@
 namespace Jinya\Components\Database;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\ToolsException;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -35,7 +37,7 @@ class SchemaTool implements SchemaToolInterface
 
     /**
      * Creates the database schema
-     * @throws \Doctrine\ORM\Tools\ToolsException
+     * @throws ToolsException
      */
     public function createSchema(): void
     {
@@ -45,7 +47,7 @@ class SchemaTool implements SchemaToolInterface
 
     /**
      * {@inheritdoc}
-     * @throws \Exception
+     * @throws Exception
      */
     public function migrateSchema(): void
     {

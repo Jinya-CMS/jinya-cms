@@ -1,5 +1,5 @@
 <template>
-  <tiny-mce :init="tinyMceOptions" :initial-value="data" v-model="data" @input="input"/>
+  <tiny-mce :init="tinyMceOptions" :initial-value="data" @input="input" v-model="data"/>
 </template>
 
 <script>
@@ -52,11 +52,15 @@
           plugins: [
             'anchor',
             'autolink',
+            'code',
             'colorpicker',
             'contextmenu',
             'fullscreen',
             'help',
+            'hr',
             'image',
+            'link',
+            'lists',
             'table',
             'textcolor',
           ],

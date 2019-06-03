@@ -1,13 +1,14 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
 
+Encore.configureRuntimeEnvironment('dev');
 Encore
 // directory where compiled assets will be stored
-  .setOutputPath('public/designer')
+  .setOutputPath('public/designer-app')
   // public path used by the web server to access the output path
-  .setPublicPath('/designer')
+  .setPublicPath('/designer-app')
   // only needed for CDN's or sub-directory deploy
-  .setManifestKeyPrefix('designer/')
+  .setManifestKeyPrefix('designer-app/')
 
   /*
    * ENTRY CONFIG
@@ -32,29 +33,29 @@ Encore
 
   // uncomment if you use Sass/SCSS files
   .enableSassLoader(() => ({
-    data: '@import "designer";',
-    includePaths: [
-      path.resolve(__dirname, './assets/designer/scss'),
-    ],
-  }))
+        data: '@import "designer";',
+        includePaths: [
+        path.join(__dirname, 'assets', 'designer', 'scss'),
+        ],
+    }))
 
-  .addAliases({ '@': 'assets/designer' })
+  .addAliases({ '@': path.join(__dirname, 'assets', 'designer') })
   .addRule({
-    test: /worker\/VideoUploader\.js$/,
-    include: path.resolve(__dirname, './assets/designer/'),
-    use: [
-      { loader: 'worker-loader' },
-      { loader: 'babel-loader' },
-    ],
-  })
+        test: /worker\/VideoUploader\.js$/,
+        include: path.join(__dirname, 'assets', 'designer'),
+        use: [
+        { loader: 'worker-loader' },
+        { loader: 'babel-loader' },
+        ],
+    })
   .copyFiles({
-    from: path.resolve(__dirname, './assets/designer/img/'),
-  })
+        from: path.join(__dirname, 'assets', 'designer', 'img'),
+    })
   .enablePostCssLoader();
 
 const webpackConfigEncore = Encore.getWebpackConfig();
 webpackConfigEncore.resolve.alias = {
-  ...webpackConfigEncore.resolve.alias,
-  '@': path.resolve(__dirname, 'assets', 'designer'),
+    ...webpackConfigEncore.resolve.alias,
+    '@': path.join(__dirname, 'assets', 'designer'),
 };
 module.exports = webpackConfigEncore;

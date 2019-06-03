@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Routing;
 
+use Jinya\Entity\Base\SlugEntity;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
@@ -51,8 +52,13 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
      * @param ArtworkServiceInterface $artworkService
      * @param RouterInterface $router
      */
-    public function __construct(PageServiceInterface $pageService, FormServiceInterface $formService, ArtGalleryServiceInterface $galleryService, ArtworkServiceInterface $artworkService, RouterInterface $router)
-    {
+    public function __construct(
+        PageServiceInterface $pageService,
+        FormServiceInterface $formService,
+        ArtGalleryServiceInterface $galleryService,
+        ArtworkServiceInterface $artworkService,
+        RouterInterface $router
+    ) {
         $this->pageService = $pageService;
         $this->formService = $formService;
         $this->galleryService = $galleryService;
@@ -98,8 +104,10 @@ class RouteRetrievalService implements RouteRetrievalServiceInterface
 
     private function generateRouteEntry(string $route)
     {
-        return function (/* @var \Jinya\Entity\Base\SlugEntity $item */
-            $item) use ($route) {
+        return function (
+            /* @var SlugEntity $item */
+            $item
+        ) use ($route) {
             return [
                 'name' => $route,
                 'url' => $this->router->generate($route, ['slug' => $item->getSlug()]),

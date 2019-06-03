@@ -9,6 +9,8 @@
 namespace Jinya\Services\Videos;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr;
 use Exception;
 use Jinya\Entity\Video\UploadingVideo;
@@ -51,8 +53,14 @@ class VideoUploadService implements VideoUploadServiceInterface
      * @param LoggerInterface $logger
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(VideoServiceInterface $videoService, MediaServiceInterface $mediaService, string $tmpDir, EntityManagerInterface $entityManager, LoggerInterface $logger, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        VideoServiceInterface $videoService,
+        MediaServiceInterface $mediaService,
+        string $tmpDir,
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->videoService = $videoService;
         $this->mediaService = $mediaService;
         $this->tmpDir = $tmpDir;
@@ -69,7 +77,10 @@ class VideoUploadService implements VideoUploadServiceInterface
     public function startUpload(string $slug): void
     {
         $video = $this->videoService->get($slug);
-        $pre = $this->eventDispatcher->dispatch(VideoUploadStartUploadEvent::PRE_START_UPLOAD, new VideoUploadStartUploadEvent($video));
+        $pre = $this->eventDispatcher->dispatch(
+            VideoUploadStartUploadEvent::PRE_START_UPLOAD,
+            new VideoUploadStartUploadEvent($video)
+        );
 
         if (!$pre->isCancel()) {
             $uploadingVideo = new UploadingVideo();
@@ -77,7 +88,10 @@ class VideoUploadService implements VideoUploadServiceInterface
 
             $this->entityManager->persist($uploadingVideo);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(VideoUploadStartUploadEvent::POST_START_UPLOAD, new VideoUploadStartUploadEvent($video));
+            $this->eventDispatcher->dispatch(
+                VideoUploadStartUploadEvent::POST_START_UPLOAD,
+                new VideoUploadStartUploadEvent($video)
+            );
         }
     }
 
@@ -87,12 +101,15 @@ class VideoUploadService implements VideoUploadServiceInterface
      * @param resource $chunk
      * @param int $position
      * @param string $slug
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function uploadChunk($chunk, int $position, string $slug): void
     {
-        $pre = $this->eventDispatcher->dispatch(VideoUploadChunkEvent::PRE_UPLOAD_CHUNK, new VideoUploadChunkEvent($chunk, $position, $slug));
+        $pre = $this->eventDispatcher->dispatch(
+            VideoUploadChunkEvent::PRE_UPLOAD_CHUNK,
+            new VideoUploadChunkEvent($chunk, $position, $slug)
+        );
 
         if (!$pre->isCancel()) {
             $uploadingVideo = $this->getUploadingVideo($slug);
@@ -109,15 +126,18 @@ class VideoUploadService implements VideoUploadServiceInterface
 
             $this->entityManager->persist($uploadingVideoChunk);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(VideoUploadChunkEvent::PRE_UPLOAD_CHUNK, new VideoUploadChunkEvent($chunk, $position, $slug));
+            $this->eventDispatcher->dispatch(
+                VideoUploadChunkEvent::PRE_UPLOAD_CHUNK,
+                new VideoUploadChunkEvent($chunk, $position, $slug)
+            );
         }
     }
 
     /**
      * @param string $slug
      * @return UploadingVideo
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     private function getUploadingVideo(string $slug): UploadingVideo
     {
@@ -142,7 +162,10 @@ class VideoUploadService implements VideoUploadServiceInterface
     {
         $chunks = $this->getChunks($slug);
 
-        $pre = $this->eventDispatcher->dispatch(VideoUploadFinishUploadEvent::PRE_FINISH_UPLOAD, new VideoUploadFinishUploadEvent($chunks, $slug));
+        $pre = $this->eventDispatcher->dispatch(
+            VideoUploadFinishUploadEvent::PRE_FINISH_UPLOAD,
+            new VideoUploadFinishUploadEvent($chunks, $slug)
+        );
         if (empty($pre->getPath())) {
             $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
             $newFileHandle = fopen($newFile, 'a');
@@ -199,14 +222,17 @@ class VideoUploadService implements VideoUploadServiceInterface
      * Removes all chunk data after upload
      *
      * @param string $slug
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function cleanupAfterUpload(string $slug): void
     {
         $chunks = $this->getChunks($slug);
 
-        $pre = $this->eventDispatcher->dispatch(VideoUploadCleanupAfterUploadEvent::PRE_CLEANUP_AFTER_UPLOAD, new VideoUploadCleanupAfterUploadEvent($slug, $chunks));
+        $pre = $this->eventDispatcher->dispatch(
+            VideoUploadCleanupAfterUploadEvent::PRE_CLEANUP_AFTER_UPLOAD,
+            new VideoUploadCleanupAfterUploadEvent($slug, $chunks)
+        );
         if (!$pre->isCancel()) {
             foreach ($chunks as $chunk) {
                 try {
@@ -219,7 +245,10 @@ class VideoUploadService implements VideoUploadServiceInterface
             $uploadingVideo = $this->getUploadingVideo($slug);
             $this->entityManager->remove($uploadingVideo);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(VideoUploadCleanupAfterUploadEvent::POST_CLEANUP_AFTER_UPLOAD, new VideoUploadCleanupAfterUploadEvent($slug, $chunks));
+            $this->eventDispatcher->dispatch(
+                VideoUploadCleanupAfterUploadEvent::POST_CLEANUP_AFTER_UPLOAD,
+                new VideoUploadCleanupAfterUploadEvent($slug, $chunks)
+            );
         }
     }
 }

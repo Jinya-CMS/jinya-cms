@@ -14,7 +14,7 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .jinya-menu-builder__template-item {
     display: block;
     padding: 0.5rem 0.5rem 0.5rem 1rem;

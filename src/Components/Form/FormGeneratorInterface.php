@@ -14,10 +14,9 @@ use Symfony\Component\Form\FormInterface;
 interface FormGeneratorInterface
 {
     /**
-     * Generates a @see FormInterface based on the given @see Form
-     *
-     * @param Form $form
+     * Generates a @param Form $form
      * @return FormInterface
+     * @see FormInterface based on the given @see Form
      */
     public function generateForm(Form $form): FormInterface;
 }

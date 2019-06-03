@@ -9,9 +9,12 @@
 namespace Jinya\Services\Galleries;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label\Label;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
@@ -41,8 +44,12 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      * @param LabelEntityServiceInterface $labelEntityService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, LabelEntityServiceInterface $labelEntityService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        LabelEntityServiceInterface $labelEntityService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->labelEntityService = $labelEntityService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
@@ -54,8 +61,8 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param string $slug
      * @return ArtGallery
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(string $slug): ArtGallery
     {
@@ -79,11 +86,23 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::ART_GALLERIES_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(
+            ListEvent::ART_GALLERIES_PRE_GET_ALL,
+            new ListEvent($offset, $count, $keyword, [])
+        );
 
-        $galleries = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
+        $galleries = $this->labelEntityService->getAll(
+            $this->getBasicQueryBuilder(),
+            $offset,
+            $count,
+            $keyword,
+            $label
+        );
 
-        $this->eventDispatcher->dispatch(ListEvent::ART_GALLERIES_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $galleries));
+        $this->eventDispatcher->dispatch(
+            ListEvent::ART_GALLERIES_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $galleries)
+        );
 
         return $galleries;
     }
@@ -102,7 +121,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      * Counts all galleries
      *
      * @param string $keyword
-     * @param \Jinya\Entity\Label\Label|null $label
+     * @param Label|null $label
      * @return int
      */
     public function countAll(string $keyword = '', Label $label = null): int
@@ -121,15 +140,21 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      *
      * @param ArtGallery $gallery
      * @return ArtGallery
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(ArtGallery $gallery): ArtGallery
     {
-        $pre = $this->eventDispatcher->dispatch(ArtGalleryEvent::PRE_SAVE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtGalleryEvent::PRE_SAVE,
+            new ArtGalleryEvent($gallery, $gallery->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($gallery);
-            $this->eventDispatcher->dispatch(ArtGalleryEvent::POST_SAVE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+            $this->eventDispatcher->dispatch(
+                ArtGalleryEvent::POST_SAVE,
+                new ArtGalleryEvent($gallery, $gallery->getSlug())
+            );
         }
 
         return $gallery;
@@ -142,11 +167,17 @@ class ArtGalleryService implements ArtGalleryServiceInterface
      */
     public function delete(ArtGallery $gallery): void
     {
-        $pre = $this->eventDispatcher->dispatch(ArtGalleryEvent::PRE_DELETE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(
+            ArtGalleryEvent::PRE_DELETE,
+            new ArtGalleryEvent($gallery, $gallery->getSlug())
+        );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($gallery);
-            $this->eventDispatcher->dispatch(ArtGalleryEvent::POST_DELETE, new ArtGalleryEvent($gallery, $gallery->getSlug()));
+            $this->eventDispatcher->dispatch(
+                ArtGalleryEvent::POST_DELETE,
+                new ArtGalleryEvent($gallery, $gallery->getSlug())
+            );
         }
     }
 }

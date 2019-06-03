@@ -1,6 +1,6 @@
 <template>
-  <jinya-artist-form :state="state" :message="message" @save="save" :enable="enable" :artist="artist"
-                     :show-password="false"/>
+  <jinya-artist-form :artist="artist" :enable="enable" :message="message" :show-password="false" :state="state"
+                     @save="save"/>
 </template>
 
 <script>

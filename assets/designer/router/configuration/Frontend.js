@@ -1,7 +1,7 @@
 import ThemeOverview from '@/components/Configuration/Frontend/Themes/Overview';
 import ThemeVariables from '@/components/Configuration/Frontend/Themes/Variables';
 import ThemeConfiguration from '@/components/Configuration/Frontend/Themes/Configuration';
-import ThemeMenus from '@/components/Configuration/Frontend/Themes/Menus';
+import ThemeLinks from '@/components/Configuration/Frontend/Themes/Links';
 import MenuOverview from '@/components/Configuration/Frontend/Menus/Overview';
 import MenuAdd from '@/components/Configuration/Frontend/Menus/Add';
 import MenuEdit from '@/components/Configuration/Frontend/Menus/Edit';
@@ -50,9 +50,9 @@ export default [
     component: ThemeConfiguration,
   },
   {
-    path: Routes.Configuration.Frontend.Theme.Menus.route,
-    name: Routes.Configuration.Frontend.Theme.Menus.name,
-    component: ThemeMenus,
+    path: Routes.Configuration.Frontend.Theme.Links.route,
+    name: Routes.Configuration.Frontend.Theme.Links.name,
+    component: ThemeLinks,
   },
   {
     path: Routes.Configuration.Frontend.Theme.Variables.route,

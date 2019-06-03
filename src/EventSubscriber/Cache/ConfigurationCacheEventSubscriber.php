@@ -57,7 +57,7 @@ class ConfigurationCacheEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onConfigurationWrite(ConfigurationEvent $event)
+    public function onConfigurationWrite()
     {
         $this->cacheBuilder->clearCache();
         $this->cacheBuilder->buildCache();

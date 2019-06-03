@@ -1,6 +1,6 @@
 <template>
-  <button :class="`jinya-gallery-designer__button--${type}`" class="jinya-gallery-designer__button"
-          @click="$emit('click')"></button>
+  <button :class="`jinya-gallery-designer__button--${type}`" @click="$emit('click')"
+          class="jinya-gallery-designer__button"></button>
 </template>
 
 <script>
@@ -16,36 +16,6 @@
 </script>
 
 <style lang="scss">
-  .is--horizontal {
-    .jinya-gallery-designer__button {
-      height: 40em;
-
-      &.jinya-gallery-designer__button--add {
-        width: 10em;
-      }
-
-      &.jinya-gallery-designer__button--edit {
-        grid-column: 1;
-        grid-row: 1;
-      }
-    }
-  }
-
-  .is--vertical {
-    .jinya-gallery-designer__button {
-      &.jinya-gallery-designer__button--add {
-        height: 10em;
-      }
-
-      &.jinya-gallery-designer__button--edit {
-        height: auto;
-        width: 100%;
-        grid-row: 2;
-        grid-column: 1;
-      }
-    }
-  }
-
   .jinya-gallery-designer__button {
     height: 100%;
     width: 100%;
@@ -95,6 +65,47 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+      }
+    }
+
+    .is--horizontal & {
+      height: 40em;
+
+      &.jinya-gallery-designer__button--add {
+        width: 10em;
+      }
+
+      &.jinya-gallery-designer__button--edit {
+        grid-column: 1;
+        grid-row: 1;
+      }
+    }
+
+    .is--vertical & {
+      &.jinya-gallery-designer__button--add {
+        height: 10em;
+      }
+
+      &.jinya-gallery-designer__button--edit {
+        height: auto;
+        width: 100%;
+        grid-row: 2;
+        grid-column: 1;
+      }
+    }
+
+    .is--masonry & {
+      height: 10rem;
+      width: auto;
+
+      &.jinya-gallery-designer__button--edit {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      &.jinya-gallery-designer__button--add {
+        margin-top: 1rem;
+        margin-right: 1rem;
       }
     }
   }

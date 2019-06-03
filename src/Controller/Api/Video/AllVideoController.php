@@ -32,9 +32,20 @@ class AllVideoController extends BaseApiController
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
-    public function getAllAction(Request $request, AllVideoServiceInterface $allVideoService, VideoFormatterInterface $videoFormatter, YoutubeVideoFormatterInterface $youtubeVideoFormatter, UrlGeneratorInterface $urlGenerator): Response
-    {
-        list($data, $status) = $this->tryExecute(function () use ($request, $allVideoService, $videoFormatter, $youtubeVideoFormatter, $urlGenerator) {
+    public function getAllAction(
+        Request $request,
+        AllVideoServiceInterface $allVideoService,
+        VideoFormatterInterface $videoFormatter,
+        YoutubeVideoFormatterInterface $youtubeVideoFormatter,
+        UrlGeneratorInterface $urlGenerator
+    ): Response {
+        list($data, $status) = $this->tryExecute(function () use (
+            $request,
+            $allVideoService,
+            $videoFormatter,
+            $youtubeVideoFormatter,
+            $urlGenerator
+        ) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -59,7 +70,14 @@ class AllVideoController extends BaseApiController
             }, $allVideoService->getAll($offset, $count, $keyword));
             $totalCount = $allVideoService->countAll($keyword);
 
-            return $this->formatListResult($totalCount, $offset, $count, ['keyword' => $keyword], 'api_video_get_all', $entities);
+            return $this->formatListResult(
+                $totalCount,
+                $offset,
+                $count,
+                ['keyword' => $keyword],
+                'api_video_get_all',
+                $entities
+            );
         });
 
         return $this->json($data, $status);

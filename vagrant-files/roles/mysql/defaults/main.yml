@@ -1,0 +1,5 @@
+---
+mysql_root_user: root
+mysql_root_password: root
+mysql_jinya_user: jinya
+mysql_jinya_password: jinya

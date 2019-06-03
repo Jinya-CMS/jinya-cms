@@ -8,9 +8,11 @@
 
 namespace Jinya\Controller;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
-use Jinya\Components\Database\SchemaToolInterface;
+use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
@@ -19,6 +21,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
+use Throwable;
 use ZipArchive;
 
 class UpdateController extends AbstractController
@@ -44,8 +47,8 @@ class UpdateController extends AbstractController
     /** @var ThemeServiceInterface */
     private $themeService;
 
-    /** @var SchemaToolInterface */
-    private $schemaTool;
+    /** @var DatabaseMigratorInterface */
+    private $databaseMigrator;
 
     /**
      * UpdateController constructor.
@@ -56,10 +59,18 @@ class UpdateController extends AbstractController
      * @param ThemeSyncServiceInterface $themeSyncService
      * @param ThemeCompilerServiceInterface $themeCompilerService
      * @param ThemeServiceInterface $themeService
-     * @param SchemaToolInterface $schemaTool
+     * @param DatabaseMigratorInterface $databaseMigrator
      */
-    public function __construct(string $currentVersion, string $kernelProjectDir, Client $client, CacheClearerInterface $cacheClearer, ThemeSyncServiceInterface $themeSyncService, ThemeCompilerServiceInterface $themeCompilerService, ThemeServiceInterface $themeService, SchemaToolInterface $schemaTool)
-    {
+    public function __construct(
+        string $currentVersion,
+        string $kernelProjectDir,
+        Client $client,
+        CacheClearerInterface $cacheClearer,
+        ThemeSyncServiceInterface $themeSyncService,
+        ThemeCompilerServiceInterface $themeCompilerService,
+        ThemeServiceInterface $themeService,
+        DatabaseMigratorInterface $databaseMigrator
+    ) {
         $this->currentVersion = $currentVersion;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->client = $client;
@@ -67,7 +78,7 @@ class UpdateController extends AbstractController
         $this->themeSyncService = $themeSyncService;
         $this->themeCompilerService = $themeCompilerService;
         $this->themeService = $themeService;
-        $this->schemaTool = $schemaTool;
+        $this->databaseMigrator = $databaseMigrator;
     }
 
     /**
@@ -76,21 +87,55 @@ class UpdateController extends AbstractController
      */
     public function indexAction(Request $request): Response
     {
-        if ($request->isMethod('POST')) {
-            if ('cancel' === $request->get('action')) {
-                $this->finishUpdate();
+        try {
+            if ($request->isMethod('POST')) {
+                if ('cancel' === $request->get('action')) {
+                    $this->finishUpdate();
 
-                return $this->redirectToRoute('designer_home_index');
-            } elseif ('start' === $request->get('action')) {
-                $this->performFileUpdate($request->get('newVersion'));
+                    return $this->redirectToRoute('designer_home_index');
+                }
 
-                return $this->redirectToRoute('update_database');
+                if ('start' === $request->get('action')) {
+                    $this->performFileUpdate($request->get('newVersion'));
+
+                    return $this->redirectToRoute('update_database');
+                }
             }
-        }
 
-        return $this->render('@Jinya/Updater/Default/index.html.twig', [
-            'currentVersion' => $this->currentVersion,
-        ]);
+            $response = $this->client->request('GET', 'https://files.jinya.de/stable.json');
+            if (Response::HTTP_OK === $response->getStatusCode()) {
+                $jsonData = json_decode($response->getBody()->getContents(), true);
+                $cmsData = $jsonData['cms'];
+                $versions = [];
+                foreach ($cmsData as $version => $path) {
+                    if (version_compare($version, $this->currentVersion) >= 0) {
+                        $versions[] = ['version' => $version, 'path' => $path];
+                    }
+                }
+
+                if (empty($versions)) {
+                    return $this->render(
+                        '@Jinya/Updater/Default/no_update_available.html.twig',
+                        ['currentVersion' => $this->currentVersion]
+                    );
+                }
+
+                return $this->render('@Jinya/Updater/Default/index.html.twig', [
+                    'currentVersion' => $this->currentVersion,
+                    'versions' => array_reverse($versions),
+                ]);
+            }
+
+            return $this->render('@Jinya/Updater/Default/index.html.twig', [
+                'currentVersion' => $this->currentVersion,
+                'not_found' => true,
+            ]);
+        } catch (GuzzleException | Exception $e) {
+            return $this->render('@Jinya/Updater/Default/index.html.twig', [
+                'currentVersion' => $this->currentVersion,
+                'exception' => $e,
+            ]);
+        }
     }
 
     private function finishUpdate(): void
@@ -101,14 +146,17 @@ class UpdateController extends AbstractController
 
     /**
      * @param string $url
+     * @throws Exception
      */
-    private function performFileUpdate(string $url)
+    private function performFileUpdate(string $url): void
     {
         $tmpFile = $this->kernelProjectDir . '/var/tmp/update.zip';
         $this->client->get($url, [RequestOptions::SINK => $tmpFile]);
         $backupPath = $this->kernelProjectDir . '/var/tmp/backup/' . time();
 
-        @mkdir($backupPath, 0777, true);
+        if (!mkdir($backupPath, 0777, true) && !is_dir($backupPath)) {
+            throw new Exception(sprintf('Directory "%s" was not created', $backupPath));
+        }
         @rename($this->kernelProjectDir . '/src', $backupPath);
 
         try {
@@ -123,7 +171,7 @@ class UpdateController extends AbstractController
             foreach ($themes as $theme) {
                 $this->themeCompilerService->compileTheme($theme);
             }
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             rename($backupPath, $this->kernelProjectDir . '/src');
         }
     }
@@ -135,8 +183,7 @@ class UpdateController extends AbstractController
     public function updateDatabaseAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
-            $this->schemaTool->migrateSchema();
-            $this->finishUpdate();
+            $this->databaseMigrator->migrate();
 
             return $this->redirectToRoute('update_done');
         }
@@ -147,8 +194,14 @@ class UpdateController extends AbstractController
     /**
      * @return Response
      */
-    public function doneAction(): Response
+    public function doneAction(Request $request): Response
     {
+        if ($request->isMethod('POST')) {
+            $this->finishUpdate();
+
+            return $this->redirectToRoute('designer_home_index');
+        }
+
         return $this->render('@Jinya/Updater/Default/done.html.twig');
     }
 }

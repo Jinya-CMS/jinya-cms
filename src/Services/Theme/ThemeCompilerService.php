@@ -38,8 +38,12 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
      * @param ScssCompilerServiceInterface $scssCompilerService
      * @param string $kernelProjectDir
      */
-    public function __construct(ThemeConfigServiceInterface $themeConfigService, ThemeServiceInterface $themeService, ScssCompilerServiceInterface $scssCompilerService, string $kernelProjectDir)
-    {
+    public function __construct(
+        ThemeConfigServiceInterface $themeConfigService,
+        ThemeServiceInterface $themeService,
+        ScssCompilerServiceInterface $scssCompilerService,
+        string $kernelProjectDir
+    ) {
         $this->themeConfigService = $themeConfigService;
         $this->themeService = $themeService;
         $this->scssCompilerService = $scssCompilerService;
@@ -47,9 +51,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * Compiles the scss and javascript of the given @see \Jinya\Entity\Theme\Theme
-     *
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * Compiles the scss and javascript of the given @param Theme $theme
+     * @see \Jinya\Entity\Theme\Theme
      */
     public function compileTheme(Theme $theme): void
     {
@@ -58,7 +61,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      */
     private function compileStyles(Theme $theme): void
     {
@@ -71,7 +74,11 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         if ($themeConfig['styles']['files']) {
             foreach ($themeConfig['styles']['files'] as $style) {
                 $scssCode = $this->getScssCodeForStyle($style, $theme);
-                $result = $this->scssCompilerService->compileScss($scssCode, $this->themeConfigService->getStylesPath($theme), $variables);
+                $result = $this->scssCompilerService->compileScss(
+                    $scssCode,
+                    $this->themeConfigService->getStylesPath($theme),
+                    $variables
+                );
                 $webStylesPath = $webStylesBasePath . str_replace('scss', 'css', basename($style));
                 $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
@@ -84,7 +91,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return string
      */
     private function getTargetBasePath(Theme $theme): string
@@ -138,7 +145,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $compiled = $source;
 
                 if (!Strings::endsWith($key, '!')) {
-                    if (getenv('APP_DEBUG') !== 'yes') {
+                    if ('yes' !== getenv('APP_DEBUG')) {
                         $compiled = $jsQueeze->squeeze($source);
                     }
                 } else {
@@ -154,7 +161,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return string
      */
     private function getScriptsPath(Theme $theme): string
@@ -187,7 +194,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @param string $filename
      * @return string
      */
@@ -207,7 +214,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return bool
      */
     private function isStylesCompiled(Theme $theme): bool
@@ -223,7 +230,10 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $scssCode = $this->getScssCodeForStyle($style, $theme);
                 $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
-                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(file_get_contents($compilationCheckPath), md5($scssCode));
+                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(
+                    file_get_contents($compilationCheckPath),
+                    md5($scssCode)
+                );
             }
         }
 
@@ -231,7 +241,7 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     }
 
     /**
-     * @param \Jinya\Entity\Theme\Theme $theme
+     * @param Theme $theme
      * @return bool
      */
     private function isScriptsCompiled(Theme $theme): bool
@@ -247,7 +257,10 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $source = $this->getJavaScriptSource($scriptsBasePath, $scripts);
                 $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
 
-                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(file_get_contents($compilationCheckPath), md5($source));
+                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(
+                    file_get_contents($compilationCheckPath),
+                    md5($source)
+                );
             }
         }
 

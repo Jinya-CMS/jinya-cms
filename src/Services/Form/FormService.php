@@ -9,8 +9,11 @@
 namespace Jinya\Services\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Form\Form;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\FormEvent;
@@ -36,9 +39,13 @@ class FormService implements FormServiceInterface
      * FormService constructor.
      * @param EntityManagerInterface $entityManager
      * @param SlugServiceInterface $slugService
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Form::class);
         $this->entityManager = $entityManager;
         $this->slugService = $slugService;
@@ -46,12 +53,11 @@ class FormService implements FormServiceInterface
     }
 
     /**
-     * Gets the specified @see Form by slug
-     *
-     * @param string $slug
+     * Gets the specified @param string $slug
      * @return Form
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     * @see Form by slug
      */
     public function get(string $slug): Form
     {
@@ -83,7 +89,10 @@ class FormService implements FormServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::FORMS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, $items));
+        $this->eventDispatcher->dispatch(
+            ListEvent::FORMS_POST_GET_ALL,
+            new ListEvent($offset, $count, $keyword, $items)
+        );
 
         return $items;
     }
@@ -107,7 +116,7 @@ class FormService implements FormServiceInterface
      *
      * @param string $keyword
      * @return int
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int
     {
@@ -124,11 +133,10 @@ class FormService implements FormServiceInterface
     }
 
     /**
-     * Saves or updates the given @see Form
-     *
-     * @param Form $form
+     * Saves or updates the given @param Form $form
      * @return Form
-     * @throws \Jinya\Exceptions\EmptySlugException
+     * @throws EmptySlugException
+     * @see Form
      */
     public function saveOrUpdate(Form $form): Form
     {
@@ -143,9 +151,8 @@ class FormService implements FormServiceInterface
     }
 
     /**
-     * Deletes the given @see Form
-     *
-     * @param Form $form
+     * Deletes the given @param Form $form
+     * @see Form
      */
     public function delete(Form $form): void
     {

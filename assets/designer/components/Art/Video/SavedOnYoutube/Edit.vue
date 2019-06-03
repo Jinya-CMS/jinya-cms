@@ -1,5 +1,5 @@
 <template>
-  <jinya-youtube-video-form :video="video" @save="save" :enable="enable" :message="message" :state="state"/>
+  <jinya-youtube-video-form :enable="enable" :message="message" :state="state" :video="video" @save="save"/>
 </template>
 
 <script>
@@ -54,9 +54,8 @@
           this.state = 'loading';
           this.message = Translator.message('art.videos.youtube.edit.saving', { name: video.name });
 
-          await JinyaRequest.put(`/api/video/youtube/${this.$route.params.slug}`, {
+          await JinyaRequest.put(`/api/video/youtube/${this.video.slug}`, {
             name: video.name,
-            slug: video.slug,
             videoKey: video.videoKey,
             description: video.description,
           });

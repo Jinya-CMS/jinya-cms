@@ -3,7 +3,7 @@ app:
 install:
   general:
     title: Ersteinrichtung
-    submit: Einrichten
+    submit: Weiter
     database:
       title: Datenbank
       host:
@@ -37,12 +37,11 @@ install:
   database:
     title: Datenbank erstellen
     content: Damit Jinya funktioniert, müssen wir als nächstes die Datenbank einrichten, bitte bestätige diese Aktion.
-    submit: Erstellen
+    submit: Datenbank erstellen
   admin:
     title: Erster Administrator
     submit: Administrator anlegen
-    firstname: Vorname
-    lastname: Nachname
+    artist_name: Künstlername
     email: Emailadresse
     password: Passwort
     password_repeat: Passwort wiederholen
@@ -51,11 +50,19 @@ install:
     title: Einrichtung abgeschlossen
     content: Die Ersteinrichtung ist abgeschlossen, du kannst jetzt in den Designer gehen und Jinya konfigurieren.
     designer: Zum Designer
+  steps:
+    config: Einstellungen
+    database_creation: Datenbank erstellen
+    admin: Admin anlegen
 update:
   title: Jinya Update
   version: Version
   update: Update starten
   cancel: Update abbrechen
+  error:
+    not_found:
+      title: Daten nicht gefunden
+      description: Die Daten für das Update konnten nicht gefunden werden
   database:
     title: Datenbank aktualisieren
     content: Um das Update abzuschließen, muss noch die Datenbank aktualisiert werden, dazu musst du auf "Aktualisieren" klicken.
@@ -66,10 +73,19 @@ update:
     designer: Zum Designer
   channel: Updatechannel
   recommended: empfohlen
-  choose:
-    channel: Bitte einen Updatechannel wählen
+  steps:
+    choose_package: Version wählen
+    database_migration: Datenbank updaten
+    finish: Update fertigstellen
   loading:
     channel: Der Updatechannel wird geladen
+  general:
+    not_found:
+      title: Keine Updates gefunden
+      content: Es konnten keine Updates auf den Servern von jinya.de gefunden werden
+  no_update_available:
+    title: Kein Update verfügbar
+    content: Du hast aktuell Version %currentVersion% installiert, dies ist die aktuellste Version und es ist kein Update verfügbar.
 account:
   login:
     title: An Jinya anmelden
@@ -112,7 +128,7 @@ menu:
           videos:
             header: Videos
             saved_in_jinya: Im Jinya CMS gespeichert
-            saved_on_youtube: Auf Youtube gespeichert
+            saved_on_youtube: Auf YouTube gespeichert
             saved_on_vimeo: Auf Vimeo gespeichert
             saved_on_newgrounds: Auf Newgrounds gespeichert
           galleries:
@@ -197,7 +213,7 @@ routes:
         add: Video hinzufügen
         edit: Video bearbeiten
       saved_on_youtube:
-        overview: Auf Youtube gespeicherte Videos
+        overview: Auf YouTube gespeicherte Videos
         add: Video hinzufügen
         edit: Video bearbeiten
     galleries:
@@ -287,36 +303,35 @@ configuration:
         change_password: Passwort ändern
         details: Profil
       delete:
-        title: "%firstname% %lastname% wirklich löschen?"
-        message: Soll %firstname% %lastname% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
+        title: "%artistName% wirklich löschen?"
+        message: Soll %artistName% wirklich gelöscht werden, dies ist nur möglich, wenn dieser Künstler keine Inhalte erzeugt hat. Alternativ ist die bessere Option den Künstler zu deaktivieren.
         yes: Künstler löschen
         no: Künstler nicht löschen
         disable: Künstler deaktivieren
       enable:
-        title: "%firstname% %lastname% aktivieren?"
-        message: Soll %firstname% %lastname% aktiviert werden? Dadurch kann sich %firstname% %lastname% wieder anmelden und Inhalte erstellen.
+        title: "%artistName% aktivieren?"
+        message: Soll %artistName% aktiviert werden? Dadurch kann sich %artistName% wieder anmelden und Inhalte erstellen.
         yes: Künstler aktivieren
         no: Künstler nicht aktivieren
       disable:
-        title: "%firstname% %lastname% wirklich deaktivieren?"
-        message: Soll %firstname% %lastname% deaktiviert werden? Dadurch kann sich %firstname% %lastname% nicht mehr anmelden und keine Inhalte erstellen.
+        title: "%artistName% wirklich deaktivieren?"
+        message: Soll %artistName% deaktiviert werden? Dadurch kann sich %artistName% nicht mehr anmelden und keine Inhalte erstellen.
         yes: Künstler deaktivieren
         no: Künstler nicht deaktivieren
       add:
-        saving: "%firstname% %lastname% wird gespeichert"
-        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
-        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        saving: "%artistName% wird gespeichert"
+        uploading: Das Profilbild von %artistName% wird hochgeladen
+        success: "%artistName% wurde erfolgreich gespeichert"
       details:
         edit: Künstler bearbeiten
       edit:
-        saving: "%firstname% %lastname% wird gespeichert"
-        uploading: Das Profilbild von %firstname% %lastname% wird hochgeladen
-        success: "%firstname% %lastname% wurde erfolgreich gespeichert"
+        saving: "%artistName% wird gespeichert"
+        uploading: Das Profilbild von %artistName% wird hochgeladen
+        success: "%artistName% wurde erfolgreich gespeichert"
         loading: Der Künstler wird geladen
-        title: "%firstname% %lastname% bearbeiten"
+        title: "%artistName% bearbeiten"
       artist_form:
-        firstname: Vorname
-        lastname: Nachname
+        artist_name: Künstlername
         email: Email
         profile_picture: Profilbild
         password: Passwort
@@ -350,10 +365,11 @@ configuration:
         title: "%name% bearbeiten"
       builder:
         galleries:
-          art: Kunstgalerien
-          video: Videogalerien
+          art: Kunstwerke
+          video: Videos
         forms: Formulare
         pages: Seiten
+        profiles: Profile
         other: Andere
         external: Externe Seite
         group: Gruppe
@@ -401,14 +417,16 @@ configuration:
         loading_variables: Die Variablen für das Theme %displayName% werden geladen
         save: Variablen speichern
         cancel: Zurück
-      menus:
-        primary: Primäres Menü
-        secondary: Sekundäres Menü
-        footer: Footer Menü
-        please_choose: Kein Menü
-        saving: Die Menüs für das Theme %displayName% werden gespeichert
-        saved: Die Menüs für das Theme %displayName% wurden gespeichert
-        save: Menüs speichern
+      links:
+        saving: Die Links für das Theme %displayName% werden gespeichert
+        saved: Die Link für das Theme %displayName% wurden gespeichert
+        no_structure_found: Es wurden keine Links in der Themekonfiguration gefunden
+        art_galleries: Kunstgallerien
+        video_galleries: Kunstgallerien
+        menus: Menüs
+        pages: Seiten
+        forms: Formulare
+        save: Links speichern
         cancel: Zurück
       configuration:
         title: Variablen für %displayName%
@@ -519,6 +537,9 @@ art:
       name: Name
       slug: Slug
       artwork: Kunstwerk
+      convert:
+        label: Beim hochladen konvertieren (optional)
+        not_convert: Nicht konvertieren
       description: Beschreibung (optional)
       save: Kunstwerk speichern
       back: Zurück
@@ -557,21 +578,21 @@ art:
       queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
     youtube:
       delete:
-        title: Youtube Video aus Jinya entfernen?
-        content: Soll das Youtube Video "%name%" wirklich aus Jinya entfernt werden?
+        title: YouTube Video aus Jinya entfernen?
+        content: Soll das YouTube Video "%name%" wirklich aus Jinya entfernt werden?
         yes: Video entfernen
         no: Video nicht entfernen
       add:
-        saving: Das Youtube Video "%name%" wird gespeichert.
-        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
+        saving: Das YouTube Video "%name%" wird gespeichert.
+        success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
       edit:
-        title: Youtube Video %name% bearbeiten
-        saving: Das Youtube Video "%name%" wird gespeichert.
-        success: Das Youtube Video "%name%" wurde erfolgreich gespeichert.
-        loading: Das Youtube Video wird geladen
+        title: YouTube Video %name% bearbeiten
+        saving: Das YouTube Video "%name%" wird gespeichert.
+        success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
+        loading: Das YouTube Video wird geladen
       details:
         edit: Bearbeiten
-        loading: Das Youtube Video wird geladen
+        loading: Das YouTube Video wird geladen
       video_form:
         name: Name
         slug: Slug
@@ -649,10 +670,28 @@ art:
       save: Galerie speichern
       back: Zurück
       search: Suchen
+      masonry: Grid
+      masonry_options:
+        yes: Ja
+        no: Nein
       orientations:
         horizontal: Horizontal
         vertical: Vertikal
 my_jinya:
+  my_jinya:
+    about_me: Über mich
+    cancel: Abbrechen
+    save: Speichern
+    artist_name: Künstlername
+    email: Emailadresse
+    profile:
+      saved: Alle Änderungen wurden erfolgreich gespeichert
+      data_saving: Emailadresse und Künstlername werden gespeichert
+      data_not_saved: Emailadresse und Künstlername konnten nicht gespeichert werden, das Profilbild und Über mich werden nicht gespeichert
+      about_saving: Über mich wird gespeichert
+      about_not_saved: Über mich konnte nicht gespeichert werden, das Profilbild wird nicht gespeichert
+      picture_saving: Das Profilbild wird gespeichert
+      picture_not_saved: Das Profilbild konnte nicht gespeichert werden
   account:
     password:
       save: Passwort ändern

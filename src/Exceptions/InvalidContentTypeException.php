@@ -22,6 +22,7 @@ class InvalidContentTypeException extends Exception
      */
     public function __construct(string $contentType, string $message)
     {
+        parent::__construct($message);
         $this->contentType = $contentType;
         $this->message = $message;
     }

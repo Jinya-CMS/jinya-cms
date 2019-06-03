@@ -106,11 +106,14 @@ class MenuService implements MenuServiceInterface
      */
     public function fillFromArray(int $id, array $data): void
     {
-        $pre = $this->eventDispatcher->dispatch(MenuFillFromArrayEvent::PRE_FILL_FROM_ARRAY, new MenuFillFromArrayEvent($id, $data));
-        if (!$pre->isCancel()) {
-            $this->entityManager->transactional(function ($em) use ($data, $id) {
-                $menu = $this->get($id);
+        $pre = $this->eventDispatcher->dispatch(
+            MenuFillFromArrayEvent::PRE_FILL_FROM_ARRAY,
+            new MenuFillFromArrayEvent($id, $data)
+        );
 
+        if (!$pre->isCancel()) {
+            $menu = $this->get($id);
+            $this->entityManager->transactional(function ($em) use ($data, $menu) {
                 $menu->setMenuItems(new ArrayCollection());
 
                 $menuItems = [];
@@ -127,11 +130,17 @@ class MenuService implements MenuServiceInterface
                 $this->fixPositions($menuItems);
             });
 
-            $this->eventDispatcher->dispatch(MenuFillFromArrayEvent::POST_FILL_FROM_ARRAY, new MenuFillFromArrayEvent($id, $data));
+            $this->entityManager->flush();
+            $this->entityManager->refresh($menu);
+
+            $this->eventDispatcher->dispatch(
+                MenuFillFromArrayEvent::POST_FILL_FROM_ARRAY,
+                new MenuFillFromArrayEvent($id, $data)
+            );
         }
     }
 
-    private function createSubmenu(array $currentItem, array $tail, EntityManagerInterface $entityManager)
+    private function createSubmenu(array $currentItem, array $tail, EntityManagerInterface $entityManager): MenuItem
     {
         $menuItem = MenuItem::fromArray($currentItem);
 

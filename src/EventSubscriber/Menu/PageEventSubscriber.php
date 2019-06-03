@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Entity\Page\Page;
 use Jinya\Framework\Events\Pages\PageEvent;
@@ -72,7 +73,7 @@ class PageEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param PageEvent $event
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function onPrePageSave(PageEvent $event)
     {
@@ -93,7 +94,10 @@ class PageEventSubscriber implements EventSubscriberInterface
             $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
-                return array_key_exists('slug', $parameter) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                return array_key_exists(
+                    'slug',
+                    $parameter
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

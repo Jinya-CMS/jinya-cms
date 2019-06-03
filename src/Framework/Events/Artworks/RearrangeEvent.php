@@ -37,8 +37,12 @@ class RearrangeEvent extends CancellableEvent
      * @param int $oldPosition
      * @param int $newPosition
      */
-    public function __construct(ArtGallery $gallery, ArtworkPosition $artworkPosition, int $oldPosition, int $newPosition)
-    {
+    public function __construct(
+        ArtGallery $gallery,
+        ArtworkPosition $artworkPosition,
+        int $oldPosition,
+        int $newPosition
+    ) {
         $this->gallery = $gallery;
         $this->artworkPosition = $artworkPosition;
         $this->oldPosition = $oldPosition;

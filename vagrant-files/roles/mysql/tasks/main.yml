@@ -1,0 +1,75 @@
+---
+- name: Move repo
+  copy:
+    src: /vagrant/vagrant-files/roles/mysql/files/maria.repo
+    dest: /etc/yum.repos.d/maria.repo
+  become: true
+- name: Install packages
+  yum:
+    name:
+      - MariaDB-server
+      - MariaDB-client
+      - python-PyMySQL
+  become: true
+- name: Check if mariadb is installed
+  stat:
+    path: ~/mariadb_install.lock
+  register: install_lock
+- name: Touch installed file
+  file:
+    state: touch
+    path: ~/mariadb_install.lock
+- name: Start and enable mariabd
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+  become: true
+  when: install_lock.stat.exists == false
+- name: Set root password
+  shell: mysqladmin -u {{mysql_root_user}} password {{mysql_root_password}}
+  become: true
+  when: install_lock.stat.exists == false
+- name: Copy config
+  copy:
+    dest: /etc/my.cnf.d/mariadb-server.cnf
+    src: /vagrant/vagrant-files/roles/mysql/files/maria-server-jinya.cnf
+  become: true
+  when: install_lock.stat.exists == false
+- name: Restart mariadb
+  service:
+    name: mariadb
+    state: restarted
+  become: true
+  when: install_lock.stat.exists == false
+- name: Create database jinya-gallery-cms
+  mysql_db:
+    name: jinya-gallery-cms
+    state: present
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+  when: install_lock.stat.exists == false
+- name:
+  mysql_user:
+    name: "{{mysql_jinya_user}}"
+    password: "{{mysql_jinya_password}}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+  become: true
+  when: install_lock.stat.exists == false
+- name: Import database jinya-gallery-cms
+  mysql_db:
+    name: jinya-gallery-cms
+    state: import
+    login_user: "{{mysql_root_user}}"
+    login_password: "{{mysql_root_password}}"
+    target: /vagrant/vagrant-files/jinya-gallery-cms.sql
+  when: install_lock.stat.exists == false
+- name: Restart mariadb
+  service:
+    name: mariadb
+    state: restarted
+  become: true
+  when: install_lock.stat.exists == false

@@ -18,7 +18,7 @@ class MenuFormatter implements MenuFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var \Jinya\Entity\Menu\Menu */
+    /** @var Menu */
     private $menu;
 
     /** @var MenuItemFormatterInterface */
@@ -45,9 +45,8 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Formats the content of the @see FormatterInterface into an array
-     *
-     * @return array
+     * Formats the content of the @return array
+     * @see FormatterInterface into an array
      */
     public function format(): array
     {
@@ -55,10 +54,9 @@ class MenuFormatter implements MenuFormatterInterface
     }
 
     /**
-     * Initializes the @see MenuFormatterInterface
-     *
-     * @param \Jinya\Entity\Menu\Menu $menu
+     * Initializes the @param Menu $menu
      * @return MenuFormatterInterface
+     * @see MenuFormatterInterface
      */
     public function init(Menu $menu): MenuFormatterInterface
     {
@@ -98,7 +96,11 @@ class MenuFormatter implements MenuFormatterInterface
      */
     public function logo(): MenuFormatterInterface
     {
-        $this->formattedData['logo'] = $this->urLGenerator->generate('api_menu_logo_get', ['id' => $this->menu->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $this->formattedData['logo'] = $this->urLGenerator->generate(
+            'api_menu_logo_get',
+            ['id' => $this->menu->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
 
         return $this;
     }

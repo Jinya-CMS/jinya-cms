@@ -9,6 +9,8 @@
 namespace Jinya\Services\Menu;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Framework\Events\Menu\MenuItemAddEvent;
 use Jinya\Framework\Events\Menu\MenuItemGetAllEvent;
@@ -34,8 +36,11 @@ class MenuItemService implements MenuItemServiceInterface
      * @param MenuServiceInterface $menuService
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, MenuServiceInterface $menuService, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        MenuServiceInterface $menuService,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->menuService = $menuService;
         $this->eventDispatcher = $eventDispatcher;
@@ -50,7 +55,10 @@ class MenuItemService implements MenuItemServiceInterface
      */
     public function getAll(int $parentId, string $type = MenuItemServiceInterface::PARENT): array
     {
-        $this->eventDispatcher->dispatch(MenuItemGetAllEvent::PRE_GET_ALL, new MenuItemGetAllEvent($parentId, $type, []));
+        $this->eventDispatcher->dispatch(
+            MenuItemGetAllEvent::PRE_GET_ALL,
+            new MenuItemGetAllEvent($parentId, $type, [])
+        );
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('item')
             ->from(MenuItem::class, 'item')
@@ -70,7 +78,10 @@ class MenuItemService implements MenuItemServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(MenuItemGetAllEvent::POST_GET_ALL, new MenuItemGetAllEvent($parentId, $type, $items));
+        $this->eventDispatcher->dispatch(
+            MenuItemGetAllEvent::POST_GET_ALL,
+            new MenuItemGetAllEvent($parentId, $type, $items)
+        );
 
         return $items;
     }
@@ -82,12 +93,15 @@ class MenuItemService implements MenuItemServiceInterface
      * @param int $position
      * @param string $type
      * @return MenuItem
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function get(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): MenuItem
     {
-        $this->eventDispatcher->dispatch(MenuItemGetEvent::PRE_GET, new MenuItemGetEvent($parentId, $type, $position, null));
+        $this->eventDispatcher->dispatch(
+            MenuItemGetEvent::PRE_GET,
+            new MenuItemGetEvent($parentId, $type, $position, null)
+        );
 
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('item')
@@ -110,7 +124,10 @@ class MenuItemService implements MenuItemServiceInterface
             ->getQuery()
             ->getSingleResult();
 
-        $this->eventDispatcher->dispatch(MenuItemGetEvent::POST_GET, new MenuItemGetEvent($parentId, $type, $position, $item));
+        $this->eventDispatcher->dispatch(
+            MenuItemGetEvent::POST_GET,
+            new MenuItemGetEvent($parentId, $type, $position, $item)
+        );
 
         return $item;
     }
@@ -124,7 +141,10 @@ class MenuItemService implements MenuItemServiceInterface
      */
     public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void
     {
-        $pre = $this->eventDispatcher->dispatch(MenuItemAddEvent::PRE_ADD, new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item));
+        $pre = $this->eventDispatcher->dispatch(
+            MenuItemAddEvent::PRE_ADD,
+            new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item)
+        );
 
         if (!$pre->isCancel()) {
             $position = $this->rearrangeMenuItems($item->getPosition(), $parentId, $type);
@@ -143,7 +163,10 @@ class MenuItemService implements MenuItemServiceInterface
             $this->entityManager->persist($item);
             $this->entityManager->flush();
 
-            $this->eventDispatcher->dispatch(MenuItemAddEvent::POST_ADD, new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item));
+            $this->eventDispatcher->dispatch(
+                MenuItemAddEvent::POST_ADD,
+                new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item)
+            );
         }
     }
 
@@ -153,8 +176,11 @@ class MenuItemService implements MenuItemServiceInterface
      * @param string $type
      * @return int
      */
-    private function rearrangeMenuItems(int $position, int $parentId, string $type = MenuItemServiceInterface::PARENT): int
-    {
+    private function rearrangeMenuItems(
+        int $position,
+        int $parentId,
+        string $type = MenuItemServiceInterface::PARENT
+    ): int {
         if (MenuItemServiceInterface::MENU === $type) {
             $positions = $this->menuService->get($parentId)->getMenuItems()->toArray();
         } else {
@@ -188,13 +214,12 @@ class MenuItemService implements MenuItemServiceInterface
     }
 
     /**
-     * Removes the given @see MenuItem
-     *
-     * @param int $parentId
+     * Removes the given @param int $parentId
      * @param int $position
      * @param string $type
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     * @see MenuItem
      */
     public function removeItem(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): void
     {
@@ -216,20 +241,25 @@ class MenuItemService implements MenuItemServiceInterface
             ->getQuery()
             ->getSingleResult();
 
-        $pre = $this->eventDispatcher->dispatch(MenuItemRemoveEvent::PRE_REMOVE, new MenuItemRemoveEvent($parentId, $type, $position, $item));
+        $pre = $this->eventDispatcher->dispatch(
+            MenuItemRemoveEvent::PRE_REMOVE,
+            new MenuItemRemoveEvent($parentId, $type, $position, $item)
+        );
 
         if (!$pre->isCancel()) {
             $this->entityManager->remove($item);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(MenuItemRemoveEvent::POST_REMOVE, new MenuItemRemoveEvent($parentId, $type, $position, $item));
+            $this->eventDispatcher->dispatch(
+                MenuItemRemoveEvent::POST_REMOVE,
+                new MenuItemRemoveEvent($parentId, $type, $position, $item)
+            );
         }
     }
 
     /**
-     * Updates the given @see MenuItem
-     *
-     * @param MenuItem $item
+     * Updates the given @param MenuItem $item
      * @return MenuItem
+     * @see MenuItem
      */
     public function updateItem(MenuItem $item): MenuItem
     {
@@ -237,7 +267,11 @@ class MenuItemService implements MenuItemServiceInterface
 
         if (!$pre->isCancel()) {
             $parentId = $item->getParent() ? $item->getParent()->getId() : $item->getMenu()->getId();
-            $position = $this->rearrangeMenuItems($item->getPosition(), $parentId, $item->getParent() ? MenuItemServiceInterface::PARENT : MenuItemServiceInterface::MENU);
+            $position = $this->rearrangeMenuItems(
+                $item->getPosition(),
+                $parentId,
+                $item->getParent() ? MenuItemServiceInterface::PARENT : MenuItemServiceInterface::MENU
+            );
             $this->entityManager->flush();
 
             $item->setPosition($position);

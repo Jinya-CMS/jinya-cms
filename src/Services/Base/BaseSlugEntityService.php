@@ -11,6 +11,8 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Jinya\Entity\Base\BaseEntity;
+use Jinya\Entity\Base\SlugEntity;
 use Jinya\Exceptions\EmptySlugException;
 use Jinya\Services\Slug\SlugServiceInterface;
 
@@ -25,15 +27,18 @@ class BaseSlugEntityService extends BaseService
      * @param SlugServiceInterface $slugService
      * @param string $entityType
      */
-    public function __construct(EntityManagerInterface $entityManager, SlugServiceInterface $slugService, string $entityType)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        SlugServiceInterface $slugService,
+        string $entityType
+    ) {
         parent::__construct($entityManager, $entityType);
         $this->slugService = $slugService;
     }
 
     /**
-     * @param \Jinya\Entity\Base\SlugEntity $entity
-     * @return \Jinya\Entity\Base\BaseEntity|\Jinya\Entity\Base\SlugEntity
+     * @param SlugEntity $entity
+     * @return BaseEntity|SlugEntity
      * @throws EmptySlugException
      */
     public function saveOrUpdate($entity)
