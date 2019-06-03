@@ -1,4 +1,25 @@
 # Changelog
+## Release 8.0.0
+### New Features
+* [JGCMS-1](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-1) Tiling gallery
+* [JGCMS-23](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-23) Replace first and lastname with artist name
+* [JGCMS-38](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-38) Convert artworks to png on upload
+* [JGCMS-40](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-40) Bulkimport for artworks 
+* [JGCMS-47](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-47) Menu selection in theme.yml
+* [JGCMS-49](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-49) Installer buggy needs rewrite
+* [JGCMS-53](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-53) Backbutton in video upload screen is not labeled
+* [JGCMS-55](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-55) YouTube is refered to as Youtube
+* [JGCMS-58](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-58) My jinya page 
+* [JGCMS-60](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-60) Updater buggy, needs rewrite
+* [JGCMS-61](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-61) Designer not redirected properly
+* [JGCMS-62](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-62) Remove slug from forms
+* [JGCMS-63](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-63) Generating cache kills menu in sub pages
+* [JGCMS-64](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-64) Page editor no links possible
+* [JGCMS-68](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-68) Create theme command
+* [JGCMS-69](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-69) Profile Picture api is broken
+* [JGCMS-70](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-70) Add option to select entities in theme config
+* [JGCMS-72](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-72) Commandline installer
+
 ## Release 2.0
 ### New Features
 The whole designer got rewritten and is an entirely new application based on Vue.js. All features are also available via a REST api. 
