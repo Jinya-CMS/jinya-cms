@@ -759,10 +759,10 @@
     webpack-sources "^1.3.0"
     yargs-parser "^12.0.0"
 
-"@tinymce/tinymce-vue@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-2.0.0.tgz#41cea256f67f195ac52f71b1cc0bcbda850c86f0"
-  integrity sha512-oUl8r1WvoLsy1NxpFMPNa8hZohkha6biNGLBAhtWUEIsqnmAhvosTPdVj2uroAlK7rjOcDTOy2jIkuNOsLuvtA==
+"@tinymce/tinymce-vue@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-2.1.0.tgz#cac3e935b217a277424f2258f3235824aa3c17c0"
+  integrity sha512-lDIpeLbkaobS/f00wWaOhGJdiZLdtL0dEDYB4JvqgVeAAoaDFG2PvXXP/kN49xpHpUe8vOdt7xFaN48nrPmsbQ==
   dependencies:
     vue "^2.5.17"
 
