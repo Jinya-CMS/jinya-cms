@@ -30,31 +30,37 @@ class Segment
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artwork\Artwork")
      */
     private $artwork;
+
     /**
      * @var Form|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form")
      */
     private $form;
+
     /**
      * @var Video|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Video\Video")
      */
     private $video;
+
     /**
      * @var YoutubeVideo|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Video\YoutubeVideo")
      */
     private $youtubeVideo;
+
     /**
      * @var ArtGallery|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\ArtGallery")
      */
     private $artGallery;
+
     /**
      * @var VideoGallery|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\ArtGallery")
      */
     private $videoGallery;
+
     /**
      * @var string|null
      * @ORM\Column(type="string")
