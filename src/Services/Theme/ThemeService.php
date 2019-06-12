@@ -9,7 +9,6 @@
 namespace Jinya\Services\Theme;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Jinya\Entity\Theme\Theme;
 use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
@@ -52,9 +51,9 @@ class ThemeService implements ThemeServiceInterface
      */
     public function getThemeOrNewTheme(string $name): Theme
     {
-        try {
-            $theme = $this->getTheme($name);
-        } catch (Exception $e) {
+        $theme = $this->getTheme($name);
+
+        if ($theme === null) {
             $theme = new Theme();
         }
 
@@ -64,7 +63,7 @@ class ThemeService implements ThemeServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getTheme(string $name): Theme
+    public function getTheme(string $name): ?Theme
     {
         return $this->entityManager
             ->getRepository(Theme::class)
