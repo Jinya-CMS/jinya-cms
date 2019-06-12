@@ -22,9 +22,6 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig_Error_Loader;
-use Twig_Error_Runtime;
-use Twig_Error_Syntax;
 
 /**
  * Class InstallController
@@ -83,10 +80,9 @@ class InstallController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
-     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function indexAction(Request $request): Response
     {
@@ -182,6 +178,8 @@ class InstallController extends AbstractController
      */
     public function createAdminAction(Request $request): Response
     {
+        $fs = new Filesystem();
+        $fs->touch(sprintf('%s/config/admin.lock', $this->kernelProjectDir));
         $form = $this->createForm(AdminType::class);
         $form->handleRequest($request);
 
@@ -208,8 +206,8 @@ class InstallController extends AbstractController
                 $this->userService->saveOrUpdate($user);
                 $this->themeSyncService->syncThemes();
 
-                $fs = new Filesystem();
-                $fs->touch($this->kernelProjectDir . '/config/install.lock');
+                $fs->touch(sprintf('%s/config/install.lock', $this->kernelProjectDir));
+                $fs->remove(sprintf('%s/config/admin.lock', $this->kernelProjectDir));
             } catch (Exception $exception) {
                 return $this->render('@Jinya\Installer\Default\createAdmin.html.twig', [
                     'form' => $form->createView(),

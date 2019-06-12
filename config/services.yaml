@@ -190,6 +190,9 @@ services:
   Jinya\Command\CreateThemeCommand:
     arguments:
       $themesDir: '%jinya_gallery.theme.directory%'
+  Jinya\Command\Install\CreateDbCommand:
+    arguments:
+      $kernelProjectDir: '%kernel.project_dir%'
 
   # External Services
   GuzzleHttp\Client:

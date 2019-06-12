@@ -39,7 +39,6 @@
         {%- if required is defined and required == false %}
             {{ themeConfig.form.input.optional }}
         {% elseif required is not defined %}
-            {{ dump(attr) }}
             {{ themeConfig.form.input.optional }}
         {%- endif -%}
     </label>

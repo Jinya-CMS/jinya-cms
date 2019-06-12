@@ -45,15 +45,19 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onSymfonyRequest(GetResponseEvent $event)
+    public function onSymfonyRequest(GetResponseEvent $event): void
     {
         $installLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/install.lock';
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 
-        if (!Strings::find($event->getRequest()->getPathInfo(), '/install') && !$installed) {
-            $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_index')));
-        } elseif (Strings::find($event->getRequest()->getPathInfo(), '/install') && $installed) {
+        if (!$installed && !Strings::find($event->getRequest()->getPathInfo(), '/install')) {
+            if ($fs->exists(sprintf('%s/config/admin.lock', $this->kernelProjectDir))) {
+                $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_admin')));
+            } else {
+                $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_index')));
+            }
+        } elseif ($installed && Strings::find($event->getRequest()->getPathInfo(), '/install')) {
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate(
                 'designer_home_index_specific',
                 ['route' => 'login']
