@@ -2,165 +2,117 @@
 
 namespace Jinya\Components\Database;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Migrations\Configuration\Configuration;
-use Doctrine\DBAL\Migrations\Migration;
-use Doctrine\DBAL\Migrations\MigrationException;
+use Exception;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class DatabaseMigrator implements DatabaseMigratorInterface
 {
-    /** @var Connection */
-    private $connection;
 
-    /** @var string */
-    private $tableName;
-
-    /** @var string */
-    private $namespace;
-
-    /** @var string */
-    private $kernelRootDir;
+    /** @var KernelInterface */
+    private $kernel;
 
     /**
      * DatabaseMigrator constructor.
-     * @param Connection $connection
-     * @param string $tableName
-     * @param string $namespace
-     * @param string $kernelRootDir
+     * @param KernelInterface $kernel
      */
-    public function __construct(Connection $connection, string $tableName, string $namespace, string $kernelRootDir)
+    public function __construct(KernelInterface $kernel)
     {
-        $this->connection = $connection;
-        $this->tableName = $tableName;
-        $this->namespace = $namespace;
-        $this->kernelRootDir = $kernelRootDir;
-
-        try {
-            $this->createTableIfNotExists();
-        } catch (DBALException $e) {
-        }
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function createTableIfNotExists(): void
-    {
-        if ('mysql' !== $this->connection->getDatabasePlatform()->getName()) {
-            return;
-        }
-
-        $tableExists = $this->connection->fetchColumn(
-            'SELECT table_name FROM information_schema.tables WHERE table_schema = :databaseName AND table_name = :tableName',
-            [
-                'tableName' => $this->tableName,
-                'databaseName' => $this->connection->getDatabase(),
-            ]
-        );
-
-        if (!$tableExists) {
-            $tableName = $this->tableName;
-            $this->connection->exec("CREATE TABLE IF NOT EXISTS $tableName (version VARCHAR(255) NOT NULL)");
-        }
+        $this->kernel = $kernel;
     }
 
     /**
      * Migrate the database to the latest version
-     * @throws MigrationException
+     * @throws Exception
      */
     public function migrate(): void
     {
-        $migration = $this->getMigrationProvider();
-        $migration->migrate();
-    }
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
 
-    /**
-     * @return Migration
-     */
-    private function getMigrationProvider(): Migration
-    {
-        $config = new Configuration($this->connection);
-        $config->setMigrationsTableName($this->tableName);
-        $config->setMigrationsNamespace($this->namespace);
-        $config->setMigrationsDirectory($this->kernelRootDir . '/Migrations');
-        $config->registerMigrationsFromDirectory($config->getMigrationsDirectory());
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:migrate',
+            // (optional) define the value of command arguments
+            '--no-interaction' => true,
+        ]);
 
-        return new Migration($config);
+        // You can use NullOutput() if you don't need the output
+        $output = new NullOutput();
+        $application->run($input, $output);
     }
 
     /**
      * Get the latest migration
      *
      * @return string
+     * @throws Exception
      */
     public function getLatestMigrationVersion(): string
     {
-        $versions = $this->getMigrationProvider()->getSql();
-        end($versions);
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
 
-        return key($versions);
-    }
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:latest',
+            '--no-interaction' => true,
+        ]);
 
-    /**
-     * Get a specific migration by its version
-     *
-     * @param string $version
-     * @return string
-     */
-    public function getMigrationByVersion(string $version): string
-    {
-        return $this->getMigrationProvider()->getSql()[$version];
+        // You can use NullOutput() if you don't need the output
+        $output = new BufferedOutput();
+        $application->run($input, $output);
+
+        // return the output, don't use if you used NullOutput()
+        $content = $output->fetch();
+
+        return trim($content);
     }
 
     /**
      * Sets the given version as the current migration version
      *
      * @param string $version
-     * @throws DBALException
+     * @throws Exception
      */
     public function setMigrationVersion(string $version): void
     {
-        $this->connection->beginTransaction();
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
 
-        try {
-            $this->connection->insert($this->tableName, ['version' => $version]);
-            $this->connection->commit();
-        } catch (DBALException $exception) {
-            $this->connection->rollBack();
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:version',
+            // (optional) define the value of command arguments
+            '--no-interaction' => true,
+            '--add' => true,
+            'version' => $version,
+        ]);
 
-            throw $exception;
-        }
+        // You can use NullOutput() if you don't need the output
+        $output = new NullOutput();
+        $application->run($input, $output);
     }
 
     /**
      * Activates all migrations
-     * @throws DBALException
+     * @throws Exception
      */
     public function activateAllMigrations(): void
     {
-        $versions = $this->getAllMigrations();
-        $this->connection->beginTransaction();
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
 
-        try {
-            foreach ($versions as $version => $item) {
-                $this->connection->insert($this->tableName, ['version' => $version]);
-            }
-            $this->connection->commit();
-        } catch (DBALException $exception) {
-            $this->connection->rollBack();
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:version',
+            // (optional) define the value of command arguments
+            '--no-interaction' => true,
+            '--all' => true,
+            '--add' => true,
+        ]);
 
-            throw $exception;
-        }
-    }
-
-    /**
-     * Get all available migrations
-     *
-     * @return array
-     */
-    public function getAllMigrations(): array
-    {
-        return $this->getMigrationProvider()->getSql();
+        // You can use NullOutput() if you don't need the output
+        $output = new NullOutput();
+        $application->run($input, $output);
     }
 }

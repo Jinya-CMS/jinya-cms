@@ -19,21 +19,6 @@ interface DatabaseMigratorInterface
     public function getLatestMigrationVersion(): string;
 
     /**
-     * Get all available migrations
-     *
-     * @return array
-     */
-    public function getAllMigrations(): array;
-
-    /**
-     * Get a specific migration by its version
-     *
-     * @param string $version
-     * @return string
-     */
-    public function getMigrationByVersion(string $version): string;
-
-    /**
      * Sets the given version as the current migration version
      *
      * @param string $version
