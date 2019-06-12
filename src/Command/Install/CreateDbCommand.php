@@ -1,6 +1,6 @@
 <?php
 
-namespace Jinya\Command;
+namespace Jinya\Command\Install;
 
 use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Components\Database\SchemaToolInterface;
