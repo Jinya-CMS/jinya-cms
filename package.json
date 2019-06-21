@@ -14,7 +14,7 @@
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "@tinymce/tinymce-vue": "^2.0.0",
-    "deepmerge": "^3.2.0",
+    "deepmerge": "^3.3.0",
     "lockr": "^0.8.5",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
