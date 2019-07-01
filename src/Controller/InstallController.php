@@ -11,6 +11,7 @@ use Jinya\Form\Install\AdminData;
 use Jinya\Form\Install\AdminType;
 use Jinya\Form\Install\SetupData;
 use Jinya\Form\Install\SetupType;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
@@ -147,7 +148,7 @@ class InstallController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function createDatabaseAction(Request $request): Response
+    public function createDatabaseAction(Request $request, ConfigurationServiceInterface $configService): Response
     {
         if ($request->isMethod('POST')) {
             $this->schemaTool->createSchema();
@@ -157,6 +158,8 @@ class InstallController extends AbstractController
             } catch (DBALException $e) {
                 return $this->render('@Jinya\Installer\Default\createDatabase.html.twig', ['exception' => $e]);
             }
+
+            $configService->getConfig();
 
             return $this->redirectToRoute('install_admin');
         }
