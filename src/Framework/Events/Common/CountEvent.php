@@ -48,6 +48,10 @@ class CountEvent extends Event
 
     public const SEGMENT_PAGES_POST_COUNT = 'SegmentPagesPostCount';
 
+    public const SEGMENTS_PRE_COUNT = 'SegmentPreCount';
+
+    public const SEGMENTS_POST_COUNT = 'SegmentPostCount';
+
     /** @var string */
     private $keyword;
 

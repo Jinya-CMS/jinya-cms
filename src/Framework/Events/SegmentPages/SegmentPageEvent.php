@@ -6,7 +6,7 @@
  * Time: 09:41
  */
 
-namespace Jinya\Framework\Events\Pages;
+namespace Jinya\Framework\Events\SegmentPages;
 
 use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Framework\Events\Common\CancellableEvent;

@@ -17,6 +17,10 @@ use Jinya\Entity\Video\YoutubeVideo;
  */
 class Segment
 {
+    public const ACTION_SCRIPT = 'script';
+    public const ACTION_LINK = 'link';
+    public const ACTION_NONE = 'none';
+
     use BaseEntity;
 
     /**
@@ -24,6 +28,12 @@ class Segment
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage", inversedBy="segments")
      */
     private $page;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $position;
 
     /**
      * @var Artwork|null
@@ -63,9 +73,27 @@ class Segment
 
     /**
      * @var string|null
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $html;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $action;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $script;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $target;
 
     /**
      * @return SegmentPage
@@ -213,5 +241,69 @@ class Segment
     {
         $this->reset();
         $this->html = $html;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param string|null $action
+     */
+    public function setAction(?string $action): void
+    {
+        $this->action = $action;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getScript(): ?string
+    {
+        return $this->script;
+    }
+
+    /**
+     * @param string|null $script
+     */
+    public function setScript(?string $script): void
+    {
+        $this->script = $script;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param string|null $target
+     */
+    public function setTarget(?string $target): void
+    {
+        $this->target = $target;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
     }
 }

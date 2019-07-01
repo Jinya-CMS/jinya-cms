@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: imanu
- * Date: 18.12.2017
- * Time: 17:51
+ * Date: 14.11.2017
+ * Time: 17:33
  */
 
-namespace Jinya\Services\Pages;
+namespace Jinya\Services\SegmentPages;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
@@ -16,7 +16,7 @@ use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
-use Jinya\Framework\Events\Pages\SegmentPageEvent;
+use Jinya\Framework\Events\SegmentPages\SegmentPageEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -49,7 +49,6 @@ class SegmentPageService implements SegmentPageServiceInterface
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, SegmentPage::class);
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->slugService = $slugService;
     }
 
     /**
