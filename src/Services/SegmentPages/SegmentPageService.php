@@ -29,9 +29,6 @@ class SegmentPageService implements SegmentPageServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var SlugServiceInterface */
-    private $slugService;
-
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
@@ -107,7 +104,7 @@ class SegmentPageService implements SegmentPageServiceInterface
     {
         return $this->entityManager->createQueryBuilder()
             ->from(SegmentPage::class, 'segmentPage')
-            ->where('segmentPage.title LIKE :keyword')
+            ->where('segmentPage.name LIKE :keyword')
             ->setParameter('keyword', "%$keyword%");
     }
 

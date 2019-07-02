@@ -21,6 +21,17 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
     private $userFormatter;
 
     /**
+     * SegmentPageFormatter constructor.
+     * @param SegmentFormatterInterface $segmentFormatter
+     * @param UserFormatterInterface $userFormatter
+     */
+    public function __construct(SegmentFormatterInterface $segmentFormatter, UserFormatterInterface $userFormatter)
+    {
+        $this->segmentFormatter = $segmentFormatter;
+        $this->userFormatter = $userFormatter;
+    }
+
+    /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
      */
@@ -37,6 +48,7 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
      */
     public function init(SegmentPage $segmentPage): SegmentPageFormatterInterface
     {
+        $this->formatted = [];
         $this->segmentPage = $segmentPage;
 
         return $this;
@@ -61,9 +73,7 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
      */
     public function segments(): SegmentPageFormatterInterface
     {
-        if (!$this->segmentPage->getSegments()->isEmpty()) {
-            $this->formatted['segments'] = [];
-        }
+        $this->formatted['segments'] = [];
 
         $this->segmentPage->getSegments()->forAll(function (Segment $segment) {
             $this->formatted['segments'][] = $this->segmentFormatter

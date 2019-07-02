@@ -13,5 +13,6 @@
 <style lang="scss" scoped>
   .jinya-editor {
     padding-top: 1em;
+    display: flex;
   }
 </style>

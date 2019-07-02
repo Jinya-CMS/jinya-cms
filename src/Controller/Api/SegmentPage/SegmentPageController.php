@@ -73,7 +73,7 @@ class SegmentPageController extends BaseApiController
         SegmentPageFormatterInterface $segmentPageFormatter,
         SegmentPageServiceInterface $segmentPageService
     ): Response {
-        [$status, $data] = $this->tryExecute(static function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $segmentPageFormatter,
             $slug,
             $segmentPageService
@@ -117,7 +117,7 @@ class SegmentPageController extends BaseApiController
 
             $missingFields = [];
             if (empty($name)) {
-                $missingFields['name'] = 'api.segment_page.field.title.missing';
+                $missingFields['name'] = 'api.segment_page.field.name.missing';
             }
 
             if (!empty($missingFields)) {

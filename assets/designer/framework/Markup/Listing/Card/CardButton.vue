@@ -35,6 +35,9 @@
           return this.icon || input;
         },
       },
+      tooltip: {
+        type: String,
+      },
       to: {},
       isDisabled: Boolean,
     },

@@ -34,7 +34,7 @@ class SegmentController extends BaseApiController
         ) {
             $segmentPage = $segmentPageService->get($slug);
 
-            return $segmentPageFormatter->init($segmentPage)->segments()->format()['artworks'];
+            return $segmentPageFormatter->init($segmentPage)->segments()->format()['segments'];
         });
 
         return $this->json($data, $status);
