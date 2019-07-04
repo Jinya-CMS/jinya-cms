@@ -233,6 +233,8 @@ static:
         409:
           exists: Eine Seite mit dem gleichen Titel oder Slug existiert bereits.
     segment:
+      editor:
+        delete_failed: Leider konnte das Segment nicht entfernt werden.
       overview:
         no_pages:
           Bisher wurden keine Seiten angelegt.

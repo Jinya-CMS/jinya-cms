@@ -481,7 +481,7 @@ static:
             save: Speichern
             cancel: Abbrechen
             title: Segment hinzufügen
-            type: Segmenttyp
+            type: Segment Typ
       overview:
         tooltips:
           details: Seite anzeigen
@@ -507,8 +507,22 @@ static:
         back: Zurück
         search: Suchen
       details:
-        save: Schließen
+        save: Speichern
+        cancel: Nicht speichern
+        name: Name
+        segment:
+          delete:
+            yes: Segment entfernen
+            no: Segment behalten
+            title: Soll das Segment entfernt werden?
+            content_html: Wenn der formatierte Text entfernt wird, ist er nicht mehr auf der Seite sichtbar.
+            content: Wenn das Segment %name% entfernt wird, ist es nicht mehr auf der Seite sichtbar.
         action:
+          artwork: Kunstwerk
+          art_gallery: Kunstgallerie
+          video_gallery: Videogallerie
+          video: Video
+          youtube_video: YouTube Video
           action: Aktion
           target: Ziel
           script: JavaScript

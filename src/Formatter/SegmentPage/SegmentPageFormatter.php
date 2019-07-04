@@ -5,6 +5,7 @@ namespace Jinya\Formatter\SegmentPage;
 use Jinya\Entity\SegmentPage\Segment;
 use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Formatter\User\UserFormatterInterface;
+use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 
 class SegmentPageFormatter implements SegmentPageFormatterInterface
 {
@@ -75,9 +76,15 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
     {
         $this->formatted['segments'] = [];
 
-        $this->segmentPage->getSegments()->forAll(function (Segment $segment) {
+        $segments = $this->segmentPage->getSegments()->toArray();
+        uasort($segments, static function (Segment $a, Segment $b) {
+            return $a->getPosition() > $b->getPosition();
+        });
+
+        foreach ($segments as $segment) {
             $this->formatted['segments'][] = $this->segmentFormatter
                 ->init($segment)
+                ->position()
                 ->video()
                 ->form()
                 ->html()
@@ -90,9 +97,7 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
                 ->artGallery()
                 ->artwork()
                 ->format();
-
-            return true;
-        });
+        };
 
         return $this;
     }

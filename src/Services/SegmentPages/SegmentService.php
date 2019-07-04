@@ -56,7 +56,7 @@ class SegmentService implements SegmentServiceInterface
 
     /**
      * SegmentService constructor.
-     * @param SegmentPageserviceInterface $segmentPageService
+     * @param SegmentPageServiceInterface $segmentPageService
      * @param EntityManagerInterface $entityManager
      * @param EventDispatcherInterface $eventDispatcher
      * @param ArtworkServiceInterface $artworkService
@@ -67,7 +67,7 @@ class SegmentService implements SegmentServiceInterface
      * @param YoutubeVideoServiceInterface $youtubeVideoService
      */
     public function __construct(
-        SegmentPageserviceInterface $segmentPageService,
+        SegmentPageServiceInterface $segmentPageService,
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         ArtworkServiceInterface $artworkService,
@@ -103,7 +103,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveArtworkSegment(
         string $artworkSlug,
@@ -112,7 +112,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment($artworkSlug, $segmentPageSlug, $position, $action, $target, $script, 'artwork');
     }
 
@@ -124,7 +124,9 @@ class SegmentService implements SegmentServiceInterface
         string $target,
         string $script,
         string $type
-    ): int {
+    ): Segment {
+        $segmentPage = $this->segmentPageService->get($segmentPageSlug);
+
         $service = $type . 'Service';
         $setter = 'set' . ucfirst($type);
         $entity = $this->{$service}->get($slug);
@@ -134,8 +136,7 @@ class SegmentService implements SegmentServiceInterface
         $segment->setTarget($target);
         $segment->setAction($action);
         $segment->{$setter}($entity);
-
-        $segmentPage = $this->segmentPageService->get($segmentPageSlug);
+        $segment->setPage($segmentPage);
 
         $positions = $segmentPage->getSegments()->toArray();
         $positions = $this->rearrange($positions, -1, $position, $segment);
@@ -150,7 +151,7 @@ class SegmentService implements SegmentServiceInterface
         $this->entityManager->flush();
         $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segment->getId()));
 
-        return $segment->getId();
+        return $segment;
     }
 
     /**
@@ -162,7 +163,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveArtGallerySegment(
         string $artGallerySlug,
@@ -171,7 +172,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment(
             $artGallerySlug,
             $segmentPageSlug,
@@ -192,7 +193,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveVideoSegment(
         string $videoSlug,
@@ -201,7 +202,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment($videoSlug, $segmentPageSlug, $position, $action, $target, $script, 'video');
     }
 
@@ -214,7 +215,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveYoutubeVideoSegment(
         string $youtubeVideoSlug,
@@ -223,7 +224,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment(
             $youtubeVideoSlug,
             $segmentPageSlug,
@@ -244,7 +245,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveVideoGallerySegment(
         string $videoGallerySlug,
@@ -253,7 +254,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment(
             $videoGallerySlug,
             $segmentPageSlug,
@@ -274,7 +275,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveFormSegment(
         string $formSlug,
@@ -283,7 +284,7 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
         return $this->saveNewSegment($formSlug, $segmentPageSlug, $position, $action, $target, $script, 'form');
     }
 
@@ -392,7 +393,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveHtmlSegment(
         string $html,
@@ -401,14 +402,15 @@ class SegmentService implements SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int {
+    ): Segment {
+        $segmentPage = $this->segmentPageService->get($segmentPageSlug);
+
         $segment = new Segment();
         $segment->setScript($script);
         $segment->setTarget($target);
         $segment->setAction($action);
         $segment->setHtml($html);
-
-        $segmentPage = $this->segmentPageService->get($segmentPageSlug);
+        $segment->setPage($segmentPage);
 
         $positions = $segmentPage->getSegments()->toArray();
         $positions = $this->rearrange($positions, -1, $position, $segment);
@@ -423,7 +425,7 @@ class SegmentService implements SegmentServiceInterface
         $this->entityManager->flush();
         $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segment->getId()));
 
-        return $segment->getId();
+        return $segment;
     }
 
     /**
@@ -432,7 +434,7 @@ class SegmentService implements SegmentServiceInterface
      * @param string $target
      * @param string $script
      */
-    public function updateAction(int $segmentId, string $action, string $target = '', string $script = ''): void
+    public function updateAction(int $segmentId, ?string $action, ?string $target = '', ?string $script = ''): void
     {
         $this->eventDispatcher->dispatch(SegmentEvent::PRE_SAVE, new SegmentEvent(null, $segmentId));
         $segment = $this->get($segmentId);
@@ -461,10 +463,14 @@ class SegmentService implements SegmentServiceInterface
 
         if (!$pre->isCancel()) {
             $segmentPage = $this->segmentPageService->get($segmentPageSlug);
-            $positions = $segmentPage->getSegments();
+            $positions = $segmentPage->getSegments()->toArray();
 
             $segment = $this->get($segmentId);
-            $positions = $this->rearrange($positions, $oldPosition, $newPosition, $segment);
+
+            $segments = $this->rearrange($positions, $oldPosition, $newPosition, $segment);
+            $segmentPage->setSegments(new ArrayCollection($segments));
+            $this->entityManager->flush();
+
             $this->eventDispatcher->dispatch(
                 SegmentPositionUpdateEvent::POST_UPDATE,
                 new SegmentPositionUpdateEvent($segmentPageSlug, $segmentId, $oldPosition, $newPosition)
@@ -499,5 +505,6 @@ class SegmentService implements SegmentServiceInterface
     {
         $segment = $this->get($id);
         $this->entityManager->remove($segment);
+        $this->entityManager->flush();
     }
 }

@@ -1,18 +1,30 @@
 <template>
   <jinya-loader v-if="loading"/>
   <jinya-editor v-else>
-    <jinya-editor-pane>
-      <div></div>
+    <jinya-editor-pane class="jinya-page-editor__preview">
+      <jinya-page-editor-preview-pane :segments="segments"/>
     </jinya-editor-pane>
     <jinya-editor-pane @wheel="scroll" class="jinya-page-editor" ref="editor">
       <jinya-message :message="message" :state="state" v-if="state"/>
       <jinya-icon-button :is-primary="true" @click="add(-1)" class="jinya-icon-button--add" icon="plus"/>
       <template v-for="(segment, index) in segments">
         <jinya-page-editor-item :index="index" :key="segment.id" :segment="segment" :segment-count="segments.length"
-                                @add="add" @delete="deleteArtwork" @move="move" @wheel.native="scroll"/>
+                                @add="add" @delete="showDeleteModal" @edit-saved="saveEdit" @move="move"
+                                @scroll="scroll" @wheel.native="scroll"/>
       </template>
-      <jinya-page-editor-add-view @close="addModal.show = false" @selected="saveAdd" v-if="addModal.show"/>
     </jinya-editor-pane>
+    <jinya-page-editor-add-view :position="currentPosition" @close="addModal.show = false" @save="saveAdd"
+                                v-if="addModal.show"/>
+    <jinya-modal :loading="deleteModal.loading" @close="closeDeleteModal"
+                 title="static.pages.segment.details.segment.delete.title" v-if="deleteModal.show">
+      <jinya-message :message="deleteModal.error" slot="message" state="error"
+                     v-if="deleteModal.error && !deleteModal.loading"/>
+      {{deleteContent|jmessage(selectedSegment)}}
+      <jinya-modal-button :closes-modal="true" :is-disabled="this.deleteModal.loading" :is-secondary="true"
+                          label="static.pages.segment.details.segment.delete.no" slot="buttons-left"/>
+      <jinya-modal-button :is-danger="true" :is-disabled="this.deleteModal.loading" @click="deleteSegment"
+                          label="static.pages.segment.details.segment.delete.yes" slot="buttons-right"/>
+    </jinya-modal>
   </jinya-editor>
 </template>
 
@@ -27,9 +39,15 @@
   import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaEditor from '@/framework/Markup/Form/Editor';
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+  import JinyaPageEditorPreviewPane from '@/components/Static/Pages/Segment/Editor/PreviewPane';
+  import JinyaModal from '@/framework/Markup/Modal/Modal';
+  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
 
   export default {
     components: {
+      JinyaModalButton,
+      JinyaModal,
+      JinyaPageEditorPreviewPane,
       JinyaEditorPane,
       JinyaEditor,
       JinyaLoader,
@@ -39,6 +57,32 @@
       JinyaPageEditorItem,
     },
     name: 'JinyaSegmentPageEditor',
+    computed: {
+      deleteContent() {
+        const segment = this.selectedSegment;
+
+        if (segment.html) {
+          return 'static.pages.segment.details.segment.delete.content_html';
+        }
+        if (segment.artwork) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.artwork);
+        }
+        if (segment.artGallery) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.artGallery);
+        }
+        if (segment.video) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.video);
+        }
+        if (segment.youtubeVideo) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.youtubeVideo);
+        }
+        if (segment.videoGallery) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.videoGallery);
+        }
+
+        return '';
+      },
+    },
     methods: {
       scroll($event) {
         if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
@@ -48,7 +92,19 @@
           });
         }
       },
+      showDeleteModal(segment, index) {
+        this.selectedSegment = segment;
+        this.currentPosition = index;
+        this.deleteModal.show = true;
+      },
+      closeDeleteModal() {
+        this.deleteModal.show = false;
+      },
       async move(segment, oldPosition, newPosition) {
+        await JinyaRequest.put(`/api/segment_page/${this.$route.params.slug}/segment/${segment.id}/${oldPosition}`, {
+          position: newPosition,
+        });
+
         if (oldPosition < newPosition) {
           this.segments.splice(newPosition + 1, 0, segment);
           this.segments.splice(oldPosition, 1);
@@ -56,40 +112,32 @@
           this.segments.splice(newPosition, 0, segment);
           this.segments.splice(oldPosition + 1, 1);
         }
-        await JinyaRequest.put(`/api/segment_page/${this.$route.params.slug}/segment/${segment.id}/${oldPosition}`, {
-          position: newPosition,
-        });
       },
-      async saveAdd(type) {
-        const segment = {
-          type,
-          readOnly: true,
-        };
-        if (type === 'artwork') {
-          segment.action = 'none';
-        }
-
+      async saveAdd(segment) {
         this.segments.splice(this.currentPosition + 1, 0, segment);
         this.addModal.show = false;
       },
-      async deleteArtwork(position, id) {
-        await JinyaRequest.delete(`/api/segment_age/${this.$route.params.slug}/segment/${id}`);
+      async deleteSegment() {
+        this.deleteModal.loading = true;
+        try {
+          await JinyaRequest.delete(`/api/segment_page/${this.$route.params.slug}/segment/${this.selectedSegment.id}`);
+          this.segments.splice(this.currentPosition, 1);
 
-        this.artworks.splice(position, 1);
+          this.deleteModal.show = false;
+        } catch (e) {
+          this.deleteModal.message = Translator.validator('static.pages.segment.editor.delete_failed');
+        }
+
+        this.deleteModal.loading = false;
       },
-      async saveEdit(segment, index) {
-        // eslint-disable-next-line max-len
-        await JinyaRequest.put(`/api/segment_page/${this.$route.params.slug}/segment/${segment.id}/${index}`, segment);
-
-        this.artworks.splice(this.currentPosition, 1, {
-          segment,
-          id: segment.id,
-        });
-        this.editModal.show = false;
+      async saveEdit(segment, position) {
+        this.segments[position].html = segment.html;
+        this.segments[position].action = segment.action;
+        this.segments[position].script = segment.script;
+        this.segments[position].target = segment.target;
       },
       add(position) {
         this.addModal.show = true;
-        this.addModal.loading = true;
         this.currentPosition = position;
       },
     },
@@ -109,17 +157,18 @@
       return {
         segmentPage: [],
         segments: [],
+        selectedSegment: null,
         state: '',
         message: '',
         currentPosition: -1,
         loading: false,
         addModal: {
           show: false,
-          loading: false,
         },
-        editModal: {
-          show: false,
+        deleteModal: {
           loading: false,
+          message: '',
+          show: false,
         },
       };
     },
@@ -142,5 +191,9 @@
     min-width: 100%;
     flex: 0 0 100%;
     font-size: 3rem;
+  }
+
+  .jinya-page-editor__preview {
+    overflow-x: hidden;
   }
 </style>

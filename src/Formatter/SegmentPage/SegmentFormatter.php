@@ -37,6 +37,31 @@ class SegmentFormatter implements SegmentFormatterInterface
     private $formFormatter;
 
     /**
+     * SegmentFormatter constructor.
+     * @param ArtworkFormatterInterface $artworkFormatter
+     * @param VideoFormatterInterface $videoFormatter
+     * @param YoutubeVideoFormatterInterface $youtubeVideoFormatter
+     * @param VideoGalleryFormatterInterface $videoGalleryFormatter
+     * @param ArtGalleryFormatterInterface $artGalleryFormatter
+     * @param FormFormatterInterface $formFormatter
+     */
+    public function __construct(
+        ArtworkFormatterInterface $artworkFormatter,
+        VideoFormatterInterface $videoFormatter,
+        YoutubeVideoFormatterInterface $youtubeVideoFormatter,
+        VideoGalleryFormatterInterface $videoGalleryFormatter,
+        ArtGalleryFormatterInterface $artGalleryFormatter,
+        FormFormatterInterface $formFormatter
+    ) {
+        $this->artworkFormatter = $artworkFormatter;
+        $this->videoFormatter = $videoFormatter;
+        $this->youtubeVideoFormatter = $youtubeVideoFormatter;
+        $this->videoGalleryFormatter = $videoGalleryFormatter;
+        $this->artGalleryFormatter = $artGalleryFormatter;
+        $this->formFormatter = $formFormatter;
+    }
+
+    /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
      */
@@ -78,7 +103,9 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function action(): SegmentFormatterInterface
     {
-        $this->formatted['action'] = $this->segment->getAction();
+        if ($this->segment->getArtwork()) {
+            $this->formatted['action'] = $this->segment->getAction();
+        }
 
         return $this;
     }
@@ -90,7 +117,9 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function target(): SegmentFormatterInterface
     {
-        $this->formatted['target'] = $this->segment->getTarget();
+        if ($this->segment->getArtwork()) {
+            $this->formatted['target'] = $this->segment->getTarget();
+        }
 
         return $this;
     }
@@ -102,7 +131,9 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function script(): SegmentFormatterInterface
     {
-        $this->formatted['script'] = $this->segment->getScript();
+        if ($this->segment->getArtwork()) {
+            $this->formatted['script'] = $this->segment->getScript();
+        }
 
         return $this;
     }
@@ -160,6 +191,7 @@ class SegmentFormatter implements SegmentFormatterInterface
                 ->init($this->segment->getYoutubeVideo())
                 ->slug()
                 ->name()
+                ->videoKey()
                 ->description()
                 ->format();
         }
@@ -237,6 +269,18 @@ class SegmentFormatter implements SegmentFormatterInterface
         if ($this->segment->getHtml() !== null) {
             $this->formatted['html'] = $this->segment->getHtml();
         }
+
+        return $this;
+    }
+
+    /**
+     * Formats the position
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function position(): SegmentFormatterInterface
+    {
+        $this->formatted['position'] = $this->segment->getPosition();
 
         return $this;
     }

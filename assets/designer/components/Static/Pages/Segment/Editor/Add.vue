@@ -1,8 +1,10 @@
 <template>
-  <jinya-modal @close="$emit('close')" title="static.pages.segment.editor.view.selection.title">
-    <jinya-choice :choices="segmentTypes" :selected="type" @selected="selectedTypeChanged"
+  <jinya-modal :loading="loading" @close="$emit('close')" title="static.pages.segment.editor.view.selection.title">
+    <jinya-choice :choices="segmentTypes" :selected="{value: selectedType}" @selected="selectedTypeChanged"
                   label="static.pages.segment.editor.view.selection.type"/>
     <div class="jinya-page-editor-add__item">
+      <jinya-choice :choices="items" :label="`static.pages.segment.details.action.${selectedType}`"
+                    @selected="(value) => this.selectedItem = value.value" v-if="selectedType !== 'html'"/>
       <jinya-choice :choices="actions" :selected="{value: 'none'}" @selected="(value) => this.action = value.value"
                     label="static.pages.segment.details.action.action"
                     v-if="selectedType === 'artwork'"/>
@@ -11,12 +13,10 @@
       <jinya-input label="static.pages.segment.details.action.target"
                    v-if="selectedType === 'artwork' && action === 'link'" v-model="target"/>
       <jinya-tiny-mce height="250px" v-if="selectedType === 'html'" v-model="html"/>
-      <jinya-choice :choices="items" :label="`static.pages.segment.details.action.${selectedType}`"
-                    v-if="selectedType !== 'html' && selectedType !== 'artwork'"/>
     </div>
-    <jinya-modal-button :closes-modal="true" :is-secondary="true"
-                        label="static.pages.segment.editor.view.selection.cancel" slot="buttons-right"/>
-    <jinya-modal-button :closes-modal="true" :is-primary="true" @click="selected"
+    <jinya-modal-button :closes-modal="true" :is-disabled="loading" :is-secondary="true"
+                        label="static.pages.segment.editor.view.selection.cancel" slot="buttons-left"/>
+    <jinya-modal-button :is-disabled="loading" :is-success="true" @click="save"
                         label="static.pages.segment.editor.view.selection.save" slot="buttons-right"/>
   </jinya-modal>
 </template>
@@ -28,8 +28,8 @@
   import Translator from '@/framework/i18n/Translator';
   import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
   import JinyaInput from '@/framework/Markup/Form/Input';
-  import MonacoEditor from 'vue-monaco';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import MonacoEditor from 'vue-monaco';
 
   export default {
     components: {
@@ -41,6 +41,12 @@
       MonacoEditor,
     },
     name: 'jinya-gallery-designer-add-view',
+    props: {
+      position: {
+        type: Number,
+        required: true,
+      },
+    },
     computed: {
       segmentTypes() {
         return [
@@ -55,22 +61,28 @@
             value: 'video_gallery',
             text: Translator.message('static.pages.segment.editor.view.selection.video_gallery'),
           },
-          { value: 'form', text: Translator.message('static.pages.segment.editor.view.selection.form') },
           { value: 'html', text: Translator.message('static.pages.segment.editor.view.selection.html') },
+        ];
+      },
+      actions() {
+        return [
+          { value: 'none', text: Translator.message('static.pages.segment.details.action.types.none') },
+          { value: 'link', text: Translator.message('static.pages.segment.details.action.types.link') },
+          { value: 'script', text: Translator.message('static.pages.segment.details.action.types.script') },
         ];
       },
     },
     data() {
       return {
-        type: {
-          value: 'html',
-          text: Translator.message('static.pages.segment.editor.view.selection.html'),
-        },
         html: '',
         slug: '',
-        action: '',
+        action: 'none',
+        target: '',
+        script: '',
         selectedType: 'html',
+        selectedItem: null,
         items: [],
+        loading: false,
       };
     },
     methods: {
@@ -88,16 +100,45 @@
             requestUrl = '/api/video/youtube?count=200000000';
           } else if (selection.value === 'artwork') {
             requestUrl = '/api/artwork?count=200000000';
-          } else if (selection.value === 'form') {
-            requestUrl = '/api/form?count=200000000';
           }
 
           const response = await JinyaRequest.get(requestUrl);
           this.items = response.items.map(item => ({ text: item.name, value: item.slug }));
+          if (this.items.length > 0) {
+            this.selectedItem = this.items[0].value;
+          }
         }
       },
-      selected() {
-        this.$emit('selected', this.selectedType);
+      async save() {
+        this.loading = true;
+        const data = {
+          position: this.position,
+        };
+
+        if (this.selectedType === 'art_gallery') {
+          data.artGallery = this.selectedItem;
+        } else if (this.selectedType === 'video_gallery') {
+          data.videoGallery = this.selectedItem;
+        } else if (this.selectedType === 'video') {
+          data.video = this.selectedItem;
+        } else if (this.selectedType === 'youtube_video') {
+          data.youtubeVideo = this.selectedItem;
+        } else if (this.selectedType === 'artwork') {
+          data.artwork = this.selectedItem;
+          data.action = this.action;
+
+          if (data.action === 'script') {
+            data.script = this.script;
+          } else if (data.action === 'link') {
+            data.target = this.target;
+          }
+        } else if (this.selectedType === 'html') {
+          data.html = this.html;
+        }
+
+        const segment = await JinyaRequest.post(`/api/segment_page/${this.$route.params.slug}/segment`, data);
+        this.$emit('save', segment);
+        this.loading = false;
       },
     },
   };
@@ -111,5 +152,10 @@
 
   .jinya-page-editor-add__html {
     height: 250px;
+  }
+
+  .jinya-page-editor__details-editor {
+    height: 300px;
+    width: 500px;
   }
 </style>

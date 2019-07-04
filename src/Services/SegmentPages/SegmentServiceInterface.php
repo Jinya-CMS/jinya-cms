@@ -21,7 +21,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveArtworkSegment(
         string $artworkSlug,
@@ -30,7 +30,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the art gallery in the given segment page at the given position
@@ -41,7 +41,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveArtGallerySegment(
         string $artGallerySlug,
@@ -50,7 +50,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the video in the given segment page at the given position
@@ -61,7 +61,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveVideoSegment(
         string $videoSlug,
@@ -70,7 +70,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the youtube video in the given segment page at the given position
@@ -81,7 +81,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveYoutubeVideoSegment(
         string $youtubeVideoSlug,
@@ -90,7 +90,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the video gallery in the given segment page at the given position
@@ -101,7 +101,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveVideoGallerySegment(
         string $videoGallerySlug,
@@ -110,7 +110,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the form in the given segment page at the given position
@@ -121,7 +121,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveFormSegment(
         string $formSlug,
@@ -130,7 +130,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * Saves the html in the given segment page at the given position
@@ -141,7 +141,7 @@ interface SegmentServiceInterface
      * @param string $action
      * @param string $target
      * @param string $script
-     * @return int
+     * @return Segment
      */
     public function saveHtmlSegment(
         string $html,
@@ -150,7 +150,7 @@ interface SegmentServiceInterface
         string $action = Segment::ACTION_NONE,
         string $target = '',
         string $script = ''
-    ): int;
+    ): Segment;
 
     /**
      * @param int $segmentId
@@ -158,7 +158,7 @@ interface SegmentServiceInterface
      * @param string $target
      * @param string $script
      */
-    public function updateAction(int $segmentId, string $action, string $target = '', string $script = ''): void;
+    public function updateAction(int $segmentId, ?string $action, ?string $target = '', ?string $script = ''): void;
 
     /**
      * Sets the segments position to the new position

@@ -1,6 +1,7 @@
 <template>
   <jinya-button :is-danger="isDanger" :is-disabled="isDisabled" :is-inverse="false" :is-primary="isPrimary"
-                :is-secondary="isSecondary" :is-success="isSuccess" :label="label" @click="click"/>
+                :is-secondary="isSecondary" :is-success="isSuccess" :label="label" @click="click"
+                class="jinya-modal__button"/>
 </template>
 
 <script>
@@ -37,7 +38,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

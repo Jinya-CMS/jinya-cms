@@ -25,7 +25,7 @@ class Segment
 
     /**
      * @var SegmentPage
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage", inversedBy="segments")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage", inversedBy="segments", cascade={"persist"})
      */
     private $page;
 
@@ -108,7 +108,6 @@ class Segment
      */
     public function setPage(SegmentPage $page): void
     {
-        $this->reset();
         $this->page = $page;
     }
 

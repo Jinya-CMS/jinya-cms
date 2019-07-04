@@ -91,4 +91,11 @@ interface SegmentFormatterInterface extends FormatterInterface
      * @return SegmentFormatterInterface
      */
     public function html(): self;
+
+    /**
+     * Formats the position
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function position(): self;
 }
