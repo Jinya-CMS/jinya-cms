@@ -67,6 +67,7 @@
       width: 100%;
       display: flex;
       justify-content: flex-end;
+      align-items: start;
 
       .jinya-button {
         margin-right: 0.5em;

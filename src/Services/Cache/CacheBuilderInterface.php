@@ -23,6 +23,7 @@ interface CacheBuilderInterface
     public const FORM = 'form';
 
     public const PAGE = 'page';
+    public const SEGMENT_PAGE = 'segment_page';
 
     /**
      * Builds the cache

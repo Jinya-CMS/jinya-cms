@@ -15,6 +15,7 @@ use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
+use Jinya\Formatter\SegmentPage\SegmentPageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function array_key_exists;
 
@@ -44,6 +45,9 @@ class ThemeFormatter implements ThemeFormatterInterface
     /** @var PageFormatterInterface */
     private $pageFormatter;
 
+    /** @var SegmentPageFormatterInterface */
+    private $segmentPageFormatter;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
 
@@ -55,6 +59,7 @@ class ThemeFormatter implements ThemeFormatterInterface
      * @param ArtGalleryFormatterInterface $artGalleryFormatter
      * @param VideoGalleryFormatterInterface $videoGalleryFormatter
      * @param PageFormatterInterface $pageFormatter
+     * @param SegmentPageFormatterInterface $segmentPageFormatter
      * @param FormFormatterInterface $formFormatter
      */
     public function __construct(
@@ -64,6 +69,7 @@ class ThemeFormatter implements ThemeFormatterInterface
         ArtGalleryFormatterInterface $artGalleryFormatter,
         VideoGalleryFormatterInterface $videoGalleryFormatter,
         PageFormatterInterface $pageFormatter,
+        SegmentPageFormatterInterface $segmentPageFormatter,
         FormFormatterInterface $formFormatter
     ) {
         $this->menuFormatter = $menuFormatter;
@@ -72,6 +78,7 @@ class ThemeFormatter implements ThemeFormatterInterface
         $this->artGalleryFormatter = $artGalleryFormatter;
         $this->videoGalleryFormatter = $videoGalleryFormatter;
         $this->pageFormatter = $pageFormatter;
+        $this->segmentPageFormatter = $segmentPageFormatter;
         $this->formFormatter = $formFormatter;
     }
 
@@ -354,6 +361,26 @@ class ThemeFormatter implements ThemeFormatterInterface
                 ->artGalleryFormatter
                 ->init($artGallery->getArtGallery())
                 ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the segment pages
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function segmentPages(): ThemeFormatterInterface
+    {
+        $this->formattedData['segmentPages'] = [];
+        foreach ($this->theme->getSegmentPages() as $segmentPage) {
+            $this->formattedData['segmentPages'][$segmentPage->getName()] = $this
+                ->segmentPageFormatter
+                ->init($segmentPage->getSegmentPage())
                 ->slug()
                 ->name()
                 ->format();

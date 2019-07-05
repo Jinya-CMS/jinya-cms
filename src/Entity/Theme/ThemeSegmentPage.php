@@ -4,12 +4,13 @@ namespace Jinya\Entity\Theme;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Page\Page;
+use Jinya\Entity\SegmentPage\SegmentPage;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="theme_page")
  */
-class ThemePage
+class ThemeSegmentPage
 {
     /**
      * @ORM\Id
@@ -21,11 +22,11 @@ class ThemePage
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Page\Page")
-     * @ORM\JoinColumn(nullable=false, name="page_id", referencedColumnName="id")
-     * @var Page
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage")
+     * @ORM\JoinColumn(nullable=false, name="segment_page_id", referencedColumnName="id")
+     * @var SegmentPage
      */
-    private $page;
+    private $segmentPage;
 
     /**
      * @ORM\Id
@@ -51,19 +52,19 @@ class ThemePage
     }
 
     /**
-     * @return Page
+     * @return SegmentPage
      */
-    public function getPage(): Page
+    public function getSegmentPage(): SegmentPage
     {
-        return $this->page;
+        return $this->segmentPage;
     }
 
     /**
-     * @param Page $page
+     * @param SegmentPage $segmentPage
      */
-    public function setPage(Page $page): void
+    public function setSegmentPage(SegmentPage $segmentPage): void
     {
-        $this->page = $page;
+        $this->segmentPage = $segmentPage;
     }
 
     /**

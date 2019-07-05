@@ -11,6 +11,7 @@ use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
+use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -151,6 +152,22 @@ class FrontendController extends BaseController
     public function pageDetailAction(string $slug, PageServiceInterface $pageService): Response
     {
         $page = $pageService->get($slug);
+
+        return $this->render('@Theme/Page/detail.html.twig', [
+            'page' => $page,
+        ]);
+    }
+
+    /**
+     * @Route("/segment_page/{slug}", name="frontend_segment_page_details")
+     *
+     * @param string $slug
+     * @param SegmentPageServiceInterface $segmentPageService
+     * @return Response
+     */
+    public function segmentPageDetailAction(string $slug, SegmentPageServiceInterface $segmentPageService): Response
+    {
+        $page = $segmentPageService->get($slug);
 
         return $this->render('@Theme/Page/detail.html.twig', [
             'page' => $page,

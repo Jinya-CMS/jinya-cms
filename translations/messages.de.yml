@@ -374,6 +374,7 @@ configuration:
           video: Videos
         forms: Formulare
         pages: Seiten
+        segment_pages: Segmentseiten
         profiles: Profile
         other: Andere
         external: Externe Seite
@@ -430,6 +431,7 @@ configuration:
         video_galleries: Kunstgallerien
         menus: Menüs
         pages: Seiten
+        segment_pages: Segmentseiten
         forms: Formulare
         save: Links speichern
         cancel: Zurück
