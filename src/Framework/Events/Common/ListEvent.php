@@ -48,6 +48,14 @@ class ListEvent extends Event
 
     public const VIDEOS_POST_GET_ALL = 'VideosPostGetAll';
 
+    public const SEGMENT_PAGE_POST_GET_ALL = 'SegmentPagePostGetAll';
+
+    public const SEGMENT_PAGE_PRE_GET_ALL = 'SegmentPagePreGetAll';
+
+    public const SEGMENT_PRE_GET_ALL = 'SegmentPreGetAll';
+
+    public const SEGMENT_POST_GET_ALL = 'SegmentPreGetAll';
+
     /** @var int */
     private $offset;
 

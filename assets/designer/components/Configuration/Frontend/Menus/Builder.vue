@@ -2,18 +2,16 @@
   <jinya-editor class="jinya-menu-builder">
     <jinya-loader :loading="loading"/>
     <jinya-form @back="back" @submit="save" button-bar-padding-right="0.5rem"
-                cancel-label="configuration.frontend.menus.builder.cancel"
+                cancel-label="configuration.frontend.menus.builder.cancel" class="jinya-menu-builder__form"
                 save-label="configuration.frontend.menus.builder.save" v-if="!loading">
       <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
-                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage"
-                 :options="itemsOptions"
+                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
                  class="jinya-menu-builder__trash" v-show="drag">
       </draggable>
       <jinya-message :message="message" :state="state"/>
       <jinya-editor-pane>
-        <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types"
-                             @select="selectTemplateItems">
-          <jinya-loader :loading="itemsLoading" v-if="itemsLoading"></jinya-loader>
+        <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types" @select="selectTemplateItems">
+          <jinya-loader :loading="itemsLoading" v-if="itemsLoading"/>
           <draggable :options="templateItemsOptions" class="jinya-menu-builder__list" v-else
                      v-model="selectedTemplateItems">
             <jinya-menu-builder-template-entry :item="item" :key="`${item.title}-${item.route.name}`"
@@ -26,24 +24,27 @@
         <draggable :options="itemsOptions" @add="itemsAdded" @change="itemsChange" @end="drag = false"
                    @start="drag = true" class="jinya-menu-builder__list" v-model="items">
           <jinya-menu-builder-group :allow-decrease="item.allowDecrease" :allow-increase="item.allowIncrease"
-                                    :enable="enable"
-                                    :item="item" :key="`${item.position}-${index}-${item.route.name}`"
+                                    :enable="enable" :item="item" :key="`${item.position}-${index}-${item.route.name}`"
                                     @decrease="decrease(index)" @increase="increase(index)"
                                     v-for="(item, index) in items"/>
         </draggable>
       </jinya-editor-pane>
+      <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
+                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
+                 class="jinya-menu-builder__trash" v-show="drag">
+      </draggable>
     </jinya-form>
     <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
       {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
       <template slot="buttons-left">
-        <jinya-modal-button :closes-modal="true" :is-secondary="true"
-                            @click="stay" label="configuration.frontend.menus.builder.leave.cancel"/>
+        <jinya-modal-button :closes-modal="true" :is-secondary="true" @click="stay"
+                            label="configuration.frontend.menus.builder.leave.cancel"/>
       </template>
       <template slot="buttons-right">
-        <jinya-modal-button :closes-modal="true" :is-success="true"
-                            @click="stayAndSaveChanges" label="configuration.frontend.menus.builder.leave.no"/>
-        <jinya-modal-button :closes-modal="true" :is-danger="true"
-                            @click="leave" label="configuration.frontend.menus.builder.leave.yes"/>
+        <jinya-modal-button :closes-modal="true" :is-success="true" @click="stayAndSaveChanges"
+                            label="configuration.frontend.menus.builder.leave.no"/>
+        <jinya-modal-button :closes-modal="true" :is-danger="true" @click="leave"
+                            label="configuration.frontend.menus.builder.leave.yes"/>
       </template>
     </jinya-modal>
   </jinya-editor>
@@ -96,6 +97,7 @@
         selectedTemplateItems: [],
         art_galleries: [],
         video_galleries: [],
+        segment_pages: [],
         forms: [],
         pages: [],
         profiles: [],
@@ -169,6 +171,10 @@
           {
             title: Translator.message('configuration.frontend.menus.builder.pages'),
             name: 'pages',
+          },
+          {
+            title: Translator.message('configuration.frontend.menus.builder.segment_pages'),
+            name: 'segment_pages',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.profiles'),
@@ -353,6 +359,14 @@
           }
 
           this.selectedTemplateItems = this.profiles;
+        } else if (type === 'segment_pages') {
+          if (this.segment_pages.length === 0) {
+            const pages = await JinyaRequest.get('/api/segment_page?count=40000');
+            // eslint-disable-next-line max-len
+            this.segment_pages = pages.items.map(item => this.generateTemplateItem('segment_page', item.name, item.slug));
+          }
+
+          this.selectedTemplateItems = this.segment_pages;
         } else if (type === 'other') {
           const baseItem = {
             route: {
@@ -445,8 +459,8 @@
   }
 
   .jinya-menu-builder__header {
-    font-size: 1.4rem;
-    padding: 0.5em 1em 0;
+    font-size: 1.25rem;
+    padding: 0.25em 0.5em 0;
     margin-bottom: 1.2rem;
     width: 100%;
     color: $primary;
@@ -480,5 +494,11 @@
 
   .jinya-menu-builder {
     padding-bottom: 1rem;
+    height: 100%;
+  }
+
+  .jinya-menu-builder__form {
+    width: 100%;
+    align-self: flex-start;
   }
 </style>

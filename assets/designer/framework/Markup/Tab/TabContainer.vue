@@ -60,9 +60,9 @@
 
       .jinya-tab__link {
         flex: 0 1 auto;
-        padding: 0.5em 1em 0;
+        padding: 0.25em 0.5em 0;
         color: $gray-500;
-        font-size: 1.4em;
+        font-size: 1.25rem;
         cursor: pointer;
         border: 2px solid transparent;
         transition: color 0.3s, background 0.3s, border 0.3s;

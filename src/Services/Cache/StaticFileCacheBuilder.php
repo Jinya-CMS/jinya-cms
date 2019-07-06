@@ -19,6 +19,7 @@ use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
+use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Jinya\Services\Users\UserServiceInterface;
@@ -44,6 +45,9 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /** @var PageServiceInterface */
     private $pageService;
+
+    /** @var SegmentPageServiceInterface */
+    private $segmentPageService;
 
     /** @var FormServiceInterface */
     private $formService;
@@ -71,6 +75,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      * @param VideoGalleryServiceInterface $videoGalleryService
      * @param UserServiceInterface $userService
      * @param PageServiceInterface $pageService
+     * @param SegmentPageServiceInterface $segmentPageService
      * @param FormServiceInterface $formService
      * @param FormGeneratorInterface $formGenerator
      * @param CompilerInterface $compiler
@@ -85,6 +90,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         VideoGalleryServiceInterface $videoGalleryService,
         UserServiceInterface $userService,
         PageServiceInterface $pageService,
+        SegmentPageServiceInterface $segmentPageService,
         FormServiceInterface $formService,
         FormGeneratorInterface $formGenerator,
         CompilerInterface $compiler,
@@ -98,6 +104,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         $this->videoGalleryService = $videoGalleryService;
         $this->userService = $userService;
         $this->pageService = $pageService;
+        $this->segmentPageService = $segmentPageService;
         $this->formService = $formService;
         $this->formGenerator = $formGenerator;
         $this->compiler = $compiler;
@@ -129,6 +136,30 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 $this->addEntryToCacheList($file);
             }
         }
+    }
+
+    /**
+     * Clears the cache
+     */
+    public function clearCache(): void
+    {
+        $handle = @fopen($this->getCacheFile(), 'rwb+');
+        if ($handle) {
+            try {
+                while (false !== ($line = fgets($handle))) {
+                    @unlink($line);
+                }
+            } finally {
+                @fclose($handle);
+            }
+        }
+
+        @unlink($this->getCacheFile());
+    }
+
+    private function getCacheFile(): string
+    {
+        return $this->kernelProjectDir . '/public/cache.status';
     }
 
     /**
@@ -254,6 +285,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
+        } elseif (Strings::find($routeName, 'segment_page')) {
+            $viewData = [
+                'page' => $this->segmentPageService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/SegmentPage/detail.html.twig';
         } elseif (Strings::find($routeName, 'page')) {
             $viewData = [
                 'page' => $this->pageService->get($slug),
@@ -289,30 +326,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     {
         $fs = new Filesystem();
         $fs->appendToFile($this->getCacheFile(), $entry . PHP_EOL);
-    }
-
-    private function getCacheFile(): string
-    {
-        return $this->kernelProjectDir . '/public/cache.status';
-    }
-
-    /**
-     * Clears the cache
-     */
-    public function clearCache(): void
-    {
-        $handle = @fopen($this->getCacheFile(), 'rwb+');
-        if ($handle) {
-            try {
-                while (false !== ($line = fgets($handle))) {
-                    @unlink($line);
-                }
-            } finally {
-                @fclose($handle);
-            }
-        }
-
-        @unlink($this->getCacheFile());
     }
 
     /**

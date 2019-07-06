@@ -21,7 +21,7 @@ class ThemePage
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Page\Page")
      * @ORM\JoinColumn(nullable=false, name="page_id", referencedColumnName="id")
      * @var Page
      */

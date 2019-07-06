@@ -9,6 +9,7 @@
 namespace Jinya\EventSubscriber\Cache;
 
 use Jinya\Framework\Events\Theme\ThemeConfigEvent;
+use Jinya\Framework\Events\Theme\ThemeLinkEvent;
 use Jinya\Framework\Events\Theme\ThemeMenuEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Cache\CacheBuilderInterface;
@@ -60,15 +61,16 @@ class ThemeCacheSubscriber implements EventSubscriberInterface
             ThemeVariablesEvent::POST_SAVE => 'onThemeVariablesChange',
             ThemeVariablesEvent::POST_RESET => 'onThemeVariablesChange',
             ThemeMenuEvent::POST_SAVE => 'onThemeMenusChange',
+            ThemeLinkEvent::POST_SAVE => 'onThemeLinksChange',
         ];
     }
 
-    public function onThemeConfigChange(ThemeConfigEvent $event)
+    public function onThemeConfigChange(ThemeConfigEvent $event): void
     {
         $this->compileCache($event->getThemeName());
     }
 
-    private function compileCache(string $name)
+    private function compileCache(string $name): void
     {
         if ($this->configService->getConfig()->getCurrentTheme()->getName() === $name) {
             $this->cacheBuilder->clearCache();
@@ -76,12 +78,17 @@ class ThemeCacheSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onThemeVariablesChange(ThemeVariablesEvent $event)
+    public function onThemeVariablesChange(ThemeVariablesEvent $event): void
     {
         $this->compileCache($event->getThemeName());
     }
 
-    public function onThemeMenusChange(ThemeMenuEvent $event)
+    public function onThemeMenusChange(ThemeMenuEvent $event): void
+    {
+        $this->compileCache($event->getThemeName());
+    }
+
+    public function onThemeLinksChange(ThemeLinkEvent $event): void
     {
         $this->compileCache($event->getThemeName());
     }

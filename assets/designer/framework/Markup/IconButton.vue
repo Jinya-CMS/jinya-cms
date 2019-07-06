@@ -31,6 +31,12 @@
       isDanger: Boolean,
       isSuccess: Boolean,
       isDisabled: Boolean,
+      isInverse: {
+        type: Boolean,
+        default() {
+          return true;
+        },
+      },
       type: {
         type: String,
         default() {
@@ -46,7 +52,7 @@
           'is--danger': !this.isDisabled && this.isDanger,
           'is--success': !this.isDisabled && this.isSuccess,
           'is--default': !this.isDisabled && !(this.isSuccess || this.isDanger || this.isPrimary || this.isSecondary),
-          'is--inverse': true,
+          'is--inverse': this.isInverse,
           'is--disabled': this.isDisabled,
         };
       },

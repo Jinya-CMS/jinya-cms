@@ -1,5 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
+const MonacoEditorPlugin = require('monaco-editor-webpack-plugin')
 
 Encore.configureRuntimeEnvironment('dev');
 Encore
@@ -33,29 +34,32 @@ Encore
 
   // uncomment if you use Sass/SCSS files
   .enableSassLoader(() => ({
-        data: '@import "designer";',
-        includePaths: [
-        path.join(__dirname, 'assets', 'designer', 'scss'),
-        ],
-    }))
+    data: '@import "designer";',
+    includePaths: [
+      path.join(__dirname, 'assets', 'designer', 'scss'),
+    ],
+  }))
 
   .addAliases({ '@': path.join(__dirname, 'assets', 'designer') })
   .addRule({
-        test: /worker\/VideoUploader\.js$/,
-        include: path.join(__dirname, 'assets', 'designer'),
-        use: [
-        { loader: 'worker-loader' },
-        { loader: 'babel-loader' },
-        ],
-    })
+    test: /worker\/VideoUploader\.js$/,
+    include: path.join(__dirname, 'assets', 'designer'),
+    use: [
+      { loader: 'worker-loader' },
+      { loader: 'babel-loader' },
+    ],
+  })
   .copyFiles({
-        from: path.join(__dirname, 'assets', 'designer', 'img'),
-    })
+    from: path.join(__dirname, 'assets', 'designer', 'img'),
+  })
+  .addPlugin(new MonacoEditorPlugin({
+    languages: ['javascript', 'css', 'html'],
+  }))
   .enablePostCssLoader();
 
 const webpackConfigEncore = Encore.getWebpackConfig();
 webpackConfigEncore.resolve.alias = {
-    ...webpackConfigEncore.resolve.alias,
-    '@': path.join(__dirname, 'assets', 'designer'),
+  ...webpackConfigEncore.resolve.alias,
+  '@': path.join(__dirname, 'assets', 'designer'),
 };
 module.exports = webpackConfigEncore;

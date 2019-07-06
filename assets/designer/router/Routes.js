@@ -204,6 +204,28 @@ export default {
           route: '/designer/static/page/jinya/:slug/edit',
         },
       },
+      Segment: {
+        Overview: {
+          name: 'StaticPagesSegmentOverview',
+          route: '/designer/static/page/segment',
+        },
+        Details: {
+          name: 'StaticPagesSegmentDetails',
+          route: '/designer/static/page/segment/:slug',
+        },
+        Add: {
+          name: 'StaticPagesSegmentAdd',
+          route: '/designer/static/page/segment/add',
+        },
+        Edit: {
+          name: 'StaticPagesSegmentEdit',
+          route: '/designer/static/page/segment/:slug/edit',
+        },
+        Editor: {
+          name: 'StaticPagesSegmentEditor',
+          route: '/designer/static/page/segment/:slug/editor',
+        },
+      },
       SavedExternal: {
         Overview: {
           name: 'StaticPagesSavedExternalOverview',

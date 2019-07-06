@@ -40,6 +40,14 @@
                       @selected="item => selected(item, links.videoGalleries, gallery)"
                       v-for="gallery in Object.keys(structure.video_galleries)"/>
       </jinya-fieldset>
+      <jinya-fieldset :legend="'configuration.frontend.themes.links.segment_pages'|jmessage"
+                      v-if="structure.segment_pages">
+        <jinya-choice :choices="segmentPages" :enforce-select="true" :key="segmentPage"
+                      :label="structure.segmentPages[segmentPage]"
+                      :selected="createSelectValue(links.segmentPages[segmentPage])"
+                      @selected="item => selected(item, links.segmentPages, segmentPage)"
+                      v-for="segmentPage in Object.keys(structure.segmentPages)"/>
+      </jinya-fieldset>
     </jinya-form>
   </div>
 </template>
@@ -79,6 +87,7 @@
         pages: [],
         videoGalleries: [],
         artGalleries: [],
+        segmentPages: [],
         forms: [],
         menus: [],
       };
@@ -116,6 +125,11 @@
           .then((pages) => {
             this.pages = pages.items.map(item => ({ text: item.title, value: item.slug }));
           });
+        const segmentPagePromise = JinyaRequest
+          .get('/api/segment_page?count=20000000')
+          .then((pages) => {
+            this.segmentPages = pages.items.map(item => ({ text: item.title, value: item.slug }));
+          });
         const formsPromise = JinyaRequest
           .get('/api/form?count=20000000')
           .then((forms) => {
@@ -147,6 +161,7 @@
           linksPromise,
           themePromise,
           pagePromise,
+          segmentPagePromise,
           formsPromise,
           artworksPromise,
           menusPromise,

@@ -67,6 +67,8 @@
                                         v-jinya-permission="ROLE_WRITER">
           <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.pages.saved_in_jinya"
                                        to="Static.Pages.SavedInJinya.Overview"/>
+          <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.pages.segment_pages"
+                                       to="Static.Pages.Segment.Overview"/>
           <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.pages.saved_external"
                                        to="Static.Pages.SavedExternal.Overview"
                                        v-if="false"/>
@@ -188,7 +190,6 @@
       JinyaMenuFlyoutNavbar,
       JinyaMenuFlyoutNavbarItem,
       JinyaMenuFlyout,
-      JinyaMenuNavbarItem,
       JinyaMenuNavbar,
     },
     methods: {
