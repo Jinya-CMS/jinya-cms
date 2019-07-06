@@ -82,6 +82,14 @@ api:
         missing: Der Name muss bereitgestellt werden
       video_key:
         missing: Der Videokey muss bereitgestellt werden
+  segment_page:
+    field:
+      name:
+        missing: Der Name muss bereitgestellt werden
+  page:
+    field:
+      title:
+        missing: Der Titel muss bereitgestellt werden
   menu:
     field:
       name:
@@ -224,6 +232,29 @@ static:
           generic: Die Seite konnte nicht gefunden werden.
         409:
           exists: Eine Seite mit dem gleichen Titel oder Slug existiert bereits.
+    segment:
+      editor:
+        delete_failed: Leider konnte das Segment nicht entfernt werden.
+      overview:
+        no_pages:
+          Bisher wurden keine Seiten angelegt.
+        nothing_found:
+          Leider gibt es zu deinem Suchbegriff keine Seiten.
+      page_form:
+        title:
+          empty: Es muss ein Titel angegeben werden
+        slug:
+          empty: Es muss ein Slug angegeben werden
+        content:
+          empty:
+            on_save: Eine Seite ohne Inhalt kann nicht gespeichert werden.
+            on_input: Die Seite muss einen Inhalt haben
+      api:
+        state:
+          404:
+            generic: Die Seite konnte nicht gefunden werden.
+          409:
+            exists: Eine Seite mit dem gleichen Titel oder Slug existiert bereits.
   forms:
     forms:
       api:

@@ -140,7 +140,8 @@ menu:
         sections:
           pages:
             header: Seiten
-            saved_in_jinya: Im Jinya CMS gespeichert
+            saved_in_jinya: Einfache Seiten
+            segment_pages: Segment Seiten
             saved_external: Extern gespeichert
           forms:
             header: Formulare
@@ -230,7 +231,11 @@ routes:
   static:
     pages:
       saved_in_jinya:
-        overview: In Jinya gespeicherte Seiten
+        overview: Einfache Seiten
+        add: Seite hinzufügen
+        edit: Seite bearbeiten
+      segment:
+        overview: Segment Seiten
         add: Seite hinzufügen
         edit: Seite bearbeiten
     forms:
@@ -369,6 +374,7 @@ configuration:
           video: Videos
         forms: Formulare
         pages: Seiten
+        segment_pages: Segmentseiten
         profiles: Profile
         other: Andere
         external: Externe Seite
@@ -425,6 +431,7 @@ configuration:
         video_galleries: Kunstgallerien
         menus: Menüs
         pages: Seiten
+        segment_pages: Segmentseiten
         forms: Formulare
         save: Links speichern
         cancel: Zurück
@@ -460,6 +467,71 @@ static:
       save: Seite speichern
       back: Zurück
       search: Suchen
+    segment:
+      editor:
+        title: Seite %name% bearbeiten
+        loading_failed: Die Seite konnte nicht geladen werden
+        view:
+          selection:
+            artwork: Kunstwerk
+            art_gallery: Kunstgallerie
+            video_gallery: Videogallerie
+            video: Video
+            youtube_video: YouTube Video
+            form: Formular
+            html: Formattierter Text
+            save: Speichern
+            cancel: Abbrechen
+            title: Segment hinzufügen
+            type: Segment Typ
+      overview:
+        tooltips:
+          details: Seite anzeigen
+          editor: Seiten Editor
+          edit: Seite bearbeiten
+          delete: Seite löschen
+      delete:
+        title: Soll die Seite wirklich gelöscht werden?
+        content: Soll die Seite "%name%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
+        yes: Seite löschen
+        no: Seite nicht löschen
+      add:
+        saving: Die Seite "%name%" wird gespeichert.
+        success: Die Seite "%name%" wurde erfolgreich gespeichert.
+      edit:
+        title: Seite %title% bearbeiten
+        saving: Die Seite "%name%" wird gespeichert.
+        success: Die Seite "%name%" wurde erfolgreich gespeichert.
+        loading: Die Seite wird geladen
+      page_form:
+        name: Name
+        save: Seite speichern
+        back: Zurück
+        search: Suchen
+      details:
+        save: Speichern
+        cancel: Nicht speichern
+        name: Name
+        segment:
+          delete:
+            yes: Segment entfernen
+            no: Segment behalten
+            title: Soll das Segment entfernt werden?
+            content_html: Wenn der formatierte Text entfernt wird, ist er nicht mehr auf der Seite sichtbar.
+            content: Wenn das Segment %name% entfernt wird, ist es nicht mehr auf der Seite sichtbar.
+        action:
+          artwork: Kunstwerk
+          art_gallery: Kunstgallerie
+          video_gallery: Videogallerie
+          video: Video
+          youtube_video: YouTube Video
+          action: Aktion
+          target: Ziel
+          script: JavaScript
+          types:
+            none: Keine
+            script: Script
+            link: Link
   forms:
     forms:
       builder:

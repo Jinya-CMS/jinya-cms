@@ -22,6 +22,15 @@ interface ThemeLinkServiceInterface
     public function savePage(string $key, string $themeName, string $pageSlug): void;
 
     /**
+     * Links the given segment page with the given theme
+     *
+     * @param string $key
+     * @param string $themeName
+     * @param string $segmentPageSlug
+     */
+    public function saveSegmentPage(string $key, string $themeName, string $segmentPageSlug): void;
+
+    /**
      * Links the given form with the given theme
      *
      * @param string $key

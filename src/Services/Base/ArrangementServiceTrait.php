@@ -17,14 +17,16 @@ trait ArrangementServiceTrait
      * @param $targetItem
      * @return mixed
      */
-    private function rearrange(array $positions, int $oldPosition, int $newPosition, $targetItem)
+    private function rearrange(array $positions, int $oldPosition, int $newPosition, $targetItem): array
     {
-        uasort($positions, function ($a, $b) {
+        uasort($positions, static function ($a, $b) {
             /* @noinspection PhpUndefinedMethodInspection */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
-        if ($oldPosition < $newPosition) {
+        if ($oldPosition === -1 && $newPosition === -1) {
+            array_splice($positions, 0, 0, [$targetItem]);
+        } elseif ($oldPosition < $newPosition) {
             array_splice($positions, $newPosition + 1, 0, [$targetItem]);
 
             if ($oldPosition > -1) {
@@ -38,7 +40,7 @@ trait ArrangementServiceTrait
             }
         }
 
-        array_walk($positions, function (&$item, int $index) {
+        array_walk($positions, static function (&$item, int $index) {
             /* @noinspection PhpUndefinedMethodInspection */
             $item->setPosition($index);
         });

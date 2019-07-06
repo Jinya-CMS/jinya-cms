@@ -89,7 +89,13 @@ class Theme
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeSegmentPage", mappedBy="theme")
+     */
+    private $segmentPages;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme")
      */
     private $forms;
 
@@ -131,6 +137,7 @@ class Theme
         $this->pages = new ArrayCollection();
         $this->forms = new ArrayCollection();
         $this->artworks = new ArrayCollection();
+        $this->segmentPages = new ArrayCollection();
     }
 
     /**
@@ -387,5 +394,21 @@ class Theme
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSegmentPages(): ArrayCollection
+    {
+        return $this->segmentPages;
+    }
+
+    /**
+     * @param ArrayCollection $segmentPages
+     */
+    public function setSegmentPages(ArrayCollection $segmentPages): void
+    {
+        $this->segmentPages = $segmentPages;
     }
 }

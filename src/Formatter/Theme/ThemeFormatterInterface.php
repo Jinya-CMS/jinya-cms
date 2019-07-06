@@ -113,6 +113,13 @@ interface ThemeFormatterInterface extends FormatterInterface
     public function pages(): self;
 
     /**
+     * Formats the segment pages
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function segmentPages(): self;
+
+    /**
      * Formats the forms
      *
      * @return ThemeFormatterInterface

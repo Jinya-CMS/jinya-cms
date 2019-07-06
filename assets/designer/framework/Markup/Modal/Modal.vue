@@ -148,10 +148,18 @@
       &__buttons {
         &--start {
           align-self: flex-start;
+
+          .jinya-modal__button {
+            margin-right: 1rem;
+          }
         }
 
         &--end {
           align-self: flex-end;
+
+          .jinya-modal__button {
+            margin-left: 1rem;
+          }
         }
       }
     }

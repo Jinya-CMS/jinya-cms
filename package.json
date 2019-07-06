@@ -24,6 +24,7 @@
     "ua-parser-js": "^0.7.19",
     "vue": "^2.6.10",
     "vue-infinite-scroll": "^2.0.2",
+    "vue-monaco": "^1.0.0",
     "vue-router": "^3.0.6",
     "vuedraggable": "^2.20.0"
   },
@@ -54,6 +55,7 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-rename": "^1.4.0",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.12.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
