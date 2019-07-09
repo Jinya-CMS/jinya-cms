@@ -36,7 +36,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/runtime": "^7.4.4",
+    "@babel/runtime": "^7.5.2",
     "@symfony/webpack-encore": "^0.27.0",
     "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
