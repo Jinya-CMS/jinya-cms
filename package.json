@@ -29,7 +29,7 @@
     "vuedraggable": "^2.20.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
     "@babel/plugin-proposal-function-sent": "^7.2.0",
     "@babel/plugin-proposal-numeric-separator": "^7.2.0",
