@@ -12,6 +12,7 @@
 
 <style lang="scss" scoped>
   .jinya-editor-pane {
+    flex: 0 0 50%;
     width: 50%;
     padding: 0.5em;
     display: flex;

@@ -62,6 +62,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 100%;
+    flex: 0 0 100%;
 
     &__buttons {
       width: 100%;
