@@ -52,7 +52,7 @@
     "symfony/swiftmailer-bundle": "3.2.6",
     "symfony/templating": "4.2.8",
     "symfony/translation": "4.2.8",
-    "symfony/validator": "4.2.8",
+    "symfony/validator": "4.3.3",
     "symfony/web-link": "4.2.8",
     "symfony/webpack-encore-bundle": "1.5.0",
     "symfony/yaml": "4.2.8",
