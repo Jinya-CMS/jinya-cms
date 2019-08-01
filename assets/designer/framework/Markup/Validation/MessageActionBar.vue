@@ -1,7 +1,7 @@
 <template>
-  <div class="jinya-message__action-bar">
-    <slot/>
-  </div>
+    <div class="jinya-message__action-bar">
+        <slot/>
+    </div>
 </template>
 
 <script>
@@ -11,20 +11,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-message__action-bar {
-    display: block;
-    padding-top: 1em;
+    .jinya-message__action-bar {
+        display: block;
+        padding-top: 1em;
 
-    .jinya-button {
-      margin: 0 0.5em;
+        .jinya-button {
+            margin: 0 0.5em;
 
-      &:first-child {
-        margin-left: 0;
-      }
+            &:first-child {
+                margin-left: 0;
+            }
 
-      &:last-child {
-        margin-right: 0;
-      }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
-  }
 </style>

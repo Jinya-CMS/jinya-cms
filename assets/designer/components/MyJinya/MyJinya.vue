@@ -1,29 +1,30 @@
 <template>
-  <div class="jinya-my-jinya">
-    <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
-    <div class="jinya-my-jinya__content">
-      <aside class="jinya-my-jinya__sidebar">
-        <img :src="artist.profilePicture" alt="" class="jinya-my-jinya__profile-picture">
-        <button @click="pickProfilePicture()"
-                class="jinya-my-jinya__profile-picture jinya-my-jinya__profile-picture--button"
-                v-if="editMode"></button>
-        <span class="jinya-my-jinya__name" v-if="!editMode">{{artist.artistName}}</span>
-        <jinya-input label="my_jinya.my_jinya.artist_name" v-if="editMode" v-model="artist.artistName"/>
-        <a :href="`mailto:${artist.email}`" class="jinya-my-jinya__email" v-if="!editMode">{{artist.email}}</a>
-        <jinya-input label="my_jinya.my_jinya.email" v-if="editMode" v-model="artist.email"/>
-      </aside>
-      <div class="jinya-my-jinya__about-me">
-        <span class="jinya-my-jinya__about-me-title">{{'my_jinya.my_jinya.about_me'|jmessage}}</span>
-        <section class="jinya-my-jinya__about-me-content" v-html="aboutMe" v-if="!editMode"></section>
-        <jinya-tiny-mce :content="aboutMe" v-if="editMode" v-model="aboutMe"></jinya-tiny-mce>
-        <div class="jinya-my-jinya__buttonbar" v-if="editMode">
-          <jinya-button :is-inverse="true" :is-secondary="true" @click="cancel()" label="my_jinya.my_jinya.cancel"/>
-          <jinya-button :is-inverse="true" :is-primary="true" @click="save()" label="my_jinya.my_jinya.save"/>
+    <div class="jinya-my-jinya">
+        <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
+        <div class="jinya-my-jinya__content">
+            <aside class="jinya-my-jinya__sidebar">
+                <img :src="artist.profilePicture" alt="" class="jinya-my-jinya__profile-picture">
+                <button @click="pickProfilePicture()"
+                        class="jinya-my-jinya__profile-picture jinya-my-jinya__profile-picture--button"
+                        v-if="editMode"></button>
+                <span class="jinya-my-jinya__name" v-if="!editMode">{{artist.artistName}}</span>
+                <jinya-input label="my_jinya.my_jinya.artist_name" v-if="editMode" v-model="artist.artistName"/>
+                <a :href="`mailto:${artist.email}`" class="jinya-my-jinya__email" v-if="!editMode">{{artist.email}}</a>
+                <jinya-input label="my_jinya.my_jinya.email" v-if="editMode" v-model="artist.email"/>
+            </aside>
+            <div class="jinya-my-jinya__about-me">
+                <span class="jinya-my-jinya__about-me-title">{{'my_jinya.my_jinya.about_me'|jmessage}}</span>
+                <section class="jinya-my-jinya__about-me-content" v-html="aboutMe" v-if="!editMode"></section>
+                <jinya-tiny-mce :content="aboutMe" v-if="editMode" v-model="aboutMe"></jinya-tiny-mce>
+                <div class="jinya-my-jinya__buttonbar" v-if="editMode">
+                    <jinya-button :is-inverse="true" :is-secondary="true" @click="cancel()"
+                                  label="my_jinya.my_jinya.cancel"/>
+                    <jinya-button :is-inverse="true" :is-primary="true" @click="save()" label="my_jinya.my_jinya.save"/>
+                </div>
+            </div>
         </div>
-      </div>
+        <jinya-floating-action-button :is-secondary="true" @click="editProfile()" icon="pencil" v-if="!editMode"/>
     </div>
-    <jinya-floating-action-button :is-secondary="true" @click="editProfile()" icon="pencil" v-if="!editMode"/>
-  </div>
 </template>
 
 <script>
@@ -150,95 +151,95 @@
 </script>
 
 <style lang="scss">
-  .jinya-my-jinya {
-    padding-top: 2rem;
+    .jinya-my-jinya {
+        padding-top: 2rem;
 
-    .jinya-message {
-      margin-bottom: 2rem;
+        .jinya-message {
+            margin-bottom: 2rem;
+        }
     }
-  }
 
-  .jinya-my-jinya__content {
-    display: flex;
-  }
-
-  .jinya-my-jinya__sidebar {
-    flex: 0 0 30%;
-    min-width: 30%;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto auto;
-    grid-row-gap: 1rem;
-    align-self: flex-start;
-  }
-
-  .jinya-my-jinya__profile-picture {
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    width: 100%;
-
-    &--button {
-      background: transparentize(#fff, 0.7);
-      border: none;
-      position: relative;
-      cursor: pointer;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background: transparentize(#fff, 0.5);
-      }
-
-      &::before {
-        position: absolute;
-        content: '\f3eb';
-        font-family: 'Material Design Icons';
-        color: white;
-      }
+    .jinya-my-jinya__content {
+        display: flex;
     }
-  }
 
-  .jinya-my-jinya__name {
-    font-size: 2rem;
-    width: 100%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    font-weight: lighter;
-  }
-
-  .jinya-my-jinya__email {
-    width: 100%;
-    grid-row-start: 3;
-    grid-row-end: 4;
-  }
-
-  .jinya-my-jinya__about-me {
-    flex: 0 0 70%;
-    min-width: 70%;
-    padding-left: 1rem;
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  .jinya-my-jinya__about-me-title {
-    font-size: 2rem;
-    font-weight: lighter;
-    width: 100%;
-  }
-
-  .jinya-my-jinya__about-me-content {
-    width: 100%;
-    @include content-styling;
-  }
-
-  .jinya-my-jinya__buttonbar {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-
-    .jinya-button {
-      margin-left: 1rem;
+    .jinya-my-jinya__sidebar {
+        flex: 0 0 30%;
+        min-width: 30%;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto auto;
+        grid-row-gap: 1rem;
+        align-self: flex-start;
     }
-  }
+
+    .jinya-my-jinya__profile-picture {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        width: 100%;
+
+        &--button {
+            background: transparentize(#fff, 0.7);
+            border: none;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background: transparentize(#fff, 0.5);
+            }
+
+            &::before {
+                position: absolute;
+                content: '\f3eb';
+                font-family: 'Material Design Icons';
+                color: white;
+            }
+        }
+    }
+
+    .jinya-my-jinya__name {
+        font-size: 2rem;
+        width: 100%;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        font-weight: lighter;
+    }
+
+    .jinya-my-jinya__email {
+        width: 100%;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .jinya-my-jinya__about-me {
+        flex: 0 0 70%;
+        min-width: 70%;
+        padding-left: 1rem;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .jinya-my-jinya__about-me-title {
+        font-size: 2rem;
+        font-weight: lighter;
+        width: 100%;
+    }
+
+    .jinya-my-jinya__about-me-content {
+        width: 100%;
+        @include content-styling;
+    }
+
+    .jinya-my-jinya__buttonbar {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+        .jinya-button {
+            margin-left: 1rem;
+        }
+    }
 </style>

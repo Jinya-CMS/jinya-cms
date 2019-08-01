@@ -1,11 +1,11 @@
 @include jinya-media-query($screen: true, $small: true) {
-  .jinya-art-gallery__artwork--mobile {
-    margin-bottom: 1rem;
-    height: unset;
-    padding: unset;
-  }
+    .jinya-art-gallery__artwork--mobile {
+        margin-bottom: 1rem;
+        height: unset;
+        padding: unset;
+    }
 
-  .jinya-art-gallery__image--mobile {
-    height: unset;
-  }
+    .jinya-art-gallery__image--mobile {
+        height: unset;
+    }
 }

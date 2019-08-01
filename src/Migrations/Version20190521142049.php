@@ -6,6 +6,7 @@ namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Throwable;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -56,7 +57,7 @@ final class Version20190521142049 extends AbstractMigration
                 if (null !== $footerMenu) {
                     $this->addSql("INSERT INTO theme_menu (theme_id, menu_id, name) VALUES ($id, $footerMenu, 'footer')");
                 }
-            } catch (\Throwable $exception) {
+            } catch (Throwable $exception) {
                 $this->abortIf(true);
             }
         }

@@ -1,45 +1,45 @@
 <template>
-  <jinya-editor>
-    <jinya-message :message="message" :state="state" v-if="state">
-      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-        <jinya-button :is-danger="true" label="configuration.general.artists.artist_form.back"
-                      to="Configuration.General.Artists.Overview"/>
-      </jinya-message-action-bar>
-    </jinya-message>
-    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
-                @submit="save" class="jinya-form--artist" v-if="!(hideOnError && state === 'error')">
-      <jinya-editor-pane>
-        <jinya-editor-preview-image :src="artist.profilePicture"/>
-      </jinya-editor-pane>
-      <jinya-editor-pane>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'configuration.general.artists.artist_form.artist_name.empty'|jvalidator"
-                     label="configuration.general.artists.artist_form.artist_name"
-                     v-model="artist.artistName"/>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="emailValidationMessage|jvalidator"
-                     @invalid="emailTypeMismatch = $event.typeMismatch"
-                     label="configuration.general.artists.artist_form.email"
-                     type="email"
-                     v-model="artist.email"/>
-        <jinya-input :enable="enable" :required="true"
-                     :validation-message="'configuration.general.artists.artist_form.password.empty'|jvalidator"
-                     label="configuration.general.artists.artist_form.password"
-                     type="password" v-if="showPassword"
-                     v-model="artist.password"/>
-        <jinya-file-input :enable="enable" @picked="picturePicked" accept="image/*"
-                          label="configuration.general.artists.artist_form.profile_picture"
-                          v-if="!isStatic"/>
-        <jinya-choice :choices="activationOptions" :enable="enable"
-                      :is-static="isStatic" :selected="artist.enabled" @selected="enableChanged"
-                      label="configuration.general.artists.artist_form.activation"/>
-        <jinya-choice :choices="rolesOptions" :enable="enable"
-                      :is-static="isStatic"
-                      :multiple="true" :selected="artist.roles" @selected="rolesChanged"
-                      label="configuration.general.artists.artist_form.roles"/>
-      </jinya-editor-pane>
-    </jinya-form>
-  </jinya-editor>
+    <jinya-editor>
+        <jinya-message :message="message" :state="state" v-if="state">
+            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+                <jinya-button :is-danger="true" label="configuration.general.artists.artist_form.back"
+                              to="Configuration.General.Artists.Overview"/>
+            </jinya-message-action-bar>
+        </jinya-message>
+        <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                    @submit="save" class="jinya-form--artist" v-if="!(hideOnError && state === 'error')">
+            <jinya-editor-pane>
+                <jinya-editor-preview-image :src="artist.profilePicture"/>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
+                <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                             :validation-message="'configuration.general.artists.artist_form.artist_name.empty'|jvalidator"
+                             label="configuration.general.artists.artist_form.artist_name"
+                             v-model="artist.artistName"/>
+                <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                             :validation-message="emailValidationMessage|jvalidator"
+                             @invalid="emailTypeMismatch = $event.typeMismatch"
+                             label="configuration.general.artists.artist_form.email"
+                             type="email"
+                             v-model="artist.email"/>
+                <jinya-input :enable="enable" :required="true"
+                             :validation-message="'configuration.general.artists.artist_form.password.empty'|jvalidator"
+                             label="configuration.general.artists.artist_form.password"
+                             type="password" v-if="showPassword"
+                             v-model="artist.password"/>
+                <jinya-file-input :enable="enable" @picked="picturePicked" accept="image/*"
+                                  label="configuration.general.artists.artist_form.profile_picture"
+                                  v-if="!isStatic"/>
+                <jinya-choice :choices="activationOptions" :enable="enable"
+                              :is-static="isStatic" :selected="artist.enabled" @selected="enableChanged"
+                              label="configuration.general.artists.artist_form.activation"/>
+                <jinya-choice :choices="rolesOptions" :enable="enable"
+                              :is-static="isStatic"
+                              :multiple="true" :selected="artist.roles" @selected="rolesChanged"
+                              label="configuration.general.artists.artist_form.roles"/>
+            </jinya-editor-pane>
+        </jinya-form>
+    </jinya-editor>
 </template>
 
 <script>

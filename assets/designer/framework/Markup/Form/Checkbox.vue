@@ -1,9 +1,9 @@
 <template>
-  <label class="jinya-checkbox">
-    <input :checked="value" :disabled="!enable || isStatic" @change="$emit('input', $event.target.checked)"
-           type="checkbox">
-    {{label|jmessage}}
-  </label>
+    <label class="jinya-checkbox">
+        <input :checked="value" :disabled="!enable || isStatic" @change="$emit('input', $event.target.checked)"
+               type="checkbox">
+        {{label|jmessage}}
+    </label>
 </template>
 
 <script>
@@ -43,8 +43,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-checkbox {
-    font-size: 1rem;
-    width: 100%;
-  }
+    .jinya-checkbox {
+        font-size: 1rem;
+        width: 100%;
+    }
 </style>

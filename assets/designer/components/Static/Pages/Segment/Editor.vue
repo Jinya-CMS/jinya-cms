@@ -1,31 +1,32 @@
 <template>
-  <jinya-loader v-if="loading"/>
-  <jinya-editor v-else>
-    <jinya-editor-pane class="jinya-page-editor__preview">
-      <jinya-page-editor-preview-pane :segments="segments"/>
-    </jinya-editor-pane>
-    <jinya-editor-pane @wheel="scroll" class="jinya-page-editor" ref="editor">
-      <jinya-message :message="message" :state="state" v-if="state"/>
-      <jinya-icon-button :is-primary="true" @click="add(-1)" class="jinya-icon-button--add" icon="plus"/>
-      <template v-for="(segment, index) in segments">
-        <jinya-page-editor-item :index="index" :key="segment.id" :segment="segment" :segment-count="segments.length"
-                                @add="add" @delete="showDeleteModal" @edit-saved="saveEdit" @move="move"
-                                @scroll="scroll" @wheel.native="scroll"/>
-      </template>
-    </jinya-editor-pane>
-    <jinya-page-editor-add-view :position="currentPosition" @close="addModal.show = false" @save="saveAdd"
-                                v-if="addModal.show"/>
-    <jinya-modal :loading="deleteModal.loading" @close="closeDeleteModal"
-                 title="static.pages.segment.details.segment.delete.title" v-if="deleteModal.show">
-      <jinya-message :message="deleteModal.error" slot="message" state="error"
-                     v-if="deleteModal.error && !deleteModal.loading"/>
-      {{deleteContent|jmessage(selectedSegment)}}
-      <jinya-modal-button :closes-modal="true" :is-disabled="this.deleteModal.loading" :is-secondary="true"
-                          label="static.pages.segment.details.segment.delete.no" slot="buttons-left"/>
-      <jinya-modal-button :is-danger="true" :is-disabled="this.deleteModal.loading" @click="deleteSegment"
-                          label="static.pages.segment.details.segment.delete.yes" slot="buttons-right"/>
-    </jinya-modal>
-  </jinya-editor>
+    <jinya-loader v-if="loading"/>
+    <jinya-editor v-else>
+        <jinya-editor-pane class="jinya-page-editor__preview">
+            <jinya-page-editor-preview-pane :segments="segments"/>
+        </jinya-editor-pane>
+        <jinya-editor-pane @wheel="scroll" class="jinya-page-editor" ref="editor">
+            <jinya-message :message="message" :state="state" v-if="state"/>
+            <jinya-icon-button :is-primary="true" @click="add(-1)" class="jinya-icon-button--add" icon="plus"/>
+            <template v-for="(segment, index) in segments">
+                <jinya-page-editor-item :index="index" :key="segment.id" :segment="segment"
+                                        :segment-count="segments.length"
+                                        @add="add" @delete="showDeleteModal" @edit-saved="saveEdit" @move="move"
+                                        @scroll="scroll" @wheel.native="scroll"/>
+            </template>
+        </jinya-editor-pane>
+        <jinya-page-editor-add-view :position="currentPosition" @close="addModal.show = false" @save="saveAdd"
+                                    v-if="addModal.show"/>
+        <jinya-modal :loading="deleteModal.loading" @close="closeDeleteModal"
+                     title="static.pages.segment.details.segment.delete.title" v-if="deleteModal.show">
+            <jinya-message :message="deleteModal.error" slot="message" state="error"
+                           v-if="deleteModal.error && !deleteModal.loading"/>
+            {{deleteContent|jmessage(selectedSegment)}}
+            <jinya-modal-button :closes-modal="true" :is-disabled="this.deleteModal.loading" :is-secondary="true"
+                                label="static.pages.segment.details.segment.delete.no" slot="buttons-left"/>
+            <jinya-modal-button :is-danger="true" :is-disabled="this.deleteModal.loading" @click="deleteSegment"
+                                label="static.pages.segment.details.segment.delete.yes" slot="buttons-right"/>
+        </jinya-modal>
+    </jinya-editor>
 </template>
 
 <script>
@@ -176,24 +177,24 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-page-editor {
-    padding-top: 2rem;
-  }
+    .jinya-page-editor {
+        padding-top: 2rem;
+    }
 
-  .jinya-message--editor {
-    margin-right: -12.5%;
-    margin-left: -12.5%;
-    width: 125%;
-    padding-top: 1em;
-  }
+    .jinya-message--editor {
+        margin-right: -12.5%;
+        margin-left: -12.5%;
+        width: 125%;
+        padding-top: 1em;
+    }
 
-  .jinya-icon-button--add {
-    min-width: 100%;
-    flex: 0 0 100%;
-    font-size: 3rem;
-  }
+    .jinya-icon-button--add {
+        min-width: 100%;
+        flex: 0 0 100%;
+        font-size: 3rem;
+    }
 
-  .jinya-page-editor__preview {
-    overflow-x: hidden;
-  }
+    .jinya-page-editor__preview {
+        overflow-x: hidden;
+    }
 </style>

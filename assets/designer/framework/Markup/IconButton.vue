@@ -1,14 +1,14 @@
 <template>
-  <a :class="additionalClasses" :href="href" class="jinya-icon-button" v-if="href">
-    <i :class="`mdi-${icon}`" class="mdi"></i>
-  </a>
-  <router-link :class="additionalClasses" :to="routeTarget" class="jinya-icon-button" v-else-if="to">
-    <i :class="`mdi-${icon}`" class="mdi"></i>
-  </router-link>
-  <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
-          class="jinya-icon-button" v-else>
-    <i :class="`mdi-${icon}`" class="mdi"></i>
-  </button>
+    <a :class="additionalClasses" :href="href" class="jinya-icon-button" v-if="href">
+        <i :class="`mdi-${icon}`" class="mdi"></i>
+    </a>
+    <router-link :class="additionalClasses" :to="routeTarget" class="jinya-icon-button" v-else-if="to">
+        <i :class="`mdi-${icon}`" class="mdi"></i>
+    </router-link>
+    <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
+            class="jinya-icon-button" v-else>
+        <i :class="`mdi-${icon}`" class="mdi"></i>
+    </button>
 </template>
 
 <script>
@@ -68,25 +68,25 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-icon-button {
-    border-width: 0;
-    display: inline-block;
-    padding: 0.5em 0.5em;
-    vertical-align: middle;
-    font-size: 100%;
-    transition: background-color 0.3s, color 0.3s;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+    .jinya-icon-button {
+        border-width: 0;
+        display: inline-block;
+        padding: 0.5em 0.5em;
+        vertical-align: middle;
+        font-size: 100%;
+        transition: background-color 0.3s, color 0.3s;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
 
-    &:focus {
-      outline: none;
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        @include button-variations(transparent);
     }
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    @include button-variations(transparent);
-  }
 </style>

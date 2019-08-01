@@ -1,6 +1,6 @@
 <template>
-  <jinya-choice :choices="formattedChoices" :enable="enable" :enforce-select="true" :label="label"
-                :required="required"/>
+    <jinya-choice :choices="formattedChoices" :enable="enable" :enforce-select="true" :label="label"
+                  :required="required"/>
 </template>
 
 <script>

@@ -1,24 +1,25 @@
 <template>
-  <jinya-modal :loading="loading" @close="$emit('close')" title="static.pages.segment.editor.view.selection.title">
-    <jinya-choice :choices="segmentTypes" :selected="{value: selectedType}" @selected="selectedTypeChanged"
-                  label="static.pages.segment.editor.view.selection.type"/>
-    <div class="jinya-page-editor-add__item">
-      <jinya-choice :choices="items" :label="`static.pages.segment.details.action.${selectedType}`"
-                    @selected="(value) => this.selectedItem = value.value" v-if="selectedType !== 'html'"/>
-      <jinya-choice :choices="actions" :selected="{value: 'none'}" @selected="(value) => this.action = value.value"
-                    label="static.pages.segment.details.action.action"
-                    v-if="selectedType === 'artwork'"/>
-      <monaco-editor :options="{height: 250}" class="jinya-page-editor__details-editor" language="javascript"
-                     v-if="selectedType === 'artwork' && action === 'script'" v-model="script"/>
-      <jinya-input label="static.pages.segment.details.action.target"
-                   v-if="selectedType === 'artwork' && action === 'link'" v-model="target"/>
-      <jinya-tiny-mce height="250px" v-if="selectedType === 'html'" v-model="html"/>
-    </div>
-    <jinya-modal-button :closes-modal="true" :is-disabled="loading" :is-secondary="true"
-                        label="static.pages.segment.editor.view.selection.cancel" slot="buttons-left"/>
-    <jinya-modal-button :is-disabled="loading" :is-success="true" @click="save"
-                        label="static.pages.segment.editor.view.selection.save" slot="buttons-right"/>
-  </jinya-modal>
+    <jinya-modal :loading="loading" @close="$emit('close')" title="static.pages.segment.editor.view.selection.title">
+        <jinya-choice :choices="segmentTypes" :selected="{value: selectedType}" @selected="selectedTypeChanged"
+                      label="static.pages.segment.editor.view.selection.type"/>
+        <div class="jinya-page-editor-add__item">
+            <jinya-choice :choices="items" :label="`static.pages.segment.details.action.${selectedType}`"
+                          @selected="(value) => this.selectedItem = value.value" v-if="selectedType !== 'html'"/>
+            <jinya-choice :choices="actions" :selected="{value: 'none'}"
+                          @selected="(value) => this.action = value.value"
+                          label="static.pages.segment.details.action.action"
+                          v-if="selectedType === 'artwork'"/>
+            <monaco-editor :options="{height: 250}" class="jinya-page-editor__details-editor" language="javascript"
+                           v-if="selectedType === 'artwork' && action === 'script'" v-model="script"/>
+            <jinya-input label="static.pages.segment.details.action.target"
+                         v-if="selectedType === 'artwork' && action === 'link'" v-model="target"/>
+            <jinya-tiny-mce height="250px" v-if="selectedType === 'html'" v-model="html"/>
+        </div>
+        <jinya-modal-button :closes-modal="true" :is-disabled="loading" :is-secondary="true"
+                            label="static.pages.segment.editor.view.selection.cancel" slot="buttons-left"/>
+        <jinya-modal-button :is-disabled="loading" :is-success="true" @click="save"
+                            label="static.pages.segment.editor.view.selection.save" slot="buttons-right"/>
+    </jinya-modal>
 </template>
 
 <script>
@@ -145,17 +146,17 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-page-editor-add__item {
-    max-height: 500px;
-    overflow: auto;
-  }
+    .jinya-page-editor-add__item {
+        max-height: 500px;
+        overflow: auto;
+    }
 
-  .jinya-page-editor-add__html {
-    height: 250px;
-  }
+    .jinya-page-editor-add__html {
+        height: 250px;
+    }
 
-  .jinya-page-editor__details-editor {
-    height: 300px;
-    width: 500px;
-  }
+    .jinya-page-editor__details-editor {
+        height: 300px;
+        width: 500px;
+    }
 </style>

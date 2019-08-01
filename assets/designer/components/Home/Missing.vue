@@ -1,5 +1,5 @@
 <template>
-  <h1 v-jinya-message="'home.missing.header'">Sorry, I am missing</h1>
+    <h1 v-jinya-message="'home.missing.header'">Sorry, I am missing</h1>
 </template>
 
 <script>

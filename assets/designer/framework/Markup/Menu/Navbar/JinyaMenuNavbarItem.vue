@@ -1,8 +1,8 @@
 <template>
-  <div :class="{ 'is--selected': $route.name === to, 'is--end': align === 'end', 'is--start': align === 'start' }"
-       class="jinya-menu-navbar__item">
-    <router-link :to="routeTarget" class="jinya-menu-navbar__link" v-jinya-message="text"/>
-  </div>
+    <div :class="{ 'is--selected': $route.name === to, 'is--end': align === 'end', 'is--start': align === 'start' }"
+         class="jinya-menu-navbar__item">
+        <router-link :to="routeTarget" class="jinya-menu-navbar__link" v-jinya-message="text"/>
+    </div>
 </template>
 
 <script>
@@ -39,49 +39,49 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-menu-navbar__item {
-    line-height: 60px;
-    color: $white;
-    list-style: none;
-    margin: 0;
-    background: $primary;
-    padding: 0 5px;
+    .jinya-menu-navbar__item {
+        line-height: 60px;
+        color: $white;
+        list-style: none;
+        margin: 0;
+        background: $primary;
+        padding: 0 5px;
 
-    &:hover {
-      background: $white;
+        &:hover {
+            background: $white;
 
-      .jinya-menu-navbar__link {
-        color: $primary;
-      }
+            .jinya-menu-navbar__link {
+                color: $primary;
+            }
+        }
+
+        &.is--selected {
+            background: $white;
+            color: $primary;
+        }
+
+        &.is--end {
+            align-self: flex-end;
+        }
+
+        &.is--start {
+            align-self: flex-start;
+        }
+
+        .jinya-menu-navbar__link {
+            margin-top: auto;
+            margin-bottom: auto;
+            color: $white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-variant: all-small-caps;
+            display: block;
+            cursor: pointer;
+
+            &:hover {
+                background: $white;
+                color: $primary;
+            }
+        }
     }
-
-    &.is--selected {
-      background: $white;
-      color: $primary;
-    }
-
-    &.is--end {
-      align-self: flex-end;
-    }
-
-    &.is--start {
-      align-self: flex-start;
-    }
-
-    .jinya-menu-navbar__link {
-      margin-top: auto;
-      margin-bottom: auto;
-      color: $white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-variant: all-small-caps;
-      display: block;
-      cursor: pointer;
-
-      &:hover {
-        background: $white;
-        color: $primary;
-      }
-    }
-  }
 </style>

@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/no-textarea-mustache -->
 <template>
-  <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
-    <label :for="id" class="jinya-input__label">{{label|jmessage}}</label>
-    <textarea :autocomplete="autocomplete" :disabled="!enable" :id="id" :required="required" :type="type"
-              @change="change" @input="input" @invalid="onInvalid"
-              @keyup="keyup" class="jinya-input__textarea" v-if="!isStatic">{{value}}</textarea>
-    <span :id="id" class="jinya-input__field jinya-input__field--no-break" v-if="isStatic">{{value}}</span>
-  </div>
+    <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
+        <label :for="id" class="jinya-input__label">{{label|jmessage}}</label>
+        <textarea :autocomplete="autocomplete" :disabled="!enable" :id="id" :required="required" :type="type"
+                  @change="change" @input="input" @invalid="onInvalid"
+                  @keyup="keyup" class="jinya-input__textarea" v-if="!isStatic">{{value}}</textarea>
+        <span :id="id" class="jinya-input__field jinya-input__field--no-break" v-if="isStatic">{{value}}</span>
+    </div>
 </template>
 
 <script>
@@ -71,54 +71,54 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-input {
-    font-size: 1rem;
-    width: 100%;
-    @include validation-message(11.5rem);
+    .jinya-input {
+        font-size: 1rem;
+        width: 100%;
+        @include validation-message(11.5rem);
 
-    .jinya-input__label {
-      display: inline-block;
+        .jinya-input__label {
+            display: inline-block;
+        }
+
+        .jinya-input__textarea {
+            padding: 0.5em;
+            outline: none;
+            width: 100%;
+            display: inline-block;
+            border-style: none;
+            border-bottom: solid 3px $form-underline-color;
+            transition: border-bottom-width 0.3s;
+            font-family: $font-family;
+            font-size: 90%;
+            height: 10em;
+
+            &.is--disabled {
+                background: $gray-200;
+            }
+
+            &:invalid {
+                box-shadow: none;
+                outline: none;
+                border-bottom-color: $danger;
+            }
+        }
+
+        .jinya-input__field {
+            padding: 0.5em;
+            outline: none;
+            width: 100%;
+            display: inline-block;
+            border-style: none;
+            border-bottom: solid 3px $form-underline-color;
+            transition: border-bottom-width 0.3s;
+            font-family: $font-family;
+            font-size: 90%;
+            height: 10em;
+
+            .jinya-input__field--no-break {
+                word-break: keep-all;
+                white-space: pre;
+            }
+        }
     }
-
-    .jinya-input__textarea {
-      padding: 0.5em;
-      outline: none;
-      width: 100%;
-      display: inline-block;
-      border-style: none;
-      border-bottom: solid 3px $form-underline-color;
-      transition: border-bottom-width 0.3s;
-      font-family: $font-family;
-      font-size: 90%;
-      height: 10em;
-
-      &.is--disabled {
-        background: $gray-200;
-      }
-
-      &:invalid {
-        box-shadow: none;
-        outline: none;
-        border-bottom-color: $danger;
-      }
-    }
-
-    .jinya-input__field {
-      padding: 0.5em;
-      outline: none;
-      width: 100%;
-      display: inline-block;
-      border-style: none;
-      border-bottom: solid 3px $form-underline-color;
-      transition: border-bottom-width 0.3s;
-      font-family: $font-family;
-      font-size: 90%;
-      height: 10em;
-
-      .jinya-input__field--no-break {
-        word-break: keep-all;
-        white-space: pre;
-      }
-    }
-  }
 </style>

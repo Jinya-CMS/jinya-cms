@@ -3,7 +3,6 @@
 namespace Jinya\Entity\Theme;
 
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\Page\Page;
 use Jinya\Entity\SegmentPage\SegmentPage;
 
 /**

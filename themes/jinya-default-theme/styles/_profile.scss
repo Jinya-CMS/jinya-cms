@@ -1,29 +1,29 @@
 .jinya-profile {
-  display: flex;
-  padding-top: 2rem;
+    display: flex;
+    padding-top: 2rem;
 }
 
 .jinya-profile__sidebar {
-  flex: 0 0 30%;
+    flex: 0 0 30%;
 }
 
 .jinya-profile__about-me {
-  flex: 0 0 70%;
-  padding-left: 1rem;
+    flex: 0 0 70%;
+    padding-left: 1rem;
 
-  @include content-styling;
+    @include content-styling;
 }
 
 .jinya-profile__picture {
-  width: 100%;
-  object-fit: scale-down;
+    width: 100%;
+    object-fit: scale-down;
 }
 
 .jinya-profile__email {
-  width: 100%;
+    width: 100%;
 }
 
 .jinya-profile__artist-name {
-  width: 100%;
-  font-family: $heading-font-family;
+    width: 100%;
+    font-family: $heading-font-family;
 }

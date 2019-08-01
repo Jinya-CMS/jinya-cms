@@ -5,7 +5,6 @@ namespace Jinya\Formatter\SegmentPage;
 use Jinya\Entity\SegmentPage\Segment;
 use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Formatter\User\UserFormatterInterface;
-use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 
 class SegmentPageFormatter implements SegmentPageFormatterInterface
 {

@@ -1,15 +1,15 @@
 <template>
-  <div class="jinya-page-editor__preview-pane">
-    <section :key="segment.id" class="jinya-page-editor__preview-element" v-for="segment in segments">
-      <jinya-page-editor-preview-element-artwork :artwork="segment.artwork"/>
-      <jinya-page-editor-preview-element-html :html="segment.html"/>
-      <jinya-page-editor-preview-element-video :video="segment.video"/>
-      <jinya-page-editor-preview-element-youtube-video :youtube-video="segment.youtubeVideo"/>
-      <jinya-page-editor-preview-element-art-gallery :art-gallery="segment.artGallery"/>
-      <jinya-page-editor-preview-element-video-gallery :video-gallery="segment.videoGallery"/>
-      <hr class="jinya-segment-page__divider"/>
-    </section>
-  </div>
+    <div class="jinya-page-editor__preview-pane">
+        <section :key="segment.id" class="jinya-page-editor__preview-element" v-for="segment in segments">
+            <jinya-page-editor-preview-element-artwork :artwork="segment.artwork"/>
+            <jinya-page-editor-preview-element-html :html="segment.html"/>
+            <jinya-page-editor-preview-element-video :video="segment.video"/>
+            <jinya-page-editor-preview-element-youtube-video :youtube-video="segment.youtubeVideo"/>
+            <jinya-page-editor-preview-element-art-gallery :art-gallery="segment.artGallery"/>
+            <jinya-page-editor-preview-element-video-gallery :video-gallery="segment.videoGallery"/>
+            <hr class="jinya-segment-page__divider"/>
+        </section>
+    </div>
 </template>
 
 <script>
@@ -40,20 +40,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-page-editor__preview-pane {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-  }
+    .jinya-page-editor__preview-pane {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+    }
 
-  .jinya-page-editor__preview-element {
-    width: 100%;
-  }
+    .jinya-page-editor__preview-element {
+        width: 100%;
+    }
 
-  .jinya-segment-page__divider {
-    border: none;
-    border-bottom: 1px solid $secondary;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
+    .jinya-segment-page__divider {
+        border: none;
+        border-bottom: 1px solid $secondary;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
 </style>

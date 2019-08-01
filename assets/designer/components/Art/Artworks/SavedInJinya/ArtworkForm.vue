@@ -1,36 +1,36 @@
 <template>
-  <jinya-editor>
-    <jinya-message :message="message" :state="state" v-if="state">
-      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error' && isStatic">
-        <jinya-button :is-danger="true" label="art.artworks.artwork_form.back"
-                      to="Art.Artworks.SavedInJinya.Overview"/>
-        <jinya-button :is-secondary="true" :query="{keyword: $route.params.slug}"
-                      label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"/>
-      </jinya-message-action-bar>
-    </jinya-message>
-    <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
-                @submit="save" class="jinya-form--artwork" v-if="!(hideOnError && state === 'error')">
-      <jinya-editor-pane>
-        <jinya-editor-preview-image :src="artwork.picture"/>
-      </jinya-editor-pane>
-      <jinya-editor-pane>
-        <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                     :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"
-                     label="art.artworks.artwork_form.name" v-model="artwork.name"/>
-        <jinya-file-input :enable="enable" :required="true"
-                          :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"
-                          @picked="picturePicked"
-                          accept="image/*" label="art.artworks.artwork_form.artwork" v-if="!isStatic"/>
-        <jinya-choice :choices="types" :enforceSelect="true" @selected="value=> artwork.type = value.value"
-                      label="art.artworks.artwork_form.convert.label" v-if="!isStatic"/>
-        <jinya-textarea :enable="enable" :is-static="isStatic" label="art.artworks.artwork_form.description"
-                        v-model="artwork.description"/>
-      </jinya-editor-pane>
-      <template slot="buttons">
-        <slot name="buttons"/>
-      </template>
-    </jinya-form>
-  </jinya-editor>
+    <jinya-editor>
+        <jinya-message :message="message" :state="state" v-if="state">
+            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error' && isStatic">
+                <jinya-button :is-danger="true" label="art.artworks.artwork_form.back"
+                              to="Art.Artworks.SavedInJinya.Overview"/>
+                <jinya-button :is-secondary="true" :query="{keyword: $route.params.slug}"
+                              label="art.artworks.artwork_form.search" to="Art.Artworks.SavedInJinya.Overview"/>
+            </jinya-message-action-bar>
+        </jinya-message>
+        <jinya-form :cancel-label="cancelLabel" :enable="enable" :save-label="saveLabel" @back="back"
+                    @submit="save" class="jinya-form--artwork" v-if="!(hideOnError && state === 'error')">
+            <jinya-editor-pane>
+                <jinya-editor-preview-image :src="artwork.picture"/>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
+                <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                             :validation-message="'art.artworks.artwork_form.name.empty'|jvalidator"
+                             label="art.artworks.artwork_form.name" v-model="artwork.name"/>
+                <jinya-file-input :enable="enable" :required="true"
+                                  :validation-message="'art.artworks.artwork_form.artwork.empty'|jvalidator"
+                                  @picked="picturePicked"
+                                  accept="image/*" label="art.artworks.artwork_form.artwork" v-if="!isStatic"/>
+                <jinya-choice :choices="types" :enforceSelect="true" @selected="value=> artwork.type = value.value"
+                              label="art.artworks.artwork_form.convert.label" v-if="!isStatic"/>
+                <jinya-textarea :enable="enable" :is-static="isStatic" label="art.artworks.artwork_form.description"
+                                v-model="artwork.description"/>
+            </jinya-editor-pane>
+            <template slot="buttons">
+                <slot name="buttons"/>
+            </template>
+        </jinya-form>
+    </jinya-editor>
 </template>
 
 <script>

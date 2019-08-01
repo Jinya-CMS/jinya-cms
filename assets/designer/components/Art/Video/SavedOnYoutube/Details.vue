@@ -1,13 +1,14 @@
 <template>
-  <div class="jinya-video__youtube">
-    <jinya-message :message="message" :state="state" v-if="state"/>
-    <div class="jinya-video__video-details" v-else>
-      <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" class="jinya-video__video--youtube"
-              height="540" width="960"></iframe>
-      <div class="jinya-video__video-description" v-html="video.description"></div>
-      <jinya-floating-action-button @click="edit" icon="pencil"/>
+    <div class="jinya-video__youtube">
+        <jinya-message :message="message" :state="state" v-if="state"/>
+        <div class="jinya-video__video-details" v-else>
+            <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
+                    class="jinya-video__video--youtube"
+                    height="540" width="960"></iframe>
+            <div class="jinya-video__video-description" v-html="video.description"></div>
+            <jinya-floating-action-button @click="edit" icon="pencil"/>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -67,21 +68,21 @@
 </script>
 
 <style lang="scss">
-  .jinya-video__youtube {
-    padding-top: 1rem;
-  }
-
-  .jinya-video__video-details {
-    display: flex;
-  }
-
-  .jinya-video__video-description {
-    margin-left: 1rem;
-  }
-
-  .jinya-video__video {
-    &.jinya-video__video--youtube {
-      width: 960px;
+    .jinya-video__youtube {
+        padding-top: 1rem;
     }
-  }
+
+    .jinya-video__video-details {
+        display: flex;
+    }
+
+    .jinya-video__video-description {
+        margin-left: 1rem;
+    }
+
+    .jinya-video__video {
+        &.jinya-video__video--youtube {
+            width: 960px;
+        }
+    }
 </style>

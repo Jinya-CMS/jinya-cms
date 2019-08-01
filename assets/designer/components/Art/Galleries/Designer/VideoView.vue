@@ -1,22 +1,23 @@
 <template>
-  <div class="jinya-video-view">
-    <jinya-input @keyup="search" class="jinya-input--video-search"
-                 placeholder="art.galleries.designer.video_view.search"
-                 type="search" v-if="!initial" v-model="keyword"/>
-    <jinya-card-list class="jinya-card-list--video-view" infinite-scroll-disabled="loading"
-                     infinite-scroll-distance="10" nothing-found="art.galleries.designer.video_view.nothing_found"
-                     v-infinite-scroll="loadMore"
-                     v-show="!initial">
-      <jinya-card :header="video.name" :key="video.slug" v-for="video in videos">
-        <video :poster="video.poster" :src="video.video" class="jinya-video-view__video"
-               controls v-if="video.type === 'jinya'"></video>
-        <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`" class="jinya-video-view__video"
-                v-else-if="video.type === 'youtube'"></iframe>
-        <jinya-card-button :is-disabled="picked" @click="pick(video)" slot="footer"
-                           text="art.galleries.designer.video_view.pick" type="details"/>
-      </jinya-card>
-    </jinya-card-list>
-  </div>
+    <div class="jinya-video-view">
+        <jinya-input @keyup="search" class="jinya-input--video-search"
+                     placeholder="art.galleries.designer.video_view.search"
+                     type="search" v-if="!initial" v-model="keyword"/>
+        <jinya-card-list class="jinya-card-list--video-view" infinite-scroll-disabled="loading"
+                         infinite-scroll-distance="10" nothing-found="art.galleries.designer.video_view.nothing_found"
+                         v-infinite-scroll="loadMore"
+                         v-show="!initial">
+            <jinya-card :header="video.name" :key="video.slug" v-for="video in videos">
+                <video :poster="video.poster" :src="video.video" class="jinya-video-view__video"
+                       controls v-if="video.type === 'jinya'"></video>
+                <iframe :src="`https://www.youtube-nocookie.com/embed/${video.videoKey}`"
+                        class="jinya-video-view__video"
+                        v-else-if="video.type === 'youtube'"></iframe>
+                <jinya-card-button :is-disabled="picked" @click="pick(video)" slot="footer"
+                                   text="art.galleries.designer.video_view.pick" type="details"/>
+            </jinya-card>
+        </jinya-card-list>
+    </div>
 </template>
 
 <script>
@@ -87,37 +88,37 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-video-view {
-    width: 50em;
-    max-height: 40em;
-    margin: -2em;
-    padding: 2em 0 0;
-    position: relative;
+    .jinya-video-view {
+        width: 50em;
+        max-height: 40em;
+        margin: -2em;
+        padding: 2em 0 0;
+        position: relative;
 
-    @include breakpoint-768-height {
-      max-height: 30em;
+        @include breakpoint-768-height {
+            max-height: 30em;
+        }
     }
-  }
 
-  .jinya-card-list--video-view {
-    overflow-y: auto;
-    max-height: 38em;
+    .jinya-card-list--video-view {
+        overflow-y: auto;
+        max-height: 38em;
 
-    @include breakpoint-768-height {
-      max-height: 28em;
+        @include breakpoint-768-height {
+            max-height: 28em;
+        }
     }
-  }
 
-  .jinya-video-view__video {
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s;
-  }
+    .jinya-video-view__video {
+        width: 100%;
+        height: 100%;
+        transition: all 0.3s;
+    }
 
-  .jinya-input--video-search {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
+    .jinya-input--video-search {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
 </style>
