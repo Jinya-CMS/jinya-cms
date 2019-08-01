@@ -11,6 +11,11 @@
                     :value="item.options.choices.join('\n')" @change="item.options.choices = $event.split('\n')"
                     label="static.forms.forms.builder.settings.options"
                     v-if="item.type.endsWith('ChoiceType')"/>
+    <jinya-textarea :required="true"
+                    :validation-message="'static.forms.forms.builder.settings.spam_filter.empty'|jvalidator"
+                    :value="item.spamFilter.join('\n')" @change="item.spamFilter = $event.split('\n')"
+                    label="static.forms.forms.builder.settings.spam_filter"
+                    v-if="item.type.endsWith('TextareaType') || item.type.endsWith('TextType')"/>
     <jinya-button :is-primary="true" label="static.forms.forms.builder.settings.save" slot="buttons" type="submit"/>
   </jinya-form>
 </template>

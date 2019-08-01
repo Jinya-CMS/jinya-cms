@@ -15,7 +15,9 @@ use function implode;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="form_item", uniqueConstraints={@ORM\UniqueConstraint(name="idx_form_item_position_form", columns={"position", "form_id"})})
+ * @ORM\Table(name="form_item", uniqueConstraints={
+ *   @ORM\UniqueConstraint(name="idx_form_item_position_form", columns={"position", "form_id"})
+ * })
  */
 class FormItem extends HistoryEnabledEntity
 {
@@ -40,6 +42,12 @@ class FormItem extends HistoryEnabledEntity
     private $options;
 
     /**
+     * @var array
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $spamFilter;
+
+    /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
@@ -62,6 +70,22 @@ class FormItem extends HistoryEnabledEntity
      * @ORM\Column(type="integer", nullable=false)
      */
     private $position;
+
+    /**
+     * @return array
+     */
+    public function getSpamFilter(): array
+    {
+        return $this->spamFilter;
+    }
+
+    /**
+     * @param array $spamFilter
+     */
+    public function setSpamFilter(array $spamFilter): void
+    {
+        $this->spamFilter = $spamFilter;
+    }
 
     /**
      * @return int
@@ -198,6 +222,7 @@ class FormItem extends HistoryEnabledEntity
             'options' => $this->options,
             'required' => $this->options['required'],
             'selectOptions' => $selectOptions,
+            'spamFilter' => $this->spamFilter,
         ];
     }
 }

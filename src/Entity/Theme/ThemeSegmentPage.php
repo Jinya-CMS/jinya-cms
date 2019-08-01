@@ -8,7 +8,7 @@ use Jinya\Entity\SegmentPage\SegmentPage;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="theme_page")
+ * @ORM\Table(name="theme_segment_page")
  */
 class ThemeSegmentPage
 {

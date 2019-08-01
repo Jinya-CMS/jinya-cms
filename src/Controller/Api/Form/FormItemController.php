@@ -37,8 +37,8 @@ class FormItemController extends BaseApiController
         FormItemServiceInterface $formItemService,
         FormItemFormatterInterface $formItemFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formItemService, $formItemFormatter) {
-            return array_map(function ($item) use ($formItemFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $formItemService, $formItemFormatter) {
+            return array_map(static function ($item) use ($formItemFormatter) {
                 return $formItemFormatter
                     ->init($item)
                     ->form()
@@ -46,6 +46,7 @@ class FormItemController extends BaseApiController
                     ->label()
                     ->position()
                     ->type()
+                    ->spamFilter()
                     ->format();
             }, $formItemService->getItems($slug));
         });
@@ -68,7 +69,7 @@ class FormItemController extends BaseApiController
         FormItemServiceInterface $formItemService,
         FormItemFormatterInterface $formItemFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $slug,
             $position,
             $formItemService,
@@ -81,6 +82,7 @@ class FormItemController extends BaseApiController
                 ->label()
                 ->helpText()
                 ->options()
+                ->spamFilter()
                 ->type();
 
             if ($this->isGranted('ROLE_WRITER')) {
@@ -110,7 +112,7 @@ class FormItemController extends BaseApiController
         FormServiceInterface $formService,
         FormItemServiceInterface $formItemService
     ): Response {
-        list($status, $data) = $this->tryExecute(function () use ($slug, $request, $formService, $formItemService) {
+        [$status, $data] = $this->tryExecute(static function () use ($slug, $request, $formService, $formItemService) {
             $actions = json_decode($request->getContent(), true);
             $form = $formService->get($slug);
 
@@ -124,6 +126,7 @@ class FormItemController extends BaseApiController
                         $formItem->setLabel($data['label']);
                         $formItem->setType($data['type']);
                         $formItem->setOptions($data['options']);
+                        $formItem->setSpamFilter($data['spamFilter']);
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->addItem($formItem);
@@ -135,6 +138,7 @@ class FormItemController extends BaseApiController
                         $formItem->setLabel($data['label']);
                         $formItem->setType($data['type']);
                         $formItem->setOptions($data['options']);
+                        $formItem->setSpamFilter($data['spamFilter']);
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->updateItem($formItem);
@@ -173,7 +177,7 @@ class FormItemController extends BaseApiController
         FormItemServiceInterface $formItemService,
         FormItemFormatterInterface $formItemFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $slug,
             $position,
             $formService,
@@ -234,7 +238,7 @@ class FormItemController extends BaseApiController
         int $newPosition,
         FormItemServiceInterface $formItemService
     ): Response {
-        list($result, $status) = $this->tryExecute(function () use (
+        [$result, $status] = $this->tryExecute(static function () use (
             $slug,
             $oldPosition,
             $newPosition,
@@ -264,7 +268,7 @@ class FormItemController extends BaseApiController
         FormItemServiceInterface $formItemService,
         FormItemFormatterInterface $formItemFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $slug,
             $position,
             $formService,
@@ -308,7 +312,7 @@ class FormItemController extends BaseApiController
         FormServiceInterface $formService,
         FormItemServiceInterface $formItemService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $position, $formService, $formItemService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $position, $formService, $formItemService) {
             $formItemService->deleteItem($formService->get($slug), $position);
         }, Response::HTTP_NO_CONTENT);
 
