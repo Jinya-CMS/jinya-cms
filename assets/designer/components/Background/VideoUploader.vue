@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <jinya-progress-bar class="jinya-video-uploader__indicator" v-if="uploading"/>
-    <jinya-modal @close="showReupload = false" title="background.video.exists.title" v-if="showReupload">
-      <span>{{reuploadMessage}}</span>
-      <jinya-modal-button :closes-modal="true" :is-success="true" @click="reupload"
-                          label="background.video.exists.reupload" slot="buttons-right"></jinya-modal-button>
-      <jinya-modal-button :closes-modal="true" :is-secondary="true" label="background.video.exists.cancel"
-                          slot="buttons-left"></jinya-modal-button>
-    </jinya-modal>
-  </div>
+    <div>
+        <jinya-progress-bar class="jinya-video-uploader__indicator" v-if="uploading"/>
+        <jinya-modal @close="showReupload = false" title="background.video.exists.title" v-if="showReupload">
+            <span>{{reuploadMessage}}</span>
+            <jinya-modal-button :closes-modal="true" :is-success="true" @click="reupload"
+                                label="background.video.exists.reupload" slot="buttons-right"></jinya-modal-button>
+            <jinya-modal-button :closes-modal="true" :is-secondary="true" label="background.video.exists.cancel"
+                                slot="buttons-left"></jinya-modal-button>
+        </jinya-modal>
+    </div>
 </template>
 
 <script>
@@ -111,9 +111,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-video-uploader__indicator {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
+    .jinya-video-uploader__indicator {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
 </style>

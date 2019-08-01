@@ -194,4 +194,17 @@ class FormItemFormatter implements FormItemFormatterInterface
 
         return $this;
     }
+
+
+    /**
+     * Formats the spam filter
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function spamFilter(): FormItemFormatterInterface
+    {
+        $this->formattedData['spamFilter'] = $this->formItem->getSpamFilter();
+
+        return $this;
+    }
 }

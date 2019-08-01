@@ -1,44 +1,44 @@
 .jinya-vertical-art-gallery {
-  margin-left: -1rem;
-  flex: 0 0 100%;
-  margin-top: 2rem;
-  display: block;
-  width: calc(100% + 1rem);
+    margin-left: -1rem;
+    flex: 0 0 100%;
+    margin-top: 2rem;
+    display: block;
+    width: calc(100% + 1rem);
 }
 
 .jinya-vertical-art-gallery__page-title {
-  @extend %jinya-page-title;
+    @extend %jinya-page-title;
 }
 
 .jinya-vertical-art-gallery__artwork {
-  padding: 0.5rem;
-  border: none;
-  width: auto;
-  box-sizing: content-box;
-  display: inline-block;
-  margin: 0;
-  max-width: 27rem;
+    padding: 0.5rem;
+    border: none;
+    width: auto;
+    box-sizing: content-box;
+    display: inline-block;
+    margin: 0;
+    max-width: 27rem;
 }
 
 .jinya-vertical-art-gallery-artwork__image {
-  height: 15rem;
-  width: auto;
-  margin: 0;
-  object-fit: cover;
-  max-width: 27rem;
-  cursor: pointer;
+    height: 15rem;
+    width: auto;
+    margin: 0;
+    object-fit: cover;
+    max-width: 27rem;
+    cursor: pointer;
 }
 
 .jinya-vertical-art-gallery__caption {
-  display: none;
+    display: none;
 
-  @include content-styling;
+    @include content-styling;
 }
 
 .jinya-vertical-art-gallery-caption__title {
-  margin: 0 0 1rem;
-  display: block;
-  font-size: $jinya-vertical-art-gallery-caption-font-size;
-  font-weight: $jinya-vertical-art-gallery-caption-font-weight;
-  font-family: $heading-font-family;
+    margin: 0 0 1rem;
+    display: block;
+    font-size: $jinya-vertical-art-gallery-caption-font-size;
+    font-weight: $jinya-vertical-art-gallery-caption-font-weight;
+    font-family: $heading-font-family;
 }

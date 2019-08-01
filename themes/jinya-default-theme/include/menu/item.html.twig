@@ -11,7 +11,8 @@
     {%- endif %}
 ">
         {% if item.children is not empty %}
-            <span class="jinya-menu__link has--children {% if item.highlighted %}is--highlight{% endif %}">{{- item.title -}}</span>
+            <span
+                class="jinya-menu__link has--children {% if item.highlighted %}is--highlight{% endif %}">{{- item.title -}}</span>
             {% include '@Theme/jinya-default-theme/include/submenu/submenu.html.twig' with {'item': item} %}
         {% else %}
             {% include '@Theme/jinya-default-theme/include/menu_link.html.twig' with {'item': item, 'class': 'jinya-menu__link'} %}

@@ -1,36 +1,37 @@
 <template>
-  <div class="jinya-segment-page-overview">
-    <jinya-loader :loading="loading"/>
-    <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-card :header="page.name" :key="page.slug" v-for="page in pages">
-        <jinya-card-button :title="'static.pages.segment.overview.tooltips.details'|jmessage"
-                           :to="{name: detailsRoute, params: {slug: page.slug}}" icon="monitor"
-                           slot="footer" type="details"/>
-        <jinya-card-button :title="'static.pages.segment.overview.tooltips.edit'|jmessage"
-                           :to="{name: editRoute, params: {slug: page.slug}}" icon="pencil"
-                           slot="footer" type="edit"/>
-        <jinya-card-button :title="'static.pages.segment.overview.tooltips.editor'|jmessage"
-                           :to="{name: editorRoute, params: {slug: page.slug}}" icon="view-sequential"
-                           slot="footer" type="edit"/>
-        <jinya-card-button :title="'static.pages.segment.overview.tooltips.delete'|jmessage"
-                           @click="showDeleteModal(page)" icon="delete" slot="footer" type="delete"/>
-      </jinya-card>
-    </jinya-card-list>
-    <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
-                 v-if="!loading"/>
-    <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="static.pages.segment.delete.title"
-                 v-if="this.delete.show">
-      <jinya-message :message="this.delete.error" slot="message" state="error"
-                     v-if="this.delete.error && !this.delete.loading"/>
-      {{'static.pages.segment.delete.content'|jmessage(selectedPage)}}
-      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
-                          label="static.pages.segment.delete.no" slot="buttons-left"/>
-      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
-                          label="static.pages.segment.delete.yes"
-                          slot="buttons-right"/>
-    </jinya-modal>
-    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
-  </div>
+    <div class="jinya-segment-page-overview">
+        <jinya-loader :loading="loading"/>
+        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
+            <jinya-card :header="page.name" :key="page.slug" v-for="page in pages">
+                <jinya-card-button :title="'static.pages.segment.overview.tooltips.details'|jmessage"
+                                   :to="{name: detailsRoute, params: {slug: page.slug}}" icon="monitor"
+                                   slot="footer" type="details"/>
+                <jinya-card-button :title="'static.pages.segment.overview.tooltips.edit'|jmessage"
+                                   :to="{name: editRoute, params: {slug: page.slug}}" icon="pencil"
+                                   slot="footer" type="edit"/>
+                <jinya-card-button :title="'static.pages.segment.overview.tooltips.editor'|jmessage"
+                                   :to="{name: editorRoute, params: {slug: page.slug}}" icon="view-sequential"
+                                   slot="footer" type="edit"/>
+                <jinya-card-button :title="'static.pages.segment.overview.tooltips.delete'|jmessage"
+                                   @click="showDeleteModal(page)" icon="delete" slot="footer" type="delete"/>
+            </jinya-card>
+        </jinya-card-list>
+        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
+                     v-if="!loading"/>
+        <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()"
+                     title="static.pages.segment.delete.title"
+                     v-if="this.delete.show">
+            <jinya-message :message="this.delete.error" slot="message" state="error"
+                           v-if="this.delete.error && !this.delete.loading"/>
+            {{'static.pages.segment.delete.content'|jmessage(selectedPage)}}
+            <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                                label="static.pages.segment.delete.no" slot="buttons-left"/>
+            <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                                label="static.pages.segment.delete.yes"
+                                slot="buttons-right"/>
+        </jinya-modal>
+        <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
+    </div>
 </template>
 
 <script>

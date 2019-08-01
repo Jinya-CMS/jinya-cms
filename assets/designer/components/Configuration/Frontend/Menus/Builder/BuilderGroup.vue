@@ -1,5 +1,5 @@
 <template>
-  <div :style="{'margin-left':`${item.nestingLevel * 2}rem`, 'width':`calc(100% - ${item.nestingLevel * 2}rem)`}">
+    <div :style="{'margin-left':`${item.nestingLevel * 2}rem`, 'width':`calc(100% - ${item.nestingLevel * 2}rem)`}">
     <span :class="{'is--highlighted': item.highlighted, 'is--settings-open': showSettings}"
           class="jinya-menu-builder__item">
       <jinya-icon-button :is-primary="item.highlighted" :is-secondary="!item.highlighted"
@@ -16,10 +16,10 @@
                          @click="toggleSettingsClick" class="is--right"
                          icon="pencil"/>
     </span>
-    <transition enter-active-class="is--enter-active" leave-to-class="is--leave-to">
-      <jinya-menu-builder-settings-editor :item="item" @done="editSettingsDone" v-if="showSettings && enable"/>
-    </transition>
-  </div>
+        <transition enter-active-class="is--enter-active" leave-to-class="is--leave-to">
+            <jinya-menu-builder-settings-editor :item="item" @done="editSettingsDone" v-if="showSettings && enable"/>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -82,36 +82,36 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-menu-builder__item {
-    display: flex;
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
-    background: $secondary-lighter;
-    color: $gray-800;
-    border-radius: 3px;
-    align-items: center;
-    cursor: move;
-    margin-bottom: 0.1rem;
+    .jinya-menu-builder__item {
+        display: flex;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        background: $secondary-lighter;
+        color: $gray-800;
+        border-radius: 3px;
+        align-items: center;
+        cursor: move;
+        margin-bottom: 0.1rem;
 
-    .is--right {
-      margin-left: auto;
+        .is--right {
+            margin-left: auto;
+        }
+
+        &.is--highlighted {
+            background: $primary-lighter;
+        }
+
+        &.is--settings-open {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
 
-    &.is--highlighted {
-      background: $primary-lighter;
-    }
+    .jinya-menu-builder__settings {
+        transition: opacity 0.3s;
 
-    &.is--settings-open {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+        &.is--leave-to,
+        &.is--enter-active {
+            opacity: 0;
+        }
     }
-  }
-
-  .jinya-menu-builder__settings {
-    transition: opacity 0.3s;
-
-    &.is--leave-to,
-    &.is--enter-active {
-      opacity: 0;
-    }
-  }
 </style>

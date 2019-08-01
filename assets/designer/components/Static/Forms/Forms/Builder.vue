@@ -1,53 +1,56 @@
 <template>
-  <div class="jinya-form-builder">
-    <jinya-loader :loading="loading"/>
-    <jinya-editor v-if="!loading">
-      <jinya-form @back="back" @submit="saveChanges"
-                  button-bar-padding-right="0.5rem" cancel-label="static.forms.forms.builder.cancel"
-                  class="jinya-form-builder__form" novalidate
-                  save-label="static.forms.forms.builder.save">
-        <draggable :aria-label="'static.forms.forms.builder.delete'|jmessage"
-                   :data-message="'static.forms.forms.builder.delete'|jmessage" :options="destinationOptions"
-                   @add="deleteItem"
-                   class="jinya-form-builder__trash"
-                   v-show="drag">
-        </draggable>
-        <jinya-message :message="message" :state="state"/>
-        <jinya-editor-pane>
-          <draggable :options="originOptions" class="jinya-form-builder__draggable"
-                     v-model="availableItemTypes">
-            <jinya-form-builder-item :enable="enable" :item="item"
-                                     :key="`${item.type}-${index}`" :settings-available="false"
-                                     v-for="(item, index) in availableItemTypes"/>
-          </draggable>
-        </jinya-editor-pane>
-        <jinya-editor-pane>
-          <draggable :options="destinationOptions" @add="itemAdded" @change="itemsChange"
-                     @end="drag = false" @start="drag = true" class="jinya-form-builder__draggable" v-model="items">
-            <jinya-form-builder-item :enable="enable" :item="item"
-                                     :key="`${item.position}-${index}`" :position="index" @edit-done="editSettingsDone"
-                                     @toggle-settings="toggleSettings" v-for="(item, index) in items"/>
-          </draggable>
-        </jinya-editor-pane>
-      </jinya-form>
-    </jinya-editor>
-    <jinya-modal title="static.forms.forms.builder.leave.title" v-if="leaving">
-      {{'static.forms.forms.builder.leave.content'|jmessage(form)}}
-      <template slot="buttons-left">
-        <jinya-modal-button :closes-modal="true" :is-secondary="true"
-                            @click="stay" label="static.forms.forms.builder.leave.cancel"/>
-      </template>
-      <template slot="buttons-right">
-        <jinya-modal-button :closes-modal="true" :is-success="true"
-                            @click="stayAndSaveChanges" label="static.forms.forms.builder.leave.no"/>
-        <jinya-modal-button :closes-modal="true" :is-danger="true"
-                            @click="leave" label="static.forms.forms.builder.leave.yes"/>
-      </template>
-    </jinya-modal>
-  </div>
+    <div class="jinya-form-builder">
+        <jinya-loader :loading="loading"/>
+        <jinya-editor v-if="!loading">
+            <jinya-form @back="back" @submit="saveChanges"
+                        button-bar-padding-right="0.5rem" cancel-label="static.forms.forms.builder.cancel"
+                        class="jinya-form-builder__form" novalidate
+                        save-label="static.forms.forms.builder.save">
+                <draggable :aria-label="'static.forms.forms.builder.delete'|jmessage"
+                           :data-message="'static.forms.forms.builder.delete'|jmessage" :options="destinationOptions"
+                           @add="deleteItem"
+                           class="jinya-form-builder__trash"
+                           v-show="drag">
+                </draggable>
+                <jinya-message :message="message" :state="state"/>
+                <jinya-editor-pane>
+                    <draggable :options="originOptions" class="jinya-form-builder__draggable"
+                               v-model="availableItemTypes">
+                        <jinya-form-builder-item :enable="enable" :item="item"
+                                                 :key="`${item.type}-${index}`" :settings-available="false"
+                                                 v-for="(item, index) in availableItemTypes"/>
+                    </draggable>
+                </jinya-editor-pane>
+                <jinya-editor-pane>
+                    <draggable :options="destinationOptions" @add="itemAdded" @change="itemsChange"
+                               @end="drag = false" @start="drag = true" class="jinya-form-builder__draggable"
+                               v-model="items">
+                        <jinya-form-builder-item :enable="enable" :item="item"
+                                                 :key="`${item.position}-${index}`" :position="index"
+                                                 @edit-done="editSettingsDone"
+                                                 @toggle-settings="toggleSettings" v-for="(item, index) in items"/>
+                    </draggable>
+                </jinya-editor-pane>
+            </jinya-form>
+        </jinya-editor>
+        <jinya-modal title="static.forms.forms.builder.leave.title" v-if="leaving">
+            {{'static.forms.forms.builder.leave.content'|jmessage(form)}}
+            <template slot="buttons-left">
+                <jinya-modal-button :closes-modal="true" :is-secondary="true"
+                                    @click="stay" label="static.forms.forms.builder.leave.cancel"/>
+            </template>
+            <template slot="buttons-right">
+                <jinya-modal-button :closes-modal="true" :is-success="true"
+                                    @click="stayAndSaveChanges" label="static.forms.forms.builder.leave.no"/>
+                <jinya-modal-button :closes-modal="true" :is-danger="true"
+                                    @click="leave" label="static.forms.forms.builder.leave.yes"/>
+            </template>
+        </jinya-modal>
+    </div>
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import DOMUtils from '@/framework/Utils/DOMUtils';
   import Translator from '@/framework/i18n/Translator';
@@ -56,12 +59,6 @@
   import JinyaEditor from '@/framework/Markup/Form/Editor';
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
   import JinyaForm from '@/framework/Markup/Form/Form';
-  import JinyaFormBuilderTextType from '@/components/Static/Forms/Forms/Builder/TextType';
-  import JinyaFormBuilderEmailType from '@/components/Static/Forms/Forms/Builder/EmailType';
-  import JinyaFormBuilderCheckboxType from '@/components/Static/Forms/Forms/Builder/CheckboxType';
-  import JinyaFormBuilderChoiceType from '@/components/Static/Forms/Forms/Builder/ChoiceType';
-  import JinyaFormBuilderTextAreaType from '@/components/Static/Forms/Forms/Builder/TextAreaType';
-  import draggable from 'vuedraggable';
   import JinyaFormBuilderItem from '@/components/Static/Forms/Forms/Builder/Item';
   import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
@@ -78,11 +75,6 @@
       JinyaMessage,
       JinyaLoader,
       JinyaFormBuilderItem,
-      JinyaFormBuilderTextAreaType,
-      JinyaFormBuilderChoiceType,
-      JinyaFormBuilderCheckboxType,
-      JinyaFormBuilderEmailType,
-      JinyaFormBuilderTextType,
       JinyaForm,
       JinyaEditorPane,
       JinyaEditor,
@@ -271,49 +263,49 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-form-builder__draggable {
-    width: 100%;
-    min-height: 2rem;
+    .jinya-form-builder__draggable {
+        width: 100%;
+        min-height: 2rem;
 
-    &:empty {
-      background: $primary-lighter;
-      position: relative;
+        &:empty {
+            background: $primary-lighter;
+            position: relative;
 
-      &::before {
-        //noinspection CssNoGenericFontName
-        font-family: "Material Design Icons";
-        content: "\f1db";
-        font-size: 3em;
-        color: $primary;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
-        position: absolute;
-      }
+            &::before {
+                //noinspection CssNoGenericFontName
+                font-family: "Material Design Icons";
+                content: "\f1db";
+                font-size: 3em;
+                color: $primary;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
+                position: absolute;
+            }
+        }
     }
-  }
 
-  .jinya-form-builder__trash {
-    width: 100%;
-    display: flex;
-    transition: opacity 0.3s;
-    background: $danger;
-    color: $white;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    min-height: 3rem;
-
-    &:empty {
-      position: relative;
-
-      &::before {
-        position: absolute;
-        content: '\f1c0' attr(data-message);
-        font-family: 'Material Design Icons', $font-family;
+    .jinya-form-builder__trash {
+        width: 100%;
+        display: flex;
+        transition: opacity 0.3s;
+        background: $danger;
         color: $white;
-        font-size: 1.25rem;
-      }
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        min-height: 3rem;
+
+        &:empty {
+            position: relative;
+
+            &::before {
+                position: absolute;
+                content: '\f1c0' attr(data-message);
+                font-family: 'Material Design Icons', $font-family;
+                color: $white;
+                font-size: 1.25rem;
+            }
+        }
     }
-  }
 </style>

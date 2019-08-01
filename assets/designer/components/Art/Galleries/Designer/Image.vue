@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" class="jinya-gallery-designer__image">
+    <img :src="src" class="jinya-gallery-designer__image">
 </template>
 
 <script>
@@ -15,25 +15,25 @@
 </script>
 
 <style lang="scss">
-  .jinya-gallery-designer__image {
-    .is--vertical & {
-      height: auto;
-      width: 100%;
-      grid-row: 2;
-      grid-column: 1;
-    }
+    .jinya-gallery-designer__image {
+        .is--vertical & {
+            height: auto;
+            width: 100%;
+            grid-row: 2;
+            grid-column: 1;
+        }
 
-    .is--horizontal & {
-      height: 40em;
-      width: auto;
-      grid-column: 1;
-      grid-row: 1;
-    }
+        .is--horizontal & {
+            height: 40em;
+            width: auto;
+            grid-column: 1;
+            grid-row: 1;
+        }
 
-    .is--masonry & {
-      height: 10rem;
-      grid-column: 2;
-      grid-row: 1;
+        .is--masonry & {
+            height: 10rem;
+            grid-column: 2;
+            grid-row: 1;
+        }
     }
-  }
 </style>

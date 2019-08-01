@@ -1,53 +1,55 @@
 <template>
-  <jinya-editor class="jinya-menu-builder">
-    <jinya-loader :loading="loading"/>
-    <jinya-form @back="back" @submit="save" button-bar-padding-right="0.5rem"
-                cancel-label="configuration.frontend.menus.builder.cancel" class="jinya-menu-builder__form"
-                save-label="configuration.frontend.menus.builder.save" v-if="!loading">
-      <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
-                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
-                 class="jinya-menu-builder__trash" v-show="drag">
-      </draggable>
-      <jinya-message :message="message" :state="state"/>
-      <jinya-editor-pane>
-        <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types" @select="selectTemplateItems">
-          <jinya-loader :loading="itemsLoading" v-if="itemsLoading"/>
-          <draggable :options="templateItemsOptions" class="jinya-menu-builder__list" v-else
-                     v-model="selectedTemplateItems">
-            <jinya-menu-builder-template-entry :item="item" :key="`${item.title}-${item.route.name}`"
-                                               v-for="item in selectedTemplateItems"/>
-          </draggable>
-        </jinya-tab-container>
-      </jinya-editor-pane>
-      <jinya-editor-pane>
-        <span class="jinya-menu-builder__header">{{'configuration.frontend.menus.builder.menu'|jmessage}}</span>
-        <draggable :options="itemsOptions" @add="itemsAdded" @change="itemsChange" @end="drag = false"
-                   @start="drag = true" class="jinya-menu-builder__list" v-model="items">
-          <jinya-menu-builder-group :allow-decrease="item.allowDecrease" :allow-increase="item.allowIncrease"
-                                    :enable="enable" :item="item" :key="`${item.position}-${index}-${item.route.name}`"
-                                    @decrease="decrease(index)" @increase="increase(index)"
-                                    v-for="(item, index) in items"/>
-        </draggable>
-      </jinya-editor-pane>
-      <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
-                 :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
-                 class="jinya-menu-builder__trash" v-show="drag">
-      </draggable>
-    </jinya-form>
-    <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
-      {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
-      <template slot="buttons-left">
-        <jinya-modal-button :closes-modal="true" :is-secondary="true" @click="stay"
-                            label="configuration.frontend.menus.builder.leave.cancel"/>
-      </template>
-      <template slot="buttons-right">
-        <jinya-modal-button :closes-modal="true" :is-success="true" @click="stayAndSaveChanges"
-                            label="configuration.frontend.menus.builder.leave.no"/>
-        <jinya-modal-button :closes-modal="true" :is-danger="true" @click="leave"
-                            label="configuration.frontend.menus.builder.leave.yes"/>
-      </template>
-    </jinya-modal>
-  </jinya-editor>
+    <jinya-editor class="jinya-menu-builder">
+        <jinya-loader :loading="loading"/>
+        <jinya-form @back="back" @submit="save" button-bar-padding-right="0.5rem"
+                    cancel-label="configuration.frontend.menus.builder.cancel" class="jinya-menu-builder__form"
+                    save-label="configuration.frontend.menus.builder.save" v-if="!loading">
+            <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
+                       :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
+                       class="jinya-menu-builder__trash" v-show="drag">
+            </draggable>
+            <jinya-message :message="message" :state="state"/>
+            <jinya-editor-pane>
+                <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types"
+                                     @select="selectTemplateItems">
+                    <jinya-loader :loading="itemsLoading" v-if="itemsLoading"/>
+                    <draggable :options="templateItemsOptions" class="jinya-menu-builder__list" v-else
+                               v-model="selectedTemplateItems">
+                        <jinya-menu-builder-template-entry :item="item" :key="`${item.title}-${item.route.name}`"
+                                                           v-for="item in selectedTemplateItems"/>
+                    </draggable>
+                </jinya-tab-container>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
+                <span class="jinya-menu-builder__header">{{'configuration.frontend.menus.builder.menu'|jmessage}}</span>
+                <draggable :options="itemsOptions" @add="itemsAdded" @change="itemsChange" @end="drag = false"
+                           @start="drag = true" class="jinya-menu-builder__list" v-model="items">
+                    <jinya-menu-builder-group :allow-decrease="item.allowDecrease" :allow-increase="item.allowIncrease"
+                                              :enable="enable" :item="item"
+                                              :key="`${item.position}-${index}-${item.route.name}`"
+                                              @decrease="decrease(index)" @increase="increase(index)"
+                                              v-for="(item, index) in items"/>
+                </draggable>
+            </jinya-editor-pane>
+            <draggable :aria-label="'configuration.frontend.menus.builder.delete'|jmessage"
+                       :data-message="'configuration.frontend.menus.builder.delete'|jmessage" :options="itemsOptions"
+                       class="jinya-menu-builder__trash" v-show="drag">
+            </draggable>
+        </jinya-form>
+        <jinya-modal title="configuration.frontend.menus.builder.leave.title" v-if="leaving">
+            {{'configuration.frontend.menus.builder.leave.content'|jmessage(menu)}}
+            <template slot="buttons-left">
+                <jinya-modal-button :closes-modal="true" :is-secondary="true" @click="stay"
+                                    label="configuration.frontend.menus.builder.leave.cancel"/>
+            </template>
+            <template slot="buttons-right">
+                <jinya-modal-button :closes-modal="true" :is-success="true" @click="stayAndSaveChanges"
+                                    label="configuration.frontend.menus.builder.leave.no"/>
+                <jinya-modal-button :closes-modal="true" :is-danger="true" @click="leave"
+                                    label="configuration.frontend.menus.builder.leave.yes"/>
+            </template>
+        </jinya-modal>
+    </jinya-editor>
 </template>
 
 <script>
@@ -426,79 +428,79 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-tab {
-    &.is--loading {
-      height: 15rem;
+    .jinya-tab {
+        &.is--loading {
+            height: 15rem;
+        }
     }
-  }
 
-  .is--dragging {
-    opacity: 0.4;
-  }
-
-  .jinya-menu-builder__list {
-    width: 100%;
-    min-height: 5rem;
-
-    &:empty {
-      background: $primary-lighter;
-      position: relative;
-
-      &::before {
-        //noinspection CssNoGenericFontName
-        font-family: "Material Design Icons";
-        content: "\f1db";
-        font-size: 3em;
-        color: $primary;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(90deg);
-        position: absolute;
-      }
+    .is--dragging {
+        opacity: 0.4;
     }
-  }
 
-  .jinya-menu-builder__header {
-    font-size: 1.25rem;
-    padding: 0.25em 0.5em 0;
-    margin-bottom: 1.2rem;
-    width: 100%;
-    color: $primary;
-    border: 2px solid transparent;
-    border-bottom-color: $primary;
-  }
+    .jinya-menu-builder__list {
+        width: 100%;
+        min-height: 5rem;
 
-  .jinya-menu-builder__trash {
-    width: 100%;
-    display: flex;
-    transition: opacity 0.3s;
-    background: $danger;
-    color: $white;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    min-height: 3rem;
+        &:empty {
+            background: $primary-lighter;
+            position: relative;
 
-    &:empty {
-      position: relative;
+            &::before {
+                //noinspection CssNoGenericFontName
+                font-family: "Material Design Icons";
+                content: "\f1db";
+                font-size: 3em;
+                color: $primary;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
+                position: absolute;
+            }
+        }
+    }
 
-      &::before {
-        position: absolute;
-        content: '\f1c0' attr(data-message);
-        font-family: 'Material Design Icons', $font-family;
-        color: $white;
+    .jinya-menu-builder__header {
         font-size: 1.25rem;
-      }
+        padding: 0.25em 0.5em 0;
+        margin-bottom: 1.2rem;
+        width: 100%;
+        color: $primary;
+        border: 2px solid transparent;
+        border-bottom-color: $primary;
     }
-  }
 
-  .jinya-menu-builder {
-    padding-bottom: 1rem;
-    height: 100%;
-  }
+    .jinya-menu-builder__trash {
+        width: 100%;
+        display: flex;
+        transition: opacity 0.3s;
+        background: $danger;
+        color: $white;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        min-height: 3rem;
 
-  .jinya-menu-builder__form {
-    width: 100%;
-    align-self: flex-start;
-  }
+        &:empty {
+            position: relative;
+
+            &::before {
+                position: absolute;
+                content: '\f1c0' attr(data-message);
+                font-family: 'Material Design Icons', $font-family;
+                color: $white;
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    .jinya-menu-builder {
+        padding-bottom: 1rem;
+        height: 100%;
+    }
+
+    .jinya-menu-builder__form {
+        width: 100%;
+        align-self: flex-start;
+    }
 </style>

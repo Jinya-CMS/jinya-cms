@@ -111,18 +111,6 @@ class Segment
         $this->page = $page;
     }
 
-    private function reset(): void
-    {
-        $this->page = null;
-        $this->form = null;
-        $this->artwork = null;
-        $this->artGallery = null;
-        $this->html = null;
-        $this->videoGallery = null;
-        $this->video = null;
-        $this->youtubeVideo = null;
-    }
-
     /**
      * @return Artwork|null
      */
@@ -138,6 +126,18 @@ class Segment
     {
         $this->reset();
         $this->artwork = $artwork;
+    }
+
+    private function reset(): void
+    {
+        $this->page = null;
+        $this->form = null;
+        $this->artwork = null;
+        $this->artGallery = null;
+        $this->html = null;
+        $this->videoGallery = null;
+        $this->video = null;
+        $this->youtubeVideo = null;
     }
 
     /**

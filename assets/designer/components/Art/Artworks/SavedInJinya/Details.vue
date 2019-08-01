@@ -1,6 +1,6 @@
 <template>
-  <jinya-artwork-form :artwork="artwork" :hide-on-error="true" :is-static="true" :message="message" :state="state"
-                      @save="edit" save-label="art.artworks.details.edit"/>
+    <jinya-artwork-form :artwork="artwork" :hide-on-error="true" :is-static="true" :message="message" :state="state"
+                        @save="edit" save-label="art.artworks.details.edit"/>
 </template>
 
 <script>

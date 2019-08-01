@@ -1,23 +1,24 @@
 <template>
-  <jinya-form @submit="submit">
-    <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.feature_dialog.title" v-if="show">
-      <jinya-message :message="message" :state="state" class="is--feature-dialog" slot="message">
-        <jinya-message-action-bar v-if="state === 'error'">
-          <jinya-button href="mailto:developers@jinya.de" label="support.feature_dialog.send_mail"/>
-        </jinya-message-action-bar>
-      </jinya-message>
-      <jinya-input :required="true" :validation-message="'support.feature_dialog.form.title.empty'|jvalidator"
-                   label="support.feature_dialog.form.title"
-                   v-model="title"/>
-      <jinya-textarea :required="true" :validation-message="'support.feature_dialog.form.details.empty'|jvalidator"
-                      label="support.feature_dialog.form.details"
-                      v-model="details"/>
-      <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.feature_dialog.form.cancel"
-                          slot="buttons-left"/>
-      <jinya-modal-button :is-success="true" label="support.feature_dialog.form.submit" slot="buttons-right"
-                          type="submit"/>
-    </jinya-modal>
-  </jinya-form>
+    <jinya-form @submit="submit">
+        <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.feature_dialog.title" v-if="show">
+            <jinya-message :message="message" :state="state" class="is--feature-dialog" slot="message">
+                <jinya-message-action-bar v-if="state === 'error'">
+                    <jinya-button href="mailto:developers@jinya.de" label="support.feature_dialog.send_mail"/>
+                </jinya-message-action-bar>
+            </jinya-message>
+            <jinya-input :required="true" :validation-message="'support.feature_dialog.form.title.empty'|jvalidator"
+                         label="support.feature_dialog.form.title"
+                         v-model="title"/>
+            <jinya-textarea :required="true"
+                            :validation-message="'support.feature_dialog.form.details.empty'|jvalidator"
+                            label="support.feature_dialog.form.details"
+                            v-model="details"/>
+            <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.feature_dialog.form.cancel"
+                                slot="buttons-left"/>
+            <jinya-modal-button :is-success="true" label="support.feature_dialog.form.submit" slot="buttons-right"
+                                type="submit"/>
+        </jinya-modal>
+    </jinya-form>
 </template>
 
 <script>
@@ -88,8 +89,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .is--feature-dialog {
-    margin: 0;
-    width: 100%;
-  }
+    .is--feature-dialog {
+        margin: 0;
+        width: 100%;
+    }
 </style>

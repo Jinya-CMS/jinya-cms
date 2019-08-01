@@ -1,10 +1,10 @@
 <template>
-  <a :class="additionalClasses" :href="href" class="jinya-button" v-if="href" v-jinya-message="label"></a>
-  <router-link :class="additionalClasses" :to="routeTarget" class="jinya-button" v-else-if="to"
-               v-jinya-message="label"/>
-  <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
-          class="jinya-button"
-          v-else v-jinya-message="label"></button>
+    <a :class="additionalClasses" :href="href" class="jinya-button" v-if="href" v-jinya-message="label"></a>
+    <router-link :class="additionalClasses" :to="routeTarget" class="jinya-button" v-else-if="to"
+                 v-jinya-message="label"/>
+    <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
+            class="jinya-button"
+            v-else v-jinya-message="label"></button>
 </template>
 
 <script>
@@ -59,29 +59,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-button {
-    border: 2px solid;
-    background: $white;
-    min-width: 10em;
-    display: inline-block;
-    padding: 0.5em 1em;
-    vertical-align: middle;
-    font-size: 100%;
-    transition: background-color 0.3s, color 0.3s;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    font-family: $font-family;
-    font-weight: normal;
+    .jinya-button {
+        border: 2px solid;
+        background: $white;
+        min-width: 10em;
+        display: inline-block;
+        padding: 0.5em 1em;
+        vertical-align: middle;
+        font-size: 100%;
+        transition: background-color 0.3s, color 0.3s;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        font-family: $font-family;
+        font-weight: normal;
 
-    &:focus {
-      outline: none;
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        @include button-variations;
     }
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    @include button-variations;
-  }
 </style>

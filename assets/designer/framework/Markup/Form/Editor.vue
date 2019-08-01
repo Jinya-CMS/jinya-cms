@@ -1,7 +1,7 @@
 <template>
-  <div class="jinya-editor">
-    <slot/>
-  </div>
+    <div class="jinya-editor">
+        <slot/>
+    </div>
 </template>
 
 <script>
@@ -11,8 +11,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-editor {
-    padding-top: 1em;
-    display: flex;
-  }
+    .jinya-editor {
+        padding-top: 1em;
+        display: flex;
+        flex-flow: row wrap;
+    }
 </style>

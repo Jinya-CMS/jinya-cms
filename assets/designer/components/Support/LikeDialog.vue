@@ -1,12 +1,12 @@
 <template>
-  <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.like_dialog.title" v-if="show">
-    <jinya-message :message="message" :state="state" slot="message"/>
-    <jinya-textarea :required="true" label="support.like_dialog.form.details" v-model="details"/>
-    <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.like_dialog.form.cancel"
-                        slot="buttons-left"/>
-    <jinya-modal-button :is-success="true" @click="submit" label="support.like_dialog.form.submit"
-                        slot="buttons-right"/>
-  </jinya-modal>
+    <jinya-modal :is-fullscreen="true" @close="$emit('close')" title="support.like_dialog.title" v-if="show">
+        <jinya-message :message="message" :state="state" slot="message"/>
+        <jinya-textarea :required="true" label="support.like_dialog.form.details" v-model="details"/>
+        <jinya-modal-button :closes-modal="true" :is-secondary="true" label="support.like_dialog.form.cancel"
+                            slot="buttons-left"/>
+        <jinya-modal-button :is-success="true" @click="submit" label="support.like_dialog.form.submit"
+                            slot="buttons-right"/>
+    </jinya-modal>
 </template>
 
 <script>

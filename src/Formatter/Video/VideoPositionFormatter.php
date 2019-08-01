@@ -33,7 +33,8 @@ class VideoPositionFormatter implements VideoPositionFormatterInterface
      * @param YoutubeVideoFormatterInterface $youtubeVideoFormatterInterface
      */
     public function setYoutubeVideoFormatterInterface(YoutubeVideoFormatterInterface $youtubeVideoFormatterInterface
-    ): void {
+    ): void
+    {
         $this->youtubeVideoFormatterInterface = $youtubeVideoFormatterInterface;
     }
 

@@ -1,34 +1,34 @@
 <template>
-  <div class="jinya-video-overview">
-    <jinya-loader :loading="loading"/>
-    <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-      <jinya-card :header="video.name" :key="video.slug" v-for="video in videos" v-if="!loading">
-        <video :poster="video.poster" :src="video.video" class="jinya-video__video" controls
-               v-if="video.poster || video.video"></video>
-        <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" icon="monitor" slot="footer"
-                           type="details"/>
-        <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" icon="pencil" slot="footer"
-                           type="edit"/>
-        <jinya-card-button :to="{name: uploadRoute, params: {slug: video.slug}}" icon="upload" slot="footer"
-                           type="edit"/>
-        <!--suppress JSUnnecessarySemicolon -->
-        <jinya-card-button @click="showDeleteModal(video)" icon="delete" slot="footer" type="delete"/>
-      </jinya-card>
-    </jinya-card-list>
-    <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
-                 v-if="!loading"/>
-    <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="art.videos.delete.title"
-                 v-if="this.delete.show">
-      <jinya-message :message="this.delete.error" slot="message" state="error"
-                     v-if="this.delete.error && !this.delete.loading"/>
-      {{'art.videos.delete.content'|jmessage({video: selectedVideo.name})}}
-      <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
-                          label="art.videos.delete.no" slot="buttons-left"/>
-      <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
-                          label="art.videos.delete.yes" slot="buttons-right"/>
-    </jinya-modal>
-    <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
-  </div>
+    <div class="jinya-video-overview">
+        <jinya-loader :loading="loading"/>
+        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
+            <jinya-card :header="video.name" :key="video.slug" v-for="video in videos" v-if="!loading">
+                <video :poster="video.poster" :src="video.video" class="jinya-video__video" controls
+                       v-if="video.poster || video.video"></video>
+                <jinya-card-button :to="{name: detailsRoute, params: {slug: video.slug}}" icon="monitor" slot="footer"
+                                   type="details"/>
+                <jinya-card-button :to="{name: editRoute, params: {slug: video.slug}}" icon="pencil" slot="footer"
+                                   type="edit"/>
+                <jinya-card-button :to="{name: uploadRoute, params: {slug: video.slug}}" icon="upload" slot="footer"
+                                   type="edit"/>
+                <!--suppress JSUnnecessarySemicolon -->
+                <jinya-card-button @click="showDeleteModal(video)" icon="delete" slot="footer" type="delete"/>
+            </jinya-card>
+        </jinya-card-list>
+        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
+                     v-if="!loading"/>
+        <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="art.videos.delete.title"
+                     v-if="this.delete.show">
+            <jinya-message :message="this.delete.error" slot="message" state="error"
+                           v-if="this.delete.error && !this.delete.loading"/>
+            {{'art.videos.delete.content'|jmessage({video: selectedVideo.name})}}
+            <jinya-modal-button :closes-modal="true" :is-disabled="this.delete.loading" :is-secondary="true"
+                                label="art.videos.delete.no" slot="buttons-left"/>
+            <jinya-modal-button :is-danger="true" :is-disabled="this.delete.loading" @click="remove"
+                                label="art.videos.delete.yes" slot="buttons-right"/>
+        </jinya-modal>
+        <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
+    </div>
 </template>
 
 <script>
@@ -170,14 +170,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-video__poster {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    .jinya-video__poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-  .jinya-video__video {
-    width: 100%;
-    height: 100%;
-  }
+    .jinya-video__video {
+        width: 100%;
+        height: 100%;
+    }
 </style>

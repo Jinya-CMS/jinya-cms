@@ -1,27 +1,27 @@
 <template>
-  <jinya-editor>
-    <jinya-message :message="message" :state="state" v-if="state">
-      <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
-        <jinya-button :is-danger="true" label="configuration.frontend.menus.menu_form.back"
-                      to="Configuration.Frontend.Menu.Overview"/>
-      </jinya-message-action-bar>
-    </jinya-message>
-    <jinya-form @back="$emit('back')" @submit="save"
-                cancel-label="configuration.frontend.menus.menu_form.back"
-                save-label="configuration.frontend.menus.menu_form.save">
-      <jinya-editor-pane>
-        <jinya-editor-preview-image :src="menu.logo"/>
-      </jinya-editor-pane>
-      <jinya-editor-pane>
-        <jinya-input :enable="enable" :required="true"
-                     :validation-message="'configuration.frontend.menus.menu_form.name.empty'|jvalidator"
-                     :value="menu.name" label="configuration.frontend.menus.menu_form.name"
-                     v-model="menu.name"/>
-        <jinya-file-input :enable="enable" :has-value="!!menu.logo" @picked="picked"
-                          accept="image/*" label="configuration.frontend.menus.menu_form.logo"/>
-      </jinya-editor-pane>
-    </jinya-form>
-  </jinya-editor>
+    <jinya-editor>
+        <jinya-message :message="message" :state="state" v-if="state">
+            <jinya-message-action-bar class="jinya-message__action-bar" v-if="state === 'error'">
+                <jinya-button :is-danger="true" label="configuration.frontend.menus.menu_form.back"
+                              to="Configuration.Frontend.Menu.Overview"/>
+            </jinya-message-action-bar>
+        </jinya-message>
+        <jinya-form @back="$emit('back')" @submit="save"
+                    cancel-label="configuration.frontend.menus.menu_form.back"
+                    save-label="configuration.frontend.menus.menu_form.save">
+            <jinya-editor-pane>
+                <jinya-editor-preview-image :src="menu.logo"/>
+            </jinya-editor-pane>
+            <jinya-editor-pane>
+                <jinya-input :enable="enable" :required="true"
+                             :validation-message="'configuration.frontend.menus.menu_form.name.empty'|jvalidator"
+                             :value="menu.name" label="configuration.frontend.menus.menu_form.name"
+                             v-model="menu.name"/>
+                <jinya-file-input :enable="enable" :has-value="!!menu.logo" @picked="picked"
+                                  accept="image/*" label="configuration.frontend.menus.menu_form.logo"/>
+            </jinya-editor-pane>
+        </jinya-form>
+    </jinya-editor>
 </template>
 
 <script>

@@ -1,13 +1,13 @@
 <template>
-  <jinya-card :header="artwork.name" :key="artwork.slug" @mouseenter.native="isHovered = true"
-              @mouseleave.native="isHovered=false">
-    <img :alt="artwork.name" :src="artwork.picture" :style="dimensions" class="jinya-art-picture"/>
-    <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" icon="monitor" slot="footer"
-                       type="details"/>
-    <jinya-card-button :to="{name: editRoute, params: {slug: artwork.slug}}" icon="pencil" slot="footer"
-                       type="edit"/>
-    <jinya-card-button @click="showDeleteModal(artwork)" icon="delete" slot="footer" type="delete"/>
-  </jinya-card>
+    <jinya-card :header="artwork.name" :key="artwork.slug" @mouseenter.native="isHovered = true"
+                @mouseleave.native="isHovered=false">
+        <img :alt="artwork.name" :src="artwork.picture" :style="dimensions" class="jinya-art-picture"/>
+        <jinya-card-button :to="{name: detailsRoute, params: {slug: artwork.slug}}" icon="monitor" slot="footer"
+                           type="details"/>
+        <jinya-card-button :to="{name: editRoute, params: {slug: artwork.slug}}" icon="pencil" slot="footer"
+                           type="edit"/>
+        <jinya-card-button @click="showDeleteModal(artwork)" icon="delete" slot="footer" type="delete"/>
+    </jinya-card>
 </template>
 
 <script>
@@ -56,13 +56,13 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-art-picture {
-    width: 100%;
-    height: 15em;
-    object-fit: cover;
-    transition: all 0.3s;
-    justify-self: center;
-    margin-right: auto;
-    margin-left: auto;
-  }
+    .jinya-art-picture {
+        width: 100%;
+        height: 15em;
+        object-fit: cover;
+        transition: all 0.3s;
+        justify-self: center;
+        margin-right: auto;
+        margin-left: auto;
+    }
 </style>

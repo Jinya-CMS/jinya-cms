@@ -121,6 +121,7 @@ class FormFormatter implements FormFormatterInterface
                 ->type()
                 ->options()
                 ->helpText()
+                ->spamFilter()
                 ->format();
         }
 

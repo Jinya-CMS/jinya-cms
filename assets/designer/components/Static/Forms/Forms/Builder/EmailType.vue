@@ -1,5 +1,5 @@
 <template>
-  <jinya-input :enable="enable" :label="label" :required="required" type="email"/>
+    <jinya-input :enable="enable" :label="label" :required="required" type="email"/>
 </template>
 
 <script>

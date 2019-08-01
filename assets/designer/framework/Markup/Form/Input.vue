@@ -1,12 +1,12 @@
 <template>
-  <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
-    <label :for="id" class="jinya-input__label" v-if="label">{{label|jmessage}}</label>
-    <input :autocomplete="autocomplete" :autofocus="autofocus" :disabled="!enable" :id="id"
-           :placeholder="placeholder|jmessage" :required="required"
-           :type="type" :value="value" @change="change" @input="input"
-           @invalid="onInvalid" @keyup="keyup" class="jinya-input__field" v-if="!isStatic"/>
-    <span :id="id" class="jinya-input__field" v-if="isStatic">{{value}}</span>
-  </div>
+    <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
+        <label :for="id" class="jinya-input__label" v-if="label">{{label|jmessage}}</label>
+        <input :autocomplete="autocomplete" :autofocus="autofocus" :disabled="!enable" :id="id"
+               :placeholder="placeholder|jmessage" :required="required"
+               :type="type" :value="value" @change="change" @input="input"
+               @invalid="onInvalid" @keyup="keyup" class="jinya-input__field" v-if="!isStatic"/>
+        <span :id="id" class="jinya-input__field" v-if="isStatic">{{value}}</span>
+    </div>
 </template>
 
 <script>
@@ -80,36 +80,36 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-input {
-    font-size: 1rem;
-    width: 100%;
-    @include validation-message(3.4rem);
+    .jinya-input {
+        font-size: 1rem;
+        width: 100%;
+        @include validation-message(3.4rem);
 
-    .jinya-input__label {
-      display: inline-block;
+        .jinya-input__label {
+            display: inline-block;
+        }
+
+        .jinya-input__field {
+            padding: 0.5em;
+            outline: none;
+            width: 100%;
+            display: inline-block;
+            border-style: none;
+            border-bottom: solid 3px $form-underline-color;
+            transition: border-bottom-width 0.3s;
+            font-family: $font-family;
+            font-size: 90%;
+            position: relative;
+
+            &.is--disabled {
+                background: $gray-200;
+            }
+
+            &:invalid {
+                box-shadow: none;
+                outline: none;
+                border-bottom-color: $danger;
+            }
+        }
     }
-
-    .jinya-input__field {
-      padding: 0.5em;
-      outline: none;
-      width: 100%;
-      display: inline-block;
-      border-style: none;
-      border-bottom: solid 3px $form-underline-color;
-      transition: border-bottom-width 0.3s;
-      font-family: $font-family;
-      font-size: 90%;
-      position: relative;
-
-      &.is--disabled {
-        background: $gray-200;
-      }
-
-      &:invalid {
-        box-shadow: none;
-        outline: none;
-        border-bottom-color: $danger;
-      }
-    }
-  }
 </style>

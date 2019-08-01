@@ -9,7 +9,6 @@
 namespace Jinya\Services\SegmentPages;
 
 use Jinya\Entity\SegmentPage\SegmentPage;
-use Jinya\Entity\Label\Label;
 
 interface SegmentPageServiceInterface
 {
