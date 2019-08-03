@@ -1,10 +1,10 @@
 <template>
-  <div class="jinya-page">
-    <jinya-message :message="message" :state="state" v-if="state"/>
-    <jinya-loader :loading="loading" v-if="loading"/>
-    <div v-else v-html="page.content"></div>
-    <jinya-floating-action-button :to="editLink" icon="pencil"/>
-  </div>
+    <div class="jinya-page">
+        <jinya-message :message="message" :state="state" v-if="state"/>
+        <jinya-loader :loading="loading" v-if="loading"/>
+        <div v-else v-html="page.content"></div>
+        <jinya-floating-action-button :to="editLink" icon="pencil"/>
+    </div>
 </template>
 
 <script>
@@ -62,49 +62,49 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-page {
-    font-family: $page-font-family;
-    height: 100%;
+    .jinya-page {
+        font-family: $page-font-family;
+        height: 100%;
 
-    h1 {
-      font-family: $page-font-family-heading1;
-    }
+        h1 {
+            font-family: $page-font-family-heading1;
+        }
 
-    h2 {
-      font-family: $page-font-family-heading2;
-    }
+        h2 {
+            font-family: $page-font-family-heading2;
+        }
 
-    h3 {
-      font-family: $page-font-family-heading3;
-    }
+        h3 {
+            font-family: $page-font-family-heading3;
+        }
 
-    h4 {
-      font-family: $page-font-family-heading4;
-    }
+        h4 {
+            font-family: $page-font-family-heading4;
+        }
 
-    h5 {
-      font-family: $page-font-family-heading5;
-    }
+        h5 {
+            font-family: $page-font-family-heading5;
+        }
 
-    h6 {
-      font-family: $page-font-family-heading6;
-    }
+        h6 {
+            font-family: $page-font-family-heading6;
+        }
 
-    img {
-      max-width: 100%;
-    }
+        img {
+            max-width: 100%;
+        }
 
-    .ql-video {
-      width: 100%;
-      height: 59%;
-    }
+        .ql-video {
+            width: 100%;
+            height: 59%;
+        }
 
-    .ql-align-center {
-      text-align: center;
-    }
+        .ql-align-center {
+            text-align: center;
+        }
 
-    .ql-align-right {
-      text-align: right;
+        .ql-align-right {
+            text-align: right;
+        }
     }
-  }
 </style>

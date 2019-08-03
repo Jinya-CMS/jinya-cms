@@ -1,8 +1,8 @@
 <template>
-  <jinya-loader :loading="loading" class="jinya-loader--designer" v-if="loading"/>
-  <jinya-message :message="message" :state="state" v-else-if="state"/>
-  <jinya-art-gallery-masonry-style-designer :artworks="artworks" :gallery="gallery" v-else-if="gallery.masonry"/>
-  <jinya-art-gallery-list-style-designer :artworks="artworks" :gallery="gallery" v-else/>
+    <jinya-loader :loading="loading" class="jinya-loader--designer" v-if="loading"/>
+    <jinya-message :message="message" :state="state" v-else-if="state"/>
+    <jinya-art-gallery-masonry-style-designer :artworks="artworks" :gallery="gallery" v-else-if="gallery.masonry"/>
+    <jinya-art-gallery-list-style-designer :artworks="artworks" :gallery="gallery" v-else/>
 </template>
 
 <script>
@@ -47,26 +47,26 @@
 </script>
 
 <style lang="scss">
-  .jinya-gallery-designer {
-    height: 100%;
-    width: 100%;
-    display: grid;
-    grid-gap: 1em;
+    .jinya-gallery-designer {
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-gap: 1em;
 
-    &.is--horizontal {
-      padding-bottom: 10em;
-      grid-template-columns: repeat(auto-fill, minmax(10em, 100%));
-      grid-auto-flow: column;
-      padding-top: 1em;
-      overflow-x: auto;
-      margin-right: -12.5%;
-      margin-left: -12.5%;
-      width: 125%;
-    }
+        &.is--horizontal {
+            padding-bottom: 10em;
+            grid-template-columns: repeat(auto-fill, minmax(10em, 100%));
+            grid-auto-flow: column;
+            padding-top: 1em;
+            overflow-x: auto;
+            margin-right: -12.5%;
+            margin-left: -12.5%;
+            width: 125%;
+        }
 
-    &.is--vertical {
-      grid-template-rows: repeat(auto-fill, minmax(10em, 100%));
-      padding-top: 1em;
+        &.is--vertical {
+            grid-template-rows: repeat(auto-fill, minmax(10em, 100%));
+            padding-top: 1em;
+        }
     }
-  }
 </style>

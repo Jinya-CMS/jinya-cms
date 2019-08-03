@@ -2,27 +2,27 @@ import Translator from '@/framework/i18n/Translator';
 import Vue from 'vue';
 
 const i18n = {
-  install(LocalVue) {
-    LocalVue.directive('jinya-message', {
-      isFn: true,
-      acceptStatement: false,
+    install(LocalVue) {
+        LocalVue.directive('jinya-message', {
+            isFn: true,
+            acceptStatement: false,
 
-      bind(el, binding) {
-        el.innerText = Translator.message(binding.value);
-      },
-    });
-    LocalVue.directive('jinya-validator', {
-      isFn: true,
-      acceptStatement: false,
+            bind(el, binding) {
+                el.innerText = Translator.message(binding.value);
+            },
+        });
+        LocalVue.directive('jinya-validator', {
+            isFn: true,
+            acceptStatement: false,
 
-      bind(el, binding) {
-        el.innerText = Translator.validator(binding.value);
-      },
-    });
+            bind(el, binding) {
+                el.innerText = Translator.validator(binding.value);
+            },
+        });
 
-    LocalVue.filter('jmessage', (value, parameter = {}) => Translator.message(value, parameter));
-    LocalVue.filter('jvalidator', (value, parameter = {}) => Translator.validator(value, parameter));
-  },
+        LocalVue.filter('jmessage', (value, parameter = {}) => Translator.message(value, parameter));
+        LocalVue.filter('jvalidator', (value, parameter = {}) => Translator.validator(value, parameter));
+    },
 };
 Vue.use(i18n);
 

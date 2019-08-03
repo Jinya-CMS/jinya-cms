@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <jinya-loader :loading="loading" v-if="loading"/>
-    <jinya-menu-form :enable="enable" :menu="menu" :message="message" :state="state" @back="back" @save="save" v-else/>
-  </div>
+    <div>
+        <jinya-loader :loading="loading" v-if="loading"/>
+        <jinya-menu-form :enable="enable" :menu="menu" :message="message" :state="state" @back="back" @save="save"
+                         v-else/>
+    </div>
 </template>
 
 <script>

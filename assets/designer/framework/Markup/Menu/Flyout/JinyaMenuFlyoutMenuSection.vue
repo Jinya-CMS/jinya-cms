@@ -1,10 +1,10 @@
 <template>
-  <div class="jinya-menu-flyout__menu__section">
-    <h4 v-jinya-message="header"></h4>
-    <ul class="jinya-menu-flyout__menu__items">
-      <slot/>
-    </ul>
-  </div>
+    <div class="jinya-menu-flyout__menu__section">
+        <h4 v-jinya-message="header"></h4>
+        <ul class="jinya-menu-flyout__menu__items">
+            <slot/>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -20,29 +20,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-menu-flyout__menu__section {
-    margin: 1em 2.5em 3em;
+    .jinya-menu-flyout__menu__section {
+        margin: 1em 2.5em 3em;
 
-    &:first-child {
-      margin-left: 1.3em;
-    }
+        &:first-child {
+            margin-left: 1.3em;
+        }
 
-    &:last-child {
-      margin-right: 0;
-    }
+        &:last-child {
+            margin-right: 0;
+        }
 
-    h4 {
-      color: $primary-lighter;
-      font-size: 1.7rem;
-      margin: 0;
-      padding: 0;
-      font-weight: 300;
-    }
+        h4 {
+            color: $primary-lighter;
+            font-size: 1.7rem;
+            margin: 0;
+            padding: 0;
+            font-weight: 300;
+        }
 
-    .jinya-menu-flyout__menu__items {
-      list-style: none;
-      padding: 0;
-      margin: 1em 0 0;
+        .jinya-menu-flyout__menu__items {
+            list-style: none;
+            padding: 0;
+            margin: 1em 0 0;
+        }
     }
-  }
 </style>

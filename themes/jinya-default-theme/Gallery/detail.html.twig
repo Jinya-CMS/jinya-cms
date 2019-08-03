@@ -35,15 +35,17 @@
                         <img class="{{- bemClassBlock -}}-artwork__image jinya-art-gallery__image--mobile"
                              src="{{ artwork.picture }}"
                              alt="{{ artwork.name }}"
-                                {% if gallery.masonry %}
-                                    data-action="masonry-click"
-                                    role="button"
-                                {% endif %}
+                            {% if gallery.masonry %}
+                                data-action="masonry-click"
+                                role="button"
+                            {% endif %}
                         >
                         <figcaption class="{{- bemClassBlock -}}__caption jinya-art-gallery__caption--mobile">
-                            <span class="{{- bemClassBlock -}}-caption__title jinya-art-gallery-caption__title--mobile {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
+                            <span
+                                class="{{- bemClassBlock -}}-caption__title jinya-art-gallery-caption__title--mobile {% if artwork.description is empty or artwork.description is not defined %}is--description-empty{% endif %}">{{ artwork.name }}</span>
                             {% if artwork.description is defined and artwork.description is not empty %}
-                                <div class="{{- bemClassBlock -}}-caption__content jinya-art-gallery-caption__content--mobile">{{ artwork.description|raw }}</div>
+                                <div
+                                    class="{{- bemClassBlock -}}-caption__content jinya-art-gallery-caption__content--mobile">{{ artwork.description|raw }}</div>
                             {% endif %}
                         </figcaption>
                     </figure>
@@ -69,7 +71,8 @@
                                     src="https://www.youtube-nocookie.com/embed/{{ video.videoKey }}"></iframe>
                         {%- endif -%}
                         <figcaption class="{{- bemClassBlock -}}__caption">
-                            <span class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
+                            <span
+                                class="{{- bemClassBlock -}}-caption__title {% if video.description is empty or video.description is not defined %}is--description-empty{% endif %}">{{ video.name }}</span>
                             {% if video.description is defined and video.description is not empty %}
                                 <p class="{{- bemClassBlock -}}-caption__content">{{ video.description|raw }}</p>
                             {% endif %}

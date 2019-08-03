@@ -1,7 +1,7 @@
 <template>
-  <li :class="{'is--active': active}" class="jinya-menu-flyout__menu__item">
-    <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
-  </li>
+    <li :class="{'is--active': active}" class="jinya-menu-flyout__menu__item">
+        <a :href="href" @click.prevent="navigated">{{text|jmessage}}</a>
+    </li>
 </template>
 
 <script>
@@ -67,28 +67,28 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-menu-flyout__menu__item {
-    color: $white;
-    margin: 0 0 1em;
-
-    &.is--active {
-      &:before {
-        content: '\f1c6';
-        //noinspection CssNoGenericFontName
-        font-family: 'Material Design Icons';
+    .jinya-menu-flyout__menu__item {
         color: $white;
-        transform: rotate(-90deg);
-        display: inline-block;
-      }
-    }
+        margin: 0 0 1em;
 
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+        &.is--active {
+            &:before {
+                content: '\f1c6';
+                //noinspection CssNoGenericFontName
+                font-family: 'Material Design Icons';
+                color: $white;
+                transform: rotate(-90deg);
+                display: inline-block;
+            }
+        }
 
-    a {
-      color: $white;
-      text-decoration: none;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: $white;
+            text-decoration: none;
+        }
     }
-  }
 </style>

@@ -84,6 +84,13 @@ interface FormItemFormatterInterface extends FormatterInterface
     public function history(): self;
 
     /**
+     * Formats the spam filter
+     *
+     * @return FormItemFormatterInterface
+     */
+    public function spamFilter(): self;
+
+    /**
      * Initializes the formatter
      *
      * @param FormItem $formItem

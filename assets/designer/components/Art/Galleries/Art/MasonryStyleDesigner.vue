@@ -1,28 +1,30 @@
 <template>
-  <div class="jinya-gallery-designer__masonry">
-    <jinya-message :message="message" :state="state" v-if="state"/>
-    <div class="jinya-gallery-designer-masonry__container is--masonry">
-      <jinya-gallery-designer-button @click="add(index)" type="add"/>
-      <template v-for="(position, index) in artworks" v-if="!loading">
-        <jinya-gallery-designer-item :key="`${index}-${position.artwork.slug}`">
-          <div class="jinya-gallery-designer-masonry__element">
-            <jinya-gallery-designer-image :src="position.artwork.picture"/>
-            <jinya-gallery-designer-button @click="edit(position, index)" type="edit"/>
-            <jinya-gallery-designer-position-button :decrease="true" @click="move(position, index, index - 1)"
-                                                    v-if="index > 0"/>
-            <jinya-gallery-designer-position-button :increase="true" @click="move(position, index, index + 1)"
-                                                    v-if="index + 1 < artworks.length"/>
-          </div>
-        </jinya-gallery-designer-item>
-        <jinya-gallery-designer-button :key="`button-${index}-${position.artwork.slug}`" @click="add(index)"
-                                       type="add"/>
-      </template>
+    <div class="jinya-gallery-designer__masonry">
+        <jinya-message :message="message" :state="state" v-if="state"/>
+        <div class="jinya-gallery-designer-masonry__container is--masonry">
+            <jinya-gallery-designer-button @click="add(index)" type="add"/>
+            <template v-for="(position, index) in artworks" v-if="!loading">
+                <jinya-gallery-designer-item :key="`${index}-${position.artwork.slug}`">
+                    <div class="jinya-gallery-designer-masonry__element">
+                        <jinya-gallery-designer-image :src="position.artwork.picture"/>
+                        <jinya-gallery-designer-button @click="edit(position, index)" type="edit"/>
+                        <jinya-gallery-designer-position-button :decrease="true"
+                                                                @click="move(position, index, index - 1)"
+                                                                v-if="index > 0"/>
+                        <jinya-gallery-designer-position-button :increase="true"
+                                                                @click="move(position, index, index + 1)"
+                                                                v-if="index + 1 < artworks.length"/>
+                    </div>
+                </jinya-gallery-designer-item>
+                <jinya-gallery-designer-button :key="`button-${index}-${position.artwork.slug}`" @click="add(index)"
+                                               type="add"/>
+            </template>
+        </div>
+        <jinya-gallery-designer-add-view @close="addModal.show = false" @picked="saveAdd" gallery-type="art"
+                                         v-if="addModal.show"/>
+        <jinya-gallery-designer-edit-view @close="editModal.show = false" @delete="deleteArtwork" @picked="saveEdit"
+                                          gallery-type="art" v-if="editModal.show"/>
     </div>
-    <jinya-gallery-designer-add-view @close="addModal.show = false" @picked="saveAdd" gallery-type="art"
-                                     v-if="addModal.show"/>
-    <jinya-gallery-designer-edit-view @close="editModal.show = false" @delete="deleteArtwork" @picked="saveEdit"
-                                      gallery-type="art" v-if="editModal.show"/>
-  </div>
 </template>
 
 <script>
@@ -133,24 +135,24 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-gallery-designer-masonry__container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  .jinya-gallery-designer-masonry__element {
-    margin: 1rem;
-    display: grid;
-    grid-template-columns: auto auto auto;
-
-    &:first-child {
-      margin-left: 0;
+    .jinya-gallery-designer-masonry__container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 0.5rem;
     }
 
-    &:last-child {
-      margin-left: 0;
+    .jinya-gallery-designer-masonry__element {
+        margin: 1rem;
+        display: grid;
+        grid-template-columns: auto auto auto;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-left: 0;
+        }
     }
-  }
 </style>

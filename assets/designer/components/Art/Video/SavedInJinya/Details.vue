@@ -1,13 +1,13 @@
 <template>
-  <div class="jinya-video__jinya">
-    <jinya-message :message="message" :state="state" v-if="state"/>
-    <div class="jinya-video__video-details" v-else>
-      <video :poster="video.poster" :src="video.video" class="jinya-video__video jinya-video__video--jinya"
-             controls></video>
-      <div class="jinya-video__video-description" v-html="video.description"></div>
-      <jinya-floating-action-button @click="edit" icon="pencil"/>
+    <div class="jinya-video__jinya">
+        <jinya-message :message="message" :state="state" v-if="state"/>
+        <div class="jinya-video__video-details" v-else>
+            <video :poster="video.poster" :src="video.video" class="jinya-video__video jinya-video__video--jinya"
+                   controls></video>
+            <div class="jinya-video__video-description" v-html="video.description"></div>
+            <jinya-floating-action-button @click="edit" icon="pencil"/>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -67,22 +67,22 @@
 </script>
 
 <style lang="scss">
-  .jinya-video__jinya {
-    padding-top: 1rem;
-  }
-
-  .jinya-video__video-details {
-    display: flex;
-  }
-
-  .jinya-video__video-description {
-    margin-left: 1rem;
-    width: 50%;
-  }
-
-  .jinya-video__video {
-    &.jinya-video__video--jinya {
-      width: 50%;
+    .jinya-video__jinya {
+        padding-top: 1rem;
     }
-  }
+
+    .jinya-video__video-details {
+        display: flex;
+    }
+
+    .jinya-video__video-description {
+        margin-left: 1rem;
+        width: 50%;
+    }
+
+    .jinya-video__video {
+        &.jinya-video__video--jinya {
+            width: 50%;
+        }
+    }
 </style>

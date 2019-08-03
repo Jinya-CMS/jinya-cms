@@ -1,55 +1,55 @@
 <template>
-  <jinya-loader :loading="loading" v-if="loading"/>
-  <div v-else>
-    <jinya-message :message="message" :state="state"/>
-    <jinya-form :enable="enable" @back="cancel" @submit="save"
-                cancel-label="configuration.frontend.themes.links.cancel"
-                save-label="configuration.frontend.themes.links.save"
-                v-if="state !== 'info'">
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.menus'|jmessage" v-if="structure.menus">
-        <jinya-choice :choices="menus" :enforce-select="true" :key="menu" :label="structure.menus[menu]"
-                      :selected="createSelectValue(links.menus[menu])"
-                      @selected="item => selected(item, links.menus, menu)"
-                      v-for="menu in Object.keys(structure.menus)"/>
-      </jinya-fieldset>
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.pages'|jmessage" v-if="structure.pages">
-        <jinya-choice :choices="pages" :enforce-select="true" :key="page" :label="structure.pages[page]"
-                      :selected="createSelectValue(links.pages[page])"
-                      @selected="item => selected(item, links.pages, page)"
-                      v-for="page in Object.keys(structure.pages)"/>
-      </jinya-fieldset>
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.forms'|jmessage" v-if="structure.forms">
-        <jinya-choice :choices="forms" :enforce-select="true" :key="form" :label="structure.forms[form]"
-                      :selected="createSelectValue(links.forms[form])"
-                      @selected="item => selected(item, links.forms, form)"
-                      v-for="form in Object.keys(structure.forms)"/>
-      </jinya-fieldset>
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.art_galleries'|jmessage"
-                      v-if="structure.art_galleries">
-        <jinya-choice :choices="artGalleries" :enforce-select="true" :key="gallery"
-                      :label="structure.art_galleries[gallery]"
-                      :selected="createSelectValue(links.artGalleries[gallery])"
-                      @selected="item => selected(item, links.artGalleries, gallery)"
-                      v-for="gallery in Object.keys(structure.art_galleries)"/>
-      </jinya-fieldset>
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.video_galleries'|jmessage"
-                      v-if="structure.video_galleries">
-        <jinya-choice :choices="videoGalleries" :enforce-select="true" :key="gallery"
-                      :label="structure.video_galleries[gallery]"
-                      :selected="createSelectValue(links.videoGalleries[gallery])"
-                      @selected="item => selected(item, links.videoGalleries, gallery)"
-                      v-for="gallery in Object.keys(structure.video_galleries)"/>
-      </jinya-fieldset>
-      <jinya-fieldset :legend="'configuration.frontend.themes.links.segment_pages'|jmessage"
-                      v-if="structure.segment_pages">
-        <jinya-choice :choices="segmentPages" :enforce-select="true" :key="segmentPage"
-                      :label="structure.segmentPages[segmentPage]"
-                      :selected="createSelectValue(links.segmentPages[segmentPage])"
-                      @selected="item => selected(item, links.segmentPages, segmentPage)"
-                      v-for="segmentPage in Object.keys(structure.segmentPages)"/>
-      </jinya-fieldset>
-    </jinya-form>
-  </div>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-else>
+        <jinya-message :message="message" :state="state"/>
+        <jinya-form :enable="enable" @back="cancel" @submit="save"
+                    cancel-label="configuration.frontend.themes.links.cancel"
+                    save-label="configuration.frontend.themes.links.save"
+                    v-if="state !== 'info'">
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.menus'|jmessage" v-if="structure.menus">
+                <jinya-choice :choices="menus" :enforce-select="true" :key="menu" :label="structure.menus[menu]"
+                              :selected="createSelectValue(links.menus[menu])"
+                              @selected="item => selected(item, links.menus, menu)"
+                              v-for="menu in Object.keys(structure.menus)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.pages'|jmessage" v-if="structure.pages">
+                <jinya-choice :choices="pages" :enforce-select="true" :key="page" :label="structure.pages[page]"
+                              :selected="createSelectValue(links.pages[page])"
+                              @selected="item => selected(item, links.pages, page)"
+                              v-for="page in Object.keys(structure.pages)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.forms'|jmessage" v-if="structure.forms">
+                <jinya-choice :choices="forms" :enforce-select="true" :key="form" :label="structure.forms[form]"
+                              :selected="createSelectValue(links.forms[form])"
+                              @selected="item => selected(item, links.forms, form)"
+                              v-for="form in Object.keys(structure.forms)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.art_galleries'|jmessage"
+                            v-if="structure.art_galleries">
+                <jinya-choice :choices="artGalleries" :enforce-select="true" :key="gallery"
+                              :label="structure.art_galleries[gallery]"
+                              :selected="createSelectValue(links.artGalleries[gallery])"
+                              @selected="item => selected(item, links.artGalleries, gallery)"
+                              v-for="gallery in Object.keys(structure.art_galleries)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.video_galleries'|jmessage"
+                            v-if="structure.video_galleries">
+                <jinya-choice :choices="videoGalleries" :enforce-select="true" :key="gallery"
+                              :label="structure.video_galleries[gallery]"
+                              :selected="createSelectValue(links.videoGalleries[gallery])"
+                              @selected="item => selected(item, links.videoGalleries, gallery)"
+                              v-for="gallery in Object.keys(structure.video_galleries)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.segment_pages'|jmessage"
+                            v-if="structure.segment_pages">
+                <jinya-choice :choices="segmentPages" :enforce-select="true" :key="segmentPage"
+                              :label="structure.segmentPages[segmentPage]"
+                              :selected="createSelectValue(links.segmentPages[segmentPage])"
+                              @selected="item => selected(item, links.segmentPages, segmentPage)"
+                              v-for="segmentPage in Object.keys(structure.segmentPages)"/>
+            </jinya-fieldset>
+        </jinya-form>
+    </div>
 </template>
 
 <script>
@@ -227,8 +227,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-fieldset {
-    min-width: 25%;
-    flex: 0 0 25%;
-  }
+    .jinya-fieldset {
+        min-width: 25%;
+        flex: 0 0 25%;
+    }
 </style>

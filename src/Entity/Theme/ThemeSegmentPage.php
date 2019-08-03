@@ -3,12 +3,11 @@
 namespace Jinya\Entity\Theme;
 
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\Page\Page;
 use Jinya\Entity\SegmentPage\SegmentPage;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="theme_page")
+ * @ORM\Table(name="theme_segment_page")
  */
 class ThemeSegmentPage
 {

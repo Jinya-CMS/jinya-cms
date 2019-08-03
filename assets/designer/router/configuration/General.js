@@ -5,7 +5,7 @@ import Routes from '@/router/Routes';
 import MyJinya from '@/components/MyJinya/MyJinya';
 
 export default [
-  {
+    {
         path: Routes.Configuration.General.Artists.Overview.route,
             name: Routes.Configuration.General.Artists.Overview.name,
             component: ArtistsOverview,

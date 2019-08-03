@@ -3,7 +3,6 @@
 
 namespace Jinya\Framework\Events\SegmentPages;
 
-
 use Jinya\Entity\SegmentPage\Segment;
 use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Framework\Events\Common\CancellableEvent;

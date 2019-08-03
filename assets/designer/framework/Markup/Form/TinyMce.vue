@@ -1,5 +1,5 @@
 <template>
-  <tiny-mce :init="tinyMceOptions" :initial-value="data" @input="input" v-model="data"/>
+    <tiny-mce :init="tinyMceOptions" :initial-value="data" @input="input" v-model="data"/>
 </template>
 
 <script>
@@ -98,7 +98,7 @@
 </script>
 
 <style lang="scss">
-  .mce-container.mce-panel.mce-tinymce {
-    margin-bottom: 1em;
-  }
+    .mce-container.mce-panel.mce-tinymce {
+        margin-bottom: 1em;
+    }
 </style>

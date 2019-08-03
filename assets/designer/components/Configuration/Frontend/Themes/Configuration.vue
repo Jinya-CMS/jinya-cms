@@ -1,32 +1,35 @@
 <template>
-  <div class="jinya-theme-configuration">
-    <jinya-message :message="message" :state="state"/>
-    <jinya-form :enable="!loading" @back="back" @submit="save"
-                cancel-label="configuration.frontend.themes.configuration.cancel"
-                save-label="configuration.frontend.themes.configuration.save" v-if="!initial">
-      <jinya-tab-container :items="form.groups" @select="selected = $event">
-        <template v-for="tab in form.groups">
-          <jinya-tab :is-selected="selected === tab.name" :key="tab.name">
-            <jinya-theme-configuration-field :enable="!loading" :key="`${tab.name}.${field.name}`"
-                                             :label="field.label" :name="`${tab.name}.${field.name}`"
-                                             :type="field.type" :value="getValue(`${tab.name}.${field.name}`)"
-                                             @changed="changed"
-                                             v-for="field in tab.fields"/>
+    <div class="jinya-theme-configuration">
+        <jinya-message :message="message" :state="state"/>
+        <jinya-form :enable="!loading" @back="back" @submit="save"
+                    cancel-label="configuration.frontend.themes.configuration.cancel"
+                    save-label="configuration.frontend.themes.configuration.save" v-if="!initial">
+            <jinya-tab-container :items="form.groups" @select="selected = $event">
+                <template v-for="tab in form.groups">
+                    <jinya-tab :is-selected="selected === tab.name" :key="tab.name">
+                        <jinya-theme-configuration-field :enable="!loading" :key="`${tab.name}.${field.name}`"
+                                                         :label="field.label" :name="`${tab.name}.${field.name}`"
+                                                         :type="field.type"
+                                                         :value="getValue(`${tab.name}.${field.name}`)"
+                                                         @changed="changed"
+                                                         v-for="field in tab.fields"/>
 
-            <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
-                            v-for="group in tab.groups">
-              <jinya-theme-configuration-field :enable="!loading" :key="`${tab.name}.${group.name}.${field.name}`"
-                                               :label="field.label" :name="`${tab.name}.${group.name}.${field.name}`"
-                                               :type="field.type"
-                                               :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
-                                               @changed="changed"
-                                               v-for="field in group.fields"/>
-            </jinya-fieldset>
-          </jinya-tab>
-        </template>
-      </jinya-tab-container>
-    </jinya-form>
-  </div>
+                        <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
+                                        v-for="group in tab.groups">
+                            <jinya-theme-configuration-field :enable="!loading"
+                                                             :key="`${tab.name}.${group.name}.${field.name}`"
+                                                             :label="field.label"
+                                                             :name="`${tab.name}.${group.name}.${field.name}`"
+                                                             :type="field.type"
+                                                             :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
+                                                             @changed="changed"
+                                                             v-for="field in group.fields"/>
+                        </jinya-fieldset>
+                    </jinya-tab>
+                </template>
+            </jinya-tab-container>
+        </jinya-form>
+    </div>
 </template>
 
 <script>
@@ -165,7 +168,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-theme-configuration {
-    padding-top: 1em;
-  }
+    .jinya-theme-configuration {
+        padding-top: 1em;
+    }
 </style>

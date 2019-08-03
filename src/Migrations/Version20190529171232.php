@@ -15,7 +15,10 @@ final class Version20190529171232 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('CREATE TABLE segment_page (id INT AUTO_INCREMENT NOT NULL, creator_id INT DEFAULT NULL, updated_by_id INT DEFAULT NULL, history LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', created_at DATETIME NOT NULL, last_updated_at DATETIME NOT NULL, slug VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_CBA9317D989D9B62 (slug), UNIQUE INDEX UNIQ_CBA9317D5E237E06 (name), INDEX IDX_CBA9317D61220EA6 (creator_id), INDEX IDX_CBA9317D896DBBDE (updated_by_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE segment (id INT AUTO_INCREMENT NOT NULL, page_id INT DEFAULT NULL, artwork_id INT DEFAULT NULL, form_id INT DEFAULT NULL, video_id INT DEFAULT NULL, youtube_video_id INT DEFAULT NULL, art_gallery_id INT DEFAULT NULL, video_gallery_id INT DEFAULT NULL, html VARCHAR(255) NOT NULL, INDEX IDX_1881F565C4663E4 (page_id), INDEX IDX_1881F565DB8FFA4 (artwork_id), INDEX IDX_1881F5655FF69B7D (form_id), INDEX IDX_1881F56529C1004E (video_id), INDEX IDX_1881F5658E06FC7F (youtube_video_id), INDEX IDX_1881F56531A68AC7 (art_gallery_id), INDEX IDX_1881F5658440B739 (video_gallery_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -33,7 +36,10 @@ final class Version20190529171232 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('ALTER TABLE segment DROP FOREIGN KEY FK_1881F565C4663E4');
         $this->addSql('DROP TABLE segment_page');

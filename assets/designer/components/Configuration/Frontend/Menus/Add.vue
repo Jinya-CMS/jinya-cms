@@ -1,5 +1,5 @@
 <template>
-  <jinya-menu-form :enable="enable" :message="message" :state="state" @save="save"/>
+    <jinya-menu-form :enable="enable" :message="message" :state="state" @save="save"/>
 </template>
 
 <script>

@@ -56,19 +56,19 @@
         <input id="{{ id }}"
                class="jinya-form__input"
                type="{{ type }}"
-                {{ block('widget_attributes') }}
-                {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            {{ block('widget_attributes') }}
+            {% if value is not empty %}value="{{ value }}" {% endif %}/>
         {{- form_errors(form) -}}
     </div>
 {% endblock -%}
 
 {% block form_label -%}
     <label for="{{ id }}"
-            {% if label_attr %}
-                {% with { attr: label_attr } %}
-                    {{ block('attributes') }}
-                {% endwith %}
-            {% endif %}>
+        {% if label_attr %}
+            {% with { attr: label_attr } %}
+                {{ block('attributes') }}
+            {% endwith %}
+        {% endif %}>
         {{ label }}
         {%- if required is defined and required == false %}
             {{ themeConfig.form.input.optional }}

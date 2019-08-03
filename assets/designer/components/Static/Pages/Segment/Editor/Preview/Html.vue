@@ -1,5 +1,5 @@
 <template>
-  <div class="jinya-page-editor__preview-html" v-html="html"></div>
+    <div class="jinya-page-editor__preview-html" v-html="html"></div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-page-editor__preview-html {
-    width: 100%;
-  }
+    .jinya-page-editor__preview-html {
+        width: 100%;
+    }
 </style>
