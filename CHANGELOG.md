@@ -1,8 +1,10 @@
 # Changelog
+## Release 9.1.0
+### New Features
+* [JGCMS-76](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-76) Spamfilter in forms
 ## Release 9.0.0
 ### New Features
 * [JGCMS-66](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-66) Segment page
-# Changelog
 ## Release 8.0.0
 ### New Features
 * [JGCMS-1](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-1) Tiling gallery
