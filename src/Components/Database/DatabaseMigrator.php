@@ -7,30 +7,16 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class DatabaseMigrator implements DatabaseMigratorInterface
 {
-
-    /** @var KernelInterface */
-    private $kernel;
-
-    /**
-     * DatabaseMigrator constructor.
-     * @param KernelInterface $kernel
-     */
-    public function __construct(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;
-    }
-
     /**
      * Migrate the database to the latest version
      * @throws Exception
      */
     public function migrate(): void
     {
-        $application = new Application($this->kernel);
+        $application = new Application();
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
@@ -52,7 +38,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
      */
     public function getLatestMigrationVersion(): string
     {
-        $application = new Application($this->kernel);
+        $application = new Application();
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
@@ -78,7 +64,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
      */
     public function setMigrationVersion(string $version): void
     {
-        $application = new Application($this->kernel);
+        $application = new Application();
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
@@ -100,7 +86,7 @@ class DatabaseMigrator implements DatabaseMigratorInterface
      */
     public function activateAllMigrations(): void
     {
-        $application = new Application($this->kernel);
+        $application = new Application();
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
