@@ -7,13 +7,19 @@
         <jinya-checkbox class="jinya-form-builder__settings-checkbox"
                         label="static.forms.forms.builder.settings.required"
                         v-model="item.options.required"/>
+        <jinya-checkbox @input="$emit('SubjectChanged', item.position)" class="jinya-form-builder__settings-checkbox"
+                        label="static.forms.forms.builder.settings.subject"
+                        v-if="item.type.endsWith('TextType')" v-model="item.options.subject"/>
+        <jinya-checkbox @input="$emit('FromAddressChanged', item.position)"
+                        class="jinya-form-builder__settings-checkbox"
+                        label="static.forms.forms.builder.settings.from_address"
+                        v-if="item.type.endsWith('EmailType')" v-model="item.options.from_address"/>
         <jinya-textarea :required="true"
                         :validation-message="'static.forms.forms.builder.settings.options.empty'|jvalidator"
                         :value="item.options.choices.join('\n')" @change="item.options.choices = $event.split('\n')"
                         label="static.forms.forms.builder.settings.options"
                         v-if="item.type.endsWith('ChoiceType')"/>
-        <jinya-textarea :required="true"
-                        :validation-message="'static.forms.forms.builder.settings.spam_filter.empty'|jvalidator"
+        <jinya-textarea :validation-message="'static.forms.forms.builder.settings.spam_filter.empty'|jvalidator"
                         :value="item.spamFilter.join('\n')" @change="item.spamFilter = $event.split('\n')"
                         label="static.forms.forms.builder.settings.spam_filter"
                         v-if="item.type.endsWith('TextareaType') || item.type.endsWith('TextType')"/>

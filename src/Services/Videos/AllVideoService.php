@@ -16,7 +16,7 @@ use Jinya\Entity\Video\Video;
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AllVideoService implements AllVideoServiceInterface
 {

@@ -17,7 +17,7 @@ use Jinya\Framework\Events\Menu\MenuItemGetAllEvent;
 use Jinya\Framework\Events\Menu\MenuItemGetEvent;
 use Jinya\Framework\Events\Menu\MenuItemRemoveEvent;
 use Jinya\Framework\Events\Menu\MenuItemUpdateEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuItemService implements MenuItemServiceInterface
 {

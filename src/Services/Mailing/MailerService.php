@@ -17,7 +17,7 @@ use Jinya\Framework\Events\Mailing\MailerEvent;
 use Psr\Log\LoggerInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MailerService implements MailerServiceInterface
 {
@@ -92,5 +92,17 @@ class MailerService implements MailerServiceInterface
         }
 
         return $body . '</table></body></html>';
+    }
+
+    /**
+     * Gets the body for the given form and data
+     *
+     * @param Form $form
+     * @param array $data
+     * @return string
+     */
+    public function getBody(Form $form, array $data): string
+    {
+        return $this->formatBody($data);
     }
 }

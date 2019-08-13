@@ -20,6 +20,10 @@ class ListEvent extends Event
 
     public const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
 
+    public const MESSAGES_POST_GET_ALL = 'MessagesPostGetAll';
+
+    public const MESSAGES_PRE_GET_ALL = 'MessagesPreGetAll';
+
     public const ART_GALLERIES_POST_GET_ALL = 'ArtGalleriesPostGetAll';
 
     public const ART_GALLERIES_PRE_GET_ALL = 'ArtGalleriesPreGetAll';

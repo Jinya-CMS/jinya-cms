@@ -13,7 +13,7 @@ use Jinya\Framework\Events\Media\MediaGetEvent;
 use Jinya\Framework\Events\Media\MediaMoveEvent;
 use Jinya\Framework\Events\Media\MediaSaveEvent;
 use SplFileInfo;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

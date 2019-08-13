@@ -560,6 +560,8 @@ static:
           required: Erforderlich
           options: Optionen
           spam_filter: Spam Schlagwörter
+          subject: Betreff
+          from_address: Absender
         leave:
           title: Wirklich verlassen?
           content: Es sind ungespeicherte Änderungen im Formular "%title%" vorhanden. Sollen die Änderungen wirklich verworfen werden?

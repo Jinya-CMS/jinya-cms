@@ -49,11 +49,14 @@ class FormGenerator implements FormGeneratorInterface
         $formBuilder = $this->formFactory->createBuilder();
         /** @var FormItem $item */
         foreach ($form->getItems() as $item) {
-            $options = $item->getOptions();
-            $options['label'] = $item->getLabel();
-            if (array_key_exists('choices', $options)) {
+            $originalOptions = $item->getOptions();
+            $options = [
+                'label' => $item->getLabel(),
+                'required' => $originalOptions['required'],
+            ];
+            if (array_key_exists('choices', $originalOptions)) {
                 $choices = [];
-                foreach ($options['choices'] as $choice) {
+                foreach ($originalOptions['choices'] as $choice) {
                     $choices[$choice] = $choice;
                 }
 

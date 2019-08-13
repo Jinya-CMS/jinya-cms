@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\FormEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FormService implements FormServiceInterface
 {

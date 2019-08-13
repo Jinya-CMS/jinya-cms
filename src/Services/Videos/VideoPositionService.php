@@ -21,7 +21,7 @@ use Jinya\Framework\Events\Videos\VideoPositionUpdateEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateVideoEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoPositionService implements VideoPositionServiceInterface
 {

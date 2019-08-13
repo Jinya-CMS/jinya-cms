@@ -18,7 +18,7 @@ use Jinya\Entity\Theme\ThemePage;
 use Jinya\Entity\Theme\ThemeSegmentPage;
 use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Framework\Events\Theme\ThemeLinkEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class ThemeLinkService implements ThemeLinkServiceInterface

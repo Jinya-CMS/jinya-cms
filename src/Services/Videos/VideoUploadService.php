@@ -22,7 +22,7 @@ use Jinya\Framework\Events\Videos\VideoUploadFinishUploadEvent;
 use Jinya\Framework\Events\Videos\VideoUploadStartUploadEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoUploadService implements VideoUploadServiceInterface
 {
