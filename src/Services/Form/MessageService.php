@@ -95,10 +95,20 @@ class MessageService implements MessageServiceInterface
      */
     private function getFilteredQueryBuilder(string $keyword, int $formId = -1): QueryBuilder
     {
-        return $this->entityManager->createQueryBuilder()
+        $queryBuilder = $this->entityManager->createQueryBuilder()
             ->from(Message::class, 'message')
-            ->where('message.title LIKE :keyword')
+            ->where('message.subject LIKE :keyword')
+            ->orWhere('message.content LIKE :keyword')
             ->setParameter('keyword', "%$keyword%");
+
+        if ($formId !== -1) {
+            $queryBuilder
+                ->andWhere('form.id = :id')
+                ->join('message.form', 'form')
+                ->setParameter('id', $formId);
+        }
+
+        return $queryBuilder;
     }
 
     /**

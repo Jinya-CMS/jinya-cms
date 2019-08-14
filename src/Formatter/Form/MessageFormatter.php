@@ -135,4 +135,28 @@ class MessageFormatter implements MessageFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats whether the message is archived
+     *
+     * @return MessageFormatterInterface
+     */
+    public function archived(): MessageFormatterInterface
+    {
+        $this->formatted['archived'] = $this->message->isArchived();
+
+        return $this;
+    }
+
+    /**
+     * Formats whether the message is in trash
+     *
+     * @return MessageFormatterInterface
+     */
+    public function trash(): MessageFormatterInterface
+    {
+        $this->formatted['trash'] = $this->message->isDeleted();
+
+        return $this;
+    }
 }

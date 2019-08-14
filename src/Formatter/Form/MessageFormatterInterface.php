@@ -58,6 +58,20 @@ interface MessageFormatterInterface extends FormatterInterface
     public function spam(): self;
 
     /**
+     * Formats whether the message is archived
+     *
+     * @return MessageFormatterInterface
+     */
+    public function archived(): self;
+
+    /**
+     * Formats whether the message is in trash
+     *
+     * @return MessageFormatterInterface
+     */
+    public function trash(): self;
+
+    /**
      * Formats the send at date
      *
      * @return MessageFormatterInterface

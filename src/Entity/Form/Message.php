@@ -56,10 +56,54 @@ class Message
      */
     private $sendAt;
 
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $isArchived = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $isDeleted = false;
+
     public function __construct()
     {
         $this->data = [];
         $this->sendAt = new DateTime('now');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isArchived(): bool
+    {
+        return $this->isArchived;
+    }
+
+    /**
+     * @param bool $isArchived
+     */
+    public function setIsArchived(bool $isArchived): void
+    {
+        $this->isArchived = $isArchived;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param bool $isDeleted
+     */
+    public function setIsDeleted(bool $isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
     }
 
     /**
