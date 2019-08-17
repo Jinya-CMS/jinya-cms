@@ -159,4 +159,28 @@ class MessageFormatter implements MessageFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats whether the message is read
+     *
+     * @return MessageFormatterInterface
+     */
+    public function read(): MessageFormatterInterface
+    {
+        $this->formatted['read'] = $this->message->isRead();
+
+        return $this;
+    }
+
+    /**
+     * Formats the id
+     *
+     * @return MessageFormatterInterface
+     */
+    public function id(): MessageFormatterInterface
+    {
+        $this->formatted['id'] = $this->message->getId();
+
+        return $this;
+    }
 }

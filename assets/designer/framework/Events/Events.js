@@ -5,6 +5,7 @@ export default {
     },
     search: {
         triggered: 'search-triggered',
+        reset: 'search-reset',
     },
     request: {
         started: 'request-started',

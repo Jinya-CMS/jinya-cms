@@ -77,9 +77,9 @@
                                                 v-jinya-permission="ROLE_WRITER">
                     <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.forms.forms"
                                                  to="Static.Forms.Forms.Overview"/>
-                    <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.forms.requests"
-                                                 to="Static.Forms.Requests.Overview"
-                                                 v-if="false"/>
+                    <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.forms.messages"
+                                                 to="Static.Forms.Messages.Overview"
+                                                 v-jinya-permission="ROLE_WRITER"/>
                     <jinya-menu-flyout-menu-item text="menu.designer.flyout.static.sections.forms.email_templates"
                                                  to="Static.Forms.EmailTemplates.Overview"
                                                  v-if="false"/>

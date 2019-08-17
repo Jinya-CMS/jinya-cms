@@ -68,9 +68,14 @@ class Message
      */
     private $isDeleted = false;
 
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $isRead = false;
+
     public function __construct()
     {
-        $this->data = [];
         $this->sendAt = new DateTime('now');
     }
 
@@ -216,5 +221,21 @@ class Message
     public function setFromAddress(string $fromAddress): void
     {
         $this->fromAddress = $fromAddress;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRead(): bool
+    {
+        return $this->isRead;
+    }
+
+    /**
+     * @param bool $isRead
+     */
+    public function setIsRead(bool $isRead): void
+    {
+        $this->isRead = $isRead;
     }
 }

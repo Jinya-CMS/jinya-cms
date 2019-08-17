@@ -13,6 +13,7 @@
 
 <script>
   import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
 
   export default {
     name: 'jinya-menu-navbar-search-item',
@@ -22,9 +23,14 @@
         id: Math.random(),
       };
     },
+    mounted() {
+      EventBus.$on(Events.search.reset, () => {
+        this.keyword = '';
+      });
+    },
     methods: {
       sendSearch() {
-        EventBus.$emit('search-triggered', {
+        EventBus.$emit(Events.search.triggered, {
           route: this.$route.name,
           keyword: this.keyword,
         });

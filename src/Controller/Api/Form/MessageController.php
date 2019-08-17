@@ -16,31 +16,35 @@ class MessageController extends BaseApiController
 {
     /**
      * @Route("/api/message", methods={"GET"}, name="api_message_get_all")
-     * @Route("/api/{formId}/message", methods={"GET"}, name="api_message_get_all_by_form")
+     * @Route("/api/message/{action}", methods={"GET"}, name="api_message_get_all_by_action")
+     * @Route("/api/{formSlug}/message", methods={"GET"}, name="api_message_get_all_by_form")
      *
      * @param Request $request
      * @param MessageServiceInterface $messageService
      * @param MessageFormatterInterface $messageFormatter
-     * @param int $formId
+     * @param string $formSlug
+     * @param string $action
      * @return Response
      */
     public function getAllAction(
         Request $request,
         MessageServiceInterface $messageService,
         MessageFormatterInterface $messageFormatter,
-        int $formId = -1
+        string $formSlug = '',
+        string $action = 'all'
     ): Response {
         [$data, $statusCode] = $this->tryExecute(function () use (
+            $action,
             $messageFormatter,
             $messageService,
             $request,
-            $formId
+            $formSlug
         ) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
 
-            $entityCount = $messageService->countAll($keyword, $formId);
+            $entityCount = $messageService->countAll($keyword, $formSlug, $action);
             $entities = array_map(static function (Message $message) use ($messageFormatter) {
                 return $messageFormatter
                     ->init($message)
@@ -52,13 +56,21 @@ class MessageController extends BaseApiController
                     ->spam()
                     ->archived()
                     ->trash()
+                    ->id()
+                    ->read()
                     ->subject()
                     ->format();
-            }, $messageService->getAll($offset, $count, $keyword, $formId));
+            }, $messageService->getAll($offset, $count, $keyword, $formSlug, $action));
 
-            $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword, 'formId' => $formId];
+            $parameter = [
+                'offset' => $offset,
+                'count' => $count,
+                'keyword' => $keyword,
+                'formSlug' => $formSlug,
+                'action' => $action
+            ];
 
-            if ($formId !== -1) {
+            if ($formSlug !== '') {
                 return $this->formatListResult(
                     $entityCount,
                     $offset,
@@ -68,6 +80,18 @@ class MessageController extends BaseApiController
                     $entities
                 );
             }
+
+            if ($action !== '') {
+                return $this->formatListResult(
+                    $entityCount,
+                    $offset,
+                    $count,
+                    $parameter,
+                    'api_message_get_all_by_action',
+                    $entities
+                );
+            }
+
             return $this->formatListResult(
                 $entityCount,
                 $offset,
@@ -104,6 +128,10 @@ class MessageController extends BaseApiController
                 ->content()
                 ->sendAt()
                 ->spam()
+                ->archived()
+                ->trash()
+                ->id()
+                ->read()
                 ->subject()
                 ->format();
         });
@@ -119,14 +147,34 @@ class MessageController extends BaseApiController
      * @param MessageServiceInterface $messageService
      * @return Response
      */
-    public function putSpamAction(
-        int $id,
-        MessageServiceInterface $messageService
-    ): Response {
+    public function putSpamAction(int $id, MessageServiceInterface $messageService): Response
+    {
         [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
             $message = $messageService->get($id);
             $message->setIsArchived(false);
             $message->setSpam(true);
+            $message->setIsDeleted(false);
+
+            $messageService->saveOrUpdate($message);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
+     * @Route("/api/message/{id}/inbox", methods={"PUT"}, name="api_message_put_inbox")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param int $id
+     * @param MessageServiceInterface $messageService
+     * @return Response
+     */
+    public function putInboxAction(int $id, MessageServiceInterface $messageService): Response
+    {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
+            $message = $messageService->get($id);
+            $message->setIsArchived(false);
+            $message->setSpam(false);
             $message->setIsDeleted(false);
 
             $messageService->saveOrUpdate($message);
@@ -143,10 +191,8 @@ class MessageController extends BaseApiController
      * @param MessageServiceInterface $messageService
      * @return Response
      */
-    public function putArchiveAction(
-        int $id,
-        MessageServiceInterface $messageService
-    ): Response {
+    public function putArchiveAction(int $id, MessageServiceInterface $messageService): Response
+    {
         [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
             $message = $messageService->get($id);
             $message->setIsArchived(true);
@@ -160,17 +206,15 @@ class MessageController extends BaseApiController
     }
 
     /**
-     * @Route("/api/message/{slug}/trash", methods={"PUT"}, name="api_message_put_trash")
+     * @Route("/api/message/{id}/trash", methods={"PUT"}, name="api_message_put_trash")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param MessageServiceInterface $messageService
      * @return Response
      */
-    public function putTrashAction(
-        int $id,
-        MessageServiceInterface $messageService
-    ): Response {
+    public function putTrashAction(int $id, MessageServiceInterface $messageService): Response
+    {
         [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
             $message = $messageService->get($id);
             $message->setIsArchived(false);
@@ -184,19 +228,37 @@ class MessageController extends BaseApiController
     }
 
     /**
+     * @Route("/api/message/{id}/read", methods={"PUT"}, name="api_message_put_read")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param int $id
+     * @param MessageServiceInterface $messageService
+     * @return Response
+     */
+    public function putReadAction(int $id, MessageServiceInterface $messageService): Response
+    {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
+            $message = $messageService->get($id);
+            $message->setIsRead(true);
+
+            $messageService->saveOrUpdate($message);
+        }, Response::HTTP_NO_CONTENT);
+
+        return $this->json($data, $status);
+    }
+
+    /**
      * @Route("/api/message/{id}", methods={"DELETE"}, name="api_message_delete")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param string $slug
-     * @param FormServiceInterface $formService
+     * @param int $id
+     * @param MessageServiceInterface $messageService
      * @return Response
      */
-    public function deleteAction(
-        string $slug,
-        FormServiceInterface $formService
-    ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formService) {
-            $formService->delete($formService->get($slug));
+    public function deleteAction(int $id, MessageServiceInterface $messageService): Response
+    {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $messageService) {
+            $messageService->delete($messageService->get($id));
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

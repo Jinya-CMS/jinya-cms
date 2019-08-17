@@ -72,9 +72,23 @@ interface MessageFormatterInterface extends FormatterInterface
     public function trash(): self;
 
     /**
+     * Formats whether the message is read
+     *
+     * @return MessageFormatterInterface
+     */
+    public function read(): self;
+
+    /**
      * Formats the send at date
      *
      * @return MessageFormatterInterface
      */
     public function sendAt(): self;
+
+    /**
+     * Formats the id
+     *
+     * @return MessageFormatterInterface
+     */
+    public function id(): self;
 }

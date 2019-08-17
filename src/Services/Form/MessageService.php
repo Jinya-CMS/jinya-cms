@@ -4,7 +4,6 @@ namespace Jinya\Services\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Form\Message;
 use Jinya\Exceptions\EmptySlugException;
@@ -12,12 +11,11 @@ use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\MessageEvent;
 use Jinya\Services\Base\BaseService;
-use Jinya\Services\Base\BaseSlugEntityService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MessageService implements MessageServiceInterface
 {
-    /** @var BaseSlugEntityService */
+    /** @var BaseService */
     private $baseService;
 
     /** @var EntityManagerInterface */
@@ -41,17 +39,15 @@ class MessageService implements MessageServiceInterface
     }
 
     /**
-     * Gets the specified @param string $slug
+     * Gets the specified
+     * @param int $id
      * @return Message
-     * @throws NoResultException
-     * @throws NonUniqueResultException
-     * @see Message by slug
      */
-    public function get(string $slug): Message
+    public function get(int $id): Message
     {
         $this->eventDispatcher->dispatch(MessageEvent::PRE_GET, new MessageEvent(null));
 
-        $message = $this->baseService->get($slug);
+        $message = $this->entityManager->find(Message::class, $id);
 
         $this->eventDispatcher->dispatch(MessageEvent::POST_GET, new MessageEvent($message));
 
@@ -64,14 +60,20 @@ class MessageService implements MessageServiceInterface
      * @param int $offset
      * @param int $count
      * @param string $keyword
-     * @param int $formId
+     * @param string $formSlug
+     * @param string $action
      * @return Message[]
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = '', int $formId = -1): array
-    {
+    public function getAll(
+        int $offset = 0,
+        int $count = 10,
+        string $keyword = '',
+        string $formSlug = '',
+        string $action = ''
+    ): array {
         $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::MESSAGES_PRE_GET_ALL);
 
-        $items = $this->getFilteredQueryBuilder($keyword)
+        $items = $this->getFilteredQueryBuilder($keyword, $formSlug, $action)
             ->setFirstResult($offset)
             ->setMaxResults($count)
             ->select('message')
@@ -90,10 +92,11 @@ class MessageService implements MessageServiceInterface
      * Gets a querybuilder with a keyword filter
      *
      * @param string $keyword
-     * @param int $formId
+     * @param string $formSlug
+     * @param string $action
      * @return QueryBuilder
      */
-    private function getFilteredQueryBuilder(string $keyword, int $formId = -1): QueryBuilder
+    private function getFilteredQueryBuilder(string $keyword, string $formSlug = '', string $action = ''): QueryBuilder
     {
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->from(Message::class, 'message')
@@ -101,11 +104,32 @@ class MessageService implements MessageServiceInterface
             ->orWhere('message.content LIKE :keyword')
             ->setParameter('keyword', "%$keyword%");
 
-        if ($formId !== -1) {
+        if ($formSlug !== '') {
             $queryBuilder
-                ->andWhere('form.id = :id')
+                ->andWhere('form.slug = :slug')
                 ->join('message.form', 'form')
-                ->setParameter('id', $formId);
+                ->setParameter('slug', $formSlug)
+                ->andWhere('message.isArchived = 0')
+                ->andWhere('message.isDeleted = 0')
+                ->andWhere('message.spam = 0');
+        }
+
+        if ($action === 'spam') {
+            $queryBuilder->andWhere('message.isArchived = 0');
+            $queryBuilder->andWhere('message.isDeleted = 0');
+            $queryBuilder->andWhere('message.spam = 1');
+        } elseif ($action === 'deleted') {
+            $queryBuilder->andWhere('message.isArchived = 0');
+            $queryBuilder->andWhere('message.isDeleted = 1');
+            $queryBuilder->andWhere('message.spam = 0');
+        } elseif ($action === 'archived') {
+            $queryBuilder->andWhere('message.isArchived = 1');
+            $queryBuilder->andWhere('message.isDeleted = 0');
+            $queryBuilder->andWhere('message.spam = 0');
+        } elseif ($action === 'all') {
+            $queryBuilder->andWhere('message.isArchived = 0');
+            $queryBuilder->andWhere('message.isDeleted = 0');
+            $queryBuilder->andWhere('message.spam = 0');
         }
 
         return $queryBuilder;
@@ -115,15 +139,16 @@ class MessageService implements MessageServiceInterface
      * Counts all entities
      *
      * @param string $keyword
-     * @param int $formId
+     * @param string $formSlug
+     * @param string $action
      * @return int
      * @throws NonUniqueResultException
      */
-    public function countAll(string $keyword = '', int $formId = -1): int
+    public function countAll(string $keyword = '', string $formSlug = '', string $action = ''): int
     {
         $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::MESSAGES_PRE_COUNT);
 
-        $count = $this->getFilteredQueryBuilder($keyword)
+        $count = $this->getFilteredQueryBuilder($keyword, $formSlug, $action)
             ->select('COUNT(message)')
             ->getQuery()
             ->getSingleScalarResult();
