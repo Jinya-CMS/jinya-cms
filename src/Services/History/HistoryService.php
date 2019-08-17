@@ -11,7 +11,7 @@ namespace Jinya\Services\History;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Framework\Events\History\HistoryEvent;
 use Jinya\Framework\Events\History\HistoryRevertEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function method_exists;
 

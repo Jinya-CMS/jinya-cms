@@ -69,4 +69,28 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
     {
         return $this->formattedData;
     }
+
+    /**
+     * Formats the seconds the api key is valid
+     *
+     * @return ConfigurationFormatterInterface
+     */
+    public function invalidateApiKeyAfter(): ConfigurationFormatterInterface
+    {
+        $this->formattedData['invalidateApiKeyAfter'] = $this->configuration->getInvalidateApiKeyAfter();
+
+        return $this;
+    }
+
+    /**
+     * Formats whether the messaging center is enabled
+     *
+     * @return ConfigurationFormatterInterface
+     */
+    public function messagingCenterEnabled(): ConfigurationFormatterInterface
+    {
+        $this->formattedData['messagingCenterEnabled'] = $this->configuration->isMessagingCenterEnabled();
+
+        return $this;
+    }
 }

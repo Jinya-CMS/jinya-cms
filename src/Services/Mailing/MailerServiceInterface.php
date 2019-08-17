@@ -20,4 +20,13 @@ interface MailerServiceInterface
      * @return array
      */
     public function sendMail(Form $form, array $data): array;
+
+    /**
+     * Gets the body for the given form and data
+     *
+     * @param Form $form
+     * @param array $data
+     * @return string
+     */
+    public function getBody(Form $form, array $data): string;
 }

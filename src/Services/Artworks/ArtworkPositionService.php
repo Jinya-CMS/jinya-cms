@@ -21,7 +21,7 @@ use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
 use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {

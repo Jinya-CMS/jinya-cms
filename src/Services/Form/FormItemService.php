@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Form\FormItemGetItemEvent;
 use Jinya\Framework\Events\Form\FormItemGetItemsEvent;
 use Jinya\Framework\Events\Form\FormItemPositionEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_values;
 
 class FormItemService implements FormItemServiceInterface

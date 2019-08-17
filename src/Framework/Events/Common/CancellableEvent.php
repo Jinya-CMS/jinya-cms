@@ -28,6 +28,10 @@ class CancellableEvent extends Event
      */
     public function setCancel(bool $cancel): void
     {
+        if ($cancel) {
+            $this->stopPropagation();
+        }
+
         $this->cancel = $cancel;
     }
 }

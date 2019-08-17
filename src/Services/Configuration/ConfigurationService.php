@@ -13,7 +13,7 @@ use Exception;
 use Jinya\Entity\Configuration\Configuration;
 use Jinya\Framework\Events\Configuration\ConfigurationEvent;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {

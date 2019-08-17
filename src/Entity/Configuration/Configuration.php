@@ -42,6 +42,12 @@ class Configuration
     private $invalidateApiKeyAfter = self::DEFAULT_API_KEY_INVALIDATION;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean", options={"default": 1})
+     */
+    private $messagingCenterEnabled = true;
+
+    /**
      * @return int
      */
     public function getInvalidateApiKeyAfter(): int
@@ -87,5 +93,21 @@ class Configuration
     public function setCurrentTheme(Theme $currentTheme): void
     {
         $this->currentTheme = $currentTheme;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMessagingCenterEnabled(): bool
+    {
+        return $this->messagingCenterEnabled;
+    }
+
+    /**
+     * @param bool $messagingCenterEnabled
+     */
+    public function setMessagingCenterEnabled(bool $messagingCenterEnabled): void
+    {
+        $this->messagingCenterEnabled = $messagingCenterEnabled;
     }
 }

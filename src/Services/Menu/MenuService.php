@@ -17,7 +17,7 @@ use Jinya\Framework\Events\Menu\MenuDeleteEvent;
 use Jinya\Framework\Events\Menu\MenuFillFromArrayEvent;
 use Jinya\Framework\Events\Menu\MenuGetEvent;
 use Jinya\Framework\Events\Menu\MenuSaveEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuService implements MenuServiceInterface
 {

@@ -24,6 +24,10 @@ class CountEvent extends Event
 
     public const FORMS_POST_COUNT = 'FormsPostCount';
 
+    public const MESSAGES_PRE_COUNT = 'MessagesPreCount';
+
+    public const MESSAGES_POST_COUNT = 'MessagesPostCount';
+
     public const VIDEO_GALLERIES_PRE_COUNT = 'VideoGalleriesPreCount';
 
     public const VIDEO_GALLERIES_POST_COUNT = 'VideoGalleriesPostCount';

@@ -282,18 +282,18 @@ export default {
                     route: '/designer/static/forms/emailtemplates/:slug',
                 },
             },
-            Requests: {
+            Messages: {
                 Overview: {
-                    name: 'StaticFormsRequestsOverview',
-                    route: '/designer/static/forms/requests',
+                    name: 'StaticFormsMessagesOverview',
+                    route: '/designer/static/forms/messages',
                 },
-                Reply: {
-                    name: 'StaticFormsRequestsReply',
-                    route: '/designer/static/forms/requests/:slug/reply',
+                Action: {
+                    name: 'StaticFormsMessagesAction',
+                    route: '/designer/static/forms/messages/action/:action',
                 },
-                Details: {
-                    name: 'StaticFormsRequestsDetails',
-                    route: '/designer/static/forms/requests/:slug',
+                Form: {
+                    name: 'StaticFormsMessagesForm',
+                    route: '/designer/static/forms/messages/form/:slug',
                 },
             },
         },
