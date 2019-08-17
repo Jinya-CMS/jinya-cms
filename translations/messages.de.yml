@@ -541,6 +541,14 @@ static:
             archive: Archiv
             trash: Papierkorb
             spam: Spam
+            hover:
+                spam: Spam
+                archive: Archivieren
+                trash: Löschen
+                delete: Entgültig löschen
+                inbox: In den Posteingang
+                reply: Antworten
+                forward: Weiterleiten
         forms:
             builder:
                 title: Formular %title%

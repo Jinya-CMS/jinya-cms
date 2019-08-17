@@ -40,28 +40,28 @@
                         <!-- eslint-disable -->
                         <jinya-icon-button
                             :href="`mailto:${selectedMessage.fromAddress}?body=${encodeURI(getTextFromHtml(selectedMessage.content))}&subject=${encodeURI(selectedMessage.subject)}`"
-                            :is-primary="true"
-                            class="jinya-postbox__read-button" icon="reply"
-                            v-if="selectedPostbox.type !== 'spam'"/>
+                            :is-primary="true" :title="'static.forms.messages.hover.reply'|jmessage"
+                            class="jinya-postbox__read-button" icon="reply" v-if="selectedPostbox.type !== 'spam'"/>
                         <jinya-icon-button
                             :href="`mailto:?body=${encodeURI(getTextFromHtml(selectedMessage.content))}&subject=${encodeURI(selectedMessage.subject)}`"
-                            :is-primary="true"
-                            class="jinya-postbox__read-button" icon="forward"
-                            v-if="selectedPostbox.type !== 'spam'"/>
+                            :is-primary="true" :title="'static.forms.messages.hover.forward'|jmessage"
+                            class="jinya-postbox__read-button" icon="forward" v-if="selectedPostbox.type !== 'spam'"/>
                         <!-- eslint-enable -->
-                        <jinya-icon-button :is-primary="true" @click="move('spam')"
-                                           class="jinya-postbox__read-button" icon="file-document-box-remove-outline"
+                        <jinya-icon-button :is-primary="true" :title="'static.forms.messages.hover.spam'|jmessage"
+                                           @click="move('spam')" class="jinya-postbox__read-button"
+                                           icon="file-document-box-remove-outline"
                                            v-if="selectedPostbox.type === 'inbox' || selectedPostbox.type === 'all'"/>
-                        <jinya-icon-button :is-primary="true" @click="move('archive')"
-                                           class="jinya-postbox__read-button" icon="archive"
+                        <jinya-icon-button :is-primary="true" :title="'static.forms.messages.hover.archive'|jmessage"
+                                           @click="move('archive')" class="jinya-postbox__read-button" icon="archive"
                                            v-if="selectedPostbox.type !== 'archived'"/>
-                        <jinya-icon-button :is-primary="true" @click="move('inbox')" class="jinya-postbox__read-button"
-                                           icon="inbox"
+                        <jinya-icon-button :is-primary="true" :title="'static.forms.messages.hover.inbox'|jmessage"
+                                           @click="move('inbox')" class="jinya-postbox__read-button" icon="inbox"
                                            v-if="selectedPostbox.type !== 'inbox' && selectedPostbox.type !== 'all'"/>
-                        <jinya-icon-button :is-danger="true" @click="move('trash')" class="jinya-postbox__read-button"
-                                           icon="trash-can" v-if="selectedPostbox.type !== 'deleted'"/>
-                        <jinya-icon-button :is-danger="true" @click="deletePermanently"
-                                           class="jinya-postbox__read-button" icon="close"
+                        <jinya-icon-button :is-danger="true" :title="'static.forms.messages.hover.trash'|jmessage"
+                                           @click="move('trash')" class="jinya-postbox__read-button" icon="trash-can"
+                                           v-if="selectedPostbox.type !== 'deleted'"/>
+                        <jinya-icon-button :is-danger="true" :title="'static.forms.messages.hover.delete'|jmessage"
+                                           @click="deletePermanently" class="jinya-postbox__read-button" icon="close"
                                            v-if="selectedPostbox.type === 'deleted'"/>
                     </div>
                 </div>
