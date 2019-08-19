@@ -13,9 +13,9 @@ use Jinya\Framework\Events\Media\MediaGetEvent;
 use Jinya\Framework\Events\Media\MediaMoveEvent;
 use Jinya\Framework\Events\Media\MediaSaveEvent;
 use SplFileInfo;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MediaService implements MediaServiceInterface
 {
@@ -52,7 +52,7 @@ class MediaService implements MediaServiceInterface
     {
         $preSave = $this->eventDispatcher->dispatch(MediaSaveEvent::PRE_SAVE, new MediaSaveEvent($file, $type));
         if (empty($preSave->getLocation())) {
-            $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
+            $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid('media-temp', true);
             file_put_contents($tmpFilename, $file);
 
             $location = $this->moveFile($tmpFilename, $type);

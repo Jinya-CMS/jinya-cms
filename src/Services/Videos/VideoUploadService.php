@@ -114,7 +114,7 @@ class VideoUploadService implements VideoUploadServiceInterface
         if (!$pre->isCancel()) {
             $uploadingVideo = $this->getUploadingVideo($slug);
             $chunkDirectory = $this->tmpDir;
-            $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug);
+            $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug, true);
 
             if (!mkdir($chunkDirectory) && !is_dir($chunkDirectory)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
@@ -169,7 +169,7 @@ class VideoUploadService implements VideoUploadServiceInterface
             new VideoUploadFinishUploadEvent($chunks, $slug)
         );
         if (empty($pre->getPath())) {
-            $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
+            $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid('last-chunk', true);
             $newFileHandle = fopen($newFile, 'a');
 
             try {
