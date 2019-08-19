@@ -100,8 +100,8 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
-                        'slug',
-                        $parameter
+                    'slug',
+                    $parameter
                     ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
