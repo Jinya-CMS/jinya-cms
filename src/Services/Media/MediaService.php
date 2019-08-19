@@ -76,7 +76,9 @@ class MediaService implements MediaServiceInterface
     private function moveFile(string $oldFile, string $type): string
     {
         $directory = $this->getFilePath($type);
-        @mkdir($directory, 0775, true);
+        if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
+        }
 
         $hashCtx = hash_init('sha256');
         hash_update_file($hashCtx, $oldFile);

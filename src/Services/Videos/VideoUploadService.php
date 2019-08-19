@@ -116,7 +116,9 @@ class VideoUploadService implements VideoUploadServiceInterface
             $chunkDirectory = $this->tmpDir;
             $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug);
 
-            @mkdir($chunkDirectory);
+            if (!mkdir($chunkDirectory) && !is_dir($chunkDirectory)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
+            }
             file_put_contents($chunkPath, $chunk);
 
             $uploadingVideoChunk = new UploadingVideoChunk();
