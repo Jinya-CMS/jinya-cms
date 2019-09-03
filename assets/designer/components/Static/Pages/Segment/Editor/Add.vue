@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import MonacoEditor from 'vue-monaco';
   import JinyaModal from '@/framework/Markup/Modal/Modal';
   import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
   import JinyaChoice from '@/framework/Markup/Form/Choice';
@@ -30,7 +31,6 @@
   import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
   import JinyaInput from '@/framework/Markup/Form/Input';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-  import MonacoEditor from 'vue-monaco';
 
   export default {
     components: {

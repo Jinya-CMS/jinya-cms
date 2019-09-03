@@ -1,5 +1,5 @@
-import Translator from '@/framework/i18n/Translator';
 import Vue from 'vue';
+import Translator from '@/framework/i18n/Translator';
 
 const i18n = {
     install(LocalVue) {
