@@ -64,7 +64,7 @@
   import Timing from '@/framework/Utils/Timing';
   import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
   import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import DOMUtils from "@/framework/Utils/DOMUtils";
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
   export default {
     name: 'Links',

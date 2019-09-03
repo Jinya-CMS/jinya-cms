@@ -5,8 +5,7 @@ import NotAllowedError from '@/framework/Ajax/Error/NotAllowedError';
 import UnauthorizedError from '@/framework/Ajax/Error/UnauthorizedError';
 import NotFoundError from '@/framework/Ajax/Error/NotFoundError';
 
-function send(verb, url, data, contentType, apiKey)
-{
+function send(verb, url, data, contentType, apiKey) {
     const headers = {
         JinyaApiKey: apiKey,
         'Content-Type': contentType,
@@ -26,7 +25,7 @@ function send(verb, url, data, contentType, apiKey)
         }
     }
 
-    return fetch(url, request).then(async(response) => {
+    return fetch(url, request).then(async (response) => {
         if (response.ok) {
             if (response.status !== 204) {
                 return response.json();

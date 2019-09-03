@@ -12,8 +12,7 @@ import '@/scss/roboto-fontface.scss';
 
 Vue.config.productionTip = false;
 
-function startApp()
-{
+function startApp() {
     // eslint-disable-next-line no-new
     new Vue({
         el: '#app',
@@ -25,7 +24,7 @@ function startApp()
     });
 }
 
-(async() => {
+(async () => {
     try {
         await refreshMe();
         startApp();

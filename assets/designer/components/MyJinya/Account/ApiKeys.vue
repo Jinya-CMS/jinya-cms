@@ -12,13 +12,13 @@
 </template>
 
 <script>
+  import UAParser from 'ua-parser-js';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Translator from '@/framework/i18n/Translator';
   import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaButton from '@/framework/Markup/Button';
-  import UAParser from 'ua-parser-js';
   import Routes from '@/router/Routes';
   import { getApiKey } from '@/framework/Storage/AuthStorage';
 
