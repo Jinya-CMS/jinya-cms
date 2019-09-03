@@ -34,14 +34,14 @@ class YoutubeVideoController extends BaseApiController
         YoutubeVideoServiceInterface $youtubeVideoService,
         YoutubeVideoFormatterInterface $formatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $formatter, $youtubeVideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $formatter, $youtubeVideoService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
             $videos = $youtubeVideoService->getAll($offset, $count, $keyword);
             $allCount = $youtubeVideoService->countAll($keyword);
 
-            $videos = array_map(function (YoutubeVideo $video) use ($formatter) {
+            $videos = array_map(static function (YoutubeVideo $video) use ($formatter) {
                 return $formatter
                     ->init($video)
                     ->slug()
@@ -74,7 +74,7 @@ class YoutubeVideoController extends BaseApiController
         YoutubeVideoServiceInterface $youtubeVideoService,
         YoutubeVideoFormatterInterface $formatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formatter, $youtubeVideoService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $formatter, $youtubeVideoService) {
             $video = $youtubeVideoService->get($slug);
 
             return [
@@ -104,7 +104,7 @@ class YoutubeVideoController extends BaseApiController
      */
     public function postAction(YoutubeVideoServiceInterface $youtubeVideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($youtubeVideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($youtubeVideoService) {
             $slug = $this->getValue('slug', '');
             $name = $this->getValue('name');
             $description = $this->getValue('description');
@@ -145,7 +145,7 @@ class YoutubeVideoController extends BaseApiController
      */
     public function putAction(string $slug, YoutubeVideoServiceInterface $youtubeVideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $youtubeVideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $youtubeVideoService) {
             $video = $youtubeVideoService->get($slug);
 
             $slug = $this->getValue('slug', $video->getSlug());
@@ -174,7 +174,7 @@ class YoutubeVideoController extends BaseApiController
      */
     public function deleteAction(string $slug, YoutubeVideoServiceInterface $youtubeVideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $youtubeVideoService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $youtubeVideoService) {
             $youtubeVideoService->delete($youtubeVideoService->get($slug));
         }, Response::HTTP_NO_CONTENT);
 

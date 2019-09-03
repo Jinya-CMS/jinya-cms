@@ -35,7 +35,7 @@ class AccountController extends BaseApiController
      */
     public function twoFactorAction(AuthenticationServiceInterface $authenticationService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($authenticationService) {
+        [$data, $status] = $this->tryExecute(function () use ($authenticationService) {
             $username = $this->getValue('username', '');
 
             $authenticationService->setAndSendTwoFactorCode($username);
@@ -57,7 +57,7 @@ class AccountController extends BaseApiController
         UserServiceInterface $userService,
         AuthenticationServiceInterface $authenticationService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($authenticationService, $apiKeyTool, $userService) {
+        [$data, $status] = $this->tryExecute(function () use ($authenticationService, $apiKeyTool, $userService) {
             $username = $this->getValue('username', '');
             $password = $this->getValue('password', '');
             $twoFactorToken = $this->getValue('twoFactorCode', '');
@@ -105,6 +105,8 @@ class AccountController extends BaseApiController
     public function getAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
     {
         [$data, $status] = $this->tryExecute(function () use ($userService, $userFormatter) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $user = $userService->get($this->getUser()->getId());
 
             return $userFormatter
@@ -132,6 +134,8 @@ class AccountController extends BaseApiController
     public function putDataAction(UserServiceInterface $userService): Response
     {
         [$data, $status] = $this->tryExecute(function () use ($userService) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $user = $userService->get($this->getUser()->getId());
             $artistName = $this->getValue('artistName', $user->getLastname());
             $email = $this->getValue('email', $user->getEmail());
@@ -180,7 +184,7 @@ class AccountController extends BaseApiController
                 if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password'))) {
                     $user->setConfirmationToken($confirmToken);
 
-                    $userService->saveOrUpdate($user, false);
+                    $userService->saveOrUpdate($user);
 
                     return [
                         'url' => $urlGenerator->generate('api_account_password_put'),

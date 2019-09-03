@@ -32,7 +32,11 @@ class AssetsController extends BaseApiController
         ConfigurationServiceInterface $configurationService,
         ThemeCompilerServiceInterface $themeCompilerService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($area, $configurationService, $themeCompilerService) {
+        [$data, $status] = $this->tryExecute(static function () use (
+            $area,
+            $configurationService,
+            $themeCompilerService
+        ) {
             $config = $configurationService->getConfig();
             $method = "getCurrent${area}Theme()";
 

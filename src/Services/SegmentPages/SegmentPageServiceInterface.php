@@ -51,5 +51,5 @@ interface SegmentPageServiceInterface
      * @param string $slug
      * @return SegmentPage
      */
-    public function get(string $slug): ?SegmentPage;
+    public function get(string $slug): SegmentPage;
 }

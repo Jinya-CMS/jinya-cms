@@ -21,7 +21,8 @@ use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
 use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
@@ -35,9 +36,12 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ArtworkPositionService constructor.
@@ -125,8 +129,12 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition)
-    {
+    public function updatePosition(
+        string $gallerySlug,
+        int $artworkPositionId,
+        int $oldPosition,
+        int $newPosition
+    ): void {
         $pre = $this->eventDispatcher->dispatch(
             ArtworkPositionUpdateEvent::PRE_UPDATE,
             new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition)
@@ -136,7 +144,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             $gallery = $this->galleryService->get($gallerySlug);
             $artworks = $gallery->getArtworks();
 
-            $artwork = $artworks->filter(function (ArtworkPosition $item) use ($oldPosition) {
+            $artwork = $artworks->filter(static function (ArtworkPosition $item) use ($oldPosition) {
                 return $item->getPosition() === $oldPosition;
             })->first();
 
@@ -207,7 +215,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @param int $id
      * @param string $artworkSlug
      */
-    public function updateArtwork(int $id, string $artworkSlug)
+    public function updateArtwork(int $id, string $artworkSlug): void
     {
         $artwork = $this->artworkService->get($artworkSlug);
         $pre = $this->eventDispatcher->dispatch(

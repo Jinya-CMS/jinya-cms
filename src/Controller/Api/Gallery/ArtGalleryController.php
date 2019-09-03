@@ -37,7 +37,7 @@ class ArtGalleryController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         ArtGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $statusCode) = $this->tryExecute(function () use (
+        [$data, $statusCode] = $this->tryExecute(function () use (
             $labelService,
             $request,
             $galleryFormatter,
@@ -46,14 +46,14 @@ class ArtGalleryController extends BaseApiController
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
-            $label = $request->get('label', null);
+            $label = $request->get('label');
 
             if ($label) {
                 $label = $labelService->getLabel($label);
             }
 
             $entityCount = $galleryService->countAll($keyword);
-            $entities = array_map(function ($gallery) use ($galleryFormatter) {
+            $entities = array_map(static function ($gallery) use ($galleryFormatter) {
                 return $galleryFormatter
                     ->init($gallery)
                     ->name()
@@ -94,7 +94,7 @@ class ArtGalleryController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         ArtGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($galleryFormatter, $slug, $galleryService) {
+        [$data, $status] = $this->tryExecute(function () use ($galleryFormatter, $slug, $galleryService) {
             $gallery = $galleryService->get($slug);
             $result = $galleryFormatter->init($gallery)
                 ->name()
@@ -134,7 +134,7 @@ class ArtGalleryController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         ArtGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
@@ -177,7 +177,7 @@ class ArtGalleryController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         ArtGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
             $name = $this->getValue('name', $gallery->getName());
@@ -221,7 +221,7 @@ class ArtGalleryController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);
             if (!empty($gallery->getBackground())) {
                 $mediaService->deleteMedia($gallery->getBackground());

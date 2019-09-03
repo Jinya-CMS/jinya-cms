@@ -27,7 +27,7 @@ class ThemePreviewImageController extends BaseApiController
     public function getAction(string $name, ThemeServiceInterface $themeService): Response
     {
         /** @var $data Theme|array */
-        list($data, $status) = $this->tryExecute(function () use ($name, $themeService) {
+        [$data, $status] = $this->tryExecute(static function () use ($name, $themeService) {
             $theme = $themeService->getTheme($name);
 
             if (empty($theme->getPreviewImage())) {
@@ -39,8 +39,8 @@ class ThemePreviewImageController extends BaseApiController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($data->getPreviewImage(), $data->getDisplayName() . '.jpg');
         }
+
+        return $this->file($data->getPreviewImage(), $data->getDisplayName() . '.jpg');
     }
 }

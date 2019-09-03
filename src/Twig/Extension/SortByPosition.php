@@ -30,7 +30,7 @@ class SortByPosition extends Twig_Extension
             $elements = $items;
         }
 
-        usort($elements, function ($item1, $item2) {
+        usort($elements, static function ($item1, $item2) {
             /** @var MenuItem $item1 */
             /** @var MenuItem $item2 */
             if ($item1->getPosition() === $item2->getPosition()) {

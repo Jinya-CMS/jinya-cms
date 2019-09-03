@@ -100,8 +100,10 @@ abstract class BaseController
         $controller = $this->convertRouteToControllerName($route->getRouteName());
         $path = $route->getRouteParameter();
 
+        /** @noinspection NullPointerExceptionInspection */
         $path['_forwarded'] = $request->attributes;
         $path['_controller'] = $controller;
+        /** @noinspection NullPointerExceptionInspection */
         $subRequest = $request->duplicate([], null, $path);
 
         return $this->kernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
@@ -115,6 +117,7 @@ abstract class BaseController
     {
         $routes = $this->router->getRouteCollection();
 
+        /** @noinspection NullPointerExceptionInspection */
         return $routes->get($routeName)->getDefaults()['_controller'];
     }
 

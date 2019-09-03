@@ -42,6 +42,8 @@ class FormCacheSubscriber implements EventSubscriberInterface
     public function onFormSave(FormEvent $event): FormEvent
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::FORM);
+
+        return $event;
     }
 
     public function onItemPositionSave(FormItemPositionEvent $event): FormItemPositionEvent
@@ -54,6 +56,7 @@ class FormCacheSubscriber implements EventSubscriberInterface
 
     public function onItemSave(FormItemEvent $event): FormItemEvent
     {
+        /** @noinspection NullPointerExceptionInspection */
         $form = $event->getFormItem()->getForm();
         $this->cacheBuilder->buildCacheBySlugAndType($form->getSlug(), CacheBuilderInterface::FORM);
 

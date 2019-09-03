@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Pages\PageEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PageService implements PageServiceInterface
 {
@@ -28,12 +29,12 @@ class PageService implements PageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
-
-    /** @var SlugServiceInterface */
-    private $slugService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * PageService constructor.
@@ -49,7 +50,6 @@ class PageService implements PageServiceInterface
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Page::class);
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->slugService = $slugService;
     }
 
     /**
@@ -101,7 +101,7 @@ class PageService implements PageServiceInterface
      * @param string $keyword
      * @return QueryBuilder
      */
-    private function getFilteredQueryBuilder(string $keyword)
+    private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->from(Page::class, 'page')

@@ -11,7 +11,8 @@ use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\MessageEvent;
 use Jinya\Services\Base\BaseService;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MessageService implements MessageServiceInterface
 {
@@ -20,9 +21,12 @@ class MessageService implements MessageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MessageService constructor.
@@ -159,10 +163,9 @@ class MessageService implements MessageServiceInterface
     }
 
     /**
-     * Saves or updates the given @param Message $message
-     * @return Message
-     * @throws EmptySlugException
-     * @see Message
+     * Saves or updates the given
+     * @param Message $message
+     * @return Message @see Message
      */
     public function saveOrUpdate(Message $message): Message
     {

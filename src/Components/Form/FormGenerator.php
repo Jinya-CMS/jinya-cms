@@ -65,7 +65,7 @@ class FormGenerator implements FormGeneratorInterface
                 $options['placeholder'] = $activeTheme->getConfiguration()['form']['dropdowns']['placeholder'];
             }
 
-            if (strpos($item->getType(), 'TextareaType') != -1) {
+            if (strpos($item->getType(), 'TextareaType') !== false) {
                 $options['attr'] = [
                     'rows' => 10,
                 ];

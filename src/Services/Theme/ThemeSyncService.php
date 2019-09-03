@@ -80,7 +80,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
             $theme->setConfiguration([]);
         }
         if (array_key_exists('previewImage', $config)) {
-            $previewImagePath = $this->themeDirectory . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . $config['previewImage'];
+            $previewImagePath = implode(DIRECTORY_SEPARATOR, [$this->themeDirectory, $name, $config['previewImage']]);
             $theme->setPreviewImage($previewImagePath);
         }
 

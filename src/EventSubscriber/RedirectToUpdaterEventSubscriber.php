@@ -60,7 +60,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onSymfonyRequest(GetResponseEvent $event)
+    public function onSymfonyRequest(GetResponseEvent $event): void
     {
         $updateLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock';
         $fs = new FileSystem();

@@ -57,7 +57,7 @@ class ApiKeyTool implements ApiKeyToolInterface
         try {
             $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
         } catch (Exception $e) {
-            $key->setKey(uniqid("jinya-api-token-$userId-"));
+            $key->setKey(uniqid("jinya-api-token-$userId-", true));
         }
 
         $this->entityManager->persist($key);

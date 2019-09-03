@@ -6,9 +6,9 @@
   "author": "Imanuel Ulbricht <imanuel@ulbricht.codes>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --ext .js,.vue",
-    "lint:fix": "eslint --ext .js,.vue --fix",
-    "lint:report": "eslint --ext .js,.vue -f node_modules/eslint-html-reporter/reporter.js -o report.html",
+    "lint": "eslint --ext .js,.vue .",
+    "lint:fix": "eslint --ext .js,.vue --fix .",
+    "lint:report": "eslint --ext .js,.vue -f node_modules/eslint-html-reporter/reporter.js -o report.html .",
     "theme:compile:js": "gulp --gulpfile themes/jinya-default-theme/Gulpfile.js"
   },
   "dependencies": {

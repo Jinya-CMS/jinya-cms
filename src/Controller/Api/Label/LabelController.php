@@ -29,7 +29,7 @@ class LabelController extends BaseApiController
      */
     public function getAllAction(LabelServiceInterface $labelService, LabelFormatterInterface $labelFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($labelService, $labelFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($labelService, $labelFormatter) {
             $labels = $labelService->getAllLabels();
             $result = [];
 
@@ -60,7 +60,7 @@ class LabelController extends BaseApiController
         LabelServiceInterface $labelService,
         LabelFormatterInterface $labelFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($name, $labelService, $labelFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($name, $labelService, $labelFormatter) {
             $label = $labelService->getLabel($name);
 
             return $labelFormatter
@@ -84,12 +84,11 @@ class LabelController extends BaseApiController
      * @return Response
      */
     public function postAction(
-        Request $request,
         LabelServiceInterface $labelService,
         LabelFormatterInterface $labelFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $labelService, $labelFormatter) {
-            $name = $this->getValue('name', null);
+        [$data, $status] = $this->tryExecute(function () use ($labelService, $labelFormatter) {
+            $name = $this->getValue('name');
             if (empty($name)) {
                 throw new MissingFieldsException(['name' => 'api.label.field.name.missing']);
             }
@@ -112,11 +111,10 @@ class LabelController extends BaseApiController
      */
     public function putAction(
         string $name,
-        Request $request,
         LabelServiceInterface $labelService,
         LabelFormatterInterface $labelFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($name, $request, $labelService, $labelFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($name,  $labelService, $labelFormatter) {
             $newName = $this->getValue('name', $name);
 
             return $labelFormatter
@@ -138,7 +136,7 @@ class LabelController extends BaseApiController
      */
     public function deleteAction(string $name, LabelServiceInterface $labelService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($name, $labelService) {
+        [$data, $status] = $this->tryExecute(static function () use ($name, $labelService) {
             $labelService->deleteLabel($name);
         }, Response::HTTP_NO_CONTENT);
 

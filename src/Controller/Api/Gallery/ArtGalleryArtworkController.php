@@ -32,7 +32,7 @@ class ArtGalleryArtworkController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         ArtGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
 
             return $galleryFormatter->init($gallery)->artworks()->format()['artworks'];
@@ -51,9 +51,9 @@ class ArtGalleryArtworkController extends BaseApiController
      */
     public function postAction(string $gallerySlug, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $artworkPositionService) {
+        [$data, $status] = $this->tryExecute(function () use ($gallerySlug, $artworkPositionService) {
             $position = $this->getValue('position', -1);
-            $artworkSlug = $this->getValue('artwork', null);
+            $artworkSlug = $this->getValue('artwork');
 
             if (empty($artworkSlug)) {
                 throw new MissingFieldsException(['artwork' => 'api.gallery.field.artworkSlug.missing']);
@@ -75,7 +75,7 @@ class ArtGalleryArtworkController extends BaseApiController
      */
     public function deleteAction(int $id, ArtworkPositionServiceInterface $artworkPositionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $artworkPositionService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $artworkPositionService) {
             $artworkPositionService->deletePosition($id);
         }, Response::HTTP_NO_CONTENT);
 
@@ -98,14 +98,14 @@ class ArtGalleryArtworkController extends BaseApiController
         string $gallerySlug,
         ArtworkPositionServiceInterface $artworkPositionService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $gallerySlug,
             $id,
             $oldPosition,
             $artworkPositionService
         ) {
-            $newPosition = $this->getValue('position', null);
-            $artworkSlug = $this->getValue('artwork', null);
+            $newPosition = $this->getValue('position');
+            $artworkSlug = $this->getValue('artwork');
 
             if (!empty($artworkSlug)) {
                 $artworkPositionService->updateArtwork($id, $artworkSlug);

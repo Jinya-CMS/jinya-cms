@@ -32,7 +32,7 @@ class ArtGalleryLabelController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         LabelFormatterInterface $labelFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $labelFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $galleryService, $labelFormatter) {
             $gallery = $galleryService->get($slug);
             $labels = [];
 
@@ -65,7 +65,7 @@ class ArtGalleryLabelController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         LabelServiceInterface $labelService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $name, $galleryService, $labelService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $name, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
 
             $gallery->getLabels()->add($labelService->getLabel($name));
@@ -88,7 +88,7 @@ class ArtGalleryLabelController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         LabelServiceInterface $labelService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $labelService) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
             $labels = $this->getValue('labels', []);
 
@@ -122,7 +122,7 @@ class ArtGalleryLabelController extends BaseApiController
         ArtGalleryServiceInterface $galleryService,
         LabelServiceInterface $labelService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $name, $galleryService, $labelService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $name, $galleryService, $labelService) {
             $gallery = $galleryService->get($slug);
 
             $gallery->getLabels()->removeElement($labelService->getLabel($name));
@@ -142,7 +142,7 @@ class ArtGalleryLabelController extends BaseApiController
      */
     public function deleteBatchAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $galleryService) {
             $gallery = $galleryService->get($slug);
 
             $gallery->getLabels()->clear();

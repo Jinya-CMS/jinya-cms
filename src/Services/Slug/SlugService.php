@@ -26,7 +26,7 @@ class SlugService implements SlugServiceInterface
             );
             $slug = preg_replace('/[-\s]+/', '-', $slug);
         } else {
-            $slug = Transliterator::transliterate($name, '-');
+            $slug = Transliterator::transliterate($name);
         }
 
         return trim($slug, '-');

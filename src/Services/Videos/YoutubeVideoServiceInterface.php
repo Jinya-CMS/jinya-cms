@@ -51,5 +51,5 @@ interface YoutubeVideoServiceInterface
      * @param string $slug
      * @return YoutubeVideo
      */
-    public function get(string $slug): ?YoutubeVideo;
+    public function get(string $slug): YoutubeVideo;
 }

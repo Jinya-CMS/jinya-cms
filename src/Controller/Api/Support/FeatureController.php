@@ -28,9 +28,9 @@ class FeatureController extends BaseApiController
      * @param Client $client
      * @return Response
      */
-    public function submitAction(Request $request, Client $client): Response
+    public function submitAction(Client $client): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $client) {
+        [$data, $status] = $this->tryExecute(function () use ($client) {
             /** @var User $user */
             $user = $this->getUser();
             $feature = [

@@ -43,7 +43,9 @@ class BaseSlugEntityService extends BaseService
      */
     public function saveOrUpdate($entity)
     {
-        if (null === $entity->getSlug() || '' === $entity->getSlug()) {
+        $slug = $entity->getSlug();
+
+        if (null === $slug || '' === $slug) {
             if (method_exists($entity, 'getTitle')) {
                 $slugBase = $entity->getTitle();
             } elseif (method_exists($entity, 'getName')) {
@@ -54,8 +56,6 @@ class BaseSlugEntityService extends BaseService
 
             $entity->setSlug($this->slugService->generateSlug($slugBase));
         }
-
-        $entity->setSlug($entity->getSlug());
 
         return parent::saveOrUpdate($entity);
     }

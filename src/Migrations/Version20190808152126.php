@@ -12,6 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190808152126 extends AbstractMigration
 {
+    /** @noinspection SenselessMethodDuplicationInspection */
     public function getDescription(): string
     {
         return '';
@@ -20,18 +21,30 @@ final class Version20190808152126 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
-            'Migration can only be executed safely on \'mysql\'.');
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->abortIf(
+            $this->connection->getDatabasePlatform()->getName() !== 'mysql',
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
-        $this->addSql('ALTER TABLE message ADD spam TINYINT(1) NOT NULL');
+        $this->addSql('# noinspection SqlResolveForFile
+
+ALTER TABLE message ADD spam TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
-            'Migration can only be executed safely on \'mysql\'.');
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->abortIf(
+            $this->connection->getDatabasePlatform()->getName() !== 'mysql',
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
-        $this->addSql('ALTER TABLE message DROP spam');
+        $this->addSql('# noinspection SqlResolveForFile
+
+# noinspection SqlResolveForFile
+
+ALTER TABLE message DROP spam');
     }
 }

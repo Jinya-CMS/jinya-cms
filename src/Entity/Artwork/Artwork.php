@@ -56,7 +56,7 @@ class Artwork extends HistoryEnabledEntity
     /**
      * @return Collection
      */
-    public function getLabels(): ?Collection
+    public function getLabels(): Collection
     {
         return $this->labels;
     }
@@ -72,7 +72,7 @@ class Artwork extends HistoryEnabledEntity
     /**
      * @return Collection
      */
-    public function getPositions(): ?Collection
+    public function getPositions(): Collection
     {
         return $this->positions;
     }
@@ -80,7 +80,7 @@ class Artwork extends HistoryEnabledEntity
     /**
      * @param Collection $positions
      */
-    public function setPositions(Collection $positions)
+    public function setPositions(Collection $positions): void
     {
         $this->positions = $positions;
     }
@@ -96,7 +96,7 @@ class Artwork extends HistoryEnabledEntity
     /**
      * @param string $picture
      */
-    public function setPicture(string $picture)
+    public function setPicture(string $picture): void
     {
         $this->picture = $picture;
     }

@@ -33,7 +33,11 @@ class Menu implements JsonSerializable
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="menu", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *     targetEntity="Jinya\Entity\Menu\MenuItem",
+     *     mappedBy="menu",
+     *     orphanRemoval=true, cascade={"persist", "remove"}
+     * )
      * @var Collection
      */
     private $menuItems;
@@ -63,7 +67,7 @@ class Menu implements JsonSerializable
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -79,7 +83,7 @@ class Menu implements JsonSerializable
     /**
      * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -95,7 +99,7 @@ class Menu implements JsonSerializable
     /**
      * @return Collection
      */
-    public function getMenuItems(): ?Collection
+    public function getMenuItems(): Collection
     {
         return $this->menuItems;
     }

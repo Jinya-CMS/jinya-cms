@@ -17,15 +17,19 @@ use Jinya\Framework\Events\Menu\MenuDeleteEvent;
 use Jinya\Framework\Events\Menu\MenuFillFromArrayEvent;
 use Jinya\Framework\Events\Menu\MenuGetEvent;
 use Jinya\Framework\Events\Menu\MenuSaveEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuService implements MenuServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MenuService constructor.
@@ -175,7 +179,7 @@ class MenuService implements MenuServiceInterface
      */
     private function fixPositions(array $items): array
     {
-        $positionZero = array_filter($items, function (MenuItem $item) {
+        $positionZero = array_filter($items, static function (MenuItem $item) {
             return 0 === $item->getPosition();
         });
 

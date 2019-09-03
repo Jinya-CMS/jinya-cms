@@ -111,7 +111,7 @@ class SetupData
     /**
      * @param string $mailerTransport
      */
-    public function setMailerTransport(string $mailerTransport)
+    public function setMailerTransport(string $mailerTransport): void
     {
         $this->mailerTransport = $mailerTransport;
     }
@@ -127,7 +127,7 @@ class SetupData
     /**
      * @param string $mailerHost
      */
-    public function setMailerHost(string $mailerHost)
+    public function setMailerHost(string $mailerHost): void
     {
         $this->mailerHost = $mailerHost;
     }
@@ -143,7 +143,7 @@ class SetupData
     /**
      * @param string $mailerUser
      */
-    public function setMailerUser(string $mailerUser)
+    public function setMailerUser(string $mailerUser): void
     {
         $this->mailerUser = $mailerUser;
     }
@@ -159,7 +159,7 @@ class SetupData
     /**
      * @param string $mailerPassword
      */
-    public function setMailerPassword(string $mailerPassword)
+    public function setMailerPassword(string $mailerPassword): void
     {
         $this->mailerPassword = $mailerPassword;
     }
@@ -175,7 +175,7 @@ class SetupData
     /**
      * @param string $databaseHost
      */
-    public function setDatabaseHost(string $databaseHost)
+    public function setDatabaseHost(string $databaseHost): void
     {
         $this->databaseHost = $databaseHost;
     }
@@ -191,7 +191,7 @@ class SetupData
     /**
      * @param int $databasePort
      */
-    public function setDatabasePort(int $databasePort)
+    public function setDatabasePort(int $databasePort): void
     {
         $this->databasePort = $databasePort;
     }
@@ -207,7 +207,7 @@ class SetupData
     /**
      * @param string $databaseUser
      */
-    public function setDatabaseUser(string $databaseUser)
+    public function setDatabaseUser(string $databaseUser): void
     {
         $this->databaseUser = $databaseUser;
     }
@@ -223,7 +223,7 @@ class SetupData
     /**
      * @param string $databasePassword
      */
-    public function setDatabasePassword(string $databasePassword)
+    public function setDatabasePassword(string $databasePassword): void
     {
         $this->databasePassword = $databasePassword;
     }
@@ -239,7 +239,7 @@ class SetupData
     /**
      * @param string $databaseName
      */
-    public function setDatabaseName(string $databaseName)
+    public function setDatabaseName(string $databaseName): void
     {
         $this->databaseName = $databaseName;
     }
@@ -255,7 +255,7 @@ class SetupData
     /**
      * @param int $mailerPort
      */
-    public function setMailerPort(int $mailerPort)
+    public function setMailerPort(int $mailerPort): void
     {
         $this->mailerPort = $mailerPort;
     }

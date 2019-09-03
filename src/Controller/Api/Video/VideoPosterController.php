@@ -35,7 +35,7 @@ class VideoPosterController extends BaseApiController
         MediaServiceInterface $mediaService
     ): Response {
         /** @var $data Video|array */
-        list($data, $status) = $this->tryExecute(function () use ($videoService, $slug) {
+        [$data, $status] = $this->tryExecute(static function () use ($videoService, $slug) {
             $video = $videoService->get($slug);
             if (empty($video->getPoster())) {
                 throw new FileNotFoundException($video->getName());
@@ -46,9 +46,9 @@ class VideoPosterController extends BaseApiController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($mediaService->getMedia($data->getPoster()), $data->getName() . '.poster.jpg');
         }
+
+        return $this->file($mediaService->getMedia($data->getPoster()), $data->getName() . '.poster.jpg');
     }
 
     /**
@@ -69,7 +69,7 @@ class VideoPosterController extends BaseApiController
         MediaServiceInterface $mediaService,
         UrlGeneratorInterface $urlGenerator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(static function () use (
             $request,
             $videoService,
             $mediaService,

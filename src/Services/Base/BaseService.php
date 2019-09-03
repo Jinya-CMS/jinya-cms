@@ -11,7 +11,6 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
-use Jinya\Entity\Base\BaseEntity;
 
 class BaseService
 {
@@ -32,20 +31,11 @@ class BaseService
         $this->entityType = $entityType;
     }
 
-    public function updateField(string $key, string $value, int $id)
-    {
-        $entity = $this->entityManager->find($this->entityType, $id);
-        $entity->{"set$key"}($value);
-
-        /* @noinspection PhpParamsInspection */
-        $this->saveOrUpdate($entity);
-    }
-
     /**
      * Saves the given entity
      *
-     * @param BaseEntity $entity
-     * @return BaseEntity
+     * @param mixed $entity
+     * @return mixed
      */
     public function saveOrUpdate($entity)
     {

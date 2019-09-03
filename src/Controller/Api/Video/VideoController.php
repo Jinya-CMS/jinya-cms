@@ -34,14 +34,14 @@ class VideoController extends BaseApiController
         VideoServiceInterface $VideoService,
         VideoFormatterInterface $formatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $formatter, $VideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $formatter, $VideoService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
             $videos = $VideoService->getAll($offset, $count, $keyword);
             $allCount = $VideoService->countAll($keyword);
 
-            $videos = array_map(function (Video $video) use ($formatter) {
+            $videos = array_map(static function (Video $video) use ($formatter) {
                 return $formatter
                     ->init($video)
                     ->slug()
@@ -82,7 +82,7 @@ class VideoController extends BaseApiController
         VideoServiceInterface $VideoService,
         VideoFormatterInterface $formatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formatter, $VideoService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $formatter, $VideoService) {
             $video = $VideoService->get($slug);
 
             return [
@@ -113,7 +113,7 @@ class VideoController extends BaseApiController
      */
     public function postAction(VideoServiceInterface $VideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($VideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($VideoService) {
             $slug = $this->getValue('slug', '');
             $name = $this->getValue('name');
             $description = $this->getValue('description');
@@ -149,7 +149,7 @@ class VideoController extends BaseApiController
      */
     public function putAction(string $slug, VideoServiceInterface $VideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $VideoService) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $VideoService) {
             $video = $VideoService->get($slug);
 
             $slug = $this->getValue('slug', $video->getSlug());
@@ -176,7 +176,7 @@ class VideoController extends BaseApiController
      */
     public function deleteAction(string $slug, VideoServiceInterface $VideoService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $VideoService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $VideoService) {
             $VideoService->delete($VideoService->get($slug));
         }, Response::HTTP_NO_CONTENT);
 

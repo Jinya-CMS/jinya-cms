@@ -13,7 +13,8 @@ use Exception;
 use Jinya\Entity\Configuration\Configuration;
 use Jinya\Framework\Events\Configuration\ConfigurationEvent;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
@@ -24,9 +25,12 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /** @var ThemeServiceInterface */
     private $themeService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ConfigurationService constructor.

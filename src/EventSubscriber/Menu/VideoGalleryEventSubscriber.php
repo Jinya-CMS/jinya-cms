@@ -60,7 +60,7 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostVideoGallerySave(VideoGalleryEvent $event)
+    public function onPostVideoGallerySave(VideoGalleryEvent $event): void
     {
         foreach ($this->affectedRoutes as $affectedRoute) {
             $parameter = $affectedRoute->getRouteParameter();
@@ -75,10 +75,12 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
      * @param VideoGalleryEvent $event
      * @throws NonUniqueResultException
      */
-    public function onPreVideoGallerySave(VideoGalleryEvent $event)
+    public function onPreVideoGallerySave(VideoGalleryEvent $event): void
     {
         $this->affectedRoutes = [];
-        if (!empty($event->getVideoGallery()->getId())) {
+        /** @noinspection NullPointerExceptionInspection */
+        if ($event->getVideoGallery()->getId() !== null) {
+            /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()
                 ->select('gallery.slug')
@@ -96,13 +98,13 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
                 ->getQuery()
                 ->getResult();
 
-            $this->affectedRoutes = array_filter($galleryRoutes, function (RoutingEntry $routingEntry) use ($oldSlug) {
+            $this->affectedRoutes = array_filter($galleryRoutes, static function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
-                        'slug',
-                        $parameter
-                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                    'slug',
+                    $parameter
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

@@ -34,13 +34,13 @@ class VideoGalleryController extends BaseApiController
         VideoGalleryServiceInterface $galleryService,
         VideoGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $statusCode) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
+        [$data, $statusCode] = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
 
             $entityCount = $galleryService->countAll($keyword);
-            $entities = array_map(function ($gallery) use ($galleryFormatter) {
+            $entities = array_map(static function ($gallery) use ($galleryFormatter) {
                 return $galleryFormatter
                     ->init($gallery)
                     ->name()
@@ -81,7 +81,7 @@ class VideoGalleryController extends BaseApiController
         VideoGalleryServiceInterface $galleryService,
         VideoGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
             $galleryFormatter->init($gallery)
@@ -119,11 +119,10 @@ class VideoGalleryController extends BaseApiController
      * @return Response
      */
     public function postAction(
-        Request $request,
         VideoGalleryServiceInterface $galleryService,
         VideoGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
@@ -155,18 +154,16 @@ class VideoGalleryController extends BaseApiController
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param string $slug
-     * @param Request $request
      * @param VideoGalleryServiceInterface $galleryService
      * @param VideoGalleryFormatterInterface $galleryFormatter
      * @return Response
      */
     public function putAction(
         string $slug,
-        Request $request,
         VideoGalleryServiceInterface $galleryService,
         VideoGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $request, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($slug);
 
             $name = $this->getValue('name', $gallery->getName());
@@ -208,7 +205,7 @@ class VideoGalleryController extends BaseApiController
         VideoGalleryServiceInterface $galleryService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $galleryService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $galleryService, $mediaService) {
             $gallery = $galleryService->get($slug);
             if (!empty($gallery->getBackground())) {
                 $mediaService->deleteMedia($gallery->getBackground());

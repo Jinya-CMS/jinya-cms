@@ -33,13 +33,13 @@ class PageController extends BaseApiController
         PageServiceInterface $pageService,
         PageFormatterInterface $pageFormatter
     ): Response {
-        list($data, $statusCode) = $this->tryExecute(function () use ($request, $pageFormatter, $pageService) {
+        [$data, $statusCode] = $this->tryExecute(function () use ($request, $pageFormatter, $pageService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
 
             $entityCount = $pageService->countAll($keyword);
-            $entities = array_map(function (Page $page) use ($pageFormatter) {
+            $entities = array_map(static function (Page $page) use ($pageFormatter) {
                 return $pageFormatter
                     ->init($page)
                     ->title()
@@ -68,7 +68,7 @@ class PageController extends BaseApiController
         PageServiceInterface $pageService,
         PageFormatterInterface $pageFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($pageFormatter, $pageService, $slug) {
+        [$data, $status] = $this->tryExecute(function () use ($pageFormatter, $pageService, $slug) {
             $page = $pageService->get($slug);
 
             $pageFormatter
@@ -102,7 +102,7 @@ class PageController extends BaseApiController
      */
     public function postAction(PageServiceInterface $pageService, PageFormatterInterface $pageFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($pageService, $pageFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($pageService, $pageFormatter) {
             $title = $this->getValue('title');
             $slug = $this->getValue('slug', '');
             $name = $this->getValue('name', $title);
@@ -149,7 +149,7 @@ class PageController extends BaseApiController
      */
     public function putAction(string $slug, PageServiceInterface $pageService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $pageService) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $pageService) {
             $page = $pageService->get($slug);
             $title = $this->getValue('title', $page->getTitle());
             $slug = $this->getValue('slug', $page->getSlug());
@@ -177,7 +177,7 @@ class PageController extends BaseApiController
      */
     public function deleteAction(string $slug, PageServiceInterface $pageService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $pageService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $pageService) {
             $pageService->delete($pageService->get($slug));
         }, Response::HTTP_NO_CONTENT);
 

@@ -20,7 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Exception\ValidatorException;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormController extends BaseApiController
 {
@@ -37,13 +38,13 @@ class FormController extends BaseApiController
         FormServiceInterface $formService,
         FormFormatterInterface $formFormatter
     ): Response {
-        list($data, $statusCode) = $this->tryExecute(function () use ($formFormatter, $formService, $request) {
+        [$data, $statusCode] = $this->tryExecute(function () use ($formFormatter, $formService, $request) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
 
             $entityCount = $formService->countAll($keyword);
-            $entities = array_map(function ($form) use ($formFormatter) {
+            $entities = array_map(static function ($form) use ($formFormatter) {
                 return $formFormatter
                     ->init($form)
                     ->slug()
@@ -73,7 +74,7 @@ class FormController extends BaseApiController
         FormServiceInterface $formService,
         FormFormatterInterface $formFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $formFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $formService, $formFormatter) {
             $form = $formService->get($slug);
             $formFormatter
                 ->init($form)
@@ -96,7 +97,8 @@ class FormController extends BaseApiController
         });
 
         return $this->json($data, $status);
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/form", methods={"POST"}, name="api_form_post")
@@ -112,7 +114,7 @@ class FormController extends BaseApiController
         FormFormatterInterface $formFormatter,
         TranslatorInterface $translator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($formService, $formFormatter, $translator) {
+        [$data, $status] = $this->tryExecute(function () use ($formService, $formFormatter, $translator) {
             $title = $this->getValue('title');
             $slug = $this->getValue('slug', '');
             $description = $this->getValue('description', '');
@@ -159,7 +161,8 @@ class FormController extends BaseApiController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/form/{slug}", methods={"PUT"}, name="api_form_put")
@@ -175,7 +178,7 @@ class FormController extends BaseApiController
         FormServiceInterface $formService,
         TranslatorInterface $translator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formService, $translator) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $formService, $translator) {
             $form = $formService->get($slug);
 
             $slug = $this->getValue('slug', $form->getSlug());
@@ -229,7 +232,7 @@ class FormController extends BaseApiController
      */
     public function deleteAction(string $slug, FormServiceInterface $formService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $formService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $formService) {
             $formService->delete($formService->get($slug));
         }, Response::HTTP_NO_CONTENT);
 

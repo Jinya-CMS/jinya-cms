@@ -120,7 +120,7 @@ class Form extends HistoryEnabledEntity
     /**
      * @return Collection
      */
-    public function getItems(): ?Collection
+    public function getItems(): Collection
     {
         return $this->items;
     }

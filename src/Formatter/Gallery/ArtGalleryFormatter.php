@@ -191,7 +191,7 @@ class ArtGalleryFormatter implements ArtGalleryFormatterInterface
         $this->formattedData['artworks'] = [];
 
         $artworkPositions = $this->gallery->getArtworks()->toArray();
-        uasort($artworkPositions, function (ArtworkPosition $a, ArtworkPosition $b) {
+        uasort($artworkPositions, static function (ArtworkPosition $a, ArtworkPosition $b) {
             return $a->getPosition() > $b->getPosition();
         });
 

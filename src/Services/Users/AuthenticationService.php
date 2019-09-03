@@ -21,7 +21,8 @@ use Jinya\Framework\Events\User\TwoFactorCodeEvent;
 use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -33,12 +34,15 @@ class AuthenticationService implements AuthenticationServiceInterface
 
     /** @var string */
     private $mailerSender;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var UserServiceInterface */
     private $userService;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * AuthenticationService constructor.
@@ -66,6 +70,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      * Sets the two factor code and sends the verification mail
      *
      * @param string $username
+     * @throws Exception
      */
     public function setAndSendTwoFactorCode(string $username): void
     {
@@ -78,12 +83,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         if (empty($pre->getTwoFactorCode())) {
             for ($i = 0; $i < 6; ++$i) {
-                try {
-                    $code .= random_int(0, 9);
-                } catch (Exception $e) {
-                    srand(time());
-                    $code .= rand(0, 9);
-                }
+                $code .= random_int(0, 9);
             }
         } else {
             $code = $pre->getTwoFactorCode();
@@ -98,7 +98,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         );
         if (!$submissionEvent->isSent()) {
             /** @var Swift_Message $message */
-            $message = $this->swift->createMessage('message');
+            $message = $this->swift->createMessage();
             $message->addTo($user->getEmail());
             $message->setSubject('Your two factor code');
             $message->setBody($this->formatBody($user), 'text/html');
@@ -119,7 +119,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         return "<html>
 <head></head>
-<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\"'>
+<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif'>
     <table style='width: 100%; height: 100%;'>
     <tr>
         <td colspan='3' style='height: 15%;'></td>
@@ -163,7 +163,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         try {
             $code = bin2hex(random_bytes(20));
         } catch (Exception $exception) {
-            $code = sha1(strval(time()));
+            $code = sha1((string)time());
         }
 
         $knownDevice->setKey($code);

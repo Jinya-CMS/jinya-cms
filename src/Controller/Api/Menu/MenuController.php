@@ -30,8 +30,8 @@ class MenuController extends BaseApiController
      */
     public function getAllAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($menuService, $menuFormatter) {
-            $items = array_map(function ($menu) use ($menuFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($menuService, $menuFormatter) {
+            $items = array_map(static function ($menu) use ($menuFormatter) {
                 return $menuFormatter
                     ->init($menu)
                     ->name()
@@ -59,7 +59,7 @@ class MenuController extends BaseApiController
         MenuServiceInterface $menuService,
         MenuFormatterInterface $menuFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $menuFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $menuService, $menuFormatter) {
             return $menuFormatter->init($menuService->get($id))
                 ->id()
                 ->logo()
@@ -80,7 +80,7 @@ class MenuController extends BaseApiController
      */
     public function postAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($menuService, $menuFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($menuService, $menuFormatter) {
             $name = $this->getValue('name');
 
             if (empty($name)) {
@@ -113,7 +113,7 @@ class MenuController extends BaseApiController
      */
     public function putAction(int $id, MenuServiceInterface $menuService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $menuService) {
             $menu = $menuService->get($id);
 
             $name = $this->getValue('name', $menu->getName());
@@ -138,7 +138,7 @@ class MenuController extends BaseApiController
         MenuServiceInterface $menuService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
             if (!empty($menu->getLogo())) {
                 $mediaService->deleteMedia($menu->getLogo());

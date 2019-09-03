@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection HtmlUnknownTag */
 
 namespace Jinya\Command;
 
@@ -12,6 +12,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
 use Underscore\Types\Strings;
+use Twig\Error\RuntimeError;
+use Twig\Error\LoaderError;
+use Twig\Error\SyntaxError;
 
 class CreateThemeCommand extends Command
 {
@@ -43,6 +46,14 @@ class CreateThemeCommand extends Command
         $this->setName('jinya:dev:theme:create');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $helper = $this->getHelper('question');

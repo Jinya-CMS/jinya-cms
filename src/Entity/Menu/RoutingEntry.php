@@ -169,9 +169,9 @@ class RoutingEntry implements JsonSerializable
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function correctUrl()
+    public function correctUrl(): void
     {
-        if (0 !== strpos($this->url, '/') && 0 !== strpos($this->url, 'http') && '' !== $this->url) {
+        if ('' !== $this->url && 0 !== strpos($this->url, '/') && 0 !== strpos($this->url, 'http')) {
             $this->url = '/' . $this->url;
         }
     }

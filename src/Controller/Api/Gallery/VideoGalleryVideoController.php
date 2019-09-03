@@ -32,7 +32,7 @@ class VideoGalleryVideoController extends BaseApiController
         VideoGalleryServiceInterface $galleryService,
         VideoGalleryFormatterInterface $galleryFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($gallerySlug, $galleryService, $galleryFormatter) {
             $gallery = $galleryService->get($gallerySlug);
 
             return $galleryFormatter->init($gallery)->videos()->format()['videos'];
@@ -51,10 +51,10 @@ class VideoGalleryVideoController extends BaseApiController
      */
     public function postAction(string $gallerySlug, VideoPositionServiceInterface $videoPositionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($gallerySlug, $videoPositionService) {
+        [$data, $status] = $this->tryExecute(function () use ($gallerySlug, $videoPositionService) {
             $position = $this->getValue('position', -1);
-            $videoSlug = $this->getValue('video', null);
-            $videoType = $this->getValue('type', null);
+            $videoSlug = $this->getValue('video');
+            $videoType = $this->getValue('type');
 
             if (empty($videoSlug)) {
                 throw new MissingFieldsException(['video' => 'api.gallery.field.videoSlug.missing']);
@@ -76,7 +76,7 @@ class VideoGalleryVideoController extends BaseApiController
      */
     public function deleteAction(int $id, VideoPositionServiceInterface $videoPositionService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $videoPositionService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $videoPositionService) {
             $videoPositionService->deletePosition($id);
         }, Response::HTTP_NO_CONTENT);
 
@@ -99,15 +99,15 @@ class VideoGalleryVideoController extends BaseApiController
         string $gallerySlug,
         VideoPositionServiceInterface $videoPositionService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $gallerySlug,
             $id,
             $oldPosition,
             $videoPositionService
         ) {
-            $newPosition = $this->getValue('position', null);
-            $videoSlug = $this->getValue('video', null);
-            $videoType = $this->getValue('type', null);
+            $newPosition = $this->getValue('position');
+            $videoSlug = $this->getValue('video');
+            $videoType = $this->getValue('type');
 
             if (!empty($videoSlug)) {
                 $videoPositionService->updateVideo($id, $videoSlug, $videoType);

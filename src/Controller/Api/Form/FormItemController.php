@@ -264,16 +264,12 @@ class FormItemController extends BaseApiController
     public function putAction(
         string $slug,
         int $position,
-        FormServiceInterface $formService,
-        FormItemServiceInterface $formItemService,
-        FormItemFormatterInterface $formItemFormatter
+        FormItemServiceInterface $formItemService
     ): Response {
         [$data, $status] = $this->tryExecute(function () use (
             $slug,
             $position,
-            $formService,
-            $formItemService,
-            $formItemFormatter
+            $formItemService
         ) {
             $item = $formItemService->getItem($slug, $position);
             $label = $this->getValue('label', $item->getLabel());
