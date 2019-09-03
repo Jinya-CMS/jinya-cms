@@ -5,7 +5,7 @@
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
-    <arg name="ignore" value="./assets/*"/>
+    <arg name="ignore" value="./assets/"/>
 
     <rule ref="PSR2"/>
 
