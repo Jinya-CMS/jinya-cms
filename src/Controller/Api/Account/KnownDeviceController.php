@@ -25,7 +25,9 @@ class KnownDeviceController extends BaseApiController
      */
     public function getAllAction(AuthenticationServiceInterface $authService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($authService) {
+        [$data, $status] = $this->tryExecute(function () use ($authService) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             return [
                 'success' => true,
                 'items' => $authService->getKnownDevices($this->getUser()->getEmail()),
@@ -45,7 +47,9 @@ class KnownDeviceController extends BaseApiController
      */
     public function deleteAction(string $key, AuthenticationServiceInterface $authService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($key, $authService) {
+        [$data, $status] = $this->tryExecute(function () use ($key, $authService) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $authService->deleteKnownDevice($this->getUser()->getEmail(), $key);
         }, Response::HTTP_NO_CONTENT);
 

@@ -46,39 +46,44 @@ class ArtworkPositionCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onArtworkPositionDelete(ArtworkPositionDeleteEvent $event)
+    public function onArtworkPositionDelete(ArtworkPositionDeleteEvent $event): void
     {
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $event->getGallery()->getSlug(),
             CacheBuilderInterface::ART_GALLERY
         );
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
     }
 
-    public function onArtworkPositionSave(ArtworkPositionEvent $event)
+    public function onArtworkPositionSave(ArtworkPositionEvent $event): void
     {
         $artworkPosition = $event->getArtworkPosition();
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getArtwork()->getSlug(),
             CacheBuilderInterface::ARTWORK
         );
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getGallery()->getSlug(),
             CacheBuilderInterface::ART_GALLERY
         );
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getGallery()->getSlug(),
             CacheBuilderInterface::GALLERY
         );
     }
 
-    public function onArtworkPositionUpdate(ArtworkPositionUpdateEvent $event)
+    public function onArtworkPositionUpdate(ArtworkPositionUpdateEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallerySlug(), CacheBuilderInterface::ART_GALLERY);
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallerySlug(), CacheBuilderInterface::GALLERY);
     }
 
-    public function onArtworkPositionUpdateArtwork(ArtworkPositionUpdateArtworkEvent $event)
+    public function onArtworkPositionUpdateArtwork(ArtworkPositionUpdateArtworkEvent $event): void
     {
         $galleries = $this->entityManager->createQueryBuilder()
             ->select('gallery.slug')

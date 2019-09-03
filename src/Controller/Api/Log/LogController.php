@@ -31,10 +31,9 @@ class LogController extends BaseApiController
      */
     public function getAllAction(
         Request $request,
-        LogServiceInterface $logService,
-        UrlGeneratorInterface $urlGenerator
+        LogServiceInterface $logService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $logService, $urlGenerator) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $logService) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 20);
             $sortBy = $request->get('sortBy', 'createdAt');
@@ -69,7 +68,7 @@ class LogController extends BaseApiController
      */
     public function getAction(int $id, LogServiceInterface $logService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $logService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $logService) {
             return $logService->get($id);
         });
 
@@ -86,9 +85,9 @@ class LogController extends BaseApiController
      */
     public function postAction(Request $request, LoggerInterface $logger): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $logger) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $logger) {
             $level = Logger::toMonologLevel($this->getValue('level', 'INFO'));
-            $message = $this->getValue('message', null);
+            $message = $this->getValue('message');
             $context = $request->attributes->all();
             $context['referer'] = $request->server->get('HTTP_REFERER');
 
@@ -107,7 +106,7 @@ class LogController extends BaseApiController
      */
     public function deleteAction(LogServiceInterface $logService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($logService) {
+        [$data, $status] = $this->tryExecute(static function () use ($logService) {
             $logService->clear();
         }, Response::HTTP_NO_CONTENT);
 

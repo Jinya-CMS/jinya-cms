@@ -23,13 +23,15 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\Translation\TranslatorInterface;
 use Underscore\Types\Arrays;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var TranslatorInterface */
     private $translator;
@@ -39,6 +41,8 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
     /** @var LoggerInterface */
     private $logger;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ApiKeyAuthenticator constructor.
@@ -132,7 +136,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         $login = $this->urlGenerator->generate('api_account_login');
         $twoFactor = $this->urlGenerator->generate('api_account_2fa');
 
-        if (Arrays::contains([$login, $twoFactor], $request->getPathInfo()) && 'HEAD' !== $request->getMethod()) {
+        if ('HEAD' !== $request->getMethod() && Arrays::contains([$login, $twoFactor], $request->getPathInfo())) {
             /* @noinspection PhpInconsistentReturnPointsInspection */
             return;
         }
@@ -151,8 +155,8 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     {
         if ($exception instanceof CustomUserMessageAuthenticationException) {
             return new Response($exception->getMessageKey(), Response::HTTP_UNAUTHORIZED);
-        } else {
-            return new Response($this->translator->trans('api.state.401.generic'), Response::HTTP_UNAUTHORIZED);
         }
+
+        return new Response($this->translator->trans('api.state.401.generic'), Response::HTTP_UNAUTHORIZED);
     }
 }

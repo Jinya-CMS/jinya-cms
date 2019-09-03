@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\FormEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FormService implements FormServiceInterface
 {
@@ -31,9 +32,12 @@ class FormService implements FormServiceInterface
 
     /** @var SlugServiceInterface */
     private $slugService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * FormService constructor.
@@ -103,7 +107,7 @@ class FormService implements FormServiceInterface
      * @param string $keyword
      * @return QueryBuilder
      */
-    private function getFilteredQueryBuilder(string $keyword)
+    private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->from(Form::class, 'form')

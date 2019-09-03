@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Jinya\Services\Mailing;
 
 use Jinya\Entity\Form\Form;

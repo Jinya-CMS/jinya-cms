@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\YoutubeVideoEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class YoutubeVideoService implements YoutubeVideoServiceInterface
 {
@@ -28,9 +29,12 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
 
     /** @var BaseSlugEntityService */
     private $baseService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * YoutubeVideoService constructor.
@@ -166,7 +170,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function get(string $slug): ?YoutubeVideo
+    public function get(string $slug): YoutubeVideo
     {
         $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_GET, new YoutubeVideoEvent(null, $slug));
 

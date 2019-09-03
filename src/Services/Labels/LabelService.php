@@ -10,6 +10,7 @@ namespace Jinya\Services\Labels;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Label\Label;
@@ -101,7 +102,7 @@ class LabelService implements LabelServiceInterface
             ->getScalarResult());
     }
 
-    private function createQueryBuilder()
+    private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()->from(Label::class, 'label');
     }

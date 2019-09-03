@@ -60,7 +60,7 @@ class ArtworkEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostArtworkSave(ArtworkEvent $event)
+    public function onPostArtworkSave(ArtworkEvent $event): void
     {
         foreach ($this->affectedRoutes as $affectedRoute) {
             $parameter = $affectedRoute->getRouteParameter();
@@ -75,10 +75,12 @@ class ArtworkEventSubscriber implements EventSubscriberInterface
      * @param ArtworkEvent $event
      * @throws NonUniqueResultException
      */
-    public function onPreArtworkSave(ArtworkEvent $event)
+    public function onPreArtworkSave(ArtworkEvent $event): void
     {
         $this->affectedRoutes = [];
-        if (!empty($event->getArtwork()->getId())) {
+        /** @noinspection NullPointerExceptionInspection */
+        if ($event->getArtwork()->getId() !== null) {
+            /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()
                 ->select('artwork.slug')
@@ -89,13 +91,13 @@ class ArtworkEventSubscriber implements EventSubscriberInterface
                 ->getSingleScalarResult();
 
             $routes = $this->entityManager->getRepository(RoutingEntry::class)->findBy(['routeName' => 'frontend_artwork_details']);
-            $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
+            $this->affectedRoutes = array_filter($routes, static function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
                     'slug',
                     $parameter
-                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

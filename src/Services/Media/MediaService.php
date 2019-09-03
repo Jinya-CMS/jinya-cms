@@ -12,6 +12,7 @@ use Jinya\Framework\Events\Media\MediaDeleteEvent;
 use Jinya\Framework\Events\Media\MediaGetEvent;
 use Jinya\Framework\Events\Media\MediaMoveEvent;
 use Jinya\Framework\Events\Media\MediaSaveEvent;
+use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,9 +25,12 @@ class MediaService implements MediaServiceInterface
 
     /** @var string */
     private $tmpDir;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MediaService constructor.
@@ -77,7 +81,7 @@ class MediaService implements MediaServiceInterface
     {
         $directory = $this->getFilePath($type);
         if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $directory));
         }
 
         $hashCtx = hash_init('sha256');
@@ -94,7 +98,12 @@ class MediaService implements MediaServiceInterface
 
     private function getFilePath(string $type): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+        return implode(DIRECTORY_SEPARATOR, [
+            $this->kernelProjectDir,
+            'public',
+            'public',
+            $type,
+        ]);
     }
 
     /**
@@ -102,12 +111,11 @@ class MediaService implements MediaServiceInterface
      *
      * @param string $url
      */
-    public function deleteMedia(string $url)
+    public function deleteMedia(string $url): void
     {
-        $parts = preg_split('/\\//', $url);
+        $parts = explode("\\/", $url);
         $parts = array_reverse($parts);
-        $filename = $parts[0];
-        $type = $parts[1];
+        [$filename, $type] = $parts;
 
         $pre = $this->eventDispatcher->dispatch(MediaDeleteEvent::PRE_DELETE, new MediaDeleteEvent($type, $filename));
         if (!$pre->isCancel()) {
@@ -120,9 +128,9 @@ class MediaService implements MediaServiceInterface
      * Gets the media as SplFileInfo
      *
      * @param string $path
-     * @return SplFileInfo|string
+     * @return SplFileInfo
      */
-    public function getMedia(string $path)
+    public function getMedia(string $path): SplFileInfo
     {
         $pre = $this->eventDispatcher->dispatch(MediaGetEvent::PRE_GET, new MediaGetEvent($path));
         if (empty($pre->getResult())) {

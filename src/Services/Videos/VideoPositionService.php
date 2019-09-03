@@ -21,7 +21,8 @@ use Jinya\Framework\Events\Videos\VideoPositionUpdateEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateVideoEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoPositionService implements VideoPositionServiceInterface
 {
@@ -38,9 +39,12 @@ class VideoPositionService implements VideoPositionServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * VideoPositionService constructor.
@@ -137,7 +141,7 @@ class VideoPositionService implements VideoPositionServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function updatePosition(string $gallerySlug, int $videoPositionId, int $oldPosition, int $newPosition)
+    public function updatePosition(string $gallerySlug, int $videoPositionId, int $oldPosition, int $newPosition): void
     {
         $pre = $this->eventDispatcher->dispatch(
             VideoPositionUpdateEvent::PRE_UPDATE,
@@ -148,7 +152,7 @@ class VideoPositionService implements VideoPositionServiceInterface
             $gallery = $this->galleryService->get($gallerySlug);
             $videos = $gallery->getVideos();
 
-            $video = $videos->filter(function (VideoPosition $item) use ($oldPosition) {
+            $video = $videos->filter(static function (VideoPosition $item) use ($oldPosition) {
                 return $item->getPosition() === $oldPosition;
             })->first();
 
@@ -167,7 +171,7 @@ class VideoPositionService implements VideoPositionServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function deletePosition(int $id)
+    public function deletePosition(int $id): void
     {
         $gallery = $this->entityManager
             ->createQueryBuilder()

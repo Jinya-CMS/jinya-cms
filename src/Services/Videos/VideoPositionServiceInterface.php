@@ -28,17 +28,17 @@ interface VideoPositionServiceInterface
      *
      * @param string $gallerySlug
      * @param int $videoPositionId
-     * @param int $newPosition
      * @param int $oldPosition
+     * @param int $newPosition
      */
-    public function updatePosition(string $gallerySlug, int $videoPositionId, int $oldPosition, int $newPosition);
+    public function updatePosition(string $gallerySlug, int $videoPositionId, int $oldPosition, int $newPosition): void;
 
     /**
      * Deletes the given video position
      *
      * @param int $id
      */
-    public function deletePosition(int $id);
+    public function deletePosition(int $id): void;
 
     /**
      * Gets the video position for the given id

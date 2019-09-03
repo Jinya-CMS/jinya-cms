@@ -25,7 +25,7 @@ class SchemaController extends BaseApiController
      */
     public function updateSchemaAction(SchemaToolInterface $schemaTool): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($schemaTool) {
+        [$data, $status] = $this->tryExecute(static function () use ($schemaTool) {
             $schemaTool->migrateSchema();
         }, Response::HTTP_NO_CONTENT);
 

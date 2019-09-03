@@ -21,7 +21,8 @@ use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtGalleryService implements ArtGalleryServiceInterface
 {
@@ -33,9 +34,12 @@ class ArtGalleryService implements ArtGalleryServiceInterface
 
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ArtGalleryService constructor.

@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Form\FormItemGetItemEvent;
 use Jinya\Framework\Events\Form\FormItemGetItemsEvent;
 use Jinya\Framework\Events\Form\FormItemPositionEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_values;
 
 class FormItemService implements FormItemServiceInterface
@@ -31,9 +32,12 @@ class FormItemService implements FormItemServiceInterface
 
     /** @var FormServiceInterface */
     private $formService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * FormItemService constructor.
@@ -72,7 +76,7 @@ class FormItemService implements FormItemServiceInterface
      * @param FormItem $formItem
      * @param Form $form
      */
-    private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form)
+    private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form): void
     {
         $pre = $this->eventDispatcher->dispatch(
             FormItemPositionEvent::PRE_UPDATE,
@@ -204,7 +208,7 @@ class FormItemService implements FormItemServiceInterface
         $form = $this->formService->get($formSlug);
         $items = $form->getItems();
 
-        $formItem = $items->filter(function (FormItem $item) use ($oldPosition) {
+        $formItem = $items->filter(static function (FormItem $item) use ($oldPosition) {
             return $item->getPosition() === $oldPosition;
         })->first();
 

@@ -23,7 +23,7 @@ class RoutingHelper extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'routing_helper';
     }
@@ -35,7 +35,7 @@ class RoutingHelper extends Twig_Extension
         ];
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         $url = $this->request->getScheme() . '://' . $this->request->getHost();
 

@@ -42,7 +42,7 @@ class ActiveMenuItemCheck extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'active_menu_item_check';
     }
@@ -85,10 +85,11 @@ class ActiveMenuItemCheck extends Twig_Extension
      */
     public function isActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
+        /** @noinspection NullPointerExceptionInspection */
         $url = $menuItem->getRoute()->getUrl();
         $pathInfo = $this->requestContext->getPathInfo();
 
-        if (array_key_exists('active', $context) && $context['active'] == $url) {
+        if (array_key_exists('active', $context) && $context['active'] === $url) {
             return true;
         }
 

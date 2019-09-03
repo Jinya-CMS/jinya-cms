@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\VideoEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoService implements VideoServiceInterface
 {
@@ -28,9 +29,12 @@ class VideoService implements VideoServiceInterface
 
     /** @var BaseSlugEntityService */
     private $baseService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * VideoService constructor.
@@ -148,7 +152,7 @@ class VideoService implements VideoServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function get(string $slug): ?Video
+    public function get(string $slug): Video
     {
         $this->eventDispatcher->dispatch(VideoEvent::PRE_GET, new VideoEvent(null, $slug));
 

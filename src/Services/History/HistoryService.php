@@ -11,7 +11,8 @@ namespace Jinya\Services\History;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Framework\Events\History\HistoryEvent;
 use Jinya\Framework\Events\History\HistoryRevertEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function method_exists;
 
@@ -19,9 +20,12 @@ class HistoryService implements HistoryServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * HistoryService constructor.
@@ -40,6 +44,7 @@ class HistoryService implements HistoryServiceInterface
     public function getHistory(string $class, int $id): array
     {
         $this->eventDispatcher->dispatch(HistoryEvent::PRE_GET, new HistoryEvent($class, $id, []));
+        /** @noinspection NullPointerExceptionInspection */
         $history = $this->entityManager->find($this->getFullClassName($class), $id)->getHistory();
         $this->eventDispatcher->dispatch(HistoryEvent::POST_GET, new HistoryEvent($class, $id, $history));
 
@@ -62,6 +67,10 @@ class HistoryService implements HistoryServiceInterface
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
+        if (!$entity) {
+            return;
+        }
+
         $pre = $this->eventDispatcher->dispatch(
             HistoryEvent::PRE_CLEAR,
             new HistoryEvent($class, $id, $entity->getHistory())
@@ -82,10 +91,14 @@ class HistoryService implements HistoryServiceInterface
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
+        if (!$entity) {
+            return;
+        }
+
         if (method_exists($entity, "set$field")) {
             $history = $entity->getHistory();
             /** @var array $entry */
-            $entry = array_filter($history, function (array $item) use ($timestamp) {
+            $entry = array_filter($history, static function (array $item) use ($timestamp) {
                 return $item['timestamp'] === $timestamp;
             })[0];
 

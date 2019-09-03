@@ -33,7 +33,7 @@ class VideoGalleryCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onVideoGallerySave(VideoGalleryEvent $event)
+    public function onVideoGallerySave(VideoGalleryEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::VIDEO_GALLERY);
     }

@@ -20,7 +20,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Exception\ValidatorException;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserController extends BaseUserController
 {
@@ -106,7 +107,8 @@ class UserController extends BaseUserController
         });
 
         return $this->json($data, $status);
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/user", methods={"POST"}, name="api_user_post")
@@ -161,7 +163,7 @@ class UserController extends BaseUserController
             $user->setRoles($roles);
             $user->setPassword($password);
 
-            $user = $userService->saveOrUpdate($user, false);
+            $user = $userService->saveOrUpdate($user);
 
             return $userFormatter
                 ->init($user)
@@ -173,7 +175,8 @@ class UserController extends BaseUserController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/user/{id}", methods={"PUT"}, name="api_user_put")

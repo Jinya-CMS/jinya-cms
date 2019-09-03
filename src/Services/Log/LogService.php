@@ -14,7 +14,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
 use Jinya\Entity\Logging\LogEntry;
-use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -68,7 +67,7 @@ class LogService implements LogServiceInterface
      * @return QueryBuilder
      * @see QueryBuilder filtered by level and filter
      */
-    private function getFilterQueryBuilder(string $level, string $filter)
+    private function getFilterQueryBuilder(string $level, string $filter): QueryBuilder
     {
         $uppercaseLevel = strtoupper($level);
 
@@ -134,7 +133,7 @@ class LogService implements LogServiceInterface
             ->createQueryBuilder()
             ->from(LogEntry::class, 'le')
             ->select(['le.level', 'le.levelName'])
-            ->distinct(true)
+            ->distinct()
             ->getQuery()
             ->getResult();
     }
@@ -143,14 +142,16 @@ class LogService implements LogServiceInterface
      * {@inheritdoc}
      * @throws ConnectionException
      */
-    public function clear()
+    public function clear(): void
     {
         $connection = $this->entityManager->getConnection();
         $connection->beginTransaction();
 
         try {
             $connection->query('SET FOREIGN_KEY_CHECKS=0');
-            $truncate = $connection->getDatabasePlatform()->getTruncateTableSQL($this->entityManager->getClassMetadata(LogEntry::class)->getTableName());
+            $truncate = $connection
+                ->getDatabasePlatform()
+                ->getTruncateTableSQL($this->entityManager->getClassMetadata(LogEntry::class)->getTableName());
             $connection->executeUpdate($truncate);
             $connection->query('SET FOREIGN_KEY_CHECKS=1');
             $connection->commit();
@@ -165,7 +166,7 @@ class LogService implements LogServiceInterface
         /* @noinspection PhpUndefinedMethodInspection */
         foreach ($this->logger->getHandlers() as $handler) {
             try {
-                if ($handler instanceof StreamHandler || $handler instanceof RotatingFileHandler) {
+                if ($handler instanceof StreamHandler) {
                     $fs->remove($handler->getUrl());
                 }
             } catch (Exception $exception) {

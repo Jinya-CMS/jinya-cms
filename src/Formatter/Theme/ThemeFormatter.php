@@ -8,6 +8,7 @@
 
 namespace Jinya\Formatter\Theme;
 
+use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
@@ -191,7 +192,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof int
+        $this->formattedData['menu']['primary'] = $this->theme->getPrimaryMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getPrimaryMenu())->id()->name()->format()
             : [];
 
@@ -209,7 +210,8 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof int
+        /** @noinspection PhpUndefinedClassInspection */
+        $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format()
             : [];
 
@@ -227,7 +229,8 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof int
+        /** @noinspection PhpUndefinedClassInspection */
+        $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format()
             : [];
 

@@ -38,7 +38,7 @@ class ArtworkPictureController extends BaseApiController
         MediaServiceInterface $mediaService
     ): Response {
         /** @var $data Artwork|array */
-        list($data, $status) = $this->tryExecute(function () use ($request, $artworkService, $slug) {
+        [$data, $status] = $this->tryExecute(static function () use ($artworkService, $slug) {
             $artwork = $artworkService->get($slug);
             if (empty($artwork->getPicture())) {
                 throw new FileNotFoundException($artwork->getName());
@@ -49,9 +49,9 @@ class ArtworkPictureController extends BaseApiController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($mediaService->getMedia($data->getPicture()), $data->getName() . '.jpg');
         }
+
+        return $this->file($mediaService->getMedia($data->getPicture()), $data->getName() . '.jpg');
     }
 
     /**
@@ -74,7 +74,7 @@ class ArtworkPictureController extends BaseApiController
         UrlGeneratorInterface $urlGenerator,
         ConversionServiceInterface $conversionService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(static function () use (
             $request,
             $artworkService,
             $mediaService,

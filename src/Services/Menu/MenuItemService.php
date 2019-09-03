@@ -17,7 +17,8 @@ use Jinya\Framework\Events\Menu\MenuItemGetAllEvent;
 use Jinya\Framework\Events\Menu\MenuItemGetEvent;
 use Jinya\Framework\Events\Menu\MenuItemRemoveEvent;
 use Jinya\Framework\Events\Menu\MenuItemUpdateEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuItemService implements MenuItemServiceInterface
 {
@@ -26,9 +27,12 @@ class MenuItemService implements MenuItemServiceInterface
 
     /** @var MenuServiceInterface */
     private $menuService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MenuItemService constructor.
@@ -184,10 +188,11 @@ class MenuItemService implements MenuItemServiceInterface
         if (MenuItemServiceInterface::MENU === $type) {
             $positions = $this->menuService->get($parentId)->getMenuItems()->toArray();
         } else {
+            /** @noinspection NullPointerExceptionInspection */
             $positions = $this->entityManager->find(MenuItem::class, $parentId)->getChildren()->toArray();
         }
 
-        uasort($positions, function ($a, $b) {
+        uasort($positions, static function ($a, $b) {
             /* @var MenuItem $a */
             /* @var MenuItem $b */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
@@ -195,8 +200,10 @@ class MenuItemService implements MenuItemServiceInterface
 
         $positions = array_values($positions);
 
-        if ($position === -1) {
-            $position = array_shift($positions)->getPosition() + 1;
+        $newPosition = $position;
+
+        if ($newPosition === -1) {
+            $newPosition = array_shift($positions)->getPosition() + 1;
         }
 
         /** @var MenuItem $menuItem */
@@ -205,12 +212,12 @@ class MenuItemService implements MenuItemServiceInterface
         }
 
         foreach ($positions as $menuItem) {
-            if ($menuItem->getPosition() >= $position) {
+            if ($menuItem->getPosition() >= $newPosition) {
                 $menuItem->setPosition($menuItem->getPosition() + 1);
             }
         }
 
-        return $position;
+        return $newPosition;
     }
 
     /**
@@ -266,6 +273,7 @@ class MenuItemService implements MenuItemServiceInterface
         $pre = $this->eventDispatcher->dispatch(MenuItemUpdateEvent::PRE_UPDATE, new MenuItemUpdateEvent($item));
 
         if (!$pre->isCancel()) {
+            /** @noinspection NullPointerExceptionInspection */
             $parentId = $item->getParent() ? $item->getParent()->getId() : $item->getMenu()->getId();
             $position = $this->rearrangeMenuItems(
                 $item->getPosition(),

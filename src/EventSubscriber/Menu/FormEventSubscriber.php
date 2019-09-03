@@ -60,7 +60,7 @@ class FormEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostFormSave(FormEvent $event)
+    public function onPostFormSave(FormEvent $event): void
     {
         foreach ($this->affectedRoutes as $affectedRoute) {
             $parameter = $affectedRoute->getRouteParameter();
@@ -75,10 +75,12 @@ class FormEventSubscriber implements EventSubscriberInterface
      * @param FormEvent $event
      * @throws NonUniqueResultException
      */
-    public function onPreFormSave(FormEvent $event)
+    public function onPreFormSave(FormEvent $event): void
     {
         $this->affectedRoutes = [];
-        if (!empty($event->getForm()->getId())) {
+        /** @noinspection NullPointerExceptionInspection */
+        if ($event->getForm()->getId() !== null) {
+            /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()
                 ->select('form.slug')
@@ -91,13 +93,13 @@ class FormEventSubscriber implements EventSubscriberInterface
             $routes = $this->entityManager
                 ->getRepository(RoutingEntry::class)
                 ->findBy(['routeName' => 'frontend_form_details']);
-            $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
+            $this->affectedRoutes = array_filter($routes, static function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
                     'slug',
                     $parameter
-                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

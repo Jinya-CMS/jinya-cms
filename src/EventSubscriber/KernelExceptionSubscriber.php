@@ -44,7 +44,7 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
         if ('dev' !== getenv('APP_ENV')) {
             $request = $event->getRequest();
@@ -52,8 +52,8 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
             $this->logger->warning($event->getException()->getTraceAsString());
 
             $route = $this->router->getRouteCollection()->get($request->get('_route'));
-            if ('/' === $request->getPathInfo()) {
-            } elseif ('/{route}' === $route->getPath()) {
+
+            if ('/{route}' === $route->getPath()) {
                 $event->setResponse(new RedirectResponse('/'));
             }
         }

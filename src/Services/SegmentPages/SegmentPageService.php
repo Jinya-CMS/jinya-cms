@@ -19,7 +19,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\SegmentPages\SegmentPageEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SegmentPageService implements SegmentPageServiceInterface
 {
@@ -28,9 +29,12 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * SegmentPageService constructor.

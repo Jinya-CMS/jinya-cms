@@ -21,7 +21,8 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkService implements ArtworkServiceInterface
 {
@@ -33,9 +34,12 @@ class ArtworkService implements ArtworkServiceInterface
 
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ArtworkService constructor.
@@ -158,7 +162,7 @@ class ArtworkService implements ArtworkServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function get(string $slug): ?Artwork
+    public function get(string $slug): Artwork
     {
         $this->eventDispatcher->dispatch(ArtworkEvent::PRE_GET, new ArtworkEvent(null, $slug));
 

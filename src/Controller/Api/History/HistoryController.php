@@ -27,7 +27,7 @@ class HistoryController extends BaseApiController
      */
     public function getAction(string $class, int $id, HistoryServiceInterface $historyService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($class, $id, $historyService) {
+        [$data, $status] = $this->tryExecute(static function () use ($class, $id, $historyService) {
             return $historyService->getHistory($class, $id);
         });
 
@@ -52,7 +52,7 @@ class HistoryController extends BaseApiController
         string $field,
         HistoryServiceInterface $historyService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($class, $id, $timestamp, $field, $historyService) {
+        [$data, $status] = $this->tryExecute(static function () use ($class, $id, $timestamp, $field, $historyService) {
             $historyService->revert($class, $id, $field, $timestamp);
         }, Response::HTTP_NO_CONTENT);
 
@@ -70,7 +70,7 @@ class HistoryController extends BaseApiController
      */
     public function clearAction(string $class, int $id, HistoryServiceInterface $historyService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($class, $id, $historyService) {
+        [$data, $status] = $this->tryExecute(static function () use ($class, $id, $historyService) {
             $historyService->clearHistory($class, $id);
         }, Response::HTTP_NO_CONTENT);
 

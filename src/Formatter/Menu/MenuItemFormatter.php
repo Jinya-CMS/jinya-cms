@@ -92,7 +92,7 @@ class MenuItemFormatter implements MenuItemFormatterInterface
         $menuItemFormatter = new self();
         $menuItemFormatter->setMenuFormatter($this->menuFormatter);
         $menuItemFormatter->setRouteFormatter($this->routeFormatter);
-        $this->formattedData['children'] = array_map(function (MenuItem $menuItem) use ($menuItemFormatter) {
+        $this->formattedData['children'] = array_map(static function (MenuItem $menuItem) use ($menuItemFormatter) {
             return $menuItemFormatter
                 ->init($menuItem)
                 ->id()

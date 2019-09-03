@@ -43,28 +43,26 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
         ];
     }
 
-    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    public function preUpdate(PreUpdateEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
         if ($token) {
             $changeSet = $eventArgs->getEntityChangeSet();
             $entity = $eventArgs->getEntity();
-            if ($entity instanceof HistoryEnabledEntity) {
-                if (!$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
-                    $lastUpdatedBy = $entity->getUpdatedBy();
-                    $entity->setLastUpdatedAt(new DateTime());
-                    /* @noinspection PhpParamsInspection */
-                    $entity->setUpdatedBy($token->getUser());
-                    $history = $entity->getHistory();
-                    $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
-                    $changeSet['updatedBy'] = [$lastUpdatedBy, $entity->getUpdatedBy()];
-                    $history[] = [
-                        'entry' => $changeSet,
-                        'timestamp' => $entity->getLastUpdatedAt()->format('c'),
-                        'initial' => false,
-                    ];
-                    $entity->setHistory($history);
-                }
+            if (($entity instanceof HistoryEnabledEntity) && !$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
+                $lastUpdatedBy = $entity->getUpdatedBy();
+                $entity->setLastUpdatedAt(new DateTime());
+                /* @noinspection PhpParamsInspection */
+                $entity->setUpdatedBy($token->getUser());
+                $history = $entity->getHistory();
+                $changeSet['lastUpdatedAt'][1] = $entity->getLastUpdatedAt();
+                $changeSet['updatedBy'] = [$lastUpdatedBy, $entity->getUpdatedBy()];
+                $history[] = [
+                    'entry' => $changeSet,
+                    'timestamp' => $entity->getLastUpdatedAt()->format('c'),
+                    'initial' => false,
+                ];
+                $entity->setHistory($history);
             }
         }
     }
@@ -72,7 +70,9 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     private function checkOnlyUpdatedFieldsChanged(array $changeSet): bool
     {
         foreach ($changeSet as $key => $item) {
-            if ('lastupdatedat' !== strtolower($key) && 'updatedby' !== strtolower($key) && 'history' !== strtolower($key)) {
+            $lowerKey = strtolower($key);
+
+            if ('lastupdatedat' !== $lowerKey && 'updatedby' !== $lowerKey && 'history' !== $lowerKey) {
                 return false;
             }
         }
@@ -80,7 +80,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
         return true;
     }
 
-    public function postLoad(LifecycleEventArgs $eventArgs)
+    public function postLoad(LifecycleEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
         if ($token) {
@@ -88,23 +88,26 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
             if ($entity instanceof HistoryEnabledEntity) {
                 $entity->setLastUpdatedAt(new DateTime());
                 /* @noinspection PhpParamsInspection */
+                /** @noinspection NullPointerExceptionInspection */
                 $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
             }
         }
     }
 
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function prePersist(LifecycleEventArgs $eventArgs): void
     {
         $entity = $eventArgs->getEntity();
         if ($entity instanceof HistoryEnabledEntity) {
             $entity->setCreatedAt(new DateTime());
             $entity->setLastUpdatedAt(new DateTime());
             /* @noinspection PhpParamsInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $entity->setCreator($this->tokenStorage->getToken()->getUser());
             /* @noinspection PhpParamsInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
             $historyEntry = $entity->jsonSerialize();
-            $historyEntry = array_map(function ($item) {
+            $historyEntry = array_map(static function ($item) {
                 return [null, $item];
             }, $historyEntry);
             unset($historyEntry['history']);

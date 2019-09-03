@@ -84,6 +84,7 @@ class InstallController extends AbstractController
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     * @throws Exception
      */
     public function indexAction(Request $request): Response
     {
@@ -146,6 +147,7 @@ class InstallController extends AbstractController
 
     /**
      * @param Request $request
+     * @param ConfigurationServiceInterface $configService
      * @return Response
      */
     public function createDatabaseAction(Request $request, ConfigurationServiceInterface $configService): Response

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection HtmlUnknownTag */
 
 namespace Jinya\Framework\Security;
 
@@ -22,6 +22,7 @@ abstract class AuthenticatedCommand extends Command
     /**
      * AuthenticatedCommand constructor.
      * @param TokenStorageInterface $tokenStorage
+     * @param UserServiceInterface $userService
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserServiceInterface $userService)
     {

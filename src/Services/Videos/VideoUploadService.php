@@ -22,7 +22,9 @@ use Jinya\Framework\Events\Videos\VideoUploadFinishUploadEvent;
 use Jinya\Framework\Events\Videos\VideoUploadStartUploadEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use RuntimeException;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoUploadService implements VideoUploadServiceInterface
 {
@@ -40,9 +42,12 @@ class VideoUploadService implements VideoUploadServiceInterface
 
     /** @var LoggerInterface */
     private $logger;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * VideoUploadService constructor.
@@ -117,7 +122,7 @@ class VideoUploadService implements VideoUploadServiceInterface
             $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug, true);
 
             if (!mkdir($chunkDirectory) && !is_dir($chunkDirectory)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
             }
             file_put_contents($chunkPath, $chunk);
 
@@ -170,7 +175,7 @@ class VideoUploadService implements VideoUploadServiceInterface
         );
         if (empty($pre->getPath())) {
             $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid('last-chunk', true);
-            $newFileHandle = fopen($newFile, 'a');
+            $newFileHandle = fopen($newFile, 'ab');
 
             try {
                 /** @var UploadingVideoChunk $chunk */

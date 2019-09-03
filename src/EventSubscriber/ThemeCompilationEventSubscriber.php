@@ -45,7 +45,7 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onRequest(GetResponseEvent $event)
+    public function onRequest(GetResponseEvent $event): void
     {
         if (Strings::startsWith($event->getRequest()->getPathInfo(), '/designer')) {
             try {

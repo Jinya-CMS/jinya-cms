@@ -30,12 +30,12 @@ class LikeController extends BaseApiController
      */
     public function submitAction(Client $client): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($client) {
+        [$data, $status] = $this->tryExecute(function () use ($client) {
             /** @var User $user */
             $user = $this->getUser();
             $like = [
                 'who' => $user->getArtistName(),
-                'message' => $this->getValue('message', null),
+                'message' => $this->getValue('message'),
             ];
 
             $response = $client->request('POST', 'https://api.jinya.de/tracker/like', [

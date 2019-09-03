@@ -3,13 +3,6 @@
 namespace Jinya\Services\Theme;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Jinya\Entity\Artwork\Artwork;
-use Jinya\Entity\Form\Form;
-use Jinya\Entity\Gallery\ArtGallery;
-use Jinya\Entity\Gallery\VideoGallery;
-use Jinya\Entity\Menu\Menu;
-use Jinya\Entity\Page\Page;
-use Jinya\Entity\SegmentPage\SegmentPage;
 use Jinya\Entity\Theme\ThemeArtGallery;
 use Jinya\Entity\Theme\ThemeArtwork;
 use Jinya\Entity\Theme\ThemeForm;
@@ -18,13 +11,22 @@ use Jinya\Entity\Theme\ThemePage;
 use Jinya\Entity\Theme\ThemeSegmentPage;
 use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Framework\Events\Theme\ThemeLinkEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Jinya\Services\Artworks\ArtworkServiceInterface;
+use Jinya\Services\Form\FormServiceInterface;
+use Jinya\Services\Galleries\ArtGalleryServiceInterface;
+use Jinya\Services\Galleries\VideoGalleryServiceInterface;
+use Jinya\Services\Menu\MenuServiceInterface;
+use Jinya\Services\Pages\PageServiceInterface;
+use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 use Symfony\Component\Yaml\Yaml;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ThemeLinkService implements ThemeLinkServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
@@ -35,23 +37,67 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     /** @var ThemeServiceInterface */
     private $themeService;
 
+    /** @var VideoGalleryServiceInterface */
+    private $videoGalleryService;
+
+    /** @var PageServiceInterface */
+    private $pageService;
+
+    /** @var SegmentPageServiceInterface */
+    private $segmentPageService;
+
+    /** @var FormServiceInterface */
+    private $formService;
+
+    /** @var MenuServiceInterface */
+    private $menuService;
+
+    /** @var ArtGalleryServiceInterface */
+    private $artGalleryService;
+
+    /** @var ArtworkServiceInterface */
+    private $artworkService;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
+
     /**
      * ThemeLinkService constructor.
      * @param EntityManagerInterface $entityManager
      * @param EventDispatcherInterface $eventDispatcher
      * @param string $themeDir
      * @param ThemeServiceInterface $themeService
+     * @param VideoGalleryServiceInterface $videoGalleryService
+     * @param PageServiceInterface $pageService
+     * @param SegmentPageServiceInterface $segmentPageService
+     * @param FormServiceInterface $formService
+     * @param MenuServiceInterface $menuService
+     * @param ArtGalleryServiceInterface $artGalleryService
+     * @param ArtworkServiceInterface $artworkService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         string $themeDir,
-        ThemeServiceInterface $themeService
+        ThemeServiceInterface $themeService,
+        VideoGalleryServiceInterface $videoGalleryService,
+        PageServiceInterface $pageService,
+        SegmentPageServiceInterface $segmentPageService,
+        FormServiceInterface $formService,
+        MenuServiceInterface $menuService,
+        ArtGalleryServiceInterface $artGalleryService,
+        ArtworkServiceInterface $artworkService
     ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->themeDir = $themeDir;
         $this->themeService = $themeService;
+        $this->videoGalleryService = $videoGalleryService;
+        $this->pageService = $pageService;
+        $this->segmentPageService = $segmentPageService;
+        $this->formService = $formService;
+        $this->menuService = $menuService;
+        $this->artGalleryService = $artGalleryService;
+        $this->artworkService = $artworkService;
     }
 
     /**
@@ -62,7 +108,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
      */
     public function getLinkConfigStructure(string $themeName): array
     {
-        $configFile = $this->themeDir . '/' . $themeName . '/' . ThemeService::THEME_CONFIG_YML;
+        $configFile = implode(DIRECTORY_SEPARATOR, [$this->themeDir, $themeName, ThemeService::THEME_CONFIG_YML]);
         $data = Yaml::parseFile($configFile);
 
         if (array_key_exists('links', $data)) {
@@ -85,7 +131,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             ThemeLinkEvent::PRE_SAVE,
             new ThemeLinkEvent($themeName, $key, 'page', $pageSlug)
         );
-        $page = $this->entityManager->getRepository(Page::class)->findOneBy(['slug' => $pageSlug]);
+        $page = $this->pageService->get($pageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themePage = new ThemePage();
         $themePage->setPage($page);
@@ -116,7 +162,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             ThemeLinkEvent::PRE_SAVE,
             new ThemeLinkEvent($themeName, $key, 'segment_page', $segmentPageSlug)
         );
-        $segmentPage = $this->entityManager->getRepository(SegmentPage::class)->findOneBy(['slug' => $segmentPageSlug]);
+        $segmentPage = $this->segmentPageService->get($segmentPageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeSegmentPage = new ThemeSegmentPage();
         $themeSegmentPage->setSegmentPage($segmentPage);
@@ -148,7 +194,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             new ThemeLinkEvent($themeName, $key, 'form', $formSlug)
         );
 
-        $form = $this->entityManager->getRepository(Form::class)->findOneBy(['slug' => $formSlug]);
+        $form = $this->formService->get($formSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeForm = new ThemeForm();
         $themeForm->setForm($form);
@@ -180,7 +226,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             new ThemeLinkEvent($themeName, $key, 'menu', '', $menuId)
         );
 
-        $menu = $this->entityManager->getRepository(Menu::class)->findOneBy(['id' => $menuId]);
+        $menu = $this->menuService->get($menuId);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeMenu = new ThemeMenu();
         $themeMenu->setMenu($menu);
@@ -212,7 +258,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             new ThemeLinkEvent($themeName, $key, 'artwork', $artworkSlug)
         );
 
-        $artwork = $this->entityManager->getRepository(Artwork::class)->findOneBy(['slug' => $artworkSlug]);
+        $artwork = $this->artworkService->get($artworkSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeArtwork = new ThemeArtwork();
         $themeArtwork->setArtwork($themeArtwork);
@@ -244,7 +290,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             new ThemeLinkEvent($themeName, $key, 'art_gallery', $artGallerySlug)
         );
 
-        $gallery = $this->entityManager->getRepository(ArtGallery::class)->findOneBy(['slug' => $artGallerySlug]);
+        $gallery = $this->artGalleryService->get($artGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeGallery = new ThemeArtGallery();
         $themeGallery->setArtGallery($gallery);
@@ -279,7 +325,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
             new ThemeLinkEvent($themeName, $key, 'video_gallery', $videoGallerySlug)
         );
 
-        $gallery = $this->entityManager->getRepository(VideoGallery::class)->findOneBy(['slug' => $videoGallerySlug]);
+        $gallery = $this->videoGalleryService->get($videoGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeGallery = new ThemeVideoGallery();
         $themeGallery->setVideoGallery($gallery);

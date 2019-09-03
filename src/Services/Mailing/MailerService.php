@@ -3,13 +3,6 @@
 /** @noinspection HtmlRequiredTitleElement */
 /** @noinspection HtmlRequiredLangAttribute */
 
-/**
- * Created by PhpStorm.
- * User: imanu
- * Date: 26.01.2018
- * Time: 19:02
- */
-
 namespace Jinya\Services\Mailing;
 
 use Jinya\Entity\Form\Form;
@@ -17,7 +10,8 @@ use Jinya\Framework\Events\Mailing\MailerEvent;
 use Psr\Log\LoggerInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MailerService implements MailerServiceInterface
 {
@@ -26,12 +20,15 @@ class MailerService implements MailerServiceInterface
 
     /** @var string */
     private $mailerSender;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var LoggerInterface */
     private $logger;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MailerService constructor.
@@ -61,7 +58,7 @@ class MailerService implements MailerServiceInterface
         if (!$pre->isCancel()) {
             $this->logger->info('Send message to ' . $form->getToAddress());
             /** @var Swift_Message $message */
-            $message = $this->swift->createMessage('message');
+            $message = $this->swift->createMessage();
             $message->addTo($form->getToAddress());
             $message->setSubject('Form ' . $form->getTitle() . ' submitted');
             $message->setBody($this->formatBody($data), 'text/html');

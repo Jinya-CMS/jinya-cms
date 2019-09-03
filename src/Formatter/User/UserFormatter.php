@@ -133,9 +133,9 @@ class UserFormatter implements UserFormatterInterface
      */
     public function roles(): UserFormatterInterface
     {
-        $this->formattedData['roles'] = array_map(function (Role $role) {
+        $this->formattedData['roles'] = array_map(static function (Role $role) {
             return $role->getRole();
-        }, $this->roleHierarchy->getReachableRoles(array_map(function (string $role) {
+        }, $this->roleHierarchy->getReachableRoles(array_map(static function (string $role) {
             return new Role($role);
         }, $this->user->getRoles())));
 

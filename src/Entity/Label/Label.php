@@ -73,7 +73,7 @@ class Label implements JsonSerializable
     /**
      * @return Collection
      */
-    public function getGalleries(): ?Collection
+    public function getGalleries(): Collection
     {
         return $this->galleries;
     }
@@ -105,7 +105,7 @@ class Label implements JsonSerializable
     /**
      * @return Collection
      */
-    public function getArtworks(): ?Collection
+    public function getArtworks(): Collection
     {
         return $this->artworks;
     }

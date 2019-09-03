@@ -5,7 +5,6 @@ namespace Jinya\Controller\Api\Form;
 use Jinya\Entity\Form\Message;
 use Jinya\Formatter\Form\MessageFormatterInterface;
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Form\MessageServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;

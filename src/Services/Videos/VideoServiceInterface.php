@@ -51,5 +51,5 @@ interface VideoServiceInterface
      * @param string $slug
      * @return Video
      */
-    public function get(string $slug): ?Video;
+    public function get(string $slug): Video;
 }

@@ -35,7 +35,7 @@ trait StaticContentServiceTrait
      * @param string $keyword
      * @return QueryBuilder
      */
-    protected function getFilteredQueryBuilder(string $keyword)
+    protected function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->getQueryBuilder();

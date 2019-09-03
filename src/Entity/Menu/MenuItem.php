@@ -154,7 +154,7 @@ class MenuItem implements JsonSerializable
     /**
      * @return Collection
      */
-    public function getChildren(): ?Collection
+    public function getChildren(): Collection
     {
         return $this->children;
     }

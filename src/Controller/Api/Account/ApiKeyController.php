@@ -29,7 +29,9 @@ class ApiKeyController extends BaseApiController
         ApiKeyToolInterface $apiKeyTool,
         ConfigurationServiceInterface $configurationService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($apiKeyTool, $configurationService) {
+        [$data, $status] = $this->tryExecute(function () use ($apiKeyTool, $configurationService) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             return [
                 'success' => true,
                 'invalidateApiKeyAfter' => $configurationService->getConfig()->getInvalidateApiKeyAfter(),
@@ -50,7 +52,9 @@ class ApiKeyController extends BaseApiController
      */
     public function deleteAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($key, $apiKeyTool) {
+        [$data, $status] = $this->tryExecute(function () use ($key, $apiKeyTool) {
+            /** @noinspection NullPointerExceptionInspection */
+            /** @noinspection NullPointerExceptionInspection */
             $apiKeyTool->invalidateKeyOfUser($this->getUser()->getEmail(), $key);
         }, Response::HTTP_NO_CONTENT);
 

@@ -30,7 +30,12 @@ interface ArtworkPositionServiceInterface
      * @param int $newPosition
      * @param int $oldPosition
      */
-    public function updatePosition(string $gallerySlug, int $artworkPositionId, int $oldPosition, int $newPosition);
+    public function updatePosition(
+        string $gallerySlug,
+        int $artworkPositionId,
+        int $oldPosition,
+        int $newPosition
+    ): void;
 
     /**
      * Deletes the given artwork position
@@ -53,5 +58,5 @@ interface ArtworkPositionServiceInterface
      * @param int $id
      * @param string $artworkSlug
      */
-    public function updateArtwork(int $id, string $artworkSlug);
+    public function updateArtwork(int $id, string $artworkSlug): void;
 }
