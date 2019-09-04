@@ -8373,10 +8373,10 @@ vue-loader@^15.7.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-monaco@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-monaco/-/vue-monaco-1.0.0.tgz#8289f5170c15c34d47eac68331da53e479d41dad"
-  integrity sha512-vQIpNV4Cwshzup67OhmUhE67QDaSWtIoPJ3RVD8k5U9r3yTLPrEKPldqFgpZOBvM338AddWHiq+MBJiT6Qf6MA==
+vue-monaco@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-monaco/-/vue-monaco-1.1.0.tgz#045df2621dfe82d01e0568f1f1f84155726b33fe"
+  integrity sha512-K2nWM4eMFlf5I+EBSNvRt6nJXKv4bTE2K1fKs4jnSj0ict1D6J60HOtc0K+lHiCeGSiYVSzfR1pAkzDlY63MjA==
   dependencies:
     monaco-editor "^0.17.0"
     nano-assign "^1.0.0"
