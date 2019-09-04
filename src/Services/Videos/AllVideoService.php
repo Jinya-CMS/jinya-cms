@@ -16,8 +16,7 @@ use Jinya\Entity\Video\Video;
 use Jinya\Entity\Video\YoutubeVideo;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AllVideoService implements AllVideoServiceInterface
 {
@@ -52,8 +51,8 @@ class AllVideoService implements AllVideoServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $this->eventDispatcher->dispatch(
-            ListEvent::ALL_VIDEOS_PRE_GET_ALL,
-            new ListEvent($offset, $count, $keyword, [])
+            new ListEvent($offset, $count, $keyword, []),
+            ListEvent::ALL_VIDEOS_PRE_GET_ALL
         );
 
         $videos = $this->createQueryBuilder($keyword)
@@ -64,8 +63,8 @@ class AllVideoService implements AllVideoServiceInterface
             ->getArrayResult();
 
         $this->eventDispatcher->dispatch(
-            ListEvent::ALL_VIDEOS_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $videos)
+            new ListEvent($offset, $count, $keyword, $videos),
+            ListEvent::ALL_VIDEOS_POST_GET_ALL
         );
 
         return $videos;
@@ -93,14 +92,14 @@ class AllVideoService implements AllVideoServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::ALL_VIDEOS_POST_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::ALL_VIDEOS_POST_COUNT);
 
         $count = array_sum($this->createQueryBuilder($keyword)
             ->select('count(video), count(youtube_video)')
             ->getQuery()
             ->getSingleResult());
 
-        $this->eventDispatcher->dispatch(CountEvent::ALL_VIDEOS_PRE_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::ALL_VIDEOS_PRE_COUNT);
 
         return $count;
     }
