@@ -10,15 +10,15 @@ namespace Jinya\Twig\Extension;
 
 use Doctrine\Common\Collections\Collection;
 use Jinya\Entity\Menu\MenuItem;
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class SortByPosition extends Twig_Extension
+class SortByPosition extends AbstractExtension
 {
     public function getFilters()
     {
         return [
-            'sortByPosition' => new Twig_SimpleFilter('sortByPosition', [$this, 'sortByPosition']),
+            'sortByPosition' => new TwigFilter('sortByPosition', [$this, 'sortByPosition']),
         ];
     }
 

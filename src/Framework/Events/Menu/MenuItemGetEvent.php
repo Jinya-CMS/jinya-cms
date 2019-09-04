@@ -9,7 +9,7 @@
 namespace Jinya\Framework\Events\Menu;
 
 use Jinya\Entity\Menu\MenuItem;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class MenuItemGetEvent extends Event
 {

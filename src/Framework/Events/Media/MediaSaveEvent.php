@@ -8,8 +8,8 @@
 
 namespace Jinya\Framework\Events\Media;
 
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class MediaSaveEvent extends Event
 {

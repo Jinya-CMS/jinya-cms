@@ -9,7 +9,7 @@
 namespace Jinya\Framework\Events\Videos;
 
 use Jinya\Entity\Video\UploadingVideoChunk;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class VideoUploadFinishUploadEvent extends Event
 {
