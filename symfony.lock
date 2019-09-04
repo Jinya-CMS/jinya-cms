@@ -227,9 +227,6 @@
             "ref": "c646e4b71af082e94b5014daca36ef6812bad076"
         }
     },
-    "symfony/contracts": {
-        "version": "v1.1.5"
-    },
     "symfony/css-selector": {
         "version": "v4.0.4"
     },
