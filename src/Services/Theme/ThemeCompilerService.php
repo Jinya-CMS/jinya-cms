@@ -123,14 +123,14 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         return $webStylesBasePath . self::THEME_COMPILATION_STATE . '.' . $filename . '.' . $theme->getName();
     }
 
-    private function getScssVariablesCompilationCheckPath(Theme $theme)
+    private function getScssVariablesCompilationCheckPath(Theme $theme): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
 
         return $webStylesBasePath . 'variables';
     }
 
-    private function concatScripts(Theme $theme)
+    private function concatScripts(Theme $theme): void
     {
         $fs = new Filesystem();
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
@@ -172,7 +172,10 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
             $scriptsBasePath = $themeConfig['scripts_base'];
         }
 
-        return $this->themeService->getThemeDirectory() . DIRECTORY_SEPARATOR . $theme->getName() . DIRECTORY_SEPARATOR . $scriptsBasePath;
+        return implode(
+            DIRECTORY_SEPARATOR,
+            [$this->themeService->getThemeDirectory(), $theme->getName(), $scriptsBasePath]
+        );
     }
 
     /**
@@ -223,17 +226,20 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         $fs = new Filesystem();
 
         $variables = $theme->getScssVariables();
-        $isCompiled = $fs->exists($this->getScssVariablesCompilationCheckPath($theme)) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
+        $isCompiled = $fs->exists(
+            $this->getScssVariablesCompilationCheckPath($theme)
+        ) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
 
         if ($themeConfig['styles']['files']) {
             foreach ($themeConfig['styles']['files'] as $style) {
                 $scssCode = $this->getScssCodeForStyle($style, $theme);
                 $compilationCheckPath = $this->getCompilationCheckPathStyles($theme, $style);
 
-                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(
-                    file_get_contents($compilationCheckPath),
-                    md5($scssCode)
-                );
+                $isCompiled &= $fs->exists($compilationCheckPath)
+                    && 0 === strcmp(
+                        file_get_contents($compilationCheckPath),
+                        md5($scssCode)
+                    );
             }
         }
 
@@ -257,10 +263,11 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $source = $this->getJavaScriptSource($scriptsBasePath, $scripts);
                 $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
 
-                $isCompiled &= $fs->exists($compilationCheckPath) && 0 == strcmp(
-                    file_get_contents($compilationCheckPath),
-                    md5($source)
-                );
+                $isCompiled &= $fs->exists($compilationCheckPath)
+                    && 0 === strcmp(
+                        file_get_contents($compilationCheckPath),
+                        md5($source)
+                    );
             }
         }
 

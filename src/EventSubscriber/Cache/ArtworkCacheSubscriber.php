@@ -40,7 +40,7 @@ class ArtworkCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onArtworkSave(ArtworkEvent $event)
+    public function onArtworkSave(ArtworkEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::ARTWORK);
         $galleries = $this->entityManager->createQueryBuilder()

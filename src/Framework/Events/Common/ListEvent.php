@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Common;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ListEvent extends Event
 {
@@ -19,6 +19,10 @@ class ListEvent extends Event
     public const FORMS_POST_GET_ALL = 'FormsPostGetAll';
 
     public const FORMS_PRE_GET_ALL = 'FormsPreGetAll';
+
+    public const MESSAGES_POST_GET_ALL = 'MessagesPostGetAll';
+
+    public const MESSAGES_PRE_GET_ALL = 'MessagesPreGetAll';
 
     public const ART_GALLERIES_POST_GET_ALL = 'ArtGalleriesPostGetAll';
 
@@ -51,10 +55,6 @@ class ListEvent extends Event
     public const SEGMENT_PAGE_POST_GET_ALL = 'SegmentPagePostGetAll';
 
     public const SEGMENT_PAGE_PRE_GET_ALL = 'SegmentPagePreGetAll';
-
-    public const SEGMENT_PRE_GET_ALL = 'SegmentPreGetAll';
-
-    public const SEGMENT_POST_GET_ALL = 'SegmentPreGetAll';
 
     /** @var int */
     private $offset;

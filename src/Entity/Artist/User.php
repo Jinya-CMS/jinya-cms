@@ -28,8 +28,6 @@ class User implements JsonSerializable, UserInterface
 
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    public const ROLE_WAITING_TWO_FACTOR = 'ROLE_WAITING_TWO_FACTOR';
-
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)

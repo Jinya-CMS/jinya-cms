@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Form;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class FormItemGetItemEvent extends Event
 {

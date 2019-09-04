@@ -21,7 +21,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Base\LabelEntityServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkService implements ArtworkServiceInterface
 {
@@ -33,9 +33,12 @@ class ArtworkService implements ArtworkServiceInterface
 
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ArtworkService constructor.
@@ -67,13 +70,13 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::ARTWORKS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::ARTWORKS_PRE_GET_ALL);
 
         $artworks = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
 
         $this->eventDispatcher->dispatch(
-            ListEvent::ARTWORKS_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $artworks)
+            new ListEvent($offset, $count, $keyword, $artworks),
+            ListEvent::ARTWORKS_POST_GET_ALL
         );
 
         return $artworks;
@@ -98,11 +101,11 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function countAll(string $keyword = '', Label $label = null): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::ARTWORKS_PRE_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::ARTWORKS_PRE_COUNT);
 
         $count = $this->labelEntityService->countAll($this->getBasicQueryBuilder(), $keyword, $label);
 
-        $this->eventDispatcher->dispatch(CountEvent::ARTWORKS_POST_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::ARTWORKS_POST_COUNT);
 
         return $count;
     }
@@ -117,13 +120,13 @@ class ArtworkService implements ArtworkServiceInterface
     public function saveOrUpdate(Artwork $artwork): Artwork
     {
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkEvent::PRE_SAVE,
-            new ArtworkEvent($artwork, $artwork->getSlug())
+            new ArtworkEvent($artwork, $artwork->getSlug()),
+            ArtworkEvent::PRE_SAVE
         );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($artwork);
-            $this->eventDispatcher->dispatch(ArtworkEvent::POST_SAVE, new ArtworkEvent($artwork, $artwork->getSlug()));
+            $this->eventDispatcher->dispatch(new ArtworkEvent($artwork, $artwork->getSlug()), ArtworkEvent::POST_SAVE);
         }
 
         return $artwork;
@@ -137,15 +140,15 @@ class ArtworkService implements ArtworkServiceInterface
     public function delete(Artwork $artwork): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkEvent::PRE_DELETE,
-            new ArtworkEvent($artwork, $artwork->getSlug())
+            new ArtworkEvent($artwork, $artwork->getSlug()),
+            ArtworkEvent::PRE_DELETE
         );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($artwork);
             $this->eventDispatcher->dispatch(
-                ArtworkEvent::POST_DELETE,
-                new ArtworkEvent($artwork, $artwork->getSlug())
+                new ArtworkEvent($artwork, $artwork->getSlug()),
+                ArtworkEvent::POST_DELETE
             );
         }
     }
@@ -158,12 +161,12 @@ class ArtworkService implements ArtworkServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function get(string $slug): ?Artwork
+    public function get(string $slug): Artwork
     {
-        $this->eventDispatcher->dispatch(ArtworkEvent::PRE_GET, new ArtworkEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new ArtworkEvent(null, $slug), ArtworkEvent::PRE_GET);
 
         $artwork = $this->baseService->get($slug);
-        $this->eventDispatcher->dispatch(ArtworkEvent::POST_GET, new ArtworkEvent($artwork, $slug));
+        $this->eventDispatcher->dispatch(new ArtworkEvent($artwork, $slug), ArtworkEvent::POST_GET);
 
         return $artwork;
     }

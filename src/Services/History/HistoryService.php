@@ -11,7 +11,7 @@ namespace Jinya\Services\History;
 use Doctrine\ORM\EntityManagerInterface;
 use Jinya\Framework\Events\History\HistoryEvent;
 use Jinya\Framework\Events\History\HistoryRevertEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function method_exists;
 
@@ -19,9 +19,12 @@ class HistoryService implements HistoryServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * HistoryService constructor.
@@ -39,9 +42,10 @@ class HistoryService implements HistoryServiceInterface
      */
     public function getHistory(string $class, int $id): array
     {
-        $this->eventDispatcher->dispatch(HistoryEvent::PRE_GET, new HistoryEvent($class, $id, []));
+        $this->eventDispatcher->dispatch(new HistoryEvent($class, $id, []), HistoryEvent::PRE_GET);
+        /** @noinspection NullPointerExceptionInspection */
         $history = $this->entityManager->find($this->getFullClassName($class), $id)->getHistory();
-        $this->eventDispatcher->dispatch(HistoryEvent::POST_GET, new HistoryEvent($class, $id, $history));
+        $this->eventDispatcher->dispatch(new HistoryEvent($class, $id, $history), HistoryEvent::POST_GET);
 
         return $history;
     }
@@ -62,16 +66,20 @@ class HistoryService implements HistoryServiceInterface
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
+        if (!$entity) {
+            return;
+        }
+
         $pre = $this->eventDispatcher->dispatch(
-            HistoryEvent::PRE_CLEAR,
-            new HistoryEvent($class, $id, $entity->getHistory())
+            new HistoryEvent($class, $id, $entity->getHistory()),
+            HistoryEvent::PRE_CLEAR
         );
 
         if (!$pre->isCancel()) {
             $entity->setHistory([]);
 
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(HistoryEvent::POST_CLEAR, new HistoryEvent($class, $id, []));
+            $this->eventDispatcher->dispatch(new HistoryEvent($class, $id, []), HistoryEvent::POST_CLEAR);
         }
     }
 
@@ -82,17 +90,21 @@ class HistoryService implements HistoryServiceInterface
     {
         $entity = $this->entityManager->find($this->getFullClassName($class), $id);
 
+        if (!$entity) {
+            return;
+        }
+
         if (method_exists($entity, "set$field")) {
             $history = $entity->getHistory();
             /** @var array $entry */
-            $entry = array_filter($history, function (array $item) use ($timestamp) {
+            $entry = array_filter($history, static function (array $item) use ($timestamp) {
                 return $item['timestamp'] === $timestamp;
             })[0];
 
             if (array_key_exists($field, $entry['entry'])) {
                 $pre = $this->eventDispatcher->dispatch(
-                    HistoryRevertEvent::PRE_REVERT,
-                    new HistoryRevertEvent($class, $id, $field, $timestamp, $entry)
+                    new HistoryRevertEvent($class, $id, $field, $timestamp, $entry),
+                    HistoryRevertEvent::PRE_REVERT
                 );
                 if (!$pre->isCancel()) {
                     $revertedValue = $entry['entry'][$field][1];
@@ -101,8 +113,8 @@ class HistoryService implements HistoryServiceInterface
 
                     $this->entityManager->flush();
                     $this->eventDispatcher->dispatch(
-                        HistoryRevertEvent::POST_REVERT,
-                        new HistoryRevertEvent($class, $id, $field, $timestamp, $entry)
+                        new HistoryRevertEvent($class, $id, $field, $timestamp, $entry),
+                        HistoryRevertEvent::POST_REVERT
                     );
                 }
             }

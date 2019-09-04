@@ -53,12 +53,12 @@
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import JinyaMenuBuilderGroup from '@/components/Configuration/Frontend/Menus/Builder/BuilderGroup';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import JinyaForm from '@/framework/Markup/Form/Form';
   import JinyaEditor from '@/framework/Markup/Form/Editor';
   import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
-  import draggable from 'vuedraggable';
   import JinyaMenuBuilderTemplateEntry from '@/components/Configuration/Frontend/Menus/Builder/TemplateEntry';
   import JinyaTabContainer from '@/framework/Markup/Tab/TabContainer';
   import DOMUtils from '@/framework/Utils/DOMUtils';

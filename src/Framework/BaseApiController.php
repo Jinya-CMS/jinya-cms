@@ -43,6 +43,7 @@ use function simplexml_load_string;
 
 abstract class BaseApiController extends BaseController
 {
+    /** @noinspection PhpUndefinedClassInspection */
     /** @var TranslatorInterface */
     private $translator;
 
@@ -66,6 +67,8 @@ abstract class BaseApiController extends BaseController
 
     /** @var string */
     private $contentType;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * BaseApiController constructor.
@@ -128,7 +131,7 @@ abstract class BaseApiController extends BaseController
     /**
      * @param string $key
      * @param null $default
-     * @return mixed|null|SimpleXMLElement|array
+     * @return mixed
      * @throws InvalidContentTypeException
      * @throws EmptyBodyException
      */
@@ -138,7 +141,9 @@ abstract class BaseApiController extends BaseController
             case 'application/json':
                 if (empty($this->bodyAsJson)) {
                     throw new EmptyBodyException('api.generic.body.empty');
-                } elseif (array_key_exists($key, $this->bodyAsJson)) {
+                }
+
+                if (array_key_exists($key, $this->bodyAsJson)) {
                     $result = $this->bodyAsJson[$key];
                 } else {
                     $result = $default;
@@ -148,7 +153,9 @@ abstract class BaseApiController extends BaseController
             case 'text/xml':
                 if (empty($this->bodyAsXml)) {
                     throw new EmptyBodyException('api.generic.body.empty');
-                } elseif (property_exists($this->bodyAsXml, $key)) {
+                }
+
+                if (property_exists($this->bodyAsXml, $key)) {
                     $result = $this->bodyAsXml->${$key};
                 } else {
                     $result = $default;
@@ -191,7 +198,7 @@ abstract class BaseApiController extends BaseController
      * @return array
      * @see callable and return a formatted error if it fails
      */
-    protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK)
+    protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK): array
     {
         try {
             $result = [$function(), $successStatusCode];

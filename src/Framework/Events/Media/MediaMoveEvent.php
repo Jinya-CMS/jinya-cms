@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Media;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class MediaMoveEvent extends Event
 {

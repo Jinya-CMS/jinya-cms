@@ -9,10 +9,10 @@ use Jinya\Entity\Menu\RoutingEntry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\RequestContext;
 use Throwable;
-use Twig_Extension;
-use Twig_Function;
+use Twig\Extension;
+use Twig\TwigFunction;
 
-class ActiveMenuItemCheck extends Twig_Extension
+class ActiveMenuItemCheck extends Extension\AbstractExtension
 {
     /** @var RequestContext */
     private $requestContext;
@@ -42,7 +42,7 @@ class ActiveMenuItemCheck extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'active_menu_item_check';
     }
@@ -50,13 +50,13 @@ class ActiveMenuItemCheck extends Twig_Extension
     public function getFunctions()
     {
         return [
-            'isActiveMenuItem' => new Twig_Function('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
+            'isActiveMenuItem' => new TwigFunction('isActiveMenuItem', [$this, 'isActiveMenuItem'], [
                 'needs_context' => true,
             ]),
-            'isChildActiveMenuItem' => new Twig_Function('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
+            'isChildActiveMenuItem' => new TwigFunction('isChildActiveMenuItem', [$this, 'isChildActiveMenuItem'], [
                 'needs_context' => true,
             ]),
-            'getActiveMenuItem' => new Twig_Function('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
+            'getActiveMenuItem' => new TwigFunction('getActiveMenuItem', [$this, 'getActiveMenuItem'], [
                 'needs_context' => true,
             ]),
         ];
@@ -85,10 +85,11 @@ class ActiveMenuItemCheck extends Twig_Extension
      */
     public function isActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
+        /** @noinspection NullPointerExceptionInspection */
         $url = $menuItem->getRoute()->getUrl();
         $pathInfo = $this->requestContext->getPathInfo();
 
-        if (array_key_exists('active', $context) && $context['active'] == $url) {
+        if (array_key_exists('active', $context) && $context['active'] === $url) {
             return true;
         }
 

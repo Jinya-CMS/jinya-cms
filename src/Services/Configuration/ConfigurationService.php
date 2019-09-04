@@ -13,7 +13,7 @@ use Exception;
 use Jinya\Entity\Configuration\Configuration;
 use Jinya\Framework\Events\Configuration\ConfigurationEvent;
 use Jinya\Services\Theme\ThemeServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
@@ -24,9 +24,12 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /** @var ThemeServiceInterface */
     private $themeService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ConfigurationService constructor.
@@ -50,7 +53,7 @@ class ConfigurationService implements ConfigurationServiceInterface
     public function getConfig(): Configuration
     {
         try {
-            $this->eventDispatcher->dispatch(ConfigurationEvent::PRE_GET, new ConfigurationEvent(null));
+            $this->eventDispatcher->dispatch(new ConfigurationEvent(null), ConfigurationEvent::PRE_GET);
 
             $config = $this->entityManager->getRepository(Configuration::class)->findAll()[0];
         } catch (Exception $exception) {
@@ -61,7 +64,7 @@ class ConfigurationService implements ConfigurationServiceInterface
             $this->entityManager->flush();
         }
 
-        $this->eventDispatcher->dispatch(ConfigurationEvent::POST_GET, new ConfigurationEvent($config));
+        $this->eventDispatcher->dispatch(new ConfigurationEvent($config), ConfigurationEvent::POST_GET);
 
         return $config;
     }
@@ -71,10 +74,10 @@ class ConfigurationService implements ConfigurationServiceInterface
      */
     public function writeConfig(Configuration $configuration): void
     {
-        $pre = $this->eventDispatcher->dispatch(ConfigurationEvent::PRE_WRITE, new ConfigurationEvent($configuration));
+        $pre = $this->eventDispatcher->dispatch(new ConfigurationEvent($configuration), ConfigurationEvent::PRE_WRITE);
         if (!$pre->isCancel()) {
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(ConfigurationEvent::POST_WRITE, new ConfigurationEvent($configuration));
+            $this->eventDispatcher->dispatch(new ConfigurationEvent($configuration), ConfigurationEvent::POST_WRITE);
         }
     }
 }

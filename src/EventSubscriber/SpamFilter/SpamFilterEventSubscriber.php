@@ -2,23 +2,25 @@
 
 namespace Jinya\EventSubscriber\SpamFilter;
 
-use Jinya\Entity\Form\FormItem;
 use Jinya\Framework\Events\Mailing\MailerEvent;
-use Jinya\Services\Configuration\ConfigurationServiceInterface;
+use Jinya\Framework\Events\Priority;
+use Jinya\Services\Mailing\SpamDetectorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamFilterEventSubscriber implements EventSubscriberInterface
 {
-    /** @var ConfigurationServiceInterface */
-    private $configurationService;
+    /**
+     * @var SpamDetectorInterface
+     */
+    private $spamDetector;
 
     /**
      * SpamFilterEventSubscriber constructor.
-     * @param ConfigurationServiceInterface $configurationService
+     * @param SpamDetectorInterface $spamDetector
      */
-    public function __construct(ConfigurationServiceInterface $configurationService)
+    public function __construct(SpamDetectorInterface $spamDetector)
     {
-        $this->configurationService = $configurationService;
+        $this->spamDetector = $spamDetector;
     }
 
     /**
@@ -42,7 +44,7 @@ class SpamFilterEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MailerEvent::PRE_SEND_MAIL => ['checkForSpam']
+            MailerEvent::PRE_SEND_MAIL => ['checkForSpam', Priority::LOWEST],
         ];
     }
 
@@ -50,16 +52,7 @@ class SpamFilterEventSubscriber implements EventSubscriberInterface
     {
         $form = $event->getForm();
         $data = $event->getData();
-
-        foreach ($form->getItems()->toArray() as $item) {
-            /** @var FormItem $item */
-            foreach ($item->getSpamFilter() as $keyword) {
-                $position = stripos($data[lcfirst($item->getLabel())], $keyword);
-                if ($position !== false && $position !== -1) {
-                    $event->setCancel(true);
-                }
-            }
-        }
+        $event->setCancel($this->spamDetector->checkForSpam($form, $data));
 
         return $event;
     }

@@ -45,30 +45,32 @@ class VideoPositionCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onVideoPositionDelete(VideoPositionEvent $event)
+    public function onVideoPositionDelete(VideoPositionEvent $event): void
     {
         $videoPosition = $event->getVideoPosition();
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $videoPosition->getGallery(),
             CacheBuilderInterface::VIDEO_GALLERY
         );
     }
 
-    public function onVideoPositionSave(VideoPositionEvent $event)
+    public function onVideoPositionSave(VideoPositionEvent $event): void
     {
         $videoPosition = $event->getVideoPosition();
+        /** @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $videoPosition->getGallery()->getSlug(),
             CacheBuilderInterface::VIDEO_GALLERY
         );
     }
 
-    public function onVideoPositionUpdate(VideoPositionUpdateEvent $event)
+    public function onVideoPositionUpdate(VideoPositionUpdateEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallerySlug(), CacheBuilderInterface::VIDEO_GALLERY);
     }
 
-    public function onVideoPositionUpdateVideo(VideoPositionUpdateVideoEvent $event)
+    public function onVideoPositionUpdateVideo(VideoPositionUpdateVideoEvent $event): void
     {
         $galleries = $this->entityManager->createQueryBuilder()
             ->select('gallery.slug')

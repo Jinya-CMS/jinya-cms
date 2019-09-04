@@ -1,5 +1,5 @@
-import ObjectUtils from '@/framework/Utils/ObjectUtils';
 import Vue from 'vue';
+import ObjectUtils from '@/framework/Utils/ObjectUtils';
 import Permissions from '@/security/Permissions';
 import { getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 

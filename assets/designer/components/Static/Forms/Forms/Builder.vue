@@ -27,8 +27,9 @@
                                v-model="items">
                         <jinya-form-builder-item :enable="enable" :item="item"
                                                  :key="`${item.position}-${index}`" :position="index"
-                                                 @edit-done="editSettingsDone"
-                                                 @toggle-settings="toggleSettings" v-for="(item, index) in items"/>
+                                                 @edit-done="editSettingsDone" @from-address-changed="resetSubject"
+                                                 @subject-changed="resetFromAddress" @toggle-settings="toggleSettings"
+                                                 v-for="(item, index) in items"/>
                     </draggable>
                 </jinya-editor-pane>
             </jinya-form>
@@ -89,6 +90,20 @@
       }
     },
     methods: {
+      resetFromAddress(position) {
+        this.items.forEach((item) => {
+          if (item.position !== position) {
+            item.options.fromAddress = false;
+          }
+        });
+      },
+      resetSubject(position) {
+        this.items.forEach((item) => {
+          if (item.position !== position) {
+            item.options.subject = false;
+          }
+        });
+      },
       async saveChanges() {
         this.state = 'loading';
         this.enable = false;

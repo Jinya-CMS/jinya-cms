@@ -48,7 +48,7 @@ interface MediaServiceInterface
      *
      * @param string $url
      */
-    public function deleteMedia(string $url);
+    public function deleteMedia(string $url): void;
 
     /**
      * Gets the media as SplFileInfo
@@ -56,5 +56,5 @@ interface MediaServiceInterface
      * @param string $path
      * @return SplFileInfo|string
      */
-    public function getMedia(string $path);
+    public function getMedia(string $path): SplFileInfo;
 }

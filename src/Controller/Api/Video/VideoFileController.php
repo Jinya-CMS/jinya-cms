@@ -35,7 +35,7 @@ class VideoFileController extends BaseApiController
         MediaServiceInterface $mediaService
     ): Response {
         /** @var $data Video|array */
-        list($data, $status) = $this->tryExecute(function () use ($videoService, $slug) {
+        [$data, $status] = $this->tryExecute(static function () use ($videoService, $slug) {
             $video = $videoService->get($slug);
             if (empty($video->getVideo())) {
                 throw new FileNotFoundException($video->getName());
@@ -46,9 +46,9 @@ class VideoFileController extends BaseApiController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($mediaService->getMedia($data->getVideo()), $data->getName() . '.mp4');
         }
+
+        return $this->file($mediaService->getMedia($data->getVideo()), $data->getName() . '.mp4');
     }
 
     /**
@@ -61,7 +61,7 @@ class VideoFileController extends BaseApiController
      */
     public function startUploadAction(string $slug, VideoUploadServiceInterface $videoUploadService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $videoUploadService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $videoUploadService) {
             $videoUploadService->startUpload($slug);
         }, Response::HTTP_NO_CONTENT);
 
@@ -84,7 +84,7 @@ class VideoFileController extends BaseApiController
         Request $request,
         VideoUploadServiceInterface $videoUploadService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $position, $request, $videoUploadService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $position, $request, $videoUploadService) {
             $data = $request->getContent(true);
 
             $videoUploadService->uploadChunk($data, $position, $slug);
@@ -103,7 +103,7 @@ class VideoFileController extends BaseApiController
      */
     public function resetStateAction(string $slug, VideoUploadServiceInterface $videoUploadService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $videoUploadService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $videoUploadService) {
             $videoUploadService->cleanupAfterUpload($slug);
         }, Response::HTTP_NO_CONTENT);
 
@@ -124,7 +124,7 @@ class VideoFileController extends BaseApiController
         VideoServiceInterface $videoService,
         VideoUploadServiceInterface $videoUploadService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $videoService, $videoUploadService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $videoService, $videoUploadService) {
             $video = $videoService->get($slug);
             $path = $videoUploadService->finishUpload($slug);
 

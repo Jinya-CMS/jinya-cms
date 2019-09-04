@@ -24,7 +24,7 @@ class RequestProcessor
         $this->request = $request;
     }
 
-    public function processRecord(array $record)
+    public function processRecord(array $record): array
     {
         $request = $this->request->getCurrentRequest();
         $record['request'] = $request;

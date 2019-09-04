@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Form\FormItemGetItemEvent;
 use Jinya\Framework\Events\Form\FormItemGetItemsEvent;
 use Jinya\Framework\Events\Form\FormItemPositionEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_values;
 
 class FormItemService implements FormItemServiceInterface
@@ -31,9 +31,12 @@ class FormItemService implements FormItemServiceInterface
 
     /** @var FormServiceInterface */
     private $formService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * FormItemService constructor.
@@ -58,11 +61,11 @@ class FormItemService implements FormItemServiceInterface
      */
     public function addItem(FormItem $formItem): void
     {
-        $pre = $this->eventDispatcher->dispatch(FormItemEvent::PRE_ADD, new FormItemEvent($formItem));
+        $pre = $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::PRE_ADD);
         if (!$pre->isCancel()) {
             $this->entityManager->persist($formItem);
             $this->rearrangeFormItems(-1, $formItem->getPosition(), $formItem, $formItem->getForm());
-            $this->eventDispatcher->dispatch(FormItemEvent::POST_ADD, new FormItemEvent($formItem));
+            $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::POST_ADD);
         }
     }
 
@@ -72,11 +75,11 @@ class FormItemService implements FormItemServiceInterface
      * @param FormItem $formItem
      * @param Form $form
      */
-    private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form)
+    private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            FormItemPositionEvent::PRE_UPDATE,
-            new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition)
+            new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition),
+            FormItemPositionEvent::PRE_UPDATE
         );
         if (!$pre->isCancel()) {
             $positions = $form->getItems()->toArray();
@@ -85,8 +88,8 @@ class FormItemService implements FormItemServiceInterface
             $form->setItems(new ArrayCollection($positions));
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                FormItemPositionEvent::POST_UPDATE,
-                new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition)
+                new FormItemPositionEvent($form, $formItem, $oldPosition, $newPosition),
+                FormItemPositionEvent::POST_UPDATE
             );
         }
     }
@@ -111,12 +114,12 @@ class FormItemService implements FormItemServiceInterface
             ->getQuery()
             ->getSingleResult();
 
-        $pre = $this->eventDispatcher->dispatch(FormItemEvent::PRE_DELETE, new FormItemEvent($formItem));
+        $pre = $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::PRE_DELETE);
 
         if (!$pre->isCancel()) {
             $this->entityManager->remove($formItem);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(FormItemEvent::POST_DELETE, new FormItemEvent($formItem));
+            $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::POST_DELETE);
         }
     }
 
@@ -129,8 +132,8 @@ class FormItemService implements FormItemServiceInterface
     public function getItems(string $formSlug): array
     {
         $this->eventDispatcher->dispatch(
-            FormItemGetItemsEvent::PRE_GET_ITEMS,
-            new FormItemGetItemsEvent($formSlug, [])
+            new FormItemGetItemsEvent($formSlug, []),
+            FormItemGetItemsEvent::PRE_GET_ITEMS
         );
         $items = array_values($this->entityManager->createQueryBuilder()
             ->select('item')
@@ -143,8 +146,8 @@ class FormItemService implements FormItemServiceInterface
             ->getResult());
 
         $this->eventDispatcher->dispatch(
-            FormItemGetItemsEvent::POST_GET_ITEMS,
-            new FormItemGetItemsEvent($formSlug, $items)
+            new FormItemGetItemsEvent($formSlug, $items),
+            FormItemGetItemsEvent::POST_GET_ITEMS
         );
 
         return $items;
@@ -157,11 +160,11 @@ class FormItemService implements FormItemServiceInterface
      */
     public function updateItem(FormItem $formItem): void
     {
-        $this->eventDispatcher->dispatch(FormItemEvent::PRE_UPDATE, new FormItemEvent($formItem));
+        $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::PRE_UPDATE);
 
         $this->entityManager->flush();
 
-        $this->eventDispatcher->dispatch(FormItemEvent::POST_UPDATE, new FormItemEvent($formItem));
+        $this->eventDispatcher->dispatch(new FormItemEvent($formItem), FormItemEvent::POST_UPDATE);
     }
 
     /**
@@ -175,7 +178,7 @@ class FormItemService implements FormItemServiceInterface
      */
     public function getItem(string $slug, int $position): FormItem
     {
-        $this->eventDispatcher->dispatch(FormItemGetItemEvent::PRE_GET, new FormItemGetItemEvent($slug, $position));
+        $this->eventDispatcher->dispatch(new FormItemGetItemEvent($slug, $position), FormItemGetItemEvent::PRE_GET);
         $item = $this->entityManager->createQueryBuilder()
             ->select('item')
             ->from(FormItem::class, 'item')
@@ -187,7 +190,7 @@ class FormItemService implements FormItemServiceInterface
             ->getQuery()
             ->getSingleResult();
 
-        $this->eventDispatcher->dispatch(FormItemEvent::POST_GET, new FormItemEvent($item));
+        $this->eventDispatcher->dispatch(new FormItemEvent($item), FormItemEvent::POST_GET);
 
         return $item;
     }
@@ -204,7 +207,7 @@ class FormItemService implements FormItemServiceInterface
         $form = $this->formService->get($formSlug);
         $items = $form->getItems();
 
-        $formItem = $items->filter(function (FormItem $item) use ($oldPosition) {
+        $formItem = $items->filter(static function (FormItem $item) use ($oldPosition) {
             return $item->getPosition() === $oldPosition;
         })->first();
 

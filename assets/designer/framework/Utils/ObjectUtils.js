@@ -20,8 +20,7 @@ const getHashCode = (obj) => {
 const equals = (obj1, obj2) => getHashCode(obj1) === getHashCode(obj2);
 const clone = obj => JSON.parse(JSON.stringify(obj));
 
-function assign(obj, key, value)
-{
+function assign(obj, key, value) {
     if (isString(key)) {
         key = key.split('.');
     }

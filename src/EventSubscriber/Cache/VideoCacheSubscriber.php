@@ -40,7 +40,7 @@ class VideoCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onVideoSave(VideoEvent $event)
+    public function onVideoSave(VideoEvent $event): void
     {
         $galleries = $this->entityManager->createQueryBuilder()
             ->select('gallery.slug')

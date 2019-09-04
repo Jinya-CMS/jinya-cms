@@ -57,7 +57,7 @@ class ApiKeyTool implements ApiKeyToolInterface
         try {
             $key->setKey("jinya-api-token-$userId-" . bin2hex(random_bytes(20)));
         } catch (Exception $e) {
-            $key->setKey(uniqid("jinya-api-token-$userId-"));
+            $key->setKey(uniqid("jinya-api-token-$userId-", true));
         }
 
         $this->entityManager->persist($key);
@@ -205,5 +205,16 @@ class ApiKeyTool implements ApiKeyToolInterface
         $validSince->add(new DateInterval("PT${keyInvalidation}S"));
 
         return (new DateTime())->getTimestamp() > $validSince->getTimestamp();
+    }
+
+    /**
+     * Check if the given key exists in the database
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function keyExists(string $key): bool
+    {
+        return $this->entityManager->getRepository(ApiKey::class)->findOneBy(['key' => $key]) !== null;
     }
 }

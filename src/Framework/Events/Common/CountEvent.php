@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Common;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class CountEvent extends Event
 {
@@ -23,6 +23,10 @@ class CountEvent extends Event
     public const FORMS_PRE_COUNT = 'FormsPreCount';
 
     public const FORMS_POST_COUNT = 'FormsPostCount';
+
+    public const MESSAGES_PRE_COUNT = 'MessagesPreCount';
+
+    public const MESSAGES_POST_COUNT = 'MessagesPostCount';
 
     public const VIDEO_GALLERIES_PRE_COUNT = 'VideoGalleriesPreCount';
 

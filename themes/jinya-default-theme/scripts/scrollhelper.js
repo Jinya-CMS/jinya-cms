@@ -1,8 +1,7 @@
 !document.addEventListener('DOMContentLoaded', () => {
     const scrollItem = document.querySelector('.is--horizontal');
 
-    function scrollHandler(e)
-    {
+    function scrollHandler(e) {
         if (!e.deltaX) {
             scrollItem.scrollBy({
                 behavior: 'auto',

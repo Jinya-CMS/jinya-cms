@@ -17,7 +17,8 @@ use Jinya\Entity\Theme\Theme;
  */
 class Configuration
 {
-    public const DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
+    public const /** @noinspection SummerTimeUnsafeTimeManipulationInspection */
+        DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
 
     /**
      * @ORM\Id
@@ -40,6 +41,12 @@ class Configuration
      * @var int
      */
     private $invalidateApiKeyAfter = self::DEFAULT_API_KEY_INVALIDATION;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", options={"default": 1})
+     */
+    private $messagingCenterEnabled = true;
 
     /**
      * @return int
@@ -87,5 +94,21 @@ class Configuration
     public function setCurrentTheme(Theme $currentTheme): void
     {
         $this->currentTheme = $currentTheme;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMessagingCenterEnabled(): bool
+    {
+        return $this->messagingCenterEnabled;
+    }
+
+    /**
+     * @param bool $messagingCenterEnabled
+     */
+    public function setMessagingCenterEnabled(bool $messagingCenterEnabled): void
+    {
+        $this->messagingCenterEnabled = $messagingCenterEnabled;
     }
 }

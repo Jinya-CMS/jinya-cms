@@ -29,6 +29,14 @@ interface ApiKeyToolInterface
     public function getUserByKey(string $key): User;
 
     /**
+     * Check if the given key exists in the database
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function keyExists(string $key): bool;
+
+    /**
      * Invalidates the given api key
      *
      * @param string $key

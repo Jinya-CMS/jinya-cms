@@ -4,17 +4,19 @@ namespace Jinya\Twig\Extension;
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig_Extension;
-use Twig_Function;
-use const DIRECTORY_SEPARATOR;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class TranslationUtils extends Twig_Extension
+class TranslationUtils extends AbstractExtension
 {
     /** @var string */
     private $kernelProjectDir;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var TranslatorInterface */
     private $translator;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * TranslationUtils constructor.
@@ -30,7 +32,7 @@ class TranslationUtils extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'translation_utils';
     }
@@ -38,7 +40,7 @@ class TranslationUtils extends Twig_Extension
     public function getFunctions()
     {
         return [
-            'get_translation_catalogue' => new Twig_Function(
+            'get_translation_catalogue' => new TwigFunction(
                 'get_translation_catalogue',
                 [$this, 'getTranslationCatalogue']
             ),

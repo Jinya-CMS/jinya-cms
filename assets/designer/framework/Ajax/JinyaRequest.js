@@ -8,13 +8,15 @@ import EventBus from '@/framework/Events/EventBus';
 import Events from '@/framework/Events/Events';
 import { getApiKey } from '@/framework/Storage/AuthStorage';
 
-function send(verb, url, data, contentType, additionalHeaders = {})
-{
+function send(verb, url, data, contentType, additionalHeaders = {}) {
     EventBus.$emit(Events.request.started);
     const headers = Object.assign({
-        JinyaApiKey: getApiKey(),
         'Content-Type': contentType,
     }, additionalHeaders);
+
+    if (getApiKey()) {
+        headers.JinyaApiKey = getApiKey();
+    }
 
     const request = {
         headers,
@@ -30,7 +32,7 @@ function send(verb, url, data, contentType, additionalHeaders = {})
         }
     }
 
-    return fetch(url, request).then(async(response) => {
+    return fetch(url, request).then(async (response) => {
         EventBus.$emit(Events.request.finished, { success: response.ok });
 
         if (response.ok) {

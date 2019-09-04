@@ -23,7 +23,7 @@ class UserActivationController extends BaseUserController
      */
     public function deactivateAction(int $id, UserServiceInterface $userService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $userService) {
             if (!$this->isCurrentUser($id)) {
                 $userService->deactivate($id);
             }
@@ -41,7 +41,7 @@ class UserActivationController extends BaseUserController
      */
     public function activateAction(int $id, UserServiceInterface $userService): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($id, $userService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $userService) {
             $userService->activate($id);
         }, Response::HTTP_NO_CONTENT);
 

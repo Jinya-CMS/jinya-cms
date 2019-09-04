@@ -96,7 +96,7 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
                 ->artGallery()
                 ->artwork()
                 ->format();
-        };
+        }
 
         return $this;
     }

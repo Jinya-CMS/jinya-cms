@@ -11,7 +11,7 @@ namespace Jinya\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Underscore\Types\Strings;
@@ -60,7 +60,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onSymfonyRequest(GetResponseEvent $event)
+    public function onSymfonyRequest(RequestEvent $event): void
     {
         $updateLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock';
         $fs = new FileSystem();
@@ -69,10 +69,8 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
         if ($updating) {
             $code = file_get_contents($updateLock);
 
-            if ($code !== $event->getRequest()->cookies->get('JinyaUpdateKey') && Strings::find(
-                $event->getRequest()->getPathInfo(),
-                '/_update'
-            )) {
+            if ($code !== $event->getRequest()->cookies->get('JinyaUpdateKey')
+                && Strings::find($event->getRequest()->getPathInfo(), '/_update')) {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index')));
             }
         }

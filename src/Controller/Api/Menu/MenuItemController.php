@@ -38,8 +38,8 @@ class MenuItemController extends BaseApiController
         MenuItemServiceInterface $menuItemService,
         MenuItemFormatterInterface $menuItemFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuItemService, $menuItemFormatter) {
-            return array_map(function ($item) use ($menuItemFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $menuItemService, $menuItemFormatter) {
+            return array_map(static function ($item) use ($menuItemFormatter) {
                 return $menuItemFormatter
                     ->init($item)
                     ->title()

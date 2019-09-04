@@ -11,7 +11,7 @@ namespace Jinya\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents as SymfonyKernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Underscore\Types\Strings;
@@ -45,7 +45,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onSymfonyRequest(GetResponseEvent $event): void
+    public function onSymfonyRequest(RequestEvent $event): void
     {
         $installLock = $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/install.lock';
         $fs = new FileSystem();

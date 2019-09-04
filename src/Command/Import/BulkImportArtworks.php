@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection HtmlUnknownTag */
 
 namespace Jinya\Command\Import;
 
@@ -165,6 +165,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                 }
             }
 
+            /** @noinspection DisconnectedForeachInstructionInspection */
             $progressBar->advance();
         }
 

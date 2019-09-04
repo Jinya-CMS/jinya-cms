@@ -1,4 +1,12 @@
 # Changelog
+## Release 10.0.0
+### New Features
+* [JGCMS-51](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-51) Replace SimplePreAuthenticatorInterface with Guard
+* [JGCMS-77](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-77) Messaging center
+### Cleanup
+* [JGCMS-78](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-78) Prepare code for Symfony 4.4 and 5.0
+* [JGCMS-79](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-79) Update code to match recent PSR-1 and PSR-2
+* [JGCMS-80](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-80) ESLint cleanup
 ## Release 9.1.0
 ### New Features
 * [JGCMS-76](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-76) Spamfilter in forms

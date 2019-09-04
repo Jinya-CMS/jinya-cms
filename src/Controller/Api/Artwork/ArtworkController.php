@@ -37,7 +37,7 @@ class ArtworkController extends BaseApiController
         ArtworkServiceInterface $artworkService,
         ArtworkFormatterInterface $artworkFormatter
     ): Response {
-        list($data, $statusCode) = $this->tryExecute(function () use (
+        [$data, $statusCode] = $this->tryExecute(function () use (
             $labelService,
             $request,
             $artworkFormatter,
@@ -46,14 +46,14 @@ class ArtworkController extends BaseApiController
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
-            $label = $request->get('label', null);
+            $label = $request->get('label');
 
             if ($label) {
                 $label = $labelService->getLabel($label);
             }
 
             $entityCount = $artworkService->countAll($keyword);
-            $entities = array_map(function ($artwork) use ($artworkFormatter) {
+            $entities = array_map(static function ($artwork) use ($artworkFormatter) {
                 return $artworkFormatter
                     ->init($artwork)
                     ->name()
@@ -85,7 +85,7 @@ class ArtworkController extends BaseApiController
         ArtworkServiceInterface $artworkService,
         ArtworkFormatterInterface $artworkFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($artworkFormatter, $slug, $artworkService) {
+        [$data, $status] = $this->tryExecute(function () use ($artworkFormatter, $slug, $artworkService) {
             $artwork = $artworkService->get($slug);
             $result = $artworkFormatter->init($artwork)
                 ->name()
@@ -123,7 +123,7 @@ class ArtworkController extends BaseApiController
         ArtworkServiceInterface $artworkService,
         ArtworkFormatterInterface $artworkFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($artworkService, $artworkFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($artworkService, $artworkFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $slug = $this->getValue('slug', '');
@@ -163,7 +163,7 @@ class ArtworkController extends BaseApiController
         ArtworkServiceInterface $artworkService,
         ArtworkFormatterInterface $artworkFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $artworkFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $artworkService, $artworkFormatter) {
             $artwork = $artworkService->get($slug);
 
             $name = $this->getValue('name', $artwork->getName());
@@ -203,7 +203,7 @@ class ArtworkController extends BaseApiController
         ArtworkServiceInterface $artworkService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($slug, $artworkService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($slug, $artworkService, $mediaService) {
             $artwork = $artworkService->get($slug);
             $picture = $artwork->getPicture();
             $artworkService->delete($artwork);

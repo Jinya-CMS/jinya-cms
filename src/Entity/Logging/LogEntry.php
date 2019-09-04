@@ -50,22 +50,21 @@ class LogEntry implements JsonSerializable
      * @var string
      */
     private $levelName;
-
     /**
      * @ORM\Column(name="extra", type="array")
      * @var array
      */
     private $extra;
-
     /**
      * @ORM\Column(name="created_at", type="datetime")
+     * @var DateTime
      */
     private $createdAt;
 
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -73,7 +72,7 @@ class LogEntry implements JsonSerializable
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -81,7 +80,7 @@ class LogEntry implements JsonSerializable
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -89,7 +88,7 @@ class LogEntry implements JsonSerializable
     /**
      * @param string $message
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
@@ -97,7 +96,7 @@ class LogEntry implements JsonSerializable
     /**
      * @return array
      */
-    public function getContext()
+    public function getContext(): array
     {
         return $this->context;
     }
@@ -105,7 +104,7 @@ class LogEntry implements JsonSerializable
     /**
      * @param array $context
      */
-    public function setContext(array $context)
+    public function setContext(array $context): void
     {
         $this->context = $context;
     }
@@ -113,7 +112,7 @@ class LogEntry implements JsonSerializable
     /**
      * @return int
      */
-    public function getLevel()
+    public function getLevel(): int
     {
         return $this->level;
     }
@@ -121,7 +120,7 @@ class LogEntry implements JsonSerializable
     /**
      * @param int $level
      */
-    public function setLevel(int $level)
+    public function setLevel(int $level): void
     {
         $this->level = $level;
     }
@@ -129,7 +128,7 @@ class LogEntry implements JsonSerializable
     /**
      * @return string
      */
-    public function getLevelName()
+    public function getLevelName(): string
     {
         return $this->levelName;
     }
@@ -137,7 +136,7 @@ class LogEntry implements JsonSerializable
     /**
      * @param string $levelName
      */
-    public function setLevelName(string $levelName)
+    public function setLevelName(string $levelName): void
     {
         $this->levelName = $levelName;
     }
@@ -145,7 +144,7 @@ class LogEntry implements JsonSerializable
     /**
      * @return array
      */
-    public function getExtra()
+    public function getExtra(): array
     {
         return $this->extra;
     }
@@ -153,23 +152,23 @@ class LogEntry implements JsonSerializable
     /**
      * @param array $extra
      */
-    public function setExtra(array $extra)
+    public function setExtra(array $extra): void
     {
         $this->extra = $extra;
     }
 
     /**
-     * @return mixed
+     * @return DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param DateTime $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -177,7 +176,7 @@ class LogEntry implements JsonSerializable
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
+    public function onPrePersist(): void
     {
         $this->createdAt = new DateTime();
     }

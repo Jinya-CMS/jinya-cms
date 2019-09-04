@@ -35,22 +35,18 @@ class AllVideoController extends BaseApiController
     public function getAllAction(
         Request $request,
         AllVideoServiceInterface $allVideoService,
-        VideoFormatterInterface $videoFormatter,
-        YoutubeVideoFormatterInterface $youtubeVideoFormatter,
         UrlGeneratorInterface $urlGenerator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(function () use (
             $request,
             $allVideoService,
-            $videoFormatter,
-            $youtubeVideoFormatter,
             $urlGenerator
         ) {
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
 
-            $entities = array_map(function ($item) use ($urlGenerator) {
+            $entities = array_map(static function ($item) use ($urlGenerator) {
                 if (array_key_exists('videoKey', $item)) {
                     return [
                         'type' => 'youtube',
@@ -58,7 +54,9 @@ class AllVideoController extends BaseApiController
                         'slug' => $item['slug'],
                         'name' => $item['name'],
                     ];
-                } elseif (array_key_exists('video', $item)) {
+                }
+
+                if (array_key_exists('video', $item)) {
                     return [
                         'type' => 'jinya',
                         'poster' => $urlGenerator->generate('api_video_get_poster', ['slug' => $item['slug']]),

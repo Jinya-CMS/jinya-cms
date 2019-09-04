@@ -17,7 +17,7 @@ use Jinya\Framework\Events\Menu\MenuItemGetAllEvent;
 use Jinya\Framework\Events\Menu\MenuItemGetEvent;
 use Jinya\Framework\Events\Menu\MenuItemRemoveEvent;
 use Jinya\Framework\Events\Menu\MenuItemUpdateEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuItemService implements MenuItemServiceInterface
 {
@@ -56,8 +56,8 @@ class MenuItemService implements MenuItemServiceInterface
     public function getAll(int $parentId, string $type = MenuItemServiceInterface::PARENT): array
     {
         $this->eventDispatcher->dispatch(
-            MenuItemGetAllEvent::PRE_GET_ALL,
-            new MenuItemGetAllEvent($parentId, $type, [])
+            new MenuItemGetAllEvent($parentId, $type, []),
+            MenuItemGetAllEvent::PRE_GET_ALL
         );
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('item')
@@ -79,8 +79,8 @@ class MenuItemService implements MenuItemServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            MenuItemGetAllEvent::POST_GET_ALL,
-            new MenuItemGetAllEvent($parentId, $type, $items)
+            new MenuItemGetAllEvent($parentId, $type, $items),
+            MenuItemGetAllEvent::POST_GET_ALL
         );
 
         return $items;
@@ -99,8 +99,8 @@ class MenuItemService implements MenuItemServiceInterface
     public function get(int $parentId, int $position, string $type = MenuItemServiceInterface::PARENT): MenuItem
     {
         $this->eventDispatcher->dispatch(
-            MenuItemGetEvent::PRE_GET,
-            new MenuItemGetEvent($parentId, $type, $position, null)
+            new MenuItemGetEvent($parentId, $type, $position, null),
+            MenuItemGetEvent::PRE_GET
         );
 
         $queryBuilder = $this->entityManager->createQueryBuilder()
@@ -125,8 +125,8 @@ class MenuItemService implements MenuItemServiceInterface
             ->getSingleResult();
 
         $this->eventDispatcher->dispatch(
-            MenuItemGetEvent::POST_GET,
-            new MenuItemGetEvent($parentId, $type, $position, $item)
+            new MenuItemGetEvent($parentId, $type, $position, $item),
+            MenuItemGetEvent::POST_GET
         );
 
         return $item;
@@ -142,8 +142,8 @@ class MenuItemService implements MenuItemServiceInterface
     public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            MenuItemAddEvent::PRE_ADD,
-            new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item)
+            new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item),
+            MenuItemAddEvent::PRE_ADD
         );
 
         if (!$pre->isCancel()) {
@@ -164,8 +164,8 @@ class MenuItemService implements MenuItemServiceInterface
             $this->entityManager->flush();
 
             $this->eventDispatcher->dispatch(
-                MenuItemAddEvent::POST_ADD,
-                new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item)
+                new MenuItemAddEvent($parentId, $type, $item->getPosition(), $item),
+                MenuItemAddEvent::POST_ADD
             );
         }
     }
@@ -184,10 +184,11 @@ class MenuItemService implements MenuItemServiceInterface
         if (MenuItemServiceInterface::MENU === $type) {
             $positions = $this->menuService->get($parentId)->getMenuItems()->toArray();
         } else {
+            /** @noinspection NullPointerExceptionInspection */
             $positions = $this->entityManager->find(MenuItem::class, $parentId)->getChildren()->toArray();
         }
 
-        uasort($positions, function ($a, $b) {
+        uasort($positions, static function ($a, $b) {
             /* @var MenuItem $a */
             /* @var MenuItem $b */
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
@@ -195,8 +196,10 @@ class MenuItemService implements MenuItemServiceInterface
 
         $positions = array_values($positions);
 
-        if ($position === -1) {
-            $position = array_shift($positions)->getPosition() + 1;
+        $newPosition = $position;
+
+        if ($newPosition === -1) {
+            $newPosition = array_shift($positions)->getPosition() + 1;
         }
 
         /** @var MenuItem $menuItem */
@@ -205,12 +208,12 @@ class MenuItemService implements MenuItemServiceInterface
         }
 
         foreach ($positions as $menuItem) {
-            if ($menuItem->getPosition() >= $position) {
+            if ($menuItem->getPosition() >= $newPosition) {
                 $menuItem->setPosition($menuItem->getPosition() + 1);
             }
         }
 
-        return $position;
+        return $newPosition;
     }
 
     /**
@@ -242,16 +245,16 @@ class MenuItemService implements MenuItemServiceInterface
             ->getSingleResult();
 
         $pre = $this->eventDispatcher->dispatch(
-            MenuItemRemoveEvent::PRE_REMOVE,
-            new MenuItemRemoveEvent($parentId, $type, $position, $item)
+            new MenuItemRemoveEvent($parentId, $type, $position, $item),
+            MenuItemRemoveEvent::PRE_REMOVE
         );
 
         if (!$pre->isCancel()) {
             $this->entityManager->remove($item);
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                MenuItemRemoveEvent::POST_REMOVE,
-                new MenuItemRemoveEvent($parentId, $type, $position, $item)
+                new MenuItemRemoveEvent($parentId, $type, $position, $item),
+                MenuItemRemoveEvent::POST_REMOVE
             );
         }
     }
@@ -263,9 +266,10 @@ class MenuItemService implements MenuItemServiceInterface
      */
     public function updateItem(MenuItem $item): MenuItem
     {
-        $pre = $this->eventDispatcher->dispatch(MenuItemUpdateEvent::PRE_UPDATE, new MenuItemUpdateEvent($item));
+        $pre = $this->eventDispatcher->dispatch(new MenuItemUpdateEvent($item), MenuItemUpdateEvent::PRE_UPDATE);
 
         if (!$pre->isCancel()) {
+            /** @noinspection NullPointerExceptionInspection */
             $parentId = $item->getParent() ? $item->getParent()->getId() : $item->getMenu()->getId();
             $position = $this->rearrangeMenuItems(
                 $item->getPosition(),
@@ -278,7 +282,7 @@ class MenuItemService implements MenuItemServiceInterface
 
             $this->entityManager->flush();
 
-            $this->eventDispatcher->dispatch(MenuItemUpdateEvent::POST_UPDATE, new MenuItemUpdateEvent($item));
+            $this->eventDispatcher->dispatch(new MenuItemUpdateEvent($item), MenuItemUpdateEvent::POST_UPDATE);
         }
 
         return $item;

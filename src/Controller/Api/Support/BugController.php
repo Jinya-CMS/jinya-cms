@@ -30,7 +30,7 @@ class BugController extends BaseApiController
      */
     public function submitAction(Request $request, Client $client): Response
     {
-        list($data, $status) = $this->tryExecute(function () use ($request, $client) {
+        [$data, $status] = $this->tryExecute(function () use ($request, $client) {
             ob_start();
             phpinfo(INFO_GENERAL + INFO_CONFIGURATION + INFO_MODULES);
             $phpInfo = ob_get_contents();

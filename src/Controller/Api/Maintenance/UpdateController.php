@@ -29,7 +29,7 @@ class UpdateController extends BaseApiController
      */
     public function initiateUpdateAction(): Response
     {
-        $code = uniqid();
+        $code = uniqid('update-', true);
         $fs = new Filesystem();
         $fs->dumpFile($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'config/update.lock', $code);
 

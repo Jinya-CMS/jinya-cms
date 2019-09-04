@@ -89,7 +89,7 @@ class VideoGallery extends HistoryEnabledEntity implements GalleryInterface
     /**
      * @return Collection
      */
-    public function getVideos(): ?Collection
+    public function getVideos(): Collection
     {
         return $this->videos;
     }

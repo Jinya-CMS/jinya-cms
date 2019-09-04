@@ -54,5 +54,5 @@ interface ArtworkServiceInterface
      * @param string $slug
      * @return Artwork
      */
-    public function get(string $slug): ?Artwork;
+    public function get(string $slug): Artwork;
 }

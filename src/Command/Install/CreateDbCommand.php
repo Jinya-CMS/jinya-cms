@@ -2,6 +2,7 @@
 
 namespace Jinya\Command\Install;
 
+use Doctrine\DBAL\DBALException;
 use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Components\Database\SchemaToolInterface;
 use Symfony\Component\Console\Command\Command;
@@ -44,6 +45,12 @@ class CreateDbCommand extends Command
             ->setDescription('Creates the database');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
+     * @throws DBALException
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->schemaTool->createSchema();

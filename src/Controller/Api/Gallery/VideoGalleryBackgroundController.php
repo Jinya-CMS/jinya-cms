@@ -37,7 +37,7 @@ class VideoGalleryBackgroundController extends BaseApiController
         MediaServiceInterface $mediaService
     ): Response {
         /** @var $data VideoGallery|array */
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $slug) {
+        [$data, $status] = $this->tryExecute(static function () use ($galleryService, $slug) {
             $gallery = $galleryService->get($slug);
             if (empty($gallery->getBackground())) {
                 throw new FileNotFoundException($gallery->getName());
@@ -48,9 +48,9 @@ class VideoGalleryBackgroundController extends BaseApiController
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
         }
+
+        return $this->file($mediaService->getMedia($data->getBackground()), $data->getName() . '.jpg');
     }
 
     /**
@@ -71,7 +71,7 @@ class VideoGalleryBackgroundController extends BaseApiController
         MediaServiceInterface $mediaService,
         UrlGeneratorInterface $urlGenerator
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use (
+        [$data, $status] = $this->tryExecute(static function () use (
             $request,
             $galleryService,
             $mediaService,
@@ -111,11 +111,10 @@ class VideoGalleryBackgroundController extends BaseApiController
      */
     public function deleteBackgroundImageAction(
         string $slug,
-        Request $request,
         VideoGalleryServiceInterface $galleryService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($request, $galleryService, $mediaService, $slug) {
+        [$data, $status] = $this->tryExecute(static function () use ($galleryService, $mediaService, $slug) {
             $gallery = $galleryService->get($slug);
             $mediaService->deleteMedia($gallery->getBackground());
             $gallery->setBackground(null);

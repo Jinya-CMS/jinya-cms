@@ -33,7 +33,7 @@ class PageCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPageSave(PageEvent $event)
+    public function onPageSave(PageEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::PAGE);
     }

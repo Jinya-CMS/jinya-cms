@@ -11,7 +11,7 @@ namespace Jinya\EventSubscriber;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -44,7 +44,7 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(ExceptionEvent $event): void
     {
         if ('dev' !== getenv('APP_ENV')) {
             $request = $event->getRequest();
@@ -52,8 +52,8 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
             $this->logger->warning($event->getException()->getTraceAsString());
 
             $route = $this->router->getRouteCollection()->get($request->get('_route'));
-            if ('/' === $request->getPathInfo()) {
-            } elseif ('/{route}' === $route->getPath()) {
+
+            if ('/{route}' === $route->getPath()) {
                 $event->setResponse(new RedirectResponse('/'));
             }
         }

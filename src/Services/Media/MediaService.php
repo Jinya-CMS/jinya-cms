@@ -12,10 +12,11 @@ use Jinya\Framework\Events\Media\MediaDeleteEvent;
 use Jinya\Framework\Events\Media\MediaGetEvent;
 use Jinya\Framework\Events\Media\MediaMoveEvent;
 use Jinya\Framework\Events\Media\MediaSaveEvent;
+use RuntimeException;
 use SplFileInfo;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MediaService implements MediaServiceInterface
 {
@@ -50,9 +51,9 @@ class MediaService implements MediaServiceInterface
      */
     public function saveMedia($file, string $type): string
     {
-        $preSave = $this->eventDispatcher->dispatch(MediaSaveEvent::PRE_SAVE, new MediaSaveEvent($file, $type));
+        $preSave = $this->eventDispatcher->dispatch(new MediaSaveEvent($file, $type), MediaSaveEvent::PRE_SAVE);
         if (empty($preSave->getLocation())) {
-            $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
+            $tmpFilename = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid('media-temp', true);
             file_put_contents($tmpFilename, $file);
 
             $location = $this->moveFile($tmpFilename, $type);
@@ -63,7 +64,7 @@ class MediaService implements MediaServiceInterface
         $event = new MediaSaveEvent($file, $type);
         $event->setLocation($location);
 
-        $this->eventDispatcher->dispatch(MediaSaveEvent::POST_SAVE, $event);
+        $this->eventDispatcher->dispatch($event, MediaSaveEvent::POST_SAVE);
 
         return $location;
     }
@@ -76,7 +77,9 @@ class MediaService implements MediaServiceInterface
     private function moveFile(string $oldFile, string $type): string
     {
         $directory = $this->getFilePath($type);
-        @mkdir($directory, 0775, true);
+        if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $directory));
+        }
 
         $hashCtx = hash_init('sha256');
         hash_update_file($hashCtx, $oldFile);
@@ -92,7 +95,12 @@ class MediaService implements MediaServiceInterface
 
     private function getFilePath(string $type): string
     {
-        return $this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+        return implode(DIRECTORY_SEPARATOR, [
+            $this->kernelProjectDir,
+            'public',
+            'public',
+            $type,
+        ]);
     }
 
     /**
@@ -100,17 +108,16 @@ class MediaService implements MediaServiceInterface
      *
      * @param string $url
      */
-    public function deleteMedia(string $url)
+    public function deleteMedia(string $url): void
     {
-        $parts = preg_split('/\\//', $url);
+        $parts = explode("\\/", $url);
         $parts = array_reverse($parts);
-        $filename = $parts[0];
-        $type = $parts[1];
+        [$filename, $type] = $parts;
 
-        $pre = $this->eventDispatcher->dispatch(MediaDeleteEvent::PRE_DELETE, new MediaDeleteEvent($type, $filename));
+        $pre = $this->eventDispatcher->dispatch(new MediaDeleteEvent($type, $filename), MediaDeleteEvent::PRE_DELETE);
         if (!$pre->isCancel()) {
             unlink($this->getFilePath($type) . $filename);
-            $this->eventDispatcher->dispatch(MediaDeleteEvent::POST_DELETE, new MediaDeleteEvent($type, $filename));
+            $this->eventDispatcher->dispatch(new MediaDeleteEvent($type, $filename), MediaDeleteEvent::POST_DELETE);
         }
     }
 
@@ -118,11 +125,11 @@ class MediaService implements MediaServiceInterface
      * Gets the media as SplFileInfo
      *
      * @param string $path
-     * @return SplFileInfo|string
+     * @return SplFileInfo
      */
-    public function getMedia(string $path)
+    public function getMedia(string $path): SplFileInfo
     {
-        $pre = $this->eventDispatcher->dispatch(MediaGetEvent::PRE_GET, new MediaGetEvent($path));
+        $pre = $this->eventDispatcher->dispatch(new MediaGetEvent($path), MediaGetEvent::PRE_GET);
         if (empty($pre->getResult())) {
             $file = new SplFileInfo($this->kernelProjectDir . DIRECTORY_SEPARATOR . 'public' . $path);
         } else {
@@ -131,7 +138,7 @@ class MediaService implements MediaServiceInterface
 
         $event = new MediaGetEvent($path);
         $event->setResult($file);
-        $this->eventDispatcher->dispatch(MediaGetEvent::POST_GET, $event);
+        $this->eventDispatcher->dispatch($event, MediaGetEvent::POST_GET);
 
         return $file;
     }
@@ -145,7 +152,7 @@ class MediaService implements MediaServiceInterface
      */
     public function moveMedia(string $from, string $type): string
     {
-        $pre = $this->eventDispatcher->dispatch(MediaMoveEvent::PRE_MOVE, new MediaMoveEvent($from, $type));
+        $pre = $this->eventDispatcher->dispatch(new MediaMoveEvent($from, $type), MediaMoveEvent::PRE_MOVE);
         if (empty($pre->getLocation())) {
             $location = $this->moveFile($from, $type);
         } else {
@@ -154,7 +161,7 @@ class MediaService implements MediaServiceInterface
 
         $event = new MediaMoveEvent($from, $type);
         $event->setLocation($location);
-        $this->eventDispatcher->dispatch(MediaMoveEvent::POST_MOVE, $event);
+        $this->eventDispatcher->dispatch($event, MediaMoveEvent::POST_MOVE);
 
         return $location;
     }

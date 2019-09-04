@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\User;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class TwoFactorCodeSubmissionEvent extends Event
 {

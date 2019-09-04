@@ -8,13 +8,11 @@
 
 namespace Jinya\Framework\Events\User;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class TwoFactorCodeEvent extends Event
 {
     public const PRE_CODE_GENERATION = 'TwoFactorCodePreGeneration';
-
-    public const POST_CODE_GENERATION = 'TwoFactorCodePostGeneration';
 
     /** @var string */
     private $username;

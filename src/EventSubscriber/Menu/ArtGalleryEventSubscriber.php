@@ -60,7 +60,7 @@ class ArtGalleryEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostArtGallerySave(ArtGalleryEvent $event)
+    public function onPostArtGallerySave(ArtGalleryEvent $event): void
     {
         foreach ($this->affectedRoutes as $affectedRoute) {
             $parameter = $affectedRoute->getRouteParameter();
@@ -75,10 +75,12 @@ class ArtGalleryEventSubscriber implements EventSubscriberInterface
      * @param ArtGalleryEvent $event
      * @throws NonUniqueResultException
      */
-    public function onPreArtGallerySave(ArtGalleryEvent $event)
+    public function onPreArtGallerySave(ArtGalleryEvent $event): void
     {
         $this->affectedRoutes = [];
-        if (!empty($event->getArtGallery()->getId())) {
+        /** @noinspection NullPointerExceptionInspection */
+        if ($event->getArtGallery()->getId() !== null) {
+            /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()
                 ->select('gallery.slug')
@@ -97,14 +99,15 @@ class ArtGalleryEventSubscriber implements EventSubscriberInterface
                 ->getQuery()
                 ->getResult();
 
-            $this->affectedRoutes = array_filter($galleryRoutes, function (RoutingEntry $routingEntry) use ($oldSlug) {
-                $parameter = $routingEntry->getRouteParameter();
+            $this->affectedRoutes = array_filter($galleryRoutes,
+                static function (RoutingEntry $routingEntry) use ($oldSlug) {
+                    $parameter = $routingEntry->getRouteParameter();
 
-                return array_key_exists(
-                    'slug',
-                    $parameter
-                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
-            });
+                    return array_key_exists(
+                            'slug',
+                            $parameter
+                        ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                });
         }
     }
 }

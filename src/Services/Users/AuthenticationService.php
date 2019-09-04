@@ -1,13 +1,8 @@
 <?php
 
 /** @noinspection HtmlRequiredTitleElement */
+
 /** @noinspection HtmlRequiredLangAttribute */
-/**
- * Created by PhpStorm.
- * User: imanuel
- * Date: 25.08.18
- * Time: 01:08
- */
 
 namespace Jinya\Services\Users;
 
@@ -21,7 +16,7 @@ use Jinya\Framework\Events\User\TwoFactorCodeEvent;
 use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -66,24 +61,20 @@ class AuthenticationService implements AuthenticationServiceInterface
      * Sets the two factor code and sends the verification mail
      *
      * @param string $username
+     * @throws Exception
      */
     public function setAndSendTwoFactorCode(string $username): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            TwoFactorCodeEvent::PRE_CODE_GENERATION,
-            new TwoFactorCodeEvent($username)
+            new TwoFactorCodeEvent($username),
+            TwoFactorCodeEvent::PRE_CODE_GENERATION
         );
         $user = $this->userService->getUserByEmail($username);
         $code = '';
 
         if (empty($pre->getTwoFactorCode())) {
             for ($i = 0; $i < 6; ++$i) {
-                try {
-                    $code .= random_int(0, 9);
-                } catch (Exception $e) {
-                    srand(time());
-                    $code .= rand(0, 9);
-                }
+                $code .= random_int(0, 9);
             }
         } else {
             $code = $pre->getTwoFactorCode();
@@ -93,12 +84,12 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->entityManager->flush();
 
         $submissionEvent = $this->eventDispatcher->dispatch(
-            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION,
-            new TwoFactorCodeSubmissionEvent($username, $code)
+            new TwoFactorCodeSubmissionEvent($username, $code),
+            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION
         );
         if (!$submissionEvent->isSent()) {
             /** @var Swift_Message $message */
-            $message = $this->swift->createMessage('message');
+            $message = $this->swift->createMessage();
             $message->addTo($user->getEmail());
             $message->setSubject('Your two factor code');
             $message->setBody($this->formatBody($user), 'text/html');
@@ -107,8 +98,8 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
 
         $this->eventDispatcher->dispatch(
-            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION,
-            new TwoFactorCodeSubmissionEvent($username, $code)
+            new TwoFactorCodeSubmissionEvent($username, $code),
+            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION
         );
     }
 
@@ -119,7 +110,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         return "<html>
 <head></head>
-<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\"'>
+<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif'>
     <table style='width: 100%; height: 100%;'>
     <tr>
         <td colspan='3' style='height: 15%;'></td>
@@ -163,7 +154,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         try {
             $code = bin2hex(random_bytes(20));
         } catch (Exception $exception) {
-            $code = sha1(strval(time()));
+            $code = sha1((string)time());
         }
 
         $knownDevice->setKey($code);

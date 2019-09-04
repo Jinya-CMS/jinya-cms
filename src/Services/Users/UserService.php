@@ -86,7 +86,7 @@ class UserService implements UserServiceInterface
     public function delete(int $id): void
     {
         if (!$this->isLastSuperAdmin()) {
-            $user = $this->entityManager->find(User::class, $id);
+            $user = $this->get($id);
             $this->entityManager->remove($user);
             $this->entityManager->flush();
         }
@@ -115,10 +115,17 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
+    public function get(int $id): User
+    {
+        return $this->entityManager->find(User::class, $id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function activate(int $id): User
     {
-        /** @var User $user */
-        $user = $this->entityManager->find(User::class, $id);
+        $user = $this->get($id);
 
         $user->setEnabled(true);
         $this->entityManager->persist($user);
@@ -133,7 +140,7 @@ class UserService implements UserServiceInterface
      */
     public function deactivate(int $id): User
     {
-        $user = $this->entityManager->find(User::class, $id);
+        $user = $this->get($id);
         if (!$this->isLastSuperAdmin()) {
             $user->setEnabled(false);
             $this->entityManager->persist($user);
@@ -146,17 +153,9 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function get(int $id): User
-    {
-        return $this->entityManager->find(User::class, $id);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function grantRole(int $userId, string $role): void
     {
-        $user = $this->entityManager->find(User::class, $userId);
+        $user = $this->get($userId);
         $user->addRole($role);
         $this->entityManager->flush();
     }
@@ -168,7 +167,7 @@ class UserService implements UserServiceInterface
     public function revokeRole(int $userId, string $role): void
     {
         if (User::ROLE_SUPER_ADMIN !== $role || !$this->isLastSuperAdmin()) {
-            $user = $this->entityManager->find(User::class, $userId);
+            $user = $this->get($userId);
             $user->removeRole($role);
             $this->entityManager->flush();
         }
@@ -179,7 +178,7 @@ class UserService implements UserServiceInterface
      */
     public function changePassword(int $id, string $newPassword): void
     {
-        $user = $this->entityManager->find(User::class, $id);
+        $user = $this->get($id);
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, $newPassword));
         $this->apiKeyTool->invalidateAll($id);
         $this->entityManager->flush();
@@ -253,9 +252,13 @@ class UserService implements UserServiceInterface
 
         if (!$this->userPasswordEncoder->isPasswordValid($user, $password)) {
             throw new BadCredentialsException('Invalid username or password');
-        } elseif (!empty($deviceCode) && !$this->isValidDevice($username, $deviceCode)) {
-            throw new UnknownDeviceException();
-        } elseif (empty($deviceCode) && $twoFactorCode !== $user->getTwoFactorToken()) {
+        }
+
+        if (!empty($deviceCode) && !$this->isValidDevice($username, $deviceCode)) {
+            throw new UnknownDeviceException('This device is unknown');
+        }
+
+        if (empty($deviceCode) && $twoFactorCode !== $user->getTwoFactorToken()) {
             throw new BadCredentialsException('No two factor code provided');
         }
 

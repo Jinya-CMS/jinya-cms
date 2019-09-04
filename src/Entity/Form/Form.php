@@ -30,6 +30,12 @@ class Form extends HistoryEnabledEntity
     private $items;
 
     /**
+     * @var Collection
+     * @ORM\OneToMany(mappedBy="form", targetEntity="Jinya\Entity\Form\Message", cascade={"persist", "remove"})
+     */
+    private $messages;
+
+    /**
      * @var string
      * @Assert\Email
      * @ORM\Column(type="string")
@@ -60,6 +66,7 @@ class Form extends HistoryEnabledEntity
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     /**
@@ -113,7 +120,7 @@ class Form extends HistoryEnabledEntity
     /**
      * @return Collection
      */
-    public function getItems(): ?Collection
+    public function getItems(): Collection
     {
         return $this->items;
     }
@@ -140,6 +147,22 @@ class Form extends HistoryEnabledEntity
     public function setToAddress(string $toAddress): void
     {
         $this->toAddress = $toAddress;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param Collection $messages
+     */
+    public function setMessages(Collection $messages): void
+    {
+        $this->messages = $messages;
     }
 
     /**

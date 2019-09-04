@@ -15,8 +15,8 @@ use Jinya\Framework\Events\Theme\ThemeConfigEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function array_replace_recursive;
 use function preg_replace;
@@ -37,9 +37,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /** @var ArrayUtilInterface */
     private $arrayUtils;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ThemeConfigService constructor.
@@ -87,13 +90,9 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function getForms(string $name): array
     {
-        $themeYml = sprintf(
-            '%s%s%s%s%s',
-            $this->themeService->getThemeDirectory(),
+        $themeYml = implode(
             DIRECTORY_SEPARATOR,
-            $name,
-            DIRECTORY_SEPARATOR,
-            ThemeService::THEME_CONFIG_YML
+            [$this->themeService->getThemeDirectory(), $name, ThemeService::THEME_CONFIG_YML]
         );
 
         $themeData = Yaml::parseFile($themeYml);
@@ -159,13 +158,9 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     {
         $theme = $this->themeService->getTheme($name);
 
-        return Yaml::parse(file_get_contents(sprintf(
-            '%s%s%s%s%s',
-            $this->themeService->getThemeDirectory(),
+        return Yaml::parse(file_get_contents(implode(
             DIRECTORY_SEPARATOR,
-            $theme->getName(),
-            DIRECTORY_SEPARATOR,
-            ThemeService::THEME_CONFIG_YML
+            [$this->themeService->getThemeDirectory(), $theme->getName(), ThemeService::THEME_CONFIG_YML]
         )));
     }
 
@@ -235,7 +230,7 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
         @$this->mediaService->deleteMedia($file);
 
-        $this->saveConfig($name, $this->arrayUtils->removeArrayValueByPath($config, $key), true);
+        $this->saveConfig($name, $this->arrayUtils->removeArrayValueByPath($config, $key));
     }
 
     /**

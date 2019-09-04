@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\SegmentPages\SegmentPageEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SegmentPageService implements SegmentPageServiceInterface
 {
@@ -28,9 +28,12 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * SegmentPageService constructor.
@@ -57,9 +60,9 @@ class SegmentPageService implements SegmentPageServiceInterface
      */
     public function get(string $slug): SegmentPage
     {
-        $this->eventDispatcher->dispatch(SegmentPageEvent::PRE_GET, new SegmentPageEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new SegmentPageEvent(null, $slug), SegmentPageEvent::PRE_GET);
         $segmentPage = $this->baseService->get($slug);
-        $this->eventDispatcher->dispatch(SegmentPageEvent::POST_GET, new SegmentPageEvent($segmentPage, $slug));
+        $this->eventDispatcher->dispatch(new SegmentPageEvent($segmentPage, $slug), SegmentPageEvent::POST_GET);
 
         return $segmentPage;
     }
@@ -75,8 +78,8 @@ class SegmentPageService implements SegmentPageServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $this->eventDispatcher->dispatch(
-            ListEvent::SEGMENT_PAGE_PRE_GET_ALL,
-            new ListEvent($offset, $count, $keyword, [])
+            new ListEvent($offset, $count, $keyword, []),
+            ListEvent::SEGMENT_PAGE_PRE_GET_ALL
         );
 
         $items = $this->getFilteredQueryBuilder($keyword)
@@ -87,8 +90,8 @@ class SegmentPageService implements SegmentPageServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            ListEvent::SEGMENT_PAGE_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $items)
+            new ListEvent($offset, $count, $keyword, $items),
+            ListEvent::SEGMENT_PAGE_POST_GET_ALL
         );
 
         return $items;
@@ -117,14 +120,14 @@ class SegmentPageService implements SegmentPageServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::SEGMENT_PAGES_PRE_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::SEGMENT_PAGES_PRE_COUNT);
 
         $count = $this->getFilteredQueryBuilder($keyword)
             ->select('COUNT(segmentPage)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $this->eventDispatcher->dispatch(CountEvent::SEGMENT_PAGES_POST_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::SEGMENT_PAGES_POST_COUNT);
 
         return $count;
     }
@@ -138,15 +141,15 @@ class SegmentPageService implements SegmentPageServiceInterface
     public function saveOrUpdate(SegmentPage $segmentPage): SegmentPage
     {
         $pre = $this->eventDispatcher->dispatch(
-            SegmentPageEvent::PRE_SAVE,
-            new SegmentPageEvent($segmentPage, $segmentPage->getSlug())
+            new SegmentPageEvent($segmentPage, $segmentPage->getSlug()),
+            SegmentPageEvent::PRE_SAVE
         );
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($segmentPage);
             $this->eventDispatcher->dispatch(
-                SegmentPageEvent::POST_SAVE,
-                new SegmentPageEvent($segmentPage, $segmentPage->getSlug())
+                new SegmentPageEvent($segmentPage, $segmentPage->getSlug()),
+                SegmentPageEvent::POST_SAVE
             );
         }
 
@@ -160,15 +163,15 @@ class SegmentPageService implements SegmentPageServiceInterface
     public function delete(SegmentPage $segmentPage): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            SegmentPageEvent::PRE_DELETE,
-            new SegmentPageEvent($segmentPage, $segmentPage->getSlug())
+            new SegmentPageEvent($segmentPage, $segmentPage->getSlug()),
+            SegmentPageEvent::PRE_DELETE
         );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($segmentPage);
             $this->eventDispatcher->dispatch(
-                SegmentPageEvent::POST_DELETE,
-                new SegmentPageEvent($segmentPage, $segmentPage->getSlug())
+                new SegmentPageEvent($segmentPage, $segmentPage->getSlug()),
+                SegmentPageEvent::POST_DELETE
             );
         }
     }

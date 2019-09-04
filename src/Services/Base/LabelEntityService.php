@@ -11,21 +11,9 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label\Label;
-use Jinya\Services\Labels\LabelServiceInterface;
 
 class LabelEntityService implements LabelEntityServiceInterface
 {
-    /** @var LabelServiceInterface */
-    private $labelService;
-
-    /**
-     * LabelEntityService constructor.
-     * @param LabelServiceInterface $labelService
-     */
-    public function __construct(LabelServiceInterface $labelService)
-    {
-        $this->labelService = $labelService;
-    }
 
     /**
      * Gets the specified amount of entities by keyword and label

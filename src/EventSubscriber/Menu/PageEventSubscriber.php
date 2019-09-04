@@ -60,7 +60,7 @@ class PageEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostPageSave(PageEvent $event)
+    public function onPostPageSave(PageEvent $event): void
     {
         foreach ($this->affectedRoutes as $affectedRoute) {
             $parameter = $affectedRoute->getRouteParameter();
@@ -75,10 +75,12 @@ class PageEventSubscriber implements EventSubscriberInterface
      * @param PageEvent $event
      * @throws NonUniqueResultException
      */
-    public function onPrePageSave(PageEvent $event)
+    public function onPrePageSave(PageEvent $event): void
     {
         $this->affectedRoutes = [];
-        if (!empty($event->getPage()->getId())) {
+        /** @noinspection NullPointerExceptionInspection */
+        if ($event->getPage()->getId() !== null) {
+            /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()
                 ->select('page.slug')
@@ -91,13 +93,13 @@ class PageEventSubscriber implements EventSubscriberInterface
             $routes = $this->entityManager
                 ->getRepository(RoutingEntry::class)
                 ->findBy(['routeName' => 'frontend_page_details']);
-            $this->affectedRoutes = array_filter($routes, function (RoutingEntry $routingEntry) use ($oldSlug) {
+            $this->affectedRoutes = array_filter($routes, static function (RoutingEntry $routingEntry) use ($oldSlug) {
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
-                    'slug',
-                    $parameter
-                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                        'slug',
+                        $parameter
+                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

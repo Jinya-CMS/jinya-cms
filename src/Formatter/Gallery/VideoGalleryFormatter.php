@@ -190,7 +190,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
         $this->formattedData['videos'] = [];
 
         $videoPositions = $this->gallery->getVideos()->toArray();
-        uasort($videoPositions, function (VideoPosition $a, VideoPosition $b) {
+        uasort($videoPositions, static function (VideoPosition $a, VideoPosition $b) {
             return $a->getPosition() > $b->getPosition();
         });
 
@@ -203,7 +203,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
                 ->position()
                 ->id();
 
-            if (!empty($videoPosition->getYoutubeVideo())) {
+            if ($videoPosition->getYoutubeVideo() !== null) {
                 $this->videoPositionFormatter
                     ->youtubeVideo();
             } else {

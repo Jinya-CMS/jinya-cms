@@ -16,6 +16,7 @@ use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Jinya\Services\Theme\ThemeServiceInterface;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,7 +156,7 @@ class UpdateController extends AbstractController
         $backupPath = $this->kernelProjectDir . '/var/tmp/backup/' . time();
 
         if (!mkdir($backupPath, 0777, true) && !is_dir($backupPath)) {
-            throw new Exception(sprintf('Directory "%s" was not created', $backupPath));
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $backupPath));
         }
         @rename($this->kernelProjectDir . '/src', $backupPath);
 
@@ -192,6 +193,7 @@ class UpdateController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @return Response
      */
     public function doneAction(Request $request): Response

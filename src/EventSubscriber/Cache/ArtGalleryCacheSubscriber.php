@@ -33,7 +33,7 @@ class ArtGalleryCacheSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onArtGallerySave(ArtGalleryEvent $event)
+    public function onArtGallerySave(ArtGalleryEvent $event): void
     {
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::ART_GALLERY);
         $this->cacheBuilder->buildCacheBySlugAndType($event->getSlug(), CacheBuilderInterface::GALLERY);

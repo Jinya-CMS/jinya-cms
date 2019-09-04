@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Common;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class CancellableEvent extends Event
 {
@@ -28,6 +28,10 @@ class CancellableEvent extends Event
      */
     public function setCancel(bool $cancel): void
     {
+        if ($cancel) {
+            $this->stopPropagation();
+        }
+
         $this->cancel = $cancel;
     }
 }

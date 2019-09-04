@@ -18,7 +18,7 @@ interface ThemeServiceInterface
      * @param string $name
      * @return Theme
      */
-    public function getTheme(string $name): ?Theme;
+    public function getTheme(string $name): Theme;
 
     /**
      * Gets the default theme

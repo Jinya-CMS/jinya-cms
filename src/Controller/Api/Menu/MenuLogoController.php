@@ -30,15 +30,15 @@ class MenuLogoController extends BaseApiController
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
         /** @var $data Menu|array */
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $menuService) {
             return $menuService->get($id);
         });
 
         if (200 !== $status) {
             return $this->json($data, $status);
-        } else {
-            return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
         }
+
+        return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
     }
 
     /**
@@ -57,7 +57,7 @@ class MenuLogoController extends BaseApiController
         MenuServiceInterface $menuService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $request, $menuService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $request, $menuService, $mediaService) {
             $path = $mediaService->saveMedia($request->getContent(true), MediaServiceInterface::MENU_LOGO);
             $menu = $menuService->get($id);
             $menu->setLogo($path);
@@ -82,7 +82,7 @@ class MenuLogoController extends BaseApiController
         MenuServiceInterface $menuService,
         MediaServiceInterface $mediaService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($id, $menuService, $mediaService) {
+        [$data, $status] = $this->tryExecute(static function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
 
             $mediaService->deleteMedia($menu->getLogo());

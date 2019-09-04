@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Pages\PageEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PageService implements PageServiceInterface
 {
@@ -28,9 +28,6 @@ class PageService implements PageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
-
-    /** @var SlugServiceInterface */
-    private $slugService;
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
@@ -49,7 +46,6 @@ class PageService implements PageServiceInterface
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Page::class);
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->slugService = $slugService;
     }
 
     /**
@@ -61,9 +57,9 @@ class PageService implements PageServiceInterface
      */
     public function get(string $slug): Page
     {
-        $this->eventDispatcher->dispatch(PageEvent::PRE_GET, new PageEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new PageEvent(null, $slug), PageEvent::PRE_GET);
         $page = $this->baseService->get($slug);
-        $this->eventDispatcher->dispatch(PageEvent::POST_GET, new PageEvent($page, $slug));
+        $this->eventDispatcher->dispatch(new PageEvent($page, $slug), PageEvent::POST_GET);
 
         return $page;
     }
@@ -78,7 +74,7 @@ class PageService implements PageServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::PAGE_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::PAGE_PRE_GET_ALL);
 
         $items = $this->getFilteredQueryBuilder($keyword)
             ->setFirstResult($offset)
@@ -88,8 +84,8 @@ class PageService implements PageServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            ListEvent::PAGE_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $items)
+            new ListEvent($offset, $count, $keyword, $items),
+            ListEvent::PAGE_POST_GET_ALL
         );
 
         return $items;
@@ -101,7 +97,7 @@ class PageService implements PageServiceInterface
      * @param string $keyword
      * @return QueryBuilder
      */
-    private function getFilteredQueryBuilder(string $keyword)
+    private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
             ->from(Page::class, 'page')
@@ -118,14 +114,14 @@ class PageService implements PageServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::PAGES_PRE_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::PAGES_PRE_COUNT);
 
         $count = $this->getFilteredQueryBuilder($keyword)
             ->select('COUNT(page)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $this->eventDispatcher->dispatch(CountEvent::PAGES_POST_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::PAGES_POST_COUNT);
 
         return $count;
     }
@@ -138,11 +134,11 @@ class PageService implements PageServiceInterface
      */
     public function saveOrUpdate(Page $page): Page
     {
-        $pre = $this->eventDispatcher->dispatch(PageEvent::PRE_SAVE, new PageEvent($page, $page->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new PageEvent($page, $page->getSlug()), PageEvent::PRE_SAVE);
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($page);
-            $this->eventDispatcher->dispatch(PageEvent::POST_SAVE, new PageEvent($page, $page->getSlug()));
+            $this->eventDispatcher->dispatch(new PageEvent($page, $page->getSlug()), PageEvent::POST_SAVE);
         }
 
         return $page;
@@ -154,11 +150,11 @@ class PageService implements PageServiceInterface
      */
     public function delete(Page $page): void
     {
-        $pre = $this->eventDispatcher->dispatch(PageEvent::PRE_DELETE, new PageEvent($page, $page->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new PageEvent($page, $page->getSlug()), PageEvent::PRE_DELETE);
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($page);
-            $this->eventDispatcher->dispatch(PageEvent::POST_DELETE, new PageEvent($page, $page->getSlug()));
+            $this->eventDispatcher->dispatch(new PageEvent($page, $page->getSlug()), PageEvent::POST_DELETE);
         }
     }
 }

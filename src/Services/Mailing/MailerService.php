@@ -1,14 +1,8 @@
 <?php
 
 /** @noinspection HtmlRequiredTitleElement */
-/** @noinspection HtmlRequiredLangAttribute */
 
-/**
- * Created by PhpStorm.
- * User: imanu
- * Date: 26.01.2018
- * Time: 19:02
- */
+/** @noinspection HtmlRequiredLangAttribute */
 
 namespace Jinya\Services\Mailing;
 
@@ -17,7 +11,7 @@ use Jinya\Framework\Events\Mailing\MailerEvent;
 use Psr\Log\LoggerInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MailerService implements MailerServiceInterface
 {
@@ -26,12 +20,15 @@ class MailerService implements MailerServiceInterface
 
     /** @var string */
     private $mailerSender;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var LoggerInterface */
     private $logger;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * MailerService constructor.
@@ -57,11 +54,11 @@ class MailerService implements MailerServiceInterface
      */
     public function sendMail(Form $form, array $data): array
     {
-        $pre = $this->eventDispatcher->dispatch(MailerEvent::PRE_SEND_MAIL, new MailerEvent($form, $data));
+        $pre = $this->eventDispatcher->dispatch(new MailerEvent($form, $data), MailerEvent::PRE_SEND_MAIL);
         if (!$pre->isCancel()) {
             $this->logger->info('Send message to ' . $form->getToAddress());
             /** @var Swift_Message $message */
-            $message = $this->swift->createMessage('message');
+            $message = $this->swift->createMessage();
             $message->addTo($form->getToAddress());
             $message->setSubject('Form ' . $form->getTitle() . ' submitted');
             $message->setBody($this->formatBody($data), 'text/html');
@@ -72,7 +69,7 @@ class MailerService implements MailerServiceInterface
                 $this->logger->error("Couldn't send message for recipients", $failedRecipients);
             }
 
-            $this->eventDispatcher->dispatch(MailerEvent::POST_SEND_MAIL, new MailerEvent($form, $data));
+            $this->eventDispatcher->dispatch(new MailerEvent($form, $data), MailerEvent::POST_SEND_MAIL);
 
             return $failedRecipients;
         }
@@ -92,5 +89,17 @@ class MailerService implements MailerServiceInterface
         }
 
         return $body . '</table></body></html>';
+    }
+
+    /**
+     * Gets the body for the given form and data
+     *
+     * @param Form $form
+     * @param array $data
+     * @return string
+     */
+    public function getBody(Form $form, array $data): string
+    {
+        return $this->formatBody($data);
     }
 }

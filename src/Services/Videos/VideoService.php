@@ -19,7 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\VideoEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoService implements VideoServiceInterface
 {
@@ -28,9 +28,12 @@ class VideoService implements VideoServiceInterface
 
     /** @var BaseSlugEntityService */
     private $baseService;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+    /** @noinspection PhpUndefinedClassInspection */
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * VideoService constructor.
@@ -58,7 +61,7 @@ class VideoService implements VideoServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::VIDEOS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::VIDEOS_PRE_GET_ALL);
 
         $videos = $this->createQueryBuilder($keyword)
             ->select('video')
@@ -67,7 +70,7 @@ class VideoService implements VideoServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(ListEvent::VIDEOS_POST_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::VIDEOS_POST_GET_ALL);
 
         return $videos;
     }
@@ -94,14 +97,14 @@ class VideoService implements VideoServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::VIDEOS_PRE_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::VIDEOS_PRE_COUNT);
 
         $count = $this->createQueryBuilder($keyword)
             ->select('count(video)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $this->eventDispatcher->dispatch(CountEvent::VIDEOS_POST_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::VIDEOS_POST_COUNT);
 
         return $count;
     }
@@ -115,11 +118,11 @@ class VideoService implements VideoServiceInterface
      */
     public function saveOrUpdate(Video $video): Video
     {
-        $pre = $this->eventDispatcher->dispatch(VideoEvent::PRE_SAVE, new VideoEvent($video, $video->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new VideoEvent($video, $video->getSlug()), VideoEvent::PRE_SAVE);
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($video);
-            $this->eventDispatcher->dispatch(VideoEvent::POST_SAVE, new VideoEvent($video, $video->getSlug()));
+            $this->eventDispatcher->dispatch(new VideoEvent($video, $video->getSlug()), VideoEvent::POST_SAVE);
         }
 
         return $video;
@@ -132,11 +135,11 @@ class VideoService implements VideoServiceInterface
      */
     public function delete(Video $video): void
     {
-        $pre = $this->eventDispatcher->dispatch(VideoEvent::PRE_DELETE, new VideoEvent($video, $video->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new VideoEvent($video, $video->getSlug()), VideoEvent::PRE_DELETE);
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($video);
-            $this->eventDispatcher->dispatch(VideoEvent::POST_DELETE, new VideoEvent($video, $video->getSlug()));
+            $this->eventDispatcher->dispatch(new VideoEvent($video, $video->getSlug()), VideoEvent::POST_DELETE);
         }
     }
 
@@ -148,12 +151,12 @@ class VideoService implements VideoServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function get(string $slug): ?Video
+    public function get(string $slug): Video
     {
-        $this->eventDispatcher->dispatch(VideoEvent::PRE_GET, new VideoEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new VideoEvent(null, $slug), VideoEvent::PRE_GET);
 
         $video = $this->baseService->get($slug);
-        $this->eventDispatcher->dispatch(VideoEvent::POST_GET, new VideoEvent($video, $slug));
+        $this->eventDispatcher->dispatch(new VideoEvent($video, $slug), VideoEvent::POST_GET);
 
         return $video;
     }

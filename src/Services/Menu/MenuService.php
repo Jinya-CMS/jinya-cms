@@ -17,7 +17,7 @@ use Jinya\Framework\Events\Menu\MenuDeleteEvent;
 use Jinya\Framework\Events\Menu\MenuFillFromArrayEvent;
 use Jinya\Framework\Events\Menu\MenuGetEvent;
 use Jinya\Framework\Events\Menu\MenuSaveEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuService implements MenuServiceInterface
 {
@@ -43,7 +43,7 @@ class MenuService implements MenuServiceInterface
      */
     public function saveOrUpdate(Menu $menu): Menu
     {
-        $pre = $this->eventDispatcher->dispatch(MenuSaveEvent::PRE_SAVE, new MenuSaveEvent($menu));
+        $pre = $this->eventDispatcher->dispatch(new MenuSaveEvent($menu), MenuSaveEvent::PRE_SAVE);
 
         if (!$pre->isCancel()) {
             if (null === $menu->getId()) {
@@ -51,7 +51,7 @@ class MenuService implements MenuServiceInterface
             }
 
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(MenuSaveEvent::POST_SAVE, new MenuSaveEvent($menu));
+            $this->eventDispatcher->dispatch(new MenuSaveEvent($menu), MenuSaveEvent::POST_SAVE);
         }
 
         return $menu;
@@ -62,11 +62,11 @@ class MenuService implements MenuServiceInterface
      */
     public function getAll(): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::MENU_PRE_GET_ALL, new ListEvent(-1, -1, '', []));
+        $this->eventDispatcher->dispatch(new ListEvent(-1, -1, '', []), ListEvent::MENU_PRE_GET_ALL);
 
         $items = $this->entityManager->getRepository(Menu::class)->findAll();
 
-        $this->eventDispatcher->dispatch(ListEvent::MENU_POST_GET_ALL, new ListEvent(-1, -1, '', $items));
+        $this->eventDispatcher->dispatch(new ListEvent(-1, -1, '', $items), ListEvent::MENU_POST_GET_ALL);
 
         return $items;
     }
@@ -76,13 +76,13 @@ class MenuService implements MenuServiceInterface
      */
     public function delete(int $id): void
     {
-        $pre = $this->eventDispatcher->dispatch(MenuDeleteEvent::PRE_DELETE, new MenuDeleteEvent($id));
+        $pre = $this->eventDispatcher->dispatch(new MenuDeleteEvent($id), MenuDeleteEvent::PRE_DELETE);
 
         if (!$pre->isCancel()) {
             $menu = $this->get($id);
             $this->entityManager->remove($menu);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(MenuDeleteEvent::POST_DELETE, new MenuDeleteEvent($id));
+            $this->eventDispatcher->dispatch(new MenuDeleteEvent($id), MenuDeleteEvent::POST_DELETE);
         }
     }
 
@@ -91,9 +91,9 @@ class MenuService implements MenuServiceInterface
      */
     public function get(int $id): Menu
     {
-        $this->eventDispatcher->dispatch(MenuGetEvent::PRE_GET, new MenuGetEvent($id, null));
+        $this->eventDispatcher->dispatch(new MenuGetEvent($id, null), MenuGetEvent::PRE_GET);
         $menu = $this->entityManager->find(Menu::class, $id);
-        $this->eventDispatcher->dispatch(MenuGetEvent::PRE_GET, new MenuGetEvent($id, $menu));
+        $this->eventDispatcher->dispatch(new MenuGetEvent($id, $menu), MenuGetEvent::POST_GET);
 
         return $menu;
     }
@@ -107,8 +107,8 @@ class MenuService implements MenuServiceInterface
     public function fillFromArray(int $id, array $data): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            MenuFillFromArrayEvent::PRE_FILL_FROM_ARRAY,
-            new MenuFillFromArrayEvent($id, $data)
+            new MenuFillFromArrayEvent($id, $data),
+            MenuFillFromArrayEvent::PRE_FILL_FROM_ARRAY
         );
 
         if (!$pre->isCancel()) {
@@ -134,8 +134,8 @@ class MenuService implements MenuServiceInterface
             $this->entityManager->refresh($menu);
 
             $this->eventDispatcher->dispatch(
-                MenuFillFromArrayEvent::POST_FILL_FROM_ARRAY,
-                new MenuFillFromArrayEvent($id, $data)
+                new MenuFillFromArrayEvent($id, $data),
+                MenuFillFromArrayEvent::POST_FILL_FROM_ARRAY
             );
         }
     }
@@ -175,7 +175,7 @@ class MenuService implements MenuServiceInterface
      */
     private function fixPositions(array $items): array
     {
-        $positionZero = array_filter($items, function (MenuItem $item) {
+        $positionZero = array_filter($items, static function (MenuItem $item) {
             return 0 === $item->getPosition();
         });
 

@@ -46,7 +46,7 @@ class ArrayUtil implements ArrayUtilInterface
     public function buildArrayFromPath(string $path, string $delimiter = '.'): array
     {
         $keys = explode($delimiter, $path);
-        $buildArray = function (array &$input, int $idx) use (&$buildArray, $keys) {
+        $buildArray = static function (array &$input, int $idx) use (&$buildArray, $keys) {
             if (count($keys) > $idx) {
                 $input[$keys[$idx]] = [];
 
@@ -93,7 +93,7 @@ class ArrayUtil implements ArrayUtilInterface
      */
     public function getArrayValueByPath(array $data, string $path, string $delimiter = '.')
     {
-        return array_reduce(explode('.', $path), function ($acc, $val) {
+        return array_reduce(explode('.', $path), static function ($acc, $val) {
             return $acc[$val];
         }, $data);
     }
@@ -112,7 +112,7 @@ class ArrayUtil implements ArrayUtilInterface
             }
         }
 
-        return array_filter($data, function ($value) {
+        return array_filter($data, static function ($value) {
             return false === $value || !empty($value);
         });
     }

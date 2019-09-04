@@ -27,4 +27,18 @@ interface ConfigurationFormatterInterface extends FormatterInterface
      * @return ConfigurationFormatterInterface
      */
     public function theme(): self;
+
+    /**
+     * Formats the seconds the api key is valid
+     *
+     * @return ConfigurationFormatterInterface
+     */
+    public function invalidateApiKeyAfter(): self;
+
+    /**
+     * Formats whether the messaging center is enabled
+     *
+     * @return ConfigurationFormatterInterface
+     */
+    public function messagingCenterEnabled(): self;
 }

@@ -30,10 +30,12 @@ class ConfigurationController extends BaseApiController
         ConfigurationServiceInterface $configurationService,
         ConfigurationFormatterInterface $configurationFormatter
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($configurationService, $configurationFormatter) {
+        [$data, $status] = $this->tryExecute(static function () use ($configurationService, $configurationFormatter) {
             return $configurationFormatter
                 ->init($configurationService->getConfig())
                 ->theme()
+                ->invalidateApiKeyAfter()
+                ->messagingCenterEnabled()
                 ->format();
         });
 
@@ -54,7 +56,7 @@ class ConfigurationController extends BaseApiController
         ConfigurationServiceInterface $configurationService,
         ThemeServiceInterface $themeService
     ): Response {
-        list($data, $status) = $this->tryExecute(function () use ($themeName, $configurationService, $themeService) {
+        [$data, $status] = $this->tryExecute(static function () use ($themeName, $configurationService, $themeService) {
             $configuration = $configurationService->getConfig();
             $configuration->setCurrentTheme($themeService->getTheme($themeName));
 

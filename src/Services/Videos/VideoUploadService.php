@@ -22,7 +22,8 @@ use Jinya\Framework\Events\Videos\VideoUploadFinishUploadEvent;
 use Jinya\Framework\Events\Videos\VideoUploadStartUploadEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use RuntimeException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoUploadService implements VideoUploadServiceInterface
 {
@@ -78,8 +79,8 @@ class VideoUploadService implements VideoUploadServiceInterface
     {
         $video = $this->videoService->get($slug);
         $pre = $this->eventDispatcher->dispatch(
-            VideoUploadStartUploadEvent::PRE_START_UPLOAD,
-            new VideoUploadStartUploadEvent($video)
+            new VideoUploadStartUploadEvent($video),
+            VideoUploadStartUploadEvent::PRE_START_UPLOAD
         );
 
         if (!$pre->isCancel()) {
@@ -89,8 +90,8 @@ class VideoUploadService implements VideoUploadServiceInterface
             $this->entityManager->persist($uploadingVideo);
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                VideoUploadStartUploadEvent::POST_START_UPLOAD,
-                new VideoUploadStartUploadEvent($video)
+                new VideoUploadStartUploadEvent($video),
+                VideoUploadStartUploadEvent::POST_START_UPLOAD
             );
         }
     }
@@ -107,16 +108,18 @@ class VideoUploadService implements VideoUploadServiceInterface
     public function uploadChunk($chunk, int $position, string $slug): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            VideoUploadChunkEvent::PRE_UPLOAD_CHUNK,
-            new VideoUploadChunkEvent($chunk, $position, $slug)
+            new VideoUploadChunkEvent($chunk, $position, $slug),
+            VideoUploadChunkEvent::PRE_UPLOAD_CHUNK
         );
 
         if (!$pre->isCancel()) {
             $uploadingVideo = $this->getUploadingVideo($slug);
             $chunkDirectory = $this->tmpDir;
-            $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug);
+            $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($slug, true);
 
-            @mkdir($chunkDirectory);
+            if (!mkdir($chunkDirectory) && !is_dir($chunkDirectory)) {
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
+            }
             file_put_contents($chunkPath, $chunk);
 
             $uploadingVideoChunk = new UploadingVideoChunk();
@@ -127,8 +130,8 @@ class VideoUploadService implements VideoUploadServiceInterface
             $this->entityManager->persist($uploadingVideoChunk);
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                VideoUploadChunkEvent::PRE_UPLOAD_CHUNK,
-                new VideoUploadChunkEvent($chunk, $position, $slug)
+                new VideoUploadChunkEvent($chunk, $position, $slug),
+                VideoUploadChunkEvent::PRE_UPLOAD_CHUNK
             );
         }
     }
@@ -163,12 +166,12 @@ class VideoUploadService implements VideoUploadServiceInterface
         $chunks = $this->getChunks($slug);
 
         $pre = $this->eventDispatcher->dispatch(
-            VideoUploadFinishUploadEvent::PRE_FINISH_UPLOAD,
-            new VideoUploadFinishUploadEvent($chunks, $slug)
+            new VideoUploadFinishUploadEvent($chunks, $slug),
+            VideoUploadFinishUploadEvent::PRE_FINISH_UPLOAD
         );
         if (empty($pre->getPath())) {
-            $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid();
-            $newFileHandle = fopen($newFile, 'a');
+            $newFile = $this->tmpDir . DIRECTORY_SEPARATOR . uniqid('last-chunk', true);
+            $newFileHandle = fopen($newFile, 'ab');
 
             try {
                 /** @var UploadingVideoChunk $chunk */
@@ -195,7 +198,7 @@ class VideoUploadService implements VideoUploadServiceInterface
 
         $event = new VideoUploadFinishUploadEvent($chunks, $slug);
         $event->setPath($path);
-        $this->eventDispatcher->dispatch(VideoUploadFinishUploadEvent::POST_FINISH_UPLOAD, $event);
+        $this->eventDispatcher->dispatch($event, VideoUploadFinishUploadEvent::POST_FINISH_UPLOAD);
 
         return $path;
     }
@@ -230,8 +233,8 @@ class VideoUploadService implements VideoUploadServiceInterface
         $chunks = $this->getChunks($slug);
 
         $pre = $this->eventDispatcher->dispatch(
-            VideoUploadCleanupAfterUploadEvent::PRE_CLEANUP_AFTER_UPLOAD,
-            new VideoUploadCleanupAfterUploadEvent($slug, $chunks)
+            new VideoUploadCleanupAfterUploadEvent($slug, $chunks),
+            VideoUploadCleanupAfterUploadEvent::PRE_CLEANUP_AFTER_UPLOAD
         );
         if (!$pre->isCancel()) {
             foreach ($chunks as $chunk) {
@@ -246,8 +249,8 @@ class VideoUploadService implements VideoUploadServiceInterface
             $this->entityManager->remove($uploadingVideo);
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                VideoUploadCleanupAfterUploadEvent::POST_CLEANUP_AFTER_UPLOAD,
-                new VideoUploadCleanupAfterUploadEvent($slug, $chunks)
+                new VideoUploadCleanupAfterUploadEvent($slug, $chunks),
+                VideoUploadCleanupAfterUploadEvent::POST_CLEANUP_AFTER_UPLOAD
             );
         }
     }

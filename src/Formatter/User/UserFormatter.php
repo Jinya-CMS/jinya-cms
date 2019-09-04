@@ -18,7 +18,6 @@ use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use function array_map;
 
@@ -133,11 +132,7 @@ class UserFormatter implements UserFormatterInterface
      */
     public function roles(): UserFormatterInterface
     {
-        $this->formattedData['roles'] = array_map(function (Role $role) {
-            return $role->getRole();
-        }, $this->roleHierarchy->getReachableRoles(array_map(function (string $role) {
-            return new Role($role);
-        }, $this->user->getRoles())));
+        $this->formattedData['roles'] = $this->roleHierarchy->getReachableRoleNames($this->user->getRoles());
 
         return $this;
     }
@@ -183,8 +178,12 @@ class UserFormatter implements UserFormatterInterface
     }
 
     /**
-     * Shorthand for @return UserFormatterInterface
-     * @see UserFormatterInterface::profilePicture(), @see UserFormatterInterface::firstname(), @see UserFormatterInterface::lastname(), @see UserFormatterInterface::email()
+     * Shorthand for
+     * @return UserFormatterInterface
+     * @see UserFormatterInterface::firstname()
+     * @see UserFormatterInterface::lastname()
+     * @see UserFormatterInterface::email()
+     * @see UserFormatterInterface::profilePicture()
      */
     public function profile(): UserFormatterInterface
     {
