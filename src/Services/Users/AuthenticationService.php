@@ -21,8 +21,7 @@ use Jinya\Framework\Events\User\TwoFactorCodeEvent;
 use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
 use Swift_Mailer;
 use Swift_Message;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {

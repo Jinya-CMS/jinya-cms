@@ -21,8 +21,7 @@ use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Videos\VideoServiceInterface;
 use Jinya\Services\Videos\YoutubeVideoServiceInterface;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SegmentService implements SegmentServiceInterface
 {

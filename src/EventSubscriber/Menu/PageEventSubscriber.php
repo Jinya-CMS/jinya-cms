@@ -97,9 +97,9 @@ class PageEventSubscriber implements EventSubscriberInterface
                 $parameter = $routingEntry->getRouteParameter();
 
                 return array_key_exists(
-                    'slug',
-                    $parameter
-                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                        'slug',
+                        $parameter
+                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
             });
         }
     }

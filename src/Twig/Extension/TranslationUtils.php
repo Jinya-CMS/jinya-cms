@@ -3,8 +3,7 @@
 namespace Jinya\Twig\Extension;
 
 use Symfony\Component\Yaml\Yaml;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_Function;
 use const DIRECTORY_SEPARATOR;

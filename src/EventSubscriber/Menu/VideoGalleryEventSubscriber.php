@@ -98,14 +98,17 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
                 ->getQuery()
                 ->getResult();
 
-            $this->affectedRoutes = array_filter($galleryRoutes, static function (RoutingEntry $routingEntry) use ($oldSlug) {
-                $parameter = $routingEntry->getRouteParameter();
+            $this->affectedRoutes = array_filter(
+                $galleryRoutes,
+                static function (RoutingEntry $routingEntry) use ($oldSlug) {
+                    $parameter = $routingEntry->getRouteParameter();
 
-                return array_key_exists(
-                    'slug',
-                    $parameter
-                ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
-            });
+                    return array_key_exists(
+                        'slug',
+                        $parameter
+                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                }
+            );
         }
     }
 }

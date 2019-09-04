@@ -11,7 +11,6 @@ namespace Jinya\Services\Base;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Label\Label;
-use Jinya\Services\Labels\LabelServiceInterface;
 
 class LabelEntityService implements LabelEntityServiceInterface
 {

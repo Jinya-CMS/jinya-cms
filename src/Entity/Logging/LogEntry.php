@@ -50,6 +50,16 @@ class LogEntry implements JsonSerializable
      * @var string
      */
     private $levelName;
+    /**
+     * @ORM\Column(name="extra", type="array")
+     * @var array
+     */
+    private $extra;
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     * @var DateTime
+     */
+    private $createdAt;
 
     /**
      * @return int
@@ -162,18 +172,6 @@ class LogEntry implements JsonSerializable
     {
         $this->createdAt = $createdAt;
     }
-
-    /**
-     * @ORM\Column(name="extra", type="array")
-     * @var array
-     */
-    private $extra;
-
-    /**
-     * @ORM\Column(name="created_at", type="datetime")
-     * @var DateTime
-     */
-    private $createdAt;
 
     /**
      * @ORM\PrePersist
