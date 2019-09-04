@@ -8,7 +8,7 @@
 
 namespace Jinya\Framework\Events\Common;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class CancellableEvent extends Event
 {
