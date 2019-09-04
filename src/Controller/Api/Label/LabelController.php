@@ -114,7 +114,7 @@ class LabelController extends BaseApiController
         LabelServiceInterface $labelService,
         LabelFormatterInterface $labelFormatter
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($name,  $labelService, $labelFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($name, $labelService, $labelFormatter) {
             $newName = $this->getValue('name', $name);
 
             return $labelFormatter

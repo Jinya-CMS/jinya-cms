@@ -1,13 +1,8 @@
 <?php
 
 /** @noinspection HtmlRequiredTitleElement */
+
 /** @noinspection HtmlRequiredLangAttribute */
-/**
- * Created by PhpStorm.
- * User: imanuel
- * Date: 25.08.18
- * Time: 01:08
- */
 
 namespace Jinya\Services\Users;
 
@@ -21,8 +16,7 @@ use Jinya\Framework\Events\User\TwoFactorCodeEvent;
 use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
 use Swift_Mailer;
 use Swift_Message;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -34,15 +28,12 @@ class AuthenticationService implements AuthenticationServiceInterface
 
     /** @var string */
     private $mailerSender;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var UserServiceInterface */
     private $userService;
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * AuthenticationService constructor.
@@ -75,8 +66,8 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function setAndSendTwoFactorCode(string $username): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            TwoFactorCodeEvent::PRE_CODE_GENERATION,
-            new TwoFactorCodeEvent($username)
+            new TwoFactorCodeEvent($username),
+            TwoFactorCodeEvent::PRE_CODE_GENERATION
         );
         $user = $this->userService->getUserByEmail($username);
         $code = '';
@@ -93,8 +84,8 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->entityManager->flush();
 
         $submissionEvent = $this->eventDispatcher->dispatch(
-            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION,
-            new TwoFactorCodeSubmissionEvent($username, $code)
+            new TwoFactorCodeSubmissionEvent($username, $code),
+            TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION
         );
         if (!$submissionEvent->isSent()) {
             /** @var Swift_Message $message */
@@ -107,8 +98,8 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
 
         $this->eventDispatcher->dispatch(
-            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION,
-            new TwoFactorCodeSubmissionEvent($username, $code)
+            new TwoFactorCodeSubmissionEvent($username, $code),
+            TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION
         );
     }
 

@@ -19,8 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\FormEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FormService implements FormServiceInterface
 {
@@ -30,14 +29,8 @@ class FormService implements FormServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var SlugServiceInterface */
-    private $slugService;
-    /** @noinspection PhpUndefinedClassInspection */
-
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * FormService constructor.
@@ -52,7 +45,6 @@ class FormService implements FormServiceInterface
     ) {
         $this->baseService = new BaseSlugEntityService($entityManager, $slugService, Form::class);
         $this->entityManager = $entityManager;
-        $this->slugService = $slugService;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -65,11 +57,11 @@ class FormService implements FormServiceInterface
      */
     public function get(string $slug): Form
     {
-        $this->eventDispatcher->dispatch(FormEvent::PRE_GET, new FormEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new FormEvent(null, $slug), FormEvent::PRE_GET);
 
         $form = $this->baseService->get($slug);
 
-        $this->eventDispatcher->dispatch(FormEvent::POST_GET, new FormEvent($form, $slug));
+        $this->eventDispatcher->dispatch(new FormEvent($form, $slug), FormEvent::POST_GET);
 
         return $form;
     }
@@ -84,7 +76,7 @@ class FormService implements FormServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(ListEvent::FORMS_PRE_GET_ALL, new ListEvent($offset, $count, $keyword, []));
+        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::FORMS_PRE_GET_ALL);
 
         $items = $this->getFilteredQueryBuilder($keyword)
             ->setFirstResult($offset)
@@ -94,8 +86,8 @@ class FormService implements FormServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            ListEvent::FORMS_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $items)
+            new ListEvent($offset, $count, $keyword, $items),
+            ListEvent::FORMS_POST_GET_ALL
         );
 
         return $items;
@@ -124,14 +116,14 @@ class FormService implements FormServiceInterface
      */
     public function countAll(string $keyword = ''): int
     {
-        $this->eventDispatcher->dispatch(CountEvent::FORMS_PRE_COUNT, new CountEvent($keyword, -1));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, -1), CountEvent::FORMS_PRE_COUNT);
 
         $count = $this->getFilteredQueryBuilder($keyword)
             ->select('COUNT(form)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $this->eventDispatcher->dispatch(CountEvent::FORMS_POST_COUNT, new CountEvent($keyword, $count));
+        $this->eventDispatcher->dispatch(new CountEvent($keyword, $count), CountEvent::FORMS_POST_COUNT);
 
         return $count;
     }
@@ -144,11 +136,11 @@ class FormService implements FormServiceInterface
      */
     public function saveOrUpdate(Form $form): Form
     {
-        $pre = $this->eventDispatcher->dispatch(FormEvent::PRE_SAVE, new FormEvent($form, $form->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new FormEvent($form, $form->getSlug()), FormEvent::PRE_SAVE);
 
         if (!$pre->isCancel()) {
             $this->baseService->saveOrUpdate($form);
-            $this->eventDispatcher->dispatch(FormEvent::POST_SAVE, new FormEvent($form, $form->getSlug()));
+            $this->eventDispatcher->dispatch(new FormEvent($form, $form->getSlug()), FormEvent::POST_SAVE);
         }
 
         return $form;
@@ -160,11 +152,11 @@ class FormService implements FormServiceInterface
      */
     public function delete(Form $form): void
     {
-        $pre = $this->eventDispatcher->dispatch(FormEvent::PRE_DELETE, new FormEvent($form, $form->getSlug()));
+        $pre = $this->eventDispatcher->dispatch(new FormEvent($form, $form->getSlug()), FormEvent::PRE_DELETE);
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($form);
-            $this->eventDispatcher->dispatch(FormEvent::POST_DELETE, new FormEvent($form, $form->getSlug()));
+            $this->eventDispatcher->dispatch(new FormEvent($form, $form->getSlug()), FormEvent::POST_DELETE);
         }
     }
 }

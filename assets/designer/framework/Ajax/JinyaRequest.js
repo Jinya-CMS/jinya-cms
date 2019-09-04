@@ -11,9 +11,12 @@ import { getApiKey } from '@/framework/Storage/AuthStorage';
 function send(verb, url, data, contentType, additionalHeaders = {}) {
     EventBus.$emit(Events.request.started);
     const headers = Object.assign({
-        JinyaApiKey: getApiKey(),
         'Content-Type': contentType,
     }, additionalHeaders);
+
+    if (getApiKey()) {
+        headers.JinyaApiKey = getApiKey();
+    }
 
     const request = {
         headers,

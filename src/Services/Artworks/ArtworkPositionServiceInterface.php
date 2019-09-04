@@ -42,7 +42,7 @@ interface ArtworkPositionServiceInterface
      *
      * @param int $id
      */
-    public function deletePosition(int $id);
+    public function deletePosition(int $id): void;
 
     /**
      * Gets the artwork position for the given id

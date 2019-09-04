@@ -19,14 +19,12 @@ use Jinya\Services\Menu\MenuServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 use Symfony\Component\Yaml\Yaml;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ThemeLinkService implements ThemeLinkServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
@@ -57,8 +55,6 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
     /** @var ArtworkServiceInterface */
     private $artworkService;
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * ThemeLinkService constructor.
@@ -128,8 +124,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function savePage(string $key, string $themeName, string $pageSlug): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'page', $pageSlug)
+            new ThemeLinkEvent($themeName, $key, 'page', $pageSlug),
+            ThemeLinkEvent::PRE_SAVE
         );
         $page = $this->pageService->get($pageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
@@ -144,8 +140,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'page', $pageSlug)
+            new ThemeLinkEvent($themeName, $key, 'page', $pageSlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -159,8 +155,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function saveSegmentPage(string $key, string $themeName, string $segmentPageSlug): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'segment_page', $segmentPageSlug)
+            new ThemeLinkEvent($themeName, $key, 'segment_page', $segmentPageSlug),
+            ThemeLinkEvent::PRE_SAVE
         );
         $segmentPage = $this->segmentPageService->get($segmentPageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
@@ -175,8 +171,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'segment_page', $segmentPageSlug)
+            new ThemeLinkEvent($themeName, $key, 'segment_page', $segmentPageSlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -190,8 +186,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function saveForm(string $key, string $themeName, string $formSlug): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'form', $formSlug)
+            new ThemeLinkEvent($themeName, $key, 'form', $formSlug),
+            ThemeLinkEvent::PRE_SAVE
         );
 
         $form = $this->formService->get($formSlug);
@@ -207,8 +203,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'form', $formSlug)
+            new ThemeLinkEvent($themeName, $key, 'form', $formSlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -222,8 +218,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function saveMenu(string $key, string $themeName, int $menuId): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'menu', '', $menuId)
+            new ThemeLinkEvent($themeName, $key, 'menu', '', $menuId),
+            ThemeLinkEvent::PRE_SAVE
         );
 
         $menu = $this->menuService->get($menuId);
@@ -239,8 +235,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'menu', '', $menuId)
+            new ThemeLinkEvent($themeName, $key, 'menu', '', $menuId),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -254,14 +250,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function saveArtwork(string $key, string $themeName, string $artworkSlug): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'artwork', $artworkSlug)
+            new ThemeLinkEvent($themeName, $key, 'artwork', $artworkSlug),
+            ThemeLinkEvent::PRE_SAVE
         );
 
         $artwork = $this->artworkService->get($artworkSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeArtwork = new ThemeArtwork();
-        $themeArtwork->setArtwork($themeArtwork);
+        $themeArtwork->setArtwork($artwork);
         $themeArtwork->setTheme($theme);
         $themeArtwork->setName($key);
 
@@ -271,8 +267,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'artwork', $artworkSlug)
+            new ThemeLinkEvent($themeName, $key, 'artwork', $artworkSlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -286,8 +282,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
     public function saveArtGallery(string $key, string $themeName, string $artGallerySlug): void
     {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'art_gallery', $artGallerySlug)
+            new ThemeLinkEvent($themeName, $key, 'art_gallery', $artGallerySlug),
+            ThemeLinkEvent::PRE_SAVE
         );
 
         $gallery = $this->artGalleryService->get($artGallerySlug);
@@ -303,8 +299,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'art_gallery', $artGallerySlug)
+            new ThemeLinkEvent($themeName, $key, 'art_gallery', $artGallerySlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 
@@ -321,8 +317,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         string $videoGallerySlug
     ): void {
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::PRE_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'video_gallery', $videoGallerySlug)
+            new ThemeLinkEvent($themeName, $key, 'video_gallery', $videoGallerySlug),
+            ThemeLinkEvent::PRE_SAVE
         );
 
         $gallery = $this->videoGalleryService->get($videoGallerySlug);
@@ -338,8 +334,8 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
-            ThemeLinkEvent::POST_SAVE,
-            new ThemeLinkEvent($themeName, $key, 'video_gallery', $videoGallerySlug)
+            new ThemeLinkEvent($themeName, $key, 'video_gallery', $videoGallerySlug),
+            ThemeLinkEvent::POST_SAVE
         );
     }
 }

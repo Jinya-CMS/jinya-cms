@@ -2,11 +2,10 @@
 
 namespace Jinya\Twig\Extension;
 
-use Twig_Extension;
-use Twig_Function;
-use function file_get_contents;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class Inline extends Twig_Extension
+class Inline extends AbstractExtension
 {
     /**
      * {@inheritdoc}
@@ -19,7 +18,7 @@ class Inline extends Twig_Extension
     public function getFunctions()
     {
         return [
-            'inline' => new Twig_Function('inline', [$this, 'inlineFile']),
+            'inline' => new TwigFunction('inline', [$this, 'inlineFile']),
         ];
     }
 

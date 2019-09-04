@@ -19,8 +19,7 @@ use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Videos\YoutubeVideoEvent;
 use Jinya\Services\Base\BaseSlugEntityService;
 use Jinya\Services\Slug\SlugServiceInterface;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class YoutubeVideoService implements YoutubeVideoServiceInterface
 {
@@ -149,15 +148,15 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
     public function delete(YoutubeVideo $video): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            YoutubeVideoEvent::PRE_DELETE,
-            new YoutubeVideoEvent($video, $video->getSlug())
+            new YoutubeVideoEvent($video, $video->getSlug()),
+            YoutubeVideoEvent::PRE_DELETE
         );
 
         if (!$pre->isCancel()) {
             $this->baseService->delete($video);
             $this->eventDispatcher->dispatch(
-                YoutubeVideoEvent::POST_DELETE,
-                new YoutubeVideoEvent($video, $video->getSlug())
+                new YoutubeVideoEvent($video, $video->getSlug()),
+                YoutubeVideoEvent::POST_DELETE
             );
         }
     }
@@ -172,10 +171,10 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
      */
     public function get(string $slug): YoutubeVideo
     {
-        $this->eventDispatcher->dispatch(YoutubeVideoEvent::PRE_GET, new YoutubeVideoEvent(null, $slug));
+        $this->eventDispatcher->dispatch(new YoutubeVideoEvent(null, $slug), YoutubeVideoEvent::PRE_GET);
 
         $video = $this->baseService->get($slug);
-        $this->eventDispatcher->dispatch(YoutubeVideoEvent::POST_GET, new YoutubeVideoEvent($video, $slug));
+        $this->eventDispatcher->dispatch(new YoutubeVideoEvent($video, $slug), YoutubeVideoEvent::POST_GET);
 
         return $video;
     }

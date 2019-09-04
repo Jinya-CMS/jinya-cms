@@ -21,8 +21,7 @@ use Jinya\Framework\Events\Videos\VideoPositionUpdateEvent;
 use Jinya\Framework\Events\Videos\VideoPositionUpdateVideoEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class VideoPositionService implements VideoPositionServiceInterface
 {
@@ -91,8 +90,8 @@ class VideoPositionService implements VideoPositionServiceInterface
         }
 
         $pre = $this->eventDispatcher->dispatch(
-            VideoPositionEvent::PRE_SAVE,
-            new VideoPositionEvent($videoPosition, -1)
+            new VideoPositionEvent($videoPosition, -1),
+            VideoPositionEvent::PRE_SAVE
         );
 
         if (!$pre->isCancel()) {
@@ -100,8 +99,8 @@ class VideoPositionService implements VideoPositionServiceInterface
             $this->rearrangeVideos(-1, $position, $videoPosition, $gallery);
 
             $this->eventDispatcher->dispatch(
-                VideoPositionEvent::POST_SAVE,
-                new VideoPositionEvent($videoPosition, $videoPosition->getId())
+                new VideoPositionEvent($videoPosition, $videoPosition->getId()),
+                VideoPositionEvent::POST_SAVE
             );
         }
 
@@ -121,8 +120,8 @@ class VideoPositionService implements VideoPositionServiceInterface
         VideoGallery $gallery
     ): void {
         $pre = $this->eventDispatcher->dispatch(
-            RearrangeEvent::PRE_REARRANGE,
-            new RearrangeEvent($gallery, $videoPosition, $oldPosition, $newPosition)
+            new RearrangeEvent($gallery, $videoPosition, $oldPosition, $newPosition),
+            RearrangeEvent::PRE_REARRANGE
         );
 
         if (!$pre->isCancel()) {
@@ -132,8 +131,8 @@ class VideoPositionService implements VideoPositionServiceInterface
             $gallery->setVideos(new ArrayCollection($positions));
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                RearrangeEvent::POST_REARRANGE,
-                new RearrangeEvent($gallery, $videoPosition, $oldPosition, $newPosition)
+                new RearrangeEvent($gallery, $videoPosition, $oldPosition, $newPosition),
+                RearrangeEvent::POST_REARRANGE
             );
         }
     }
@@ -144,8 +143,8 @@ class VideoPositionService implements VideoPositionServiceInterface
     public function updatePosition(string $gallerySlug, int $videoPositionId, int $oldPosition, int $newPosition): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            VideoPositionUpdateEvent::PRE_UPDATE,
-            new VideoPositionUpdateEvent($gallerySlug, $videoPositionId, $oldPosition, $newPosition)
+            new VideoPositionUpdateEvent($gallerySlug, $videoPositionId, $oldPosition, $newPosition),
+            VideoPositionUpdateEvent::PRE_UPDATE
         );
 
         if (!$pre->isCancel()) {
@@ -158,8 +157,8 @@ class VideoPositionService implements VideoPositionServiceInterface
 
             $this->rearrangeVideos($oldPosition, $newPosition, $video, $gallery);
             $this->eventDispatcher->dispatch(
-                VideoPositionUpdateEvent::POST_UPDATE,
-                new VideoPositionUpdateEvent($gallerySlug, $videoPositionId, $oldPosition, $newPosition)
+                new VideoPositionUpdateEvent($gallerySlug, $videoPositionId, $oldPosition, $newPosition),
+                VideoPositionUpdateEvent::POST_UPDATE
             );
         }
     }
@@ -183,8 +182,8 @@ class VideoPositionService implements VideoPositionServiceInterface
             ->getQuery()
             ->getSingleResult();
         $pre = $this->eventDispatcher->dispatch(
-            VideoPositionDeleteEvent::PRE_DELETE,
-            new VideoPositionDeleteEvent($gallery, $id)
+            new VideoPositionDeleteEvent($gallery, $id),
+            VideoPositionDeleteEvent::PRE_DELETE
         );
 
         if (!$pre->isCancel()) {
@@ -197,8 +196,8 @@ class VideoPositionService implements VideoPositionServiceInterface
                 ->execute();
 
             $this->eventDispatcher->dispatch(
-                VideoPositionDeleteEvent::POST_DELETE,
-                new VideoPositionDeleteEvent($gallery, $id)
+                new VideoPositionDeleteEvent($gallery, $id),
+                VideoPositionDeleteEvent::POST_DELETE
             );
         }
     }
@@ -217,8 +216,8 @@ class VideoPositionService implements VideoPositionServiceInterface
         $position->setVideo(null);
 
         $pre = $this->eventDispatcher->dispatch(
-            VideoPositionUpdateVideoEvent::PRE_UPDATE_VIDEO,
-            new VideoPositionUpdateVideoEvent($videoSlug, $type, $id)
+            new VideoPositionUpdateVideoEvent($videoSlug, $type, $id),
+            VideoPositionUpdateVideoEvent::PRE_UPDATE_VIDEO
         );
 
         if (!$pre->isCancel()) {
@@ -230,8 +229,8 @@ class VideoPositionService implements VideoPositionServiceInterface
 
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                VideoPositionUpdateVideoEvent::POST_UPDATE_VIDEO,
-                new VideoPositionUpdateVideoEvent($videoSlug, $type, $id)
+                new VideoPositionUpdateVideoEvent($videoSlug, $type, $id),
+                VideoPositionUpdateVideoEvent::POST_UPDATE_VIDEO
             );
         }
     }
@@ -244,9 +243,9 @@ class VideoPositionService implements VideoPositionServiceInterface
      */
     public function getPosition(int $id): VideoPosition
     {
-        $this->eventDispatcher->dispatch(VideoPositionEvent::PRE_GET, new VideoPositionEvent(null, $id));
+        $this->eventDispatcher->dispatch(new VideoPositionEvent(null, $id), VideoPositionEvent::PRE_GET);
         $position = $this->entityManager->find(VideoPosition::class, $id);
-        $this->eventDispatcher->dispatch(VideoPositionEvent::POST_GET, new VideoPositionEvent($position, $id));
+        $this->eventDispatcher->dispatch(new VideoPositionEvent($position, $id), VideoPositionEvent::POST_GET);
 
         return $position;
     }

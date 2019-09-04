@@ -16,8 +16,7 @@ use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Symfony\Component\Yaml\Yaml;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function array_filter;
 use function array_replace_recursive;
 use function preg_replace;

@@ -21,8 +21,7 @@ use Jinya\Framework\Events\Artworks\ArtworkPositionUpdateEvent;
 use Jinya\Framework\Events\Artworks\RearrangeEvent;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ArtworkPositionService implements ArtworkPositionServiceInterface
 {
@@ -80,16 +79,16 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         $artworkPosition->setGallery($gallery);
 
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkPositionEvent::PRE_SAVE,
-            new ArtworkPositionEvent($artworkPosition, -1)
+            new ArtworkPositionEvent($artworkPosition, -1),
+            ArtworkPositionEvent::PRE_SAVE
         );
 
         if (!$pre->isCancel()) {
             $this->rearrangeArtworks(-1, $position, $artworkPosition, $gallery);
 
             $this->eventDispatcher->dispatch(
-                ArtworkPositionEvent::POST_SAVE,
-                new ArtworkPositionEvent($artworkPosition, $artworkPosition->getId())
+                new ArtworkPositionEvent($artworkPosition, $artworkPosition->getId()),
+                ArtworkPositionEvent::POST_SAVE
             );
         }
 
@@ -109,8 +108,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         ArtGallery $gallery
     ): void {
         $pre = $this->eventDispatcher->dispatch(
-            RearrangeEvent::PRE_REARRANGE,
-            new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition)
+            new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition),
+            RearrangeEvent::PRE_REARRANGE
         );
 
         if (!$pre->isCancel()) {
@@ -120,8 +119,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             $gallery->setArtworks(new ArrayCollection($positions));
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                RearrangeEvent::POST_REARRANGE,
-                new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition)
+                new RearrangeEvent($gallery, $artworkPosition, $oldPosition, $newPosition),
+                RearrangeEvent::POST_REARRANGE
             );
         }
     }
@@ -136,8 +135,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
         int $newPosition
     ): void {
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkPositionUpdateEvent::PRE_UPDATE,
-            new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition)
+            new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition),
+            ArtworkPositionUpdateEvent::PRE_UPDATE
         );
 
         if (!$pre->isCancel()) {
@@ -150,8 +149,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
 
             $this->rearrangeArtworks($oldPosition, $newPosition, $artwork, $gallery);
             $this->eventDispatcher->dispatch(
-                ArtworkPositionUpdateEvent::POST_UPDATE,
-                new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition)
+                new ArtworkPositionUpdateEvent($gallerySlug, $artworkPositionId, $oldPosition, $newPosition),
+                ArtworkPositionUpdateEvent::POST_UPDATE
             );
         }
     }
@@ -163,7 +162,7 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function deletePosition(int $id)
+    public function deletePosition(int $id): void
     {
         $gallery = $this->entityManager
             ->createQueryBuilder()
@@ -175,8 +174,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
             ->getQuery()
             ->getSingleResult();
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkPositionDeleteEvent::PRE_DELETE,
-            new ArtworkPositionDeleteEvent($gallery, $id)
+            new ArtworkPositionDeleteEvent($gallery, $id),
+            ArtworkPositionDeleteEvent::PRE_DELETE
         );
 
         if (!$pre->isCancel()) {
@@ -188,8 +187,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
                 ->getQuery()
                 ->execute();
             $this->eventDispatcher->dispatch(
-                ArtworkPositionDeleteEvent::POST_DELETE,
-                new ArtworkPositionDeleteEvent($gallery, $id)
+                new ArtworkPositionDeleteEvent($gallery, $id),
+                ArtworkPositionDeleteEvent::POST_DELETE
             );
         }
     }
@@ -202,9 +201,9 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
      */
     public function getPosition(int $id): ArtworkPosition
     {
-        $this->eventDispatcher->dispatch(ArtworkPositionEvent::PRE_GET, new ArtworkPositionEvent(null, $id));
+        $this->eventDispatcher->dispatch(new ArtworkPositionEvent(null, $id), ArtworkPositionEvent::PRE_GET);
         $position = $this->entityManager->find(ArtworkPosition::class, $id);
-        $this->eventDispatcher->dispatch(ArtworkPositionEvent::POST_GET, new ArtworkPositionEvent($position, $id));
+        $this->eventDispatcher->dispatch(new ArtworkPositionEvent($position, $id), ArtworkPositionEvent::POST_GET);
 
         return $position;
     }
@@ -219,8 +218,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
     {
         $artwork = $this->artworkService->get($artworkSlug);
         $pre = $this->eventDispatcher->dispatch(
-            ArtworkPositionUpdateArtworkEvent::PRE_UPDATE_ARTWORK,
-            new ArtworkPositionUpdateArtworkEvent($artwork, $id)
+            new ArtworkPositionUpdateArtworkEvent($artwork, $id),
+            ArtworkPositionUpdateArtworkEvent::PRE_UPDATE_ARTWORK
         );
 
         if (!$pre->isCancel()) {
@@ -234,8 +233,8 @@ class ArtworkPositionService implements ArtworkPositionServiceInterface
                 ->execute();
 
             $this->eventDispatcher->dispatch(
-                ArtworkPositionUpdateArtworkEvent::POST_UPDATE_ARTWORK,
-                new ArtworkPositionUpdateArtworkEvent($artwork, $id)
+                new ArtworkPositionUpdateArtworkEvent($artwork, $id),
+                ArtworkPositionUpdateArtworkEvent::POST_UPDATE_ARTWORK
             );
         }
     }

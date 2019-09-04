@@ -6,13 +6,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Form\Message;
-use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Common\CountEvent;
 use Jinya\Framework\Events\Common\ListEvent;
 use Jinya\Framework\Events\Form\MessageEvent;
 use Jinya\Services\Base\BaseService;
-use /** @noinspection PhpUndefinedClassInspection */
-    Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MessageService implements MessageServiceInterface
 {
@@ -49,11 +47,11 @@ class MessageService implements MessageServiceInterface
      */
     public function get(int $id): Message
     {
-        $this->eventDispatcher->dispatch(MessageEvent::PRE_GET, new MessageEvent(null));
+        $this->eventDispatcher->dispatch(new MessageEvent(null), MessageEvent::PRE_GET);
 
         $message = $this->entityManager->find(Message::class, $id);
 
-        $this->eventDispatcher->dispatch(MessageEvent::POST_GET, new MessageEvent($message));
+        $this->eventDispatcher->dispatch(new MessageEvent($message), MessageEvent::POST_GET);
 
         return $message;
     }

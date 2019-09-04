@@ -11,10 +11,10 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
-use Underscore\Types\Strings;
-use Twig\Error\RuntimeError;
 use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Underscore\Types\Strings;
 
 class CreateThemeCommand extends Command
 {

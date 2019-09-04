@@ -115,6 +115,14 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
+    public function get(int $id): User
+    {
+        return $this->entityManager->find(User::class, $id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function activate(int $id): User
     {
         $user = $this->get($id);
@@ -140,14 +148,6 @@ class UserService implements UserServiceInterface
         }
 
         return $user;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get(int $id): User
-    {
-        return $this->entityManager->find(User::class, $id);
     }
 
     /**
