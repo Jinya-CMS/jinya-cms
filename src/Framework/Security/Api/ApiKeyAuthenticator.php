@@ -8,85 +8,84 @@
 
 namespace Jinya\Framework\Security\Api;
 
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Exception;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
-use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
+use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Underscore\Types\Arrays;
 
-class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
+class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 {
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-    /** @noinspection PhpUndefinedClassInspection */
-
-    /** @var TranslatorInterface */
-    private $translator;
+    private const JINYA_API_KEY = 'JinyaApiKey';
 
     /** @var ApiKeyToolInterface */
     private $apiKeyTool;
 
     /** @var LoggerInterface */
     private $logger;
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
+
+    /** @var TranslatorInterface */
+    private $translator;
 
     /**
      * ApiKeyAuthenticator constructor.
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param TranslatorInterface $translator
      * @param ApiKeyToolInterface $apiKeyTool
      * @param LoggerInterface $logger
+     * @param TranslatorInterface $translator
      */
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        TranslatorInterface $translator,
         ApiKeyToolInterface $apiKeyTool,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        TranslatorInterface $translator
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->translator = $translator;
         $this->apiKeyTool = $apiKeyTool;
         $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
-     * {@inheritdoc}
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * Called on every request to decide if this authenticator should be
+     * used for the request. Returning false will cause this authenticator
+     * to be skipped.
      */
-    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
+    public function supports(Request $request)
     {
-        if (!$userProvider instanceof ApiKeyUserProvider) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
-                    get_class($userProvider)
-                )
-            );
+        return $request->headers->has(self::JINYA_API_KEY);
+    }
+
+    /**
+     * Called on every request. Return whatever credentials you want to
+     * be passed to getUser() as $credentials.
+     */
+    public function getCredentials(Request $request)
+    {
+        return [
+            'token' => $request->headers->get(self::JINYA_API_KEY),
+        ];
+    }
+
+    public function getUser($credentials, UserProviderInterface $userProvider)
+    {
+        $apiToken = $credentials['token'];
+
+        if (null === $apiToken || !$this->apiKeyTool->keyExists($apiToken)) {
+            return null;
         }
 
-        $apiKey = $token->getCredentials();
-
         try {
-            if ($this->apiKeyTool->shouldInvalidate($apiKey)) {
-                $this->apiKeyTool->invalidate($apiKey);
+            if ($this->apiKeyTool->shouldInvalidate($apiToken)) {
+                $this->apiKeyTool->invalidate($apiToken);
 
                 throw new CustomUserMessageAuthenticationException($this->translator->trans(
                     'api.state.401.expired',
-                    ['apiKey' => $apiKey]
+                    ['apiKey' => $apiToken]
                 ));
             }
         } catch (Exception $exception) {
@@ -95,67 +94,56 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
             throw new CustomUserMessageAuthenticationException($this->translator->trans(
                 'api.state.401.generic',
-                ['apiKey' => $apiKey]
+                ['apiKey' => $apiToken]
             ));
         }
 
-        $username = $userProvider->getUsernameFromApiKey($apiKey);
-
-        if (empty($username)) {
-            throw new CustomUserMessageAuthenticationException(
-                sprintf('API Key "%s" does not exist.', $apiKey)
-            );
-        }
-
-        $user = $userProvider->loadUserByUsername($username);
-
-        return new PreAuthenticatedToken(
-            $user,
-            $apiKey,
-            $providerKey,
-            $user->getRoles()
-        );
+        // if a User object, checkCredentials() is called
+        return $this->apiKeyTool->getUserByKey($apiToken);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsToken(TokenInterface $token, $providerKey)
+    public function checkCredentials($credentials, UserInterface $user)
     {
-        return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
+        // check credentials - e.g. make sure the password is valid
+        // no credential check is needed in this case
+
+        // return true to cause authentication success
+        return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createToken(Request $request, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $key = $request->headers->get('JinyaApiKey', '');
-
-        $login = $this->urlGenerator->generate('api_account_login');
-        $twoFactor = $this->urlGenerator->generate('api_account_2fa');
-
-        if ('HEAD' !== $request->getMethod() && Arrays::contains([$login, $twoFactor], $request->getPathInfo())) {
-            /* @noinspection PhpInconsistentReturnPointsInspection */
-            return;
-        }
-
-        if (empty($key)) {
-            return null;
-        }
-
-        return new PreAuthenticatedToken('anon.', $key, $providerKey);
+        // on success, let the request continue
+        return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if ($exception instanceof CustomUserMessageAuthenticationException) {
-            return new Response($exception->getMessageKey(), Response::HTTP_UNAUTHORIZED);
-        }
+        $data = [
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
 
-        return new Response($this->translator->trans('api.state.401.generic'), Response::HTTP_UNAUTHORIZED);
+            // or to translate this message
+            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+        ];
+
+        return new JsonResponse($data, Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * Called when authentication is needed, but it's not sent
+     */
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+        $data = [
+            // you might translate this message
+            'message' => 'Authentication Required'
+        ];
+
+        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function supportsRememberMe()
+    {
+        return false;
     }
 }

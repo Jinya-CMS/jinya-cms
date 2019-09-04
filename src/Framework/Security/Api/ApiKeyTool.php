@@ -206,4 +206,15 @@ class ApiKeyTool implements ApiKeyToolInterface
 
         return (new DateTime())->getTimestamp() > $validSince->getTimestamp();
     }
+
+    /**
+     * Check if the given key exists in the database
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function keyExists(string $key): bool
+    {
+        return $this->entityManager->getRepository(ApiKey::class)->findOneBy(['key' => $key]) !== null;
+    }
 }
