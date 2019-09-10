@@ -21,7 +21,7 @@ class File extends HistoryEnabledEntity
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $path;
+    private $path = '';
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class File extends HistoryEnabledEntity
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $type;
+    private $type = '';
 
     /**
      * @var Folder

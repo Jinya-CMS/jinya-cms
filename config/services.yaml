@@ -210,6 +210,7 @@ services:
 
     # External Services
     GuzzleHttp\Client:
+    Mimey\MimeTypes:
 
     Symfony\Contracts\Translation\LocaleAwareInterface:
         alias: translator.default
