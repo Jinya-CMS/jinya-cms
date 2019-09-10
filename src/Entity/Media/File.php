@@ -43,28 +43,53 @@ class File extends HistoryEnabledEntity
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\GalleryFilePosition", inversedBy="file")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\GalleryFilePosition", mappedBy="file")
      */
     private $galleries;
 
     /**
-     * @var array
-     * @ORM\Column(type="json_array")
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\Tag", mappedBy="files")
      */
     private $tags;
 
     /**
-     * @return array
+     * File constructor.
      */
-    public function getTags(): array
+    public function __construct()
+    {
+        $this->galleries = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGalleries(): ArrayCollection
+    {
+        return $this->galleries;
+    }
+
+    /**
+     * @param ArrayCollection $galleries
+     */
+    public function setGalleries(ArrayCollection $galleries): void
+    {
+        $this->galleries = $galleries;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags(): ArrayCollection
     {
         return $this->tags;
     }
 
     /**
-     * @param array $tags
+     * @param ArrayCollection $tags
      */
-    public function setTags(array $tags): void
+    public function setTags(ArrayCollection $tags): void
     {
         $this->tags = $tags;
     }

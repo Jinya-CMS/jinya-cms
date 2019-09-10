@@ -34,16 +34,105 @@ class Folder extends HistoryEnabledEntity
     private $name;
 
     /**
-     * @var array
-     * @ORM\Column(type="json_array")
-     */
-    private $tags;
-
-    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\File", mappedBy="folder")
      */
     private $files;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\Tag", mappedBy="folders")
+     */
+    private $tags;
+
+    /**
+     * Folder constructor.
+     */
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+    }
+
+    /**
+     * @return Folder
+     */
+    public function getParent(): Folder
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Folder $parent
+     */
+    public function setParent(Folder $parent): void
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChildFolders(): ArrayCollection
+    {
+        return $this->childFolders;
+    }
+
+    /**
+     * @param ArrayCollection $childFolders
+     */
+    public function setChildFolders(ArrayCollection $childFolders): void
+    {
+        $this->childFolders = $childFolders;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFiles(): ArrayCollection
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param ArrayCollection $files
+     */
+    public function setFiles(ArrayCollection $files): void
+    {
+        $this->files = $files;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags(): ArrayCollection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags(ArrayCollection $tags): void
+    {
+        $this->tags = $tags;
+    }
 
     /**
      * Specify data which should be serialized to JSON

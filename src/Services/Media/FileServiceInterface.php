@@ -1,0 +1,52 @@
+<?php
+
+namespace Jinya\Services\Media;
+
+use Jinya\Entity\Media\File;
+use Jinya\Entity\Media\Folder;
+
+interface FileServiceInterface
+{
+    /**
+     * Gets a list of all files in the folder and filtered by the given keyword and tag
+     *
+     * @param string $keyword
+     * @param Folder|null $folder
+     * @param string $tag
+     * @return File[]
+     */
+    public function getAll(string $keyword = '', Folder $folder = null, string $tag = ''): array;
+
+    /**
+     * Counts all files filtered by the given keyword in the given folder and tag
+     *
+     * @param string $keyword
+     * @param Folder|null $folder
+     * @param string $tag
+     * @return int
+     */
+    public function countAll(string $keyword = '', Folder $folder = null, string $tag = ''): int;
+
+    /**
+     * Saves or update the given file
+     *
+     * @param File $file
+     * @return File
+     */
+    public function saveOrUpdate(File $file): File;
+
+    /**
+     * Deletes the given file
+     *
+     * @param File $file
+     */
+    public function delete(File $file): void;
+
+    /**
+     * Gets the file by slug or id
+     *
+     * @param int $id
+     * @return File
+     */
+    public function get(int $id): File;
+}
