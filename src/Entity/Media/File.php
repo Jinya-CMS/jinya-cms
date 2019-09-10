@@ -2,6 +2,7 @@
 
 namespace Jinya\Entity\Media;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Base\BaseEntity;
 use Jinya\Entity\Base\HistoryEnabledEntity;
@@ -39,6 +40,12 @@ class File extends HistoryEnabledEntity
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Folder", inversedBy="files")
      */
     private $folder;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\GalleryFilePosition", inversedBy="file")
+     */
+    private $galleries;
 
     /**
      * @var array
