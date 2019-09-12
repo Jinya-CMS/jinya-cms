@@ -13,9 +13,10 @@ interface FileServiceInterface
      * @param string $keyword
      * @param Folder|null $folder
      * @param string $tag
+     * @param string $type
      * @return File[]
      */
-    public function getAll(string $keyword = '', Folder $folder = null, string $tag = ''): array;
+    public function getAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): array;
 
     /**
      * Counts all files filtered by the given keyword in the given folder and tag
@@ -23,9 +24,10 @@ interface FileServiceInterface
      * @param string $keyword
      * @param Folder|null $folder
      * @param string $tag
+     * @param string $type
      * @return int
      */
-    public function countAll(string $keyword = '', Folder $folder = null, string $tag = ''): int;
+    public function countAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): int;
 
     /**
      * Saves or update the given file

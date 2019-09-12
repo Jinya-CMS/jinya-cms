@@ -172,4 +172,28 @@ class GalleryFormatter implements GalleryFormatterInterface
 
         return $this;
     }
+
+    /**
+     * Formats the type
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function type(): GalleryFormatterInterface
+    {
+        $this->formattedData['type'] = $this->gallery->getType();
+
+        return $this;
+    }
+
+    /**
+     * Formats the orientation
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function orientation(): GalleryFormatterInterface
+    {
+        $this->formattedData['orientation'] = $this->gallery->getOrientation();
+
+        return $this;
+    }
 }

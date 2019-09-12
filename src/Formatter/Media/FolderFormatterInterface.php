@@ -72,20 +72,6 @@ interface FolderFormatterInterface extends FormatterInterface
     public function tags(): self;
 
     /**
-     * Formats the path
-     *
-     * @return FolderFormatterInterface
-     */
-    public function path(): self;
-
-    /**
-     * Formats the galleries
-     *
-     * @return FolderFormatterInterface
-     */
-    public function galleries(): self;
-
-    /**
      * Formats the id
      *
      * @return FolderFormatterInterface

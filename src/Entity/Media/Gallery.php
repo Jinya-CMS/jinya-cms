@@ -34,11 +34,55 @@ class Gallery extends HistoryEnabledEntity
     private $description;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $orientation;
+
+    /**
      * Gallery constructor.
      */
     public function __construct()
     {
         $this->files = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrientation(): string
+    {
+        return $this->orientation;
+    }
+
+    /**
+     * @param string $orientation
+     */
+    public function setOrientation(string $orientation): void
+    {
+        $this->orientation = $orientation;
     }
 
     /**

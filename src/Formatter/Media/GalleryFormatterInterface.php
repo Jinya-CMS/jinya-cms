@@ -70,4 +70,18 @@ interface GalleryFormatterInterface extends FormatterInterface
      * @return GalleryFormatterInterface
      */
     public function id(): self;
+
+    /**
+     * Formats the type
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function type(): self;
+
+    /**
+     * Formats the orientation
+     *
+     * @return GalleryFormatterInterface
+     */
+    public function orientation(): self;
 }

@@ -58,5 +58,5 @@ interface GalleryFilePositionServiceInterface
      * @param int $id
      * @param int $fileId
      */
-    public function updateArtwork(int $id, int $fileId): void;
+    public function updateFile(int $id, int $fileId): void;
 }

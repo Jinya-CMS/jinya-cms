@@ -2,6 +2,7 @@
 
 namespace Jinya\Controller\Api\Media;
 
+use Jinya\Entity\Media\File;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
@@ -30,6 +31,7 @@ class FileContentController extends BaseApiController
         FileServiceInterface $fileService,
         MediaServiceInterface $mediaService
     ): Response {
+        /** @var $data File */
         [$data, $status] = $this->tryExecute(static function () use ($fileService, $id, $mimeTypes) {
             $file = $fileService->get($id);
             if (empty($file->getPath())) {

@@ -4,7 +4,6 @@ namespace Jinya\Formatter\Media;
 
 use Jinya\Entity\Media\File;
 use Jinya\Entity\Media\Folder;
-use Jinya\Entity\Media\GalleryFilePosition;
 use Jinya\Entity\Media\Tag;
 use Jinya\Formatter\User\UserFormatterInterface;
 
@@ -125,37 +124,6 @@ class FolderFormatter implements FolderFormatterInterface
     }
 
     /**
-     * Formats the path
-     *
-     * @return FolderFormatterInterface
-     */
-    public function path(): FolderFormatterInterface
-    {
-        $this->formattedData['path'] = $this->folder->getPath();
-
-        return $this;
-    }
-
-    /**
-     * Formats the galleries
-     *
-     * @return FolderFormatterInterface
-     */
-    public function galleries(): FolderFormatterInterface
-    {
-        $this->formattedData['galleries'] = $this->folder->getGalleries()->map(function (
-            GalleryFilePosition $filePosition
-        ) {
-            return $this->galleryFilePositionFormatter
-                ->init($filePosition)
-                ->id()
-                ->position()
-                ->format();
-        });
-        return $this;
-    }
-
-    /**
      * Formats the id
      *
      * @return FolderFormatterInterface
@@ -183,13 +151,12 @@ class FolderFormatter implements FolderFormatterInterface
      */
     public function parent(): FolderFormatterInterface
     {
-        $folderFormatter = new self();
+        $folderFormatter = new self($this->userFormatter);
 
         $this->formattedData['parent'] = $folderFormatter
             ->init($this->folder->getParent())
             ->id()
             ->name()
-            ->path()
             ->tags();
 
         return $this;
@@ -239,14 +206,13 @@ class FolderFormatter implements FolderFormatterInterface
      */
     public function folders(): FolderFormatterInterface
     {
-        $folderFormatter = new self();
+        $folderFormatter = new self($this->userFormatter);
 
         $this->formattedData['folders'] = $this->folder->getChildFolders()->map(
             static function (Folder $fold) use ($folderFormatter) {
                 $folderFormatter->init($fold)
                     ->id()
                     ->name()
-                    ->path()
                     ->tags();
             }
         );

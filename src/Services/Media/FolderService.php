@@ -46,6 +46,7 @@ class FolderService implements FolderServiceInterface
         return $this
             ->getFilteredQueryBuilder($keyword, $folder, $tag)
             ->select('folder')
+            ->orderBy('folder.name')
             ->getQuery()
             ->getArrayResult();
     }
@@ -65,7 +66,7 @@ class FolderService implements FolderServiceInterface
                         ->expr()
                         ->like('folder.name', ':keyword')
                 )
-                ->setParameter(':keyword', $keyword);
+                ->setParameter('keyword', $keyword);
         }
 
         if ($folder !== null) {
@@ -76,7 +77,7 @@ class FolderService implements FolderServiceInterface
                         ->expr()
                         ->eq('folder.id', ':folderId')
                 )
-                ->setParameter(':folderId', $folder->getId());
+                ->setParameter('folderId', $folder->getId());
         }
 
         if ($tag !== '') {
@@ -87,7 +88,7 @@ class FolderService implements FolderServiceInterface
                         ->expr()
                         ->like('tags.tag', ':tag')
                 )
-                ->setParameter(':tag', $tag);
+                ->setParameter('tag', $tag);
         }
 
         return $queryBuilder;

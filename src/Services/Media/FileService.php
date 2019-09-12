@@ -40,13 +40,15 @@ class FileService implements FileServiceInterface
      * @param string $keyword
      * @param Folder|null $folder
      * @param string $tag
+     * @param string $type
      * @return File[]
      */
-    public function getAll(string $keyword = '', Folder $folder = null, string $tag = ''): array
+    public function getAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): array
     {
         return $this
-            ->getFilteredQueryBuilder($keyword, $folder, $tag)
+            ->getFilteredQueryBuilder($keyword, $folder, $tag, $type)
             ->select('file')
+            ->orderBy('file.name')
             ->getQuery()
             ->getArrayResult();
     }
@@ -54,7 +56,8 @@ class FileService implements FileServiceInterface
     private function getFilteredQueryBuilder(
         string $keyword = '',
         Folder $folder = null,
-        string $tag = ''
+        string $tag = '',
+        string $type = ''
     ): QueryBuilder {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
@@ -66,7 +69,7 @@ class FileService implements FileServiceInterface
                         ->expr()
                         ->like('file.name', ':keyword')
                 )
-                ->setParameter(':keyword', $keyword);
+                ->setParameter('keyword', $keyword);
         }
 
         if ($folder !== null) {
@@ -77,7 +80,17 @@ class FileService implements FileServiceInterface
                         ->expr()
                         ->eq('folder.id', ':folderId')
                 )
-                ->setParameter(':folderId', $folder->getId());
+                ->setParameter('folderId', $folder->getId());
+        }
+
+        if ($type !== '') {
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder
+                        ->expr()
+                        ->like('file.type', ':type')
+                )
+                ->setParameter('type', $type);
         }
 
         if ($tag !== '') {
@@ -88,7 +101,7 @@ class FileService implements FileServiceInterface
                         ->expr()
                         ->like('tags.tag', ':tag')
                 )
-                ->setParameter(':tag', $tag);
+                ->setParameter('tag', $tag);
         }
 
         return $queryBuilder;
@@ -100,13 +113,14 @@ class FileService implements FileServiceInterface
      * @param string $keyword
      * @param Folder|null $folder
      * @param string $tag
+     * @param string $type
      * @return int
      * @throws NonUniqueResultException
      */
-    public function countAll(string $keyword = '', Folder $folder = null, string $tag = ''): int
+    public function countAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): int
     {
         return $this
-            ->getFilteredQueryBuilder($keyword, $folder, $tag)
+            ->getFilteredQueryBuilder($keyword, $folder, $tag, $type)
             ->select('COUNT(file)')
             ->getQuery()
             ->getSingleScalarResult();

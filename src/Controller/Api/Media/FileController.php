@@ -38,13 +38,14 @@ class FileController extends BaseApiController
             $keyword = $request->get('keyword', '');
             $folderId = $request->get('folder', -1);
             $tag = $request->get('tag', '');
+            $type = $request->get('type', null);
             $folder = null;
 
             if ($folderId !== -1) {
                 $folder = $folderService->get($folderId);
             }
 
-            $entityCount = $fileService->countAll($keyword, $folder, $tag);
+            $entityCount = $fileService->countAll($keyword, $folder, $tag, $type);
             $entities = array_map(static function ($file) use ($fileFormatter) {
                 return $fileFormatter
                     ->init($file)
@@ -54,7 +55,7 @@ class FileController extends BaseApiController
                     ->tags()
                     ->galleries()
                     ->format();
-            }, $fileService->getAll($keyword, $folder, $tag));
+            }, $fileService->getAll($keyword, $folder, $tag, $type));
 
             return ['items' => $entities, 'count' => $entityCount];
         });
