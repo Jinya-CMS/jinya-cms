@@ -6,12 +6,11 @@
  * Time: 18:23
  */
 
-namespace Jinya\Entity\Video;
+namespace Jinya\Entity\Media;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Jinya\Entity\Media\File;
 
 /**
  * @ORM\Entity

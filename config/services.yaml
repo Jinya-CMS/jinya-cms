@@ -135,11 +135,6 @@ services:
         class: Jinya\Formatter\Menu\MenuFormatter
         calls:
             - [setMenuItemFormatter, ['@Jinya\Formatter\Menu\MenuItemFormatterInterface']]
-    Jinya\Formatter\Media\FolderFormatterInterface:
-        class: Jinya\Formatter\Media\FolderFormatter
-        calls:
-            - [setFileFormatter, ['@Jinya\Formatter\Media\FileFormatterInterface']]
-            - [setGalleryFilePositionFormatter, ['@Jinya\Formatter\Media\GalleryFilePositionFormatterInterface']]
     Jinya\Formatter\Media\GalleryFilePositionFormatterInterface:
         class: Jinya\Formatter\Media\GalleryFilePositionFormatter
         calls:
@@ -148,7 +143,6 @@ services:
     Jinya\Formatter\Media\FileFormatterInterface:
         class: Jinya\Formatter\Media\FileFormatter
         calls:
-            - [setFolderFormatter, ['@Jinya\Formatter\Media\FolderFormatterInterface']]
             - [setGalleryFilePositionFormatter, ['@Jinya\Formatter\Media\GalleryFilePositionFormatterInterface']]
     Jinya\Formatter\Media\GalleryFormatterInterface:
         class: Jinya\Formatter\Media\GalleryFormatter
@@ -210,7 +204,6 @@ services:
 
     # External Services
     GuzzleHttp\Client:
-    Mimey\MimeTypes:
 
     Symfony\Contracts\Translation\LocaleAwareInterface:
         alias: translator.default

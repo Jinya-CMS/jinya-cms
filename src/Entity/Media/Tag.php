@@ -32,18 +32,11 @@ class Tag
     private $files;
 
     /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\Folder", inversedBy="tags")
-     */
-    private $folders;
-
-    /**
      * Tag constructor.
      */
     public function __construct()
     {
         $this->files = new ArrayCollection();
-        $this->folders = new ArrayCollection();
     }
 
     /**
@@ -60,22 +53,6 @@ class Tag
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getFolders(): ArrayCollection
-    {
-        return $this->folders;
-    }
-
-    /**
-     * @param ArrayCollection $folders
-     */
-    public function setFolders(ArrayCollection $folders): void
-    {
-        $this->folders = $folders;
     }
 
     /**

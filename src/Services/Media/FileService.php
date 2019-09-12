@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Media\File;
-use Jinya\Entity\Media\Folder;
 use Jinya\Framework\Events\Media\FileEvent;
 use Jinya\Services\Base\BaseService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -38,15 +37,14 @@ class FileService implements FileServiceInterface
      * Gets a list of all files in the folder and filtered by the given keyword and tag
      *
      * @param string $keyword
-     * @param Folder|null $folder
      * @param string $tag
      * @param string $type
      * @return File[]
      */
-    public function getAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): array
+    public function getAll(string $keyword = '', string $tag = '', string $type = ''): array
     {
         return $this
-            ->getFilteredQueryBuilder($keyword, $folder, $tag, $type)
+            ->getFilteredQueryBuilder($keyword, $tag, $type)
             ->select('file')
             ->orderBy('file.name')
             ->getQuery()
@@ -55,7 +53,6 @@ class FileService implements FileServiceInterface
 
     private function getFilteredQueryBuilder(
         string $keyword = '',
-        Folder $folder = null,
         string $tag = '',
         string $type = ''
     ): QueryBuilder {
@@ -70,17 +67,6 @@ class FileService implements FileServiceInterface
                         ->like('file.name', ':keyword')
                 )
                 ->setParameter('keyword', $keyword);
-        }
-
-        if ($folder !== null) {
-            $queryBuilder
-                ->join('file.folder', 'folder')
-                ->andWhere(
-                    $queryBuilder
-                        ->expr()
-                        ->eq('folder.id', ':folderId')
-                )
-                ->setParameter('folderId', $folder->getId());
         }
 
         if ($type !== '') {
@@ -111,16 +97,15 @@ class FileService implements FileServiceInterface
      * Counts all files filtered by the given keyword in the given folder and tag
      *
      * @param string $keyword
-     * @param Folder|null $folder
      * @param string $tag
      * @param string $type
      * @return int
      * @throws NonUniqueResultException
      */
-    public function countAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): int
+    public function countAll(string $keyword = '', string $tag = '', string $type = ''): int
     {
         return $this
-            ->getFilteredQueryBuilder($keyword, $folder, $tag, $type)
+            ->getFilteredQueryBuilder($keyword, $tag, $type)
             ->select('COUNT(file)')
             ->getQuery()
             ->getSingleScalarResult();

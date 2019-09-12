@@ -6,7 +6,7 @@
  * Time: 15:05
  */
 
-namespace Jinya\Entity\Video;
+namespace Jinya\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -34,14 +34,6 @@ class FileFormatter implements FileFormatterInterface
     }
 
     /**
-     * @param FolderFormatterInterface $folderFormatter
-     */
-    public function setFolderFormatter(FolderFormatterInterface $folderFormatter): void
-    {
-        $this->folderFormatter = $folderFormatter;
-    }
-
-    /**
      * @param GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
      */
     public function setGalleryFilePositionFormatter(
@@ -84,23 +76,6 @@ class FileFormatter implements FileFormatterInterface
     public function name(): FileFormatterInterface
     {
         $this->formattedData['name'] = $this->file->getName();
-
-        return $this;
-    }
-
-    /**
-     * Formats the folder
-     *
-     * @return FileFormatterInterface
-     */
-    public function folder(): FileFormatterInterface
-    {
-        $this->formattedData['folder'] = $this->folderFormatter
-            ->init($this->file->getFolder())
-            ->id()
-            ->name()
-            ->path()
-            ->tags();
 
         return $this;
     }

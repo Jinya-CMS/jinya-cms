@@ -10,7 +10,7 @@ use Jinya\Entity\Base\HistoryEnabledEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="file", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="folder_and_name", columns={"folder_id", "name"})
+ *     @ORM\UniqueConstraint(name="name", columns={"name"})
  * })
  */
 class File extends HistoryEnabledEntity
@@ -34,12 +34,6 @@ class File extends HistoryEnabledEntity
      * @ORM\Column(type="string", nullable=false)
      */
     private $type = '';
-
-    /**
-     * @var Folder
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Folder", inversedBy="files")
-     */
-    private $folder;
 
     /**
      * @var ArrayCollection
@@ -127,22 +121,6 @@ class File extends HistoryEnabledEntity
     }
 
     /**
-     * @return Folder
-     */
-    public function getFolder(): Folder
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param Folder $folder
-     */
-    public function setFolder(Folder $folder): void
-    {
-        $this->folder = $folder;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -168,7 +146,6 @@ class File extends HistoryEnabledEntity
     public function jsonSerialize()
     {
         return [
-            'folder' => $this->folder->getId(),
             'path' => $this->path,
             'name' => $this->name,
             'type' => $this->type,

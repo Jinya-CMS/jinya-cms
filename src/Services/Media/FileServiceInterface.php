@@ -11,23 +11,21 @@ interface FileServiceInterface
      * Gets a list of all files in the folder and filtered by the given keyword and tag
      *
      * @param string $keyword
-     * @param Folder|null $folder
      * @param string $tag
      * @param string $type
      * @return File[]
      */
-    public function getAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): array;
+    public function getAll(string $keyword = '', string $tag = '', string $type = ''): array;
 
     /**
      * Counts all files filtered by the given keyword in the given folder and tag
      *
      * @param string $keyword
-     * @param Folder|null $folder
      * @param string $tag
      * @param string $type
      * @return int
      */
-    public function countAll(string $keyword = '', Folder $folder = null, string $tag = '', string $type = ''): int;
+    public function countAll(string $keyword = '', string $tag = '', string $type = ''): int;
 
     /**
      * Saves or update the given file

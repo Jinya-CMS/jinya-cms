@@ -19,33 +19,24 @@ class FileController extends BaseApiController
      *
      * @param Request $request
      * @param FileServiceInterface $fileService
-     * @param FolderServiceInterface $folderService
      * @param FileFormatterInterface $fileFormatter
      * @return Response
      */
     public function getAllAction(
         Request $request,
         FileServiceInterface $fileService,
-        FolderServiceInterface $folderService,
         FileFormatterInterface $fileFormatter
     ): Response {
         [$data, $statusCode] = $this->tryExecute(static function () use (
-            $folderService,
             $request,
             $fileFormatter,
             $fileService
         ) {
             $keyword = $request->get('keyword', '');
-            $folderId = $request->get('folder', -1);
             $tag = $request->get('tag', '');
             $type = $request->get('type', null);
-            $folder = null;
 
-            if ($folderId !== -1) {
-                $folder = $folderService->get($folderId);
-            }
-
-            $entityCount = $fileService->countAll($keyword, $folder, $tag, $type);
+            $entityCount = $fileService->countAll($keyword, $tag, $type);
             $entities = array_map(static function ($file) use ($fileFormatter) {
                 return $fileFormatter
                     ->init($file)
@@ -55,7 +46,7 @@ class FileController extends BaseApiController
                     ->tags()
                     ->galleries()
                     ->format();
-            }, $fileService->getAll($keyword, $folder, $tag, $type));
+            }, $fileService->getAll($keyword, $tag, $type));
 
             return ['items' => $entities, 'count' => $entityCount];
         });
@@ -84,7 +75,6 @@ class FileController extends BaseApiController
                 ->tags()
                 ->galleries()
                 ->type()
-                ->folder()
                 ->path();
 
             if ($this->isGranted('ROLE_WRITER')) {
@@ -103,19 +93,15 @@ class FileController extends BaseApiController
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param FileServiceInterface $fileService
-     * @param FolderServiceInterface $folderService
      * @return Response
      */
-    public function postAction(FileServiceInterface $fileService, FolderServiceInterface $folderService): Response
+    public function postAction(FileServiceInterface $fileService): Response
     {
-        [$data, $status] = $this->tryExecute(function () use ($fileService, $folderService) {
+        [$data, $status] = $this->tryExecute(function () use ($fileService) {
             $name = $this->getValue('name');
-            $folderId = $this->getValue('folder');
 
-            $folder = $folderService->get($folderId);
             $file = new File();
             $file->setName($name);
-            $file->setFolder($folder);
 
             $fileService->saveOrUpdate($file);
         }, Response::HTTP_CREATED);
@@ -129,22 +115,17 @@ class FileController extends BaseApiController
      *
      * @param int $id
      * @param FileServiceInterface $fileService
-     * @param FolderServiceInterface $folderService
      * @return Response
      */
     public function putAction(
         int $id,
-        FileServiceInterface $fileService,
-        FolderServiceInterface $folderService
+        FileServiceInterface $fileService
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($id, $fileService, $folderService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $fileService) {
             $file = $fileService->get($id);
             $name = $this->getValue('name', $file->getName());
-            $folderId = $this->getValue('folder', $file->getFolder()->getId());
 
-            $folder = $folderService->get($folderId);
             $file->setName($name);
-            $file->setFolder($folder);
 
             $fileService->saveOrUpdate($file);
         }, Response::HTTP_NO_CONTENT);

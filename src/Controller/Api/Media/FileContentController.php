@@ -20,19 +20,18 @@ class FileContentController extends BaseApiController
      * @Route("/api/media/file/{id}/content", name="api_file_get", methods={"GET"})
      *
      * @param int $id
-     * @param MimeTypes $mimeTypes
      * @param FileServiceInterface $fileService
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
     public function getAction(
         int $id,
-        MimeTypes $mimeTypes,
         FileServiceInterface $fileService,
         MediaServiceInterface $mediaService
     ): Response {
+        $mimeTypes = new MimeTypes();
         /** @var $data File */
-        [$data, $status] = $this->tryExecute(static function () use ($fileService, $id, $mimeTypes) {
+        [$data, $status] = $this->tryExecute(static function () use ($fileService, $id) {
             $file = $fileService->get($id);
             if (empty($file->getPath())) {
                 throw new FileNotFoundException($file->getName());
@@ -129,7 +128,7 @@ class FileContentController extends BaseApiController
             $path = $fileUploadService->finishUpload($id);
 
             $file->setPath($path);
-            $file->setType($path);
+            $file->setType(mime_content_type($path));
 
             $fileService->saveOrUpdate($file);
 

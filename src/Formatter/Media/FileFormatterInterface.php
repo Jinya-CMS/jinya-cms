@@ -30,13 +30,6 @@ interface FileFormatterInterface extends FormatterInterface
     public function name(): self;
 
     /**
-     * Formats the folder
-     *
-     * @return FileFormatterInterface
-     */
-    public function folder(): self;
-
-    /**
      * Formats the created info
      *
      * @return FileFormatterInterface
