@@ -12,9 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Exception;
-use Jinya\Entity\Video\UploadingFile;
-use Jinya\Entity\Video\UploadingFileChunk;
-use Jinya\Entity\Video\UploadingVideoChunk;
+use Jinya\Entity\Media\UploadingFile;
+use Jinya\Entity\Media\UploadingFileChunk;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Psr\Log\LoggerInterface;
@@ -89,7 +88,7 @@ class FileUploadService implements FileUploadServiceInterface
         $chunkDirectory = $this->tmpDir;
         $chunkPath = $chunkDirectory . DIRECTORY_SEPARATOR . uniqid($id, true);
 
-        if (!mkdir($chunkDirectory) && !is_dir($chunkDirectory)) {
+        if (!@mkdir($chunkDirectory) && !@is_dir($chunkDirectory)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $chunkDirectory));
         }
         file_put_contents($chunkPath, $chunk);
@@ -157,12 +156,12 @@ class FileUploadService implements FileUploadServiceInterface
 
     /**
      * @param int $id
-     * @return UploadingVideoChunk[]
+     * @return UploadingFileChunk[]
      */
     private function getChunks(int $id): array
     {
         return $this->entityManager->createQueryBuilder()
-            ->select('uvc')
+            ->select('uploading_file_chunk')
             ->from(UploadingFileChunk::class, 'uploading_file_chunk')
             ->join('uploading_file_chunk.uploadingFile', 'uploading_file')
             ->join('uploading_file.file', 'file')

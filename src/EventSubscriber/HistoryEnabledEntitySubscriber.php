@@ -46,7 +46,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function preUpdate(PreUpdateEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
-        if ($token) {
+        if ($token !== null) {
             $changeSet = $eventArgs->getEntityChangeSet();
             $entity = $eventArgs->getEntity();
             if (($entity instanceof HistoryEnabledEntity) && !$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
@@ -83,13 +83,13 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function postLoad(LifecycleEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
-        if ($token) {
+        if ($token !== null) {
             $entity = $eventArgs->getEntity();
             if ($entity instanceof HistoryEnabledEntity) {
                 $entity->setLastUpdatedAt(new DateTime());
                 /* @noinspection PhpParamsInspection */
                 /** @noinspection NullPointerExceptionInspection */
-                $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
+                $entity->setUpdatedBy($token->getUser());
             }
         }
     }
@@ -97,7 +97,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $eventArgs): void
     {
         $entity = $eventArgs->getEntity();
-        if ($entity instanceof HistoryEnabledEntity) {
+        if ($entity instanceof HistoryEnabledEntity && $entity->getCreatedAt() === null) {
             $entity->setCreatedAt(new DateTime());
             $entity->setLastUpdatedAt(new DateTime());
             /* @noinspection PhpParamsInspection */

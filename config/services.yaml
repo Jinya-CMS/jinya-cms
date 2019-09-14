@@ -66,6 +66,10 @@ services:
         arguments:
             $tmpDir: '%jinya_gallery.temp_dir%'
 
+    Jinya\Services\Media\Upload\FileUploadService:
+        arguments:
+            $tmpDir: '%jinya_gallery.temp_dir%'
+
     Jinya\Services\Cache\StaticFileCacheBuilder:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'
@@ -181,6 +185,10 @@ services:
         calls:
             - [setKernelProjectDir, ['%kernel.project_dir%']]
         tags: ['controller.service_arguments']
+    Jinya\Controller\Api\Media\FileContentController:
+        calls:
+            - [setKernelProjectDir, ['%kernel.project_dir%']]
+        tags: ['controller.service_arguments']
 
     # Security
     Jinya\Framework\Security\UserVoter:
@@ -207,6 +215,9 @@ services:
 
     Symfony\Contracts\Translation\LocaleAwareInterface:
         alias: translator.default
+
+    Symfony\Component\Mime\MimeTypes:
+        alias: mime_types
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

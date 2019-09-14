@@ -27,7 +27,7 @@ class Tag
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\File", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\File", mappedBy="tags", cascade={"persist"})
      */
     private $files;
 

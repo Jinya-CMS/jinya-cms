@@ -48,7 +48,7 @@ class FileService implements FileServiceInterface
             ->select('file')
             ->orderBy('file.name')
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 
     private function getFilteredQueryBuilder(
@@ -66,7 +66,7 @@ class FileService implements FileServiceInterface
                         ->expr()
                         ->like('file.name', ':keyword')
                 )
-                ->setParameter('keyword', $keyword);
+                ->setParameter('keyword', "%$keyword%");
         }
 
         if ($type !== '') {
@@ -76,7 +76,7 @@ class FileService implements FileServiceInterface
                         ->expr()
                         ->like('file.type', ':type')
                 )
-                ->setParameter('type', $type);
+                ->setParameter('type', "%$type%");
         }
 
         if ($tag !== '') {
@@ -85,7 +85,7 @@ class FileService implements FileServiceInterface
                 ->andWhere(
                     $queryBuilder
                         ->expr()
-                        ->like('tags.tag', ':tag')
+                        ->like('tags.tag', '%:tag%')
                 )
                 ->setParameter('tag', $tag);
         }

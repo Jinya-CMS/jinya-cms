@@ -179,9 +179,6 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
-    "ralouphie/mimey": {
-        "version": "2.1.0"
-    },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
         "recipe": {

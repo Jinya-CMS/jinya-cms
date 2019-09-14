@@ -3,7 +3,6 @@
 namespace Jinya\Services\Media;
 
 use Jinya\Entity\Media\File;
-use Jinya\Entity\Media\Folder;
 
 interface FileServiceInterface
 {

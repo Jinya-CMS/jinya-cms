@@ -3,6 +3,7 @@
 namespace Jinya\Entity\Media;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Base\BaseEntity;
 use Jinya\Entity\Base\HistoryEnabledEntity;
@@ -36,14 +37,14 @@ class File extends HistoryEnabledEntity
     private $type = '';
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\GalleryFilePosition", mappedBy="file")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\GalleryFilePosition", mappedBy="file", cascade={"remove"})
      */
     private $galleries;
 
     /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\Tag", mappedBy="files")
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\Tag", inversedBy="files", cascade={"persist"})
      */
     private $tags;
 
@@ -57,33 +58,33 @@ class File extends HistoryEnabledEntity
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getGalleries(): ArrayCollection
+    public function getGalleries(): Collection
     {
         return $this->galleries;
     }
 
     /**
-     * @param ArrayCollection $galleries
+     * @param Collection $galleries
      */
-    public function setGalleries(ArrayCollection $galleries): void
+    public function setGalleries(Collection $galleries): void
     {
         $this->galleries = $galleries;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getTags(): ArrayCollection
+    public function getTags(): Collection
     {
         return $this->tags;
     }
 
     /**
-     * @param ArrayCollection $tags
+     * @param Collection $tags
      */
-    public function setTags(ArrayCollection $tags): void
+    public function setTags(Collection $tags): void
     {
         $this->tags = $tags;
     }

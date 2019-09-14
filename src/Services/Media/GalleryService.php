@@ -62,7 +62,7 @@ class GalleryService
                         ->expr()
                         ->like('gallery.name', ':keyword')
                 )
-                ->setParameter(':keyword', $keyword);
+                ->setParameter(':keyword', "%$keyword%");
         }
 
 
@@ -74,7 +74,7 @@ class GalleryService
                         ->expr()
                         ->like('tags.tag', ':tag')
                 )
-                ->setParameter(':tag', $tag);
+                ->setParameter(':tag', "%$tag%");
         }
 
         return $queryBuilder;

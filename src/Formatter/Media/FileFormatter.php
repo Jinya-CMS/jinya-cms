@@ -12,9 +12,6 @@ class FileFormatter implements FileFormatterInterface
     /** @var array */
     private $formattedData;
 
-    /** @var FolderFormatterInterface */
-    private $folderFormatter;
-
     /** @var GalleryFilePositionFormatterInterface */
     private $galleryFilePositionFormatter;
 
@@ -91,7 +88,7 @@ class FileFormatter implements FileFormatterInterface
             ->init($this->file->getCreator())
             ->profile()
             ->format();
-        $this->formattedData['created']['at'] = $this->file->getCreatedAt();
+        $this->formattedData['created']['at'] = $this->file->getCreatedAt()->format(DATE_ATOM);
 
         return $this;
     }
@@ -107,7 +104,7 @@ class FileFormatter implements FileFormatterInterface
             ->init($this->file->getUpdatedBy())
             ->profile()
             ->format();
-        $this->formattedData['updated']['at'] = $this->file->getLastUpdatedAt();
+        $this->formattedData['updated']['at'] = $this->file->getLastUpdatedAt()->format(DATE_ATOM);
 
         return $this;
     }

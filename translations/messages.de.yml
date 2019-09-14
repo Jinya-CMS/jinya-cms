@@ -118,6 +118,23 @@ api:
 menu:
     designer:
         flyout:
+            content:
+                navbar: Inhalte
+                sections:
+                    media:
+                        header: Medien
+                        files: Dateien
+                        galleries: Gallerien
+                    pages:
+                        header: Seiten
+                        saved_in_jinya: Einfache Seiten
+                        segment_pages: Segment Seiten
+                        saved_external: Extern gespeichert
+                    forms:
+                        header: Formulare
+                        forms: Formulare
+                        messages: Nachrichten
+                        email_templates: Emailtemplates
             art:
                 navbar: Kunst
                 sections:
@@ -135,19 +152,6 @@ menu:
                         header: Galerien
                         artwork_galleries: Kunstgalerien
                         video_galleries: Videogalerien
-            static:
-                navbar: Statischer Inhalt
-                sections:
-                    pages:
-                        header: Seiten
-                        saved_in_jinya: Einfache Seiten
-                        segment_pages: Segment Seiten
-                        saved_external: Extern gespeichert
-                    forms:
-                        header: Formulare
-                        forms: Formulare
-                        messages: Nachrichten
-                        email_templates: Emailtemplates
             configuration:
                 navbar: Konfiguration
                 sections:
@@ -202,6 +206,8 @@ menu:
 routes:
     error:
         not_allowed: Zugriff verweigert
+    media:
+        files: Dateiverwaltung
     art:
         artworks:
             saved_in_jinya:
@@ -299,6 +305,39 @@ framework:
 home:
     missing:
         header: Sorry ich bin noch nicht fertig
+media:
+    files:
+        add:
+            creating: Die Datei wird erstellt
+            uploading: Die Datei %name% wird hochgeladen
+            title: Datei hochladen
+            file: Datei
+            name: Name
+            upload: Datei speichern
+            cancel: Abbrechen
+        edit:
+            renaming: Die Datei %oldName% wird in %newName% umbenannt
+            uploading: Die Datei %name% wird hochgeladen
+            title: Datei bearbeiten
+            file: Datei
+            name: Name
+            upload: Datei speichern
+            cancel: Abbrechen
+        delete:
+            title: Datei wirklich löschen?
+            content: Soll die Datei %name% wirklich gelöscht werden? Dies entfernt sie aus allen Gallerien.
+            yes: Datei löschen
+            no: Datei nicht löschen
+        list:
+            nothing_found: Du hast noch keine Dateien hochgeladen
+            edit: Datei bearbeiten
+            delete: Datei löschen
+            details: Details anzeigen
+        details:
+            created_by: Erstellt von
+            created_at: Erstellt am
+            updated_by: Zuletzt geändert von
+            updated_at: Zuletzt geändert am
 configuration:
     general:
         artists:
@@ -854,6 +893,14 @@ maintenance:
             started: Das Update wird gestartet
             back: Abbrechen
 background:
+    media:
+        uploaded: Die Datei %name% wurde erfolgreich hochgeladen
+        upload_started: Die Datei %name% wird hochgeladen
+        exists:
+            title: Upload existert
+            message: Es wurde schon einmal versucht %name% hochzuladen ohne es abzuschließen. Soll der Upload erneut starten?
+            reupload: Erneut hochladen
+            cancel: Nicht hochladen
     video:
         uploaded: Das Video %name% wurde erfolgreich hochgeladen
         upload_started: Das Video %name% wird hochgeladen

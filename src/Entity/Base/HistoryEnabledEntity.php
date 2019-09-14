@@ -68,7 +68,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @return DateTime
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
@@ -100,7 +100,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @return DateTime
      */
-    public function getLastUpdatedAt(): DateTime
+    public function getLastUpdatedAt(): ?DateTime
     {
         return $this->lastUpdatedAt;
     }
