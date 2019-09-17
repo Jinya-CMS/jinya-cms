@@ -208,6 +208,8 @@ routes:
         not_allowed: Zugriff verweigert
     media:
         files: Dateiverwaltung
+        galleries:
+            overview: Gallerien
     art:
         artworks:
             saved_in_jinya:
@@ -338,6 +340,40 @@ media:
             created_at: Erstellt am
             updated_by: Zuletzt geändert von
             updated_at: Zuletzt geändert am
+    galleries:
+        edit:
+            name: Name
+            type: Layout
+            orientation: Ausrichtung
+            description: Beschreibung
+            orientations:
+                vertical: Vertikal
+                horizontal: Horizontal
+            types:
+                masonry: Raster
+                sequence: Liste
+        delete:
+            title: Gallerie löschen
+            content: Soll die Gallerie %name% wirklich gelöscht werden?
+            yes: Gallerie löschen
+            no: Gallerie nicht löschen
+        list:
+            toolbar:
+                add: Neue Gallerie
+                edit: Gallerie bearbeiten
+                arrange: Gallerie anordnen
+                delete: Gallerie löschen
+            table:
+                cells:
+                    masonry: Raster
+                    sequence: Liste
+                    vertical: Vertikal
+                    horizontal: Horizontal
+                header:
+                    name: Name
+                    orientation: Ausrichtung
+                    type: Layout
+                    description: Beschreibung
 configuration:
     general:
         artists:

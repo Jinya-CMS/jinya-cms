@@ -3,6 +3,7 @@
 namespace Jinya\Entity\Media;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Base\HistoryEnabledEntity;
 use Jinya\Entity\Base\SlugEntity;
@@ -16,7 +17,7 @@ class Gallery extends HistoryEnabledEntity
     use SlugEntity;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\GalleryFilePosition", mappedBy="gallery", cascade={"remove"})
      */
     private $files;
@@ -86,17 +87,17 @@ class Gallery extends HistoryEnabledEntity
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getFiles(): ArrayCollection
+    public function getFiles(): Collection
     {
         return $this->files;
     }
 
     /**
-     * @param ArrayCollection $files
+     * @param Collection $files
      */
-    public function setFiles(ArrayCollection $files): void
+    public function setFiles(Collection $files): void
     {
         $this->files = $files;
     }

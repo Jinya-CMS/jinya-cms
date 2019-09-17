@@ -39,7 +39,7 @@ class GalleryController extends BaseApiController
             $galleryService
         ) {
             $keyword = $request->get('keyword', '');
-            $tag = $request->get('tag');
+            $tag = $request->get('tag', '');
 
             $entityCount = $galleryService->countAll($keyword);
             $entities = array_map(static function ($gallery) use ($galleryFormatter) {
@@ -50,6 +50,7 @@ class GalleryController extends BaseApiController
                     ->type()
                     ->slug()
                     ->description()
+                    ->id()
                     ->format();
             }, $galleryService->getAll($keyword, $tag));
 

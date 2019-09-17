@@ -1,14 +1,15 @@
 import Missing from '@/components/Home/Missing';
 import Routes from '@/router/Routes';
+import Overview from '@/components/Media/Gallery/Overview';
 
 export default [
     {
         path: Routes.Media.Galleries.Overview.route,
-        name: Routes.Media.Galleries.Overview.name,
-        component: Missing,
-        meta: {
-            title: 'routes.media.galleries.overview',
-            searchEnabled: true,
+            name: Routes.Media.Galleries.Overview.name,
+            component: Overview,
+            meta: {
+                title: 'routes.media.galleries.overview',
+                searchEnabled: true,
         },
     },
     {
@@ -29,4 +30,4 @@ export default [
         name: Routes.Media.Galleries.Edit.name,
         component: Missing,
     },
-];
+    ];

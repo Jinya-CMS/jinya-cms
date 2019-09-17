@@ -11,7 +11,7 @@ use Jinya\Framework\Events\Media\GalleryEvent;
 use Jinya\Services\Base\BaseService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class GalleryService
+class GalleryService implements GalleryServiceInterface
 {
     /** @var BaseService */
     private $baseService;
@@ -47,7 +47,7 @@ class GalleryService
             ->getFilteredQueryBuilder($keyword, $tag)
             ->select('gallery')
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 
     private function getFilteredQueryBuilder(string $keyword = '', string $tag = ''): QueryBuilder

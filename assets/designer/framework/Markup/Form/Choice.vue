@@ -103,6 +103,9 @@
         if (this.selected instanceof Object) {
           return this.selected.value.toString() === value.value.toString();
         }
+        if (typeof this.selected === 'string' || this.selected instanceof String) {
+          return this.selected === value.value.toString();
+        }
         return false;
       },
     },
