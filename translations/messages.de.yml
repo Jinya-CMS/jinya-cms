@@ -342,6 +342,21 @@ media:
             updated_at: Zuletzt geändert am
     galleries:
         edit:
+            update: Gallerie speichern
+            cancel: Abbrechen
+            name: Name
+            type: Layout
+            orientation: Ausrichtung
+            description: Beschreibung
+            orientations:
+                vertical: Vertikal
+                horizontal: Horizontal
+            types:
+                masonry: Raster
+                sequence: Liste
+        add:
+            update: Gallerie speichern
+            cancel: Abbrechen
             name: Name
             type: Layout
             orientation: Ausrichtung

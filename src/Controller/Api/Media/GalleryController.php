@@ -103,12 +103,14 @@ class GalleryController extends BaseApiController
      * @IsGranted("ROLE_ADMIN", statusCode=403)
      *
      * @param GalleryServiceInterface $galleryService
+     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
     public function postAction(
-        GalleryServiceInterface $galleryService
+        GalleryServiceInterface $galleryService,
+        GalleryFormatterInterface $galleryFormatter
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($galleryService) {
+        [$data, $status] = $this->tryExecute(function () use ($galleryService, $galleryFormatter) {
             $name = $this->getValue('name');
             $description = $this->getValue('description', '');
             $orientation = $this->getValue('orientation', 'horizontal');
@@ -125,6 +127,16 @@ class GalleryController extends BaseApiController
             $gallery->setType($type);
 
             $galleryService->saveOrUpdate($gallery);
+
+            return $galleryFormatter
+                ->init($gallery)
+                ->name()
+                ->orientation()
+                ->type()
+                ->slug()
+                ->description()
+                ->id()
+                ->format();
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);

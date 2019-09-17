@@ -21,7 +21,7 @@
                                 label="media.galleries.delete.yes" slot="buttons-right"/>
         </jinya-modal>
         <jinya-modal :loading="editGalleryDialog.loading" @close="resetSelectedRow"
-                     title="media.files.edit.title" v-if="editGalleryDialog.visible">
+                     title="media.galleries.edit.title" v-if="editGalleryDialog.visible">
             <jinya-message :message="editGalleryDialog.message" :state="editGalleryDialog.state" slot="message"
                            v-if="editGalleryDialog.message"/>
             <jinya-form>
@@ -38,9 +38,31 @@
                                 v-model="selectedRow.description"/>
             </jinya-form>
             <jinya-modal-button :closes-modal="true" :is-disabled="editGalleryDialog.loading" :is-secondary="true"
-                                label="media.files.edit.cancel" slot="buttons-left"/>
-            <jinya-modal-button :is-disabled="editGalleryDialog.loading" :is-primary="true" @click="editFile"
-                                label="media.files.edit.upload" slot="buttons-right"/>
+                                label="media.galleries.edit.cancel" slot="buttons-left"/>
+            <jinya-modal-button :is-disabled="editGalleryDialog.loading" :is-primary="true" @click="editGallery"
+                                label="media.galleries.edit.update" slot="buttons-right"/>
+        </jinya-modal>
+        <jinya-modal :loading="addGalleryDialog.loading" @close="resetAddDialog"
+                     title="media.galleries.add.title" v-if="addGalleryDialog.visible">
+            <jinya-message :message="addGalleryDialog.message" :state="addGalleryDialog.state" slot="message"
+                           v-if="addGalleryDialog.message"/>
+            <jinya-form>
+                <jinya-input :enable="!addGalleryDialog.loading" label="media.galleries.add.name" type="text"
+                             v-model="selectedRow.name"/>
+                <jinya-choice :choices="galleryTypes" :enable="!addGalleryDialog.loading"
+                              :selected="selectedRow.type" @selected="(value) => selectedRow.type = value.value"
+                              label="media.galleries.add.type"/>
+                <jinya-choice :choices="galleryOrientations" :enable="!addGalleryDialog.loading"
+                              :selected="selectedRow.orientation"
+                              @selected="(value) => selectedRow.orientation = value.value"
+                              label="media.galleries.add.orientation"/>
+                <jinya-textarea :enable="!addGalleryDialog.loading" label="media.galleries.add.type"
+                                v-model="selectedRow.description"/>
+            </jinya-form>
+            <jinya-modal-button :closes-modal="true" :is-disabled="addGalleryDialog.loading" :is-secondary="true"
+                                label="media.files.add.cancel" slot="buttons-left"/>
+            <jinya-modal-button :is-disabled="addGalleryDialog.loading" :is-primary="true" @click="addGallery"
+                                label="media.files.add.upload" slot="buttons-right"/>
         </jinya-modal>
     </div>
 </template>
@@ -104,6 +126,14 @@
         this.selectedRow = await JinyaRequest.get(`/api/media/gallery/${this.selectedRow.id}`);
         this.editGalleryDialog.visible = false;
       },
+      resetAddDialog() {
+        this.addGalleryDialog.gallery = {
+          name: '',
+          orientation: '',
+          type: '',
+          description: '',
+        };
+      },
       selectRow(row) {
         this.selectedRow = row;
       },
@@ -125,7 +155,33 @@
           this.deleteGalleryDialog.loading = false;
           this.deleteGalleryDialog.error = e.message;
         }
-        await JinyaRequest.delete(`/api/media/gallery/${this.selectedRow.id}`);
+      },
+      async editGallery() {
+        try {
+          this.editGalleryDialog.loading = true;
+          await JinyaRequest.put(`/api/media/gallery/${this.selectedRow.id}`, this.selectedRow);
+          this.editGalleryDialog.loading = false;
+          this.editGalleryDialog.visible = false;
+        } catch (e) {
+          this.editGalleryDialog.loading = false;
+          this.editGalleryDialog.message = e.message;
+          this.editGalleryDialog.state = 'error';
+        }
+      },
+      async addGallery() {
+        try {
+          this.addGalleryDialog.loading = true;
+          const gallery = await JinyaRequest.post('/api/media/gallery', this.addGalleryDialog.gallery);
+          this.tableRows.push(gallery);
+          this.addGalleryDialog.loading = false;
+          this.addGalleryDialog.visible = false;
+        } catch (e) {
+          this.addGalleryDialog.loading = false;
+          this.addGalleryDialog.message = e.message;
+          this.addGalleryDialog.state = 'error';
+        }
+
+        this.resetAddDialog();
       },
     },
     async mounted() {
@@ -144,6 +200,18 @@
           loading: false,
           message: '',
           state: '',
+        },
+        addGalleryDialog: {
+          visible: false,
+          loading: false,
+          message: '',
+          state: '',
+          gallery: {
+            name: '',
+            orientation: '',
+            type: '',
+            description: '',
+          },
         },
         selectedRow: null,
         tableHeaders: [
