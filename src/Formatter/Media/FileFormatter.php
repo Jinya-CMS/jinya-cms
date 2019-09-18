@@ -133,7 +133,7 @@ class FileFormatter implements FileFormatterInterface
                 'tag' => $tag->getTag(),
                 'id' => $tag->getId(),
             ];
-        });
+        })->toArray();
 
         return $this;
     }

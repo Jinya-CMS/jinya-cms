@@ -148,15 +148,17 @@ class GalleryFormatter implements GalleryFormatterInterface
      */
     public function files(): GalleryFormatterInterface
     {
-        $this->formattedData['galleries'] = $this->gallery->getFiles()->map(function (
+        $this->formattedData['files'] = $this->gallery->getFiles()->map(function (
             GalleryFilePosition $filePosition
         ) {
             return $this->galleryFilePositionFormatter
                 ->init($filePosition)
                 ->id()
                 ->position()
+                ->file()
+                ->gallery()
                 ->format();
-        });
+        })->toArray();
 
         return $this;
     }

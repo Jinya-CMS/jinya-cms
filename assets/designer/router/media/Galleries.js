@@ -1,6 +1,6 @@
-import Missing from '@/components/Home/Missing';
 import Routes from '@/router/Routes';
 import Overview from '@/components/Media/Gallery/Overview';
+import Arrange from '@/components/Media/Gallery/Arrange';
 
 export default [
     {
@@ -15,7 +15,7 @@ export default [
     {
         path: Routes.Media.Galleries.Arrange.route,
         name: Routes.Media.Galleries.Arrange.name,
-        component: Missing,
+        component: Arrange,
         meta: {
             title: 'routes.media.galleries.arrange',
         },

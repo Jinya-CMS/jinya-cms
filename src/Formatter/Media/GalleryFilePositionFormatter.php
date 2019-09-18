@@ -70,8 +70,8 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
             ->path()
             ->id()
             ->name()
-            ->folder()
-            ->type();
+            ->type()
+            ->format();
 
         return $this;
     }
@@ -87,7 +87,8 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
             ->id()
             ->name()
             ->slug()
-            ->description();
+            ->description()
+            ->format();
 
         return $this;
     }

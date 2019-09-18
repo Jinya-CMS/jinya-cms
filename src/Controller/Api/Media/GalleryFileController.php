@@ -20,20 +20,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class GalleryFileController extends BaseApiController
 {
     /**
-     * @Route("/api/media/gallery/file/{gallerySlug}/file", methods={"GET"}, name="api_gallery_file_get")
+     * @Route("/api/media/gallery/file/{galleryId}/file", methods={"GET"}, name="api_gallery_file_get")
      *
-     * @param string $gallerySlug
+     * @param int $galleryId
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
     public function getAction(
-        string $gallerySlug,
+        int $galleryId,
         GalleryServiceInterface $galleryService,
         GalleryFormatterInterface $galleryFormatter
     ): Response {
-        [$data, $status] = $this->tryExecute(static function () use ($gallerySlug, $galleryService, $galleryFormatter) {
-            $gallery = $galleryService->get($gallerySlug);
+        [$data, $status] = $this->tryExecute(static function () use ($galleryId, $galleryService, $galleryFormatter) {
+            $gallery = $galleryService->get($galleryId);
 
             return $galleryFormatter
                 ->init($gallery)
@@ -45,16 +45,16 @@ class GalleryFileController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/gallery/file/{gallerySlug}/file", methods={"POST"}, name="api_gallery_file_position_post")
+     * @Route("/api/media/gallery/file/{galleryId}/file", methods={"POST"}, name="api_gallery_file_position_post")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
-     * @param string $gallerySlug
+     * @param int $galleryId
      * @param GalleryFilePositionServiceInterface $filePositionService
      * @return Response
      */
-    public function postAction(string $gallerySlug, GalleryFilePositionServiceInterface $filePositionService): Response
+    public function postAction(int $galleryId, GalleryFilePositionServiceInterface $filePositionService): Response
     {
-        [$data, $status] = $this->tryExecute(function () use ($gallerySlug, $filePositionService) {
+        [$data, $status] = $this->tryExecute(function () use ($galleryId, $filePositionService) {
             $position = $this->getValue('position', -1);
             $fileId = $this->getValue('file');
 
@@ -62,7 +62,7 @@ class GalleryFileController extends BaseApiController
                 throw new MissingFieldsException(['file' => 'api.gallery.field.fileId.missing']);
             }
 
-            return $filePositionService->savePosition($gallerySlug, $fileId, $position);
+            return $filePositionService->savePosition($galleryId, $fileId, $position);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
@@ -70,7 +70,7 @@ class GalleryFileController extends BaseApiController
 
     /**
      * @Route(
-     *     "/api/media/gallery/file/{gallerySlug}/file/{id}",
+     *     "/api/media/gallery/file/{galleryId}/file/{id}",
      *     methods={"DELETE"},
      *     name="api_gallery_file_position_delete"
      * )
@@ -91,7 +91,7 @@ class GalleryFileController extends BaseApiController
 
     /**
      * @Route(
-     *     "/api/media/gallery/file/{gallerySlug}/file/{id}/{oldPosition}",
+     *     "/api/media/gallery/file/{galleryId}/file/{id}/{oldPosition}",
      *     methods={"PUT"},
      *     name="api_gallery_file_position_put"
      * )
@@ -99,18 +99,18 @@ class GalleryFileController extends BaseApiController
      *
      * @param int $id
      * @param int $oldPosition
-     * @param string $gallerySlug
+     * @param int $galleryId
      * @param GalleryFilePositionServiceInterface $filePositionService
      * @return Response
      */
     public function putPositionAction(
         int $id,
         int $oldPosition,
-        string $gallerySlug,
+        int $galleryId,
         GalleryFilePositionServiceInterface $filePositionService
     ): Response {
         [$data, $status] = $this->tryExecute(function () use (
-            $gallerySlug,
+            $galleryId,
             $id,
             $oldPosition,
             $filePositionService
@@ -122,7 +122,7 @@ class GalleryFileController extends BaseApiController
                 $filePositionService->updateFile($id, $fileSlug);
             }
             if (isset($newPosition) && null !== $newPosition) {
-                $filePositionService->updatePosition($gallerySlug, $id, $oldPosition, $newPosition);
+                $filePositionService->updatePosition($galleryId, $id, $oldPosition, $newPosition);
             }
         }, Response::HTTP_NO_CONTENT);
 
