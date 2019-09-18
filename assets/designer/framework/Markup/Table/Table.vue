@@ -6,9 +6,10 @@
         </tr>
         </thead>
         <tbody class="jinya-table__body">
-        <tr :class="{'is--selected': JSON.stringify(row) === JSON.stringify(selectedRow)}" :key="row.toString()"
+        <tr :class="{'is--selected': JSON.stringify(row) === JSON.stringify(selectedRow)}" :key="JSON.stringify(row)"
             @click="$emit('selected', row)" class="jinya-table__row" v-for="row in rows">
-            <td :key="header.name + row[header.name].toString()" class="jinya-table__cell" v-for="header in headers">
+            <td :key="header.name + JSON.stringify(row[header.name])" class="jinya-table__cell"
+                v-for="header in headers">
                 <template v-if="header.template">{{header.template(row)}}</template>
                 <template v-else>{{row[header.name]}}</template>
             </td>
@@ -60,6 +61,7 @@
         color: $black;
         cursor: pointer;
         background: $white;
+        transition: all 0.3s;
 
         &:nth-child(2n) {
             background: $secondary-lighter;

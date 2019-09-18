@@ -13,21 +13,11 @@ export default [
         },
     },
     {
-        path: Routes.Media.Galleries.Add.route,
-        name: Routes.Media.Galleries.Add.name,
+        path: Routes.Media.Galleries.Arrange.route,
+        name: Routes.Media.Galleries.Arrange.name,
         component: Missing,
         meta: {
-            title: 'routes.media.galleries.add',
+            title: 'routes.media.galleries.arrange',
         },
-    },
-    {
-        path: Routes.Media.Galleries.Details.route,
-        name: Routes.Media.Galleries.Details.name,
-        component: Missing,
-    },
-    {
-        path: Routes.Media.Galleries.Edit.route,
-        name: Routes.Media.Galleries.Edit.name,
-        component: Missing,
     },
     ];

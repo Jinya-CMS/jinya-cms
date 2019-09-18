@@ -196,17 +196,9 @@ export default {
                 name: 'MediaGalleriesOverview',
                 route: '/designer/media/gallery',
             },
-            Details: {
-                name: 'MediaGalleriesDetails',
-                route: '/designer/media/gallery/:slug',
-            },
-            Add: {
-                name: 'MediaGalleriesAdd',
-                route: '/designer/media/gallery/add',
-            },
-            Edit: {
-                name: 'MediaGalleriesEdit',
-                route: '/designer/media/gallery/:slug/edit',
+            Arrange: {
+                name: 'MediaGalleriesArrange',
+                route: '/designer/media/gallery/:id/arrange',
             },
         },
     },
@@ -500,4 +492,4 @@ export default {
             },
         },
     },
-};
+    };

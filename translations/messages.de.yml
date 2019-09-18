@@ -210,6 +210,7 @@ routes:
         files: Dateiverwaltung
         galleries:
             overview: Gallerien
+            arrange: Galleriedesigner
     art:
         artworks:
             saved_in_jinya:
@@ -342,6 +343,7 @@ media:
             updated_at: Zuletzt geändert am
     galleries:
         edit:
+            title: Gallerie bearbeiten
             update: Gallerie speichern
             cancel: Abbrechen
             name: Name
@@ -355,7 +357,8 @@ media:
                 masonry: Raster
                 sequence: Liste
         add:
-            update: Gallerie speichern
+            title: Gallerie erstellen
+            save: Gallerie speichern
             cancel: Abbrechen
             name: Name
             type: Layout

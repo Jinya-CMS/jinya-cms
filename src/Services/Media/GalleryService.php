@@ -7,14 +7,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Media\Gallery;
+use Jinya\Exceptions\EmptySlugException;
 use Jinya\Framework\Events\Media\GalleryEvent;
 use Jinya\Services\Base\BaseService;
+use Jinya\Services\Base\BaseSlugEntityService;
+use Jinya\Services\Slug\SlugServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class GalleryService implements GalleryServiceInterface
 {
     /** @var BaseService */
     private $baseService;
+
+    /** @var BaseSlugEntityService */
+    private $baseSlugEntityService;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -26,12 +32,17 @@ class GalleryService implements GalleryServiceInterface
      * GalleryService constructor.
      * @param EntityManagerInterface $entityManager
      * @param EventDispatcherInterface $eventDispatcher
+     * @param SlugServiceInterface $slugService
      */
-    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        SlugServiceInterface $slugService
+    ) {
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseService = new BaseService($entityManager, Gallery::class);
+        $this->baseSlugEntityService = new BaseSlugEntityService($entityManager, $slugService, Gallery::class);
     }
 
     /**
@@ -102,15 +113,17 @@ class GalleryService implements GalleryServiceInterface
      *
      * @param Gallery $gallery
      * @return Gallery
+     * @throws EmptySlugException
      */
     public function saveOrUpdate(Gallery $gallery): Gallery
     {
         $this->eventDispatcher->dispatch(new GalleryEvent($gallery, $gallery->getId()), GalleryEvent::PRE_SAVE);
 
-        $returnValue = $this->baseService->saveOrUpdate($gallery);
+        $returnValue = $this->baseSlugEntityService->saveOrUpdate($gallery);
 
         $this->eventDispatcher->dispatch(new GalleryEvent($gallery, $gallery->getId()), GalleryEvent::POST_SAVE);
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $returnValue;
     }
 

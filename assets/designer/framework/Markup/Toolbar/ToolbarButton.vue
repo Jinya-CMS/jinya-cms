@@ -1,7 +1,7 @@
 <template>
     <jinya-button :is-danger="isDanger" :is-disabled="isDisabled" :is-inverse="isInverse" :is-primary="isPrimary"
-                  :is-secondary="isSecondary" :is-success="isSuccess" :label="label" @click="$emit('click')"
-                  class="jinya-toolbar__button" type="button" v-if="label"/>
+                  :is-secondary="isSecondary" :is-success="isSuccess" :label="label" :params="params" :query="query"
+                  :to="to" @click="$emit('click')" class="jinya-toolbar__button" type="button" v-if="label"/>
     <jinya-icon-button :icon="icon" :is-danger="isDanger" :is-disabled="isDisabled" :is-inverse="isInverse"
                        :is-primary="isPrimary" :is-secondary="isSecondary" :is-success="isSuccess"
                        @click="$emit('click')" class="jinya-toolbar__button" type="button" v-else-if="icon"/>
@@ -17,6 +17,9 @@
     props: {
       icon: String,
       label: String,
+      params: Object,
+      query: Object,
+      to: String,
       isPrimary: Boolean,
       isSecondary: Boolean,
       isDanger: Boolean,
