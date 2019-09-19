@@ -151,4 +151,15 @@ class GalleryService implements GalleryServiceInterface
     {
         return $this->entityManager->find(Gallery::class, $id);
     }
+
+    /**
+     * Gets the gallery by slug
+     *
+     * @param string $slug
+     * @return Gallery
+     */
+    public function getBySlug(string $slug): Gallery
+    {
+        return $this->entityManager->getRepository(Gallery::class)->findOneBy(['slug' => $slug]);
+    }
 }

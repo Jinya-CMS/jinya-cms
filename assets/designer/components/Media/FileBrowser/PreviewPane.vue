@@ -2,13 +2,13 @@
     <div class="jinya-file__preview-pane">
         <figure class="jinya-file__preview-figure">
             <figcaption class="jinya-file__preview-caption">{{file.name}}</figcaption>
-            <img :alt="file.name" :src="`/api/media/file/${file.id}/content`" class="jinya-file__preview-image"
+            <img :alt="file.name" :src="file.path" class="jinya-file__preview-image"
                  v-if="getType(file.type) === 'image'"/>
             <video class="jinya-file__preview-video" controls="controls" v-else-if="getType(file.type) === 'video'">
-                <source :src="`/api/media/file/${file.id}/content`" :type="file.type">
+                <source :src="file.path" :type="file.type">
             </video>
             <audio controls="controls" v-else-if="getType(file.type) === 'audio'">
-                <source :src="`/api/media/file/${file.id}/content`" :type="file.type">
+                <source :src="file.path" :type="file.type">
             </audio>
             <p v-else>{{file.type}}</p>
         </figure>

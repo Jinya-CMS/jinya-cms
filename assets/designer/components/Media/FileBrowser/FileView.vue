@@ -1,13 +1,13 @@
 <template>
     <jinya-card-list class="jinya-card__list--files" nothing-found="media.files.list.nothing_found">
         <jinya-card :header="file.name" :key="file.id" v-for="file in files">
-            <img :alt="file.name" :src="`/api/media/file/${file.id}/content`" class="jinya-card__body--file-picture"
+            <img :alt="file.name" :src="file.path" class="jinya-card__body--file-picture"
                  v-if="getType(file.type) === 'image'"/>
             <video controls="controls" v-else-if="getType(file.type) === 'video'">
-                <source :src="`/api/media/file/${file.id}/content`" :type="file.type">
+                <source :src="file.path" :type="file.type">
             </video>
             <audio controls="controls" v-else-if="getType(file.type) === 'audio'">
-                <source :src="`/api/media/file/${file.id}/content`" :type="file.type">
+                <source :src="file.path" :type="file.type">
             </audio>
             <p v-else>{{file.type}}</p>
             <jinya-card-button :title="'media.files.list.details'|jmessage" @click="$emit('fileChanged', file)"

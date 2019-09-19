@@ -464,9 +464,7 @@ configuration:
                 success: Das Menü "%name%" wurde gespeichert
                 title: "%name% bearbeiten"
             builder:
-                galleries:
-                    art: Kunstwerke
-                    video: Videos
+                galleries: Gallerien
                 forms: Formulare
                 pages: Seiten
                 segment_pages: Segmentseiten

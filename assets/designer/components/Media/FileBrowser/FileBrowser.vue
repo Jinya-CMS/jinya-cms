@@ -193,7 +193,7 @@
       },
     },
     async mounted() {
-      await this.fetchFiles(this.$route.query.keyword);
+      await this.fetchFiles(this.$route.query.keyword || '');
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Media.Files.FileBrowser.name,

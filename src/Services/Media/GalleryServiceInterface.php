@@ -40,10 +40,18 @@ interface GalleryServiceInterface
     public function delete(Gallery $gallery): void;
 
     /**
-     * Gets the gallery by slug or id
+     * Gets the gallery by id
      *
      * @param int $id
      * @return Gallery
      */
     public function get(int $id): Gallery;
+
+    /**
+     * Gets the gallery by slug
+     *
+     * @param string $slug
+     * @return Gallery
+     */
+    public function getBySlug(string $slug): Gallery;
 }
