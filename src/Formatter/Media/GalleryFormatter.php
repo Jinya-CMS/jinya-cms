@@ -148,9 +148,7 @@ class GalleryFormatter implements GalleryFormatterInterface
      */
     public function files(): GalleryFormatterInterface
     {
-        $this->formattedData['files'] = $this->gallery->getFiles()->map(function (
-            GalleryFilePosition $filePosition
-        ) {
+        $files = $this->gallery->getFiles()->map(function (GalleryFilePosition $filePosition) {
             return $this->galleryFilePositionFormatter
                 ->init($filePosition)
                 ->id()
@@ -159,6 +157,12 @@ class GalleryFormatter implements GalleryFormatterInterface
                 ->gallery()
                 ->format();
         })->toArray();
+
+        uasort($files, static function (array $a, array $b) {
+            return $a['position'] > $b['position'];
+        });
+
+        $this->formattedData['files'] = array_values($files);
 
         return $this;
     }

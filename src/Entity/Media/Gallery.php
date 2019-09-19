@@ -18,7 +18,11 @@ class Gallery extends HistoryEnabledEntity
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Media\GalleryFilePosition", mappedBy="gallery", cascade={"remove"})
+     * @ORM\OneToMany(
+     *     targetEntity="Jinya\Entity\Media\GalleryFilePosition",
+     *     mappedBy="gallery",
+     *     cascade={"remove", "persist"}
+     * )
      */
     private $files;
 

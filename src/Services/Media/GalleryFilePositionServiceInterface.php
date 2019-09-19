@@ -16,11 +16,11 @@ interface GalleryFilePositionServiceInterface
      * Saves the file in the given gallery at the given position
      *
      * @param int $fileId
-     * @param string $gallerySlug
+     * @param int $galleryId
      * @param int $position
      * @return int
      */
-    public function savePosition(int $fileId, string $gallerySlug, int $position): int;
+    public function savePosition(int $fileId, int $galleryId, int $position): int;
 
     /**
      * Sets the files position to the new position

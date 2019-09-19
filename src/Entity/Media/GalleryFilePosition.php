@@ -4,12 +4,12 @@ namespace Jinya\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Base\BaseEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gallery_file_position", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="gallery_and_position", columns={"gallery_id", "position"})
- * })
+ * @ORM\Table(name="gallery_file_position")
+ * @UniqueEntity(fields={"gallery", "position"})
  */
 class GalleryFilePosition
 {
@@ -29,7 +29,7 @@ class GalleryFilePosition
 
     /**
      * @var File
-     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File", inversedBy="galleries")
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File", inversedBy="galleries", cascade={"persist"})
      */
     private $file;
 

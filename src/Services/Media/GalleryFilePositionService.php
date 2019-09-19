@@ -61,13 +61,13 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
      * Saves the artwork in the given gallery at the given position
      *
      * @param int $fileId
-     * @param string $gallerySlug
+     * @param int $galleryId
      * @param int $position
      * @return int
      */
-    public function savePosition(int $fileId, string $gallerySlug, int $position): int
+    public function savePosition(int $fileId, int $galleryId, int $position): int
     {
-        $gallery = $this->galleryService->get($gallerySlug);
+        $gallery = $this->galleryService->get($galleryId);
         $file = $this->fileService->get($fileId);
 
         $galleryFilePosition = new GalleryFilePosition();
@@ -137,11 +137,8 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
 
         if (!$pre->isCancel()) {
             $gallery = $this->galleryService->get($gallerySlug);
-            $files = $gallery->getFiles();
 
-            $file = $files->filter(static function (GalleryFilePosition $item) use ($oldPosition) {
-                return $item->getPosition() === $oldPosition;
-            })->first();
+            $file = $this->entityManager->getRepository(GalleryFilePosition::class)->find($galleryFilePositionId);
 
             $this->rearrangeFiles($oldPosition, $newPosition, $file, $gallery);
             $this->eventDispatcher->dispatch(
@@ -162,10 +159,9 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
     {
         $gallery = $this->entityManager
             ->createQueryBuilder()
-            ->select('gallery')
-            ->from(Gallery::class, 'gallery')
-            ->join('gallery.files', 'position')
-            ->where('position.id = :id')
+            ->select('gallery_file_position')
+            ->from(GalleryFilePosition::class, 'gallery_file_position')
+            ->where('gallery_file_position.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getSingleResult();

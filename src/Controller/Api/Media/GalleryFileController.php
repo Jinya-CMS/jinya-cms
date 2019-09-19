@@ -62,7 +62,7 @@ class GalleryFileController extends BaseApiController
                 throw new MissingFieldsException(['file' => 'api.gallery.field.fileId.missing']);
             }
 
-            return $filePositionService->savePosition($galleryId, $fileId, $position);
+            return $filePositionService->savePosition($fileId, $galleryId, $position);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
