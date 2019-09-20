@@ -79,8 +79,8 @@ class GalleryEventSubscriber implements EventSubscriberInterface
     public function onPreGallerySave(GalleryEvent $event): void
     {
         $this->affectedRoutes = [];
-        /** @noinspection NullPointerExceptionInspection */
-        if ($event->getGallery()->getId() !== null) {
+        /* @noinspection NullPointerExceptionInspection */
+        if (null !== $event->getGallery()->getId()) {
             /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()

@@ -17,7 +17,7 @@ use Jinya\Entity\Theme\Theme;
  */
 class Configuration
 {
-    public const /** @noinspection SummerTimeUnsafeTimeManipulationInspection */
+    public const /* @noinspection SummerTimeUnsafeTimeManipulationInspection */
         DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
 
     /**

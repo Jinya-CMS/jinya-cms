@@ -1,4 +1,6 @@
-<?php /** @noinspection HtmlUnknownTag */
+<?php
+
+/** @noinspection HtmlUnknownTag */
 
 namespace Jinya\Command\Import;
 
@@ -165,7 +167,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                 }
             }
 
-            /** @noinspection DisconnectedForeachInstructionInspection */
+            /* @noinspection DisconnectedForeachInstructionInspection */
             $progressBar->advance();
         }
 
@@ -194,6 +196,7 @@ class BulkImportArtworks extends AuthenticatedCommand
                     break;
                 default:
                     throw new InvalidArgumentException('Target type must be one of png, jpg, webp or gif');
+
                     break;
             }
             $fileResource = $this->conversionService->convertImage($file->getContents(), $type);

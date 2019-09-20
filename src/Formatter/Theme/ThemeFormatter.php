@@ -210,7 +210,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        /** @noinspection PhpUndefinedClassInspection */
+        /* @noinspection PhpUndefinedClassInspection */
         $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format()
             : [];
@@ -229,7 +229,7 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        /** @noinspection PhpUndefinedClassInspection */
+        /* @noinspection PhpUndefinedClassInspection */
         $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format()
             : [];

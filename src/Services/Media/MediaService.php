@@ -110,7 +110,7 @@ class MediaService implements MediaServiceInterface
      */
     public function deleteMedia(string $url): void
     {
-        $parts = explode("\\/", $url);
+        $parts = explode('\\/', $url);
         $parts = array_reverse($parts);
         [$filename, $type] = $parts;
 

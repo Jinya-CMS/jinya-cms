@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Jinya\Services\Media;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,7 +65,7 @@ class GalleryService implements GalleryServiceInterface
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
             ->from(Gallery::class, 'gallery');
-        if ($keyword !== '') {
+        if ('' !== $keyword) {
             $queryBuilder
                 ->andWhere(
                     $queryBuilder
@@ -76,8 +75,7 @@ class GalleryService implements GalleryServiceInterface
                 ->setParameter(':keyword', "%$keyword%");
         }
 
-
-        if ($tag !== '') {
+        if ('' !== $tag) {
             $queryBuilder
                 ->join('gallery.tags', 'tags')
                 ->andWhere(
@@ -123,7 +121,7 @@ class GalleryService implements GalleryServiceInterface
 
         $this->eventDispatcher->dispatch(new GalleryEvent($gallery, $gallery->getId()), GalleryEvent::POST_SAVE);
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $returnValue;
     }
 

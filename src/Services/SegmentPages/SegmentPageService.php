@@ -28,10 +28,12 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

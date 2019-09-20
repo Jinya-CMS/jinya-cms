@@ -20,7 +20,7 @@ final class Version20190912200043 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE file DROP FOREIGN KEY FK_8C9F3610162CB942');
@@ -42,7 +42,7 @@ final class Version20190912200043 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE uploading_file_chunk DROP FOREIGN KEY FK_3F70FB06FD34D444');

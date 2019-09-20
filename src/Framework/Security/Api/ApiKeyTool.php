@@ -215,6 +215,6 @@ class ApiKeyTool implements ApiKeyToolInterface
      */
     public function keyExists(string $key): bool
     {
-        return $this->entityManager->getRepository(ApiKey::class)->findOneBy(['key' => $key]) !== null;
+        return null !== $this->entityManager->getRepository(ApiKey::class)->findOneBy(['key' => $key]);
     }
 }

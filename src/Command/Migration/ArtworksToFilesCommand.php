@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection DisconnectedForeachInstructionInspection */
 
 namespace Jinya\Command\Migration;
@@ -93,6 +94,7 @@ DESCRIPTION
         $migratedArtworks = [];
 
         $this->entityManager->beginTransaction();
+
         try {
             $artworkProgressBar = new ProgressBar($output, count($artworks));
             $artworkProgressBar->setMessage(sprintf('Migrating %d artworks...', count($artworks)));
@@ -103,7 +105,7 @@ DESCRIPTION
                     $file->setName($prefix . $artwork->getName());
                     $file->setTags(new ArrayCollection(array_map(function (string $tag) {
                         $newTag = $this->entityManager->getRepository(Tag::class)->findOneBy(['tag' => $tag]);
-                        if ($newTag === null) {
+                        if (null === $newTag) {
                             $newTag = new Tag();
                             $newTag->setTag($tag);
                         }
@@ -151,6 +153,7 @@ DESCRIPTION
         $galleryProgressBar->setMessage(sprintf('Migrating %d galleries...', count($artGalleries)));
 
         $this->entityManager->beginTransaction();
+
         try {
             foreach ($galleryProgressBar->iterate($artGalleries) as $artGallery) {
                 /** @var ArtGallery $artGallery */
