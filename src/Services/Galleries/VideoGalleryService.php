@@ -78,7 +78,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, []),
+            new ListEvent($keyword, []),
             ListEvent::VIDEO_GALLERIES_PRE_GET_ALL
         );
 
@@ -90,7 +90,7 @@ class VideoGalleryService implements VideoGalleryServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $galleries),
+            new ListEvent($keyword, $galleries),
             ListEvent::VIDEO_GALLERIES_POST_GET_ALL
         );
 

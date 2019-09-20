@@ -1,23 +1,20 @@
 <template>
-    <div class="jinya-segment-page-overview">
-        <jinya-loader :loading="loading"/>
-        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="page.name" :key="page.slug" v-for="page in pages">
-                <jinya-card-button :title="'static.pages.segment.overview.tooltips.details'|jmessage"
-                                   :to="{name: detailsRoute, params: {slug: page.slug}}" icon="monitor"
-                                   slot="footer" type="details"/>
-                <jinya-card-button :title="'static.pages.segment.overview.tooltips.edit'|jmessage"
-                                   :to="{name: editRoute, params: {slug: page.slug}}" icon="pencil"
-                                   slot="footer" type="edit"/>
-                <jinya-card-button :title="'static.pages.segment.overview.tooltips.editor'|jmessage"
-                                   :to="{name: editorRoute, params: {slug: page.slug}}" icon="view-sequential"
-                                   slot="footer" type="edit"/>
-                <jinya-card-button :title="'static.pages.segment.overview.tooltips.delete'|jmessage"
-                                   @click="showDeleteModal(page)" icon="delete" slot="footer" type="delete"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
-                     v-if="!loading"/>
+    <div class="jinya-segment-pages">
+        <jinya-toolbar>
+            <jinya-toolbar-button is-primary label="static.pages.segment.overview.toolbar.add"
+                                  to="Static.Pages.Segment.Add"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" :params="{slug: selectedPage.slug}" is-secondary
+                                  label="static.pages.segment.overview.toolbar.show_details"
+                                  to="Static.Pages.Segment.Details"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" :params="{slug: selectedPage.slug}" is-secondary
+                                  label="static.pages.segment.overview.toolbar.edit" to="Static.Pages.Segment.Edit"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" :params="{slug: selectedPage.slug}" is-secondary
+                                  label="static.pages.segment.overview.toolbar.editor"
+                                  to="Static.Pages.Segment.Editor"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" @click="showDeleteModal(selectedPage)" is-danger
+                                  label="static.pages.segment.overview.toolbar.delete"/>
+        </jinya-toolbar>
+        <jinya-table :headers="headers" :rows="pages" :selected-row="selectedPage" @selected="selectRow"/>
         <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()"
                      title="static.pages.segment.delete.title"
                      v-if="this.delete.show">
@@ -35,76 +32,67 @@
 </template>
 
 <script>
-  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
   import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
   import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaModal from '@/framework/Markup/Modal/Modal';
-  import JinyaPager from '@/framework/Markup/Listing/Pager';
-  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
-  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Routes from '@/router/Routes';
   import Translator from '@/framework/i18n/Translator';
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
+  import JinyaToolbarButton from '@/framework/Markup/Toolbar/ToolbarButton';
+  import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
+  import JinyaTable from '@/framework/Markup/Table/Table';
 
   export default {
     name: 'Overview',
     components: {
-      JinyaLoader,
-      JinyaCard,
-      JinyaCardButton,
-      JinyaPager,
+      JinyaToolbar,
+      JinyaToolbarButton,
+      JinyaTable,
       JinyaModal,
       JinyaMessage,
       JinyaModalButton,
       JinyaFloatingActionButton,
-      JinyaCardList,
     },
     computed: {
-      addRoute() {
-        return Routes.Static.Pages.Segment.Add;
-      },
-      editRoute() {
-        return Routes.Static.Pages.Segment.Edit.name;
-      },
-      editorRoute() {
-        return Routes.Static.Pages.Segment.Editor.name;
-      },
-      detailsRoute() {
-        return Routes.Static.Pages.Segment.Details.name;
-      },
-      nothingFound() {
-        return this.$route.query.keyword
-          ? 'static.pages.segment.overview.nothing_found'
-          : 'static.pages.segment.overview.no_pages';
+      headers() {
+        return [
+          {
+            name: 'name',
+            title: Translator.message('static.pages.segment.overview.table.header.name'),
+          },
+          {
+            name: 'segmentCount',
+            title: Translator.message('static.pages.segment.overview.table.header.segment_count'),
+            template(row) {
+              return row.segments.length;
+            },
+          },
+        ];
       },
     },
     methods: {
+      selectRow(row) {
+        this.selectedPage = row;
+        this.pageSelected = true;
+      },
       load(target) {
         const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Static.Pages.Segment.Overview.name,
           query: {
-            offset: url.searchParams.get('offset'),
-            count: url.searchParams.get('count'),
             keyword: url.searchParams.get('keyword'),
           },
         });
       },
-      async fetchPages(offset = 0, count = 10, keyword = '') {
-        this.loading = true;
-        this.currentUrl = `/api/segment_page?offset=${offset}&count=${count}&keyword=${keyword}`;
+      async fetchPages(keyword = '') {
+        this.currentUrl = `/api/segment_page?keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.pages = value.items;
-        this.control = value.control;
-        this.count = value.count;
-        this.offset = value.offset;
-        this.loading = false;
       },
       selectPage(page) {
         this.selectedPage = page;
@@ -114,8 +102,9 @@
         try {
           await JinyaRequest.delete(`/api/segment_page/${this.selectedPage.slug}`);
           this.delete.show = false;
-          const url = new URL(window.location.href);
-          await this.fetchPages(0, 10, url.searchParams.get('keyword'));
+          this.pages.splice(this.pages.findIndex((page) => page.slug === this.selectedPage.slug), 1);
+          this.selectedPage = {};
+          this.pageSelected = false;
         } catch (reason) {
           this.delete.error = Translator.validator(`static.pages.segment.overview.delete.${reason.message}`);
         }
@@ -132,10 +121,8 @@
       },
     },
     async mounted() {
-      const offset = this.$route.query.offset || 0;
-      const count = this.$route.query.count || 10;
       const keyword = this.$route.query.keyword || '';
-      await this.fetchPages(offset, count, keyword);
+      await this.fetchPages(keyword);
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
@@ -152,17 +139,14 @@
       EventBus.$off(Events.search.triggered);
     },
     async beforeRouteUpdate(to, from, next) {
-      await this.fetchPages(to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
+      await this.fetchPages();
       next();
     },
     data() {
       return {
         pages: [],
-        control: { next: false, previous: false },
-        count: 0,
-        offset: 0,
-        loading: true,
         keyword: '',
+        pageSelected: false,
         selectedPage: {},
         delete: {
           error: '',
@@ -173,3 +157,9 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+    .jinya-segment-pages {
+        padding-top: 3rem;
+    }
+</style>

@@ -65,7 +65,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
     {
         $this->eventDispatcher->dispatch(
             ListEvent::YOUTUBE_VIDEOS_PRE_GET_ALL,
-            new ListEvent($offset, $count, $keyword, [])
+            new ListEvent($keyword, [])
         );
 
         $items = $this->createQueryBuilder($keyword)
@@ -77,7 +77,7 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
 
         $this->eventDispatcher->dispatch(
             ListEvent::YOUTUBE_VIDEOS_POST_GET_ALL,
-            new ListEvent($offset, $count, $keyword, $items)
+            new ListEvent($keyword, $items)
         );
 
         return $items;

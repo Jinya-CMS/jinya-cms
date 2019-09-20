@@ -1,17 +1,17 @@
 <template>
-    <div class="jinya-page-overview">
-        <jinya-loader :loading="loading"/>
-        <jinya-card-list :nothing-found="nothingFound" v-if="!loading">
-            <jinya-card :header="page.title" :key="page.slug" v-for="page in pages">
-                <jinya-card-button :to="{name: detailsRoute, params: {slug: page.slug}}" icon="monitor" slot="footer"
-                                   type="details"/>
-                <jinya-card-button :to="{name: editRoute, params: {slug: page.slug}}" icon="pencil" slot="footer"
-                                   type="edit"/>
-                <jinya-card-button @click="showDeleteModal(page)" icon="delete" slot="footer" type="delete"/>
-            </jinya-card>
-        </jinya-card-list>
-        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"
-                     v-if="!loading"/>
+    <div class="jinya-pages">
+        <jinya-toolbar>
+            <jinya-toolbar-button is-primary label="static.pages.overview.toolbar.add"
+                                  to="Static.Pages.SavedInJinya.Add"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" :params="{slug: selectedPage.slug}" is-secondary
+                                  label="static.pages.overview.toolbar.show_details"
+                                  to="Static.Pages.SavedInJinya.Details"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" :params="{slug: selectedPage.slug}" is-secondary
+                                  label="static.pages.overview.toolbar.edit" to="Static.Pages.SavedInJinya.Edit"/>
+            <jinya-toolbar-button :is-disabled="!pageSelected" @click="showDeleteModal(selectedPage)" is-danger
+                                  label="static.pages.overview.toolbar.delete"/>
+        </jinya-toolbar>
+        <jinya-table :headers="headers" :rows="pages" :selected-row="selectedPage" @selected="selectRow"/>
         <jinya-modal :loading="this.delete.loading" @close="closeDeleteModal()" title="static.pages.delete.title"
                      v-if="this.delete.show">
             <jinya-message :message="this.delete.error" slot="message" state="error"
@@ -23,76 +23,76 @@
                                 label="static.pages.delete.yes"
                                 slot="buttons-right"/>
         </jinya-modal>
-        <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
     </div>
 </template>
 
 <script>
-  import JinyaCardList from '@/framework/Markup/Listing/Card/CardList';
-  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import truncate from 'lodash/truncate';
   import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaModal from '@/framework/Markup/Modal/Modal';
-  import JinyaPager from '@/framework/Markup/Listing/Pager';
-  import JinyaCardButton from '@/framework/Markup/Listing/Card/CardButton';
-  import JinyaCard from '@/framework/Markup/Listing/Card/Card';
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaTable from '@/framework/Markup/Table/Table';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Routes from '@/router/Routes';
   import Translator from '@/framework/i18n/Translator';
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
+  import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
+  import JinyaToolbarButton from '@/framework/Markup/Toolbar/ToolbarButton';
 
   export default {
     name: 'Overview',
     components: {
-      JinyaLoader,
-      JinyaCard,
-      JinyaCardButton,
-      JinyaPager,
+      JinyaToolbarButton,
+      JinyaToolbar,
       JinyaModal,
       JinyaMessage,
       JinyaModalButton,
-      JinyaFloatingActionButton,
-      JinyaCardList,
+      JinyaTable,
     },
     computed: {
-      addRoute() {
-        return Routes.Static.Pages.SavedInJinya.Add;
-      },
-      editRoute() {
-        return Routes.Static.Pages.SavedInJinya.Edit.name;
-      },
-      detailsRoute() {
-        return Routes.Static.Pages.SavedInJinya.Details.name;
-      },
-      nothingFound() {
-        return this.$route.query.keyword ? 'static.pages.overview.nothing_found' : 'static.pages.overview.no_pages';
+      headers() {
+        return [
+          {
+            name: 'title',
+            title: Translator.message('static.pages.overview.table.header.name'),
+          },
+          {
+            name: 'content',
+            title: Translator.message('static.pages.overview.table.header.content'),
+            template(row) {
+              const elem = document.createElement('div');
+              elem.innerHTML = row.content;
+
+              return truncate(elem.innerText, {
+                length: 50,
+                omission: '…',
+              });
+            },
+          },
+        ];
       },
     },
     methods: {
+      selectRow(row) {
+        this.selectedPage = row;
+        this.pageSelected = true;
+      },
       load(target) {
         const url = new URL(target, window.location.href);
 
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
-            offset: url.searchParams.get('offset'),
-            count: url.searchParams.get('count'),
             keyword: url.searchParams.get('keyword'),
           },
         });
       },
-      async fetchPages(offset = 0, count = 10, keyword = '') {
-        this.loading = true;
-        this.currentUrl = `/api/page?offset=${offset}&count=${count}&keyword=${keyword}`;
+      async fetchPages(keyword = '') {
+        this.currentUrl = `/api/page?keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.pages = value.items;
-        this.control = value.control;
-        this.count = value.count;
-        this.offset = value.offset;
-        this.loading = false;
       },
       selectPage(page) {
         this.selectedPage = page;
@@ -102,8 +102,9 @@
         try {
           await JinyaRequest.delete(`/api/page/${this.selectedPage.slug}`);
           this.delete.show = false;
-          const url = new URL(window.location.href);
-          await this.fetchPages(0, 10, url.searchParams.get('keyword'));
+          this.pages.splice(this.pages.findIndex((page) => page.slug === this.selectedPage.slug), 1);
+          this.selectedPage = {};
+          this.pageSelected = false;
         } catch (reason) {
           this.delete.error = Translator.validator(`static.pages.overview.delete.${reason.message}`);
         }
@@ -120,17 +121,13 @@
       },
     },
     async mounted() {
-      const offset = this.$route.query.offset || 0;
-      const count = this.$route.query.count || 10;
       const keyword = this.$route.query.keyword || '';
-      await this.fetchPages(offset, count, keyword);
+      await this.fetchPages(keyword);
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
-            offset: 0,
-            count: this.$route.query.count,
             keyword: value.keyword,
           },
         });
@@ -140,18 +137,15 @@
       EventBus.$off(Events.search.triggered);
     },
     async beforeRouteUpdate(to, from, next) {
-      await this.fetchPages(to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
+      await this.fetchPages();
       next();
     },
     data() {
       return {
         pages: [],
-        control: { next: false, previous: false },
-        count: 0,
-        offset: 0,
-        loading: true,
         keyword: '',
         selectedPage: {},
+        pageSelected: false,
         delete: {
           error: '',
           show: false,
@@ -161,3 +155,9 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+    .jinya-pages {
+        padding-top: 3rem;
+    }
+</style>

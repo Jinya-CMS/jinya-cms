@@ -67,26 +67,19 @@ class PageService implements PageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param int $offset
-     * @param int $count
      * @param string $keyword
      * @return Page[]
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
+    public function getAll(string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::PAGE_PRE_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, []), ListEvent::PAGE_PRE_GET_ALL);
 
         $items = $this->getFilteredQueryBuilder($keyword)
-            ->setFirstResult($offset)
-            ->setMaxResults($count)
             ->select('page')
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $items),
-            ListEvent::PAGE_POST_GET_ALL
-        );
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, $items), ListEvent::PAGE_POST_GET_ALL);
 
         return $items;
     }

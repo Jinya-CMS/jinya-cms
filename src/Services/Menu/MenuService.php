@@ -62,11 +62,11 @@ class MenuService implements MenuServiceInterface
      */
     public function getAll(): array
     {
-        $this->eventDispatcher->dispatch(new ListEvent(-1, -1, '', []), ListEvent::MENU_PRE_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent('', []), ListEvent::MENU_PRE_GET_ALL);
 
         $items = $this->entityManager->getRepository(Menu::class)->findAll();
 
-        $this->eventDispatcher->dispatch(new ListEvent(-1, -1, '', $items), ListEvent::MENU_POST_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent('', $items), ListEvent::MENU_POST_GET_ALL);
 
         return $items;
     }

@@ -73,6 +73,7 @@
 
         &.is--selected {
             background: $primary;
+            color: $white;
         }
     }
 </style>

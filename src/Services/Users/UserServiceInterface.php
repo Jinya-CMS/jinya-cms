@@ -23,12 +23,10 @@ interface UserServiceInterface
     /**
      * Gets all users in the given range
      *
-     * @param int $offset
-     * @param int $count
      * @param string $keyword
      * @return User[]
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
+    public function getAll(string $keyword = ''): array;
 
     /**
      * Counts all users

@@ -42,8 +42,9 @@ class SegmentPageController extends BaseApiController
                     ->init($segmentPage)
                     ->name()
                     ->slug()
+                    ->segments()
                     ->format();
-            }, $segmentPageService->getAll($offset, $count, $keyword));
+            }, $segmentPageService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 

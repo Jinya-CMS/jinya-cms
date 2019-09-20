@@ -541,6 +541,16 @@ configuration:
                 cancel: Zurück
 static:
     pages:
+        overview:
+            toolbar:
+                add: Neue Seite
+                edit: Seite bearbeiten
+                delete: Seite löschen
+                show_details: Seite öffnen
+            table:
+                header:
+                    name: Name
+                    content: Inhalt
         delete:
             title: Soll die Seite wirklich gelöscht werden?
             content: Soll die Seite "%title%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
@@ -578,11 +588,16 @@ static:
                         title: Segment hinzufügen
                         type: Segment Typ
             overview:
-                tooltips:
-                    details: Seite anzeigen
-                    editor: Seiten Editor
+                toolbar:
+                    add: Neue Seite
                     edit: Seite bearbeiten
+                    editor: Seiteneditor
                     delete: Seite löschen
+                    show_details: Seite öffnen
+                table:
+                    header:
+                        name: Name
+                        segment_count: Segmentanzahl
             delete:
                 title: Soll die Seite wirklich gelöscht werden?
                 content: Soll die Seite "%name%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
@@ -641,6 +656,19 @@ static:
                 reply: Antworten
                 forward: Weiterleiten
         forms:
+            overview:
+                toolbar:
+                    add: Neues Formular
+                    edit: Formular bearbeiten
+                    designer: Formulardesigner
+                    delete: Formular löschen
+                    open_mailbox: Nachrichten anzeigen
+                table:
+                    header:
+                        title: Name
+                        item_count: Formelemente
+                        toAddress: Empfängeradresse
+                        description: Beschreibung
             builder:
                 title: Formular %title%
                 delete: Hierher ziehen zum löschen

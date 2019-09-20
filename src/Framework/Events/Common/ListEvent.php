@@ -56,12 +56,6 @@ class ListEvent extends Event
 
     public const SEGMENT_PAGE_PRE_GET_ALL = 'SegmentPagePreGetAll';
 
-    /** @var int */
-    private $offset;
-
-    /** @var int */
-    private $count;
-
     /** @var string */
     private $keyword;
 
@@ -70,15 +64,11 @@ class ListEvent extends Event
 
     /**
      * ListEvent constructor.
-     * @param int $offset
-     * @param int $count
      * @param string $keyword
      * @param array $items
      */
-    public function __construct(int $offset, int $count, string $keyword, array $items)
+    public function __construct(string $keyword, array $items)
     {
-        $this->offset = $offset;
-        $this->count = $count;
         $this->keyword = $keyword;
         $this->items = $items;
     }
@@ -89,22 +79,6 @@ class ListEvent extends Event
     public function getItems(): array
     {
         return $this->items;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOffset(): int
-    {
-        return $this->offset;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCount(): int
-    {
-        return $this->count;
     }
 
     /**
