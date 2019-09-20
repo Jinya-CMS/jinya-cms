@@ -11,10 +11,12 @@ class TranslationUtils extends AbstractExtension
 {
     /** @var string */
     private $kernelProjectDir;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var TranslatorInterface */
     private $translator;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

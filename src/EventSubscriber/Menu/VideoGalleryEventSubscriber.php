@@ -78,8 +78,8 @@ class VideoGalleryEventSubscriber implements EventSubscriberInterface
     public function onPreVideoGallerySave(VideoGalleryEvent $event): void
     {
         $this->affectedRoutes = [];
-        /** @noinspection NullPointerExceptionInspection */
-        if ($event->getVideoGallery()->getId() !== null) {
+        /* @noinspection NullPointerExceptionInspection */
+        if (null !== $event->getVideoGallery()->getId()) {
             /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()

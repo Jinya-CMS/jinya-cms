@@ -59,7 +59,7 @@ class FileService implements FileServiceInterface
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
             ->from(File::class, 'file');
-        if ($keyword !== '') {
+        if ('' !== $keyword) {
             $queryBuilder
                 ->andWhere(
                     $queryBuilder
@@ -69,7 +69,7 @@ class FileService implements FileServiceInterface
                 ->setParameter('keyword', "%$keyword%");
         }
 
-        if ($type !== '') {
+        if ('' !== $type) {
             $queryBuilder
                 ->andWhere(
                     $queryBuilder
@@ -79,7 +79,7 @@ class FileService implements FileServiceInterface
                 ->setParameter('type', "%$type%");
         }
 
-        if ($tag !== '') {
+        if ('' !== $tag) {
             $queryBuilder
                 ->join('file.tags', 'tags')
                 ->andWhere(

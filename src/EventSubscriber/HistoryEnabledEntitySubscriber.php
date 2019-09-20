@@ -46,7 +46,7 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function preUpdate(PreUpdateEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
-        if ($token !== null) {
+        if (null !== $token) {
             $changeSet = $eventArgs->getEntityChangeSet();
             $entity = $eventArgs->getEntity();
             if (($entity instanceof HistoryEnabledEntity) && !$this->checkOnlyUpdatedFieldsChanged($changeSet)) {
@@ -83,12 +83,12 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function postLoad(LifecycleEventArgs $eventArgs): void
     {
         $token = $this->tokenStorage->getToken();
-        if ($token !== null) {
+        if (null !== $token) {
             $entity = $eventArgs->getEntity();
             if ($entity instanceof HistoryEnabledEntity) {
                 $entity->setLastUpdatedAt(new DateTime());
                 /* @noinspection PhpParamsInspection */
-                /** @noinspection NullPointerExceptionInspection */
+                /* @noinspection NullPointerExceptionInspection */
                 $entity->setUpdatedBy($token->getUser());
             }
         }
@@ -97,14 +97,14 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $eventArgs): void
     {
         $entity = $eventArgs->getEntity();
-        if ($entity instanceof HistoryEnabledEntity && $entity->getCreatedAt() === null) {
+        if ($entity instanceof HistoryEnabledEntity && null === $entity->getCreatedAt()) {
             $entity->setCreatedAt(new DateTime());
             $entity->setLastUpdatedAt(new DateTime());
             /* @noinspection PhpParamsInspection */
-            /** @noinspection NullPointerExceptionInspection */
+            /* @noinspection NullPointerExceptionInspection */
             $entity->setCreator($this->tokenStorage->getToken()->getUser());
             /* @noinspection PhpParamsInspection */
-            /** @noinspection NullPointerExceptionInspection */
+            /* @noinspection NullPointerExceptionInspection */
             $entity->setUpdatedBy($this->tokenStorage->getToken()->getUser());
             $historyEntry = $entity->jsonSerialize();
             $historyEntry = array_map(static function ($item) {

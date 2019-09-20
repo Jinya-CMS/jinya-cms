@@ -14,7 +14,6 @@ use Jinya\Entity\Label\Label;
 
 class LabelEntityService implements LabelEntityServiceInterface
 {
-
     /**
      * Gets the specified amount of entities by keyword and label
      *

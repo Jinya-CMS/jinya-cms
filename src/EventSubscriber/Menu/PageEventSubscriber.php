@@ -78,8 +78,8 @@ class PageEventSubscriber implements EventSubscriberInterface
     public function onPrePageSave(PageEvent $event): void
     {
         $this->affectedRoutes = [];
-        /** @noinspection NullPointerExceptionInspection */
-        if ($event->getPage()->getId() !== null) {
+        /* @noinspection NullPointerExceptionInspection */
+        if (null !== $event->getPage()->getId()) {
             /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()

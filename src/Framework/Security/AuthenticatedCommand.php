@@ -1,4 +1,6 @@
-<?php /** @noinspection HtmlUnknownTag */
+<?php
+
+/** @noinspection HtmlUnknownTag */
 
 namespace Jinya\Framework\Security;
 

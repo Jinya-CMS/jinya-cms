@@ -96,7 +96,9 @@ class FormController extends BaseApiController
         });
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**
@@ -160,7 +162,9 @@ class FormController extends BaseApiController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**

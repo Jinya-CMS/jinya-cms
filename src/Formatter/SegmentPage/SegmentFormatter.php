@@ -145,7 +145,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function artwork(): SegmentFormatterInterface
     {
-        if ($this->segment->getArtwork() !== null) {
+        if (null !== $this->segment->getArtwork()) {
             $this->formatted['artwork'] = $this
                 ->artworkFormatter
                 ->init($this->segment->getArtwork())
@@ -165,7 +165,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function video(): SegmentFormatterInterface
     {
-        if ($this->segment->getVideo() !== null) {
+        if (null !== $this->segment->getVideo()) {
             $this->formatted['video'] = $this
                 ->videoFormatter
                 ->init($this->segment->getVideo())
@@ -185,7 +185,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function youtubeVideo(): SegmentFormatterInterface
     {
-        if ($this->segment->getYoutubeVideo() !== null) {
+        if (null !== $this->segment->getYoutubeVideo()) {
             $this->formatted['youtubeVideo'] = $this
                 ->youtubeVideoFormatter
                 ->init($this->segment->getYoutubeVideo())
@@ -206,7 +206,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function videoGallery(): SegmentFormatterInterface
     {
-        if ($this->segment->getVideoGallery() !== null) {
+        if (null !== $this->segment->getVideoGallery()) {
             $this->formatted['videoGallery'] = $this
                 ->videoGalleryFormatter
                 ->init($this->segment->getVideoGallery())
@@ -226,7 +226,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function artGallery(): SegmentFormatterInterface
     {
-        if ($this->segment->getArtGallery() !== null) {
+        if (null !== $this->segment->getArtGallery()) {
             $this->formatted['artGallery'] = $this
                 ->artGalleryFormatter
                 ->init($this->segment->getArtGallery())
@@ -246,7 +246,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function form(): SegmentFormatterInterface
     {
-        if ($this->segment->getForm() !== null) {
+        if (null !== $this->segment->getForm()) {
             $this->formatted['form'] = $this
                 ->formFormatter
                 ->init($this->segment->getForm())
@@ -266,7 +266,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function html(): SegmentFormatterInterface
     {
-        if ($this->segment->getHtml() !== null) {
+        if (null !== $this->segment->getHtml()) {
             $this->formatted['html'] = $this->segment->getHtml();
         }
 

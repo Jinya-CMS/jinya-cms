@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Jinya\Framework\Events\SegmentPages;
 
 use Jinya\Entity\SegmentPage\Segment;

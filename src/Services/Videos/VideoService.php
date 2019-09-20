@@ -28,10 +28,12 @@ class VideoService implements VideoServiceInterface
 
     /** @var BaseSlugEntityService */
     private $baseService;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

@@ -78,8 +78,8 @@ class ArtGalleryEventSubscriber implements EventSubscriberInterface
     public function onPreArtGallerySave(ArtGalleryEvent $event): void
     {
         $this->affectedRoutes = [];
-        /** @noinspection NullPointerExceptionInspection */
-        if ($event->getArtGallery()->getId() !== null) {
+        /* @noinspection NullPointerExceptionInspection */
+        if (null !== $event->getArtGallery()->getId()) {
             /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()

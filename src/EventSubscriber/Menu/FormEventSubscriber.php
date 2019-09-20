@@ -78,8 +78,8 @@ class FormEventSubscriber implements EventSubscriberInterface
     public function onPreFormSave(FormEvent $event): void
     {
         $this->affectedRoutes = [];
-        /** @noinspection NullPointerExceptionInspection */
-        if ($event->getForm()->getId() !== null) {
+        /* @noinspection NullPointerExceptionInspection */
+        if (null !== $event->getForm()->getId()) {
             /** @noinspection NullPointerExceptionInspection */
             $oldSlug = $this->entityManager
                 ->createQueryBuilder()

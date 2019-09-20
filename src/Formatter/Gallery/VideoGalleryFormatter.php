@@ -203,7 +203,7 @@ class VideoGalleryFormatter implements VideoGalleryFormatterInterface
                 ->position()
                 ->id();
 
-            if ($videoPosition->getYoutubeVideo() !== null) {
+            if (null !== $videoPosition->getYoutubeVideo()) {
                 $this->videoPositionFormatter
                     ->youtubeVideo();
             } else {
