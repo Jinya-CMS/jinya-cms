@@ -107,8 +107,9 @@
         try {
           await JinyaRequest.delete(`/api/page/${this.selectedPage.slug}`);
           this.delete.show = false;
-          const url = new URL(window.location.href);
-          await this.fetchPages(0, Number.MAX_SAFE_INTEGER, url.searchParams.get('keyword'));
+          this.pages.splice(this.pages.findIndex((page) => page.slug === this.selectedPage.slug), 1);
+          this.selectedPage = {};
+          this.pageSelected = false;
         } catch (reason) {
           this.delete.error = Translator.validator(`static.pages.overview.delete.${reason.message}`);
         }

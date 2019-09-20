@@ -105,7 +105,7 @@
         try {
           await JinyaRequest.delete(`/api/form/${this.selectedForm.slug}`);
           this.delete.show = false;
-          this.forms.splice(this.forms.findIndex(form => form.id === this.selectedForm.id), 1);
+          this.forms.splice(this.forms.findIndex((form) => form.id === this.selectedForm.id), 1);
           this.selectedForm = {};
           this.formSelected = false;
         } catch (reason) {
