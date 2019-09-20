@@ -33,10 +33,12 @@ class ArtworkService implements ArtworkServiceInterface
 
     /** @var LabelEntityServiceInterface */
     private $labelEntityService;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

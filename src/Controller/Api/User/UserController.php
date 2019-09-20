@@ -106,7 +106,9 @@ class UserController extends BaseUserController
         });
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**
@@ -174,7 +176,9 @@ class UserController extends BaseUserController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**

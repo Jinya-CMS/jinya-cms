@@ -48,7 +48,7 @@ class VideoPositionCacheSubscriber implements EventSubscriberInterface
     public function onVideoPositionDelete(VideoPositionEvent $event): void
     {
         $videoPosition = $event->getVideoPosition();
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $videoPosition->getGallery(),
             CacheBuilderInterface::VIDEO_GALLERY
@@ -58,7 +58,7 @@ class VideoPositionCacheSubscriber implements EventSubscriberInterface
     public function onVideoPositionSave(VideoPositionEvent $event): void
     {
         $videoPosition = $event->getVideoPosition();
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $videoPosition->getGallery()->getSlug(),
             CacheBuilderInterface::VIDEO_GALLERY

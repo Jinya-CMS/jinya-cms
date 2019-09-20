@@ -28,10 +28,12 @@ class YoutubeVideoService implements YoutubeVideoServiceInterface
 
     /** @var BaseSlugEntityService */
     private $baseService;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

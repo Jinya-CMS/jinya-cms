@@ -25,6 +25,8 @@ interface MediaServiceInterface
 
     public const VIDEO_VIDEO = 'video_video';
 
+    public const JINYA_CONTENT = 'jinya-content';
+
     /**
      * Saves the media to the storage and return the http url
      *

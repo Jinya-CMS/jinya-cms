@@ -18,6 +18,7 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
+use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
 use Jinya\Services\Theme\ThemeSyncServiceInterface;
@@ -30,6 +31,9 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 {
     /** @var ConfigurationServiceInterface */
     private $configurationService;
+
+    /** @var GalleryServiceInterface */
+    private $galleryService;
 
     /** @var ArtworkServiceInterface */
     private $artworkService;
@@ -70,6 +74,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     /**
      * StaticFileCacheBuilder constructor.
      * @param ConfigurationServiceInterface $configurationService
+     * @param GalleryServiceInterface $galleryService
      * @param ArtworkServiceInterface $artworkService
      * @param ArtGalleryServiceInterface $artGalleryService
      * @param VideoGalleryServiceInterface $videoGalleryService
@@ -85,6 +90,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function __construct(
         ConfigurationServiceInterface $configurationService,
+        GalleryServiceInterface $galleryService,
         ArtworkServiceInterface $artworkService,
         ArtGalleryServiceInterface $artGalleryService,
         VideoGalleryServiceInterface $videoGalleryService,
@@ -99,6 +105,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         ThemeSyncServiceInterface $themeSyncService
     ) {
         $this->configurationService = $configurationService;
+        $this->galleryService = $galleryService;
         $this->artworkService = $artworkService;
         $this->artGalleryService = $artGalleryService;
         $this->videoGalleryService = $videoGalleryService;
@@ -303,6 +310,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Profile/detail.html.twig';
+        } elseif (Strings::find($routeName, 'media_gallery')) {
+            $viewData = [
+                'gallery' => $this->galleryService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/MediaGallery/detail.html.twig';
         } else {
             $viewData = ['active' => '/'];
             $template = '@Theme/Default/index.html.twig';

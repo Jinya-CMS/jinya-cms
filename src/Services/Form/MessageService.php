@@ -19,10 +19,12 @@ class MessageService implements MessageServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
@@ -106,7 +108,7 @@ class MessageService implements MessageServiceInterface
             ->orWhere('message.content LIKE :keyword')
             ->setParameter('keyword', "%$keyword%");
 
-        if ($formSlug !== '') {
+        if ('' !== $formSlug) {
             $queryBuilder
                 ->andWhere('form.slug = :slug')
                 ->join('message.form', 'form')
@@ -116,19 +118,19 @@ class MessageService implements MessageServiceInterface
                 ->andWhere('message.spam = 0');
         }
 
-        if ($action === 'spam') {
+        if ('spam' === $action) {
             $queryBuilder->andWhere('message.isArchived = 0');
             $queryBuilder->andWhere('message.isDeleted = 0');
             $queryBuilder->andWhere('message.spam = 1');
-        } elseif ($action === 'deleted') {
+        } elseif ('deleted' === $action) {
             $queryBuilder->andWhere('message.isArchived = 0');
             $queryBuilder->andWhere('message.isDeleted = 1');
             $queryBuilder->andWhere('message.spam = 0');
-        } elseif ($action === 'archived') {
+        } elseif ('archived' === $action) {
             $queryBuilder->andWhere('message.isArchived = 1');
             $queryBuilder->andWhere('message.isDeleted = 0');
             $queryBuilder->andWhere('message.spam = 0');
-        } elseif ($action === 'all') {
+        } elseif ('all' === $action) {
             $queryBuilder->andWhere('message.isArchived = 0');
             $queryBuilder->andWhere('message.isDeleted = 0');
             $queryBuilder->andWhere('message.spam = 0');

@@ -97,8 +97,7 @@
         },
         items: [],
         selectedTemplateItems: [],
-        art_galleries: [],
-        video_galleries: [],
+        media_galleries: [],
         segment_pages: [],
         forms: [],
         pages: [],
@@ -134,9 +133,9 @@
         };
 
         return items
-          .map(item => flatten(item, items))
+          .map((item) => flatten(item, items))
           .reduce((acc, val) => [...acc, ...val], [])
-          .filter(item => !Array.isArray(item));
+          .filter((item) => !Array.isArray(item));
       };
 
       this.items = flattenChildren(this.menu, 0, this.menu.children);
@@ -159,12 +158,8 @@
       types() {
         return [
           {
-            title: Translator.message('configuration.frontend.menus.builder.galleries.art'),
-            name: 'art_galleries',
-          },
-          {
-            title: Translator.message('configuration.frontend.menus.builder.galleries.video'),
-            name: 'video_galleries',
+            title: Translator.message('configuration.frontend.menus.builder.galleries'),
+            name: 'media_galleries',
           },
           {
             title: Translator.message('configuration.frontend.menus.builder.forms'),
@@ -223,22 +218,22 @@
       },
       hasChildren(item, currentIdx = undefined) {
         let curIdx = currentIdx;
-        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        if (curIdx === undefined) curIdx = this.items.findIndex((elem) => ObjectUtils.equals(elem, item));
 
         return item.nestingLevel < this.findNext(item, curIdx)?.nestingLevel;
       },
       findParent(item, currentIdx = undefined) {
         let curIdx = currentIdx;
-        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        if (curIdx === undefined) curIdx = this.items.findIndex((elem) => ObjectUtils.equals(elem, item));
 
         return this.items
           .slice(0, curIdx)
           .reverse()
-          .find(elem => elem.nestingLevel === item.nestingLevel - 1);
+          .find((elem) => elem.nestingLevel === item.nestingLevel - 1);
       },
       findPrevious(item, currentIdx = undefined) {
         let curIdx = currentIdx;
-        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        if (curIdx === undefined) curIdx = this.items.findIndex((elem) => ObjectUtils.equals(elem, item));
 
         if (this.items.length > curIdx && curIdx > 0) {
           return this.items[curIdx - 1];
@@ -248,7 +243,7 @@
       },
       findNext(item, currentIdx = undefined) {
         let curIdx = currentIdx;
-        if (curIdx === undefined) curIdx = this.items.findIndex(elem => ObjectUtils.equals(elem, item));
+        if (curIdx === undefined) curIdx = this.items.findIndex((elem) => ObjectUtils.equals(elem, item));
 
         if (this.items.length > curIdx && curIdx < this.items.length) {
           return this.items[curIdx + 1];
@@ -322,42 +317,34 @@
       async selectTemplateItems(type) {
         this.itemsLoading = true;
 
-        if (type === 'art_galleries') {
-          if (this.art_galleries.length === 0) {
-            const galleries = await JinyaRequest.get('/api/gallery/art?count=40000');
-            this.art_galleries = galleries.items.map(
-              item => this.generateTemplateItem('art_gallery', item.name, item.slug),
+        if (type === 'media_galleries') {
+          if (this.media_galleries.length === 0) {
+            const galleries = await JinyaRequest.get('/api/media/gallery');
+            this.media_galleries = galleries.items.map(
+              (item) => this.generateTemplateItem('media_galleries', item.name, item.slug),
             );
           }
 
-          this.selectedTemplateItems = this.art_galleries;
-        } else if (type === 'video_galleries') {
-          if (this.video_galleries.length === 0) {
-            const galleries = await JinyaRequest.get('/api/gallery/video?count=40000');
-            this.video_galleries = galleries.items.map(
-              item => this.generateTemplateItem('video_gallery', item.name, item.slug),
-            );
-          }
-
-          this.selectedTemplateItems = this.video_galleries;
+          this.selectedTemplateItems = this.media_galleries;
         } else if (type === 'forms') {
           if (this.forms.length === 0) {
             const forms = await JinyaRequest.get('/api/form?count=40000');
-            this.forms = forms.items.map(item => this.generateTemplateItem('form', item.title, item.slug));
+            this.forms = forms.items.map((item) => this.generateTemplateItem('form', item.title, item.slug));
           }
 
           this.selectedTemplateItems = this.forms;
         } else if (type === 'pages') {
           if (this.pages.length === 0) {
             const pages = await JinyaRequest.get('/api/page?count=40000');
-            this.pages = pages.items.map(item => this.generateTemplateItem('page', item.title, item.slug));
+            this.pages = pages.items.map((item) => this.generateTemplateItem('page', item.title, item.slug));
           }
 
           this.selectedTemplateItems = this.pages;
         } else if (type === 'profiles') {
           if (this.profiles.length === 0) {
             const profiles = await JinyaRequest.get('/api/user?count=40000');
-            this.profiles = profiles.items.map(item => this.generateTemplateItem('profile', item.artistName, item.id));
+            this.profiles = profiles.items
+              .map((item) => this.generateTemplateItem('profile', item.artistName, item.id));
           }
 
           this.selectedTemplateItems = this.profiles;
@@ -365,7 +352,7 @@
           if (this.segment_pages.length === 0) {
             const pages = await JinyaRequest.get('/api/segment_page?count=40000');
             // eslint-disable-next-line max-len
-            this.segment_pages = pages.items.map(item => this.generateTemplateItem('segment_page', item.name, item.slug));
+            this.segment_pages = pages.items.map((item) => this.generateTemplateItem('segment_page', item.name, item.slug));
           }
 
           this.selectedTemplateItems = this.segment_pages;
@@ -379,14 +366,16 @@
           };
 
           this.selectedTemplateItems = [
-            Object.assign({}, baseItem, {
+            {
+              ...baseItem,
               title: Translator.message('configuration.frontend.menus.builder.external'),
               pageType: 'external',
-            }),
-            Object.assign({}, baseItem, {
+            },
+            {
+              ...baseItem,
               title: Translator.message('configuration.frontend.menus.builder.group'),
               pageType: 'empty',
-            }),
+            },
           ];
         }
 

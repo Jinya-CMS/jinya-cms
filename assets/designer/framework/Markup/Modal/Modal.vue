@@ -112,8 +112,9 @@
             }
 
             &__title {
-                background: $primary;
-                color: $primary-lighter;
+                background: $white;
+                color: $primary;
+                border-bottom: 2px solid $primary;
                 border-top-left-radius: 10px;
                 border-top-right-radius: 10px;
                 font-size: 2rem;
@@ -135,7 +136,9 @@
             &__footer {
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
-                background: $primary;
+                background: $white;
+                color: $primary;
+                border-top: 2px solid $primary;
                 padding: 2em;
                 display: flex;
                 justify-content: space-between;

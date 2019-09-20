@@ -39,7 +39,7 @@ class Message
     private $fromAddress;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $spam = false;
@@ -57,19 +57,19 @@ class Message
     private $sendAt;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $isArchived = false;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $isDeleted = false;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
     private $isRead = false;

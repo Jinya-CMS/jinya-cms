@@ -31,10 +31,12 @@ class FormItemService implements FormItemServiceInterface
 
     /** @var FormServiceInterface */
     private $formService;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

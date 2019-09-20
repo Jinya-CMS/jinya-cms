@@ -44,6 +44,7 @@ use function simplexml_load_string;
 abstract class BaseApiController extends BaseController
 {
     /** @noinspection PhpUndefinedClassInspection */
+
     /** @var TranslatorInterface */
     private $translator;
 
@@ -67,6 +68,7 @@ abstract class BaseApiController extends BaseController
 
     /** @var string */
     private $contentType;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

@@ -17,4 +17,7 @@ export default {
     video: {
         uploadStarted: 'video-upload-started',
     },
+    file: {
+        uploadStarted: 'file-upload-started',
+    },
 };

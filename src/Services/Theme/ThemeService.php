@@ -53,7 +53,7 @@ class ThemeService implements ThemeServiceInterface
     {
         $theme = $this->getTheme($name);
 
-        if ($theme === null) {
+        if (null === $theme) {
             $theme = new Theme();
         }
 

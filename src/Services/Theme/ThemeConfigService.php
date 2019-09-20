@@ -37,10 +37,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /** @var ArrayUtilInterface */
     private $arrayUtils;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

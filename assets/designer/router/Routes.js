@@ -184,6 +184,24 @@ export default {
             },
         },
     },
+    Media: {
+        Files: {
+            FileBrowser: {
+                name: 'MediaFilesBrowser',
+                route: '/designer/media/browser',
+            },
+        },
+        Galleries: {
+            Overview: {
+                name: 'MediaGalleriesOverview',
+                route: '/designer/media/gallery',
+            },
+            Arrange: {
+                name: 'MediaGalleriesArrange',
+                route: '/designer/media/gallery/:id/arrange',
+            },
+        },
+    },
     Static: {
         Pages: {
             SavedInJinya: {
@@ -474,4 +492,4 @@ export default {
             },
         },
     },
-};
+    };
