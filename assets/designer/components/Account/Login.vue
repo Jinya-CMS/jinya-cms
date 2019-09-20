@@ -26,6 +26,7 @@
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import Translator from '@/framework/i18n/Translator';
   import { login } from '@/security/Authentication';
+  import { clearAuth } from '@/framework/Storage/AuthStorage';
 
   export default {
     components: {
@@ -50,6 +51,7 @@
         try {
           this.message = Translator.message('account.login.pending');
           this.state = 'loading';
+          clearAuth(false);
 
           const loginResult = await login(this.email, this.password, this.twoFactorCode);
           if (loginResult) {

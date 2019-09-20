@@ -195,7 +195,6 @@ class FormItemFormatter implements FormItemFormatterInterface
         return $this;
     }
 
-
     /**
      * Formats the spam filter
      *

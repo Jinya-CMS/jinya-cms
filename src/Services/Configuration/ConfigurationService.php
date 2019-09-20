@@ -24,10 +24,12 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /** @var ThemeServiceInterface */
     private $themeService;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

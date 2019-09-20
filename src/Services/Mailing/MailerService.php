@@ -20,6 +20,7 @@ class MailerService implements MailerServiceInterface
 
     /** @var string */
     private $mailerSender;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
@@ -27,6 +28,7 @@ class MailerService implements MailerServiceInterface
 
     /** @var LoggerInterface */
     private $logger;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

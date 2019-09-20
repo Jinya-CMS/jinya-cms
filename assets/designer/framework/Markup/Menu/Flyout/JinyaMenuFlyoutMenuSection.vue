@@ -32,7 +32,7 @@
         }
 
         h4 {
-            color: $primary-lighter;
+            color: $primary-lightest;
             font-size: 1.7rem;
             margin: 0;
             padding: 0;

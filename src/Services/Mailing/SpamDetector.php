@@ -13,7 +13,7 @@ class SpamDetector implements SpamDetectorInterface
             /** @var FormItem $item */
             foreach ($item->getSpamFilter() as $keyword) {
                 $position = stripos($data[lcfirst($item->getLabel())], $keyword);
-                if ($position !== false && $position !== -1) {
+                if (false !== $position && -1 !== $position) {
                     return true;
                 }
             }

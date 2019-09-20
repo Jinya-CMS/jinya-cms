@@ -22,10 +22,12 @@ class AllVideoService implements AllVideoServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 

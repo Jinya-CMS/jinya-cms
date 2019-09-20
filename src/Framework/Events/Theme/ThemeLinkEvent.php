@@ -28,7 +28,7 @@ class ThemeLinkEvent extends CancellableEvent
     /** @var string */
     private $slug;
 
-    /** @var integer */
+    /** @var int */
     private $id;
 
     /**

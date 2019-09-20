@@ -35,7 +35,7 @@ class SegmentCacheSubscriber implements EventSubscriberInterface
 
     public function onSegmentSave(SegmentEvent $event): void
     {
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $event->getSegment()->getPage()->getSlug(),
             CacheBuilderInterface::SEGMENT_PAGE

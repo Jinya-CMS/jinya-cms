@@ -32,6 +32,7 @@ class SegmentService implements SegmentServiceInterface
 
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
@@ -54,6 +55,7 @@ class SegmentService implements SegmentServiceInterface
 
     /** @var YoutubeVideoServiceInterface */
     private $youtubeVideoService;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
@@ -83,17 +85,17 @@ class SegmentService implements SegmentServiceInterface
         $this->segmentPageService = $segmentPageService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->artworkService = $artworkService;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->artGalleryService = $artGalleryService;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->videoGalleryService = $videoGalleryService;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->formService = $formService;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->videoService = $videoService;
-        /** @noinspection UnusedConstructorDependenciesInspection */
+        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->youtubeVideoService = $youtubeVideoService;
     }
 

@@ -18,7 +18,9 @@ use Jinya\Entity\Video\YoutubeVideo;
 class Segment
 {
     public const ACTION_SCRIPT = 'script';
+
     public const ACTION_LINK = 'link';
+
     public const ACTION_NONE = 'none';
 
     use BaseEntity;

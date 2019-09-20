@@ -1,8 +1,6 @@
 /**
  * Colors
  */
-$color-lighter-percentage: 25% !default;
-$color-darker-percentage: 25% !default;
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -36,11 +34,23 @@ $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-800 !default;
 
-$primary-lighter: lighten($primary, $color-lighter-percentage);
-$primary-darker: darken($primary, $color-darker-percentage);
+$primary: #da9c8a !default;
+$primary-light: scale_color($primary, $lightness: 25%);
+$primary-lighter: scale_color($primary, $lightness: 50%);
+$primary-lightest: scale_color($primary, $lightness: 75%);
 
-$secondary-lighter: lighten($secondary, $color-lighter-percentage);
-$secondary-darker: darken($secondary, $color-darker-percentage);
+$primary-dark: scale_color($primary, $lightness: -25%);
+$primary-darker: scale_color($primary, $lightness: -50%);
+$primary-darkest: scale_color($primary, $lightness: -75%);
+
+$secondary: #8ac8da !default;
+$secondary-light: scale_color($secondary, $lightness: 25%);
+$secondary-lighter: scale_color($secondary, $lightness: 50%);
+$secondary-lightest: scale_color($secondary, $lightness: 75%);
+
+$secondary-dark: scale_color($secondary, $lightness: -25%);
+$secondary-darker: scale_color($secondary, $lightness: -50%);
+$secondary-darkest: scale_color($secondary, $lightness: -75%);
 
 $text-muted: $primary-lighter;
 $edit-color: $cyan !default;

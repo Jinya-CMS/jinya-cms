@@ -1,6 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const path = require('path');
-const MonacoEditorPlugin = require('monaco-editor-webpack-plugin')
+const MonacoEditorPlugin = require('monaco-editor-webpack-plugin');
 
 Encore.configureRuntimeEnvironment('dev');
 Encore
@@ -43,6 +43,14 @@ Encore
     .addAliases({ '@': path.join(__dirname, 'assets', 'designer') })
     .addRule({
         test: /worker\/VideoUploader\.js$/,
+        include: path.join(__dirname, 'assets', 'designer'),
+        use: [
+            { loader: 'worker-loader' },
+            { loader: 'babel-loader' },
+        ],
+    })
+    .addRule({
+        test: /worker\/FileUploader\.js$/,
         include: path.join(__dirname, 'assets', 'designer'),
         use: [
             { loader: 'worker-loader' },

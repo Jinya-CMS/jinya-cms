@@ -66,10 +66,10 @@ class MessageController extends BaseApiController
                 'count' => $count,
                 'keyword' => $keyword,
                 'formSlug' => $formSlug,
-                'action' => $action
+                'action' => $action,
             ];
 
-            if ($formSlug !== '') {
+            if ('' !== $formSlug) {
                 return $this->formatListResult(
                     $entityCount,
                     $offset,
@@ -80,7 +80,7 @@ class MessageController extends BaseApiController
                 );
             }
 
-            if ($action !== '') {
+            if ('' !== $action) {
                 return $this->formatListResult(
                     $entityCount,
                     $offset,
@@ -119,6 +119,7 @@ class MessageController extends BaseApiController
     ): Response {
         [$data, $status] = $this->tryExecute(static function () use ($id, $messageService, $messageFormatter) {
             $message = $messageService->get($id);
+
             return $messageFormatter
                 ->init($message)
                 ->form()

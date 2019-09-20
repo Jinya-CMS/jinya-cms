@@ -15,7 +15,7 @@ final class Version20190518000648 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        /** @noinspection PhpUnhandledExceptionInspection */
+        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
@@ -29,7 +29,7 @@ ALTER TABLE users CHANGE firstname firstname VARCHAR(255) DEFAULT NULL, CHANGE l
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        /** @noinspection PhpUnhandledExceptionInspection */
+        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'

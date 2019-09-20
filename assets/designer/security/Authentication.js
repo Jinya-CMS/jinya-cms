@@ -11,19 +11,17 @@ import {
     setDeviceCode,
 } from '@/framework/Storage/AuthStorage';
 
-export async function refreshMe() {
-    try {
-        if (getApiKey()) {
-            const user = await JinyaRequest.get('/api/account');
-            setCurrentUser(user);
-            setCurrentUserRoles(user.roles);
-        }
-    } catch (e) {
-        throw e;
+export async function refreshMe()
+{
+    if (getApiKey()) {
+        const user = await JinyaRequest.get('/api/account');
+        setCurrentUser(user);
+        setCurrentUserRoles(user.roles);
     }
 }
 
-export async function logout() {
+export async function logout()
+{
     router.push(Routes.Account.Login);
     JinyaRequest.delete(`/api/account/api_key/${getApiKey()}`).then(() => {
     });
@@ -31,14 +29,16 @@ export async function logout() {
     clearAuth();
 }
 
-export async function requestTwoFactor(username, password) {
+export async function requestTwoFactor(username, password)
+{
     await JinyaRequest.post('/api/2fa', {
         username,
         password,
     });
 }
 
-export async function login(username, password, twoFactorCode) {
+export async function login(username, password, twoFactorCode)
+{
     try {
         if (getDeviceCode() || twoFactorCode) {
             const headers = {};
