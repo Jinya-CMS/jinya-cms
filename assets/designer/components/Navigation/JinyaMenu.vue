@@ -201,6 +201,6 @@
         font-size: 2rem;
         margin-top: auto;
         margin-bottom: auto;
-        color: $primary-lighter;
+        color: $primary-lightest;
     }
 </style>

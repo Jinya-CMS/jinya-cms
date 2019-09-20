@@ -1,38 +1,43 @@
 <template>
-    <div class="jinya-gallery__designer">
-        <h1 class="jinya-gallery-designer__name">{{gallery.name}}</h1>
-        <aside class="jinya-gallery-designer__files">
-            <draggable :sort="false" @change="changeFile" class="jinya-gallery-designer__files-list" group="gallery"
-                       v-model="files">
-                <div :key="`file-${file.file.id}`" class="jinya-gallery-designer__file" v-for="file in files">
-                    <span class="jinya-gallery-designer__file-header">{{file.file.name}}</span>
-                    <img :alt="file.file.name" :src="file.file.path"
-                         class="jinya-gallery-designer__file-image" v-if="file.file.type.startsWith('image')">
-                </div>
-            </draggable>
-        </aside>
-        <section class="jinya-gallery-designer__positions">
-            <draggable @change="changePosition" class="jinya-gallery-designer__positions-list" group="gallery"
-                       v-model="gallery.files">
-                <div :key="`position-${filePosition.id}`" class="jinya-gallery-designer__position"
-                     v-for="filePosition in gallery.files">
-                    <span class="jinya-gallery-designer__position-header">{{filePosition.file.name}}</span>
-                    <img :alt="filePosition.file.name" :src="filePosition.file.path"
-                         class="jinya-gallery-designer__position-image"
-                         v-if="filePosition.file.type.startsWith('image')">
-                </div>
-            </draggable>
-        </section>
+    <div :class="{'is--loading': loading}" class="jinya-gallery__designer">
+        <jinya-loader :loading="loading" v-if="loading"/>
+        <template v-else>
+            <h1 class="jinya-gallery-designer__name">{{gallery.name}}</h1>
+            <aside class="jinya-gallery-designer__files">
+                <draggable :sort="false" @change="changeFile" class="jinya-gallery-designer__files-list" group="gallery"
+                           v-model="files">
+                    <div :key="`file-${file.file.id}`" class="jinya-gallery-designer__file" v-for="file in files">
+                        <span class="jinya-gallery-designer__file-header">{{file.file.name}}</span>
+                        <img :alt="file.file.name" :src="file.file.path"
+                             class="jinya-gallery-designer__file-image" v-if="file.file.type.startsWith('image')">
+                    </div>
+                </draggable>
+            </aside>
+            <section class="jinya-gallery-designer__positions">
+                <draggable @change="changePosition" class="jinya-gallery-designer__positions-list" group="gallery"
+                           v-model="gallery.files">
+                    <div :key="`position-${filePosition.id}`" class="jinya-gallery-designer__position"
+                         v-for="filePosition in gallery.files">
+                        <span class="jinya-gallery-designer__position-header">{{filePosition.file.name}}</span>
+                        <img :alt="filePosition.file.name" :src="filePosition.file.path"
+                             class="jinya-gallery-designer__position-image"
+                             v-if="filePosition.file.type.startsWith('image')">
+                    </div>
+                </draggable>
+            </section>
+        </template>
     </div>
 </template>
 
 <script>
   import draggable from 'vuedraggable';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
   export default {
     name: 'Arrange',
     components: {
+      JinyaLoader,
       draggable,
     },
     methods: {
@@ -56,7 +61,6 @@
         } else if (removed) {
           const { element } = removed;
           await JinyaRequest.delete(`/api/media/gallery/file/${this.$route.params.id}/file/${element.id}`);
-          this.gallery.files.remove(element);
         } else if (moved) {
           const { newIndex, oldIndex, element } = moved;
           await JinyaRequest.put(`/api/media/gallery/file/${this.$route.params.id}/file/${element.id}/${oldIndex}`, {
@@ -66,6 +70,7 @@
       },
     },
     async mounted() {
+      this.loading = true;
       const [files, gallery] = await Promise.all([
         JinyaRequest.get('/api/media/file'),
         JinyaRequest.get(`/api/media/gallery/${this.$route.params.id}`),
@@ -75,11 +80,13 @@
         file,
       }));
       this.gallery = gallery;
+      this.loading = false;
     },
     data() {
       return {
         gallery: {},
         files: [],
+        loading: false,
       };
     },
   };
@@ -92,6 +99,10 @@
         grid-template-rows: 3rem auto;
         padding-top: 3rem;
         height: 100%;
+
+        &.is--loading {
+            display: block;
+        }
     }
 
     .jinya-gallery-designer__name {

@@ -64,7 +64,7 @@
         transition: all 0.3s;
 
         &:nth-child(2n) {
-            background: $secondary-lighter;
+            background: $primary-lightest;
         }
 
         &:hover {

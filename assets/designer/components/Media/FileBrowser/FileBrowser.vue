@@ -1,5 +1,5 @@
 <template>
-    <div class="jinya-file-browser">
+    <div :class="{'is--loading': loading}" class="jinya-file-browser">
         <jinya-loader :loading="loading" v-if="loading"/>
         <template v-else>
             <file-view :files="files" @deleteFile="showDeleteFileDialog" @editFile="showEditFileDialog"
@@ -245,5 +245,9 @@
 <style lang="scss" scoped>
     .jinya-file-browser {
         display: flex;
+
+        &.is--loading {
+            height: 100%;
+        }
     }
 </style>

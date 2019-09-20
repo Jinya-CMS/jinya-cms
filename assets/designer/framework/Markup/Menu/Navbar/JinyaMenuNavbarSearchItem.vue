@@ -44,20 +44,20 @@
         margin-left: auto;
         display: flex;
         position: relative;
-        background: $primary-lighter;
+        background: $primary-lightest;
 
         .jinya-menu-navbar__item--search__input {
             width: 25rem;
-            background: $primary-lighter;
+            background: $primary-lightest;
             border: none;
             padding: 10px 10px 10px 20px;
             font-size: 1.25em;
             font-family: $font-family;
-            color: $primary-darker;
+            color: $primary-darkest;
             box-sizing: border-box;
 
             @mixin placeholder {
-                color: $primary-darker;
+                color: $primary-darkest;
                 opacity: 1;
             }
 
@@ -94,7 +94,7 @@
             width: 60px;
             height: 60px;
             background: transparent;
-            color: $primary-darker;
+            color: $primary-darkest;
             border: none;
             font-size: 2em;
             cursor: pointer;
