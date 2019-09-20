@@ -76,7 +76,7 @@
         top: 2rem;
         height: 100%;
         border-radius: 10px;
-        background: $primary-lighter;
+        background: $primary-lightest;
     }
 
     .jinya-file__preview-figure {

@@ -72,7 +72,7 @@
         }
 
         &.is--selected {
-            background: $secondary;
+            background: $primary;
         }
     }
 </style>
