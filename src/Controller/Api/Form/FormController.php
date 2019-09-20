@@ -51,7 +51,7 @@ class FormController extends BaseApiController
                     ->description()
                     ->items()
                     ->format();
-            }, $formService->getAll($offset, $count, $keyword));
+            }, $formService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 

@@ -87,7 +87,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, []),
+            new ListEvent($keyword, []),
             ListEvent::ART_GALLERIES_PRE_GET_ALL
         );
 
@@ -100,7 +100,7 @@ class ArtGalleryService implements ArtGalleryServiceInterface
         );
 
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $galleries),
+            new ListEvent($keyword, $galleries),
             ListEvent::ART_GALLERIES_POST_GET_ALL
         );
 

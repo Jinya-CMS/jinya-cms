@@ -63,7 +63,7 @@ class VideoService implements VideoServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
-        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::VIDEOS_PRE_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, []), ListEvent::VIDEOS_PRE_GET_ALL);
 
         $videos = $this->createQueryBuilder($keyword)
             ->select('video')
@@ -72,7 +72,7 @@ class VideoService implements VideoServiceInterface
             ->getQuery()
             ->getResult();
 
-        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::VIDEOS_POST_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, []), ListEvent::VIDEOS_POST_GET_ALL);
 
         return $videos;
     }

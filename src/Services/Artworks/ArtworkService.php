@@ -72,12 +72,12 @@ class ArtworkService implements ArtworkServiceInterface
      */
     public function getAll(int $offset = 0, int $count = 10, string $keyword = '', Label $label = null): array
     {
-        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::ARTWORKS_PRE_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, []), ListEvent::ARTWORKS_PRE_GET_ALL);
 
         $artworks = $this->labelEntityService->getAll($this->getBasicQueryBuilder(), $offset, $count, $keyword, $label);
 
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $artworks),
+            new ListEvent($keyword, $artworks),
             ListEvent::ARTWORKS_POST_GET_ALL
         );
 

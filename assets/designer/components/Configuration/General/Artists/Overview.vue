@@ -124,12 +124,6 @@
     },
     data() {
       return {
-        offset: 0,
-        count: 0,
-        control: {
-          next: '',
-          previous: '',
-        },
         artists: [],
         loading: true,
         selectedArtist: {
@@ -159,7 +153,7 @@
       EventBus.$off(Events.search.triggered);
     },
     async beforeRouteUpdate(to, from, next) {
-      await this.fetchUsers(to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
+      await this.fetchUsers();
       next();
     },
     methods: {
@@ -168,7 +162,7 @@
         item.me = artist.email === this.me.email;
         item.deletable = !item.roles.includes('ROLE_SUPER_ADMIN')
           || !item.me
-          || this.artists.filter(a => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
+          || this.artists.filter((a) => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
 
         return item;
       },
@@ -198,7 +192,7 @@
         try {
           await JinyaRequest.delete(`/api/user/${this.selectedArtist.id}`);
           this.delete.show = false;
-          this.artists.splice(this.artists.findIndex(artist => artist.email === this.selectedArtist.email), 1);
+          this.artists.splice(this.artists.findIndex((artist) => artist.email === this.selectedArtist.email), 1);
           this.artists = this.mapArtists(this.artists);
         } catch (e) {
           this.delete.creator = e.message === 'api.state.409.foreign_key_failed';
@@ -212,7 +206,7 @@
           await JinyaRequest.put(`/api/user/${this.selectedArtist.id}/activation`);
           this.selectedArtist.enabled = true;
           this.artists.splice(this.artists.findIndex(
-            artist => artist.email === this.selectedArtist.email,
+            (artist) => artist.email === this.selectedArtist.email,
           ), 1, this.selectedArtist);
           this.artists = this.mapArtists(this.artists);
           this.enable.show = false;
@@ -226,9 +220,11 @@
         try {
           await JinyaRequest.delete(`/api/user/${this.selectedArtist.id}/activation`);
           this.selectedArtist.enabled = false;
-          this.artists.splice(this.artists.findIndex(
-            artist => artist.email === this.selectedArtist.email,
-          ), 1, this.selectedArtist);
+          this.artists.splice(
+            this.artists.findIndex((artist) => artist.email === this.selectedArtist.email),
+            1,
+            this.selectedArtist,
+          );
           this.artists = this.mapArtists(this.artists);
           this.disable.show = false;
           this.delete.show = false;
@@ -243,15 +239,13 @@
         this.$router.push({
           name: Routes.Configuration.Frontend.Menu.Overview.name,
           query: {
-            offset: url.searchParams.get('offset'),
-            count: url.searchParams.get('count'),
             keyword: url.searchParams.get('keyword'),
           },
         });
       },
-      async fetchUsers(offset = 0, count = 10, keyword = '') {
+      async fetchUsers(keyword = '') {
         this.loading = true;
-        this.currentUrl = `/api/user?offset=${offset}&count=${count}&keyword=${keyword}`;
+        this.currentUrl = `/api/user?keyword=${keyword}`;
 
         const artists = await JinyaRequest.get(this.currentUrl);
         this.artists = artists.items.map(this.mapArtists);
@@ -267,14 +261,12 @@
       const keyword = this.$route.query.keyword || '';
 
       this.me = getCurrentUser();
-      await this.fetchUsers(offset, count, keyword);
+      await this.fetchUsers(keyword);
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Configuration.General.Artists.Overview.name,
           query: {
-            offset: 0,
-            count: this.$route.query.count,
             keyword: value.keyword,
           },
         });

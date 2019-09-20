@@ -84,20 +84,15 @@
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
-            offset: url.searchParams.get('offset'),
-            count: url.searchParams.get('count'),
             keyword: url.searchParams.get('keyword'),
           },
         });
       },
-      async fetchPages(offset = 0, count = Number.MAX_SAFE_INTEGER, keyword = '') {
-        this.currentUrl = `/api/page?offset=${offset}&count=${count}&keyword=${keyword}`;
+      async fetchPages(keyword = '') {
+        this.currentUrl = `/api/page?keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.pages = value.items;
-        this.control = value.control;
-        this.count = value.count;
-        this.offset = value.offset;
       },
       selectPage(page) {
         this.selectedPage = page;
@@ -126,10 +121,8 @@
       },
     },
     async mounted() {
-      const offset = this.$route.query.offset || 0;
-      const count = this.$route.query.count || Number.MAX_SAFE_INTEGER;
       const keyword = this.$route.query.keyword || '';
-      await this.fetchPages(offset, count, keyword);
+      await this.fetchPages();
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
@@ -146,15 +139,12 @@
       EventBus.$off(Events.search.triggered);
     },
     async beforeRouteUpdate(to, from, next) {
-      await this.fetchPages(to.query.offset || 0, to.query.count || Number.MAX_SAFE_INTEGER, to.query.keyword || '');
+      await this.fetchPages();
       next();
     },
     data() {
       return {
         pages: [],
-        control: { next: false, previous: false },
-        count: 0,
-        offset: 0,
         keyword: '',
         selectedPage: {},
         pageSelected: false,

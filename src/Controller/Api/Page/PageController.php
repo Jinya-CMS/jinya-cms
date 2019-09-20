@@ -46,7 +46,7 @@ class PageController extends BaseApiController
                     ->slug()
                     ->content()
                     ->format();
-            }, $pageService->getAll($offset, $count, $keyword));
+            }, $pageService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 

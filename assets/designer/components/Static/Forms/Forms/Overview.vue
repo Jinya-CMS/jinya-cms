@@ -74,13 +74,11 @@
       },
     },
     async mounted() {
-      const offset = this.$route.query.offset || 0;
-      const count = this.$route.query.count || Number.MAX_SAFE_INTEGER;
       const keyword = this.$route.query.keyword || '';
-      await this.fetchForms(offset, count, keyword);
+      await this.fetchForms(keyword);
     },
     async beforeRouteUpdate(to, from, next) {
-      await this.fetchForms(to.query.offset || 0, to.query.count || 10, to.query.keyword || '');
+      await this.fetchForms(to.query.keyword || '');
       next();
     },
     methods: {
@@ -88,14 +86,11 @@
         this.formSelected = true;
         this.selectedForm = row;
       },
-      async fetchForms(offset = 0, count = Number.MAX_SAFE_INTEGER, keyword = '') {
-        this.currentUrl = `/api/form?offset=${offset}&count=${count}&keyword=${keyword}`;
+      async fetchForms(keyword = '') {
+        this.currentUrl = `/api/form?keyword=${keyword}`;
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.forms = value.items;
-        this.control = value.control;
-        this.count = value.count;
-        this.offset = value.offset;
       },
       selectForm(form) {
         this.selectedForm = form;
@@ -128,14 +123,8 @@
       return {
         forms: [],
         keyword: '',
-        control: {
-          next: false,
-          previous: false,
-        },
         formSelected: false,
         selectedForm: {},
-        count: 0,
-        offset: 0,
         delete: {
           error: '',
           show: false,

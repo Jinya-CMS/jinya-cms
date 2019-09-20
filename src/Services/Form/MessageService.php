@@ -75,7 +75,7 @@ class MessageService implements MessageServiceInterface
         string $formSlug = '',
         string $action = ''
     ): array {
-        $this->eventDispatcher->dispatch(new ListEvent($offset, $count, $keyword, []), ListEvent::MESSAGES_PRE_GET_ALL);
+        $this->eventDispatcher->dispatch(new ListEvent($keyword, []), ListEvent::MESSAGES_PRE_GET_ALL);
 
         $items = $this->getFilteredQueryBuilder($keyword, $formSlug, $action)
             ->setFirstResult($offset)
@@ -85,7 +85,7 @@ class MessageService implements MessageServiceInterface
             ->getResult();
 
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $items),
+            new ListEvent($keyword, $items),
             ListEvent::MESSAGES_POST_GET_ALL
         );
 
