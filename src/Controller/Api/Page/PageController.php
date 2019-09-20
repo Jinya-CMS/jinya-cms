@@ -44,6 +44,7 @@ class PageController extends BaseApiController
                     ->init($page)
                     ->title()
                     ->slug()
+                    ->content()
                     ->format();
             }, $pageService->getAll($offset, $count, $keyword));
 
