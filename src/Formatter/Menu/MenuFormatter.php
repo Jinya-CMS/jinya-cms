@@ -96,11 +96,7 @@ class MenuFormatter implements MenuFormatterInterface
      */
     public function logo(): MenuFormatterInterface
     {
-        $this->formattedData['logo'] = $this->urLGenerator->generate(
-            'api_menu_logo_get',
-            ['id' => $this->menu->getId()],
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        $this->formattedData['logo'] = $this->menu->getLogo();
 
         return $this;
     }

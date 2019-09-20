@@ -168,11 +168,7 @@ class UserFormatter implements UserFormatterInterface
      */
     public function profilePicture(): UserFormatterInterface
     {
-        $this->formattedData['profilePicture'] = $this->urlGenerator->generate(
-            'api_user_profilepicture_get',
-            ['id' => $this->user->getId()],
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        $this->formattedData['profilePicture'] = $this->user->getProfilePicture();
 
         return $this;
     }
