@@ -93,9 +93,6 @@
 
         const value = await JinyaRequest.get(this.currentUrl);
         this.pages = value.items;
-        this.control = value.control;
-        this.count = value.count;
-        this.offset = value.offset;
       },
       selectPage(page) {
         this.selectedPage = page;
@@ -125,7 +122,7 @@
     },
     async mounted() {
       const keyword = this.$route.query.keyword || '';
-      await this.fetchPages();
+      await this.fetchPages(keyword);
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
