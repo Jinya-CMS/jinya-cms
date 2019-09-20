@@ -249,15 +249,10 @@
 
         const artists = await JinyaRequest.get(this.currentUrl);
         this.artists = artists.items.map(this.mapArtists);
-        this.control = artists.control;
-        this.count = artists.count;
-        this.offset = artists.offset;
         this.loading = false;
       },
     },
     async mounted() {
-      const offset = this.$route.query.offset || 0;
-      const count = this.$route.query.count || 10;
       const keyword = this.$route.query.keyword || '';
 
       this.me = getCurrentUser();

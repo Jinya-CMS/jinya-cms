@@ -122,14 +122,12 @@
     },
     async mounted() {
       const keyword = this.$route.query.keyword || '';
-      await this.fetchPages();
+      await this.fetchPages(keyword);
 
       EventBus.$on(Events.search.triggered, (value) => {
         this.$router.push({
           name: Routes.Static.Pages.SavedInJinya.Overview.name,
           query: {
-            offset: 0,
-            count: this.$route.query.count,
             keyword: value.keyword,
           },
         });
