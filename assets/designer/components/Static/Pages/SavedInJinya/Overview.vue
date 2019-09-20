@@ -30,7 +30,6 @@
   import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaModal from '@/framework/Markup/Modal/Modal';
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
   import JinyaTable from '@/framework/Markup/Table/Table';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Routes from '@/router/Routes';
@@ -46,7 +45,6 @@
     components: {
       JinyaToolbarButton,
       JinyaToolbar,
-      JinyaLoader,
       JinyaModal,
       JinyaMessage,
       JinyaModalButton,

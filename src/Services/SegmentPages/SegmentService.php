@@ -149,12 +149,12 @@ class SegmentService implements SegmentServiceInterface
         $segmentPage->setSegments(new ArrayCollection($positions));
         $this->entityManager->flush();
         $this->eventDispatcher->dispatch(
-            RearrangeEvent::POST_REARRANGE,
-            new RearrangeEvent($segmentPage, $segment, -1, $position)
+            new RearrangeEvent($segmentPage, $segment, -1, $position),
+            RearrangeEvent::POST_REARRANGE
         );
 
         $this->entityManager->flush();
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segment->getId()));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segment->getId()), SegmentEvent::POST_SAVE);
 
         return $segment;
     }
@@ -308,23 +308,23 @@ class SegmentService implements SegmentServiceInterface
     private function updateSegment(string $slug, int $segmentId, string $type): int
     {
         $segment = $this->get($segmentId);
-        $this->eventDispatcher->dispatch(SegmentEvent::PRE_SAVE, new SegmentEvent($segment, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::PRE_SAVE);
         $service = $type . 'Service';
         $setter = 'set' . ucfirst($type);
         $entity = $this->{$service}->get($slug);
 
         $segment->{$setter}($entity);
         $this->entityManager->flush();
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::POST_SAVE);
 
         return $segment->getId();
     }
 
     public function get(int $id): Segment
     {
-        $this->eventDispatcher->dispatch(SegmentEvent::PRE_GET, new SegmentEvent(null, $id));
+        $this->eventDispatcher->dispatch(new SegmentEvent(null, $id), SegmentEvent::PRE_GET);
         $segment = $this->entityManager->find(Segment::class, $id);
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_GET, new SegmentEvent($segment, $id));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $id), SegmentEvent::POST_GET);
 
         return $segment;
     }
@@ -423,12 +423,12 @@ class SegmentService implements SegmentServiceInterface
         $segmentPage->setSegments(new ArrayCollection($positions));
         $this->entityManager->flush();
         $this->eventDispatcher->dispatch(
-            RearrangeEvent::POST_REARRANGE,
-            new RearrangeEvent($segmentPage, $segment, -1, $position)
+            new RearrangeEvent($segmentPage, $segment, -1, $position),
+            RearrangeEvent::POST_REARRANGE
         );
 
         $this->entityManager->flush();
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segment->getId()));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segment->getId()), SegmentEvent::POST_SAVE);
 
         return $segment;
     }
@@ -441,14 +441,14 @@ class SegmentService implements SegmentServiceInterface
      */
     public function updateAction(int $segmentId, ?string $action, ?string $target = '', ?string $script = ''): void
     {
-        $this->eventDispatcher->dispatch(SegmentEvent::PRE_SAVE, new SegmentEvent(null, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent(null, $segmentId), SegmentEvent::PRE_SAVE);
         $segment = $this->get($segmentId);
         $segment->setAction($action);
         $segment->setTarget($target);
         $segment->setScript($script);
 
         $this->entityManager->flush();
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::POST_SAVE);
     }
 
     /**
@@ -462,8 +462,8 @@ class SegmentService implements SegmentServiceInterface
     public function updatePosition(string $segmentPageSlug, int $segmentId, int $oldPosition, int $newPosition): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            SegmentPositionUpdateEvent::PRE_UPDATE,
-            new SegmentPositionUpdateEvent($segmentPageSlug, $segmentId, $oldPosition, $newPosition)
+            new SegmentPositionUpdateEvent($segmentPageSlug, $segmentId, $oldPosition, $newPosition),
+            SegmentPositionUpdateEvent::PRE_UPDATE
         );
 
         if (!$pre->isCancel()) {
@@ -477,8 +477,8 @@ class SegmentService implements SegmentServiceInterface
             $this->entityManager->flush();
 
             $this->eventDispatcher->dispatch(
-                SegmentPositionUpdateEvent::POST_UPDATE,
-                new SegmentPositionUpdateEvent($segmentPageSlug, $segmentId, $oldPosition, $newPosition)
+                new SegmentPositionUpdateEvent($segmentPageSlug, $segmentId, $oldPosition, $newPosition),
+                SegmentPositionUpdateEvent::POST_UPDATE
             );
         }
     }
@@ -493,10 +493,10 @@ class SegmentService implements SegmentServiceInterface
     public function updateHtmlSegment(string $html, int $segmentId): int
     {
         $segment = $this->get($segmentId);
-        $this->eventDispatcher->dispatch(SegmentEvent::PRE_SAVE, new SegmentEvent($segment, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::PRE_SAVE);
         $segment->setHtml($html);
         $this->entityManager->flush();
-        $this->eventDispatcher->dispatch(SegmentEvent::POST_SAVE, new SegmentEvent($segment, $segmentId));
+        $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::POST_SAVE);
 
         return $segment->getId();
     }
