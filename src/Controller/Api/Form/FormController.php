@@ -49,6 +49,7 @@ class FormController extends BaseApiController
                     ->slug()
                     ->title()
                     ->description()
+                    ->items()
                     ->format();
             }, $formService->getAll($offset, $count, $keyword));
 

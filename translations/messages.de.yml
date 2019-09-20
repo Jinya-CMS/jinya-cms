@@ -656,6 +656,19 @@ static:
                 reply: Antworten
                 forward: Weiterleiten
         forms:
+            overview:
+                toolbar:
+                    add: Neues Formular
+                    edit: Formular bearbeiten
+                    designer: Formulardesigner
+                    delete: Formular löschen
+                    open_mailbox: Nachrichten anzeigen
+                table:
+                    header:
+                        title: Name
+                        item_count: Formelemente
+                        toAddress: Empfängeradresse
+                        description: Beschreibung
             builder:
                 title: Formular %title%
                 delete: Hierher ziehen zum löschen

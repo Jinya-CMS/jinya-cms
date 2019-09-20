@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import truncate from 'lodash/truncate';
   import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaModal from '@/framework/Markup/Modal/Modal';
@@ -38,7 +39,6 @@
   import EventBus from '@/framework/Events/EventBus';
   import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
   import JinyaToolbarButton from '@/framework/Markup/Toolbar/ToolbarButton';
-  import truncate from 'lodash/truncate';
 
   export default {
     name: 'Overview',
