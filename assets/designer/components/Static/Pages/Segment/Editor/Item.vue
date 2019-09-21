@@ -7,13 +7,13 @@
             <jinya-tiny-mce :content="html" v-else v-model="html"/>
         </template>
         <div v-else>
-            <dl class="jinya-page-editor__artwork-action">
+            <dl class="jinya-page-editor__file-action">
                 <dt>{{'static.pages.segment.details.name'|jmessage}}</dt>
                 <dd>{{name}}</dd>
             </dl>
-            <template v-if="segment.type === 'artwork' || segment.artwork">
+            <template v-if="segment.type === 'file' || segment.file">
                 <template v-if="!editing">
-                    <dl class="jinya-page-editor__artwork-action">
+                    <dl class="jinya-page-editor__file-action">
                         <dt>{{'static.pages.segment.details.action.action'|jmessage}}</dt>
                         <dd>
                             {{`static.pages.segment.details.action.types.${segment.action}`|jmessage}}
@@ -25,10 +25,11 @@
                     </dl>
                 </template>
                 <template v-else>
-                    <jinya-input label="static.pages.segment.details.action.target" v-model="target"/>
-                    <jinya-choice :choices="actions" :selected="{value: action}"
+                    <jinya-choice :choices="actions" :selected="{value: segment.action}"
                                   @selected="(value) => segment.action = value.value"
                                   label="static.pages.segment.details.action.action"/>
+                    <jinya-input label="static.pages.segment.details.action.target" v-if="segment.action === 'link'"
+                                 v-model="target"/>
                 </template>
                 <template v-if="segment.action === 'script'">
                     <b class="jinya-page-editor__line">{{'static.pages.segment.details.action.script'|jmessage}}</b>
@@ -132,10 +133,14 @@
             requestUrl = '/api/video/youtube?count=200000000';
           } else if (this.segment.artwork) {
             requestUrl = '/api/artwork?count=200000000';
+          } else if (this.segment.gallery) {
+            requestUrl = '/api/media/gallery';
+          } else if (this.segment.file) {
+            requestUrl = '/api/media/file';
           }
 
           const response = await JinyaRequest.get(requestUrl);
-          this.items = response.items.map(item => ({ text: item.name, value: item.slug }));
+          this.items = response.items.map((item) => ({ text: item.name, value: item.slug }));
           if (this.items.length > 0) {
             this.selectedItem = this.items[0].value;
           }
@@ -194,6 +199,12 @@
         if (this.segment.youtubeVideo) {
           return this.segment.youtubeVideo.name;
         }
+        if (this.segment.gallery) {
+          return this.segment.gallery.name;
+        }
+        if (this.segment.file) {
+          return this.segment.file.name;
+        }
 
         return '';
       },
@@ -215,6 +226,12 @@
         }
         if (this.segment.html) {
           return Translator.message('static.pages.segment.editor.view.selection.html');
+        }
+        if (this.segment.gallery) {
+          return Translator.message('static.pages.segment.editor.view.selection.gallery');
+        }
+        if (this.segment.file) {
+          return Translator.message('static.pages.segment.editor.view.selection.file');
         }
 
         return '';
@@ -293,7 +310,7 @@
         display: block;
     }
 
-    .jinya-page-editor__artwork-action {
+    .jinya-page-editor__file-action {
         display: flex;
         flex-flow: row wrap;
         margin: 0;

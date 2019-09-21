@@ -142,12 +142,16 @@ class GalleryService implements GalleryServiceInterface
     /**
      * Gets the gallery by slug or id
      *
-     * @param int $id
+     * @param int $idOrSlug
      * @return Gallery
      */
-    public function get(int $id): Gallery
+    public function get($idOrSlug): Gallery
     {
-        return $this->entityManager->find(Gallery::class, $id);
+        if (is_numeric($idOrSlug)) {
+            return $this->entityManager->find(Gallery::class, $idOrSlug);
+        }
+
+        return $this->getBySlug($idOrSlug);
     }
 
     /**

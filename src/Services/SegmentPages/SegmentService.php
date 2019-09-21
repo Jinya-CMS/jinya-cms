@@ -1,4 +1,7 @@
 <?php
+
+/** @noinspection UnusedConstructorDependenciesInspection */
+
 /**
  * Created by PhpStorm.
  * User: imanu
@@ -19,6 +22,8 @@ use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
+use Jinya\Services\Media\FileServiceInterface;
+use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Videos\VideoServiceInterface;
 use Jinya\Services\Videos\YoutubeVideoServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -27,13 +32,11 @@ class SegmentService implements SegmentServiceInterface
 {
     use ArrangementServiceTrait;
 
-    /** @var SegmentPageserviceInterface */
+    /** @var SegmentPageServiceInterface */
     private $segmentPageService;
 
     /** @var EntityManagerInterface */
     private $entityManager;
-
-    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
@@ -56,8 +59,11 @@ class SegmentService implements SegmentServiceInterface
     /** @var YoutubeVideoServiceInterface */
     private $youtubeVideoService;
 
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
+    /** @var GalleryServiceInterface */
+    private $galleryService;
+
+    /** @var FileServiceInterface */
+    private $fileService;
 
     /**
      * SegmentService constructor.
@@ -70,6 +76,8 @@ class SegmentService implements SegmentServiceInterface
      * @param FormServiceInterface $formService
      * @param VideoServiceInterface $videoService
      * @param YoutubeVideoServiceInterface $youtubeVideoService
+     * @param GalleryServiceInterface $galleryService
+     * @param FileServiceInterface $fileService
      */
     public function __construct(
         SegmentPageServiceInterface $segmentPageService,
@@ -80,23 +88,21 @@ class SegmentService implements SegmentServiceInterface
         VideoGalleryServiceInterface $videoGalleryService,
         FormServiceInterface $formService,
         VideoServiceInterface $videoService,
-        YoutubeVideoServiceInterface $youtubeVideoService
+        YoutubeVideoServiceInterface $youtubeVideoService,
+        GalleryServiceInterface $galleryService,
+        FileServiceInterface $fileService
     ) {
         $this->segmentPageService = $segmentPageService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->artworkService = $artworkService;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->artGalleryService = $artGalleryService;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->videoGalleryService = $videoGalleryService;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->formService = $formService;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->videoService = $videoService;
-        /* @noinspection UnusedConstructorDependenciesInspection */
         $this->youtubeVideoService = $youtubeVideoService;
+        $this->galleryService = $galleryService;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -121,8 +127,18 @@ class SegmentService implements SegmentServiceInterface
         return $this->saveNewSegment($artworkSlug, $segmentPageSlug, $position, $action, $target, $script, 'artwork');
     }
 
+    /**
+     * @param string|int $slug
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @param string $type
+     * @return Segment
+     */
     private function saveNewSegment(
-        string $slug,
+        $slug,
         string $segmentPageSlug,
         int $position,
         string $action,
@@ -160,6 +176,28 @@ class SegmentService implements SegmentServiceInterface
     }
 
     /**
+     * Saves the file in the given segment page at the given position
+     *
+     * @param int $fileId
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @return Segment
+     */
+    public function saveFileSegment(
+        int $fileId,
+        string $segmentPageSlug,
+        int $position,
+        string $action = Segment::ACTION_NONE,
+        string $target = '',
+        string $script = ''
+    ): Segment {
+        return $this->saveNewSegment($fileId, $segmentPageSlug, $position, $action, $target, $script, 'file');
+    }
+
+    /**
      * Saves the art gallery in the given segment page at the given position
      *
      * @param string $artGallerySlug
@@ -186,6 +224,36 @@ class SegmentService implements SegmentServiceInterface
             $target,
             $script,
             'artGallery'
+        );
+    }
+
+    /**
+     * Saves the gallery in the given segment page at the given position
+     *
+     * @param string $gallerySlug
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @return Segment
+     */
+    public function saveGallerySegment(
+        string $gallerySlug,
+        string $segmentPageSlug,
+        int $position,
+        string $action = Segment::ACTION_NONE,
+        string $target = '',
+        string $script = ''
+    ): Segment {
+        return $this->saveNewSegment(
+            $gallerySlug,
+            $segmentPageSlug,
+            $position,
+            $action,
+            $target,
+            $script,
+            'gallery'
         );
     }
 
@@ -305,7 +373,13 @@ class SegmentService implements SegmentServiceInterface
         return $this->updateSegment($artworkSlug, $segmentId, 'artwork');
     }
 
-    private function updateSegment(string $slug, int $segmentId, string $type): int
+    /**
+     * @param string|int $slug
+     * @param int $segmentId
+     * @param string $type
+     * @return int
+     */
+    private function updateSegment($slug, int $segmentId, string $type): int
     {
         $segment = $this->get($segmentId);
         $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segmentId), SegmentEvent::PRE_SAVE);
@@ -511,5 +585,29 @@ class SegmentService implements SegmentServiceInterface
         $segment = $this->get($id);
         $this->entityManager->remove($segment);
         $this->entityManager->flush();
+    }
+
+    /**
+     * Updates the gallery in the given segment page at the given position
+     *
+     * @param string $gallerySlug
+     * @param int $segmentId
+     * @return int
+     */
+    public function updateGallerySegment(string $gallerySlug, int $segmentId): int
+    {
+        return $this->updateSegment($gallerySlug, $segmentId, 'gallery');
+    }
+
+    /**
+     * Updates the file in the given segment page at the given position
+     *
+     * @param int $fileId
+     * @param int $segmentId
+     * @return int
+     */
+    public function updateFileSegment(int $fileId, int $segmentId): int
+    {
+        return $this->updateSegment($fileId, $segmentId, 'file');
     }
 }

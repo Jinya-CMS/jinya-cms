@@ -42,10 +42,10 @@ interface GalleryServiceInterface
     /**
      * Gets the gallery by id
      *
-     * @param int $id
+     * @param $idOrSlug
      * @return Gallery
      */
-    public function get(int $id): Gallery;
+    public function get($idOrSlug): Gallery;
 
     /**
      * Gets the gallery by slug

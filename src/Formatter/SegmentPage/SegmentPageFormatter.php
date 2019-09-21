@@ -95,6 +95,8 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
                 ->videoGallery()
                 ->artGallery()
                 ->artwork()
+                ->file()
+                ->gallery()
                 ->format();
         }
 
