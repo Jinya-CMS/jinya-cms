@@ -20,7 +20,7 @@ final class Version20190920235231 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE segment ADD gallery_id INT DEFAULT NULL, ADD file_id INT DEFAULT NULL, CHANGE html html VARCHAR(255) DEFAULT NULL, CHANGE action action LONGTEXT DEFAULT NULL');
@@ -33,7 +33,7 @@ final class Version20190920235231 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE segment DROP FOREIGN KEY FK_1881F5654E7AF8F');
