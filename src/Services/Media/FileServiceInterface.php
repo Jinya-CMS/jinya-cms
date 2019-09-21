@@ -42,10 +42,18 @@ interface FileServiceInterface
     public function delete(File $file): void;
 
     /**
-     * Gets the file by slug or id
+     * Gets the file by id
      *
      * @param int $id
      * @return File
      */
     public function get(int $id): File;
+
+    /**
+     * Gets the file by name
+     *
+     * @param string $name
+     * @return File|null
+     */
+    public function getByName(string $name): ?File;
 }

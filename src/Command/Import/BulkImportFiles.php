@@ -4,15 +4,13 @@
 
 namespace Jinya\Command\Import;
 
-use InvalidArgumentException;
 use Iterator;
-use Jinya\Entity\Artwork\Artwork;
-use Jinya\Entity\Gallery\ArtGallery;
+use Jinya\Entity\Media\File;
+use Jinya\Entity\Media\Gallery;
 use Jinya\Framework\Security\AuthenticatedCommand;
-use Jinya\Services\Artworks\ArtworkPositionServiceInterface;
-use Jinya\Services\Artworks\ArtworkServiceInterface;
-use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Jinya\Services\Media\ConversionServiceInterface;
+use Jinya\Services\Media\FileServiceInterface;
+use Jinya\Services\Media\GalleryFilePositionServiceInterface;
+use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Slug\SlugServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
@@ -27,54 +25,48 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Throwable;
 
-class BulkImportArtworks extends AuthenticatedCommand
+class BulkImportFiles extends AuthenticatedCommand
 {
-    /** @var ArtGalleryServiceInterface */
+    /** @var GalleryServiceInterface */
     private $galleryService;
 
-    /** @var ArtworkServiceInterface */
-    private $artworkService;
+    /** @var FileServiceInterface */
+    private $fileService;
 
     /** @var MediaServiceInterface */
     private $mediaService;
 
-    /** @var ConversionServiceInterface */
-    private $conversionService;
-
     /** @var SlugServiceInterface */
     private $slugService;
 
-    /** @var ArtworkPositionServiceInterface */
-    private $artworkPositionService;
+    /** @var GalleryFilePositionServiceInterface */
+    private $galleryFilePositionService;
 
     /**
-     * BulkImportArtworks constructor.
-     * @param ArtGalleryServiceInterface $galleryService
-     * @param ArtworkServiceInterface $artworkService
+     * BulkImportFiles constructor.
+     * @param GalleryServiceInterface $galleryService
+     * @param FileServiceInterface $fileService
      * @param MediaServiceInterface $mediaService
-     * @param ConversionServiceInterface $conversionService
      * @param SlugServiceInterface $slugService
-     * @param ArtworkPositionServiceInterface $artworkPositionService
+     * @param GalleryFilePositionServiceInterface $galleryFilePositionService
      * @param UserServiceInterface $userService
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        ArtGalleryServiceInterface $galleryService,
-        ArtworkServiceInterface $artworkService,
+        GalleryServiceInterface $galleryService,
+        FileServiceInterface $fileService,
         MediaServiceInterface $mediaService,
-        ConversionServiceInterface $conversionService,
         SlugServiceInterface $slugService,
-        ArtworkPositionServiceInterface $artworkPositionService,
+        GalleryFilePositionServiceInterface $galleryFilePositionService,
         UserServiceInterface $userService,
         TokenStorageInterface $tokenStorage
     ) {
         parent::__construct($tokenStorage, $userService);
         $this->galleryService = $galleryService;
-        $this->artworkService = $artworkService;
+        $this->fileService = $fileService;
         $this->mediaService = $mediaService;
-        $this->conversionService = $conversionService;
         $this->slugService = $slugService;
-        $this->artworkPositionService = $artworkPositionService;
+        $this->galleryFilePositionService = $galleryFilePositionService;
     }
 
     protected function authenticatedExecute(InputInterface $input, OutputInterface $output): void
@@ -83,26 +75,24 @@ class BulkImportArtworks extends AuthenticatedCommand
         $recursive = $input->getOption('recursive');
         $createGallery = $input->getOption('create-gallery');
         $stopOnError = $input->getOption('stop-on-error');
-        $convert = $input->getOption('convert');
-        $targetType = $input->getOption('conversion-target');
 
         ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %percent:3s%% -- %message%');
 
         [$files, $count] = $this->scanDirectory($directory, $recursive);
         $progressBar = new ProgressBar($output, $count);
         $progressBar->setFormat('custom');
-        $progressBar->setMessage('Start artwork import');
+        $progressBar->setMessage('Start file import');
         $progressBar->start();
-        [$importResult, $error] = $this->importFiles($files, $convert, $targetType, $stopOnError, $progressBar);
+        [$importResult, $error] = $this->importFiles($files, $stopOnError, $progressBar);
         $progressBar->finish();
-        $this->formatArtworkOutput($importResult, $output);
+        $this->formatFileOutput($importResult, $output);
 
         if (!($error && $stopOnError) && $createGallery) {
             $progressBar = new ProgressBar($output, $count);
             $progressBar->setFormat('custom');
             $progressBar->setMessage('Start import into galleries');
             $progressBar->start();
-            [$importResult] = $this->importArtworksToGalleries($files, $stopOnError, $progressBar);
+            $importResult = $this->importFilesToGalleries($files, $stopOnError, $progressBar, $output);
             $this->formatGalleryOutput($importResult, $output);
         } else {
             $output->writeln('<error>Stopped import because of an error</error>');
@@ -133,13 +123,8 @@ class BulkImportArtworks extends AuthenticatedCommand
         ];
     }
 
-    private function importFiles(
-        Iterator $files,
-        bool $convert,
-        string $targetType,
-        bool $stopOnError,
-        ProgressBar $progressBar
-    ): array {
+    private function importFiles(Iterator $files, bool $stopOnError, ProgressBar $progressBar): array
+    {
         $result = [];
         $error = false;
 
@@ -147,17 +132,16 @@ class BulkImportArtworks extends AuthenticatedCommand
             /* @var $file SplFileInfo */
             try {
                 $progressBar->setMessage(sprintf('Importing file %s', $file->getPathname()));
-                [$artwork, $action] = $this->addOrUpdateFile($file, $convert, $targetType);
+                $newFile = $this->addOrUpdateFile($file);
                 $result[] = [
                     'error' => false,
-                    'file' => $file->getPathname(),
-                    'artwork' => $artwork->getSlug(),
-                    'action' => $action,
+                    'path' => $file->getPathname(),
+                    'file' => $newFile->getId(),
                 ];
             } catch (Throwable $exception) {
                 $result[] = [
                     'error' => true,
-                    'file' => $file->getPathname(),
+                    'path' => $file->getPathname(),
                     'message' => $exception->getMessage(),
                 ];
                 if ($stopOnError) {
@@ -174,125 +158,99 @@ class BulkImportArtworks extends AuthenticatedCommand
         return [$result, $error];
     }
 
-    private function addOrUpdateFile(SplFileInfo $file, bool $convert, string $targetType): array
+    private function addOrUpdateFile(SplFileInfo $file): File
     {
-        if ($convert) {
-            switch ($targetType) {
-                case 'png':
-                    $type = IMAGETYPE_PNG;
-
-                    break;
-                case 'gif':
-                    $type = IMAGETYPE_GIF;
-
-                    break;
-                case 'webp':
-                    $type = IMAGETYPE_WEBP;
-
-                    break;
-                case 'jpg':
-                    $type = IMAGETYPE_JPEG;
-
-                    break;
-                default:
-                    throw new InvalidArgumentException('Target type must be one of png, jpg, webp or gif');
-
-                    break;
-            }
-            $fileResource = $this->conversionService->convertImage($file->getContents(), $type);
-        } else {
-            $fileResource = fopen($file->getPathname(), 'rb+');
-        }
-        $filePath = $this->mediaService->saveMedia($fileResource, MediaServiceInterface::CONTENT_IMAGE);
+        $fileResource = fopen($file->getPathname(), 'rb+');
+        $filePath = $this->mediaService->saveMedia($fileResource, MediaServiceInterface::JINYA_CONTENT);
 
         $name = $file->getBasename(sprintf('.%s', $file->getExtension()));
-        $slug = $this->slugService->generateSlug($name);
 
-        try {
-            $artwork = $this->artworkService->get($slug);
-            $action = 'updated';
-        } catch (Throwable $exception) {
-            $artwork = new Artwork();
-            $action = 'created';
+        if (($newFile = $this->fileService->getByName($name)) === null) {
+            $newFile = new File();
         }
-        $artwork->setName($name);
-        $artwork->setSlug($slug);
-        $artwork->setPicture($filePath);
-        $this->artworkService->saveOrUpdate($artwork);
+        $newFile->setName($name);
+        $newFile->setPath($filePath);
+        $this->fileService->saveOrUpdate($newFile);
 
-        return [$artwork, $action];
+        return $newFile;
     }
 
-    private function formatArtworkOutput(array $importResult, OutputInterface $output): void
+    private function formatFileOutput(array $importResult, OutputInterface $output): void
     {
         $table = new Table($output);
-        $table
-            ->setHeaders(['Filename', 'Result']);
+        $table->setHeaders(['Filename', 'Result']);
 
         foreach ($importResult as $item) {
             if ($item['error']) {
                 $result = $item['message'];
             } else {
-                $result = sprintf('Artwork %s %s', $item['artwork'], $item['action']);
+                $result = sprintf('File %s', $item['file']);
             }
+
             $table->addRow([$item['file'], $result]);
         }
 
         $table->render();
     }
 
-    private function importArtworksToGalleries(Iterator $files, bool $stopOnError, ProgressBar $progressBar): array
-    {
+    private function importFilesToGalleries(
+        Iterator $files,
+        bool $stopOnError,
+        ProgressBar $progressBar,
+        OutputInterface $output
+    ): array {
         $position = 0;
         $result = [];
-        $error = false;
 
         foreach ($files as $file) {
             /* @var $file SplFileInfo */
             try {
                 $galleryName = basename($file->getPath());
                 $progressBar->setMessage(sprintf('Import gallery %s', $galleryName));
-                $gallerySlug = $this->slugService->generateSlug($galleryName);
-                $this->createGalleryIfNotExists($galleryName);
-                $artworkSlug = $this->slugService->generateSlug($file->getBasename($file->getExtension()));
-                $this->artworkPositionService->savePosition($gallerySlug, $artworkSlug, $position);
-                $result[] = [
-                    'error' => false,
-                    'file' => $file->getPathname(),
-                    'gallery' => $gallerySlug,
-                    'artwork' => $artworkSlug,
-                ];
+                $gallery = $this->createGalleryIfNotExists($galleryName, $output);
+                $fileId = $this->fileService->getByName($file->getBasename($file->getExtension()))->getId();
+                $this->galleryFilePositionService->savePosition($fileId, $gallery->getId(), $position);
+//                $result[] = [
+//                    'error' => false,
+//                    'path' => $file->getPathname(),
+//                    'gallery' => $gallerySlug,
+//                    'file' => $fileId,
+//                ];
 
                 ++$position;
                 $progressBar->advance();
             } catch (Throwable $exception) {
-                $result[] = [
-                    'error' => true,
-                    'file' => $file->getPathname(),
-                    'message' => $exception->getMessage(),
-                ];
+//                $result[] = [
+//                    'error' => true,
+//                    'path' => $file->getPathname(),
+//                    'message' => $exception->getMessage(),
+//                ];
                 if ($stopOnError) {
-                    $error = true;
-
                     break;
                 }
             }
         }
 
-        return [$result, $error];
+        return $result;
     }
 
-    private function createGalleryIfNotExists(string $galleryName): ArtGallery
+    private function createGalleryIfNotExists(string $galleryName, OutputInterface $output): Gallery
     {
         $slug = $this->slugService->generateSlug($galleryName);
 
-        try {
-            $gallery = $this->galleryService->get($slug);
-        } catch (Throwable $exception) {
-            $gallery = new ArtGallery();
+        $gallery = $this->galleryService->getBySlug($slug);
+        if ($gallery === null) {
+            $output->writeln('Create new gallery');
+            $gallery = new Gallery();
             $gallery->setName($galleryName);
+            $gallery->setSlug($slug);
+            $gallery->setOrientation('horizontal');
+            $gallery->setType('masonry');
 
-            $this->galleryService->saveOrUpdate($gallery);
+            $gallery = $this->galleryService->saveOrUpdate($gallery);
+            $output->writeln(sprintf('Gallery id %d', $gallery->getId()));
+        } else {
+            $output->writeln(sprintf('Gallery %s found', $gallery->getName()));
         }
 
         return $gallery;
@@ -301,16 +259,15 @@ class BulkImportArtworks extends AuthenticatedCommand
     private function formatGalleryOutput(array $importResult, OutputInterface $output): void
     {
         $table = new Table($output);
-        $table
-            ->setHeaders(['Filename', 'Result']);
+        $table->setHeaders(['Filename', 'Result']);
 
         foreach ($importResult as $item) {
             if ($item['error']) {
                 $result = $item['message'];
             } else {
-                $result = sprintf('Artwork %s imported into Gallery %s', $item['artwork'], $item['gallery']);
+//                $result = sprintf('File %s imported into Gallery %s', $item['file'], $item['gallery']);
             }
-            $table->addRow([$item['file'], $result]);
+//            $table->addRow([$item['file'], $result]);
         }
 
         $table->render();
@@ -320,17 +277,9 @@ class BulkImportArtworks extends AuthenticatedCommand
     {
         parent::configure();
         $this
-            ->setName('jinya:import:artworks')
+            ->setName('jinya:import:files')
             ->addArgument('directory', InputArgument::REQUIRED, 'The directory where the files are located')
             ->addOption('recursive', 'r', InputOption::VALUE_NONE, 'Go recursive through all directories')
-            ->addOption('convert', 'o', InputOption::VALUE_NONE, 'Should convert the file before import')
-            ->addOption(
-                'conversion-target',
-                't',
-                InputOption::VALUE_OPTIONAL,
-                'The type the file should be converted to, can be any of png, jpg, webp or gif',
-                'png'
-            )
             ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE)
             ->addOption('create-gallery', 'c', InputOption::VALUE_NONE, 'Create galleries based on directories');
     }

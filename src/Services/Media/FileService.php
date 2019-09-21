@@ -152,4 +152,15 @@ class FileService implements FileServiceInterface
     {
         return $this->entityManager->find(File::class, $id);
     }
+
+    /**
+     * Gets the file by name
+     *
+     * @param string $name
+     * @return File|null
+     */
+    public function getByName(string $name): ?File
+    {
+        return $this->entityManager->getRepository(File::class)->findOneBy(['name' => $name]);
+    }
 }
