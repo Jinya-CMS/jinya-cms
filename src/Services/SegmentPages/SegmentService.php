@@ -1,4 +1,6 @@
-<?php /** @noinspection UnusedConstructorDependenciesInspection */
+<?php
+
+/** @noinspection UnusedConstructorDependenciesInspection */
 
 /**
  * Created by PhpStorm.
