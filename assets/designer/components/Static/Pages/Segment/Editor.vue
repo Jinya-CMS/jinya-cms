@@ -1,5 +1,5 @@
 <template>
-    <jinya-loader v-if="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
     <jinya-editor v-else>
         <jinya-editor-pane class="jinya-page-editor__preview">
             <jinya-page-editor-preview-pane :segments="segments"/>
@@ -9,9 +9,8 @@
             <jinya-icon-button :is-primary="true" @click="add(-1)" class="jinya-icon-button--add" icon="plus"/>
             <template v-for="(segment, index) in segments">
                 <jinya-page-editor-item :index="index" :key="segment.id" :segment="segment"
-                                        :segment-count="segments.length"
-                                        @add="add" @delete="showDeleteModal" @edit-saved="saveEdit" @move="move"
-                                        @scroll="scroll" @wheel.native="scroll"/>
+                                        :segment-count="segments.length" @add="add" @delete="showDeleteModal"
+                                        @edit-saved="saveEdit" @move="move" @scroll="scroll" @wheel.native="scroll"/>
             </template>
         </jinya-editor-pane>
         <jinya-page-editor-add-view :position="currentPosition" @close="addModal.show = false" @save="saveAdd"
@@ -80,13 +79,19 @@
         if (segment.videoGallery) {
           return Translator.message('static.pages.segment.details.segment.delete.content', segment.videoGallery);
         }
+        if (segment.gallery) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.gallery);
+        }
+        if (segment.file) {
+          return Translator.message('static.pages.segment.details.segment.delete.content', segment.file);
+        }
 
         return '';
       },
     },
     methods: {
       scroll($event) {
-        if (!$event.deltaX && !this.addModal.show && !this.editModal.show) {
+        if (!$event.deltaX && !this.addModal.show) {
           this.$refs.editor.scrollBy({
             behavior: 'auto',
             left: $event.deltaY > 0 ? 100 : -100,

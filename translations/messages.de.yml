@@ -576,6 +576,8 @@ static:
                 loading_failed: Die Seite konnte nicht geladen werden
                 view:
                     selection:
+                        file: Datei
+                        gallery: Gallerie
                         artwork: Kunstwerk
                         art_gallery: Kunstgallerie
                         video_gallery: Videogallerie

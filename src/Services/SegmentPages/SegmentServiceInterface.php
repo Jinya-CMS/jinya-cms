@@ -153,6 +153,46 @@ interface SegmentServiceInterface
     ): Segment;
 
     /**
+     * Saves the gallery in the given segment page at the given position
+     *
+     * @param string $gallerySlug
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @return Segment
+     */
+    public function saveGallerySegment(
+        string $gallerySlug,
+        string $segmentPageSlug,
+        int $position,
+        string $action = Segment::ACTION_NONE,
+        string $target = '',
+        string $script = ''
+    ): Segment;
+
+    /**
+     * Saves the file in the given segment page at the given position
+     *
+     * @param int $fileId
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @return Segment
+     */
+    public function saveFileSegment(
+        int $fileId,
+        string $segmentPageSlug,
+        int $position,
+        string $action = Segment::ACTION_NONE,
+        string $target = '',
+        string $script = ''
+    ): Segment;
+
+    /**
      * @param int $segmentId
      * @param string $action
      * @param string $target
@@ -196,6 +236,24 @@ interface SegmentServiceInterface
      * @return int
      */
     public function updateVideoSegment(string $videoSlug, int $segmentId): int;
+
+    /**
+     * Updates the gallery in the given segment page at the given position
+     *
+     * @param string $gallerySlug
+     * @param int $segmentId
+     * @return int
+     */
+    public function updateGallerySegment(string $gallerySlug, int $segmentId): int;
+
+    /**
+     * Updates the file in the given segment page at the given position
+     *
+     * @param int $fileId
+     * @param int $segmentId
+     * @return int
+     */
+    public function updateFileSegment(int $fileId, int $segmentId): int;
 
     /**
      * Updates the youtube video in the given segment page at the given position

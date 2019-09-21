@@ -7,6 +7,8 @@ use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
 use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
+use Jinya\Formatter\Media\FileFormatterInterface;
+use Jinya\Formatter\Media\GalleryFormatterInterface;
 use Jinya\Formatter\Video\VideoFormatterInterface;
 use Jinya\Formatter\Video\YoutubeVideoFormatterInterface;
 
@@ -33,6 +35,12 @@ class SegmentFormatter implements SegmentFormatterInterface
     /** @var ArtGalleryFormatterInterface */
     private $artGalleryFormatter;
 
+    /** @var GalleryFormatterInterface */
+    private $galleryFormatter;
+
+    /** @var FileFormatterInterface */
+    private $fileFormatter;
+
     /** @var FormFormatterInterface */
     private $formFormatter;
 
@@ -44,6 +52,8 @@ class SegmentFormatter implements SegmentFormatterInterface
      * @param VideoGalleryFormatterInterface $videoGalleryFormatter
      * @param ArtGalleryFormatterInterface $artGalleryFormatter
      * @param FormFormatterInterface $formFormatter
+     * @param FileFormatterInterface $fileFormatter
+     * @param GalleryFormatterInterface $galleryFormatter
      */
     public function __construct(
         ArtworkFormatterInterface $artworkFormatter,
@@ -51,7 +61,9 @@ class SegmentFormatter implements SegmentFormatterInterface
         YoutubeVideoFormatterInterface $youtubeVideoFormatter,
         VideoGalleryFormatterInterface $videoGalleryFormatter,
         ArtGalleryFormatterInterface $artGalleryFormatter,
-        FormFormatterInterface $formFormatter
+        FormFormatterInterface $formFormatter,
+        FileFormatterInterface $fileFormatter,
+        GalleryFormatterInterface $galleryFormatter
     ) {
         $this->artworkFormatter = $artworkFormatter;
         $this->videoFormatter = $videoFormatter;
@@ -59,6 +71,8 @@ class SegmentFormatter implements SegmentFormatterInterface
         $this->videoGalleryFormatter = $videoGalleryFormatter;
         $this->artGalleryFormatter = $artGalleryFormatter;
         $this->formFormatter = $formFormatter;
+        $this->galleryFormatter = $galleryFormatter;
+        $this->fileFormatter = $fileFormatter;
     }
 
     /**
@@ -103,7 +117,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function action(): SegmentFormatterInterface
     {
-        if ($this->segment->getArtwork()) {
+        if ($this->segment->getArtwork() || $this->segment->getFile()) {
             $this->formatted['action'] = $this->segment->getAction();
         }
 
@@ -117,7 +131,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function target(): SegmentFormatterInterface
     {
-        if ($this->segment->getArtwork()) {
+        if ($this->segment->getArtwork() || $this->segment->getFile()) {
             $this->formatted['target'] = $this->segment->getTarget();
         }
 
@@ -131,7 +145,7 @@ class SegmentFormatter implements SegmentFormatterInterface
      */
     public function script(): SegmentFormatterInterface
     {
-        if ($this->segment->getArtwork()) {
+        if ($this->segment->getArtwork() || $this->segment->getFile()) {
             $this->formatted['script'] = $this->segment->getScript();
         }
 
@@ -233,6 +247,48 @@ class SegmentFormatter implements SegmentFormatterInterface
                 ->slug()
                 ->name()
                 ->description()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the gallery
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function gallery(): SegmentFormatterInterface
+    {
+        if (null !== $this->segment->getGallery()) {
+            $this->formatted['gallery'] = $this
+                ->galleryFormatter
+                ->init($this->segment->getGallery())
+                ->slug()
+                ->id()
+                ->name()
+                ->description()
+                ->format();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Formats the file
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function file(): SegmentFormatterInterface
+    {
+        if (null !== $this->segment->getFile()) {
+            $this->formatted['file'] = $this
+                ->fileFormatter
+                ->init($this->segment->getFile())
+                ->id()
+                ->name()
+                ->path()
+                ->type()
                 ->format();
         }
 

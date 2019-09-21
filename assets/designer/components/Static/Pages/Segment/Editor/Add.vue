@@ -8,11 +8,11 @@
             <jinya-choice :choices="actions" :selected="{value: 'none'}"
                           @selected="(value) => this.action = value.value"
                           label="static.pages.segment.details.action.action"
-                          v-if="selectedType === 'artwork'"/>
+                          v-if="selectedType === 'file'"/>
             <monaco-editor :options="{height: 250}" class="jinya-page-editor__details-editor" language="javascript"
-                           v-if="selectedType === 'artwork' && action === 'script'" v-model="script"/>
+                           v-if="selectedType === 'file' && action === 'script'" v-model="script"/>
             <jinya-input label="static.pages.segment.details.action.target"
-                         v-if="selectedType === 'artwork' && action === 'link'" v-model="target"/>
+                         v-if="selectedType === 'file' && action === 'link'" v-model="target"/>
             <jinya-tiny-mce height="250px" v-if="selectedType === 'html'" v-model="html"/>
         </div>
         <jinya-modal-button :closes-modal="true" :is-disabled="loading" :is-secondary="true"
@@ -51,18 +51,9 @@
     computed: {
       segmentTypes() {
         return [
-          { value: 'artwork', text: Translator.message('static.pages.segment.editor.view.selection.artwork') },
-          { value: 'video', text: Translator.message('static.pages.segment.editor.view.selection.video') },
-          {
-            value: 'youtube_video',
-            text: Translator.message('static.pages.segment.editor.view.selection.youtube_video'),
-          },
-          { value: 'art_gallery', text: Translator.message('static.pages.segment.editor.view.selection.art_gallery') },
-          {
-            value: 'video_gallery',
-            text: Translator.message('static.pages.segment.editor.view.selection.video_gallery'),
-          },
           { value: 'html', text: Translator.message('static.pages.segment.editor.view.selection.html') },
+          { value: 'file', text: Translator.message('static.pages.segment.editor.view.selection.file') },
+          { value: 'gallery', text: Translator.message('static.pages.segment.editor.view.selection.gallery') },
         ];
       },
       actions() {
@@ -91,20 +82,14 @@
         this.selectedType = selection.value;
         if (this.selectedType !== 'html') {
           let requestUrl = '';
-          if (selection.value === 'art_gallery') {
-            requestUrl = '/api/gallery/art?count=200000000';
-          } else if (selection.value === 'video_gallery') {
-            requestUrl = '/api/gallery/video?count=200000000';
-          } else if (selection.value === 'video') {
-            requestUrl = '/api/video/jinya?count=200000000';
-          } else if (selection.value === 'youtube_video') {
-            requestUrl = '/api/video/youtube?count=200000000';
-          } else if (selection.value === 'artwork') {
-            requestUrl = '/api/artwork?count=200000000';
+          if (selection.value === 'gallery') {
+            requestUrl = '/api/media/gallery';
+          } else if (selection.value === 'file') {
+            requestUrl = '/api/media/file';
           }
 
           const response = await JinyaRequest.get(requestUrl);
-          this.items = response.items.map(item => ({ text: item.name, value: item.slug }));
+          this.items = response.items.map((item) => ({ text: item.name, value: item.slug || item.id }));
           if (this.items.length > 0) {
             this.selectedItem = this.items[0].value;
           }
@@ -116,16 +101,10 @@
           position: this.position,
         };
 
-        if (this.selectedType === 'art_gallery') {
-          data.artGallery = this.selectedItem;
-        } else if (this.selectedType === 'video_gallery') {
-          data.videoGallery = this.selectedItem;
-        } else if (this.selectedType === 'video') {
-          data.video = this.selectedItem;
-        } else if (this.selectedType === 'youtube_video') {
-          data.youtubeVideo = this.selectedItem;
-        } else if (this.selectedType === 'artwork') {
-          data.artwork = this.selectedItem;
+        if (this.selectedType === 'gallery') {
+          data.gallery = this.selectedItem;
+        } else if (this.selectedType === 'file') {
+          data.file = this.selectedItem;
           data.action = this.action;
 
           if (data.action === 'script') {

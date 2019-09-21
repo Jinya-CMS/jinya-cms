@@ -61,6 +61,8 @@ class SegmentController extends BaseApiController
             $videoSlug = $this->getValue('video');
             $artGallerySlug = $this->getValue('artGallery');
             $videoGallerySlug = $this->getValue('videoGallery');
+            $gallerySlug = $this->getValue('gallery');
+            $fileId = $this->getValue('file');
             $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
             $action = $this->getValue('action', Segment::ACTION_NONE);
@@ -112,6 +114,21 @@ class SegmentController extends BaseApiController
                 $segment = $segmentService->saveFormSegment($formSlug, $slug, $position, $action, $target, $script);
             }
 
+            if (null !== $gallerySlug) {
+                $segment = $segmentService->saveGallerySegment(
+                    $gallerySlug,
+                    $slug,
+                    $position,
+                    $action,
+                    $target,
+                    $script
+                );
+            }
+
+            if (null !== $fileId) {
+                $segment = $segmentService->saveFileSegment($fileId, $slug, $position, $action, $target, $script);
+            }
+
             if (!isset($segment)) {
                 throw new MissingFieldsException(['type' => 'api.segment_page.segment.field.type.missing']);
             }
@@ -130,6 +147,8 @@ class SegmentController extends BaseApiController
                 ->videoGallery()
                 ->artGallery()
                 ->artwork()
+                ->gallery()
+                ->file()
                 ->format();
         }, Response::HTTP_CREATED);
 
