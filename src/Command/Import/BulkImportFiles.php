@@ -165,7 +165,7 @@ class BulkImportFiles extends AuthenticatedCommand
 
         $name = $file->getBasename(sprintf('.%s', $file->getExtension()));
 
-        if (($newFile = $this->fileService->getByName($name)) === null) {
+        if (null === ($newFile = $this->fileService->getByName($name))) {
             $newFile = new File();
         }
         $newFile->setName($name);
@@ -239,7 +239,7 @@ class BulkImportFiles extends AuthenticatedCommand
         $slug = $this->slugService->generateSlug($galleryName);
 
         $gallery = $this->galleryService->getBySlug($slug);
-        if ($gallery === null) {
+        if (null === $gallery) {
             $output->writeln('Create new gallery');
             $gallery = new Gallery();
             $gallery->setName($galleryName);
