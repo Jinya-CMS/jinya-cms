@@ -6,6 +6,7 @@ namespace Jinya\Command\Import;
 
 use Iterator;
 use Jinya\Entity\Media\File;
+use Jinya\Entity\Media\Gallery;
 use Jinya\Framework\Security\AuthenticatedCommand;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\GalleryFilePositionServiceInterface;
@@ -72,6 +73,7 @@ class BulkImportFiles extends AuthenticatedCommand
     {
         $directory = $input->getArgument('directory');
         $recursive = $input->getOption('recursive');
+        $createGallery = $input->getOption('create-gallery');
         $stopOnError = $input->getOption('stop-on-error');
 
         ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %percent:3s%% -- %message%');
@@ -81,9 +83,20 @@ class BulkImportFiles extends AuthenticatedCommand
         $progressBar->setFormat('custom');
         $progressBar->setMessage('Start file import');
         $progressBar->start();
-        $importResult = $this->importFiles($files, $stopOnError, $progressBar);
+        [$importResult, $error] = $this->importFiles($files, $stopOnError, $progressBar);
         $progressBar->finish();
         $this->formatFileOutput($importResult, $output);
+
+        if (!($error && $stopOnError) && $createGallery) {
+            $progressBar = new ProgressBar($output, $count);
+            $progressBar->setFormat('custom');
+            $progressBar->setMessage('Start import into galleries');
+            $progressBar->start();
+            $importResult = $this->importFilesToGalleries($files, $stopOnError, $progressBar, $output);
+            $this->formatGalleryOutput($importResult, $output);
+        } else {
+            $output->writeln('<error>Stopped import because of an error</error>');
+        }
     }
 
     private function scanDirectory(string $directory, bool $recursive): array
@@ -113,6 +126,7 @@ class BulkImportFiles extends AuthenticatedCommand
     private function importFiles(Iterator $files, bool $stopOnError, ProgressBar $progressBar): array
     {
         $result = [];
+        $error = false;
 
         foreach ($files as $file) {
             /* @var $file SplFileInfo */
@@ -131,6 +145,8 @@ class BulkImportFiles extends AuthenticatedCommand
                     'message' => $exception->getMessage(),
                 ];
                 if ($stopOnError) {
+                    $error = true;
+
                     break;
                 }
             }
@@ -139,7 +155,7 @@ class BulkImportFiles extends AuthenticatedCommand
             $progressBar->advance();
         }
 
-        return $result;
+        return [$result, $error];
     }
 
     private function addOrUpdateFile(SplFileInfo $file): File
@@ -168,7 +184,7 @@ class BulkImportFiles extends AuthenticatedCommand
             if ($item['error']) {
                 $result = $item['message'];
             } else {
-                $result = sprintf('File %s', $item['path']);
+                $result = sprintf('File %s', $item['file']);
             }
 
             $table->addRow([$item['file'], $result]);
@@ -184,6 +200,7 @@ class BulkImportFiles extends AuthenticatedCommand
             ->setName('jinya:import:files')
             ->addArgument('directory', InputArgument::REQUIRED, 'The directory where the files are located')
             ->addOption('recursive', 'r', InputOption::VALUE_NONE, 'Go recursive through all directories')
-            ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE);
+            ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE)
+            ->addOption('create-gallery', 'c', InputOption::VALUE_NONE, 'Create galleries based on directories');
     }
 }
