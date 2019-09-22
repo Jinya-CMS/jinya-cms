@@ -6,7 +6,6 @@ namespace Jinya\Command\Import;
 
 use Iterator;
 use Jinya\Entity\Media\File;
-use Jinya\Entity\Media\Gallery;
 use Jinya\Framework\Security\AuthenticatedCommand;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\GalleryFilePositionServiceInterface;
@@ -92,8 +91,6 @@ class BulkImportFiles extends AuthenticatedCommand
             $progressBar->setFormat('custom');
             $progressBar->setMessage('Start import into galleries');
             $progressBar->start();
-            $importResult = $this->importFilesToGalleries($files, $stopOnError, $progressBar, $output);
-            $this->formatGalleryOutput($importResult, $output);
         } else {
             $output->writeln('<error>Stopped import because of an error</error>');
         }
