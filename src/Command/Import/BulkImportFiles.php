@@ -6,7 +6,6 @@ namespace Jinya\Command\Import;
 
 use Iterator;
 use Jinya\Entity\Media\File;
-use Jinya\Entity\Media\Gallery;
 use Jinya\Framework\Security\AuthenticatedCommand;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\GalleryFilePositionServiceInterface;
@@ -165,7 +164,7 @@ class BulkImportFiles extends AuthenticatedCommand
 
         $name = $file->getBasename(sprintf('.%s', $file->getExtension()));
 
-        if (($newFile = $this->fileService->getByName($name)) === null) {
+        if (null === ($newFile = $this->fileService->getByName($name))) {
             $newFile = new File();
         }
         $newFile->setName($name);
