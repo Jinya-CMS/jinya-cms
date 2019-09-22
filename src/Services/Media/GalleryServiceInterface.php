@@ -43,15 +43,15 @@ interface GalleryServiceInterface
      * Gets the gallery by id
      *
      * @param $idOrSlug
-     * @return Gallery
+     * @return Gallery|null
      */
-    public function get($idOrSlug): Gallery;
+    public function get($idOrSlug): ?Gallery;
 
     /**
      * Gets the gallery by slug
      *
      * @param string $slug
-     * @return Gallery
+     * @return Gallery|null
      */
-    public function getBySlug(string $slug): Gallery;
+    public function getBySlug(string $slug): ?Gallery;
 }
