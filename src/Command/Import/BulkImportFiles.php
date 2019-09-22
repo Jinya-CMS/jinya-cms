@@ -162,7 +162,7 @@ class BulkImportFiles extends AuthenticatedCommand
 
         $name = $file->getBasename(sprintf('.%s', $file->getExtension()));
 
-        if (($newFile = $this->fileService->getByName($name)) === null) {
+        if (null === ($newFile = $this->fileService->getByName($name))) {
             $newFile = new File();
         }
         $newFile->setName($name);
