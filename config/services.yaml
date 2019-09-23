@@ -209,6 +209,9 @@ services:
     Jinya\Command\Install\CreateDbCommand:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'
+    Jinya\Command\Import\BulkImportFiles:
+        arguments:
+            $kernelProjectDir: '%kernel.project_dir%'
 
     # External Services
     GuzzleHttp\Client:

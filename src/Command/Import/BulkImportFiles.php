@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Throwable;
 
@@ -29,22 +30,34 @@ class BulkImportFiles extends AuthenticatedCommand
     /** @var MediaServiceInterface */
     private $mediaService;
 
+    /** @var MimeTypes */
+    private $mimeTypes;
+
+    /** @var string */
+    private $kernelProjectDir;
+
     /**
      * BulkImportFiles constructor.
      * @param FileServiceInterface $fileService
      * @param MediaServiceInterface $mediaService
      * @param UserServiceInterface $userService
+     * @param MimeTypes $mimeTypes
+     * @param string $kernelProjectDir
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         FileServiceInterface $fileService,
         MediaServiceInterface $mediaService,
         UserServiceInterface $userService,
+        MimeTypes $mimeTypes,
+        string $kernelProjectDir,
         TokenStorageInterface $tokenStorage
     ) {
         parent::__construct($tokenStorage, $userService);
         $this->fileService = $fileService;
         $this->mediaService = $mediaService;
+        $this->mimeTypes = $mimeTypes;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     protected function authenticatedExecute(InputInterface $input, OutputInterface $output): void
@@ -133,6 +146,7 @@ class BulkImportFiles extends AuthenticatedCommand
         }
         $newFile->setName($name);
         $newFile->setPath($filePath);
+        $newFile->setType($this->mimeTypes->guessMimeType($this->kernelProjectDir . '/public' . $filePath));
         $this->fileService->saveOrUpdate($newFile);
 
         return $newFile;
