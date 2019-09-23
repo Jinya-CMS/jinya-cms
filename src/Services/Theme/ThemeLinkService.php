@@ -408,7 +408,7 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         $themeGallery->setTheme($theme);
         $themeGallery->setName($key);
 
-        $theme->getVideoGalleries()->add($themeGallery);
+        $theme->getFiles()->add($themeGallery);
 
         $this->entityManager->persist($themeGallery);
         $this->entityManager->flush();
