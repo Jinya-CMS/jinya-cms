@@ -18,10 +18,13 @@
                            v-model="gallery.files">
                     <div :key="`position-${filePosition.id}`" class="jinya-gallery-designer__position"
                          v-for="filePosition in gallery.files">
-                        <span class="jinya-gallery-designer__position-header">{{filePosition.file.name}}</span>
-                        <img :alt="filePosition.file.name" :src="filePosition.file.path"
+                        <span class="jinya-gallery-designer__position-header">
+                            {{filePosition.file ? filePosition.file.name : ''}}
+                        </span>
+                        <img :alt="filePosition.file ? filePosition.file.name : ''"
+                             :src="filePosition.file ? filePosition.file.path : ''"
                              class="jinya-gallery-designer__position-image"
-                             v-if="filePosition.file.type.startsWith('image')">
+                             v-if="filePosition.file ? filePosition.file.type.startsWith('image') : ''">
                     </div>
                 </draggable>
             </section>
