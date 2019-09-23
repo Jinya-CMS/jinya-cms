@@ -1,6 +1,6 @@
 <template>
     <div class="jinya-input">
-        <label :for="`label-${id}`" class="jinya-input__label">{{label|jmessage}}</label>
+        <label :for="`label-${id}`" class="jinya-input__label">{{label|jmessage || label}}</label>
         <div class="jinya-input__wrapper">
             <label :class="{'is--disabled': !enable}" :for="id" :id="`label-${id}`" class="jinya-input__field">
                 {{selectedFileName}}
