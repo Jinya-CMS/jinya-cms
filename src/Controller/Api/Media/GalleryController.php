@@ -9,32 +9,45 @@
 namespace Jinya\Controller\Api\Media;
 
 use Exception;
+use Jinya\Entity\Media\File;
 use Jinya\Entity\Media\Gallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Media\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\GalleryServiceInterface;
+use Jinya\Services\Media\MediaServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GalleryController extends BaseApiController
 {
     /**
-     * @Route("/api/media/gallery/:slug/random", methods={"GET"}, name="api_gallery_random")
+     * @Route("/api/media/gallery/{slug}/random", methods={"GET"}, name="api_gallery_random")
      *
-     * @param string $gallerySLug
+     * @param string $slug
      * @param GalleryServiceInterface $galleryService
+     * @param MediaServiceInterface $mediaService
+     * @param MimeTypes $mimeTypes
      * @return Response
      * @throws Exception
      */
     public function getRandomAction(
-        string $gallerySLug,
-        GalleryServiceInterface $galleryService
+        string $slug,
+        GalleryServiceInterface $galleryService,
+        MediaServiceInterface $mediaService,
+        MimeTypes $mimeTypes
     ): Response {
-        $files = $galleryService->getBySlug($gallerySLug)->getFiles();
-        return $files->get(random_int(0, $files->count()))->getPath();
+        $files = $galleryService->getBySlug($slug)->getFiles();
+        /** @var File $file */
+        $file = $files->get(random_int(0, $files->count()))->getFile();
+
+        return $this->file(
+            $mediaService->getMedia($file->getPath()),
+            $file->getName() . '.' . $mimeTypes->getExtensions($file->getType())[0]
+        );
     }
 
     /**

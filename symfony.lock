@@ -122,9 +122,6 @@
     "jinya/profiling-bundle": {
         "version": "0.5.0"
     },
-    "leafo/scssphp": {
-        "version": "v0.7.6"
-    },
     "monolog/monolog": {
         "version": "1.23.0"
     },
@@ -178,6 +175,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "scssphp/scssphp": {
+        "version": "1.0.4"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
