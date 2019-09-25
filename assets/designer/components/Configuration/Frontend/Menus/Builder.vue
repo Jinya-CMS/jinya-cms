@@ -321,7 +321,7 @@
           if (this.media_galleries.length === 0) {
             const galleries = await JinyaRequest.get('/api/media/gallery');
             this.media_galleries = galleries.items.map(
-              (item) => this.generateTemplateItem('media_galleries', item.name, item.slug),
+              (item) => this.generateTemplateItem('media_gallery', item.name, item.slug),
             );
           }
 

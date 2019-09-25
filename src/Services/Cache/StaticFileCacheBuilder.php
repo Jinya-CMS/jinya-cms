@@ -276,6 +276,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
+        } elseif (Strings::find($routeName, 'media_gallery')) {
+            $viewData = [
+                'gallery' => $this->galleryService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/MediaGallery/detail.html.twig';
         } elseif (Strings::find($routeName, 'art_gallery') || Strings::find($routeName, 'gallery')) {
             $artGallery = $this->artGalleryService->get($slug);
 
@@ -312,12 +318,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Profile/detail.html.twig';
-        } elseif (Strings::find($routeName, 'media_gallery')) {
-            $viewData = [
-                'gallery' => $this->galleryService->get($slug),
-                'active' => $route->getUrl(),
-            ];
-            $template = '@Theme/MediaGallery/detail.html.twig';
         } else {
             $viewData = ['active' => '/'];
             $template = '@Theme/Default/index.html.twig';
