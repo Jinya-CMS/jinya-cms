@@ -8,6 +8,7 @@
 
 namespace Jinya\Controller\Api\Media;
 
+use Exception;
 use Jinya\Entity\Media\Gallery;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\Media\GalleryFormatterInterface;
@@ -20,6 +21,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GalleryController extends BaseApiController
 {
+    /**
+     * @Route("/api/media/gallery/:slug/random", methods={"GET"}, name="api_gallery_random")
+     *
+     * @param string $gallerySLug
+     * @param GalleryServiceInterface $galleryService
+     * @return Response
+     * @throws Exception
+     */
+    public function getRandomAction(
+        string $gallerySLug,
+        GalleryServiceInterface $galleryService
+    ): Response {
+        $files = $galleryService->getBySlug($gallerySLug)->getFiles();
+        return $files->get(random_int(0, $files->count()))->getPath();
+    }
+
     /**
      * @Route("/api/media/gallery", methods={"GET"}, name="api_gallery_get_all")
      *

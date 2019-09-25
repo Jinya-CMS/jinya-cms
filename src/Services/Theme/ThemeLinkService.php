@@ -145,7 +145,11 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
         $page = $this->pageService->get($pageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themePage = new ThemePage();
+        $themePage = $this->entityManager->getRepository(ThemePage::class)->findOneBy(['name' => $key]);
+        if (!$themePage) {
+            $themePage = new ThemePage();
+        }
+
         $themePage->setPage($page);
         $themePage->setTheme($theme);
         $themePage->setName($key);
@@ -176,12 +180,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
         $segmentPage = $this->segmentPageService->get($segmentPageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeSegmentPage = new ThemeSegmentPage();
+        $themeSegmentPage = $this->entityManager->getRepository(ThemeForm::class)->findOneBy(['name' => $key]);
+        if (!$themeSegmentPage) {
+            $themeSegmentPage = new ThemeSegmentPage();
+        }
+
         $themeSegmentPage->setSegmentPage($segmentPage);
         $themeSegmentPage->setTheme($theme);
         $themeSegmentPage->setName($key);
-
-        $theme->getSegmentPages()->add($themeSegmentPage);
 
         $this->entityManager->persist($themeSegmentPage);
         $this->entityManager->flush();
@@ -208,12 +214,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $form = $this->formService->get($formSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeForm = new ThemeForm();
+        $themeForm = $this->entityManager->getRepository(ThemeForm::class)->findOneBy(['name' => $key]);
+        if (!$themeForm) {
+            $themeForm = new ThemeForm();
+        }
+
         $themeForm->setForm($form);
         $themeForm->setTheme($theme);
         $themeForm->setName($key);
-
-        $theme->getForms()->add($themeForm);
 
         $this->entityManager->persist($themeForm);
         $this->entityManager->flush();
@@ -240,12 +248,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $menu = $this->menuService->get($menuId);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeMenu = new ThemeMenu();
+        $themeMenu = $this->entityManager->getRepository(ThemeMenu::class)->findOneBy(['name' => $key]);
+        if (!$themeMenu) {
+            $themeMenu = new ThemeMenu();
+        }
+
         $themeMenu->setMenu($menu);
         $themeMenu->setTheme($theme);
         $themeMenu->setName($key);
-
-        $theme->getMenus()->add($themeMenu);
 
         $this->entityManager->persist($themeMenu);
         $this->entityManager->flush();
@@ -272,7 +282,11 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $artwork = $this->artworkService->get($artworkSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeArtwork = new ThemeArtwork();
+        $themeArtwork = $this->entityManager->getRepository(ThemeArtwork::class)->findOneBy(['name' => $key]);
+        if (!$themeArtwork) {
+            $themeArtwork = new ThemeArtwork();
+        }
+
         $themeArtwork->setArtwork($artwork);
         $themeArtwork->setTheme($theme);
         $themeArtwork->setName($key);
@@ -304,12 +318,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $gallery = $this->artGalleryService->get($artGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeGallery = new ThemeArtGallery();
+        $themeGallery = $this->entityManager->getRepository(ThemeArtGallery::class)->findOneBy(['name' => $key]);
+        if (!$themeGallery) {
+            $themeGallery = new ThemeArtGallery();
+        }
+
         $themeGallery->setArtGallery($gallery);
         $themeGallery->setTheme($theme);
         $themeGallery->setName($key);
-
-        $theme->getArtGalleries()->add($themeGallery);
 
         $this->entityManager->persist($themeGallery);
         $this->entityManager->flush();
@@ -339,12 +355,14 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $gallery = $this->videoGalleryService->get($videoGallerySlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeGallery = new ThemeVideoGallery();
+        $themeGallery = $this->entityManager->getRepository(ThemeVideoGallery::class)->findOneBy(['name' => $key]);
+        if (!$themeGallery) {
+            $themeGallery = new ThemeVideoGallery();
+        }
+
         $themeGallery->setVideoGallery($gallery);
         $themeGallery->setTheme($theme);
         $themeGallery->setName($key);
-
-        $theme->getVideoGalleries()->add($themeGallery);
 
         $this->entityManager->persist($themeGallery);
         $this->entityManager->flush();
@@ -370,13 +388,15 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
 
         $gallery = $this->galleryService->get($gallerySlug);
+        $themeGallery = $this->entityManager->getRepository(ThemeGallery::class)->findOneBy(['name' => $key]);
+        if (!$themeGallery) {
+            $themeGallery = new ThemeGallery();
+        }
+
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeGallery = new ThemeGallery();
         $themeGallery->setGallery($gallery);
         $themeGallery->setTheme($theme);
         $themeGallery->setName($key);
-
-        $theme->getVideoGalleries()->add($themeGallery);
 
         $this->entityManager->persist($themeGallery);
         $this->entityManager->flush();
@@ -403,14 +423,16 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $file = $this->fileService->get($fileId);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeGallery = new ThemeFile();
-        $themeGallery->setFile($file);
-        $themeGallery->setTheme($theme);
-        $themeGallery->setName($key);
+        $themeFile = $this->entityManager->getRepository(ThemeFile::class)->findOneBy(['name' => $key]);
+        if (!$themeFile) {
+            $themeFile = new ThemeFile();
+        }
 
-        $theme->getFiles()->add($themeGallery);
+        $themeFile->setFile($file);
+        $themeFile->setTheme($theme);
+        $themeFile->setName($key);
 
-        $this->entityManager->persist($themeGallery);
+        $this->entityManager->persist($themeFile);
         $this->entityManager->flush();
 
         $this->eventDispatcher->dispatch(
