@@ -97,7 +97,6 @@ class ThemeFormatter implements ThemeFormatterInterface
         $this->formFormatter = $formFormatter;
     }
 
-
     /**
      * Formats the content of the @return array
      * @see FormatterInterface into an array
