@@ -26,9 +26,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     /** @var ThemeServiceInterface */
     private $themeService;
 
-    /** @var MenuServiceInterface */
-    private $menuService;
-
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -64,7 +61,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->themeService = $themeService;
-        $this->menuService = $menuService;
         $this->entityManager = $entityManager;
         $this->mediaService = $mediaService;
         $this->arrayUtils = $arrayUtils;
@@ -172,16 +168,16 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     public function setVariables(string $name, array $variables): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            ThemeVariablesEvent::PRE_SAVE,
-            new ThemeVariablesEvent($name, $variables)
+            new ThemeVariablesEvent($name, $variables),
+            ThemeVariablesEvent::PRE_SAVE
         );
         if (!$pre->isCancel()) {
             $theme = $this->themeService->getTheme($name);
             $theme->setScssVariables(array_filter($variables));
             $this->entityManager->flush();
             $this->eventDispatcher->dispatch(
-                ThemeVariablesEvent::POST_SAVE,
-                new ThemeVariablesEvent($name, $variables)
+                new ThemeVariablesEvent($name, $variables),
+                ThemeVariablesEvent::POST_SAVE
             );
         }
     }
@@ -193,12 +189,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function resetConfig(string $name): void
     {
-        $pre = $this->eventDispatcher->dispatch(ThemeConfigEvent::PRE_RESET, new ThemeConfigEvent($name, [], true));
+        $pre = $this->eventDispatcher->dispatch(new ThemeConfigEvent($name, [], true), ThemeConfigEvent::PRE_RESET);
         if (!$pre->isCancel()) {
             $theme = $this->themeService->getThemeOrNewTheme($name);
             $theme->setConfiguration([]);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(ThemeConfigEvent::POST_RESET, new ThemeConfigEvent($name, [], true));
+            $this->eventDispatcher->dispatch(new ThemeConfigEvent($name, [], true), ThemeConfigEvent::POST_RESET);
         }
     }
 
@@ -209,12 +205,12 @@ class ThemeConfigService implements ThemeConfigServiceInterface
      */
     public function resetVariables(string $name): void
     {
-        $pre = $this->eventDispatcher->dispatch(ThemeVariablesEvent::PRE_RESET, new ThemeVariablesEvent($name, []));
+        $pre = $this->eventDispatcher->dispatch(new ThemeVariablesEvent($name, []), ThemeVariablesEvent::PRE_RESET);
         if (!$pre->isCancel()) {
             $theme = $this->themeService->getThemeOrNewTheme($name);
             $theme->setScssVariables([]);
             $this->entityManager->flush();
-            $this->eventDispatcher->dispatch(ThemeVariablesEvent::POST_RESET, new ThemeVariablesEvent($name, []));
+            $this->eventDispatcher->dispatch(new ThemeVariablesEvent($name, []), ThemeVariablesEvent::POST_RESET);
         }
     }
 
@@ -241,8 +237,8 @@ class ThemeConfigService implements ThemeConfigServiceInterface
     public function saveConfig(string $themeName, array $config, bool $override = true): void
     {
         $pre = $this->eventDispatcher->dispatch(
-            ThemeConfigEvent::PRE_SAVE,
-            new ThemeConfigEvent($themeName, $config, $override)
+            new ThemeConfigEvent($themeName, $config, $override),
+            ThemeConfigEvent::PRE_SAVE
         );
 
         if (!$pre->isCancel()) {
@@ -265,8 +261,8 @@ class ThemeConfigService implements ThemeConfigServiceInterface
             $this->entityManager->flush();
 
             $this->eventDispatcher->dispatch(
-                ThemeConfigEvent::POST_SAVE,
-                new ThemeConfigEvent($themeName, $config, $override)
+                new ThemeConfigEvent($themeName, $config, $override),
+                ThemeConfigEvent::POST_SAVE
             );
         }
     }
