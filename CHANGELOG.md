@@ -1,7 +1,14 @@
 # Changelog
-## Release 11.0.0
+## Release 11.0.1
 ### New Features
-* [JGCMS-82](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-82) Update Designer design to be more practical 
+* [JGCMS-86](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-86) Cache generation on gallerie update 
+* [JGCMS-87](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-87) Gallery designer bugs 
+## Release 11.0.0
+### New Features 
+* [JGCMS-71](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-71) Media Manager
+* [JGCMS-82](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-82) Update Designer design to be more practical
+* [JGCMS-83](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-83)  Add files and media galleries to segment pages 
+* [JGCMS-84](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-84) Create File import command 
 * [JGCMS-85](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-85) Galleries in themes
 ### Deprecations
 Since version 11.0.0 classical art is deprecated, use files and media galleries instead. Classical art will be removed in 13.0.0.
