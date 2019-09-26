@@ -13,6 +13,7 @@ use Jinya\Components\Form\FormGeneratorInterface;
 use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Entity\Menu\RoutingEntry;
+use Jinya\Entity\Theme\ThemeMenu;
 use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
@@ -150,18 +151,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      */
     public function clearCache(): void
     {
-        $handle = @fopen($this->getCacheFile(), 'rwb+');
-        if ($handle) {
-            try {
-                while (false !== ($line = fgets($handle))) {
-                    @unlink($line);
-                }
-            } finally {
-                @fclose($handle);
-            }
+        $fs = new Filesystem();
+        if ($fs->exists($this->getCacheFile())) {
+            $data = file_get_contents($this->getCacheFile());
+            $fs->remove(explode('\n', $data));
+            $fs->remove($this->getCacheFile());
         }
-
-        @unlink($this->getCacheFile());
     }
 
     private function getCacheFile(): string
@@ -176,6 +171,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     {
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
         $routes = [];
+        foreach ($currentTheme->getMenus() as $menu) {
+            /** @var $menu ThemeMenu */
+            foreach ($this->findRoutesInMenu($menu->getMenu()) as $route) {
+                $routes[] = $route;
+            }
+        }
+
         if ($currentTheme->getPrimaryMenu()) {
             foreach ($this->findRoutesInMenu($currentTheme->getPrimaryMenu()) as $route) {
                 $routes[] = $route;
@@ -274,6 +276,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Gallery/detail.html.twig';
+        } elseif (Strings::find($routeName, 'media_gallery')) {
+            $viewData = [
+                'gallery' => $this->galleryService->get($slug),
+                'active' => $route->getUrl(),
+            ];
+            $template = '@Theme/MediaGallery/detail.html.twig';
         } elseif (Strings::find($routeName, 'art_gallery') || Strings::find($routeName, 'gallery')) {
             $artGallery = $this->artGalleryService->get($slug);
 
@@ -310,12 +318,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Profile/detail.html.twig';
-        } elseif (Strings::find($routeName, 'media_gallery')) {
-            $viewData = [
-                'gallery' => $this->galleryService->get($slug),
-                'active' => $route->getUrl(),
-            ];
-            $template = '@Theme/MediaGallery/detail.html.twig';
         } else {
             $viewData = ['active' => '/'];
             $template = '@Theme/Default/index.html.twig';

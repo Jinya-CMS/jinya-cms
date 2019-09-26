@@ -9,6 +9,7 @@
 namespace Jinya\Controller\Api\Media;
 
 use Jinya\Exceptions\MissingFieldsException;
+use Jinya\Formatter\Media\GalleryFilePositionFormatterInterface;
 use Jinya\Formatter\Media\GalleryFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\GalleryFilePositionServiceInterface;
@@ -50,11 +51,19 @@ class GalleryFileController extends BaseApiController
      *
      * @param int $galleryId
      * @param GalleryFilePositionServiceInterface $filePositionService
+     * @param GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
      * @return Response
      */
-    public function postAction(int $galleryId, GalleryFilePositionServiceInterface $filePositionService): Response
-    {
-        [$data, $status] = $this->tryExecute(function () use ($galleryId, $filePositionService) {
+    public function postAction(
+        int $galleryId,
+        GalleryFilePositionServiceInterface $filePositionService,
+        GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
+    ): Response {
+        [$data, $status] = $this->tryExecute(function () use (
+            $galleryId,
+            $filePositionService,
+            $galleryFilePositionFormatter
+        ) {
             $position = $this->getValue('position', -1);
             $fileId = $this->getValue('file');
 
@@ -62,7 +71,14 @@ class GalleryFileController extends BaseApiController
                 throw new MissingFieldsException(['file' => 'api.gallery.field.fileId.missing']);
             }
 
-            return $filePositionService->savePosition($fileId, $galleryId, $position);
+            $positionId = $filePositionService->savePosition($fileId, $galleryId, $position);
+
+            return $galleryFilePositionFormatter->init($filePositionService->getPosition($positionId))
+                ->gallery()
+                ->file()
+                ->id()
+                ->position()
+                ->format();
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);

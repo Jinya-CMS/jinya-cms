@@ -8,8 +8,8 @@
 
 namespace Jinya\Services\Scss;
 
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Formatter\Compressed;
+use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Formatter\Compressed;
 
 class ScssCompilerService implements ScssCompilerServiceInterface
 {

@@ -8,10 +8,7 @@ use Iterator;
 use Jinya\Entity\Media\File;
 use Jinya\Framework\Security\AuthenticatedCommand;
 use Jinya\Services\Media\FileServiceInterface;
-use Jinya\Services\Media\GalleryFilePositionServiceInterface;
-use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Media\MediaServiceInterface;
-use Jinya\Services\Slug\SlugServiceInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\Table;
@@ -21,58 +18,52 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Throwable;
 
 class BulkImportFiles extends AuthenticatedCommand
 {
-    /** @var GalleryServiceInterface */
-    private $galleryService;
-
     /** @var FileServiceInterface */
     private $fileService;
 
     /** @var MediaServiceInterface */
     private $mediaService;
 
-    /** @var SlugServiceInterface */
-    private $slugService;
+    /** @var MimeTypes */
+    private $mimeTypes;
 
-    /** @var GalleryFilePositionServiceInterface */
-    private $galleryFilePositionService;
+    /** @var string */
+    private $kernelProjectDir;
 
     /**
      * BulkImportFiles constructor.
-     * @param GalleryServiceInterface $galleryService
      * @param FileServiceInterface $fileService
      * @param MediaServiceInterface $mediaService
-     * @param SlugServiceInterface $slugService
-     * @param GalleryFilePositionServiceInterface $galleryFilePositionService
      * @param UserServiceInterface $userService
+     * @param MimeTypes $mimeTypes
+     * @param string $kernelProjectDir
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        GalleryServiceInterface $galleryService,
         FileServiceInterface $fileService,
         MediaServiceInterface $mediaService,
-        SlugServiceInterface $slugService,
-        GalleryFilePositionServiceInterface $galleryFilePositionService,
         UserServiceInterface $userService,
+        MimeTypes $mimeTypes,
+        string $kernelProjectDir,
         TokenStorageInterface $tokenStorage
     ) {
         parent::__construct($tokenStorage, $userService);
-        $this->galleryService = $galleryService;
         $this->fileService = $fileService;
         $this->mediaService = $mediaService;
-        $this->slugService = $slugService;
-        $this->galleryFilePositionService = $galleryFilePositionService;
+        $this->mimeTypes = $mimeTypes;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
 
     protected function authenticatedExecute(InputInterface $input, OutputInterface $output): void
     {
         $directory = $input->getArgument('directory');
         $recursive = $input->getOption('recursive');
-        $createGallery = $input->getOption('create-gallery');
         $stopOnError = $input->getOption('stop-on-error');
 
         ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %percent:3s%% -- %message%');
@@ -82,18 +73,9 @@ class BulkImportFiles extends AuthenticatedCommand
         $progressBar->setFormat('custom');
         $progressBar->setMessage('Start file import');
         $progressBar->start();
-        [$importResult, $error] = $this->importFiles($files, $stopOnError, $progressBar);
+        $importResult = $this->importFiles($files, $stopOnError, $progressBar);
         $progressBar->finish();
         $this->formatFileOutput($importResult, $output);
-
-        if (!($error && $stopOnError) && $createGallery) {
-            $progressBar = new ProgressBar($output, $count);
-            $progressBar->setFormat('custom');
-            $progressBar->setMessage('Start import into galleries');
-            $progressBar->start();
-        } else {
-            $output->writeln('<error>Stopped import because of an error</error>');
-        }
     }
 
     private function scanDirectory(string $directory, bool $recursive): array
@@ -123,7 +105,6 @@ class BulkImportFiles extends AuthenticatedCommand
     private function importFiles(Iterator $files, bool $stopOnError, ProgressBar $progressBar): array
     {
         $result = [];
-        $error = false;
 
         foreach ($files as $file) {
             /* @var $file SplFileInfo */
@@ -142,8 +123,6 @@ class BulkImportFiles extends AuthenticatedCommand
                     'message' => $exception->getMessage(),
                 ];
                 if ($stopOnError) {
-                    $error = true;
-
                     break;
                 }
             }
@@ -152,7 +131,7 @@ class BulkImportFiles extends AuthenticatedCommand
             $progressBar->advance();
         }
 
-        return [$result, $error];
+        return $result;
     }
 
     private function addOrUpdateFile(SplFileInfo $file): File
@@ -167,6 +146,7 @@ class BulkImportFiles extends AuthenticatedCommand
         }
         $newFile->setName($name);
         $newFile->setPath($filePath);
+        $newFile->setType($this->mimeTypes->guessMimeType($this->kernelProjectDir . '/public' . $filePath));
         $this->fileService->saveOrUpdate($newFile);
 
         return $newFile;
@@ -181,10 +161,10 @@ class BulkImportFiles extends AuthenticatedCommand
             if ($item['error']) {
                 $result = $item['message'];
             } else {
-                $result = sprintf('File %s', $item['file']);
+                $result = sprintf('File %s', $item['path']);
             }
 
-            $table->addRow([$item['file'], $result]);
+            $table->addRow([$item['path'], $result]);
         }
 
         $table->render();
@@ -197,7 +177,6 @@ class BulkImportFiles extends AuthenticatedCommand
             ->setName('jinya:import:files')
             ->addArgument('directory', InputArgument::REQUIRED, 'The directory where the files are located')
             ->addOption('recursive', 'r', InputOption::VALUE_NONE, 'Go recursive through all directories')
-            ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE)
-            ->addOption('create-gallery', 'c', InputOption::VALUE_NONE, 'Create galleries based on directories');
+            ->addOption('stop-on-error', 'p', InputOption::VALUE_NONE);
     }
 }

@@ -17,8 +17,7 @@
         </jinya-card-list>
         <jinya-modal :loading="this.delete.loading"
                      :title="'configuration.frontend.menus.delete.title'|jmessage(selectedMenu)"
-                     @close="closeDeleteModal()"
-                     v-if="this.delete.show">
+                     @close="closeDeleteModal()" v-if="this.delete.show">
             <jinya-message :message="this.delete.error" slot="message" state="error"
                            v-if="this.delete.error && !this.delete.loading"/>
             {{'configuration.frontend.menus.delete.message'|jmessage(selectedMenu)}}

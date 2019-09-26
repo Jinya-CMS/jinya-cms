@@ -64,43 +64,55 @@ class Theme
     private $scssVariables;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="theme")
      */
     private $menus;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtGallery", mappedBy="theme")
      */
     private $artGalleries;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeVideoGallery", mappedBy="theme")
      */
     private $videoGalleries;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
     private $pages;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeGallery", mappedBy="theme")
+     */
+    private $galleries;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeFile", mappedBy="theme")
+     */
+    private $files;
+
+    /**
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeSegmentPage", mappedBy="theme")
      */
     private $segmentPages;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme")
      */
     private $forms;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtwork", mappedBy="theme")
      */
     private $artworks;
@@ -138,6 +150,40 @@ class Theme
         $this->forms = new ArrayCollection();
         $this->artworks = new ArrayCollection();
         $this->segmentPages = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
+        $this->files = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    /**
+     * @param Collection $galleries
+     */
+    public function setGalleries(Collection $galleries): void
+    {
+        $this->galleries = $galleries;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param Collection $files
+     */
+    public function setFiles(Collection $files): void
+    {
+        $this->files = $files;
     }
 
     /**
@@ -397,17 +443,17 @@ class Theme
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getSegmentPages(): ArrayCollection
+    public function getSegmentPages(): Collection
     {
         return $this->segmentPages;
     }
 
     /**
-     * @param ArrayCollection $segmentPages
+     * @param Collection $segmentPages
      */
-    public function setSegmentPages(ArrayCollection $segmentPages): void
+    public function setSegmentPages(Collection $segmentPages): void
     {
         $this->segmentPages = $segmentPages;
     }

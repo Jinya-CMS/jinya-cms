@@ -520,12 +520,14 @@ configuration:
                 saving: Die Links für das Theme %displayName% werden gespeichert
                 saved: Die Link für das Theme %displayName% wurden gespeichert
                 no_structure_found: Es wurden keine Links in der Themekonfiguration gefunden
+                galleries: Gallerien
                 art_galleries: Kunstgallerien
                 video_galleries: Kunstgallerien
                 menus: Menüs
                 pages: Seiten
                 segment_pages: Segmentseiten
                 forms: Formulare
+                files: Dateien
                 save: Links speichern
                 cancel: Zurück
             configuration:

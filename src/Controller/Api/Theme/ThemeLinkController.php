@@ -63,7 +63,7 @@ class ThemeLinkController extends BaseApiController
      * @param ThemeLinkServiceInterface $themeLinkService
      * @return Response
      */
-    public function putMenusAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
+    public function putLinksAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
     {
         [$data, $status] = $this->tryExecute(function () use ($themeName, $themeLinkService) {
             $menus = $this->getValue('menus', []);
@@ -72,6 +72,8 @@ class ThemeLinkController extends BaseApiController
             $artworks = $this->getValue('artworks', []);
             $artGalleries = $this->getValue('artGalleries', []);
             $videoGalleries = $this->getValue('videoGalleries', []);
+            $galleries = $this->getValue('galleries', []);
+            $files = $this->getValue('files', []);
 
             foreach ($menus as $key => $menu) {
                 if (array_key_exists('slug', $menu)) {
@@ -106,6 +108,18 @@ class ThemeLinkController extends BaseApiController
             foreach ($videoGalleries as $key => $videoGallery) {
                 if (array_key_exists('slug', $videoGallery)) {
                     $themeLinkService->saveVideoGallery($key, $themeName, $videoGallery['slug']);
+                }
+            }
+
+            foreach ($galleries as $key => $gallery) {
+                if (array_key_exists('slug', $gallery)) {
+                    $themeLinkService->saveGallery($key, $themeName, $gallery['slug']);
+                }
+            }
+
+            foreach ($files as $key => $file) {
+                if (array_key_exists('id', $file)) {
+                    $themeLinkService->saveFile($key, $themeName, $file['id']);
                 }
             }
         }, Response::HTTP_NO_CONTENT);

@@ -74,4 +74,22 @@ interface ThemeLinkServiceInterface
      * @param string $videoGallerySlug
      */
     public function saveVideoGallery(string $key, string $themeName, string $videoGallerySlug): void;
+
+    /**
+     * Links the given gallery with the given theme
+     *
+     * @param string $key
+     * @param string $themeName
+     * @param string $gallerySlug
+     */
+    public function saveGallery(string $key, string $themeName, string $gallerySlug): void;
+
+    /**
+     * Links the given file with the given theme
+     *
+     * @param string $key
+     * @param string $themeName
+     * @param int $fileId
+     */
+    public function saveFile(string $key, string $themeName, int $fileId): void;
 }

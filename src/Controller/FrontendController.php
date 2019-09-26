@@ -85,7 +85,7 @@ class FrontendController extends BaseController
     }
 
     /**
-     * @Route("/gallery/media/{slug}", name="frontend_media_galleries_details")
+     * @Route("/gallery/media/{slug}", name="frontend_media_gallery_details")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
