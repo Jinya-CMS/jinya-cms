@@ -18,6 +18,7 @@ export default [
         component: Arrange,
         meta: {
             title: 'routes.media.galleries.arrange',
+            searchEnabled: true,
         },
     },
     ];

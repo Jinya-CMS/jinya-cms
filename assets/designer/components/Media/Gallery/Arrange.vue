@@ -36,6 +36,8 @@
   import draggable from 'vuedraggable';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import EventBus from '@/framework/Events/EventBus';
+  import Events from '@/framework/Events/Events';
 
   export default {
     name: 'Arrange',
@@ -71,19 +73,27 @@
           });
         }
       },
+      async loadFiles(keyword) {
+        const files = await JinyaRequest.get(`/api/media/file?keyword=${keyword}`);
+
+        return files.items.map((file) => ({
+          id: -1,
+          file,
+        }));
+      },
     },
     async mounted() {
       this.loading = true;
       const [files, gallery] = await Promise.all([
-        JinyaRequest.get('/api/media/file'),
+        this.loadFiles(''),
         JinyaRequest.get(`/api/media/gallery/${this.$route.params.id}`),
       ]);
-      this.files = files.items.map((file) => ({
-        id: -1,
-        file,
-      }));
+      this.files = files;
       this.gallery = gallery;
       this.loading = false;
+      EventBus.$on(Events.search.triggered, async (value) => {
+        this.files = await this.loadFiles(value.keyword);
+      });
     },
     data() {
       return {
