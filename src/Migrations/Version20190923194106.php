@@ -20,7 +20,7 @@ final class Version20190923194106 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE theme_file (name VARCHAR(255) NOT NULL, theme_id INT NOT NULL, file_id INT NOT NULL, INDEX IDX_C658C22D59027487 (theme_id), INDEX IDX_C658C22D93CB796C (file_id), PRIMARY KEY(theme_id, file_id, name)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -31,7 +31,7 @@ final class Version20190923194106 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql',
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP TABLE theme_file');
