@@ -1,7 +1,6 @@
 {
     "name": "jinya-gallery-cms",
-    "version": "1.0.0",
-    "main": "index.js",
+    "version": "11.0.0",
     "repository": "git@github.com:Jinya-CMS/Jinya-Gallery-CMS.git",
     "author": "Imanuel Ulbricht <imanuel@ulbricht.codes>",
     "license": "MIT",

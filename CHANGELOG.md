@@ -1,4 +1,10 @@
 # Changelog
+## Release 11.0.0
+### New Features
+* [JGCMS-82](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-82) Update Designer design to be more practical 
+* [JGCMS-85](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-85) Galleries in themes
+### Deprecations
+Since version 11.0.0 classical art is deprecated, use files and media galleries instead. Classical art will be removed in 13.0.0.
 ## Release 10.0.0
 ### New Features
 * [JGCMS-51](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-51) Replace SimplePreAuthenticatorInterface with Guard
