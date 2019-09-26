@@ -54,7 +54,10 @@ class GalleryFilePositionCacheSubscriber implements EventSubscriberInterface
             CacheBuilderInterface::ART_GALLERY
         );
         /* @noinspection NullPointerExceptionInspection */
-        $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
+        $this->cacheBuilder->buildCacheBySlugAndType(
+            $event->getGalleryFilePosition()->getGallery()->getSlug(),
+            CacheBuilderInterface::GALLERY
+        );
     }
 
     public function onGalleryFilePositionSave(GalleryFilePositionEvent $event): void
