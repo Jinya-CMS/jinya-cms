@@ -1,6 +1,6 @@
 <template>
     <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
-        <label :for="id" class="jinya-input__label" v-if="label">{{label|jmessage || label}}</label>
+        <label :for="id" class="jinya-input__label" v-if="label">{{label|jmessage}}</label>
         <input :autocomplete="autocomplete" :autofocus="autofocus" :disabled="!enable" :id="id"
                :placeholder="placeholder|jmessage" :required="required"
                :type="type" :value="value" @change="change" @input="input"

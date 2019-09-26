@@ -1,6 +1,6 @@
 <template>
     <div class="jinya-choice">
-        <label :for="id" class="jinya-choice__label">{{label|jmessage || label}}</label>
+        <label :for="id" class="jinya-choice__label">{{label|jmessage}}</label>
         <span :id="id" class="jinya-choice__field" v-if="isStatic">{{selectionText}}</span>
         <!--suppress HtmlFormInputWithoutLabel -->
         <select :class="{'is--disabled': !enable}" :disabled="!enable"

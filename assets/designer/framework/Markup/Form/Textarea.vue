@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-textarea-mustache -->
 <template>
     <div :class="{'is--invalid': invalid}" :data-validation-message="validationMessage" class="jinya-input">
-        <label :for="id" class="jinya-input__label">{{label|jmessage || label}}</label>
+        <label :for="id" class="jinya-input__label">{{label|jmessage}}</label>
         <textarea :autocomplete="autocomplete" :disabled="!enable" :id="id" :required="required" :type="type"
                   @change="change" @input="input" @invalid="onInvalid"
                   @keyup="keyup" class="jinya-input__textarea" v-if="!isStatic">{{value}}</textarea>
