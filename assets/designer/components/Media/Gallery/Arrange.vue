@@ -61,8 +61,7 @@
             file: element.file.id,
           });
 
-          const idx = this.gallery.files.findIndex((item) => item.name === element.name);
-          this.gallery.files.splice(idx, 1, position);
+          this.gallery.files.splice(newIndex, 1, position);
         } else if (removed) {
           const { element } = removed;
           await JinyaRequest.delete(`/api/media/gallery/file/${this.$route.params.id}/file/${element.id}`);
