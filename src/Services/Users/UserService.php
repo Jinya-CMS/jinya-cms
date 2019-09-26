@@ -51,14 +51,10 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
+    public function getAll(string $keyword = ''): array
     {
-        $queryBuilder = $this->createFilteredQueryBuilder($keyword);
-
-        return $queryBuilder
+        return $this->createFilteredQueryBuilder($keyword)
             ->getQuery()
-            ->setFirstResult($offset)
-            ->setMaxResults($count)
             ->getResult();
     }
 

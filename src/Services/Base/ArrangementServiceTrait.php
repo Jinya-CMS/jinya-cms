@@ -24,7 +24,7 @@ trait ArrangementServiceTrait
             return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
         });
 
-        if ($oldPosition === -1 && $newPosition === -1) {
+        if (-1 === $oldPosition && -1 === $newPosition) {
             array_splice($positions, 0, 0, [$targetItem]);
         } elseif ($oldPosition < $newPosition) {
             array_splice($positions, $newPosition + 1, 0, [$targetItem]);

@@ -15,12 +15,10 @@ interface SegmentPageServiceInterface
     /**
      * Gets a list of segmentPages in the given range and filtered by the given keyword
      *
-     * @param int $offset
-     * @param int $count
      * @param string $keyword
      * @return SegmentPage[]
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
+    public function getAll(string $keyword = ''): array;
 
     /**
      * Counts all segmentPages filtered by the given keyword

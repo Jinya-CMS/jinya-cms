@@ -26,6 +26,8 @@ interface CacheBuilderInterface
 
     public const SEGMENT_PAGE = 'segment_page';
 
+    public const MEDIA_GALLERY = 'media_gallery';
+
     /**
      * Builds the cache
      */

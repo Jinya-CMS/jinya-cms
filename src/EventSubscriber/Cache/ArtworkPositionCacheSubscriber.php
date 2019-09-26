@@ -48,29 +48,29 @@ class ArtworkPositionCacheSubscriber implements EventSubscriberInterface
 
     public function onArtworkPositionDelete(ArtworkPositionDeleteEvent $event): void
     {
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $event->getGallery()->getSlug(),
             CacheBuilderInterface::ART_GALLERY
         );
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType($event->getGallery()->getSlug(), CacheBuilderInterface::GALLERY);
     }
 
     public function onArtworkPositionSave(ArtworkPositionEvent $event): void
     {
         $artworkPosition = $event->getArtworkPosition();
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getArtwork()->getSlug(),
             CacheBuilderInterface::ARTWORK
         );
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getGallery()->getSlug(),
             CacheBuilderInterface::ART_GALLERY
         );
-        /** @noinspection NullPointerExceptionInspection */
+        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $artworkPosition->getGallery()->getSlug(),
             CacheBuilderInterface::GALLERY

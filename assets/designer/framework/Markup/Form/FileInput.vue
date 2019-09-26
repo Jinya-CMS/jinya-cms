@@ -55,14 +55,21 @@
     },
     computed: {
       selectedFileName() {
-        return this.hasValue
-          ? Translator.message('framework.markup.form.file_input.already_set')
-          : Translator.validator('framework.markup.form.file_input.no_file_selected');
+        if (this.fileName) {
+          return this.fileName;
+        }
+
+        if (this.hasValue) {
+          return Translator.message('framework.markup.form.file_input.already_set');
+        }
+
+        return Translator.validator('framework.markup.form.file_input.no_file_selected');
       },
     },
     data() {
       return {
         id: null,
+        fileName: null,
       };
     },
     mounted() {
@@ -71,16 +78,16 @@
     },
     methods: {
       reset() {
-        this.selectedFileName = Translator.validator('framework.markup.form.file_input.no_file_selected');
+        this.fileName = Translator.validator('framework.markup.form.file_input.no_file_selected');
         this.$emit('picked', [null]);
       },
       updateValue($event) {
         if (this.multiple) {
-          this.selectedFileName = [...$event.target.files]
+          this.fileName = [...$event.target.files]
             .map(item => item.name.split('\\').pop().split('/').pop())
             .join(', ');
         } else {
-          this.selectedFileName = $event.target.files[0].name.split('\\').pop().split('/').pop();
+          this.fileName = $event.target.files[0].name.split('\\').pop().split('/').pop();
         }
         this.$emit('picked', $event.target.files);
         if ($event.target.checkValidity()) {

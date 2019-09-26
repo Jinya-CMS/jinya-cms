@@ -198,7 +198,7 @@ class MenuItemService implements MenuItemServiceInterface
 
         $newPosition = $position;
 
-        if ($newPosition === -1) {
+        if (-1 === $newPosition) {
             $newPosition = array_shift($positions)->getPosition() + 1;
         }
 

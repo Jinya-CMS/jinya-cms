@@ -48,6 +48,21 @@
                               @selected="item => selected(item, links.segmentPages, segmentPage)"
                               v-for="segmentPage in Object.keys(structure.segmentPages)"/>
             </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.galleries'|jmessage"
+                            v-if="structure.galleries">
+                <jinya-choice :choices="galleries" :enforce-select="true" :key="gallery"
+                              :label="structure.galleries[gallery]"
+                              :selected="createSelectValue(links.galleries[gallery])"
+                              @selected="item => selected(item, links.galleries, gallery)"
+                              v-for="gallery in Object.keys(structure.galleries)"/>
+            </jinya-fieldset>
+            <jinya-fieldset :legend="'configuration.frontend.themes.links.files'|jmessage"
+                            v-if="structure.files">
+                <jinya-choice :choices="files" :enforce-select="true" :key="file"
+                              :label="structure.files[file]" :selected="createSelectValue(links.files[file])"
+                              @selected="item => selected(item, links.files, file)"
+                              v-for="file in Object.keys(structure.files)"/>
+            </jinya-fieldset>
         </jinya-form>
     </div>
 </template>
@@ -85,8 +100,10 @@
         links: {},
         artworks: [],
         pages: [],
+        files: [],
         videoGalleries: [],
         artGalleries: [],
+        galleries: [],
         segmentPages: [],
         forms: [],
         menus: [],
@@ -116,39 +133,49 @@
             }
           });
         const artworksPromise = JinyaRequest
-          .get('/api/artwork?count=20000000')
+          .get('/api/artwork')
           .then((artworks) => {
-            this.artworks = artworks.items.map(item => ({ text: item.name, value: item.slug }));
+            this.artworks = artworks.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const pagePromise = JinyaRequest
-          .get('/api/page?count=20000000')
+          .get('/api/page')
           .then((pages) => {
-            this.pages = pages.items.map(item => ({ text: item.title, value: item.slug }));
+            this.pages = pages.items.map((item) => ({ text: item.title, value: item.slug }));
           });
         const segmentPagePromise = JinyaRequest
-          .get('/api/segment_page?count=20000000')
+          .get('/api/segment_page')
           .then((pages) => {
-            this.segmentPages = pages.items.map(item => ({ text: item.title, value: item.slug }));
+            this.segmentPages = pages.items.map((item) => ({ text: item.title, value: item.slug }));
           });
         const formsPromise = JinyaRequest
-          .get('/api/form?count=20000000')
+          .get('/api/form')
           .then((forms) => {
-            this.forms = forms.items.map(item => ({ text: item.title, value: item.slug }));
+            this.forms = forms.items.map((item) => ({ text: item.title, value: item.slug }));
           });
         const menusPromise = JinyaRequest
-          .get('/api/menu?count=20000000')
+          .get('/api/menu')
           .then((menus) => {
-            this.menus = menus.items.map(item => ({ text: item.name, value: item.id }));
+            this.menus = menus.items.map((item) => ({ text: item.name, value: item.id }));
           });
         const artGalleriesPromise = JinyaRequest
-          .get('/api/gallery/art?count=20000000')
+          .get('/api/gallery/art')
           .then((galleries) => {
-            this.artGalleries = galleries.items.map(item => ({ text: item.name, value: item.slug }));
+            this.artGalleries = galleries.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const videoGalleriesPromise = JinyaRequest
-          .get('/api/gallery/video?count=20000000')
+          .get('/api/gallery/video')
           .then((galleries) => {
-            this.videoGalleries = galleries.items.map(item => ({ text: item.name, value: item.slug }));
+            this.videoGalleries = galleries.items.map((item) => ({ text: item.name, value: item.slug }));
+          });
+        const galleriesPromise = JinyaRequest
+          .get('/api/media/gallery')
+          .then((galleries) => {
+            this.galleries = galleries.items.map((item) => ({ text: item.name, value: item.slug }));
+          });
+        const filesPromise = JinyaRequest
+          .get('/api/media/file')
+          .then((files) => {
+            this.files = files.items.map((item) => ({ text: item.name, value: item.id }));
           });
         const themePromise = JinyaRequest
           .get(`/api/theme/${this.$route.params.name}`)
@@ -166,6 +193,8 @@
           artworksPromise,
           menusPromise,
           artGalleriesPromise,
+          galleriesPromise,
+          filesPromise,
           videoGalleriesPromise,
         ]);
         this.loading = false;

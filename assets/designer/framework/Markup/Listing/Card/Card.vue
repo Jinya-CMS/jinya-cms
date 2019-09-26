@@ -36,6 +36,7 @@
         display: inline-block;
         white-space: normal;
         vertical-align: top;
+        position: relative;
 
         &:only-child {
             .jinya-card__body {
@@ -46,6 +47,10 @@
         &:hover {
             border: none;
             box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 80%);
+
+            .jinya-card__footer {
+                opacity: 1;
+            }
         }
 
         .jinya-card__header {
@@ -61,12 +66,20 @@
             height: 15em;
             width: auto;
             display: flex;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
         }
 
         .jinya-card__footer {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
             width: 100%;
             display: flex;
+            opacity: 0;
             border-radius: 0 0 10px 10px;
+            transition: all 0.3s;
         }
     }
 </style>

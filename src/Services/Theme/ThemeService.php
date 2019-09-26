@@ -53,7 +53,7 @@ class ThemeService implements ThemeServiceInterface
     {
         $theme = $this->getTheme($name);
 
-        if ($theme === null) {
+        if (null === $theme) {
             $theme = new Theme();
         }
 
@@ -63,7 +63,7 @@ class ThemeService implements ThemeServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getTheme(string $name): Theme
+    public function getTheme(string $name): ?Theme
     {
         return $this->entityManager
             ->getRepository(Theme::class)

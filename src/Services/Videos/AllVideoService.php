@@ -22,10 +22,12 @@ class AllVideoService implements AllVideoServiceInterface
 {
     /** @var EntityManagerInterface */
     private $entityManager;
+
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
@@ -51,7 +53,7 @@ class AllVideoService implements AllVideoServiceInterface
     public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array
     {
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, []),
+            new ListEvent($keyword, []),
             ListEvent::ALL_VIDEOS_PRE_GET_ALL
         );
 
@@ -63,7 +65,7 @@ class AllVideoService implements AllVideoServiceInterface
             ->getArrayResult();
 
         $this->eventDispatcher->dispatch(
-            new ListEvent($offset, $count, $keyword, $videos),
+            new ListEvent($keyword, $videos),
             ListEvent::ALL_VIDEOS_POST_GET_ALL
         );
 

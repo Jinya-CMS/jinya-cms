@@ -118,6 +118,23 @@ api:
 menu:
     designer:
         flyout:
+            content:
+                navbar: Inhalte
+                sections:
+                    media:
+                        header: Medien
+                        files: Dateien
+                        galleries: Gallerien
+                    pages:
+                        header: Seiten
+                        saved_in_jinya: Einfache Seiten
+                        segment_pages: Segment Seiten
+                        saved_external: Extern gespeichert
+                    forms:
+                        header: Formulare
+                        forms: Formulare
+                        messages: Nachrichten
+                        email_templates: Emailtemplates
             art:
                 navbar: Kunst
                 sections:
@@ -135,19 +152,6 @@ menu:
                         header: Galerien
                         artwork_galleries: Kunstgalerien
                         video_galleries: Videogalerien
-            static:
-                navbar: Statischer Inhalt
-                sections:
-                    pages:
-                        header: Seiten
-                        saved_in_jinya: Einfache Seiten
-                        segment_pages: Segment Seiten
-                        saved_external: Extern gespeichert
-                    forms:
-                        header: Formulare
-                        forms: Formulare
-                        messages: Nachrichten
-                        email_templates: Emailtemplates
             configuration:
                 navbar: Konfiguration
                 sections:
@@ -202,6 +206,11 @@ menu:
 routes:
     error:
         not_allowed: Zugriff verweigert
+    media:
+        files: Dateiverwaltung
+        galleries:
+            overview: Gallerien
+            arrange: Galleriedesigner
     art:
         artworks:
             saved_in_jinya:
@@ -299,6 +308,90 @@ framework:
 home:
     missing:
         header: Sorry ich bin noch nicht fertig
+media:
+    files:
+        add:
+            creating: Die Datei wird erstellt
+            uploading: Die Datei %name% wird hochgeladen
+            title: Datei hochladen
+            file: Datei
+            name: Name
+            upload: Datei speichern
+            cancel: Abbrechen
+        edit:
+            renaming: Die Datei %oldName% wird in %newName% umbenannt
+            uploading: Die Datei %name% wird hochgeladen
+            title: Datei bearbeiten
+            file: Datei
+            name: Name
+            upload: Datei speichern
+            cancel: Abbrechen
+        delete:
+            title: Datei wirklich löschen?
+            content: Soll die Datei %name% wirklich gelöscht werden? Dies entfernt sie aus allen Gallerien.
+            yes: Datei löschen
+            no: Datei nicht löschen
+        list:
+            nothing_found: Du hast noch keine Dateien hochgeladen
+            edit: Datei bearbeiten
+            delete: Datei löschen
+            details: Details anzeigen
+        details:
+            created_by: Erstellt von
+            created_at: Erstellt am
+            updated_by: Zuletzt geändert von
+            updated_at: Zuletzt geändert am
+    galleries:
+        edit:
+            title: Gallerie bearbeiten
+            update: Gallerie speichern
+            cancel: Abbrechen
+            name: Name
+            type: Layout
+            orientation: Ausrichtung
+            description: Beschreibung
+            orientations:
+                vertical: Vertikal
+                horizontal: Horizontal
+            types:
+                masonry: Raster
+                sequence: Liste
+        add:
+            title: Gallerie erstellen
+            save: Gallerie speichern
+            cancel: Abbrechen
+            name: Name
+            type: Layout
+            orientation: Ausrichtung
+            description: Beschreibung
+            orientations:
+                vertical: Vertikal
+                horizontal: Horizontal
+            types:
+                masonry: Raster
+                sequence: Liste
+        delete:
+            title: Gallerie löschen
+            content: Soll die Gallerie %name% wirklich gelöscht werden?
+            yes: Gallerie löschen
+            no: Gallerie nicht löschen
+        list:
+            toolbar:
+                add: Neue Gallerie
+                edit: Gallerie bearbeiten
+                arrange: Gallerie anordnen
+                delete: Gallerie löschen
+            table:
+                cells:
+                    masonry: Raster
+                    sequence: Liste
+                    vertical: Vertikal
+                    horizontal: Horizontal
+                header:
+                    name: Name
+                    orientation: Ausrichtung
+                    type: Layout
+                    description: Beschreibung
 configuration:
     general:
         artists:
@@ -371,9 +464,7 @@ configuration:
                 success: Das Menü "%name%" wurde gespeichert
                 title: "%name% bearbeiten"
             builder:
-                galleries:
-                    art: Kunstwerke
-                    video: Videos
+                galleries: Gallerien
                 forms: Formulare
                 pages: Seiten
                 segment_pages: Segmentseiten
@@ -429,12 +520,14 @@ configuration:
                 saving: Die Links für das Theme %displayName% werden gespeichert
                 saved: Die Link für das Theme %displayName% wurden gespeichert
                 no_structure_found: Es wurden keine Links in der Themekonfiguration gefunden
+                galleries: Gallerien
                 art_galleries: Kunstgallerien
                 video_galleries: Kunstgallerien
                 menus: Menüs
                 pages: Seiten
                 segment_pages: Segmentseiten
                 forms: Formulare
+                files: Dateien
                 save: Links speichern
                 cancel: Zurück
             configuration:
@@ -450,6 +543,16 @@ configuration:
                 cancel: Zurück
 static:
     pages:
+        overview:
+            toolbar:
+                add: Neue Seite
+                edit: Seite bearbeiten
+                delete: Seite löschen
+                show_details: Seite öffnen
+            table:
+                header:
+                    name: Name
+                    content: Inhalt
         delete:
             title: Soll die Seite wirklich gelöscht werden?
             content: Soll die Seite "%title%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
@@ -475,6 +578,8 @@ static:
                 loading_failed: Die Seite konnte nicht geladen werden
                 view:
                     selection:
+                        file: Datei
+                        gallery: Gallerie
                         artwork: Kunstwerk
                         art_gallery: Kunstgallerie
                         video_gallery: Videogallerie
@@ -487,11 +592,16 @@ static:
                         title: Segment hinzufügen
                         type: Segment Typ
             overview:
-                tooltips:
-                    details: Seite anzeigen
-                    editor: Seiten Editor
+                toolbar:
+                    add: Neue Seite
                     edit: Seite bearbeiten
+                    editor: Seiteneditor
                     delete: Seite löschen
+                    show_details: Seite öffnen
+                table:
+                    header:
+                        name: Name
+                        segment_count: Segmentanzahl
             delete:
                 title: Soll die Seite wirklich gelöscht werden?
                 content: Soll die Seite "%name%" wirklich gelöscht werden? Danach ist sie nicht mehr verfügbar und kann nicht mehr im Menü verlinkt werden.
@@ -550,6 +660,19 @@ static:
                 reply: Antworten
                 forward: Weiterleiten
         forms:
+            overview:
+                toolbar:
+                    add: Neues Formular
+                    edit: Formular bearbeiten
+                    designer: Formulardesigner
+                    delete: Formular löschen
+                    open_mailbox: Nachrichten anzeigen
+                table:
+                    header:
+                        title: Name
+                        item_count: Formelemente
+                        toAddress: Empfängeradresse
+                        description: Beschreibung
             builder:
                 title: Formular %title%
                 delete: Hierher ziehen zum löschen
@@ -854,6 +977,14 @@ maintenance:
             started: Das Update wird gestartet
             back: Abbrechen
 background:
+    media:
+        uploaded: Die Datei %name% wurde erfolgreich hochgeladen
+        upload_started: Die Datei %name% wird hochgeladen
+        exists:
+            title: Upload existert
+            message: Es wurde schon einmal versucht %name% hochzuladen ohne es abzuschließen. Soll der Upload erneut starten?
+            reupload: Erneut hochladen
+            cancel: Nicht hochladen
     video:
         uploaded: Das Video %name% wurde erfolgreich hochgeladen
         upload_started: Das Video %name% wird hochgeladen

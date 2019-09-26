@@ -9,6 +9,7 @@ use Jinya\Services\Form\FormServiceInterface;
 use Jinya\Services\Galleries\ArtGalleryServiceInterface;
 use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
+use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\Routing\RouteServiceInterface;
 use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
@@ -80,6 +81,22 @@ class FrontendController extends BaseController
         return $this->render('@Theme/Gallery/detail.html.twig', [
             'gallery' => $gallery,
             'type' => 'art',
+        ]);
+    }
+
+    /**
+     * @Route("/gallery/media/{slug}", name="frontend_media_gallery_details")
+     *
+     * @param string $slug
+     * @param GalleryServiceInterface $galleryService
+     * @return Response
+     */
+    public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
+    {
+        $gallery = $galleryService->getBySlug($slug);
+
+        return $this->render('@Theme/MediaGallery/detail.html.twig', [
+            'gallery' => $gallery,
         ]);
     }
 

@@ -11,12 +11,24 @@ import Configuration from '@/router/configuration';
 import Maintenance from '@/router/maintenance';
 import MyJinya from '@/router/myjinya';
 import Error from '@/router/error';
+import Media from '@/router/media';
+
 import Events from '@/framework/Events/Events';
 import Translator from '@/framework/i18n/Translator';
 import DOMUtils from '@/framework/Utils/DOMUtils';
 import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
-const routes = [...Home, ...Account, ...Art, ...Static, ...Configuration, ...Maintenance, ...MyJinya, ...Error];
+const routes = [
+    ...Home,
+    ...Account,
+    ...Art,
+    ...Static,
+    ...Configuration,
+    ...Maintenance,
+    ...MyJinya,
+    ...Error,
+    ...Media,
+];
 
 Vue.use(Router);
 

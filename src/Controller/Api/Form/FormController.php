@@ -49,8 +49,9 @@ class FormController extends BaseApiController
                     ->slug()
                     ->title()
                     ->description()
+                    ->items()
                     ->format();
-            }, $formService->getAll($offset, $count, $keyword));
+            }, $formService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
 
@@ -96,7 +97,9 @@ class FormController extends BaseApiController
         });
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**
@@ -160,7 +163,9 @@ class FormController extends BaseApiController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**

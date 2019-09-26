@@ -8,6 +8,8 @@ use Jinya\Entity\Base\BaseEntity;
 use Jinya\Entity\Form\Form;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Gallery\VideoGallery;
+use Jinya\Entity\Media\File;
+use Jinya\Entity\Media\Gallery;
 use Jinya\Entity\Video\Video;
 use Jinya\Entity\Video\YoutubeVideo;
 
@@ -18,7 +20,9 @@ use Jinya\Entity\Video\YoutubeVideo;
 class Segment
 {
     public const ACTION_SCRIPT = 'script';
+
     public const ACTION_LINK = 'link';
+
     public const ACTION_NONE = 'none';
 
     use BaseEntity;
@@ -70,6 +74,18 @@ class Segment
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Gallery\ArtGallery")
      */
     private $videoGallery;
+
+    /**
+     * @var Gallery|null
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Gallery")
+     */
+    private $gallery;
+
+    /**
+     * @var File|null
+     * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File")
+     */
+    private $file;
 
     /**
      * @var string|null
@@ -138,6 +154,40 @@ class Segment
         $this->videoGallery = null;
         $this->video = null;
         $this->youtubeVideo = null;
+        $this->file = null;
+        $this->gallery = null;
+    }
+
+    /**
+     * @return Gallery|null
+     */
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * @param Gallery|null $gallery
+     */
+    public function setGallery(?Gallery $gallery): void
+    {
+        $this->gallery = $gallery;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File|null $file
+     */
+    public function setFile(?File $file): void
+    {
+        $this->file = $file;
     }
 
     /**

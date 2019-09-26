@@ -22,12 +22,10 @@ interface PageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param int $offset
-     * @param int $count
      * @param string $keyword
      * @return Page[]
      */
-    public function getAll(int $offset = 0, int $count = 10, string $keyword = ''): array;
+    public function getAll(string $keyword = ''): array;
 
     /**
      * Counts all entities

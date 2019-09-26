@@ -61,17 +61,19 @@ class SegmentController extends BaseApiController
             $videoSlug = $this->getValue('video');
             $artGallerySlug = $this->getValue('artGallery');
             $videoGallerySlug = $this->getValue('videoGallery');
+            $gallerySlug = $this->getValue('gallery');
+            $fileId = $this->getValue('file');
             $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
             $action = $this->getValue('action', Segment::ACTION_NONE);
             $target = $this->getValue('target', '');
             $script = $this->getValue('script', '');
 
-            if ($html !== null) {
+            if (null !== $html) {
                 $segment = $segmentService->saveHtmlSegment($html, $slug, $position, $action, $target, $script);
             }
 
-            if ($artworkSlug !== null) {
+            if (null !== $artworkSlug) {
                 $segment = $segmentService->saveArtworkSegment(
                     $artworkSlug,
                     $slug,
@@ -82,11 +84,11 @@ class SegmentController extends BaseApiController
                 );
             }
 
-            if ($videoSlug !== null) {
+            if (null !== $videoSlug) {
                 $segment = $segmentService->saveVideoSegment($videoSlug, $slug, $position, $action, $target, $script);
             }
 
-            if ($artGallerySlug !== null) {
+            if (null !== $artGallerySlug) {
                 $segment = $segmentService->saveArtGallerySegment(
                     $artGallerySlug,
                     $slug,
@@ -97,7 +99,7 @@ class SegmentController extends BaseApiController
                 );
             }
 
-            if ($videoGallerySlug !== null) {
+            if (null !== $videoGallerySlug) {
                 $segment = $segmentService->saveVideoGallerySegment(
                     $videoGallerySlug,
                     $slug,
@@ -108,8 +110,23 @@ class SegmentController extends BaseApiController
                 );
             }
 
-            if ($formSlug !== null) {
+            if (null !== $formSlug) {
                 $segment = $segmentService->saveFormSegment($formSlug, $slug, $position, $action, $target, $script);
+            }
+
+            if (null !== $gallerySlug) {
+                $segment = $segmentService->saveGallerySegment(
+                    $gallerySlug,
+                    $slug,
+                    $position,
+                    $action,
+                    $target,
+                    $script
+                );
+            }
+
+            if (null !== $fileId) {
+                $segment = $segmentService->saveFileSegment($fileId, $slug, $position, $action, $target, $script);
             }
 
             if (!isset($segment)) {
@@ -130,6 +147,8 @@ class SegmentController extends BaseApiController
                 ->videoGallery()
                 ->artGallery()
                 ->artwork()
+                ->gallery()
+                ->file()
                 ->format();
         }, Response::HTTP_CREATED);
 
@@ -186,31 +205,31 @@ class SegmentController extends BaseApiController
 
             $segmentService->updateAction($id, $action, $target, $script);
 
-            if ($position !== -1) {
+            if (-1 !== $position) {
                 $segmentService->updatePosition($slug, $id, $oldPosition, $position);
             }
 
-            if ($html !== null) {
+            if (null !== $html) {
                 $segmentService->updateHtmlSegment($html, $id);
             }
 
-            if ($artworkSlug !== null) {
+            if (null !== $artworkSlug) {
                 $segmentService->updateArtworkSegment($artworkSlug, $slug);
             }
 
-            if ($videoSlug !== null) {
+            if (null !== $videoSlug) {
                 $segmentService->updateVideoSegment($videoSlug, $slug);
             }
 
-            if ($artGallerySlug !== null) {
+            if (null !== $artGallerySlug) {
                 $segmentService->updateArtGallerySegment($artGallerySlug, $slug);
             }
 
-            if ($videoGallerySlug !== null) {
+            if (null !== $videoGallerySlug) {
                 $segmentService->updateVideoGallerySegment($videoGallerySlug, $slug);
             }
 
-            if ($formSlug !== null) {
+            if (null !== $formSlug) {
                 $segmentService->updateVideoGallerySegment($formSlug, $slug);
             }
         }, Response::HTTP_CREATED);

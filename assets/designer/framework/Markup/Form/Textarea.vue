@@ -32,6 +32,8 @@
         required: true,
       },
       validationMessage: String,
+      type: String,
+      autocomplete: String,
     },
     data() {
       return {

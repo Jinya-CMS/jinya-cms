@@ -134,6 +134,20 @@ interface ThemeFormatterInterface extends FormatterInterface
     public function artworks(): self;
 
     /**
+     * Formats the files
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function files(): self;
+
+    /**
+     * Formats the artworks
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function galleries(): self;
+
+    /**
      * Formats the links
      *
      * @return ThemeFormatterInterface

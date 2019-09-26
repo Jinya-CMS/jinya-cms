@@ -98,4 +98,18 @@ interface SegmentFormatterInterface extends FormatterInterface
      * @return SegmentFormatterInterface
      */
     public function position(): self;
+
+    /**
+     * Formats the gallery
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function gallery(): self;
+
+    /**
+     * Formats the file
+     *
+     * @return SegmentFormatterInterface
+     */
+    public function file(): self;
 }

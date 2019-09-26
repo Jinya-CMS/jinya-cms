@@ -77,7 +77,7 @@ class MediaService implements MediaServiceInterface
     private function moveFile(string $oldFile, string $type): string
     {
         $directory = $this->getFilePath($type);
-        if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
+        if (!@mkdir($directory, 0775, true) && !@is_dir($directory)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $directory));
         }
 
@@ -85,12 +85,12 @@ class MediaService implements MediaServiceInterface
         hash_update_file($hashCtx, $oldFile);
         $hash = hash_final($hashCtx);
 
-        $filename = $directory . $hash;
+        $filename = "/$directory/$hash";
 
         $fs = new Filesystem();
         $fs->rename($oldFile, $filename, true);
 
-        return "/public/$type/${hash}";
+        return "/public/$type/$hash";
     }
 
     private function getFilePath(string $type): string
@@ -110,7 +110,7 @@ class MediaService implements MediaServiceInterface
      */
     public function deleteMedia(string $url): void
     {
-        $parts = explode("\\/", $url);
+        $parts = explode('\\/', $url);
         $parts = array_reverse($parts);
         [$filename, $type] = $parts;
 

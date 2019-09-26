@@ -62,10 +62,16 @@ class FormGenerator implements FormGeneratorInterface
 
                 $options['choices'] = $choices;
                 $activeTheme = $this->frontendConfigurationService->getConfig()->getCurrentTheme();
-                $options['placeholder'] = $activeTheme->getConfiguration()['form']['dropdowns']['placeholder'];
+                if (array_key_exists('form', $activeTheme->getConfiguration()) &&
+                    array_key_exists(
+                        'dropdowns',
+                        $activeTheme->getConfiguration()['form']
+                    )) {
+                    $options['placeholder'] = $activeTheme->getConfiguration()['form']['dropdowns']['placeholder'];
+                }
             }
 
-            if (strpos($item->getType(), 'TextareaType') !== false) {
+            if (false !== strpos($item->getType(), 'TextareaType')) {
                 $options['attr'] = [
                     'rows' => 10,
                 ];

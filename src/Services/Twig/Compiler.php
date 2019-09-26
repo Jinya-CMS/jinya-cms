@@ -11,9 +11,12 @@ namespace Jinya\Services\Twig;
 use Jinya\Entity\Theme\Theme;
 use Jinya\Entity\Theme\ThemeArtGallery;
 use Jinya\Entity\Theme\ThemeArtwork;
+use Jinya\Entity\Theme\ThemeFile;
 use Jinya\Entity\Theme\ThemeForm;
+use Jinya\Entity\Theme\ThemeGallery;
 use Jinya\Entity\Theme\ThemeMenu;
 use Jinya\Entity\Theme\ThemePage;
+use Jinya\Entity\Theme\ThemeSegmentPage;
 use Jinya\Entity\Theme\ThemeVideoGallery;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
@@ -129,6 +132,7 @@ class Compiler implements CompilerInterface
         $parameters['themeConfig'] = $theme->getConfiguration();
         $this->twig->addGlobal('themeConfig', $theme->getConfiguration());
 
+        $parameters['theme']['config'] = $theme->getConfiguration();
         $parameters['theme']['active'] = $theme;
         $parameters['theme']['links'] = [];
         $links = $this->themeLinkService->getLinkConfigStructure($theme->getName());
@@ -164,6 +168,21 @@ class Compiler implements CompilerInterface
         foreach ($theme->getVideoGalleries() as $item) {
             /* @var $item ThemeVideoGallery */
             $parameters['theme']['links']['videoGalleries'][$item->getName()] = $item->getVideoGallery();
+        }
+
+        foreach ($theme->getGalleries() as $item) {
+            /* @var $item ThemeGallery */
+            $parameters['theme']['links']['galleries'][$item->getName()] = $item->getGallery();
+        }
+
+        foreach ($theme->getSegmentPages() as $item) {
+            /* @var $item ThemeSegmentPage */
+            $parameters['theme']['links']['segmentPages'][$item->getName()] = $item->getSegmentPage();
+        }
+
+        foreach ($theme->getFiles() as $item) {
+            /* @var $item ThemeFile */
+            $parameters['theme']['links']['files'][$item->getName()] = $item->getFile();
         }
 
         $parameters['theme']['path'] = $this->themeService->getThemeDirectory()

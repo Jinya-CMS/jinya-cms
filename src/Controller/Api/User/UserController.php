@@ -45,7 +45,7 @@ class UserController extends BaseUserController
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
-            $users = $userService->getAll($offset, $count, $keyword);
+            $users = $userService->getAll($keyword);
 
             $entityCount = $userService->countAll($keyword);
             $entities = [];
@@ -106,7 +106,9 @@ class UserController extends BaseUserController
         });
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**
@@ -174,7 +176,9 @@ class UserController extends BaseUserController
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);
-    }/** @noinspection PhpUndefinedClassInspection */
+    }
+
+    /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
 
     /**

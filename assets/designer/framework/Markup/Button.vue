@@ -3,8 +3,7 @@
     <router-link :class="additionalClasses" :to="routeTarget" class="jinya-button" v-else-if="to"
                  v-jinya-message="label"/>
     <button :class="additionalClasses" :disabled="isDisabled" :type="type" @click="$event => $emit('click', $event)"
-            class="jinya-button"
-            v-else v-jinya-message="label"></button>
+            class="jinya-button" v-else v-jinya-message="label"></button>
 </template>
 
 <script>
