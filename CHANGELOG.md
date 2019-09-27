@@ -1,4 +1,10 @@
 # Changelog
+## Version 11.1.0
+### New Features
+
+ * [JGCMS-89](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-89) Menu change not generating cache
+ * [JGCMS-88](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-88) File and Gallery links not working
+
 ## Release 11.0.1
 ### New Features
 * [JGCMS-86](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-86) Cache generation on gallerie update 
