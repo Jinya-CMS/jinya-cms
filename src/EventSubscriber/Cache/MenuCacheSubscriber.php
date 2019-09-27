@@ -93,17 +93,16 @@ class MenuCacheSubscriber implements EventSubscriberInterface
     private function compileCache(Menu $menu): void
     {
         $config = $this->configService->getConfig();
-        $primaryMenu = $config->getCurrentTheme()->getPrimaryMenu();
-        $primaryId = $primaryMenu ? $primaryMenu->getId() : -1;
+        $menus = $config->getCurrentTheme()->getMenus();
+        $menuAffected = false;
+        foreach ($menus as $item) {
+            if ($item->getMenu()->getId() === $menu->getId()) {
+                $menuAffected = true;
+                break;
+            }
+        }
 
-        $secondaryMenu = $config->getCurrentTheme()->getSecondaryMenu();
-        $secondaryId = $secondaryMenu ? $secondaryMenu->getId() : -1;
-
-        $footerMenu = $config->getCurrentTheme()->getFooterMenu();
-        $footerId = $footerMenu ? $footerMenu->getId() : -1;
-
-        $menuId = $menu->getId();
-        if ($menuId === $primaryId || $menuId === $secondaryId || $menuId === $footerId) {
+        if ($menuAffected) {
             @$this->cacheBuilder->clearCache();
             $this->cacheBuilder->buildCache();
         }
