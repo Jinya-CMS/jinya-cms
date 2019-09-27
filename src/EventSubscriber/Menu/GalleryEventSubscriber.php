@@ -56,8 +56,8 @@ class GalleryEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ArtGalleryEvent::PRE_SAVE => 'onPreGallerySave',
-            ArtGalleryEvent::POST_SAVE => ['onPostGallerySave', Priority::CRITICAL],
+            GalleryEvent::PRE_SAVE => 'onPreGallerySave',
+            GalleryEvent::POST_SAVE => ['onPostGallerySave', Priority::CRITICAL],
         ];
     }
 
@@ -105,9 +105,9 @@ class GalleryEventSubscriber implements EventSubscriberInterface
                     $parameter = $routingEntry->getRouteParameter();
 
                     return array_key_exists(
-                            'slug',
-                            $parameter
-                        ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
+                        'slug',
+                        $parameter
+                    ) && Strings::lower($parameter['slug']) === Strings::lower($oldSlug);
                 }
             );
         }
