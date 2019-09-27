@@ -118,8 +118,8 @@ class ThemeLinkController extends BaseApiController
             }
 
             foreach ($files as $key => $file) {
-                if (array_key_exists('id', $file)) {
-                    $themeLinkService->saveFile($key, $themeName, $file['id']);
+                if (array_key_exists('slug', $file)) {
+                    $themeLinkService->saveFile($key, $themeName, $file['slug']);
                 }
             }
         }, Response::HTTP_NO_CONTENT);

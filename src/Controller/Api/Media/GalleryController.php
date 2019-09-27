@@ -42,7 +42,7 @@ class GalleryController extends BaseApiController
     ): Response {
         $files = $galleryService->getBySlug($slug)->getFiles();
         /** @var File $file */
-        $file = $files->get(random_int(0, $files->count()))->getFile();
+        $file = $files->get(random_int(0, $files->count() - 1))->getFile();
 
         return $this->file(
             $mediaService->getMedia($file->getPath()),
