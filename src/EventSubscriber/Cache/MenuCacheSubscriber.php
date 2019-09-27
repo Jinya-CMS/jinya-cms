@@ -98,6 +98,7 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         foreach ($menus as $item) {
             if ($item->getMenu()->getId() === $menu->getId()) {
                 $menuAffected = true;
+
                 break;
             }
         }
