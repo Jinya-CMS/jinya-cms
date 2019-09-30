@@ -2,7 +2,7 @@
     <label class="jinya-checkbox">
         <input :checked="value" :disabled="!enable || isStatic" @change="$emit('input', $event.target.checked)"
                type="checkbox">
-        {{label|jmessage || label}}
+        {{label|jmessage}}
     </label>
 </template>
 
