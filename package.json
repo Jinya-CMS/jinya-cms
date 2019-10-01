@@ -39,7 +39,7 @@
         "@symfony/webpack-encore": "^0.28.0",
         "autoprefixer": "^9.6.1",
         "babel-eslint": "^10.0.3",
-        "eslint": "^6.3.0",
+        "eslint": "^6.5.1",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-config-standard": "^14.1.0",
         "eslint-friendly-formatter": "^4.0.1",
