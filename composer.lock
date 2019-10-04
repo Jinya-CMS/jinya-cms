@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d0ad00fb40582827aa216ce5571a45c",
+    "content-hash": "a7dd54657fc31049e9d95ec14e350b73",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2582,16 +2582,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267"
+                "reference": "98e10149058102817b493c5a147fa582cb62d46e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/7c292c66db52ede3afbfd6566c8872f3c5b32267",
-                "reference": "7c292c66db52ede3afbfd6566c8872f3c5b32267",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/98e10149058102817b493c5a147fa582cb62d46e",
+                "reference": "98e10149058102817b493c5a147fa582cb62d46e",
                 "shasum": ""
             },
             "require": {
@@ -2600,7 +2600,7 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=4.8.36",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3",
                 "squizlabs/php_codesniffer": "~2.5",
                 "twbs/bootstrap": "~4.3",
                 "zurb/foundation": "~6.5"
@@ -2639,7 +2639,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-09-06T16:48:49+00:00"
+            "time": "2019-10-03T17:09:15+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -6832,19 +6832,19 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org"
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Armin Ronacher",
-                    "role": "Project Founder",
-                    "email": "armin.ronacher@active-4.com"
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Twig Team",
-                    "role": "Contributors",
-                    "homepage": "https://twig.symfony.com/contributors"
+                    "homepage": "https://twig.symfony.com/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
