@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d0ad00fb40582827aa216ce5571a45c",
+    "content-hash": "36b5fe51475ca6cba84f28d802263b50",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -5884,16 +5884,16 @@
         },
         {
             "name": "symfony/templating",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/templating.git",
-                "reference": "15407776e1fe250ed3fa1c1a679482c60c2affe3"
+                "reference": "dd89e8ecd9b5d6731e893b9c7a73e06fb2a46eac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/templating/zipball/15407776e1fe250ed3fa1c1a679482c60c2affe3",
-                "reference": "15407776e1fe250ed3fa1c1a679482c60c2affe3",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/dd89e8ecd9b5d6731e893b9c7a73e06fb2a46eac",
+                "reference": "dd89e8ecd9b5d6731e893b9c7a73e06fb2a46eac",
                 "shasum": ""
             },
             "require": {
@@ -5936,7 +5936,7 @@
             ],
             "description": "Symfony Templating Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26T08:26:39+00:00"
+            "time": "2019-09-24T15:54:14+00:00"
         },
         {
             "name": "symfony/translation",
@@ -6832,19 +6832,19 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org"
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Armin Ronacher",
-                    "role": "Project Founder",
-                    "email": "armin.ronacher@active-4.com"
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Twig Team",
-                    "role": "Contributors",
-                    "homepage": "https://twig.symfony.com/contributors"
+                    "homepage": "https://twig.symfony.com/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
