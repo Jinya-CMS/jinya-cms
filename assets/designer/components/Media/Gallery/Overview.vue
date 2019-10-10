@@ -163,7 +163,7 @@
       async deleteGallery() {
         try {
           this.deleteGalleryDialog.loading = true;
-          await JinyaRequest.delete(`/api/media/gallery/${this.selectedRow.id}`);
+          await JinyaRequest.delete(`/api/media/gallery/${this.selectedRow.slug}`);
           const gallery = this.tableRows.findIndex((item) => item.id === this.selectedRow.id);
           this.tableRows.splice(gallery, 1);
           this.deleteGalleryDialog.loading = false;
@@ -178,7 +178,7 @@
         try {
           this.editGalleryDialog.message = '';
           this.editGalleryDialog.loading = true;
-          await JinyaRequest.put(`/api/media/gallery/${this.selectedRow.id}`, this.selectedRow);
+          await JinyaRequest.put(`/api/media/gallery/${this.selectedRow.slug}`, this.selectedRow);
           this.editGalleryDialog.loading = false;
           this.editGalleryDialog.visible = false;
         } catch (e) {
