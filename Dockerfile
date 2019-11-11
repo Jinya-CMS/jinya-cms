@@ -25,9 +25,11 @@ RUN a2enmod rewrite
 ADD docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 ADD docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 ADD docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
-COPY --chown=www-data . /var/www/html/
-RUN touch /var/www/html/.env
-RUN rm -rf /var/www/html/var/log/ /var/www/html/var/cache/ /var/www/html/config/install.lock
+ADD docker/entrypoint.sh /entrypoint.sh
+COPY --chown=www-data . /var/www/jinya/
+RUN rm -rf /var/www/jinya/var/log/ /var/www/jinya/var/cache/ /var/www/jinya/config/install.lock /var/www/jinya/public/public/ /var/www/jinya/vagrant-files/
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["apache2-foreground"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["apache2-foreground"]
 EXPOSE 80
