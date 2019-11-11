@@ -1,0 +1,39 @@
+version: "3"
+services:
+    jinya_db:
+        container_name: jinya_db
+        image: mysql:5.7
+        ports:
+            - 127.0.0.1:3306:3306
+        expose:
+            - 3306
+        environment:
+            MYSQL_USER: jinya
+            MYSQL_PASSWORD: jinya
+            MYSQL_DATABASE: jinya
+            MYSQL_ROOT_PASSWORD: joowrt8903e4bkvdviluea4vnt7e4ztlueoirgfc
+        restart: always
+
+    jinya_mailhog:
+        container_name: jinya_mailhog
+        image: mailhog/mailhog
+        ports:
+            - 127.0.0.1:1025:1025
+            - 127.0.0.1:8025:8025
+        restart: always
+
+    jinya_apache:
+        container_name: jinya_apache
+        image: jinyacms/jinya-cms
+        depends_on:
+            - jinya_db
+            - jinya_mailhog
+        ports:
+            - 127.0.0.1:8080:80
+        environment:
+            APP_ENV: prod
+            MAILER_URL: smtp://start:start@jinya_mailhog:1025
+            MAILER_SENDER: noreply@jinya.local
+            DATABASE_URL: mysql://jinya:jinya@jinya_db:3306/jinya
+            APP_SECRET: 5a872b73457b3
+        restart: always

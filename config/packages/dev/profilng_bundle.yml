@@ -1,3 +1,0 @@
-jinya_profiling:
-  out_dir: '%jinya_gallery.profiler.out_dir%'
-  enabled: true
