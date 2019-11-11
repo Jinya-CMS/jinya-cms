@@ -1,4 +1,18 @@
 # Changelog
+## Version 11.2.0
+### Bug
+
+ * [JGCMS-100](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-100) Edit galleries not saving
+
+### Cosmetics
+
+ * [JGCMS-92](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-92) Zugriffsprotokoll has a typo
+ * [JGCMS-91](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-91) Highlighted in menu not labeled correctly
+
+### Feature
+
+ * [JGCMS-101](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-101) Proper Docker Config
+
 ## Version 11.1.0
 ### New Features
 
