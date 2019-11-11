@@ -178,15 +178,13 @@ class GalleryController extends BaseApiController
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
      * @return Response
      */
     public function putAction(
         string $slug,
-        GalleryServiceInterface $galleryService,
-        GalleryFormatterInterface $galleryFormatter
+        GalleryServiceInterface $galleryService
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService, $galleryFormatter) {
+        [$data, $status] = $this->tryExecute(function () use ($slug, $galleryService) {
             $gallery = $galleryService->get($slug);
 
             $name = $this->getValue('name', $gallery->getName());
@@ -199,12 +197,13 @@ class GalleryController extends BaseApiController
                 throw new MissingFieldsException(['name' => 'api.gallery.field.name.missing']);
             }
 
-            $gallery = new Gallery();
             $gallery->setName($name);
             $gallery->setDescription($description);
             $gallery->setOrientation($orientation);
             $gallery->setType($type);
             $gallery->setSlug($slug);
+
+            $galleryService->saveOrUpdate($gallery);
         }, Response::HTTP_CREATED);
 
         return $this->json($data, $status);

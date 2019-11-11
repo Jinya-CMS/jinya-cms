@@ -179,7 +179,7 @@ menu:
                     diagnosis:
                         header: Diagnose
                         application_log: Anwendungsprotokoll
-                        access_log: Zugrifsprotokoll
+                        access_log: Zugriffsprotokoll
             my_jinya:
                 navbar: Mein Konto
                 sections:

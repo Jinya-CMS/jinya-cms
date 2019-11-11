@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Menu\RoutingEntry;
-use Jinya\Framework\Events\Galleries\ArtGalleryEvent;
 use Jinya\Framework\Events\Media\GalleryEvent;
 use Jinya\Framework\Events\Priority;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
