@@ -3,7 +3,6 @@ var/log
 var/profiler
 config/install.lock
 vagrant-files
-docker
 .vagrant
 .scannerwork
 .git
