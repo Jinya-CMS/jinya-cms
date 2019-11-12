@@ -1,6 +1,6 @@
 parameters:
   mailer_sender: '%env(MAILER_SENDER)%'
-  jinya_version: 11.2.2
+  jinya_version: 11.2.3
   jinya_gallery.temp_dir: '%kernel.project_dir%/var/tmp'
   jinya_gallery.profiler.out_dir: '%kernel.project_dir%/var/profiler'
   jinya_gallery.theme.directory: '%kernel.project_dir%/themes'
