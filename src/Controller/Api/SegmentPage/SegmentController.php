@@ -199,6 +199,8 @@ class SegmentController extends BaseApiController
             $videoGallerySlug = $this->getValue('videoGallery');
             $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
+            $gallerySlug = $this->getValue('gallery');
+            $fileId = $this->getValue('file');
             $action = $this->getValue('action', $segment->getAction());
             $target = $this->getValue('target', $segment->getTarget());
             $script = $this->getValue('script', $segment->getScript());
@@ -207,6 +209,14 @@ class SegmentController extends BaseApiController
 
             if (-1 !== $position) {
                 $segmentService->updatePosition($slug, $id, $oldPosition, $position);
+            }
+
+            if (null !== $gallerySlug) {
+                $segmentService->updateGallerySegment($gallerySlug, $id);
+            }
+
+            if (null !== $fileId) {
+                $segmentService->updateFileSegment($fileId, $id, $script, $action, $target);
             }
 
             if (null !== $html) {
