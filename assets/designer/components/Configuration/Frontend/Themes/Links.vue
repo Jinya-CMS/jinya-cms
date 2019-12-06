@@ -43,10 +43,10 @@
             <jinya-fieldset :legend="'configuration.frontend.themes.links.segment_pages'|jmessage"
                             v-if="structure.segment_pages">
                 <jinya-choice :choices="segmentPages" :enforce-select="true" :key="segmentPage"
-                              :label="structure.segmentPages[segmentPage]"
+                              :label="structure.segment_pages[segmentPage]"
                               :selected="createSelectValue(links.segmentPages[segmentPage])"
                               @selected="item => selected(item, links.segmentPages, segmentPage)"
-                              v-for="segmentPage in Object.keys(structure.segmentPages)"/>
+                              v-for="segmentPage in Object.keys(structure.segment_pages)"/>
             </jinya-fieldset>
             <jinya-fieldset :legend="'configuration.frontend.themes.links.galleries'|jmessage"
                             v-if="structure.galleries">
@@ -68,30 +68,30 @@
 </template>
 
 <script>
-  import isObject from 'lodash/isObject';
-  import isArray from 'lodash/isArray';
-  import JinyaForm from '@/framework/Markup/Form/Form';
-  import JinyaMessage from '@/framework/Markup/Validation/Message';
-  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
-  import Routes from '@/router/Routes';
-  import Translator from '@/framework/i18n/Translator';
-  import Timing from '@/framework/Utils/Timing';
-  import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
-  import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import DOMUtils from '@/framework/Utils/DOMUtils';
+    import isObject from 'lodash/isObject';
+    import isArray from 'lodash/isArray';
+    import JinyaForm from '@/framework/Markup/Form/Form';
+    import JinyaMessage from '@/framework/Markup/Validation/Message';
+    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+    import Routes from '@/router/Routes';
+    import Translator from '@/framework/i18n/Translator';
+    import Timing from '@/framework/Utils/Timing';
+    import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
+    import JinyaChoice from '@/framework/Markup/Form/Choice';
+    import DOMUtils from '@/framework/Utils/DOMUtils';
 
-  export default {
-    name: 'Links',
-    components: {
-      JinyaChoice,
-      JinyaFieldset,
-      JinyaLoader,
-      JinyaMessage,
-      JinyaForm,
-    },
-    data() {
-      return {
+    export default {
+        name: 'Links',
+        components: {
+            JinyaChoice,
+            JinyaFieldset,
+            JinyaLoader,
+            JinyaMessage,
+            JinyaForm,
+        },
+        data() {
+            return {
         state: '',
         message: '',
         enable: true,
@@ -145,7 +145,7 @@
         const segmentPagePromise = JinyaRequest
           .get('/api/segment_page')
           .then((pages) => {
-            this.segmentPages = pages.items.map((item) => ({ text: item.title, value: item.slug }));
+              this.segmentPages = pages.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const formsPromise = JinyaRequest
           .get('/api/form')
