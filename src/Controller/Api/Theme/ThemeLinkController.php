@@ -74,6 +74,7 @@ class ThemeLinkController extends BaseApiController
             $videoGalleries = $this->getValue('videoGalleries', []);
             $galleries = $this->getValue('galleries', []);
             $files = $this->getValue('files', []);
+            $segmentPages = $this->getValue('segmentPages', []);
 
             foreach ($menus as $key => $menu) {
                 if (array_key_exists('slug', $menu)) {
@@ -120,6 +121,12 @@ class ThemeLinkController extends BaseApiController
             foreach ($files as $key => $file) {
                 if (array_key_exists('slug', $file)) {
                     $themeLinkService->saveFile($key, $themeName, $file['slug']);
+                }
+            }
+
+            foreach ($segmentPages as $key => $segmentPage) {
+                if (array_key_exists('slug', $segmentPage)) {
+                    $themeLinkService->saveSegmentPage($key, $themeName, $segmentPage['slug']);
                 }
             }
         }, Response::HTTP_NO_CONTENT);
