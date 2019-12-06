@@ -362,7 +362,16 @@ class ThemeFormatter implements ThemeFormatterInterface
      */
     public function links(): ThemeFormatterInterface
     {
-        return $this->artGalleries()->artworks()->videoGalleries()->pages()->forms()->menus()->galleries()->files();
+        return $this
+            ->artGalleries()
+            ->artworks()
+            ->videoGalleries()
+            ->pages()
+            ->forms()
+            ->menus()
+            ->galleries()
+            ->files()
+            ->segmentPages();
     }
 
     /**
