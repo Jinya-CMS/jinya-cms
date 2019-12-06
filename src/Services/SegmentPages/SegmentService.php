@@ -604,10 +604,19 @@ class SegmentService implements SegmentServiceInterface
      *
      * @param int $fileId
      * @param int $segmentId
+     * @param string $script
+     * @param string $action
+     * @param string $target
      * @return int
      */
-    public function updateFileSegment(int $fileId, int $segmentId): int
+    public function updateFileSegment(int $fileId, int $segmentId, string $script, string $action, string $target): int
     {
+        $segment = $this->get($segmentId);
+        $segment->setScript($script);
+        $segment->setTarget($target);
+        $segment->setAction($action);
+        $this->entityManager->flush();
+
         return $this->updateSegment($fileId, $segmentId, 'file');
     }
 }
