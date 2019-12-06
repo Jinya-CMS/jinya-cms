@@ -19,7 +19,7 @@
                      title="static.pages.segment.details.segment.delete.title" v-if="deleteModal.show">
             <jinya-message :message="deleteModal.error" slot="message" state="error"
                            v-if="deleteModal.error && !deleteModal.loading"/>
-            {{deleteContent|jmessage(selectedSegment)}}
+            {{deleteContent}}
             <jinya-modal-button :closes-modal="true" :is-disabled="this.deleteModal.loading" :is-secondary="true"
                                 label="static.pages.segment.details.segment.delete.no" slot="buttons-left"/>
             <jinya-modal-button :is-danger="true" :is-disabled="this.deleteModal.loading" @click="deleteSegment"
@@ -29,31 +29,31 @@
 </template>
 
 <script>
-  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-  import JinyaPageEditorItem from '@/components/Static/Pages/Segment/Editor/Item';
-  import JinyaPageEditorAddView from '@/components/Static/Pages/Segment/Editor/Add';
-  import JinyaMessage from '@/framework/Markup/Validation/Message';
-  import JinyaIconButton from '@/framework/Markup/IconButton';
-  import DOMUtils from '@/framework/Utils/DOMUtils';
-  import Translator from '@/framework/i18n/Translator';
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
-  import JinyaEditor from '@/framework/Markup/Form/Editor';
-  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
-  import JinyaPageEditorPreviewPane from '@/components/Static/Pages/Segment/Editor/PreviewPane';
-  import JinyaModal from '@/framework/Markup/Modal/Modal';
-  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+    import JinyaPageEditorItem from '@/components/Static/Pages/Segment/Editor/Item';
+    import JinyaPageEditorAddView from '@/components/Static/Pages/Segment/Editor/Add';
+    import JinyaMessage from '@/framework/Markup/Validation/Message';
+    import JinyaIconButton from '@/framework/Markup/IconButton';
+    import DOMUtils from '@/framework/Utils/DOMUtils';
+    import Translator from '@/framework/i18n/Translator';
+    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+    import JinyaEditor from '@/framework/Markup/Form/Editor';
+    import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
+    import JinyaPageEditorPreviewPane from '@/components/Static/Pages/Segment/Editor/PreviewPane';
+    import JinyaModal from '@/framework/Markup/Modal/Modal';
+    import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
 
-  export default {
-    components: {
-      JinyaModalButton,
-      JinyaModal,
-      JinyaPageEditorPreviewPane,
-      JinyaEditorPane,
-      JinyaEditor,
-      JinyaLoader,
-      JinyaIconButton,
-      JinyaMessage,
-      JinyaPageEditorAddView,
+    export default {
+        components: {
+            JinyaModalButton,
+            JinyaModal,
+            JinyaPageEditorPreviewPane,
+            JinyaEditorPane,
+            JinyaEditor,
+            JinyaLoader,
+            JinyaIconButton,
+            JinyaMessage,
+            JinyaPageEditorAddView,
       JinyaPageEditorItem,
     },
     name: 'JinyaSegmentPageEditor',
@@ -62,7 +62,7 @@
         const segment = this.selectedSegment;
 
         if (segment.html) {
-          return 'static.pages.segment.details.segment.delete.content_html';
+            return Translator.message('static.pages.segment.details.segment.delete.content_html', segment);
         }
         if (segment.artwork) {
           return Translator.message('static.pages.segment.details.segment.delete.content', segment.artwork);
@@ -136,12 +136,12 @@
 
         this.deleteModal.loading = false;
       },
-      async saveEdit(segment, position) {
-        this.segments[position].html = segment.html;
-        this.segments[position].action = segment.action;
-        this.segments[position].script = segment.script;
-        this.segments[position].target = segment.target;
-      },
+        async saveEdit(position, segment) {
+            this.segments[position].html = segment.html;
+            this.segments[position].action = segment.action;
+            this.segments[position].script = segment.script;
+            this.segments[position].target = segment.target;
+        },
       add(position) {
         this.addModal.show = true;
         this.currentPosition = position;

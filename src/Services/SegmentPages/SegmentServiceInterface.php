@@ -251,9 +251,12 @@ interface SegmentServiceInterface
      *
      * @param int $fileId
      * @param int $segmentId
+     * @param string $script
+     * @param string $action
+     * @param string $target
      * @return int
      */
-    public function updateFileSegment(int $fileId, int $segmentId): int;
+    public function updateFileSegment(int $fileId, int $segmentId, string $script, string $action, string $target): int;
 
     /**
      * Updates the youtube video in the given segment page at the given position
