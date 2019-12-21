@@ -1,5 +1,5 @@
 @include jinya-media-query($screen: true, $small: true) {
-    .jinya-art-gallery--mobile {
+    .jinya-gallery--mobile {
         display: block;
         flex: 0 0 100%;
         margin-top: 2rem;
@@ -8,7 +8,7 @@
         width: 100%;
     }
 
-    .jinya-art-gallery__artwork--mobile {
+    .jinya-gallery__artwork--mobile {
         box-sizing: border-box;
         margin: 0;
         flex-direction: column-reverse;
@@ -20,15 +20,15 @@
             flex-direction: column-reverse;
             display: flex;
 
-            .jinya-art-gallery__image--mobile,
-            .jinya-art-gallery__caption--mobile {
+            .jinya-gallery__image--mobile,
+            .jinya-gallery__caption--mobile {
                 margin-right: 0;
                 margin-left: 0;
             }
         }
     }
 
-    .jinya-art-gallery__image--mobile {
+    .jinya-gallery__image--mobile {
         min-width: 100%;
         max-width: 100%;
         object-fit: unset;
@@ -36,7 +36,7 @@
         display: block;
     }
 
-    .jinya-art-gallery__caption--mobile {
+    .jinya-gallery__caption--mobile {
         min-width: 100%;
         max-width: 100%;
         display: block;
@@ -44,12 +44,12 @@
         margin: 0 0 1rem;
     }
 
-    .jinya-art-gallery-caption__title--mobile {
+    .jinya-gallery-caption__title--mobile {
         font-size: 2rem;
         margin: 0;
     }
 
-    .jinya-art-gallery-caption__content--mobile {
+    .jinya-gallery-caption__content--mobile {
         display: none;
     }
 }

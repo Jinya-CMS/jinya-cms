@@ -1,0 +1,57 @@
+{% extends '@Theme/jinya-default-theme/base.html.twig' %}
+{% block head_title %}
+    &mdash; {{ gallery.name }}
+{% endblock %}
+
+{%- block styles_custom -%}
+    {% if gallery.masonry %}
+        <link ref="{{ asset('public/jinya-default-theme/styles/masonry-gallery.css') }}"/>
+    {% else %}
+        <link ref="{{ asset('public/jinya-default-theme/styles/list-gallery.css') }}"/>
+    {% endif %}
+{%- endblock -%}
+
+{% block custom_meta %}
+    {% if gallery.description is not empty %}
+        <meta name="Description" content="{{ gallery.description }}">
+    {% endif %}
+{% endblock %}
+
+{% block maincontent %}
+    {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-gallery' -%}
+    <main class="is--{{ gallery.type }}">
+        <span class="{{- bemClassBlock -}}__page-title">{{ gallery.name }}</span>
+        <div class="{{- bemClassBlock }} jinya-gallery--mobile is--{{ gallery.orientation }}">
+            {%- for filePosition in gallery.files|sortByPosition -%}
+                {%- set file = filePosition.file -%}
+                <figure class="{{- bemClassBlock -}}__artwork jinya-gallery__artwork--mobile">
+                    <img class="{{- bemClassBlock -}}-artwork__image jinya-gallery__image--mobile"
+                         src="{{ file.picture }}"
+                         alt="{{ file.name }}"
+                        {% if gallery.masonry %}
+                            data-action="masonry-click"
+                            role="button"
+                        {% endif %}
+                    >
+                    <figcaption class="{{- bemClassBlock -}}__caption jinya-gallery__caption--mobile">
+                            <span
+                                class="{{- bemClassBlock -}}-caption__title jinya-gallery-caption__title--mobile {% if file.description is empty or file.description is not defined %}is--description-empty{% endif %}">{{ file.name }}</span>
+                        {% if file.description is defined and file.description is not empty %}
+                            <div
+                                class="{{- bemClassBlock -}}-caption__content jinya-gallery-caption__content--mobile">{{ file.description|raw }}</div>
+                        {% endif %}
+                    </figcaption>
+                </figure>
+            {%- endfor -%}
+        </div>
+    </main>
+{%- endblock -%}
+
+{%- block scripts_frontend -%}
+    {{- parent() -}}
+    <script src="{{ asset('public/jinya-default-theme/scripts/gallery.' ~ gallery.orientation ~ '.js') }}"></script>
+    {% if gallery.masonry %}
+        <script src="{{ asset('public/jinya-default-theme/scripts/gallery.masonry.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('public/jinya-default-theme/scripts/gallery.mobile.js') }}"></script>
+{%- endblock -%}
