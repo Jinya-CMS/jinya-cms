@@ -1,1 +1,5 @@
 {% extends '@Theme/jinya-default-theme/base.html.twig' %}
+
+{% block maincontent %}
+    {% include '@Theme/jinya-default-theme/include/segmentPage.html.twig' with { 'page': theme.links.segmentPages.startpage } %}
+{% endblock %}

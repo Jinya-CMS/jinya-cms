@@ -18,6 +18,8 @@ scripts:
         gallery.masonry.js:
             - gallery-masonry.dist.js
 links:
+    segment_pages:
+        startpage: Startseite
     menus:
         primary: Kopfmenü
         footer: Fußzeilenmenü

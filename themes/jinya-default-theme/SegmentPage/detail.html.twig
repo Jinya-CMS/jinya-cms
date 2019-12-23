@@ -5,35 +5,5 @@
 {% endblock %}
 
 {% block maincontent %}
-    <div class="jinya-segment-page__segment-page">
-        {% for segment in page.segments|sortByPosition %}
-            <section class="jinya-segment-page__segment">
-            {% if segment.gallery is not null %}
-                {% include '@Theme/jinya-default-theme/include/gallery.html.twig' with { 'gallery': segment.gallery } %}
-                <script
-                    src="{{ asset('public/jinya-default-theme/scripts/gallery.' ~ segment.gallery.orientation ~ '.js') }}"></script>
-                <script
-                    src="{{ asset('public/jinya-default-theme/scripts/gallery.' ~ segment.gallery.type ~ '.js') }}"></script>
-                {% elseif segment.html is not null %}
-                {{ segment.html|raw }}
-                {% elseif segment.file is not null %}
-            {% if segment.action == 'none' %}
-            <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
-                {% elseif segment.action == 'link' %}
-                <a href="{{ segment.target }}">
-                    <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
-                </a>
-                {% elseif segment.action == 'script' %}
-            <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
-                <script>{{ segment.script|raw }}</script>
-            {% endif %}
-            {% endif %}
-            </section>{% endfor %}
-    </div>
+    {% include '@Theme/jinya-default-theme/include/segmentPage.html.twig' %}
 {% endblock %}
-
-
-{%- block scripts_frontend -%}
-    {{- parent() -}}
-    <script src="{{ asset('public/jinya-default-theme/scripts/gallery.mobile.js') }}"></script>
-{%- endblock -%}
