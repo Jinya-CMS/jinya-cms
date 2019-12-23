@@ -10,30 +10,10 @@
 {% endblock %}
 
 {% block maincontent %}
-    {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-gallery' -%}
-    <main class="is--{{ gallery.type }}">
+    <main>
+        {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-gallery' -%}
         <span class="{{- bemClassBlock -}}__page-title">{{ gallery.name }}</span>
-        <div class="{{- bemClassBlock }} jinya-gallery--mobile is--{{ gallery.orientation }}">
-            {%- for filePosition in gallery.files|sortByPosition -%}
-                {%- set file = filePosition.file -%}
-                <figure class="{{- bemClassBlock -}}__artwork jinya-gallery__artwork--mobile">
-                    <img class="{{- bemClassBlock -}}-artwork__image jinya-gallery__image--mobile"
-                         src="{{ file.path }}"
-                         alt="{{ file.name }}"
-                        {% if gallery.type == 'sequence' %}
-                            data-action="masonry-click"
-                            role="button"
-                        {% endif %}
-                    >
-                    <figcaption class="{{- bemClassBlock -}}__caption jinya-gallery__caption--mobile">
-                            <span
-                                class="{{- bemClassBlock -}}-caption__title jinya-gallery-caption__title--mobile is--description-empty">
-                                {{ file.name }}
-                            </span>
-                    </figcaption>
-                </figure>
-            {%- endfor -%}
-        </div>
+        {% include '@Theme/jinya-default-theme/include/gallery.html.twig' with { 'gallery': gallery } %}
     </main>
 {%- endblock -%}
 
