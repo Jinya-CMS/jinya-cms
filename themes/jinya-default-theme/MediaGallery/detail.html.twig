@@ -12,7 +12,7 @@
 {% block maincontent %}
     <main>
         {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-gallery' -%}
-        <span class="{{- bemClassBlock -}}__page-title">{{ gallery.name }}</span>
+        <span class="jinya-gallery__page-title">{{ gallery.name }}</span>
         {% include '@Theme/jinya-default-theme/include/gallery.html.twig' with { 'gallery': gallery } %}
     </main>
 {%- endblock -%}

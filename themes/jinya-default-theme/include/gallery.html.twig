@@ -1,23 +1,26 @@
 {%- set bemClassBlock = 'jinya-' ~ gallery.orientation ~ '-gallery' -%}
 <div class="is--{{ gallery.type }}">
-    <div class="{{- bemClassBlock }} jinya-gallery--mobile is--{{ gallery.orientation }}">
+    <div
+        class="{{- bemClassBlock }} jinya-gallery--mobile is--{{ gallery.orientation }} {% if extraClass is defined %}{{ extraClass }}{% endif %}">
         {%- for filePosition in gallery.files|sortByPosition -%}
             {%- set file = filePosition.file -%}
             <figure class="{{- bemClassBlock -}}__artwork jinya-gallery__artwork--mobile">
                 <img class="{{- bemClassBlock -}}-artwork__image jinya-gallery__image--mobile"
                      src="{{ file.path }}"
                      alt="{{ file.name }}"
-                    {% if gallery.type == 'masonry' %}
-                        data-action="masonry-click"
-                        role="button"
-                    {% endif %}
+                        {% if gallery.type == 'masonry' %}
+                            data-action="masonry-click"
+                            role="button"
+                        {% endif %}
                 >
-                <figcaption class="{{- bemClassBlock -}}__caption jinya-gallery__caption--mobile">
-                    <span
-                        class="{{- bemClassBlock -}}-caption__title jinya-gallery-caption__title--mobile is--description-empty">
-                        {{ file.name }}
-                    </span>
-                </figcaption>
+                {% if noCaption is not defined %}
+                    <figcaption class="{{- bemClassBlock -}}__caption jinya-gallery__caption--mobile">
+                        <span
+                            class="{{- bemClassBlock -}}-caption__title jinya-gallery-caption__title--mobile is--description-empty">
+                            {{ file.name }}
+                        </span>
+                    </figcaption>
+                {% endif %}
             </figure>
         {%- endfor -%}
     </div>
