@@ -1,15 +1,15 @@
 <template>
-    <jinya-editor>
-        <jinya-message :message="message" :state="state"/>
-        <jinya-form :enable="!loading" @back="back" @submit="save"
-                    cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
-                    save-label="configuration.frontend.themes.variables.save">
-            <jinya-input :enable="!loading" :key="field.key" :label="field.label"
-                         :placeholder="field.value" :value="getValue(field.key)"
-                         @change="value => changeVariable(field, value)" class="jinya-input--variables"
-                         v-for="field in filteredFields"/>
-        </jinya-form>
-    </jinya-editor>
+  <jinya-editor>
+    <jinya-message :message="message" :state="state"/>
+    <jinya-form :enable="!loading" @back="back" @submit="save"
+                cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
+                save-label="configuration.frontend.themes.variables.save">
+      <jinya-input :enable="!loading" :key="field.key" :label="field.label"
+                   :placeholder="field.value" :value="getValue(field.key)"
+                   @change="value => changeVariable(field, value)" class="jinya-input--variables"
+                   v-for="field in filteredFields"/>
+    </jinya-form>
+  </jinya-editor>
 </template>
 
 <script>
@@ -38,7 +38,7 @@
         filteredFields: [],
         message: '',
         state: '',
-        variables: [],
+        variables: {},
         loading: false,
       };
     },
@@ -49,7 +49,9 @@
         this.message = Translator.message('configuration.frontend.themes.variables.loading');
         const theme = await JinyaRequest.get(`/api/theme/${this.$route.params.name}`);
         this.theme = theme;
-        this.variables = theme.scssVariables;
+        this.variables = Array.isArray(theme.scssVariables) && theme.scssVariables.length === 0
+          ? {}
+          : theme.scssVariables;
         DOMUtils.changeTitle(Translator.message('configuration.frontend.themes.variables.title', theme));
         EventBus.$emit(
           Events.header.change,
@@ -63,7 +65,7 @@
         this.filteredFields = mappedFields;
         this.state = '';
         this.message = '';
-        EventBus.$on(Events.search.triggered, value => this.search(value.keyword));
+        EventBus.$on(Events.search.triggered, (value) => this.search(value.keyword));
       } catch (e) {
         this.message = e.message;
         this.state = 'error';
@@ -115,25 +117,25 @@
 </script>
 
 <style lang="scss" scoped>
-    .jinya-form--variables {
-        display: flex;
-        margin-bottom: 1em;
+  .jinya-form--variables {
+    display: flex;
+    margin-bottom: 1em;
+  }
+
+  .jinya-input--variables {
+    flex: 0 0 100% / 3 - 1%;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+
+    &:first-child,
+    &:nth-child(n) {
+      margin-left: 0;
+      flex-basis: 100% / 3 - 0.5%;
     }
 
-    .jinya-input--variables {
-        flex: 0 0 100% / 3 - 1%;
-        margin-right: 0.5%;
-        margin-left: 0.5%;
-
-        &:first-child,
-        &:nth-child(n) {
-            margin-left: 0;
-            flex-basis: 100% / 3 - 0.5%;
-        }
-
-        &:nth-child(3n) {
-            margin-right: 0;
-            flex-basis: 100% / 3 - 0.5%;
-        }
+    &:nth-child(3n) {
+      margin-right: 0;
+      flex-basis: 100% / 3 - 0.5%;
     }
+  }
 </style>

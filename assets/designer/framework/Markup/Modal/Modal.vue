@@ -27,19 +27,19 @@
 </template>
 
 <script>
-  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
-  export default {
-    name: 'jinya-modal',
-    components: { JinyaLoader },
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
-      loading: {
-        type: Boolean,
-        default() {
+    export default {
+        name: 'jinya-modal',
+        components: { JinyaLoader },
+        props: {
+            title: {
+                type: String,
+                required: true,
+            },
+            loading: {
+                type: Boolean,
+                default() {
           return false;
         },
       },
@@ -77,7 +77,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 99999;
+        z-index: 9999;
         transition: opacity 0.3s;
         opacity: 1;
 
@@ -100,7 +100,7 @@
             transition-delay: 0.2s;
             transition: opacity 0.3s;
             border: none;
-            z-index: 100000;
+            z-index: 10000;
             max-width: 50em;
             box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 20%);
             border-radius: 10px;
