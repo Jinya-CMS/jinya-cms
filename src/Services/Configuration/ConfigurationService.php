@@ -8,6 +8,7 @@
 
 namespace Jinya\Services\Configuration;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Jinya\Entity\Configuration\Configuration;
@@ -59,11 +60,19 @@ class ConfigurationService implements ConfigurationServiceInterface
 
             $config = $this->entityManager->getRepository(Configuration::class)->findAll()[0];
         } catch (Exception $exception) {
-            $config = new Configuration();
-            $config->setCurrentTheme($this->themeService->getDefaultJinyaTheme());
+            $theme = $this->themeService->getDefaultJinyaTheme();
+            if (!$this->entityManager->isOpen()) {
+                $this->entityManager = EntityManager::create(
+                    $this->entityManager->getConnection(),
+                    $this->entityManager->getConfiguration()
+                );
+            }
 
-            $this->entityManager->persist($config);
-            $this->entityManager->flush();
+            $config = new Configuration();
+            $this->entityManager->getConnection()->insert('configuration', [
+                'current_frontend_theme_id' => $theme->getId(),
+                'invalidate_api_key_after' => Configuration::DEFAULT_API_KEY_INVALIDATION,
+            ]);
         }
 
         $this->eventDispatcher->dispatch(new ConfigurationEvent($config), ConfigurationEvent::POST_GET);

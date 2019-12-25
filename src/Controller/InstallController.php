@@ -161,6 +161,7 @@ class InstallController extends AbstractController
                 return $this->render('@Jinya\Installer\Default\createDatabase.html.twig', ['exception' => $e]);
             }
 
+            $this->themeSyncService->syncThemes();
             $configService->getConfig();
 
             return $this->redirectToRoute('install_admin');
@@ -209,7 +210,6 @@ class InstallController extends AbstractController
 
                 $user->setProfilePicture($path);
                 $this->userService->saveOrUpdate($user);
-                $this->themeSyncService->syncThemes();
 
                 $fs->touch(sprintf('%s/config/install.lock', $this->kernelProjectDir));
                 $fs->remove(sprintf('%s/config/admin.lock', $this->kernelProjectDir));

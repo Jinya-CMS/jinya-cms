@@ -8,7 +8,9 @@
 
 namespace Jinya\Services\Theme;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -61,6 +63,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws ORMException
      */
     private function saveTheme(string $configString, string $name): void
     {
@@ -85,6 +88,12 @@ class ThemeSyncService implements ThemeSyncServiceInterface
         }
 
         if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($theme)) {
+            if (!$this->entityManager->isOpen()) {
+                $this->entityManager = EntityManager::create(
+                    $this->entityManager->getConnection(),
+                    $this->entityManager->getConfiguration()
+                );
+            }
             $this->entityManager->persist($theme);
         }
 
