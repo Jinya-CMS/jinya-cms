@@ -281,6 +281,7 @@ routes:
     maintenance:
         system:
             updates: Updates
+            version: Aktuelle Version
 authentication:
     roles:
         -   text: Superadmin
@@ -970,6 +971,8 @@ error:
         content: Du hast auf die Seite keinen Zugriff, wende dich bitte an deinen Administrator.
 maintenance:
     system:
+        changelog:
+            currentVersion: Du hast Version %version%
         updates:
             message: Aktuell ist Jinya in der Version %version% installiert.
             disclaimer: Bevor du das Update durchführst, mach <strong>unbedingt</strong> eine Datensicherung von deiner Datenbank und deinen Dateien. Falls du nicht genau weißt wie das geht, kannst du dich gerne an <a href="mailto:developers@jinya.de">developers@jinya.de</a> wenden, wir werden versuchen dir zu helfen.
