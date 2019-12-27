@@ -12,7 +12,7 @@ class PhpInfoController extends BaseApiController
 {
     /**
      * @Route("/api/phpinfo", name="api_phpinfo_get", methods={"GET"})
-     * @IsGranted(role="ROLE_SUPERADMIN")
+     * @IsGranted("ROLE_SUPER_ADMIN")
      *
      * @param PhpInfoServiceInterface $phpInfoService
      * @return Response

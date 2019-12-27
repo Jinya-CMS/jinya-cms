@@ -24,8 +24,13 @@ class PhpInfoService implements PhpInfoServiceInterface
         $extensions = [];
         $loadedExtensions = get_loaded_extensions();
 
-        foreach ($loadedExtensions as $extensionName => $loadedExtension) {
-            $iniValues = ini_get_all($extensionName);
+        foreach ($loadedExtensions as $extensionName) {
+            try {
+                $iniValues = ini_get_all($extensionName);
+            } catch (\Throwable $exception) {
+                $iniValues = [];
+            }
+
             $extension = new PhpExtension();
             $extension->setExtensionName($extensionName);
             $extension->setVersion(phpversion($extensionName));
@@ -33,9 +38,19 @@ class PhpInfoService implements PhpInfoServiceInterface
             foreach ($iniValues as $iniName => $iniValue) {
                 $iniConfig = new IniValue();
                 $iniConfig->setConfigName($iniName);
-                $iniConfig->setValue($iniValue);
+                if (is_array($iniValue)) {
+                    if (array_key_exists('local_value', $iniValue)) {
+                        $iniConfig->setValue($iniValue['local_value']);
+                    } elseif (array_key_exists('global_value', $iniValue)) {
+                        $iniConfig->setValue($iniValue['global_value']);
+                    }
+                } else {
+                    $iniConfig->setValue($iniValue);
+                }
                 $extension->addIniValue($iniConfig);
             }
+
+            $extensions[] = $extension;
         }
 
         return $extensions;
@@ -48,9 +63,27 @@ class PhpInfoService implements PhpInfoServiceInterface
     {
         $iniValues = ini_get_all();
 
-        return array_filter($iniValues, static function ($value) {
-            return strpos($value, '.');
-        });
+        $items = array_filter($iniValues, static function ($key) {
+            return !strpos($key, '.');
+        }, ARRAY_FILTER_USE_KEY);
+        $values = [];
+
+        foreach ($items as $key => $iniValue) {
+            $iniConfig = new IniValue();
+            if (is_array($iniValue)) {
+                if (array_key_exists('local_value', $iniValue)) {
+                    $iniConfig->setValue($iniValue['local_value']);
+                } elseif (array_key_exists('global_value', $iniValue)) {
+                    $iniConfig->setValue($iniValue['global_value']);
+                }
+            } else {
+                $iniConfig->setValue($iniValue);
+            }
+            $iniConfig->setConfigName($key);
+            $values[] = $iniConfig;
+        }
+
+        return $values;
     }
 
     /**

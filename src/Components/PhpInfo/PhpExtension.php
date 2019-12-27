@@ -2,7 +2,9 @@
 
 namespace Jinya\Components\PhpInfo;
 
-class PhpExtension
+use JsonSerializable;
+
+class PhpExtension implements JsonSerializable
 {
     /** @var string */
     private $extensionName;
@@ -67,5 +69,17 @@ class PhpExtension
     public function addIniValue(IniValue $iniValue): void
     {
         $this->iniValues[] = $iniValue;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'iniValues' => $this->iniValues,
+            'version' => $this->version,
+            'name' => $this->extensionName,
+        ];
     }
 }

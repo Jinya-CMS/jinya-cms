@@ -2,7 +2,9 @@
 
 namespace Jinya\Components\PhpInfo;
 
-class IniValue
+use JsonSerializable;
+
+class IniValue implements JsonSerializable
 {
     /** @var string */
     private $value;
@@ -13,7 +15,7 @@ class IniValue
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -21,7 +23,7 @@ class IniValue
     /**
      * @param string $value
      */
-    public function setValue(string $value): void
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }
@@ -40,5 +42,16 @@ class IniValue
     public function setConfigName(string $configName): void
     {
         $this->configName = $configName;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'value' => $this->value,
+            'name' => $this->configName,
+        ];
     }
 }
