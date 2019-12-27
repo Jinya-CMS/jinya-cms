@@ -2,6 +2,7 @@ import Missing from '@/components/Home/Missing';
 import Update from '@/components/Maintenance/System/Update';
 import Routes from '@/router/Routes';
 import Version from '@/components/Maintenance/System/Version';
+import PhpInfo from '@/components/Maintenance/System/PhpInfo';
 
 export default [
   {
@@ -33,6 +34,9 @@ export default [
   {
     path: Routes.Maintenance.System.PHP.route,
     name: Routes.Maintenance.System.PHP.name,
-    component: Missing,
+    component: PhpInfo,
+    meta: {
+      title: 'routes.maintenance.system.phpinfo',
+    },
   },
 ];

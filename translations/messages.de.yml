@@ -280,6 +280,7 @@ routes:
             known_devices: Gespeicherte Geräte
     maintenance:
         system:
+            phpinfo: PHP Info
             updates: Updates
             version: Aktuelle Version
 authentication:
@@ -971,6 +972,22 @@ error:
         content: Du hast auf die Seite keinen Zugriff, wende dich bitte an deinen Administrator.
 maintenance:
     system:
+        phpinfo:
+            system:
+                title: Betriebssystem Daten
+                uname: Betriebssystem
+            zend:
+                title: Zend Daten
+                version: Version
+            apache:
+                title: Apache Daten
+                version: Version
+                modules: Module
+            php:
+                title: PHP Daten
+                version: Version
+                iniValues: Konfigurationswerte
+                extensions: Erweiterungen
         changelog:
             currentVersion: Du hast Version %version%
         updates:
