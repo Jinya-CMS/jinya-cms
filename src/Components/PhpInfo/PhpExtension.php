@@ -72,7 +72,7 @@ class PhpExtension implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
