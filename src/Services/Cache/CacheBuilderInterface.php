@@ -52,4 +52,11 @@ interface CacheBuilderInterface
      * Clears the cache
      */
     public function clearCache(): void;
+
+    /**
+     * Gets the cache file
+     *
+     * @return string
+     */
+    public function getCacheFile(): string;
 }
