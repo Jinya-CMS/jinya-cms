@@ -17,7 +17,7 @@ class CacheStatusController extends BaseApiController
      * @param CacheStatusServiceInterface $cacheStatusService
      * @return Response
      */
-    public function getCacheStatus(CacheStatusServiceInterface $cacheStatusService): Response
+    public function getCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
         return $this->json([
             'jinya' => $cacheStatusService->getJinyaCacheState(),
@@ -34,7 +34,7 @@ class CacheStatusController extends BaseApiController
      * @param CacheStatusServiceInterface $cacheStatusService
      * @return Response
      */
-    public function deleteJinyaCache(CacheStatusServiceInterface $cacheStatusService): Response
+    public function deleteJinyaCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($cacheStatusService) {
             $cacheStatusService->clearJinyaCacheState();
@@ -50,7 +50,7 @@ class CacheStatusController extends BaseApiController
      * @param CacheStatusServiceInterface $cacheStatusService
      * @return Response
      */
-    public function deleteSymfonyCache(CacheStatusServiceInterface $cacheStatusService): Response
+    public function deleteSymfonyCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($cacheStatusService) {
             $cacheStatusService->clearSymfonyCache();
@@ -66,7 +66,7 @@ class CacheStatusController extends BaseApiController
      * @param CacheStatusServiceInterface $cacheStatusService
      * @return Response
      */
-    public function deleteApcuCache(CacheStatusServiceInterface $cacheStatusService): Response
+    public function deleteApcuCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($cacheStatusService) {
             $cacheStatusService->clearApcuCache();
@@ -82,7 +82,7 @@ class CacheStatusController extends BaseApiController
      * @param CacheStatusServiceInterface $cacheStatusService
      * @return Response
      */
-    public function deleteOpCache(CacheStatusServiceInterface $cacheStatusService): Response
+    public function deleteOpCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($cacheStatusService) {
             $cacheStatusService->clearOpCache();

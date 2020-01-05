@@ -280,6 +280,7 @@ routes:
             known_devices: Gespeicherte Geräte
     maintenance:
         system:
+            cache: Cache
             phpinfo: PHP Info
             updates: Updates
             version: Aktuelle Version
@@ -972,6 +973,8 @@ error:
         content: Du hast auf die Seite keinen Zugriff, wende dich bitte an deinen Administrator.
 maintenance:
     system:
+        cache:
+            clear: Cache leeren
         phpinfo:
             system:
                 title: Betriebssystem Daten
