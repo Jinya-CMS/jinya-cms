@@ -169,14 +169,7 @@ abstract class BaseApiController extends BaseController
 
                 break;
             default:
-                throw new InvalidContentTypeException(
-                    $this->contentType ?? '',
-                    $this->translator->trans(
-                        'api.generic.headers.contenttype',
-                        ['contentType' => $this->contentType],
-                        'validators'
-                    )
-                );
+                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
         }
 
         return $result;
