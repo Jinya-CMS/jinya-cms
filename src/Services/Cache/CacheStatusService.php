@@ -119,7 +119,7 @@ class CacheStatusService implements CacheStatusServiceInterface
         $state = new CacheState();
         $state->setFreeMemory(-1);
         $cacheFile = $this->jinyaCache->getCacheFile();
-        $handle = fopen($cacheFile, 'rb');
+        $handle = @fopen($cacheFile, 'rb');
         if ($handle) {
             $size = 0;
             $count = 0;

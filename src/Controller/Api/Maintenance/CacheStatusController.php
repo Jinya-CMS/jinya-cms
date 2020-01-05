@@ -3,13 +3,58 @@
 namespace Jinya\Controller\Api\Maintenance;
 
 use Jinya\Framework\BaseApiController;
+use Jinya\Services\Cache\CacheBuilderInterface;
 use Jinya\Services\Cache\CacheStatusServiceInterface;
+use Jinya\Services\Configuration\ConfigurationServiceInterface;
+use Jinya\Services\Theme\ThemeCompilerServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CacheStatusController extends BaseApiController
 {
+    /**
+     * @Route("/api/cache/jinya", methods={"PUT"}, name="api_cache_jinya_put")
+     * @IsGranted("ROLE_WRITER")
+     *
+     * @param CacheBuilderInterface $cacheBuilder
+     * @param ThemeCompilerServiceInterface $themeCompilerService
+     * @param ConfigurationServiceInterface $configurationService
+     * @return Response
+     */
+    public function putJinyaCacheAction(
+        CacheBuilderInterface $cacheBuilder,
+        ThemeCompilerServiceInterface $themeCompilerService,
+        ConfigurationServiceInterface $configurationService
+    ): Response {
+        $cacheBuilder->buildCache();
+        $themeCompilerService->compileTheme($configurationService->getConfig()->getCurrentTheme());
+
+        return $this->json([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Route("/api/cache/symfony", methods={"PUT"}, name="api_cache_symfony_put")
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     *
+     * @param KernelInterface $kernel
+     * @return Response
+     */
+    public function putSymfonyCacheAction(KernelInterface $kernel): Response
+    {
+        $kernel
+            ->getContainer()
+            ->get('cache_warmer')
+            ->warmUp(
+                $kernel
+                    ->getContainer()
+                    ->getParameter('kernel.cache_dir')
+            );
+
+        return $this->json([], Response::HTTP_NO_CONTENT);
+    }
+
     /**
      * @Route("/api/cache", methods={"GET"}, name="api_cache_status_get")
      * @IsGranted("ROLE_SUPER_ADMIN")

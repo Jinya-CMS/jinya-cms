@@ -975,6 +975,8 @@ maintenance:
     system:
         cache:
             clear: Cache leeren
+            entries: Einträge
+            refresh: Cache aktualisieren
         phpinfo:
             system:
                 title: Betriebssystem Daten
