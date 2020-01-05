@@ -74,6 +74,11 @@ services:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'
 
+    Jinya\Services\Cache\CacheStatusService:
+        arguments:
+            $kernelProjectDir: '%kernel.project_dir%'
+            $symfonyCacheClearer: '@cache_clearer'
+
     # EventSubscriber
     Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
         tags:

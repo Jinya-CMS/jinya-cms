@@ -3,6 +3,7 @@ import Update from '@/components/Maintenance/System/Update';
 import Routes from '@/router/Routes';
 import Version from '@/components/Maintenance/System/Version';
 import PhpInfo from '@/components/Maintenance/System/PhpInfo';
+import Cache from '@/components/Maintenance/System/Cache';
 
 export default [
   {
@@ -21,7 +22,10 @@ export default [
   {
     path: Routes.Maintenance.System.Cache.route,
     name: Routes.Maintenance.System.Cache.name,
-    component: Missing,
+    component: Cache,
+    meta: {
+      title: 'routes.maintenance.system.cache',
+    },
   },
   {
     path: Routes.Maintenance.System.Version.route,
