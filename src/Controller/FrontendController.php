@@ -184,7 +184,7 @@ class FrontendController extends BaseController
     {
         $page = $segmentPageService->get($slug);
 
-        return $this->render('@Theme/Page/detail.html.twig', [
+        return $this->render('@Theme/SegmentPage/detail.html.twig', [
             'page' => $page,
         ]);
     }

@@ -159,7 +159,10 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         }
     }
 
-    private function getCacheFile(): string
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheFile(): string
     {
         return $this->kernelProjectDir . '/public/cache.status';
     }

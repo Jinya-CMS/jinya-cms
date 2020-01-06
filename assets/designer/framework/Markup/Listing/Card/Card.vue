@@ -1,13 +1,13 @@
 <template>
-    <section class="jinya-card__item">
-        <span class="jinya-card__header">{{header}}</span>
-        <div class="jinya-card__body">
-            <slot/>
-        </div>
-        <div class="jinya-card__footer">
-            <slot name="footer"/>
-        </div>
-    </section>
+  <section class="jinya-card__item">
+    <span class="jinya-card__header">{{header}}</span>
+    <div :class="bodyModifier" class="jinya-card__body">
+      <slot/>
+    </div>
+    <div class="jinya-card__footer">
+      <slot name="footer"/>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -26,60 +26,60 @@
 </script>
 
 <style lang="scss" scoped>
-    .jinya-card__item {
-        flex: auto;
-        margin: 1em;
-        box-shadow: 0 0 1px 0 $primary;
-        background: $white;
-        border-radius: 10px;
-        transition: box-shadow 0.3s;
-        display: inline-block;
-        white-space: normal;
-        vertical-align: top;
-        position: relative;
+  .jinya-card__item {
+    flex: auto;
+    margin: 1em;
+    box-shadow: 0 0 1px 0 $primary;
+    background: $white;
+    border-radius: 10px;
+    transition: box-shadow 0.3s;
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+    position: relative;
 
-        &:only-child {
-            .jinya-card__body {
-                height: 30em;
-            }
-        }
-
-        &:hover {
-            border: none;
-            box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 80%);
-
-            .jinya-card__footer {
-                opacity: 1;
-            }
-        }
-
-        .jinya-card__header {
-            font-size: 1.6em;
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 5px;
-            border-bottom: 1px solid $primary;
-        }
-
-        .jinya-card__body {
-            height: 15em;
-            width: auto;
-            display: flex;
-            border-radius: 0 0 10px 10px;
-            overflow: hidden;
-        }
-
-        .jinya-card__footer {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            opacity: 0;
-            border-radius: 0 0 10px 10px;
-            transition: all 0.3s;
-        }
+    &:only-child {
+      .jinya-card__body {
+        height: 30em;
+      }
     }
+
+    &:hover {
+      border: none;
+      box-shadow: 0 0 10px 0 scale_color($primary, $alpha: 80%);
+
+      .jinya-card__footer {
+        opacity: 1;
+      }
+    }
+
+    .jinya-card__header {
+      font-size: 1.6em;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+      border-bottom: 1px solid $primary;
+    }
+
+    .jinya-card__body {
+      height: 15em;
+      width: auto;
+      display: flex;
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+    }
+
+    .jinya-card__footer {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      opacity: 0;
+      border-radius: 0 0 10px 10px;
+      transition: all 0.3s;
+    }
+  }
 </style>

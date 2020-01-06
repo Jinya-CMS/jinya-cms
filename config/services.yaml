@@ -74,6 +74,11 @@ services:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'
 
+    Jinya\Services\Cache\CacheStatusService:
+        arguments:
+            $kernelProjectDir: '%kernel.project_dir%'
+            $symfonyCacheClearer: '@cache_clearer'
+
     # EventSubscriber
     Jinya\EventSubscriber\HistoryEnabledEntitySubscriber:
         tags:
@@ -172,6 +177,11 @@ services:
             $currentVersion: '%jinya_version%'
             $kernelProjectDir: '%kernel.project_dir%'
             $cacheClearer: '@cache_clearer'
+        tags: ['controller.service_arguments']
+    Jinya\Controller\Api\Maintenance\ChangelogController:
+        arguments:
+            $jinyaVersion: '%jinya_version%'
+            $kernelProjectDir: '%kernel.project_dir%'
         tags: ['controller.service_arguments']
     Jinya\Controller\Api\Support\BugController:
         calls:

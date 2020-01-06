@@ -20,9 +20,9 @@ jobs:
             sudo apt update
             sudo apt install -y nodejs build-essential yarn
             sudo apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev
-            sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+            sudo docker-php-ext-configure gd
             sudo docker-php-ext-install -j$(nproc) gd
-      - run: "composer install -n --prefer-dist --no-scripts --no-dev"
+      - run: "composer install -n --prefer-dist --no-scripts --no-dev --optimize-autoloader"
       - run:
           command: |
             yarn

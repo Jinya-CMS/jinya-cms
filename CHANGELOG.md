@@ -1,4 +1,24 @@
 # Changelog
+## Version 12.0.0
+### Bug
+
+ * [JGCMS-90](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-90) Installer not working properly
+
+### Cosmetics
+
+ * [JGCMS-107](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-107) Update Changelog
+
+### Feature
+
+ * [JGCMS-93](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-93) .env Settings
+ * [JGCMS-94](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-94) Cache view
+ * [JGCMS-105](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-105) PHP Info
+ * [JGCMS-95](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-95) Jinya Version Page including changelog
+
+### Improvement
+
+ * [JGCMS-103](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-103) Add missing features to default theme
+
 ## Version 11.2.0
 ### Bug
 
@@ -66,6 +86,45 @@ Since version 11.0.0 classical art is deprecated, use files and media galleries 
 * [JGCMS-69](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-69) Profile Picture api is broken
 * [JGCMS-70](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-70) Add option to select entities in theme config
 * [JGCMS-72](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-72) Commandline installer
+
+## Version 7.0.0
+### Bug
+
+ * [JGCMS-46](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-46) Settings in theme settings not saved
+
+### Improvement
+
+ * [JGCMS-44](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-44) Extract designer
+ * [JGCMS-45](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-45) Create new default theme
+
+## Version 6.1.3
+### Bug
+
+ * [JGCMS-39](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-39) Cache not generated in gallery designer
+
+## Version 6.1.2
+### Cosmetics
+
+ * [JGCMS-36](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-36) Invalid scrollbars in gallery view
+
+### Feature
+
+ * [JGCMS-34](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-34) Form honey pot
+
+## Version 6.1.1
+### Bug
+
+ * [JGCMS-35](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-35) Upload not working
+
+## Version 6.1.0
+### Cosmetics
+
+ * [JGCMS-32](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-32) Increase font-size on mobile
+
+## Version 5.1.0
+### Improvement
+
+ * [JGCMS-12](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-12) Adjust to Youtrack
 
 ## Release 2.0
 ### New Features

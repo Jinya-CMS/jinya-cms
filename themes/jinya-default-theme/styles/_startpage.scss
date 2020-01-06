@@ -1,0 +1,22 @@
+.jinya-startpage {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 2rem;
+}
+
+.jinya-startpage__item {
+  flex: 1 1 33%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+
+  @include jinya-media-query($screen: true, $small: true, $medium: true) {
+    flex-basis: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
