@@ -3042,12 +3042,13 @@ eslint-friendly-formatter@^4.0.1:
     strip-ansi "^4.0.0"
     text-table "^0.2.0"
 
-eslint-html-reporter@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/eslint-html-reporter/-/eslint-html-reporter-0.7.3.tgz#8c87baf0827ca0b8b08c5827a8370134ce3d7c40"
-  integrity sha512-IuF1yJ9OoIXDLHTv1SP1rxVGKtlPVkZuIbGk6gF8ysqVGWmE4dF5LhNPtUysM1QgmHT15x07FUCRpbXlGF13oA==
+eslint-html-reporter@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/eslint-html-reporter/-/eslint-html-reporter-0.7.4.tgz#5c7cb7a0c289a33c7f04191e526b723d80a6ce9f"
+  integrity sha512-s9+ic4RIUUiahxfTBPR7+kd92x/BtTXk4s7mEvIXtBX54qe9h6+8/IGzt80qMPjQ1husIx+91ZOi4s0DfeNTZg==
   dependencies:
-    hairballs "^0.3.1"
+    hairballs "^0.3.2"
+    handlebars "^4.3.1"
 
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
@@ -4002,30 +4003,19 @@ gulplog@^1.0.0:
   dependencies:
     glogg "^1.0.0"
 
-hairballs@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/hairballs/-/hairballs-0.3.1.tgz#da2fc2f163781258dc93607c12499e671c16bd5f"
-  integrity sha512-jUFhYzChUxY/72ZpwMSem/+RzpCqfghK9WQe/eDmWyp0dpkD/ItTpIhV/NndmH9AqIkqm0XTdFwR/LAT4/+Hvg==
+hairballs@^0.3.2:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/hairballs/-/hairballs-0.3.3.tgz#fcce4056a0de407dde82fb31f86b3c8c23f7e693"
+  integrity sha512-zs/yfV9OeMcSRyiO2v/Aop5pRPfBRrZOI5w/BYHw2fb8YAYyB1e8jHNpam5EHvhxKmoa5eEspheVMaXZxvtdKw==
   dependencies:
-    handlebars "4.1.2"
+    handlebars "^4.5.1"
 
 handle-thing@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
   integrity sha512-d4sze1JNC454Wdo2fkuyzCr6aHcbL6PGGuFAz0Li/NcOm1tCHGnWDRmJP85dh9IhQErTc2svWFEX5xHIOo//kQ==
 
-handlebars@4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
-  integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
-  dependencies:
-    neo-async "^2.6.0"
-    optimist "^0.6.1"
-    source-map "^0.6.1"
-  optionalDependencies:
-    uglify-js "^3.1.4"
-
-handlebars@^4.5.3:
+handlebars@^4.3.1, handlebars@^4.5.1, handlebars@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.3.tgz#5cf75bd8714f7605713511a56be7c349becb0482"
   integrity sha512-3yPecJoJHK/4c6aZhSvxOyG4vJKDshV36VHp0iVCDVh7o9w2vwi3NSnL2MMPj3YdduqaBcu7cGbggJQM0br9xA==
