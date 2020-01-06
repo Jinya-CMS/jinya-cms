@@ -7,9 +7,8 @@ use Jinya\Components\PhpInfo\PhpExtension;
 
 class PhpInfoService implements PhpInfoServiceInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUname(): string
     {
@@ -17,7 +16,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLoadedExtensions(): array
     {
@@ -57,7 +56,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getIniValues(): array
     {
@@ -87,7 +86,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getVersion(): string
     {
@@ -95,7 +94,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getZendVersion(): string
     {
@@ -103,7 +102,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApacheVersion(): string
     {
@@ -115,7 +114,7 @@ class PhpInfoService implements PhpInfoServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApacheModules(): array
     {

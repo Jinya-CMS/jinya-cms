@@ -12,7 +12,7 @@ class CacheState implements JsonSerializable
     /** @var float */
     private $freeMemory;
 
-    /** @var integer */
+    /** @var int */
     private $count;
 
     /**
@@ -64,7 +64,7 @@ class CacheState implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
