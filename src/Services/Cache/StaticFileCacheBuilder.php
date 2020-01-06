@@ -160,7 +160,7 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCacheFile(): string
     {

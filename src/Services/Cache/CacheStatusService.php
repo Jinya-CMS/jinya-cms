@@ -34,7 +34,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getOpCacheState(): ?CacheState
     {
@@ -54,7 +54,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApcuCacheState(): ?CacheState
     {
@@ -72,7 +72,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSymfonyCacheState(): ?CacheState
     {
@@ -91,7 +91,7 @@ class CacheStatusService implements CacheStatusServiceInterface
         $cleanPath = rtrim($path, '/') . '/';
 
         foreach ($files as $t) {
-            if ($t !== '.' && $t !== '..') {
+            if ('.' !== $t && '..' !== $t) {
                 $currentFile = $cleanPath . $t;
                 if (is_dir($currentFile)) {
                     $size = $this->getFolderSize($currentFile);
@@ -112,7 +112,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getJinyaCacheState(): ?CacheState
     {
@@ -123,10 +123,10 @@ class CacheStatusService implements CacheStatusServiceInterface
         if ($handle) {
             $size = 0;
             $count = 0;
-            while (($line = fgets($handle)) !== false) {
+            while (false !== ($line = fgets($handle))) {
                 $file = Strings::replace($line, "\n", '');
                 $size += filesize($file);
-                $count++;
+                ++$count;
             }
             $state->setUsedMemory($size);
             $state->setCount($count);
@@ -141,7 +141,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function clearOpCache(): void
     {
@@ -151,7 +151,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function clearApcuCache(): void
     {
@@ -161,7 +161,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function clearSymfonyCache(): void
     {
@@ -169,7 +169,7 @@ class CacheStatusService implements CacheStatusServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function clearJinyaCacheState(): void
     {
