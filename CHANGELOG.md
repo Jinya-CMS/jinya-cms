@@ -1,4 +1,24 @@
 # Changelog
+## Version 12.0.0
+### Bug
+
+ * [JGCMS-90](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-90) Installer not working properly
+
+### Cosmetics
+
+ * [JGCMS-107](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-107) Update Changelog
+
+### Feature
+
+ * [JGCMS-93](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-93) .env Settings
+ * [JGCMS-94](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-94) Cache view
+ * [JGCMS-105](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-105) PHP Info
+ * [JGCMS-95](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-95) Jinya Version Page including changelog
+
+### Improvement
+
+ * [JGCMS-103](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-103) Add missing features to default theme
+
 ## Version 11.2.0
 ### Bug
 
