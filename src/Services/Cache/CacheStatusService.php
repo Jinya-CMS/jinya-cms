@@ -58,7 +58,7 @@ class CacheStatusService implements CacheStatusServiceInterface
      */
     public function getApcuCacheState(): ?CacheState
     {
-        if (function_exists('opcache_get_status')) {
+        if (function_exists('apcu_cache_info')) {
             $data = apcu_cache_info(true);
             $state = new CacheState();
             $state->setCount($data['num_entries']);
