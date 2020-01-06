@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    name: 'Table',
+    name: 'JinyaTable',
     props: {
       headers: {
         isRequired: true,

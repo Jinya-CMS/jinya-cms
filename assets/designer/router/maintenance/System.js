@@ -1,9 +1,9 @@
-import Missing from '@/components/Home/Missing';
 import Update from '@/components/Maintenance/System/Update';
 import Routes from '@/router/Routes';
 import Version from '@/components/Maintenance/System/Version';
 import PhpInfo from '@/components/Maintenance/System/PhpInfo';
 import Cache from '@/components/Maintenance/System/Cache';
+import Environment from '@/components/Maintenance/System/Environment';
 
 export default [
   {
@@ -17,7 +17,10 @@ export default [
   {
     path: Routes.Maintenance.System.Environment.route,
     name: Routes.Maintenance.System.Environment.name,
-    component: Missing,
+    component: Environment,
+    meta: {
+      title: 'routes.maintenance.system.environment',
+    },
   },
   {
     path: Routes.Maintenance.System.Cache.route,

@@ -168,7 +168,7 @@ menu:
                     system:
                         header: System
                         updates: Updates
-                        environment: .env Einstellungen
+                        environment: Konfiguration
                         cache: Cache
                         version: Jinya CMS Version
                         php: PHP Info
@@ -280,6 +280,7 @@ routes:
             known_devices: Gespeicherte Geräte
     maintenance:
         system:
+            environment: Konfiguration
             cache: Cache
             phpinfo: PHP Info
             updates: Updates
@@ -977,6 +978,9 @@ maintenance:
             clear: Cache leeren
             entries: Einträge
             refresh: Cache aktualisieren
+        environment:
+            key: Konfigurationvariable
+            value: Wert
         phpinfo:
             system:
                 title: Betriebssystem Daten

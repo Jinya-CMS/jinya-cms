@@ -10,7 +10,7 @@
             <jinya-toolbar-button :is-disabled="!selectedRow" @click="showDeleteModal" is-danger
                                   label="media.galleries.list.toolbar.delete"/>
         </jinya-toolbar>
-        <Table :headers="tableHeaders" :rows="tableRows" :selectedRow="selectedRow" @selected="selectRow"/>
+        <jinya-table :headers="tableHeaders" :rows="tableRows" :selectedRow="selectedRow" @selected="selectRow"/>
         <jinya-modal :loading="deleteGalleryDialog.loading" @close="deleteGalleryDialog.visible = false"
                      title="media.galleries.delete.title" v-if="deleteGalleryDialog.visible">
             <jinya-message :message="deleteGalleryDialog.error" slot="message" state="error"
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import Table from '@/framework/Markup/Table/Table';
+  import JinyaTable from '@/framework/Markup/Table/Table';
   import JinyaRequest from '@/framework/Ajax/JinyaRequest';
   import Translator from '@/framework/i18n/Translator';
   import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
@@ -98,7 +98,7 @@
       JinyaModal,
       JinyaToolbarButton,
       JinyaToolbar,
-      Table,
+      JinyaTable,
     },
     computed: {
       arrangeGalleryRoute() {
