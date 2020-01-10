@@ -17,7 +17,7 @@
         padding: 0.5em;
         display: flex;
         flex-wrap: wrap;
-        align-content: start;
+        align-content: flex-start;
         box-sizing: border-box;
     }
 </style>

@@ -11,10 +11,10 @@
                 </div>
                 {% elseif segment.file is not null %}
             {% if segment.action == 'none' %}
-            <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
+            <img class="jinya-segment-page__artwork" src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
                 {% elseif segment.action == 'link' %}
                 <a href="{{ segment.target }}">
-                    <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
+                    <img class="jinya-segment-page__artwork" src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
                 </a>
                 {% elseif segment.action == 'script' %}
             <img src="{{ segment.file.path }}" alt="{{ segment.file.name }}">
