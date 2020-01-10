@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import JinyaButton from '@/framework/Markup/Button';
+    import JinyaButton from '@/framework/Markup/Button';
 
-  export default {
+    export default {
     name: 'jinya-form',
     components: { JinyaButton },
     props: {
@@ -69,7 +69,7 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            align-items: start;
+            align-items: flex-start;
 
             .jinya-button {
                 margin-right: 0.5em;
