@@ -636,6 +636,7 @@ static:
                         content_html: Wenn der formatierte Text entfernt wird, ist er nicht mehr auf der Seite sichtbar.
                         content: Wenn das Segment %name% entfernt wird, ist es nicht mehr auf der Seite sichtbar.
                 action:
+                    file: Datei
                     artwork: Kunstwerk
                     art_gallery: Kunstgallerie
                     video_gallery: Videogallerie
