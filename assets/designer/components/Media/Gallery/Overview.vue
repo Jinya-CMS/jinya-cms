@@ -70,23 +70,23 @@
 </template>
 
 <script>
-  import JinyaTable from '@/framework/Markup/Table/Table';
-  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-  import Translator from '@/framework/i18n/Translator';
-  import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
-  import JinyaToolbarButton from '@/framework/Markup/Toolbar/ToolbarButton';
-  import JinyaModal from '@/framework/Markup/Modal/Modal';
-  import JinyaMessage from '@/framework/Markup/Validation/Message';
-  import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
-  import JinyaForm from '@/framework/Markup/Form/Form';
-  import JinyaInput from '@/framework/Markup/Form/Input';
-  import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import JinyaTextarea from '@/framework/Markup/Form/Textarea';
-  import Routes from '@/router/Routes';
-  import EventBus from '@/framework/Events/EventBus';
-  import Events from '@/framework/Events/Events';
+    import JinyaTable from '@/framework/Markup/Table/Table';
+    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+    import Translator from '@/framework/i18n/Translator';
+    import JinyaToolbar from '@/framework/Markup/Toolbar/Toolbar';
+    import JinyaToolbarButton from '@/framework/Markup/Toolbar/ToolbarButton';
+    import JinyaModal from '@/framework/Markup/Modal/Modal';
+    import JinyaMessage from '@/framework/Markup/Validation/Message';
+    import JinyaModalButton from '@/framework/Markup/Modal/ModalButton';
+    import JinyaForm from '@/framework/Markup/Form/Form';
+    import JinyaInput from '@/framework/Markup/Form/Input';
+    import JinyaChoice from '@/framework/Markup/Form/Choice';
+    import JinyaTextarea from '@/framework/Markup/Form/Textarea';
+    import Routes from '@/router/Routes';
+    import EventBus from '@/framework/Events/EventBus';
+    import Events from '@/framework/Events/Events';
 
-  export default {
+    export default {
     name: 'Galleries',
     components: {
       JinyaTextarea,
@@ -195,7 +195,7 @@
           this.tableRows.push(gallery);
           this.addGalleryDialog.loading = false;
           this.addGalleryDialog.visible = false;
-          this.resetAddDialog();
+          this.closeAddDialog();
         } catch (e) {
           this.addGalleryDialog.loading = false;
           this.addGalleryDialog.message = e.message;
