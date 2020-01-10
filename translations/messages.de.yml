@@ -508,6 +508,7 @@ configuration:
                 variables: Variablen
                 settings: Einstellungen
                 menus: Menüs
+                links: Links
                 activate: Aktivieren
                 activating: Das Theme %displayName% wird aktiviert
                 activated: Das Theme %displayName% wurde erfolgreich aktiviert
