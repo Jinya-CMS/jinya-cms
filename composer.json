@@ -35,7 +35,7 @@
     "psr/event-dispatcher": "1.0.0",
     "sensio/framework-extra-bundle": "5.4.1",
     "symfony/asset": "4.3.4",
-    "symfony/console": "4.3.4",
+    "symfony/console": "4.4.3",
     "symfony/debug-pack": "1.0.7",
     "symfony/dotenv": "4.3.4",
     "symfony/expression-language": "4.3.4",
