@@ -7,39 +7,48 @@ const lockrVariables = {
     DeviceCode: 'jinya/auth/device/code',
 };
 
-export function getApiKey() {
+export function getApiKey()
+{
     return Lockr.get(lockrVariables.ApiKey);
 }
 
-export function getCurrentUser() {
+export function getCurrentUser()
+{
     return Lockr.get(lockrVariables.CurrentUser);
 }
 
-export function getCurrentUserRoles() {
+export function getCurrentUserRoles()
+{
     return Lockr.get(lockrVariables.CurrentUserRoles);
 }
 
-export function getDeviceCode() {
+export function getDeviceCode()
+{
     return Lockr.get(lockrVariables.DeviceCode);
 }
 
-export function setApiKey(apiKey) {
+export function setApiKey(apiKey)
+{
     return Lockr.set(lockrVariables.ApiKey, apiKey);
 }
 
-export function setCurrentUser(user) {
+export function setCurrentUser(user)
+{
     return Lockr.set(lockrVariables.CurrentUser, user);
 }
 
-export function setCurrentUserRoles(roles) {
+export function setCurrentUserRoles(roles)
+{
     return Lockr.set(lockrVariables.CurrentUserRoles, roles);
 }
 
-export function setDeviceCode(code) {
+export function setDeviceCode(code)
+{
     return Lockr.set(lockrVariables.DeviceCode, code);
 }
 
-export function clearAuth(clearDeviceCode = false) {
+export function clearAuth(clearDeviceCode = false)
+{
     Lockr.rm(lockrVariables.CurrentUserRoles);
     Lockr.rm(lockrVariables.CurrentUser);
     Lockr.rm(lockrVariables.ApiKey);

@@ -57,21 +57,19 @@
         padding: 1rem;
         width: 100%;
         box-sizing: border-box;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
 
-        &.is--error {
-            @include message-type($red);
+        &.is--negative {
+            @include message-type($negative);
         }
 
-        &.is--warning {
-            @include message-type($yellow);
-        }
-
-        &.is--success {
-            @include message-type($green);
+        &.is--positive {
+            @include message-type($positive);
         }
 
         &.is--info {
-            @include message-type($cyan);
+            @include message-type($info);
         }
 
         &.is--primary {

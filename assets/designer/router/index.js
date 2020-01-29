@@ -19,15 +19,15 @@ import DOMUtils from '@/framework/Utils/DOMUtils';
 import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
 const routes = [
-    ...Home,
-    ...Account,
-    ...Art,
-    ...Static,
-    ...Configuration,
-    ...Maintenance,
-    ...MyJinya,
-    ...Error,
-    ...Media,
+  ...Home,
+  ...Account,
+  ...Art,
+  ...Static,
+  ...Configuration,
+  ...Maintenance,
+  ...MyJinya,
+  ...Error,
+  ...Media,
 ];
 
 Vue.use(Router);
@@ -37,7 +37,7 @@ const router = new Router({
     routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
     const apiKey = getApiKey();
 
     if (!apiKey && to.name !== Routes.Account.Login.name) {

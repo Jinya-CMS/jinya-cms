@@ -101,7 +101,7 @@
             &:invalid {
                 box-shadow: none;
                 outline: none;
-                border-bottom-color: $danger;
+                border-bottom-color: $negative;
             }
         }
 

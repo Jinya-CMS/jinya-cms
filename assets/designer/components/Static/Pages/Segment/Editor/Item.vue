@@ -65,188 +65,188 @@
 </template>
 
 <script>
-    import MonacoEditor from 'vue-monaco';
-    import JinyaChoice from '@/framework/Markup/Form/Choice';
-    import JinyaInput from '@/framework/Markup/Form/Input';
-    import JinyaIconButton from '@/framework/Markup/IconButton';
-    import Translator from '@/framework/i18n/Translator';
-    import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
-    import JinyaButton from '@/framework/Markup/Button';
-    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import MonacoEditor from 'vue-monaco';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import JinyaIconButton from '@/framework/Markup/IconButton';
+  import Translator from '@/framework/i18n/Translator';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
 
-    export default {
-        name: 'jinya-page-editor-item',
-        components: {
-            JinyaButton,
-            JinyaTinyMce,
-            JinyaIconButton,
-            JinyaInput,
-            JinyaChoice,
-            MonacoEditor,
-        },
-        props: {
-            segment: {
-                required: true,
-            },
-            index: {
-                type: Number,
-                required: true,
-            },
-            segmentCount: {
-                type: Number,
-            },
-        },
-        mounted() {
-            this.editing = false;
-        },
-        watch: {
-            segment(oldData, newData) {
-                this.script = newData.script;
-                this.target = newData.target;
-                this.action = newData.action;
-                this.html = newData.html;
-            },
-        },
-        methods: {
-            add() {
-                this.$emit('add', this.index + 1);
-            },
-            resetEdit() {
-                this.script = this.segment.script;
-                this.target = this.segment.target;
-                this.action = this.segment.action;
-                this.html = this.segment.html;
-                this.editing = false;
-            },
-            async edit() {
-                this.editing = true;
+  export default {
+    name: 'jinya-page-editor-item',
+    components: {
+      JinyaButton,
+      JinyaTinyMce,
+      JinyaIconButton,
+      JinyaInput,
+      JinyaChoice,
+      MonacoEditor,
+    },
+    props: {
+      segment: {
+        required: true,
+      },
+      index: {
+        type: Number,
+        required: true,
+      },
+      segmentCount: {
+        type: Number,
+      },
+    },
+    mounted() {
+      this.editing = false;
+    },
+    watch: {
+      segment(oldData, newData) {
+        this.script = newData.script;
+        this.target = newData.target;
+        this.action = newData.action;
+        this.html = newData.html;
+      },
+    },
+    methods: {
+      add() {
+        this.$emit('add', this.index + 1);
+      },
+      resetEdit() {
+        this.script = this.segment.script;
+        this.target = this.segment.target;
+        this.action = this.segment.action;
+        this.html = this.segment.html;
+        this.editing = false;
+      },
+      async edit() {
+        this.editing = true;
 
-                if (this.segment.html) {
-                    let requestUrl = '';
-                    if (this.segment.artGallery) {
-                        requestUrl = '/api/gallery/art?count=200000000';
-                    } else if (this.segment.videoGallery) {
-                        requestUrl = '/api/gallery/video?count=200000000';
-                    } else if (this.segment.video) {
-                        requestUrl = '/api/video/jinya?count=200000000';
-                    } else if (this.segment.youtubeVideo) {
-                        requestUrl = '/api/video/youtube?count=200000000';
-                    } else if (this.segment.artwork) {
-                        requestUrl = '/api/artwork?count=200000000';
-                    } else if (this.segment.gallery) {
-                        requestUrl = '/api/media/gallery';
-                    } else if (this.segment.file) {
-                        requestUrl = '/api/media/file';
-                    }
+        if (this.segment.html) {
+          let requestUrl = '';
+          if (this.segment.artGallery) {
+            requestUrl = '/api/gallery/art?count=200000000';
+          } else if (this.segment.videoGallery) {
+            requestUrl = '/api/gallery/video?count=200000000';
+          } else if (this.segment.video) {
+            requestUrl = '/api/video/jinya?count=200000000';
+          } else if (this.segment.youtubeVideo) {
+            requestUrl = '/api/video/youtube?count=200000000';
+          } else if (this.segment.artwork) {
+            requestUrl = '/api/artwork?count=200000000';
+          } else if (this.segment.gallery) {
+            requestUrl = '/api/media/gallery';
+          } else if (this.segment.file) {
+            requestUrl = '/api/media/file';
+          }
 
-                    const response = await JinyaRequest.get(requestUrl);
-                    this.items = response.items.map((item) => ({ text: item.name, value: item.slug }));
-                    if (this.items.length > 0) {
-                        this.selectedItem = this.items[0].value;
-                    }
-                }
-            },
-            async saveEdit() {
-                if (this.segment.html || this.segment.file) {
-                    const data = {};
-                    if (this.segment.html) {
-                        data.html = this.html;
-                    } else if (this.segment.file) {
-                        data.action = this.action;
-                        if (data.action === 'link') {
-                            data.target = this.target;
-                            data.script = null;
-                        }
-                        if (data.action === 'script') {
-                            data.script = this.script;
-                            data.target = null;
-                        }
-                        if (data.action === 'none') {
-                            data.script = null;
-                            data.target = null;
-                        }
-                    }
+          const response = await JinyaRequest.get(requestUrl);
+          this.items = response.items.map((item) => ({ text: item.name, value: item.slug }));
+          if (this.items.length > 0) {
+            this.selectedItem = this.items[0].value;
+          }
+        }
+      },
+      async saveEdit() {
+        if (this.segment.html || this.segment.file) {
+          const data = {};
+          if (this.segment.html) {
+            data.html = this.html;
+          } else if (this.segment.file) {
+            data.action = this.action;
+            if (data.action === 'link') {
+              data.target = this.target;
+              data.script = null;
+            }
+            if (data.action === 'script') {
+              data.script = this.script;
+              data.target = null;
+            }
+            if (data.action === 'none') {
+              data.script = null;
+              data.target = null;
+            }
+          }
 
-                    await JinyaRequest
-                        .put(`/api/segment_page/${this.$route.params.slug}/segment/${this.segment.id}`, data);
-                    this.editing = false;
+          await JinyaRequest
+            .put(`/api/segment_page/${this.$route.params.slug}/segment/${this.segment.id}`, data);
+          this.editing = false;
 
-                    this.$emit('edit-saved', this.index, data);
-                }
-            },
-        },
-        computed: {
-            actions() {
-                return [
-                    { value: 'none', text: Translator.message('static.pages.segment.details.action.types.none') },
-                    { value: 'link', text: Translator.message('static.pages.segment.details.action.types.link') },
-                    { value: 'script', text: Translator.message('static.pages.segment.details.action.types.script') },
-                ];
-            },
-            name() {
-                if (this.segment.artwork) {
-                    return this.segment.artwork.name;
-                }
-                if (this.segment.video) {
-                    return this.segment.video.name;
-                }
-                if (this.segment.artGallery) {
-                    return this.segment.artGallery.name;
-                }
-                if (this.segment.videoGallery) {
-                    return this.segment.videoGallery.name;
-                }
-                if (this.segment.youtubeVideo) {
-                    return this.segment.youtubeVideo.name;
-                }
-                if (this.segment.gallery) {
-                    return this.segment.gallery.name;
-                }
-                if (this.segment.file) {
-                    return this.segment.file.name;
-                }
+          this.$emit('edit-saved', this.index, data);
+        }
+      },
+    },
+    computed: {
+      actions() {
+        return [
+          { value: 'none', text: Translator.message('static.pages.segment.details.action.types.none') },
+          { value: 'link', text: Translator.message('static.pages.segment.details.action.types.link') },
+          { value: 'script', text: Translator.message('static.pages.segment.details.action.types.script') },
+        ];
+      },
+      name() {
+        if (this.segment.artwork) {
+          return this.segment.artwork.name;
+        }
+        if (this.segment.video) {
+          return this.segment.video.name;
+        }
+        if (this.segment.artGallery) {
+          return this.segment.artGallery.name;
+        }
+        if (this.segment.videoGallery) {
+          return this.segment.videoGallery.name;
+        }
+        if (this.segment.youtubeVideo) {
+          return this.segment.youtubeVideo.name;
+        }
+        if (this.segment.gallery) {
+          return this.segment.gallery.name;
+        }
+        if (this.segment.file) {
+          return this.segment.file.name;
+        }
 
-                return '';
-            },
-            type() {
-                if (this.segment.artwork) {
-                    return Translator.message('static.pages.segment.editor.view.selection.artwork');
-                }
-                if (this.segment.video) {
-                    return Translator.message('static.pages.segment.editor.view.selection.video');
-                }
-                if (this.segment.artGallery) {
-                    return Translator.message('static.pages.segment.editor.view.selection.art_gallery');
-                }
-                if (this.segment.videoGallery) {
-                    return Translator.message('static.pages.segment.editor.view.selection.video_gallery');
-                }
-                if (this.segment.youtubeVideo) {
-                    return Translator.message('static.pages.segment.editor.view.selection.youtube_video');
-                }
-                if (this.segment.html) {
-                    return Translator.message('static.pages.segment.editor.view.selection.html');
-                }
-                if (this.segment.gallery) {
-                    return Translator.message('static.pages.segment.editor.view.selection.gallery');
-                }
-                if (this.segment.file) {
-                    return Translator.message('static.pages.segment.editor.view.selection.file');
-                }
+        return '';
+      },
+      type() {
+        if (this.segment.artwork) {
+          return Translator.message('static.pages.segment.editor.view.selection.artwork');
+        }
+        if (this.segment.video) {
+          return Translator.message('static.pages.segment.editor.view.selection.video');
+        }
+        if (this.segment.artGallery) {
+          return Translator.message('static.pages.segment.editor.view.selection.art_gallery');
+        }
+        if (this.segment.videoGallery) {
+          return Translator.message('static.pages.segment.editor.view.selection.video_gallery');
+        }
+        if (this.segment.youtubeVideo) {
+          return Translator.message('static.pages.segment.editor.view.selection.youtube_video');
+        }
+        if (this.segment.html) {
+          return Translator.message('static.pages.segment.editor.view.selection.html');
+        }
+        if (this.segment.gallery) {
+          return Translator.message('static.pages.segment.editor.view.selection.gallery');
+        }
+        if (this.segment.file) {
+          return Translator.message('static.pages.segment.editor.view.selection.file');
+        }
 
-                return '';
-            },
-        },
-        data() {
-            return {
-                editing: false,
-                script: this.segment.script,
-                target: this.segment.target,
-                action: this.segment.action,
-                html: this.segment.html,
-            };
-        },
-    };
+        return '';
+      },
+    },
+    data() {
+      return {
+        editing: false,
+        script: this.segment.script,
+        target: this.segment.target,
+        action: this.segment.action,
+        html: this.segment.html,
+      };
+    },
+  };
 </script>
 
 <style lang="scss" scoped>

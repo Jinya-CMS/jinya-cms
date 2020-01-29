@@ -5,7 +5,8 @@ import NotAllowedError from '@/framework/Ajax/Error/NotAllowedError';
 import UnauthorizedError from '@/framework/Ajax/Error/UnauthorizedError';
 import NotFoundError from '@/framework/Ajax/Error/NotFoundError';
 
-function send(verb, url, data, contentType, apiKey) {
+function send(verb, url, data, contentType, apiKey)
+{
     const headers = {
         JinyaApiKey: apiKey,
         'Content-Type': contentType,
@@ -25,7 +26,7 @@ function send(verb, url, data, contentType, apiKey) {
         }
     }
 
-    return fetch(url, request).then(async (response) => {
+    return fetch(url, request).then(async(response) => {
         if (response.ok) {
             if (response.status !== 204) {
                 return response.json();
@@ -38,17 +39,17 @@ function send(verb, url, data, contentType, apiKey) {
 
         switch (response.status) {
             case 400:
-                throw new BadRequestError(httpError);
+            throw new BadRequestError(httpError);
             case 401:
-                throw new UnauthorizedError(httpError);
+            throw new UnauthorizedError(httpError);
             case 403:
-                throw new NotAllowedError(httpError);
+            throw new NotAllowedError(httpError);
             case 404:
-                throw new NotFoundError(httpError);
+            throw new NotFoundError(httpError);
             case 409:
-                throw new ConflictError(httpError);
+            throw new ConflictError(httpError);
             default:
-                throw new HttpError(response.status, httpError);
+            throw new HttpError(response.status, httpError);
         }
     });
 }

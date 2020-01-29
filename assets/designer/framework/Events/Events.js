@@ -20,4 +20,4 @@ export default {
     file: {
         uploadStarted: 'file-upload-started',
     },
-};
+    };

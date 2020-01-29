@@ -1,6 +1,6 @@
 <template>
     <section class="jinya-app">
-        <img :src="background" class="jinya-app__background"/>
+        <img :src="background" class="jinya-app__background" v-if="background"/>
         <main @click="hideMenu" class="jinya-app__content">
             <div class="jinya-app__router-view">
                 <router-view/>
@@ -27,7 +27,6 @@
   import JinyaFeatureDialog from '@/components/Support/FeatureDialog';
   import JinyaLikeDialog from '@/components/Support/LikeDialog';
   import JinyaVideoUploader from '@/components/Background/VideoUploader';
-  import Background from '@/img/generic-background.jpg';
 
   export default {
     components: {
@@ -40,7 +39,7 @@
     name: 'App',
     created() {
       EventBus.$on(Events.navigation.navigated, () => {
-        this.background = this.$route.meta.background || Background;
+        this.background = this.$route.meta.background || null;
       });
     },
     methods: {
@@ -50,7 +49,7 @@
     },
     data() {
       return {
-        background: this.$route.meta.background || Background,
+        background: this.$route.meta.background || null,
         loginRoute: Routes.Account.Login,
         showBugDialog: false,
         showFeatureDialog: false,
@@ -95,6 +94,10 @@
     }
 </style>
 <style lang="scss">
+    :root {
+        font-size: $font-size-desktop;
+    }
+
     * {
         box-sizing: border-box;
     }
@@ -120,27 +123,27 @@
     }
 
     h1 {
-        font-size: 2em;
+        font-size: 2rem;
     }
 
     h2 {
-        font-size: 1.8em;
+        font-size: 1.8rem;
     }
 
     h3 {
-        font-size: 1.6em;
+        font-size: 1.6rem;
     }
 
     h4 {
-        font-size: 1.4em;
+        font-size: 1.4rem;
     }
 
     h5 {
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 
     h6 {
-        font-size: 1em;
+        font-size: 1rem;
         font-weight: bold;
     }
 

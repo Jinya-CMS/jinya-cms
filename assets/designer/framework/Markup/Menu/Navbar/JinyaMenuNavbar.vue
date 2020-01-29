@@ -1,10 +1,5 @@
 <template>
     <div class="jinya-menu__navbar">
-        <div @click="$emit('hamburger-click')" class="jinya-menu__hamburger">
-            <span class="jinya-menu__hamburger__bar"></span>
-            <span class="jinya-menu__hamburger__bar"></span>
-            <span class="jinya-menu__hamburger__bar"></span>
-        </div>
         <slot/>
     </div>
 </template>
@@ -18,41 +13,12 @@
 <style lang="scss" scoped>
     .jinya-menu__navbar {
         width: 100%;
-        display: flex;
         margin: 0;
+        background: $white;
+        border-bottom: 0.25rem solid $primary;
+        box-shadow: 0 4px 6px #00000029;
+        display: flex;
+        justify-content: flex-start;
         padding: 0;
-        background: $primary;
-        height: 60px;
-        justify-content: space-between;
-
-        .jinya-menu__hamburger {
-            background: $primary;
-            cursor: pointer;
-            margin: 0;
-            background: $primary;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10px;
-            color: white;
-            width: 75px;
-            box-sizing: border-box;
-
-            &:hover {
-                background: $white;
-
-                .jinya-menu__hamburger__bar {
-                    background: $primary;
-                }
-            }
-
-            .jinya-menu__hamburger__bar {
-                height: 5px;
-                width: 80%;
-                background: $white;
-                margin: 2.5px 10%;
-                display: block;
-            }
-        }
     }
 </style>

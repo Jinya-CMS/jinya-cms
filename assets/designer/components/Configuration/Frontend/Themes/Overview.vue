@@ -95,12 +95,12 @@
     }
 
     .jinya-card-button--variables {
-        border-color: $pink !important;
-        color: $pink !important;
+        border-color: $sass-brand !important;
+        color: $sass-brand !important;
 
         &:hover {
-            color: color-yiq($pink) !important;
-            background: $pink !important;
+            color: color-yiq($sass-brand) !important;
+            background: $sass-brand !important;
         }
     }
 

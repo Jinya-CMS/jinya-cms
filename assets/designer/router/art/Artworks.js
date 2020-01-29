@@ -6,13 +6,13 @@ import ArtworksSavedInJinyaDetails from '@/components/Art/Artworks/SavedInJinya/
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Art.Artworks.SavedInJinya.Overview.route,
-        name: Routes.Art.Artworks.SavedInJinya.Overview.name,
-        component: ArtworksSavedInJinyaOverview,
-        meta: {
-            title: 'routes.art.artworks.saved_in_jinya.overview',
-            searchEnabled: true,
+            name: Routes.Art.Artworks.SavedInJinya.Overview.name,
+            component: ArtworksSavedInJinyaOverview,
+            meta: {
+                title: 'routes.art.artworks.saved_in_jinya.overview',
+                searchEnabled: true,
         },
     },
     {
@@ -53,4 +53,4 @@ export default [
         name: Routes.Art.Artworks.SavedExternal.Edit.name,
         component: Missing,
     },
-];
+    ];

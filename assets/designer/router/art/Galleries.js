@@ -11,13 +11,13 @@ import GalleriesVideoDesigner from '@/components/Art/Galleries/Video/Designer';
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Art.Galleries.Art.Overview.route,
-        name: Routes.Art.Galleries.Art.Overview.name,
-        component: GalleriesArtOverview,
-        meta: {
-            title: 'routes.art.galleries.art.overview',
-            searchEnabled: true,
+            name: Routes.Art.Galleries.Art.Overview.name,
+            component: GalleriesArtOverview,
+            meta: {
+                title: 'routes.art.galleries.art.overview',
+                searchEnabled: true,
         },
     },
     {
@@ -87,4 +87,4 @@ export default [
             title: 'routes.art.galleries.video.edit',
         },
     },
-];
+    ];

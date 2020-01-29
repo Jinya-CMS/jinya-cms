@@ -5,10 +5,10 @@ import Routes from '@/router/Routes';
 import MyJinya from '@/components/MyJinya/MyJinya';
 
 export default [
-    {
+  {
         path: Routes.MyJinya.Account.Profile.route,
-        name: Routes.MyJinya.Account.Profile.name,
-        component: MyJinya,
+            name: Routes.MyJinya.Account.Profile.name,
+            component: MyJinya,
     },
     {
         path: Routes.MyJinya.Account.Edit.route,
@@ -31,4 +31,4 @@ export default [
             title: 'routes.my_jinya.account.api_keys',
         },
     },
-];
+    ];

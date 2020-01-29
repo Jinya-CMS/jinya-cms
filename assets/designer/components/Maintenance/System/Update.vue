@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-updater">
         <jinya-message :message="updateMessage|jmessage({version: jinyaVersion})" :state="updateState"/>
-        <jinya-message :message="'maintenance.system.updates.disclaimer'|jmessage" state="warning"
+        <jinya-message :message="'maintenance.system.updates.disclaimer'|jmessage" state="secondary"
                        v-if="updateState === 'info'">
             <jinya-message-action-bar>
                 <jinya-button :is-secondary="true" @click="back" label="maintenance.system.updates.back"></jinya-button>

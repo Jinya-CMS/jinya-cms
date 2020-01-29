@@ -68,30 +68,30 @@
 </template>
 
 <script>
-    import isObject from 'lodash/isObject';
-    import isArray from 'lodash/isArray';
-    import JinyaForm from '@/framework/Markup/Form/Form';
-    import JinyaMessage from '@/framework/Markup/Validation/Message';
-    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
-    import Routes from '@/router/Routes';
-    import Translator from '@/framework/i18n/Translator';
-    import Timing from '@/framework/Utils/Timing';
-    import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
-    import JinyaChoice from '@/framework/Markup/Form/Choice';
-    import DOMUtils from '@/framework/Utils/DOMUtils';
+  import isObject from 'lodash/isObject';
+  import isArray from 'lodash/isArray';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import Timing from '@/framework/Utils/Timing';
+  import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
-    export default {
-        name: 'Links',
-        components: {
-            JinyaChoice,
-            JinyaFieldset,
-            JinyaLoader,
-            JinyaMessage,
-            JinyaForm,
-        },
-        data() {
-            return {
+  export default {
+    name: 'Links',
+    components: {
+      JinyaChoice,
+      JinyaFieldset,
+      JinyaLoader,
+      JinyaMessage,
+      JinyaForm,
+    },
+    data() {
+      return {
         state: '',
         message: '',
         enable: true,
@@ -145,7 +145,7 @@
         const segmentPagePromise = JinyaRequest
           .get('/api/segment_page')
           .then((pages) => {
-              this.segmentPages = pages.items.map((item) => ({ text: item.name, value: item.slug }));
+            this.segmentPages = pages.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const formsPromise = JinyaRequest
           .get('/api/form')

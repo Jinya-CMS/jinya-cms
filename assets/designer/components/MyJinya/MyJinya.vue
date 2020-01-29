@@ -28,20 +28,20 @@
 </template>
 
 <script>
-    import Routes from '@/router/Routes';
-    import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
-    import { getCurrentUser } from '@/framework/Storage/AuthStorage';
-    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-    import DOMUtils from '@/framework/Utils/DOMUtils';
-    import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
-    import JinyaButton from '@/framework/Markup/Button';
-    import JinyaMessage from '@/framework/Markup/Validation/Message';
-    import Timing from '@/framework/Utils/Timing';
-    import { refreshMe } from '@/security/Authentication';
-    import JinyaInput from '@/framework/Markup/Form/Input';
-    import FileUtils from '@/framework/IO/FileUtils';
+  import Routes from '@/router/Routes';
+  import JinyaFloatingActionButton from '@/framework/Markup/FloatingActionButton';
+  import { getCurrentUser } from '@/framework/Storage/AuthStorage';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
+  import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
+  import JinyaButton from '@/framework/Markup/Button';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import Timing from '@/framework/Utils/Timing';
+  import { refreshMe } from '@/security/Authentication';
+  import JinyaInput from '@/framework/Markup/Form/Input';
+  import FileUtils from '@/framework/IO/FileUtils';
 
-    export default {
+  export default {
     name: 'MyJinya',
     components: {
       JinyaInput,
@@ -58,7 +58,6 @@
         this.artist = await JinyaRequest.get(`/api/user/${this.$route.params.id}`);
         this.aboutMe = await JinyaRequest.get(`/api/user/${this.$route.params.id}/about`);
       }
-
 
       DOMUtils.changeTitle(this.artist.artistName);
     },

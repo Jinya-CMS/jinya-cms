@@ -19,30 +19,22 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .jinya-menu-flyout__menu__section {
-        margin: 1em 2.5em 3em;
-
-        &:first-child {
-            margin-left: 1.3em;
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
+        margin: 1rem;
 
         h4 {
-            color: $primary-lightest;
-            font-size: 1.7rem;
+            color: $primary-light;
+            font-size: 1.5rem;
             margin: 0;
-            padding: 0;
             font-weight: 300;
+            white-space: nowrap;
+            padding: 0 0 0.5rem;
         }
 
         .jinya-menu-flyout__menu__items {
             list-style: none;
             padding: 0;
-            margin: 1em 0 0;
         }
     }
 </style>

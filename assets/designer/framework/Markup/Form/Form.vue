@@ -13,9 +13,9 @@
 </template>
 
 <script>
-    import JinyaButton from '@/framework/Markup/Button';
+  import JinyaButton from '@/framework/Markup/Button';
 
-    export default {
+  export default {
     name: 'jinya-form',
     components: { JinyaButton },
     props: {

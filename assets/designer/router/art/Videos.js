@@ -11,7 +11,7 @@ import VideoUploader from '@/components/Art/Video/SavedInJinya/Uploader';
 import Missing from '@/components/Home/Missing';
 
 export default [
-    {
+  {
         path: Routes.Art.Videos.SavedInJinya.Overview.route,
             name: Routes.Art.Videos.SavedInJinya.Overview.name,
             component: VideoOverview,

@@ -2,10 +2,10 @@ import Missing from '@/components/Home/Missing';
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Maintenance.Diagnosis.ApplicationLog.Overview.route,
-        name: Routes.Maintenance.Diagnosis.ApplicationLog.Overview.name,
-        component: Missing,
+            name: Routes.Maintenance.Diagnosis.ApplicationLog.Overview.name,
+            component: Missing,
     },
     {
         path: Routes.Maintenance.Diagnosis.ApplicationLog.Details.route,
@@ -32,4 +32,4 @@ export default [
         name: Routes.Maintenance.Diagnosis.AccessLog.Clear.name,
         component: Missing,
     },
-];
+    ];

@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h1>{{'maintenance.system.changelog.currentVersion'|jmessage({version})}}</h1>
-    <vue-markdown :source="markdown"/>
-  </div>
+    <div>
+        <h1>{{'maintenance.system.changelog.currentVersion'|jmessage({version})}}</h1>
+        <vue-markdown :source="markdown"/>
+    </div>
 </template>
 
 <script>

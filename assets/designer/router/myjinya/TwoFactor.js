@@ -2,7 +2,7 @@ import Routes from '@/router/Routes';
 import KnownDevices from '@/components/MyJinya/TwoFactor/KnownDevices';
 
 export default [
-    {
+  {
         path: Routes.MyJinya.TwoFactor.KnownDevices.route,
             name: Routes.MyJinya.TwoFactor.KnownDevices.name,
             component: KnownDevices,

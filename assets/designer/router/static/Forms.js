@@ -7,12 +7,12 @@ import Routes from '@/router/Routes';
 import Postbox from '@/components/Static/Forms/Messaging/Postbox';
 
 export default [
-    {
+  {
         path: Routes.Static.Forms.Forms.Overview.route,
-        name: Routes.Static.Forms.Forms.Overview.name,
-        component: FormsOverview,
-        meta: {
-            title: 'routes.static.forms.forms.overview',
+            name: Routes.Static.Forms.Forms.Overview.name,
+            component: FormsOverview,
+            meta: {
+                title: 'routes.static.forms.forms.overview',
         },
     },
     {
@@ -80,4 +80,4 @@ export default [
             searchEnabled: true,
         },
     },
-];
+    ];

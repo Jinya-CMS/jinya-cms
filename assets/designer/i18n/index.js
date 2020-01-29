@@ -11,17 +11,17 @@ const i18n = {
                 el.innerText = Translator.message(binding.value);
             },
         });
-        LocalVue.directive('jinya-validator', {
-            isFn: true,
-            acceptStatement: false,
+    LocalVue.directive('jinya-validator', {
+        isFn: true,
+        acceptStatement: false,
 
-            bind(el, binding) {
-                el.innerText = Translator.validator(binding.value);
-            },
-        });
+        bind(el, binding) {
+            el.innerText = Translator.validator(binding.value);
+        },
+      });
 
-        LocalVue.filter('jmessage', (value, parameter = {}) => Translator.message(value, parameter));
-        LocalVue.filter('jvalidator', (value, parameter = {}) => Translator.validator(value, parameter));
+    LocalVue.filter('jmessage', (value, parameter = {}) => Translator.message(value, parameter));
+    LocalVue.filter('jvalidator', (value, parameter = {}) => Translator.validator(value, parameter));
     },
 };
 Vue.use(i18n);

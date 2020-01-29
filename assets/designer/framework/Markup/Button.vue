@@ -72,6 +72,7 @@
         cursor: pointer;
         font-family: $font-family;
         font-weight: normal;
+        border-radius: 4px;
 
         &:focus {
             outline: none;
