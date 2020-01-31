@@ -28,7 +28,6 @@
                                    type="delete" v-if="artist.deletable"/>
             </jinya-card>
         </jinya-card-list>
-        <jinya-pager :count="count" :offset="offset" @next="load(control.next)" @previous="load(control.previous)"/>
         <jinya-modal :loading="this.delete.loading"
                      :title="'configuration.general.artists.delete.title'|jmessage(selectedArtist)"
                      @close="closeDeleteModal()"
