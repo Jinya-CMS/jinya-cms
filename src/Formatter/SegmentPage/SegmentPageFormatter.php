@@ -84,17 +84,12 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
             $this->formatted['segments'][] = $this->segmentFormatter
                 ->init($segment)
                 ->position()
-                ->video()
                 ->form()
                 ->html()
                 ->script()
                 ->target()
                 ->id()
                 ->action()
-                ->youtubeVideo()
-                ->videoGallery()
-                ->artGallery()
-                ->artwork()
                 ->file()
                 ->gallery()
                 ->format();

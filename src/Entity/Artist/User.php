@@ -133,20 +133,6 @@ class User implements JsonSerializable, UserInterface
     private $profilePicture;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Artwork\Artwork", mappedBy="creator")
-     *
-     * @var Collection
-     */
-    private $createdArtworks;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Gallery\ArtGallery", mappedBy="creator")
-     *
-     * @var Collection
-     */
-    private $createdArtGalleries;
-
-    /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
      *
      * @var Collection
@@ -174,9 +160,7 @@ class User implements JsonSerializable, UserInterface
     {
         $this->enabled = false;
         $this->roles = [];
-        $this->createdArtworks = new ArrayCollection();
         $this->createdForms = new ArrayCollection();
-        $this->createdArtGalleries = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
         $this->knownDevices = new ArrayCollection();
     }
@@ -215,38 +199,6 @@ class User implements JsonSerializable, UserInterface
     public function setTwoFactorToken(string $twoFactorToken): void
     {
         $this->twoFactorToken = $twoFactorToken;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCreatedArtworks(): Collection
-    {
-        return $this->createdArtworks;
-    }
-
-    /**
-     * @param Collection $createdArtworks
-     */
-    public function setCreatedArtworks(Collection $createdArtworks): void
-    {
-        $this->createdArtworks = $createdArtworks;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCreatedArtGalleries(): Collection
-    {
-        return $this->createdArtGalleries;
-    }
-
-    /**
-     * @param Collection $createdArtGalleries
-     */
-    public function setCreatedArtGalleries(Collection $createdArtGalleries): void
-    {
-        $this->createdArtGalleries = $createdArtGalleries;
     }
 
     /**

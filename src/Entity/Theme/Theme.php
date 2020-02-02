@@ -71,18 +71,6 @@ class Theme
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtGallery", mappedBy="theme")
-     */
-    private $artGalleries;
-
-    /**
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeVideoGallery", mappedBy="theme")
-     */
-    private $videoGalleries;
-
-    /**
-     * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
     private $pages;
@@ -112,12 +100,6 @@ class Theme
     private $forms;
 
     /**
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeArtwork", mappedBy="theme")
-     */
-    private $artworks;
-
-    /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
@@ -144,11 +126,8 @@ class Theme
     public function __construct()
     {
         $this->menus = new ArrayCollection();
-        $this->artGalleries = new ArrayCollection();
-        $this->videoGalleries = new ArrayCollection();
         $this->pages = new ArrayCollection();
         $this->forms = new ArrayCollection();
-        $this->artworks = new ArrayCollection();
         $this->segmentPages = new ArrayCollection();
         $this->galleries = new ArrayCollection();
         $this->files = new ArrayCollection();
@@ -205,38 +184,6 @@ class Theme
     /**
      * @return Collection
      */
-    public function getArtGalleries(): Collection
-    {
-        return $this->artGalleries;
-    }
-
-    /**
-     * @param Collection $artGalleries
-     */
-    public function setArtGalleries(Collection $artGalleries): void
-    {
-        $this->artGalleries = $artGalleries;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getVideoGalleries(): Collection
-    {
-        return $this->videoGalleries;
-    }
-
-    /**
-     * @param Collection $videoGalleries
-     */
-    public function setVideoGalleries(Collection $videoGalleries): void
-    {
-        $this->videoGalleries = $videoGalleries;
-    }
-
-    /**
-     * @return Collection
-     */
     public function getPages(): Collection
     {
         return $this->pages;
@@ -264,22 +211,6 @@ class Theme
     public function setForms(Collection $forms): void
     {
         $this->forms = $forms;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getArtworks(): Collection
-    {
-        return $this->artworks;
-    }
-
-    /**
-     * @param Collection $artworks
-     */
-    public function setArtworks(Collection $artworks): void
-    {
-        $this->artworks = $artworks;
     }
 
     /**

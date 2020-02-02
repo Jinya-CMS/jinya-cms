@@ -4,10 +4,7 @@ namespace Jinya\Controller;
 
 use Jinya\Components\Form\FormGeneratorInterface;
 use Jinya\Framework\BaseController;
-use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
-use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Mailing\MailerServiceInterface;
 use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
@@ -51,40 +48,6 @@ class FrontendController extends BaseController
     }
 
     /**
-     * @Route("/artwork/{slug}", name="frontend_artwork_details")
-     *
-     * @param string $slug
-     * @param ArtworkServiceInterface $artworkService
-     * @return Response
-     */
-    public function artworkDetailAction(string $slug, ArtworkServiceInterface $artworkService): Response
-    {
-        $artwork = $artworkService->get($slug);
-
-        return $this->render('@Theme/Artwork/detail.html.twig', [
-            'artwork' => $artwork,
-        ]);
-    }
-
-    /**
-     * @Route("/gallery/art/{slug}", name="frontend_gallery_details")
-     * @Route("/gallery/art/{slug}", name="frontend_art_gallery_details")
-     *
-     * @param string $slug
-     * @param ArtGalleryServiceInterface $galleryService
-     * @return Response
-     */
-    public function artGalleryDetailAction(string $slug, ArtGalleryServiceInterface $galleryService): Response
-    {
-        $gallery = $galleryService->get($slug);
-
-        return $this->render('@Theme/Gallery/detail.html.twig', [
-            'gallery' => $gallery,
-            'type' => 'art',
-        ]);
-    }
-
-    /**
      * @Route("/gallery/media/{slug}", name="frontend_media_gallery_details")
      *
      * @param string $slug
@@ -97,23 +60,6 @@ class FrontendController extends BaseController
 
         return $this->render('@Theme/MediaGallery/detail.html.twig', [
             'gallery' => $gallery,
-        ]);
-    }
-
-    /**
-     * @Route("/video/art/{slug}", name="frontend_video_gallery_details")
-     *
-     * @param string $slug
-     * @param VideoGalleryServiceInterface $galleryService
-     * @return Response
-     */
-    public function videoGalleryDetailAction(string $slug, VideoGalleryServiceInterface $galleryService): Response
-    {
-        $gallery = $galleryService->get($slug);
-
-        return $this->render('@Theme/Gallery/detail.html.twig', [
-            'gallery' => $gallery,
-            'type' => 'video',
         ]);
     }
 

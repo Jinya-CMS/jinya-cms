@@ -44,41 +44,6 @@ interface SegmentFormatterInterface extends FormatterInterface
     public function script(): self;
 
     /**
-     * Formats the artwork
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function artwork(): self;
-
-    /**
-     * Formats the video
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function video(): self;
-
-    /**
-     * Formats the youtube video
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function youtubeVideo(): self;
-
-    /**
-     * Formats the video gallery
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function videoGallery(): self;
-
-    /**
-     * Formats the art gallery
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function artGallery(): self;
-
-    /**
      * Formats the form
      *
      * @return SegmentFormatterInterface

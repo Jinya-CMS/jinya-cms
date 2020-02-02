@@ -135,23 +135,6 @@ menu:
                         forms: Formulare
                         messages: Nachrichten
                         email_templates: Emailtemplates
-            art:
-                navbar: Kunst
-                sections:
-                    artworks:
-                        header: Kunstwerke
-                        saved_in_jinya: Im Jinya CMS gespeichert
-                        saved_external: Extern gespeichert
-                    videos:
-                        header: Videos
-                        saved_in_jinya: Im Jinya CMS gespeichert
-                        saved_on_youtube: Auf YouTube gespeichert
-                        saved_on_vimeo: Auf Vimeo gespeichert
-                        saved_on_newgrounds: Auf Newgrounds gespeichert
-                    galleries:
-                        header: Galerien
-                        artwork_galleries: Kunstgalerien
-                        video_galleries: Videogalerien
             configuration:
                 navbar: Konfiguration
                 sections:
@@ -211,32 +194,6 @@ routes:
         galleries:
             overview: Gallerien
             arrange: Galleriedesigner
-    art:
-        artworks:
-            saved_in_jinya:
-                overview: In Jinya gespeicherte Kunstwerke
-                add: Kunstwerk hinzufügen
-                edit: Kunstwerk bearbeiten
-        videos:
-            saved_in_jinya:
-                overview: In Jinya gespeicherte Videos
-                add: Video hinzufügen
-                edit: Video bearbeiten
-            saved_on_youtube:
-                overview: Auf YouTube gespeicherte Videos
-                add: Video hinzufügen
-                edit: Video bearbeiten
-        galleries:
-            art:
-                overview: Kunstgalerien
-                add: Galerie hinzufügen
-                edit: Galerie bearbeiten
-                designer: Galeriedesigner
-            video:
-                overview: Videogalerien
-                add: Galerie hinzufügen
-                edit: Galerie bearbeiten
-                designer: Galeriedesigner
     static:
         pages:
             saved_in_jinya:
@@ -585,11 +542,6 @@ static:
                     selection:
                         file: Datei
                         gallery: Gallerie
-                        artwork: Kunstwerk
-                        art_gallery: Kunstgallerie
-                        video_gallery: Videogallerie
-                        video: Video
-                        youtube_video: YouTube Video
                         form: Formular
                         html: Formattierter Text
                         save: Speichern
@@ -616,7 +568,7 @@ static:
                 saving: Die Seite "%name%" wird gespeichert.
                 success: Die Seite "%name%" wurde erfolgreich gespeichert.
             edit:
-                title: Seite %title% bearbeiten
+                title: Seite %name% bearbeiten
                 saving: Die Seite "%name%" wird gespeichert.
                 success: Die Seite "%name%" wurde erfolgreich gespeichert.
                 loading: Die Seite wird geladen
@@ -638,12 +590,8 @@ static:
                         content: Wenn das Segment %name% entfernt wird, ist es nicht mehr auf der Seite sichtbar.
                 action:
                     file: Datei
-                    artwork: Kunstwerk
-                    art_gallery: Kunstgallerie
-                    video_gallery: Videogallerie
-                    video: Video
-                    youtube_video: YouTube Video
                     action: Aktion
+                    gallery: Gallerie
                     target: Ziel
                     script: JavaScript
                     types:
@@ -733,170 +681,6 @@ static:
                 email: Zieladresse
                 save: Formular speichern
                 back: Zurück
-art:
-    artworks:
-        delete:
-            title: Ist das Kunst oder kann das weg?
-            content: Soll das Kunstwerk "%name%" wirklich gelöscht werden?
-            yes: Kunstwerk löschen
-            no: Kunstwerk nicht löschen
-        add:
-            saving: Das Kunstwerk "%name%" wird gespeichert.
-            uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
-            success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
-        edit:
-            title: Kunstwerk %name% bearbeiten
-            saving: Das Kunstwerk "%name%" wird gespeichert.
-            uploading: Das Bild zu dem Kunstwerk "%name%" wird hochgeladen.
-            success: Das Kunstwerk "%name%" wurde erfolgreich gespeichert.
-            loading: Das Kunstwerk wird geladen
-        details:
-            edit: Bearbeiten
-            loading: Das Kunstwerk wird geladen
-        artwork_form:
-            name: Name
-            slug: Slug
-            artwork: Kunstwerk
-            convert:
-                label: Beim hochladen konvertieren (optional)
-                not_convert: Nicht konvertieren
-            description: Beschreibung (optional)
-            save: Kunstwerk speichern
-            back: Zurück
-            search: Suchen
-    videos:
-        delete:
-            title: Video aus Jinya entfernen?
-            content: Soll das Video "%name%" wirklich aus Jinya entfernt werden?
-            yes: Video entfernen
-            no: Video nicht entfernen
-        add:
-            saving: Das Video "%name%" wird gespeichert.
-            success: Das Video "%name%" wurde erfolgreich gespeichert.
-            upload_poster: Das Vorschaubild zum Video "%name%" wird hochgeladen.
-        edit:
-            title: Video %name% bearbeiten
-            saving: Das Video "%name%" wird gespeichert.
-            upload_poster: Das Vorschaubild zum Video "%name%" wird hochgeladen.
-            success: Das Video "%name%" wurde erfolgreich gespeichert.
-            loading: Das Video wird geladen
-        details:
-            edit: Bearbeiten
-            loading: Das Video wird geladen
-        video_form:
-            name: Name
-            slug: Slug
-            poster: Vorschaubild
-            description: Beschreibung (optional)
-            save: Video speichern
-            back: Zurück
-        uploader:
-            title: Video %name% hochladen
-            file: Video
-            upload: Hochladen
-            back: Zurück
-            queued: Das Video wurde in die Warteschlange gelegt und wird hochgeladen
-        youtube:
-            delete:
-                title: YouTube Video aus Jinya entfernen?
-                content: Soll das YouTube Video "%name%" wirklich aus Jinya entfernt werden?
-                yes: Video entfernen
-                no: Video nicht entfernen
-            add:
-                saving: Das YouTube Video "%name%" wird gespeichert.
-                success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
-            edit:
-                title: YouTube Video %name% bearbeiten
-                saving: Das YouTube Video "%name%" wird gespeichert.
-                success: Das YouTube Video "%name%" wurde erfolgreich gespeichert.
-                loading: Das YouTube Video wird geladen
-            details:
-                edit: Bearbeiten
-                loading: Das YouTube Video wird geladen
-            video_form:
-                name: Name
-                slug: Slug
-                video_key_or_url: Videokey oder Videolink
-                description: Beschreibung (optional)
-                save: Video speichern
-                back: Zurück
-                search: Suchen
-    galleries:
-        delete:
-            title: Soll die Galerie wirklich gelöscht werden?
-            content: Wenn die Galerie "%gallery%" gelöscht wird, ist sie nicht mehr im Menü verfügbar.
-            yes: Galerie löschen
-            no: Galerie nicht löschen
-        add:
-            saving: Die Galerie "%name%" wird gespeichert.
-            uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
-            success: Die Galerie "%name%" wurde erfolgreich gespeichert.
-        edit:
-            title: Galerie %name% bearbeiten
-            saving: Die Galerie "%name%" wird gespeichert.
-            uploading: Der Hintergrund zu der Galerie "%name%" wird hochgeladen.
-            success: Die Galerie "%name%" wurde erfolgreich gespeichert.
-            loading: Die Galerie wird geladen
-        details:
-            edit: Bearbeiten
-            loading: Die Galerie wird geladen
-        designer:
-            title: Galerie %name% anordnen
-            loading_failed: Die Galerie konnte nicht geladen werden
-            art:
-                moving: Das Kunstwerk "%name%" wird verschoben
-            video:
-                moving: Das Video "%name%" wird verschoben
-            add:
-                video:
-                    title: Video einfügen
-                    pending: Das Video "%name%" wird in die Galerie eingefügt
-                art:
-                    title: Kunstwerk einfügen
-                    pending: Das Kunstwerk "%name%" wird in die Galerie eingefügt
-            edit:
-                video:
-                    title: Video tauschen
-                    pending: Das Video "%name%" wird getauscht
-                art:
-                    title: Kunstwerk tauschen
-                    pending: Das Kunstwerk "%name%" wird getauscht
-            add_view:
-                video:
-                    cancel: Schließen
-                art:
-                    cancel: Schließen
-            edit_view:
-                video:
-                    cancel: Schließen
-                    delete: Video entfernen
-                art:
-                    cancel: Schließen
-                    delete: Kunstwerk entfernen
-            art_view:
-                search: Suchen…
-                loading: Die Kunstwerke werden geladen
-                pick: Auswählen
-            video_view:
-                search: Suchen…
-                loading: Die Videos werden geladen
-                pick: Auswählen
-        gallery_form:
-            name: Name
-            slug: Slug
-            background: Hintergrund
-            orientation: Ausrichtung
-            description: Beschreibung (optional)
-            save: Galerie speichern
-            back: Zurück
-            search: Suchen
-            masonry: Grid
-            masonry_options:
-                yes: Ja
-                no: Nein
-            orientations:
-                horizontal: Horizontal
-                vertical: Vertikal
 my_jinya:
     my_jinya:
         about_me: Über mich
