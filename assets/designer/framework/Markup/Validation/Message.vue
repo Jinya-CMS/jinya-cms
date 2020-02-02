@@ -60,11 +60,11 @@
         border-radius: 4px;
         margin-bottom: 0.5rem;
 
-        &.is--negative {
+        &.is--error {
             @include message-type($negative);
         }
 
-        &.is--positive {
+        &.is--success {
             @include message-type($positive);
         }
 
