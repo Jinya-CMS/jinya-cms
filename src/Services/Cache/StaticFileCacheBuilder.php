@@ -14,11 +14,8 @@ use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
 use Jinya\Entity\Menu\RoutingEntry;
 use Jinya\Entity\Theme\ThemeMenu;
-use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Jinya\Services\Form\FormServiceInterface;
-use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Media\GalleryServiceInterface;
 use Jinya\Services\Pages\PageServiceInterface;
 use Jinya\Services\SegmentPages\SegmentPageServiceInterface;
@@ -35,15 +32,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /** @var GalleryServiceInterface */
     private $galleryService;
-
-    /** @var ArtworkServiceInterface */
-    private $artworkService;
-
-    /** @var ArtGalleryServiceInterface */
-    private $artGalleryService;
-
-    /** @var VideoGalleryServiceInterface */
-    private $videoGalleryService;
 
     /** @var UserServiceInterface */
     private $userService;
@@ -76,9 +64,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
      * StaticFileCacheBuilder constructor.
      * @param ConfigurationServiceInterface $configurationService
      * @param GalleryServiceInterface $galleryService
-     * @param ArtworkServiceInterface $artworkService
-     * @param ArtGalleryServiceInterface $artGalleryService
-     * @param VideoGalleryServiceInterface $videoGalleryService
      * @param UserServiceInterface $userService
      * @param PageServiceInterface $pageService
      * @param SegmentPageServiceInterface $segmentPageService
@@ -92,9 +77,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     public function __construct(
         ConfigurationServiceInterface $configurationService,
         GalleryServiceInterface $galleryService,
-        ArtworkServiceInterface $artworkService,
-        ArtGalleryServiceInterface $artGalleryService,
-        VideoGalleryServiceInterface $videoGalleryService,
         UserServiceInterface $userService,
         PageServiceInterface $pageService,
         SegmentPageServiceInterface $segmentPageService,
@@ -107,9 +89,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
     ) {
         $this->configurationService = $configurationService;
         $this->galleryService = $galleryService;
-        $this->artworkService = $artworkService;
-        $this->artGalleryService = $artGalleryService;
-        $this->videoGalleryService = $videoGalleryService;
         $this->userService = $userService;
         $this->pageService = $pageService;
         $this->segmentPageService = $segmentPageService;
@@ -266,34 +245,12 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $slug = '';
         }
 
-        if (Strings::find($routeName, 'artwork')) {
-            $viewData = [
-                'artwork' => $this->artworkService->get($slug),
-                'active' => $route->getUrl(),
-            ];
-            $template = '@Theme/Artwork/detail.html.twig';
-        } elseif (Strings::find($routeName, 'video_gallery')) {
-            $viewData = [
-                'gallery' => $this->videoGalleryService->get($slug),
-                'type' => 'video',
-                'active' => $route->getUrl(),
-            ];
-            $template = '@Theme/Gallery/detail.html.twig';
-        } elseif (Strings::find($routeName, 'media_gallery')) {
+        if (Strings::find($routeName, 'media_gallery')) {
             $viewData = [
                 'gallery' => $this->galleryService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/MediaGallery/detail.html.twig';
-        } elseif (Strings::find($routeName, 'art_gallery') || Strings::find($routeName, 'gallery')) {
-            $artGallery = $this->artGalleryService->get($slug);
-
-            $viewData = [
-                'gallery' => $artGallery,
-                'type' => 'art',
-                'active' => $route->getUrl(),
-            ];
-            $template = '@Theme/Gallery/detail.html.twig';
         } elseif (Strings::find($routeName, 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);

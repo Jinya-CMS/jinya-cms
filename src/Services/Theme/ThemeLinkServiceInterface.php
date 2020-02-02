@@ -49,33 +49,6 @@ interface ThemeLinkServiceInterface
     public function saveMenu(string $key, string $themeName, int $menuId): void;
 
     /**
-     * Links the given artwork with the given theme
-     *
-     * @param string $key
-     * @param string $themeName
-     * @param string $artworkSlug
-     */
-    public function saveArtwork(string $key, string $themeName, string $artworkSlug): void;
-
-    /**
-     * Links the given art gallery with the given theme
-     *
-     * @param string $key
-     * @param string $themeName
-     * @param string $artGallerySlug
-     */
-    public function saveArtGallery(string $key, string $themeName, string $artGallerySlug): void;
-
-    /**
-     * Links the given video gallery with the given theme
-     *
-     * @param string $key
-     * @param string $themeName
-     * @param string $videoGallerySlug
-     */
-    public function saveVideoGallery(string $key, string $themeName, string $videoGallerySlug): void;
-
-    /**
      * Links the given gallery with the given theme
      *
      * @param string $key

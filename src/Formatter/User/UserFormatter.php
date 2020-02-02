@@ -9,13 +9,9 @@
 namespace Jinya\Formatter\User;
 
 use Jinya\Entity\Artist\User;
-use Jinya\Entity\Artwork\Artwork;
 use Jinya\Entity\Form\Form;
-use Jinya\Entity\Gallery\ArtGallery;
 use Jinya\Entity\Page\Page;
-use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
-use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
 use Jinya\Formatter\Page\PageFormatterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
@@ -31,12 +27,6 @@ class UserFormatter implements UserFormatterInterface
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
-
-    /** @var ArtGalleryFormatterInterface */
-    private $galleryFormatter;
-
-    /** @var ArtworkFormatterInterface */
-    private $artworkFormatter;
 
     /** @var PageFormatterInterface */
     private $pageFormatter;
@@ -56,22 +46,6 @@ class UserFormatter implements UserFormatterInterface
     {
         $this->urlGenerator = $urlGenerator;
         $this->roleHierarchy = $roleHierarchy;
-    }
-
-    /**
-     * @param ArtGalleryFormatterInterface $galleryFormatter
-     */
-    public function setGalleryFormatter(ArtGalleryFormatterInterface $galleryFormatter): void
-    {
-        $this->galleryFormatter = $galleryFormatter;
-    }
-
-    /**
-     * @param ArtworkFormatterInterface $artworkFormatter
-     */
-    public function setArtworkFormatter(ArtworkFormatterInterface $artworkFormatter): void
-    {
-        $this->artworkFormatter = $artworkFormatter;
     }
 
     /**
@@ -221,46 +195,6 @@ class UserFormatter implements UserFormatterInterface
     public function id(): UserFormatterInterface
     {
         $this->formattedData['id'] = $this->user->getId();
-
-        return $this;
-    }
-
-    /**
-     * Formats the created artworks
-     *
-     * @return UserFormatterInterface
-     */
-    public function createdArtworks(): UserFormatterInterface
-    {
-        $this->formattedData['created']['artworks'] = array_map(function (Artwork $artwork) {
-            return $this->artworkFormatter
-                ->init($artwork)
-                ->name()
-                ->slug()
-                ->description()
-                ->picture()
-                ->format();
-        }, $this->user->getCreatedArtworks()->toArray());
-
-        return $this;
-    }
-
-    /**
-     * Formats the created galleries
-     *
-     * @return UserFormatterInterface
-     */
-    public function createdGalleries(): UserFormatterInterface
-    {
-        $this->formattedData['created']['galleries'] = array_map(function (ArtGallery $gallery) {
-            return $this->galleryFormatter
-                ->init($gallery)
-                ->name()
-                ->slug()
-                ->description()
-                ->background()
-                ->format();
-        }, $this->user->getCreatedArtGalleries()->toArray());
 
         return $this;
     }

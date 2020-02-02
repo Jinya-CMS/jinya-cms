@@ -57,10 +57,6 @@ class SegmentController extends BaseApiController
     ): Response {
         [$data, $status] = $this->tryExecute(function () use ($slug, $segmentService, $segmentFormatter) {
             $position = $this->getValue('position', 0);
-            $artworkSlug = $this->getValue('artwork');
-            $videoSlug = $this->getValue('video');
-            $artGallerySlug = $this->getValue('artGallery');
-            $videoGallerySlug = $this->getValue('videoGallery');
             $gallerySlug = $this->getValue('gallery');
             $fileId = $this->getValue('file');
             $formSlug = $this->getValue('form');
@@ -71,43 +67,6 @@ class SegmentController extends BaseApiController
 
             if (null !== $html) {
                 $segment = $segmentService->saveHtmlSegment($html, $slug, $position, $action, $target, $script);
-            }
-
-            if (null !== $artworkSlug) {
-                $segment = $segmentService->saveArtworkSegment(
-                    $artworkSlug,
-                    $slug,
-                    $position,
-                    $action,
-                    $target,
-                    $script
-                );
-            }
-
-            if (null !== $videoSlug) {
-                $segment = $segmentService->saveVideoSegment($videoSlug, $slug, $position, $action, $target, $script);
-            }
-
-            if (null !== $artGallerySlug) {
-                $segment = $segmentService->saveArtGallerySegment(
-                    $artGallerySlug,
-                    $slug,
-                    $position,
-                    $action,
-                    $target,
-                    $script
-                );
-            }
-
-            if (null !== $videoGallerySlug) {
-                $segment = $segmentService->saveVideoGallerySegment(
-                    $videoGallerySlug,
-                    $slug,
-                    $position,
-                    $action,
-                    $target,
-                    $script
-                );
             }
 
             if (null !== $formSlug) {
@@ -137,16 +96,11 @@ class SegmentController extends BaseApiController
                 ->init($segment)
                 ->id()
                 ->position()
-                ->video()
                 ->form()
                 ->html()
                 ->script()
                 ->target()
                 ->action()
-                ->youtubeVideo()
-                ->videoGallery()
-                ->artGallery()
-                ->artwork()
                 ->gallery()
                 ->file()
                 ->format();
@@ -193,11 +147,6 @@ class SegmentController extends BaseApiController
             $position = $this->getValue('position', -1);
             $segment = $segmentService->get($id);
 
-            $artworkSlug = $this->getValue('artwork');
-            $videoSlug = $this->getValue('video');
-            $artGallerySlug = $this->getValue('artGallery');
-            $videoGallerySlug = $this->getValue('videoGallery');
-            $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
             $gallerySlug = $this->getValue('gallery');
             $fileId = $this->getValue('file');
@@ -221,26 +170,6 @@ class SegmentController extends BaseApiController
 
             if (null !== $html) {
                 $segmentService->updateHtmlSegment($html, $id);
-            }
-
-            if (null !== $artworkSlug) {
-                $segmentService->updateArtworkSegment($artworkSlug, $slug);
-            }
-
-            if (null !== $videoSlug) {
-                $segmentService->updateVideoSegment($videoSlug, $slug);
-            }
-
-            if (null !== $artGallerySlug) {
-                $segmentService->updateArtGallerySegment($artGallerySlug, $slug);
-            }
-
-            if (null !== $videoGallerySlug) {
-                $segmentService->updateVideoGallerySegment($videoGallerySlug, $slug);
-            }
-
-            if (null !== $formSlug) {
-                $segmentService->updateVideoGallerySegment($formSlug, $slug);
             }
         }, Response::HTTP_CREATED);
 

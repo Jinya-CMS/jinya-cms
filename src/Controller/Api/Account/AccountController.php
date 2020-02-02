@@ -132,9 +132,7 @@ class AccountController extends BaseApiController
                 ->profile()
                 ->roles()
                 ->createdPages()
-                ->createdGalleries()
                 ->createdForms()
-                ->createdArtworks()
                 ->format();
         });
 

@@ -4,7 +4,6 @@ import Routes from '@/router/Routes';
 import EventBus from '@/framework/Events/EventBus';
 
 import Account from './account';
-import Art from '@/router/art';
 import Static from '@/router/static';
 import Home from '@/router/home';
 import Configuration from '@/router/configuration';
@@ -21,7 +20,6 @@ import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/A
 const routes = [
   ...Home,
   ...Account,
-  ...Art,
   ...Static,
   ...Configuration,
   ...Maintenance,

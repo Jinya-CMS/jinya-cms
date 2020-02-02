@@ -92,20 +92,6 @@ interface ThemeFormatterInterface extends FormatterInterface
     public function menus(): self;
 
     /**
-     * Formats the art galleries
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function artGalleries(): self;
-
-    /**
-     * Formats the video galleries
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function videoGalleries(): self;
-
-    /**
      * Formats the pages
      *
      * @return ThemeFormatterInterface
@@ -125,13 +111,6 @@ interface ThemeFormatterInterface extends FormatterInterface
      * @return ThemeFormatterInterface
      */
     public function forms(): self;
-
-    /**
-     * Formats the artworks
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function artworks(): self;
 
     /**
      * Formats the files
