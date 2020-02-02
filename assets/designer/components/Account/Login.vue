@@ -86,6 +86,7 @@
         height: auto;
         overflow: auto;
         background-color: transparentize($gray-200, 0.44);
+        border-radius: 4px;
 
         .jinya-login__form {
             padding: 1.5em 3em;
