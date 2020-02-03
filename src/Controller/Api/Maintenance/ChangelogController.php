@@ -32,12 +32,20 @@ class ChangelogController extends BaseApiController
      * ChangelogController constructor.
      * @param string $jinyaVersion
      * @param string $kernelProjectDir
+     * @param TranslatorInterface $translator
+     * @param LoggerInterface $logger
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param RequestStack $requestStack
+     * @param HttpKernelInterface $kernel
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface $tokenStorage
+     * @param RouterInterface $router
+     * @param CompilerInterface $compiler
      */
     public function __construct(
         string $jinyaVersion,
         string $kernelProjectDir,
         TranslatorInterface $translator,
-        LabelServiceInterface $labelService,
         LoggerInterface $logger,
         UrlGeneratorInterface $urlGenerator,
         RequestStack $requestStack,
@@ -49,7 +57,6 @@ class ChangelogController extends BaseApiController
     ) {
         parent::__construct(
             $translator,
-            $labelService,
             $logger,
             $urlGenerator,
             $requestStack,

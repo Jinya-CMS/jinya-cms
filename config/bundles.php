@@ -14,6 +14,10 @@ $bundles = [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
 
+if (class_exists('Symfony\Bundle\WebProfilerBundle\WebProfilerBundle')) {
+    $bundles[Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class] = ['dev' => true];
+}
+
 if ('dev' === $appEnv) {
     $bundles[Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class] = ['dev' => true];
     $bundles[Symfony\Bundle\DebugBundle\DebugBundle::class] = ['dev' => true];

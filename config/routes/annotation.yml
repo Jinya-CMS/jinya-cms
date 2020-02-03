@@ -20,6 +20,6 @@ update_done:
     controller: Jinya\Controller\UpdateController::doneAction
     path: /_update/done
 jinya:
-    resource: "../src/Controller/"
+    resource: "../../src/Controller/"
     type: annotation
     prefix: /

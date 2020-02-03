@@ -17,7 +17,6 @@ use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\Security\UnknownDeviceException;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -47,8 +46,6 @@ abstract class BaseApiController extends BaseController
     /** @var TranslatorInterface */
     private $translator;
 
-    /** @var LabelServiceInterface */
-    private $labelService;
 
     /** @var LoggerInterface */
     private $logger;
@@ -71,7 +68,6 @@ abstract class BaseApiController extends BaseController
     /**
      * BaseApiController constructor.
      * @param TranslatorInterface $translator
-     * @param LabelServiceInterface $labelService
      * @param LoggerInterface $logger
      * @param UrlGeneratorInterface $urlGenerator
      * @param RequestStack $requestStack
@@ -83,7 +79,6 @@ abstract class BaseApiController extends BaseController
      */
     public function __construct(
         TranslatorInterface $translator,
-        LabelServiceInterface $labelService,
         LoggerInterface $logger,
         UrlGeneratorInterface $urlGenerator,
         RequestStack $requestStack,
@@ -95,7 +90,6 @@ abstract class BaseApiController extends BaseController
     ) {
         parent::__construct($requestStack, $kernel, $authorizationChecker, $tokenStorage, $router, $compiler);
         $this->translator = $translator;
-        $this->labelService = $labelService;
         $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
 
