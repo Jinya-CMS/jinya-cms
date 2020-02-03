@@ -85,16 +85,6 @@
                                 text="menu.designer.flyout.maintenance.sections.database.database_tool"
                                 to="Maintenance.Database.Tool"/>
                         </jinya-menu-flyout-menu-section>
-                        <jinya-menu-flyout-menu-section
-                            header="menu.designer.flyout.maintenance.sections.diagnosis.header"
-                            v-jinya-permission="superAdmin">
-                            <jinya-menu-flyout-menu-item
-                                text="menu.designer.flyout.maintenance.sections.diagnosis.application_log"
-                                to="Maintenance.Diagnosis.ApplicationLog.Overview"/>
-                            <jinya-menu-flyout-menu-item
-                                text="menu.designer.flyout.maintenance.sections.diagnosis.access_log"
-                                to="Maintenance.Diagnosis.AccessLog.Overview"/>
-                        </jinya-menu-flyout-menu-section>
                     </jinya-menu-flyout-menu>
                 </jinya-menu-flyout-navbar-item>
                 <jinya-menu-flyout-navbar-item text="menu.designer.flyout.my_jinya.navbar">

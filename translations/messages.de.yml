@@ -159,10 +159,6 @@ menu:
                         header: Datenbank
                         mysql_information: MySQL Informationen
                         database_tool: Datenbanktool
-                    diagnosis:
-                        header: Diagnose
-                        application_log: Anwendungsprotokoll
-                        access_log: Zugriffsprotokoll
             my_jinya:
                 navbar: Mein Konto
                 sections:
