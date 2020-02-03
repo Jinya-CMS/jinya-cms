@@ -48,12 +48,10 @@ class GalleryFilePositionCacheSubscriber implements EventSubscriberInterface
 
     public function onGalleryFilePositionDelete(GalleryFilePositionDeleteEvent $event): void
     {
-        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $event->getGalleryFilePosition()->getGallery()->getSlug(),
             CacheBuilderInterface::ART_GALLERY
         );
-        /* @noinspection NullPointerExceptionInspection */
         $this->cacheBuilder->buildCacheBySlugAndType(
             $event->getGalleryFilePosition()->getGallery()->getSlug(),
             CacheBuilderInterface::GALLERY

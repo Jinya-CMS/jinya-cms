@@ -88,7 +88,6 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
             if ($entity instanceof HistoryEnabledEntity) {
                 $entity->setLastUpdatedAt(new DateTime());
                 /* @noinspection PhpParamsInspection */
-                /* @noinspection NullPointerExceptionInspection */
                 $entity->setUpdatedBy($token->getUser());
             }
         }

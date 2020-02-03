@@ -163,7 +163,6 @@ class LogService implements LogServiceInterface
         }
 
         $fs = new Filesystem();
-        /* @noinspection PhpUndefinedMethodInspection */
         foreach ($this->logger->getHandlers() as $handler) {
             try {
                 if ($handler instanceof StreamHandler) {

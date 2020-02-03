@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
-
 declare(strict_types=1);
 
 namespace DoctrineMigrations;
@@ -23,8 +21,10 @@ final class Version20190814194739 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
-            'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('# noinspection SqlResolveForFile
 
@@ -34,8 +34,10 @@ ALTER TABLE message ADD is_archived TINYINT(1) NOT NULL, ADD is_deleted TINYINT(
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
-            'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('# noinspection SqlResolveForFile
 

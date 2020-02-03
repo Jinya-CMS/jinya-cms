@@ -43,7 +43,6 @@ use function simplexml_load_string;
 
 abstract class BaseApiController extends BaseController
 {
-    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var TranslatorInterface */
     private $translator;
@@ -68,9 +67,6 @@ abstract class BaseApiController extends BaseController
 
     /** @var string */
     private $contentType;
-
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * BaseApiController constructor.
@@ -208,7 +204,7 @@ abstract class BaseApiController extends BaseController
             }
 
             $result = [$data, Response::HTTP_BAD_REQUEST];
-        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
+        } catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
             $this->logException($exception, 403);
 
             $result = [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];

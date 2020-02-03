@@ -40,7 +40,7 @@ class MySqlHandler extends AbstractProcessingHandler
      *
      * @param array $record
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         if (array_key_exists('jinya_logger', $record['context'])) {
             return;
