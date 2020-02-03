@@ -42,10 +42,8 @@ use function simplexml_load_string;
 
 abstract class BaseApiController extends BaseController
 {
-
     /** @var TranslatorInterface */
     private $translator;
-
 
     /** @var LoggerInterface */
     private $logger;

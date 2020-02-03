@@ -3,7 +3,6 @@
 namespace Jinya\Controller\Api\Maintenance;
 
 use Jinya\Framework\BaseApiController;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
