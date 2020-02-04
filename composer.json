@@ -46,7 +46,7 @@
     "symfony/orm-pack": "1.0.6",
     "symfony/polyfill-apcu": "1.12.0",
     "symfony/polyfill-iconv": "1.12.0",
-    "symfony/polyfill-php73": "1.12.0",
+    "symfony/polyfill-php73": "1.13.1",
     "symfony/process": "4.3.4",
     "symfony/security-bundle": "4.3.4",
     "symfony/security-csrf": "4.3.4",
