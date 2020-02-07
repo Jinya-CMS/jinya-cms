@@ -1,27 +1,22 @@
 <?php
 
-/** @noinspection HtmlRequiredTitleElement */
-
-/** @noinspection HtmlRequiredLangAttribute */
-
 namespace Jinya\Services\Mailing;
 
 use Jinya\Entity\Form\Form;
 use Jinya\Framework\Events\Mailing\MailerEvent;
 use Psr\Log\LoggerInterface;
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MailerService implements MailerServiceInterface
 {
-    /** @var Swift_Mailer */
-    private $swift;
+    /** @var MailerInterface */
+    private $mailer;
 
     /** @var string */
     private $mailerSender;
-
-    /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
@@ -29,23 +24,20 @@ class MailerService implements MailerServiceInterface
     /** @var LoggerInterface */
     private $logger;
 
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
-
     /**
      * MailerService constructor.
-     * @param Swift_Mailer $swift
+     * @param MailerInterface $mailer
      * @param string $mailerSender
      * @param EventDispatcherInterface $eventDispatcher
      * @param LoggerInterface $logger
      */
     public function __construct(
-        Swift_Mailer $swift,
+        MailerInterface $mailer,
         string $mailerSender,
         EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     ) {
-        $this->swift = $swift;
+        $this->mailer = $mailer;
         $this->mailerSender = $mailerSender;
         $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
@@ -59,14 +51,19 @@ class MailerService implements MailerServiceInterface
         $pre = $this->eventDispatcher->dispatch(new MailerEvent($form, $data), MailerEvent::PRE_SEND_MAIL);
         if (!$pre->isCancel()) {
             $this->logger->info('Send message to ' . $form->getToAddress());
-            /** @var Swift_Message $message */
-            $message = $this->swift->createMessage();
-            $message->addTo($form->getToAddress());
-            $message->setSubject('Form ' . $form->getTitle() . ' submitted');
-            $message->setBody($this->formatBody($data), 'text/html');
-            $message->setFrom($this->mailerSender);
+            $message = new Email();
+            $message->to($form->getToAddress())
+                ->subject('Form ' . $form->getTitle() . ' submitted')
+                ->html($this->formatBody($data))
+                ->from($this->mailerSender);
             $failedRecipients = [];
-            $this->swift->send($message, $failedRecipients);
+            try {
+                $this->mailer->send($message);
+            } catch (TransportExceptionInterface $e) {
+                $this->logger->error('Failed to send message');
+                $this->logger->error($e);
+            }
+
             if (!empty($failedRecipients)) {
                 $this->logger->error("Couldn't send message for recipients", $failedRecipients);
             }
