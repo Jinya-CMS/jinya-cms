@@ -51,9 +51,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called on every request to decide if this authenticator should be
-     * used for the request. Returning false will cause this authenticator
-     * to be skipped.
+     * @inheritDoc
      */
     public function supports(Request $request)
     {
@@ -61,8 +59,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called on every request. Return whatever credentials you want to
-     * be passed to getUser() as $credentials.
+     * @inheritDoc
      */
     public function getCredentials(Request $request)
     {
@@ -71,6 +68,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $apiToken = $credentials['token'];
@@ -83,19 +83,28 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
             if ($this->apiKeyTool->shouldInvalidate($apiToken)) {
                 $this->apiKeyTool->invalidate($apiToken);
 
-                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken]));
+                throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                    'api.state.401.expired',
+                    ['apiKey' => $apiToken]
+                ));
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken]));
+            throw new CustomUserMessageAuthenticationException($this->translator->trans(
+                'api.state.401.generic',
+                ['apiKey' => $apiToken]
+            ));
         }
 
         // if a User object, checkCredentials() is called
         return $this->apiKeyTool->getUserByKey($apiToken);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         // check credentials - e.g. make sure the password is valid
@@ -105,12 +114,18 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = [
@@ -124,7 +139,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called when authentication is needed, but it's not sent
+     * @inheritDoc
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
@@ -136,6 +151,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function supportsRememberMe()
     {
         return false;

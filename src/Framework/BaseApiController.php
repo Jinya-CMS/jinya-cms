@@ -22,7 +22,8 @@ use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionException;
 use SimpleXMLElement;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\Finder\Exception\AccessDeniedException as FinderAccessDeniedException;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException as HttpAccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,6 +33,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException as CoreAccessDeniedException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
@@ -157,7 +159,14 @@ abstract class BaseApiController extends BaseController
 
                 break;
             default:
-                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
+                throw new InvalidContentTypeException(
+                    $this->contentType ?? '',
+                    $this->translator->trans(
+                        'api.generic.headers.contenttype',
+                        ['contentType' => $this->contentType],
+                        'validators'
+                    )
+                );
         }
 
         return $result;
@@ -185,7 +194,7 @@ abstract class BaseApiController extends BaseController
     {
         try {
             $result = [$function(), $successStatusCode];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (MissingFieldsException $exception) {
+        } catch (MissingFieldsException $exception) {
             $data = [
                 'success' => false,
                 'validation' => [],
@@ -196,37 +205,40 @@ abstract class BaseApiController extends BaseController
             }
 
             $result = [$data, Response::HTTP_BAD_REQUEST];
-        } catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
+        } catch (HttpAccessDeniedException |
+        CoreAccessDeniedException |
+        FinderAccessDeniedException |
+        BadCredentialsException $exception) {
             $this->logException($exception, 403);
 
             $result = [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EntityNotFoundException | FileNotFoundException | NoResultException $exception) {
+        } catch (EntityNotFoundException | FileNotFoundException | NoResultException $exception) {
             $this->logException($exception, 404);
 
             $result = [$this->jsonFormatException('api.state.404.generic', $exception), Response::HTTP_NOT_FOUND];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (EmptyBodyException $exception) {
+        } catch (EmptyBodyException $exception) {
             $this->logException($exception, 400);
 
             $result = [$this->jsonFormatException($exception->getMessage(), $exception), Response::HTTP_BAD_REQUEST];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UniqueConstraintViolationException $exception) {
+        } catch (UniqueConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
             $result = [$this->jsonFormatException('api.state.409.exists', $exception), Response::HTTP_CONFLICT];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (ForeignKeyConstraintViolationException $exception) {
+        } catch (ForeignKeyConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
             $result = [
                 $this->jsonFormatException('api.state.409.foreign_key_failed', $exception),
                 Response::HTTP_CONFLICT,
             ];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (NotNullConstraintViolationException $exception) {
+        } catch (NotNullConstraintViolationException $exception) {
             $this->logException($exception, 409);
 
             $result = [
                 $this->jsonFormatException('api.state.409.not_null_failed', $exception),
                 Response::HTTP_CONFLICT,
             ];
-        } /* @noinspection PhpRedundantCatchClauseInspection */ catch (UnknownDeviceException $exception) {
+        } catch (UnknownDeviceException $exception) {
             $this->logException($exception, 401);
 
             $result = [
