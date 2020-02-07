@@ -1,21 +1,17 @@
 <?php
 
-/** @noinspection HtmlRequiredTitleElement */
-
-/** @noinspection HtmlRequiredLangAttribute */
-
 namespace Jinya\Services\Users;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Exception;
-use Jinya\Entity\Artist\User;
 use Jinya\Entity\Authentication\KnownDevice;
 use Jinya\Framework\Events\User\TwoFactorCodeEvent;
 use Jinya\Framework\Events\User\TwoFactorCodeSubmissionEvent;
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
@@ -23,8 +19,8 @@ class AuthenticationService implements AuthenticationServiceInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var Swift_Mailer */
-    private $swift;
+    /** @var MailerInterface */
+    private $mailer;
 
     /** @var string */
     private $mailerSender;
@@ -38,20 +34,20 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * AuthenticationService constructor.
      * @param EntityManagerInterface $entityManager
-     * @param Swift_Mailer $swift
+     * @param MailerInterface $mailer
      * @param string $mailerSender
      * @param EventDispatcherInterface $eventDispatcher
      * @param UserServiceInterface $userService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        Swift_Mailer $swift,
+        MailerInterface $mailer,
         string $mailerSender,
         EventDispatcherInterface $eventDispatcher,
         UserServiceInterface $userService
     ) {
         $this->entityManager = $entityManager;
-        $this->swift = $swift;
+        $this->mailer = $mailer;
         $this->mailerSender = $mailerSender;
         $this->eventDispatcher = $eventDispatcher;
         $this->userService = $userService;
@@ -61,7 +57,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      * Sets the two factor code and sends the verification mail
      *
      * @param string $username
-     * @throws Exception
+     * @throws TransportExceptionInterface
      */
     public function setAndSendTwoFactorCode(string $username): void
     {
@@ -88,53 +84,19 @@ class AuthenticationService implements AuthenticationServiceInterface
             TwoFactorCodeSubmissionEvent::PRE_CODE_SUBMISSION
         );
         if (!$submissionEvent->isSent()) {
-            /** @var Swift_Message $message */
-            $message = $this->swift->createMessage();
-            $message->addTo($user->getEmail());
-            $message->setSubject('Your two factor code');
-            $message->setBody($this->formatBody($user), 'text/html');
-            $message->setFrom($this->mailerSender);
-            $this->swift->send($message);
+            $message = new TemplatedEmail();
+            $message->to($user->getEmail());
+            $message->subject('Your two factor code');
+            $message->htmlTemplate('@Jinya\Email\twoFactor.html.twig');
+            $message->from($this->mailerSender);
+            $message->context(['artist' => $user]);
+            $this->mailer->send($message);
         }
 
         $this->eventDispatcher->dispatch(
             new TwoFactorCodeSubmissionEvent($username, $code),
             TwoFactorCodeSubmissionEvent::POST_CODE_SUBMISSION
         );
-    }
-
-    private function formatBody(User $user): string
-    {
-        $name = $user->getArtistName();
-        $code = $user->getTwoFactorToken();
-
-        return "<html>
-<head></head>
-<body style='font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif'>
-    <table style='width: 100%; height: 100%;'>
-    <tr>
-        <td colspan='3' style='height: 15%;'></td>
-    </tr>
-    <tr>
-    <td style='width: 35%;'></td>
-    <td style='width: 30%;'>
-        <p style='margin-top: 15%;'>
-            Hello $name,<br /><br />
-            you tried to login from a new device, please verify with this code that this was actually you.
-        </p>
-        <p style='text-align: center;'>
-            <code style='background: #EFEFEF; padding: 6pt; text-align: center; font-size: 16pt; font-family: Consolas, monospace'>$code</code>
-        </p>
-        <p>
-            Greetings,<br />
-            Your Jinya Team
-        </p>
-    </td>
-    <td style='width: 35%;'></td>
-</tr>
-</table>
-</body>
-</html>";
     }
 
     /**

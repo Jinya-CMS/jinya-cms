@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "d487fd6adb6af9a9686b18ba0aa900e9",
+  "content-hash": "72dc9dff25a75caccf791fb76763e4db",
   "packages": [
     {
       "name": "anahkiasen/underscore-php",
@@ -25,35 +25,36 @@
         "patchwork/utf8": "^1.2",
         "php": ">=5.4.0"
       },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "2.0.*@dev",
-                "phpunit/phpunit": "^4.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Underscore\\": [
-                        "src",
-                        "tests"
+      "require-dev": {
+        "fabpot/php-cs-fixer": "2.0.*@dev",
+        "phpunit/phpunit": "^4.6"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "Underscore\\": [
+            "src",
+            "tests"
                     ]
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxime Fabre",
-                    "email": "ehtnam6@gmail.com"
-                }
-            ],
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Maxime Fabre",
+          "email": "ehtnam6@gmail.com"
+        }
+      ],
       "description": "A redacted port of Underscore.js for PHP",
       "keywords": [
         "internals",
         "laravel",
         "toolkit"
       ],
+      "abandoned": true,
       "time": "2015-05-16T19:24:58+00:00"
     },
     {
@@ -80,16 +81,16 @@
       },
       "type": "library",
       "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2-dev"
-                }
-            },
-            "autoload": {
-              "psr-4": {
-                "Behat\\Transliterator\\": "src/Behat/Transliterator"
-              }
-            },
-            "notification-url": "https://packagist.org/downloads/",
+        "branch-alias": {
+          "dev-master": "1.2-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Behat\\Transliterator\\": "src/Behat/Transliterator"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Artistic-1.0"
             ],
@@ -302,14 +303,14 @@
                     "name": "Benjamin Eberlei",
                     "email": "kontakt@beberlei.de"
                 },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
+              {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+              },
+              {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+              }
             ],
           "description": "PHP Doctrine Collections library that adds additional functionality on top of PHP arrays.",
           "homepage": "https://www.doctrine-project.org/projects/collections.html",
@@ -345,16 +346,16 @@
         "doctrine/persistence": "^1.1",
         "doctrine/reflection": "^1.0",
         "php": "^7.1"
-            },
-            "require-dev": {
-                "doctrine/coding-standard": "^1.0",
-                "phpstan/phpstan": "^0.11",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpunit/phpunit": "^7.0",
-                "squizlabs/php_codesniffer": "^3.0",
-                "symfony/phpunit-bridge": "^4.0.5"
-            },
-            "type": "library",
+      },
+      "require-dev": {
+        "doctrine/coding-standard": "^1.0",
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
+        "phpunit/phpunit": "^7.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "symfony/phpunit-bridge": "^4.0.5"
+      },
+      "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.11.x-dev"
@@ -476,16 +477,16 @@
             "keywords": [
                 "abstraction",
                 "database",
-                "db2",
-                "dbal",
-                "mariadb",
-                "mssql",
-                "mysql",
-                "oci8",
-                "oracle",
-                "pdo",
-                "pgsql",
-                "postgresql",
+              "db2",
+              "dbal",
+              "mariadb",
+              "mssql",
+              "mysql",
+              "oci8",
+              "oracle",
+              "pdo",
+              "pgsql",
+              "postgresql",
               "queryobject",
               "sasql",
               "sql",
@@ -523,24 +524,24 @@
         "symfony/framework-bundle": "^3.4.30|^4.3.3|^5.0",
         "symfony/service-contracts": "^1.1.1|^2.0"
       },
-            "conflict": {
-                "doctrine/orm": "<2.6",
-                "twig/twig": "<1.34|>=2.0,<2.4"
-            },
-            "require-dev": {
-              "doctrine/coding-standard": "^6.0",
-              "doctrine/orm": "^2.6",
-              "ocramius/proxy-manager": "^2.1",
-              "phpunit/phpunit": "^7.5",
-              "symfony/phpunit-bridge": "^4.2",
-              "symfony/property-info": "^4.3.3|^5.0",
-              "symfony/proxy-manager-bridge": "^3.4|^4.3.3|^5.0",
-              "symfony/twig-bridge": "^3.4.30|^4.3.3|^5.0",
-              "symfony/validator": "^3.4.30|^4.3.3|^5.0",
-              "symfony/web-profiler-bundle": "^3.4.30|^4.3.3|^5.0",
-              "symfony/yaml": "^3.4.30|^4.3.3|^5.0",
-              "twig/twig": "^1.34|^2.12"
-            },
+      "conflict": {
+        "doctrine/orm": "<2.6",
+        "twig/twig": "<1.34|>=2.0,<2.4"
+      },
+      "require-dev": {
+        "doctrine/coding-standard": "^6.0",
+        "doctrine/orm": "^2.6",
+        "ocramius/proxy-manager": "^2.1",
+        "phpunit/phpunit": "^7.5",
+        "symfony/phpunit-bridge": "^4.2",
+        "symfony/property-info": "^4.3.3|^5.0",
+        "symfony/proxy-manager-bridge": "^3.4|^4.3.3|^5.0",
+        "symfony/twig-bridge": "^3.4.30|^4.3.3|^5.0",
+        "symfony/validator": "^3.4.30|^4.3.3|^5.0",
+        "symfony/web-profiler-bundle": "^3.4.30|^4.3.3|^5.0",
+        "symfony/yaml": "^3.4.30|^4.3.3|^5.0",
+        "twig/twig": "^1.34|^2.12"
+      },
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
                 "symfony/web-profiler-bundle": "To use the data collector."
@@ -612,23 +613,23 @@
         "doctrine/coding-standard": "^5.0",
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^0.9.2",
-                "phpstan/phpstan-strict-rules": "^0.9",
+        "phpstan/phpstan-strict-rules": "^0.9",
         "phpunit/phpunit": "^6.4|^7.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-              "psr-4": {
-                "Doctrine\\Bundle\\MigrationsBundle\\": ""
-              },
-              "exclude-from-classmap": [
-                "/Tests/"
-              ]
-            },
+      },
+      "type": "symfony-bundle",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.1.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Doctrine\\Bundle\\MigrationsBundle\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -897,16 +898,16 @@
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com"
                 },
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
+              {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+              },
+              {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+              }
             ],
-            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+          "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
           "homepage": "https://www.doctrine-project.org/projects/lexer.html",
           "keywords": [
             "annotations",
@@ -953,17 +954,17 @@
         "symfony/process": "^3.4||^4.0||^5.0",
         "symfony/yaml": "^3.4||^4.0||^5.0"
       },
-            "suggest": {
-                "jdorn/sql-formatter": "Allows to generate formatted SQL with the diff command.",
-                "symfony/yaml": "Allows the use of yaml for migration configuration files."
-            },
-            "bin": [
-                "bin/doctrine-migrations"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "2.2.x-dev"
+      "suggest": {
+        "jdorn/sql-formatter": "Allows to generate formatted SQL with the diff command.",
+        "symfony/yaml": "Allows the use of yaml for migration configuration files."
+      },
+      "bin": [
+        "bin/doctrine-migrations"
+      ],
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -980,14 +981,14 @@
                     "name": "Benjamin Eberlei",
                     "email": "kontakt@beberlei.de"
                 },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Michael Simonson",
-                    "email": "contact@mikesimonson.com"
-                }
+              {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+              },
+              {
+                "name": "Michael Simonson",
+                "email": "contact@mikesimonson.com"
+              }
             ],
       "description": "PHP Doctrine Migrations project offer additional functionality on top of the database abstraction layer (DBAL) for versioning your database schema and easily deploying changes to it. It is a very easy to use and a powerful tool.",
       "homepage": "https://www.doctrine-project.org/projects/migrations.html",
@@ -1026,16 +1027,16 @@
         "php": "^7.1",
         "symfony/console": "^3.0|^4.0|^5.0"
       },
-            "require-dev": {
-              "doctrine/coding-standard": "^5.0",
-              "phpunit/phpunit": "^7.5",
-              "symfony/yaml": "^3.4|^4.0|^5.0"
-            },
-            "suggest": {
-                "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
-            },
-            "bin": [
-                "bin/doctrine"
+      "require-dev": {
+        "doctrine/coding-standard": "^5.0",
+        "phpunit/phpunit": "^7.5",
+        "symfony/yaml": "^3.4|^4.0|^5.0"
+      },
+      "suggest": {
+        "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
+      },
+      "bin": [
+        "bin/doctrine"
             ],
             "type": "library",
             "extra": {
@@ -1106,16 +1107,16 @@
       },
       "conflict": {
         "doctrine/common": "<2.10@dev"
-            },
-            "require-dev": {
-                "doctrine/coding-standard": "^6.0",
-                "phpstan/phpstan": "^0.11",
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+      },
+      "require-dev": {
+        "doctrine/coding-standard": "^6.0",
+        "phpstan/phpstan": "^0.11",
+        "phpunit/phpunit": "^7.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
@@ -1145,16 +1146,16 @@
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com"
                 },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                },
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com"
-                }
+              {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+              },
+              {
+                "name": "Marco Pivetta",
+                "email": "ocramius@gmail.com"
+              }
             ],
-            "description": "The Doctrine Persistence project is a set of shared interfaces and functionality that the different Doctrine object mappers share.",
+      "description": "The Doctrine Persistence project is a set of shared interfaces and functionality that the different Doctrine object mappers share.",
       "homepage": "https://doctrine-project.org/projects/persistence.html",
       "keywords": [
         "mapper",
@@ -1207,34 +1208,34 @@
       },
       "notification-url": "https://packagist.org/downloads/",
       "license": [
-                "MIT"
-            ],
-            "authors": [
-              {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-              },
-              {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-              },
-              {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-              },
-              {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-              },
-              {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-              },
-              {
-                "name": "Marco Pivetta",
-                "email": "ocramius@gmail.com"
-              }
-            ],
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Guilherme Blanco",
+          "email": "guilhermeblanco@gmail.com"
+        },
+        {
+          "name": "Roman Borschel",
+          "email": "roman@code-factory.org"
+        },
+        {
+          "name": "Benjamin Eberlei",
+          "email": "kontakt@beberlei.de"
+        },
+        {
+          "name": "Jonathan Wage",
+          "email": "jonwage@gmail.com"
+        },
+        {
+          "name": "Johannes Schmitt",
+          "email": "schmittjoh@gmail.com"
+        },
+        {
+          "name": "Marco Pivetta",
+          "email": "ocramius@gmail.com"
+        }
+      ],
       "description": "The Doctrine Reflection project is a simple library used by the various Doctrine projects which adds some additional functionality on top of the reflection functionality that comes with PHP. It allows you to get the reflection information about classes, methods and properties statically.",
       "homepage": "https://www.doctrine-project.org/projects/reflection.html",
       "keywords": [
@@ -1253,16 +1254,16 @@
       },
       "dist": {
         "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/224e1dfcf9455aceee89cd0af306ac097167fac1",
-                "reference": "224e1dfcf9455aceee89cd0af306ac097167fac1",
-                "shasum": ""
-            },
-            "require": {
-                "monolog/monolog": "~1.6|~2.0",
-                "php": ">=7.1",
-                "symfony/yaml": "^3.4|^4.0|^5.0"
-            },
-            "type": "library",
+        "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/224e1dfcf9455aceee89cd0af306ac097167fac1",
+        "reference": "224e1dfcf9455aceee89cd0af306ac097167fac1",
+        "shasum": ""
+      },
+      "require": {
+        "monolog/monolog": "~1.6|~2.0",
+        "php": ">=7.1",
+        "symfony/yaml": "^3.4|^4.0|^5.0"
+      },
+      "type": "library",
             "autoload": {
                 "psr-4": {
                     "EasyCorp\\EasyLog\\": "src"
@@ -1273,16 +1274,16 @@
                 "MIT"
             ],
             "authors": [
-                {
-                    "name": "Javier Eguiluz",
-                    "email": "javiereguiluz@gmail.com"
-                },
-                {
-                    "name": "Project Contributors",
-                    "homepage": "https://github.com/EasyCorp/easy-log-handler"
-                }
+              {
+                "name": "Javier Eguiluz",
+                "email": "javiereguiluz@gmail.com"
+              },
+              {
+                "name": "Project Contributors",
+                "homepage": "https://github.com/EasyCorp/easy-log-handler"
+              }
             ],
-            "description": "A handler for Monolog that optimizes log messages to be processed by humans instead of software. Improve your productivity with logs that are easy to understand.",
+      "description": "A handler for Monolog that optimizes log messages to be processed by humans instead of software. Improve your productivity with logs that are easy to understand.",
       "homepage": "https://github.com/EasyCorp/easy-log-handler",
       "keywords": [
         "easy",
@@ -1317,30 +1318,30 @@
         "phpunit/phpunit": "^4.8.36|^7.5.15",
         "satooshi/php-coveralls": "^1.0.1"
       },
-            "suggest": {
-                "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
+      "suggest": {
+        "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.1.x-dev"
+        }
+      },
+      "autoload": {
                 "psr-4": {
                     "Egulias\\EmailValidator\\": "EmailValidator"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eduardo Gulias Davis"
-                }
-            ],
-            "description": "A library for validating emails against several RFCs",
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Eduardo Gulias Davis"
+        }
+      ],
+      "description": "A library for validating emails against several RFCs",
       "homepage": "https://github.com/egulias/EmailValidator",
       "keywords": [
         "email",
@@ -1375,16 +1376,16 @@
         "ext-curl": "*",
         "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
         "psr/log": "^1.1"
-            },
-            "suggest": {
-              "ext-intl": "Required for Internationalized Domain Name (IDN) support",
-              "psr/log": "Required for using the Log middleware"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "6.5-dev"
-                }
+      },
+      "suggest": {
+        "ext-intl": "Required for Internationalized Domain Name (IDN) support",
+        "psr/log": "Required for using the Log middleware"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "6.5-dev"
+        }
             },
             "autoload": {
               "psr-4": {
@@ -1572,16 +1573,16 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeremy Dorn",
-                    "email": "jeremy@jeremydorn.com",
-                    "homepage": "http://jeremydorn.com/"
-                }
-            ],
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "Jeremy Dorn",
+              "email": "jeremy@jeremydorn.com",
+              "homepage": "http://jeremydorn.com/"
+            }
+          ],
           "description": "a PHP SQL highlighting library",
           "homepage": "https://github.com/jdorn/sql-formatter/",
           "keywords": [
@@ -1590,6 +1591,53 @@
           ],
           "time": "2014-01-12T16:20:24+00:00"
         },
+    {
+      "name": "lorenzo/pinky",
+      "version": "1.0.5",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/lorenzo/pinky.git",
+        "reference": "2bc1a9d5696d6496df5d5682962929165a823e57"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/lorenzo/pinky/zipball/2bc1a9d5696d6496df5d5682962929165a823e57",
+        "reference": "2bc1a9d5696d6496df5d5682962929165a823e57",
+        "shasum": ""
+      },
+      "require": {
+        "ext-xsl": "*",
+        "php": ">=5.6.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^5.7"
+      },
+      "type": "library",
+      "autoload": {
+        "files": [
+          "src/pinky.php"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Jose Lorenzo Rodriguez",
+          "email": "jose.zap@gmail.com"
+        }
+      ],
+      "description": "A Foundation for Emails (Inky) template transpiler",
+      "keywords": [
+        "email",
+        "foundation",
+        "inky",
+        "template",
+        "zurb"
+      ],
+      "time": "2019-09-16T21:23:31+00:00"
+    },
     {
       "name": "monolog/monolog",
       "version": "2.0.2",
@@ -1626,20 +1674,20 @@
         "ruflin/elastica": ">=0.90 <3.0",
         "swiftmailer/swiftmailer": "^5.3|^6.0"
       },
-            "suggest": {
-              "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-              "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-              "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
-              "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-              "ext-mbstring": "Allow to work properly with unicode symbols",
-              "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
-              "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-              "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
-              "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-              "php-console/php-console": "Allow sending log messages to Google Chrome",
-              "rollbar/rollbar": "Allow sending log messages to Rollbar",
-              "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
-            },
+      "suggest": {
+        "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+        "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+        "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
+        "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+        "ext-mbstring": "Allow to work properly with unicode symbols",
+        "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+        "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+        "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+        "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+        "php-console/php-console": "Allow sending log messages to Google Chrome",
+        "rollbar/rollbar": "Allow sending log messages to Rollbar",
+        "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+      },
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2360,16 +2408,16 @@
                 "php-coveralls/php-coveralls": "^2.1",
                 "phpunit/phpunit": "^5 || ^6.5"
             },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/getallheaders.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
+          "type": "library",
+          "autoload": {
+            "files": [
+              "src/getallheaders.php"
+            ]
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
           "authors": [
             {
               "name": "Ralph Khattar",
@@ -2404,32 +2452,32 @@
         "twbs/bootstrap": "~4.3",
         "zurb/foundation": "~6.5"
       },
-            "bin": [
-                "bin/pscss"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ScssPhp\\ScssPhp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
+      "bin": [
+        "bin/pscss"
+      ],
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "ScssPhp\\ScssPhp\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Anthon Pang",
-                    "email": "apang@softwaredevelopment.ca",
-                    "homepage": "https://github.com/robocoder"
+                  "email": "apang@softwaredevelopment.ca",
+                  "homepage": "https://github.com/robocoder"
                 },
-                {
-                    "name": "Cédric Morin",
-                    "email": "cedric@yterium.com",
-                    "homepage": "https://github.com/Cerdic"
-                }
+              {
+                "name": "Cédric Morin",
+                "email": "cedric@yterium.com",
+                "homepage": "https://github.com/Cerdic"
+              }
             ],
-            "description": "scssphp is a compiler for SCSS written in PHP.",
+      "description": "scssphp is a compiler for SCSS written in PHP.",
       "homepage": "http://scssphp.github.io/scssphp/",
       "keywords": [
         "css",
@@ -2492,16 +2540,16 @@
         "branch-alias": {
           "dev-master": "5.5.x-dev"
         }
-            },
-            "autoload": {
-              "psr-4": {
-                "Sensio\\Bundle\\FrameworkExtraBundle\\": "src/"
-              },
-              "exclude-from-classmap": [
-                "/tests/"
-              ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
+      },
+      "autoload": {
+        "psr-4": {
+          "Sensio\\Bundle\\FrameworkExtraBundle\\": "src/"
+        },
+        "exclude-from-classmap": [
+          "/tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2517,68 +2565,6 @@
                 "controllers"
             ],
       "time": "2019-12-27T08:57:19+00:00"
-        },
-        {
-            "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "149cfdf118b169f7840bbe3ef0d4bc795d1780c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/149cfdf118b169f7840bbe3ef0d4bc795d1780c9",
-                "reference": "149cfdf118b169f7840bbe3ef0d4bc795d1780c9",
-                "shasum": ""
-            },
-            "require": {
-                "egulias/email-validator": "~2.0",
-                "php": ">=7.0.0",
-                "symfony/polyfill-iconv": "^1.0",
-                "symfony/polyfill-intl-idn": "^1.10",
-                "symfony/polyfill-mbstring": "^1.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9.1",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
-            },
-            "suggest": {
-                "ext-intl": "Needed to support internationalized email addresses",
-                "true/punycode": "Needed to support internationalized email addresses, if ext-intl is not installed"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.2-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "lib/swift_required.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Corbyn"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-          "description": "Swiftmailer, free feature-rich PHP mailer",
-          "homepage": "https://swiftmailer.symfony.com",
-          "keywords": [
-            "email",
-            "mail",
-            "mailer"
-          ],
-          "time": "2019-11-12T09:31:26+00:00"
         },
     {
       "name": "symfony/asset",
@@ -2604,16 +2590,16 @@
       "suggest": {
         "symfony/http-foundation": ""
       },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Asset\\": ""
-                },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Asset\\": ""
+        },
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -2622,16 +2608,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Asset Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -2664,21 +2650,21 @@
         "symfony/http-kernel": "<4.4",
         "symfony/var-dumper": "<4.4"
       },
-            "provide": {
-                "psr/cache-implementation": "1.0",
-                "psr/simple-cache-implementation": "1.0",
-                "symfony/cache-implementation": "1.0"
-            },
-            "require-dev": {
-              "cache/integration-tests": "dev-master",
-              "doctrine/cache": "~1.6",
-              "doctrine/dbal": "~2.5",
-              "predis/predis": "~1.1",
-              "psr/simple-cache": "^1.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/var-dumper": "^4.4|^5.0"
-            },
+      "provide": {
+        "psr/cache-implementation": "1.0",
+        "psr/simple-cache-implementation": "1.0",
+        "symfony/cache-implementation": "1.0"
+      },
+      "require-dev": {
+        "cache/integration-tests": "dev-master",
+        "doctrine/cache": "~1.6",
+        "doctrine/dbal": "~2.5",
+        "predis/predis": "~1.1",
+        "psr/simple-cache": "^1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/var-dumper": "^4.4|^5.0"
+      },
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2753,16 +2739,16 @@
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                  "name": "Nicolas Grekas",
+                  "email": "p@tchwork.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Generic abstractions related to caching",
-            "homepage": "https://symfony.com",
+          "description": "Generic abstractions related to caching",
+          "homepage": "https://symfony.com",
           "keywords": [
             "abstractions",
             "contracts",
@@ -2802,16 +2788,16 @@
         "symfony/service-contracts": "^1.1|^2",
         "symfony/yaml": "^4.4|^5.0"
       },
-            "suggest": {
-                "symfony/yaml": "To use the yaml reference dumper"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
+      "suggest": {
+        "symfony/yaml": "To use the yaml reference dumper"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Config\\": ""
                 },
@@ -2823,16 +2809,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Config Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -2863,18 +2849,18 @@
         "symfony/lock": "<4.4",
         "symfony/process": "<4.4"
       },
-            "provide": {
-                "psr/log-implementation": "1.0"
-            },
-            "require-dev": {
-              "psr/log": "~1.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/event-dispatcher": "^4.4|^5.0",
-              "symfony/lock": "^4.4|^5.0",
-              "symfony/process": "^4.4|^5.0",
-              "symfony/var-dumper": "^4.4|^5.0"
-            },
+      "provide": {
+        "psr/log-implementation": "1.0"
+      },
+      "require-dev": {
+        "psr/log": "~1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/lock": "^4.4|^5.0",
+        "symfony/process": "^4.4|^5.0",
+        "symfony/var-dumper": "^4.4|^5.0"
+      },
             "suggest": {
                 "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": "",
@@ -2899,19 +2885,72 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Console Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-25T15:56:29+00:00"
+    },
+    {
+      "name": "symfony/css-selector",
+      "version": "v5.0.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/css-selector.git",
+        "reference": "ff60c90cb7950b592ebc84ad1289d0345bf24f9f"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/css-selector/zipball/ff60c90cb7950b592ebc84ad1289d0345bf24f9f",
+        "reference": "ff60c90cb7950b592ebc84ad1289d0345bf24f9f",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.2.5"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\CssSelector\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Jean-François Simon",
+          "email": "jeanfrancois.simon@sensiolabs.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony CssSelector Component",
+      "homepage": "https://symfony.com",
+      "time": "2020-01-04T14:08:26+00:00"
     },
     {
       "name": "symfony/debug-bundle",
@@ -2938,16 +2977,16 @@
         "symfony/config": "<4.4",
         "symfony/dependency-injection": "<4.4"
       },
-            "require-dev": {
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/web-profiler-bundle": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/config": "For service container configuration",
-                "symfony/dependency-injection": "For using as a service from the container"
-            },
-            "type": "symfony-bundle",
+      "require-dev": {
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/web-profiler-bundle": "^4.4|^5.0"
+      },
+      "suggest": {
+        "symfony/config": "For service container configuration",
+        "symfony/dependency-injection": "For using as a service from the container"
+      },
+      "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
                   "dev-master": "5.0-dev"
@@ -2991,16 +3030,16 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/debug-pack/zipball/09a4a1e9bf2465987d4f79db0ad6c11cc632bc79",
                 "reference": "09a4a1e9bf2465987d4f79db0ad6c11cc632bc79",
-                "shasum": ""
+              "shasum": ""
             },
-            "require": {
-                "easycorp/easy-log-handler": "^1.0.7",
-                "php": "^7.0",
-                "symfony/debug-bundle": "*",
-                "symfony/monolog-bundle": "^3.0",
-                "symfony/profiler-pack": "*",
-              "symfony/var-dumper": "*"
-            },
+          "require": {
+            "easycorp/easy-log-handler": "^1.0.7",
+            "php": "^7.0",
+            "symfony/debug-bundle": "*",
+            "symfony/monolog-bundle": "^3.0",
+            "symfony/profiler-pack": "*",
+            "symfony/var-dumper": "*"
+          },
           "type": "symfony-pack",
           "notification-url": "https://packagist.org/downloads/",
           "license": [
@@ -3034,16 +3073,16 @@
         "symfony/proxy-manager-bridge": "<4.4",
         "symfony/yaml": "<4.4"
       },
-            "provide": {
-                "psr/container-implementation": "1.0",
-                "symfony/service-implementation": "1.0"
-            },
-            "require-dev": {
-              "symfony/config": "^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0"
-            },
-            "suggest": {
+      "provide": {
+        "psr/container-implementation": "1.0",
+        "symfony/service-implementation": "1.0"
+      },
+      "require-dev": {
+        "symfony/config": "^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+      },
+      "suggest": {
                 "symfony/config": "",
                 "symfony/expression-language": "For using expressions in service container configuration",
                 "symfony/finder": "For using double-star glob patterns or when GLOB_BRACE portability is required",
@@ -3068,16 +3107,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony DependencyInjection Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:49:43+00:00"
@@ -3115,29 +3154,29 @@
         "symfony/security-core": "<5",
         "symfony/validator": "<5.0.2"
       },
-            "require-dev": {
-              "doctrine/annotations": "~1.7",
-              "doctrine/cache": "~1.6",
-              "doctrine/collections": "~1.0",
-              "doctrine/data-fixtures": "1.0.*",
-              "doctrine/dbal": "~2.4",
-              "doctrine/orm": "^2.6.3",
-              "doctrine/reflection": "~1.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/form": "^5.0",
-              "symfony/http-kernel": "^5.0",
-              "symfony/messenger": "^4.4|^5.0",
-              "symfony/property-access": "^4.4|^5.0",
-              "symfony/property-info": "^5.0",
-              "symfony/proxy-manager-bridge": "^4.4|^5.0",
-              "symfony/security-core": "^5.0",
-              "symfony/stopwatch": "^4.4|^5.0",
-              "symfony/translation": "^4.4|^5.0",
-              "symfony/validator": "^5.0.2",
-              "symfony/var-dumper": "^4.4|^5.0"
-            },
+      "require-dev": {
+        "doctrine/annotations": "~1.7",
+        "doctrine/cache": "~1.6",
+        "doctrine/collections": "~1.0",
+        "doctrine/data-fixtures": "1.0.*",
+        "doctrine/dbal": "~2.4",
+        "doctrine/orm": "^2.6.3",
+        "doctrine/reflection": "~1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/form": "^5.0",
+        "symfony/http-kernel": "^5.0",
+        "symfony/messenger": "^4.4|^5.0",
+        "symfony/property-access": "^4.4|^5.0",
+        "symfony/property-info": "^5.0",
+        "symfony/proxy-manager-bridge": "^4.4|^5.0",
+        "symfony/security-core": "^5.0",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/translation": "^4.4|^5.0",
+        "symfony/validator": "^5.0.2",
+        "symfony/var-dumper": "^4.4|^5.0"
+      },
             "suggest": {
                 "doctrine/data-fixtures": "",
                 "doctrine/dbal": "",
@@ -3164,16 +3203,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Doctrine Bridge",
       "homepage": "https://symfony.com",
       "time": "2020-01-23T11:07:12+00:00"
@@ -3202,30 +3241,30 @@
       "extra": {
         "branch-alias": {
           "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Dotenv\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Dotenv\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Registers environment variables from a .env file",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -3259,16 +3298,16 @@
         "symfony/serializer": "^4.4|^5.0"
       },
       "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\ErrorHandler\\": ""
-                },
-                "exclude-from-classmap": [
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\ErrorHandler\\": ""
+        },
+        "exclude-from-classmap": [
                     "/Tests/"
                 ]
             },
@@ -3276,16 +3315,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony ErrorHandler Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -3314,16 +3353,16 @@
       "provide": {
         "psr/event-dispatcher-implementation": "1.0",
         "symfony/event-dispatcher-implementation": "2.0"
-            },
-            "require-dev": {
-              "psr/log": "~1.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/http-foundation": "^4.4|^5.0",
-              "symfony/service-contracts": "^1.1|^2",
-              "symfony/stopwatch": "^4.4|^5.0"
-            },
+      },
+      "require-dev": {
+        "psr/log": "~1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/service-contracts": "^1.1|^2",
+        "symfony/stopwatch": "^4.4|^5.0"
+      },
             "suggest": {
                 "symfony/dependency-injection": "",
                 "symfony/http-kernel": ""
@@ -3351,15 +3390,15 @@
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Symfony EventDispatcher Component",
-            "homepage": "https://symfony.com",
+      "description": "Symfony EventDispatcher Component",
+      "homepage": "https://symfony.com",
       "time": "2020-01-10T21:57:37+00:00"
-        },
+    },
     {
       "name": "symfony/event-dispatcher-contracts",
       "version": "v2.0.1",
@@ -3374,17 +3413,17 @@
         "reference": "af23c2584d4577d54661c434446fb8fbed6025dd",
         "shasum": ""
       },
-            "require": {
-              "php": "^7.2.5",
-              "psr/event-dispatcher": "^1"
-            },
-            "suggest": {
-                "symfony/event-dispatcher-implementation": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "2.0-dev"
+      "require": {
+        "php": "^7.2.5",
+        "psr/event-dispatcher": "^1"
+      },
+      "suggest": {
+        "symfony/event-dispatcher-implementation": ""
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -3398,16 +3437,16 @@
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                  "name": "Nicolas Grekas",
+                  "email": "p@tchwork.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Generic abstractions related to dispatching event",
-            "homepage": "https://symfony.com",
+      "description": "Generic abstractions related to dispatching event",
+      "homepage": "https://symfony.com",
       "keywords": [
         "abstractions",
         "contracts",
@@ -3442,29 +3481,29 @@
         "branch-alias": {
           "dev-master": "5.0-dev"
         }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\ExpressionLanguage\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\ExpressionLanguage\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony ExpressionLanguage Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -3493,28 +3532,28 @@
           "dev-master": "5.0-dev"
         }
       },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Filesystem\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Filesystem\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Filesystem Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-21T08:40:24+00:00"
@@ -3543,27 +3582,27 @@
         }
       },
       "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Finder\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        "psr-4": {
+          "Symfony\\Component\\Finder\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Finder Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -3592,22 +3631,22 @@
         "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0",
         "symfony/process": "^2.7|^3.0|^4.0|^5.0"
       },
-            "type": "composer-plugin",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "1.5-dev"
-                },
-                "class": "Symfony\\Flex\\Flex"
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Flex\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
+      "type": "composer-plugin",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.5-dev"
+        },
+        "class": "Symfony\\Flex\\Flex"
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Flex\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Fabien Potencier",
@@ -3641,17 +3680,17 @@
         "symfony/property-access": "^5.0",
         "symfony/service-contracts": "^1.1|^2"
       },
-            "conflict": {
-              "phpunit/phpunit": "<5.4.3",
-              "symfony/console": "<4.4",
-              "symfony/dependency-injection": "<4.4",
-              "symfony/doctrine-bridge": "<4.4",
-              "symfony/framework-bundle": "<4.4",
-              "symfony/http-kernel": "<4.4",
-              "symfony/intl": "<4.4",
-              "symfony/translation": "<4.4",
-              "symfony/twig-bridge": "<4.4"
-            },
+      "conflict": {
+        "phpunit/phpunit": "<5.4.3",
+        "symfony/console": "<4.4",
+        "symfony/dependency-injection": "<4.4",
+        "symfony/doctrine-bridge": "<4.4",
+        "symfony/framework-bundle": "<4.4",
+        "symfony/http-kernel": "<4.4",
+        "symfony/intl": "<4.4",
+        "symfony/translation": "<4.4",
+        "symfony/twig-bridge": "<4.4"
+      },
             "require-dev": {
               "doctrine/collections": "~1.0",
               "symfony/config": "^4.4|^5.0",
@@ -3687,16 +3726,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Form Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -3729,32 +3768,32 @@
         "symfony/polyfill-mbstring": "~1.0",
         "symfony/routing": "^5.0"
       },
-            "conflict": {
-              "doctrine/persistence": "<1.3",
-              "phpdocumentor/reflection-docblock": "<3.0",
-              "phpdocumentor/type-resolver": "<0.2.1",
-              "phpunit/phpunit": "<5.4.3",
-              "symfony/asset": "<4.4",
-              "symfony/browser-kit": "<4.4",
-              "symfony/console": "<4.4",
-              "symfony/dom-crawler": "<4.4",
-              "symfony/dotenv": "<4.4",
-              "symfony/form": "<4.4",
-              "symfony/http-client": "<4.4",
-              "symfony/lock": "<4.4",
-              "symfony/mailer": "<4.4",
-              "symfony/messenger": "<4.4",
-              "symfony/mime": "<4.4",
-              "symfony/property-info": "<4.4",
-              "symfony/serializer": "<4.4",
-              "symfony/stopwatch": "<4.4",
-              "symfony/translation": "<5.0",
-              "symfony/twig-bridge": "<4.4",
-              "symfony/twig-bundle": "<4.4",
-              "symfony/validator": "<4.4",
-              "symfony/web-profiler-bundle": "<4.4",
-              "symfony/workflow": "<4.4"
-            },
+      "conflict": {
+        "doctrine/persistence": "<1.3",
+        "phpdocumentor/reflection-docblock": "<3.0",
+        "phpdocumentor/type-resolver": "<0.2.1",
+        "phpunit/phpunit": "<5.4.3",
+        "symfony/asset": "<4.4",
+        "symfony/browser-kit": "<4.4",
+        "symfony/console": "<4.4",
+        "symfony/dom-crawler": "<4.4",
+        "symfony/dotenv": "<4.4",
+        "symfony/form": "<4.4",
+        "symfony/http-client": "<4.4",
+        "symfony/lock": "<4.4",
+        "symfony/mailer": "<4.4",
+        "symfony/messenger": "<4.4",
+        "symfony/mime": "<4.4",
+        "symfony/property-info": "<4.4",
+        "symfony/serializer": "<4.4",
+        "symfony/stopwatch": "<4.4",
+        "symfony/translation": "<5.0",
+        "symfony/twig-bridge": "<4.4",
+        "symfony/twig-bundle": "<4.4",
+        "symfony/validator": "<4.4",
+        "symfony/web-profiler-bundle": "<4.4",
+        "symfony/workflow": "<4.4"
+      },
             "require-dev": {
               "doctrine/annotations": "~1.7",
               "doctrine/cache": "~1.0",
@@ -3817,16 +3856,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony FrameworkBundle",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -3855,16 +3894,16 @@
         "symfony/expression-language": "^4.4|^5.0"
       },
       "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpFoundation\\": ""
-                },
-                "exclude-from-classmap": [
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\HttpFoundation\\": ""
+        },
+        "exclude-from-classmap": [
                     "/Tests/"
                 ]
             },
@@ -3872,16 +3911,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony HttpFoundation Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -3924,26 +3963,26 @@
         "symfony/validator": "<5.0",
         "twig/twig": "<2.4"
       },
-            "provide": {
-                "psr/log-implementation": "1.0"
-            },
-            "require-dev": {
-              "psr/cache": "~1.0",
-              "symfony/browser-kit": "^4.4|^5.0",
-              "symfony/config": "^5.0",
-              "symfony/console": "^4.4|^5.0",
-              "symfony/css-selector": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/dom-crawler": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/finder": "^4.4|^5.0",
-              "symfony/process": "^4.4|^5.0",
-              "symfony/routing": "^4.4|^5.0",
-              "symfony/stopwatch": "^4.4|^5.0",
-              "symfony/translation": "^4.4|^5.0",
-              "symfony/translation-contracts": "^1.1|^2",
-              "twig/twig": "^2.4|^3.0"
-            },
+      "provide": {
+        "psr/log-implementation": "1.0"
+      },
+      "require-dev": {
+        "psr/cache": "~1.0",
+        "symfony/browser-kit": "^4.4|^5.0",
+        "symfony/config": "^5.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/css-selector": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/dom-crawler": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/finder": "^4.4|^5.0",
+        "symfony/process": "^4.4|^5.0",
+        "symfony/routing": "^4.4|^5.0",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/translation": "^4.4|^5.0",
+        "symfony/translation-contracts": "^1.1|^2",
+        "twig/twig": "^2.4|^3.0"
+      },
             "suggest": {
                 "symfony/browser-kit": "",
                 "symfony/config": "",
@@ -3968,16 +4007,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony HttpKernel Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T12:49:38+00:00"
@@ -4006,30 +4045,30 @@
           "dev-master": "5.0-dev"
         }
       },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Inflector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Inflector\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
+                  "name": "Bernhard Schussek",
+                  "email": "bschussek@gmail.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Symfony Inflector Component",
-            "homepage": "https://symfony.com",
+      "description": "Symfony Inflector Component",
+      "homepage": "https://symfony.com",
       "keywords": [
         "inflection",
         "pluralize",
@@ -4064,16 +4103,16 @@
       "suggest": {
         "ext-intl": "to use the component with locales other than \"en\""
       },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Intl\\": ""
-                },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Intl\\": ""
+        },
                 "classmap": [
                     "Resources/stubs"
                 ],
@@ -4095,16 +4134,16 @@
                     "email": "eriksen.costa@infranology.com.br"
                 },
                 {
-                    "name": "Igor Wiedler",
-                    "email": "igor@wiedler.ch"
+                  "name": "Igor Wiedler",
+                  "email": "igor@wiedler.ch"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "A PHP replacement layer for the C intl extension that includes additional data from the ICU library.",
-            "homepage": "https://symfony.com",
+      "description": "A PHP replacement layer for the C intl extension that includes additional data from the ICU library.",
+      "homepage": "https://symfony.com",
       "keywords": [
         "i18n",
         "icu",
@@ -4114,6 +4153,73 @@
         "localization"
       ],
       "time": "2020-01-31T09:13:47+00:00"
+    },
+    {
+      "name": "symfony/mailer",
+      "version": "v5.0.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/mailer.git",
+        "reference": "9410890bfe9b8700312b4e04ac38819b66e3b907"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/mailer/zipball/9410890bfe9b8700312b4e04ac38819b66e3b907",
+        "reference": "9410890bfe9b8700312b4e04ac38819b66e3b907",
+        "shasum": ""
+      },
+      "require": {
+        "egulias/email-validator": "^2.1.10",
+        "php": "^7.2.5",
+        "psr/log": "~1.0",
+        "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/mime": "^4.4|^5.0",
+        "symfony/service-contracts": "^1.1|^2"
+      },
+      "conflict": {
+        "symfony/http-kernel": "<4.4"
+      },
+      "require-dev": {
+        "symfony/amazon-mailer": "^4.4|^5.0",
+        "symfony/google-mailer": "^4.4|^5.0",
+        "symfony/http-client-contracts": "^1.1|^2",
+        "symfony/mailchimp-mailer": "^4.4|^5.0",
+        "symfony/mailgun-mailer": "^4.4|^5.0",
+        "symfony/messenger": "^4.4|^5.0",
+        "symfony/postmark-mailer": "^4.4|^5.0",
+        "symfony/sendgrid-mailer": "^4.4|^5.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Mailer\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony Mailer Component",
+      "homepage": "https://symfony.com",
+      "time": "2020-01-04T14:08:26+00:00"
     },
     {
       "name": "symfony/mime",
@@ -4139,16 +4245,16 @@
       },
       "require-dev": {
         "egulias/email-validator": "^2.1.10",
-                "symfony/dependency-injection": "^4.4|^5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
+        "symfony/dependency-injection": "^4.4|^5.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
                     "Symfony\\Component\\Mime\\": ""
                 },
                 "exclude-from-classmap": [
@@ -4159,16 +4265,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "A library to manipulate MIME messages",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -4201,16 +4307,16 @@
         "symfony/console": "<4.4",
         "symfony/http-foundation": "<4.4"
       },
-            "require-dev": {
-              "symfony/console": "^4.4|^5.0",
-              "symfony/http-client": "^4.4|^5.0",
-              "symfony/security-core": "^4.4|^5.0",
-              "symfony/var-dumper": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/console": "For the possibility to show log messages in console commands depending on verbosity settings.",
-                "symfony/http-kernel": "For using the debugging handlers together with the response life cycle of the HTTP kernel.",
-                "symfony/var-dumper": "For using the debugging handlers like the console handler or the log server handler."
+      "require-dev": {
+        "symfony/console": "^4.4|^5.0",
+        "symfony/http-client": "^4.4|^5.0",
+        "symfony/security-core": "^4.4|^5.0",
+        "symfony/var-dumper": "^4.4|^5.0"
+      },
+      "suggest": {
+        "symfony/console": "For the possibility to show log messages in console commands depending on verbosity settings.",
+        "symfony/http-kernel": "For using the debugging handlers together with the response life cycle of the HTTP kernel.",
+        "symfony/var-dumper": "For using the debugging handlers like the console handler or the log server handler."
             },
             "type": "symfony-bridge",
             "extra": {
@@ -4230,16 +4336,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Monolog Bridge",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -4271,16 +4377,16 @@
         "symfony/phpunit-bridge": "^3.4.19 || ^4.0 || ^5.0",
         "symfony/yaml": "~3.4 || ~4.0 || ^5.0"
       },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\MonologBundle\\": ""
-                },
+      "type": "symfony-bundle",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "3.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Bundle\\MonologBundle\\": ""
+        },
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -4289,16 +4395,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-              {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-              },
-              {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "http://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony MonologBundle",
       "homepage": "http://symfony.com",
       "keywords": [
@@ -4331,27 +4437,27 @@
         }
       },
       "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\OptionsResolver\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        "psr-4": {
+          "Symfony\\Component\\OptionsResolver\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony OptionsResolver Component",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -4413,16 +4519,16 @@
         }
       },
       "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Apcu\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        "psr-4": {
+          "Symfony\\Polyfill\\Apcu\\": ""
+        },
+        "files": [
+          "bootstrap.php"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
             "authors": [
                 {
@@ -4717,16 +4823,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+          "authors": [
+            {
+              "name": "Nicolas Grekas",
+              "email": "p@tchwork.com"
+            },
+            {
+              "name": "Symfony Community",
+              "homepage": "https://symfony.com/contributors"
+            }
+          ],
           "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
           "homepage": "https://symfony.com",
           "keywords": [
@@ -4761,30 +4867,30 @@
         }
       },
       "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php73\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ],
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
+        "psr-4": {
+          "Symfony\\Polyfill\\Php73\\": ""
+        },
+        "files": [
+          "bootstrap.php"
+        ],
+        "classmap": [
+          "Resources/stubs"
+        ]
+      },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -4819,16 +4925,16 @@
         }
       },
       "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        "psr-4": {
+          "Symfony\\Component\\Process\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
             "authors": [
                 {
@@ -4854,16 +4960,16 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/profiler-pack/zipball/99c4370632c2a59bb0444852f92140074ef02209",
-                "reference": "99c4370632c2a59bb0444852f92140074ef02209",
-                "shasum": ""
+              "url": "https://api.github.com/repos/symfony/profiler-pack/zipball/99c4370632c2a59bb0444852f92140074ef02209",
+              "reference": "99c4370632c2a59bb0444852f92140074ef02209",
+              "shasum": ""
             },
-            "require": {
-                "php": "^7.0",
-                "symfony/stopwatch": "*",
-                "symfony/twig-bundle": "*",
-              "symfony/web-profiler-bundle": "*"
-            },
+          "require": {
+            "php": "^7.0",
+            "symfony/stopwatch": "*",
+            "symfony/twig-bundle": "*",
+            "symfony/web-profiler-bundle": "*"
+          },
           "type": "symfony-pack",
           "notification-url": "https://packagist.org/downloads/",
           "license": [
@@ -4896,16 +5002,16 @@
       "suggest": {
         "psr/cache-implementation": "To cache access methods."
       },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\PropertyAccess\\": ""
-                },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\PropertyAccess\\": ""
+        },
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -4927,8 +5033,8 @@
             "description": "Symfony PropertyAccess Component",
             "homepage": "https://symfony.com",
             "keywords": [
-                "access",
-                "array",
+              "access",
+              "array",
               "extraction",
               "index",
               "injection",
@@ -4963,16 +5069,16 @@
         "symfony/dependency-injection": "<4.4"
       },
       "require-dev": {
-                "doctrine/annotations": "~1.7",
-                "phpdocumentor/reflection-docblock": "^3.0|^4.0",
-                "symfony/cache": "^4.4|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/serializer": "^4.4|^5.0"
-            },
-            "suggest": {
-                "phpdocumentor/reflection-docblock": "To use the PHPDoc",
-                "psr/cache-implementation": "To cache results",
-                "symfony/doctrine-bridge": "To use Doctrine metadata",
+        "doctrine/annotations": "~1.7",
+        "phpdocumentor/reflection-docblock": "^3.0|^4.0",
+        "symfony/cache": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/serializer": "^4.4|^5.0"
+      },
+      "suggest": {
+        "phpdocumentor/reflection-docblock": "To use the PHPDoc",
+        "psr/cache-implementation": "To cache results",
+        "symfony/doctrine-bridge": "To use Doctrine metadata",
                 "symfony/serializer": "To use Serializer metadata"
             },
             "type": "library",
@@ -4995,16 +5101,16 @@
             ],
             "authors": [
                 {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com"
+                  "name": "Kévin Dunglas",
+                  "email": "dunglas@gmail.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Symfony Property Info Component",
-            "homepage": "https://symfony.com",
+      "description": "Symfony Property Info Component",
+      "homepage": "https://symfony.com",
       "keywords": [
         "doctrine",
         "phpdoc",
@@ -5046,17 +5152,17 @@
         "symfony/http-foundation": "^4.4|^5.0",
         "symfony/yaml": "^4.4|^5.0"
       },
-            "suggest": {
-                "doctrine/annotations": "For using the annotation loader",
-                "symfony/config": "For using the all-in-one router or any loader",
-                "symfony/expression-language": "For using expression matching",
-                "symfony/http-foundation": "For using a Symfony Request object",
-                "symfony/yaml": "For using the YAML loader"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
+      "suggest": {
+        "doctrine/annotations": "For using the annotation loader",
+        "symfony/config": "For using the all-in-one router or any loader",
+        "symfony/expression-language": "For using expression matching",
+        "symfony/http-foundation": "For using a Symfony Request object",
+        "symfony/yaml": "For using the YAML loader"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -5071,16 +5177,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Routing Component",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -5116,32 +5222,32 @@
         "symfony/security-guard": "^4.4|^5.0",
         "symfony/security-http": "^4.4.3|^5.0.3"
       },
-            "conflict": {
-              "symfony/browser-kit": "<4.4",
-              "symfony/console": "<4.4",
-              "symfony/framework-bundle": "<4.4",
-              "symfony/ldap": "<4.4",
-              "symfony/twig-bundle": "<4.4"
-            },
-            "require-dev": {
-              "doctrine/doctrine-bundle": "^2.0",
-              "symfony/asset": "^4.4|^5.0",
-              "symfony/browser-kit": "^4.4|^5.0",
-              "symfony/console": "^4.4|^5.0",
-              "symfony/css-selector": "^4.4|^5.0",
-              "symfony/dom-crawler": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/form": "^4.4|^5.0",
-              "symfony/framework-bundle": "^4.4|^5.0",
-              "symfony/process": "^4.4|^5.0",
-              "symfony/serializer": "^4.4|^5.0",
-              "symfony/translation": "^4.4|^5.0",
-              "symfony/twig-bridge": "^4.4|^5.0",
-              "symfony/twig-bundle": "^4.4|^5.0",
-              "symfony/validator": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0",
-              "twig/twig": "^2.10|^3.0"
-            },
+      "conflict": {
+        "symfony/browser-kit": "<4.4",
+        "symfony/console": "<4.4",
+        "symfony/framework-bundle": "<4.4",
+        "symfony/ldap": "<4.4",
+        "symfony/twig-bundle": "<4.4"
+      },
+      "require-dev": {
+        "doctrine/doctrine-bundle": "^2.0",
+        "symfony/asset": "^4.4|^5.0",
+        "symfony/browser-kit": "^4.4|^5.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/css-selector": "^4.4|^5.0",
+        "symfony/dom-crawler": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/form": "^4.4|^5.0",
+        "symfony/framework-bundle": "^4.4|^5.0",
+        "symfony/process": "^4.4|^5.0",
+        "symfony/serializer": "^4.4|^5.0",
+        "symfony/translation": "^4.4|^5.0",
+        "symfony/twig-bridge": "^4.4|^5.0",
+        "symfony/twig-bundle": "^4.4|^5.0",
+        "symfony/validator": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0",
+        "twig/twig": "^2.10|^3.0"
+      },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -5160,16 +5266,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony SecurityBundle",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -5198,16 +5304,16 @@
         "symfony/ldap": "<4.4",
         "symfony/security-guard": "<4.4"
       },
-            "require-dev": {
-              "psr/container": "^1.0",
-              "psr/log": "~1.0",
-              "symfony/event-dispatcher": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/http-foundation": "^4.4|^5.0",
-              "symfony/ldap": "^4.4|^5.0",
-              "symfony/validator": "^4.4|^5.0"
-            },
-            "suggest": {
+      "require-dev": {
+        "psr/container": "^1.0",
+        "psr/log": "~1.0",
+        "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/ldap": "^4.4|^5.0",
+        "symfony/validator": "^4.4|^5.0"
+      },
+      "suggest": {
                 "psr/container-implementation": "To instantiate the Security class",
                 "symfony/event-dispatcher": "",
                 "symfony/expression-language": "For using the expression voter",
@@ -5233,16 +5339,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Security Component - Core Library",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -5271,16 +5377,16 @@
       "require-dev": {
         "symfony/http-foundation": "^4.4|^5.0"
       },
-            "suggest": {
-                "symfony/http-foundation": "For using the class SessionTokenStorage."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
+      "suggest": {
+        "symfony/http-foundation": "For using the class SessionTokenStorage."
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Security\\Csrf\\": ""
                 },
@@ -5292,16 +5398,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Security Component - CSRF Library",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -5330,32 +5436,32 @@
       },
       "type": "library",
       "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Security\\Guard\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Security\\Guard\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Security Component - Guard",
       "homepage": "https://symfony.com",
       "time": "2020-01-08T17:33:29+00:00"
@@ -5384,16 +5490,16 @@
       "conflict": {
         "symfony/security-csrf": "<4.4"
       },
-            "require-dev": {
-              "psr/log": "~1.0",
-              "symfony/routing": "^4.4|^5.0",
-              "symfony/security-csrf": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/routing": "For using the HttpUtils class to create sub-requests, redirect the user, and match URLs",
-                "symfony/security-csrf": "For using tokens to protect authentication/logout attempts"
-            },
-            "type": "library",
+      "require-dev": {
+        "psr/log": "~1.0",
+        "symfony/routing": "^4.4|^5.0",
+        "symfony/security-csrf": "^4.4|^5.0"
+      },
+      "suggest": {
+        "symfony/routing": "For using the HttpUtils class to create sub-requests, redirect the user, and match URLs",
+        "symfony/security-csrf": "For using tokens to protect authentication/logout attempts"
+      },
+      "type": "library",
             "extra": {
                 "branch-alias": {
                   "dev-master": "5.0-dev"
@@ -5411,16 +5517,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Security Component - HTTP Integration",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -5450,21 +5556,21 @@
         "symfony/property-info": "<4.4",
         "symfony/yaml": "<4.4"
       },
-            "require-dev": {
-              "doctrine/annotations": "~1.0",
-              "doctrine/cache": "~1.0",
-              "phpdocumentor/reflection-docblock": "^3.2|^4.0",
-              "symfony/cache": "^4.4|^5.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/error-handler": "^4.4|^5.0",
-              "symfony/http-foundation": "^4.4|^5.0",
-              "symfony/mime": "^4.4|^5.0",
-              "symfony/property-access": "^4.4|^5.0",
-              "symfony/property-info": "^4.4|^5.0",
-              "symfony/validator": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0"
-            },
+      "require-dev": {
+        "doctrine/annotations": "~1.0",
+        "doctrine/cache": "~1.0",
+        "phpdocumentor/reflection-docblock": "^3.2|^4.0",
+        "symfony/cache": "^4.4|^5.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/error-handler": "^4.4|^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/mime": "^4.4|^5.0",
+        "symfony/property-access": "^4.4|^5.0",
+        "symfony/property-info": "^4.4|^5.0",
+        "symfony/validator": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+      },
             "suggest": {
               "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
               "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
@@ -5519,16 +5625,16 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/serializer-pack/zipball/c5f18ba4ff989a42d7d140b7f85406e77cd8c4b2",
                 "reference": "c5f18ba4ff989a42d7d140b7f85406e77cd8c4b2",
-                "shasum": ""
+              "shasum": ""
             },
-            "require": {
-                "doctrine/annotations": "^1.0",
-                "php": "^7.0",
-                "phpdocumentor/reflection-docblock": "^3.0|^4.0",
-                "symfony/property-access": "*",
-                "symfony/property-info": "*",
-              "symfony/serializer": "*"
-            },
+          "require": {
+            "doctrine/annotations": "^1.0",
+            "php": "^7.0",
+            "phpdocumentor/reflection-docblock": "^3.0|^4.0",
+            "symfony/property-access": "*",
+            "symfony/property-info": "*",
+            "symfony/serializer": "*"
+          },
           "type": "symfony-pack",
           "notification-url": "https://packagist.org/downloads/",
           "license": [
@@ -5562,29 +5668,29 @@
       "extra": {
         "branch-alias": {
           "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Contracts\\Service\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Contracts\\Service\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                  "name": "Nicolas Grekas",
+                  "email": "p@tchwork.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Generic abstractions related to writing services",
-            "homepage": "https://symfony.com",
+      "description": "Generic abstractions related to writing services",
+      "homepage": "https://symfony.com",
       "keywords": [
         "abstractions",
         "contracts",
@@ -5619,96 +5725,31 @@
           "dev-master": "5.0-dev"
         }
       },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Stopwatch\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Stopwatch\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Stopwatch Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
-    },
-    {
-      "name": "symfony/swiftmailer-bundle",
-      "version": "v3.4.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/symfony/swiftmailer-bundle.git",
-        "reference": "553d2474288349faed873da8ab7c1551a00d26ae"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/553d2474288349faed873da8ab7c1551a00d26ae",
-        "reference": "553d2474288349faed873da8ab7c1551a00d26ae",
-        "shasum": ""
-      },
-      "require": {
-        "php": ">=7.1",
-        "swiftmailer/swiftmailer": "^6.1.3",
-        "symfony/config": "^4.3.8|^5.0",
-        "symfony/dependency-injection": "^4.3.8|^5.0",
-        "symfony/http-kernel": "^4.3.8|^5.0"
-      },
-      "conflict": {
-        "twig/twig": "<1.41|<2.10"
-      },
-            "require-dev": {
-              "symfony/console": "^4.3.8|^5.0",
-              "symfony/framework-bundle": "^4.3.8|^5.0",
-              "symfony/phpunit-bridge": "^4.3.8|^5.0",
-              "symfony/yaml": "^4.3.8|^5.0"
-            },
-            "suggest": {
-                "psr/log": "Allows logging"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "3.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\SwiftmailerBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-              {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-              },
-              {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-              }
-            ],
-      "description": "Symfony SwiftmailerBundle",
-      "homepage": "http://symfony.com",
-      "time": "2019-11-14T16:18:31+00:00"
     },
     {
       "name": "symfony/templating",
@@ -5734,16 +5775,16 @@
       "suggest": {
         "psr/log-implementation": "For using debug logging in loaders"
       },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Templating\\": ""
-                },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Templating\\": ""
+        },
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -5752,16 +5793,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Templating Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -5792,20 +5833,20 @@
         "symfony/twig-bundle": "<5.0",
         "symfony/yaml": "<4.4"
       },
-            "provide": {
-              "symfony/translation-implementation": "2.0"
-            },
-            "require-dev": {
-              "psr/log": "~1.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/console": "^4.4|^5.0",
-              "symfony/dependency-injection": "^5.0",
-              "symfony/finder": "^4.4|^5.0",
-              "symfony/http-kernel": "^5.0",
-              "symfony/intl": "^4.4|^5.0",
-              "symfony/service-contracts": "^1.1.2|^2",
-              "symfony/yaml": "^4.4|^5.0"
-            },
+      "provide": {
+        "symfony/translation-implementation": "2.0"
+      },
+      "require-dev": {
+        "psr/log": "~1.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/finder": "^4.4|^5.0",
+        "symfony/http-kernel": "^5.0",
+        "symfony/intl": "^4.4|^5.0",
+        "symfony/service-contracts": "^1.1.2|^2",
+        "symfony/yaml": "^4.4|^5.0"
+      },
             "suggest": {
                 "psr/log-implementation": "To use logging capability in translator",
                 "symfony/config": "",
@@ -5829,16 +5870,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Translation Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-21T08:40:24+00:00"
@@ -5867,29 +5908,29 @@
       "extra": {
         "branch-alias": {
           "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Contracts\\Translation\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Contracts\\Translation\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                  "name": "Nicolas Grekas",
+                  "email": "p@tchwork.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Generic abstractions related to translation",
-            "homepage": "https://symfony.com",
+      "description": "Generic abstractions related to translation",
+      "homepage": "https://symfony.com",
       "keywords": [
         "abstractions",
         "contracts",
@@ -5927,32 +5968,32 @@
         "symfony/translation": "<5.0",
         "symfony/workflow": "<4.4"
       },
-            "require-dev": {
-              "egulias/email-validator": "^2.1.10",
-              "symfony/asset": "^4.4|^5.0",
-              "symfony/console": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/finder": "^4.4|^5.0",
-              "symfony/form": "^5.0",
-              "symfony/http-foundation": "^4.4|^5.0",
-              "symfony/http-kernel": "^4.4|^5.0",
-              "symfony/mime": "^4.4|^5.0",
-              "symfony/polyfill-intl-icu": "~1.0",
-              "symfony/routing": "^4.4|^5.0",
-              "symfony/security-acl": "^2.8|^3.0",
-              "symfony/security-core": "^4.4|^5.0",
-              "symfony/security-csrf": "^4.4|^5.0",
-              "symfony/security-http": "^4.4|^5.0",
-              "symfony/stopwatch": "^4.4|^5.0",
-              "symfony/translation": "^5.0",
-              "symfony/web-link": "^4.4|^5.0",
-              "symfony/workflow": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0",
-              "twig/cssinliner-extra": "^2.12",
-              "twig/inky-extra": "^2.12",
-              "twig/markdown-extra": "^2.12"
-            },
+      "require-dev": {
+        "egulias/email-validator": "^2.1.10",
+        "symfony/asset": "^4.4|^5.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/finder": "^4.4|^5.0",
+        "symfony/form": "^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "symfony/mime": "^4.4|^5.0",
+        "symfony/polyfill-intl-icu": "~1.0",
+        "symfony/routing": "^4.4|^5.0",
+        "symfony/security-acl": "^2.8|^3.0",
+        "symfony/security-core": "^4.4|^5.0",
+        "symfony/security-csrf": "^4.4|^5.0",
+        "symfony/security-http": "^4.4|^5.0",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/translation": "^5.0",
+        "symfony/web-link": "^4.4|^5.0",
+        "symfony/workflow": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0",
+        "twig/cssinliner-extra": "^2.12",
+        "twig/inky-extra": "^2.12",
+        "twig/markdown-extra": "^2.12"
+      },
             "suggest": {
                 "symfony/asset": "For using the AssetExtension",
                 "symfony/expression-language": "For using the ExpressionExtension",
@@ -5987,16 +6028,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Twig Bridge",
       "homepage": "https://symfony.com",
       "time": "2020-01-08T17:33:29+00:00"
@@ -6029,21 +6070,21 @@
         "symfony/framework-bundle": "<5.0",
         "symfony/translation": "<5.0"
       },
-            "require-dev": {
-              "doctrine/annotations": "~1.7",
-              "doctrine/cache": "~1.0",
-              "symfony/asset": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/finder": "^4.4|^5.0",
-              "symfony/form": "^4.4|^5.0",
-              "symfony/framework-bundle": "^5.0",
-              "symfony/routing": "^4.4|^5.0",
-              "symfony/stopwatch": "^4.4|^5.0",
-              "symfony/translation": "^5.0",
-              "symfony/web-link": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0"
-            },
+      "require-dev": {
+        "doctrine/annotations": "~1.7",
+        "doctrine/cache": "~1.0",
+        "symfony/asset": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/finder": "^4.4|^5.0",
+        "symfony/form": "^4.4|^5.0",
+        "symfony/framework-bundle": "^5.0",
+        "symfony/routing": "^4.4|^5.0",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/translation": "^5.0",
+        "symfony/web-link": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+      },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -6062,16 +6103,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony TwigBundle",
       "homepage": "https://symfony.com",
       "time": "2020-01-04T14:08:26+00:00"
@@ -6105,23 +6146,23 @@
         "symfony/translation": "<4.4",
         "symfony/yaml": "<4.4"
       },
-            "require-dev": {
-              "doctrine/annotations": "~1.7",
-              "doctrine/cache": "~1.0",
-              "egulias/email-validator": "^2.1.10",
-              "symfony/cache": "^4.4|^5.0",
-              "symfony/config": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/expression-language": "^4.4|^5.0",
-              "symfony/http-client": "^4.4|^5.0",
-              "symfony/http-foundation": "^4.4|^5.0",
-              "symfony/http-kernel": "^4.4|^5.0",
-              "symfony/intl": "^4.4|^5.0",
-              "symfony/property-access": "^4.4|^5.0",
-              "symfony/property-info": "^4.4|^5.0",
-              "symfony/translation": "^4.4|^5.0",
-              "symfony/yaml": "^4.4|^5.0"
-            },
+      "require-dev": {
+        "doctrine/annotations": "~1.7",
+        "doctrine/cache": "~1.0",
+        "egulias/email-validator": "^2.1.10",
+        "symfony/cache": "^4.4|^5.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/http-client": "^4.4|^5.0",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "symfony/intl": "^4.4|^5.0",
+        "symfony/property-access": "^4.4|^5.0",
+        "symfony/property-info": "^4.4|^5.0",
+        "symfony/translation": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+      },
             "suggest": {
               "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
               "doctrine/cache": "For using the default cached annotation reader.",
@@ -6154,16 +6195,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony Validator Component",
       "homepage": "https://symfony.com",
       "time": "2020-01-31T09:13:47+00:00"
@@ -6196,16 +6237,16 @@
         "symfony/process": "^4.4|^5.0",
         "twig/twig": "^2.4|^3.0"
       },
-            "suggest": {
-                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
-                "ext-intl": "To show region name in time zone dump",
-                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
-            },
-            "bin": [
-                "Resources/bin/var-dump-server"
-            ],
-            "type": "library",
-            "extra": {
+      "suggest": {
+        "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+        "ext-intl": "To show region name in time zone dump",
+        "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+      },
+      "bin": [
+        "Resources/bin/var-dump-server"
+      ],
+      "type": "library",
+      "extra": {
                 "branch-alias": {
                   "dev-master": "5.0-dev"
                 }
@@ -6225,16 +6266,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
+      "authors": [
+        {
+          "name": "Nicolas Grekas",
+          "email": "p@tchwork.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony mechanism for exploring and dumping PHP variables",
       "homepage": "https://symfony.com",
       "keywords": [
@@ -6267,32 +6308,32 @@
       "extra": {
         "branch-alias": {
           "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\VarExporter\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\VarExporter\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
+                  "name": "Nicolas Grekas",
+                  "email": "p@tchwork.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "A blend of var_export() + serialize() to turn any serializable data structure to plain PHP code",
-            "homepage": "https://symfony.com",
+      "description": "A blend of var_export() + serialize() to turn any serializable data structure to plain PHP code",
+      "homepage": "https://symfony.com",
       "keywords": [
         "clone",
         "construct",
@@ -6348,16 +6389,16 @@
           "/Tests/"
         ]
       },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com"
-                },
-                {
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Kévin Dunglas",
+          "email": "dunglas@gmail.com"
+        },
+        {
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
                 }
@@ -6365,9 +6406,9 @@
             "description": "Symfony WebLink Component",
             "homepage": "https://symfony.com",
             "keywords": [
-                "dns-prefetch",
-                "http",
-                "http2",
+              "dns-prefetch",
+              "http",
+              "http2",
               "link",
               "performance",
               "prefetch",
@@ -6405,17 +6446,17 @@
         "symfony/form": "<4.4",
         "symfony/messenger": "<4.4"
       },
-            "require-dev": {
-              "symfony/browser-kit": "^4.4|^5.0",
-              "symfony/console": "^4.4|^5.0",
-              "symfony/css-selector": "^4.4|^5.0",
-              "symfony/dependency-injection": "^4.4|^5.0",
-              "symfony/stopwatch": "^4.4|^5.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
+      "require-dev": {
+        "symfony/browser-kit": "^4.4|^5.0",
+        "symfony/console": "^4.4|^5.0",
+        "symfony/css-selector": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/stopwatch": "^4.4|^5.0"
+      },
+      "type": "symfony-bundle",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -6430,16 +6471,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        },
+        {
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
       "description": "Symfony WebProfilerBundle",
       "homepage": "https://symfony.com",
       "time": "2020-01-23T11:07:12+00:00"
@@ -6472,22 +6513,22 @@
         "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0",
         "symfony/web-link": "^3.4 || ^4.0 || ^5.0"
       },
-            "type": "symfony-bundle",
-            "extra": {
-                "thanks": {
-                    "name": "symfony/webpack-encore",
-                    "url": "https://github.com/symfony/webpack-encore"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\WebpackEncoreBundle\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
+      "type": "symfony-bundle",
+      "extra": {
+        "thanks": {
+          "name": "symfony/webpack-encore",
+          "url": "https://github.com/symfony/webpack-encore"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Symfony\\WebpackEncoreBundle\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Symfony Community",
@@ -6521,16 +6562,16 @@
       "require-dev": {
         "symfony/console": "^4.4|^5.0"
       },
-            "suggest": {
-                "symfony/console": "For validating YAML files using the lint command"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
+      "suggest": {
+        "symfony/console": "For validating YAML files using the lint command"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "5.0-dev"
+        }
+      },
+      "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
                 },
@@ -6547,26 +6588,129 @@
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
+              {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+              }
             ],
-            "description": "Symfony Yaml Component",
-            "homepage": "https://symfony.com",
+      "description": "Symfony Yaml Component",
+      "homepage": "https://symfony.com",
       "time": "2020-01-21T11:12:28+00:00"
-        },
+    },
+    {
+      "name": "tijsverkoyen/css-to-inline-styles",
+      "version": "2.2.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+        "reference": "dda2ee426acd6d801d5b7fd1001cde9b5f790e15"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/dda2ee426acd6d801d5b7fd1001cde9b5f790e15",
+        "reference": "dda2ee426acd6d801d5b7fd1001cde9b5f790e15",
+        "shasum": ""
+      },
+      "require": {
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "php": "^5.5 || ^7.0",
+        "symfony/css-selector": "^2.7 || ^3.0 || ^4.0 || ^5.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.2.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "TijsVerkoyen\\CssToInlineStyles\\": "src"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "BSD-3-Clause"
+      ],
+      "authors": [
         {
-            "name": "twig/extensions",
-            "version": "v1.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "57873c8b0c1be51caa47df2cdb824490beb16202"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/57873c8b0c1be51caa47df2cdb824490beb16202",
+          "name": "Tijs Verkoyen",
+          "email": "css_to_inline_styles@verkoyen.eu",
+          "role": "Developer"
+        }
+      ],
+      "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+      "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
+      "time": "2019-10-24T08:53:34+00:00"
+    },
+    {
+      "name": "twig/cssinliner-extra",
+      "version": "v3.0.1",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/twigphp/cssinliner-extra.git",
+        "reference": "d7c951e935d65c0cfd9a63bb08541a297f230f3a"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/twigphp/cssinliner-extra/zipball/d7c951e935d65c0cfd9a63bb08541a297f230f3a",
+        "reference": "d7c951e935d65c0cfd9a63bb08541a297f230f3a",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.1.3",
+        "tijsverkoyen/css-to-inline-styles": "^2.0",
+        "twig/twig": "^2.4|^3.0"
+      },
+      "require-dev": {
+        "symfony/phpunit-bridge": "^4.4|^5.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.12-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Twig\\Extra\\CssInliner\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com",
+          "homepage": "http://fabien.potencier.org",
+          "role": "Lead Developer"
+        }
+      ],
+      "description": "A Twig extension to allow inlining CSS",
+      "homepage": "https://twig.symfony.com",
+      "keywords": [
+        "css",
+        "inlining",
+        "twig"
+      ],
+      "time": "2019-12-27T07:33:44+00:00"
+    },
+    {
+      "name": "twig/extensions",
+      "version": "v1.5.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/twigphp/Twig-extensions.git",
+        "reference": "57873c8b0c1be51caa47df2cdb824490beb16202"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/57873c8b0c1be51caa47df2cdb824490beb16202",
                 "reference": "57873c8b0c1be51caa47df2cdb824490beb16202",
                 "shasum": ""
             },
@@ -6594,23 +6738,137 @@
                     "Twig\\Extensions\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                  "email": "fabien@symfony.com"
-                }
-            ],
-          "description": "Common additional features for Twig that do not directly belong in core",
-          "keywords": [
-            "i18n",
-            "text"
-          ],
-          "time": "2018-12-05T18:34:18+00:00"
-        },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
+        }
+      ],
+      "description": "Common additional features for Twig that do not directly belong in core",
+      "keywords": [
+        "i18n",
+        "text"
+      ],
+      "time": "2018-12-05T18:34:18+00:00"
+    },
+    {
+      "name": "twig/extra-bundle",
+      "version": "v3.0.1",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/twigphp/twig-extra-bundle.git",
+        "reference": "ce5c97dd566d9acd5d1fbd5eb76b6d264614725a"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/ce5c97dd566d9acd5d1fbd5eb76b6d264614725a",
+        "reference": "ce5c97dd566d9acd5d1fbd5eb76b6d264614725a",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.1.3",
+        "symfony/framework-bundle": "^4.3|^5.0",
+        "symfony/twig-bundle": "^4.3|^5.0",
+        "twig/twig": "^2.4|^3.0"
+      },
+      "require-dev": {
+        "twig/cssinliner-extra": "^2.12|^3.0",
+        "twig/html-extra": "^2.12|^3.0",
+        "twig/inky-extra": "^2.12|^3.0",
+        "twig/intl-extra": "^2.12|^3.0",
+        "twig/markdown-extra": "^2.12|^3.0"
+      },
+      "type": "symfony-bundle",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "3.0-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Twig\\Extra\\TwigExtraBundle\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com",
+          "homepage": "http://fabien.potencier.org",
+          "role": "Lead Developer"
+        }
+      ],
+      "description": "A Symfony bundle for extra Twig extensions",
+      "homepage": "https://twig.symfony.com",
+      "keywords": [
+        "bundle",
+        "extra",
+        "twig"
+      ],
+      "time": "2019-12-28T07:09:27+00:00"
+    },
+    {
+      "name": "twig/inky-extra",
+      "version": "v3.0.1",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/twigphp/inky-extra.git",
+        "reference": "68d7e3a00cb66dab07093c0c88059f4e02d71b39"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/twigphp/inky-extra/zipball/68d7e3a00cb66dab07093c0c88059f4e02d71b39",
+        "reference": "68d7e3a00cb66dab07093c0c88059f4e02d71b39",
+        "shasum": ""
+      },
+      "require": {
+        "lorenzo/pinky": "^1.0.5",
+        "php": "^7.1.3",
+        "twig/twig": "^2.4|^3.0"
+      },
+      "require-dev": {
+        "symfony/phpunit-bridge": "^4.4|^5.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.12-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Twig\\Extra\\Inky\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com",
+          "homepage": "http://fabien.potencier.org",
+          "role": "Lead Developer"
+        }
+      ],
+      "description": "A Twig extension for the inky email templating engine",
+      "homepage": "https://twig.symfony.com",
+      "keywords": [
+        "email",
+        "emails",
+        "inky",
+        "twig"
+      ],
+      "time": "2019-12-27T07:33:44+00:00"
+    },
     {
       "name": "twig/twig",
       "version": "v2.12.3",
@@ -6635,16 +6893,16 @@
         "symfony/phpunit-bridge": "^4.4|^5.0"
       },
       "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "2.12-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Twig_": "lib/"
-                },
-                "psr-4": {
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.12-dev"
+        }
+      },
+      "autoload": {
+        "psr-0": {
+          "Twig_": "lib/"
+        },
+        "psr-4": {
                     "Twig\\": "src/"
                 }
             },
@@ -6863,16 +7121,16 @@
         "extra": {
           "branch-alias": {
             "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+          }
+        },
+        "autoload": {
+          "psr-4": {
+            "Composer\\Semver\\": "src"
+          }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+          "MIT"
             ],
             "authors": [
                 {
@@ -6927,16 +7185,16 @@
                     "Composer\\XdebugHandler\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "John Stevenson",
-                  "email": "john-stevenson@blueyonder.co.uk"
-                }
-            ],
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "John Stevenson",
+              "email": "john-stevenson@blueyonder.co.uk"
+            }
+          ],
           "description": "Restarts a process without Xdebug.",
           "keywords": [
             "Xdebug",
@@ -6976,20 +7234,20 @@
           "symfony/process": "^3.0 || ^4.0 || ^5.0",
           "symfony/stopwatch": "^3.0 || ^4.0 || ^5.0"
         },
-            "require-dev": {
-              "johnkary/phpunit-speedtrap": "^1.1 || ^2.0 || ^3.0",
-              "justinrainbow/json-schema": "^5.0",
-              "keradus/cli-executor": "^1.2",
-              "mikey179/vfsstream": "^1.6",
-              "php-coveralls/php-coveralls": "^2.1",
-              "php-cs-fixer/accessible-object": "^1.0",
-              "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.1",
-              "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.1",
-              "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.1",
-              "phpunitgoodpractices/traits": "^1.8",
-              "symfony/phpunit-bridge": "^4.3 || ^5.0",
-              "symfony/yaml": "^3.0 || ^4.0 || ^5.0"
-            },
+        "require-dev": {
+          "johnkary/phpunit-speedtrap": "^1.1 || ^2.0 || ^3.0",
+          "justinrainbow/json-schema": "^5.0",
+          "keradus/cli-executor": "^1.2",
+          "mikey179/vfsstream": "^1.6",
+          "php-coveralls/php-coveralls": "^2.1",
+          "php-cs-fixer/accessible-object": "^1.0",
+          "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.1",
+          "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.1",
+          "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.1",
+          "phpunitgoodpractices/traits": "^1.8",
+          "symfony/phpunit-bridge": "^4.3 || ^5.0",
+          "symfony/yaml": "^3.0 || ^4.0 || ^5.0"
+        },
             "suggest": {
                 "ext-mbstring": "For handling non-UTF8 characters in cache signature.",
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "For IsIdenticalString constraint.",
@@ -7142,27 +7400,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-              "reference": "666ba252853924887ac57dc9f66e6b6af78d5a76"
+              "reference": "7d271200b041d3e4be5927fdb03122508b9f8ebb"
             },
             "dist": {
               "type": "zip",
-              "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/666ba252853924887ac57dc9f66e6b6af78d5a76",
-              "reference": "666ba252853924887ac57dc9f66e6b6af78d5a76",
+              "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7d271200b041d3e4be5927fdb03122508b9f8ebb",
+              "reference": "7d271200b041d3e4be5927fdb03122508b9f8ebb",
               "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adodb/adodb-php": "<5.20.12",
-                "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
-                "amphp/artax": "<1.0.6|>=2,<2.0.6",
-                "amphp/http": "<1.0.1",
-                "api-platform/core": ">=2.2,<2.2.10|>=2.3,<2.3.6",
-                "asymmetricrypt/asymmetricrypt": ">=0,<9.9.99",
-                "aws/aws-sdk-php": ">=3,<3.2.1",
-                "brightlocal/phpwhois": "<=4.2.5",
-                "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
-                "cakephp/cakephp": ">=1.3,<1.3.18|>=2,<2.4.99|>=2.5,<2.5.99|>=2.6,<2.6.12|>=2.7,<2.7.6|>=3,<3.5.18|>=3.6,<3.6.15|>=3.7,<3.7.7",
-                "cart2quote/module-quotation": ">=4.1.6,<=4.4.5|>=5,<5.4.4",
+              "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
+              "amphp/artax": "<1.0.6|>=2,<2.0.6",
+              "amphp/http": "<1.0.1",
+              "api-platform/core": ">=2.2,<2.2.10|>=2.3,<2.3.6",
+              "asymmetricrypt/asymmetricrypt": ">=0,<9.9.99",
+              "aws/aws-sdk-php": ">=3,<3.2.1",
+              "brightlocal/phpwhois": "<=4.2.5",
+              "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
+              "cakephp/cakephp": ">=1.3,<1.3.18|>=2,<2.4.99|>=2.5,<2.5.99|>=2.6,<2.6.12|>=2.7,<2.7.6|>=3,<3.5.18|>=3.6,<3.6.15|>=3.7,<3.7.7",
+              "cart2quote/module-quotation": ">=4.1.6,<=4.4.5|>=5,<5.4.4",
               "cartalyst/sentry": "<=2.1.6",
               "codeigniter/framework": "<=3.0.6",
               "composer/composer": "<=1-alpha.11",
@@ -7186,7 +7444,11 @@
               "drupal/drupal": ">=7,<7.69|>=8,<8.7.11|>=8.8,<8.8.1",
               "endroid/qr-code-bundle": "<3.4.2",
               "erusev/parsedown": "<1.7.2",
-              "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.4",
+              "ezsystems/ezfind-ls": ">=5.3,<5.3.6.1|>=5.4,<5.4.11.1|>=2017.12,<2017.12.0.1",
+              "ezsystems/ezplatform": ">=1.7,<1.7.9.1|>=1.13,<1.13.5.1|>=2.5,<2.5.4",
+              "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6",
+              "ezsystems/ezplatform-admin-ui-assets": ">=4,<4.2",
+              "ezsystems/ezplatform-user": ">=1,<1.0.1",
               "ezsystems/ezpublish-kernel": ">=5.3,<5.3.12.1|>=5.4,<5.4.13.1|>=6,<6.7.9.1|>=6.8,<6.13.5.1|>=7,<7.2.4.1|>=7.3,<7.3.2.1",
               "ezsystems/ezpublish-legacy": ">=5.3,<5.3.12.6|>=5.4,<5.4.12.3|>=2011,<2017.12.4.3|>=2018.6,<2018.6.1.4|>=2018.9,<2018.9.1.3",
               "ezsystems/repository-forms": ">=2.3,<2.3.2.1",
@@ -7204,51 +7466,57 @@
               "illuminate/cookie": ">=4,<=4.0.11|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30",
               "illuminate/database": ">=4,<4.0.99|>=4.1,<4.1.29",
               "illuminate/encryption": ">=4,<=4.0.11|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.40|>=5.6,<5.6.15",
-                "ivankristianto/phpwhois": "<=4.3",
-                "james-heinrich/getid3": "<1.9.9",
-                "joomla/session": "<1.3.1",
-                "jsmitty12/phpwhois": "<5.1",
-                "kazist/phpwhois": "<=4.2.6",
-                "kreait/firebase-php": ">=3.2,<3.8.1",
-                "la-haute-societe/tcpdf": "<6.2.22",
-                "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30",
-                "laravel/socialite": ">=1,<1.0.99|>=2,<2.0.10",
-                "league/commonmark": "<0.18.3",
-                "magento/magento1ce": "<1.9.4.3",
-                "magento/magento1ee": ">=1,<1.14.4.3",
-                "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.2-p.2",
-                "monolog/monolog": ">=1.8,<1.12",
-                "namshi/jose": "<2.2",
-                "onelogin/php-saml": "<2.10.4",
-                "openid/php-openid": "<2.3",
-                "oro/crm": ">=1.7,<1.7.4",
-                "oro/platform": ">=1.7,<1.7.4",
-                "padraic/humbug_get_contents": "<1.1.2",
-                "pagarme/pagarme-php": ">=0,<3",
-                "paragonie/random_compat": "<2",
-                "paypal/merchant-sdk-php": "<3.12",
-                "pear/archive_tar": "<1.4.4",
-                "phpmailer/phpmailer": ">=5,<5.2.27|>=6,<6.0.6",
-                "phpoffice/phpexcel": "<=1.8.1",
-                "phpoffice/phpspreadsheet": "<=1.5",
-                "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
-                "phpwhois/phpwhois": "<=4.2.5",
-                "phpxmlrpc/extras": "<0.6.1",
-                "propel/propel": ">=2-alpha.1,<=2-alpha.7",
-                "propel/propel1": ">=1,<=1.7.1",
-                "pusher/pusher-php-server": "<2.2.1",
-                "robrichards/xmlseclibs": ">=1,<3.0.4",
-                "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
-                "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
+              "ivankristianto/phpwhois": "<=4.3",
+              "james-heinrich/getid3": "<1.9.9",
+              "joomla/session": "<1.3.1",
+              "jsmitty12/phpwhois": "<5.1",
+              "kazist/phpwhois": "<=4.2.6",
+              "kreait/firebase-php": ">=3.2,<3.8.1",
+              "la-haute-societe/tcpdf": "<6.2.22",
+              "laravel/framework": ">=4,<4.0.99|>=4.1,<=4.1.31|>=4.2,<=4.2.22|>=5,<=5.0.35|>=5.1,<=5.1.46|>=5.2,<=5.2.45|>=5.3,<=5.3.31|>=5.4,<=5.4.36|>=5.5,<5.5.42|>=5.6,<5.6.30",
+              "laravel/socialite": ">=1,<1.0.99|>=2,<2.0.10",
+              "league/commonmark": "<0.18.3",
+              "magento/magento1ce": "<1.9.4.3",
+              "magento/magento1ee": ">=1,<1.14.4.3",
+              "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.2-p.2",
+              "monolog/monolog": ">=1.8,<1.12",
+              "namshi/jose": "<2.2",
+              "onelogin/php-saml": "<2.10.4",
+              "oneup/uploader-bundle": ">=1,<1.9.3|>=2,<2.1.5",
+              "openid/php-openid": "<2.3",
+              "oro/crm": ">=1.7,<1.7.4",
+              "oro/platform": ">=1.7,<1.7.4",
+              "padraic/humbug_get_contents": "<1.1.2",
+              "pagarme/pagarme-php": ">=0,<3",
+              "paragonie/random_compat": "<2",
+              "paypal/merchant-sdk-php": "<3.12",
+              "pear/archive_tar": "<1.4.4",
+              "phpmailer/phpmailer": ">=5,<5.2.27|>=6,<6.0.6",
+              "phpoffice/phpexcel": "<1.8.2",
+              "phpoffice/phpspreadsheet": "<=1.5",
+              "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
+              "phpwhois/phpwhois": "<=4.2.5",
+              "phpxmlrpc/extras": "<0.6.1",
+              "propel/propel": ">=2-alpha.1,<=2-alpha.7",
+              "propel/propel1": ">=1,<=1.7.1",
+              "pusher/pusher-php-server": "<2.2.1",
+              "robrichards/xmlseclibs": ">=1,<3.0.4",
+              "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
+              "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
               "sensiolabs/connect": "<4.2.3",
               "serluck/phpwhois": "<=4.2.6",
               "shopware/shopware": "<5.3.7",
+              "silverstripe/admin": ">=1.0.3,<1.0.4|>=1.1,<1.1.1",
+              "silverstripe/assets": ">=1,<1.3.5",
               "silverstripe/cms": ">=3,<=3.0.11|>=3.1,<3.1.11",
+              "silverstripe/comments": ">=1.3,<1.9.99|>=2,<2.9.99|>=3,<3.1.1",
               "silverstripe/forum": "<=0.6.1|>=0.7,<=0.7.3",
-              "silverstripe/framework": ">=3,<3.6.7|>=3.7,<3.7.3|>=4,<4.4",
+              "silverstripe/framework": ">=3,<3.9.99|>=4,<4.4.4",
               "silverstripe/graphql": ">=2,<2.0.5|>=3,<3.1.2",
               "silverstripe/registry": ">=2.1,<2.1.2|>=2.2,<2.2.1",
               "silverstripe/restfulserver": ">=1,<1.0.9|>=2,<2.0.4",
+              "silverstripe/subsites": ">=2,<2.1.1",
+              "silverstripe/taxonomy": ">=1.3,<1.3.1|>=2,<2.0.1",
               "silverstripe/userforms": "<3",
               "simple-updates/phpwhois": "<=1",
               "simplesamlphp/saml2": "<1.10.6|>=2,<2.3.8|>=3,<3.1.4",
@@ -7267,6 +7535,7 @@
               "sylius/grid-bundle": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
               "sylius/resource-bundle": ">=1,<1.3.13|>=1.4,<1.4.6|>=1.5,<1.5.1|>=1.6,<1.6.3",
               "sylius/sylius": ">=1,<1.3.12|>=1.4,<1.4.4",
+              "symbiote/silverstripe-multivaluefield": ">=3,<3.0.99",
               "symfony/cache": ">=3.1,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
               "symfony/dependency-injection": ">=2,<2.0.17|>=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
               "symfony/form": ">=2.3,<2.3.35|>=2.4,<2.6.12|>=2.7,<2.7.50|>=2.8,<2.8.49|>=3,<3.4.20|>=4,<4.0.15|>=4.1,<4.1.9|>=4.2,<4.2.1",
@@ -7287,16 +7556,16 @@
               "symfony/security-guard": ">=2.8,<2.8.41|>=3,<3.3.17|>=3.4,<3.4.11|>=4,<4.0.11",
               "symfony/security-http": ">=2.3,<2.3.41|>=2.4,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.2.12|>=4.3,<4.3.8",
               "symfony/serializer": ">=2,<2.0.11",
-                "symfony/symfony": ">=2,<2.8.52|>=3,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
-                "symfony/translation": ">=2,<2.0.17",
-                "symfony/validator": ">=2,<2.0.24|>=2.1,<2.1.12|>=2.2,<2.2.5|>=2.3,<2.3.3",
-                "symfony/var-exporter": ">=4.2,<4.2.12|>=4.3,<4.3.8",
-                "symfony/web-profiler-bundle": ">=2,<2.3.19|>=2.4,<2.4.9|>=2.5,<2.5.4",
-                "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
-                "tecnickcom/tcpdf": "<6.2.22",
-                "thelia/backoffice-default-template": ">=2.1,<2.1.2",
-                "thelia/thelia": ">=2.1-beta.1,<2.1.3",
-                "theonedemon/phpwhois": "<=4.2.5",
+              "symfony/symfony": ">=2,<2.8.52|>=3,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
+              "symfony/translation": ">=2,<2.0.17",
+              "symfony/validator": ">=2,<2.0.24|>=2.1,<2.1.12|>=2.2,<2.2.5|>=2.3,<2.3.3",
+              "symfony/var-exporter": ">=4.2,<4.2.12|>=4.3,<4.3.8",
+              "symfony/web-profiler-bundle": ">=2,<2.3.19|>=2.4,<2.4.9|>=2.5,<2.5.4",
+              "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
+              "tecnickcom/tcpdf": "<6.2.22",
+              "thelia/backoffice-default-template": ">=2.1,<2.1.2",
+              "thelia/thelia": ">=2.1-beta.1,<2.1.3",
+              "theonedemon/phpwhois": "<=4.2.5",
                 "titon/framework": ">=0,<9.9.99",
                 "truckersmp/phpwhois": "<=4.3.1",
                 "twig/twig": "<1.38|>=2,<2.7",
@@ -7360,7 +7629,7 @@
               }
             ],
           "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-          "time": "2020-01-28T17:25:41+00:00"
+          "time": "2020-02-06T16:34:55+00:00"
         },
       {
         "name": "squizlabs/php_codesniffer",
@@ -7386,25 +7655,25 @@
           "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
         },
         "bin": [
-                "bin/phpcs",
-                "bin/phpcbf"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Greg Sherwood",
-                    "role": "lead"
-                }
-            ],
+          "bin/phpcs",
+          "bin/phpcbf"
+        ],
+        "type": "library",
+        "extra": {
+          "branch-alias": {
+            "dev-master": "3.x-dev"
+          }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+          "BSD-3-Clause"
+        ],
+        "authors": [
+          {
+            "name": "Greg Sherwood",
+            "role": "lead"
+          }
+        ],
         "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
         "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
         "keywords": [
@@ -7437,16 +7706,16 @@
           "symfony/mime": "^4.4|^5.0",
           "symfony/process": "^4.4|^5.0"
         },
-            "suggest": {
-                "symfony/process": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
+        "suggest": {
+          "symfony/process": ""
+        },
+        "type": "library",
+        "extra": {
+          "branch-alias": {
+            "dev-master": "5.0-dev"
+          }
+        },
+        "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\BrowserKit\\": ""
                 },
@@ -7458,70 +7727,17 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
-        "description": "Symfony BrowserKit Component",
-        "homepage": "https://symfony.com",
-        "time": "2020-01-04T14:08:26+00:00"
-      },
-      {
-        "name": "symfony/css-selector",
-        "version": "v5.0.4",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/symfony/css-selector.git",
-          "reference": "ff60c90cb7950b592ebc84ad1289d0345bf24f9f"
-        },
-        "dist": {
-          "type": "zip",
-          "url": "https://api.github.com/repos/symfony/css-selector/zipball/ff60c90cb7950b592ebc84ad1289d0345bf24f9f",
-          "reference": "ff60c90cb7950b592ebc84ad1289d0345bf24f9f",
-          "shasum": ""
-        },
-        "require": {
-          "php": "^7.2.5"
-        },
-        "type": "library",
-        "extra": {
-          "branch-alias": {
-            "dev-master": "5.0-dev"
+        "authors": [
+          {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+          },
+          {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
           }
-        },
-        "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\CssSelector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
-        "description": "Symfony CssSelector Component",
+        ],
+        "description": "Symfony BrowserKit Component",
         "homepage": "https://symfony.com",
         "time": "2020-01-04T14:08:26+00:00"
       },
@@ -7550,16 +7766,16 @@
         "require-dev": {
           "masterminds/html5": "^2.6",
           "symfony/css-selector": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                  "dev-master": "5.0-dev"
-                }
-            },
+        },
+        "suggest": {
+          "symfony/css-selector": ""
+        },
+        "type": "library",
+        "extra": {
+          "branch-alias": {
+            "dev-master": "5.0-dev"
+          }
+        },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\DomCrawler\\": ""
@@ -7572,16 +7788,16 @@
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-              {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-              }
-            ],
+        "authors": [
+          {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+          },
+          {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+          }
+        ],
         "description": "Symfony DomCrawler Component",
         "homepage": "https://symfony.com",
         "time": "2020-01-04T14:08:26+00:00"
@@ -7612,17 +7828,17 @@
           "symfony/framework-bundle": "^3.4|^4.0|^5.0",
           "symfony/http-kernel": "^3.4|^4.0|^5.0"
         },
-            "require-dev": {
-              "doctrine/doctrine-bundle": "^1.8|^2.0",
-              "doctrine/orm": "^2.3",
-              "friendsofphp/php-cs-fixer": "^2.8",
-              "friendsoftwig/twigcs": "^3.1.2",
-              "symfony/http-client": "^4.3|^5.0",
-              "symfony/phpunit-bridge": "^4.3|^5.0",
-              "symfony/process": "^3.4|^4.0|^5.0",
-              "symfony/security-core": "^3.4|^4.0|^5.0",
-              "symfony/yaml": "^3.4|^4.0|^5.0"
-            },
+        "require-dev": {
+          "doctrine/doctrine-bundle": "^1.8|^2.0",
+          "doctrine/orm": "^2.3",
+          "friendsofphp/php-cs-fixer": "^2.8",
+          "friendsoftwig/twigcs": "^3.1.2",
+          "symfony/http-client": "^4.3|^5.0",
+          "symfony/phpunit-bridge": "^4.3|^5.0",
+          "symfony/process": "^3.4|^4.0|^5.0",
+          "symfony/security-core": "^3.4|^4.0|^5.0",
+          "symfony/yaml": "^3.4|^4.0|^5.0"
+        },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -7663,14 +7879,15 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2",
-        "ext-fileinfo": "*",
-        "ext-gd": "*",
-        "ext-hash": "*",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "ext-simplexml": "*",
-        "ext-zip": "*"
+      "php": ">=7.2",
+      "ext-fileinfo": "*",
+      "ext-gd": "*",
+      "ext-hash": "*",
+      "ext-intl": "*",
+      "ext-json": "*",
+      "ext-simplexml": "*",
+      "ext-xsl": "*",
+      "ext-zip": "*"
     },
     "platform-dev": []
 }

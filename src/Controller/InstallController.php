@@ -96,19 +96,19 @@ class InstallController extends AbstractController
             $formData = $form->getData();
             $databaseUrl = sprintf(
                 'mysql://%s:%s@%s:%d/%s',
-                $formData->getDatabaseUser(),
-                $formData->getDatabasePassword(),
-                $formData->getDatabaseHost(),
-                $formData->getDatabasePort(),
-                $formData->getDatabaseName()
+                urlencode($formData->getDatabaseUser()),
+                urlencode($formData->getDatabasePassword()),
+                urlencode($formData->getDatabaseHost()),
+                urlencode($formData->getDatabasePort()),
+                urlencode($formData->getDatabaseName())
             );
             $mailerUrl = sprintf(
                 '%s://%s:%s@%s:%d',
-                $formData->getMailerTransport(),
-                $formData->getMailerUser(),
-                $formData->getMailerPassword(),
-                $formData->getMailerHost(),
-                $formData->getMailerPort()
+                urlencode($formData->getMailerTransport()),
+                urlencode($formData->getMailerUser()),
+                urlencode($formData->getMailerPassword()),
+                urlencode($formData->getMailerHost()),
+                urlencode($formData->getMailerPort())
             );
 
             $parameters = [

@@ -1,0 +1,18 @@
+{% apply inline_css %}
+    {% apply inky_to_html %}
+        <container>
+            <spacer size="10"></spacer>
+            <p>
+                Hello {{ artist.artistName }}<br/><br/>
+                you tried to login from a new device, please verify with this code that this was actually you.
+            </p>
+            <p>
+                <code>{{ artist.twoFactorToken }}</code>
+            </p>
+            <p>
+                Greetings,<br/>
+                Your Jinya Team
+            </p>
+        </container>
+    {% endapply %}
+{% endapply %}
