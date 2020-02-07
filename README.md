@@ -1,14 +1,6 @@
-##### Status Branch develop
-[![Build Status](https://travis-ci.org/DerKnerd/Jinya-Gallery-CMS.svg?branch=develop)](https://travis-ci.org/DerKnerd/Jinya-Gallery-CMS)
-[![codecov](https://codecov.io/gh/DerKnerd/Jinya-Gallery-CMS/branch/develop/graph/badge.svg)](https://codecov.io/gh/DerKnerd/Jinya-Gallery-CMS)
-[![Dependency Status](https://www.versioneye.com/user/projects/59f1b96415f0d71dedfa1aed/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59f1b96415f0d71dedfa1aed)
+[![DeepScan grade](https://deepscan.io/api/teams/5478/projects/7310/branches/122065/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5478&pid=7310&bid=122065)
 [![StyleCI](https://styleci.io/repos/107044619/shield?branch=develop)](https://styleci.io/repos/107044619)
-
-##### Status Branch master
-[![Build Status](https://travis-ci.org/DerKnerd/Jinya-Gallery-CMS.svg?branch=master)](https://travis-ci.org/DerKnerd/Jinya-Gallery-CMS)
-[![codecov](https://codecov.io/gh/DerKnerd/Jinya-Gallery-CMS/branch/master/graph/badge.svg)](https://codecov.io/gh/DerKnerd/Jinya-Gallery-CMS)
-[![Dependency Status](https://www.versioneye.com/user/projects/59f1b9672de28c14954f8cf8/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59f1b9672de28c14954f8cf8)
-[![StyleCI](https://styleci.io/repos/107044619/shield?branch=master)](https://styleci.io/repos/107044619)
+[![CircleCI](https://circleci.com/gh/Jinya-CMS/Jinya-Gallery-CMS/tree/develop.svg?style=svg)](https://circleci.com/gh/Jinya-CMS/Jinya-Gallery-CMS/tree/develop)
 
 # Jinya Gallery CMS
 Jinya Gallery CMS is a simple Content Management System made for artists. The idea is to give easy ways to add your artworks and position them in galleries. The whole system is developed by me and my artist friend [Jenny Jinya](http://jenny-jinya.com). Her website is an example of the CMS in action.
