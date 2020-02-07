@@ -17,7 +17,6 @@ use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Framework\Security\UnknownDeviceException;
-use Jinya\Services\Labels\LabelServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -43,13 +42,8 @@ use function simplexml_load_string;
 
 abstract class BaseApiController extends BaseController
 {
-    /** @noinspection PhpUndefinedClassInspection */
-
     /** @var TranslatorInterface */
     private $translator;
-
-    /** @var LabelServiceInterface */
-    private $labelService;
 
     /** @var LoggerInterface */
     private $logger;
@@ -69,13 +63,9 @@ abstract class BaseApiController extends BaseController
     /** @var string */
     private $contentType;
 
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
-
     /**
      * BaseApiController constructor.
      * @param TranslatorInterface $translator
-     * @param LabelServiceInterface $labelService
      * @param LoggerInterface $logger
      * @param UrlGeneratorInterface $urlGenerator
      * @param RequestStack $requestStack
@@ -87,7 +77,6 @@ abstract class BaseApiController extends BaseController
      */
     public function __construct(
         TranslatorInterface $translator,
-        LabelServiceInterface $labelService,
         LoggerInterface $logger,
         UrlGeneratorInterface $urlGenerator,
         RequestStack $requestStack,
@@ -99,7 +88,6 @@ abstract class BaseApiController extends BaseController
     ) {
         parent::__construct($requestStack, $kernel, $authorizationChecker, $tokenStorage, $router, $compiler);
         $this->translator = $translator;
-        $this->labelService = $labelService;
         $this->logger = $logger;
         $this->urlGenerator = $urlGenerator;
 
@@ -208,7 +196,7 @@ abstract class BaseApiController extends BaseController
             }
 
             $result = [$data, Response::HTTP_BAD_REQUEST];
-        } /* @noinspection PhpUnnecessaryFullyQualifiedNameInspection */ catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
+        } catch (\Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException | \Symfony\Component\Security\Core\Exception\AccessDeniedException | AccessDeniedException | BadCredentialsException $exception) {
             $this->logException($exception, 403);
 
             $result = [$this->jsonFormatException('api.state.403.generic', $exception), Response::HTTP_FORBIDDEN];

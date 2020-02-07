@@ -212,7 +212,6 @@ class UserService implements UserServiceInterface
 
         if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($user)) {
             if (!$this->entityManager->isOpen()) {
-                /* @noinspection PhpUndefinedMethodInspection */
                 $this->entityManager = $this->entityManager->create(
                     $this->entityManager->getConnection(),
                     $this->entityManager->getConfiguration()

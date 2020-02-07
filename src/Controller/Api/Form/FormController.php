@@ -99,9 +99,6 @@ class FormController extends BaseApiController
         return $this->json($data, $status);
     }
 
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
-
     /**
      * @Route("/api/form", methods={"POST"}, name="api_form_post")
      * @IsGranted("ROLE_WRITER")
@@ -160,9 +157,6 @@ class FormController extends BaseApiController
 
         return $this->json($data, $status);
     }
-
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/form/{slug}", methods={"PUT"}, name="api_form_put")

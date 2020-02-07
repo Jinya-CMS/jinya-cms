@@ -15,7 +15,6 @@ final class Version20190529171232 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
@@ -109,7 +108,6 @@ ALTER TABLE segment ADD CONSTRAINT FK_1881F5658440B739 FOREIGN KEY (video_galler
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'

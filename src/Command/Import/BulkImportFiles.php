@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection HtmlUnknownTag */
-
 namespace Jinya\Command\Import;
 
 use Iterator;

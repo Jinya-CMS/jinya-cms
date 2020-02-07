@@ -108,9 +108,6 @@ class UserController extends BaseUserController
         return $this->json($data, $status);
     }
 
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
-
     /**
      * @Route("/api/user", methods={"POST"}, name="api_user_post")
      * @IsGranted("ROLE_SUPER_ADMIN")
@@ -175,9 +172,6 @@ class UserController extends BaseUserController
 
         return $this->json($data, $status);
     }
-
-    /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * @Route("/api/user/{id}", methods={"PUT"}, name="api_user_put")
