@@ -57,6 +57,7 @@ class MailerService implements MailerServiceInterface
                 ->html($this->formatBody($data))
                 ->from($this->mailerSender);
             $failedRecipients = [];
+
             try {
                 $this->mailer->send($message);
             } catch (TransportExceptionInterface $e) {
