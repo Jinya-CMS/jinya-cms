@@ -3,7 +3,7 @@ import Overview from '@/components/Media/Gallery/Overview';
 import Arrange from '@/components/Media/Gallery/Arrange';
 
 export default [
-    {
+  {
         path: Routes.Media.Galleries.Overview.route,
             name: Routes.Media.Galleries.Overview.name,
             component: Overview,

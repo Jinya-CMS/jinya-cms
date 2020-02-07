@@ -116,24 +116,24 @@
         }
 
         &.is--danger {
-            background: $danger;
+            background: $negative;
             color: $white;
-            border-color: $danger;
+            border-color: $negative;
 
             &:hover {
                 background: $white;
-                color: $danger;
+                color: $negative;
             }
         }
 
-        &.is--success {
-            background: $success;
+        &.is--positive {
+            background: $positive;
             color: $white;
-            border-color: $success;
+            border-color: $positive;
 
             &:hover {
                 background: $white;
-                color: $success;
+                color: $positive;
             }
         }
     }

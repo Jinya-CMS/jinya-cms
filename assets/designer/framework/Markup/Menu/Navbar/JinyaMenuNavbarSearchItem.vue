@@ -14,13 +14,14 @@
 <script>
   import EventBus from '@/framework/Events/EventBus';
   import Events from '@/framework/Events/Events';
+  import uniqueId from 'lodash/uniqueId';
 
   export default {
     name: 'jinya-menu-navbar-search-item',
     data() {
       return {
         keyword: this.$route.query.keyword,
-        id: Math.random(),
+        id: uniqueId(),
       };
     },
     mounted() {
@@ -39,16 +40,16 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .jinya-menu-navbar__item--search {
         margin-left: auto;
         display: flex;
         position: relative;
-        background: $primary-lightest;
+        background: $white;
 
         .jinya-menu-navbar__item--search__input {
             width: 25rem;
-            background: $primary-lightest;
+            background: $white;
             border: none;
             padding: 10px 10px 10px 20px;
             font-size: 1.25em;

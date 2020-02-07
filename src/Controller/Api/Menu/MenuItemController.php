@@ -170,7 +170,6 @@ class MenuItemController extends BaseApiController
             $route->setUrl($routeJson['url']);
             $route->setMenuItem($item);
             if (array_key_exists('parameter', $routeJson)) {
-                /* @noinspection PhpParamsInspection */
                 $route->setRouteParameter($routeJson['parameter']);
             } else {
                 $route->setRouteParameter([]);

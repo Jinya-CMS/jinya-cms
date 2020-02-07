@@ -80,32 +80,7 @@
 
 <style lang="scss" scoped>
     .jinya-page {
-        font-family: $page-font-family;
         height: 100%;
-
-        h1 {
-            font-family: $page-font-family-heading1;
-        }
-
-        h2 {
-            font-family: $page-font-family-heading2;
-        }
-
-        h3 {
-            font-family: $page-font-family-heading3;
-        }
-
-        h4 {
-            font-family: $page-font-family-heading4;
-        }
-
-        h5 {
-            font-family: $page-font-family-heading5;
-        }
-
-        h6 {
-            font-family: $page-font-family-heading6;
-        }
 
         img {
             max-width: 100%;

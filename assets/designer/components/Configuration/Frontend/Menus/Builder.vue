@@ -463,7 +463,7 @@
         width: 100%;
         display: flex;
         transition: opacity 0.3s;
-        background: $danger;
+        background: $negative;
         color: $white;
         justify-content: center;
         flex-direction: row;

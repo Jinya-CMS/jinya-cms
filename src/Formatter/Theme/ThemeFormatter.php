@@ -10,10 +10,7 @@ namespace Jinya\Formatter\Theme;
 
 use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Theme\Theme;
-use Jinya\Formatter\Artwork\ArtworkFormatterInterface;
 use Jinya\Formatter\Form\FormFormatterInterface;
-use Jinya\Formatter\Gallery\ArtGalleryFormatterInterface;
-use Jinya\Formatter\Gallery\VideoGalleryFormatterInterface;
 use Jinya\Formatter\Media\FileFormatterInterface;
 use Jinya\Formatter\Media\GalleryFormatterInterface;
 use Jinya\Formatter\Menu\MenuFormatterInterface;
@@ -36,15 +33,6 @@ class ThemeFormatter implements ThemeFormatterInterface
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var ArtworkFormatterInterface */
-    private $artworkFormatter;
-
-    /** @var ArtGalleryFormatterInterface */
-    private $artGalleryFormatter;
-
-    /** @var VideoGalleryFormatterInterface */
-    private $videoGalleryFormatter;
-
     /** @var GalleryFormatterInterface */
     private $galleryFormatter;
 
@@ -64,9 +52,6 @@ class ThemeFormatter implements ThemeFormatterInterface
      * ThemeFormatter constructor.
      * @param MenuFormatterInterface $menuFormatter
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ArtworkFormatterInterface $artworkFormatter
-     * @param ArtGalleryFormatterInterface $artGalleryFormatter
-     * @param VideoGalleryFormatterInterface $videoGalleryFormatter
      * @param GalleryFormatterInterface $galleryFormatter
      * @param FileFormatterInterface $fileFormatter
      * @param PageFormatterInterface $pageFormatter
@@ -76,9 +61,6 @@ class ThemeFormatter implements ThemeFormatterInterface
     public function __construct(
         MenuFormatterInterface $menuFormatter,
         UrlGeneratorInterface $urlGenerator,
-        ArtworkFormatterInterface $artworkFormatter,
-        ArtGalleryFormatterInterface $artGalleryFormatter,
-        VideoGalleryFormatterInterface $videoGalleryFormatter,
         GalleryFormatterInterface $galleryFormatter,
         FileFormatterInterface $fileFormatter,
         PageFormatterInterface $pageFormatter,
@@ -87,9 +69,6 @@ class ThemeFormatter implements ThemeFormatterInterface
     ) {
         $this->menuFormatter = $menuFormatter;
         $this->urlGenerator = $urlGenerator;
-        $this->artworkFormatter = $artworkFormatter;
-        $this->artGalleryFormatter = $artGalleryFormatter;
-        $this->videoGalleryFormatter = $videoGalleryFormatter;
         $this->galleryFormatter = $galleryFormatter;
         $this->fileFormatter = $fileFormatter;
         $this->pageFormatter = $pageFormatter;
@@ -224,7 +203,6 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        /* @noinspection PhpUndefinedClassInspection */
         $this->formattedData['menu']['secondary'] = $this->theme->getSecondaryMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getSecondaryMenu())->id()->name()->format()
             : [];
@@ -243,7 +221,6 @@ class ThemeFormatter implements ThemeFormatterInterface
             $this->formattedData['menu'] = [];
         }
 
-        /* @noinspection PhpUndefinedClassInspection */
         $this->formattedData['menu']['footer'] = $this->theme->getFooterMenu() instanceof Menu
             ? $this->menuFormatter->init($this->theme->getFooterMenu())->id()->name()->format()
             : [];
@@ -264,27 +241,6 @@ class ThemeFormatter implements ThemeFormatterInterface
                 ->menuFormatter
                 ->init($menu->getMenu())
                 ->id()
-                ->name()
-                ->format();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Formats the video galleries
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function videoGalleries(): ThemeFormatterInterface
-    {
-        $this->formattedData['videoGalleries'] = [];
-        foreach ($this->theme->getVideoGalleries() as $videoGallery) {
-            $this->formattedData['videoGalleries'][$videoGallery->getName()] = $this
-                ->videoGalleryFormatter
-                ->init($videoGallery->getVideoGallery())
-                ->id()
-                ->slug()
                 ->name()
                 ->format();
         }
@@ -335,27 +291,6 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the artworks
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function artworks(): ThemeFormatterInterface
-    {
-        $this->formattedData['artworks'] = [];
-        foreach ($this->theme->getArtworks() as $artwork) {
-            $this->formattedData['artworks'][$artwork->getName()] = $this
-                ->artworkFormatter
-                ->init($artwork->getArtwork())
-                ->id()
-                ->slug()
-                ->name()
-                ->format();
-        }
-
-        return $this;
-    }
-
-    /**
      * Formats the links
      *
      * @return ThemeFormatterInterface
@@ -363,36 +298,12 @@ class ThemeFormatter implements ThemeFormatterInterface
     public function links(): ThemeFormatterInterface
     {
         return $this
-            ->artGalleries()
-            ->artworks()
-            ->videoGalleries()
             ->pages()
             ->forms()
             ->menus()
             ->galleries()
             ->files()
             ->segmentPages();
-    }
-
-    /**
-     * Formats the art galleries
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function artGalleries(): ThemeFormatterInterface
-    {
-        $this->formattedData['artGalleries'] = [];
-        foreach ($this->theme->getArtGalleries() as $artGallery) {
-            $this->formattedData['artGalleries'][$artGallery->getName()] = $this
-                ->artGalleryFormatter
-                ->init($artGallery->getArtGallery())
-                ->id()
-                ->slug()
-                ->name()
-                ->format();
-        }
-
-        return $this;
     }
 
     /**

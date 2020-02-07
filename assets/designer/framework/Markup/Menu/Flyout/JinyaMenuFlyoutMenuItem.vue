@@ -66,29 +66,19 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .jinya-menu-flyout__menu__item {
-        color: $white;
-        margin: 0 0 1em;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
 
         &.is--active {
-            &:before {
-                content: '\f1c6';
-                //noinspection CssNoGenericFontName
-                font-family: 'Material Design Icons';
-                color: $white;
-                transform: rotate(-90deg);
-                display: inline-block;
-            }
-        }
-
-        &:last-of-type {
-            margin-bottom: 0;
+            color: $primary-darkest;
         }
 
         a {
-            color: $white;
+            color: $primary;
             text-decoration: none;
+            white-space: nowrap;
         }
     }
 </style>

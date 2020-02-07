@@ -1,5 +1,5 @@
 <template>
-  <jinya-table :headers="headers" :rows="environmentVariables"/>
+    <jinya-table :headers="headers" :rows="environmentVariables"/>
 </template>
 
 <script>

@@ -23,6 +23,7 @@ links:
     menus:
         primary: Kopfmenü
         footer: Fußzeilenmenü
+        shadow: Nicht sichtbare Links
 defaultConfig:
     page:
         title: Jinya CMS

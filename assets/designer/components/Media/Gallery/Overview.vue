@@ -195,7 +195,7 @@
           this.tableRows.push(gallery);
           this.addGalleryDialog.loading = false;
           this.addGalleryDialog.visible = false;
-          this.resetAddDialog();
+          this.closeAddDialog();
         } catch (e) {
           this.addGalleryDialog.loading = false;
           this.addGalleryDialog.message = e.message;

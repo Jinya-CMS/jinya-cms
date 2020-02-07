@@ -47,7 +47,7 @@
           this.state = 'loading';
           this.message = Translator.message('static.pages.segment.edit.saving', page);
 
-          await JinyaRequest.put(`/api/page/${this.page.slug}`, page);
+          await JinyaRequest.put(`/api/segment_page/${this.page.slug}`, page);
 
           this.state = 'success';
           this.message = Translator.message('static.pages.segment.edit.success', page);

@@ -4,7 +4,6 @@ import Routes from '@/router/Routes';
 import EventBus from '@/framework/Events/EventBus';
 
 import Account from './account';
-import Art from '@/router/art';
 import Static from '@/router/static';
 import Home from '@/router/home';
 import Configuration from '@/router/configuration';
@@ -19,15 +18,14 @@ import DOMUtils from '@/framework/Utils/DOMUtils';
 import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
 const routes = [
-    ...Home,
-    ...Account,
-    ...Art,
-    ...Static,
-    ...Configuration,
-    ...Maintenance,
-    ...MyJinya,
-    ...Error,
-    ...Media,
+  ...Home,
+  ...Account,
+  ...Static,
+  ...Configuration,
+  ...Maintenance,
+  ...MyJinya,
+  ...Error,
+  ...Media,
 ];
 
 Vue.use(Router);
@@ -37,7 +35,7 @@ const router = new Router({
     routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
     const apiKey = getApiKey();
 
     if (!apiKey && to.name !== Routes.Account.Login.name) {

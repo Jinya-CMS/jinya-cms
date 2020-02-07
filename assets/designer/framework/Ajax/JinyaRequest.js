@@ -8,7 +8,8 @@ import EventBus from '@/framework/Events/EventBus';
 import Events from '@/framework/Events/Events';
 import { getApiKey } from '@/framework/Storage/AuthStorage';
 
-function send(verb, url, data, contentType, additionalHeaders = {}) {
+function send(verb, url, data, contentType, additionalHeaders = {})
+{
     EventBus.$emit(Events.request.started);
     const headers = Object.assign({
         'Content-Type': contentType,
@@ -32,7 +33,7 @@ function send(verb, url, data, contentType, additionalHeaders = {}) {
         }
     }
 
-    return fetch(url, request).then(async (response) => {
+    return fetch(url, request).then(async(response) => {
         EventBus.$emit(Events.request.finished, { success: response.ok });
 
         if (response.ok) {
@@ -47,17 +48,17 @@ function send(verb, url, data, contentType, additionalHeaders = {}) {
 
         switch (response.status) {
             case 400:
-                throw new BadRequestError(httpError);
+            throw new BadRequestError(httpError);
             case 401:
-                throw new UnauthorizedError(httpError);
+            throw new UnauthorizedError(httpError);
             case 403:
-                throw new NotAllowedError(httpError);
+            throw new NotAllowedError(httpError);
             case 404:
-                throw new NotFoundError(httpError);
+            throw new NotFoundError(httpError);
             case 409:
-                throw new ConflictError(httpError);
+            throw new ConflictError(httpError);
             default:
-                throw new HttpError(response.status, httpError);
+            throw new HttpError(response.status, httpError);
         }
     });
 }

@@ -5,7 +5,7 @@ import { getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
 
 const roles = {
     async install(LocalVue) {
-        LocalVue.directive('jinya-permission', async (el, binding, vnode) => {
+        LocalVue.directive('jinya-permission', async(el, binding, vnode) => {
             try {
                 const currentRoles = getCurrentUserRoles();
 

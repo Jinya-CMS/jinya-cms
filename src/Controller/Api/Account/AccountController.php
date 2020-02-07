@@ -24,6 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class AccountController extends BaseApiController
 {
@@ -31,12 +32,28 @@ class AccountController extends BaseApiController
      * @Route("/api/2fa", methods={"POST"}, name="api_account_2fa")
      *
      * @param AuthenticationServiceInterface $authenticationService
+     * @param UserServiceInterface $userService
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @return Response
      */
-    public function twoFactorAction(AuthenticationServiceInterface $authenticationService): Response
-    {
-        [$data, $status] = $this->tryExecute(function () use ($authenticationService) {
+    public function twoFactorAction(
+        AuthenticationServiceInterface $authenticationService,
+        UserServiceInterface $userService,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ): Response {
+        [$data, $status] = $this->tryExecute(function () use (
+            $authenticationService,
+            $userService,
+            $userPasswordEncoder
+        ) {
             $username = $this->getValue('username', '');
+            $password = $this->getValue('password', '');
+
+            $user = $userService->getUserByEmail($username);
+
+            if (!$userPasswordEncoder->isPasswordValid($user, $password)) {
+                throw new BadCredentialsException('Invalid username or password');
+            }
 
             $authenticationService->setAndSendTwoFactorCode($username);
         }, Response::HTTP_NO_CONTENT);
@@ -115,9 +132,7 @@ class AccountController extends BaseApiController
                 ->profile()
                 ->roles()
                 ->createdPages()
-                ->createdGalleries()
                 ->createdForms()
-                ->createdArtworks()
                 ->format();
         });
 

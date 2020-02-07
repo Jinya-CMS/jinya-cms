@@ -6,13 +6,13 @@ import EditorSegment from '@/components/Static/Pages/Segment/Editor';
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Static.Pages.Segment.Overview.route,
-        name: Routes.Static.Pages.Segment.Overview.name,
-        component: OverviewSegment,
-        meta: {
-            searchEnabled: true,
-            title: 'routes.static.pages.segment.overview',
+            name: Routes.Static.Pages.Segment.Overview.name,
+            component: OverviewSegment,
+            meta: {
+                searchEnabled: true,
+                title: 'routes.static.pages.segment.overview',
         },
     },
     {
@@ -38,4 +38,4 @@ export default [
         name: Routes.Static.Pages.Segment.Editor.name,
         component: EditorSegment,
     },
-];
+    ];

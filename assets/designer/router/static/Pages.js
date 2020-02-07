@@ -6,7 +6,7 @@ import DetailsSavedInJinya from '@/components/Static/Pages/SavedInJinya/Details'
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Static.Pages.SavedInJinya.Overview.route,
             name: Routes.Static.Pages.SavedInJinya.Overview.name,
             component: OverviewSavedInJinya,

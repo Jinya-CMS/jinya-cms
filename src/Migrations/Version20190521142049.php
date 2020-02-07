@@ -16,7 +16,6 @@ final class Version20190521142049 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
@@ -197,7 +196,6 @@ INSERT INTO theme_menu (theme_id, menu_id, name) VALUES ($id, $footerMenu, 'foot
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'

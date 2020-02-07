@@ -59,7 +59,6 @@
         this.aboutMe = await JinyaRequest.get(`/api/user/${this.$route.params.id}/about`);
       }
 
-
       DOMUtils.changeTitle(this.artist.artistName);
     },
     methods: {
@@ -219,6 +218,7 @@
         padding-left: 1rem;
         display: flex;
         flex-flow: row wrap;
+        align-content: baseline;
     }
 
     .jinya-my-jinya__about-me-title {

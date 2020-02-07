@@ -51,12 +51,6 @@ api:
                 invalid: Die Emailadresse email ist nicht gültig
             password:
                 missing: Das Passwort muss bereitgestellt weren
-    gallery:
-        field:
-            name:
-                missing: Der Name muss bereitgestellt werden
-            artworkSlug:
-                missing: Es muss ein Kunstwerk angegeben werden
     form:
         field:
             title:
@@ -68,20 +62,6 @@ api:
             field:
                 label:
                     missing: Das Label muss bereitgestellt werden
-    artwork:
-        field:
-            name:
-                missing: Der Name muss bereitgestellt werden
-    video:
-        field:
-            name:
-                missing: Der Name muss bereitgestellt werden
-    label:
-        field:
-            name:
-                missing: Der Name muss bereitgestellt werden
-            video_key:
-                missing: Der Videokey muss bereitgestellt werden
     segment_page:
         field:
             name:
@@ -111,106 +91,6 @@ api:
 account:
     login:
         login_failed: Benutzername und Passwort stimmen nicht überein
-art:
-    artworks:
-        overview:
-            no_artworks:
-                Bisher wurden keine Kunstwerke hochgeladen.
-            nothing_found:
-                Leider gibt es zu deinem Suchbegriff keine Kunstwerke.
-            delete:
-                api:
-                    state:
-                        409:
-                            foreign_key_failed: Das Kunstwerk wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
-                        500:
-                            generic: Beim Löschen des Kunstwerks ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
-        artwork_form:
-            name:
-                empty: Es muss ein Name angegeben werden
-            slug:
-                empty: Es muss ein Slug angegeben werden
-            artwork:
-                empty: Es muss ein Kunstwerk ausgewählt werden
-        api:
-            state:
-                404:
-                    generic: Das Kunstwerk konnte nicht gefunden werden.
-                409:
-                    exists: Ein Kunstwerk mit dem gleichen Namen oder Slug existiert bereits.
-    videos:
-        video_form:
-            name:
-                empty: Es muss ein Name angegeben werden
-            slug:
-                empty: Es muss ein Slug angegeben werden
-        overview:
-            no_videos:
-                Bisher wurden keine Videos hochgeladen.
-            nothing_found:
-                Leider gibt es zu deinem Suchbegriff keine Videos.
-            delete:
-                api:
-                    state:
-                        409:
-                            foreign_key_failed: Das Video wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
-                        500:
-                            generic: Beim Löschen des Videos ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
-        api:
-            state:
-                404:
-                    generic: Das Video konnte nicht gefunden werden.
-                409:
-                    exists: Ein Video mit dem gleichen Namen oder Slug existiert bereits.
-        youtube:
-            video_form:
-                name:
-                    empty: Es muss ein Name angegeben werden
-                slug:
-                    empty: Es muss ein Slug angegeben werden
-                video_key_or_url:
-                    empty: Es muss ein Videokey oder eine Videourl angegeben werden
-            overview:
-                no_videos:
-                    Bisher wurden keine Youtube Videos angelegt.
-                nothing_found:
-                    Leider gibt es zu deinem Suchbegriff keine Youtube Videos.
-                delete:
-                    api:
-                        state:
-                            409:
-                                foreign_key_failed: Das Youtube Video wird in einer Galerie verwendet und kann daher nicht gelöscht werden.
-                            500:
-                                generic: Beim Löschen des Youtube Videos ist ein Fehler aufgetreten, leider ist nicht genau klar welcher.
-            api:
-                state:
-                    404:
-                        generic: Das Youtube Video konnte nicht gefunden werden.
-                    409:
-                        exists: Ein Youtube Video mit dem gleichen Namen oder Slug existiert bereits.
-    galleries:
-        gallery_form:
-            name:
-                empty: Es muss ein Name angegeben werden
-            slug:
-                empty: Es muss ein Slug angegeben werden
-        overview:
-            no_galleries:
-                Bisher wurden keine Galerien angelegt.
-            nothing_found:
-                Leider gibt es zu deinem Suchbegriff keine Galerien.
-        designer:
-            art_view:
-                nothing_found: Es wurden keine Kunstwerke gefunden
-                loading: Die Kunstwerke werden geladen
-            video_view:
-                nothing_found: Es wurden keine Kunstwerke gefunden
-                loading: Die Kunstwerke werden geladen
-        api:
-            state:
-                404:
-                    generic: Das Galerie konnte nicht gefunden werden.
-
 media:
     files:
         list:

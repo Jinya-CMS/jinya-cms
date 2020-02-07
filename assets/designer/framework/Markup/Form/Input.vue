@@ -79,7 +79,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .jinya-input {
         font-size: 1rem;
         width: 100%;
@@ -108,7 +108,7 @@
             &:invalid {
                 box-shadow: none;
                 outline: none;
-                border-bottom-color: $danger;
+                border-bottom-color: $negative;
             }
         }
     }

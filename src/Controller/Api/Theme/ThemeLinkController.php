@@ -69,9 +69,6 @@ class ThemeLinkController extends BaseApiController
             $menus = $this->getValue('menus', []);
             $pages = $this->getValue('pages', []);
             $forms = $this->getValue('forms', []);
-            $artworks = $this->getValue('artworks', []);
-            $artGalleries = $this->getValue('artGalleries', []);
-            $videoGalleries = $this->getValue('videoGalleries', []);
             $galleries = $this->getValue('galleries', []);
             $files = $this->getValue('files', []);
             $segmentPages = $this->getValue('segmentPages', []);
@@ -91,24 +88,6 @@ class ThemeLinkController extends BaseApiController
             foreach ($forms as $key => $form) {
                 if (array_key_exists('slug', $form)) {
                     $themeLinkService->saveForm($key, $themeName, $form['slug']);
-                }
-            }
-
-            foreach ($artworks as $key => $artwork) {
-                if (array_key_exists('slug', $artwork)) {
-                    $themeLinkService->saveArtwork($key, $themeName, $artwork['slug']);
-                }
-            }
-
-            foreach ($artGalleries as $key => $artGallery) {
-                if (array_key_exists('slug', $artGallery)) {
-                    $themeLinkService->saveArtGallery($key, $themeName, $artGallery['slug']);
-                }
-            }
-
-            foreach ($videoGalleries as $key => $videoGallery) {
-                if (array_key_exists('slug', $videoGallery)) {
-                    $themeLinkService->saveVideoGallery($key, $themeName, $videoGallery['slug']);
                 }
             }
 

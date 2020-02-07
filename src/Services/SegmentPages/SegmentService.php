@@ -17,15 +17,10 @@ use Jinya\Entity\SegmentPage\Segment;
 use Jinya\Framework\Events\SegmentPages\RearrangeEvent;
 use Jinya\Framework\Events\SegmentPages\SegmentEvent;
 use Jinya\Framework\Events\SegmentPages\SegmentPositionUpdateEvent;
-use Jinya\Services\Artworks\ArtworkServiceInterface;
 use Jinya\Services\Base\ArrangementServiceTrait;
 use Jinya\Services\Form\FormServiceInterface;
-use Jinya\Services\Galleries\ArtGalleryServiceInterface;
-use Jinya\Services\Galleries\VideoGalleryServiceInterface;
 use Jinya\Services\Media\FileServiceInterface;
 use Jinya\Services\Media\GalleryServiceInterface;
-use Jinya\Services\Videos\VideoServiceInterface;
-use Jinya\Services\Videos\YoutubeVideoServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SegmentService implements SegmentServiceInterface
@@ -41,23 +36,8 @@ class SegmentService implements SegmentServiceInterface
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var ArtworkServiceInterface */
-    private $artworkService;
-
-    /** @var ArtGalleryServiceInterface */
-    private $artGalleryService;
-
-    /** @var VideoGalleryServiceInterface */
-    private $videoGalleryService;
-
     /** @var FormServiceInterface */
     private $formService;
-
-    /** @var VideoServiceInterface */
-    private $videoService;
-
-    /** @var YoutubeVideoServiceInterface */
-    private $youtubeVideoService;
 
     /** @var GalleryServiceInterface */
     private $galleryService;
@@ -70,12 +50,7 @@ class SegmentService implements SegmentServiceInterface
      * @param SegmentPageServiceInterface $segmentPageService
      * @param EntityManagerInterface $entityManager
      * @param EventDispatcherInterface $eventDispatcher
-     * @param ArtworkServiceInterface $artworkService
-     * @param ArtGalleryServiceInterface $artGalleryService
-     * @param VideoGalleryServiceInterface $videoGalleryService
      * @param FormServiceInterface $formService
-     * @param VideoServiceInterface $videoService
-     * @param YoutubeVideoServiceInterface $youtubeVideoService
      * @param GalleryServiceInterface $galleryService
      * @param FileServiceInterface $fileService
      */
@@ -83,48 +58,16 @@ class SegmentService implements SegmentServiceInterface
         SegmentPageServiceInterface $segmentPageService,
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
-        ArtworkServiceInterface $artworkService,
-        ArtGalleryServiceInterface $artGalleryService,
-        VideoGalleryServiceInterface $videoGalleryService,
         FormServiceInterface $formService,
-        VideoServiceInterface $videoService,
-        YoutubeVideoServiceInterface $youtubeVideoService,
         GalleryServiceInterface $galleryService,
         FileServiceInterface $fileService
     ) {
         $this->segmentPageService = $segmentPageService;
         $this->entityManager = $entityManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->artworkService = $artworkService;
-        $this->artGalleryService = $artGalleryService;
-        $this->videoGalleryService = $videoGalleryService;
         $this->formService = $formService;
-        $this->videoService = $videoService;
-        $this->youtubeVideoService = $youtubeVideoService;
         $this->galleryService = $galleryService;
         $this->fileService = $fileService;
-    }
-
-    /**
-     * Saves the artwork in the given segment page at the given position
-     *
-     * @param string $artworkSlug
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveArtworkSegment(
-        string $artworkSlug,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment($artworkSlug, $segmentPageSlug, $position, $action, $target, $script, 'artwork');
     }
 
     /**
@@ -198,36 +141,6 @@ class SegmentService implements SegmentServiceInterface
     }
 
     /**
-     * Saves the art gallery in the given segment page at the given position
-     *
-     * @param string $artGallerySlug
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveArtGallerySegment(
-        string $artGallerySlug,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment(
-            $artGallerySlug,
-            $segmentPageSlug,
-            $position,
-            $action,
-            $target,
-            $script,
-            'artGallery'
-        );
-    }
-
-    /**
      * Saves the gallery in the given segment page at the given position
      *
      * @param string $gallerySlug
@@ -258,88 +171,6 @@ class SegmentService implements SegmentServiceInterface
     }
 
     /**
-     * Saves the video in the given segment page at the given position
-     *
-     * @param string $videoSlug
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveVideoSegment(
-        string $videoSlug,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment($videoSlug, $segmentPageSlug, $position, $action, $target, $script, 'video');
-    }
-
-    /**
-     * Saves the youtube video in the given segment page at the given position
-     *
-     * @param string $youtubeVideoSlug
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveYoutubeVideoSegment(
-        string $youtubeVideoSlug,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment(
-            $youtubeVideoSlug,
-            $segmentPageSlug,
-            $position,
-            $action,
-            $target,
-            $script,
-            'youtubeVideo'
-        );
-    }
-
-    /**
-     * Saves the video gallery in the given segment page at the given position
-     *
-     * @param string $videoGallerySlug
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveVideoGallerySegment(
-        string $videoGallerySlug,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment(
-            $videoGallerySlug,
-            $segmentPageSlug,
-            $position,
-            $action,
-            $target,
-            $script,
-            'videoGallery'
-        );
-    }
-
-    /**
      * Saves the form in the given segment page at the given position
      *
      * @param string $formSlug
@@ -359,18 +190,6 @@ class SegmentService implements SegmentServiceInterface
         string $script = ''
     ): Segment {
         return $this->saveNewSegment($formSlug, $segmentPageSlug, $position, $action, $target, $script, 'form');
-    }
-
-    /**
-     * Updates the artwork in the given segment page at the given position
-     *
-     * @param string $artworkSlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateArtworkSegment(string $artworkSlug, int $segmentId): int
-    {
-        return $this->updateSegment($artworkSlug, $segmentId, 'artwork');
     }
 
     /**
@@ -401,54 +220,6 @@ class SegmentService implements SegmentServiceInterface
         $this->eventDispatcher->dispatch(new SegmentEvent($segment, $id), SegmentEvent::POST_GET);
 
         return $segment;
-    }
-
-    /**
-     * Updates the art gallery in the given segment page at the given position
-     *
-     * @param string $artGallerySlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateArtGallerySegment(string $artGallerySlug, int $segmentId): int
-    {
-        return $this->updateSegment($artGallerySlug, $segmentId, 'artGallery');
-    }
-
-    /**
-     * Updates the video in the given segment page at the given position
-     *
-     * @param string $videoSlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateVideoSegment(string $videoSlug, int $segmentId): int
-    {
-        return $this->updateSegment($videoSlug, $segmentId, 'video');
-    }
-
-    /**
-     * Updates the youtube video in the given segment page at the given position
-     *
-     * @param string $youtubeVideoSlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateYoutubeVideoSegment(string $youtubeVideoSlug, int $segmentId): int
-    {
-        return $this->updateSegment($youtubeVideoSlug, $segmentId, 'youtubeVideo');
-    }
-
-    /**
-     * Updates the video gallery in the given segment page at the given position
-     *
-     * @param string $videoGallerySlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateVideoGallerySegment(string $videoGallerySlug, int $segmentId): int
-    {
-        return $this->updateSegment($videoGallerySlug, $segmentId, 'videoGallery');
     }
 
     /**

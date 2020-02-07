@@ -12,6 +12,10 @@
   @include content-styling;
 }
 
+.jinya-segment-page__artwork {
+  width: 100%;
+}
+
 .jinya-gallery--segment-page {
   .jinya-vertical-gallery__artwork {
     border: 1px solid $primary-lighter;

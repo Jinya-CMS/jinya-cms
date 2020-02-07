@@ -88,20 +88,6 @@ interface UserFormatterInterface extends FormatterInterface
     public function id(): self;
 
     /**
-     * Formats the created artworks
-     *
-     * @return UserFormatterInterface
-     */
-    public function createdArtworks(): self;
-
-    /**
-     * Formats the created galleries
-     *
-     * @return UserFormatterInterface
-     */
-    public function createdGalleries(): self;
-
-    /**
      * Formats the created pages
      *
      * @return UserFormatterInterface

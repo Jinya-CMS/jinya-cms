@@ -24,22 +24,6 @@
                               @selected="item => selected(item, links.forms, form)"
                               v-for="form in Object.keys(structure.forms)"/>
             </jinya-fieldset>
-            <jinya-fieldset :legend="'configuration.frontend.themes.links.art_galleries'|jmessage"
-                            v-if="structure.art_galleries">
-                <jinya-choice :choices="artGalleries" :enforce-select="true" :key="gallery"
-                              :label="structure.art_galleries[gallery]"
-                              :selected="createSelectValue(links.artGalleries[gallery])"
-                              @selected="item => selected(item, links.artGalleries, gallery)"
-                              v-for="gallery in Object.keys(structure.art_galleries)"/>
-            </jinya-fieldset>
-            <jinya-fieldset :legend="'configuration.frontend.themes.links.video_galleries'|jmessage"
-                            v-if="structure.video_galleries">
-                <jinya-choice :choices="videoGalleries" :enforce-select="true" :key="gallery"
-                              :label="structure.video_galleries[gallery]"
-                              :selected="createSelectValue(links.videoGalleries[gallery])"
-                              @selected="item => selected(item, links.videoGalleries, gallery)"
-                              v-for="gallery in Object.keys(structure.video_galleries)"/>
-            </jinya-fieldset>
             <jinya-fieldset :legend="'configuration.frontend.themes.links.segment_pages'|jmessage"
                             v-if="structure.segment_pages">
                 <jinya-choice :choices="segmentPages" :enforce-select="true" :key="segmentPage"
@@ -68,30 +52,30 @@
 </template>
 
 <script>
-    import isObject from 'lodash/isObject';
-    import isArray from 'lodash/isArray';
-    import JinyaForm from '@/framework/Markup/Form/Form';
-    import JinyaMessage from '@/framework/Markup/Validation/Message';
-    import JinyaRequest from '@/framework/Ajax/JinyaRequest';
-    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
-    import Routes from '@/router/Routes';
-    import Translator from '@/framework/i18n/Translator';
-    import Timing from '@/framework/Utils/Timing';
-    import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
-    import JinyaChoice from '@/framework/Markup/Form/Choice';
-    import DOMUtils from '@/framework/Utils/DOMUtils';
+  import isObject from 'lodash/isObject';
+  import isArray from 'lodash/isArray';
+  import JinyaForm from '@/framework/Markup/Form/Form';
+  import JinyaMessage from '@/framework/Markup/Validation/Message';
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import Routes from '@/router/Routes';
+  import Translator from '@/framework/i18n/Translator';
+  import Timing from '@/framework/Utils/Timing';
+  import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
+  import JinyaChoice from '@/framework/Markup/Form/Choice';
+  import DOMUtils from '@/framework/Utils/DOMUtils';
 
-    export default {
-        name: 'Links',
-        components: {
-            JinyaChoice,
-            JinyaFieldset,
-            JinyaLoader,
-            JinyaMessage,
-            JinyaForm,
-        },
-        data() {
-            return {
+  export default {
+    name: 'Links',
+    components: {
+      JinyaChoice,
+      JinyaFieldset,
+      JinyaLoader,
+      JinyaMessage,
+      JinyaForm,
+    },
+    data() {
+      return {
         state: '',
         message: '',
         enable: true,
@@ -101,8 +85,6 @@
         artworks: [],
         pages: [],
         files: [],
-        videoGalleries: [],
-        artGalleries: [],
         galleries: [],
         segmentPages: [],
         forms: [],
@@ -132,11 +114,6 @@
               }
             }
           });
-        const artworksPromise = JinyaRequest
-          .get('/api/artwork')
-          .then((artworks) => {
-            this.artworks = artworks.items.map((item) => ({ text: item.name, value: item.slug }));
-          });
         const pagePromise = JinyaRequest
           .get('/api/page')
           .then((pages) => {
@@ -145,7 +122,7 @@
         const segmentPagePromise = JinyaRequest
           .get('/api/segment_page')
           .then((pages) => {
-              this.segmentPages = pages.items.map((item) => ({ text: item.name, value: item.slug }));
+            this.segmentPages = pages.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const formsPromise = JinyaRequest
           .get('/api/form')
@@ -156,16 +133,6 @@
           .get('/api/menu')
           .then((menus) => {
             this.menus = menus.items.map((item) => ({ text: item.name, value: item.id }));
-          });
-        const artGalleriesPromise = JinyaRequest
-          .get('/api/gallery/art')
-          .then((galleries) => {
-            this.artGalleries = galleries.items.map((item) => ({ text: item.name, value: item.slug }));
-          });
-        const videoGalleriesPromise = JinyaRequest
-          .get('/api/gallery/video')
-          .then((galleries) => {
-            this.videoGalleries = galleries.items.map((item) => ({ text: item.name, value: item.slug }));
           });
         const galleriesPromise = JinyaRequest
           .get('/api/media/gallery')
@@ -190,12 +157,9 @@
           pagePromise,
           segmentPagePromise,
           formsPromise,
-          artworksPromise,
           menusPromise,
-          artGalleriesPromise,
           galleriesPromise,
           filesPromise,
-          videoGalleriesPromise,
         ]);
         this.loading = false;
       }

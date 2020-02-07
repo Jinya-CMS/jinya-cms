@@ -1,30 +1,36 @@
 <template>
-  <jinya-card-list nothing-found="">
-    <jinya-card :header="jinyaHeader" body-modifier="jinya-card--centered" class="jinya-card--cache">
-      <img :src="jinyaLogo" aria-hidden="true" class="jinya-card__image--cache">
-      <jinya-card-button @click="refreshJinyaCache" icon="refresh" slot="footer"
-                         tooltip="maintenance.system.cache.refresh" type="edit"/>
-      <jinya-card-button @click="clearJinyaCache" icon="delete" slot="footer" tooltip="maintenance.system.cache.clear"
-                         type="delete"/>
-    </jinya-card>
-    <jinya-card :header="symfonyHeader" body-modifier="jinya-card--centered" class="jinya-card--cache">
-      <img :src="symfonyLogo" aria-hidden="true" class="jinya-card__image--cache"/>
-      <jinya-card-button @click="refreshSymfonyCache" icon="refresh" slot="footer"
-                         tooltip="maintenance.system.cache.refresh" type="edit"/>
-      <jinya-card-button @click="clearSymfonyCache" icon="delete" slot="footer" tooltip="maintenance.system.cache.clear"
-                         type="delete"/>
-    </jinya-card>
-    <jinya-card :header="apcuHeader" body-modifier="jinya-card--centered" class="jinya-card--cache" v-if="apcuCache">
-      <img :src="phpLogo" aria-hidden="true" class="jinya-card__image--cache"/>
-      <jinya-card-button @click="clearApcuCache" icon="delete" slot="footer" tooltip="maintenance.system.cache.clear"
-                         type="delete"/>
-    </jinya-card>
-    <jinya-card :header="opacheHeader" body-modifier="jinya-card--centered" class="jinya-card--cache" v-if="opcache">
-      <img :src="zendLogo" aria-hidden="true" class="jinya-card__image--cache"/>
-      <jinya-card-button @click="clearOpCache" icon="delete" slot="footer" tooltip="maintenance.system.cache.clear"
-                         type="delete"/>
-    </jinya-card>
-  </jinya-card-list>
+    <jinya-card-list nothing-found="">
+        <jinya-card :header="jinyaHeader" body-modifier="jinya-card--centered" class="jinya-card--cache">
+            <img :src="jinyaLogo" aria-hidden="true" class="jinya-card__image--cache">
+            <jinya-card-button @click="refreshJinyaCache" icon="refresh" slot="footer"
+                               tooltip="maintenance.system.cache.refresh" type="edit"/>
+            <jinya-card-button @click="clearJinyaCache" icon="delete" slot="footer"
+                               tooltip="maintenance.system.cache.clear"
+                               type="delete"/>
+        </jinya-card>
+        <jinya-card :header="symfonyHeader" body-modifier="jinya-card--centered" class="jinya-card--cache">
+            <img :src="symfonyLogo" aria-hidden="true" class="jinya-card__image--cache"/>
+            <jinya-card-button @click="refreshSymfonyCache" icon="refresh" slot="footer"
+                               tooltip="maintenance.system.cache.refresh" type="edit"/>
+            <jinya-card-button @click="clearSymfonyCache" icon="delete" slot="footer"
+                               tooltip="maintenance.system.cache.clear"
+                               type="delete"/>
+        </jinya-card>
+        <jinya-card :header="apcuHeader" body-modifier="jinya-card--centered" class="jinya-card--cache"
+                    v-if="apcuCache">
+            <img :src="phpLogo" aria-hidden="true" class="jinya-card__image--cache"/>
+            <jinya-card-button @click="clearApcuCache" icon="delete" slot="footer"
+                               tooltip="maintenance.system.cache.clear"
+                               type="delete"/>
+        </jinya-card>
+        <jinya-card :header="opacheHeader" body-modifier="jinya-card--centered" class="jinya-card--cache"
+                    v-if="opcache">
+            <img :src="zendLogo" aria-hidden="true" class="jinya-card__image--cache"/>
+            <jinya-card-button @click="clearOpCache" icon="delete" slot="footer"
+                               tooltip="maintenance.system.cache.clear"
+                               type="delete"/>
+        </jinya-card>
+    </jinya-card-list>
 </template>
 
 <script>
@@ -132,19 +138,19 @@
 </script>
 
 <style lang="scss" scoped>
-  .jinya-card__image--cache {
-    object-fit: scale-down !important;
-  }
+    .jinya-card__image--cache {
+        object-fit: scale-down !important;
+    }
 
-  .jinya-card--cache {
-    flex: 0 0 25%;
-    max-width: calc(25% - 2rem);
-  }
+    .jinya-card--cache {
+        flex: 0 0 25%;
+        max-width: calc(25% - 2rem);
+    }
 </style>
 
 <style>
-  .jinya-card--centered {
-    display: flex;
-    justify-content: center;
-  }
+    .jinya-card--centered {
+        display: flex;
+        justify-content: center;
+    }
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <router-link :class="additionalClasses" :disabled="isDisabled" :title="tooltip|jmessage" :to="routeTarget"
-               class="jinya-card-button" v-if="to">
-    <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
-    <span v-if="text">{{text|jmessage}}</span>
-  </router-link>
-  <button :class="additionalClasses" :disabled="isDisabled" :title="tooltip|jmessage" @click="$emit('click')"
-          class="jinya-card-button" v-else>
-    <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
-    <span v-if="text">{{text|jmessage}}</span>
-  </button>
+    <router-link :class="additionalClasses" :disabled="isDisabled" :title="tooltip|jmessage" :to="routeTarget"
+                 class="jinya-card-button" v-if="to">
+        <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
+        <span v-if="text">{{text|jmessage}}</span>
+    </router-link>
+    <button :class="additionalClasses" :disabled="isDisabled" :title="tooltip|jmessage" @click="$emit('click')"
+            class="jinya-card-button" v-else>
+        <span :class="`mdi-${icon}`" class="mdi" v-if="icon"></span>
+        <span v-if="text">{{text|jmessage}}</span>
+    </button>
 </template>
 
 <script>
@@ -67,5 +67,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @include card-footer-button('jinya-card-button');
+    @include card-footer-button('jinya-card-button');
 </style>

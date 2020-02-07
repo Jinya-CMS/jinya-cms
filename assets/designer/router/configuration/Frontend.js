@@ -9,13 +9,13 @@ import MenuBuilder from '@/components/Configuration/Frontend/Menus/Builder';
 import Routes from '@/router/Routes';
 
 export default [
-    {
+  {
         path: Routes.Configuration.Frontend.Menu.Overview.route,
-        name: Routes.Configuration.Frontend.Menu.Overview.name,
-        component: MenuOverview,
-        meta: {
-            searchEnabled: true,
-            title: 'routes.configuration.frontend.menus.overview',
+            name: Routes.Configuration.Frontend.Menu.Overview.name,
+            component: MenuOverview,
+            meta: {
+                searchEnabled: true,
+                title: 'routes.configuration.frontend.menus.overview',
         },
     },
     {
@@ -63,4 +63,4 @@ export default [
             searchEnabled: true,
         },
     },
-];
+    ];

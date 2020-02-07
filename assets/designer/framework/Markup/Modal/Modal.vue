@@ -27,19 +27,19 @@
 </template>
 
 <script>
-    import JinyaLoader from '@/framework/Markup/Waiting/Loader';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
-    export default {
-        name: 'jinya-modal',
-        components: { JinyaLoader },
-        props: {
-            title: {
-                type: String,
-                required: true,
-            },
-            loading: {
-                type: Boolean,
-                default() {
+  export default {
+    name: 'jinya-modal',
+    components: { JinyaLoader },
+    props: {
+      title: {
+        type: String,
+        required: true,
+      },
+      loading: {
+        type: Boolean,
+        default() {
           return false;
         },
       },

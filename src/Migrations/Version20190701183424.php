@@ -21,7 +21,6 @@ final class Version20190701183424 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
@@ -35,7 +34,6 @@ ALTER TABLE segment ADD position INT NOT NULL, ADD action VARCHAR(255) DEFAULT N
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        /* @noinspection PhpUnhandledExceptionInspection */
         $this->abortIf(
             'mysql' !== $this->connection->getDatabasePlatform()->getName(),
             'Migration can only be executed safely on \'mysql\'.'
