@@ -1,4 +1,19 @@
 # Changelog
+## Version 13.0.0
+### Removals
+Classic art was removed in Version 13.0.0. The database tables still exist.
+
+### Feature
+
+ * [JGCMS-111](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-111) Check Credentials before 2FA Code
+ * [JGCMS-110](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-110) Fix designer issues
+
+### Improvement
+
+ * [JGCMS-108](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-108) Move from SwiftMailer to Symfony Mailer
+ * [JGCMS-102](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-102) Symfony Update to Version 5
+ * [JGCMS-109](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-109) Shadow Menu
+
 ## Version 12.0.0
 ### Bug
 
