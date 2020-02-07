@@ -35,23 +35,23 @@ const router = new Router({
     routes,
 });
 
-router.beforeEach(async(to, from, next) => {
-    const apiKey = getApiKey();
+router.beforeEach(async (to, from, next) => {
+  const apiKey = getApiKey();
 
-    if (!apiKey && to.name !== Routes.Account.Login.name) {
-        next(Routes.Account.Login.route);
-    } else {
-        try {
-            to.meta.me = {
-                roles: getCurrentUserRoles(),
-            };
+  if (!apiKey && to.name !== Routes.Account.Login.name) {
+    next(Routes.Account.Login.route);
+  } else {
+    try {
+      to.meta.me = {
+        roles: getCurrentUserRoles(),
+      };
 
             if (to.meta.role && !to.meta.me.roles.includes(to.meta.role)) {
                 next(Routes.Error.NotAllowed.route);
             } else {
-                EventBus.$emit(Events.navigation.navigating);
-                DOMUtils.changeTitle(to.meta.title ? Translator.message(to.meta.title) : '');
-                next();
+              EventBus.$emit(Events.navigation.navigating);
+              DOMUtils.changeTitle(to.meta.title ? Translator.message(to.meta.title) : '');
+              next();
             }
         } catch (e) {
             clearAuth();
