@@ -115,7 +115,7 @@
       this.loading = true;
       this.menu = await JinyaRequest.get(`/api/menu/${this.$route.params.id}`);
 
-      const flattenChildren = (parent, nestingLevel, items) => {
+      const flattenChildren = (nestingLevel, items) => {
         const flatten = (item) => {
           const elem = {
             id: item.id,
@@ -129,16 +129,16 @@
             allowDecrease: nestingLevel > 0,
           };
 
-          return [elem, ...flattenChildren(item, nestingLevel + 1, item.children)];
+          return [elem, ...flattenChildren(nestingLevel + 1, item.children)];
         };
 
         return items
-          .map((item) => flatten(item, items))
+          .map((item) => flatten(item))
           .reduce((acc, val) => [...acc, ...val], [])
           .filter((item) => !Array.isArray(item));
       };
 
-      this.items = flattenChildren(this.menu, 0, this.menu.children);
+      this.items = flattenChildren(0, this.menu.children);
       this.originalItems = ObjectUtils.clone(this.items);
       this.calculateNestingAllowance();
 

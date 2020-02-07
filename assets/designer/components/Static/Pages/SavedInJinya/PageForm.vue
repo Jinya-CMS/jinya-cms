@@ -26,7 +26,6 @@
   import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
   import JinyaInput from '@/framework/Markup/Form/Input';
   import JinyaEditor from '@/framework/Markup/Form/Editor';
-  import JinyaEditorPane from '@/framework/Markup/Form/EditorPane';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaForm from '@/framework/Markup/Form/Form';
@@ -39,7 +38,6 @@
       JinyaForm,
       JinyaMessageActionBar,
       JinyaMessage,
-      JinyaEditorPane,
       JinyaEditor,
       JinyaInput,
       JinyaTinyMce,

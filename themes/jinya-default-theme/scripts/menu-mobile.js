@@ -7,20 +7,21 @@
         event.stopPropagation();
         event.preventDefault();
         const submenus = menu.querySelectorAll('.jinya-submenu');
-        submenus.forEach(submenu => submenu.classList.add('is--hidden'));
+        submenus.forEach((submenu) => submenu.classList.add('is--hidden'));
         const currentSubmenu = event.target.nextElementSibling;
         currentSubmenu.classList.remove('is--hidden');
     };
 
-    function openHamburger(event) {
+    function openHamburger(event)
+    {
         event.preventDefault();
 
         event.target.removeEventListener('click', openHamburger);
-        const currentItem = menu.querySelector('.is--current');
+        const currentItem = menu?.querySelector('.is--current');
 
         hamburger.classList.add('is--open');
         menuItems.forEach((item) => {
-            const link = item.querySelector('.has--children');
+            const link = item?.querySelector('.has--children');
             link?.classList.remove('has--children');
             link?.setAttribute('data-has-children', true);
 
@@ -33,17 +34,18 @@
         currentItem?.classList.remove('is--current');
         document.body.classList.add('is--menu-open');
 
-        // eslint-disable-next-line
+      // eslint-disable-next-line
         event.target.addEventListener('click', closeHamburger);
     }
 
-    function closeHamburger(event) {
+    function closeHamburger(event)
+    {
         event.target.removeEventListener('click', closeHamburger);
 
         event.preventDefault();
 
-        const childLinks = menu.querySelectorAll('[data-has-children="true"]');
-        childLinks.forEach(item => item.classList.add('has--children'));
+        const childLinks = menu?.querySelectorAll('[data-has-children="true"]');
+        childLinks.forEach((item) => item.classList.add('has--children'));
 
         hamburger.addEventListener('click', openHamburger);
         hamburger.classList.remove('is--open');

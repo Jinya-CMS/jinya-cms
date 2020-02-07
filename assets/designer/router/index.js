@@ -50,7 +50,7 @@ router.beforeEach(async(to, from, next) => {
                 next(Routes.Error.NotAllowed.route);
             } else {
                 EventBus.$emit(Events.navigation.navigating);
-                DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
+                DOMUtils.changeTitle(to.meta.title ? Translator.message(to.meta.title) : '');
                 next();
             }
         } catch (e) {

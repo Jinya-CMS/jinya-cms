@@ -11,12 +11,10 @@
   import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
   import JinyaFileInput from '@/framework/Markup/Form/FileInput';
   import JinyaInput from '@/framework/Markup/Form/Input';
-  import JinyaButton from '@/framework/Markup/Button';
 
   export default {
     name: 'jinya-theme-configuration-field',
     components: {
-      JinyaButton,
       JinyaInput,
       JinyaFileInput,
       JinyaCheckbox,
@@ -34,7 +32,7 @@
       type: {
         type: String,
         required: true,
-        validate(input) {
+        validator(input) {
           return ['string', 'file', 'boolean'].includes(input);
         },
       },

@@ -38,10 +38,6 @@
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
   import DOMUtils from '@/framework/Utils/DOMUtils';
-  import JinyaInput from '@/framework/Markup/Form/Input';
-  import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
-  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
   import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
   import ObjectUtils from '@/framework/Utils/ObjectUtils';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
@@ -61,10 +57,6 @@
       JinyaThemeConfigurationField,
       JinyaMessage,
       JinyaFieldset,
-      JinyaCheckbox,
-      JinyaFileInput,
-      JinyaChoice,
-      JinyaInput,
       JinyaForm,
     },
     data() {

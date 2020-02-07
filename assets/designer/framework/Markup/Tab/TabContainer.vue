@@ -22,7 +22,7 @@
       items: {
         type: Array,
         required: true,
-        validate(input) {
+        validator(input) {
           return input.every(value => value.title && value.name);
         },
       },

@@ -231,7 +231,7 @@
       async nextPage() {
         await this.page((this.currentPage - 1) * this.count + this.count);
       },
-      async page(offset, route) {
+      async page(offset, route = {}) {
         this.messagesLoading = true;
         let messages;
         let { keyword } = route.query;
