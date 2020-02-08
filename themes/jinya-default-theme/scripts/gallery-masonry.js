@@ -23,4 +23,4 @@
       item.addEventListener('click', openModal);
     });
   });
-});
+})();
