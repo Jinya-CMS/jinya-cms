@@ -107,7 +107,7 @@
         try {
           await JinyaRequest.delete(`/api/menu/${this.selectedMenu.id}`);
           this.delete.show = false;
-          this.menus.splice(this.menus.findIndex(menu => menu.id === this.selectedMenu.id), 1);
+          this.menus.splice(this.menus.findIndex((menu) => menu.id === this.selectedMenu.id), 1);
         } catch (e) {
           this.delete.error = `configuration.general.artists.delete.${e.message}`;
         }

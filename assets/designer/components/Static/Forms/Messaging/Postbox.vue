@@ -114,7 +114,7 @@
         },
       });
 
-      forms.items.forEach(item => postboxes.push({
+      forms.items.forEach((item) => postboxes.push({
         name: `${Translator.message('static.forms.messages.inbox')} (${item.title})`,
         type: 'inbox',
         formSlug: item.slug,
@@ -184,7 +184,7 @@
         const routeName = route.name;
 
         if (routeName === Routes.Static.Forms.Messages.Action.name) {
-          const selectedPostbox = this.postboxes.find(item => item.type.toLowerCase() === action.toLowerCase());
+          const selectedPostbox = this.postboxes.find((item) => item.type.toLowerCase() === action.toLowerCase());
           await this.selectPostbox(selectedPostbox, route);
         } else if (routeName === Routes.Static.Forms.Messages.Form.name) {
           const selectedPostbox = this.postboxes
