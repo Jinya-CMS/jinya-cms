@@ -43,7 +43,7 @@
     event.preventDefault();
 
     const childLinks = menu?.querySelectorAll('[data-has-children="true"]');
-    childLinks.forEach((item) => item.classList.add('has--children'));
+    childLinks?.forEach((item) => item.classList.add('has--children'));
 
     hamburger.addEventListener('click', openHamburger);
     hamburger.classList.remove('is--open');
