@@ -2,6 +2,7 @@
 [![StyleCI](https://styleci.io/repos/107044619/shield?branch=develop)](https://styleci.io/repos/107044619)
 [![CircleCI](https://circleci.com/gh/Jinya-CMS/Jinya-Gallery-CMS/tree/develop.svg?style=svg)](https://circleci.com/gh/Jinya-CMS/Jinya-Gallery-CMS/tree/develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/17ad2fdb650d4b21955677da9a7b023e)](https://www.codacy.com/manual/Jinya-CMS/Jinya-Gallery-CMS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jinya-CMS/Jinya-Gallery-CMS&amp;utm_campaign=Badge_Grade)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3b76c83af9feb42e4123/maintainability)](https://codeclimate.com/github/Jinya-CMS/Jinya-Gallery-CMS/maintainability)
 
 # Jinya Gallery CMS
 Jinya Gallery CMS is a simple Content Management System made for artists. The idea is to give easy ways to add your artworks and position them in galleries. The whole system is developed by me and my artist friend [Jenny Jinya](http://jenny-jinya.com). Her website is an example of the CMS in action.
