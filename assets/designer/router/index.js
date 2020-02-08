@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Routes from '@/router/Routes';
 import EventBus from '@/framework/Events/EventBus';
 
-import Account from './account';
 import Static from '@/router/static';
 import Home from '@/router/home';
 import Configuration from '@/router/configuration';
@@ -16,6 +15,7 @@ import Events from '@/framework/Events/Events';
 import Translator from '@/framework/i18n/Translator';
 import DOMUtils from '@/framework/Utils/DOMUtils';
 import { clearAuth, getApiKey, getCurrentUserRoles } from '@/framework/Storage/AuthStorage';
+import Account from './account';
 
 const routes = [
   ...Home,
@@ -31,33 +31,33 @@ const routes = [
 Vue.use(Router);
 
 const router = new Router({
-    mode: 'history',
-    routes,
+  mode: 'history',
+  routes,
 });
 
-router.beforeEach(async(to, from, next) => {
-    const apiKey = getApiKey();
+router.beforeEach(async (to, from, next) => {
+  const apiKey = getApiKey();
 
-    if (!apiKey && to.name !== Routes.Account.Login.name) {
-        next(Routes.Account.Login.route);
-    } else {
-        try {
-            to.meta.me = {
-                roles: getCurrentUserRoles(),
-            };
+  if (!apiKey && to.name !== Routes.Account.Login.name) {
+    next(Routes.Account.Login.route);
+  } else {
+    try {
+      to.meta.me = {
+        roles: getCurrentUserRoles(),
+      };
 
-            if (to.meta.role && !to.meta.me.roles.includes(to.meta.role)) {
-                next(Routes.Error.NotAllowed.route);
-            } else {
-                EventBus.$emit(Events.navigation.navigating);
-                DOMUtils.changeTitle(to.meta && to.meta.title ? Translator.message(to.meta.title) : '');
-                next();
-            }
-        } catch (e) {
-            clearAuth();
-            next(Routes.Account.Login.route);
-        }
+      if (to.meta.role && !to.meta.me.roles.includes(to.meta.role)) {
+        next(Routes.Error.NotAllowed.route);
+      } else {
+        EventBus.$emit(Events.navigation.navigating);
+        DOMUtils.changeTitle(to.meta.title ? Translator.message(to.meta.title) : '');
+        next();
+      }
+    } catch (e) {
+      clearAuth();
+      next(Routes.Account.Login.route);
     }
+  }
 });
 
 router.afterEach(() => EventBus.$emit(Events.navigation.navigated));

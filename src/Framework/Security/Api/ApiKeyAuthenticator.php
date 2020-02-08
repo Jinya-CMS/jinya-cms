@@ -51,9 +51,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called on every request to decide if this authenticator should be
-     * used for the request. Returning false will cause this authenticator
-     * to be skipped.
+     * {@inheritdoc}
      */
     public function supports(Request $request)
     {
@@ -61,8 +59,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called on every request. Return whatever credentials you want to
-     * be passed to getUser() as $credentials.
+     * {@inheritdoc}
      */
     public function getCredentials(Request $request)
     {
@@ -71,6 +68,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $apiToken = $credentials['token'];
@@ -96,6 +96,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return $this->apiKeyTool->getUserByKey($apiToken);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         // check credentials - e.g. make sure the password is valid
@@ -105,12 +108,18 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
         return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = [
@@ -124,7 +133,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called when authentication is needed, but it's not sent
+     * {@inheritdoc}
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
@@ -136,6 +145,9 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsRememberMe()
     {
         return false;

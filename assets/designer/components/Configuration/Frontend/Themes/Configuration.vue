@@ -16,14 +16,15 @@
 
                         <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
                                         v-for="group in tab.groups">
-                            <jinya-theme-configuration-field :enable="!loading"
-                                                             :key="`${tab.name}.${group.name}.${field.name}`"
-                                                             :label="field.label"
-                                                             :name="`${tab.name}.${group.name}.${field.name}`"
-                                                             :type="field.type"
-                                                             :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
-                                                             @changed="changed"
-                                                             v-for="field in group.fields"/>
+                            <jinya-theme-configuration-field
+                                :enable="!loading"
+                                :key="`${tab.name}.${group.name}.${field.name}`"
+                                :label="field.label"
+                                :name="`${tab.name}.${group.name}.${field.name}`"
+                                :type="field.type"
+                                :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
+                                @changed="changed"
+                                v-for="field in group.fields"/>
                         </jinya-fieldset>
                     </jinya-tab>
                 </template>
@@ -38,10 +39,6 @@
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
   import DOMUtils from '@/framework/Utils/DOMUtils';
-  import JinyaInput from '@/framework/Markup/Form/Input';
-  import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
-  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
   import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
   import ObjectUtils from '@/framework/Utils/ObjectUtils';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
@@ -61,10 +58,6 @@
       JinyaThemeConfigurationField,
       JinyaMessage,
       JinyaFieldset,
-      JinyaCheckbox,
-      JinyaFileInput,
-      JinyaChoice,
-      JinyaInput,
       JinyaForm,
     },
     data() {

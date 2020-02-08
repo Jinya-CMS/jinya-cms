@@ -22,8 +22,8 @@
       items: {
         type: Array,
         required: true,
-        validate(input) {
-          return input.every(value => value.title && value.name);
+        validator(input) {
+          return input.every((value) => value.title && value.name);
         },
       },
     },
@@ -33,7 +33,7 @@
       };
     },
     mounted() {
-      const selectedItems = this.items.filter(item => item.isSelected);
+      const selectedItems = this.items.filter((item) => item.isSelected);
       const selectedItem = selectedItems.length > 0 ? selectedItems[0] : this.items[0];
 
       this.select(selectedItem);

@@ -4,12 +4,12 @@ import Background from '@/img/start-background.jpg';
 
 export default [
   {
-        path: Routes.Account.Login.route,
-            name: Routes.Account.Login.name,
-            component: Login,
-            meta: {
-                title: 'routes.account.login',
-                background: Background,
-        },
+    path: Routes.Account.Login.route,
+    name: Routes.Account.Login.name,
+    component: Login,
+    meta: {
+      title: 'routes.account.login',
+      background: Background,
     },
-    ];
+  },
+];

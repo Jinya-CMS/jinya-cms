@@ -87,7 +87,6 @@
   import JinyaModal from '@/framework/Markup/Modal/Modal';
   import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaButton from '@/framework/Markup/Button';
-  import JinyaPager from '@/framework/Markup/Listing/Pager';
   import EventBus from '@/framework/Events/EventBus';
   import Events from '@/framework/Events/Events';
   import { getCurrentUser } from '@/framework/Storage/AuthStorage';
@@ -95,7 +94,6 @@
   export default {
     name: 'Overview',
     components: {
-      JinyaPager,
       JinyaFloatingActionButton,
       JinyaModalButton,
       JinyaButton,

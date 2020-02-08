@@ -57,7 +57,7 @@ onmessage = async (e) => {
       postMessage({ message: 'background.video.upload_started', started: true });
 
       console.log(`Upload chunks of ${chunkSize} bytes size to the server`);
-      await chunkUpload(slug, video, apiKey, chunkSize * -1);
+      await chunkUpload(slug, video, apiKey);
       console.log(`Uploaded file for slug ${slug}`);
 
       console.log(`Finish upload for slug ${slug}`);

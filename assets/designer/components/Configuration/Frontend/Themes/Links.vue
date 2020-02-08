@@ -103,16 +103,13 @@
         const linksPromise = JinyaRequest
           .get(`/api/theme/${this.$route.params.name}/links`)
           .then((links) => {
-            const keys = Object.keys(links);
-            // eslint-disable-next-line no-restricted-syntax,guard-for-in
-            for (const idx in Object.keys(links)) {
-              const key = keys[idx];
-              if (isArray(links[key])) {
-                this.links[key] = {};
-              } else {
-                this.links[key] = links[key];
+            Object.keys(links).map((link) => {
+              if (isArray(links[link])) {
+                return {};
               }
-            }
+
+              return links[link];
+            });
           });
         const pagePromise = JinyaRequest
           .get('/api/page')

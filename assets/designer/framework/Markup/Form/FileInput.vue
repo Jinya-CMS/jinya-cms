@@ -84,7 +84,7 @@
       updateValue($event) {
         if (this.multiple) {
           this.fileName = [...$event.target.files]
-            .map(item => item.name.split('\\').pop().split('/').pop())
+            .map((item) => item.name.split('\\').pop().split('/').pop())
             .join(', ');
         } else {
           this.fileName = $event.target.files[0].name.split('\\').pop().split('/').pop();

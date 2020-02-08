@@ -114,7 +114,7 @@
         },
       });
 
-      forms.items.forEach(item => postboxes.push({
+      forms.items.forEach((item) => postboxes.push({
         name: `${Translator.message('static.forms.messages.inbox')} (${item.title})`,
         type: 'inbox',
         formSlug: item.slug,
@@ -184,11 +184,11 @@
         const routeName = route.name;
 
         if (routeName === Routes.Static.Forms.Messages.Action.name) {
-          const selectedPostbox = this.postboxes.find(item => item.type.toLowerCase() === action.toLowerCase());
+          const selectedPostbox = this.postboxes.find((item) => item.type.toLowerCase() === action.toLowerCase());
           await this.selectPostbox(selectedPostbox, route);
         } else if (routeName === Routes.Static.Forms.Messages.Form.name) {
           const selectedPostbox = this.postboxes
-            .find(item => item.type.toLowerCase() === 'inbox' && item.formSlug === slug);
+            .find((item) => item.type.toLowerCase() === 'inbox' && item.formSlug === slug);
           await this.selectPostbox(selectedPostbox, route);
         } else {
           this.$router.push({
@@ -231,7 +231,7 @@
       async nextPage() {
         await this.page((this.currentPage - 1) * this.count + this.count);
       },
-      async page(offset, route) {
+      async page(offset, route = {}) {
         this.messagesLoading = true;
         let messages;
         let { keyword } = route.query;

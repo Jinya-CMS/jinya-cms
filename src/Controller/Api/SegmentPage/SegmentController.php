@@ -128,7 +128,8 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"PUT"}, name="api_segment_page_segment_put")
-     * @Route("/api/segment_page/{slug}/segment/{id}/{oldPosition}", methods={"PUT"}, name="api_segment_page_segment_put_with_position")
+     * @Route("/api/segment_page/{slug}/segment/{id}/{oldPosition}", methods={"PUT"},
+     *     name="api_segment_page_segment_put_with_position")
      * @IsGranted("ROLE_WRITER", statusCode=403)
      *
      * @param int $id
