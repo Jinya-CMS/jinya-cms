@@ -149,11 +149,7 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans(
-                    'api.user.field.email.invalid',
-                    ['email' => $email],
-                    'validators'
-                ));
+                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
             }
 
             $user = new User();
@@ -217,11 +213,7 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans(
-                    'api.user.field.email.invalid',
-                    ['email' => $email],
-                    'validators'
-                ));
+                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
             }
 
             if (!$this->isCurrentUser($id)) {
