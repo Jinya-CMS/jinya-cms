@@ -188,7 +188,7 @@
           await this.selectPostbox(selectedPostbox, route);
         } else if (routeName === Routes.Static.Forms.Messages.Form.name) {
           const selectedPostbox = this.postboxes
-            .find(item => item.type.toLowerCase() === 'inbox' && item.formSlug === slug);
+            .find((item) => item.type.toLowerCase() === 'inbox' && item.formSlug === slug);
           await this.selectPostbox(selectedPostbox, route);
         } else {
           this.$router.push({

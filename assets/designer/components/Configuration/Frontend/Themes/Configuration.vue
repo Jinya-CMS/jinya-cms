@@ -16,14 +16,15 @@
 
                         <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
                                         v-for="group in tab.groups">
-                            <jinya-theme-configuration-field :enable="!loading"
-                                                             :key="`${tab.name}.${group.name}.${field.name}`"
-                                                             :label="field.label"
-                                                             :name="`${tab.name}.${group.name}.${field.name}`"
-                                                             :type="field.type"
-                                                             :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
-                                                             @changed="changed"
-                                                             v-for="field in group.fields"/>
+                            <jinya-theme-configuration-field
+                                :enable="!loading"
+                                :key="`${tab.name}.${group.name}.${field.name}`"
+                                :label="field.label"
+                                :name="`${tab.name}.${group.name}.${field.name}`"
+                                :type="field.type"
+                                :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
+                                @changed="changed"
+                                v-for="field in group.fields"/>
                         </jinya-fieldset>
                     </jinya-tab>
                 </template>

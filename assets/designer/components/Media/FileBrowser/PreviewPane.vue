@@ -33,7 +33,7 @@
 
 <script>
   import startsWith from 'lodash/startsWith';
-  import moment from "moment";
+  import moment from 'moment';
 
   export default {
     name: 'PreviewPane',

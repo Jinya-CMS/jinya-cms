@@ -20,9 +20,10 @@
             <h3>{{'maintenance.system.phpinfo.php.extensions'|jmessage}}</h3>
             <template v-for="extension in php.extensions">
                 <h4 :key="`${extension.name}_name`">{{extension.name}} – {{extension.version}}</h4>
-                <JinyaDefinitionList :key="`${extension.name}_ini_values`"
-                                     :values="extension.iniValues.map(item => ({ title: item.name, value: item.value }))"
-                                     horizontal/>
+                <JinyaDefinitionList
+                    :key="`${extension.name}_ini_values`"
+                    :values="extension.iniValues.map(item => ({ title: item.name, value: item.value }))"
+                    horizontal/>
             </template>
         </template>
     </div>

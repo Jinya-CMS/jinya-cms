@@ -90,7 +90,7 @@
       },
       selectionText() {
         if (this.selected instanceof Array) {
-          return this.selected.map(selection => selection.text).join(', ');
+          return this.selected.map((selection) => selection.text).join(', ');
         }
         return this.selected.text;
       },
@@ -98,7 +98,7 @@
     methods: {
       isSelected(value) {
         if (this.selected instanceof Array) {
-          return this.selected.filter(item => value.value.toString() === item.value.toString()).length > 0;
+          return this.selected.filter((item) => value.value.toString() === item.value.toString()).length > 0;
         }
         if (this.selected instanceof Object) {
           return this.selected.value.toString() === value.value.toString();

@@ -101,16 +101,16 @@
         return this.variables[key];
       },
       mapFields(fields) {
-        return Object.keys(fields).map(key => ({
+        return Object.keys(fields).map((key) => ({
           key,
           value: fields[key],
-          label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, x => x.toUpperCase()),
+          label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, (x) => x.toUpperCase()),
         }));
       },
       search(keyword) {
         this.filteredFields = [];
         this.$forceUpdate();
-        this.filteredFields = this.fields.filter(field => field.key.indexOf(keyword) > -1);
+        this.filteredFields = this.fields.filter((field) => field.key.indexOf(keyword) > -1);
       },
     },
   };

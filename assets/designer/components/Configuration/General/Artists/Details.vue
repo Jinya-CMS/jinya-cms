@@ -34,7 +34,7 @@
       this.message = Translator.message('configuration.general.artists.edit.loading');
 
       const artist = await JinyaRequest.get(`/api/user/${this.$route.params.id}`);
-      artist.roles = window.messages.authentication.roles.filter(role => artist.roles.includes(role.value));
+      artist.roles = window.messages.authentication.roles.filter((role) => artist.roles.includes(role.value));
       artist.enabled = {
         value: artist.enabled,
         text: artist.enabled
