@@ -51,7 +51,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supports(Request $request)
     {
@@ -59,7 +59,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCredentials(Request $request)
     {
@@ -69,7 +69,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -83,19 +83,13 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
             if ($this->apiKeyTool->shouldInvalidate($apiToken)) {
                 $this->apiKeyTool->invalidate($apiToken);
 
-                throw new CustomUserMessageAuthenticationException($this->translator->trans(
-                    'api.state.401.expired',
-                    ['apiKey' => $apiToken]
-                ));
+                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken]));
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException($this->translator->trans(
-                'api.state.401.generic',
-                ['apiKey' => $apiToken]
-            ));
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken]));
         }
 
         // if a User object, checkCredentials() is called
@@ -103,7 +97,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -115,7 +109,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
@@ -124,7 +118,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
@@ -139,7 +133,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
@@ -152,7 +146,7 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsRememberMe()
     {
