@@ -1,8 +1,7 @@
-FROM php:7.3-apache-stretch
+FROM php:7.4-apache-stretch
 
 # install the PHP extensions we need
 RUN apt-get update
-RUN apt-get upgrade -y
 RUN apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \
         libevent-dev \
