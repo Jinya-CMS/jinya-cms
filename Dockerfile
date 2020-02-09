@@ -13,8 +13,7 @@ RUN apt-get install -y --no-install-recommends \
         libxml2-dev \
         libzip-dev
 RUN pecl channel-update pecl.php.net
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr
-RUN docker-php-ext-install exif gd intl opcache pcntl pdo_mysql zip curl
+RUN docker-php-ext-install exif intl opcache pcntl pdo_mysql zip curl
 
 VOLUME /var/www/html
 ENV APP_ENV prod
