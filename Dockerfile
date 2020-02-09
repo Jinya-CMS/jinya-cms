@@ -1,4 +1,4 @@
-FROM php:7.3-apache-stretch
+FROM php:7.4-apache-stretch
 
 # install the PHP extensions we need
 RUN apt-get update
