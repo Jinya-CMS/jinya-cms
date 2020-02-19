@@ -9,7 +9,6 @@
         <jinya-bug-dialog :show="showBugDialog" @close="showBugDialog = false" v-if="showBugDialog"/>
         <jinya-feature-dialog :show="showFeatureDialog" @close="showFeatureDialog = false" v-if="showFeatureDialog"/>
         <jinya-like-dialog :show="showLikeDialog" @close="showLikeDialog = false" v-if="showLikeDialog"/>
-        <jinya-video-uploader/>
         <!-- Dirty hack, otherwise the stacking context breaks, z-index doesn't help... -->
         <nav class="jinya-app__navigation" v-if="$route.name !== loginRoute.name">
             <jinya-menu @show-bug="showBugDialog = true" @show-feature="showFeatureDialog = true"
@@ -26,11 +25,9 @@
   import JinyaBugDialog from '@/components/Support/BugDialog';
   import JinyaFeatureDialog from '@/components/Support/FeatureDialog';
   import JinyaLikeDialog from '@/components/Support/LikeDialog';
-  import JinyaVideoUploader from '@/components/Background/VideoUploader';
 
   export default {
     components: {
-      JinyaVideoUploader,
       JinyaLikeDialog,
       JinyaFeatureDialog,
       JinyaBugDialog,
