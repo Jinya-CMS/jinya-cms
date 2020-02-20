@@ -39,27 +39,45 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 {% endblock %}
 {% block scripts_tinymce %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/tinymce.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/anchor/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/autolink/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/colorpicker/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/contextmenu/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/fullscreen/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/help/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/image/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/table/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/textcolor/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/imagetools/plugin.min.js"
-            crossorigin="anonymous"></script>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/tinymce.min.js" crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/anchor/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/advlist/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/autolink/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/charmap/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/colorpicker/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/contextmenu/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/fullscreen/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/help/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/hr/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/image/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/link/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/lists/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/media/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/paste/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/searchreplace/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/table/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/textcolor/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/visualblocks/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/wordcount/plugin.min.js"#}
+{#            crossorigin="anonymous"></script>#}
 {% endblock %}
     {% block scripts_theme %}
         {{ encore_entry_script_tags('designer') }}
