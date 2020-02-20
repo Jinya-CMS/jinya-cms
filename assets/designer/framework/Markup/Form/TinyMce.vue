@@ -4,8 +4,8 @@
 
 <script>
   import TinyMce from '@tinymce/tinymce-vue';
-  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
-  import ConflictError from "@/framework/Ajax/Error/ConflictError";
+  import JinyaRequest from '@/framework/Ajax/JinyaRequest';
+  import ConflictError from '@/framework/Ajax/Error/ConflictError';
 
   export default {
     name: 'jinya-tiny-mce',
@@ -72,6 +72,24 @@
           height,
           width: '100%',
           menubar: 'edit insert view format table tools help',
+          style_formats: [
+            {
+              title: 'Image Left',
+              selector: 'img',
+              styles: {
+                float: 'left',
+                margin: '0 10px 0 10px',
+              },
+            },
+            {
+              title: 'Image Right',
+              selector: 'img',
+              styles: {
+                float: 'right',
+                margin: '0 0 10px 10px',
+              },
+            },
+          ],
           toolbar: 'undo redo | '
             + 'styleselect | '
             + 'bold italic | '
