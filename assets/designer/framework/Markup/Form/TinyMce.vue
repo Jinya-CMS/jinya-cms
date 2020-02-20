@@ -4,7 +4,8 @@
 
 <script>
   import TinyMce from '@tinymce/tinymce-vue';
-  import FileUtils from '@/framework/IO/FileUtils';
+  import JinyaRequest from "@/framework/Ajax/JinyaRequest";
+  import ConflictError from "@/framework/Ajax/Error/ConflictError";
 
   export default {
     name: 'jinya-tiny-mce',
@@ -59,12 +60,17 @@
             'help',
             'hr',
             'image',
+            'imagetools',
             'link',
             'lists',
             'table',
             'textcolor',
           ],
+          relative_urls: false,
+          remove_script_host: false,
+          convert_urls: true,
           height,
+          width: '100%',
           menubar: 'edit insert view format table tools help',
           toolbar: 'undo redo | '
             + 'styleselect | '
@@ -80,13 +86,24 @@
 
             input.onchange = async (event) => {
               const file = event.target.files[0];
-              const data = await FileUtils.getAsDataUrl(file);
-              // eslint-disable-next-line no-undef
-              const { blobCache } = tinymce.activeEditor.editorUpload;
-              const blobInfo = blobCache.create(`blobid-${(new Date()).getTime()}`, file, data.split(',')[1]);
-              blobCache.add(blobInfo);
+              try {
+                const { id } = await JinyaRequest.post('/api/media/file', { name: file.name });
+                await JinyaRequest.post(`/api/media/file/${id}/content`);
+                await JinyaRequest.upload(`/api/media/file/${id}/content/0`, file);
+                await JinyaRequest.put(`/api/media/file/${id}/content/finish`);
+                const uploadedFile = await JinyaRequest.get(`/api/media/file/${id}`);
 
-              cb(blobInfo.blobUri(), { title: file.name });
+                cb(`${window.location.origin}/api/media/file/${uploadedFile.id}/content`, { title: file.name });
+              } catch (e) {
+                if (e instanceof ConflictError) {
+                  const files = await JinyaRequest.get(`/api/media/file?keyword=${encodeURIComponent(file.name)}`);
+                  const selectedFile = files.items[0];
+
+                  cb(`${window.location.origin}/api/media/file/${selectedFile.id}/content`, {
+                    title: selectedFile.name,
+                  });
+                }
+              }
             };
 
             input.click();
@@ -98,7 +115,11 @@
 </script>
 
 <style lang="scss">
-    .mce-container.mce-panel.mce-tinymce {
+    .tox.tox-tinymce {
         margin-bottom: 1em;
+    }
+
+    .tox .tox-editor-header {
+        z-index: unset !important;
     }
 </style>

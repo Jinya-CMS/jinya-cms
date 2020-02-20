@@ -26,15 +26,9 @@
       },
       icon: {
         type: String,
-        validator(input) {
-          return this.text || input;
-        },
       },
       text: {
         type: String,
-        validator(input) {
-          return this.icon || input;
-        },
       },
       tooltip: {
         type: String,
