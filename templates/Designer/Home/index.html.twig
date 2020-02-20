@@ -5,7 +5,6 @@
     {% block styles %}
         {{ encore_entry_link_tags('designer') }}
         {% block styles_additional_fonts %}
-            <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css">
             <link rel="stylesheet" href="https://use.typekit.net/jmo2xoh.css">
         {% endblock %}
     {% endblock %}
@@ -37,29 +36,6 @@
     </script>
 {% block scripts_polyfills %}
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-{% endblock %}
-{% block scripts_tinymce %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/tinymce.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/anchor/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/autolink/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/colorpicker/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/contextmenu/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/fullscreen/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/help/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/image/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/table/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/textcolor/plugin.min.js"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.0/plugins/imagetools/plugin.min.js"
-            crossorigin="anonymous"></script>
 {% endblock %}
     {% block scripts_theme %}
         {{ encore_entry_script_tags('designer') }}
