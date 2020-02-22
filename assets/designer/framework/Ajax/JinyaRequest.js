@@ -8,7 +8,7 @@ import EventBus from '@/framework/Events/EventBus';
 import Events from '@/framework/Events/Events';
 import { getApiKey } from '@/framework/Storage/AuthStorage';
 
-function send(verb, url, data, contentType, additionalHeaders = {}) {
+function send(verb, url, data, contentType, additionalHeaders = {}, plain = false) {
   EventBus.$emit(Events.request.started);
   const headers = { 'Content-Type': contentType, ...additionalHeaders };
 
@@ -35,6 +35,9 @@ function send(verb, url, data, contentType, additionalHeaders = {}) {
 
     if (response.ok) {
       if (response.status !== 204) {
+        if (plain) {
+          return response.text();
+        }
         return response.json();
       }
 
@@ -63,6 +66,9 @@ function send(verb, url, data, contentType, additionalHeaders = {}) {
 export default {
   get(url) {
     return send('get', url);
+  },
+  getPlain(url) {
+    return send('get', url, null, null, null, true);
   },
   head(url) {
     return send('head', url);
