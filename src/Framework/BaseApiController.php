@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php /** @noinspection PhpRedundantCatchClauseInspection */
 
 /**
  * Created by PhpStorm.
