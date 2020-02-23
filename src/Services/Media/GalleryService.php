@@ -98,6 +98,7 @@ class GalleryService implements GalleryServiceInterface
      * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = '', string $tag = ''): int
     {

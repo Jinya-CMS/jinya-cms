@@ -34,7 +34,7 @@ class Theme
     private string $previewImage;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      * @var array
      */
     private array $configuration = [];

@@ -52,6 +52,8 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\ORM\ORMException
      */
     public function getConfig(): Configuration
     {

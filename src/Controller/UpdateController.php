@@ -131,7 +131,7 @@ class UpdateController extends AbstractController
                 'currentVersion' => $this->currentVersion,
                 'not_found' => true,
             ]);
-        } catch (GuzzleException | Exception $e) {
+        } catch (Exception $e) {
             return $this->render('@Jinya/Updater/Default/index.html.twig', [
                 'currentVersion' => $this->currentVersion,
                 'exception' => $e,

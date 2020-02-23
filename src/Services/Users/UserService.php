@@ -92,6 +92,7 @@ class UserService implements UserServiceInterface
      * @return bool
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     private function isLastSuperAdmin(): bool
     {
@@ -188,6 +189,7 @@ class UserService implements UserServiceInterface
      * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword): int
     {
@@ -289,6 +291,7 @@ class UserService implements UserServiceInterface
      * @return bool
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     private function isValidDevice(string $username, string $deviceCode): bool
     {

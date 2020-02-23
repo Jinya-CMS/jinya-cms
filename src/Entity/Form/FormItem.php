@@ -36,14 +36,14 @@ class FormItem extends HistoryEnabledEntity
     private string $type;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      * @var array
      */
     private array $options;
 
     /**
      * @var array
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
     private array $spamFilter;
 

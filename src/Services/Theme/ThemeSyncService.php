@@ -46,6 +46,7 @@ class ThemeSyncService implements ThemeSyncServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws ORMException
      */
     public function syncThemes(): void
     {

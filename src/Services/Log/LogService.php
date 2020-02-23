@@ -101,6 +101,7 @@ class LogService implements LogServiceInterface
      * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(): int
     {
@@ -119,6 +120,7 @@ class LogService implements LogServiceInterface
      * @param string $filter
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      * @throws NoResultException
      */
     public function countFiltered(string $level, string $filter): int

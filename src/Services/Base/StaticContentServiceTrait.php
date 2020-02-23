@@ -52,6 +52,7 @@ trait StaticContentServiceTrait
      * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = ''): int
     {

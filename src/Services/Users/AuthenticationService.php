@@ -58,6 +58,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      *
      * @param string $username
      * @throws TransportExceptionInterface
+     * @throws Exception
      */
     public function setAndSendTwoFactorCode(string $username): void
     {

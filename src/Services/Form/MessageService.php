@@ -149,6 +149,7 @@ class MessageService implements MessageServiceInterface
      * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = '', string $formSlug = '', string $action = ''): int
     {

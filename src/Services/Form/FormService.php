@@ -110,6 +110,7 @@ class FormService implements FormServiceInterface
      * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = ''): int
     {
