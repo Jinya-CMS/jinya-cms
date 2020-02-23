@@ -10,7 +10,6 @@ namespace Jinya\Controller;
 
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
