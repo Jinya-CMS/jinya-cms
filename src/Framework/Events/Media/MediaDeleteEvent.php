@@ -17,10 +17,10 @@ class MediaDeleteEvent extends CancellableEvent
     public const POST_DELETE = 'MediaPostDelete';
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var string */
-    private $filename;
+    private string $filename;
 
     /**
      * MediaDeleteEvent constructor.

@@ -17,8 +17,7 @@ use Jinya\Entity\Theme\Theme;
  */
 class Configuration
 {
-    public const /* @noinspection SummerTimeUnsafeTimeManipulationInspection */
-        DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
+    public const DEFAULT_API_KEY_INVALIDATION = 1 * 24 * 60 * 60;
 
     /**
      * @ORM\Id
@@ -26,27 +25,27 @@ class Configuration
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Theme\Theme")
      * @ORM\JoinColumn(name="current_frontend_theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $currentTheme;
+    private Theme $currentTheme;
 
     /**
      * /**
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $invalidateApiKeyAfter = self::DEFAULT_API_KEY_INVALIDATION;
+    private int $invalidateApiKeyAfter = self::DEFAULT_API_KEY_INVALIDATION;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", options={"default": 1})
      */
-    private $messagingCenterEnabled = true;
+    private bool $messagingCenterEnabled = true;
 
     /**
      * @return int

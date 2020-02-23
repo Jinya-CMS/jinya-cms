@@ -22,10 +22,10 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 class ApiKeyTool implements ApiKeyToolInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var ConfigurationServiceInterface */
-    private $configurationService;
+    private ConfigurationServiceInterface $configurationService;
 
     /**
      * ApiKeyTool constructor.

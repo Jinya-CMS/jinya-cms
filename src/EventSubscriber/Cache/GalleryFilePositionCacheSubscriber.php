@@ -20,10 +20,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class GalleryFilePositionCacheSubscriber implements EventSubscriberInterface
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * GalleryFileCacheSubscriber constructor.

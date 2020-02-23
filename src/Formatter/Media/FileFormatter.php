@@ -10,16 +10,16 @@ use Jinya\Formatter\User\UserFormatterInterface;
 class FileFormatter implements FileFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var GalleryFilePositionFormatterInterface */
-    private $galleryFilePositionFormatter;
+    private GalleryFilePositionFormatterInterface $galleryFilePositionFormatter;
 
     /** @var UserFormatterInterface */
-    private $userFormatter;
+    private UserFormatterInterface $userFormatter;
 
     /** @var File */
-    private $file;
+    private File $file;
 
     /**
      * FileFormatter constructor.

@@ -9,6 +9,7 @@
 namespace Jinya\Services\Base;
 
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -47,7 +48,10 @@ trait StaticContentServiceTrait
 
     /**
      * {@inheritdoc}
+     * @param string $keyword
+     * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = ''): int
     {

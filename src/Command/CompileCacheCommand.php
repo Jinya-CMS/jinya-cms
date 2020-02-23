@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CompileCacheCommand extends Command
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * CompileCacheCommand constructor.

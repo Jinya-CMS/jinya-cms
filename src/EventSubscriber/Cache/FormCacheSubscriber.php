@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class FormCacheSubscriber implements EventSubscriberInterface
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtGalleryCacheSubscriber constructor.

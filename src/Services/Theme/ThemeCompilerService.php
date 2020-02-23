@@ -20,16 +20,16 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
     private const THEME_COMPILATION_STATE = 'theme.compilation';
 
     /** @var ThemeConfigServiceInterface */
-    private $themeConfigService;
+    private ThemeConfigServiceInterface $themeConfigService;
 
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var ScssCompilerServiceInterface */
-    private $scssCompilerService;
+    private ScssCompilerServiceInterface $scssCompilerService;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * ThemeCompilerService constructor.

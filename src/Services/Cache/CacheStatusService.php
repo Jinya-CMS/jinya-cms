@@ -9,13 +9,13 @@ use Underscore\Types\Strings;
 class CacheStatusService implements CacheStatusServiceInterface
 {
     /** @var CacheBuilderInterface */
-    private $jinyaCache;
+    private CacheBuilderInterface $jinyaCache;
 
     /** @var CacheClearerInterface */
-    private $symfonyCacheClearer;
+    private CacheClearerInterface $symfonyCacheClearer;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * CacheStatusService constructor.

@@ -17,19 +17,19 @@ class ThemeLinkEvent extends CancellableEvent
     public const POST_SAVE = 'ThemeLinksPostSave';
 
     /** @var string */
-    private $themeName;
+    private string $themeName;
 
     /** @var string */
-    private $key;
+    private string $key;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var string */
-    private $slug;
+    private string $slug;
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /**
      * ThemeLinkEvent constructor.

@@ -17,19 +17,19 @@ class Tag
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $tag;
+    private string $tag;
 
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\File", mappedBy="tags", cascade={"persist"})
      */
-    private $files;
+    private ArrayCollection $files;
 
     /**
      * Tag constructor.

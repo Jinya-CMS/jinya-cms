@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ClearCacheCommand extends Command
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * CompileCacheCommand constructor.

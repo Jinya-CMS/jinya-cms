@@ -22,19 +22,19 @@ class File extends HistoryEnabledEntity
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $path = '';
+    private string $path = '';
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $type = '';
+    private string $type = '';
 
     /**
      * @var Collection

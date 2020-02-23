@@ -26,13 +26,13 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     private const JINYA_API_KEY = 'JinyaApiKey';
 
     /** @var ApiKeyToolInterface */
-    private $apiKeyTool;
+    private ApiKeyToolInterface $apiKeyTool;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * ApiKeyAuthenticator constructor.
@@ -83,13 +83,17 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
             if ($this->apiKeyTool->shouldInvalidate($apiToken)) {
                 $this->apiKeyTool->invalidate($apiToken);
 
-                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken]));
+                throw new CustomUserMessageAuthenticationException(
+                    $this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken])
+                );
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken]));
+            throw new CustomUserMessageAuthenticationException(
+                $this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken])
+            );
         }
 
         // if a User object, checkCredentials() is called

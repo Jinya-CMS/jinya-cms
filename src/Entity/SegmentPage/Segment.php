@@ -26,55 +26,55 @@ class Segment
      * @var SegmentPage
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage", inversedBy="segments", cascade={"persist"})
      */
-    private $page;
+    private SegmentPage $page;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $position;
+    private int $position;
 
     /**
      * @var Form|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form")
      */
-    private $form;
+    private ?Form $form;
 
     /**
      * @var Gallery|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Gallery")
      */
-    private $gallery;
+    private ?Gallery $gallery;
 
     /**
      * @var File|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File")
      */
-    private $file;
+    private ?File $file;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private $html;
+    private ?string $html;
 
     /**
      * @var string|null
      * @ORM\Column(type="text", nullable=true)
      */
-    private $action;
+    private ?string $action;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private $script;
+    private ?string $script;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private $target;
+    private ?string $target;
 
     /**
      * @return SegmentPage
@@ -90,15 +90,6 @@ class Segment
     public function setPage(SegmentPage $page): void
     {
         $this->page = $page;
-    }
-
-    private function reset(): void
-    {
-        $this->page = null;
-        $this->form = null;
-        $this->html = null;
-        $this->file = null;
-        $this->gallery = null;
     }
 
     /**
@@ -148,6 +139,15 @@ class Segment
     {
         $this->reset();
         $this->form = $form;
+    }
+
+    private function reset(): void
+    {
+        $this->page = null;
+        $this->form = null;
+        $this->html = null;
+        $this->file = null;
+        $this->gallery = null;
     }
 
     /**

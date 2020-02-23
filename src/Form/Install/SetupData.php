@@ -17,72 +17,72 @@ class SetupData
      * @Assert\NotBlank(message="install.database.host.not_blank")
      * @var string
      */
-    private $databaseHost;
+    private string $databaseHost;
 
     /**
      * @InstallAssert\Port(message="install.database.port.invalid")
      * @var int
      */
-    private $databasePort = 3306;
+    private int $databasePort = 3306;
 
     /**
      * @Assert\NotBlank(message="install.database.user.not_blank")
      * @var string
      */
-    private $databaseUser;
+    private string $databaseUser;
 
     /**
      * @Assert\NotBlank(message="install.database.password.not_blank")
      * @var string
      */
-    private $databasePassword;
+    private string $databasePassword;
 
     /**
      * @Assert\NotBlank(message="install.database.name.not_blank")
      * @var string
      */
-    private $databaseName;
+    private string $databaseName;
 
     /**
      * @Assert\NotBlank(message="install.mailer.transport.not_blank")
      * @var string
      */
-    private $mailerTransport;
+    private string $mailerTransport;
 
     /**
      * @Assert\NotBlank(message="install.mailer.host.not_blank")
      * @var string
      */
-    private $mailerHost;
+    private string $mailerHost;
 
     /**
      * @InstallAssert\Port(message="install.mailer.port.invalid")
      * @var int
      */
-    private $mailerPort = 25;
+    private int $mailerPort = 25;
 
     /**
      * @Assert\NotBlank(message="install.mailer.user.not_blank")
      * @var string
      */
-    private $mailerUser;
+    private string $mailerUser;
 
     /**
      * @Assert\NotBlank(message="install.mailer.password.not_blank")
      * @var string
      */
-    private $mailerPassword;
+    private string $mailerPassword;
 
     /**
      * @Assert\NotBlank(message="install.mailer.sender.not_blank")
      * @var string
      */
-    private $mailerSender;
+    private string $mailerSender;
 
     /**
      * @var string
      */
-    private $environment = 'prod';
+    private string $environment = 'prod';
 
     /**
      * @return string

@@ -79,9 +79,6 @@
                             header="menu.designer.flyout.maintenance.sections.database.header"
                             v-jinya-permission="superAdmin">
                             <jinya-menu-flyout-menu-item
-                                text="menu.designer.flyout.maintenance.sections.database.mysql_information"
-                                to="Maintenance.Database.MySQL"/>
-                            <jinya-menu-flyout-menu-item
                                 text="menu.designer.flyout.maintenance.sections.database.database_tool"
                                 to="Maintenance.Database.Tool"/>
                         </jinya-menu-flyout-menu-section>

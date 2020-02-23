@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection HtmlUnknownTag */
-
 namespace Jinya\Command;
 
 use Jinya\Services\Slug\SlugServiceInterface;
@@ -21,13 +19,13 @@ use Underscore\Types\Strings;
 class CreateThemeCommand extends Command
 {
     /** @var SlugServiceInterface */
-    private $slugService;
+    private SlugServiceInterface $slugService;
 
     /** @var string */
-    private $themesDir;
+    private string $themesDir;
 
     /** @var Environment */
-    private $twig;
+    private Environment $twig;
 
     /**
      * CreateThemeCommand constructor.

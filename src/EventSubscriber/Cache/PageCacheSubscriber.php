@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PageCacheSubscriber implements EventSubscriberInterface
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtGalleryCacheSubscriber constructor.

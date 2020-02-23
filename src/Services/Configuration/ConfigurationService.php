@@ -21,15 +21,15 @@ class ConfigurationService implements ConfigurationServiceInterface
     /**
      * @var EntityManagerInterface
      */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */

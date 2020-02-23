@@ -18,12 +18,12 @@ use function method_exists;
 class HistoryService implements HistoryServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */

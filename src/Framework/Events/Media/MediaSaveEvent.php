@@ -18,13 +18,13 @@ class MediaSaveEvent extends Event
     public const POST_SAVE = 'MediaPostSave';
 
     /** @var string */
-    private $location;
+    private string $location;
 
     /** @var resource|UploadedFile */
     private $file;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /**
      * SaveMediaEvent constructor.

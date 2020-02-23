@@ -13,7 +13,7 @@ use Exception;
 class MissingFieldsException extends Exception
 {
     /** @var array */
-    private $fields;
+    private array $fields;
 
     /**
      * MissingFieldsException constructor.

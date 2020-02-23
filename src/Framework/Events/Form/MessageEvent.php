@@ -26,7 +26,7 @@ class MessageEvent extends CancellableEvent
     public const POST_DELETE = 'MessagePostDelete';
 
     /** @var Message */
-    private $message;
+    private ?Message $message;
 
     /**
      * MessageEvent constructor.

@@ -11,6 +11,7 @@ namespace Jinya\Services\Log;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
 use Jinya\Entity\Logging\LogEntry;
@@ -21,10 +22,10 @@ use Symfony\Component\Filesystem\Filesystem;
 class LogService implements LogServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * LogService constructor.
@@ -97,7 +98,9 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
+     * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(): int
     {
@@ -112,7 +115,11 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
+     * @param string $level
+     * @param string $filter
+     * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countFiltered(string $level, string $filter): int
     {

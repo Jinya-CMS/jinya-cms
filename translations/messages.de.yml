@@ -157,7 +157,6 @@ menu:
                         php: PHP Info
                     database:
                         header: Datenbank
-                        mysql_information: MySQL Informationen
                         database_tool: Datenbanktool
             my_jinya:
                 navbar: Mein Konto

@@ -113,7 +113,7 @@ class FormItemController extends BaseApiController
         FormItemServiceInterface $formItemService
     ): Response {
         [$status, $data] = $this->tryExecute(static function () use ($slug, $request, $formService, $formItemService) {
-            $actions = json_decode($request->getContent(), true);
+            $actions = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
             $form = $formService->get($slug);
 
             foreach ($actions as $action) {
@@ -256,9 +256,7 @@ class FormItemController extends BaseApiController
      *
      * @param string $slug
      * @param int $position
-     * @param FormServiceInterface $formService
      * @param FormItemServiceInterface $formItemService
-     * @param FormItemFormatterInterface $formItemFormatter
      * @return Response
      */
     public function putAction(

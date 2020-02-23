@@ -45,22 +45,22 @@ use function simplexml_load_string;
 abstract class BaseApiController extends BaseController
 {
     /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /** @var UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /** @var Request */
-    private $request;
+    private ?Request $request;
 
     /** @var array */
     private $bodyAsJson;
 
     /** @var SimpleXMLElement */
-    private $bodyAsXml;
+    private SimpleXMLElement $bodyAsXml;
 
     /** @var string */
     private $contentType;
@@ -96,7 +96,7 @@ abstract class BaseApiController extends BaseController
         $this->request = $requestStack->getCurrentRequest();
         $this->contentType = $this->request->headers->get('Content-Type');
         if ('application/json' === $this->contentType) {
-            $this->bodyAsJson = json_decode($this->request->getContent(), true);
+            $this->bodyAsJson = json_decode($this->request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         }
         if ('text/xml' === $this->contentType) {
             $this->bodyAsXml = simplexml_load_string($this->request->getContent());
@@ -159,7 +159,16 @@ abstract class BaseApiController extends BaseController
 
                 break;
             default:
-                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
+                throw new InvalidContentTypeException(
+                    $this->contentType ?? '',
+                    $this->translator->trans(
+                        'api.generic.headers.contenttype',
+                        [
+                            'contentType' => $this->contentType
+                        ],
+                        'validators'
+                    )
+                );
         }
 
         return $result;

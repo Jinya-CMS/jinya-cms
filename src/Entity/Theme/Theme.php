@@ -25,43 +25,43 @@ class Theme
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $previewImage;
+    private string $previewImage;
 
     /**
      * @ORM\Column(type="json_array")
      * @var array
      */
-    private $configuration = [];
+    private array $configuration = [];
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $displayName;
+    private string $displayName;
 
     /**
      * @var array
      * @ORM\Column(type="json")
      */
-    private $scssVariables;
+    private array $scssVariables;
 
     /**
      * @var Collection
@@ -104,21 +104,21 @@ class Theme
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $primaryMenu;
+    private Menu $primaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="secondary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $secondaryMenu;
+    private Menu $secondaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $footerMenu;
+    private Menu $footerMenu;
 
     /**
      * Theme constructor.

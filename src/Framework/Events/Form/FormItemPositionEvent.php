@@ -19,16 +19,16 @@ class FormItemPositionEvent extends CancellableEvent
     public const POST_UPDATE = 'FormItemPositionPostUpdate';
 
     /** @var Form */
-    private $form;
+    private Form $form;
 
     /** @var FormItem */
-    private $formItem;
+    private FormItem $formItem;
 
     /** @var int */
-    private $oldPosition;
+    private int $oldPosition;
 
     /** @var int */
-    private $newPosition;
+    private int $newPosition;
 
     /**
      * FormItemPositionEvent constructor.

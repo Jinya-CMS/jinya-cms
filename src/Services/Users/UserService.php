@@ -24,13 +24,13 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 class UserService implements UserServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var UserPasswordEncoderInterface */
-    private $userPasswordEncoder;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
 
     /** @var ApiKeyToolInterface */
-    private $apiKeyTool;
+    private ApiKeyToolInterface $apiKeyTool;
 
     /**
      * UserService constructor.
@@ -90,6 +90,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @return bool
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     private function isLastSuperAdmin(): bool
@@ -185,6 +186,7 @@ class UserService implements UserServiceInterface
      *
      * @param string $keyword
      * @return int
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function countAll(string $keyword): int
@@ -212,7 +214,7 @@ class UserService implements UserServiceInterface
 
         if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($user)) {
             if (!$this->entityManager->isOpen()) {
-                $this->entityManager = $this->entityManager->create(
+                $this->entityManager = $this->entityManager::create(
                     $this->entityManager->getConnection(),
                     $this->entityManager->getConfiguration()
                 );
@@ -285,6 +287,7 @@ class UserService implements UserServiceInterface
      * @param string $username
      * @param string $deviceCode
      * @return bool
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     private function isValidDevice(string $username, string $deviceCode): bool

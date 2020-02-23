@@ -14,16 +14,16 @@ use Jinya\Formatter\User\UserFormatterInterface;
 class FormItemFormatter implements FormItemFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var FormFormatterInterface */
-    private $formFormatter;
+    private FormFormatterInterface $formFormatter;
 
     /** @var UserFormatterInterface */
-    private $userFormatter;
+    private UserFormatterInterface $userFormatter;
 
     /** @var FormItem */
-    private $formItem;
+    private FormItem $formItem;
 
     /**
      * @param UserFormatterInterface $userFormatter

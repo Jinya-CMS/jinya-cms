@@ -13,7 +13,7 @@ use Exception;
 class InvalidContentTypeException extends Exception
 {
     /** @var string */
-    private $contentType;
+    private string $contentType;
 
     /**
      * InvalidContentTypeException constructor.

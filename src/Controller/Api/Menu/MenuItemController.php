@@ -282,7 +282,7 @@ class MenuItemController extends BaseApiController
     public function batchChangeItems(Request $request, int $id, MenuServiceInterface $menuService): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($request, $id, $menuService) {
-            $data = json_decode($request->getContent(), true);
+            $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             $menuService->fillFromArray($id, $data);
         }, Response::HTTP_NO_CONTENT);

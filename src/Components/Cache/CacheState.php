@@ -7,13 +7,13 @@ use JsonSerializable;
 class CacheState implements JsonSerializable
 {
     /** @var float */
-    private $usedMemory;
+    private float $usedMemory;
 
     /** @var float */
-    private $freeMemory;
+    private float $freeMemory;
 
     /** @var int */
-    private $count;
+    private int $count;
 
     /**
      * @return float

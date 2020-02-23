@@ -14,13 +14,13 @@ use Jinya\Formatter\User\UserFormatterInterface;
 class PageFormatter implements PageFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var Page */
-    private $page;
+    private Page $page;
 
     /** @var UserFormatterInterface */
-    private $userFormatter;
+    private UserFormatterInterface $userFormatter;
 
     /**
      * PageFormatter constructor.

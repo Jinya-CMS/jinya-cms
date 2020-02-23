@@ -13,7 +13,7 @@
     "ext-zend-opcache": "*"
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.4",
     "ext-fileinfo": "*",
     "ext-gd": "*",
     "ext-hash": "*",

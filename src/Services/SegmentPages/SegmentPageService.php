@@ -24,15 +24,15 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class SegmentPageService implements SegmentPageServiceInterface
 {
     /** @var BaseSlugEntityService */
-    private $baseService;
+    private BaseSlugEntityService $baseService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
@@ -114,6 +114,7 @@ class SegmentPageService implements SegmentPageServiceInterface
      *
      * @param string $keyword
      * @return int
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int

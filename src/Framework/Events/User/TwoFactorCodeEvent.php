@@ -15,10 +15,10 @@ class TwoFactorCodeEvent extends Event
     public const PRE_CODE_GENERATION = 'TwoFactorCodePreGeneration';
 
     /** @var string */
-    private $username;
+    private string $username;
 
     /** @var string */
-    private $twoFactorCode;
+    private string $twoFactorCode;
 
     /**
      * TwoFactorCodeEvent constructor.

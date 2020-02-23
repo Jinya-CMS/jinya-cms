@@ -22,31 +22,31 @@ use function array_key_exists;
 class ThemeFormatter implements ThemeFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var Theme */
-    private $theme;
+    private Theme $theme;
 
     /** @var MenuFormatterInterface */
-    private $menuFormatter;
+    private MenuFormatterInterface $menuFormatter;
 
     /** @var UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /** @var GalleryFormatterInterface */
-    private $galleryFormatter;
+    private GalleryFormatterInterface $galleryFormatter;
 
     /** @var FileFormatterInterface */
-    private $fileFormatter;
+    private FileFormatterInterface $fileFormatter;
 
     /** @var PageFormatterInterface */
-    private $pageFormatter;
+    private PageFormatterInterface $pageFormatter;
 
     /** @var SegmentPageFormatterInterface */
-    private $segmentPageFormatter;
+    private SegmentPageFormatterInterface $segmentPageFormatter;
 
     /** @var FormFormatterInterface */
-    private $formFormatter;
+    private FormFormatterInterface $formFormatter;
 
     /**
      * ThemeFormatter constructor.
@@ -249,27 +249,6 @@ class ThemeFormatter implements ThemeFormatterInterface
     }
 
     /**
-     * Formats the pages
-     *
-     * @return ThemeFormatterInterface
-     */
-    public function pages(): ThemeFormatterInterface
-    {
-        $this->formattedData['pages'] = [];
-        foreach ($this->theme->getPages() as $page) {
-            $this->formattedData['pages'][$page->getName()] = $this
-                ->pageFormatter
-                ->init($page->getPage())
-                ->id()
-                ->slug()
-                ->name()
-                ->format();
-        }
-
-        return $this;
-    }
-
-    /**
      * Formats the forms
      *
      * @return ThemeFormatterInterface
@@ -304,6 +283,27 @@ class ThemeFormatter implements ThemeFormatterInterface
             ->galleries()
             ->files()
             ->segmentPages();
+    }
+
+    /**
+     * Formats the pages
+     *
+     * @return ThemeFormatterInterface
+     */
+    public function pages(): ThemeFormatterInterface
+    {
+        $this->formattedData['pages'] = [];
+        foreach ($this->theme->getPages() as $page) {
+            $this->formattedData['pages'][$page->getName()] = $this
+                ->pageFormatter
+                ->init($page->getPage())
+                ->id()
+                ->slug()
+                ->name()
+                ->format();
+        }
+
+        return $this;
     }
 
     /**

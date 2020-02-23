@@ -17,10 +17,10 @@ class MenuFillFromArrayEvent extends CancellableEvent
     public const POST_FILL_FROM_ARRAY = 'MenuPostFillFromArray';
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /** @var array */
-    private $data;
+    private array $data;
 
     /**
      * MenuFillFromArrayEvent constructor.

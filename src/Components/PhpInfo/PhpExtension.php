@@ -7,13 +7,13 @@ use JsonSerializable;
 class PhpExtension implements JsonSerializable
 {
     /** @var string */
-    private $extensionName;
+    private string $extensionName;
 
     /** @var IniValue[] */
-    private $iniValues = [];
+    private array $iniValues = [];
 
     /** @var string */
-    private $version;
+    private string $version;
 
     /**
      * @return string

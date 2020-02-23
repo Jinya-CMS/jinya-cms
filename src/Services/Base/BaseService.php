@@ -15,10 +15,10 @@ use Doctrine\ORM\UnitOfWork;
 class BaseService
 {
     /** @var EntityManagerInterface */
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     /** @var string */
-    protected $entityType;
+    protected string $entityType;
 
     /**
      * BaseService constructor.

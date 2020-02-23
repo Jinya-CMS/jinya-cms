@@ -18,10 +18,10 @@ use function array_key_exists;
 class MySqlHandler extends AbstractProcessingHandler
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * MySqlHandler constructor.

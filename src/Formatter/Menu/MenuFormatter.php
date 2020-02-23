@@ -10,31 +10,18 @@ namespace Jinya\Formatter\Menu;
 
 use Jinya\Entity\Menu\Menu;
 use Jinya\Entity\Menu\MenuItem;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function array_map;
 
 class MenuFormatter implements MenuFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var Menu */
-    private $menu;
+    private Menu $menu;
 
     /** @var MenuItemFormatterInterface */
-    private $menuItemFormatter;
-
-    /** @var UrlGeneratorInterface */
-    private $urLGenerator;
-
-    /**
-     * MenuFormatter constructor.
-     * @param UrlGeneratorInterface $urLGenerator
-     */
-    public function __construct(UrlGeneratorInterface $urLGenerator)
-    {
-        $this->urLGenerator = $urLGenerator;
-    }
+    private MenuItemFormatterInterface $menuItemFormatter;
 
     /**
      * @param MenuItemFormatterInterface $menuItemFormatter

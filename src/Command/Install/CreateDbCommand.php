@@ -13,13 +13,13 @@ use Symfony\Component\Filesystem\Filesystem;
 class CreateDbCommand extends Command
 {
     /** @var DatabaseMigratorInterface */
-    private $databaseMigrator;
+    private DatabaseMigratorInterface $databaseMigrator;
 
     /** @var SchemaToolInterface */
-    private $schemaTool;
+    private SchemaToolInterface $schemaTool;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * InstallCommand constructor.

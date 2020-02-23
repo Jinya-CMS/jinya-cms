@@ -20,12 +20,12 @@ class ChangelogController extends BaseApiController
     /**
      * @var string
      */
-    private $jinyaVersion;
+    private string $jinyaVersion;
 
     /**
      * @var string
      */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * ChangelogController constructor.

@@ -19,10 +19,10 @@ use Underscore\Types\Strings;
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /** @var ThemeSyncServiceInterface */
-    private $themeSyncService;
+    private ThemeSyncServiceInterface $themeSyncService;
 
     /**
      * ThemeCompilationEventSubscriber constructor.

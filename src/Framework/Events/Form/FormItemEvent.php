@@ -28,7 +28,7 @@ class FormItemEvent extends CancellableEvent
     public const POST_DELETE = 'FormItemPostDelete';
 
     /** @var FormItem */
-    private $formItem;
+    private ?FormItem $formItem;
 
     /**
      * FormItemEvent constructor.

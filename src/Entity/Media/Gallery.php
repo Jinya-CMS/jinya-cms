@@ -30,25 +30,25 @@ class Gallery extends HistoryEnabledEntity
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $description;
+    private string $description;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $type;
+    private string $type;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $orientation;
+    private string $orientation;
 
     /**
      * Gallery constructor.

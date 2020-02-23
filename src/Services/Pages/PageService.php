@@ -24,13 +24,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class PageService implements PageServiceInterface
 {
     /** @var BaseSlugEntityService */
-    private $baseService;
+    private BaseSlugEntityService $baseService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * PageService constructor.
@@ -103,6 +103,7 @@ class PageService implements PageServiceInterface
      *
      * @param string $keyword
      * @return int
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function countAll(string $keyword = ''): int

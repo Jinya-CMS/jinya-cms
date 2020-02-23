@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SegmentCacheSubscriber implements EventSubscriberInterface
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtworkCacheSubscriber constructor.

@@ -24,13 +24,13 @@ class Menu implements JsonSerializable
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\OneToMany(
@@ -40,13 +40,13 @@ class Menu implements JsonSerializable
      * )
      * @var Collection
      */
-    private $menuItems;
+    private Collection $menuItems;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $logo;
+    private string $logo;
 
     /**
      * @return string

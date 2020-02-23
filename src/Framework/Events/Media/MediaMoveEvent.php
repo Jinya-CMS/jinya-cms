@@ -17,13 +17,13 @@ class MediaMoveEvent extends Event
     public const POST_MOVE = 'MediaPostMove';
 
     /** @var string */
-    private $from;
+    private string $from;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var string */
-    private $location;
+    private string $location;
 
     /**
      * MediaMoveEvent constructor.

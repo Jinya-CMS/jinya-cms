@@ -4,6 +4,7 @@ namespace Jinya\Services\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Form\Message;
 use Jinya\Framework\Events\Common\CountEvent;
@@ -15,15 +16,15 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class MessageService implements MessageServiceInterface
 {
     /** @var BaseService */
-    private $baseService;
+    private BaseService $baseService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
@@ -147,6 +148,7 @@ class MessageService implements MessageServiceInterface
      * @param string $action
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = '', string $formSlug = '', string $action = ''): int
     {

@@ -18,10 +18,10 @@ class MenuGetEvent extends Event
     public const POST_GET = 'MenuPostGet';
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /** @var Menu|null */
-    private $menu;
+    private ?Menu $menu;
 
     /**
      * MenuGetEvent constructor.

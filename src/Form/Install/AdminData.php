@@ -17,14 +17,14 @@ class AdminData
      * @var string
      * @Assert\NotBlank(message="install.users.artist_name.not_blank")
      */
-    private $artistName;
+    private string $artistName;
 
     /**
      * @var string
      * @Assert\Email(message="install.users.email.invalid")
      * @Assert\NotBlank(message="install.users.email.not_blank")
      */
-    private $email;
+    private string $email;
 
     /** @var UploadedFile|string */
     private $profilePicture;
@@ -33,7 +33,7 @@ class AdminData
      * @var string
      * @Assert\NotBlank(message="install.users.password.not_blank")
      */
-    private $password;
+    private string $password;
 
     /**
      * @return string

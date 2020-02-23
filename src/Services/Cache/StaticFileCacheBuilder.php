@@ -28,37 +28,37 @@ use Underscore\Types\Strings;
 class StaticFileCacheBuilder implements CacheBuilderInterface
 {
     /** @var ConfigurationServiceInterface */
-    private $configurationService;
+    private ConfigurationServiceInterface $configurationService;
 
     /** @var GalleryServiceInterface */
-    private $galleryService;
+    private GalleryServiceInterface $galleryService;
 
     /** @var UserServiceInterface */
-    private $userService;
+    private UserServiceInterface $userService;
 
     /** @var PageServiceInterface */
-    private $pageService;
+    private PageServiceInterface $pageService;
 
     /** @var SegmentPageServiceInterface */
-    private $segmentPageService;
+    private SegmentPageServiceInterface $segmentPageService;
 
     /** @var FormServiceInterface */
-    private $formService;
+    private FormServiceInterface $formService;
 
     /** @var FormGeneratorInterface */
-    private $formGenerator;
+    private FormGeneratorInterface $formGenerator;
 
     /** @var CompilerInterface */
-    private $compiler;
+    private CompilerInterface $compiler;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var ThemeSyncServiceInterface */
-    private $themeSyncService;
+    private ThemeSyncServiceInterface $themeSyncService;
 
     /**
      * StaticFileCacheBuilder constructor.

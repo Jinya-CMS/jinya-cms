@@ -19,10 +19,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class SchemaTool implements SchemaToolInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var KernelInterface */
-    private $kernel;
+    private KernelInterface $kernel;
 
     /**
      * SchemaTool constructor.

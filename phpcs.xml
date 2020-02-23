@@ -8,7 +8,7 @@
     <arg name="ignore" value="./assets/"/>
     <arg name="ignore" value="./themes/"/>
 
-    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
 
     <file>bin/</file>
     <file>config/</file>

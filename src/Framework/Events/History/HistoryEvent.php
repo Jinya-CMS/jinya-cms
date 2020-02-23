@@ -21,13 +21,13 @@ class HistoryEvent extends CancellableEvent
     public const POST_CLEAR = 'HistoryPostClear';
 
     /** @var string */
-    private $class;
+    private string $class;
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /** @var array */
-    private $history;
+    private array $history;
 
     /**
      * HistoryEvent constructor.

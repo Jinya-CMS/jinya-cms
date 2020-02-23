@@ -18,7 +18,7 @@ class PortValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (((int) $value < 0 && (int) $value > 65535) || !preg_match('/\\d{1,5}/', $value)) {
+        if (((int)$value < 0 && (int)$value > 65535) || !preg_match('/\\d{1,5}/', $value)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

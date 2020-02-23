@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LikeController extends BaseApiController
 {
     /** @var string */
-    private $jinyaVersion;
+    private string $jinyaVersion;
 
     /**
      * @Route("/api/support/like", methods={"POST"}, name="api_support_like")
@@ -45,7 +45,7 @@ class LikeController extends BaseApiController
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
         }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);

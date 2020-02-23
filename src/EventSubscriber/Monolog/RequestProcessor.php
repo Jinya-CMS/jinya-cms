@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class RequestProcessor
 {
     /** @var RequestStack */
-    private $request;
+    private RequestStack $request;
 
     /**
      * RequestProcessor constructor.

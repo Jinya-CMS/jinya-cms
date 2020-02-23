@@ -18,10 +18,10 @@ use Symfony\Component\Routing\RouterInterface;
 class KernelExceptionSubscriber implements EventSubscriberInterface
 {
     /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * KernelExceptionSubscriber constructor.

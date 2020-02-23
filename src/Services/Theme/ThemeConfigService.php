@@ -24,21 +24,21 @@ use function preg_replace;
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var MediaServiceInterface */
-    private $mediaService;
+    private MediaServiceInterface $mediaService;
 
     /** @var ArrayUtilInterface */
-    private $arrayUtils;
+    private ArrayUtilInterface $arrayUtils;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */
