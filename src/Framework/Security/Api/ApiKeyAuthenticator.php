@@ -83,17 +83,13 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
             if ($this->apiKeyTool->shouldInvalidate($apiToken)) {
                 $this->apiKeyTool->invalidate($apiToken);
 
-                throw new CustomUserMessageAuthenticationException(
-                    $this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken])
-                );
+                throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.expired', ['apiKey' => $apiToken]));
             }
         } catch (Exception $exception) {
             $this->logger->warning($exception->getMessage());
             $this->logger->warning($exception->getTraceAsString());
 
-            throw new CustomUserMessageAuthenticationException(
-                $this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken])
-            );
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('api.state.401.generic', ['apiKey' => $apiToken]));
         }
 
         // if a User object, checkCredentials() is called
