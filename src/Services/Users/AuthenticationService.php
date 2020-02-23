@@ -117,7 +117,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         try {
             $code = bin2hex(random_bytes(20));
         } catch (Exception $exception) {
-            $code = sha1((string)time());
+            $code = sha1((string) time());
         }
 
         $knownDevice->setKey($code);

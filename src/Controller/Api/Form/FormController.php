@@ -133,9 +133,7 @@ class FormController extends BaseApiController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
-                throw new ValidatorException(
-                    $translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators')
-                );
+                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
             }
 
             $form = new Form();
@@ -196,9 +194,7 @@ class FormController extends BaseApiController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($toAddress, new RFCValidation())) {
-                throw new ValidatorException(
-                    $translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators')
-                );
+                throw new ValidatorException($translator->trans('api.form.field.toAddress.invalid', ['toAddress' => $toAddress], 'validators'));
             }
 
             $form->setName($name);
