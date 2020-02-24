@@ -34,6 +34,7 @@ class MediaMoveEvent extends Event
     {
         $this->from = $from;
         $this->type = $type;
+        $this->location = '';
     }
 
     /**

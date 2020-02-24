@@ -45,14 +45,14 @@ class User implements JsonSerializable, UserInterface
      *
      * @var string
      */
-    private string $twoFactorToken;
+    private ?string $twoFactorToken = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
      *
      * @var Collection
      */
-    private $knownDevices;
+    private Collection $knownDevices;
 
     /**
      * Encrypted password. Must be persisted.
@@ -93,7 +93,7 @@ class User implements JsonSerializable, UserInterface
      * @var array
      * @ORM\Column(type="array")
      */
-    private array $roles;
+    private ?array $roles = [];
 
     /**
      * @ORM\Id
@@ -102,21 +102,21 @@ class User implements JsonSerializable, UserInterface
      *
      * @var int
      */
-    private int $id;
+    private ?int $id = -1;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private string $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private string $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string")
@@ -130,7 +130,7 @@ class User implements JsonSerializable, UserInterface
      *
      * @var string
      */
-    private string $profilePicture;
+    private ?string $profilePicture = '';
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
@@ -144,14 +144,14 @@ class User implements JsonSerializable, UserInterface
      *
      * @var Collection
      */
-    private $createdForms;
+    private Collection $createdForms;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private string $aboutMe;
+    private ?string $aboutMe;
 
     /**
      * User constructor.
@@ -159,7 +159,6 @@ class User implements JsonSerializable, UserInterface
     public function __construct()
     {
         $this->enabled = false;
-        $this->roles = [];
         $this->createdForms = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
         $this->knownDevices = new ArrayCollection();
@@ -356,9 +355,13 @@ class User implements JsonSerializable, UserInterface
     /**
      * @return array
      */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        return $this->roles;
+        if ($this->roles) {
+            return $this->roles;
+        }
+
+        return [];
     }
 
     /**

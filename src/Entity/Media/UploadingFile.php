@@ -24,7 +24,7 @@ class UploadingFile
      * @ORM\Column(type="guid")
      * @var string
      */
-    private string $id;
+    private ?string $id;
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Media\File")

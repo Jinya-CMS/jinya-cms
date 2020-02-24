@@ -99,7 +99,11 @@ abstract class BaseApiController extends BaseController
         $this->request = $requestStack->getCurrentRequest();
         $this->contentType = $this->request->headers->get('Content-Type');
         if ('application/json' === $this->contentType) {
-            $this->bodyAsJson = json_decode($this->request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            try {
+                $this->bodyAsJson = json_decode($this->request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            } catch (Throwable $exception) {
+                $this->bodyAsJson = [];
+            }
         }
         if ('text/xml' === $this->contentType) {
             $this->bodyAsXml = simplexml_load_string($this->request->getContent());
@@ -162,7 +166,9 @@ abstract class BaseApiController extends BaseController
 
                 break;
             default:
-                throw new InvalidContentTypeException($this->contentType ?? '', $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType], 'validators'));
+                throw new InvalidContentTypeException($this->contentType ?? '',
+                    $this->translator->trans('api.generic.headers.contenttype', ['contentType' => $this->contentType],
+                        'validators'));
         }
 
         return $result;

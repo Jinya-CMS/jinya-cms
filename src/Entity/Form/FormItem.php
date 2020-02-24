@@ -39,13 +39,13 @@ class FormItem extends HistoryEnabledEntity
      * @ORM\Column(type="json")
      * @var array
      */
-    private array $options;
+    private array $options = [];
 
     /**
      * @var array
      * @ORM\Column(type="json", nullable=true)
      */
-    private array $spamFilter;
+    private ?array $spamFilter = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -74,7 +74,7 @@ class FormItem extends HistoryEnabledEntity
     /**
      * @return array
      */
-    public function getSpamFilter(): array
+    public function getSpamFilter(): ?array
     {
         return $this->spamFilter;
     }

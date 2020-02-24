@@ -22,7 +22,7 @@ class UploadingFileChunk
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = -1;
 
     /**
      * @var string

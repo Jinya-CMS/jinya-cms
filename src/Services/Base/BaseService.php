@@ -39,7 +39,8 @@ class BaseService
      */
     public function saveOrUpdate($entity)
     {
-        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($entity)) {
+        $state = $this->entityManager->getUnitOfWork()->getEntityState($entity);
+        if (UnitOfWork::STATE_MANAGED !== $state && UnitOfWork::STATE_REMOVED !== $state) {
             $this->entityManager->persist($entity);
         }
 

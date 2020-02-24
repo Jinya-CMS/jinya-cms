@@ -104,21 +104,21 @@ class Theme
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private Menu $primaryMenu;
+    private ?Menu $primaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="secondary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private Menu $secondaryMenu;
+    private ?Menu $secondaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
      */
-    private Menu $footerMenu;
+    private ?Menu $footerMenu;
 
     /**
      * Theme constructor.

@@ -24,13 +24,7 @@ class Gallery extends HistoryEnabledEntity
      *     cascade={"remove", "persist"}
      * )
      */
-    private $files;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private string $name;
+    private Collection $files;
 
     /**
      * @var string

@@ -76,7 +76,8 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $id
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function delete(int $id): void
@@ -214,7 +215,8 @@ class UserService implements UserServiceInterface
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
         }
 
-        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($user)) {
+        $state = $this->entityManager->getUnitOfWork()->getEntityState($user);
+        if (UnitOfWork::STATE_MANAGED !== $state && UnitOfWork::STATE_REMOVED !== $state) {
             if (!$this->entityManager->isOpen()) {
                 $this->entityManager = $this->entityManager::create(
                     $this->entityManager->getConnection(),
@@ -240,6 +242,7 @@ class UserService implements UserServiceInterface
      * @throws UnknownDeviceException
      * @throws BadCredentialsException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {

@@ -47,7 +47,8 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
-    private User $updatedBy;
+    private ?User $updatedBy = null;
+
 
     /**
      * @return array[]
@@ -116,7 +117,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @return User
      */
-    public function getUpdatedBy(): User
+    public function getUpdatedBy(): ?User
     {
         return $this->updatedBy;
     }

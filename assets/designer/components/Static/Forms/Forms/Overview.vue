@@ -7,7 +7,7 @@
                                   label="static.forms.forms.overview.toolbar.edit" to="Static.Forms.Forms.Edit"/>
             <jinya-toolbar-button :is-disabled="!formSelected" :params="{slug: selectedForm.slug}" is-secondary
                                   label="static.forms.forms.overview.toolbar.designer"
-                                  to="Static.Forms.Forms.Designer"/>
+                                  to="Static.Forms.Forms.Items"/>
             <jinya-toolbar-button :is-disabled="!formSelected" :params="{slug: selectedForm.slug}" is-secondary
                                   label="static.forms.forms.overview.toolbar.open_mailbox"
                                   to="Static.Forms.Messages.Form"/>

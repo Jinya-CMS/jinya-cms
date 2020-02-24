@@ -23,7 +23,7 @@ class MenuItem implements JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string")
@@ -35,7 +35,7 @@ class MenuItem implements JsonSerializable
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu", inversedBy="menuItems", cascade={"persist"})
      * @var Menu
      */
-    private Menu $menu;
+    private ?Menu $menu;
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
@@ -48,13 +48,13 @@ class MenuItem implements JsonSerializable
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * @var MenuItem
      */
-    private MenuItem $parent;
+    private ?MenuItem $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
      * @var Collection
      */
-    private $children;
+    private Collection $children;
 
     /**
      * @var string

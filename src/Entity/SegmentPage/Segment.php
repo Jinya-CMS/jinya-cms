@@ -38,43 +38,43 @@ class Segment
      * @var Form|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form")
      */
-    private ?Form $form;
+    private ?Form $form = null;
 
     /**
      * @var Gallery|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Gallery")
      */
-    private ?Gallery $gallery;
+    private ?Gallery $gallery = null;
 
     /**
      * @var File|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File")
      */
-    private ?File $file;
+    private ?File $file = null;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $html;
+    private ?string $html = null;
 
     /**
      * @var string|null
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $action;
+    private ?string $action = null;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $script;
+    private ?string $script = null;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $target;
+    private ?string $target = null;
 
     /**
      * @return SegmentPage
@@ -143,7 +143,6 @@ class Segment
 
     private function reset(): void
     {
-        $this->page = null;
         $this->form = null;
         $this->html = null;
         $this->file = null;

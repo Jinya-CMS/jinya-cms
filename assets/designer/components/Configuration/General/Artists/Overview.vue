@@ -157,7 +157,7 @@
       mapArtists(artist) {
         const item = artist;
         item.me = artist.email === this.me.email;
-        item.deletable = !item.roles.includes('ROLE_SUPER_ADMIN')
+        item.deletable = !item.roles?.includes('ROLE_SUPER_ADMIN')
           || !item.me
           || this.artists.filter((a) => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
 
@@ -224,7 +224,6 @@
           );
           this.artists = this.mapArtists(this.artists);
           this.disable.show = false;
-          this.delete.show = false;
         } catch (e) {
           this.disable.error = `configuration.general.artists.disable.${e.message}`;
         }

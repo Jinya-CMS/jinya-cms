@@ -19,7 +19,7 @@ class GalleryFilePosition
      * @var int
      * @ORM\Column(type="integer")
      */
-    private int $position;
+    private int $position = -1;
 
     /**
      * @var Gallery
