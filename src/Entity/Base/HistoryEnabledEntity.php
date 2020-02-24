@@ -49,7 +49,6 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      */
     private ?User $updatedBy = null;
 
-
     /**
      * @return array[]
      */
