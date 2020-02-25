@@ -18,7 +18,7 @@ class TwoFactorCodeEvent extends Event
     private string $username;
 
     /** @var string */
-    private string $twoFactorCode;
+    private string $twoFactorCode = '';
 
     /**
      * TwoFactorCodeEvent constructor.

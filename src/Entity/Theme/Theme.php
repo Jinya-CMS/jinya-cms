@@ -67,37 +67,37 @@ class Theme
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="theme")
      */
-    private $menus;
+    private Collection $menus;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
-    private $pages;
+    private Collection $pages;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeGallery", mappedBy="theme")
      */
-    private $galleries;
+    private Collection $galleries;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeFile", mappedBy="theme")
      */
-    private $files;
+    private Collection $files;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeSegmentPage", mappedBy="theme")
      */
-    private $segmentPages;
+    private Collection $segmentPages;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme", fetch="EAGER")
      */
-    private $forms;
+    private Collection $forms;
 
     /**
      * @var Menu

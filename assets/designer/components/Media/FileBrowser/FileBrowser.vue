@@ -1,53 +1,51 @@
 <template>
-    <div :class="{'is--loading': loading}" class="jinya-file-browser">
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <template v-else>
-            <file-view :files="files" @deleteFile="showDeleteFileDialog" @editFile="showEditFileDialog"
-                       @fileChanged="selectFile"/>
-            <preview-pane :file="selectedFile" v-if="selectedFile"/>
-            <jinya-floating-action-button :is-primary="true" @click="showAddFileDialog" icon="file-upload-outline"/>
-            <jinya-modal :loading="addFileDialog.loading" @close="addFileDialog.visible = false"
-                         title="media.files.add.title" v-if="addFileDialog.visible">
-                <jinya-message :message="addFileDialog.message" :state="addFileDialog.state" slot="message"
-                               v-if="addFileDialog.message"/>
-                <jinya-form>
-                    <jinya-input :enable="!addFileDialog.loading" label="media.files.add.name" type="text"
-                                 v-model="addFileDialog.name"/>
-                    <jinya-file-input :enable="!addFileDialog.loading"
-                                      @picked="data => addFileDialog.file = data.item(0)" label="media.files.add.file"/>
-                </jinya-form>
-                <jinya-modal-button :closes-modal="true" :is-disabled="addFileDialog.loading" :is-secondary="true"
-                                    label="media.files.add.cancel" slot="buttons-left"/>
-                <jinya-modal-button :is-disabled="addFileDialog.loading" :is-primary="true" @click="addFile"
-                                    label="media.files.add.upload" slot="buttons-right"/>
-            </jinya-modal>
-            <jinya-modal :loading="editFileDialog.loading" @close="editFileDialog.visible = false"
-                         title="media.files.edit.title" v-if="editFileDialog.visible">
-                <jinya-message :message="editFileDialog.message" :state="editFileDialog.state" slot="message"
-                               v-if="editFileDialog.message"/>
-                <jinya-form>
-                    <jinya-input :enable="!editFileDialog.loading" label="media.files.edit.name" type="text"
-                                 v-model="editFileDialog.name"/>
-                    <jinya-file-input :enable="!editFileDialog.loading" :has-value="true"
-                                      @picked="data => editFileDialog.file = data.item(0)"
-                                      label="media.files.edit.file"/>
-                </jinya-form>
-                <jinya-modal-button :closes-modal="true" :is-disabled="editFileDialog.loading" :is-secondary="true"
-                                    label="media.files.edit.cancel" slot="buttons-left"/>
-                <jinya-modal-button :is-disabled="editFileDialog.loading" :is-primary="true" @click="editFile"
-                                    label="media.files.edit.upload" slot="buttons-right"/>
-            </jinya-modal>
-            <jinya-modal :loading="deleteFileDialog.loading" @close="deleteFileDialog.visible = false"
-                         title="media.files.delete.title" v-if="deleteFileDialog.visible">
-                <jinya-message :message="deleteFileDialog.error" slot="message" state="error"
-                               v-if="deleteFileDialog.error && !deleteFileDialog.loading"/>
-                {{'media.files.delete.content'|jmessage(deleteFileDialog.file)}}
-                <jinya-modal-button :closes-modal="true" :is-disabled="deleteFileDialog.loading" :is-secondary="true"
-                                    label="media.files.delete.no" slot="buttons-left"/>
-                <jinya-modal-button :is-danger="true" :is-disabled="deleteFileDialog.loading" @click="deleteFile"
-                                    label="media.files.delete.yes" slot="buttons-right"/>
-            </jinya-modal>
-        </template>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-file-browser" v-else>
+        <file-view :files="files" @deleteFile="showDeleteFileDialog" @editFile="showEditFileDialog"
+                   @fileChanged="selectFile"/>
+        <preview-pane :file="selectedFile" v-if="selectedFile"/>
+        <jinya-floating-action-button :is-primary="true" @click="showAddFileDialog" icon="file-upload-outline"/>
+        <jinya-modal :loading="addFileDialog.loading" @close="addFileDialog.visible = false"
+                     title="media.files.add.title" v-if="addFileDialog.visible">
+            <jinya-message :message="addFileDialog.message" :state="addFileDialog.state" slot="message"
+                           v-if="addFileDialog.message"/>
+            <jinya-form>
+                <jinya-input :enable="!addFileDialog.loading" label="media.files.add.name" type="text"
+                             v-model="addFileDialog.name"/>
+                <jinya-file-input :enable="!addFileDialog.loading"
+                                  @picked="data => addFileDialog.file = data.item(0)" label="media.files.add.file"/>
+            </jinya-form>
+            <jinya-modal-button :closes-modal="true" :is-disabled="addFileDialog.loading" :is-secondary="true"
+                                label="media.files.add.cancel" slot="buttons-left"/>
+            <jinya-modal-button :is-disabled="addFileDialog.loading" :is-primary="true" @click="addFile"
+                                label="media.files.add.upload" slot="buttons-right"/>
+        </jinya-modal>
+        <jinya-modal :loading="editFileDialog.loading" @close="editFileDialog.visible = false"
+                     title="media.files.edit.title" v-if="editFileDialog.visible">
+            <jinya-message :message="editFileDialog.message" :state="editFileDialog.state" slot="message"
+                           v-if="editFileDialog.message"/>
+            <jinya-form>
+                <jinya-input :enable="!editFileDialog.loading" label="media.files.edit.name" type="text"
+                             v-model="editFileDialog.name"/>
+                <jinya-file-input :enable="!editFileDialog.loading" :has-value="true"
+                                  @picked="data => editFileDialog.file = data.item(0)"
+                                  label="media.files.edit.file"/>
+            </jinya-form>
+            <jinya-modal-button :closes-modal="true" :is-disabled="editFileDialog.loading" :is-secondary="true"
+                                label="media.files.edit.cancel" slot="buttons-left"/>
+            <jinya-modal-button :is-disabled="editFileDialog.loading" :is-primary="true" @click="editFile"
+                                label="media.files.edit.upload" slot="buttons-right"/>
+        </jinya-modal>
+        <jinya-modal :loading="deleteFileDialog.loading" @close="deleteFileDialog.visible = false"
+                     title="media.files.delete.title" v-if="deleteFileDialog.visible">
+            <jinya-message :message="deleteFileDialog.error" slot="message" state="error"
+                           v-if="deleteFileDialog.error && !deleteFileDialog.loading"/>
+            {{'media.files.delete.content'|jmessage(deleteFileDialog.file)}}
+            <jinya-modal-button :closes-modal="true" :is-disabled="deleteFileDialog.loading" :is-secondary="true"
+                                label="media.files.delete.no" slot="buttons-left"/>
+            <jinya-modal-button :is-danger="true" :is-disabled="deleteFileDialog.loading" @click="deleteFile"
+                                label="media.files.delete.yes" slot="buttons-right"/>
+        </jinya-modal>
     </div>
 </template>
 
@@ -245,9 +243,5 @@
 <style lang="scss" scoped>
     .jinya-file-browser {
         display: flex;
-
-        &.is--loading {
-            height: 100%;
-        }
     }
 </style>

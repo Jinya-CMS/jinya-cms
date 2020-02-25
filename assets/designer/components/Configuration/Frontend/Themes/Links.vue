@@ -82,7 +82,6 @@
         loading: false,
         structure: {},
         links: {},
-        artworks: [],
         pages: [],
         files: [],
         galleries: [],
@@ -103,13 +102,7 @@
         const linksPromise = JinyaRequest
           .get(`/api/theme/${this.$route.params.name}/links`)
           .then((links) => {
-            Object.keys(links).map((link) => {
-              if (isArray(links[link])) {
-                return {};
-              }
-
-              return links[link];
-            });
+            this.links = links;
           });
         const pagePromise = JinyaRequest
           .get('/api/page')

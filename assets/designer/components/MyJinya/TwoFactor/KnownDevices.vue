@@ -1,6 +1,6 @@
 <template>
-    <div style="padding-top: 1rem">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-else>
         <jinya-message message="my_jinya.two_factor.known_devices.no_devices" state="info" v-if="tokens.length === 0"/>
         <jinya-message :key="`message-${token.key}`" :params="getData(token)"
                        message="my_jinya.two_factor.known_devices.device"

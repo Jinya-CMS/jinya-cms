@@ -1,5 +1,6 @@
 <template>
-    <div class="jinya-theme-configuration">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-theme-configuration" v-else>
         <jinya-message :message="message" :state="state"/>
         <jinya-form :enable="!loading" @back="back" @submit="save"
                     cancel-label="configuration.frontend.themes.configuration.cancel"
@@ -49,10 +50,12 @@
   import ArrayUtils from '@/framework/Utils/ArrayUtils';
   import JinyaTab from '@/framework/Markup/Tab/Tab';
   import JinyaTabContainer from '@/framework/Markup/Tab/TabContainer';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
   export default {
     name: 'Configuration',
     components: {
+      JinyaLoader,
       JinyaTabContainer,
       JinyaTab,
       JinyaThemeConfigurationField,
@@ -72,6 +75,7 @@
         state: '',
         files: {},
         selected: '',
+        loading: true,
       };
     },
     methods: {
@@ -110,7 +114,7 @@
         }
         this.loading = false;
 
-        this.$router.push(Routes.Configuration.Frontend.Theme.Overview);
+        this.$router.push(Routes.Configuration.Frontend.Theme.Overview.name);
       },
       getValue(key) {
         return ObjectUtils.valueByKeypath(this.theme.config, key, '');

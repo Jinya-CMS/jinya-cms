@@ -1,6 +1,6 @@
 <template>
-    <div style="padding-top: 1rem">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-else>
         <jinya-message :key="`message-${apiKey.key}`" :message="getKeyMessage(apiKey)"
                        state="info" v-for="apiKey in apiKeys">
             <jinya-message-action-bar :key="`message-action-bar-${apiKey.key}`">

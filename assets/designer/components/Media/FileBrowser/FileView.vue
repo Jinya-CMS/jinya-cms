@@ -68,5 +68,6 @@
         flex: 1 1 80%;
         min-width: 80%;
         transition: all 0.3s;
+        margin-top: -1%;
     }
 </style>

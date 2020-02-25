@@ -7,10 +7,10 @@ use JsonSerializable;
 class IniValue implements JsonSerializable
 {
     /** @var string */
-    private string $value;
+    private ?string $value;
 
     /** @var string */
-    private string $configName;
+    private ?string $configName;
 
     /**
      * @return string

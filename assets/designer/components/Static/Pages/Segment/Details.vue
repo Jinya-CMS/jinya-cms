@@ -1,8 +1,8 @@
 <template>
-    <div class="jinya-page">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-page" v-else>
         <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <iframe :srcdoc="pageHtml" class="jinya-page__preview" v-if="!loading && !state"></iframe>
+        <iframe :srcdoc="pageHtml" class="jinya-page__preview" v-else></iframe>
     </div>
 </template>
 

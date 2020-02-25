@@ -37,13 +37,13 @@ class RoutingEntry implements JsonSerializable
      * @var string
      * @ORM\Column(type="string")
      */
-    private string $routeName;
+    private string $routeName = '';
 
     /**
      * @var array
      * @ORM\Column(type="object")
      */
-    private array $routeParameter;
+    private array $routeParameter = [];
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="route")

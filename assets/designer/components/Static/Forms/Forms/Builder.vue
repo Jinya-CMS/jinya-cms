@@ -1,6 +1,6 @@
 <template>
-    <div class="jinya-form-builder">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-form-builder" v-else>
         <jinya-editor v-if="!loading">
             <jinya-form @back="back" @submit="saveChanges"
                         button-bar-padding-right="0.5rem" cancel-label="static.forms.forms.builder.cancel"
