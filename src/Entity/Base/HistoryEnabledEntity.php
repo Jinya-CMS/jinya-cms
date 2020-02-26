@@ -12,6 +12,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Artist\User;
 use JsonSerializable;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * Class HistoryEnabledEntity
@@ -29,7 +30,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private DateTime $createdAt;
+    private ?DateTime $createdAt = null;
 
     /**
      * @var DateTime
