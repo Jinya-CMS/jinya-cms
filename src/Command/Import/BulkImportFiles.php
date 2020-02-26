@@ -58,7 +58,7 @@ class BulkImportFiles extends AuthenticatedCommand
         $this->kernelProjectDir = $kernelProjectDir;
     }
 
-    protected function authenticatedExecute(InputInterface $input, OutputInterface $output): void
+    protected function authenticatedExecute(InputInterface $input, OutputInterface $output): int
     {
         $directory = $input->getArgument('directory');
         $recursive = $input->getOption('recursive');
@@ -74,6 +74,8 @@ class BulkImportFiles extends AuthenticatedCommand
         $importResult = $this->importFiles($files, $stopOnError, $progressBar);
         $progressBar->finish();
         $this->formatFileOutput($importResult, $output);
+
+        return 0;
     }
 
     private function scanDirectory(string $directory, bool $recursive): array

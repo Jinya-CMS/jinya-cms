@@ -57,5 +57,7 @@ class CompileCacheCommand extends Command
             $this->cacheBuilder->buildCacheBySlugAndType($slug, $type);
             $output->writeln(sprintf('Compiled all routes of type %s and with the slug %s', $type, $slug));
         }
+
+        return 0;
     }
 }

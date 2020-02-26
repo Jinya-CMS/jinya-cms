@@ -57,5 +57,7 @@ class CreateDbCommand extends Command
         $this->databaseMigrator->activateAllMigrations();
         $fs = new Filesystem();
         $fs->touch($this->kernelProjectDir . '/config/admin.lock');
+
+        return 0;
     }
 }

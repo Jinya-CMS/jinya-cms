@@ -51,9 +51,11 @@ abstract class AuthenticatedCommand extends Command
         }
 
         if (!$error) {
-            $this->authenticatedExecute($input, $output);
+            return $this->authenticatedExecute($input, $output);
         }
+
+        return -1;
     }
 
-    abstract protected function authenticatedExecute(InputInterface $input, OutputInterface $output);
+    abstract protected function authenticatedExecute(InputInterface $input, OutputInterface $output): int;
 }

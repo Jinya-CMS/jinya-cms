@@ -53,5 +53,7 @@ class CompileThemesCommand extends Command
         }
 
         $output->writeln('Compiled all themes');
+
+        return 0;
     }
 }

@@ -166,5 +166,7 @@ class CreateThemeCommand extends Command
                 $output->writeln(passthru("cd $themePath && git remote add origin $repo"));
             }
         }
+
+        return 0;
     }
 }
