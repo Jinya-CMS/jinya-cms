@@ -12,7 +12,6 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Jinya\Entity\Artist\User;
 use JsonSerializable;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * Class HistoryEnabledEntity
