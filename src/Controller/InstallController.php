@@ -30,25 +30,25 @@ use Twig\Error\SyntaxError;
 class InstallController extends AbstractController
 {
     /** @var SchemaToolInterface */
-    private $schemaTool;
+    private SchemaToolInterface $schemaTool;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var UserServiceInterface */
-    private $userService;
+    private UserServiceInterface $userService;
 
     /** @var Environment */
-    private $twig;
+    private Environment $twig;
 
     /** @var MediaServiceInterface */
-    private $mediaService;
+    private MediaServiceInterface $mediaService;
 
     /** @var ThemeSyncServiceInterface */
-    private $themeSyncService;
+    private ThemeSyncServiceInterface $themeSyncService;
 
     /** @var DatabaseMigratorInterface */
-    private $databaseMigrator;
+    private DatabaseMigratorInterface $databaseMigrator;
 
     /**
      * InstallController constructor.

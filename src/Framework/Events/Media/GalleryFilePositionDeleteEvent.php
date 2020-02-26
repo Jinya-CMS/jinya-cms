@@ -18,10 +18,10 @@ class GalleryFilePositionDeleteEvent extends CancellableEvent
     public const POST_DELETE = 'GalleryFilePositionPostDelete';
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /** @var GalleryFilePosition */
-    private $galleryFilePosition;
+    private GalleryFilePosition $galleryFilePosition;
 
     /**
      * GalleryFilePositionDeleteEvent constructor.

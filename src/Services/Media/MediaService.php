@@ -21,13 +21,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class MediaService implements MediaServiceInterface
 {
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var string */
-    private $tmpDir;
+    private string $tmpDir;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * MediaService constructor.

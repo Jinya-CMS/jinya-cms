@@ -8,7 +8,6 @@
 
 namespace Jinya\Framework\Events\Media;
 
-use Jinya\Entity\Media\Gallery;
 use Jinya\Entity\Media\GalleryFilePosition;
 use Jinya\Framework\Events\Common\CancellableEvent;
 
@@ -27,10 +26,10 @@ class GalleryFilePositionEvent extends CancellableEvent
     public const POST_DELETE = 'GalleryFilePositionPostDelete';
 
     /** @var GalleryFilePosition */
-    private $galleryFilePosition;
+    private ?GalleryFilePosition $galleryFilePosition;
 
     /** @var int */
-    private $id;
+    private ?int $id;
 
     /**
      * GalleryEvent constructor.
@@ -52,7 +51,7 @@ class GalleryFilePositionEvent extends CancellableEvent
     }
 
     /**
-     * @return Gallery
+     * @return GalleryFilePosition|null
      */
     public function getGalleryFilePosition(): ?GalleryFilePosition
     {

@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BugController extends BaseApiController
 {
     /** @var string */
-    private $jinyaVersion;
+    private string $jinyaVersion;
 
     /**
      * @Route("/api/support/bug", methods={"POST"}, name="api_support_bug")
@@ -57,7 +57,7 @@ class BugController extends BaseApiController
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
         });
 
         return $this->json($data, $status);

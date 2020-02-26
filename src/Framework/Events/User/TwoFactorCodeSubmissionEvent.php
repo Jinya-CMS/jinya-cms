@@ -17,13 +17,13 @@ class TwoFactorCodeSubmissionEvent extends Event
     public const POST_CODE_SUBMISSION = 'TwoFactorCodePostSubmission';
 
     /** @var string */
-    private $username;
+    private string $username;
 
     /** @var string */
-    private $twoFactorCode;
+    private string $twoFactorCode;
 
     /** @var bool */
-    private $sent = false;
+    private bool $sent = false;
 
     /**
      * TwoFactorCodeSubmissionEvent constructor.

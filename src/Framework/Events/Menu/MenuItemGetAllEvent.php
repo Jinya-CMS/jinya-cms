@@ -18,13 +18,13 @@ class MenuItemGetAllEvent extends Event
     public const POST_GET_ALL = 'MenuItemPostGetAll';
 
     /** @var int */
-    private $parentId;
+    private int $parentId;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var MenuItem[] */
-    private $items;
+    private array $items;
 
     /**
      * MenuItemGetAllEvent constructor.

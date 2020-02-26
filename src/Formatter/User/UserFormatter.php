@@ -20,31 +20,26 @@ use function array_map;
 class UserFormatter implements UserFormatterInterface
 {
     /** @var User */
-    private $user;
+    private User $user;
 
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /** @var PageFormatterInterface */
-    private $pageFormatter;
+    private PageFormatterInterface $pageFormatter;
 
     /** @var FormFormatterInterface */
-    private $formFormatter;
-
-    /** @var RoleHierarchyInterface */
-    private $roleHierarchy;
+    private FormFormatterInterface $formFormatter;
 
     /**
      * UserFormatter constructor.
-     * @param UrlGeneratorInterface $urlGenerator
      * @param RoleHierarchyInterface $roleHierarchy
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, RoleHierarchyInterface $roleHierarchy)
+    public function __construct(RoleHierarchyInterface $roleHierarchy)
     {
-        $this->urlGenerator = $urlGenerator;
         $this->roleHierarchy = $roleHierarchy;
     }
 

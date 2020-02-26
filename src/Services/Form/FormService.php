@@ -24,13 +24,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class FormService implements FormServiceInterface
 {
     /** @var BaseSlugEntityService */
-    private $baseService;
+    private BaseSlugEntityService $baseService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * FormService constructor.
@@ -108,7 +108,9 @@ class FormService implements FormServiceInterface
      *
      * @param string $keyword
      * @return int
+     * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = ''): int
     {

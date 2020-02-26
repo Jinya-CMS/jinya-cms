@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CompileCacheCommand extends Command
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * CompileCacheCommand constructor.
@@ -57,5 +57,7 @@ class CompileCacheCommand extends Command
             $this->cacheBuilder->buildCacheBySlugAndType($slug, $type);
             $output->writeln(sprintf('Compiled all routes of type %s and with the slug %s', $type, $slug));
         }
+
+        return 0;
     }
 }

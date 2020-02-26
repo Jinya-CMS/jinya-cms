@@ -25,43 +25,43 @@ class LogEntry implements JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(name="message", type="text")
      * @var string
      */
-    private $message;
+    private string $message;
 
     /**
      * @ORM\Column(name="context", type="array")
      * @var array
      */
-    private $context;
+    private array $context;
 
     /**
      * @ORM\Column(name="level", type="smallint")
      * @var int
      */
-    private $level;
+    private int $level;
 
     /**
      * @ORM\Column(name="level_name", type="string", length=50)
      * @var string
      */
-    private $levelName;
+    private string $levelName;
 
     /**
      * @ORM\Column(name="extra", type="array")
      * @var array
      */
-    private $extra;
+    private array $extra;
 
     /**
      * @ORM\Column(name="created_at", type="datetime")
      * @var DateTime
      */
-    private $createdAt;
+    private DateTime $createdAt;
 
     /**
      * @return int

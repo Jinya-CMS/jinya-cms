@@ -11,7 +11,7 @@
             </audio>
             <p v-else>{{file.type}}</p>
             <jinya-card-button :title="'media.files.list.details'|jmessage" @click="$emit('fileChanged', file)"
-                               icon="file-eye-outline" slot="footer" type="details"/>
+                               icon="eye-outline" slot="footer" type="details"/>
             <jinya-card-button :title="'media.files.list.edit'|jmessage" @click="$emit('editFile', file)" icon="pencil"
                                slot="footer" type="edit"/>
             <jinya-card-button :title="'media.files.list.delete'|jmessage" @click="$emit('deleteFile', file)"
@@ -68,5 +68,6 @@
         flex: 1 1 80%;
         min-width: 80%;
         transition: all 0.3s;
+        margin-top: -1%;
     }
 </style>

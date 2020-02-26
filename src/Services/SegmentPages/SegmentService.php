@@ -28,22 +28,22 @@ class SegmentService implements SegmentServiceInterface
     use ArrangementServiceTrait;
 
     /** @var SegmentPageServiceInterface */
-    private $segmentPageService;
+    private SegmentPageServiceInterface $segmentPageService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @var FormServiceInterface */
-    private $formService;
+    private FormServiceInterface $formService;
 
     /** @var GalleryServiceInterface */
-    private $galleryService;
+    private GalleryServiceInterface $galleryService;
 
     /** @var FileServiceInterface */
-    private $fileService;
+    private FileServiceInterface $fileService;
 
     /**
      * SegmentService constructor.
@@ -68,6 +68,28 @@ class SegmentService implements SegmentServiceInterface
         $this->formService = $formService;
         $this->galleryService = $galleryService;
         $this->fileService = $fileService;
+    }
+
+    /**
+     * Saves the file in the given segment page at the given position
+     *
+     * @param int $fileId
+     * @param string $segmentPageSlug
+     * @param int $position
+     * @param string $action
+     * @param string $target
+     * @param string $script
+     * @return Segment
+     */
+    public function saveFileSegment(
+        int $fileId,
+        string $segmentPageSlug,
+        int $position,
+        string $action = Segment::ACTION_NONE,
+        string $target = '',
+        string $script = ''
+    ): Segment {
+        return $this->saveNewSegment($fileId, $segmentPageSlug, $position, $action, $target, $script, 'file');
     }
 
     /**
@@ -116,28 +138,6 @@ class SegmentService implements SegmentServiceInterface
         $this->eventDispatcher->dispatch(new SegmentEvent($segment, $segment->getId()), SegmentEvent::POST_SAVE);
 
         return $segment;
-    }
-
-    /**
-     * Saves the file in the given segment page at the given position
-     *
-     * @param int $fileId
-     * @param string $segmentPageSlug
-     * @param int $position
-     * @param string $action
-     * @param string $target
-     * @param string $script
-     * @return Segment
-     */
-    public function saveFileSegment(
-        int $fileId,
-        string $segmentPageSlug,
-        int $position,
-        string $action = Segment::ACTION_NONE,
-        string $target = '',
-        string $script = ''
-    ): Segment {
-        return $this->saveNewSegment($fileId, $segmentPageSlug, $position, $action, $target, $script, 'file');
     }
 
     /**
@@ -193,6 +193,18 @@ class SegmentService implements SegmentServiceInterface
     }
 
     /**
+     * Updates the form in the given segment page at the given position
+     *
+     * @param string $formSlug
+     * @param int $segmentId
+     * @return int
+     */
+    public function updateFormSegment(string $formSlug, int $segmentId): int
+    {
+        return $this->updateSegment($formSlug, $segmentId, 'form');
+    }
+
+    /**
      * @param string|int $slug
      * @param int $segmentId
      * @param string $type
@@ -220,18 +232,6 @@ class SegmentService implements SegmentServiceInterface
         $this->eventDispatcher->dispatch(new SegmentEvent($segment, $id), SegmentEvent::POST_GET);
 
         return $segment;
-    }
-
-    /**
-     * Updates the form in the given segment page at the given position
-     *
-     * @param string $formSlug
-     * @param int $segmentId
-     * @return int
-     */
-    public function updateFormSegment(string $formSlug, int $segmentId): int
-    {
-        return $this->updateSegment($formSlug, $segmentId, 'form');
     }
 
     /**

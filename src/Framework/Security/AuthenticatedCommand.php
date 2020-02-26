@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection HtmlUnknownTag */
-
 namespace Jinya\Framework\Security;
 
 use Jinya\Services\Users\UserServiceInterface;
@@ -16,10 +14,10 @@ use Throwable;
 abstract class AuthenticatedCommand extends Command
 {
     /** @var TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /** @var UserServiceInterface */
-    private $userService;
+    private UserServiceInterface $userService;
 
     /**
      * AuthenticatedCommand constructor.
@@ -53,9 +51,11 @@ abstract class AuthenticatedCommand extends Command
         }
 
         if (!$error) {
-            $this->authenticatedExecute($input, $output);
+            return $this->authenticatedExecute($input, $output);
         }
+
+        return -1;
     }
 
-    abstract protected function authenticatedExecute(InputInterface $input, OutputInterface $output);
+    abstract protected function authenticatedExecute(InputInterface $input, OutputInterface $output): int;
 }

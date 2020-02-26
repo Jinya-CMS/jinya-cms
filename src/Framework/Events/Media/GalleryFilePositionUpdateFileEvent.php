@@ -22,7 +22,7 @@ class GalleryFilePositionUpdateFileEvent extends CancellableEvent
     private $galleryFilePosition;
 
     /** @var int */
-    private $positionId;
+    private int $positionId;
 
     /**
      * ArtworkPositionUpdateArtworkEvent constructor.

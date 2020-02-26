@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VersionController extends BaseApiController
 {
     /** @var string */
-    private $jinyaVersion;
+    private string $jinyaVersion;
 
     /**
      * @Route("/api/maintenance/version", methods={"GET"}, name="api_maintenance_version")

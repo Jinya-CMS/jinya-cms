@@ -12,16 +12,13 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190920235231 extends AbstractMigration
 {
-    public function getDescription(): string
-    {
-        return '';
-    }
-
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
-            'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('ALTER TABLE segment ADD gallery_id INT DEFAULT NULL, ADD file_id INT DEFAULT NULL, CHANGE html html VARCHAR(255) DEFAULT NULL, CHANGE action action LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE segment ADD CONSTRAINT FK_1881F5654E7AF8F FOREIGN KEY (gallery_id) REFERENCES gallery (id)');
@@ -33,8 +30,10 @@ final class Version20190920235231 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(),
-            'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf(
+            'mysql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'mysql\'.'
+        );
 
         $this->addSql('ALTER TABLE segment DROP FOREIGN KEY FK_1881F5654E7AF8F');
         $this->addSql('ALTER TABLE segment DROP FOREIGN KEY FK_1881F56593CB796C');

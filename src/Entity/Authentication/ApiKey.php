@@ -24,7 +24,7 @@ class ApiKey implements JsonSerializable
      *
      * @var User
      */
-    private $user;
+    private User $user;
 
     /**
      * @ORM\Column(type="string", name="api_key")
@@ -32,26 +32,26 @@ class ApiKey implements JsonSerializable
      *
      * @var string
      */
-    private $key;
+    private string $key;
 
     /**
      * @ORM\Column(type="datetime")
      *
      * @var DateTime
      */
-    private $validSince;
+    private DateTime $validSince;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @var string
      */
-    private $userAgent;
+    private string $userAgent;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @var string
      */
-    private $remoteAddress;
+    private string $remoteAddress;
 
     /**
      * ApiKey constructor.

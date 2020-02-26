@@ -24,13 +24,13 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 class UserService implements UserServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var UserPasswordEncoderInterface */
-    private $userPasswordEncoder;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
 
     /** @var ApiKeyToolInterface */
-    private $apiKeyTool;
+    private ApiKeyToolInterface $apiKeyTool;
 
     /**
      * UserService constructor.
@@ -76,7 +76,8 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $id
+     * @throws NoResultException
      * @throws NonUniqueResultException
      */
     public function delete(int $id): void
@@ -90,7 +91,9 @@ class UserService implements UserServiceInterface
 
     /**
      * @return bool
+     * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     private function isLastSuperAdmin(): bool
     {
@@ -185,7 +188,9 @@ class UserService implements UserServiceInterface
      *
      * @param string $keyword
      * @return int
+     * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword): int
     {
@@ -210,9 +215,10 @@ class UserService implements UserServiceInterface
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPassword()));
         }
 
-        if (UnitOfWork::STATE_NEW === $this->entityManager->getUnitOfWork()->getEntityState($user)) {
+        $state = $this->entityManager->getUnitOfWork()->getEntityState($user);
+        if (UnitOfWork::STATE_MANAGED !== $state && UnitOfWork::STATE_REMOVED !== $state) {
             if (!$this->entityManager->isOpen()) {
-                $this->entityManager = $this->entityManager->create(
+                $this->entityManager = $this->entityManager::create(
                     $this->entityManager->getConnection(),
                     $this->entityManager->getConfiguration()
                 );
@@ -236,6 +242,7 @@ class UserService implements UserServiceInterface
      * @throws UnknownDeviceException
      * @throws BadCredentialsException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     public function getUser(string $username, string $password, string $twoFactorCode, string $deviceCode): User
     {
@@ -285,7 +292,9 @@ class UserService implements UserServiceInterface
      * @param string $username
      * @param string $deviceCode
      * @return bool
+     * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws NoResultException
      */
     private function isValidDevice(string $username, string $deviceCode): bool
     {

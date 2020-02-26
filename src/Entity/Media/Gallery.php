@@ -24,31 +24,25 @@ class Gallery extends HistoryEnabledEntity
      *     cascade={"remove", "persist"}
      * )
      */
-    private $files;
+    private Collection $files;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $name;
+    private string $description;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $description;
+    private string $type;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $type;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $orientation;
+    private string $orientation;
 
     /**
      * Gallery constructor.

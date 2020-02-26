@@ -40,25 +40,25 @@ class Form extends HistoryEnabledEntity
      * @Assert\Email
      * @ORM\Column(type="string")
      */
-    private $toAddress;
+    private string $toAddress;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $title;
+    private string $title;
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    private $description;
+    private string $description;
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    private $emailTemplate = '';
+    private string $emailTemplate = '';
 
     /**
      * Form constructor.

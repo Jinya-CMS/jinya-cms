@@ -19,16 +19,16 @@ class RearrangeEvent extends CancellableEvent
     public const POST_REARRANGE = 'GalleryFilePositionPostRearrange';
 
     /** @var Gallery */
-    private $gallery;
+    private Gallery $gallery;
 
     /** @var GalleryFilePosition */
-    private $galleryFilePosition;
+    private GalleryFilePosition $galleryFilePosition;
 
     /** @var int */
-    private $oldPosition;
+    private int $oldPosition;
 
     /** @var int */
-    private $newPosition;
+    private int $newPosition;
 
     /**
      * RearrangeEvent constructor.

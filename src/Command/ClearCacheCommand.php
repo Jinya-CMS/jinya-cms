@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ClearCacheCommand extends Command
 {
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * CompileCacheCommand constructor.
@@ -46,5 +46,7 @@ class ClearCacheCommand extends Command
         $output->writeln('Clear cache for all available routes in current theme');
         $this->cacheBuilder->clearCache();
         $output->writeln('Clear cache for all routes');
+
+        return 0;
     }
 }

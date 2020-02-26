@@ -26,13 +26,13 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
     private const JINYA_API_KEY = 'JinyaApiKey';
 
     /** @var ApiKeyToolInterface */
-    private $apiKeyTool;
+    private ApiKeyToolInterface $apiKeyTool;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * ApiKeyAuthenticator constructor.

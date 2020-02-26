@@ -26,10 +26,10 @@ class FormEvent extends CancellableEvent
     public const POST_DELETE = 'FormPostDelete';
 
     /** @var Form */
-    private $form;
+    private ?Form $form;
 
     /** @var string */
-    private $slug;
+    private string $slug;
 
     /**
      * FormEvent constructor.

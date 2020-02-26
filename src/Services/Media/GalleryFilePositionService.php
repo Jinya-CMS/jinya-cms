@@ -27,16 +27,16 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
     use ArrangementServiceTrait;
 
     /** @var GalleryServiceInterface */
-    private $galleryService;
+    private GalleryServiceInterface $galleryService;
 
     /** @var FileServiceInterface */
-    private $fileService;
+    private FileServiceInterface $fileService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * ArtworkPositionService constructor.

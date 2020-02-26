@@ -14,13 +14,13 @@ use Jinya\Formatter\Theme\ThemeFormatterInterface;
 class ConfigurationFormatter implements ConfigurationFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var Configuration */
-    private $configuration;
+    private Configuration $configuration;
 
     /** @var ThemeFormatterInterface */
-    private $themeFormatter;
+    private ThemeFormatterInterface $themeFormatter;
 
     /**
      * ConfigurationFormatter constructor.

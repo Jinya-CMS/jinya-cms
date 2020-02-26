@@ -10,25 +10,19 @@ namespace Jinya\EventSubscriber\Cache;
 
 use Jinya\Framework\Events\Configuration\ConfigurationEvent;
 use Jinya\Services\Cache\CacheBuilderInterface;
-use Jinya\Services\Configuration\ConfigurationServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigurationCacheEventSubscriber implements EventSubscriberInterface
 {
-    /** @var ConfigurationServiceInterface */
-    private $configService;
-
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ThemeCacheSubscriber constructor.
-     * @param ConfigurationServiceInterface $configService
      * @param CacheBuilderInterface $cacheBuilder
      */
-    public function __construct(ConfigurationServiceInterface $configService, CacheBuilderInterface $cacheBuilder)
+    public function __construct(CacheBuilderInterface $cacheBuilder)
     {
-        $this->configService = $configService;
         $this->cacheBuilder = $cacheBuilder;
     }
 

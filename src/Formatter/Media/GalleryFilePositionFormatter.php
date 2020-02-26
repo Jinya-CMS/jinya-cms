@@ -7,16 +7,16 @@ use Jinya\Entity\Media\GalleryFilePosition;
 class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterface
 {
     /** @var GalleryFilePosition */
-    private $position;
+    private GalleryFilePosition $position;
 
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var FileFormatterInterface */
-    private $fileFormatter;
+    private FileFormatterInterface $fileFormatter;
 
     /** @var GalleryFormatterInterface */
-    private $galleryFormatter;
+    private GalleryFormatterInterface $galleryFormatter;
 
     /**
      * @param FileFormatterInterface $fileFormatter

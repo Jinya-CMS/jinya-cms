@@ -1,5 +1,5 @@
 <template>
-    <section class="jinya-app">
+    <div class="jinya-app">
         <img :src="background" class="jinya-app__background" v-if="background"/>
         <main @click="hideMenu" class="jinya-app__content">
             <div class="jinya-app__router-view">
@@ -14,7 +14,7 @@
             <jinya-menu @show-bug="showBugDialog = true" @show-feature="showFeatureDialog = true"
                         @show-like="showLikeDialog = true"/>
         </nav>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -58,7 +58,7 @@
 
 <style lang="scss" scoped>
     .jinya-app {
-        height: 100%;
+        height: calc(100vh - 4rem);
         width: 100%;
         overflow: auto;
         position: relative;
@@ -83,10 +83,12 @@
         .jinya-app__content {
             height: 100%;
             width: 100%;
+            padding-top: 1rem;
         }
 
         .jinya-app__router-view {
             padding: 0 10% 0;
+            height: 100%;
         }
     }
 </style>

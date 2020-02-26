@@ -17,10 +17,10 @@ class ThemeMenuEvent extends CancellableEvent
     public const POST_SAVE = 'ThemeMenusPostSave';
 
     /** @var string */
-    private $themeName;
+    private string $themeName;
 
     /** @var array */
-    private $menus;
+    private array $menus;
 
     /**
      * ThemeMenusEvent constructor.

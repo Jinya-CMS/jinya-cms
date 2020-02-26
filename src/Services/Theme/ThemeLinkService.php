@@ -22,34 +22,34 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class ThemeLinkService implements ThemeLinkServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @var string */
-    private $themeDir;
+    private string $themeDir;
 
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var PageServiceInterface */
-    private $pageService;
+    private PageServiceInterface $pageService;
 
     /** @var SegmentPageServiceInterface */
-    private $segmentPageService;
+    private SegmentPageServiceInterface $segmentPageService;
 
     /** @var FormServiceInterface */
-    private $formService;
+    private FormServiceInterface $formService;
 
     /** @var MenuServiceInterface */
-    private $menuService;
+    private MenuServiceInterface $menuService;
 
     /** @var GalleryServiceInterface */
-    private $galleryService;
+    private GalleryServiceInterface $galleryService;
 
     /** @var FileServiceInterface */
-    private $fileService;
+    private FileServiceInterface $fileService;
 
     /**
      * ThemeLinkService constructor.

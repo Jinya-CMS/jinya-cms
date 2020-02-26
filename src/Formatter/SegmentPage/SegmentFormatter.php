@@ -10,19 +10,19 @@ use Jinya\Formatter\Media\GalleryFormatterInterface;
 class SegmentFormatter implements SegmentFormatterInterface
 {
     /** @var array */
-    private $formatted;
+    private array $formatted;
 
     /** @var Segment */
-    private $segment;
+    private Segment $segment;
 
     /** @var GalleryFormatterInterface */
-    private $galleryFormatter;
+    private GalleryFormatterInterface $galleryFormatter;
 
     /** @var FileFormatterInterface */
-    private $fileFormatter;
+    private FileFormatterInterface $fileFormatter;
 
     /** @var FormFormatterInterface */
-    private $formFormatter;
+    private FormFormatterInterface $formFormatter;
 
     /**
      * SegmentFormatter constructor.

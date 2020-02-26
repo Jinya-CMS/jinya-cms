@@ -18,10 +18,10 @@ class MailerEvent extends CancellableEvent
     public const POST_SEND_MAIL = 'MailerPostSendMail';
 
     /** @var Form */
-    private $form;
+    private Form $form;
 
     /** @var array */
-    private $data;
+    private array $data;
 
     /**
      * MailerEvent constructor.

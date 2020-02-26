@@ -18,16 +18,16 @@ class MenuItemAddEvent extends CancellableEvent
     public const POST_ADD = 'MenuItemPostAdd';
 
     /** @var int */
-    private $parentId;
+    private int $parentId;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var MenuItem */
-    private $item;
+    private MenuItem $item;
 
     /** @var int */
-    private $position;
+    private int $position;
 
     /**
      * MenuItemGetEvent constructor.

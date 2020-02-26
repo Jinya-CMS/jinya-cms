@@ -1,7 +1,7 @@
 <template>
-    <div class="jinya-artist-overview">
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <jinya-card-list nothing-found="configuration.general.artists.overview.nothing_found" v-else>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-artist-overview" v-else>
+        <jinya-card-list nothing-found="configuration.general.artists.overview.nothing_found">
             <jinya-card :header="`${artist.artistName}`" :key="artist.email" class="jinya-artist"
                         v-for="artist in artists">
                 <img :src="artist.profilePicture" class="jinya-artist__profile-picture"/>
@@ -157,7 +157,7 @@
       mapArtists(artist) {
         const item = artist;
         item.me = artist.email === this.me.email;
-        item.deletable = !item.roles.includes('ROLE_SUPER_ADMIN')
+        item.deletable = !item.roles?.includes('ROLE_SUPER_ADMIN')
           || !item.me
           || this.artists.filter((a) => a.roles.includes('ROLE_SUPER_ADMIN')).length === 1;
 
@@ -224,7 +224,6 @@
           );
           this.artists = this.mapArtists(this.artists);
           this.disable.show = false;
-          this.delete.show = false;
         } catch (e) {
           this.disable.error = `configuration.general.artists.disable.${e.message}`;
         }

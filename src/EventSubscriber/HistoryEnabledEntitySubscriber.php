@@ -20,7 +20,7 @@ use function strtolower;
 class HistoryEnabledEntitySubscriber implements EventSubscriber
 {
     /** @var TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * HistoryEnabledEntitySubscriber constructor.

@@ -27,7 +27,7 @@ class ThemeLinkController extends BaseApiController
         ThemeFormatterInterface $themeFormatter
     ): Response {
         [$data, $status] = $this->tryExecute(static function () use ($themeName, $themeService, $themeFormatter) {
-            $theme = $themeService->getThemeOrNewTheme($themeName);
+            $theme = $themeService->getTheme($themeName);
 
             return $themeFormatter
                 ->init($theme)
@@ -74,8 +74,8 @@ class ThemeLinkController extends BaseApiController
             $segmentPages = $this->getValue('segmentPages', []);
 
             foreach ($menus as $key => $menu) {
-                if (array_key_exists('slug', $menu)) {
-                    $themeLinkService->saveMenu($key, $themeName, $menu['slug']);
+                if (array_key_exists('id', $menu)) {
+                    $themeLinkService->saveMenu($key, $themeName, $menu['id']);
                 }
             }
 

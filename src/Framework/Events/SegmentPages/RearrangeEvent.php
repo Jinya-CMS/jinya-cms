@@ -13,16 +13,16 @@ class RearrangeEvent extends CancellableEvent
     public const POST_REARRANGE = 'SegmentPostRearrange';
 
     /** @var SegmentPage */
-    private $gallery;
+    private SegmentPage $gallery;
 
     /** @var Segment */
-    private $segment;
+    private Segment $segment;
 
     /** @var int */
-    private $oldPosition;
+    private int $oldPosition;
 
     /** @var int */
-    private $newPosition;
+    private int $newPosition;
 
     /**
      * RearrangeEvent constructor.

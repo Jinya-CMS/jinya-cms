@@ -16,13 +16,13 @@ trait SlugEntity
      * @var string
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
-    private $slug;
+    private string $slug = '';
 
     /**
      * @var string
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
-    private $name;
+    private string $name = '';
 
     /**
      * @return string

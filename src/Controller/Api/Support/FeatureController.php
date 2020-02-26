@@ -12,19 +12,17 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FeatureController extends BaseApiController
 {
     /** @var string */
-    private $jinyaVersion;
+    private string $jinyaVersion;
 
     /**
      * @Route("/api/support/feature", methods={"POST"}, name="api_support_feature")
      *
-     * @param Request $request
      * @param Client $client
      * @return Response
      */
@@ -46,7 +44,7 @@ class FeatureController extends BaseApiController
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
         });
 
         return $this->json($data, $status);

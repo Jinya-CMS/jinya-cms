@@ -22,19 +22,19 @@ use RuntimeException;
 class FileUploadService implements FileUploadServiceInterface
 {
     /** @var FileServiceInterface */
-    private $fileService;
+    private FileServiceInterface $fileService;
 
     /** @var MediaServiceInterface */
-    private $mediaService;
+    private MediaServiceInterface $mediaService;
 
     /** @var string */
-    private $tmpDir;
+    private string $tmpDir;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * VideoUploadService constructor.
@@ -103,7 +103,7 @@ class FileUploadService implements FileUploadServiceInterface
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return UploadingFile
      * @throws NoResultException
      * @throws NonUniqueResultException

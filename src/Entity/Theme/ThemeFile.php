@@ -17,7 +17,7 @@ class ThemeFile
      * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $theme;
+    private Theme $theme;
 
     /**
      * @ORM\Id
@@ -25,14 +25,14 @@ class ThemeFile
      * @ORM\JoinColumn(nullable=false, name="file_id", referencedColumnName="id")
      * @var File
      */
-    private $file;
+    private File $file;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @return Theme

@@ -1,6 +1,6 @@
 <template>
-    <div class="jinya-menus">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-menus" v-else>
         <jinya-message :message="message" :state="state" v-if="!loading"/>
         <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
             <jinya-card :header="menu.name" :key="menu.id" class="jinya-card--menu" v-for="menu in menus">

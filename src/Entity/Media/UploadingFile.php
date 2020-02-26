@@ -24,13 +24,13 @@ class UploadingFile
      * @ORM\Column(type="guid")
      * @var string
      */
-    private $id;
+    private ?string $id;
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Media\File")
      * @var File
      */
-    private $file;
+    private File $file;
 
     /**
      * @ORM\OneToMany(

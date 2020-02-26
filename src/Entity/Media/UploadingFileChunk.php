@@ -22,25 +22,25 @@ class UploadingFileChunk
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = -1;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $chunkPath;
+    private string $chunkPath;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $chunkPosition;
+    private int $chunkPosition;
 
     /**
      * @var UploadingFile
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\UploadingFile", inversedBy="chunks")
      */
-    private $uploadingFile;
+    private UploadingFile $uploadingFile;
 
     /**
      * @return int

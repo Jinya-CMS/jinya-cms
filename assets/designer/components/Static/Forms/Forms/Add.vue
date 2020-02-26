@@ -1,5 +1,5 @@
 <template>
-    <jinya-form-form :enable="enable" :message="message" :state="state" @save="save"/>
+    <jinya-form-form :enable="enable" :message="message" :state="state" @back="back" @save="save"/>
 </template>
 
 <script>
@@ -22,6 +22,9 @@
       };
     },
     methods: {
+      back() {
+        this.$router.back();
+      },
       async save(form) {
         try {
           this.enable = false;

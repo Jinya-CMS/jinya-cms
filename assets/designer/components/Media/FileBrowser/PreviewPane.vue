@@ -1,5 +1,5 @@
 <template>
-    <div class="jinya-file__preview-pane">
+    <div class="jinya-file__preview-pane" v-if="file">
         <figure class="jinya-file__preview-figure">
             <figcaption class="jinya-file__preview-caption">{{file.name}}</figcaption>
             <img :alt="file.name" :src="file.path" class="jinya-file__preview-image"

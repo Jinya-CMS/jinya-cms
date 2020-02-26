@@ -17,7 +17,7 @@ class SegmentPage extends HistoryEnabledEntity
     use SlugEntity;
 
     /**
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\SegmentPage\Segment", mappedBy="page", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\SegmentPage\Segment", mappedBy="page", cascade={"persist", "remove"})
      * @var Collection
      */
     private $segments;

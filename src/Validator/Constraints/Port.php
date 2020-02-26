@@ -16,5 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class Port extends Constraint
 {
-    public $message = 'The port must be between 0 and 65535';
+    public string $message = 'The port must be between 0 and 65535';
 }

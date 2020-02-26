@@ -57,10 +57,10 @@ class CountEvent extends Event
     public const SEGMENTS_POST_COUNT = 'SegmentPostCount';
 
     /** @var string */
-    private $keyword;
+    private string $keyword;
 
     /** @var int */
-    private $count;
+    private int $count;
 
     /**
      * CountEvent constructor.

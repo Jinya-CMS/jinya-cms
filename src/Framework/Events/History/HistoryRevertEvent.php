@@ -17,19 +17,16 @@ class HistoryRevertEvent extends CancellableEvent
     public const POST_REVERT = 'HistoryPostRevert';
 
     /** @var string */
-    private $class;
+    private string $class;
 
     /** @var int */
-    private $id;
+    private int $id;
 
     /** @var string */
-    private $field;
+    private string $field;
 
     /** @var string */
-    private $timestamp;
-
-    /** @var array */
-    private $entry;
+    private string $timestamp;
 
     /**
      * HistoryRevertEvent constructor.
@@ -37,15 +34,13 @@ class HistoryRevertEvent extends CancellableEvent
      * @param int $id
      * @param string $field
      * @param string $timestamp
-     * @param array $entry
      */
-    public function __construct(string $class, int $id, string $field, string $timestamp, array $entry)
+    public function __construct(string $class, int $id, string $field, string $timestamp)
     {
         $this->class = $class;
         $this->id = $id;
         $this->field = $field;
         $this->timestamp = $timestamp;
-        $this->entry = $entry;
     }
 
     /**

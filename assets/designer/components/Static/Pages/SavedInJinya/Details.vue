@@ -1,7 +1,7 @@
 <template>
-    <div class="jinya-page">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-page" v-else>
         <jinya-message :message="message" :state="state" v-if="state"/>
-        <jinya-loader :loading="loading" v-if="loading"/>
         <div v-else v-html="page.content"></div>
         <jinya-floating-action-button :to="editLink" icon="pencil"/>
     </div>
@@ -47,16 +47,16 @@
       },
     },
     async mounted() {
-      this.enable = false;
+      this.loading = true;
       try {
         this.page = await JinyaRequest.get(`/api/page/${this.$route.params.slug}`);
-        this.enable = true;
         DOMUtils.changeTitle(this.page.title);
         EventBus.$emit(Events.header.change, this.page.title);
       } catch (error) {
         this.state = 'error';
         this.message = Translator.validator(`static.pages.${error.message}`);
       }
+      this.loading = false;
     },
   };
 </script>

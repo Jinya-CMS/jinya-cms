@@ -22,13 +22,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class MenuItemService implements MenuItemServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var MenuServiceInterface */
-    private $menuService;
+    private MenuServiceInterface $menuService;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * MenuItemService constructor.

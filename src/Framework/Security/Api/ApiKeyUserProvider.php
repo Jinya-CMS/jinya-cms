@@ -19,10 +19,10 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class ApiKeyUserProvider implements UserProviderInterface
 {
     /** @var ApiKeyToolInterface */
-    private $apiKeyTool;
+    private ApiKeyToolInterface $apiKeyTool;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * ApiKeyUserProvider constructor.

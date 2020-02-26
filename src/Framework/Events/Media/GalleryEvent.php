@@ -26,10 +26,10 @@ class GalleryEvent extends CancellableEvent
     public const POST_DELETE = 'GalleryPostDelete';
 
     /** @var Gallery */
-    private $gallery;
+    private ?Gallery $gallery;
 
     /** @var int */
-    private $id;
+    private ?int $id;
 
     /**
      * GalleryEvent constructor.

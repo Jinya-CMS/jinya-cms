@@ -25,100 +25,100 @@ class Theme
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $previewImage;
+    private string $previewImage;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      * @var array
      */
-    private $configuration = [];
+    private array $configuration = [];
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $displayName;
+    private string $displayName;
 
     /**
      * @var array
      * @ORM\Column(type="json")
      */
-    private $scssVariables;
+    private array $scssVariables;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeMenu", mappedBy="theme")
      */
-    private $menus;
+    private Collection $menus;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemePage", mappedBy="theme")
      */
-    private $pages;
+    private Collection $pages;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeGallery", mappedBy="theme")
      */
-    private $galleries;
+    private Collection $galleries;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeFile", mappedBy="theme")
      */
-    private $files;
+    private Collection $files;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeSegmentPage", mappedBy="theme")
      */
-    private $segmentPages;
+    private Collection $segmentPages;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme")
+     * @ORM\OneToMany(targetEntity="Jinya\Entity\Theme\ThemeForm", mappedBy="theme", fetch="EAGER")
      */
-    private $forms;
+    private Collection $forms;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="primary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $primaryMenu;
+    private ?Menu $primaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="secondary_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $secondaryMenu;
+    private ?Menu $secondaryMenu;
 
     /**
      * @var Menu
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu")
      * @ORM\JoinColumn(name="footer_menu_id", referencedColumnName="id", nullable=true)
      */
-    private $footerMenu;
+    private ?Menu $footerMenu;
 
     /**
      * Theme constructor.
