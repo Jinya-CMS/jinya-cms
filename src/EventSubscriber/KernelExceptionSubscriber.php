@@ -48,8 +48,8 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
     {
         if ('dev' !== getenv('APP_ENV')) {
             $request = $event->getRequest();
-            $this->logger->warning($event->getException()->getMessage());
-            $this->logger->warning($event->getException()->getTraceAsString());
+            $this->logger->warning($event->getThrowable()->getMessage());
+            $this->logger->warning($event->getThrowable()->getTraceAsString());
 
             $route = $this->router->getRouteCollection()->get($request->get('_route'));
 
