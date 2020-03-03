@@ -1,4 +1,21 @@
 # Changelog
+## Version 14.0.0
+### Bug
+
+ * [JGCMS-118](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-118) Formbuilder is broken
+
+### Feature
+
+ * [JGCMS-120](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-120) New default theme colors
+
+### Improvement
+
+ * [JGCMS-106](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-106) Update required PHP Version to 7.4
+ * [JGCMS-73](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-73) Preview for Segment Pages
+ * [JGCMS-116](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-116) Update Readme.md
+ * [JGCMS-74](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-74) Add option to insert files in page editor
+ * [JGCMS-113](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-113) Fix static analysis issues
+
 ## Version 13.0.0
 ### Removals
 Classic art was removed in Version 13.0.0. The database tables still exist.
