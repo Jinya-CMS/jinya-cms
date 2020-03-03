@@ -47,6 +47,19 @@ $details-color: $secondary !default;
 $delete-color: $negative !default;
 $blockquote-color: $primary;
 
+$breakpoint-ultra-mobile-max-width: 639px;
+
+$breakpoint-mobile-min-width: 640px;
+$breakpoint-mobile-max-width: 1199px;
+
+$breakpoint-tablet-portrait-min-width: 1200px;
+$breakpoint-tablet-portrait-max-width: 1439px;
+
+$breakpoint-tablet-landscape-min-width: 1440px;
+$breakpoint-tablet-landscape-max-width: 1919px;
+
+$breakpoint-desktop-min-width: 1920px;
+
 $body-bg: $white !default;
 $body-color: $gray-900 !default;
 
