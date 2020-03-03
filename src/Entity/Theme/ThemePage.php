@@ -17,7 +17,7 @@ class ThemePage
      * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $theme;
+    private Theme $theme;
 
     /**
      * @ORM\Id
@@ -25,14 +25,14 @@ class ThemePage
      * @ORM\JoinColumn(nullable=false, name="page_id", referencedColumnName="id")
      * @var Page
      */
-    private $page;
+    private Page $page;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @return Theme

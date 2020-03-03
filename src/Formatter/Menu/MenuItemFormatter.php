@@ -14,16 +14,16 @@ use Jinya\Formatter\Route\RouteFormatterInterface;
 class MenuItemFormatter implements MenuItemFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var MenuItem */
-    private $menuItem;
+    private MenuItem $menuItem;
 
     /** @var MenuFormatterInterface */
-    private $menuFormatter;
+    private MenuFormatterInterface $menuFormatter;
 
     /** @var RouteFormatterInterface */
-    private $routeFormatter;
+    private RouteFormatterInterface $routeFormatter;
 
     /**
      * Formats the content of the @return array

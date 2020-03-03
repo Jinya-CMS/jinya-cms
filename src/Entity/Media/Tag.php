@@ -3,6 +3,7 @@
 namespace Jinya\Entity\Media;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,19 +18,19 @@ class Tag
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $tag;
+    private string $tag;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\ManyToMany(targetEntity="Jinya\Entity\Media\File", mappedBy="tags", cascade={"persist"})
      */
-    private $files;
+    private Collection $files;
 
     /**
      * Tag constructor.

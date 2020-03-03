@@ -49,6 +49,7 @@ class FormController extends BaseApiController
                     ->slug()
                     ->title()
                     ->description()
+                    ->toAddress()
                     ->items()
                     ->format();
             }, $formService->getAll($keyword));

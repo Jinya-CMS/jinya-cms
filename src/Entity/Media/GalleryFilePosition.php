@@ -19,19 +19,19 @@ class GalleryFilePosition
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $position;
+    private int $position = -1;
 
     /**
      * @var Gallery
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Gallery", inversedBy="files")
      */
-    private $gallery;
+    private Gallery $gallery;
 
     /**
      * @var File
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File", inversedBy="galleries", cascade={"persist"})
      */
-    private $file;
+    private File $file;
 
     /**
      * @return Gallery

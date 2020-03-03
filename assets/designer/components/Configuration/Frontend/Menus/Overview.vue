@@ -1,6 +1,6 @@
 <template>
-    <div class="jinya-menus">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-menus" v-else>
         <jinya-message :message="message" :state="state" v-if="!loading"/>
         <jinya-card-list nothing-found="configuration.frontend.menus.overview.nothing_found" v-if="!loading">
             <jinya-card :header="menu.name" :key="menu.id" class="jinya-card--menu" v-for="menu in menus">
@@ -107,7 +107,7 @@
         try {
           await JinyaRequest.delete(`/api/menu/${this.selectedMenu.id}`);
           this.delete.show = false;
-          this.menus.splice(this.menus.findIndex(menu => menu.id === this.selectedMenu.id), 1);
+          this.menus.splice(this.menus.findIndex((menu) => menu.id === this.selectedMenu.id), 1);
         } catch (e) {
           this.delete.error = `configuration.general.artists.delete.${e.message}`;
         }

@@ -8,8 +8,8 @@
   become: yes
 - name: Enable EPEL repo
   ini_file:
-    dest: /etc/yum.repos.d/remi-php73.repo
-    section: remi-php73
+    dest: /etc/yum.repos.d/remi-php74.repo
+    section: remi-php74
     option: enabled
     value: 1
   become: yes

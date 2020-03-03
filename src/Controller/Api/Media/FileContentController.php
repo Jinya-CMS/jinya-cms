@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FileContentController extends BaseApiController
 {
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * @param string $kernelProjectDir

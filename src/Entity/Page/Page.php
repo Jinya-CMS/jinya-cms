@@ -24,13 +24,13 @@ class Page extends HistoryEnabledEntity
      * @ORM\Column(type="text")
      * @var string
      */
-    private $content;
+    private string $content;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * @return string

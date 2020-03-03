@@ -24,31 +24,31 @@ class KnownDevice implements JsonSerializable
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", name="device_key")
      * @var string
      */
-    private $key;
+    private string $key;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $userAgent;
+    private string $userAgent;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $remoteAddress;
+    private string $remoteAddress;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", inversedBy="knownDevices")
      * @var User
      */
-    private $user;
+    private User $user;
 
     /**
      * @return int

@@ -26,10 +26,10 @@ class SegmentPageEvent extends CancellableEvent
     public const POST_DELETE = 'SegmentPagePostDelete';
 
     /** @var SegmentPage */
-    private $segmentPage;
+    private ?SegmentPage $segmentPage;
 
     /** @var string */
-    private $slug;
+    private string $slug;
 
     /**
      * SegmentPageEvent constructor.

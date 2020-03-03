@@ -1,5 +1,6 @@
 <template>
-    <jinya-editor>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <jinya-editor v-else>
         <jinya-message :message="message" :state="state"/>
         <jinya-form :enable="!loading" @back="back" @submit="save"
                     cancel-label="configuration.frontend.themes.variables.cancel" class="jinya-form--variables"
@@ -23,10 +24,12 @@
   import EventBus from '@/framework/Events/EventBus';
   import Events from '@/framework/Events/Events';
   import Routes from '@/router/Routes';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
   export default {
     name: 'Variables',
     components: {
+      JinyaLoader,
       JinyaInput,
       JinyaForm,
       JinyaMessage,
@@ -101,16 +104,16 @@
         return this.variables[key];
       },
       mapFields(fields) {
-        return Object.keys(fields).map(key => ({
+        return Object.keys(fields).map((key) => ({
           key,
           value: fields[key],
-          label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, x => x.toUpperCase()),
+          label: key.replace(/-/g, ' ').replace(/^\$/, '').replace(/(\b[a-z](?!\s))/g, (x) => x.toUpperCase()),
         }));
       },
       search(keyword) {
         this.filteredFields = [];
         this.$forceUpdate();
-        this.filteredFields = this.fields.filter(field => field.key.indexOf(keyword) > -1);
+        this.filteredFields = this.fields.filter((field) => field.key.indexOf(keyword) > -1);
       },
     },
   };

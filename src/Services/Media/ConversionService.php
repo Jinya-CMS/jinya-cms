@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 class ConversionService implements ConversionServiceInterface
 {
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * ConversionService constructor.

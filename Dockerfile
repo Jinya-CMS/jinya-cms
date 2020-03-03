@@ -20,10 +20,10 @@ ENV APP_ENV prod
 
 RUN a2enmod rewrite
 
-ADD docker/vhost.conf /etc/apache2/sites-available/000-default.conf
-ADD docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
-ADD docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
-ADD docker/entrypoint.sh /entrypoint.sh
+COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
+COPY docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
+COPY docker/entrypoint.sh /entrypoint.sh
 COPY --chown=www-data . /var/www/jinya/
 RUN rm -rf /var/www/jinya/var/log/ /var/www/jinya/var/cache/ /var/www/jinya/config/install.lock /var/www/jinya/public/public/ /var/www/jinya/vagrant-files/
 RUN chmod +x /entrypoint.sh

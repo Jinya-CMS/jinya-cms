@@ -15,10 +15,10 @@ class FormItemGetItemEvent extends Event
     public const PRE_GET = 'FormItemPreGet';
 
     /** @var string */
-    private $formSlug;
+    private string $formSlug;
 
     /** @var int */
-    private $position;
+    private int $position;
 
     /**
      * FormItemGetItemEvent constructor.

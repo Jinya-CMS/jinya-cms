@@ -14,7 +14,7 @@
     },
     computed: {
       formattedChoices() {
-        return this.choices.map(item => ({
+        return this.choices.map((item) => ({
           value: item,
           text: item,
         }));

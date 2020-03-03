@@ -13,16 +13,16 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class MailerService implements MailerServiceInterface
 {
     /** @var MailerInterface */
-    private $mailer;
+    private MailerInterface $mailer;
 
     /** @var string */
-    private $mailerSender;
+    private string $mailerSender;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * MailerService constructor.

@@ -11,16 +11,16 @@ class SegmentPositionUpdateEvent extends CancellableEvent
     public const POST_UPDATE = 'SegmentPositionPostUpdate';
 
     /** @var string */
-    private $segmentPageSlug;
+    private string $segmentPageSlug;
 
     /** @var int */
-    private $segmentId;
+    private int $segmentId;
 
     /** @var int */
-    private $oldPosition;
+    private int $oldPosition;
 
     /** @var int */
-    private $newPosition;
+    private int $newPosition;
 
     /**
      * SegmentPositionUpdateEvent constructor.

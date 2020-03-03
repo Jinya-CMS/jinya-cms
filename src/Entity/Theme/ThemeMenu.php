@@ -17,7 +17,7 @@ class ThemeMenu
      * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $theme;
+    private Theme $theme;
 
     /**
      * @ORM\Id
@@ -25,14 +25,14 @@ class ThemeMenu
      * @ORM\JoinColumn(nullable=false, name="menu_id", referencedColumnName="id")
      * @var Menu
      */
-    private $menu;
+    private Menu $menu;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @return Theme

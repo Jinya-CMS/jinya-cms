@@ -9,7 +9,7 @@ use Twig\TwigFunction;
 class RoutingHelper extends AbstractExtension
 {
     /** @var RequestContext */
-    private $request;
+    private RequestContext $request;
 
     /**
      * RoutingHelper constructor.

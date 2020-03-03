@@ -17,16 +17,16 @@ class GalleryFilePositionUpdateEvent extends CancellableEvent
     public const POST_UPDATE = 'GalleryFilePositionPostUpdate';
 
     /** @var string */
-    private $gallerySlug;
+    private string $gallerySlug;
 
     /** @var int */
-    private $galleryFilePositionId;
+    private int $galleryFilePositionId;
 
     /** @var int */
-    private $oldPosition;
+    private int $oldPosition;
 
     /** @var int */
-    private $newPosition;
+    private int $newPosition;
 
     /**
      * GalleryFilePositionUpdateEvent constructor.

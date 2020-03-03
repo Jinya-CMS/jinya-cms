@@ -23,31 +23,31 @@ abstract class HistoryEnabledEntity implements JsonSerializable
      * @var array[]
      * @ORM\Column(type="json")
      */
-    private $history;
+    private array $history;
 
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $createdAt;
+    private ?DateTime $createdAt = null;
 
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $lastUpdatedAt;
+    private DateTime $lastUpdatedAt;
 
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
-    private $creator;
+    private User $creator;
 
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
-    private $updatedBy;
+    private ?User $updatedBy = null;
 
     /**
      * @return array[]
@@ -116,7 +116,7 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     /**
      * @return User
      */
-    public function getUpdatedBy(): User
+    public function getUpdatedBy(): ?User
     {
         return $this->updatedBy;
     }

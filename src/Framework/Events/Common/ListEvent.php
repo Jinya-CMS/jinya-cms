@@ -57,10 +57,10 @@ class ListEvent extends Event
     public const SEGMENT_PAGE_PRE_GET_ALL = 'SegmentPagePreGetAll';
 
     /** @var string */
-    private $keyword;
+    private string $keyword;
 
     /** @var array */
-    private $items;
+    private array $items;
 
     /**
      * ListEvent constructor.

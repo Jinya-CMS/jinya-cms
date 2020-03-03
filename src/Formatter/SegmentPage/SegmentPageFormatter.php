@@ -9,16 +9,16 @@ use Jinya\Formatter\User\UserFormatterInterface;
 class SegmentPageFormatter implements SegmentPageFormatterInterface
 {
     /** @var array */
-    private $formatted;
+    private array $formatted;
 
     /** @var SegmentPage */
-    private $segmentPage;
+    private SegmentPage $segmentPage;
 
     /** @var SegmentFormatterInterface */
-    private $segmentFormatter;
+    private SegmentFormatterInterface $segmentFormatter;
 
     /** @var UserFormatterInterface */
-    private $userFormatter;
+    private UserFormatterInterface $userFormatter;
 
     /**
      * SegmentPageFormatter constructor.

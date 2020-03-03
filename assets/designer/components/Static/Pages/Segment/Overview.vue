@@ -27,7 +27,6 @@
                                 label="static.pages.segment.delete.yes"
                                 slot="buttons-right"/>
         </jinya-modal>
-        <jinya-floating-action-button :is-primary="true" :to="addRoute" icon="plus" v-if="!loading"/>
     </div>
 </template>
 

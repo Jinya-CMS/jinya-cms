@@ -12,7 +12,7 @@ class SpamFilterEventSubscriber implements EventSubscriberInterface
     /**
      * @var SpamDetectorInterface
      */
-    private $spamDetector;
+    private SpamDetectorInterface $spamDetector;
 
     /**
      * SpamFilterEventSubscriber constructor.

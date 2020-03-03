@@ -63,7 +63,7 @@ class GalleryController extends BaseApiController
         GalleryServiceInterface $galleryService,
         GalleryFormatterInterface $galleryFormatter
     ): Response {
-        [$data, $statusCode] = $this->tryExecute(function () use (
+        [$data, $statusCode] = $this->tryExecute(static function () use (
             $request,
             $galleryFormatter,
             $galleryService

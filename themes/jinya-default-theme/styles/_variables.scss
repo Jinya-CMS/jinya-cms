@@ -3,7 +3,12 @@ $jinya-debug: false !default;
 $white: #fff !default;
 $black: #000 !default;
 
-$primary: #da9c8a !default;
+$primary: #504a56 !default;
+$secondary: #966554 !default;
+$positive: #146621 !default;
+$info: #182B70 !default;
+$negative: #5C0B0B !default;
+
 $primary-light: scale_color($primary, $lightness: 25%);
 $primary-lighter: scale_color($primary, $lightness: 50%);
 $primary-lightest: scale_color($primary, $lightness: 75%);
@@ -12,7 +17,6 @@ $primary-dark: scale_color($primary, $lightness: -25%);
 $primary-darker: scale_color($primary, $lightness: -50%);
 $primary-darkest: scale_color($primary, $lightness: -75%);
 
-$secondary: #8ac8da !default;
 $secondary-light: scale_color($secondary, $lightness: 25%);
 $secondary-lighter: scale_color($secondary, $lightness: 50%);
 $secondary-lightest: scale_color($secondary, $lightness: 75%);
@@ -20,9 +24,6 @@ $secondary-lightest: scale_color($secondary, $lightness: 75%);
 $secondary-dark: scale_color($secondary, $lightness: -25%);
 $secondary-darker: scale_color($secondary, $lightness: -50%);
 $secondary-darkest: scale_color($secondary, $lightness: -75%);
-
-$negative: #dc3545 !default;
-$positive: #28a745 !default;
 
 $text-color-primary: grayscale($primary-darker);
 $text-color-secondary: grayscale($secondary-darker);

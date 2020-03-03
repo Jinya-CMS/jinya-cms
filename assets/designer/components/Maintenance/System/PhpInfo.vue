@@ -1,29 +1,28 @@
 <template>
-    <div>
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <template v-else>
-            <h2>{{'maintenance.system.phpinfo.system.title'|jmessage}}</h2>
-            <jinya-input :value="system.uname" is-static label="maintenance.system.phpinfo.system.uname"/>
-            <h2>{{'maintenance.system.phpinfo.zend.title'|jmessage}}</h2>
-            <jinya-input :value="zend.version" is-static label="maintenance.system.phpinfo.zend.version"/>
-            <h2>{{'maintenance.system.phpinfo.apache.title'|jmessage}}</h2>
-            <jinya-input :value="apache.version" is-static label="maintenance.system.phpinfo.apache.version"/>
-            <h3>{{'maintenance.system.phpinfo.apache.modules'|jmessage}}</h3>
-            <ul>
-                <li :key="module" v-for="module in apache.modules">{{module}}</li>
-            </ul>
-            <h2>{{'maintenance.system.phpinfo.php.title'|jmessage}}</h2>
-            <jinya-input :value="php.version" is-static label="maintenance.system.phpinfo.php.version"/>
-            <h3>{{'maintenance.system.phpinfo.php.iniValues'|jmessage}}</h3>
-            <JinyaDefinitionList :values="php.iniValues.map(item => ({ title: item.name, value: item.value }))"
-                                 horizontal/>
-            <h3>{{'maintenance.system.phpinfo.php.extensions'|jmessage}}</h3>
-            <template v-for="extension in php.extensions">
-                <h4 :key="`${extension.name}_name`">{{extension.name}} – {{extension.version}}</h4>
-                <JinyaDefinitionList :key="`${extension.name}_ini_values`"
-                                     :values="extension.iniValues.map(item => ({ title: item.name, value: item.value }))"
-                                     horizontal/>
-            </template>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-else>
+        <h2>{{'maintenance.system.phpinfo.system.title'|jmessage}}</h2>
+        <jinya-input :value="system.uname" is-static label="maintenance.system.phpinfo.system.uname"/>
+        <h2>{{'maintenance.system.phpinfo.zend.title'|jmessage}}</h2>
+        <jinya-input :value="zend.version" is-static label="maintenance.system.phpinfo.zend.version"/>
+        <h2>{{'maintenance.system.phpinfo.apache.title'|jmessage}}</h2>
+        <jinya-input :value="apache.version" is-static label="maintenance.system.phpinfo.apache.version"/>
+        <h3>{{'maintenance.system.phpinfo.apache.modules'|jmessage}}</h3>
+        <ul>
+            <li :key="module" v-for="module in apache.modules">{{module}}</li>
+        </ul>
+        <h2>{{'maintenance.system.phpinfo.php.title'|jmessage}}</h2>
+        <jinya-input :value="php.version" is-static label="maintenance.system.phpinfo.php.version"/>
+        <h3>{{'maintenance.system.phpinfo.php.iniValues'|jmessage}}</h3>
+        <JinyaDefinitionList :values="php.iniValues.map(item => ({ title: item.name, value: item.value }))"
+                             horizontal/>
+        <h3>{{'maintenance.system.phpinfo.php.extensions'|jmessage}}</h3>
+        <template v-for="extension in php.extensions">
+            <h4 :key="`${extension.name}_name`">{{extension.name}} – {{extension.version}}</h4>
+            <JinyaDefinitionList
+                :key="`${extension.name}_ini_values`"
+                :values="extension.iniValues.map(item => ({ title: item.name, value: item.value }))"
+                horizontal/>
         </template>
     </div>
 </template>

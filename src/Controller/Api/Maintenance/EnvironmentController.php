@@ -22,7 +22,7 @@ class EnvironmentController extends BaseApiController
         $data[] = ['key' => 'APP_DEBUG', 'value' => getenv('APP_DEBUG')];
         $data[] = ['key' => 'APP_ENV', 'value' => getenv('APP_ENV')];
         $data[] = ['key' => 'APP_PROFILING', 'value' => getenv('APP_PROFILING')];
-        $data[] = ['key' => 'MAILER_URL', 'value' => $this->cleanUrl(getenv('MAILER_URL'))];
+        $data[] = ['key' => 'MAILER_URL', 'value' => $this->cleanUrl(getenv('MAILER_DSN'))];
         $data[] = ['key' => 'MAILER_SENDER', 'value' => getenv('MAILER_SENDER')];
         $data[] = ['key' => 'DATABASE_URL', 'value' => $this->cleanUrl(getenv('DATABASE_URL'))];
 
@@ -33,7 +33,10 @@ class EnvironmentController extends BaseApiController
     {
         $parts = parse_url($url);
 
-        $newUrl = $parts['scheme'] . '://';
+        $newUrl = '';
+        if (array_key_exists('scheme', $parts)) {
+            $newUrl = $parts['scheme'] . '://';
+        }
         if (array_key_exists('user', $parts)) {
             $newUrl .= $parts['user'];
             if (array_key_exists('pass', $parts)) {
@@ -41,7 +44,10 @@ class EnvironmentController extends BaseApiController
             }
             $newUrl .= '@';
         }
-        $newUrl .= $parts['host'];
+
+        if (array_key_exists('host', $parts)) {
+            $newUrl .= $parts['host'];
+        }
 
         if (array_key_exists('port', $parts)) {
             $newUrl .= ':' . $parts['port'];

@@ -16,19 +16,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RedirectMailsEventSubscriber implements EventSubscriberInterface
 {
     /** @var ConfigurationServiceInterface */
-    private $configService;
+    private ConfigurationServiceInterface $configService;
 
     /** @var SpamDetectorInterface */
-    private $spamDetector;
+    private SpamDetectorInterface $spamDetector;
 
     /** @var MessageServiceInterface */
-    private $messageService;
+    private MessageServiceInterface $messageService;
 
     /** @var MailerServiceInterface */
-    private $mailerService;
+    private MailerServiceInterface $mailerService;
 
     /** @var SlugServiceInterface */
-    private $slugService;
+    private SlugServiceInterface $slugService;
 
     /**
      * RedirectMailsEventSubscriber constructor.

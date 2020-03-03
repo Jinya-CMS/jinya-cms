@@ -20,21 +20,15 @@
     props: {
       type: {
         type: String,
-        validate(input) {
+        validator(input) {
           return ['details', 'edit', 'delete'].includes(input.toString().toLowerCase());
         },
       },
       icon: {
         type: String,
-        validate(input) {
-          return this.text || input;
-        },
       },
       text: {
         type: String,
-        validate(input) {
-          return this.icon || input;
-        },
       },
       tooltip: {
         type: String,

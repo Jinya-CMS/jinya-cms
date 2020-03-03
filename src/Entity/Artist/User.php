@@ -32,27 +32,27 @@ class User implements JsonSerializable, UserInterface
      * @var string
      * @ORM\Column(type="string", unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private bool $enabled;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private $twoFactorToken;
+    private ?string $twoFactorToken = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
      *
      * @var Collection
      */
-    private $knownDevices;
+    private Collection $knownDevices;
 
     /**
      * Encrypted password. Must be persisted.
@@ -60,20 +60,20 @@ class User implements JsonSerializable, UserInterface
      * @var string
      * @ORM\Column(type="text")
      */
-    private $password;
+    private string $password;
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
      * @var string
      */
-    private $plainPassword;
+    private string $plainPassword;
 
     /**
      * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $lastLogin;
+    private ?DateTime $lastLogin;
 
     /**
      * Random string sent to the user email address in order to verify it.
@@ -81,19 +81,19 @@ class User implements JsonSerializable, UserInterface
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private $confirmationToken;
+    private ?string $confirmationToken;
 
     /**
      * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $passwordRequestedAt;
+    private ?DateTime $passwordRequestedAt;
 
     /**
      * @var array
      * @ORM\Column(type="array")
      */
-    private $roles;
+    private ?array $roles = [];
 
     /**
      * @ORM\Id
@@ -102,35 +102,35 @@ class User implements JsonSerializable, UserInterface
      *
      * @var int
      */
-    private $id;
+    private ?int $id = -1;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    private $artistName;
+    private string $artistName;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private $profilePicture;
+    private ?string $profilePicture = '';
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Page\Page", mappedBy="creator")
@@ -144,14 +144,14 @@ class User implements JsonSerializable, UserInterface
      *
      * @var Collection
      */
-    private $createdForms;
+    private Collection $createdForms;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    private $aboutMe;
+    private ?string $aboutMe;
 
     /**
      * User constructor.
@@ -159,7 +159,6 @@ class User implements JsonSerializable, UserInterface
     public function __construct()
     {
         $this->enabled = false;
-        $this->roles = [];
         $this->createdForms = new ArrayCollection();
         $this->createdPages = new ArrayCollection();
         $this->knownDevices = new ArrayCollection();
@@ -356,9 +355,13 @@ class User implements JsonSerializable, UserInterface
     /**
      * @return array
      */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        return $this->roles;
+        if ($this->roles) {
+            return $this->roles;
+        }
+
+        return [];
     }
 
     /**

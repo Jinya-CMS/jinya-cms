@@ -1,5 +1,5 @@
 <template>
-    <section class="jinya-app">
+    <div class="jinya-app">
         <img :src="background" class="jinya-app__background" v-if="background"/>
         <main @click="hideMenu" class="jinya-app__content">
             <div class="jinya-app__router-view">
@@ -9,13 +9,12 @@
         <jinya-bug-dialog :show="showBugDialog" @close="showBugDialog = false" v-if="showBugDialog"/>
         <jinya-feature-dialog :show="showFeatureDialog" @close="showFeatureDialog = false" v-if="showFeatureDialog"/>
         <jinya-like-dialog :show="showLikeDialog" @close="showLikeDialog = false" v-if="showLikeDialog"/>
-        <jinya-video-uploader/>
         <!-- Dirty hack, otherwise the stacking context breaks, z-index doesn't help... -->
         <nav class="jinya-app__navigation" v-if="$route.name !== loginRoute.name">
             <jinya-menu @show-bug="showBugDialog = true" @show-feature="showFeatureDialog = true"
                         @show-like="showLikeDialog = true"/>
         </nav>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -26,11 +25,9 @@
   import JinyaBugDialog from '@/components/Support/BugDialog';
   import JinyaFeatureDialog from '@/components/Support/FeatureDialog';
   import JinyaLikeDialog from '@/components/Support/LikeDialog';
-  import JinyaVideoUploader from '@/components/Background/VideoUploader';
 
   export default {
     components: {
-      JinyaVideoUploader,
       JinyaLikeDialog,
       JinyaFeatureDialog,
       JinyaBugDialog,
@@ -61,7 +58,7 @@
 
 <style lang="scss" scoped>
     .jinya-app {
-        height: 100%;
+        height: calc(100vh - 4rem);
         width: 100%;
         overflow: auto;
         position: relative;
@@ -86,10 +83,12 @@
         .jinya-app__content {
             height: 100%;
             width: 100%;
+            padding-top: 1rem;
         }
 
         .jinya-app__router-view {
             padding: 0 10% 0;
+            height: 100%;
         }
     }
 </style>

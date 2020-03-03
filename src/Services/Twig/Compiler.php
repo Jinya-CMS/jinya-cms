@@ -29,22 +29,22 @@ use Underscore\Types\Strings;
 class Compiler implements CompilerInterface
 {
     /** @var ConfigurationServiceInterface */
-    private $configurationService;
+    private ConfigurationServiceInterface $configurationService;
 
     /** @var ThemeCompilerServiceInterface */
-    private $themeCompilerService;
+    private ThemeCompilerServiceInterface $themeCompilerService;
 
     /** @var ThemeConfigServiceInterface */
-    private $themeConfigService;
+    private ThemeConfigServiceInterface $themeConfigService;
 
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var ThemeLinkServiceInterface */
-    private $themeLinkService;
+    private ThemeLinkServiceInterface $themeLinkService;
 
     /** @var Environment */
-    private $twig;
+    private Environment $twig;
 
     /**
      * Compiler constructor.

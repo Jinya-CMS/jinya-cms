@@ -1,5 +1,6 @@
 <template>
-    <div class="jinya-theme-configuration">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-theme-configuration" v-else>
         <jinya-message :message="message" :state="state"/>
         <jinya-form :enable="!loading" @back="back" @submit="save"
                     cancel-label="configuration.frontend.themes.configuration.cancel"
@@ -16,14 +17,15 @@
 
                         <jinya-fieldset :key="`${tab.name}.${group.name}`" :legend="group.title"
                                         v-for="group in tab.groups">
-                            <jinya-theme-configuration-field :enable="!loading"
-                                                             :key="`${tab.name}.${group.name}.${field.name}`"
-                                                             :label="field.label"
-                                                             :name="`${tab.name}.${group.name}.${field.name}`"
-                                                             :type="field.type"
-                                                             :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
-                                                             @changed="changed"
-                                                             v-for="field in group.fields"/>
+                            <jinya-theme-configuration-field
+                                :enable="!loading"
+                                :key="`${tab.name}.${group.name}.${field.name}`"
+                                :label="field.label"
+                                :name="`${tab.name}.${group.name}.${field.name}`"
+                                :type="field.type"
+                                :value="getValue(`${tab.name}.${group.name}.${field.name}`)"
+                                @changed="changed"
+                                v-for="field in group.fields"/>
                         </jinya-fieldset>
                     </jinya-tab>
                 </template>
@@ -38,10 +40,6 @@
   import Events from '@/framework/Events/Events';
   import EventBus from '@/framework/Events/EventBus';
   import DOMUtils from '@/framework/Utils/DOMUtils';
-  import JinyaInput from '@/framework/Markup/Form/Input';
-  import JinyaChoice from '@/framework/Markup/Form/Choice';
-  import JinyaFileInput from '@/framework/Markup/Form/FileInput';
-  import JinyaCheckbox from '@/framework/Markup/Form/Checkbox';
   import JinyaFieldset from '@/framework/Markup/Form/Fieldset';
   import ObjectUtils from '@/framework/Utils/ObjectUtils';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
@@ -52,19 +50,17 @@
   import ArrayUtils from '@/framework/Utils/ArrayUtils';
   import JinyaTab from '@/framework/Markup/Tab/Tab';
   import JinyaTabContainer from '@/framework/Markup/Tab/TabContainer';
+  import JinyaLoader from '@/framework/Markup/Waiting/Loader';
 
   export default {
     name: 'Configuration',
     components: {
+      JinyaLoader,
       JinyaTabContainer,
       JinyaTab,
       JinyaThemeConfigurationField,
       JinyaMessage,
       JinyaFieldset,
-      JinyaCheckbox,
-      JinyaFileInput,
-      JinyaChoice,
-      JinyaInput,
       JinyaForm,
     },
     data() {
@@ -79,6 +75,7 @@
         state: '',
         files: {},
         selected: '',
+        loading: true,
       };
     },
     methods: {
@@ -117,7 +114,7 @@
         }
         this.loading = false;
 
-        this.$router.push(Routes.Configuration.Frontend.Theme.Overview);
+        this.$router.push(Routes.Configuration.Frontend.Theme.Overview.name);
       },
       getValue(key) {
         return ObjectUtils.valueByKeypath(this.theme.config, key, '');

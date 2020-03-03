@@ -10,7 +10,6 @@ namespace Jinya\Controller;
 
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Jinya\Components\Database\DatabaseMigratorInterface;
 use Jinya\Services\Theme\ThemeCompilerServiceInterface;
@@ -28,28 +27,28 @@ use ZipArchive;
 class UpdateController extends AbstractController
 {
     /** @var string */
-    private $currentVersion;
+    private string $currentVersion;
 
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var Client */
-    private $client;
+    private Client $client;
 
     /** @var CacheClearerInterface */
-    private $cacheClearer;
+    private CacheClearerInterface $cacheClearer;
 
     /** @var ThemeSyncServiceInterface */
-    private $themeSyncService;
+    private ThemeSyncServiceInterface $themeSyncService;
 
     /** @var ThemeCompilerServiceInterface */
-    private $themeCompilerService;
+    private ThemeCompilerServiceInterface $themeCompilerService;
 
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var DatabaseMigratorInterface */
-    private $databaseMigrator;
+    private DatabaseMigratorInterface $databaseMigrator;
 
     /**
      * UpdateController constructor.
@@ -105,7 +104,7 @@ class UpdateController extends AbstractController
 
             $response = $this->client->request('GET', 'https://files.jinya.de/stable.json');
             if (Response::HTTP_OK === $response->getStatusCode()) {
-                $jsonData = json_decode($response->getBody()->getContents(), true);
+                $jsonData = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
                 $cmsData = $jsonData['cms'];
                 $versions = [];
                 foreach ($cmsData as $version => $path) {
@@ -131,7 +130,7 @@ class UpdateController extends AbstractController
                 'currentVersion' => $this->currentVersion,
                 'not_found' => true,
             ]);
-        } catch (GuzzleException | Exception $e) {
+        } catch (Exception $e) {
             return $this->render('@Jinya/Updater/Default/index.html.twig', [
                 'currentVersion' => $this->currentVersion,
                 'exception' => $e,

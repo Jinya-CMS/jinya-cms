@@ -18,61 +18,61 @@ class Message
      * @var Form
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form", inversedBy="messages")
      */
-    private $form;
+    private Form $form;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $subject;
+    private string $subject;
 
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
      */
-    private $content;
+    private string $content;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $fromAddress;
+    private string $fromAddress;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $spam = false;
+    private bool $spam = false;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $targetAddress;
+    private string $targetAddress;
 
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $sendAt;
+    private DateTime $sendAt;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $isArchived = false;
+    private bool $isArchived = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $isDeleted = false;
+    private bool $isDeleted = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean", nullable=false)
      */
-    private $isRead = false;
+    private bool $isRead = false;
 
     public function __construct()
     {

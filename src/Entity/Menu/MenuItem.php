@@ -23,56 +23,56 @@ class MenuItem implements JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\Menu", inversedBy="menuItems", cascade={"persist"})
      * @var Menu
      */
-    private $menu;
+    private ?Menu $menu;
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
      * @var RoutingEntry
      */
-    private $route;
+    private RoutingEntry $route;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * @var MenuItem
      */
-    private $parent;
+    private ?MenuItem $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
      * @var Collection
      */
-    private $children;
+    private Collection $children;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $pageType;
+    private string $pageType;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $highlighted = false;
+    private bool $highlighted = false;
 
     /**
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $position;
+    private int $position;
 
     /**
      * MenuItem constructor.

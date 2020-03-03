@@ -15,13 +15,13 @@ use Twig\TwigFunction;
 class ActiveMenuItemCheck extends Extension\AbstractExtension
 {
     /** @var RequestContext */
-    private $requestContext;
+    private RequestContext $requestContext;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * ActiveMenuItemCheck constructor.

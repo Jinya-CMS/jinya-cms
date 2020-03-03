@@ -12,11 +12,16 @@
                 <jinya-editor-preview-image :src="artist.profilePicture"/>
             </jinya-editor-pane>
             <jinya-editor-pane>
-                <jinya-input :enable="enable" :is-static="isStatic" :required="true"
-                             :validation-message="'configuration.general.artists.artist_form.artist_name.empty'|jvalidator"
-                             label="configuration.general.artists.artist_form.artist_name"
-                             v-model="artist.artistName"/>
-                <jinya-input :enable="enable" :is-static="isStatic" :required="true"
+                <jinya-input
+                    :enable="enable"
+                    :is-static="isStatic"
+                    :required="true"
+                    :validation-message="'configuration.general.artists.artist_form.artist_name.empty'|jvalidator"
+                    label="configuration.general.artists.artist_form.artist_name"
+                    v-model="artist.artistName"/>
+                <jinya-input :enable="enable"
+                             :is-static="isStatic"
+                             :required="true"
                              :validation-message="emailValidationMessage|jvalidator"
                              @invalid="emailTypeMismatch = $event.typeMismatch"
                              label="configuration.general.artists.artist_form.email"
@@ -177,7 +182,7 @@
           artistName: this.artist.artistName,
           email: this.artist.email,
           enabled: this.artist.enabled.value,
-          roles: this.artist.roles.map(role => role.value),
+          roles: this.artist.roles.map((role) => role.value),
         };
 
         if (this.showPassword) {
@@ -189,15 +194,15 @@
       enableChanged(choice) {
         const value = choice.value === 'true';
 
-        [this.artist.enabled] = this.activationOptions.filter(option => option.value === value);
+        [this.artist.enabled] = this.activationOptions.filter((option) => option.value === value);
       },
       rolesChanged(choice) {
-        const idx = this.artist.roles.findIndex(role => role.value === choice.value);
+        const idx = this.artist.roles.findIndex((role) => role.value === choice.value);
 
         if (idx > -1) {
           this.artist.roles.splice(idx, 1);
         } else {
-          this.artist.roles.push(this.rolesOptions.filter(role => role.value === choice.value)[0]);
+          this.artist.roles.push(this.rolesOptions.filter((role) => role.value === choice.value)[0]);
         }
       },
       back() {

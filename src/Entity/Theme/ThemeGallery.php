@@ -17,7 +17,7 @@ class ThemeGallery
      * @ORM\JoinColumn(nullable=false, name="theme_id", referencedColumnName="id")
      * @var Theme
      */
-    private $theme;
+    private Theme $theme;
 
     /**
      * @ORM\Id
@@ -25,14 +25,14 @@ class ThemeGallery
      * @ORM\JoinColumn(nullable=false, name="gallery_id", referencedColumnName="id")
      * @var Gallery
      */
-    private $gallery;
+    private Gallery $gallery;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @return Theme

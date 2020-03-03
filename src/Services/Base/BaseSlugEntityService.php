@@ -19,7 +19,7 @@ use Jinya\Services\Slug\SlugServiceInterface;
 class BaseSlugEntityService extends BaseService
 {
     /** @var SlugServiceInterface */
-    protected $slugService;
+    protected SlugServiceInterface $slugService;
 
     /**
      * BaseSlugEntityService constructor.

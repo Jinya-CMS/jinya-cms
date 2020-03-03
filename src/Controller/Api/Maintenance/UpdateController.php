@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UpdateController extends BaseApiController
 {
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /**
      * @Route("/api/maintenance/update", methods={"POST"}, name="api_maintenance_update")

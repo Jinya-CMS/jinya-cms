@@ -16,13 +16,13 @@ trait BaseArtEntity
      * @var string
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private string $description;
 
     /**
      * @return string

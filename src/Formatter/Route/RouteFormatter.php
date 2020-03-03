@@ -14,13 +14,13 @@ use Jinya\Formatter\Menu\MenuItemFormatterInterface;
 class RouteFormatter implements RouteFormatterInterface
 {
     /** @var MenuItemFormatterInterface */
-    private $menuItemFormatter;
+    private MenuItemFormatterInterface $menuItemFormatter;
 
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var RoutingEntry */
-    private $route;
+    private RoutingEntry $route;
 
     /**
      * @param MenuItemFormatterInterface $menuItemFormatter

@@ -27,22 +27,22 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 abstract class BaseController
 {
     /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /** @var HttpKernelInterface */
-    private $kernel;
+    private HttpKernelInterface $kernel;
 
     /** @var AuthorizationCheckerInterface */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /** @var TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
     /** @var CompilerInterface */
-    private $compiler;
+    private CompilerInterface $compiler;
 
     /**
      * BaseController constructor.
@@ -132,7 +132,10 @@ abstract class BaseController
      */
     final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
-        return new JsonResponse($data, $status);
+        $response = new JsonResponse($data, $status);
+        $response->setEncodingOptions(0);
+
+        return $response;
     }
 
     /**

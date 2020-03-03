@@ -27,15 +27,15 @@ class FormItemService implements FormItemServiceInterface
     use ArrangementServiceTrait;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var FormServiceInterface */
-    private $formService;
+    private FormServiceInterface $formService;
 
     /** @noinspection PhpUndefinedClassInspection */
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
     /** @noinspection PhpUndefinedClassInspection */

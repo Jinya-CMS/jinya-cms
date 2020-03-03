@@ -19,10 +19,10 @@ use Underscore\Types\Strings;
 class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
 {
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /**
      * RedirectToUpdaterEventSubscriber constructor.

@@ -26,10 +26,10 @@ class FileEvent extends CancellableEvent
     public const POST_DELETE = 'FilePostDelete';
 
     /** @var File */
-    private $file;
+    private ?File $file;
 
     /** @var int */
-    private $id;
+    private ?int $id;
 
     /**
      * FileEvent constructor.

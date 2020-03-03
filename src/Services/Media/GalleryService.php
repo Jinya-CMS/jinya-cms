@@ -4,6 +4,7 @@ namespace Jinya\Services\Media;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Media\Gallery;
 use Jinya\Exceptions\EmptySlugException;
@@ -16,16 +17,16 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class GalleryService implements GalleryServiceInterface
 {
     /** @var BaseService */
-    private $baseService;
+    private BaseService $baseService;
 
     /** @var BaseSlugEntityService */
-    private $baseSlugEntityService;
+    private BaseSlugEntityService $baseSlugEntityService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * GalleryService constructor.
@@ -96,6 +97,8 @@ class GalleryService implements GalleryServiceInterface
      * @param string $tag
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = '', string $tag = ''): int
     {

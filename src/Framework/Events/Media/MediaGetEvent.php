@@ -18,7 +18,7 @@ class MediaGetEvent extends Event
     public const POST_GET = 'MediaPostGet';
 
     /** @var string */
-    private $path;
+    private string $path;
 
     /** @var string|SplFileInfo */
     private $result;

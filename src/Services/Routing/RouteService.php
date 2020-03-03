@@ -16,7 +16,7 @@ class RouteService implements RouteServiceInterface
     /**
      * @var EntityManagerInterface
      */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * RouteService constructor.

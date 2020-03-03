@@ -4,6 +4,7 @@ namespace Jinya\Services\Media;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Jinya\Entity\Media\File;
 use Jinya\Framework\Events\Media\FileEvent;
@@ -13,13 +14,13 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class FileService implements FileServiceInterface
 {
     /** @var BaseService */
-    private $baseService;
+    private BaseService $baseService;
 
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * FileService constructor.
@@ -101,6 +102,8 @@ class FileService implements FileServiceInterface
      * @param string $type
      * @return int
      * @throws NonUniqueResultException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public function countAll(string $keyword = '', string $tag = '', string $type = ''): int
     {

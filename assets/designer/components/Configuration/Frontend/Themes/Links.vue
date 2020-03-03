@@ -82,7 +82,6 @@
         loading: false,
         structure: {},
         links: {},
-        artworks: [],
         pages: [],
         files: [],
         galleries: [],
@@ -103,16 +102,7 @@
         const linksPromise = JinyaRequest
           .get(`/api/theme/${this.$route.params.name}/links`)
           .then((links) => {
-            const keys = Object.keys(links);
-            // eslint-disable-next-line no-restricted-syntax,guard-for-in
-            for (const idx in Object.keys(links)) {
-              const key = keys[idx];
-              if (isArray(links[key])) {
-                this.links[key] = {};
-              } else {
-                this.links[key] = links[key];
-              }
-            }
+            this.links = links;
           });
         const pagePromise = JinyaRequest
           .get('/api/page')

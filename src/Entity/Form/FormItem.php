@@ -27,54 +27,54 @@ class FormItem extends HistoryEnabledEntity
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    private int $id = -1;
 
     /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      * @var array
      */
-    private $options;
+    private array $options = [];
 
     /**
      * @var array
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
-    private $spamFilter;
+    private ?array $spamFilter = null;
 
     /**
      * @ORM\Column(type="string", nullable=false)
      * @var string
      */
-    private $label;
+    private string $label;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $helpText;
+    private string $helpText;
 
     /**
      * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form\Form", cascade={"persist"})
      * @var Form
      */
-    private $form;
+    private Form $form;
 
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $position;
+    private int $position;
 
     /**
      * @return array
      */
-    public function getSpamFilter(): array
+    public function getSpamFilter(): ?array
     {
         return $this->spamFilter;
     }

@@ -25,16 +25,12 @@
   import JinyaInput from '@/framework/Markup/Form/Input';
   import JinyaTinyMce from '@/framework/Markup/Form/TinyMce';
   import Routes from '@/router/Routes';
-  import JinyaButton from '@/framework/Markup/Button';
-  import JinyaMessageActionBar from '@/framework/Markup/Validation/MessageActionBar';
   import JinyaMessage from '@/framework/Markup/Validation/Message';
 
   export default {
     name: 'jinya-form-form',
     components: {
       JinyaMessage,
-      JinyaMessageActionBar,
-      JinyaButton,
       JinyaTinyMce,
       JinyaInput,
       JinyaEditor,

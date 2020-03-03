@@ -1,8 +1,8 @@
 <template>
-    <div class="jinya-theme">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-theme" v-else>
         <jinya-message :message="message" :state="state" v-if="state"></jinya-message>
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <jinya-card-list nothing-found="impossible" v-else>
+        <jinya-card-list nothing-found="impossible">
             <jinya-card :header="theme.displayName" :key="theme.name" class="jinya-card__item--theme"
                         v-for="theme in themes">
                 <img :src="theme.previewImage" class="jinya-theme__preview-image"/>

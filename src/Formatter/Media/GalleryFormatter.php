@@ -9,16 +9,16 @@ use Jinya\Formatter\User\UserFormatterInterface;
 class GalleryFormatter implements GalleryFormatterInterface
 {
     /** @var array */
-    private $formattedData;
+    private array $formattedData;
 
     /** @var GalleryFilePositionFormatterInterface */
-    private $galleryFilePositionFormatter;
+    private GalleryFilePositionFormatterInterface $galleryFilePositionFormatter;
 
     /** @var UserFormatterInterface */
-    private $userFormatter;
+    private UserFormatterInterface $userFormatter;
 
     /** @var Gallery */
-    private $gallery;
+    private Gallery $gallery;
 
     /**
      * GalleryFormatter constructor.

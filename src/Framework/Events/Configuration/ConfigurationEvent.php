@@ -22,7 +22,7 @@ class ConfigurationEvent extends CancellableEvent
     public const POST_WRITE = 'ConfigurationPostWrite';
 
     /** @var ?Configuration */
-    private $config;
+    private ?Configuration $config;
 
     /**
      * ConfigurationEvent constructor.

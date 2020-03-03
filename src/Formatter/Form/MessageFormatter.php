@@ -7,13 +7,13 @@ use Jinya\Entity\Form\Message;
 class MessageFormatter implements MessageFormatterInterface
 {
     /** @var array */
-    private $formatted;
+    private array $formatted;
 
     /** @var Message */
-    private $message;
+    private Message $message;
 
     /** @var FormFormatterInterface */
-    private $formFormatter;
+    private FormFormatterInterface $formFormatter;
 
     /**
      * MessageFormatter constructor.

@@ -26,10 +26,10 @@ class PageEvent extends CancellableEvent
     public const POST_DELETE = 'PagePostDelete';
 
     /** @var Page */
-    private $page;
+    private ?Page $page;
 
     /** @var string */
-    private $slug;
+    private string $slug;
 
     /**
      * PageEvent constructor.

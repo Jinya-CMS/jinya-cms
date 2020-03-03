@@ -18,10 +18,10 @@ class FormItemGetItemsEvent extends Event
     public const POST_GET_ITEMS = 'FormItemsPostGetItems';
 
     /** @var string */
-    private $formSlug;
+    private string $formSlug;
 
     /** @var FormItem[] */
-    private $items;
+    private array $items;
 
     /**
      * FormItemGetItemsEvent constructor.

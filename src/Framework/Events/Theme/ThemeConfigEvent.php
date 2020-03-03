@@ -21,13 +21,13 @@ class ThemeConfigEvent extends CancellableEvent
     public const POST_RESET = 'ThemeConfigPostReset';
 
     /** @var string */
-    private $themeName;
+    private string $themeName;
 
     /** @var array */
-    private $config;
+    private array $config;
 
     /** @var bool */
-    private $override;
+    private bool $override;
 
     /**
      * ThemeConfigEvent constructor.

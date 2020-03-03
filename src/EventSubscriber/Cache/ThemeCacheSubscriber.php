@@ -19,10 +19,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ThemeCacheSubscriber implements EventSubscriberInterface
 {
     /** @var ConfigurationServiceInterface */
-    private $configService;
+    private ConfigurationServiceInterface $configService;
 
     /** @var CacheBuilderInterface */
-    private $cacheBuilder;
+    private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ThemeCacheSubscriber constructor.

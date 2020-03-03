@@ -4,6 +4,7 @@ namespace Jinya\Services\PhpInfo;
 
 use Jinya\Components\PhpInfo\IniValue;
 use Jinya\Components\PhpInfo\PhpExtension;
+use Throwable;
 
 class PhpInfoService implements PhpInfoServiceInterface
 {
@@ -26,7 +27,7 @@ class PhpInfoService implements PhpInfoServiceInterface
         foreach ($loadedExtensions as $extensionName) {
             try {
                 $iniValues = ini_get_all($extensionName);
-            } catch (\Throwable $exception) {
+            } catch (Throwable $exception) {
                 $iniValues = [];
             }
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="jinya-form-builder">
-        <jinya-loader :loading="loading"/>
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div class="jinya-form-builder" v-else>
         <jinya-editor v-if="!loading">
             <jinya-form @back="back" @submit="saveChanges"
                         button-bar-padding-right="0.5rem" cancel-label="static.forms.forms.builder.cancel"
@@ -8,9 +8,7 @@
                         save-label="static.forms.forms.builder.save">
                 <draggable :aria-label="'static.forms.forms.builder.delete'|jmessage"
                            :data-message="'static.forms.forms.builder.delete'|jmessage" :options="destinationOptions"
-                           @add="deleteItem"
-                           class="jinya-form-builder__trash"
-                           v-show="drag">
+                           @add="deleteItem" class="jinya-form-builder__trash" v-show="drag">
                 </draggable>
                 <jinya-message :message="message" :state="state"/>
                 <jinya-editor-pane>
@@ -211,6 +209,7 @@
           {
             type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
             label: Translator.message('static.forms.forms.builder.default_label.text_type'),
+            spamFilter: [],
             options: {
               required: false,
             },
@@ -240,6 +239,7 @@
           {
             type: 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
             label: Translator.message('static.forms.forms.builder.default_label.textarea_type'),
+            spamFilter: [],
             options: {
               required: false,
             },
@@ -285,6 +285,7 @@
         &:empty {
             background: $primary-lighter;
             position: relative;
+            height: 4rem;
 
             &::before {
                 //noinspection CssNoGenericFontName

@@ -25,32 +25,32 @@ class RoutingEntry implements JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $url;
+    private string $url;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $routeName;
+    private string $routeName = '';
 
     /**
      * @var array
      * @ORM\Column(type="object")
      */
-    private $routeParameter;
+    private array $routeParameter = [];
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="route")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @var MenuItem
      */
-    private $menuItem;
+    private MenuItem $menuItem;
 
     /**
      * Creates a RoutingEntry from the given array

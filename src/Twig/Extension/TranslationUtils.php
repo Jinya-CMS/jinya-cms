@@ -10,10 +10,10 @@ use Twig\TwigFunction;
 class TranslationUtils extends AbstractExtension
 {
     /** @var string */
-    private $kernelProjectDir;
+    private string $kernelProjectDir;
 
     /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * TranslationUtils constructor.

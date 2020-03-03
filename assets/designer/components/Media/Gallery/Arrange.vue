@@ -1,34 +1,32 @@
 <template>
-    <div :class="{'is--loading': loading}" class="jinya-gallery__designer">
-        <jinya-loader :loading="loading" v-if="loading"/>
-        <template v-else>
-            <h1 class="jinya-gallery-designer__name">{{gallery.name}}</h1>
-            <aside class="jinya-gallery-designer__files">
-                <draggable :sort="false" @change="changeFile" class="jinya-gallery-designer__files-list" group="gallery"
-                           v-model="files">
-                    <div :key="`file-${file.file.id}`" class="jinya-gallery-designer__file" v-for="file in files">
-                        <span class="jinya-gallery-designer__file-header">{{file.file.name}}</span>
-                        <img :alt="file.file.name" :src="file.file.path"
-                             class="jinya-gallery-designer__file-image" v-if="file.file.type.startsWith('image')">
-                    </div>
-                </draggable>
-            </aside>
-            <section class="jinya-gallery-designer__positions">
-                <draggable @change="changePosition" class="jinya-gallery-designer__positions-list" group="gallery"
-                           v-model="gallery.files">
-                    <div :key="`position-${filePosition.id}`" class="jinya-gallery-designer__position"
-                         v-for="filePosition in gallery.files">
+    <jinya-loader :loading="loading" v-if="loading"/>
+    <div v-else class="jinya-gallery__designer">
+        <h1 class="jinya-gallery-designer__name">{{gallery.name}}</h1>
+        <aside class="jinya-gallery-designer__files">
+            <draggable :sort="false" @change="changeFile" class="jinya-gallery-designer__files-list" group="gallery"
+                       v-model="files">
+                <div :key="`file-${file.file.id}`" class="jinya-gallery-designer__file" v-for="file in files">
+                    <span class="jinya-gallery-designer__file-header">{{file.file.name}}</span>
+                    <img :alt="file.file.name" :src="file.file.path"
+                         class="jinya-gallery-designer__file-image" v-if="file.file.type.startsWith('image')">
+                </div>
+            </draggable>
+        </aside>
+        <section class="jinya-gallery-designer__positions">
+            <draggable @change="changePosition" class="jinya-gallery-designer__positions-list" group="gallery"
+                       v-model="gallery.files">
+                <div :key="`position-${filePosition.id}`" class="jinya-gallery-designer__position"
+                     v-for="filePosition in gallery.files">
                         <span class="jinya-gallery-designer__position-header">
                             {{filePosition.file ? filePosition.file.name : ''}}
                         </span>
-                        <img :alt="filePosition.file ? filePosition.file.name : ''"
-                             :src="filePosition.file ? filePosition.file.path : ''"
-                             class="jinya-gallery-designer__position-image"
-                             v-if="filePosition.file ? filePosition.file.type.startsWith('image') : ''">
-                    </div>
-                </draggable>
-            </section>
-        </template>
+                    <img :alt="filePosition.file ? filePosition.file.name : ''"
+                         :src="filePosition.file ? filePosition.file.path : ''"
+                         class="jinya-gallery-designer__position-image"
+                         v-if="filePosition.file ? filePosition.file.type.startsWith('image') : ''">
+                </div>
+            </draggable>
+        </section>
     </div>
 </template>
 
@@ -111,10 +109,6 @@
         grid-template-rows: 3rem auto;
         padding-top: 3rem;
         height: 100%;
-
-        &.is--loading {
-            display: block;
-        }
     }
 
     .jinya-gallery-designer__name {

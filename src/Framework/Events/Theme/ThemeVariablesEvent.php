@@ -21,10 +21,10 @@ class ThemeVariablesEvent extends CancellableEvent
     public const POST_RESET = 'ThemeVariablesPostReset';
 
     /** @var string */
-    private $themeName;
+    private string $themeName;
 
     /** @var array */
-    private $variables;
+    private array $variables;
 
     /**
      * ThemeVariablesEvent constructor.

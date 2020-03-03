@@ -17,19 +17,19 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class AuthenticationService implements AuthenticationServiceInterface
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var MailerInterface */
-    private $mailer;
+    private MailerInterface $mailer;
 
     /** @var string */
-    private $mailerSender;
+    private string $mailerSender;
 
     /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @var UserServiceInterface */
-    private $userService;
+    private UserServiceInterface $userService;
 
     /**
      * AuthenticationService constructor.
@@ -58,6 +58,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      *
      * @param string $username
      * @throws TransportExceptionInterface
+     * @throws Exception
      */
     public function setAndSendTwoFactorCode(string $username): void
     {

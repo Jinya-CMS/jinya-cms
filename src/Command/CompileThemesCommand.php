@@ -11,10 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CompileThemesCommand extends Command
 {
     /** @var ThemeServiceInterface */
-    private $themeService;
+    private ThemeServiceInterface $themeService;
 
     /** @var ThemeCompilerServiceInterface */
-    private $themeCompilerService;
+    private ThemeCompilerServiceInterface $themeCompilerService;
 
     /**
      * CompileThemesCommand constructor.
@@ -53,5 +53,7 @@ class CompileThemesCommand extends Command
         }
 
         $output->writeln('Compiled all themes');
+
+        return 0;
     }
 }
