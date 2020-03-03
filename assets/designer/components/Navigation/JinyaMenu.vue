@@ -186,7 +186,10 @@
         margin-bottom: auto;
         color: $primary-darkest;
         display: block;
-        min-width: calc(10vw - 2rem);
+        @include breakpoint-desktop {
+            min-width: calc(10vw - 2rem);
+        }
+        min-width: 15rem;
         padding-left: 1rem;
         box-sizing: border-box;
     }
