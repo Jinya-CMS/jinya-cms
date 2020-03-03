@@ -1,17 +1,26 @@
 .jinya-profile {
     display: flex;
     padding-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .jinya-profile__sidebar {
-    flex: 0 0 30%;
+    flex: 0 0 20%;
+
+    @include jinya-media-query($small: true) {
+        flex-basis: 100%;
+    }
 }
 
 .jinya-profile__about-me {
-    flex: 0 0 70%;
+    flex: 0 0 80%;
     padding-left: 1rem;
 
     @include content-styling;
+
+    @include jinya-media-query($small: true) {
+        flex-basis: 100%;
+    }
 }
 
 .jinya-profile__picture {
