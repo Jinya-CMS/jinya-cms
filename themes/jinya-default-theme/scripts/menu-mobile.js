@@ -4,12 +4,14 @@
   const menuItems = menu.querySelectorAll('.jinya-menu__item');
   const backArrow = menu.querySelector('.has--back-arrow');
   const openSubmenu = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
     const submenus = menu.querySelectorAll('.jinya-submenu');
-    submenus.forEach((submenu) => submenu.classList.add('is--hidden'));
+    submenus?.forEach((submenu) => submenu.classList.add('is--hidden'));
     const currentSubmenu = event.target.nextElementSibling;
-    currentSubmenu.classList.remove('is--hidden');
+    if (currentSubmenu) {
+      event.stopPropagation();
+      event.preventDefault();
+      currentSubmenu.classList.remove('is--hidden');
+    }
   };
 
   function openHamburger(event) {
