@@ -132,7 +132,10 @@ abstract class BaseController
      */
     final protected function json($data, int $status = Response::HTTP_OK): JsonResponse
     {
-        return new JsonResponse($data, $status);
+        $response = new JsonResponse($data, $status);
+        $response->setEncodingOptions(0);
+
+        return $response;
     }
 
     /**

@@ -16,6 +16,7 @@ use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\NoResultException;
+use Jinya\Components\Database\NotPermittedException;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
 use Jinya\Exceptions\MissingFieldsException;
@@ -236,6 +237,13 @@ abstract class BaseApiController extends BaseController
 
             $result = [
                 $this->jsonFormatException('api.state.409.not_null_failed', $exception),
+                Response::HTTP_CONFLICT,
+            ];
+        } catch (NotPermittedException $exception) {
+            $this->logException($exception, 409);
+
+            $result = [
+                $this->jsonFormatException('api.state.409.not_permitted', $exception),
                 Response::HTTP_CONFLICT,
             ];
         } catch (UnknownDeviceException $exception) {
