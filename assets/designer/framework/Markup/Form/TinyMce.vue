@@ -163,7 +163,7 @@
         z-index: unset !important;
     }
 
-    .tox-tinymce-mux {
+    .tox-tinymce-aux {
         z-index: 99999;
     }
 </style>
