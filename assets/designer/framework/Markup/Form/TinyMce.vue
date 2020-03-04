@@ -162,4 +162,8 @@
     .tox .tox-editor-header {
         z-index: unset !important;
     }
+
+    .tox-tinymce-mux {
+        z-index: 99999;
+    }
 </style>

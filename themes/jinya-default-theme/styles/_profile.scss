@@ -15,6 +15,7 @@
 .jinya-profile__about-me {
     flex: 0 0 80%;
     padding-left: 1rem;
+    box-sizing: border-box;
 
     @include content-styling;
 
