@@ -3,7 +3,6 @@
 namespace Jinya\Components\Database;
 
 use ArrayIterator;
-use Doctrine\Migrations\Version\State;
 use Iterator;
 use PhpMyAdmin\SqlParser\Parser;
 use PhpMyAdmin\SqlParser\Statement;
@@ -12,7 +11,7 @@ use PhpMyAdmin\SqlParser\Utils\Query;
 class QueryAnalyser implements QueryAnalyserInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getQueryType(Statement $statement): string
     {
@@ -20,7 +19,7 @@ class QueryAnalyser implements QueryAnalyserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getStatements(string $query): Iterator
     {
@@ -31,6 +30,7 @@ class QueryAnalyser implements QueryAnalyserInterface
                 yield $statement;
             }
         }
+
         return new ArrayIterator();
     }
 }
