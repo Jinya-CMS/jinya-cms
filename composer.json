@@ -28,7 +28,7 @@
     "doctrine/migrations": "2.2.1",
     "doctrine/orm": "2.7.1",
     "guzzlehttp/guzzle": "6.5.2",
-    "ocramius/proxy-manager": "2.2.3",
+    "ocramius/proxy-manager": "2.7.0",
     "patchwork/jsqueeze": "2.0.5",
     "phpmyadmin/sql-parser": "^5.2",
     "psr/event-dispatcher": "1.0.0",
