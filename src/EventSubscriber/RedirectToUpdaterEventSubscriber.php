@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Underscore\Types\Strings;
 
 class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
 {
@@ -70,7 +69,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
             $code = file_get_contents($updateLock);
 
             if ($code !== $event->getRequest()->cookies->get('JinyaUpdateKey')
-                && Strings::find($event->getRequest()->getPathInfo(), '/_update')) {
+                && strpos($event->getRequest()->getPathInfo(), '/_update') !== false) {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index')));
             }
         }
