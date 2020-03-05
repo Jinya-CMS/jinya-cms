@@ -12,6 +12,13 @@
     delete: yes
     recursive: yes
   become: true
+- name: Copy htaccess
+  copy:
+    src: /vagrant/vagrant-files/roles/jinya/files/.htaccess
+    dest: /var/www/jinya/public/.htaccess
+    owner: apache
+    group: apache
+    mode: u=rwx,g=rwx,o=rwx
 - name: Change permissions
   file:
     path: /var/www/jinya/

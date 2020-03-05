@@ -57,15 +57,15 @@
     dest: /var/www/jinya/public/phpinfo.php
 - name: Install adminer
   get_url:
-    url: https://github.com/vrana/adminer/releases/download/v4.7.1/adminer-4.7.1-mysql.php
+    url: https://github.com/vrana/adminer/releases/download/v4.7.6/adminer-4.7.6-mysql-en.php
     dest: /var/www/jinya/public/adminer.php
-    mode: o=rwx,g=rwx,u=x
+    mode: o=rwx,g=rwx,u=rwx
   become: true
 - name: Install adminer theme
   get_url:
-    url: https://raw.githubusercontent.com/vrana/adminer/master/designs/nette/adminer.css
-    dest: /var/www/jinya/public/adminer.php
-    mode: o=rwx,g=rwx,u=x
+    url: https://raw.githubusercontent.com/arcs-/Adminer-Material-Theme/master/adminer.css
+    dest: /var/www/jinya/public/adminer.css
+    mode: o=rwx,g=rwx,u=rwx
   become: true
 - name: Restart apache
   service:
