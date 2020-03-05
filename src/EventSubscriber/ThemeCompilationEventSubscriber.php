@@ -46,7 +46,7 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
-        if (strpos($event->getRequest()->getPathInfo(), '/designer') === 0) {
+        if (0 === strpos($event->getRequest()->getPathInfo(), '/designer')) {
             try {
                 $this->themeSyncService->syncThemes();
             } catch (Exception $e) {
