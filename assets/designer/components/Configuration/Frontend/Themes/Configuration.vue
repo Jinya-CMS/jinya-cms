@@ -160,6 +160,7 @@
         this.message = e.message;
       }
       this.initial = false;
+      this.loading = false;
     },
   };
 </script>

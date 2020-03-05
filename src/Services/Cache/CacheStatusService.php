@@ -4,7 +4,6 @@ namespace Jinya\Services\Cache;
 
 use Jinya\Components\Cache\CacheState;
 use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
-use Underscore\Types\Strings;
 
 class CacheStatusService implements CacheStatusServiceInterface
 {
@@ -124,7 +123,7 @@ class CacheStatusService implements CacheStatusServiceInterface
             $size = 0;
             $count = 0;
             while (false !== ($line = fgets($handle))) {
-                $file = Strings::replace($line, "\n", '');
+                $file = str_replace("\n", '', $line);
                 $size += filesize($file);
                 ++$count;
             }

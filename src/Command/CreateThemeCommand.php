@@ -14,7 +14,6 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Underscore\Types\Strings;
 
 class CreateThemeCommand extends Command
 {
@@ -103,7 +102,7 @@ class CreateThemeCommand extends Command
                 'variables' => [
                     'file' => $stylesVariablesFile,
                 ],
-                'files' => Strings::explode(Strings::remove($stylesFiles, ' '), ','),
+                'files' => explode($stylesFiles, ','),
             ],
         ];
 

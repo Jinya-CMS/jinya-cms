@@ -12,7 +12,6 @@ use Jinya\Entity\Theme\Theme;
 use Jinya\Services\Scss\ScssCompilerServiceInterface;
 use Patchwork\JSqueeze;
 use Symfony\Component\Filesystem\Filesystem;
-use Underscore\Types\Strings;
 use const DIRECTORY_SEPARATOR;
 
 class ThemeCompilerService implements ThemeCompilerServiceInterface
@@ -144,12 +143,12 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
                 $compilationCheckPath = $this->getCompilationCheckPathScripts($theme, $key);
                 $compiled = $source;
 
-                if (!Strings::endsWith($key, '!')) {
+                if ('!' !== substr($key, -strlen('!'))) {
                     if ('yes' !== getenv('APP_DEBUG')) {
                         $compiled = $jsQueeze->squeeze($source);
                     }
                 } else {
-                    $key = Strings::remove($key, '!');
+                    $key = trim(str_replace('!', null, $key));
                 }
 
                 $targetPath = $webStylesBasePath . $key;
@@ -227,8 +226,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
         $variables = $theme->getScssVariables();
         $isCompiled = $fs->exists(
-            $this->getScssVariablesCompilationCheckPath($theme)
-        ) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
+                $this->getScssVariablesCompilationCheckPath($theme)
+            ) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
 
         if ($themeConfig['styles']['files']) {
             foreach ($themeConfig['styles']['files'] as $style) {
