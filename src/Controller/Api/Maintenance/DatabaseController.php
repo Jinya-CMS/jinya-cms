@@ -27,6 +27,7 @@ class DatabaseController extends BaseApiController
             $statements = $queryAnalyser->getStatements($query);
 
             $connection->beginTransaction();
+
             try {
                 $result = [];
                 foreach ($statements as $statement) {
@@ -37,14 +38,16 @@ class DatabaseController extends BaseApiController
                         case 'INSERT':
                             $result[] = [
                                 'statement' => $builtStatement,
-                                'result' => $connection->exec($builtStatement)
+                                'result' => $connection->exec($builtStatement),
                             ];
+
                             break;
                         case 'SELECT':
                             $result[] = [
                                 'statement' => $builtStatement,
-                                'result' => $connection->fetchAll($builtStatement)
+                                'result' => $connection->fetchAll($builtStatement),
                             ];
+
                             break;
                         default:
                             break;
@@ -54,6 +57,7 @@ class DatabaseController extends BaseApiController
                 return $result;
             } catch (Throwable $exception) {
                 $connection->rollBack();
+
                 throw $exception;
             } finally {
                 $connection->commit();
