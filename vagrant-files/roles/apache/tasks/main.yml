@@ -32,3 +32,11 @@
     state: restarted
     enabled: true
   become: yes
+- name: Copy htaccess
+  copy:
+    src: /vagrant/vagrant-files/roles/apache/files/.htaccess
+    dest: /var/www/jinya/public/.htaccess
+    owner: apache
+    group: apache
+    mode: u=rwx,g=rwx,o=rwx
+  become: yes

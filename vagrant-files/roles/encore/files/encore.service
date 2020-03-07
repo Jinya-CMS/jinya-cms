@@ -2,7 +2,9 @@
 Description=Encore watch service
 
 [Service]
-ExecStart=/vagrant/vagrant-files/roles/encore/files/encore.sh
+ExecStart=/usr/bin/yarn encore dev -w
+User=apache
+WorkingDirectory=/var/www/jinya
 
 [Install]
 WantedBy=multi-user.target

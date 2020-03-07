@@ -1,8 +1,0 @@
-[Unit]
-Description=Theme compiler service
-
-[Service]
-ExecStart=/vagrant/vagrant-files/roles/theme-compiler/files/theme-compiler.sh
-
-[Install]
-WantedBy=multi-user.target
