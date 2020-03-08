@@ -69,7 +69,7 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
             $code = file_get_contents($updateLock);
 
             if ($code !== $event->getRequest()->cookies->get('JinyaUpdateKey')
-                && strpos($event->getRequest()->getPathInfo(), '/_update') !== false) {
+                && false !== strpos($event->getRequest()->getPathInfo(), '/_update')) {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('designer_home_index')));
             }
         }
