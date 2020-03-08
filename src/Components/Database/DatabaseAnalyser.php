@@ -18,7 +18,7 @@ class DatabaseAnalyser implements DatabaseAnalyserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getGlobalVariables(): array
     {
@@ -26,7 +26,7 @@ class DatabaseAnalyser implements DatabaseAnalyserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLocalVariables(): array
     {

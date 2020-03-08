@@ -46,7 +46,7 @@ class TableMetadata implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

@@ -127,8 +127,9 @@ class DatabaseController extends BaseApiController
                         default:
                             $result[] = [
                                 'statement' => $builtStatement,
-                                'result' => $translator->trans('maintenance.database.tool.result.not_executed')
+                                'result' => $translator->trans('maintenance.database.tool.result.not_executed'),
                             ];
+
                             break;
                     }
                 }
