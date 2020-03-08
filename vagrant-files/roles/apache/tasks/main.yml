@@ -17,6 +17,7 @@
     mode: 0755
     owner: apache
     group: apache
+    recurse: true
   become: true
 - name: Copy the vhost
   copy:

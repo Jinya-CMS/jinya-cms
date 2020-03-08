@@ -237,6 +237,8 @@ routes:
             phpinfo: PHP Info
             updates: Updates
             version: Aktuelle Version
+        database:
+            tool: Datenbanktool
 authentication:
     roles:
         -   text: Superadmin
@@ -786,6 +788,13 @@ maintenance:
             start: Ich habe eine Sicherung und möchte das Update starten
             started: Das Update wird gestartet
             back: Abbrechen
+    database:
+      tool:
+        result:
+          not_executed: Das Statement wurde nicht ausgeführt. Aus Sicherheitsgründen sind lediglich SELECT-, UPDATE-, DELETE-, INSERT-, SHOW-, ANALYSE-, CHECK- und CHECKSUM-Statements erlaubt.
+          rows_affected: "%data% Zeilen betroffen"
+        execute: Ausführen
+        title: Datenbanktool
 background:
     media:
         uploaded: Die Datei %name% wurde erfolgreich hochgeladen

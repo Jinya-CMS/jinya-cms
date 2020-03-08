@@ -13,7 +13,7 @@ interface QueryAnalyserInterface
      * @param string $query
      * @return Statement[]
      */
-    public function getStatements(string $query): Iterator;
+    public function getStatements(string $query): array;
 
     /**
      * Gets the query type

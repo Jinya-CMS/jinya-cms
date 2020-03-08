@@ -26,11 +26,10 @@
           return input.every((value) => value.title && value.name);
         },
       },
-    },
-    data() {
-      return {
-        selectedItem: '',
-      };
+      selectedItem: {
+        type: String,
+        required: false,
+      },
     },
     mounted() {
       const selectedItems = this.items.filter((item) => item.isSelected);
@@ -40,7 +39,6 @@
     },
     methods: {
       select(item) {
-        this.selectedItem = item.name;
         this.$emit('select', item.name);
       },
     },

@@ -8,6 +8,7 @@ use Jinya\Framework\BaseApiController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 class DatabaseController extends BaseApiController
@@ -18,11 +19,15 @@ class DatabaseController extends BaseApiController
      *
      * @param QueryAnalyserInterface $queryAnalyser
      * @param Connection $connection
+     * @param TranslatorInterface $translator
      * @return Response
      */
-    public function executeQuery(QueryAnalyserInterface $queryAnalyser, Connection $connection): Response
-    {
-        [$data, $status] = $this->tryExecute(function () use ($queryAnalyser, $connection) {
+    public function executeQuery(
+        QueryAnalyserInterface $queryAnalyser,
+        Connection $connection,
+        TranslatorInterface $translator
+    ): Response {
+        [$data, $status] = $this->tryExecute(function () use ($queryAnalyser, $connection, $translator) {
             $query = $this->getValue('query');
             $statements = $queryAnalyser->getStatements($query);
 
@@ -43,6 +48,11 @@ class DatabaseController extends BaseApiController
 
                             break;
                         case 'SELECT':
+                        case 'EXPLAIN':
+                        case 'CHECK':
+                        case 'CHECKSUM':
+                        case 'ANALYSE':
+                        case 'SHOW':
                             $result[] = [
                                 'statement' => $builtStatement,
                                 'result' => $connection->fetchAll($builtStatement),
@@ -50,6 +60,10 @@ class DatabaseController extends BaseApiController
 
                             break;
                         default:
+                            $result[] = [
+                                'statement' => $builtStatement,
+                                'result' => $translator->trans('maintenance.database.tool.result.not_executed')
+                            ];
                             break;
                     }
                 }
@@ -62,8 +76,6 @@ class DatabaseController extends BaseApiController
             } finally {
                 $connection->commit();
             }
-
-            return 0;
         });
 
         return $this->json($data, $status);

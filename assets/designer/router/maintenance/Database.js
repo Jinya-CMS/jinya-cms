@@ -1,5 +1,6 @@
 import Missing from '@/components/Home/Missing';
 import Routes from '@/router/Routes';
+import Tool from '@/components/Maintenance/Database/Tool';
 
 export default [
   {
@@ -10,6 +11,9 @@ export default [
   {
     path: Routes.Maintenance.Database.Tool.route,
     name: Routes.Maintenance.Database.Tool.name,
-    component: Missing,
+    component: Tool,
+    meta: {
+      title: 'routes.maintenance.database.tool',
+    },
   },
 ];

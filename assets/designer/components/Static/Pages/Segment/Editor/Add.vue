@@ -9,7 +9,7 @@
                           @selected="(value) => this.action = value.value"
                           label="static.pages.segment.details.action.action"
                           v-if="selectedType === 'file'"/>
-            <monaco-editor :options="{height: 250}" class="jinya-page-editor__details-editor" language="javascript"
+            <monaco-editor :options="{height: 250}" class="jinya-database-tool__editor" language="javascript"
                            v-if="selectedType === 'file' && action === 'script'" v-model="script"/>
             <jinya-input label="static.pages.segment.details.action.target"
                          v-if="selectedType === 'file' && action === 'link'" v-model="target"/>
@@ -134,7 +134,7 @@
         height: 250px;
     }
 
-    .jinya-page-editor__details-editor {
+    .jinya-database-tool__editor {
         height: 300px;
         width: 500px;
     }

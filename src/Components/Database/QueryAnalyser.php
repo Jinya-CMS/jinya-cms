@@ -21,16 +21,8 @@ class QueryAnalyser implements QueryAnalyserInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatements(string $query): Iterator
+    public function getStatements(string $query): array
     {
-        $statements = (new Parser($query))->statements;
-        foreach ($statements as $statement) {
-            $flags = Query::getFlags($statement);
-            if (in_array($flags['querytype'], ['SELECT', 'DELETE', 'INSERT', 'UPDATE', 'EXPLAIN'])) {
-                yield $statement;
-            }
-        }
-
-        return new ArrayIterator();
+        return (new Parser($query))->statements;
     }
 }
