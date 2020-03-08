@@ -226,8 +226,8 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
         $variables = $theme->getScssVariables();
         $isCompiled = $fs->exists(
-                $this->getScssVariablesCompilationCheckPath($theme)
-            ) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
+            $this->getScssVariablesCompilationCheckPath($theme)
+        ) && implode($variables) === file_get_contents($this->getScssVariablesCompilationCheckPath($theme));
 
         if ($themeConfig['styles']['files']) {
             foreach ($themeConfig['styles']['files'] as $style) {
