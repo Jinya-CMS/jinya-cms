@@ -50,7 +50,7 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 
-        $isInInstall = strpos($event->getRequest()->getPathInfo(), '/install') !== false;
+        $isInInstall = false !== strpos($event->getRequest()->getPathInfo(), '/install');
         if (!$installed && $isInInstall) {
             if ($fs->exists(sprintf('%s/config/admin.lock', $this->kernelProjectDir))) {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_admin')));

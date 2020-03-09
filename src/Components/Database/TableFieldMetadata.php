@@ -7,10 +7,15 @@ use JsonSerializable;
 class TableFieldMetadata implements JsonSerializable
 {
     private string $field;
+
     private string $type;
+
     private bool $nullable;
+
     private string $key;
+
     private ?string $default;
+
     private string $extra;
 
     /**
@@ -110,7 +115,7 @@ class TableFieldMetadata implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

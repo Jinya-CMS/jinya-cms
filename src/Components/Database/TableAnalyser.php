@@ -19,7 +19,7 @@ class TableAnalyser implements TableAnalyserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      * @throws DBALException
      */
     public function getTableMetadata(string $table): ?TableMetadata
@@ -51,7 +51,7 @@ class TableAnalyser implements TableAnalyserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getTables(): array
     {
