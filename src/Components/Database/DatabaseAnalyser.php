@@ -32,4 +32,20 @@ class DatabaseAnalyser implements DatabaseAnalyserInterface
     {
         return $this->connection->fetchAll('SHOW VARIABLES');
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getVersion(): string
+    {
+        return $this->connection->fetchColumn('SELECT VERSION()');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getServerType(): string
+    {
+        return $this->connection->fetchArray('SHOW GLOBAL VARIABLES WHERE Variable_name = \'version_comment\'')[1];
+    }
 }

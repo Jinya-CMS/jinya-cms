@@ -39,40 +39,30 @@ class DatabaseController extends BaseApiController
     }
 
     /**
-     * @Route(
-     *     "api/maintenance/database/variables/local",
-     *     methods={"GET"},
-     *     name="api_maintenance_database_variables_local"
-     * )
+     * @Route("api/maintenance/database", methods={"GET"}, name="api_maintenance_database")
      * @IsGranted("ROLE_SUPER_ADMIN")
      *
      * @param DatabaseAnalyserInterface $databaseAnalyser
      * @return Response
      */
-    public function getLocalVariables(DatabaseAnalyserInterface $databaseAnalyser): Response
+    public function getDatabaseInfo(DatabaseAnalyserInterface $databaseAnalyser): Response
     {
         [$data, $status] = $this->tryExecute(static function () use ($databaseAnalyser) {
-            return $databaseAnalyser->getLocalVariables();
-        });
+            $localVariables = $databaseAnalyser->getLocalVariables();
+            $globalVariables = $databaseAnalyser->getGlobalVariables();
+            $serverType = $databaseAnalyser->getServerType();
+            $version = $databaseAnalyser->getVersion();
 
-        return $this->json($data, $status);
-    }
-
-    /**
-     * @Route(
-     *     "api/maintenance/database/variables/global",
-     *     methods={"GET"},
-     *     name="api_maintenance_database_variables_global"
-     * )
-     * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param DatabaseAnalyserInterface $databaseAnalyser
-     * @return Response
-     */
-    public function getGlobalVariables(DatabaseAnalyserInterface $databaseAnalyser): Response
-    {
-        [$data, $status] = $this->tryExecute(static function () use ($databaseAnalyser) {
-            return $databaseAnalyser->getGlobalVariables();
+            return [
+                'variables' => [
+                    'local' => $localVariables,
+                    'global' => $globalVariables,
+                ],
+                'server' => [
+                    'version' => $version,
+                    'type' => $serverType,
+                ],
+            ];
         });
 
         return $this->json($data, $status);

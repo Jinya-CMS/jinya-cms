@@ -17,4 +17,18 @@ interface DatabaseAnalyserInterface
      * @return array
      */
     public function getLocalVariables(): array;
+
+    /**
+     * Gets the current database version
+     *
+     * @return string
+     */
+    public function getVersion(): string;
+
+    /**
+     * Gets the database server type
+     *
+     * @return string
+     */
+    public function getServerType(): string;
 }

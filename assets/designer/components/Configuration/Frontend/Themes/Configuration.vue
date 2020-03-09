@@ -114,7 +114,7 @@
         }
         this.loading = false;
 
-        this.$router.push(Routes.Configuration.Frontend.Theme.Overview.name);
+        this.$router.push(Routes.Configuration.Frontend.Theme.Overview);
       },
       getValue(key) {
         return ObjectUtils.valueByKeypath(this.theme.config, key, '');

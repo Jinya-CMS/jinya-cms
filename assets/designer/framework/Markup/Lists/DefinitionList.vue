@@ -41,11 +41,13 @@
         font-weight: bold;
         padding: 0 0 0.5rem;
         border-bottom: 2px $primary solid;
+        word-break: break-all;
     }
 
     .jinya-dl__dd {
         margin: 0 0 0.5rem;
         padding: 0 0 0.5rem;
         border-bottom: 2px $primary solid;
+        word-break: break-all;
     }
 </style>

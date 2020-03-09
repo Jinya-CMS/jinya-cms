@@ -81,6 +81,9 @@
                             <jinya-menu-flyout-menu-item
                                 text="menu.designer.flyout.maintenance.sections.database.database_tool"
                                 to="Maintenance.Database.Tool"/>
+                            <jinya-menu-flyout-menu-item
+                                text="menu.designer.flyout.maintenance.sections.database.database_info"
+                                to="Maintenance.Database.Info"/>
                         </jinya-menu-flyout-menu-section>
                     </jinya-menu-flyout-menu>
                 </jinya-menu-flyout-navbar-item>
