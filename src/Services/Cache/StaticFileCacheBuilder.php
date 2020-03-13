@@ -244,13 +244,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $slug = '';
         }
 
-        if (strpos($routeName, 'media_gallery') !== false) {
+        if (false !== strpos($routeName, 'media_gallery')) {
             $viewData = [
                 'gallery' => $this->galleryService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/MediaGallery/detail.html.twig';
-        } elseif (strpos($routeName, 'form') !== false) {
+        } elseif (false !== strpos($routeName, 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
@@ -259,19 +259,19 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
-        } elseif (strpos($routeName, 'segment_page') !== false) {
+        } elseif (false !== strpos($routeName, 'segment_page')) {
             $viewData = [
                 'page' => $this->segmentPageService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/SegmentPage/detail.html.twig';
-        } elseif (strpos($routeName, 'page') !== false) {
+        } elseif (false !== strpos($routeName, 'page')) {
             $viewData = [
                 'page' => $this->pageService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Page/detail.html.twig';
-        } elseif (strpos($routeName, 'profile') !== false) {
+        } elseif (false !== strpos($routeName, 'profile')) {
             $viewData = [
                 'profile' => $this->userService->get($slug),
                 'active' => $route->getUrl(),
