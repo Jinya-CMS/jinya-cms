@@ -189,7 +189,7 @@ class GalleryController extends BaseApiController
             $name = $this->getValue('name', $gallery->getName());
             $description = $this->getValue('description', $gallery->getDescription());
             $orientation = $this->getValue('orientation', $gallery->getOrientation());
-            $type = $this->getValue('masonry', $gallery->getType());
+            $type = $this->getValue('type', $gallery->getType());
             $slug = $this->getValue('slug', $gallery->getSlug());
 
             if (!$name) {
@@ -203,7 +203,7 @@ class GalleryController extends BaseApiController
             $gallery->setSlug($slug);
 
             $galleryService->saveOrUpdate($gallery);
-        }, Response::HTTP_CREATED);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
