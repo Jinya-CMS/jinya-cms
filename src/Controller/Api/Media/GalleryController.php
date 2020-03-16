@@ -118,8 +118,7 @@ class GalleryController extends BaseApiController
             if ($this->isGranted('ROLE_WRITER')) {
                 $result = $result
                     ->updated()
-                    ->created()
-                    ->history();
+                    ->created();
             }
 
             return $result->format();
