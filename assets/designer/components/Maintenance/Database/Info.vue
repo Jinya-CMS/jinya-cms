@@ -16,6 +16,15 @@
                     :values="globalVariables.map(item => ({ title: item.Variable_name, value: item.Value }))"
                     horizontal/>
             </jinya-tab>
+            <jinya-tab :is-selected="selectedTab === 'tables'">
+                <template v-for="table in tables">
+                    <h2 :key="`${table.name}name`">{{table.name}}</h2>
+                    <jinya-definition-list
+                        :key="`${table.name}columns`"
+                        :values="globalVariables.map(item => ({ title: item.Variable_name, value: item.Value }))"
+                        horizontal/>
+                </template>
+            </jinya-tab>
         </jinya-tab-container>
     </div>
 </template>

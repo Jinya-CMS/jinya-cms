@@ -29,7 +29,7 @@ class DatabaseController extends BaseApiController
             $meta = [];
 
             foreach ($tables as $table) {
-                $meta[] = $tableAnalyser->getTableMetadata($table);
+                $meta[] = ['name' => $table, 'columns' => $tableAnalyser->getTableMetadata($table)];
             }
 
             return $meta;
