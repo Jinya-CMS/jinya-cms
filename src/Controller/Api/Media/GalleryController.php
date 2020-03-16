@@ -130,7 +130,7 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery", methods={"POST"}, name="api_gallery_post")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
@@ -174,7 +174,7 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
@@ -211,7 +211,7 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
