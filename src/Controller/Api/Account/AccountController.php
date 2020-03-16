@@ -186,16 +186,18 @@ class AccountController extends BaseApiController
             $user = $this->getUser();
             if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
                 $password = $this->getValue('password');
-                if ($password === null) {
+                if (null === $password) {
                     throw new MissingFieldsException(['password' => 'api.account.field.password.missing']);
                 }
                 $userService->changePassword($user->getId(), $password);
+
                 return 'submitted';
             }
+
             return 'error';
         }, Response::HTTP_NO_CONTENT);
 
-        if ($data === 'submitted' || $status !== Response::HTTP_NO_CONTENT) {
+        if ('submitted' === $data || Response::HTTP_NO_CONTENT !== $status) {
             return $this->json($data, $status);
         }
 
