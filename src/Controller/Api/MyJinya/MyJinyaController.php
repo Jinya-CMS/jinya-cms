@@ -15,7 +15,7 @@ class MyJinyaController extends BaseUserController
 {
     /**
      * @Route("/api/me", methods={"PUT"}, name="api_my_jinya_put")
-     * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=403)
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param UserServiceInterface $userService
      * @return Response
@@ -42,7 +42,7 @@ class MyJinyaController extends BaseUserController
 
     /**
      * @Route("/api/me/profilepicture", methods={"PUT"}, name="api_my_jinya_put_profile_picture")
-     * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=403)
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param Request $request
      * @param UserServiceInterface $userService

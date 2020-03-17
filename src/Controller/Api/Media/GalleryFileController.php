@@ -47,7 +47,7 @@ class GalleryFileController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery/file/{galleryId}/file", methods={"POST"}, name="api_gallery_file_position_post")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $galleryId
      * @param GalleryFilePositionServiceInterface $filePositionService
@@ -90,7 +90,7 @@ class GalleryFileController extends BaseApiController
      *     methods={"DELETE"},
      *     name="api_gallery_file_position_delete"
      * )
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int id$
      * @param GalleryFilePositionServiceInterface $filePositionService
@@ -111,7 +111,7 @@ class GalleryFileController extends BaseApiController
      *     methods={"PUT"},
      *     name="api_gallery_file_position_put"
      * )
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param int $oldPosition
