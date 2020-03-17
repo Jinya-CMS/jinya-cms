@@ -2,7 +2,6 @@
 
 namespace Jinya\Components\Database;
 
-use Iterator;
 use PhpMyAdmin\SqlParser\Statement;
 
 interface QueryAnalyserInterface
