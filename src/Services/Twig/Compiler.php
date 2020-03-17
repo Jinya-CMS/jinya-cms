@@ -85,7 +85,7 @@ class Compiler implements CompilerInterface
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
         $parameters = $context;
 
-        if (strpos($path, '@Theme') !== false) {
+        if (false !== strpos($path, '@Theme')) {
             [$themeViewPath, $parameters] = $this->includeTheme($path, $context, $currentTheme);
 
             if ($this->twig->getLoader()->exists($themeViewPath)) {
