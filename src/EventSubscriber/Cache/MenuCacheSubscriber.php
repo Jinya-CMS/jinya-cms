@@ -109,9 +109,13 @@ class MenuCacheSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onMenuItemAdd(MenuSaveEvent $event): void
+    public function onMenuItemAdd(MenuItemAddEvent $event): void
     {
-        $menu = $event->getMenu();
+        if (MenuItemServiceInterface::MENU === $event->getType()) {
+            $menu = $this->menuService->get($event->getParentId());
+        } else {
+            $menu = $this->findMenu($event->getParentId());
+        }
         $this->compileCache($menu);
     }
 

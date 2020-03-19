@@ -189,6 +189,7 @@ class MenuItemController extends BaseApiController
             if (MenuItemServiceInterface::MENU === $type) {
                 return $menuFormatter
                     ->init($item->getMenu())
+                    ->id()
                     ->name()
                     ->items()
                     ->format();
@@ -196,6 +197,7 @@ class MenuItemController extends BaseApiController
 
             return $menuItemFormatter
                 ->init($item->getParent())
+                ->id()
                 ->title()
                 ->route()
                 ->children()
