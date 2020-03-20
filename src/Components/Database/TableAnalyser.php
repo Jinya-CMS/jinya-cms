@@ -25,7 +25,7 @@ class TableAnalyser implements TableAnalyserInterface
     public function getTableMetadata(string $table): ?TableMetadata
     {
         $tables = $this->getTables();
-        if (array_filter($tables, fn($key) => $table === array_values($key)[0])) {
+        if (array_filter($tables, fn ($key) => $table === array_values($key)[0])) {
             $metadata = new TableMetadata();
             $fields = [];
             $data = $this->connection->fetchAll("EXPLAIN $table");
@@ -37,7 +37,7 @@ class TableAnalyser implements TableAnalyserInterface
                 $field->setExtra($datum['Extra']);
                 $field->setField($datum['Field']);
                 $field->setKey($datum['Key']);
-                $field->setNullable(strtolower($datum['Null']) !== 'no');
+                $field->setNullable('no' !== strtolower($datum['Null']));
                 $field->setType($datum['Type']);
 
                 $fields[] = $field;
