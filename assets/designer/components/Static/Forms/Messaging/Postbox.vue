@@ -218,20 +218,20 @@
             return;
         }
 
-        await this.page(this.$route.query.offset);
+        await this.page(this.$route.query.offset, this.$route);
       },
       async deletePermanently() {
         this.messagesLoading = true;
         await JinyaRequest.delete(`/api/message/${this.selectedMessage.id}`);
-        await this.page(this.$route.query.offset);
+        await this.page(this.$route.query.offset, this.$route);
       },
       async previousPage() {
-        await this.page((this.currentPage - 1) * this.count - this.count);
+        await this.page((this.currentPage - 1) * this.count - this.count, this.$route);
       },
       async nextPage() {
-        await this.page((this.currentPage - 1) * this.count + this.count);
+        await this.page((this.currentPage - 1) * this.count + this.count, this.$route);
       },
-      async page(offset, route = {}) {
+      async page(offset, route) {
         this.messagesLoading = true;
         let messages;
         let { keyword } = route.query;

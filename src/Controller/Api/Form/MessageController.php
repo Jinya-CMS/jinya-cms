@@ -15,7 +15,12 @@ class MessageController extends BaseApiController
 {
     /**
      * @Route("/api/message", methods={"GET"}, name="api_message_get_all")
-     * @Route("/api/message/{action}", methods={"GET"}, name="api_message_get_all_by_action")
+     * @Route(
+     *     "/api/message/{action}",
+     *     methods={"GET"},
+     *     name="api_message_get_all_by_action",
+     *     requirements={"action": ".*(deleted|archived|spam)"}
+     * )
      * @Route("/api/{formSlug}/message", methods={"GET"}, name="api_message_get_all_by_form")
      *
      * @param Request $request
@@ -47,7 +52,6 @@ class MessageController extends BaseApiController
             $entities = array_map(static function (Message $message) use ($messageFormatter) {
                 return $messageFormatter
                     ->init($message)
-                    ->form()
                     ->fromAddress()
                     ->toAddress()
                     ->content()
@@ -122,7 +126,6 @@ class MessageController extends BaseApiController
 
             return $messageFormatter
                 ->init($message)
-                ->form()
                 ->fromAddress()
                 ->toAddress()
                 ->content()
