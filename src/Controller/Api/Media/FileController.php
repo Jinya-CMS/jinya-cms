@@ -98,7 +98,7 @@ class FileController extends BaseApiController
 
     /**
      * @Route("/api/media/file", methods={"POST"}, name="api_file_post")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_WRITER")
      *
      * @param FileServiceInterface $fileService
      * @param FileFormatterInterface $fileFormatter
