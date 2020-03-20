@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Jinya\Entity\Artist\User;
 use Jinya\Framework\BaseApiController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,6 +23,7 @@ class FeatureController extends BaseApiController
 
     /**
      * @Route("/api/support/feature", methods={"POST"}, name="api_support_feature")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param Client $client
      * @return Response
