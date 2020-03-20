@@ -11,7 +11,7 @@ class AboutMeController extends BaseUserController
 {
     /**
      * @Route("/api/user/{id}/about", methods={"GET"}, name="api_user_get_about")
-     * @IsGranted("IS_AUTHENTICATED", statusCode=403)
+     * @IsGranted("IS_AUTHENTICATED")
      *
      * @param int $id
      * @param UserServiceInterface $userService
