@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -26,6 +25,7 @@ class UserController extends BaseUserController
 {
     /**
      * @Route("/api/user", methods={"GET"}, name="api_user_get_all")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param Request $request
      * @param UserServiceInterface $userService
@@ -38,10 +38,6 @@ class UserController extends BaseUserController
         UserFormatterInterface $userFormatter
     ): Response {
         [$data, $status] = $this->tryExecute(function () use ($request, $userFormatter, $userService) {
-            if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
-                throw new AccessDeniedException();
-            }
-
             $offset = $request->get('offset', 0);
             $count = $request->get('count', 10);
             $keyword = $request->get('keyword', '');
@@ -78,7 +74,7 @@ class UserController extends BaseUserController
 
     /**
      * @Route("/api/user/{id}", methods={"GET"}, name="api_user_get")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param int $id
      * @param UserServiceInterface $userService
@@ -99,7 +95,7 @@ class UserController extends BaseUserController
                 ->enabled();
 
             if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-                $userFormatter->roles();
+                $userFormatter->roles()->id();
             }
 
             return $userFormatter->format();
@@ -149,7 +145,11 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
+                throw new ValidatorException($translator->trans(
+                    'api.user.field.email.invalid',
+                    ['email' => $email],
+                    'validators'
+                ));
             }
 
             $user = new User();
@@ -213,7 +213,11 @@ class UserController extends BaseUserController
 
             $emailValidator = new EmailValidator();
             if (!$emailValidator->isValid($email, new RFCValidation())) {
-                throw new ValidatorException($translator->trans('api.user.field.email.invalid', ['email' => $email], 'validators'));
+                throw new ValidatorException($translator->trans(
+                    'api.user.field.email.invalid',
+                    ['email' => $email],
+                    'validators'
+                ));
             }
 
             if (!$this->isCurrentUser($id)) {
@@ -224,15 +228,8 @@ class UserController extends BaseUserController
             $user->setArtistName($artistName);
             $user->setRoles($roles);
 
-            $user = $userService->saveOrUpdate($user, true);
-
-            return $userFormatter
-                ->init($user)
-                ->profile()
-                ->enabled()
-                ->roles()
-                ->format();
-        });
+            $userService->saveOrUpdate($user, true);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

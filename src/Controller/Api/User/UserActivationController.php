@@ -9,6 +9,7 @@
 namespace Jinya\Controller\Api\User;
 
 use Jinya\Services\Users\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +17,7 @@ class UserActivationController extends BaseUserController
 {
     /**
      * @Route("/api/user/{id}/activation", methods={"DELETE"}, name="api_user_activation_deactivate")
+     * @IsGranted("ROLE_SUPER_ADMIN")
      *
      * @param int $id
      * @param UserServiceInterface $userService
@@ -34,6 +36,7 @@ class UserActivationController extends BaseUserController
 
     /**
      * @Route("/api/user/{id}/activation", methods={"PUT"}, name="api_user_activation_activate")
+     * @IsGranted("ROLE_SUPER_ADMIN")
      *
      * @param int $id
      * @param UserServiceInterface $userService
