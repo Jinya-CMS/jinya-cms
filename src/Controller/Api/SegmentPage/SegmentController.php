@@ -59,7 +59,6 @@ class SegmentController extends BaseApiController
             $position = $this->getValue('position', 0);
             $gallerySlug = $this->getValue('gallery');
             $fileId = $this->getValue('file');
-            $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
             $action = $this->getValue('action', Segment::ACTION_NONE);
             $target = $this->getValue('target', '');
@@ -96,7 +95,6 @@ class SegmentController extends BaseApiController
                 ->init($segment)
                 ->id()
                 ->position()
-                ->form()
                 ->html()
                 ->script()
                 ->target()
