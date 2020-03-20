@@ -43,7 +43,7 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment", methods={"POST"}, name="api_segment_page_segment_post")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param SegmentServiceInterface $segmentService
@@ -111,7 +111,7 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"DELETE"}, name="api_segment_page_segment_delete")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int id$
      * @param SegmentServiceInterface $segmentService
@@ -130,7 +130,7 @@ class SegmentController extends BaseApiController
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"PUT"}, name="api_segment_page_segment_put")
      * @Route("/api/segment_page/{slug}/segment/{id}/{oldPosition}", methods={"PUT"},
      *     name="api_segment_page_segment_put_with_position")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param int $oldPosition

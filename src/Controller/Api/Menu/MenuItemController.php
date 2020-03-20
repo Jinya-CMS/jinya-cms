@@ -42,10 +42,12 @@ class MenuItemController extends BaseApiController
             return array_map(static function ($item) use ($menuItemFormatter) {
                 return $menuItemFormatter
                     ->init($item)
+                    ->id()
                     ->title()
                     ->position()
                     ->route()
                     ->children()
+                    ->pageType()
                     ->highlighted()
                     ->format();
             }, $menuItemService->getAll($id, MenuItemServiceInterface::MENU));
@@ -187,6 +189,7 @@ class MenuItemController extends BaseApiController
             if (MenuItemServiceInterface::MENU === $type) {
                 return $menuFormatter
                     ->init($item->getMenu())
+                    ->id()
                     ->name()
                     ->items()
                     ->format();
@@ -194,6 +197,7 @@ class MenuItemController extends BaseApiController
 
             return $menuItemFormatter
                 ->init($item->getParent())
+                ->id()
                 ->title()
                 ->route()
                 ->children()

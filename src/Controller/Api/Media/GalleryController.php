@@ -118,8 +118,7 @@ class GalleryController extends BaseApiController
             if ($this->isGranted('ROLE_WRITER')) {
                 $result = $result
                     ->updated()
-                    ->created()
-                    ->history();
+                    ->created();
             }
 
             return $result->format();
@@ -130,7 +129,7 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery", methods={"POST"}, name="api_gallery_post")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param GalleryServiceInterface $galleryService
      * @param GalleryFormatterInterface $galleryFormatter
@@ -174,7 +173,7 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
@@ -190,7 +189,7 @@ class GalleryController extends BaseApiController
             $name = $this->getValue('name', $gallery->getName());
             $description = $this->getValue('description', $gallery->getDescription());
             $orientation = $this->getValue('orientation', $gallery->getOrientation());
-            $type = $this->getValue('masonry', $gallery->getType());
+            $type = $this->getValue('type', $gallery->getType());
             $slug = $this->getValue('slug', $gallery->getSlug());
 
             if (!$name) {
@@ -204,14 +203,14 @@ class GalleryController extends BaseApiController
             $gallery->setSlug($slug);
 
             $galleryService->saveOrUpdate($gallery);
-        }, Response::HTTP_CREATED);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
 
     /**
      * @Route("/api/media/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param string $slug
      * @param GalleryServiceInterface $galleryService
