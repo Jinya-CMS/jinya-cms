@@ -805,6 +805,14 @@ maintenance:
         server: Server Informationen
         local_variables: Lokale Variablen
         global_variables: Globale Variablen
+        tables: Tabellen
+      tables:
+        field: Spaltenname
+        nullable: Kann null sein
+        extra: Extradaten
+        default: Standardwert
+        type: Typ
+        key: Schlüssel
 background:
   media:
     uploaded: Die Datei %name% wurde erfolgreich hochgeladen

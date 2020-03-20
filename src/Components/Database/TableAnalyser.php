@@ -25,20 +25,20 @@ class TableAnalyser implements TableAnalyserInterface
     public function getTableMetadata(string $table): ?TableMetadata
     {
         $tables = $this->getTables();
-        if (in_array($table, $tables, true)) {
+        if (array_filter($tables, fn($key) => $table === array_values($key)[0])) {
             $metadata = new TableMetadata();
             $fields = [];
             $data = $this->connection->fetchAll("EXPLAIN $table");
-            $checksum = $this->connection->fetchColumn("CHECKSUM TABLE $table");
+            $checksum = $this->connection->fetchAll("CHECKSUM TABLE $table")[0]['Checksum'];
             $metadata->setChecksum($checksum ?? '');
             foreach ($data as $datum) {
                 $field = new TableFieldMetadata();
-                $field->setDefault($datum['default']);
-                $field->setExtra($datum['extra']);
-                $field->setField($datum['field']);
-                $field->setKey($datum['key']);
-                $field->setNullable($datum['nullable']);
-                $field->setType($datum['type']);
+                $field->setDefault($datum['Default']);
+                $field->setExtra($datum['Extra']);
+                $field->setField($datum['Field']);
+                $field->setKey($datum['Key']);
+                $field->setNullable(strtolower($datum['Null']) !== 'no');
+                $field->setType($datum['Type']);
 
                 $fields[] = $field;
             }

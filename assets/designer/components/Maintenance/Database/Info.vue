@@ -19,10 +19,10 @@
             <jinya-tab :is-selected="selectedTab === 'tables'">
                 <template v-for="table in tables">
                     <h2 :key="`${table.name}name`">{{table.name}}</h2>
-                    <jinya-definition-list
+                    <jinya-table
+                        :headers="tableDefinitionHeaders"
                         :key="`${table.name}columns`"
-                        :values="globalVariables.map(item => ({ title: item.Variable_name, value: item.Value }))"
-                        horizontal/>
+                        :rows="table.columns.fields"/>
                 </template>
             </jinya-tab>
         </jinya-tab-container>
@@ -37,10 +37,12 @@
   import JinyaInput from '@/framework/Markup/Form/Input';
   import JinyaDefinitionList from '@/framework/Markup/Lists/DefinitionList';
   import Translator from '@/framework/i18n/Translator';
+  import JinyaTable from '@/framework/Markup/Table/Table';
 
   export default {
     name: 'Info',
     components: {
+      JinyaTable,
       JinyaDefinitionList,
       JinyaInput,
       JinyaTab,
@@ -62,6 +64,38 @@
             name: 'global_variables',
             title: Translator.message('maintenance.database.info.tabs.global_variables'),
           },
+          {
+            name: 'tables',
+            title: Translator.message('maintenance.database.info.tabs.tables'),
+          },
+        ];
+      },
+      tableDefinitionHeaders() {
+        return [
+          {
+            name: 'field',
+            title: Translator.message('maintenance.database.info.tables.field'),
+          },
+          {
+            name: 'extra',
+            title: Translator.message('maintenance.database.info.tables.extra'),
+          },
+          {
+            name: 'default',
+            title: Translator.message('maintenance.database.info.tables.default'),
+          },
+          {
+            name: 'type',
+            title: Translator.message('maintenance.database.info.tables.type'),
+          },
+          {
+            name: 'key',
+            title: Translator.message('maintenance.database.info.tables.key'),
+          },
+          {
+            name: 'nullable',
+            title: Translator.message('maintenance.database.info.tables.nullable'),
+          },
         ];
       },
     },
@@ -73,15 +107,20 @@
         serverVersion: '',
         loading: true,
         selectedTab: 'serverinfo',
+        tables: [],
       };
     },
     async mounted() {
-      const info = await JinyaRequest.get('/api/maintenance/database');
-      this.localVariables = info.variables.local;
-      this.globalVariables = info.variables.global;
-      this.serverType = info.server.type;
-      this.serverVersion = info.server.version;
-      this.loading = false;
+      JinyaRequest.get('/api/maintenance/database/table').then((tables) => {
+        this.tables = tables;
+      });
+      JinyaRequest.get('/api/maintenance/database').then((info) => {
+        this.localVariables = info.variables.local;
+        this.globalVariables = info.variables.global;
+        this.serverType = info.server.type;
+        this.serverVersion = info.server.version;
+        this.loading = false;
+      });
     },
   };
 </script>
