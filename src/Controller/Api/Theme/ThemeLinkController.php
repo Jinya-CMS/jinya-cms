@@ -74,7 +74,9 @@ class ThemeLinkController extends BaseApiController
             $segmentPages = $this->getValue('segmentPages', []);
 
             foreach ($menus as $key => $menu) {
-                if (array_key_exists('id', $menu)) {
+                if (array_key_exists('slug', $menu)) {
+                    $themeLinkService->saveMenu($key, $themeName, $menu['slug']);
+                } elseif (array_key_exists('id', $menu)) {
                     $themeLinkService->saveMenu($key, $themeName, $menu['id']);
                 }
             }
@@ -100,6 +102,8 @@ class ThemeLinkController extends BaseApiController
             foreach ($files as $key => $file) {
                 if (array_key_exists('slug', $file)) {
                     $themeLinkService->saveFile($key, $themeName, $file['slug']);
+                } elseif (array_key_exists('id', $file)) {
+                    $themeLinkService->saveMenu($key, $themeName, $file['id']);
                 }
             }
 
