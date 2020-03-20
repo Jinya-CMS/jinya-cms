@@ -236,9 +236,9 @@ export default {
       },
     },
     Database: {
-      MySQL: {
-        name: 'MaintenanceDatabaseMySQL',
-        route: '/designer/maintenance/database/mysql',
+      Info: {
+        name: 'MaintenanceDatabaseInfo',
+        route: '/designer/maintenance/database/info',
       },
       Tool: {
         name: 'MaintenanceDatabaseTool',
