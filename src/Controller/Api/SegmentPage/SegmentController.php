@@ -68,10 +68,6 @@ class SegmentController extends BaseApiController
                 $segment = $segmentService->saveHtmlSegment($html, $slug, $position, $action, $target, $script);
             }
 
-            if (null !== $formSlug) {
-                $segment = $segmentService->saveFormSegment($formSlug, $slug, $position, $action, $target, $script);
-            }
-
             if (null !== $gallerySlug) {
                 $segment = $segmentService->saveGallerySegment(
                     $gallerySlug,
@@ -126,8 +122,6 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"PUT"}, name="api_segment_page_segment_put")
-     * @Route("/api/segment_page/{slug}/segment/{id}/{oldPosition}", methods={"PUT"},
-     *     name="api_segment_page_segment_put_with_position")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
@@ -139,10 +133,9 @@ class SegmentController extends BaseApiController
     public function putPositionAction(
         int $id,
         string $slug,
-        SegmentServiceInterface $segmentService,
-        int $oldPosition = -1
+        SegmentServiceInterface $segmentService
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($oldPosition, $id, $slug, $segmentService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $slug, $segmentService) {
             $position = $this->getValue('position', -1);
             $segment = $segmentService->get($id);
 
@@ -156,7 +149,7 @@ class SegmentController extends BaseApiController
             $segmentService->updateAction($id, $action, $target, $script);
 
             if (-1 !== $position) {
-                $segmentService->updatePosition($slug, $id, $oldPosition, $position);
+                $segmentService->updatePosition($slug, $id, -1, $position);
             }
 
             if (null !== $gallerySlug) {
@@ -170,7 +163,7 @@ class SegmentController extends BaseApiController
             if (null !== $html) {
                 $segmentService->updateHtmlSegment($html, $id);
             }
-        }, Response::HTTP_CREATED);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

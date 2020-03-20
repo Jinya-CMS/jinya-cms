@@ -107,7 +107,7 @@
         this.deleteModal.show = false;
       },
       async move(segment, oldPosition, newPosition) {
-        await JinyaRequest.put(`/api/segment_page/${this.$route.params.slug}/segment/${segment.id}/${oldPosition}`, {
+        await JinyaRequest.put(`/api/segment_page/${this.$route.params.slug}/segment/${segment.id}`, {
           position: newPosition,
         });
 
