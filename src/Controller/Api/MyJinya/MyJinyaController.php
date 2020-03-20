@@ -35,7 +35,7 @@ class MyJinyaController extends BaseUserController
 
                 $userService->saveOrUpdate($user);
             }
-        });
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }
