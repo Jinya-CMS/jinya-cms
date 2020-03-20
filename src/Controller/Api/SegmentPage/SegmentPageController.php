@@ -37,13 +37,20 @@ class SegmentPageController extends BaseApiController
             $keyword = $request->get('keyword', '');
 
             $entityCount = $segmentPageService->countAll($keyword);
-            $entities = array_map(static function (SegmentPage $segmentPage) use ($segmentPageFormatter) {
-                return $segmentPageFormatter
+            $entities = array_map(function (SegmentPage $segmentPage) use ($segmentPageFormatter) {
+                $result = $segmentPageFormatter
                     ->init($segmentPage)
                     ->name()
                     ->slug()
-                    ->segments()
-                    ->format();
+                    ->segments();
+
+                if ($this->isGranted('ROLE_WRITER')) {
+                    $result = $result
+                        ->updated()
+                        ->created();
+                }
+
+                return $result->format();
             }, $segmentPageService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
@@ -135,6 +142,9 @@ class SegmentPageController extends BaseApiController
                 ->init($page)
                 ->name()
                 ->slug()
+                ->created()
+                ->segments()
+                ->updated()
                 ->format();
         }, Response::HTTP_CREATED);
 
