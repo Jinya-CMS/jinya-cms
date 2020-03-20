@@ -89,8 +89,9 @@ class MenuLogoController extends BaseApiController
     ): Response {
         [$data, $status] = $this->tryExecute(static function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
-
-            $mediaService->deleteMedia($menu->getLogo());
+            if ($menu->getLogo()) {
+                $mediaService->deleteMedia($menu->getLogo());
+            }
 
             $menu->setLogo('');
             $menuService->saveOrUpdate($menu);

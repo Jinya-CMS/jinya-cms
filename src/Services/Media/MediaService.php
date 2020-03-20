@@ -110,13 +110,13 @@ class MediaService implements MediaServiceInterface
      */
     public function deleteMedia(string $url): void
     {
-        $parts = explode('\\/', $url);
+        $parts = explode('/', $url);
         $parts = array_reverse($parts);
         [$filename, $type] = $parts;
 
         $pre = $this->eventDispatcher->dispatch(new MediaDeleteEvent($type, $filename), MediaDeleteEvent::PRE_DELETE);
         if (!$pre->isCancel()) {
-            unlink($this->getFilePath($type) . $filename);
+            unlink($this->getFilePath($type) . DIRECTORY_SEPARATOR . $filename);
             $this->eventDispatcher->dispatch(new MediaDeleteEvent($type, $filename), MediaDeleteEvent::POST_DELETE);
         }
     }
