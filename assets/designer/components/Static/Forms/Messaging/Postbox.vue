@@ -243,13 +243,13 @@
           messages = await JinyaRequest.get(`/api/message?offset=${offset}&count=${this.count}&keyword=${keyword}`);
         } else if (route.params.action === 'spam') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/spam?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/spam?offset=${offset}&count=${this.count}&keyword=${keyword}`);
         } else if (route.params.action === 'deleted') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/deleted?offset=${offset}&count=${this.count}&keyword=${keyword || ''}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/deleted?offset=${offset}&count=${this.count}&keyword=${keyword || ''}`);
         } else if (route.params.action === 'archived') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/archived?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/archived?offset=${offset}&count=${this.count}&keyword=${keyword}`);
         } else {
           // eslint-disable-next-line max-len
           messages = await JinyaRequest.get(`/api/${route.params.slug}/message?offset=${offset}&count=${this.count}&keyword=${keyword}`);

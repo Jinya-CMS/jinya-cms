@@ -16,7 +16,7 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message", methods={"GET"}, name="api_message_get_all")
      * @Route(
-     *     "/api/message/{action}",
+     *     "/api/message/postbox/{action}",
      *     methods={"GET"},
      *     name="api_message_get_all_by_action",
      *     requirements={"action": ".*(deleted|archived|spam)"}
