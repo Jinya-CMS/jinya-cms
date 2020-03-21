@@ -27,7 +27,7 @@ class FormItem extends HistoryEnabledEntity
      * @ORM\Column(type="integer")
      * @var int
      */
-    private int $id = -1;
+    private ?int $id = -1;
 
     /**
      * @ORM\Column(type="string", nullable=false)

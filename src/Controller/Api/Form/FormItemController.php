@@ -126,7 +126,7 @@ class FormItemController extends BaseApiController
                         $formItem->setLabel($data['label']);
                         $formItem->setType($data['type']);
                         $formItem->setOptions($data['options']);
-                        $formItem->setSpamFilter($data['spamFilter']);
+                        $formItem->setSpamFilter(array_key_exists('spamFilter', $data) ? $data['spamFilter'] : []);
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->addItem($formItem);
@@ -138,7 +138,7 @@ class FormItemController extends BaseApiController
                         $formItem->setLabel($data['label']);
                         $formItem->setType($data['type']);
                         $formItem->setOptions($data['options']);
-                        $formItem->setSpamFilter($data['spamFilter']);
+                        $formItem->setSpamFilter(array_key_exists('spamFilter', $data) ? $data['spamFilter'] : []);
                         $formItem->setHelpText(array_key_exists('helpText', $data) ? $data['helpText'] : '');
 
                         $formItemService->updateItem($formItem);
