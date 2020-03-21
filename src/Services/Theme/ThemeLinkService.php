@@ -121,7 +121,10 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
         $page = $this->pageService->get($pageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themePage = $this->entityManager->getRepository(ThemePage::class)->findOneBy(['name' => $key]);
+        $themePage = $this->entityManager->getRepository(ThemePage::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themePage) {
             $themePage = new ThemePage();
         }
@@ -156,7 +159,10 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
         $segmentPage = $this->segmentPageService->get($segmentPageSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeSegmentPage = $this->entityManager->getRepository(ThemeSegmentPage::class)->findOneBy(['name' => $key]);
+        $themeSegmentPage = $this->entityManager->getRepository(ThemeSegmentPage::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themeSegmentPage) {
             $themeSegmentPage = new ThemeSegmentPage();
         }
@@ -190,7 +196,10 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $form = $this->formService->get($formSlug);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeForm = $this->entityManager->getRepository(ThemeForm::class)->findOneBy(['name' => $key]);
+        $themeForm = $this->entityManager->getRepository(ThemeForm::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themeForm) {
             $themeForm = new ThemeForm();
         }
@@ -224,7 +233,10 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $menu = $this->menuService->get($menuId);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeMenu = $this->entityManager->getRepository(ThemeMenu::class)->findOneBy(['name' => $key]);
+        $themeMenu = $this->entityManager->getRepository(ThemeMenu::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themeMenu) {
             $themeMenu = new ThemeMenu();
         }
@@ -257,12 +269,15 @@ class ThemeLinkService implements ThemeLinkServiceInterface
         );
 
         $gallery = $this->galleryService->get($gallerySlug);
-        $themeGallery = $this->entityManager->getRepository(ThemeGallery::class)->findOneBy(['name' => $key]);
+        $theme = $this->themeService->getThemeOrNewTheme($themeName);
+        $themeGallery = $this->entityManager->getRepository(ThemeGallery::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themeGallery) {
             $themeGallery = new ThemeGallery();
         }
 
-        $theme = $this->themeService->getThemeOrNewTheme($themeName);
         $themeGallery->setGallery($gallery);
         $themeGallery->setTheme($theme);
         $themeGallery->setName($key);
@@ -292,7 +307,10 @@ class ThemeLinkService implements ThemeLinkServiceInterface
 
         $file = $this->fileService->get($fileId);
         $theme = $this->themeService->getThemeOrNewTheme($themeName);
-        $themeFile = $this->entityManager->getRepository(ThemeFile::class)->findOneBy(['name' => $key]);
+        $themeFile = $this->entityManager->getRepository(ThemeFile::class)->findOneBy([
+            'name' => $key,
+            'theme' => $theme,
+        ]);
         if (!$themeFile) {
             $themeFile = new ThemeFile();
         }

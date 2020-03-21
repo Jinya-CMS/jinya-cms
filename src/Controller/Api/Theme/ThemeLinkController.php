@@ -103,7 +103,7 @@ class ThemeLinkController extends BaseApiController
                 if (array_key_exists('slug', $file)) {
                     $themeLinkService->saveFile($key, $themeName, $file['slug']);
                 } elseif (array_key_exists('id', $file)) {
-                    $themeLinkService->saveMenu($key, $themeName, $file['id']);
+                    $themeLinkService->saveFile($key, $themeName, $file['id']);
                 }
             }
 
