@@ -1,8 +1,4 @@
----
-defaults:
-  docker:
-    - image: circleci/php
-  working_directory: ~/jinya
+version: 2
 jobs:
   build:
     docker:
@@ -77,8 +73,24 @@ jobs:
             ssh -oStrictHostKeyChecking=no $DEPLOY_LOGIN@$DEPLOY_SERVER "cd $DEPLOY_TARGET && ./jinya-files --mode stable"
           name: "Deploy via SCP"
     working_directory: ~/jinya
-version: 2
+  dockerStable:
+    docker:
+      - image: "docker:stable-git"
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t jinyacms/jinya-cms:$CIRCLE_TAG .
+      - run:
+          name: Push application Docker image
+          command: |
+            docker login -u$DOCKER_USER -p$DOCKER_PASS
+            docker push jinyacms/jinya-cms:$CIRCLE_TAG
+    working_directory: /app
 workflows:
+  version: 2
   edge:
     jobs:
       - build
@@ -118,5 +130,9 @@ workflows:
               only: /.*/
           requires:
             - build
-
-  version: 2
+      - dockerStable:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/

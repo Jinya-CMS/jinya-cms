@@ -13,6 +13,7 @@ use Jinya\Framework\BaseApiController;
 use Jinya\Services\Media\MediaServiceInterface;
 use Jinya\Services\Menu\MenuServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,6 +39,10 @@ class MenuLogoController extends BaseApiController
             return $this->json($data, $status);
         }
 
+        if (!$data->getLogo()) {
+            return new JsonResponse(['message' => 'api.menu.logo.not_found'], Response::HTTP_NOT_FOUND);
+        }
+
         return $this->file($mediaService->getMedia($data->getLogo()), $data->getName() . '.jpg');
     }
 
@@ -51,7 +56,7 @@ class MenuLogoController extends BaseApiController
      * @param MediaServiceInterface $mediaService
      * @return Response
      */
-    public function postAction(
+    public function putAction(
         int $id,
         Request $request,
         MenuServiceInterface $menuService,
@@ -84,8 +89,9 @@ class MenuLogoController extends BaseApiController
     ): Response {
         [$data, $status] = $this->tryExecute(static function () use ($id, $menuService, $mediaService) {
             $menu = $menuService->get($id);
-
-            $mediaService->deleteMedia($menu->getLogo());
+            if ($menu->getLogo()) {
+                $mediaService->deleteMedia($menu->getLogo());
+            }
 
             $menu->setLogo('');
             $menuService->saveOrUpdate($menu);

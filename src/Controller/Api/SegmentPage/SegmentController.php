@@ -43,7 +43,7 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment", methods={"POST"}, name="api_segment_page_segment_post")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug
      * @param SegmentServiceInterface $segmentService
@@ -59,7 +59,6 @@ class SegmentController extends BaseApiController
             $position = $this->getValue('position', 0);
             $gallerySlug = $this->getValue('gallery');
             $fileId = $this->getValue('file');
-            $formSlug = $this->getValue('form');
             $html = $this->getValue('html');
             $action = $this->getValue('action', Segment::ACTION_NONE);
             $target = $this->getValue('target', '');
@@ -67,10 +66,6 @@ class SegmentController extends BaseApiController
 
             if (null !== $html) {
                 $segment = $segmentService->saveHtmlSegment($html, $slug, $position, $action, $target, $script);
-            }
-
-            if (null !== $formSlug) {
-                $segment = $segmentService->saveFormSegment($formSlug, $slug, $position, $action, $target, $script);
             }
 
             if (null !== $gallerySlug) {
@@ -96,7 +91,6 @@ class SegmentController extends BaseApiController
                 ->init($segment)
                 ->id()
                 ->position()
-                ->form()
                 ->html()
                 ->script()
                 ->target()
@@ -111,7 +105,7 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"DELETE"}, name="api_segment_page_segment_delete")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int id$
      * @param SegmentServiceInterface $segmentService
@@ -128,9 +122,7 @@ class SegmentController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"PUT"}, name="api_segment_page_segment_put")
-     * @Route("/api/segment_page/{slug}/segment/{id}/{oldPosition}", methods={"PUT"},
-     *     name="api_segment_page_segment_put_with_position")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param int $oldPosition
@@ -141,10 +133,9 @@ class SegmentController extends BaseApiController
     public function putPositionAction(
         int $id,
         string $slug,
-        SegmentServiceInterface $segmentService,
-        int $oldPosition = -1
+        SegmentServiceInterface $segmentService
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($oldPosition, $id, $slug, $segmentService) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $slug, $segmentService) {
             $position = $this->getValue('position', -1);
             $segment = $segmentService->get($id);
 
@@ -158,7 +149,7 @@ class SegmentController extends BaseApiController
             $segmentService->updateAction($id, $action, $target, $script);
 
             if (-1 !== $position) {
-                $segmentService->updatePosition($slug, $id, $oldPosition, $position);
+                $segmentService->updatePosition($slug, $id, -1, $position);
             }
 
             if (null !== $gallerySlug) {
@@ -172,7 +163,7 @@ class SegmentController extends BaseApiController
             if (null !== $html) {
                 $segmentService->updateHtmlSegment($html, $id);
             }
-        }, Response::HTTP_CREATED);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

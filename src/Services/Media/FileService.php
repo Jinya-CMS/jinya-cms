@@ -150,10 +150,16 @@ class FileService implements FileServiceInterface
      *
      * @param int $id
      * @return File
+     * @throws NoResultException
      */
     public function get(int $id): File
     {
-        return $this->entityManager->find(File::class, $id);
+        $file = $this->entityManager->find(File::class, $id);
+        if (!$file) {
+            throw new NoResultException();
+        }
+
+        return $file;
     }
 
     /**

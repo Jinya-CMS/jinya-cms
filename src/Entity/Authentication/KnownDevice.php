@@ -24,7 +24,7 @@ class KnownDevice implements JsonSerializable
      * @ORM\Column(type="integer")
      * @var int
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", name="device_key")

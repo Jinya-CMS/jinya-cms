@@ -10,7 +10,7 @@
             </draggable>
             <jinya-message :message="message" :state="state"/>
             <jinya-editor-pane>
-                <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types"
+                <jinya-tab-container :class="{'is--loading': itemsLoading}" :items="types" :selected-item="selectedTab"
                                      @select="selectTemplateItems">
                     <jinya-loader :loading="itemsLoading" v-if="itemsLoading"/>
                     <draggable :options="templateItemsOptions" class="jinya-menu-builder__list" v-else
@@ -109,6 +109,7 @@
         message: '',
         enable: true,
         leaving: false,
+        selectedTab: '',
       };
     },
     async mounted() {
@@ -316,6 +317,7 @@
       },
       async selectTemplateItems(type) {
         this.itemsLoading = true;
+        this.selectedTab = type;
 
         if (type === 'media_galleries') {
           if (this.media_galleries.length === 0) {

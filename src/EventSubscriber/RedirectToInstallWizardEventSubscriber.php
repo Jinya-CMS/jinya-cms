@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents as SymfonyKernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Underscore\Types\Strings;
 
 class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 {
@@ -51,13 +50,14 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
         $fs = new FileSystem();
         $installed = $fs->exists($installLock);
 
-        if (!$installed && !Strings::find($event->getRequest()->getPathInfo(), '/install')) {
+        $isInInstall = false !== strpos($event->getRequest()->getPathInfo(), '/install');
+        if (!$installed && $isInInstall) {
             if ($fs->exists(sprintf('%s/config/admin.lock', $this->kernelProjectDir))) {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_admin')));
             } else {
                 $event->setResponse(new RedirectResponse($this->urlGenerator->generate('install_index')));
             }
-        } elseif ($installed && Strings::find($event->getRequest()->getPathInfo(), '/install')) {
+        } elseif ($installed && $isInInstall) {
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate(
                 'designer_home_index_specific',
                 ['route' => 'login']

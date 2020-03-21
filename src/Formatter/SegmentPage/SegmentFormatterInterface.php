@@ -44,13 +44,6 @@ interface SegmentFormatterInterface extends FormatterInterface
     public function script(): self;
 
     /**
-     * Formats the form
-     *
-     * @return SegmentFormatterInterface
-     */
-    public function form(): self;
-
-    /**
      * Formats the html
      *
      * @return SegmentFormatterInterface

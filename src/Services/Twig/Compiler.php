@@ -24,7 +24,6 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Underscore\Types\Strings;
 
 class Compiler implements CompilerInterface
 {
@@ -86,7 +85,7 @@ class Compiler implements CompilerInterface
         $currentTheme = $this->configurationService->getConfig()->getCurrentTheme();
         $parameters = $context;
 
-        if (Strings::find($path, '@Theme')) {
+        if (false !== strpos($path, '@Theme')) {
             [$themeViewPath, $parameters] = $this->includeTheme($path, $context, $currentTheme);
 
             if ($this->twig->getLoader()->exists($themeViewPath)) {

@@ -24,7 +24,7 @@ class Menu implements JsonSerializable
      * @ORM\Column(type="integer")
      * @var int
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string")

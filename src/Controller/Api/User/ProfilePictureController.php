@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProfilePictureController extends BaseUserController
 {
@@ -61,22 +60,19 @@ class ProfilePictureController extends BaseUserController
      * @param Request $request
      * @param UserServiceInterface $userService
      * @param MediaServiceInterface $mediaService
-     * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
     public function putProfilePictureAction(
         int $id,
         Request $request,
         UserServiceInterface $userService,
-        MediaServiceInterface $mediaService,
-        UrlGeneratorInterface $urlGenerator
+        MediaServiceInterface $mediaService
     ): Response {
         [$data, $status] = $this->tryExecute(function () use (
             $id,
             $request,
             $userService,
-            $mediaService,
-            $urlGenerator
+            $mediaService
         ) {
             if ($this->isCurrentUser($id) || $this->isGranted('ROLE_SUPER_ADMIN')) {
                 $picture = $request->getContent(true);
@@ -86,16 +82,10 @@ class ProfilePictureController extends BaseUserController
                 $user->setProfilePicture($picturePath);
 
                 $userService->saveOrUpdate($user, true);
-
-                return $urlGenerator->generate(
-                    'api_user_profilepicture_get',
-                    ['id' => $user->getId()],
-                    UrlGeneratorInterface::ABSOLUTE_URL
-                );
             }
 
             throw $this->createAccessDeniedException();
-        }, Response::HTTP_CREATED);
+        }, Response::HTTP_NO_CONTENT);
 
         return $this->json($data, $status);
     }

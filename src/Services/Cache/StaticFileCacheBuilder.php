@@ -23,7 +23,6 @@ use Jinya\Services\Theme\ThemeSyncServiceInterface;
 use Jinya\Services\Twig\CompilerInterface;
 use Jinya\Services\Users\UserServiceInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Underscore\Types\Strings;
 
 class StaticFileCacheBuilder implements CacheBuilderInterface
 {
@@ -245,13 +244,13 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
             $slug = '';
         }
 
-        if (Strings::find($routeName, 'media_gallery')) {
+        if (false !== strpos($routeName, 'media_gallery')) {
             $viewData = [
                 'gallery' => $this->galleryService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/MediaGallery/detail.html.twig';
-        } elseif (Strings::find($routeName, 'form')) {
+        } elseif (false !== strpos($routeName, 'form')) {
             $formEntity = $this->formService->get($slug);
             $form = $this->formGenerator->generateForm($formEntity);
             $viewData = [
@@ -260,19 +259,19 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Form/detail.html.twig';
-        } elseif (Strings::find($routeName, 'segment_page')) {
+        } elseif (false !== strpos($routeName, 'segment_page')) {
             $viewData = [
                 'page' => $this->segmentPageService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/SegmentPage/detail.html.twig';
-        } elseif (Strings::find($routeName, 'page')) {
+        } elseif (false !== strpos($routeName, 'page')) {
             $viewData = [
                 'page' => $this->pageService->get($slug),
                 'active' => $route->getUrl(),
             ];
             $template = '@Theme/Page/detail.html.twig';
-        } elseif (Strings::find($routeName, 'profile')) {
+        } elseif (false !== strpos($routeName, 'profile')) {
             $viewData = [
                 'profile' => $this->userService->get($slug),
                 'active' => $route->getUrl(),

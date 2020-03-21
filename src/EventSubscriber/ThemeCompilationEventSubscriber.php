@@ -14,7 +14,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Underscore\Types\Strings;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
@@ -47,7 +46,7 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
-        if (Strings::startsWith($event->getRequest()->getPathInfo(), '/designer')) {
+        if (0 === strpos($event->getRequest()->getPathInfo(), '/designer')) {
             try {
                 $this->themeSyncService->syncThemes();
             } catch (Exception $e) {

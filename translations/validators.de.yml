@@ -71,6 +71,8 @@ api:
             title:
                 missing: Der Titel muss bereitgestellt werden
     menu:
+        logo:
+            not_found: Es ist kein Logo bereitgestellt
         field:
             name:
                 missing: Der Name muss bereitgestellt werden

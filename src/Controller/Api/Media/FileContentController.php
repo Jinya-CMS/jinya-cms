@@ -28,7 +28,7 @@ class FileContentController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/file/{id}/content", methods={"GET"})
+     * @Route("/api/media/file/{id}/content", methods={"GET"}, name="api_file_get_content")
      *
      * @param int $id
      * @param FileServiceInterface $fileService
@@ -63,7 +63,7 @@ class FileContentController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/file/{id}/content", methods={"POST"})
+     * @Route("/api/media/file/{id}/content", methods={"POST"}, name="api_file_post_content_upload_start")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
@@ -80,7 +80,12 @@ class FileContentController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/file/{id}/content/{position}", methods={"PUT"}, requirements={"position": "^\d*$"})
+     * @Route(
+     *     "/api/media/file/{id}/content/{position}",
+     *     methods={"PUT"},
+     *     requirements={"position": "^\d*$"},
+     *     name="api_file_post_content_upload_chunk"
+     * )
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
@@ -105,7 +110,7 @@ class FileContentController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/file/{id}/content/state", methods={"DELETE"})
+     * @Route("/api/media/file/{id}/content/state", methods={"DELETE"}, name="api_file_post_content_upload_state_clear")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
@@ -122,7 +127,7 @@ class FileContentController extends BaseApiController
     }
 
     /**
-     * @Route("/api/media/file/{id}/content/finish", methods={"PUT"})
+     * @Route("/api/media/file/{id}/content/finish", methods={"PUT"}, name="api_file_post_content_upload_finish")
      * @IsGranted("ROLE_WRITER")
      *
      * @param int $id

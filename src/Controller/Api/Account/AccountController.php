@@ -9,9 +9,9 @@
 namespace Jinya\Controller\Api\Account;
 
 use Exception;
-use Jinya\Entity\Artist\User;
 use Jinya\Exceptions\EmptyBodyException;
 use Jinya\Exceptions\InvalidContentTypeException;
+use Jinya\Exceptions\MissingFieldsException;
 use Jinya\Formatter\User\UserFormatterInterface;
 use Jinya\Framework\BaseApiController;
 use Jinya\Framework\Security\Api\ApiKeyToolInterface;
@@ -181,22 +181,31 @@ class AccountController extends BaseApiController
         UserServiceInterface $userService,
         UrlGeneratorInterface $urlGenerator
     ): Response {
-        $confirmToken = $this->getValue('token', base64_encode(random_bytes(10)));
-        /** @var User $user */
-        $user = $this->getUser();
+        [$data, $status] = $this->tryExecute(function () use ($userService) {
+            $confirmToken = $this->getValue('token', base64_encode(random_bytes(10)));
+            $user = $this->getUser();
+            if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
+                $password = $this->getValue('password');
+                if (null === $password) {
+                    throw new MissingFieldsException(['password' => 'api.account.field.password.missing']);
+                }
+                $userService->changePassword($user->getId(), $password);
 
-        if (!empty($confirmToken) && $user->getConfirmationToken() === $confirmToken) {
-            [$data, $status] = $this->tryExecute(function () use ($user, $userService) {
-                $userService->changePassword($user->getId(), $this->getValue('password'));
-            }, Response::HTTP_NO_CONTENT);
+                return 'submitted';
+            }
 
+            return 'error';
+        }, Response::HTTP_NO_CONTENT);
+
+        if ('submitted' === $data || Response::HTTP_NO_CONTENT !== $status) {
             return $this->json($data, $status);
         }
 
         [$data, $status] = $this->tryExecute(
-            function () use ($urlGenerator, $confirmToken, $user, $userService, $userPasswordEncoder) {
-                $user = $userService->get($user->getId());
-                if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password'))) {
+            function () use ($urlGenerator, $userService, $userPasswordEncoder) {
+                $confirmToken = $this->getValue('token', base64_encode(random_bytes(10)));
+                $user = $userService->get($this->getUser()->getId());
+                if ($userPasswordEncoder->isPasswordValid($user, $this->getValue('old_password', ''))) {
                     $user->setConfirmationToken($confirmToken);
 
                     $userService->saveOrUpdate($user);

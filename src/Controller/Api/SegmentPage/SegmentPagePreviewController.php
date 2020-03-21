@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentPagePreviewController extends BaseApiController
 {
     /**
-     * @Route("/api/segment_page/{slug}/preview")
+     * @Route("/api/segment_page/{slug}/preview", methods={"GET"}, name="api_segment_page_preview")
      * @IsGranted("ROLE_WRITER")
      *
      * @param string $slug

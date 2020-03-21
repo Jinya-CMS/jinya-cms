@@ -14,12 +14,12 @@
         <h2>{{'maintenance.system.phpinfo.php.title'|jmessage}}</h2>
         <jinya-input :value="php.version" is-static label="maintenance.system.phpinfo.php.version"/>
         <h3>{{'maintenance.system.phpinfo.php.iniValues'|jmessage}}</h3>
-        <JinyaDefinitionList :values="php.iniValues.map(item => ({ title: item.name, value: item.value }))"
+        <jinya-definition-list :values="php.iniValues.map(item => ({ title: item.name, value: item.value }))"
                              horizontal/>
         <h3>{{'maintenance.system.phpinfo.php.extensions'|jmessage}}</h3>
         <template v-for="extension in php.extensions">
             <h4 :key="`${extension.name}_name`">{{extension.name}} – {{extension.version}}</h4>
-            <JinyaDefinitionList
+            <jinya-definition-list
                 :key="`${extension.name}_ini_values`"
                 :values="extension.iniValues.map(item => ({ title: item.name, value: item.value }))"
                 horizontal/>

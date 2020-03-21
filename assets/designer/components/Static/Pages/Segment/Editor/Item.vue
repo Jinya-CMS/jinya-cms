@@ -34,7 +34,7 @@
                 <template v-if="segment.action === 'script'">
                     <b class="jinya-page-editor__line">{{'static.pages.segment.details.action.script'|jmessage}}</b>
                     <monaco-editor :options="{readOnly: !editing, height: 400}"
-                                   class="jinya-page-editor__details-editor"
+                                   class="jinya-database-tool__editor"
                                    language="javascript" v-model="script"/>
                 </template>
             </template>
@@ -296,7 +296,7 @@
         width: 100%;
     }
 
-    .jinya-page-editor__details-editor {
+    .jinya-database-tool__editor {
         height: 400px;
     }
 

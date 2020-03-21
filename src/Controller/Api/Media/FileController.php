@@ -98,7 +98,7 @@ class FileController extends BaseApiController
 
     /**
      * @Route("/api/media/file", methods={"POST"}, name="api_file_post")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param FileServiceInterface $fileService
      * @param FileFormatterInterface $fileFormatter
@@ -135,7 +135,7 @@ class FileController extends BaseApiController
 
     /**
      * @Route("/api/media/file/{id}", methods={"PUT"}, name="api_file_put")
-     * @IsGranted("ROLE_WRITER", statusCode=403)
+     * @IsGranted("ROLE_WRITER")
      *
      * @param int $id
      * @param FileServiceInterface $fileService
@@ -157,7 +157,7 @@ class FileController extends BaseApiController
 
     /**
      * @Route("/api/media/file/{id}", methods={"DELETE"}, name="api_file_delete")
-     * @IsGranted("ROLE_ADMIN", statusCode=403)
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param int $id
      * @param FileServiceInterface $fileService

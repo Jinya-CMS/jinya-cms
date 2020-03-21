@@ -39,13 +39,21 @@ class PageController extends BaseApiController
             $keyword = $request->get('keyword', '');
 
             $entityCount = $pageService->countAll($keyword);
-            $entities = array_map(static function (Page $page) use ($pageFormatter) {
-                return $pageFormatter
+            $entities = array_map(function (Page $page) use ($pageFormatter) {
+                $result = $pageFormatter
                     ->init($page)
                     ->title()
                     ->slug()
-                    ->content()
-                    ->format();
+                    ->name()
+                    ->content();
+
+                if ($this->isGranted('ROLE_WRITER')) {
+                    $result = $result
+                        ->updated()
+                        ->created();
+                }
+
+                return $result->format();
             }, $pageService->getAll($keyword));
 
             $parameter = ['offset' => $offset, 'count' => $count, 'keyword' => $keyword];
@@ -77,7 +85,6 @@ class PageController extends BaseApiController
                 ->slug()
                 ->name()
                 ->title()
-                ->id()
                 ->content();
 
             if ($this->isGranted('ROLE_WRITER')) {
@@ -133,7 +140,10 @@ class PageController extends BaseApiController
                 ->init($page)
                 ->title()
                 ->slug()
+                ->name()
                 ->content()
+                ->created()
+                ->updated()
                 ->format();
         }, Response::HTTP_CREATED);
 
