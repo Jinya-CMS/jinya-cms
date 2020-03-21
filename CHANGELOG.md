@@ -1,4 +1,21 @@
 # Changelog
+## Version 15.0.0
+### Exception
+
+ * [JGCMS-124](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-124) EmptyBodyException causes 500 within password change
+
+### Feature
+
+ * [JGCMS-96](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-96) MySQL Informations
+ * [JGCMS-125](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-125) Remove unused controllers
+ * [JGCMS-97](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-97) Database tool
+ * [JGCMS-122](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-122) Remove Underscore PHP
+ * [JGCMS-121](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-121) Update dockerfile to compile jinya
+
+### Improvement
+
+ * [JGCMS-123](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-123) Clear cache after update
+
 ## Version 14.0.0
 ### Bug
 
