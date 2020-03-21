@@ -14,7 +14,9 @@ use Jinya\Framework\Events\Theme\ThemeMenuEvent;
 use Jinya\Framework\Events\Theme\ThemeVariablesEvent;
 use Jinya\Services\Cache\CacheBuilderInterface;
 use Jinya\Services\Configuration\ConfigurationServiceInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Throwable;
 
 class ThemeCacheSubscriber implements EventSubscriberInterface
 {
@@ -24,15 +26,22 @@ class ThemeCacheSubscriber implements EventSubscriberInterface
     /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
+    private LoggerInterface $logger;
+
     /**
      * ThemeCacheSubscriber constructor.
      * @param ConfigurationServiceInterface $configService
      * @param CacheBuilderInterface $cacheBuilder
+     * @param LoggerInterface $logger
      */
-    public function __construct(ConfigurationServiceInterface $configService, CacheBuilderInterface $cacheBuilder)
-    {
+    public function __construct(
+        ConfigurationServiceInterface $configService,
+        CacheBuilderInterface $cacheBuilder,
+        LoggerInterface $logger
+    ) {
         $this->configService = $configService;
         $this->cacheBuilder = $cacheBuilder;
+        $this->logger = $logger;
     }
 
     /**
@@ -90,6 +99,10 @@ class ThemeCacheSubscriber implements EventSubscriberInterface
 
     public function onThemeLinksChange(ThemeLinkEvent $event): void
     {
-        $this->compileCache($event->getThemeName());
+        try {
+            $this->compileCache($event->getThemeName());
+        } catch (Throwable $exception) {
+            $this->logger->warning($exception);
+        }
     }
 }
