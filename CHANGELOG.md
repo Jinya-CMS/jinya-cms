@@ -1,4 +1,9 @@
 # Changelog
+## Version 15.1.0
+### Feature
+
+ * [JGCMS-127](https://jinya.myjetbrains.com/youtrack/issue/JGCMS-127) Console Command for Messagecenter notifications
+
 ## Version 15.0.0
 ### Exception
 
