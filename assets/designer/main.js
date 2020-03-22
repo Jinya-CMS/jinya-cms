@@ -7,7 +7,7 @@ import { refreshMe } from '@/security/Authentication';
 import roles from '@/security/Roles';
 import Routes from '@/router/Routes';
 import App from './App';
-import '@/scss/materialdesignicons.scss';
+import '@mdi/font/scss/materialdesignicons.scss';
 
 Vue.config.productionTip = false;
 

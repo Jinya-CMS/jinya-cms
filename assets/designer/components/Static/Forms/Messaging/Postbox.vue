@@ -49,7 +49,7 @@
                         <!-- eslint-enable -->
                         <jinya-icon-button :is-primary="true" :title="'static.forms.messages.hover.spam'|jmessage"
                                            @click="move('spam')" class="jinya-postbox__read-button"
-                                           icon="file-document-box-remove-outline"
+                                           icon="text-box-remove-outline"
                                            v-if="selectedPostbox.type === 'inbox' || selectedPostbox.type === 'all'"/>
                         <jinya-icon-button :is-primary="true" :title="'static.forms.messages.hover.archive'|jmessage"
                                            @click="move('archive')" class="jinya-postbox__read-button" icon="archive"
@@ -240,19 +240,19 @@
         }
         if (route.params.action === 'all') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/message?offset=${offset || 0}&count=${this.count}&keyword=${keyword}`);
         } else if (route.params.action === 'spam') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/postbox/spam?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/spam?offset=${offset || 0}&count=${this.count}&keyword=${keyword}`);
         } else if (route.params.action === 'deleted') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/postbox/deleted?offset=${offset}&count=${this.count}&keyword=${keyword || ''}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/deleted?offset=${offset || 0}&count=${this.count}&keyword=${keyword || ''}`);
         } else if (route.params.action === 'archived') {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/message/postbox/archived?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/message/postbox/archived?offset=${offset || 0}&count=${this.count}&keyword=${keyword}`);
         } else {
           // eslint-disable-next-line max-len
-          messages = await JinyaRequest.get(`/api/${route.params.slug}/message?offset=${offset}&count=${this.count}&keyword=${keyword}`);
+          messages = await JinyaRequest.get(`/api/${route.params.slug}/message?offset=${offset || 0}&count=${this.count}&keyword=${keyword}`);
         }
 
         this.selectedMessage = null;
