@@ -16,8 +16,11 @@ use Symfony\Component\Mailer\MailerInterface;
 class SendMessagingCenterNotifications extends Command
 {
     private FormServiceInterface$formService;
+
     private EntityManagerInterface $entityManager;
+
     private MailerInterface $mailer;
+
     private string $mailerSender;
 
     /**
