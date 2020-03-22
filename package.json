@@ -11,7 +11,7 @@
     "theme:compile:js": "gulp --gulpfile themes/jinya-default-theme/Gulpfile.js"
   },
   "dependencies": {
-    "@mdi/font": "4.9.95",
+    "@mdi/font": "5.0.45",
     "@tinymce/tinymce-vue": "3.2.0",
     "deepmerge": "4.2.2",
     "lockr": "0.8.5",

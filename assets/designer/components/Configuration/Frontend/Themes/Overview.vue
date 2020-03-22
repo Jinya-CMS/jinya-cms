@@ -7,7 +7,7 @@
                         v-for="theme in themes">
                 <img :src="theme.previewImage" class="jinya-theme__preview-image"/>
                 <jinya-card-button :title="'configuration.frontend.themes.overview.settings'|jmessage"
-                                   :to="{name: settingsRoute, params: {name: theme.name}}" icon="settings"
+                                   :to="{name: settingsRoute, params: {name: theme.name}}" icon="cog"
                                    slot="footer" type="edit"/>
                 <jinya-card-button :title="'configuration.frontend.themes.overview.links'|jmessage"
                                    :to="{name: linksRoute, params: {name: theme.name}}" icon="link"
