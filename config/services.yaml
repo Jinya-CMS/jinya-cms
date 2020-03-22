@@ -180,6 +180,9 @@ services:
     Jinya\Command\Import\BulkImportFiles:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'
+    Jinya\Command\SendMessagingCenterNotifications:
+        arguments:
+            $mailerSender: '%mailer_sender%'
 
     # External Services
     GuzzleHttp\Client:
