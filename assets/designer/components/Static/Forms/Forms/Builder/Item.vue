@@ -1,7 +1,7 @@
 <template>
     <div class="jinya-form-builder__component">
         <div class="jinya-icon-bar">
-            <jinya-icon-button :is-disabled="!enable" :is-primary="true" @click="toggleSettingsClick" icon="settings"
+            <jinya-icon-button :is-disabled="!enable" :is-primary="true" @click="toggleSettingsClick" icon="cog"
                                v-if="settingsAvailable"/>
         </div>
         <jinya-form-builder-text-type :enable="enable" :label="item.label" :required="item.options.required"

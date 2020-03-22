@@ -7,7 +7,7 @@
                 <img :src="artist.profilePicture" class="jinya-artist__profile-picture"/>
                 <jinya-card-button :title="'configuration.general.artists.overview.details'|jmessage"
                                    :to="{name: artist.me ? profileRoute : detailsRoute, params: {id: artist.id}}"
-                                   icon="account-card-details"
+                                   icon="card-account-details"
                                    slot="footer"
                                    type="details"/>
                 <jinya-card-button :title="'configuration.general.artists.overview.edit'|jmessage"
