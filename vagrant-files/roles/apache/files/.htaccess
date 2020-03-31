@@ -25,11 +25,6 @@ SetEnv APP_ENV dev
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{SERVER_NAME} !=localhost
-    RewriteCond %{SERVER_NAME} !=jinya.local
-    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper

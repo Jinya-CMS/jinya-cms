@@ -3,7 +3,7 @@
   file:
     path: /var/www/jinya/
     state: directory
-    mode: 0755
+    mode: u=xrw,g=xrw,o=xrw
   become: yes
 - name: Sync files to location
   synchronize:

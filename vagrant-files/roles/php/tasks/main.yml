@@ -47,25 +47,28 @@
     src: /vagrant/vagrant-files/roles/php/files/xdebug.ini
     dest: /etc/php.d/15-xdebug.ini
   become: yes
-- file:
-    path: /var/www/jinya/public
-    state: directory
-    mode: 0755
 - name: Copy phpinfo
   copy:
     src: /vagrant/vagrant-files/roles/php/files/phpinfo.php
     dest: /var/www/jinya/public/phpinfo.php
+    owner: apache
+    group: apache
+  become: yes
 - name: Install adminer
   get_url:
     url: https://github.com/vrana/adminer/releases/download/v4.7.6/adminer-4.7.6-mysql-en.php
     dest: /var/www/jinya/public/adminer.php
     mode: o=rwx,g=rwx,u=rwx
+    owner: apache
+    group: apache
   become: true
 - name: Install adminer theme
   get_url:
     url: https://raw.githubusercontent.com/arcs-/Adminer-Material-Theme/master/adminer.css
     dest: /var/www/jinya/public/adminer.css
     mode: o=rwx,g=rwx,u=rwx
+    owner: apache
+    group: apache
   become: true
 - name: Restart apache
   service:
