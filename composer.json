@@ -47,7 +47,7 @@
     "symfony/polyfill-apcu": "1.14.0",
     "symfony/polyfill-iconv": "1.14.0",
     "symfony/process": "5.0.5",
-    "symfony/security-bundle": "5.0.5",
+    "symfony/security-bundle": "5.0.7",
     "symfony/security-csrf": "5.0.5",
     "symfony/serializer-pack": "1.0.2",
     "symfony/templating": "5.0.5",
