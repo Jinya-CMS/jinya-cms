@@ -40,7 +40,7 @@
     "@babel/plugin-transform-runtime": "7.8.3",
     "@babel/runtime": "7.8.7",
     "@symfony/webpack-encore": "0.28.3",
-    "autoprefixer": "9.7.4",
+    "autoprefixer": "9.7.6",
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.1.0",
