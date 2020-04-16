@@ -66,7 +66,6 @@
     login_user: "{{mysql_root_user}}"
     login_password: "{{mysql_root_password}}"
     target: /vagrant/vagrant-files/jinya-gallery-cms.sql
-  when: install_lock.stat.exists == false
 - name: Restart mariadb
   service:
     name: mariadb

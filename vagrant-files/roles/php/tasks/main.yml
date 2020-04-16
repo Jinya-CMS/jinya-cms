@@ -75,3 +75,7 @@
     name: httpd
     state: restarted
   become: yes
+- name: Install composer dependencies
+  composer:
+    command: install
+    working_dir: /var/www/jinya
