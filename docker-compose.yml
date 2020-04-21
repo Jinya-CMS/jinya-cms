@@ -1,0 +1,16 @@
+version: '3.7'
+
+volumes:
+    logs:
+        driver: local
+
+services:
+    jinya-mysql-database:
+        image: library/mysql:5.6
+        environment:
+            MYSQL_DATABASE: jinya
+            MYSQL_PASSWORD: jinya
+            MYSQL_ROOT_PASSWORD: jinya
+            MYSQL_USER: jinya
+        ports:
+            - 3336:3306
