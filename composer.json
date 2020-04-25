@@ -5,11 +5,13 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "laminas/laminas-crypt": "3.3.1",
         "laminas/laminas-db": "2.11.3",
         "laminas/laminas-eventmanager": "3.2.1",
         "laminas/laminas-hydrator": "3.0.2",
-        "laminas/laminas-serializer": "^2.9",
+        "laminas/laminas-serializer": "2.9.1",
         "monolog/monolog": "1.25.3",
         "php-di/php-di": "6.1.0",
         "phpmailer/phpmailer": "6.1.5",
@@ -33,6 +35,6 @@
     },
     "scripts": {
         "start": "php -S 0.0.0.0:8080 -t public",
-        "test": "phpunit"
+        "test": "./vendor/bin/phpunit"
     }
 }
