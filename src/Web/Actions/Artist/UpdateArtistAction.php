@@ -6,6 +6,8 @@ use App\Database\Artist;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\ConflictException;
+use App\Web\Exceptions\NoResultException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class UpdateArtistAction extends Action
@@ -14,11 +16,16 @@ class UpdateArtistAction extends Action
     /**
      * @inheritDoc
      * @throws ConflictException
+     * @throws NoResultException
+     * @throws JsonException
      */
     protected function action(): Response
     {
         $id = (int)$this->args['id'];
         $artist = Artist::findById($id);
+        if ($artist === null) {
+            throw new NoResultException($this->request, 'Artist not found');
+        }
         $body = $this->request->getParsedBody();
         if (isset($body['email'])) {
             $artist->email = $body['email'];

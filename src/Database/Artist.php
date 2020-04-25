@@ -5,7 +5,7 @@ namespace App\Database;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
-use DateTime;
+use Exception;
 use Iterator;
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\Sql\Predicate\PredicateSet;
@@ -19,14 +19,31 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public string $email = '';
     public bool $enabled = false;
     public ?string $twoFactorToken = '';
-    public ?DateTime $lastLogin = null;
     public ?string $confirmationToken = '';
-    public ?DateTime $passwordRequestedAt = null;
     public array $roles = [];
     public string $artistName = '';
     public ?string $profilePicture = '';
     public ?string $aboutMe = '';
     private string $password = '';
+
+    /**
+     * Finds the artist with the given email
+     * @param string $email
+     * @return Artist
+     */
+    public static function findByEmail(string $email): ?Artist
+    {
+        $sql = self::getSql();
+        $select = $sql->select()->from('users')->where('email = :email');
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['email' => $email]);
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return self::hydrateSingleResult($result, new self(),
+            [
+                'enabled' => new BooleanStrategy('1', '0'),
+                'roles' => new SerializableStrategy(new PhpSerialize()),
+            ]);
+    }
 
     /**
      * @param int $id
@@ -41,11 +58,16 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             ]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function findByKeyword(string $keyword): Iterator
     {
         $sql = self::getSql();
-        $select = $sql->select()->from('users')->where(['email LIKE :keyword', 'artist_name LIKE :keyword'],
-            PredicateSet::OP_OR);
+        $select = $sql
+            ->select()
+            ->from('users')
+            ->where(['email LIKE :keyword', 'artist_name LIKE :keyword'], PredicateSet::OP_OR);
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
 
@@ -56,6 +78,9 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             ]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function findAll(): Iterator
     {
         return self::fetchArray('users', new self(),
@@ -65,12 +90,60 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             ]);
     }
 
+    /**
+     * Finds a user for the given api key
+     *
+     * @param string $apiKey
+     * @return Artist
+     */
+    public static function findByApiKey(string $apiKey): ?Artist
+    {
+        $sql = self::getSql();
+        $select = $sql
+            ->select()
+            ->from(['u' => 'users'])
+            ->join(['ak' => 'api_key'], 'ak.user_id = u.id')
+            ->where('ak.api_key = :apiKey');
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['apiKey' => $apiKey]);
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return self::hydrateSingleResult($result, new self(),
+            [
+                'enabled' => new BooleanStrategy('1', '0'),
+                'roles' => new SerializableStrategy(new PhpSerialize()),
+            ]);
+    }
+
+    /**
+     * Securely sets the two factor code
+     *
+     * @throws Exception
+     */
+    public function setTwoFactorCode(): void
+    {
+        $this->twoFactorToken = '';
+        for ($i = 0; $i < 6; ++$i) {
+            $this->twoFactorToken .= random_int(0, 9);
+        }
+    }
+
+    /**
+     * Validates the given password against the hash in the database
+     *
+     * @param string $password
+     * @return bool
+     */
     public function validatePassword(string $password): bool
     {
         $bcrypt = new Bcrypt();
-        return $bcrypt->verify($password, $this->password);
+        return $bcrypt->verify($password, $this->password) && $this->enabled;
     }
 
+    /**
+     * Sets the artists password and hashes it
+     *
+     * @param string $password
+     */
     public function setPassword(string $password): void
     {
         $bcrypt = new Bcrypt();
@@ -125,5 +198,17 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'enabled' => $this->enabled,
             'id' => $this->id,
         ];
+    }
+
+    /**
+     * Validates the given device code for the given user
+     *
+     * @param string $knownDeviceCode
+     * @return bool
+     */
+    public function validateDevice(string $knownDeviceCode): bool
+    {
+        $device = KnownDevice::findByCode($knownDeviceCode);
+        return $device->userId === $this->id;
     }
 }

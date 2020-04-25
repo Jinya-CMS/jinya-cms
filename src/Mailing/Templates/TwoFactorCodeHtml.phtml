@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var $this \League\Plates\Template\Template
+ * @var $artistName string
+ * @var $twoFactorCode string
+ */
+
+?>
+<html lang="en">
+<body>
+<p>
+    Hello <?= $this->e($artistName) ?><br/><br/>
+    you tried to login from a new device, please verify with this code that this was actually you.
+</p>
+<p>
+    <code><?= $this->e($twoFactorCode) ?></code>
+</p>
+<p>
+    Greetings,<br/>
+    Your Jinya Team
+</p>
+</body>
+</html>
