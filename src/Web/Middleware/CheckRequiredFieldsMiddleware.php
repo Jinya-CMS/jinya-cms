@@ -5,10 +5,14 @@ namespace App\Web\Middleware;
 use App\Web\Exceptions\MissingFieldsException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Exception\HttpNotImplementedException;
 
-class CheckRequiredFieldsMiddleware
+/**
+ * Middleware to check for required fields in the parsed body
+ */
+class CheckRequiredFieldsMiddleware implements MiddlewareInterface
 {
     private array $fields;
 
@@ -22,25 +26,12 @@ class CheckRequiredFieldsMiddleware
     }
 
     /**
-     * Middleware to check for required fields in the parsed body
-     *
-     * @param Request $request PSR-7 request
-     * @param RequestHandler $handler PSR-15 request handler
-     * @return ResponseInterface
-     * @throws HttpNotImplementedException
+     * @param array $body
+     * @param array $requiredFields
+     * @param Request $request
+     * @return bool
      * @throws MissingFieldsException
      */
-    public function __invoke(Request $request, RequestHandler $handler): ResponseInterface
-    {
-        $body = $request->getParsedBody();
-
-        if ($this->checkRequiredFields($body, $this->fields, $request)) {
-            return $handler->handle($request);
-        }
-
-        throw new HttpNotImplementedException($request);
-    }
-
     private function checkRequiredFields(array $body, array $requiredFields, Request $request): bool
     {
         $bodyFields = array_keys($body);
@@ -51,5 +42,16 @@ class CheckRequiredFieldsMiddleware
         }
 
         throw new MissingFieldsException($request, array_values(array_diff($requiredFields, array_values($intersectBody))));
+    }
+
+    public function process(Request $request, RequestHandler $handler): ResponseInterface
+    {
+        $body = $request->getParsedBody();
+
+        if ($this->checkRequiredFields($body, $this->fields, $request)) {
+            return $handler->handle($request);
+        }
+
+        throw new HttpNotImplementedException($request);
     }
 }

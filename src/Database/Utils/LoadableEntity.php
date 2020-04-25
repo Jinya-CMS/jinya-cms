@@ -17,7 +17,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 abstract class LoadableEntity
 {
-    public ?int $id;
+    public ?int $id = null;
 
     /**
      * @param int $id
@@ -29,14 +29,14 @@ abstract class LoadableEntity
      * Gets all entities that match the given keyword
      *
      * @param string $keyword
-     * @return array
+     * @return Iterator
      */
     abstract public static function findByKeyword(string $keyword): Iterator;
 
     /**
      * Gets all entities of the given type
      *
-     * @return array
+     * @return Iterator
      */
     abstract public static function findAll(): Iterator;
 
@@ -168,7 +168,7 @@ abstract class LoadableEntity
      * @param string $table
      * @param $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return array
+     * @return Iterator
      */
     protected static function fetchArray(
         string $table,
@@ -189,7 +189,7 @@ abstract class LoadableEntity
      * @param ResultInterface $result
      * @param mixed $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return array
+     * @return Iterator
      */
     protected static function hydrateMultipleResults(
         ResultInterface $result,
@@ -220,18 +220,19 @@ abstract class LoadableEntity
 
     /**
      * @param string $table
-     * @param mixed $data
      * @param array $strategies
+     * @param array $skippedFields
      * @return int
-     * @throws UniqueFailedException
+     * @throws Exception
      */
-    protected function internalCreate(string $table, array $strategies = []): int
+    protected function internalCreate(string $table, array $strategies = [], array $skippedFields = []): int
     {
         $hydrator = new ReflectionHydrator();
         $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
         foreach ($strategies as $key => $strategy) {
             $hydrator->addStrategy($key, $strategy);
         }
+        $hydrator->addFilter('excludes', new SkipFieldFilter($skippedFields));
 
         $sql = self::getSql();
         $insert = $sql->insert($table);
@@ -287,14 +288,12 @@ abstract class LoadableEntity
         }
 
         $data = $hydrator->extract($this);
-        $set = [];
         $params = [];
         foreach ($data as $key => $value) {
-            $params[$key] = $value;
             if ($key === 'id') {
                 continue;
             }
-            $set[$key] = ":$key";
+            $params[$key] = $value;
         }
 
         $update = $sql->update($table)

@@ -12,6 +12,7 @@
         "laminas/laminas-eventmanager": "3.2.1",
         "laminas/laminas-hydrator": "3.0.2",
         "laminas/laminas-serializer": "2.9.1",
+        "league/plates": "3.3.0",
         "monolog/monolog": "1.25.3",
         "php-di/php-di": "6.1.0",
         "phpmailer/phpmailer": "6.1.5",
@@ -21,8 +22,7 @@
         "vlucas/phpdotenv": "4.1.4"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^7.5"
+        "roave/security-advisories": "dev-master"
     },
     "config": {
         "process-timeout": 0,

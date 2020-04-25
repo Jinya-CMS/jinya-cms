@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
+use League\Plates\Engine;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -10,7 +11,7 @@ use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
+        LoggerInterface::class => function (ContainerInterface $c): LoggerInterface {
             $settings = $c->get('settings');
 
             $loggerSettings = $settings['logger'];
@@ -23,6 +24,13 @@ return function (ContainerBuilder $containerBuilder) {
             $logger->pushHandler($handler);
 
             return $logger;
+        },
+        Engine::class => function (): Engine {
+            $engine = new Engine();
+            $engine->addFolder('mailing', __DIR__ . '/../src/Mailing/Templates');
+            $engine->setFileExtension('phtml');
+
+            return $engine;
         },
     ]);
 };
