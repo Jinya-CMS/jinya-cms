@@ -36,7 +36,6 @@ $container = $containerBuilder->build();
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-$callableResolver = $app->getCallableResolver();
 
 // Register middleware
 $middleware = require __DIR__ . '/../app/middleware.php';
@@ -46,22 +45,18 @@ $middleware($app);
 $routes = require __DIR__ . '/../app/routes.php';
 $routes($app);
 
-/** @var bool $displayErrorDetails */
-$displayErrorDetails = $container->get('settings')['displayErrorDetails'];
-
 // Create Request object from globals
 $serverRequestCreator = ServerRequestCreatorFactory::create();
 $request = $serverRequestCreator->createServerRequestFromGlobals();
 
-// Create Error Handler
-$responseFactory = $app->getResponseFactory();
-$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
-
 // Add Routing Middleware
 $app->addRoutingMiddleware();
 
-// Add Error Middleware
-$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
+// Create Error Handler
+$callableResolver = $app->getCallableResolver();
+$responseFactory = $app->getResponseFactory();
+$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
+$errorMiddleware = $app->addErrorMiddleware(getenv('APP_ENV') === 'dev', true, getenv('APP_ENV') === 'dev');
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Run App & Emit Response

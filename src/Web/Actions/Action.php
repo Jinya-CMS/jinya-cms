@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace App\Web\Actions;
 
+use App\Database\Utils\FormattableEntityInterface;
+use Iterator;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
-use Slim\Exception\HttpNotFoundException;
+use Slim\Exception\HttpInternalServerErrorException;
 
 abstract class Action
 {
@@ -108,7 +111,7 @@ abstract class Action
      * @param Response $response
      * @param array $args
      * @return Response
-     * @throws HttpNotFoundException
+     * @throws HttpInternalServerErrorException
      */
     public function __invoke(Request $request, Response $response, $args): Response
     {
@@ -116,11 +119,7 @@ abstract class Action
         $this->response = $response;
         $this->args = $args;
 
-        try {
-            return $this->action();
-        } catch (\Throwable $e) {
-            throw new HttpNotFoundException($this->request, $e->getMessage());
-        }
+        return $this->action();
     }
 
     /**
@@ -132,7 +131,7 @@ abstract class Action
     /**
      * @return array
      * @throws HttpBadRequestException
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function getFormData(): array
     {
@@ -160,14 +159,61 @@ abstract class Action
     }
 
     /**
-     * @param array|null $payload
+     * @param array $data
+     * @param int $offset
+     * @param int $count
      * @return Response
-     * @throws \JsonException
+     * @throws JsonException
      */
-    protected function respond(?array $payload = null): Response
+    protected function respondList(array $data, int $offset = 0, int $count = -1): Response
+    {
+        return $this->respond($this->formatList($data, $offset, $count));
+    }
+
+    /**
+     * @param array|null $payload
+     * @param int $statusCode
+     * @return Response
+     * @throws JsonException
+     */
+    protected function respond(?array $payload = null, int $statusCode = Action::HTTP_OK): Response
     {
         $json = json_encode($payload, JSON_THROW_ON_ERROR, 512);
         $this->response->getBody()->write($json);
-        return $this->response->withHeader('Content-Type', 'application/json');
+
+        return $this->response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($statusCode);
+    }
+
+    protected function formatList(array $data, int $offset = 0, int $count = -1): array
+    {
+        return [
+            'success' => true,
+            'offset' => $offset,
+            'count' => $count === -1 ? count($data) : $count,
+            'items' => $data,
+            'control' => [
+                'next' => false,
+                'previous' => false,
+            ],
+        ];
+    }
+
+    /**
+     * Format the artist list
+     *
+     * @param Iterator $iterator
+     * @return array
+     */
+    protected function formatIterator(Iterator $iterator): array
+    {
+        $data = [];
+        foreach ($iterator as $item) {
+            /** @var FormattableEntityInterface $item */
+            $data[] = $item->format();
+        }
+
+        return $data;
     }
 }

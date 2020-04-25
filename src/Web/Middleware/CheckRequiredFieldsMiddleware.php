@@ -5,7 +5,6 @@ namespace App\Web\Middleware;
 use App\Web\Exceptions\MissingFieldsException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Exception\HttpNotImplementedException;
 
@@ -47,7 +46,7 @@ class CheckRequiredFieldsMiddleware
         $bodyFields = array_keys($body);
         $intersectBody = array_intersect($bodyFields, $requiredFields);
 
-        if (array_count_values($requiredFields) === array_count_values($intersectBody)) {
+        if (count($requiredFields) === count($intersectBody)) {
             return true;
         }
 
