@@ -17,6 +17,8 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 abstract class LoadableEntity
 {
+    public const MYSQL_DATA_FORMAT = 'Y-m-d H:i:s';
+    private static Adapter $adapter;
     public ?int $id = null;
 
     /**
@@ -73,14 +75,19 @@ abstract class LoadableEntity
      */
     protected static function getAdapter(): Adapter
     {
-        return new Adapter([
-            'driver' => 'Pdo_Mysql',
-            'database' => getenv('MYSQL_DATABASE'),
-            'username' => getenv('MYSQL_USER'),
-            'password' => getenv('MYSQL_PASSWORD'),
-            'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
-            'port' => getenv('MYSQL_PORT') ?: 3306,
-        ]);
+        if (!isset(self::$adapter)) {
+            self::$adapter = new Adapter([
+                'driver' => 'Pdo_Mysql',
+                'database' => getenv('MYSQL_DATABASE'),
+                'username' => getenv('MYSQL_USER'),
+                'password' => getenv('MYSQL_PASSWORD'),
+                'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
+                'port' => getenv('MYSQL_PORT') ?: 3306,
+                'charset' => getenv('MYSQL_CHARSET') ?: 'utf8mb4',
+            ]);
+        }
+
+        return self::$adapter;
     }
 
     /**
@@ -136,6 +143,7 @@ abstract class LoadableEntity
 
         $resultSet = new HydratingResultSet($hydrator, $prototype);
         $resultSet->initialize($result);
+
         return $resultSet;
     }
 

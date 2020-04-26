@@ -56,10 +56,11 @@ class KnownDevice extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public function create(): void
     {
-        $this->internalCreate('known_device');
+        $this->id = $this->internalCreate('known_device');
     }
 
     /**

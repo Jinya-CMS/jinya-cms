@@ -39,7 +39,7 @@ class ApiKey extends Utils\LoadableEntity
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult($result, new self(),
-            ['validSince' => new DateTimeFormatterStrategy('Y-m-d H:i:s')]);
+            ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATA_FORMAT)]);
     }
 
     /**
@@ -55,7 +55,7 @@ class ApiKey extends Utils\LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('api_key', new self(), ['validSince' => new DateTimeFormatterStrategy('Y-m-d H:i:s')]);
+        return self::fetchArray('api_key', new self(), ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATA_FORMAT)]);
     }
 
     /**
@@ -78,7 +78,7 @@ class ApiKey extends Utils\LoadableEntity
      */
     public function create(): void
     {
-        $this->internalCreate('api_key', ['validSince' => new DateTimeFormatterStrategy('Y-m-d H:i:s')], ['id']);
+        $this->internalCreate('api_key', ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATA_FORMAT)], ['id']);
     }
 
     /**
@@ -99,7 +99,7 @@ class ApiKey extends Utils\LoadableEntity
     {
         $sql = self::getSql();
 
-        $converter = new DateTimeFormatterStrategy('Y-m-d H:i:s');
+        $converter = new DateTimeFormatterStrategy(self::MYSQL_DATA_FORMAT);
 
         $update = $sql->update('api_key')
             ->where(['api_key = :apiKey'])
