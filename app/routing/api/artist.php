@@ -7,6 +7,7 @@ use App\Web\Actions\Artist\ListAllArtistsAction;
 use App\Web\Actions\Artist\UpdateArtistAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use App\Web\Middleware\RoleMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (RouteCollectorProxy $api){
@@ -20,5 +21,5 @@ return function (RouteCollectorProxy $api){
         $group->get('/{id}', GetArtistByIdAction::class);
         $group->put('/{id}', UpdateArtistAction::class);
         $group->delete('/{id}', DeleteArtistAction::class);
-    })->add(AuthenticationMiddleware::class);
+    })->add(AuthenticationMiddleware::class)->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN));
 };
