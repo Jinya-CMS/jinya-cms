@@ -9,7 +9,7 @@ use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use RuntimeException;
 
-class FileUploadService
+class FileUploadService extends StorageBaseService
 {
     private const WEB_PATH = '/jinya-content/';
     private const SAVE_PATH = __DIR__ . '/../../public/jinya-content/' . self::WEB_PATH;
@@ -19,12 +19,12 @@ class FileUploadService
      *
      * @param int $fileId
      * @param int $position
-     * @param string $data
+     * @param string|resource $data
      * @return UploadingFileChunk
      * @throws UniqueFailedException
      * @throws EmptyResultException
      */
-    public function saveChunk(int $fileId, int $position, string $data): UploadingFileChunk
+    public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {
         $path = tempnam(sys_get_temp_dir(), 'upload-chunk');
         file_put_contents($path, $data);
@@ -76,7 +76,7 @@ class FileUploadService
             }
 
             $fileName = $this->getFileHash($tmpFileHandle);
-            $path = self::SAVE_PATH . DIRECTORY_SEPARATOR . $fileName;
+            $path = self::SAVE_PATH . $fileName;
 
             rewind($tmpFileHandle);
             file_put_contents($path, $tmpFileHandle);
@@ -89,17 +89,6 @@ class FileUploadService
         }
 
         return $file;
-    }
-
-    /**
-     * @param resource $fileContent
-     * @return string
-     */
-    private function getFileHash($fileContent): string
-    {
-        $hashCtx = hash_init('sha256');
-        hash_update_stream($hashCtx, $fileContent);
-        return hash_final($hashCtx);
     }
 
     /**

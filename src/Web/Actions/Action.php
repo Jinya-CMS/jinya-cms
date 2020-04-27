@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Web\Actions;
 
 use App\Database\Utils\FormattableEntityInterface;
+use App\Storage\StorageBaseService;
 use Iterator;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -11,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Psr7\Stream;
 
 abstract class Action
 {
@@ -198,6 +200,23 @@ abstract class Action
                 'previous' => false,
             ],
         ];
+    }
+
+    /**
+     * Generates a file response
+     *
+     * @param string $path
+     * @param string $contentType
+     * @param string $basePath
+     * @return Response
+     */
+    protected function respondFile(string $path, string $contentType = 'application/octet-stream', string $basePath = StorageBaseService::BASE_PATH): Response
+    {
+
+        return $this->response
+            ->withBody(new Stream(fopen($basePath.$path, 'rb')))
+            ->withHeader('Content-Type', $contentType)
+            ->withStatus(self::HTTP_OK);
     }
 
     /**

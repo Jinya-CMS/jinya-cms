@@ -38,7 +38,7 @@ class UploadChunkAction extends Action
         $position = $this->args['position'];
 
         try {
-            $this->fileUploadService->saveChunk($fileId, $position, $this->request->getBody()->getContents());
+            $this->fileUploadService->saveChunk($fileId, $position, $this->request->getBody()->detach());
         } catch (EmptyResultException $exception) {
             throw new NoResultException($this->request, 'File not found');
         }
