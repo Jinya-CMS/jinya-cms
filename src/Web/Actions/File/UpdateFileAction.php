@@ -39,7 +39,6 @@ class UpdateFileAction extends Action
             throw new ConflictException($this->request, 'Name already used');
         }
 
-
-        return $this->respond([], Action::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Database\Utils;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use Exception;
 use Iterator;
@@ -19,7 +20,8 @@ abstract class LoadableEntity
 {
     public const MYSQL_DATA_FORMAT = 'Y-m-d H:i:s';
     private static Adapter $adapter;
-    public ?int $id = null;
+    /** @var int|string $id */
+    public $id;
 
     /**
      * @param int $id
@@ -261,9 +263,14 @@ abstract class LoadableEntity
      */
     protected function convertInvalidQueryExceptionToException(Exception $exception): Exception
     {
-        switch ($exception->getPrevious()->getCode()) {
-            case 23000:
+        /** @var \PDOException $previous */
+        $previous = $exception->getPrevious();
+        switch ($previous->errorInfo[1]) {
+            case 1062:
                 return new UniqueFailedException($exception);
+                break;
+            case 1452:
+                return new ForeignKeyFailedException($exception);
                 break;
         }
 

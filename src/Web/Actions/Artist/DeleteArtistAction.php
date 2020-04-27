@@ -25,6 +25,6 @@ class DeleteArtistAction extends Action
         }
         $artist->delete();
 
-        return $this->respond(null, Action::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 }

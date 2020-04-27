@@ -48,6 +48,6 @@ class UpdateArtistAction extends Action
             throw new ConflictException($this->request, 'Email exists');
         }
 
-        return $this->respond(null, Action::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 }

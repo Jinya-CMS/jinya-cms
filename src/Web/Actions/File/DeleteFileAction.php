@@ -24,6 +24,6 @@ class DeleteFileAction extends Action
         }
         $file->delete();
 
-        return $this->respond([], Action::HTTP_NO_CONTENT);
+        return $this->noContent();
     }
 }

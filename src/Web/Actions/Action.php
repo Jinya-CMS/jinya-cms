@@ -201,6 +201,17 @@ abstract class Action
     }
 
     /**
+     * Generates a HTTP 204 No Content response
+     *
+     * @return Response
+     * @throws JsonException
+     */
+    protected function noContent(): Response
+    {
+        return $this->respond([], self::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Format the artist list
      *
      * @param Iterator $iterator

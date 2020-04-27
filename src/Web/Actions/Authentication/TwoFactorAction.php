@@ -49,6 +49,6 @@ class TwoFactorAction extends Action
         $artist->twoFactorToken = null;
         $artist->update();
 
-        throw new BadCredentialsException($this->request, 'Invalid username or password');
+        return $this->noContent();
     }
 }
