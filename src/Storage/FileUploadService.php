@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Storage;
+
+use App\Database\Exceptions\EmptyResultException;
+use App\Database\Exceptions\UniqueFailedException;
+use App\Database\File;
+use App\Database\UploadingFile;
+use App\Database\UploadingFileChunk;
+use RuntimeException;
+
+class FileUploadService
+{
+    private const WEB_PATH = '/jinya-content/';
+    private const SAVE_PATH = __DIR__ . '/../../public/jinya-content/' . self::WEB_PATH;
+
+    /**
+     * Saves a new file chunk and returns it
+     *
+     * @param int $fileId
+     * @param int $position
+     * @param string $data
+     * @return UploadingFileChunk
+     * @throws UniqueFailedException
+     * @throws EmptyResultException
+     */
+    public function saveChunk(int $fileId, int $position, string $data): UploadingFileChunk
+    {
+        $path = tempnam(sys_get_temp_dir(), 'upload-chunk');
+        file_put_contents($path, $data);
+
+        $uploadingFile = UploadingFile::findByFile($fileId);
+        if ($uploadingFile === null) {
+            throw new EmptyResultException('File not found');
+        }
+
+        $chunk = new UploadingFileChunk();
+        $chunk->chunkPath = $path;
+        $chunk->chunkPosition = $position;
+        $chunk->uploadingFileId = $uploadingFile->id;
+        $chunk->create();
+
+        return $chunk;
+    }
+
+    /**
+     * Finishes the upload for the given file
+     *
+     * @param int $fileId
+     * @return File
+     * @throws UniqueFailedException
+     */
+    public function finishUpload(int $fileId): File
+    {
+        $file = File::findById($fileId);
+        $chunks = UploadingFileChunk::findByFile($fileId);
+
+        if (!@mkdir(self::SAVE_PATH, 0775, true) && !@is_dir(self::SAVE_PATH)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', self::SAVE_PATH));
+        }
+
+        $tmpFileHandle = tmpfile();
+
+        try {
+            foreach ($chunks as $chunk) {
+                $chunkFileHandle = fopen($chunk->chunkPath, 'rb');
+
+                try {
+                    if (filesize($chunk->chunkPath) > 0) {
+                        $chunkData = fread($chunkFileHandle, filesize($chunk->chunkPath));
+                        fwrite($tmpFileHandle, $chunkData);
+                    }
+                } finally {
+                    fclose($chunkFileHandle);
+                }
+            }
+
+            $fileName = $this->getFileHash($tmpFileHandle);
+            $path = self::SAVE_PATH . DIRECTORY_SEPARATOR . $fileName;
+
+            rewind($tmpFileHandle);
+            file_put_contents($path, $tmpFileHandle);
+
+            $file->path = self::WEB_PATH . $fileName;
+            $file->update();
+            $this->clearChunks($fileId);
+        } finally {
+            fclose($tmpFileHandle);
+        }
+
+        return $file;
+    }
+
+    /**
+     * @param resource $fileContent
+     * @return string
+     */
+    private function getFileHash($fileContent): string
+    {
+        $hashCtx = hash_init('sha256');
+        hash_update_stream($hashCtx, $fileContent);
+        return hash_final($hashCtx);
+    }
+
+    /**
+     * Removes all chunks for the given file
+     *
+     * @param int $fileId
+     */
+    public function clearChunks(int $fileId): void
+    {
+        $chunks = UploadingFileChunk::findByFile($fileId);
+        foreach ($chunks as $chunk) {
+            @unlink($chunk->chunkPath);
+            $chunk->delete();
+        }
+    }
+}

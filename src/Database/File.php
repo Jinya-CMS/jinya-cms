@@ -65,6 +65,16 @@ class File extends LoadableEntity
     }
 
     /**
+     * Gets the uploading chunks
+     *
+     * @return Iterator
+     */
+    public function getUploadChunks(): Iterator
+    {
+        return UploadingFileChunk::findByFile($this->id);
+    }
+
+    /**
      * @inheritDoc
      * @throws Exception
      */

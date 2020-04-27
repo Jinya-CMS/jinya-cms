@@ -29,6 +29,7 @@ class RoleMiddleware implements MiddlewareInterface
 
     /**
      * @inheritDoc
+     * @throws HttpForbiddenException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
