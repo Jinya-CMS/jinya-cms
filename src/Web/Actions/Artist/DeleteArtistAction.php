@@ -3,7 +3,9 @@
 namespace App\Web\Actions\Artist;
 
 use App\Database\Artist;
+use App\Database\Exceptions\DeleteLastAdminException;
 use App\Web\Actions\Action;
+use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -15,6 +17,7 @@ class DeleteArtistAction extends Action
      * @inheritDoc
      * @throws JsonException
      * @throws NoResultException
+     * @throws ConflictException
      */
     protected function action(): Response
     {
@@ -23,7 +26,12 @@ class DeleteArtistAction extends Action
         if ($artist === null) {
             throw new NoResultException($this->request, 'Artist not found');
         }
-        $artist->delete();
+
+        try {
+            $artist->delete();
+        } catch (DeleteLastAdminException $exception) {
+            throw new ConflictException($this->request, 'Cannot delete last admin');
+        }
 
         return $this->noContent();
     }

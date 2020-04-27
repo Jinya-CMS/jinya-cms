@@ -1,6 +1,8 @@
 <?php
 
+use App\Web\Actions\Artist\ActivateArtistAction;
 use App\Web\Actions\Artist\CreateArtistAction;
+use App\Web\Actions\Artist\DeactivateArtistAction;
 use App\Web\Actions\Artist\DeleteArtistAction;
 use App\Web\Actions\Artist\GetArtistByIdAction;
 use App\Web\Actions\Artist\ListAllArtistsAction;
@@ -29,5 +31,7 @@ return function (RouteCollectorProxy $api) {
             $profilepicture->get('', GetProfilePictureAction::class);
             $profilepicture->delete('', DeleteProfilePictureAction::class);
         });
-    })->add(AuthenticationMiddleware::class)->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN));
+        $group->put('/{id}/activation', ActivateArtistAction::class);
+        $group->delete('/{id}/activation', DeactivateArtistAction::class);
+    })->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))->add(AuthenticationMiddleware::class);
 };

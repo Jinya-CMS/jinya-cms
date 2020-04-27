@@ -23,7 +23,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
     {
         $apiKeyHeader = $request->getHeaderLine('JinyaApiKey');
         $artist = Artist::findByApiKey($apiKeyHeader);
-        if (!$artist) {
+        if (!$artist||!$artist->enabled) {
             throw new HttpForbiddenException($request, 'Api key invalid');
         }
 

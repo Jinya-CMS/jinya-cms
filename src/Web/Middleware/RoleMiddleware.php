@@ -35,7 +35,7 @@ class RoleMiddleware implements MiddlewareInterface
     {
         /** @var Artist $artist */
         $artist = $request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
-        if (in_array($this->role, $artist->roles, true)) {
+        if (!in_array($this->role, $artist->roles, true)) {
             throw new HttpForbiddenException($request, 'Not enough permissions');
         }
 
