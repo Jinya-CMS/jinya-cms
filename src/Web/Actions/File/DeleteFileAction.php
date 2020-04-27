@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Web\Actions\Artist;
+namespace App\Web\Actions\File;
 
-use App\Database\Artist;
+use App\Database\File;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class DeleteArtistAction extends Action
+class DeleteFileAction extends Action
 {
 
     /**
      * @inheritDoc
      * @throws JsonException
-     * @throws NoResultException
      */
     protected function action(): Response
     {
         $id = $this->args['id'];
-        $artist = Artist::findById($id);
-        if ($artist === null) {
-            throw new NoResultException($this->request, 'Artist not found');
+        $file = File::findById($id);
+        if ($file === null) {
+            throw new NoResultException($this->request, 'File not found');
         }
-        $artist->delete();
+        $file->delete();
 
         return $this->noContent();
     }

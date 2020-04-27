@@ -2,6 +2,7 @@
 
 namespace App\Web\Middleware;
 
+use App\Authentication\CurrentUser;
 use App\Database\Artist;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -25,6 +26,8 @@ class AuthenticationMiddleware implements MiddlewareInterface
         if (!$artist) {
             throw new HttpForbiddenException($request, 'Api key invalid');
         }
+
+        CurrentUser::$currentUser = $artist;
 
         return $handler->handle($request->withAttribute(self::LOGGED_IN_ARTIST, $artist));
     }

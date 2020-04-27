@@ -15,7 +15,6 @@ use Laminas\Serializer\Adapter\PhpSerialize;
 
 class Artist extends LoadableEntity implements FormattableEntityInterface
 {
-    public ?int $id = null;
     public string $email = '';
     public bool $enabled = false;
     public ?string $twoFactorToken = '';

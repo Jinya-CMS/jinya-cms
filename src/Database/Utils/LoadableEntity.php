@@ -2,6 +2,7 @@
 
 namespace App\Database\Utils;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use Exception;
 use Iterator;
@@ -17,7 +18,10 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 abstract class LoadableEntity
 {
-    public ?int $id = null;
+    public const MYSQL_DATA_FORMAT = 'Y-m-d H:i:s';
+    private static Adapter $adapter;
+    /** @var int|string $id */
+    public $id;
 
     /**
      * @param int $id
@@ -73,14 +77,19 @@ abstract class LoadableEntity
      */
     protected static function getAdapter(): Adapter
     {
-        return new Adapter([
-            'driver' => 'Pdo_Mysql',
-            'database' => getenv('MYSQL_DATABASE'),
-            'username' => getenv('MYSQL_USER'),
-            'password' => getenv('MYSQL_PASSWORD'),
-            'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
-            'port' => getenv('MYSQL_PORT') ?: 3306,
-        ]);
+        if (!isset(self::$adapter)) {
+            self::$adapter = new Adapter([
+                'driver' => 'Pdo_Mysql',
+                'database' => getenv('MYSQL_DATABASE'),
+                'username' => getenv('MYSQL_USER'),
+                'password' => getenv('MYSQL_PASSWORD'),
+                'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
+                'port' => getenv('MYSQL_PORT') ?: 3306,
+                'charset' => getenv('MYSQL_CHARSET') ?: 'utf8mb4',
+            ]);
+        }
+
+        return self::$adapter;
     }
 
     /**
@@ -136,6 +145,7 @@ abstract class LoadableEntity
 
         $resultSet = new HydratingResultSet($hydrator, $prototype);
         $resultSet->initialize($result);
+
         return $resultSet;
     }
 
@@ -253,9 +263,14 @@ abstract class LoadableEntity
      */
     protected function convertInvalidQueryExceptionToException(Exception $exception): Exception
     {
-        switch ($exception->getPrevious()->getCode()) {
-            case 23000:
+        /** @var \PDOException $previous */
+        $previous = $exception->getPrevious();
+        switch ($previous->errorInfo[1]) {
+            case 1062:
                 return new UniqueFailedException($exception);
+                break;
+            case 1452:
+                return new ForeignKeyFailedException($exception);
                 break;
         }
 
