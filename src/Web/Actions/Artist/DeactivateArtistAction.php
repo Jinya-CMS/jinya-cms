@@ -24,6 +24,7 @@ class DeactivateArtistAction extends Action
         if (Artist::countAdmins() === 1 && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
             throw new ConflictException($this->request, 'Cannot disable last admin');
         }
+
         $artist->enabled = false;
         $artist->update();
 

@@ -174,15 +174,9 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $users = self::findAll();
         $admins = 0;
         foreach ($users as $user) {
-            $admins += in_array(
-                    RoleMiddleware::ROLE_SUPER_ADMIN,
-                    $user->roles,
-                    true,
-                ) || in_array(
-                    RoleMiddleware::ROLE_ADMIN,
-                    $user->roles,
-                    true
-                );
+            if ($user->enabled && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
+                $admins++;
+            }
         }
 
         return $admins;
