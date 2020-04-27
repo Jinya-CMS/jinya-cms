@@ -2,9 +2,11 @@
 
 namespace App\Database;
 
+use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
+use App\Web\Middleware\RoleMiddleware;
 use Exception;
 use Iterator;
 use Laminas\Crypt\Password\Bcrypt;
@@ -71,18 +73,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
 
         return self::hydrateMultipleResults($result, new self(),
-            [
-                'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function findAll(): Iterator
-    {
-        return self::fetchArray('users', new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
                 'roles' => new SerializableStrategy(new PhpSerialize()),
@@ -163,9 +153,51 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             ]);
     }
 
+    /**
+     * @inheritDoc
+     * @throws DeleteLastAdminException
+     */
     public function delete(): void
     {
-        $this->internalDelete('users');
+        if (self::countAdmins() > 1) {
+            $this->internalDelete('users');
+        } else {
+            throw new DeleteLastAdminException('Cannot delete last admin');
+        }
+    }
+
+    /**
+     * Counts all available admins
+     */
+    public static function countAdmins(): int
+    {
+        $users = self::findAll();
+        $admins = 0;
+        foreach ($users as $user) {
+            $admins += in_array(
+                    RoleMiddleware::ROLE_SUPER_ADMIN,
+                    $user->roles,
+                    true,
+                ) || in_array(
+                    RoleMiddleware::ROLE_ADMIN,
+                    $user->roles,
+                    true
+                );
+        }
+
+        return $admins;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function findAll(): Iterator
+    {
+        return self::fetchArray('users', new self(),
+            [
+                'enabled' => new BooleanStrategy('1', '0'),
+                'roles' => new SerializableStrategy(new PhpSerialize()),
+            ]);
     }
 
     /**
