@@ -210,11 +210,13 @@ abstract class Action
      * @param string $basePath
      * @return Response
      */
-    protected function respondFile(string $path, string $contentType = 'application/octet-stream', string $basePath = StorageBaseService::BASE_PATH): Response
-    {
-
+    protected function respondFile(
+        string $path,
+        string $contentType = 'application/octet-stream',
+        string $basePath = StorageBaseService::BASE_PATH . '/public/'
+    ): Response {
         return $this->response
-            ->withBody(new Stream(fopen($basePath.$path, 'rb')))
+            ->withBody(new Stream(fopen($basePath . $path, 'rb')))
             ->withHeader('Content-Type', $contentType)
             ->withStatus(self::HTTP_OK);
     }

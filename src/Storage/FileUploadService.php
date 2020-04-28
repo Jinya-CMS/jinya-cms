@@ -78,9 +78,14 @@ class FileUploadService extends StorageBaseService
             rewind($tmpFileHandle);
             file_put_contents($path, $tmpFileHandle);
 
+            $file->type = mime_content_type($path);
             $file->path = self::WEB_PATH . $fileName;
             $file->update();
             $this->clearChunks($fileId);
+
+            $uploadingFile = UploadingFile::findByFile($fileId);
+            /** @noinspection NullPointerExceptionInspection */
+            $uploadingFile->delete();
         } finally {
             fclose($tmpFileHandle);
         }

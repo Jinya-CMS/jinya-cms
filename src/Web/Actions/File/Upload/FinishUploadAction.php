@@ -3,6 +3,7 @@
 namespace App\Web\Actions\File\Upload;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\FileUploadService;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
@@ -29,6 +30,7 @@ class FinishUploadAction extends Action
      * @inheritDoc
      * @throws JsonException
      * @throws NoResultException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

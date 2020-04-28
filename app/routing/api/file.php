@@ -2,6 +2,7 @@
 
 use App\Web\Actions\File\CreateFileAction;
 use App\Web\Actions\File\DeleteFileAction;
+use App\Web\Actions\File\GetFileContentAction;
 use App\Web\Actions\File\GetFileByIdAction;
 use App\Web\Actions\File\ListAllFilesAction;
 use App\Web\Actions\File\UpdateFileAction;
@@ -21,6 +22,8 @@ return function (RouteCollectorProxy $api) {
         $group->get('/{id}', GetFileByIdAction::class);
         $group->put('/{id}', UpdateFileAction::class);
         $group->delete('/{id}', DeleteFileAction::class);
+
+        $group->get('/{id}/content', GetFileContentAction::class);
 
         $group->put('/{id}/content', StartUploadAction::class);
         $group->put('/{id}/content/finish', FinishUploadAction::class);
