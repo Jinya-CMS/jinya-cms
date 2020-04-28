@@ -5,7 +5,7 @@ namespace App\Storage;
 abstract class StorageBaseService
 {
     public const WEB_PATH = '/jinya-content/';
-    public const BASE_PATH = __DIR__ . '/../../';
+    public const BASE_PATH = __ROOT__;
     public const SAVE_PATH = self::BASE_PATH . '/public/jinya-content/' . self::WEB_PATH;
 
     /**

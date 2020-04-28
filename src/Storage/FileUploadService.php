@@ -11,9 +11,6 @@ use RuntimeException;
 
 class FileUploadService extends StorageBaseService
 {
-    private const WEB_PATH = '/jinya-content/';
-    private const SAVE_PATH = __DIR__ . '/../../public/jinya-content/' . self::WEB_PATH;
-
     /**
      * Saves a new file chunk and returns it
      *
