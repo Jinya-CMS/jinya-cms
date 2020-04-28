@@ -8,9 +8,11 @@ return function (App $app) {
         $artistRoutes = require __DIR__ . '/routing/api/artist.php';
         $authenticationRoutes = require __DIR__ . '/routing/api/authentication.php';
         $fileRoutes = require __DIR__ . '/routing/api/file.php';
+        $simplePageRoutes = require __DIR__ . '/routing/api/simplePages.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
         $fileRoutes($api);
+        $simplePageRoutes($api);
     });
 };

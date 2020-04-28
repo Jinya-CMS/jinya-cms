@@ -3,33 +3,48 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Utils\LoadableEntity;
 use DateTime;
 use Exception;
 use Iterator;
+use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-class File extends LoadableEntity
+class SimplePage extends Utils\LoadableEntity
 {
+
     public int $creatorId;
     public int $updatedById;
     public DateTime $createdAt;
     public DateTime $lastUpdatedAt;
-    public string $path = '';
-    public string $name = '';
-    public string $type = '';
+    public string $content;
+    public string $title;
+    public string $slug;
+    private string $name;
 
     /**
      * @inheritDoc
-     * @return File
+     * @return SimplePage
      */
     public static function findById(int $id)
     {
-        return self::fetchSingleById('file', $id, new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+        return self::fetchSingleById('page', $id, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
+    }
+
+    /**
+     * Gets the simple page by the given slug
+     *
+     * @param string $slug
+     * @return SimplePage
+     */
+    public static function findBySlug(string $slug): SimplePage
+    {
+        return self::fetchSingleBySlug('page', $slug, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
     /**
@@ -40,16 +55,15 @@ class File extends LoadableEntity
         $sql = self::getSql();
         $select = $sql
             ->select()
-            ->from('file')
-            ->where(['name LIKE :keyword']);
+            ->from('page')
+            ->where(['title LIKE :keyword', 'content LIKE :keyword'], PredicateSet::OP_OR);
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+        return self::hydrateMultipleResults($result, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
     /**
@@ -57,21 +71,10 @@ class File extends LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('file', new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
-    }
-
-    /**
-     * Gets the uploading chunks
-     *
-     * @return Iterator
-     */
-    public function getUploadChunks(): Iterator
-    {
-        return UploadingFileChunk::findByFile($this->id);
+        return self::fetchArray('page', new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
     /**
@@ -86,11 +89,12 @@ class File extends LoadableEntity
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->id = $this->internalCreate('file',
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+        $this->name = $this->title;
+
+        $this->internalCreate('page', [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
     /**
@@ -98,7 +102,7 @@ class File extends LoadableEntity
      */
     public function delete(): void
     {
-        $this->internalDelete('file');
+        $this->internalDelete('page');
     }
 
     /**
@@ -108,13 +112,20 @@ class File extends LoadableEntity
     {
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
-        $this->internalUpdate('file',
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+
+        $this->name = $this->title;
+
+        $this->internalUpdate('page', [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
+    /**
+     * Formats the current page
+     *
+     * @return array
+     */
     public function format(): array
     {
         $creator = $this->getCreator();
@@ -122,9 +133,9 @@ class File extends LoadableEntity
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'type' => $this->type,
-            'path' => $this->path,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'content' => $this->content,
             'created' => [
                 'by' => [
                     'artistName' => $creator->artistName,
@@ -145,7 +156,7 @@ class File extends LoadableEntity
     }
 
     /**
-     * Gets the creator of this file
+     * Gets the creator
      *
      * @return Artist
      */
@@ -155,7 +166,7 @@ class File extends LoadableEntity
     }
 
     /**
-     * Gets the artist that last updated this file
+     * Gets the artist who last updated the page
      *
      * @return Artist
      */

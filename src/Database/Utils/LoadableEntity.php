@@ -18,7 +18,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 abstract class LoadableEntity
 {
-    public const MYSQL_DATA_FORMAT = 'Y-m-d H:i:s';
+    public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     private static Adapter $adapter;
     /** @var int|string $id */
     public $id;

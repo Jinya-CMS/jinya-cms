@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Web\Actions\File;
+namespace App\Web\Actions\SimplePage;
 
-use App\Database\File;
+use App\Database\SimplePage;
 use App\Web\Actions\Action;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ListAllFilesAction extends Action
+class ListAllSimplePagesAction extends Action
 {
 
     /**
@@ -18,9 +18,9 @@ class ListAllFilesAction extends Action
     {
         $params = $this->request->getQueryParams();
         if (isset($params['keyword'])) {
-            return $this->respondList($this->formatIterator(File::findByKeyword($params['keyword'])));
+            return $this->respondList($this->formatIterator(SimplePage::findByKeyword($params['keyword'])));
         }
 
-        return $this->respondList($this->formatIterator(File::findAll()));
+        return $this->respondList($this->formatIterator(SimplePage::findAll()));
     }
 }
