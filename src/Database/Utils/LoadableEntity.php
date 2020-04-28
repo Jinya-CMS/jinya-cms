@@ -321,4 +321,17 @@ abstract class LoadableEntity
             throw $this->convertInvalidQueryExceptionToException($exception);
         }
     }
+
+    /**
+     * @param string $input
+     * @return string
+     */
+    protected function generateSlug(string $input): string
+    {
+        $slug = transliterator_transliterate(
+            'Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();',
+            $input
+        );
+        return preg_replace('/[-\s]+/', '-', $slug);
+    }
 }

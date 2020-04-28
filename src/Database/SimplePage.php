@@ -90,8 +90,9 @@ class SimplePage extends Utils\LoadableEntity
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
         $this->name = $this->title;
+        $this->slug = $this->generateSlug($this->title);
 
-        $this->internalCreate('page', [
+        $this->id = $this->internalCreate('page', [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
         ]);
