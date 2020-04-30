@@ -15,6 +15,7 @@ use Laminas\Db\Sql\Sql;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Hydrator\Strategy\StrategyInterface;
+use PDOException;
 
 abstract class LoadableEntity
 {
@@ -263,7 +264,7 @@ abstract class LoadableEntity
      */
     protected function convertInvalidQueryExceptionToException(Exception $exception): Exception
     {
-        /** @var \PDOException $previous */
+        /** @var PDOException $previous */
         $previous = $exception->getPrevious();
         switch ($previous->errorInfo[1]) {
             case 1062:

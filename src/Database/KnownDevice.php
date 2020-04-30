@@ -30,11 +30,27 @@ class KnownDevice extends Utils\LoadableEntity
     }
 
     /**
+     * Gets all known devices for the given artist
+     *
+     * @param int $artistId
+     * @return Iterator
+     */
+    public static function findByArtist(int $artistId): Iterator
+    {
+        $sql = self::getSql();
+        $select = $sql->select()->from('known_device')->where(['user_id' => $artistId]);
+
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+
+        return self::hydrateMultipleResults($result, new self());
+    }
+
+    /**
      * @inheritDoc
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('known_device', new self());
+        throw new RuntimeException('Not implemented');
     }
 
     /**
@@ -84,8 +100,16 @@ class KnownDevice extends Utils\LoadableEntity
      * @throws Exception
      */
     public function setDeviceKey(): void
-
     {
         $this->deviceKey = bin2hex(random_bytes(20));
+    }
+
+    public function format(): array
+    {
+        return [
+            'remoteAddress' => $this->remoteAddress,
+            'userAgent' => $this->userAgent,
+            'key' => $this->deviceKey,
+        ];
     }
 }

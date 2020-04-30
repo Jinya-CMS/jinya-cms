@@ -29,4 +29,11 @@ alter table theme_page
 	add constraint FK_page_theme_page
 		foreign key (page_id) references page (id)
 			on delete cascade;
+
+alter table known_device drop foreign key FK_3C887E4CA76ED395;
+
+alter table known_device
+	add constraint FK_users_known_device
+		foreign key (user_id) references users (id)
+			on delete cascade;
 ```

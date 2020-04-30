@@ -49,8 +49,8 @@ class LoginAction extends Action
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');
 
             if (!empty($userAgentHeader)) {
-                $apiKey->userAgent = $userAgentHeader[0];
-                $knownDevice->userAgent = $userAgentHeader[0];
+                $apiKey->userAgent = $userAgentHeader;
+                $knownDevice->userAgent = $userAgentHeader;
             } else {
                 $apiKey->userAgent = 'unknown';
                 $knownDevice->userAgent = 'unknown';
