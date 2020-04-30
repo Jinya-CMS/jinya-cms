@@ -55,7 +55,27 @@ class ApiKey extends Utils\LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('api_key', new self(), ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
+        return self::fetchArray('api_key', new self(), [
+            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
+    }
+
+    /**
+     * Gets all api keys for the given artist
+     *
+     * @param int $artistId
+     * @return Iterator
+     */
+    public static function findByArtist(int $artistId): Iterator
+    {
+        $sql = self::getSql();
+        $select = $sql->select()->from('api_key')->where(['user_id' => $artistId]);
+
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+
+        return self::hydrateMultipleResults($result, new self(), [
+            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
     }
 
     /**
@@ -68,6 +88,11 @@ class ApiKey extends Utils\LoadableEntity
         $this->apiKey = "jinya-api-token-$this->userId-" . bin2hex(random_bytes(20));
     }
 
+    /**
+     * Gets the artist belonging to the api key
+     *
+     * @return Artist
+     */
     public function getArtist(): Artist
     {
         return Artist::findById($this->userId);
@@ -78,7 +103,9 @@ class ApiKey extends Utils\LoadableEntity
      */
     public function create(): void
     {
-        $this->internalCreate('api_key', ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)], ['id']);
+        $this->internalCreate('api_key', [
+            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ], ['id']);
     }
 
     /**

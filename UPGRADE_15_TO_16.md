@@ -36,4 +36,11 @@ alter table known_device
 	add constraint FK_users_known_device
 		foreign key (user_id) references users (id)
 			on delete cascade;
+
+alter table api_key drop foreign key FK_C912ED9DA76ED395;
+
+alter table api_key
+	add constraint FK_users_api_key
+		foreign key (user_id) references users (id)
+			on delete cascade;
 ```
