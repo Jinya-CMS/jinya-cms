@@ -59,7 +59,7 @@ class KnownDevice extends Utils\LoadableEntity
      * @param string $knownDeviceCode
      * @return KnownDevice
      */
-    public static function findByCode(string $knownDeviceCode): KnownDevice
+    public static function findByCode(string $knownDeviceCode): ?KnownDevice
     {
         $sql = self::getSql();
         $select = $sql->select()->from('known_device')->where('device_key = :knownDeviceCode');
