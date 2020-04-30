@@ -39,7 +39,7 @@ class SimplePage extends Utils\LoadableEntity
      * @param string $slug
      * @return SimplePage
      */
-    public static function findBySlug(string $slug): SimplePage
+    public static function findBySlug(string $slug): ?SimplePage
     {
         return self::fetchSingleBySlug('page', $slug, new self(), [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),

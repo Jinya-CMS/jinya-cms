@@ -15,4 +15,18 @@ alter table uploading_file
 	add constraint FK_uploading_file_file
 		foreign key (file_id) references file (id)
 			on delete cascade;
+
+alter table theme_page drop foreign key FK_5ECD421DC4663E4;
+
+alter table theme_page
+	add constraint FK_page_theme_page
+		foreign key (page_id) references page (id)
+			on delete cascade;
+
+alter table theme_page drop foreign key FK_C658C22D93CB796C;
+
+alter table theme_page
+	add constraint FK_page_theme_page
+		foreign key (page_id) references page (id)
+			on delete cascade;
 ```
