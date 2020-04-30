@@ -1,8 +1,12 @@
 <?php
 
+use App\Web\Actions\Action;
 use App\Web\Actions\Authentication\LoginAction;
 use App\Web\Actions\Authentication\TwoFactorAction;
+use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (RouteCollectorProxy $api) {
@@ -15,5 +19,8 @@ return function (RouteCollectorProxy $api) {
             'username',
             'password',
         ]));
+        $group->map(['HEAD'], '', function (ServerRequestInterface $request, ResponseInterface $response) {
+            return $response->withStatus(Action::HTTP_NO_CONTENT);
+        })->add(AuthenticationMiddleware::class);
     });
 };

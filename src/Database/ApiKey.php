@@ -31,7 +31,7 @@ class ApiKey extends Utils\LoadableEntity
      * @param string $apiKey
      * @return ApiKey
      */
-    public static function findByApiKey(string $apiKey): ApiKey
+    public static function findByApiKey(string $apiKey): ?ApiKey
     {
         $sql = self::getSql();
         $select = $sql->select()->from('api_key')->where('api_key = :apiKey');
