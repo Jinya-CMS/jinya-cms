@@ -211,11 +211,12 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Formats the artist
      *
+     * @param bool $aboutMe
      * @return array
      */
-    public function format(): array
+    public function format(bool $aboutMe = false): array
     {
-        return [
+        $data = [
             'artistName' => $this->artistName,
             'email' => $this->email,
             'profilePicture' => $this->profilePicture,
@@ -223,6 +224,12 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'enabled' => $this->enabled,
             'id' => $this->id,
         ];
+
+        if ($aboutMe) {
+            $data['aboutMe'] = $this->aboutMe;
+        }
+
+        return $data;
     }
 
     /**

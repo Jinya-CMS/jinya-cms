@@ -22,7 +22,13 @@ class ProfilePictureService extends StorageBaseService
         if ($artist === null) {
             throw new EmptyResultException('The artist was not found');
         }
-        $fileName = hash('sha256', $data);
+
+        $fileName = '';
+        if (is_string($data)) {
+            $fileName = hash('sha256', $data);
+        } elseif (is_resource($data)) {
+            $fileName = $this->getFileHash($data);
+        }
         file_put_contents(self::SAVE_PATH . $fileName, $data);
         $artist->profilePicture = self::WEB_PATH . $fileName;
         $artist->update();
