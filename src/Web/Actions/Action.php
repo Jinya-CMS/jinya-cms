@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
-use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Psr7\Stream;
 
 abstract class Action
@@ -113,7 +112,7 @@ abstract class Action
      * @param Response $response
      * @param array $args
      * @return Response
-     * @throws HttpInternalServerErrorException
+     * @throws HttpBadRequestException
      */
     public function __invoke(Request $request, Response $response, $args): Response
     {

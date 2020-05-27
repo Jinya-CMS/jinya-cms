@@ -117,29 +117,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Validates the given password against the hash in the database
-     *
-     * @param string $password
-     * @return bool
-     */
-    public function validatePassword(string $password): bool
-    {
-        $bcrypt = new Bcrypt();
-        return $bcrypt->verify($password, $this->password) && $this->enabled;
-    }
-
-    /**
-     * Sets the artists password and hashes it
-     *
-     * @param string $password
-     */
-    public function setPassword(string $password): void
-    {
-        $bcrypt = new Bcrypt();
-        $this->password = $bcrypt->create($password);
-    }
-
-    /**
      * Creates the artist
      *
      * @throws UniqueFailedException
@@ -241,6 +218,68 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public function validateDevice(string $knownDeviceCode): bool
     {
         $device = KnownDevice::findByCode($knownDeviceCode);
+        /** @noinspection NullPointerExceptionInspection */
         return $device->userId === $this->id;
+    }
+
+    /**
+     * Changes the password of the user
+     *
+     * @param string $token
+     * @param string $password
+     * @return bool
+     * @throws UniqueFailedException
+     */
+    public function changePassword(string $token, string $password): bool
+    {
+        if ($this->confirmationToken === $token) {
+            $this->setPassword($password);
+            $this->confirmationToken = null;
+            $this->update();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets the artists password and hashes it
+     *
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $bcrypt = new Bcrypt();
+        $this->password = $bcrypt->create($password);
+    }
+
+    /**
+     * Generates the password change token
+     *
+     * @param string $oldPassword
+     * @return string
+     * @throws Exception
+     */
+    public function generatePasswordChangeToken(string $oldPassword): ?string
+    {
+        if ($this->validatePassword($oldPassword)) {
+            $this->confirmationToken = bin2hex(random_bytes(24));
+            $this->update();
+            return $this->confirmationToken;
+        }
+
+        return null;
+    }
+
+    /**
+     * Validates the given password against the hash in the database
+     *
+     * @param string $password
+     * @return bool
+     */
+    public function validatePassword(string $password): bool
+    {
+        $bcrypt = new Bcrypt();
+        return $bcrypt->verify($password, $this->password) && $this->enabled;
     }
 }

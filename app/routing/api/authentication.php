@@ -1,6 +1,8 @@
 <?php
+/** @noinspection PhpUnusedParameterInspection */
 
 use App\Web\Actions\Action;
+use App\Web\Actions\Authentication\ChangePasswordAction;
 use App\Web\Actions\Authentication\LoginAction;
 use App\Web\Actions\Authentication\TwoFactorAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -23,4 +25,5 @@ return function (RouteCollectorProxy $api) {
             return $response->withStatus(Action::HTTP_NO_CONTENT);
         })->add(AuthenticationMiddleware::class);
     });
+    $api->put('account/password', ChangePasswordAction::class)->add(AuthenticationMiddleware::class);
 };
