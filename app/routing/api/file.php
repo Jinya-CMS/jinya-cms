@@ -15,7 +15,7 @@ use App\Web\Middleware\RoleMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (RouteCollectorProxy $api) {
-    $api->group('file', function (RouteCollectorProxy $group) {
+    $api->group('media/file', function (RouteCollectorProxy $group) {
         $group->get('', ListAllFilesAction::class);
         $group->post('', CreateFileAction::class)->add(new CheckRequiredFieldsMiddleware(['name']));
 

@@ -4,6 +4,7 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use DateTime;
+use Exception;
 use Iterator;
 use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
@@ -12,7 +13,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
 {
 
     public const TYPE_SEQUENCE = 'sequence';
-    public const TYPE_MASONRY = 'sequence';
+    public const TYPE_MASONRY = 'masonry';
 
     public const ORIENTATION_HORIZONTAL = 'horizontal';
     public const ORIENTATION_VERTICAL = 'vertical';
@@ -93,6 +94,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         $updatedBy = $this->getUpdatedBy();
 
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'type' => $this->type,
@@ -139,7 +141,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
 
     /**
      * @inheritDoc
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(): void
     {
@@ -173,6 +175,29 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
         $this->internalUpdate('gallery',
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]);
+    }
+
+    /**
+     * Get all file positions in gallery
+     *
+     * @return Iterator
+     */
+    public function getFiles(): Iterator
+    {
+        $sql = self::getSql();
+        $select = $sql
+            ->select()
+            ->from('gallery_file_position')
+            ->where(['gallery_id = :id'])
+            ->order('position ASC');
+
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+
+        return self::hydrateMultipleResults($result, new GalleryFilePosition(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),

@@ -6,5 +6,5 @@ use App\Database\Artist;
 
 class CurrentUser
 {
-    public static Artist $currentUser;
+    public static ?Artist $currentUser = null;
 }
