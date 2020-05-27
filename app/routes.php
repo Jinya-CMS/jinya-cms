@@ -13,6 +13,7 @@ return function (App $app) {
         $knownDeviceRoutes = require __DIR__ . '/routing/api/knownDevice.php';
         $phpInfo = require __DIR__ . '/routing/api/phpinfo.php';
         $environment = require __DIR__ . '/routing/api/environment.php';
+        $gallery = require __DIR__ . '/routing/api/gallery.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
@@ -22,5 +23,6 @@ return function (App $app) {
         $knownDeviceRoutes($api);
         $phpInfo($api);
         $environment($api);
+        $gallery($api);
     });
 };
