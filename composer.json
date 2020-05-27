@@ -21,7 +21,8 @@
     "slim/slim": "4.5.0",
     "slim/views": "0.1.3",
     "vlucas/phpdotenv": "4.1.4",
-    "ext-intl": "*"
+    "ext-intl": "*",
+    "ext-apache": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"
