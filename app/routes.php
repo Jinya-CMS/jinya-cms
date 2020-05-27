@@ -12,6 +12,7 @@ return function (App $app) {
         $myJinyaRoutes = require __DIR__ . '/routing/api/myjinya.php';
         $knownDeviceRoutes = require __DIR__ . '/routing/api/knownDevice.php';
         $phpInfo = require __DIR__ . '/routing/api/phpinfo.php';
+        $environment = require __DIR__ . '/routing/api/environment.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
@@ -20,5 +21,6 @@ return function (App $app) {
         $myJinyaRoutes($api);
         $knownDeviceRoutes($api);
         $phpInfo($api);
+        $environment($api);
     });
 };
