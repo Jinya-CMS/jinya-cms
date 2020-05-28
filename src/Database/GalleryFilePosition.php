@@ -2,10 +2,11 @@
 
 namespace App\Database;
 
+use Exception;
 use Iterator;
 use RuntimeException;
 
-class GalleryFilePosition extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
+class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
     public int $galleryId;
     public int $fileId;
@@ -13,6 +14,7 @@ class GalleryFilePosition extends Utils\LoadableEntity implements Utils\Formatta
 
     /**
      * @inheritDoc
+     * @return GalleryFilePosition
      */
     public static function findById(int $id)
     {
@@ -37,9 +39,11 @@ class GalleryFilePosition extends Utils\LoadableEntity implements Utils\Formatta
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public function create(): void
     {
+        $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, $this->position);
         $this->internalCreate('gallery_file_position');
     }
 
@@ -49,14 +53,7 @@ class GalleryFilePosition extends Utils\LoadableEntity implements Utils\Formatta
     public function delete(): void
     {
         $this->internalDelete('gallery_file_position');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): void
-    {
-        $this->internalUpdate('gallery_file_position');
+        $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, -1);
     }
 
     public function format(): array
@@ -99,5 +96,26 @@ class GalleryFilePosition extends Utils\LoadableEntity implements Utils\Formatta
     public function getFile(): File
     {
         return File::findById($this->fileId);
+    }
+
+    /**
+     * Moves the given position
+     *
+     * @param int $newPosition
+     * @throws Exceptions\UniqueFailedException
+     */
+    public function move(int $newPosition): void
+    {
+        $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, $newPosition);
+        $this->position = $newPosition;
+        $this->update();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(): void
+    {
+        $this->internalUpdate('gallery_file_position');
     }
 }
