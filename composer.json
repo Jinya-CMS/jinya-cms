@@ -13,16 +13,16 @@
     "laminas/laminas-eventmanager": "3.2.1",
     "laminas/laminas-hydrator": "3.0.2",
     "laminas/laminas-serializer": "2.9.1",
+    "laminas/laminas-json": "3.1.2",
     "league/plates": "3.3.0",
     "monolog/monolog": "1.25.3",
     "php-di/php-di": "6.1.0",
-    "phpmailer/phpmailer": "6.1.5",
+    "phpmailer/phpmailer": "6.1.6",
     "slim/psr7": "0.5.0",
     "slim/slim": "4.5.0",
     "slim/views": "0.1.3",
     "vlucas/phpdotenv": "4.1.4",
-    "ext-intl": "*",
-    "ext-apache": "*"
+    "ext-intl": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"

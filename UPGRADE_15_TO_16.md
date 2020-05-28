@@ -379,4 +379,14 @@ drop index UNIQ_1483A5E9E7927C74 on users;
 
 create unique index UNIQ_users_email
 	on users (email);
+
+update form_item set type = 'text' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType';
+
+update form_item set type = 'email' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType';
+
+update form_item set type = 'select' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType';
+
+update form_item set type = 'textarea' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType';
+
+update form_item set type = 'checkbox' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType';
 ```
