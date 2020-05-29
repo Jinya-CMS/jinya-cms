@@ -398,7 +398,29 @@ alter table gallery drop column slug;
 
 alter table form drop column slug;
 
+alter table form drop column email_template;
+
 alter table page drop column slug;
 
 alter table segment_page drop column slug;
+
+drop index idx_form_item_position_form on form_item;
+
+alter table form_item drop key idx_form_item_position_form;
+
+alter table form_item drop column created_at;
+
+alter table form_item drop column last_updated_at;
+
+alter table form_item drop foreign key FK_users_form_item_last_updated_by_id;
+
+alter table form_item drop foreign key FK_users_form_item_creator_id;
+
+drop index IDX_8B3A210961220EA6 on form_item;
+
+drop index IDX_8B3A2109896DBBDE on form_item;
+
+alter table form_item drop column creator_id;
+
+alter table form_item drop column updated_by_id;
 ```

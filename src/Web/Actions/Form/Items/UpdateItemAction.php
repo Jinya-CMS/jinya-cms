@@ -39,7 +39,7 @@ class UpdateItemAction extends Action
         }
 
         if (isset($body['options'])) {
-            $formItem->helpText = $body['options'];
+            $formItem->options = $body['options'];
         }
 
         if (isset($body['spamFilter'])) {

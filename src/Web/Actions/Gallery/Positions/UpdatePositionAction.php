@@ -10,7 +10,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
-class PutPositionAction extends Action
+class UpdatePositionAction extends Action
 {
 
     /**
@@ -21,10 +21,11 @@ class PutPositionAction extends Action
      */
     protected function action(): Response
     {
-        $galleryFileId = $this->args['galleryFileId'];
-        $galleryFile = GalleryFilePosition::findById($galleryFileId);
+        $galleryId = $this->args['galleryId'];
+        $position = $this->args['position'];
+        $galleryFilePosition = GalleryFilePosition::findByPosition($galleryId, $position);
 
-        if (!$galleryFile) {
+        if (!$galleryFilePosition) {
             throw new HttpNotFoundException($this->request, 'Position not found');
         }
 
@@ -36,10 +37,10 @@ class PutPositionAction extends Action
             throw new HttpNotFoundException($this->request, 'File not found');
         }
 
-        $galleryFile->fileId = $fileId;
+        $galleryFilePosition->fileId = $fileId;
         if ($body['position']) {
             $newPosition = $body['position'];
-            $galleryFile->move($newPosition);
+            $galleryFilePosition->move($newPosition);
         }
 
         return $this->noContent();

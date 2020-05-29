@@ -20,7 +20,7 @@ class CreateFormAction extends Action
         $body = $this->request->getParsedBody();
         $form = new Form();
         $form->title = $body['title'];
-        $form->description = $body['description'];
+        $form->description = $body['description'] ?? '';
         $form->toAddress = $body['toAddress'];
 
         try {

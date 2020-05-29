@@ -7,7 +7,7 @@ use App\Web\Actions\Gallery\ListAllGalleriesAction;
 use App\Web\Actions\Gallery\Positions\CreatePositionAction;
 use App\Web\Actions\Gallery\Positions\DeletePositionAction;
 use App\Web\Actions\Gallery\Positions\GetPositionsAction;
-use App\Web\Actions\Gallery\Positions\PutPositionAction;
+use App\Web\Actions\Gallery\Positions\UpdatePositionAction;
 use App\Web\Actions\Gallery\UpdateGalleryAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
@@ -25,7 +25,7 @@ return function (RouteCollectorProxy $api) {
             $file->get('', GetPositionsAction::class);
             $file->post('', CreatePositionAction::class);
             $file->delete('/{position}', DeletePositionAction::class);
-            $file->put('/{position}', PutPositionAction::class);
+            $file->put('/{position}', UpdatePositionAction::class);
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 };

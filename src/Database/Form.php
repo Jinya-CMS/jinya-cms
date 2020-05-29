@@ -21,7 +21,6 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     public string $title;
     public string $description = '';
     public string $toAddress;
-    private string $emailTemplate = '';
 
     /**
      * @inheritDoc
@@ -142,7 +141,6 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
             'description' => $this->description,
             'title' => $this->title,
             'toAddress' => $this->toAddress,
-            'emailTemplate' => $this->emailTemplate,
             'created' => [
                 'by' => [
                     'artistName' => $creator->artistName,

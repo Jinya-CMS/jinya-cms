@@ -21,8 +21,7 @@ abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     private static Adapter $adapter;
-    /** @var int|string $id */
-    public $id;
+    public int $id = -1;
 
     /**
      * @param int $id
@@ -220,7 +219,7 @@ abstract class LoadableEntity
         foreach ($strategies as $key => $strategy) {
             $hydrator->addStrategy($key, $strategy);
         }
-        $hydrator->addFilter('excludes', new SkipFieldFilter($skippedFields));
+        $hydrator->addFilter('excludes', new SkipFieldFilter([...$skippedFields, 'id']));
 
         $sql = self::getSql();
         $insert = $sql->insert($table);
@@ -232,7 +231,9 @@ abstract class LoadableEntity
         }
 
         $result = $sql->getAdapter()->driver->getConnection()->execute('SELECT LAST_INSERT_ID() as id');
-        return (int)$result->current()['id'];
+        $this->id = (int)$result->current()['id'];
+
+        return $this->id;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
+use Laminas\Db\Sql\Predicate\PredicateSet;
 use RuntimeException;
 
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -35,6 +36,28 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     public static function findAll(): Iterator
     {
         throw new RuntimeException('Not implemented');
+    }
+
+    /**
+     * Gets the gallery file position at the given position
+     *
+     * @param int $id
+     * @param int $position
+     * @return GalleryFilePosition
+     */
+    public static function findByPosition(int $id, int $position): ?GalleryFilePosition
+    {
+        $sql = self::getSql();
+        $select = $sql
+            ->select()
+            ->from('gallery_file_position')
+            ->where(['gallery_id = :id', 'position = :position'], PredicateSet::OP_AND);
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
+            'id' => $id,
+            'position' => $position
+        ]), new self());
     }
 
     /**

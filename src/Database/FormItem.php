@@ -53,13 +53,13 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @param int $position
      * @return FormItem
      */
-    public static function findByPosition(int $id, int $position): FormItem
+    public static function findByPosition(int $id, int $position): ?FormItem
     {
         $sql = self::getSql();
         $select = $sql
             ->select()
             ->from('form_item')
-            ->where(['id = :id', 'position = :position'], PredicateSet::OP_AND);
+            ->where(['form_id = :id', 'position = :position'], PredicateSet::OP_AND);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
@@ -101,6 +101,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public function create(): void
     {
+        $this->internalRearrange('form_item', 'form_id', $this->formId, $this->position);
         $this->internalCreate('form_item', [
             'spamFilter' => new SerializableStrategy(new Json()),
             'options' => new SerializableStrategy(new Json()),
@@ -113,6 +114,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function delete(): void
     {
         $this->internalDelete('form_item');
+        $this->internalRearrange('form_item', 'form_id', $this->formId, -1);
     }
 
     /**

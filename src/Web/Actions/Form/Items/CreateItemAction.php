@@ -32,7 +32,7 @@ class CreateItemAction extends Action
         $formItem = new FormItem();
         $formItem->formId = $form->id;
         $formItem->label = $body['label'];
-        $formItem->position = $this->args['position'];
+        $formItem->position = $body['position'];
         $formItem->helpText = $body['helpText'] ?? '';
         $formItem->type = $body['type'] ?? 'text';
         $formItem->options = $body['options'] ?? [];

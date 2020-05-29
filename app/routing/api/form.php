@@ -23,7 +23,7 @@ return function (RouteCollectorProxy $api) {
         $group->delete('/{id}', DeleteFormAction::class);
         $group->group('/{id}/items', function (RouteCollectorProxy $file) {
             $file->get('', GetItemsAction::class);
-            $file->post('', CreateItemAction::class)->add(new CheckRequiredFieldsMiddleware(['label']));
+            $file->post('', CreateItemAction::class)->add(new CheckRequiredFieldsMiddleware(['label', 'position']));
             $file->delete('/{position}', DeleteItemAction::class);
             $file->put('/{position}', UpdateItemAction::class);
         });
