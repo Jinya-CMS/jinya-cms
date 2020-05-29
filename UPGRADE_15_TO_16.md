@@ -389,4 +389,16 @@ update form_item set type = 'select' where type = 'Symfony\\Component\\Form\\Ext
 update form_item set type = 'textarea' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType';
 
 update form_item set type = 'checkbox' where type = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType';
+
+alter table form drop column name;
+
+alter table page drop column name;
+
+alter table gallery drop column slug;
+
+alter table form drop column slug;
+
+alter table page drop column slug;
+
+alter table segment_page drop column slug;
 ```

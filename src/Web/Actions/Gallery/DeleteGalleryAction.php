@@ -18,12 +18,12 @@ class DeleteGalleryAction extends Action
      */
     protected function action(): Response
     {
-        $page = Gallery::findBySlug($this->args['slug']);
-        if ($page === null) {
-            throw new NoResultException($this->request, 'Page not found');
+        $gallery = Gallery::findById($this->args['id']);
+        if ($gallery === null) {
+            throw new NoResultException($this->request, 'Gallery not found');
         }
 
-        $page->delete();
+        $gallery->delete();
 
         return $this->noContent();
     }

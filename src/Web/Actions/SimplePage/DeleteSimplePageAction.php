@@ -17,7 +17,7 @@ class DeleteSimplePageAction extends Action
      */
     protected function action(): Response
     {
-        $page = SimplePage::findBySlug($this->args['slug']);
+        $page = SimplePage::findById($this->args['id']);
         if ($page === null) {
             throw new NoResultException($this->request, 'Page not found');
         }

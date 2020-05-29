@@ -18,15 +18,14 @@ return function (RouteCollectorProxy $api) {
     $api->group('media/gallery', function (RouteCollectorProxy $group) {
         $group->get('', ListAllGalleriesAction::class);
         $group->post('', CreateGalleryAction::class)->add(new CheckRequiredFieldsMiddleware(['name']));
-        $group->get('/{slug}', GetGalleryBySlugAction::class);
-        $group->put('/{slug}', UpdateGalleryAction::class);
-        $group->delete('/{slug}', DeleteGalleryAction::class);
-        $group->group('/file/{galleryId}/file', function (RouteCollectorProxy $file) {
+        $group->get('/{id}', GetGalleryBySlugAction::class);
+        $group->put('/{id}', UpdateGalleryAction::class);
+        $group->delete('/{id}', DeleteGalleryAction::class);
+        $group->group('/{galleryId}/file', function (RouteCollectorProxy $file) {
             $file->get('', GetPositionsAction::class);
             $file->post('', CreatePositionAction::class);
-            $file->delete('/{galleryFileId}', DeletePositionAction::class);
-            $file->put('/{galleryFileId}', PutPositionAction::class);
-            $file->put('/{galleryFileId}/{oldPosition}', PutPositionAction::class);
+            $file->delete('/{position}', DeletePositionAction::class);
+            $file->put('/{position}', PutPositionAction::class);
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 };

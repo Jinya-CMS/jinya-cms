@@ -18,8 +18,6 @@ class SimplePage extends Utils\LoadableEntity
     public DateTime $lastUpdatedAt;
     public string $content;
     public string $title;
-    public string $slug;
-    private string $name;
 
     /**
      * @inheritDoc
@@ -28,20 +26,6 @@ class SimplePage extends Utils\LoadableEntity
     public static function findById(int $id)
     {
         return self::fetchSingleById('page', $id, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
-    }
-
-    /**
-     * Gets the simple page by the given slug
-     *
-     * @param string $slug
-     * @return SimplePage
-     */
-    public static function findBySlug(string $slug): ?SimplePage
-    {
-        return self::fetchSingleBySlug('page', $slug, new self(), [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
         ]);
@@ -89,9 +73,6 @@ class SimplePage extends Utils\LoadableEntity
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->name = $this->title;
-        $this->slug = $this->generateSlug($this->title);
-
         $this->id = $this->internalCreate('page', [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
@@ -114,8 +95,6 @@ class SimplePage extends Utils\LoadableEntity
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
 
-        $this->name = $this->title;
-
         $this->internalUpdate('page', [
             'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
@@ -135,7 +114,6 @@ class SimplePage extends Utils\LoadableEntity
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->slug,
             'content' => $this->content,
             'created' => [
                 'by' => [

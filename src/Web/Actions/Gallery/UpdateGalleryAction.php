@@ -22,8 +22,8 @@ class UpdateGalleryAction extends Action
     protected function action(): Response
     {
         $body = $this->request->getParsedBody();
-        $slug = $this->args['slug'];
-        $gallery = Gallery::findBySlug($slug);
+        $id = $this->args['id'];
+        $gallery = Gallery::findById($id);
         if ($gallery === null) {
             throw new NoResultException($this->request, 'Gallery not found');
         }

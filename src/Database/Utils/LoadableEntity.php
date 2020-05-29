@@ -151,29 +151,6 @@ abstract class LoadableEntity
     }
 
     /**
-     * Fetches a single entity by the given slug
-     *
-     * @param string $table
-     * @param string $slug
-     * @param $prototype
-     * @param StrategyInterface[] $additionalStrategies
-     * @return mixed
-     */
-    protected static function fetchSingleBySlug(
-        string $table,
-        string $slug,
-        $prototype,
-        array $additionalStrategies = []
-    ) {
-        $sql = new Sql(self::getAdapter());
-        $select = $sql->select()->from($table)->where(['slug' => $slug]);
-
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
-
-        return self::hydrateSingleResult($result, $prototype, $additionalStrategies);
-    }
-
-    /**
      * Fetches all data in a table and creates a array
      *
      * @param string $table

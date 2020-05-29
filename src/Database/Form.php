@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
@@ -18,10 +19,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     public DateTime $lastUpdatedAt;
 
     public string $title;
-    public string $description;
-    public string $emailTemplate;
-    public string $slug;
+    public string $description = '';
     public string $toAddress;
+    private string $emailTemplate = '';
 
     /**
      * @inheritDoc
@@ -30,21 +30,6 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     public static function findById(int $id)
     {
         return self::fetchSingleById('form', $id, new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
-    }
-
-    /**
-     * Gets the form with the given slug
-     *
-     * @param string $slug
-     * @return Form
-     */
-    public static function findBySlug(string $slug): Form
-    {
-        return self::fetchSingleBySlug('form', $slug, new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
@@ -111,6 +96,12 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public function create(): void
     {
+        $this->lastUpdatedAt = new DateTime();
+        $this->updatedById = (int)CurrentUser::$currentUser->id;
+
+        $this->createdAt = new DateTime();
+        $this->creatorId = (int)CurrentUser::$currentUser->id;
+
         $this->internalCreate('form',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
@@ -131,6 +122,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public function update(): void
     {
+        $this->lastUpdatedAt = new DateTime();
+        $this->updatedById = (int)CurrentUser::$currentUser->id;
+
         $this->internalUpdate('form',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
@@ -147,7 +141,6 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
             'id' => $this->id,
             'description' => $this->description,
             'title' => $this->title,
-            'slug' => $this->slug,
             'toAddress' => $this->toAddress,
             'emailTemplate' => $this->emailTemplate,
             'created' => [

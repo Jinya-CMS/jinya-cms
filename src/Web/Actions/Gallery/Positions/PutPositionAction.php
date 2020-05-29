@@ -2,6 +2,7 @@
 
 namespace App\Web\Actions\Gallery\Positions;
 
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\GalleryFilePosition;
 use App\Web\Actions\Action;
@@ -16,6 +17,7 @@ class PutPositionAction extends Action
      * @inheritDoc
      * @throws HttpNotFoundException
      * @throws JsonException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {
@@ -28,7 +30,6 @@ class PutPositionAction extends Action
 
         $body = $this->request->getParsedBody();
         $fileId = $body['file'];
-        $newPosition = $body['position'];
 
         $file = File::findById($fileId);
         if (!$file) {
@@ -36,7 +37,10 @@ class PutPositionAction extends Action
         }
 
         $galleryFile->fileId = $fileId;
-        $galleryFile->move($newPosition);
+        if ($body['position']) {
+            $newPosition = $body['position'];
+            $galleryFile->move($newPosition);
+        }
 
         return $this->noContent();
     }

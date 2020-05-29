@@ -64,7 +64,6 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
             'gallery' => [
                 'id' => $this->galleryId,
                 'name' => $gallery->name,
-                'slug' => $gallery->slug,
                 'description' => $gallery->description,
             ],
             'file' => [

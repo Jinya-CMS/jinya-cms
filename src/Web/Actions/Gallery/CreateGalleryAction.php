@@ -25,6 +25,10 @@ class CreateGalleryAction extends Action
             $gallery->description = $body['description'];
         }
 
+        if (isset($body['slug'])) {
+            $gallery->slug = $body['slug'];
+        }
+
         if (isset($body['orientation'])) {
             $gallery->orientation = $body['orientation'];
         }

@@ -18,8 +18,8 @@ class GetSimplePageBySlugAction extends Action
      */
     protected function action(): Response
     {
-        $slug = $this->args['slug'];
-        $page = SimplePage::findBySlug($slug);
+        $id = $this->args['id'];
+        $page = SimplePage::findById($id);
         if ($page === null) {
             throw new NoResultException($this->request, 'Page not found');
         }
