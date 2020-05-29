@@ -14,6 +14,7 @@ return function (App $app) {
         $phpInfo = require __DIR__ . '/routing/api/phpinfo.php';
         $environment = require __DIR__ . '/routing/api/environment.php';
         $gallery = require __DIR__ . '/routing/api/gallery.php';
+        $form = require __DIR__ . '/routing/api/form.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
@@ -24,5 +25,6 @@ return function (App $app) {
         $phpInfo($api);
         $environment($api);
         $gallery($api);
+        $form($api);
     });
 };
