@@ -2,7 +2,7 @@
 
 use App\Web\Actions\Gallery\CreateGalleryAction;
 use App\Web\Actions\Gallery\DeleteGalleryAction;
-use App\Web\Actions\Gallery\GetGalleryBySlugAction;
+use App\Web\Actions\Gallery\GetGalleryByIdAction;
 use App\Web\Actions\Gallery\ListAllGalleriesAction;
 use App\Web\Actions\Gallery\Positions\CreatePositionAction;
 use App\Web\Actions\Gallery\Positions\DeletePositionAction;
@@ -18,7 +18,7 @@ return function (RouteCollectorProxy $api) {
     $api->group('media/gallery', function (RouteCollectorProxy $group) {
         $group->get('', ListAllGalleriesAction::class);
         $group->post('', CreateGalleryAction::class)->add(new CheckRequiredFieldsMiddleware(['name']));
-        $group->get('/{id}', GetGalleryBySlugAction::class);
+        $group->get('/{id}', GetGalleryByIdAction::class);
         $group->put('/{id}', UpdateGalleryAction::class);
         $group->delete('/{id}', DeleteGalleryAction::class);
         $group->group('/{galleryId}/file', function (RouteCollectorProxy $file) {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Web\Actions\Gallery;
+namespace App\Web\Actions\Form;
 
-use App\Database\Gallery;
+use App\Database\Form;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetGalleryBySlugAction extends Action
+class GetFormByIdAction extends Action
 {
 
     /**
@@ -19,11 +19,11 @@ class GetGalleryBySlugAction extends Action
     protected function action(): Response
     {
         $id = $this->args['id'];
-        $gallery = Gallery::findById($id);
-        if ($gallery === null) {
-            throw new NoResultException($this->request, 'Gallery not found');
+        $form = Form::findById($id);
+        if ($form === null) {
+            throw new NoResultException($this->request, 'Form not found');
         }
 
-        return $this->respond($gallery->format());
+        return $this->respond($form->format());
     }
 }

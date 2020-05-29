@@ -172,20 +172,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Updates the artist
-     *
-     * @throws UniqueFailedException
-     */
-    public function update(): void
-    {
-        $this->internalUpdate('users',
-            [
-                'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
-    }
-
-    /**
      * Formats the artist
      *
      * @param bool $aboutMe
@@ -251,6 +237,20 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     {
         $bcrypt = new Bcrypt();
         $this->password = $bcrypt->create($password);
+    }
+
+    /**
+     * Updates the artist
+     *
+     * @throws UniqueFailedException
+     */
+    public function update(): void
+    {
+        $this->internalUpdate('users',
+            [
+                'enabled' => new BooleanStrategy('1', '0'),
+                'roles' => new SerializableStrategy(new PhpSerialize()),
+            ]);
     }
 
     /**

@@ -16,7 +16,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public array $spamFilter;
     public string $label;
     public string $helpText;
-    public int $position;
     public int $formId;
 
     /**
@@ -24,10 +23,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findById(int $id)
     {
-        return self::fetchSingleById($id, $id, new self(), [
-            'spamFilter' => new SerializableStrategy(new Json()),
-            'options' => new SerializableStrategy(new Json()),
-        ]);
+        throw new RuntimeException('Not implemented');
     }
 
     /**
@@ -47,7 +43,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * Gets the form the form at the given position
+     * Gets the form item at the given position in the given form
      *
      * @param int $id
      * @param int $position
@@ -127,16 +123,13 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'options' => new SerializableStrategy(new Json()),
         ]);
     }
+
     /**
-     * Moves the given position
-     *
-     * @param int $newPosition
-     * @throws Exceptions\UniqueFailedException
+     * @inheritDoc
      */
     public function move(int $newPosition): void
     {
         $this->internalRearrange('form_item', 'form_id', $this->formId, $newPosition);
-        $this->position = $newPosition;
-        $this->update();
+        parent::move($newPosition);
     }
 }

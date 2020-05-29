@@ -5,25 +5,26 @@ namespace App\Web\Actions\Form\Items;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\FormItem;
 use App\Web\Actions\Action;
+use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Exception\HttpNotFoundException;
 
 class UpdateItemAction extends Action
 {
 
     /**
      * @inheritDoc
-     * @throws UniqueFailedException
+     * @return Response
      * @throws JsonException
-     * @throws HttpNotFoundException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $formItem = FormItem::findByPosition($this->args['id'], $this->args['position']);
         if (!$formItem) {
-            throw new HttpNotFoundException($this->request, 'Form item not found');
+            throw new NoResultException($this->request, 'Form item not found');
         }
 
         if (isset($body['label'])) {
@@ -48,10 +49,10 @@ class UpdateItemAction extends Action
 
         $formItem->update();
 
-        if ($body['newPosition']) {
+        if (isset($body['newPosition'])) {
             $formItem->move($body['newPosition']);
         }
 
-        return $this->respond($formItem->format(), Action::HTTP_CREATED);
+        return $this->noContent();
     }
 }

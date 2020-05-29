@@ -7,9 +7,9 @@ use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\Web\Actions\Action;
+use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Exception\HttpNotFoundException;
 
 class CreatePositionAction extends Action
 {
@@ -17,9 +17,9 @@ class CreatePositionAction extends Action
     /**
      * @inheritDoc
      * @return Response
-     * @throws HttpNotFoundException
-     * @throws UniqueFailedException
      * @throws JsonException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {
@@ -29,11 +29,11 @@ class CreatePositionAction extends Action
         $file = $body['file'];
 
         if (!File::findById($file)) {
-            throw new HttpNotFoundException($this->request, 'File not found');
+            throw new NoResultException($this->request, 'File not found');
         }
 
         if (!Gallery::findById($galleryId)) {
-            throw new HttpNotFoundException($this->request, 'Gallery not found');
+            throw new NoResultException($this->request, 'Gallery not found');
         }
 
         $galleryFilePosition = new GalleryFilePosition();

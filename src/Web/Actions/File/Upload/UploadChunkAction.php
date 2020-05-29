@@ -44,5 +44,5 @@ class UploadChunkAction extends Action
         }
 
         return $this->noContent();
-   }
+    }
 }

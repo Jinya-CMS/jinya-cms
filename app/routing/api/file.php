@@ -2,8 +2,8 @@
 
 use App\Web\Actions\File\CreateFileAction;
 use App\Web\Actions\File\DeleteFileAction;
-use App\Web\Actions\File\GetFileContentAction;
 use App\Web\Actions\File\GetFileByIdAction;
+use App\Web\Actions\File\GetFileContentAction;
 use App\Web\Actions\File\ListAllFilesAction;
 use App\Web\Actions\File\UpdateFileAction;
 use App\Web\Actions\File\Upload\FinishUploadAction;

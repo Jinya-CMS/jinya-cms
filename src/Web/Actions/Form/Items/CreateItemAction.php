@@ -6,9 +6,9 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Web\Actions\Action;
+use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Exception\HttpNotFoundException;
 
 class CreateItemAction extends Action
 {
@@ -17,7 +17,7 @@ class CreateItemAction extends Action
      * @inheritDoc
      * @throws UniqueFailedException
      * @throws JsonException
-     * @throws HttpNotFoundException
+     * @throws NoResultException
      */
     protected function action(): Response
     {
@@ -26,7 +26,7 @@ class CreateItemAction extends Action
         $form = Form::findById($id);
 
         if (!$form) {
-            throw new HttpNotFoundException($this->request, 'Form not found');
+            throw new NoResultException($this->request, 'Form not found');
         }
 
         $formItem = new FormItem();

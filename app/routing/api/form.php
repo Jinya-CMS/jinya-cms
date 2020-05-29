@@ -2,7 +2,7 @@
 
 use App\Web\Actions\Form\CreateFormAction;
 use App\Web\Actions\Form\DeleteFormAction;
-use App\Web\Actions\Form\GetFormBySlugAction;
+use App\Web\Actions\Form\GetFormByIdAction;
 use App\Web\Actions\Form\Items\CreateItemAction;
 use App\Web\Actions\Form\Items\DeleteItemAction;
 use App\Web\Actions\Form\Items\GetItemsAction;
@@ -18,10 +18,10 @@ return function (RouteCollectorProxy $api) {
     $api->group('form', function (RouteCollectorProxy $group) {
         $group->get('', ListAllFormsAction::class);
         $group->post('', CreateFormAction::class)->add(new CheckRequiredFieldsMiddleware(['title', 'toAddress']));
-        $group->get('/{id}', GetFormBySlugAction::class);
+        $group->get('/{id}', GetFormByIdAction::class);
         $group->put('/{id}', UpdateFormAction::class);
         $group->delete('/{id}', DeleteFormAction::class);
-        $group->group('/{id}/items', function (RouteCollectorProxy $file) {
+        $group->group('/{id}/item', function (RouteCollectorProxy $file) {
             $file->get('', GetItemsAction::class);
             $file->post('', CreateItemAction::class)->add(new CheckRequiredFieldsMiddleware(['label', 'position']));
             $file->delete('/{position}', DeleteItemAction::class);

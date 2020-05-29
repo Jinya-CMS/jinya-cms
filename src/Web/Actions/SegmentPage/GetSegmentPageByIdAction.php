@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Web\Actions\Form\Items;
+namespace App\Web\Actions\SegmentPage;
 
-use App\Database\Form;
+use App\Database\SegmentPage;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetItemsAction extends Action
+class GetSegmentPageByIdAction extends Action
 {
 
     /**
@@ -19,13 +19,11 @@ class GetItemsAction extends Action
     protected function action(): Response
     {
         $id = $this->args['id'];
-        $form = Form::findById($id);
-        if (!$form) {
-            throw new NoResultException($this->request, 'Form not found');
+        $segmentPage = SegmentPage::findById($id);
+        if ($segmentPage === null) {
+            throw new NoResultException($this->request, 'Segment page not found');
         }
 
-        $items = $form->getItems();
-
-        return $this->respond($this->formatIterator($items));
+        return $this->respond($segmentPage->format());
     }
 }

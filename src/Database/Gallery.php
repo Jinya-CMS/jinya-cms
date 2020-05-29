@@ -164,7 +164,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     }
 
     /**
-     * Get all file positions in gallery
+     * Get all files in gallery
      *
      * @return Iterator
      */
@@ -179,10 +179,6 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
 
-        return self::hydrateMultipleResults($result, new GalleryFilePosition(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+        return self::hydrateMultipleResults($result, new GalleryFilePosition());
     }
 }

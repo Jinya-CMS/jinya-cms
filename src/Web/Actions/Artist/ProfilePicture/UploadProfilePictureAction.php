@@ -25,8 +25,8 @@ class UploadProfilePictureAction extends Action
         $id = $this->args['id'];
         try {
             $this->profilePictureService->saveProfilePicture($id, $this->request->getBody()->detach());
-        }catch (EmptyResultException $exception) {
-            throw new NoResultException($this->request,'Artist not found');
+        } catch (EmptyResultException $exception) {
+            throw new NoResultException($this->request, 'Artist not found');
         }
 
         return $this->noContent();

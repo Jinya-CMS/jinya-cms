@@ -2,7 +2,7 @@
 
 namespace App\Web\Middleware;
 
-use App\Web\Exceptions\MissingFieldsException;
+use App\Web\Exceptions\MissingOneOfFieldsException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
@@ -12,7 +12,7 @@ use Slim\Exception\HttpNotImplementedException;
 /**
  * Middleware to check for required fields in the parsed body
  */
-class CheckRequiredFieldsMiddleware implements MiddlewareInterface
+class CheckRequiredOneOfFieldsMiddleware implements MiddlewareInterface
 {
     private array $fields;
 
@@ -41,18 +41,17 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
      * @param array $requiredFields
      * @param Request $request
      * @return bool
-     * @throws MissingFieldsException
+     * @throws MissingOneOfFieldsException
      */
     private function checkRequiredFields(array $body, array $requiredFields, Request $request): bool
     {
         $bodyFields = array_keys($body);
-        $intersectBody = array_intersect($bodyFields, $requiredFields);
-
-        if (count($requiredFields) === count($intersectBody)) {
-            return true;
+        foreach ($requiredFields as $requiredField) {
+            if (in_array($requiredField, $bodyFields, true)) {
+                return true;
+            }
         }
 
-        throw new MissingFieldsException($request,
-            array_values(array_diff($requiredFields, array_values($intersectBody))));
+        throw new MissingOneOfFieldsException($request, $requiredFields);
     }
 }

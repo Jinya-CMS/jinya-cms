@@ -19,7 +19,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      */
     public static function findById(int $id)
     {
-        return self::fetchSingleById('gallery_file_position', $id, new self());
+        throw new RuntimeException('Not implemented');
     }
 
     /**
@@ -121,16 +121,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     }
 
     /**
-     * Moves the given position
-     *
-     * @param int $newPosition
-     * @throws Exceptions\UniqueFailedException
+     * @inheritDoc
      */
     public function move(int $newPosition): void
     {
         $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, $newPosition);
-        $this->position = $newPosition;
-        $this->update();
+        parent::move($newPosition);
     }
 
     /**

@@ -2,12 +2,27 @@
 
 namespace App\Database\Utils;
 
+use App\Database\Exceptions\UniqueFailedException;
 use Laminas\Db\Adapter\Driver\ResultInterface;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\Sql\Predicate\PredicateSet;
 
 abstract class RearrangableEntity extends LoadableEntity
 {
+    public int $position;
+
+    /**
+     * Moves the entity
+     *
+     * @param int $newPosition
+     * @throws UniqueFailedException
+     */
+    public function move(int $newPosition): void
+    {
+        $this->position = $newPosition;
+        $this->update();
+    }
+
     /**
      * Rearranges the items in the same parent
      *
@@ -16,7 +31,8 @@ abstract class RearrangableEntity extends LoadableEntity
      * @param int $parentId
      * @param int $newPosition
      */
-    protected function internalRearrange(string $table, string $parentIdName, int $parentId, int $newPosition): void {
+    protected function internalRearrange(string $table, string $parentIdName, int $parentId, int $newPosition): void
+    {
         $sql = self::getSql();
         $select = $sql->select()
             ->from($table)
