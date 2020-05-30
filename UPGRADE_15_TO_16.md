@@ -423,4 +423,100 @@ drop index IDX_8B3A2109896DBBDE on form_item;
 alter table form_item drop column creator_id;
 
 alter table form_item drop column updated_by_id;
+
+drop table route;
+
+alter table menu_item drop column page_type;
+
+alter table menu_item
+	add artist_id int null;
+
+alter table menu_item
+	add page_id int null;
+
+alter table menu_item
+	add form_id int null;
+
+alter table menu_item
+	add gallery_id int null;
+
+alter table menu_item
+	add segment_page_id int null;
+
+alter table menu_item
+	add constraint FK_artist_menu_item
+		foreign key (artist_id) references users (id)
+			on delete cascade;
+
+alter table menu_item
+	add constraint FK_form_menu_item
+		foreign key (form_id) references form (id)
+			on delete cascade;
+
+alter table menu_item
+	add constraint FK_gallery_menu_item
+		foreign key (gallery_id) references gallery (id)
+			on delete cascade;
+
+alter table menu_item
+	add constraint FK_page_menu_item
+		foreign key (page_id) references page (id)
+			on delete cascade;
+
+alter table menu_item
+	add constraint FK_segment_page_menu_item
+		foreign key (segment_page_id) references segment_page (id)
+			on delete cascade;
+
+alter table menu drop column logo;
+
+alter table menu
+	add logo int null;
+
+alter table menu
+	add constraint FK_file_menu
+		foreign key (logo) references file (id)
+			on delete set null;
+
+alter table theme_menu drop foreign key FK_menu_theme_menu;
+
+alter table theme_menu
+	add constraint FK_menu_theme_menu
+		foreign key (menu_id) references menu (id)
+			on delete cascade;
+
+alter table theme_gallery drop foreign key FK_gallery_theme_gallery;
+
+alter table theme_gallery
+	add constraint FK_gallery_theme_gallery
+		foreign key (gallery_id) references gallery (id)
+			on delete cascade;
+
+alter table theme_file drop foreign key FK_file_theme_file;
+
+alter table theme_file
+	add constraint FK_file_theme_file
+		foreign key (file_id) references file (id)
+			on delete cascade;
+
+alter table theme_form drop foreign key FK_form_theme_form;
+
+alter table theme_form
+	add constraint FK_form_theme_form
+		foreign key (form_id) references form (id)
+			on delete cascade;
+
+alter table theme_page drop foreign key FK_page_theme_page;
+
+alter table theme_page
+	add constraint FK_page_theme_page
+		foreign key (page_id) references page (id)
+			on delete cascade;
+
+alter table theme_segment_page drop foreign key FK_segment_page_theme_segment_page;
+
+alter table theme_segment_page
+	add constraint FK_segment_page_theme_segment_page
+		foreign key (segment_page_id) references segment_page (id)
+			on delete cascade;
 ```

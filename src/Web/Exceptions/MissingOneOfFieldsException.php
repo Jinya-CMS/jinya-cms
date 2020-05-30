@@ -13,7 +13,7 @@ class MissingOneOfFieldsException extends HttpException implements JsonSerializa
 
     public function __construct(ServerRequestInterface $request, array $fields = [])
     {
-        parent::__construct($request, 'One of the fileds must be set', Action::HTTP_BAD_REQUEST, null);
+        parent::__construct($request, 'One of the fields must be set', Action::HTTP_BAD_REQUEST, null);
         $this->fields = $fields;
     }
 

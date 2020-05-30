@@ -21,11 +21,11 @@ return function (RouteCollectorProxy $api) {
         $group->get('/{id}', GetFormByIdAction::class);
         $group->put('/{id}', UpdateFormAction::class);
         $group->delete('/{id}', DeleteFormAction::class);
-        $group->group('/{id}/item', function (RouteCollectorProxy $file) {
-            $file->get('', GetItemsAction::class);
-            $file->post('', CreateItemAction::class)->add(new CheckRequiredFieldsMiddleware(['label', 'position']));
-            $file->delete('/{position}', DeleteItemAction::class);
-            $file->put('/{position}', UpdateItemAction::class);
+        $group->group('/{id}/item', function (RouteCollectorProxy $item) {
+            $item->get('', GetItemsAction::class);
+            $item->post('', CreateItemAction::class)->add(new CheckRequiredFieldsMiddleware(['label', 'position']));
+            $item->delete('/{position}', DeleteItemAction::class);
+            $item->put('/{position}', UpdateItemAction::class);
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 };

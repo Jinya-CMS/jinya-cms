@@ -5,6 +5,7 @@ namespace App\Web\Handlers;
 
 use App\Web\Actions\Action;
 use App\Web\Exceptions\MissingFieldsException;
+use App\Web\Exceptions\MissingOneOfFieldsException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpSpecializedException;
@@ -29,9 +30,10 @@ class HttpErrorHandler extends SlimErrorHandler
         ];
 
         $code = Action::HTTP_INTERNAL_SERVER_ERROR;
-        if ($exception instanceof MissingFieldsException) {
+        if ($exception instanceof MissingFieldsException || $exception instanceof MissingOneOfFieldsException) {
             $data = $exception;
         }
+
         if ($exception instanceof HttpSpecializedException) {
             $code = $exception->getCode();
         }
