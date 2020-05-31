@@ -27,7 +27,7 @@ class CreateMenuAction extends Action
         $menu->name = $body['name'];
         if (isset($body['logo'])) {
             if (File::findById($body['logo'])) {
-                $menu->name = $body['name'];
+                $menu->logo = $body['logo'];
             } else {
                 throw new NoResultException($this->request, 'File for logo not found');
             }
