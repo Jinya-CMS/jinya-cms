@@ -3,6 +3,18 @@ Content-Type: application/json
 JinyaApiKey: start
 
 {
+  "query": "drop table users"
+}
+
+<> 2020-06-01T030101.200.json
+
+###
+
+POST http://localhost:8090/api/maintenance/database/query
+Content-Type: application/json
+JinyaApiKey: start
+
+{
   "query": "select * from users"
 }
 
@@ -595,18 +607,6 @@ JinyaApiKey: start
 }
 
 <> 2020-05-30T123359.404.json
-
-###
-
-PUT http://localhost:8090/api/segment-page/1/segment/2
-Content-Type: application/json
-JinyaApiKey: start
-
-{
-  "form": 2
-}
-
-<> 2020-05-30T123243.500.json
 
 ###
 
