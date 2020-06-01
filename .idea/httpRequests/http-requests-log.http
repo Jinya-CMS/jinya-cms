@@ -1,0 +1,612 @@
+POST http://localhost:8090/api/maintenance/database/query
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "query": "select * from users"
+}
+
+<> 2020-06-01T025556.200.json
+
+###
+
+POST http://localhost:8090/api/maintenance/database/query
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "name": "asdasd"
+}
+
+<> 2020-06-01T025541.500.json
+
+###
+
+POST http://localhost:8090/api/maintenance/database/query
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "name": "asdasd"
+}
+
+<> 2020-06-01T025534.403.json
+
+###
+
+POST http://localhost:8090/api/maintenance/database/query
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "name": "asdasd"
+}
+
+<> 2020-06-01T025502.403.json
+
+###
+
+POST http://localhost:8090/api/maintenance/database
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "name": "asdasd"
+}
+
+<> 2020-06-01T025455.404.json
+
+###
+
+POST http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15,
+  "name": "asdasd"
+}
+
+<> 2020-06-01T120156.201.json
+
+###
+
+POST http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15,
+  "name": "asdasd"
+}
+
+<> 2020-06-01T120037.500.json
+
+###
+
+POST http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15,
+  "title": "asdasd"
+}
+
+<> 2020-06-01T120028.500.json
+
+###
+
+GET http://localhost:8090/api/menu/1
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15
+}
+
+<> 2020-05-30T040602.200.json
+
+###
+
+PUT http://localhost:8090/api/menu/1
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15
+}
+
+###
+
+PUT http://localhost:8090/api/menu/1
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "logo": 15
+}
+
+<> 2020-05-30T040331.500.json
+
+###
+
+DELETE http://localhost:8090/api/menu/2
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035640.500.json
+
+###
+
+POST http://localhost:8090/api/menu/1/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035452.201.json
+
+###
+
+GET http://localhost:8090/api/menu/1/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035341.200.json
+
+###
+
+GET http://localhost:8090/api/menu/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035323.404.json
+
+###
+
+GET http://localhost:8090/api/menu/93/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035315.404.json
+
+###
+
+GET http://localhost:8090/api/menu-item/93/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035306.200.json
+
+###
+
+POST http://localhost:8090/api/menu-item/93/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035257.201.json
+
+###
+
+POST http://localhost:8090/api/menu-item/93/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035230.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/93/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T035134.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "parent": 93,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T034054.201.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "parent": 93,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T033502.201.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "parent": 93,
+  "title": "Test titel",
+  "artist": 15
+}
+
+<> 2020-05-30T033444.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "position": 2,
+  "parent": 93,
+  "title": "Test titel"
+}
+
+<> 2020-05-30T033429.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+
+}
+
+<> 2020-05-30T033403.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+
+}
+
+<> 2020-05-30T033332.500.json
+
+###
+
+POST http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+
+}
+
+<> 2020-05-30T033155.500.json
+
+###
+
+DELETE http://localhost:8090/api/menu-item/99/item/0
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+DELETE http://localhost:8090/api/menu-item/99/item/0
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032955.404.json
+
+###
+
+DELETE http://localhost:8090/api/menu-item/99/item/0
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032916.500.json
+
+###
+
+DELETE http://localhost:8090/api/menu-item/99/item/0
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032859.404.json
+
+###
+
+GET http://localhost:8090/api/menu-item/99/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032658.405.json
+
+###
+
+GET http://localhost:8090/api/menu-item/99
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032653.200.json
+
+###
+
+GET http://localhost:8090/api/menu/1/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032402.200.json
+
+###
+
+GET http://localhost:8090/api/menu/1/item
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032331.200.json
+
+###
+
+GET http://localhost:8090/api/menu/1
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032325.200.json
+
+###
+
+GET http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032317.200.json
+
+###
+
+GET http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032207.500.json
+
+###
+
+GET http://localhost:8090/api/menu
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+<> 2020-05-30T032129.404.json
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/3
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/3
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/3
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/3
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/3
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "newPosition": 0
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/0
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "html": "ohjysdiohsdfosfgdohnufgds"
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/5
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "gallery": 5
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/5
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "gallery": 4
+}
+
+<> 2020-05-30T123426.404.json
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/2
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "form": 4
+}
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/2
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "form": 2
+}
+
+<> 2020-05-30T123359.404.json
+
+###
+
+PUT http://localhost:8090/api/segment-page/1/segment/2
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "form": 2
+}
+
+<> 2020-05-30T123243.500.json
+
+###
+

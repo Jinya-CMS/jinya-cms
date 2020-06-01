@@ -45,6 +45,22 @@ abstract class LoadableEntity
     abstract public static function findAll(): Iterator;
 
     /**
+     * Executes the given sql statement
+     *
+     * @param string $sql
+     * @return array|int
+     */
+    public static function executeSqlString(string $sql)
+    {
+        $result = self::getAdapter()->getDriver()->getConnection()->execute($sql);
+        if ($result->isQueryResult()) {
+            return iterator_to_array($result);
+        }
+
+        return $result->getAffectedRows();
+    }
+
+    /**
      * Fetches a single entity by the given id
      *
      * @param string $table
