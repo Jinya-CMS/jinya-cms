@@ -19,6 +19,7 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     public string $content;
     public string $fromAddress;
     public string $targetAddress;
+    public ?string $answer;
     public DateTime $sendAt;
     public bool $isArchived;
     public bool $isDeleted;
@@ -176,6 +177,16 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     }
 
     /**
+     * @inheritDoc
+     */
+    public function update(): void
+    {
+        $this->internalUpdate('message', [
+            'sendAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+        ]);
+    }
+
+    /**
      * Moves the given message in the archive
      *
      * @throws Exceptions\UniqueFailedException
@@ -199,16 +210,6 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         $this->spam = false;
         $this->isDeleted = false;
         $this->update();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): void
-    {
-        $this->internalUpdate('message', [
-            'sendAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
     }
 
     /**
@@ -259,6 +260,7 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
             'read' => $this->isRead,
             'spam' => $this->spam,
             'id' => $this->id,
+            'answer' => $this->answer,
         ];
     }
 

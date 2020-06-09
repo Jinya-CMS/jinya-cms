@@ -8,7 +8,9 @@ use App\Web\Actions\Message\MarkMessageAsReadAction;
 use App\Web\Actions\Message\MarkMessageAsSpamAction;
 use App\Web\Actions\Message\MoveMessageToArchiveAction;
 use App\Web\Actions\Message\MoveMessageToInboxAction;
+use App\Web\Actions\Message\ReplyToMessageAction;
 use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -24,6 +26,10 @@ return function (RouteCollectorProxy $api) {
             $id->put('/read', MarkMessageAsReadAction::class);
             $id->delete('/read', MarkMessageAsNotReadAction::class);
             $id->put('/inbox', MoveMessageToInboxAction::class);
+            $id->put('/answer', ReplyToMessageAction::class)->add(new CheckRequiredFieldsMiddleware([
+                'subject',
+                'answer',
+            ]));
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
     $api->group('{formId}/message', function (RouteCollectorProxy $group) {

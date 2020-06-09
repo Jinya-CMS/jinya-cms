@@ -519,4 +519,8 @@ alter table theme_segment_page
 	add constraint FK_segment_page_theme_segment_page
 		foreign key (segment_page_id) references segment_page (id)
 			on delete cascade;
+
+alter table message
+	add answer longtext null;
+
 ```

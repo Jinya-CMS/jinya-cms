@@ -1,3 +1,52 @@
+GET http://localhost:8090/api/message/57
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "subject": "Answer to your message",
+  "answer": "<html><head></head><body><table><tr><td>name</td><td>Theo Test</td></tr><tr><td>email-address</td><td>theo.test@example.com</td></tr><tr><td>how-many-comics</td><td>1</td></tr><tr><td>language</td><td>German</td></tr><tr><td>signed</td><td>1</td></tr><tr><td>shipping-address-including-country</td><td>asdasdasd</td></tr></table></body></html>"
+}
+
+<> 2020-06-10T123910.200.json
+
+###
+
+PUT http://localhost:8090/api/message/57/answer
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "subject": "Answer to your message",
+  "answer": "<html><head></head><body><table><tr><td>name</td><td>Theo Test</td></tr><tr><td>email-address</td><td>theo.test@example.com</td></tr><tr><td>how-many-comics</td><td>1</td></tr><tr><td>language</td><td>German</td></tr><tr><td>signed</td><td>1</td></tr><tr><td>shipping-address-including-country</td><td>asdasdasd</td></tr></table></body></html>"
+}
+
+###
+
+PUT http://localhost:8090/api/message/57/answer
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "subject": "Answer to your message",
+  "answer": "<html><head></head><body><table><tr><td>name</td><td>Theo Test</td></tr><tr><td>email-address</td><td>theo.test@example.com</td></tr><tr><td>how-many-comics</td><td>1</td></tr><tr><td>language</td><td>German</td></tr><tr><td>signed</td><td>1</td></tr><tr><td>shipping-address-including-country</td><td>asdasdasd</td></tr></table></body></html>"
+}
+
+<> 2020-06-10T123357.500.json
+
+###
+
+PUT http://localhost:8090/api/message/57/answer
+Content-Type: application/json
+JinyaApiKey: start
+
+{
+  "query": "drop table users"
+}
+
+<> 2020-06-10T123324.500.json
+
+###
+
 DELETE http://localhost:8090/api/message/56?force=true
 Content-Type: application/json
 JinyaApiKey: start
@@ -531,57 +580,6 @@ JinyaApiKey: start
 }
 
 <> 2020-06-01T025455.404.json
-
-###
-
-POST http://localhost:8090/api/menu
-Content-Type: application/json
-JinyaApiKey: start
-
-{
-  "logo": 15,
-  "name": "asdasd"
-}
-
-<> 2020-06-01T120156.201.json
-
-###
-
-POST http://localhost:8090/api/menu
-Content-Type: application/json
-JinyaApiKey: start
-
-{
-  "logo": 15,
-  "name": "asdasd"
-}
-
-<> 2020-06-01T120037.500.json
-
-###
-
-POST http://localhost:8090/api/menu
-Content-Type: application/json
-JinyaApiKey: start
-
-{
-  "logo": 15,
-  "title": "asdasd"
-}
-
-<> 2020-06-01T120028.500.json
-
-###
-
-GET http://localhost:8090/api/menu/1
-Content-Type: application/json
-JinyaApiKey: start
-
-{
-  "logo": 15
-}
-
-<> 2020-05-30T040602.200.json
 
 ###
 
