@@ -190,14 +190,10 @@ abstract class Action
     protected function formatList(array $data, int $offset = 0, int $count = -1): array
     {
         return [
-            'success' => true,
             'offset' => $offset,
-            'count' => $count === -1 ? count($data) : $count,
+            'itemsCount' => count($data),
+            'totalCount' => $count === -1 ? count($data) : $count,
             'items' => $data,
-            'control' => [
-                'next' => false,
-                'previous' => false,
-            ],
         ];
     }
 

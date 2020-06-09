@@ -4,6 +4,7 @@ namespace App\Database\Utils;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\Message;
 use Exception;
 use Iterator;
 use Laminas\Db\Adapter\Adapter;
@@ -66,7 +67,8 @@ abstract class LoadableEntity
      * @param string $table
      * @param int $id
      * @param StrategyInterface[] $additionalStrategies
-     * @return mixed
+     * @return Message
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     protected static function fetchSingleById(string $table, int $id, $prototype, array $additionalStrategies = [])
     {

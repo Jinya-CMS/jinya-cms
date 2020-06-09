@@ -25,6 +25,7 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * @inheritDoc
      * @return Form
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findById(int $id)
     {

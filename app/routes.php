@@ -18,6 +18,7 @@ return function (App $app) {
         $segmentPage = require __DIR__ . '/routing/api/segmentPage.php';
         $menu = require __DIR__ . '/routing/api/menu.php';
         $database = require __DIR__ . '/routing/api/database.php';
+        $message = require __DIR__ . '/routing/api/message.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
@@ -32,5 +33,6 @@ return function (App $app) {
         $segmentPage($api);
         $menu($api);
         $database($api);
+        $message($api);
     });
 };
