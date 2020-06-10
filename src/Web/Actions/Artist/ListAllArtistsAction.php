@@ -4,6 +4,7 @@ namespace App\Web\Actions\Artist;
 
 use App\Database\Artist;
 use App\Web\Actions\Action;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ListAllArtistsAction extends Action
@@ -11,7 +12,7 @@ class ListAllArtistsAction extends Action
 
     /**
      * @inheritDoc
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function action(): Response
     {

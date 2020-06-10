@@ -14,8 +14,9 @@ class DeletePositionAction extends Action
 
     /**
      * @inheritDoc
+     * @return Response
      * @throws JsonException
-     * @throws HttpNotFoundException|NoResultException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

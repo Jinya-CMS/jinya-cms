@@ -19,6 +19,7 @@ return function (App $app) {
         $menu = require __DIR__ . '/routing/api/menu.php';
         $database = require __DIR__ . '/routing/api/database.php';
         $message = require __DIR__ . '/routing/api/message.php';
+        $theme = require __DIR__ . '/routing/api/theme.php';
 
         $artistRoutes($api);
         $authenticationRoutes($api);
@@ -34,5 +35,6 @@ return function (App $app) {
         $menu($api);
         $database($api);
         $message($api);
+        $theme($api);
     });
 };

@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Web\Actions\Theme;
+
+use App\Database;
+use App\Theming;
+use App\Web\Actions\Action;
+use App\Web\Exceptions\NoResultException;
+use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Psr7\Stream;
+
+class GetPreviewImageAction extends Action
+{
+
+    /**
+     * @inheritDoc
+     */
+    protected function action(): Response
+    {
+        $themeId = $this->args['id'];
+        $dbTheme = Database\Theme::findById($themeId);
+        if (!$dbTheme) {
+            throw new NoResultException($this->request, 'Theme not found');
+        }
+
+        $theme = new Theming\Theme($dbTheme);
+
+        return $this->response
+            ->withBody(new Stream(fopen($theme->getPreviewImagePath(), 'rb')))
+            ->withHeader('Content-Type', 'application/octet-stream')
+            ->withStatus(self::HTTP_OK);
+    }
+}

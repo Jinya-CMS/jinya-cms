@@ -14,9 +14,10 @@ class ChangePasswordAction extends Action
 {
     /**
      * @return Response
-     * @throws MissingFieldsException
-     * @throws JsonException
      * @throws HttpForbiddenException
+     * @throws JsonException
+     * @throws MissingFieldsException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function action(): Response
     {

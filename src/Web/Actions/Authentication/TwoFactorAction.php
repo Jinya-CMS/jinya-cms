@@ -29,9 +29,10 @@ class TwoFactorAction extends Action
 
     /**
      * @inheritDoc
-     * @throws BadCredentialsException
+     * @return Response
      * @throws JsonException
-     * @throws Exception
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws \PHPMailer\PHPMailer\Exception
      */
     protected function action(): Response
     {

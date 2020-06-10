@@ -5,6 +5,7 @@ namespace App\Web\Actions\SimplePage;
 use App\Database\SimplePage;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class DeleteSimplePageAction extends Action
@@ -13,7 +14,7 @@ class DeleteSimplePageAction extends Action
     /**
      * @inheritDoc
      * @throws NoResultException
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function action(): Response
     {

@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Web\Actions\File;
+namespace App\Web\Actions\Theme;
 
-use App\Database\File;
+use App\Database\Theme;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class DeleteFileAction extends Action
+class ActivateThemeAction extends Action
 {
 
     /**
      * @inheritDoc
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      */
     protected function action(): Response
     {
-        $id = $this->args['id'];
-        $file = File::findById($id);
-        if ($file === null) {
-            throw new NoResultException($this->request, 'File not found');
+        $themeId = $this->args['id'];
+        $theme = Theme::findById($themeId);
+        if (!$theme) {
+            throw new NoResultException($this->request, 'Theme not found');
         }
-        $file->delete();
+
+        $theme->makeActiveTheme();
 
         return $this->noContent();
     }
