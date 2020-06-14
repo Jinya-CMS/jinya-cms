@@ -18,7 +18,12 @@ use App\Web\Actions\Theme\PutConfigurationAction;
 use App\Web\Actions\Theme\PutStyleVariablesAction;
 use App\Web\Actions\Theme\PutThemeFileAction;
 use App\Web\Actions\Theme\PutThemeFormAction;
+use App\Web\Actions\Theme\PutThemeGalleryAction;
+use App\Web\Actions\Theme\PutThemeMenuAction;
+use App\Web\Actions\Theme\PutThemePageAction;
+use App\Web\Actions\Theme\PutThemeSegmentPageAction;
 use App\Web\Middleware\AuthenticationMiddleware;
+use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -32,36 +37,44 @@ return function (RouteCollectorProxy $api) {
             $id->put('/assets', CompileThemeAction::class);
             $id->group('/styling', function (RouteCollectorProxy $styling) {
                 $styling->get('', GetStyleVariablesAction::class);
-                $styling->put('', PutStyleVariablesAction::class);
+                $styling->put('', PutStyleVariablesAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['variables']));
             });
             $id->group('/file', function (RouteCollectorProxy $file) {
                 $file->get('', GetThemeFileAction::class);
-                $file->put('/{name}', PutThemeFileAction::class);
+                $file->put('/{name}', PutThemeFileAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['file']));
             });
             $id->group('/form', function (RouteCollectorProxy $form) {
                 $form->get('', GetThemeFormAction::class);
-                $form->put('/{name}', PutThemeFormAction::class);
+                $form->put('/{name}', PutThemeFormAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['form']));
             });
             $id->group('/gallery', function (RouteCollectorProxy $gallery) {
                 $gallery->get('', GetThemeGalleryAction::class);
-                $gallery->put('/{name}', PutStyleVariablesAction::class);
+                $gallery->put('/{name}', PutThemeGalleryAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['gallery']));
             });
             $id->group('/menu', function (RouteCollectorProxy $menu) {
                 $menu->get('', GetThemeMenuAction::class);
-                $menu->put('/{name}', PutStyleVariablesAction::class);
+                $menu->put('/{name}', PutThemeMenuAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['menu']));
             });
             $id->group('/page', function (RouteCollectorProxy $page) {
                 $page->get('', GetThemePageAction::class);
-                $page->put('/{name}', PutStyleVariablesAction::class);
+                $page->put('/{name}', PutThemePageAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['page']));
             });
             $id->group('/segment-page', function (RouteCollectorProxy $page) {
                 $page->get('', GetThemeSegmentPageAction::class);
-                $page->put('/{name}', PutStyleVariablesAction::class);
+                $page->put('/{name}', PutThemeSegmentPageAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['segmentPage']));
             });
             $id->group('/configuration', function (RouteCollectorProxy $config) {
                 $config->get('/structure', GetConfigurationStructureAction::class);
                 $config->get('', GetConfigurationValuesAction::class);
-                $config->put('', PutConfigurationAction::class);
+                $config->put('', PutConfigurationAction::class)
+                    ->add(new CheckRequiredFieldsMiddleware(['configuration']));
             });
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
