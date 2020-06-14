@@ -6,12 +6,11 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SegmentPage;
 use App\Database\Theme;
 use App\Database\ThemeSegmentPage;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class PutThemeSegmentPageAction extends Action
+class PutThemeSegmentPageAction extends ThemeAction
 {
 
     /**
@@ -22,6 +21,7 @@ class PutThemeSegmentPageAction extends Action
      */
     protected function action(): Response
     {
+        $this->syncThemes();
         $themeId = $this->args['id'];
         $name = $this->args['name'];
         $theme = Theme::findById($themeId);

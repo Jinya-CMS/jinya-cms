@@ -12,7 +12,6 @@ use Laminas\Serializer\Adapter\Json;
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 {
 
-    public string $previewImage;
     public array $configuration;
     public string $description;
     public string $name;
@@ -80,6 +79,29 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     public static function findAll(): Iterator
     {
         return self::fetchArray('theme', new self(), [
+            'scssVariables' => new SerializableStrategy(new Json()),
+            'configuration' => new SerializableStrategy(new Json()),
+        ]);
+    }
+
+    /**
+     * Finds the theme with the given name
+     *
+     * @param string $name
+     * @return Theme
+     * @noinspection PhpIncompatibleReturnTypeInspection
+     */
+    public static function findByName(string $name): ?Theme
+    {
+        $sql = self::getSql();
+        $select = $sql
+            ->select()
+            ->from('theme')
+            ->where('name = :name');
+
+        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['name' => $name]);
+
+        return self::hydrateSingleResult($result, new self(), [
             'scssVariables' => new SerializableStrategy(new Json()),
             'configuration' => new SerializableStrategy(new Json()),
         ]);

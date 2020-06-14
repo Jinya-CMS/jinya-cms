@@ -523,4 +523,7 @@ alter table theme_segment_page
 alter table message
 	add answer longtext null;
 
+alter table theme
+    drop column preview_image;
+
 ```

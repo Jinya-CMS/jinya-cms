@@ -6,12 +6,11 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Menu;
 use App\Database\Theme;
 use App\Database\ThemeMenu;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class PutThemeMenuAction extends Action
+class PutThemeMenuAction extends ThemeAction
 {
 
     /**
@@ -22,6 +21,7 @@ class PutThemeMenuAction extends Action
      */
     protected function action(): Response
     {
+        $this->syncThemes();
         $themeId = $this->args['id'];
         $name = $this->args['name'];
         $theme = Theme::findById($themeId);

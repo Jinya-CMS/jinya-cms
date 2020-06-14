@@ -3,12 +3,11 @@
 namespace App\Web\Actions\Theme;
 
 use App\Database\Theme;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetThemeFormAction extends Action
+class GetThemeFormAction extends ThemeAction
 {
 
     /**

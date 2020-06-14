@@ -2,22 +2,24 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetThemeMenuAction extends Action
+class GetThemeMenuAction extends ThemeAction
 {
 
     /**
      * @return Response
      * @throws NoResultException
      * @throws JsonException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {
+        $this->syncThemes();
         $themeId = $this->args['id'];
         $theme = Theme::findById($themeId);
 

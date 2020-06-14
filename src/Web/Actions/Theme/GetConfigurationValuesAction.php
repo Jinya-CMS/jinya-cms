@@ -4,12 +4,11 @@ namespace App\Web\Actions\Theme;
 
 use App\Database;
 use App\Theming;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetConfigurationValuesAction extends Action
+class GetConfigurationValuesAction extends ThemeAction
 {
 
     /**

@@ -4,16 +4,16 @@ namespace App\Web\Actions\Theme;
 
 use App\Database;
 use App\Theming;
-use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Stream;
 
-class GetPreviewImageAction extends Action
+class GetPreviewImageAction extends ThemeAction
 {
 
     /**
      * @inheritDoc
+     * @throws NoResultException
      */
     protected function action(): Response
     {
