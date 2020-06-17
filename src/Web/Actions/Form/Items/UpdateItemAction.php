@@ -47,6 +47,18 @@ class UpdateItemAction extends Action
             $formItem->spamFilter = $body['spamFilter'];
         }
 
+        if (isset($body['isFromAddress'])) {
+            $formItem->isFromAddress = $body['isFromAddress'];
+        }
+
+        if (isset($body['isRequired'])) {
+            $formItem->isRequired = $body['isRequired'];
+        }
+
+        if (isset($body['isSubject'])) {
+            $formItem->isSubject = $body['isSubject'];
+        }
+
         $formItem->update();
 
         if (isset($body['newPosition'])) {

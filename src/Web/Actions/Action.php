@@ -130,36 +130,6 @@ abstract class Action
     abstract protected function action(): Response;
 
     /**
-     * @return array
-     * @throws HttpBadRequestException
-     * @throws JsonException
-     */
-    protected function getFormData(): array
-    {
-        $input = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
-        }
-
-        return $input;
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     * @throws HttpBadRequestException
-     */
-    protected function resolveArg(string $name)
-    {
-        if (!isset($this->args[$name])) {
-            throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
-        }
-
-        return $this->args[$name];
-    }
-
-    /**
      * @param array $data
      * @param int $offset
      * @param int $count

@@ -1,5 +1,8 @@
 <?php
 
+use App\Web\Actions\Frontend\GetFrontAction;
+use App\Web\Actions\Frontend\PostFrontAction;
+use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
@@ -37,4 +40,8 @@ return function (App $app) {
         $message($api);
         $theme($api);
     });
+    $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
+        $frontend->get('', GetFrontAction::class);
+        $frontend->post('', PostFrontAction::class);
+    })->add(CheckRouteInCurrentThemeMiddleware::class);
 };

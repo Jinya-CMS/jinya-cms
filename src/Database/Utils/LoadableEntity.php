@@ -62,6 +62,28 @@ abstract class LoadableEntity
     }
 
     /**
+     * Gets an adapter for the current database
+     *
+     * @return Adapter
+     */
+    protected static function getAdapter(): Adapter
+    {
+        if (!isset(self::$adapter)) {
+            self::$adapter = new Adapter([
+                'driver' => 'Pdo_Mysql',
+                'database' => getenv('MYSQL_DATABASE'),
+                'username' => getenv('MYSQL_USER'),
+                'password' => getenv('MYSQL_PASSWORD'),
+                'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
+                'port' => getenv('MYSQL_PORT') ?: 3306,
+                'charset' => getenv('MYSQL_CHARSET') ?: 'utf8mb4',
+            ]);
+        }
+
+        return self::$adapter;
+    }
+
+    /**
      * Fetches a single entity by the given id
      *
      * @param string $table
@@ -86,28 +108,6 @@ abstract class LoadableEntity
     protected static function getSql(): Sql
     {
         return new Sql(self::getAdapter());
-    }
-
-    /**
-     * Gets an adapter for the current database
-     *
-     * @return Adapter
-     */
-    protected static function getAdapter(): Adapter
-    {
-        if (!isset(self::$adapter)) {
-            self::$adapter = new Adapter([
-                'driver' => 'Pdo_Mysql',
-                'database' => getenv('MYSQL_DATABASE'),
-                'username' => getenv('MYSQL_USER'),
-                'password' => getenv('MYSQL_PASSWORD'),
-                'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
-                'port' => getenv('MYSQL_PORT') ?: 3306,
-                'charset' => getenv('MYSQL_CHARSET') ?: 'utf8mb4',
-            ]);
-        }
-
-        return self::$adapter;
     }
 
     /**

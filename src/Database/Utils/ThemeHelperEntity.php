@@ -3,7 +3,6 @@
 namespace App\Database\Utils;
 
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use RuntimeException;
 
 abstract class ThemeHelperEntity extends LoadableEntity
@@ -83,7 +82,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
         $select = $sql
             ->select()
             ->from($table)
-            ->where(['theme_id = :id'], PredicateSet::OP_OR);
+            ->where(['theme_id = :id']);
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $themeId]);
 

@@ -28,6 +28,7 @@ return function (ContainerBuilder $containerBuilder) {
         Engine::class => function (): Engine {
             $engine = new Engine();
             $engine->addFolder('mailing', __DIR__ . '/../src/Mailing/Templates');
+            $engine->addFolder('emergency', __DIR__ . '/../src/Emergency/Templates');
             $engine->setFileExtension('phtml');
 
             return $engine;

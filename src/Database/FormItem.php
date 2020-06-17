@@ -17,6 +17,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public string $label;
     public string $helpText;
     public int $formId;
+    public bool $isFromAddress;
+    public bool $isSubject;
+    public bool $isRequired;
 
     /**
      * @inheritDoc
@@ -88,6 +91,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'helpText' => $this->helpText,
             'position' => $this->position,
             'id' => $this->id,
+            'isRequired' => $this->isRequired,
+            'isFromAddress' => $this->isFromAddress,
+            'isSubject' => $this->isSubject,
         ];
     }
 

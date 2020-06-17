@@ -19,12 +19,12 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     public string $content;
     public string $fromAddress;
     public string $targetAddress;
-    public ?string $answer;
+    public ?string $answer = null;
     public DateTime $sendAt;
-    public bool $isArchived;
-    public bool $isDeleted;
-    public bool $isRead;
-    public bool $spam;
+    public bool $isArchived = false;
+    public bool $isDeleted = false;
+    public bool $isRead = false;
+    public bool $spam = false;
 
     /**
      * @inheritDoc

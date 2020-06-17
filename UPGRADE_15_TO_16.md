@@ -526,4 +526,15 @@ alter table message
 alter table theme
     drop column preview_image;
 
+alter table menu_item
+	add route varchar(255) null;
+
+alter table form_item
+	add is_from_address bit default false null;
+
+alter table form_item
+	add is_subject bit default 0 null;
+
+alter table form_item
+	add is_required bit default 0 null;
 ```

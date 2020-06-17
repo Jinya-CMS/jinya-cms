@@ -12,6 +12,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public ?int $menuId = null;
     public ?int $parentId = null;
     public string $title;
+    public ?string $route;
     public bool $highlighted = false;
     public ?int $formId = null;
     public ?int $artistId = null;
@@ -88,6 +89,27 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
+     * Finds the menu item with the given route
+     *
+     * @param $route
+     * @return MenuItem
+     */
+    public static function findByRoute($route): ?MenuItem
+    {
+        $sql = self::getSql();
+        $select = $sql
+            ->select()
+            ->from('menu_item')
+            ->where(['route = :route', 'route = :routeWithTrailingSlash'], PredicateSet::OP_OR);
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
+            'route' => $route,
+            'routeWithTrailingSlash' => "/$route",
+        ]), new self());
+    }
+
+    /**
      * @inheritDoc
      * @throws Exception
      */
@@ -159,6 +181,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'position' => $this->position,
             'highlighted' => $this->highlighted,
             'title' => $this->title,
+            'route' => $this->route,
         ];
 
         if (isset($this->formId)) {

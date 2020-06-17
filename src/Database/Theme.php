@@ -30,8 +30,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         $select = $sql
             ->select()
             ->from('theme')
-            ->columns(['theme.*'], false)
-            ->join('configuration', 'configuration.current_frontend_theme_id = theme.id');
+            ->join('configuration', 'configuration.current_frontend_theme_id = theme.id', []);
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
 
@@ -150,11 +149,17 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme menus
      *
-     * @return Iterator
+     * @return array
      */
-    public function getMenus(): Iterator
+    public function getMenus(): array
     {
-        return ThemeMenu::findByTheme($this->id);
+        $result = [];
+        $menus = ThemeMenu::findByTheme($this->id);
+        foreach ($menus as $menu) {
+            $result[$menu->name] = $menu;
+        }
+
+        return $result;
     }
 
     /**
