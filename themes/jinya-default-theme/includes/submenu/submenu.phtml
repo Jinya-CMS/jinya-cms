@@ -1,0 +1,10 @@
+<?php
+/** @var \App\Database\MenuItem $item */
+/** @var \App\Database\MenuItem $activeMenuItem */
+$activeMenuItem = $this->getActiveMenuItem();
+?>
+<ul class="jinya-submenu <?= $activeMenuItem && iterator_count($activeMenuItem->getItems()) === 0 ? 'is--hidden' : '' ?>">
+    <?php foreach ($item->getItems() as $menuItem): ?>
+        <?= $this->insert('theme::includes/submenu/item', ['item' => $menuItem]) ?>
+    <?php endforeach ?>
+</ul>

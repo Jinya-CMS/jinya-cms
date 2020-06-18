@@ -1,0 +1,126 @@
+.jinya-form {
+    @if ($jinya-form-center-items) {
+        margin: 0 auto;
+    }
+    width: $jinya-form-input-width;
+
+    @include jinya-media-query($screen: true, $small: true) {
+        width: 100%;
+    }
+}
+
+%jinya-form__row {
+    flex-flow: column wrap;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.jinya-form__row--buttons {
+    @extend %jinya-form__row;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.jinya-form__row--field {
+    @extend %jinya-form__row;
+}
+
+.jinya-form__row--checkbox {
+    @extend %jinya-form__row;
+    flex-flow: unset;
+}
+
+.jinya-form__label {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+%jinya-field__input {
+    flex: 0 0 100%;
+    min-width: 100%;
+    font-family: $jinya-form-input-font-family;
+    font-size: $jinya-form-input-font-size;
+    border: 1px solid $jinya-form-input-border-color;
+    border-radius: $jinya-form-input-border-radius;
+    padding: $jinya-form-input-padding;
+    box-sizing: border-box;
+    background: $jinya-form-input-background-color;
+
+    &:focus {
+        box-shadow: 0 0 $jinya-form-input-focus-box-shadow-blur-radius $jinya-form-input-focus-box-shadow-spread-radius $jinya-form-input-focus-box-shadow-color;
+        border-color: $jinya-form-input-focus-box-shadow-color;
+    }
+
+    &:invalid {
+        border-color: $jinya-form-input-invalid-color;
+        box-shadow: none;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0 $jinya-form-input-focus-box-shadow-blur-radius $jinya-form-input-focus-box-shadow-spread-radius $jinya-form-input-invalid-color;
+        }
+    }
+}
+
+.jinya-form__input {
+    @extend %jinya-field__input;
+}
+
+.jinya-form__textarea {
+    @extend %jinya-field__input;
+    resize: none;
+}
+
+.jinya-form__select {
+    @extend %jinya-field__input;
+
+    &:empty {
+        font-size: $text-color-secondary;
+    }
+}
+
+.jinya-form__checkbox {
+    &:focus {
+        box-shadow: 0 0 $jinya-form-input-focus-box-shadow-blur-radius $jinya-form-input-focus-box-shadow-spread-radius $jinya-form-input-focus-box-shadow-color;
+        border-color: $jinya-form-input-focus-box-shadow-color;
+    }
+
+    &:invalid {
+        border-color: $jinya-form-input-invalid-color;
+        box-shadow: none;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0 $jinya-form-input-focus-box-shadow-blur-radius $jinya-form-input-focus-box-shadow-spread-radius $jinya-form-input-invalid-color;
+        }
+    }
+}
+
+.jinya-form__title {
+    @extend %jinya-page-title;
+}
+
+.jinya-button {
+    justify-self: flex-end;
+    padding: $jinya-form-button-padding;
+    font-size: 1rem;
+    border: 2px solid $jinya-form-button-primary-color;
+    border-radius: 5px;
+    background: $jinya-form-button-white-color;
+    color: $jinya-form-button-primary-color;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:hover {
+        background: $jinya-form-button-primary-color;
+        color: $jinya-form-button-white-color;
+    }
+}
+
+.jinya-message--positive {
+    @include jinya-message(pastelize($positive));
+}
+
+.jinya-message--negative {
+    @include jinya-message(pastelize($negative));
+}

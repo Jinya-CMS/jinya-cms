@@ -10,9 +10,8 @@ use Iterator;
 class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
-    public string $name;
-    public int $pageId;
-    public int $themeId;
+    public int $pageId = -1;
+    public int $themeId = -1;
 
     /**
      * Finds a page by name and theme
@@ -21,7 +20,7 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      * @param string $name
      * @return ThemePage
      */
-    public static function findByThemeAndName(int $themeId, string $name): ThemePage
+    public static function findByThemeAndName(int $themeId, string $name): ?ThemePage
     {
         return self::fetchByThemeAndName($themeId, $name, 'theme_page', new self());
     }

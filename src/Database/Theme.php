@@ -119,31 +119,52 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme files
      *
-     * @return Iterator
+     * @return array
      */
-    public function getFiles(): Iterator
+    public function getFiles(): array
     {
-        return ThemeFile::findByTheme($this->id);
+        $result = [];
+        $files = ThemeFile::findByTheme($this->id);
+        /** @var ThemeFile $file */
+        foreach ($files as $file) {
+            $result[$file->name] = $file->getFile();
+        }
+
+        return $result;
     }
 
     /**
      * Gets all theme galleries
      *
-     * @return Iterator
+     * @return array
      */
-    public function getGalleries(): Iterator
+    public function getGalleries(): array
     {
-        return ThemeGallery::findByTheme($this->id);
+        $result = [];
+        $galleries = ThemeGallery::findByTheme($this->id);
+        /** @var ThemeGallery $gallery */
+        foreach ($galleries as $gallery) {
+            $result[$gallery->name] = $gallery->getGallery();
+        }
+
+        return $result;
     }
 
     /**
      * Gets all theme forms
      *
-     * @return Iterator
+     * @return array
      */
-    public function getForms(): Iterator
+    public function getForms(): array
     {
-        return ThemeForm::findByTheme($this->id);
+        $result = [];
+        $forms = ThemeForm::findByTheme($this->id);
+        /** @var ThemeForm $form */
+        foreach ($forms as $form) {
+            $result[$form->name] = $form->getForm();
+        }
+
+        return $result;
     }
 
     /**
@@ -155,8 +176,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     {
         $result = [];
         $menus = ThemeMenu::findByTheme($this->id);
+        /** @var ThemeMenu $menu */
         foreach ($menus as $menu) {
-            $result[$menu->name] = $menu;
+            $result[$menu->name] = $menu->getMenu();
         }
 
         return $result;
@@ -165,11 +187,18 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme segmentPages
      *
-     * @return Iterator
+     * @return array
      */
-    public function getSegmentPages(): Iterator
+    public function getSegmentPages(): array
     {
-        return ThemeSegmentPage::findByTheme($this->id);
+        $segmentPages = ThemeSegmentPage::findByTheme($this->id);
+        $result = [];
+        /** @var ThemeSegmentPage $segmentPage */
+        foreach ($segmentPages as $segmentPage) {
+            $result[$segmentPage->name] = $segmentPage->getSegmentPage();
+        }
+
+        return $result;
     }
 
     /**

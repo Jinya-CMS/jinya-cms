@@ -38,10 +38,18 @@ class PutThemeSegmentPageAction extends ThemeAction
         }
 
         $themeSegmentPage = ThemeSegmentPage::findByThemeAndName($themeId, $name);
-        $themeSegmentPage->themeId = $themeId;
-        $themeSegmentPage->segmentPageId = $segmentPage;
-        $themeSegmentPage->name = $name;
-        $themeSegmentPage->update();
+        if ($themeSegmentPage !== null) {
+            $themeSegmentPage->themeId = $themeId;
+            $themeSegmentPage->segmentPageId = $segmentPage->id;
+            $themeSegmentPage->name = $name;
+            $themeSegmentPage->update();
+        } else {
+            $themeSegmentPage = new ThemeSegmentPage();
+            $themeSegmentPage->themeId = $themeId;
+            $themeSegmentPage->segmentPageId = $segmentPage->id;
+            $themeSegmentPage->name = $name;
+            $themeSegmentPage->create();
+        }
 
         return $this->noContent();
     }

@@ -1,0 +1,58 @@
+@include jinya-media-query($screen: true, $small: true) {
+    .is--sequence,
+    .is--masonry {
+        .jinya-gallery--mobile {
+            display: block;
+            flex: 0 0 100%;
+            margin-top: 2rem;
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+
+        .jinya-gallery__artwork--mobile {
+            box-sizing: border-box;
+            flex-direction: column-reverse;
+            display: flex;
+            padding: 0;
+            margin: 0 0 1rem;
+
+            &:nth-child(2n) {
+                padding: 0;
+                flex-direction: column-reverse;
+                display: flex;
+
+                .jinya-gallery__image--mobile,
+                .jinya-gallery__caption--mobile {
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+            }
+        }
+
+        .jinya-gallery__image--mobile {
+            min-width: 100%;
+            max-width: 100%;
+            object-fit: unset;
+            height: unset;
+            display: block;
+        }
+
+        .jinya-gallery__caption--mobile {
+            min-width: 100%;
+            max-width: 100%;
+            display: block;
+            padding-top: 1rem;
+            margin: 0 0 1rem;
+        }
+
+        .jinya-gallery-caption__title--mobile {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .jinya-gallery-caption__content--mobile {
+            display: none;
+        }
+    }
+}

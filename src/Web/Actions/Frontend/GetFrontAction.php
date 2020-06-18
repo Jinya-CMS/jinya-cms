@@ -20,6 +20,6 @@ class GetFrontAction extends FrontAction
             return $this->renderMenuItem($menuItem);
         }
 
-        return $this->render('theme::not-found', [], self::HTTP_NOT_FOUND);
+        return $this->render('theme::404', [], self::HTTP_NOT_FOUND);
     }
 }

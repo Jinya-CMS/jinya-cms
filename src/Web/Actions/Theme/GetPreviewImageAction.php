@@ -24,10 +24,13 @@ class GetPreviewImageAction extends ThemeAction
         }
 
         $theme = new Theming\Theme($dbTheme);
+        if (file_exists($theme->getPreviewImagePath())) {
+            return $this->response
+                ->withBody(new Stream(fopen($theme->getPreviewImagePath(), 'rb')))
+                ->withHeader('Content-Type', 'application/octet-stream')
+                ->withStatus(self::HTTP_OK);
+        }
 
-        return $this->response
-            ->withBody(new Stream(fopen($theme->getPreviewImagePath(), 'rb')))
-            ->withHeader('Content-Type', 'application/octet-stream')
-            ->withStatus(self::HTTP_OK);
+        return $this->noContent();
     }
 }

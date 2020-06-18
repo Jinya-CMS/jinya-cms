@@ -1,0 +1,22 @@
+<?php
+/** @var \App\Database\Theme $theme */
+/** @var \App\Database\SegmentPage $startMasonry */
+$startMasonry = $theme->getSegmentPages()['startpage'];
+?>
+<?php $this->layout('theme::layout') ?>
+<?php $this->start('maincontent') ?>
+    <main class="jinya-startpage">
+        <?php
+        /** @var \App\Database\Segment $segment */
+        foreach ($startMasonry->getSegments() as $segment): ?>
+            <?php if ($segment->html !== null): ?>
+                <?= $segment->html ?>
+            <?php elseif ($segment->fileId !== null): ?>
+                <?php $file = $segment->getFile() ?>
+                <a class="jinya-startpage__item" href="<?= $segment->target ?>">
+                    <img src="<?= $file->path ?>" alt="<?= $file->name ?>">
+                </a>
+            <?php endif ?>
+        <?php endforeach ?>
+    </main>
+<?php $this->stop() ?>

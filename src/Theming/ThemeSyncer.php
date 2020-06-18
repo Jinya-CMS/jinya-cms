@@ -21,7 +21,7 @@ class ThemeSyncer
             $dir = self::THEME_BASE_PATH . $dir;
             /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
-            if (count(array_filter($allThemes, fn(Database\Theme $theme) => $theme->name === $name)) > 0) {
+            if (count(array_filter($allThemes, fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -33,7 +33,7 @@ class ThemeSyncer
         }
 
         $nonExistingThemes = array_filter($allThemes,
-            fn(Database\Theme $theme) => in_array($theme->name, $themes, true));
+            fn(Database\Theme $theme) => !in_array($theme->name, $themes, true));
 
         $activeTheme = Database\Theme::getActiveTheme();
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');

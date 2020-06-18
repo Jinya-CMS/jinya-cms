@@ -1,0 +1,11 @@
+<?php
+/** @var \App\Database\MenuItem $item */
+?>
+<li class="jinya-submenu__item <?= $this->isActiveMenuItem($item) ? 'is--active' : '' ?>">
+    <?php if (iterator_count($item->getItems()) > 0): ?>
+        <a class="jinya-submenu__link <?= $item->highlighted ? 'is--highlight' : '' ?> <?= $this->isActiveMenuItem($item) ? 'is--active' : '' ?>"><?= $item->title ?></a>
+        <?= $this->insert('theme::includes/submenu/submenu', ['item' => $item]) ?>
+    <?php else: ?>
+        <?= $this->insert('theme::includes/menu_link', ['item' => $item, 'class' => 'jinya-submenu__link']) ?>
+    <?php endif ?>
+</li>

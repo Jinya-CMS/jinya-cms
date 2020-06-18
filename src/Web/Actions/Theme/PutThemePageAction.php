@@ -38,10 +38,18 @@ class PutThemePageAction extends ThemeAction
         }
 
         $themePage = ThemePage::findByThemeAndName($themeId, $name);
-        $themePage->themeId = $themeId;
-        $themePage->pageId = $page;
-        $themePage->name = $name;
-        $themePage->update();
+        if ($themePage !== null) {
+            $themePage->themeId = $themeId;
+            $themePage->pageId = $page->id;
+            $themePage->name = $name;
+            $themePage->update();
+        } else {
+            $themePage = new ThemePage();
+            $themePage->themeId = $themeId;
+            $themePage->pageId = $page->id;
+            $themePage->name = $name;
+            $themePage->create();
+        }
 
         return $this->noContent();
     }

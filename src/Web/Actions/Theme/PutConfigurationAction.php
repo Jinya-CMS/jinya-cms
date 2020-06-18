@@ -30,6 +30,7 @@ class PutConfigurationAction extends ThemeAction
         $config = $body['configuration'];
 
         $theme->configuration = $config;
+        $theme->update();
 
         return $this->noContent();
     }

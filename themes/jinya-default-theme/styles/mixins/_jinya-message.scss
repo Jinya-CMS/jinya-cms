@@ -1,0 +1,10 @@
+@mixin jinya-message($color) {
+    background: color-yiq($color);
+    color: $color;
+    border: 1px solid $color;
+    border-top-width: 0.6em;
+    width: $jinya-form-input-width;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin: 0 auto 3rem;
+}

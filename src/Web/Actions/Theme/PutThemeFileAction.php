@@ -38,10 +38,18 @@ class PutThemeFileAction extends ThemeAction
         }
 
         $themeFile = ThemeFile::findByThemeAndName($themeId, $name);
-        $themeFile->themeId = $themeId;
-        $themeFile->fileId = $file;
-        $themeFile->name = $name;
-        $themeFile->update();
+        if ($themeFile !== null) {
+            $themeFile->themeId = $themeId;
+            $themeFile->fileId = $file->id;
+            $themeFile->name = $name;
+            $themeFile->update();
+        } else {
+            $themeFile = new ThemeFile();
+            $themeFile->themeId = $themeId;
+            $themeFile->fileId = $file->id;
+            $themeFile->name = $name;
+            $themeFile->create();
+        }
 
         return $this->noContent();
     }

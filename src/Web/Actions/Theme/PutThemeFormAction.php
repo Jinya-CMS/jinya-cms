@@ -38,10 +38,18 @@ class PutThemeFormAction extends ThemeAction
         }
 
         $themeForm = ThemeForm::findByThemeAndName($themeId, $name);
-        $themeForm->themeId = $themeId;
-        $themeForm->formId = $form;
-        $themeForm->name = $name;
-        $themeForm->update();
+        if ($themeForm !== null) {
+            $themeForm->themeId = $themeId;
+            $themeForm->formId = $form->id;
+            $themeForm->name = $name;
+            $themeForm->update();
+        } else {
+            $themeForm = new ThemeForm();
+            $themeForm->themeId = $themeId;
+            $themeForm->formId = $form->id;
+            $themeForm->name = $name;
+            $themeForm->create();
+        }
 
         return $this->noContent();
     }

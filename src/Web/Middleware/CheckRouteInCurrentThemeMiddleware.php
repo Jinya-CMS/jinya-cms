@@ -29,6 +29,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
         $this->engine = $engine;
     }
 
+
     /**
      * @inheritDoc
      */
@@ -39,7 +40,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
         $menus = $activeTheme->getMenus();
         $path = substr($uri->getPath(), 1);
         foreach ($menus as $menu) {
-            foreach ($menu->getMenu()->getItems() as $item) {
+            foreach ($menu->getItems() as $item) {
                 if ($this->checkMenuItem($item, $path)) {
                     return $handler->handle($request);
                 }
@@ -52,6 +53,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
         try {
             $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
             $this->engine->loadExtension(new Theming\Theme(Database\Theme::getActiveTheme()));
+            $this->engine->loadExtension(new Theming\MenuExtension());
             $this->engine->loadExtension(new URI($request->getUri()->getPath()));
 
             $renderResult = $this->engine->render('theme::404');
@@ -72,10 +74,11 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 
     public function checkMenuItem(MenuItem $menuItem, string $path): bool
     {
+        $result = $path === $menuItem->route;
         foreach ($menuItem->getItems() as $item) {
-            $this->checkMenuItem($item, $path);
+            $result |= $this->checkMenuItem($item, $path);
         }
 
-        return $path === $menuItem->route;
+        return $result;
     }
 }

@@ -38,10 +38,18 @@ class PutThemeGalleryAction extends ThemeAction
         }
 
         $themeGallery = ThemeGallery::findByThemeAndName($themeId, $name);
-        $themeGallery->themeId = $themeId;
-        $themeGallery->galleryId = $gallery;
-        $themeGallery->name = $name;
-        $themeGallery->update();
+        if ($themeGallery !== null) {
+            $themeGallery->themeId = $themeId;
+            $themeGallery->galleryId = $gallery->id;
+            $themeGallery->name = $name;
+            $themeGallery->update();
+        } else {
+            $themeGallery = new ThemeGallery();
+            $themeGallery->themeId = $themeId;
+            $themeGallery->galleryId = $gallery->id;
+            $themeGallery->name = $name;
+            $themeGallery->create();
+        }
 
         return $this->noContent();
     }

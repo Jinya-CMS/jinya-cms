@@ -8,6 +8,8 @@ use RuntimeException;
 abstract class ThemeHelperEntity extends LoadableEntity
 {
 
+    public string $name = '';
+
     public static function findById(int $id)
     {
         throw new RuntimeException('Not implemented');
@@ -59,13 +61,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
             'name' => $name
         ]);
 
-        $hydrated = self::hydrateSingleResult($result, $prototype);
-        if ($hydrated) {
-            return $hydrated;
-        }
-
-        $prototype->create();
-        return $prototype;
+        return self::hydrateSingleResult($result, $prototype);
     }
 
     /**

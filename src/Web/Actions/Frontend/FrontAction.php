@@ -20,6 +20,7 @@ abstract class FrontAction extends Action
     /**
      * FrontAction constructor.
      * @param Engine $engine
+     * @param LoggerInterface $logger
      */
     public function __construct(Engine $engine, LoggerInterface $logger)
     {
@@ -34,25 +35,24 @@ abstract class FrontAction extends Action
     {
         try {
             return $this->protectedAction();
-        } catch (HttpException $exception) {
-            $statusCode = $exception->getCode();
+        } catch (Throwable $exception) {
+            if ($exception instanceof HttpException) {
+                $statusCode = $exception->getCode();
+            } else {
+                $statusCode = self::HTTP_INTERNAL_SERVER_ERROR;
+            }
             try {
                 return $this->render("theme::$statusCode", ['exception' => $exception], $statusCode);
             } catch (Throwable $exception) {
-                $renderResult = $this->engine->render("emergency::$statusCode", ['exception' => $exception]);
+                $renderResult = $this->engine->render('emergency::500', ['exception' => $exception]);
                 $this->response->getBody()->write($renderResult);
+                $this->logger->error($exception->getMessage());
+                $this->logger->error($exception->getTraceAsString());
 
                 return $this->response
                     ->withHeader('Content-Type', 'text/html')
-                    ->withStatus($statusCode);
+                    ->withStatus(self::HTTP_INTERNAL_SERVER_ERROR);
             }
-        } catch (Throwable $exception) {
-            $renderResult = $this->engine->render('emergency::500', ['exception' => $exception]);
-            $this->response->getBody()->write($renderResult);
-
-            return $this->response
-                ->withHeader('Content-Type', 'text/html')
-                ->withStatus(self::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,6 +78,7 @@ abstract class FrontAction extends Action
         $queryParams = $this->request->getQueryParams();
         $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
         $this->engine->loadExtension(new Theming\Theme(Database\Theme::getActiveTheme()));
+        $this->engine->loadExtension(new Theming\MenuExtension());
         $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
         $renderResult = $this->engine
@@ -120,6 +121,6 @@ abstract class FrontAction extends Action
             return $this->render('theme::page', ['page' => $page]);
         }
 
-        return $this->render('theme::not-found', [], self::HTTP_NOT_FOUND);
+        return $this->render('theme::404', [], self::HTTP_NOT_FOUND);
     }
 }

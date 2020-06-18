@@ -1,6 +1,7 @@
 <?php
 
 use App\Web\Actions\Frontend\GetFrontAction;
+use App\Web\Actions\Frontend\GetHomeAction;
 use App\Web\Actions\Frontend\PostFrontAction;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Slim\App;
@@ -40,6 +41,7 @@ return function (App $app) {
         $message($api);
         $theme($api);
     });
+    $app->get('/', GetHomeAction::class);
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);
         $frontend->post('', PostFrontAction::class);

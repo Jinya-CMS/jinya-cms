@@ -1,0 +1,25 @@
+<?php
+/** @var \App\Database\MenuItem $item */
+/** @var \App\Database\MenuItem $activeMenuItem */
+$activeMenuItem = $this->getActiveMenuItem();
+?>
+<li class="jinya-menu__item
+    <?php if ($this->isChildActiveMenuItem($item)): ?>
+        is--current
+    <?php else: ?>
+    <?php if (isset($activeMenuItem->menuId) && empty($activeMenuItem->menuId)): ?>
+        is--hidden
+    <?php elseif (!empty($activeMenuItem->menuId) && $item !== null && $activeMenuItem->id === $item->id): ?>
+        is--current
+    <?php endif ?>
+    <?php endif ?>
+">
+    <?php if (iterator_count($item->getItems()) > 0): ?>
+        <span class="jinya-menu__link has--children <?= $item->highlighted ? 'is--highlight' : '' ?> <?= $this->isActiveMenuItem($item) ? 'is--active' : '' ?>">
+                <?= $item->title ?>
+            </span>
+        <?= $this->insert('theme::includes/submenu/submenu', ['item' => $item]) ?>
+    <?php else: ?>
+        <?= $this->insert('theme::includes/menu_link', ['item' => $item, 'class' => 'jinya-menu__link']) ?>
+    <?php endif ?>
+</li>

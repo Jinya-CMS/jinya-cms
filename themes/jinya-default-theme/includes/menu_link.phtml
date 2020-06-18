@@ -1,0 +1,8 @@
+<?php
+/** @var string $class */
+/** @var \App\Database\MenuItem $item */
+?>
+<a class="<?= $class ?> <?= $this->isActiveMenuItem($item) ? 'is--current' : '' ?> <?= $item->highlighted ? 'is--current' : '' ?>"
+   href="<?= $item->route ?>">
+    <?= $item->title ?>
+</a>

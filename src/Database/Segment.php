@@ -67,6 +67,36 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     }
 
     /**
+     * Gets the file
+     *
+     * @return File|null
+     */
+    public function getFile(): ?File
+    {
+        return File::findById($this->fileId);
+    }
+
+    /**
+     * Gets the form
+     *
+     * @return Form|null
+     */
+    public function getForm(): ?Form
+    {
+        return Form::findById($this->formId);
+    }
+
+    /**
+     * Gets the gallery
+     *
+     * @return Gallery|null
+     */
+    public function getGallery(): ?Gallery
+    {
+        return Gallery::findById($this->galleryId);
+    }
+
+    /**
      * Gets the corresponding segment page
      *
      * @return SegmentPage

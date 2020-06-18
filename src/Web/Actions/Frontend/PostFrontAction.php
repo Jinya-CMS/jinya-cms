@@ -12,6 +12,7 @@ class PostFrontAction extends FrontAction
 
     /**
      * @inheritDoc
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function protectedAction(): Response
     {
@@ -23,6 +24,7 @@ class PostFrontAction extends FrontAction
                 $parsedBody = $this->request->getParsedBody();
                 $formHandler = new FormMessageHandler($this->request, $this->engine);
                 try {
+                    /** @noinspection NullPointerExceptionInspection */
                     $formHandler->handleFormPost($form, $parsedBody);
                     $form = $menuItem->getForm();
 
@@ -39,6 +41,6 @@ class PostFrontAction extends FrontAction
             return $this->renderMenuItem($menuItem);
         }
 
-        return $this->render('theme::not-found', [], self::HTTP_NOT_FOUND);
+        return $this->render('theme::404', [], self::HTTP_NOT_FOUND);
     }
 }

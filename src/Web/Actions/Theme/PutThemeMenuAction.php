@@ -38,10 +38,18 @@ class PutThemeMenuAction extends ThemeAction
         }
 
         $themeMenu = ThemeMenu::findByThemeAndName($themeId, $name);
-        $themeMenu->themeId = $themeId;
-        $themeMenu->menuId = $menu;
-        $themeMenu->name = $name;
-        $themeMenu->update();
+        if ($themeMenu !== null) {
+            $themeMenu->themeId = $themeId;
+            $themeMenu->menuId = $menu->id;
+            $themeMenu->name = $name;
+            $themeMenu->update();
+        } else {
+            $themeMenu = new ThemeMenu();
+            $themeMenu->themeId = $themeId;
+            $themeMenu->menuId = $menu->id;
+            $themeMenu->name = $name;
+            $themeMenu->create();
+        }
 
         return $this->noContent();
     }

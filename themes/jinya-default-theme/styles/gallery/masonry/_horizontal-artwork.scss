@@ -1,0 +1,47 @@
+.jinya-horizontal-gallery {
+    flex-flow: column wrap;
+    flex: 0 0 100%;
+    display: flex;
+    overflow: auto;
+    margin-top: 4rem;
+    max-height: 60vh;
+    align-content: flex-start;
+    margin-left: -0.5rem;
+}
+
+.jinya-horizontal-gallery__page-title {
+    @extend %jinya-page-title;
+}
+
+.jinya-horizontal-gallery__artwork {
+    padding: 0.5rem;
+    border: none;
+    box-sizing: content-box;
+    flex: 1 1 auto;
+    margin: 0;
+    max-width: 10rem;
+    display: inline-block;
+}
+
+.jinya-horizontal-gallery-artwork__image {
+    width: 10rem;
+    margin: 0;
+    object-fit: cover;
+    cursor: pointer;
+    height: 100%;
+    display: block;
+}
+
+.jinya-horizontal-gallery__caption {
+    display: none;
+
+    @include content-styling;
+}
+
+.jinya-horizontal-gallery-caption__title {
+    margin: 0 0 1rem;
+    display: block;
+    font-size: $jinya-vertical-gallery-caption-font-size;
+    font-weight: $jinya-vertical-gallery-caption-font-weight;
+    font-family: $heading-font-family;
+}
