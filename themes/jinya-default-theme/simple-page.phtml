@@ -1,0 +1,9 @@
+<?php
+/** @var \App\Database\SimplePage $page */
+?>
+<?php $this->layout('theme::layout', ['title' => $page->name]) ?>
+<?php $this->start('maincontent') ?>
+<main>
+    <?= $page->content ?>
+</main>
+<?php $this->stop() ?>

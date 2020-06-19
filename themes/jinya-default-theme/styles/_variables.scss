@@ -111,15 +111,14 @@ $jinya-page-center-title: true !default;
 $jinya-form-input-width: 30rem !default;
 $jinya-form-input-font-family: $paragraph-font-family !default;
 $jinya-form-input-font-size: 0.875rem !default;
-$jinya-form-input-border-color: $secondary-light !default;
+$jinya-form-input-border-color: $primary !default;
 $jinya-form-input-padding: 0.5em !default;
 $jinya-form-input-border-radius: 5px !default;
-$jinya-form-input-focus-box-shadow-blur-radius: 1px !default;
-$jinya-form-input-focus-box-shadow-spread-radius: 1px !default;
-$jinya-form-input-focus-box-shadow-color: $primary !default;
 $jinya-form-input-invalid-color: $negative !default;
 $jinya-form-input-background-color: $white !default;
 
+$jinya-form-button-border-radius: 5px !default;
 $jinya-form-button-padding: 0.5rem 1rem !default;
 $jinya-form-button-primary-color: $primary !default;
+$jinya-form-button-primary-color-light: $primary-light !default;
 $jinya-form-button-white-color: $white !default;

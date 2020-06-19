@@ -1,0 +1,43 @@
+<?php
+/** @var \App\Database\SegmentPage $page */
+?>
+<?php $this->layout('theme::layout', ['title' => $page->title]) ?>
+<?php $this->start('maincontent') ?>
+    <div class="jinya-segment-page__segment-page">
+        <?php /** @var \App\Database\Segment $segment */ ?>
+        <?php foreach ($page->getSegments() as $segment): ?>
+            <section class="jinya-segment-page__segment">
+                <?php if ($segment->galleryId): ?>
+                    <?= $this->insert('theme::includes/gallery', [
+                        'gallery' => $segment->getGallery(),
+                        'noCaption' => true,
+                        'extraClass' => 'jinya-gallery--segment-page',
+                    ]) ?>
+                <?php elseif ($segment->html): ?>
+                    <div class="jinya-segment-page__html-segment">
+                        <?= $segment->html ?>
+                    </div>
+                <?php elseif ($segment->fileId): ?>
+                <?php $file = $segment->getFile() ?>
+                <?php if ($segment->action === 'none'): ?>
+                <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
+                     alt="<?= $this->e($file->name) ?>">
+                <?php elseif ($segment->action === 'link'): ?>
+                    <a href="<?php $segment->target ?>">
+                        <img class="jinya-segment-page__artwork" src="<?= $this->e($file->path) ?>"
+                             alt="<?= $this->e($file->name) ?>">
+                    </a>
+                <?php elseif ($segment->action === 'script'): ?>
+                <?php $segmentId = uniqid('segment', true) ?>
+                <img class="jinya-segment-page__artwork" id="<?= $segmentId ?>" src="<?= $this->e($file->path) ?>"
+                     alt="<?= $this->e($file->name) ?>">
+                    <script>
+                      var segmentId = '<?= $segmentId ?>';
+                      <?= $segment->script ?>
+                    </script>
+                <?php endif ?>
+                <?php endif ?>
+            </section>
+        <?php endforeach ?>
+    </div>
+<?php $this->stop() ?>

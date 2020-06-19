@@ -80,7 +80,7 @@ class FormMessageHandler
     private function isSpam(string $value, array $spamValues): bool
     {
         if (empty($spamValues)) {
-            return true;
+            return false;
         }
 
         foreach ($spamValues as $spamValue) {

@@ -37,14 +37,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
-     */
-    public static function findById(int $id)
-    {
-        return self::fetchSingleById('menu_item', $id, new self());
-    }
-
-    /**
      * Finds a menu item by its parent menu and the position
      *
      * @param int $menuId
@@ -107,6 +99,34 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'route' => $route,
             'routeWithTrailingSlash' => "/$route",
         ]), new self());
+    }
+
+    /**
+     * Gets the parent
+     *
+     * @return MenuItem|null
+     */
+    public function getParent(): ?MenuItem
+    {
+        return self::findById($this->parentId);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function findById(int $id)
+    {
+        return self::fetchSingleById('menu_item', $id, new self());
+    }
+
+    /**
+     * Gets the menu
+     *
+     * @return Menu|null
+     */
+    public function getMenu(): ?Menu
+    {
+        return Menu::findById($this->parentId);
     }
 
     /**

@@ -13,8 +13,8 @@ $startMasonry = $theme->getSegmentPages()['startpage'];
                 <?= $segment->html ?>
             <?php elseif ($segment->fileId !== null): ?>
                 <?php $file = $segment->getFile() ?>
-                <a class="jinya-startpage__item" href="<?= $segment->target ?>">
-                    <img src="<?= $file->path ?>" alt="<?= $file->name ?>">
+                <a class="jinya-startpage__item" href="<?= $this->e($segment->target) ?>">
+                    <img src="<?= $this->e($file->path) ?>" alt="<?= $this->e($file->name) ?>">
                 </a>
             <?php endif ?>
         <?php endforeach ?>

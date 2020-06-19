@@ -1,6 +1,10 @@
 <?php
-/** @var \App\Database\Theme $theme */
+/** @var \App\Database\Gallery $gallery */
 ?>
-<?php $this->layout('theme::layout') ?>
+<?php $this->layout('theme::layout', ['title' => $gallery->name]) ?>
 <?php $this->start('maincontent') ?>
+    <main>
+        <span class="jinya-gallery__page-title"><?= $this->e($gallery->name) ?></span>
+        <?= $this->insert('theme::includes/gallery', ['gallery' => $gallery]) ?>
+    </main>
 <?php $this->stop() ?>

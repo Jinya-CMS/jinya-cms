@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= $this->e($configuration['page']['title']) ?></title>
+    <title><?= $this->e($configuration['page']['title']) ?><?= isset($title) ? " – $this->e( $title)" : '' ?></title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width"/>
@@ -39,9 +39,11 @@
     <nav class="jinya-footer__menu">
         <?php if (isset($theme->getMenus()['footer'])):
             /** @var \App\Database\MenuItem $menuItem */
-            foreach ($theme->getMenus()['footer'] as $menuItem): ?>
-                <?= $this->insert('theme::includes/menu_link',
-                    ['item' => $menuItem, 'class' => 'jinya-footer-menu__item']) ?>
+            foreach ($theme->getMenus()['footer']->getItems() as $menuItem): ?>
+                <?= $this->insert('theme::includes/menu_link', [
+                    'item' => $menuItem,
+                    'class' => 'jinya-footer-menu__item',
+                ]) ?>
             <?php endforeach; endif ?>
     </nav>
 </footer>

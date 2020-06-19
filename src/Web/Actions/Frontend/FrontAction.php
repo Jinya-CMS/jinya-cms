@@ -39,6 +39,8 @@ abstract class FrontAction extends Action
             if ($exception instanceof HttpException) {
                 $statusCode = $exception->getCode();
             } else {
+                $this->logger->error($exception->getMessage());
+                $this->logger->error($exception->getTraceAsString());
                 $statusCode = self::HTTP_INTERNAL_SERVER_ERROR;
             }
             try {
@@ -118,7 +120,7 @@ abstract class FrontAction extends Action
 
         if ($menuItem->pageId !== null) {
             $page = $menuItem->getPage();
-            return $this->render('theme::page', ['page' => $page]);
+            return $this->render('theme::simple-page', ['page' => $page]);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);

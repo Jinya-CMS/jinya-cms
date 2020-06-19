@@ -537,4 +537,7 @@ alter table form_item
 
 alter table form_item
 	add is_required bit default 0 null;
+
+alter table form_item
+	add placeholder varchar(255) null;
 ```

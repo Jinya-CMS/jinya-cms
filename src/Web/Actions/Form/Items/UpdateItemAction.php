@@ -31,6 +31,10 @@ class UpdateItemAction extends Action
             $formItem->label = $body['label'];
         }
 
+        if (isset($body['placeholder'])) {
+            $formItem->placeholder = $body['placeholder'];
+        }
+
         if (isset($body['helpText'])) {
             $formItem->helpText = $body['helpText'];
         }

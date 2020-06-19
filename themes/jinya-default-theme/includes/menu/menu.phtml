@@ -1,13 +1,12 @@
 <?php
 /** @var \App\Database\Theme $theme */
 /** @var \App\Database\Menu $menu */
+/** @var \App\Database\MenuItem $activeMenuItem */
+$activeMenuItem = $this->getActiveMenuItem();
 $menu = $theme->getMenus()['primary'];
 ?>
 <header class="jinya-header">
-    <?php if (isset($menu)):
-        /** @var \App\Database\MenuItem $activeMenuItem */
-        $activeMenuItem = $this->getActiveMenuItem();
-        ?>
+    <?php if (isset($menu)): ?>
         <ul class="jinya-menu">
             <?php if ($activeMenuItem !== null && $activeMenuItem->parentId !== null): ?>
                 <li class="jinya-menu__item has--back-arrow ">
@@ -19,11 +18,15 @@ $menu = $theme->getMenus()['primary'];
                 </li>
             <?php endif ?>
             <?php foreach ($menu->getItems() as $item): ?>
-                <?= $this->insert('theme::includes/menu/item', ['item' => $item, 'activeMenuItem' => $activeMenuItem]) ?>
+                <?= $this->insert('theme::includes/menu/item',
+                    [
+                        'item' => $item,
+                        'activeMenuItem' => $activeMenuItem,
+                    ]) ?>
             <?php endforeach ?>
         </ul>
     <?php endif ?>
-    <a class="jinya-brand" href="/"><?= $menu->name ?></a>
+    <a class="jinya-brand" href="/"><?= $this->e($menu->name) ?></a>
     <button class="jinya-menu__hamburger">
         <span class="jinya-menu-hamburger__bar"></span>
         <span class="jinya-menu-hamburger__bar"></span>

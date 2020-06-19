@@ -41,7 +41,7 @@ class MenuExtension implements ExtensionInterface
      */
     public function isActiveMenuItem(MenuItem $menuItem): bool
     {
-        return $menuItem->route !== null && $menuItem->route === $_SERVER['REQUEST_URI'];
+        return $menuItem->route !== null && $menuItem->route === ltrim($_SERVER['REQUEST_URI'], '/');
     }
 
     /**
@@ -51,6 +51,6 @@ class MenuExtension implements ExtensionInterface
      */
     public function getActiveMenuItem(): ?MenuItem
     {
-        return MenuItem::findByRoute($_SERVER['REQUEST_URI']);
+        return MenuItem::findByRoute(ltrim($_SERVER['REQUEST_URI'], '/'));
     }
 }

@@ -7,7 +7,6 @@ use Exception;
 use JShrink\Minifier;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
-use Psr\Log\LoggerInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\Formatter\Crunched;
@@ -23,7 +22,6 @@ class Theme implements ExtensionInterface
     /**
      * Theme constructor.
      * @param Database\Theme $dbTheme
-     * @param LoggerInterface $logger
      */
     public function __construct(Database\Theme $dbTheme)
     {

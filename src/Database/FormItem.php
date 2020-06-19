@@ -20,6 +20,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public bool $isFromAddress;
     public bool $isSubject;
     public bool $isRequired;
+    public ?string $placeholder;
 
     /**
      * @inheritDoc
@@ -88,6 +89,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'options' => $this->options,
             'spamFilter' => $this->spamFilter,
             'label' => $this->label,
+            'placeholder' => $this->placeholder,
             'helpText' => $this->helpText,
             'position' => $this->position,
             'id' => $this->id,

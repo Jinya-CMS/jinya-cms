@@ -1,9 +1,21 @@
 <?php
 /** @var \App\Database\MenuItem $item */
 /** @var \App\Database\MenuItem $activeMenuItem */
-$activeMenuItem = $this->getActiveMenuItem();
+/** @var string $additionalClass */
+if ($activeMenuItem !== null):
+    $activeMenuItem = $this->getActiveMenuItem();
+    $activeMenuItemParent = $activeMenuItem->parentId !== null ? $activeMenuItem->getParent() : $activeMenuItem;
+    $itemCount = iterator_count($item->getItems());
+    $activeMenuItemParentItemCount = iterator_count($activeMenuItemParent->getItems());
+else:
+    $activeMenuItem = null;
+    $activeMenuItemParent = null;
+    $itemCount = iterator_count($item->getItems());
+    $activeMenuItemParentItemCount = 0;
+endif
 ?>
 <li class="jinya-menu__item
+    <?= $activeMenuItemParentItemCount > 0 && $item->id !== $activeMenuItemParent->id ? 'is--hidden' : '' ?>
     <?php if ($this->isChildActiveMenuItem($item)): ?>
         is--current
     <?php else: ?>
@@ -13,11 +25,12 @@ $activeMenuItem = $this->getActiveMenuItem();
         is--current
     <?php endif ?>
     <?php endif ?>
+    <?= $itemCount > 0 ? 'has--children' : '' ?>
 ">
-    <?php if (iterator_count($item->getItems()) > 0): ?>
-        <span class="jinya-menu__link has--children <?= $item->highlighted ? 'is--highlight' : '' ?> <?= $this->isActiveMenuItem($item) ? 'is--active' : '' ?>">
-                <?= $item->title ?>
-            </span>
+    <?php if ($itemCount > 0): ?>
+        <span class="jinya-menu__link has--children <?= $item->highlighted ? 'is--highlight' : '' ?>">
+            <?= $this->e($item->title) ?>
+        </span>
         <?= $this->insert('theme::includes/submenu/submenu', ['item' => $item]) ?>
     <?php else: ?>
         <?= $this->insert('theme::includes/menu_link', ['item' => $item, 'class' => 'jinya-menu__link']) ?>
