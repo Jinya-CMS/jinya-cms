@@ -47,12 +47,24 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             }
         }
 
+        $activeThemingTheme = new Theming\Theme($activeTheme);
+        $response = new Response();
+
+        if ($activeThemingTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+            $redirectUri = $uri->getScheme() . '://' . $uri->getHost();
+            if (($uri->getScheme() === 'https' && $uri->getPort() !== 443) || ($uri->getScheme() === 'http' && $uri->getPort() !== 80)) {
+                $redirectUri .= ':' . $uri->getPort();
+            }
+            return $response
+                ->withHeader('Location', $redirectUri)
+                ->withStatus(302);
+        }
+
         $parsedBody = $request->getParsedBody();
         $queryParams = $request->getQueryParams();
-        $response = new Response();
         try {
             $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
-            $this->engine->loadExtension(new Theming\Theme(Database\Theme::getActiveTheme()));
+            $this->engine->loadExtension($activeThemingTheme);
             $this->engine->loadExtension(new Theming\MenuExtension());
             $this->engine->loadExtension(new URI($request->getUri()->getPath()));
 

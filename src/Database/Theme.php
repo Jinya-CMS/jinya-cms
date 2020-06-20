@@ -119,7 +119,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme files
      *
-     * @return array
+     * @return File[]
      */
     public function getFiles(): array
     {
@@ -136,7 +136,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme galleries
      *
-     * @return array
+     * @return Gallery[]
      */
     public function getGalleries(): array
     {
@@ -153,7 +153,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme forms
      *
-     * @return array
+     * @return Form[]
      */
     public function getForms(): array
     {
@@ -170,7 +170,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme menus
      *
-     * @return array
+     * @return Menu[]
      */
     public function getMenus(): array
     {
@@ -187,7 +187,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme segmentPages
      *
-     * @return array
+     * @return SegmentPage[]
      */
     public function getSegmentPages(): array
     {
@@ -204,11 +204,35 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme pages
      *
-     * @return Iterator
+     * @return SimplePage[]
      */
-    public function getPages(): Iterator
+    public function getPages(): array
     {
-        return ThemePage::findByTheme($this->id);
+        $pages = ThemePage::findByTheme($this->id);
+        $result = [];
+        /** @var ThemePage $page */
+        foreach ($pages as $page) {
+            $result[$page->name] = $page->getPage();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Gets all theme assets
+     *
+     * @return ThemeAsset[]
+     */
+    public function getAssets(): array
+    {
+        $assets = ThemeAsset::findByTheme($this->id);
+        $result = [];
+        /** @var ThemeAsset $asset */
+        foreach ($assets as $asset) {
+            $result[$asset->name] = $asset;
+        }
+
+        return $result;
     }
 
     /**

@@ -13,6 +13,9 @@ use ScssPhp\ScssPhp\Formatter\Crunched;
 
 class Theme implements ExtensionInterface
 {
+    public const ERROR_BEHAVIOR_HOMEPAGE = 'homepage';
+    public const ERROR_BEHAVIOR_ERROR_PAGE = 'errorpage';
+
     private const BASE_PUBLIC_PATH = '/themes/';
     private const BASE_CACHE_PATH = __DIR__ . '/../../public' . self::BASE_PUBLIC_PATH;
     private Database\Theme $dbTheme;
@@ -50,6 +53,16 @@ class Theme implements ExtensionInterface
     public static function getActiveTheme(): Theme
     {
         return new self(Database\Theme::getActiveTheme());
+    }
+
+    /**
+     * Gets the desired error behavior
+     *
+     * @return string
+     */
+    public function getErrorBehavior(): string
+    {
+        return $this->configuration['errorBehavior'];
     }
 
     /**
@@ -178,6 +191,65 @@ class Theme implements ExtensionInterface
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
         $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
+
+        return array_filter($files, fn($item) => is_file($item)) ?? [];
+    }
+
+    /**
+     * Compiles the asset cache of the given theme
+     *
+     * @throws Exception
+     */
+    public function compileAssetCache(): void
+    {
+        $this->clearAssetCache();
+        $assets = $this->configuration['assets'] ?? [];
+        $assetCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets/';
+        if (!mkdir($assetCachePath, 0777, true) && !is_dir($assetCachePath)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $assetCachePath));
+        }
+
+        foreach ($assets as $key => $asset) {
+            $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
+
+            if (!file_exists($asset)) {
+                if ($assetFromDb !== null) {
+                    $assetFromDb->delete();
+                }
+
+                continue;
+            }
+
+            $publicPath = uniqid('asset', true) . '.' . pathinfo($asset, PATHINFO_EXTENSION);
+            copy($asset, $assetCachePath . $publicPath);
+
+            if ($assetFromDb === null) {
+                $assetFromDb = new Database\ThemeAsset();
+                $assetFromDb->name = $key;
+                $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
+                $assetFromDb->themeId = $this->dbTheme->id;
+                $assetFromDb->create();
+            } else {
+                $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
+                $assetFromDb->themeId = $this->dbTheme->id;
+                $assetFromDb->update();
+            }
+        }
+    }
+
+    private function clearAssetCache(): void
+    {
+        foreach ($this->getAssetCache() as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            }
+        }
+    }
+
+    private function getAssetCache(): array
+    {
+        $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
 
         return array_filter($files, fn($item) => is_file($item)) ?? [];
     }

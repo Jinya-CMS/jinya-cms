@@ -540,4 +540,16 @@ alter table form_item
 
 alter table form_item
 	add placeholder varchar(255) null;
+
+create table theme_asset
+(
+	theme_id int not null,
+	name varchar(255) not null,
+	public_path varchar(255) not null
+);
+
+alter table theme_asset
+	add constraint FK_theme_asset_theme
+		foreign key (theme_id) references theme (id)
+			on delete cascade;
 ```

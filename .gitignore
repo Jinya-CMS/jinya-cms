@@ -155,3 +155,5 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/linux,windows,intellij+all
 /public/themes/
 /logs/
+/themes
+!/themes/jinya-default-theme

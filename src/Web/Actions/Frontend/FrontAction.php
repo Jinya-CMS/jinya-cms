@@ -17,6 +17,8 @@ abstract class FrontAction extends Action
 
     protected Engine $engine;
 
+    protected Theming\Theme $activeTheme;
+
     /**
      * FrontAction constructor.
      * @param Engine $engine
@@ -26,6 +28,7 @@ abstract class FrontAction extends Action
     {
         parent::__construct($logger);
         $this->engine = $engine;
+        $this->activeTheme = new Theming\Theme(Database\Theme::getActiveTheme());
     }
 
     /**
@@ -36,6 +39,11 @@ abstract class FrontAction extends Action
         try {
             return $this->protectedAction();
         } catch (Throwable $exception) {
+            if ($this->activeTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+                return $this->response
+                    ->withHeader('Location', $this->request->getUri()->getHost())
+                    ->withStatus(302);
+            }
             if ($exception instanceof HttpException) {
                 $statusCode = $exception->getCode();
             } else {
@@ -79,7 +87,7 @@ abstract class FrontAction extends Action
         $parsedBody = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
         $this->engine->addData(['body' => $parsedBody, 'queryParams' => $queryParams]);
-        $this->engine->loadExtension(new Theming\Theme(Database\Theme::getActiveTheme()));
+        $this->engine->loadExtension($this->activeTheme);
         $this->engine->loadExtension(new Theming\MenuExtension());
         $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
