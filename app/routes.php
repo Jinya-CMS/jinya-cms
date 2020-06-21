@@ -1,10 +1,16 @@
 <?php
 
+use App\Web\Actions\Action;
 use App\Web\Actions\Frontend\GetFrontAction;
 use App\Web\Actions\Frontend\GetHomeAction;
 use App\Web\Actions\Frontend\PostFrontAction;
+use App\Web\Actions\Install\GetSetConfigAction;
+use App\Web\Actions\Install\PostInstallerAction;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\App;
+use Slim\Psr7\Response;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
@@ -42,6 +48,17 @@ return function (App $app) {
         $theme($api);
     });
     $app->get('/', GetHomeAction::class);
+    $app->group('/installer', function (RouteCollectorProxy $installer) {
+        $installer->get('', GetSetConfigAction::class);
+        $installer->post('', PostInstallerAction::class);
+    })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+        if (file_exists(__ROOT__ . '/installed.lock')) {
+            return (new Response())->withStatus(Action::HTTP_MOVED_PERMANENTLY)->withHeader('Location',
+                '/');
+        }
+
+        return $handler->handle($request);
+    });
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);
         $frontend->post('', PostFrontAction::class);

@@ -9,8 +9,10 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__ROOT__);
-$dotenv->load();
+if (file_exists(__ROOT__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__ROOT__);
+    $dotenv->load();
+}
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
