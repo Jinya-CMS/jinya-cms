@@ -40,6 +40,8 @@ abstract class FrontAction extends Action
             return $this->protectedAction();
         } catch (Throwable $exception) {
             if ($this->activeTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+                $this->logger->error($exception->getMessage());
+                $this->logger->error($exception->getTraceAsString());
                 return $this->response
                     ->withHeader('Location', $this->request->getUri()->getHost())
                     ->withStatus(302);
@@ -129,6 +131,12 @@ abstract class FrontAction extends Action
         if ($menuItem->pageId !== null) {
             $page = $menuItem->getPage();
             return $this->render('theme::simple-page', ['page' => $page]);
+        }
+
+        if ($this->activeTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+            return $this->response
+                ->withHeader('Location', $this->request->getUri()->getHost())
+                ->withStatus(302);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);

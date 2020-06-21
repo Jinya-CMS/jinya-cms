@@ -3,7 +3,7 @@
 
 ```mysql
 alter table uploading_file_chunk drop foreign key FK_3F70FB06FD34D444;
-   
+
 alter table uploading_file_chunk
     add constraint FK_uploading_file_uploading_file_chunk
         foreign key (uploading_file_id) references uploading_file (id)
@@ -22,7 +22,7 @@ alter table theme_page
 	add constraint FK_page_theme_page
 		foreign key (page_id) references page (id);
 
-alter table theme_page drop foreign key FK_C658C22D93CB796C;
+alter table theme_page drop foreign key FK_5ECD421D59027487;
 
 alter table theme_page
 	add constraint FK_page_theme_page
@@ -90,8 +90,6 @@ alter table file_tag
 
 create unique index UNIQ_page_title
 	on page (title);
-
-alter table page drop key UNIQ_140AB6205E237E06;
 
 alter table page drop key UNIQ_140AB620989D9B62;
 
@@ -168,10 +166,6 @@ create unique index UNIQ_gallery_name
 create unique index UNIQ_gallery_slug
 	on gallery (slug);
 
-alter table gallery drop foreign key FK_472B783A61220EA6;
-
-alter table gallery drop foreign key FK_472B783A896DBBDE;
-
 alter table gallery
 	add constraint FK_users_gallery_creator_id
 		foreign key (creator_id) references users (id)
@@ -195,14 +189,7 @@ alter table gallery_file_position
 		foreign key (gallery_id) references gallery (id)
 			on delete cascade;
 
-alter table menu_item drop foreign key FK_D754D550727ACA70;
-
 alter table menu_item drop foreign key FK_D754D550CCD7E912;
-
-alter table menu_item
-	add constraint FK_menu_item_menu_item_parent
-		foreign key (parent_id) references menu_item (id)
-			on delete cascade;
 
 alter table menu_item
 	add constraint FK_menu_menu_item
@@ -311,10 +298,6 @@ alter table theme_file
 	add constraint FK_theme_theme_file
 		foreign key (theme_id) references theme (id);
 
-alter table theme_form drop foreign key FK_184F097259027487;
-
-alter table theme_form drop foreign key FK_184F09725FF69B7D;
-
 alter table theme_form
 	add constraint FK_form_theme_form
 		foreign key (form_id) references form (id);
@@ -337,10 +320,6 @@ alter table theme_gallery
 		foreign key (theme_id) references theme (id)
 			on delete cascade;
 
-alter table theme_menu drop foreign key FK_37C2CEAE59027487;
-
-alter table theme_menu drop foreign key FK_37C2CEAECCD7E912;
-
 alter table theme_menu
 	add constraint FK_menu_theme_menu
 		foreign key (menu_id) references menu (id);
@@ -350,16 +329,10 @@ alter table theme_menu
 		foreign key (theme_id) references theme (id)
 			on delete cascade;
 
-alter table theme_page drop foreign key FK_5ECD421D59027487;
-
 alter table theme_page
 	add constraint FK_theme_theme_page
 		foreign key (theme_id) references theme (id)
 			on delete cascade;
-
-alter table theme_segment_page drop foreign key FK_5BFE07FF533F2206;
-
-alter table theme_segment_page drop foreign key FK_5BFE07FF59027487;
 
 alter table theme_segment_page
 	add constraint FK_segment_page_theme_segment_page
@@ -369,8 +342,6 @@ alter table theme_segment_page
 	add constraint FK_theme_theme_segment_page
 		foreign key (theme_id) references theme (id)
 			on delete cascade;
-
-drop index UNIQ_C219262693CB796C on uploading_file;
 
 create unique index UNIQ_uploading_file_file_id
 	on uploading_file (file_id);
@@ -403,10 +374,6 @@ alter table form drop column email_template;
 alter table page drop column slug;
 
 alter table segment_page drop column slug;
-
-drop index idx_form_item_position_form on form_item;
-
-alter table form_item drop key idx_form_item_position_form;
 
 alter table form_item drop column created_at;
 
@@ -491,8 +458,6 @@ alter table theme_gallery
 	add constraint FK_gallery_theme_gallery
 		foreign key (gallery_id) references gallery (id)
 			on delete cascade;
-
-alter table theme_file drop foreign key FK_file_theme_file;
 
 alter table theme_file
 	add constraint FK_file_theme_file
