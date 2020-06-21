@@ -36,6 +36,8 @@ class HttpErrorHandler extends SlimErrorHandler
 
         if ($exception instanceof HttpSpecializedException) {
             $code = $exception->getCode();
+            $this->logger->error($exception->getMessage());
+            $this->logger->error($exception->getTraceAsString());
         }
 
         $response = $this->responseFactory->createResponse();
