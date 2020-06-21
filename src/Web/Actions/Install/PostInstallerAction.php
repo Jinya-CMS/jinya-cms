@@ -4,6 +4,8 @@ namespace App\Web\Actions\Install;
 
 use App\Database\Artist;
 use App\Database\Migrations\Migrator;
+use App\Database\Theme;
+use App\Theming\ThemeSyncer;
 use App\Web\Middleware\RoleMiddleware;
 use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -30,6 +32,8 @@ class PostInstallerAction extends InstallAction
             ];
             $artist->enabled = true;
             try {
+                $themeSyncer = new ThemeSyncer();
+                $themeSyncer->syncThemes();
                 $artist->create();
 
                 return $this->response->withStatus(self::HTTP_MOVED_PERMANENTLY)->withHeader('Location',

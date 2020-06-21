@@ -4,7 +4,7 @@ use App\Web\Actions\Action;
 use App\Web\Actions\Frontend\GetFrontAction;
 use App\Web\Actions\Frontend\GetHomeAction;
 use App\Web\Actions\Frontend\PostFrontAction;
-use App\Web\Actions\Install\GetSetConfigAction;
+use App\Web\Actions\Install\GetInstallerAction;
 use App\Web\Actions\Install\PostInstallerAction;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
@@ -49,7 +49,7 @@ return function (App $app) {
     });
     $app->get('/', GetHomeAction::class);
     $app->group('/installer', function (RouteCollectorProxy $installer) {
-        $installer->get('', GetSetConfigAction::class);
+        $installer->get('', GetInstallerAction::class);
         $installer->post('', PostInstallerAction::class);
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         if (file_exists(__ROOT__ . '/installed.lock')) {

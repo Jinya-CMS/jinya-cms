@@ -28,14 +28,14 @@ create table if not exists configuration
 	id int auto_increment
 		primary key,
 	current_frontend_theme_id int null,
-	invalidate_api_key_after int not null,
-	messaging_center_enabled tinyint(1) default 1 not null,
 	constraint UNIQ_configuration_current_frontend_theme_id
 		unique (current_frontend_theme_id),
 	constraint FK_theme_configuration
 		foreign key (current_frontend_theme_id) references theme (id)
 )
 collate=utf8_unicode_ci;
+
+insert into configuration (current_frontend_theme_id) values (null); 
 
 create table if not exists theme_asset
 (

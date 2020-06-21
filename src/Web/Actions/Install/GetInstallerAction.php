@@ -4,7 +4,7 @@ namespace App\Web\Actions\Install;
 
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetSetConfigAction extends InstallAction
+class GetInstallerAction extends InstallAction
 {
 
     protected function action(): Response

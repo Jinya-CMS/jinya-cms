@@ -24,7 +24,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @return Theme
      * @noinspection PhpIncompatibleReturnTypeInspection
      */
-    public static function getActiveTheme(): Theme
+    public static function getActiveTheme(): ?Theme
     {
         $sql = self::getSql();
         $select = $sql

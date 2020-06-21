@@ -38,11 +38,15 @@ class ThemeSyncer
         $activeTheme = Database\Theme::getActiveTheme();
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');
         foreach ($nonExistingThemes as $nonExistingTheme) {
-            if ($nonExistingTheme->name === $activeTheme->name) {
+            if ($activeTheme === null || $nonExistingTheme->name === $activeTheme->name) {
                 /** @noinspection NullPointerExceptionInspection */
                 $defaultTheme->makeActiveTheme();
             }
             $nonExistingTheme->delete();
+        }
+
+        if ($activeTheme === null) {
+            $defaultTheme->makeActiveTheme();
         }
     }
 }
