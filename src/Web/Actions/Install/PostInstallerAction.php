@@ -36,6 +36,7 @@ class PostInstallerAction extends InstallAction
                 $themeSyncer->syncThemes();
                 $artist->create();
 
+                touch(__ROOT__ . '/installed.lock');
                 return $this->response->withStatus(self::HTTP_MOVED_PERMANENTLY)->withHeader('Location',
                     '/');
             } catch (Throwable $exception) {
