@@ -62,7 +62,7 @@ class Theme implements ExtensionInterface
      */
     public function getErrorBehavior(): string
     {
-        return $this->configuration['errorBehavior'];
+        return $this->configuration['errorBehavior'] ?? self::ERROR_BEHAVIOR_HOMEPAGE;
     }
 
     /**
