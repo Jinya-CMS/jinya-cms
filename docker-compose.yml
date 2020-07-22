@@ -19,3 +19,12 @@ services:
     ports:
       - 8525:8025
       - 1525:1025
+  jinya-backend:
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/html
+    links:
+      - jinya-mailhog
+      - jinya-mysql-database
