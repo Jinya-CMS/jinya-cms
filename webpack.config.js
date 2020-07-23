@@ -9,6 +9,7 @@ module.exports = (env, argv) => {
       contentBase: distPath,
       compress: argv.mode === 'production',
       port: 8000,
+      historyApiFallback: true,
     },
     entry: './bootstrap.js',
     output: {
