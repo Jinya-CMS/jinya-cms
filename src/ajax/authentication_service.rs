@@ -6,7 +6,7 @@ use yew::Callback;
 use yew::format::{Json, Nothing};
 use yew::services::fetch::{FetchOptions, FetchService, FetchTask};
 
-use crate::ajax::post_request;
+use crate::ajax::{post_request, head_request};
 use crate::storage::AuthenticationStorage;
 
 #[derive(Default)]
@@ -45,7 +45,7 @@ impl AuthenticationService {
             callback.emit(response.status() == StatusCode::NO_CONTENT)
         };
 
-        let request = http::Request::head(url).body(Nothing).unwrap();
+        let request = head_request(url);
         FetchService::fetch_with_options(request, FetchOptions {
             mode: Some(RequestMode::Cors),
             ..FetchOptions::default()

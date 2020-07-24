@@ -16,5 +16,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("2fa.action_login", "Login");
     map.insert("2fa.error_code", "Der Code ist falsch");
 
+    map.insert("home.credits", "Foto von ");
+
     map
 }

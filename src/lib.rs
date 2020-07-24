@@ -1,10 +1,10 @@
-
 #![recursion_limit = "10240"]
 mod app;
 mod views;
 mod storage;
 mod ajax;
 mod i18n;
+mod models;
 
 use wasm_bindgen::prelude::*;
 

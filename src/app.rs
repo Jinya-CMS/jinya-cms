@@ -5,6 +5,7 @@ use yew_router::agent::RouteRequest;
 
 use crate::ajax::authentication_service::AuthenticationService;
 use crate::storage::AuthenticationStorage;
+use crate::views::home::HomePage;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
 
@@ -88,7 +89,7 @@ impl Component for JinyaDesignerApp {
                     match switch {
                         AppRoute::Login => html! {<LoginPage />},
                         AppRoute::TwoFactor => html! {<TwoFactorPage />},
-                        AppRoute::Homepage => html! {<div></div>},
+                        AppRoute::Homepage => html! {<HomePage />},
                     }
                 })
                 redirect=Router::redirect(|route: Route| {

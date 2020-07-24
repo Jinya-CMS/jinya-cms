@@ -1,6 +1,6 @@
 use anyhow::Error;
 use http::Request;
-use yew::format::Json;
+use yew::format::{Json, Nothing};
 use yew::services::storage::Area;
 use yew::services::StorageService;
 
@@ -37,5 +37,27 @@ fn post_request<T>(url: String, body: &T) -> Request<Json<&T>> {
         .header("JinyaApiKey", api_key)
         .header("JinyaDeviceCode", device_code)
         .body(Json(body))
+        .unwrap()
+}
+
+fn head_request(url: String) -> Request<Nothing> {
+    let api_key_storage = AuthenticationStorage::get_api_key();
+    let device_code_storage = AuthenticationStorage::get_device_code();
+    let api_key = if api_key_storage.is_some() {
+        api_key_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+    let device_code = if device_code_storage.is_some() {
+        device_code_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+
+   http::Request::head(url)
+        .header("Content-Type", "application/json")
+        .header("JinyaApiKey", api_key)
+        .header("JinyaDeviceCode", device_code)
+        .body(Nothing)
         .unwrap()
 }
