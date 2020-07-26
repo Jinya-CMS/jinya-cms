@@ -1,7 +1,6 @@
 use anyhow::Error;
-use http::{Response, StatusCode};
+use http::Response;
 use serde_derive::{Deserialize, Serialize};
-use web_sys::RequestMode;
 use yew::Callback;
 use yew::format::{Json, Nothing};
 use yew::services::fetch::FetchTask;
@@ -39,7 +38,7 @@ impl PicsumService {
         let url = format!("https://picsum.photos/id/{}/info", picsum_id);
         let request = http::Request::get(url).body(Nothing).unwrap();
         let handler = move |response: Response<Json<Result<PicsumMetaData, Error>>>| {
-            let (meta, Json(data)) = response.into_parts();
+            let (_, Json(data)) = response.into_parts();
             callback.emit(data)
         };
 

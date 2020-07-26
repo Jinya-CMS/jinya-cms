@@ -6,7 +6,7 @@ use jinya_ui::widgets::button::Button;
 use jinya_ui::widgets::form::input::Input;
 use uuid::Uuid;
 use yew::prelude::*;
-use yew::services::fetch::{FetchService, FetchTask};
+use yew::services::fetch::FetchTask;
 use yew_router::agent::{RouteAgent, RouteRequest};
 use yew_router::route::Route;
 
@@ -24,7 +24,7 @@ pub struct TwoFactorPage {
     image_credits: String,
     image_meta_task: Option<FetchTask>,
     login_task: Option<FetchTask>,
-    translator: Translator<'static>,
+    translator: Translator,
     picsum_service: PicsumService,
     login_failed: bool,
     router: Box<dyn Bridge<RouteAgent>>,

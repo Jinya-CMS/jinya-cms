@@ -1,7 +1,6 @@
 use anyhow::Error;
 use jinya_ui::layout::button_row::ButtonRow;
 use jinya_ui::layout::row::Row;
-use jinya_ui::layout::form::Form;
 use jinya_ui::widgets::alert::{Alert, AlertType};
 use jinya_ui::widgets::button::Button;
 use jinya_ui::widgets::form::input::Input;
@@ -12,7 +11,7 @@ use yew_router::agent::RouteRequest;
 use yew_router::prelude::RouteAgent;
 use yew_router::route::Route;
 
-use crate::ajax::authentication_service::{AuthenticationService, TwoFactorRequest};
+use crate::ajax::authentication_service::AuthenticationService;
 use crate::ajax::picsum_service::{PicsumMetaData, PicsumService};
 use crate::app::AppRoute;
 use crate::i18n::Translator;
@@ -26,7 +25,7 @@ pub struct LoginPage {
     image_seed: String,
     image_credits: String,
     image_meta_task: Option<FetchTask>,
-    translator: Translator<'static>,
+    translator: Translator,
     device_code: Option<String>,
     login_failed: bool,
     authentication_service: AuthenticationService,

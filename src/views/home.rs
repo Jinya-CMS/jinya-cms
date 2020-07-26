@@ -1,22 +1,11 @@
 use anyhow::Error;
-use jinya_ui::layout::button_row::ButtonRow;
-use jinya_ui::layout::form::Form;
-use jinya_ui::layout::row::Row;
-use jinya_ui::widgets::alert::{Alert, AlertType};
-use jinya_ui::widgets::button::Button;
-use jinya_ui::widgets::form::input::Input;
 use uuid::Uuid;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
-use yew_router::agent::RouteRequest;
-use yew_router::prelude::RouteAgent;
-use yew_router::route::Route;
 
-use crate::ajax::authentication_service::{AuthenticationService, TwoFactorRequest};
+use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
 use crate::ajax::picsum_service::{PicsumMetaData, PicsumService};
-use crate::app::AppRoute;
 use crate::i18n::Translator;
-use crate::storage::AuthenticationStorage;
 
 pub struct HomePage {
     link: ComponentLink<Self>,
@@ -25,7 +14,8 @@ pub struct HomePage {
     image_credits: String,
     image_meta_task: Option<FetchTask>,
     picsum_service: PicsumService,
-    translator: Translator<'static>,
+    translator: Translator,
+    menu_agent: Box<dyn Bridge<MenuAgent>>,
 }
 
 pub enum Msg {
@@ -42,7 +32,8 @@ impl Component for HomePage {
         let picsum_service = PicsumService::new();
         let seed = Uuid::new_v4().to_string();
         let image_task = picsum_service.get_picsum_id(&seed, link.callback(|id| Msg::OnImageTaskFetched(id)));
-
+        let mut menu_agent = MenuAgent::bridge(link.callback(|_| Msg::Ignore));
+        menu_agent.send(MenuAgentRequest::HideSearch);
         HomePage {
             link,
             picsum_service,
@@ -51,6 +42,7 @@ impl Component for HomePage {
             image_credits: "".to_string(),
             image_meta_task: None,
             translator: Translator::new(),
+            menu_agent,
         }
     }
 
@@ -77,10 +69,16 @@ impl Component for HomePage {
     fn view(&self) -> Html {
         html! {
             <>
-                <div style={format!("background-image: url(\"https://picsum.photos/seed/{}/2560/1440\"); height: 100vh; width: 100vw;background-size: cover;", &self.image_seed)}>
+                <div style={format!("background-image: url(\"https://picsum.photos/seed/{}/2560/1440\"); height: calc(100vh - 3.5rem); width: 100vw;background-size: cover;", &self.image_seed)}>
                     <span style="position: fixed; bottom: 0; left: 0;  background: var(--white); color: var(--primary-color); padding: 0.25rem 0.5rem; border-top-right-radius: 5px">{self.translator.translate("home.credits")}<b>{&self.image_credits}</b></span>
                 </div>
             </>
+        }
+    }
+
+    fn rendered(&mut self, _first_render: bool) {
+        if _first_render {
+            self.menu_agent.send(MenuAgentRequest::HideSearch);
         }
     }
 }

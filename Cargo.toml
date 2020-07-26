@@ -21,8 +21,9 @@ http = "0.2.1"
 anyhow = "1.0.31"
 yew = "0.17.2"
 yew-router = "0.14.0"
-jinya-ui = "1.0.0"
+jinya-ui = "1.0.2"
 uuid = { version = "0.8", features = ["serde", "v4", "wasm-bindgen"] }
+chrono = "0.4.13"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

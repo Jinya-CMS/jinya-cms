@@ -18,5 +18,16 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
 
     map.insert("home.credits", "Foto von ");
 
+    map.insert("app.menu.search", "Suche…");
+    map.insert("app.menu.content", "Inhalte");
+    map.insert("app.menu.content.media", "Medien");
+    map.insert("app.menu.content.media.files", "Dateien");
+
+    map.insert("app.title.home_page", "Startseite");
+
+    map.insert("files.card.button.information", "Mehr Informationen");
+    map.insert("files.card.button.edit", "Datei bearbeiten");
+    map.insert("files.card.button.delete", "Datei löschen");
+
     map
 }
