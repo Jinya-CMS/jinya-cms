@@ -1,12 +1,12 @@
 #![recursion_limit = "10240"]
-
 use wasm_bindgen::prelude::*;
 
+#[macro_use]
+mod i18n;
 mod app;
 mod views;
 mod storage;
 mod ajax;
-mod i18n;
 mod models;
 mod agents;
 

@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
+use serde::de::value::StrDeserializer;
 use yew::format::Json;
 use yew::services::storage::Area;
 use yew::services::StorageService;
@@ -75,4 +76,26 @@ impl<'a> Translator<'a> {
     pub fn translate(&self, key: &'a str) -> String {
         self.get_value(key).to_string()
     }
+    pub fn translate_with_args(&self, key: &'a str, args: HashMap<&str, &str>) -> String {
+        let mut value = self.get_value(key).to_string();
+
+        for arg in args {
+            value = value.replace(format!("{}{}{}", "{", arg.0, "}").as_str(), arg.1);
+        }
+
+        value
+    }
 }
+
+#[macro_export]
+macro_rules! map (
+    { $($key:expr => $value:expr),+ } => {
+        {
+            let mut m = ::std::collections::HashMap::new();
+            $(
+                m.insert($key, $value);
+            )+
+            m
+        }
+     };
+);

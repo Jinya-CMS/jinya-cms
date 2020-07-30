@@ -28,6 +28,11 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.card.button.information", "Mehr Informationen");
     map.insert("files.card.button.edit", "Datei bearbeiten");
     map.insert("files.card.button.delete", "Datei löschen");
+    map.insert("files.delete.approve", "Datei löschen");
+    map.insert("files.delete.decline", "Datei behalten");
+    map.insert("files.delete.title", "Datei wirklich löschen?");
+    map.insert("files.delete.content", "Bist du sicher, dass du die Datei \"{name}\" löschen möchtest? Die Datei wird aus allen Gallerien und Themes entfernt.");
+    map.insert("files.delete.failed", "Die Datei \"{name}\" konnte nicht gelöscht werden.");
 
     map
 }

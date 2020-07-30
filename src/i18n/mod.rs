@@ -1,3 +1,4 @@
+#[macro_use]
 mod translator;
 mod translations;
 

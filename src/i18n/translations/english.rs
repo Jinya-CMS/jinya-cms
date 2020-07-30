@@ -28,6 +28,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.card.button.information", "More info");
     map.insert("files.card.button.edit", "Edit file");
     map.insert("files.card.button.delete", "Delete file");
+    map.insert("files.delete.approve", "Delete file");
+    map.insert("files.delete.decline", "Keep file");
+    map.insert("files.delete.title", "Really delete file?");
+    map.insert("files.delete.content", "Are you sure, that you want to delete \"{}\". The file will be removed from all galleries and themes.");
 
     map
 }
