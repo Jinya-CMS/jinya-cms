@@ -19,9 +19,6 @@ class FileContentController extends BaseApiController
     /** @var string */
     private string $kernelProjectDir;
 
-    /**
-     * @param string $kernelProjectDir
-     */
     public function setKernelProjectDir(string $kernelProjectDir): void
     {
         $this->kernelProjectDir = $kernelProjectDir;
@@ -29,12 +26,6 @@ class FileContentController extends BaseApiController
 
     /**
      * @Route("/api/media/file/{id}/content", methods={"GET"}, name="api_file_get_content")
-     *
-     * @param int $id
-     * @param FileServiceInterface $fileService
-     * @param MediaServiceInterface $mediaService
-     * @param MimeTypes $mimeTypes
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -65,10 +56,6 @@ class FileContentController extends BaseApiController
     /**
      * @Route("/api/media/file/{id}/content", methods={"POST"}, name="api_file_post_content_upload_start")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param FileUploadServiceInterface $fileUploadService
-     * @return Response
      */
     public function startUploadAction(int $id, FileUploadServiceInterface $fileUploadService): Response
     {
@@ -87,12 +74,6 @@ class FileContentController extends BaseApiController
      *     name="api_file_post_content_upload_chunk"
      * )
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $position
-     * @param Request $request
-     * @param FileUploadServiceInterface $fileUploadService
-     * @return Response
      */
     public function uploadChunkAction(
         int $id,
@@ -112,10 +93,6 @@ class FileContentController extends BaseApiController
     /**
      * @Route("/api/media/file/{id}/content/state", methods={"DELETE"}, name="api_file_post_content_upload_state_clear")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param FileUploadServiceInterface $fileUploadService
-     * @return Response
      */
     public function resetStateAction(int $id, FileUploadServiceInterface $fileUploadService): Response
     {
@@ -129,12 +106,6 @@ class FileContentController extends BaseApiController
     /**
      * @Route("/api/media/file/{id}/content/finish", methods={"PUT"}, name="api_file_post_content_upload_finish")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param FileServiceInterface $fileService
-     * @param FileUploadServiceInterface $fileUploadService
-     * @param MimeTypes $mimeTypes
-     * @return Response
      */
     public function finishUploadAction(
         int $id,

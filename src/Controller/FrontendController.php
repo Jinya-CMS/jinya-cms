@@ -22,10 +22,6 @@ class FrontendController extends BaseController
     /**
      * @Route("/{route}", name="frontend_default_index", requirements={"route": "^(?!api\\/|designer\\/).*"})
      *
-     * @param string $route
-     * @param RouteServiceInterface $routeService
-     * @param LoggerInterface $logger
-     * @return Response
      * @throws Throwable
      */
     public function indexAction(string $route, RouteServiceInterface $routeService, LoggerInterface $logger): Response
@@ -49,10 +45,6 @@ class FrontendController extends BaseController
 
     /**
      * @Route("/gallery/media/{slug}", name="frontend_media_gallery_details")
-     *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @return Response
      */
     public function galleryDetailAction(string $slug, GalleryServiceInterface $galleryService): Response
     {
@@ -65,13 +57,6 @@ class FrontendController extends BaseController
 
     /**
      * @Route("/form/{slug}", name="frontend_form_details")
-     *
-     * @param string $slug
-     * @param Request $request
-     * @param FormServiceInterface $formService
-     * @param FormGeneratorInterface $formGenerator
-     * @param MailerServiceInterface $mailerService
-     * @return Response
      */
     public function formDetailAction(
         string $slug,
@@ -105,10 +90,6 @@ class FrontendController extends BaseController
 
     /**
      * @Route("/page/{slug}", name="frontend_page_details")
-     *
-     * @param string $slug
-     * @param PageServiceInterface $pageService
-     * @return Response
      */
     public function pageDetailAction(string $slug, PageServiceInterface $pageService): Response
     {
@@ -121,10 +102,6 @@ class FrontendController extends BaseController
 
     /**
      * @Route("/segment_page/{slug}", name="frontend_segment_page_details")
-     *
-     * @param string $slug
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @return Response
      */
     public function segmentPageDetailAction(string $slug, SegmentPageServiceInterface $segmentPageService): Response
     {
@@ -137,10 +114,6 @@ class FrontendController extends BaseController
 
     /**
      * @Route("/profile/{id}", name="frontend_profile_details")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @return Response
      */
     public function profileDetailAction(int $id, UserServiceInterface $userService): Response
     {

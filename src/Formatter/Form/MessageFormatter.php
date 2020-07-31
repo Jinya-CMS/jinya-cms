@@ -17,7 +17,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * MessageFormatter constructor.
-     * @param FormFormatterInterface $formFormatter
      */
     public function __construct(FormFormatterInterface $formFormatter)
     {
@@ -35,9 +34,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param Message $message
-     * @return MessageFormatterInterface
      */
     public function init(Message $message): MessageFormatterInterface
     {
@@ -49,8 +45,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the to address
-     *
-     * @return MessageFormatterInterface
      */
     public function toAddress(): MessageFormatterInterface
     {
@@ -61,8 +55,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the form
-     *
-     * @return MessageFormatterInterface
      */
     public function form(): MessageFormatterInterface
     {
@@ -78,8 +70,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats whether the message is spam
-     *
-     * @return MessageFormatterInterface
      */
     public function spam(): MessageFormatterInterface
     {
@@ -90,8 +80,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the send at date
-     *
-     * @return MessageFormatterInterface
      */
     public function sendAt(): MessageFormatterInterface
     {
@@ -102,8 +90,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the subject
-     *
-     * @return MessageFormatterInterface
      */
     public function subject(): MessageFormatterInterface
     {
@@ -114,8 +100,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the content
-     *
-     * @return MessageFormatterInterface
      */
     public function content(): MessageFormatterInterface
     {
@@ -126,8 +110,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the fromAddress
-     *
-     * @return MessageFormatterInterface
      */
     public function fromAddress(): MessageFormatterInterface
     {
@@ -138,8 +120,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats whether the message is archived
-     *
-     * @return MessageFormatterInterface
      */
     public function archived(): MessageFormatterInterface
     {
@@ -150,8 +130,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats whether the message is in trash
-     *
-     * @return MessageFormatterInterface
      */
     public function trash(): MessageFormatterInterface
     {
@@ -162,8 +140,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats whether the message is read
-     *
-     * @return MessageFormatterInterface
      */
     public function read(): MessageFormatterInterface
     {
@@ -174,8 +150,6 @@ class MessageFormatter implements MessageFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return MessageFormatterInterface
      */
     public function id(): MessageFormatterInterface
     {
