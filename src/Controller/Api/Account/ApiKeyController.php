@@ -20,10 +20,6 @@ class ApiKeyController extends BaseApiController
     /**
      * @Route("/api/account/api_key", methods={"GET"}, name="api_api_key_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @param ConfigurationServiceInterface $configurationService
-     * @return Response
      */
     public function getAllAction(
         ApiKeyToolInterface $apiKeyTool,
@@ -45,10 +41,6 @@ class ApiKeyController extends BaseApiController
     /**
      * @Route("/api/account/api_key/{key}", methods={"DELETE"}, name="api_api_key_delete")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param string $key
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @return Response
      */
     public function deleteAction(string $key, ApiKeyToolInterface $apiKeyTool): Response
     {

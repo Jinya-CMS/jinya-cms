@@ -42,9 +42,6 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * FormItemService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param FormServiceInterface $formService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -58,8 +55,6 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * Adds a new form item to the given form
-     *
-     * @param FormItem $formItem
      */
     public function addItem(FormItem $formItem): void
     {
@@ -71,12 +66,6 @@ class FormItemService implements FormItemServiceInterface
         }
     }
 
-    /**
-     * @param int $oldPosition
-     * @param int $newPosition
-     * @param FormItem $formItem
-     * @param Form $form
-     */
     private function rearrangeFormItems(int $oldPosition, int $newPosition, FormItem $formItem, Form $form): void
     {
         $pre = $this->eventDispatcher->dispatch(
@@ -99,8 +88,6 @@ class FormItemService implements FormItemServiceInterface
     /**
      * Deletes the item at the given position
      *
-     * @param Form $form
-     * @param int $position
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -127,9 +114,6 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * Gets all items for the given form
-     *
-     * @param string $formSlug
-     * @return array
      */
     public function getItems(string $formSlug): array
     {
@@ -157,8 +141,6 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * Updates the given form item
-     *
-     * @param FormItem $formItem
      */
     public function updateItem(FormItem $formItem): void
     {
@@ -172,9 +154,6 @@ class FormItemService implements FormItemServiceInterface
     /**
      * Gets the form item in the given form at the given position
      *
-     * @param string $slug
-     * @param int $position
-     * @return FormItem
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -199,10 +178,6 @@ class FormItemService implements FormItemServiceInterface
 
     /**
      * Updates the position
-     *
-     * @param string $formSlug
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function updatePosition(string $formSlug, int $oldPosition, int $newPosition): void
     {

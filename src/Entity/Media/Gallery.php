@@ -17,7 +17,6 @@ class Gallery extends HistoryEnabledEntity
     use SlugEntity;
 
     /**
-     * @var Collection
      * @ORM\OneToMany(
      *     targetEntity="Jinya\Entity\Media\GalleryFilePosition",
      *     mappedBy="gallery",
@@ -27,19 +26,16 @@ class Gallery extends HistoryEnabledEntity
     private Collection $files;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $description;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $type;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $orientation;
@@ -52,81 +48,51 @@ class Gallery extends HistoryEnabledEntity
         $this->files = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function getOrientation(): string
     {
         return $this->orientation;
     }
 
-    /**
-     * @param string $orientation
-     */
     public function setOrientation(string $orientation): void
     {
         $this->orientation = $orientation;
     }
 
-    /**
-     * @return Collection
-     */
     public function getFiles(): Collection
     {
         return $this->files;
     }
 
-    /**
-     * @param Collection $files
-     */
     public function setFiles(Collection $files): void
     {
         $this->files = $files;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
