@@ -29,17 +29,11 @@ class TableMetadata implements JsonSerializable
         $this->fields = $fields;
     }
 
-    /**
-     * @return string
-     */
     public function getChecksum(): string
     {
         return $this->checksum;
     }
 
-    /**
-     * @param string $checksum
-     */
     public function setChecksum(string $checksum): void
     {
         $this->checksum = $checksum;

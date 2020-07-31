@@ -18,9 +18,6 @@ class CacheStatusService implements CacheStatusServiceInterface
 
     /**
      * CacheStatusService constructor.
-     * @param CacheBuilderInterface $jinyaCache
-     * @param CacheClearerInterface $symfonyCacheClearer
-     * @param string $kernelProjectDir
      */
     public function __construct(
         CacheBuilderInterface $jinyaCache,
