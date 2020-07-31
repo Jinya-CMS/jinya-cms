@@ -26,11 +26,6 @@ class FormController extends BaseApiController
 {
     /**
      * @Route("/api/form", methods={"GET"}, name="api_form_get_all")
-     *
-     * @param Request $request
-     * @param FormServiceInterface $formService
-     * @param FormFormatterInterface $formFormatter
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -64,11 +59,6 @@ class FormController extends BaseApiController
 
     /**
      * @Route("/api/form/{slug}", methods={"GET"}, name="api_form_get")
-     *
-     * @param string $slug
-     * @param FormServiceInterface $formService
-     * @param FormFormatterInterface $formFormatter
-     * @return Response
      */
     public function getAction(
         string $slug,
@@ -103,11 +93,6 @@ class FormController extends BaseApiController
     /**
      * @Route("/api/form", methods={"POST"}, name="api_form_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param FormServiceInterface $formService
-     * @param FormFormatterInterface $formFormatter
-     * @param TranslatorInterface $translator
-     * @return Response
      */
     public function postAction(
         FormServiceInterface $formService,
@@ -162,11 +147,6 @@ class FormController extends BaseApiController
     /**
      * @Route("/api/form/{slug}", methods={"PUT"}, name="api_form_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $slug
-     * @param FormServiceInterface $formService
-     * @param TranslatorInterface $translator
-     * @return Response
      */
     public function putAction(
         string $slug,
@@ -216,10 +196,6 @@ class FormController extends BaseApiController
     /**
      * @Route("/api/form/{slug}", methods={"DELETE"}, name="api_form_delete")
      * @IsGranted("ROLE_ADMIN")
-     *
-     * @param string $slug
-     * @param FormServiceInterface $formService
-     * @return Response
      */
     public function deleteAction(string $slug, FormServiceInterface $formService): Response
     {
