@@ -22,7 +22,8 @@ abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     private static Adapter $adapter;
-    public int $id = -1;
+    /** @var int|string */
+    public $id = -1;
 
     /**
      * @param int $id
