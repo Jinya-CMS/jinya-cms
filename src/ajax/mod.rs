@@ -42,6 +42,28 @@ fn post_request<T>(url: String, body: &T) -> Request<Json<&T>> {
         .unwrap()
 }
 
+fn put_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
+    let api_key_storage = AuthenticationStorage::get_api_key();
+    let device_code_storage = AuthenticationStorage::get_device_code();
+    let api_key = if api_key_storage.is_some() {
+        api_key_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+    let device_code = if device_code_storage.is_some() {
+        device_code_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+
+    http::Request::put(url)
+        .header("Content-Type", "application/json")
+        .header("JinyaApiKey", api_key)
+        .header("JinyaDeviceCode", device_code)
+        .body(Json(body))
+        .unwrap()
+}
+
 fn head_request(url: String) -> Request<Nothing> {
     let api_key_storage = AuthenticationStorage::get_api_key();
     let device_code_storage = AuthenticationStorage::get_device_code();
@@ -105,7 +127,49 @@ fn delete_request(url: String) -> Request<Nothing> {
         .unwrap()
 }
 
-fn get_error_from_parts<T>(parts: Parts) -> Result<T, Error> {
+fn put_request(url: String) -> Request<Nothing> {
+    let api_key_storage = AuthenticationStorage::get_api_key();
+    let device_code_storage = AuthenticationStorage::get_device_code();
+    let api_key = if api_key_storage.is_some() {
+        api_key_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+    let device_code = if device_code_storage.is_some() {
+        device_code_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+
+    http::Request::put(url)
+        .header("JinyaApiKey", api_key)
+        .header("JinyaDeviceCode", device_code)
+        .body(Nothing)
+        .unwrap()
+}
+
+fn put_request_with_binary_body<T>(url: String, body: T) -> Request<T> {
+    let api_key_storage = AuthenticationStorage::get_api_key();
+    let device_code_storage = AuthenticationStorage::get_device_code();
+    let api_key = if api_key_storage.is_some() {
+        api_key_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+    let device_code = if device_code_storage.is_some() {
+        device_code_storage.unwrap()
+    } else {
+        "".to_string()
+    };
+
+    http::Request::put(url)
+        .header("JinyaApiKey", api_key)
+        .header("JinyaDeviceCode", device_code)
+        .body(body)
+        .unwrap()
+}
+
+fn get_error_from_parts<T>(parts: Parts) -> Result<T, AjaxError> {
     let error = match parts.status {
         StatusCode::BAD_REQUEST => anyhow!("Fields are missing"),
         StatusCode::NOT_FOUND => anyhow!("Resource is not found"),
@@ -115,11 +179,26 @@ fn get_error_from_parts<T>(parts: Parts) -> Result<T, Error> {
         _ => anyhow!("Other unknown error"),
     };
 
-    if parts.status==StatusCode::REQUEST_TIMEOUT {
+    if parts.status == StatusCode::REQUEST_TIMEOUT {
         ConsoleService::error(format!("Unexpected error: {}. Check server logs", parts.status).as_str());
 
         ConsoleService::error(error.to_string().as_str());
     }
 
-    Err(error)
+    Err(AjaxError::new(error, parts.status))
+}
+
+#[derive(Debug)]
+pub struct AjaxError {
+    pub error: Error,
+    pub status_code: StatusCode,
+}
+
+impl AjaxError {
+    pub fn new(error: Error, status_code: StatusCode) -> AjaxError {
+        AjaxError {
+            error,
+            status_code,
+        }
+    }
 }

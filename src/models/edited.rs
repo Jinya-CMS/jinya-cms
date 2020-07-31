@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 
 use crate::models::editor::Editor;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct Edited {
     pub by: Editor,
     at: String,

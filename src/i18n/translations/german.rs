@@ -34,5 +34,17 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.delete.content", "Bist du sicher, dass du die Datei \"{name}\" löschen möchtest? Die Datei wird aus allen Gallerien und Themes entfernt.");
     map.insert("files.delete.failed", "Die Datei \"{name}\" konnte nicht gelöscht werden.");
 
+    map.insert("files.edit.action_save", "Änderungen speichern");
+    map.insert("files.edit.action_discard", "Änderungen verwerfen");
+    map.insert("files.edit.name", "Name");
+    map.insert("files.edit.file", "Datei");
+    map.insert("files.edit.file_selected", "Datei ausgewählt");
+    map.insert("files.edit.saved.success", "Datei {name} wurde erfolgreich gespeichert");
+    map.insert("files.edit.error_generic", "Die Datei konnte nicht gespeichert werden");
+    map.insert("files.edit.error_conflict", "Die Datei konnte nicht gespeichert werden, weil eine andere Datei mit dem Namen existiert");
+    map.insert("files.edit.error_filename_empty", "Der Name muss angegeben werden");
+    map.insert("files.edit.saving", "Die Datei wird gespeichert");
+    map.insert("files.edit.title","{name} bearbeiten");
+
     map
 }

@@ -2,7 +2,7 @@ use serde_derive::{Deserialize, Serialize};
 
 use crate::models::edited::Edited;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct File {
     #[serde(skip_serializing)]
     pub created: Edited,
