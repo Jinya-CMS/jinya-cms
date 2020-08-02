@@ -65,7 +65,7 @@ impl Component for JinyaDesignerApp {
 
             route_service.get_route()
         } else {
-            route_service.set_route("login", ());
+            route_service.set_route("/login", ());
             AppRoute::Login.into()
         };
 
@@ -142,6 +142,7 @@ impl Component for JinyaDesignerApp {
                             AppRoute::Homepage
                         })
                     />
+                    <div class="jinya-toast__container"></div>
                 </main>
             }
         }

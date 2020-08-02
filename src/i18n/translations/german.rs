@@ -46,5 +46,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.edit.saving", "Die Datei wird gespeichert");
     map.insert("files.edit.title","{name} bearbeiten");
 
+    map.insert("files.add.action_save", "Datei speichern");
+    map.insert("files.add.action_discard", "Datei verwerfen");
+    map.insert("files.add.name", "Name");
+    map.insert("files.add.file", "Datei");
+    map.insert("files.add.select_file", "Datei auswählen");
+    map.insert("files.add.saved.success", "Datei {name} wurde erfolgreich gespeichert");
+    map.insert("files.add.error_generic", "Die Datei konnte nicht gespeichert werden");
+    map.insert("files.add.error_conflict", "Die Datei konnte nicht gespeichert werden, weil eine andere Datei mit dem Namen existiert");
+    map.insert("files.add.error_filename_empty", "Der Name muss angegeben werden");
+    map.insert("files.add.error_file_missing", "Es muss eine Datei ausgewählt werden");
+    map.insert("files.add.saving", "Die Datei wird gespeichert");
+    map.insert("files.add.title","Neue Datei");
+
     map
 }

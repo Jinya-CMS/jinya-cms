@@ -95,6 +95,7 @@ impl Component for EditDialog {
                     self.name_validation_message = self.translator.translate("files.edit.error_filename_empty");
                     InputState::Negative
                 } else {
+                    self.name_validation_message = "".to_string();
                     InputState::Default
                 };
             }
@@ -109,6 +110,7 @@ impl Component for EditDialog {
             EditDialogMsg::OnUpdated(result) => {
                 if result.is_ok() {
                     if self.selected_file.is_some() {
+                        self.alert_type = AlertType::Information;
                         self.alert_visible = true;
                         self.alert_message = self.translator.translate("files.edit.saving");
                         self.start_upload_task = Some(self.file_service.start_file_upload(&self.file, self.link.callback(|result| EditDialogMsg::OnUploadStarted(result))))

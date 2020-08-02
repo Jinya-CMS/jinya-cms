@@ -16,3 +16,16 @@ pub struct File {
     #[serde(alias = "type")]
     pub file_type: String,
 }
+
+impl File {
+    pub fn from_name(name: String) -> File {
+        File {
+            created: Edited::new(),
+            updated: Edited::new(),
+            id: 0,
+            name,
+            path: "".to_string(),
+            file_type: "".to_string(),
+        }
+    }
+}

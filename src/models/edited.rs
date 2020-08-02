@@ -13,4 +13,15 @@ impl Edited {
     pub fn get_at(&self) -> DateTime<FixedOffset> {
         DateTime::parse_from_rfc3339(self.at.as_str()).unwrap()
     }
+
+    pub fn new() -> Edited {
+        Edited {
+            at: "".to_string(),
+            by: Editor {
+                artist_name: "".to_string(),
+                email: "".to_string(),
+                profile_picture: "".to_string(),
+            },
+        }
+    }
 }

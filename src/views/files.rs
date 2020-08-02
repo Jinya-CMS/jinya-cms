@@ -13,6 +13,7 @@ use yew::services::ConsoleService;
 use yew::services::fetch::FetchTask;
 
 use edit_dialog::EditDialog;
+use add_dialog::AddDialog;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentResponse};
 use crate::ajax::{AjaxError, get_host};
@@ -21,6 +22,7 @@ use crate::i18n::*;
 use crate::models::file::File;
 use crate::models::list_model::ListModel;
 
+mod add_dialog;
 mod edit_dialog;
 
 pub struct FilesPage {
@@ -36,6 +38,7 @@ pub struct FilesPage {
     delete_file_task: Option<FetchTask>,
     alert_type: AlertType,
     alert_message: Option<String>,
+    add_file_open: bool,
 }
 
 pub enum Msg {
@@ -51,6 +54,8 @@ pub enum Msg {
     OnDeleteFailed,
     OnSaveEdit(File),
     OnDiscardEdit,
+    OnSaveAdd(File),
+    OnDiscardAdd,
 }
 
 impl Component for FilesPage {
@@ -72,6 +77,7 @@ impl Component for FilesPage {
             delete_file_task: None,
             alert_type: AlertType::Negative,
             alert_message: None,
+            add_file_open: false
         }
     }
 
@@ -89,7 +95,7 @@ impl Component for FilesPage {
                 _ => {}
             },
             Msg::OnFileSelected(idx) => self.selected_file = Some(self.files[idx].clone()),
-            Msg::OnUploadFileClicked => {}
+            Msg::OnUploadFileClicked => self.add_file_open = true,
             Msg::OnDeleteFileClicked(idx) => self.file_to_delete = Some(self.files[idx].clone()),
             Msg::OnEditFileClicked(idx) => self.file_to_edit = Some(self.files[idx].clone()),
             Msg::OnDeleteApprove => {
@@ -117,7 +123,13 @@ impl Component for FilesPage {
                 Toast::positive_toast(self.translator.translate_with_args("files.edit.saved.success", map! {"name" => name.name.as_str()}));
                 self.file_to_edit = None;
             }
-            Msg::OnDiscardEdit => self.file_to_edit = None
+            Msg::OnDiscardEdit => self.file_to_edit = None,
+            Msg::OnSaveAdd(name) => {
+                self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                Toast::positive_toast(self.translator.translate_with_args("files.add.saved.success", map! {"name" => name.name.as_str()}));
+                self.add_file_open = false
+            }
+            Msg::OnDiscardAdd => self.add_file_open = false
         }
 
         true
@@ -202,6 +214,7 @@ impl Component for FilesPage {
                 } else {
                     html! {}
                 }}
+                <AddDialog is_open=self.add_file_open on_save_changes=self.link.callback(|file| Msg::OnSaveAdd(file)) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
                 <Fab icon="file-upload" on_click=self.link.callback(|_| Msg::OnUploadFileClicked) />
             </Page>
         }

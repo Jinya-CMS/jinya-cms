@@ -1,5 +1,8 @@
 #![recursion_limit = "10240"]
+
+use jinya_ui::widgets::toast::toast_container;
 use wasm_bindgen::prelude::*;
+use yew::utils::document;
 
 #[macro_use]
 mod i18n;
@@ -21,6 +24,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 pub fn run_app() -> Result<(), JsValue> {
     wasm_logger::init(wasm_logger::Config::default());
     jinya_ui::init();
+    let container = toast_container();
     yew::start_app::<app::JinyaDesignerApp>();
     Ok(())
 }

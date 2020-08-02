@@ -2,16 +2,10 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "start:dev": "webpack-dev-server --mode development"
+    "build": "wasm-pack build --target web && yarn rollup ./main.js --format iife --file ./pkg/index.js"
   },
   "devDependencies": {
-    "@wasm-tool/wasm-pack-plugin": "^1.1.0",
-    "copy-webpack-plugin": "^5.1.1",
-    "wasm-pack": "^0.9.1",
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "rollup": "^2.23.0",
+    "wasm-pack": "^0.9.1"
   }
 }
