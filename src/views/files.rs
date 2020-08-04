@@ -12,10 +12,10 @@ use yew::prelude::*;
 use yew::services::ConsoleService;
 use yew::services::fetch::FetchTask;
 
-use edit_dialog::EditDialog;
 use add_dialog::AddDialog;
+use edit_dialog::EditDialog;
 
-use crate::agents::menu_agent::{MenuAgent, MenuAgentResponse};
+use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::file_service::FileService;
 use crate::i18n::*;
@@ -39,6 +39,7 @@ pub struct FilesPage {
     alert_type: AlertType,
     alert_message: Option<String>,
     add_file_open: bool,
+    keyword: String,
 }
 
 pub enum Msg {
@@ -77,7 +78,8 @@ impl Component for FilesPage {
             delete_file_task: None,
             alert_type: AlertType::Negative,
             alert_message: None,
-            add_file_open: false
+            add_file_open: false,
+            keyword: "".to_string(),
         }
     }
 
@@ -91,7 +93,10 @@ impl Component for FilesPage {
                 }
             }
             Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => self.load_files_task = Some(self.file_service.get_list(value, self.link.callback(|response| Msg::OnFilesLoaded(response)))),
+                MenuAgentResponse::OnSearch(value) => {
+                    self.keyword = value;
+                    self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                }
                 _ => {}
             },
             Msg::OnFileSelected(idx) => self.selected_file = Some(self.files[idx].clone()),
@@ -110,7 +115,7 @@ impl Component for FilesPage {
             }
             Msg::OnDeleteDecline => self.file_to_delete = None,
             Msg::OnFileDeleted => {
-                self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
                 self.file_to_delete = None;
             }
             Msg::OnDeleteFailed => {
@@ -119,13 +124,13 @@ impl Component for FilesPage {
                 self.file_to_delete = None;
             }
             Msg::OnSaveEdit(name) => {
-                self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
                 Toast::positive_toast(self.translator.translate_with_args("files.edit.saved.success", map! {"name" => name.name.as_str()}));
                 self.file_to_edit = None;
             }
             Msg::OnDiscardEdit => self.file_to_edit = None,
             Msg::OnSaveAdd(name) => {
-                self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
                 Toast::positive_toast(self.translator.translate_with_args("files.add.saved.success", map! {"name" => name.name.as_str()}));
                 self.add_file_open = false
             }
@@ -222,6 +227,7 @@ impl Component for FilesPage {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
+            self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.media.files")));
             self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
         }
     }
