@@ -12,6 +12,7 @@ use crate::storage::AuthenticationStorage;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
 use crate::views::files::FilesPage;
+use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
 
 pub struct JinyaDesignerApp {
@@ -34,6 +35,8 @@ pub enum AppRoute {
     TwoFactor,
     #[to = "/content/files"]
     Files,
+    #[to = "/content/galleries"]
+    Galleries,
     #[to = "/"]
     Homepage,
 }
@@ -136,13 +139,13 @@ impl Component for JinyaDesignerApp {
                                 AppRoute::TwoFactor => html! {<TwoFactorPage />},
                                 AppRoute::Homepage => html! {<HomePage />},
                                 AppRoute::Files => html! {<FilesPage />},
+                                AppRoute::Galleries => html! {<GalleriesPage />},
                             }
                         })
                         redirect=Router::redirect(|route: Route| {
                             AppRoute::Homepage
                         })
                     />
-                    <div class="jinya-toast__container"></div>
                 </main>
             }
         }
@@ -158,6 +161,11 @@ impl JinyaDesignerApp {
                     SubItem {
                         label: self.translator.translate("app.menu.content.media.files"),
                         route: Some(&AppRoute::Files),
+                        on_click: None,
+                    },
+                    SubItem {
+                        label: self.translator.translate("app.menu.content.media.galleries"),
+                        route: Some(&AppRoute::Galleries),
                         on_click: None,
                     },
                 ],

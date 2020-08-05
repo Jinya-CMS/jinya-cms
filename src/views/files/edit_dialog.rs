@@ -1,4 +1,3 @@
-use anyhow::Error;
 use http::StatusCode;
 use jinya_ui::layout::row::{Row, RowAlignment};
 use jinya_ui::widgets::alert::{Alert, AlertType};

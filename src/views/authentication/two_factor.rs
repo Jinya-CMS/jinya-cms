@@ -45,9 +45,7 @@ impl Component for TwoFactorPage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let picsum_service = PicsumService::new();
         let seed = Uuid::new_v4().to_string();
-        let image_task = picsum_service.get_picsum_id(&seed, link.callback(|id| Msg::OnImageTaskFetched(id)));
 
         let callback = link.callback(|_| Msg::Ignore);
         let router = RouteAgent::bridge(callback);
@@ -55,12 +53,12 @@ impl Component for TwoFactorPage {
         TwoFactorPage {
             link,
             code: "".to_string(),
-            image_task: Some(image_task),
+            image_task: None,
             image_seed: seed.to_string(),
             image_credits: "".to_string(),
             image_meta_task: None,
             translator: Translator::new(),
-            picsum_service,
+            picsum_service: PicsumService::new(),
             login_failed: false,
             router,
             login_task: None,
@@ -130,6 +128,12 @@ impl Component for TwoFactorPage {
                     </div>
                 </div>
             </>
+        }
+    }
+
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(|id| Msg::OnImageTaskFetched(id))));
         }
     }
 }

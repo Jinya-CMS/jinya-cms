@@ -5,7 +5,7 @@ use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 use yew::services::reader::FileData;
 
-use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, put_request, put_request_with_binary_body, put_request_with_body, post_request};
+use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, put_request, put_request_with_binary_body, put_request_with_body, post_request_with_body};
 use crate::models::file::File;
 use crate::models::list_model::ListModel;
 
@@ -108,7 +108,7 @@ impl FileService {
     pub fn add_file(&self, name: String, callback: Callback<Result<File, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/file", get_host());
         let file = File::from_name(name);
-        let request = post_request(url, &file);
+        let request = post_request_with_body(url, &file);
         let handler = move |response: Response<Json<Result<File, Error>>>| {
             let (meta, Json(file)) = response.into_parts();
             if meta.status.is_success() {

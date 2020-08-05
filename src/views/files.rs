@@ -1,4 +1,3 @@
-use anyhow::Error;
 use jinya_ui::layout::page::Page;
 use jinya_ui::layout::row::Row;
 use jinya_ui::listing::card::{Card, CardButton, CardContainer};
@@ -219,7 +218,13 @@ impl Component for FilesPage {
                 } else {
                     html! {}
                 }}
-                <AddDialog is_open=self.add_file_open on_save_changes=self.link.callback(|file| Msg::OnSaveAdd(file)) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
+                {if self.add_file_open {
+                    html! {
+                        <AddDialog is_open=self.add_file_open on_save_changes=self.link.callback(|file| Msg::OnSaveAdd(file)) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
+                    }
+                } else {
+                    html! {}
+                }}
                 <Fab icon="file-upload" on_click=self.link.callback(|_| Msg::OnUploadFileClicked) />
             </Page>
         }

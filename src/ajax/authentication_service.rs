@@ -5,7 +5,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{head_request, post_request};
+use crate::ajax::{head_request, post_request_with_body};
 use crate::storage::AuthenticationStorage;
 
 #[derive(Default)]
@@ -55,7 +55,7 @@ impl AuthenticationService {
         };
 
         let body = TwoFactorRequest { password, username };
-        let request = post_request(url, &body);
+        let request = post_request_with_body(url, &body);
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
@@ -79,7 +79,7 @@ impl AuthenticationService {
             password,
             two_factor_code: second_factor.unwrap_or("".to_string()),
         };
-        let request = post_request(url, &body);
+        let request = post_request_with_body(url, &body);
         FetchService::fetch(request, handler.into()).unwrap()
     }
 }

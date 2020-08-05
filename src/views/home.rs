@@ -29,15 +29,13 @@ impl Component for HomePage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let picsum_service = PicsumService::new();
         let seed = Uuid::new_v4().to_string();
-        let image_task = picsum_service.get_picsum_id(&seed, link.callback(|id| Msg::OnImageTaskFetched(id)));
         let mut menu_agent = MenuAgent::bridge(link.callback(|_| Msg::Ignore));
         menu_agent.send(MenuAgentRequest::HideSearch);
         HomePage {
             link,
-            picsum_service,
-            image_task: Some(image_task),
+            picsum_service: PicsumService::new(),
+            image_task: None,
             image_seed: seed,
             image_credits: "".to_string(),
             image_meta_task: None,
@@ -76,9 +74,10 @@ impl Component for HomePage {
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
-        if _first_render {
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
             self.menu_agent.send(MenuAgentRequest::HideSearch);
+            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(|id| Msg::OnImageTaskFetched(id))));
         }
     }
 }

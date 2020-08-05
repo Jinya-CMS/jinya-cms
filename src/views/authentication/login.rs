@@ -52,9 +52,7 @@ impl Component for LoginPage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let picsum_service = PicsumService::new();
         let seed = Uuid::new_v4().to_string();
-        let image_task = picsum_service.get_picsum_id(&seed, link.callback(|id| Msg::OnImageTaskFetched(id)));
 
         AuthenticationStorage::clear_api_key();
         AuthenticationStorage::clear_roles();
@@ -65,10 +63,10 @@ impl Component for LoginPage {
 
         LoginPage {
             link,
-            picsum_service,
+            picsum_service: PicsumService::new(),
             username: "".to_string(),
             password: "".to_string(),
-            image_task: Some(image_task),
+            image_task: None,
             image_seed: seed,
             image_credits: "".to_string(),
             image_meta_task: None,
@@ -169,6 +167,12 @@ impl Component for LoginPage {
                     </div>
                 </div>
             </>
+        }
+    }
+
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(|id| Msg::OnImageTaskFetched(id))));
         }
     }
 }
