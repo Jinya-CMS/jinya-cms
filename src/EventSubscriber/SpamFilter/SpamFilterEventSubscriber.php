@@ -9,14 +9,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamFilterEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var SpamDetectorInterface
-     */
     private SpamDetectorInterface $spamDetector;
 
     /**
      * SpamFilterEventSubscriber constructor.
-     * @param SpamDetectorInterface $spamDetector
      */
     public function __construct(SpamDetectorInterface $spamDetector)
     {

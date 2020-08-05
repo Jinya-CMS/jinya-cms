@@ -10,7 +10,6 @@ interface GalleryFilePositionFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param GalleryFilePosition $filePosition
      * @return GalleryFilePositionFormatterInterface
      */
     public function init(GalleryFilePosition $filePosition): self;
