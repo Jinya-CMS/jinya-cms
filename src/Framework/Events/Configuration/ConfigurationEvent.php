@@ -26,16 +26,12 @@ class ConfigurationEvent extends CancellableEvent
 
     /**
      * ConfigurationEvent constructor.
-     * @param Configuration|null $config
      */
     public function __construct(?Configuration $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @return Configuration|null
-     */
     public function getConfig(): ?Configuration
     {
         return $this->config;
