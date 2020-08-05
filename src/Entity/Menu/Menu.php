@@ -28,7 +28,6 @@ class Menu implements JsonSerializable
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $name;
 
@@ -38,27 +37,19 @@ class Menu implements JsonSerializable
      *     mappedBy="menu",
      *     orphanRemoval=true, cascade={"persist", "remove"}
      * )
-     * @var Collection
      */
     private Collection $menuItems;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $logo;
 
-    /**
-     * @return string
-     */
     public function getLogo(): string
     {
         return $this->logo;
     }
 
-    /**
-     * @param string $logo
-     */
     public function setLogo(string $logo): void
     {
         $this->logo = $logo;
@@ -72,41 +63,26 @@ class Menu implements JsonSerializable
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return Collection
-     */
     public function getMenuItems(): Collection
     {
         return $this->menuItems;
     }
 
-    /**
-     * @param Collection $menuItems
-     */
     public function setMenuItems(Collection $menuItems): void
     {
         $this->menuItems = $menuItems;

@@ -34,9 +34,6 @@ class UserService implements UserServiceInterface
 
     /**
      * UserService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param ApiKeyToolInterface $apiKeyTool
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -58,10 +55,6 @@ class UserService implements UserServiceInterface
             ->getResult();
     }
 
-    /**
-     * @param string $keyword
-     * @return QueryBuilder
-     */
     protected function createFilteredQueryBuilder(string $keyword): QueryBuilder
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
@@ -76,7 +69,6 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param int $id
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -90,7 +82,6 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @return bool
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
@@ -186,8 +177,6 @@ class UserService implements UserServiceInterface
     /**
      * Counts all users
      *
-     * @param string $keyword
-     * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
@@ -204,10 +193,6 @@ class UserService implements UserServiceInterface
 
     /**
      * Creates a user
-     *
-     * @param User $user
-     * @param bool $ignorePassword
-     * @return User
      */
     public function saveOrUpdate(User $user, bool $ignorePassword = false): User
     {
@@ -234,11 +219,6 @@ class UserService implements UserServiceInterface
     /**
      * Gets the user by username and password
      *
-     * @param string $username
-     * @param string $password
-     * @param string $twoFactorCode
-     * @param string $deviceCode
-     * @return User
      * @throws UnknownDeviceException
      * @throws BadCredentialsException
      * @throws NonUniqueResultException
@@ -270,8 +250,6 @@ class UserService implements UserServiceInterface
     /**
      * Gets the user with the given email address
      *
-     * @param string $email
-     * @return User
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -289,9 +267,6 @@ class UserService implements UserServiceInterface
     /**
      * Checks whether the given device code belongs to the given user
      *
-     * @param string $username
-     * @param string $deviceCode
-     * @return bool
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
