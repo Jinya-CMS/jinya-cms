@@ -28,17 +28,11 @@ class IniValue implements JsonSerializable
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
     public function getConfigName(): string
     {
         return $this->configName;
     }
 
-    /**
-     * @param string $configName
-     */
     public function setConfigName(string $configName): void
     {
         $this->configName = $configName;

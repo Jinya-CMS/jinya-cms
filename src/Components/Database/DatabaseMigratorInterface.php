@@ -13,15 +13,12 @@ interface DatabaseMigratorInterface
 
     /**
      * Get the latest migration version
-     *
-     * @return string
      */
     public function getLatestMigrationVersion(): string;
 
     /**
      * Sets the given version as the current migration version
      *
-     * @param string $version
      * @throws DBALException
      */
     public function setMigrationVersion(string $version): void;
