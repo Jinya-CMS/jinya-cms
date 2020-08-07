@@ -7,6 +7,7 @@ use yew::services::storage::Area;
 
 use crate::storage::AuthenticationStorage;
 
+pub mod gallery_service;
 pub mod file_service;
 pub mod picsum_service;
 pub mod authentication_service;
@@ -20,7 +21,7 @@ pub fn get_host() -> String {
     }
 }
 
-fn post_request<T>(url: String, body: &T) -> Request<Json<&T>> {
+fn post_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
     let api_key_storage = AuthenticationStorage::get_api_key();
     let device_code_storage = AuthenticationStorage::get_device_code();
     let api_key = if api_key_storage.is_some() {
