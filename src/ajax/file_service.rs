@@ -5,7 +5,7 @@ use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 use yew::services::reader::FileData;
 
-use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, put_request, put_request_with_binary_body, put_request_with_body, post_request_with_body};
+use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, post_request_with_body, put_request, put_request_with_binary_body, put_request_with_body};
 use crate::models::file::File;
 use crate::models::list_model::ListModel;
 

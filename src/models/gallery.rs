@@ -2,7 +2,6 @@ use serde::*;
 use serde::de::IntoDeserializer;
 
 use crate::models::edited::Edited;
-use yew::services::ConsoleService;
 
 #[derive(Clone, PartialEq)]
 pub enum Orientation {
