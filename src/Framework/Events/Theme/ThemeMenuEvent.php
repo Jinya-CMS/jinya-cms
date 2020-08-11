@@ -24,8 +24,6 @@ class ThemeMenuEvent extends CancellableEvent
 
     /**
      * ThemeMenusEvent constructor.
-     * @param string $themeName
-     * @param array $menus
      */
     public function __construct(string $themeName, array $menus)
     {
@@ -33,17 +31,11 @@ class ThemeMenuEvent extends CancellableEvent
         $this->menus = $menus;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return array
-     */
     public function getMenus(): array
     {
         return $this->menus;

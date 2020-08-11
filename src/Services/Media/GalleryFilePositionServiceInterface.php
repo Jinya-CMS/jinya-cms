@@ -14,21 +14,11 @@ interface GalleryFilePositionServiceInterface
 {
     /**
      * Saves the file in the given gallery at the given position
-     *
-     * @param int $fileId
-     * @param int $galleryId
-     * @param int $position
-     * @return int
      */
     public function savePosition(int $fileId, int $galleryId, int $position): int;
 
     /**
      * Sets the files position to the new position
-     *
-     * @param string $gallerySlug
-     * @param int $galleryFilePositionId
-     * @param int $newPosition
-     * @param int $oldPosition
      */
     public function updatePosition(
         string $gallerySlug,
@@ -39,24 +29,16 @@ interface GalleryFilePositionServiceInterface
 
     /**
      * Deletes the given gallery file position
-     *
-     * @param int $id
      */
     public function deletePosition(int $id): void;
 
     /**
      * Gets the gallery file position for the given id
-     *
-     * @param int $id
-     * @return GalleryFilePosition
      */
     public function getPosition(int $id): GalleryFilePosition;
 
     /**
      * Sets the file of the given gallery file position to the new id
-     *
-     * @param int $id
-     * @param int $fileId
      */
     public function updateFile(int $id, int $fileId): void;
 }

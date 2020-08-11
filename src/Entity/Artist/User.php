@@ -29,13 +29,11 @@ class User implements JsonSerializable, UserInterface
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
-     * @var string
      * @ORM\Column(type="string", unique=true)
      */
     private string $email;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean")
      */
     private bool $enabled;
@@ -49,28 +47,22 @@ class User implements JsonSerializable, UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Authentication\KnownDevice", mappedBy="user")
-     *
-     * @var Collection
      */
     private Collection $knownDevices;
 
     /**
      * Encrypted password. Must be persisted.
      *
-     * @var string
      * @ORM\Column(type="text")
      */
     private string $password;
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
-     *
-     * @var string
      */
     private string $plainPassword;
 
     /**
-     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $lastLogin;
@@ -78,13 +70,11 @@ class User implements JsonSerializable, UserInterface
     /**
      * Random string sent to the user email address in order to verify it.
      *
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $confirmationToken;
 
     /**
-     * @var DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $passwordRequestedAt;
@@ -120,8 +110,6 @@ class User implements JsonSerializable, UserInterface
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string
      */
     private string $artistName;
 
@@ -141,8 +129,6 @@ class User implements JsonSerializable, UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Form\Form", mappedBy="creator")
-     *
-     * @var Collection
      */
     private Collection $createdForms;
 
@@ -192,73 +178,46 @@ class User implements JsonSerializable, UserInterface
         return $this->twoFactorToken;
     }
 
-    /**
-     * @param string $twoFactorToken
-     */
     public function setTwoFactorToken(string $twoFactorToken): void
     {
         $this->twoFactorToken = $twoFactorToken;
     }
 
-    /**
-     * @return Collection
-     */
     public function getCreatedPages(): Collection
     {
         return $this->createdPages;
     }
 
-    /**
-     * @param Collection $createdPages
-     */
     public function setCreatedPages(Collection $createdPages): void
     {
         $this->createdPages = $createdPages;
     }
 
-    /**
-     * @return Collection
-     */
     public function getCreatedForms(): Collection
     {
         return $this->createdForms;
     }
 
-    /**
-     * @param Collection $createdForms
-     */
     public function setCreatedForms(Collection $createdForms): void
     {
         $this->createdForms = $createdForms;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param bool $enabled
-     */
     public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
@@ -272,81 +231,51 @@ class User implements JsonSerializable, UserInterface
         return null;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
-    /**
-     * @return string
-     */
     public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }
 
-    /**
-     * @param string $plainPassword
-     */
     public function setPlainPassword(string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }
 
-    /**
-     * @param DateTime|null $lastLogin
-     */
     public function setLastLogin(?DateTime $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
     }
 
-    /**
-     * @return null|string
-     */
     public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
 
-    /**
-     * @param null|string $confirmationToken
-     */
     public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->passwordRequestedAt;
     }
 
-    /**
-     * @param DateTime|null $passwordRequestedAt
-     */
     public function setPasswordRequestedAt(?DateTime $passwordRequestedAt): void
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
@@ -364,9 +293,6 @@ class User implements JsonSerializable, UserInterface
         return [];
     }
 
-    /**
-     * @param array $roles
-     */
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
@@ -380,57 +306,37 @@ class User implements JsonSerializable, UserInterface
         return $this->profilePicture;
     }
 
-    /**
-     * @param string $profilePicture
-     */
     public function setProfilePicture(string $profilePicture): void
     {
         $this->profilePicture = $profilePicture;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstname(): string
     {
         return $this->firstname;
     }
 
-    /**
-     * @param string $firstname
-     */
     public function setFirstname(string $firstname): void
     {
         $this->firstname = $firstname;
     }
 
-    /**
-     * @return string
-     */
     public function getLastname(): string
     {
         return $this->lastname;
     }
 
-    /**
-     * @param string $lastname
-     */
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     *
      * @return User
      */
     public function setId(int $id): self
@@ -508,9 +414,6 @@ class User implements JsonSerializable, UserInterface
         return $this->artistName;
     }
 
-    /**
-     * @param string $artistName
-     */
     public function setArtistName(string $artistName): void
     {
         $this->artistName = $artistName;
@@ -524,9 +427,6 @@ class User implements JsonSerializable, UserInterface
         return $this->aboutMe;
     }
 
-    /**
-     * @param string $aboutMe
-     */
     public function setAboutMe(string $aboutMe): void
     {
         $this->aboutMe = $aboutMe;

@@ -36,24 +36,17 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * UserFormatter constructor.
-     * @param RoleHierarchyInterface $roleHierarchy
      */
     public function __construct(RoleHierarchyInterface $roleHierarchy)
     {
         $this->roleHierarchy = $roleHierarchy;
     }
 
-    /**
-     * @param PageFormatterInterface $pageFormatter
-     */
     public function setPageFormatter(PageFormatterInterface $pageFormatter): void
     {
         $this->pageFormatter = $pageFormatter;
     }
 
-    /**
-     * @param FormFormatterInterface $formFormatter
-     */
     public function setFormFormatter(FormFormatterInterface $formFormatter): void
     {
         $this->formFormatter = $formFormatter;
@@ -70,9 +63,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param User $user
-     * @return UserFormatterInterface
      */
     public function init(User $user): UserFormatterInterface
     {
@@ -84,8 +74,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the lastname
-     *
-     * @return UserFormatterInterface
      */
     public function lastname(): UserFormatterInterface
     {
@@ -96,8 +84,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the roles
-     *
-     * @return UserFormatterInterface
      */
     public function roles(): UserFormatterInterface
     {
@@ -108,8 +94,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the email
-     *
-     * @return UserFormatterInterface
      */
     public function email(): UserFormatterInterface
     {
@@ -120,8 +104,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the enable state
-     *
-     * @return UserFormatterInterface
      */
     public function enabled(): UserFormatterInterface
     {
@@ -132,8 +114,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the profile picture
-     *
-     * @return UserFormatterInterface
      */
     public function profilePicture(): UserFormatterInterface
     {
@@ -144,7 +124,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Shorthand for
-     * @return UserFormatterInterface
      * @see UserFormatterInterface::firstname()
      * @see UserFormatterInterface::lastname()
      * @see UserFormatterInterface::email()
@@ -160,8 +139,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the artist name
-     *
-     * @return UserFormatterInterface
      */
     public function artistName(): UserFormatterInterface
     {
@@ -172,8 +149,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the firstname
-     *
-     * @return UserFormatterInterface
      */
     public function firstname(): UserFormatterInterface
     {
@@ -184,8 +159,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return UserFormatterInterface
      */
     public function id(): UserFormatterInterface
     {
@@ -196,8 +169,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the created pages
-     *
-     * @return UserFormatterInterface
      */
     public function createdPages(): UserFormatterInterface
     {
@@ -214,8 +185,6 @@ class UserFormatter implements UserFormatterInterface
 
     /**
      * Formats the created forms
-     *
-     * @return UserFormatterInterface
      */
     public function createdForms(): UserFormatterInterface
     {
