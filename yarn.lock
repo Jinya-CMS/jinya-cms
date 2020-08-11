@@ -8311,10 +8311,10 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tinymce@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.2.0.tgz#e838640f61c8a936317bc27a5d2e16c297df3418"
-  integrity sha512-Q7KAu9sLB6TBhKFdb2LHPGy770zkSEjpN1VRqZ6pxNuVQ0mbGWgMocHDvM9XL9yJaOhFrJP6s9XM7zG2gapGpA==
+tinymce@5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.4.1.tgz#4c101e78cbd22c148d6013f7c66eb0cb480723db"
+  integrity sha512-eUjwDVCTSHSnFfpzX5TjTHXsGj5gvPQwzo3RFDF374gfK5voHqcRGojvQnu4NtNW1BAb012/KW1tkXBbUrEveg==
 
 tmp@^0.0.33:
   version "0.0.33"
