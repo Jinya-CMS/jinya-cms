@@ -23,9 +23,6 @@ class CreateDbCommand extends Command
 
     /**
      * InstallCommand constructor.
-     * @param DatabaseMigratorInterface $databaseMigrator
-     * @param SchemaToolInterface $schemaTool
-     * @param string $kernelProjectDir
      */
     public function __construct(
         DatabaseMigratorInterface $databaseMigrator,
@@ -46,8 +43,6 @@ class CreateDbCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return int|void|null
      * @throws DBALException
      */

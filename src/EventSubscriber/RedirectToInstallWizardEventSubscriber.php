@@ -25,8 +25,6 @@ class RedirectToInstallWizardEventSubscriber implements EventSubscriberInterface
 
     /**
      * RedirectToInstallWizardEventSubscriber constructor.
-     * @param string $kernelProjectDir
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(string $kernelProjectDir, UrlGeneratorInterface $urlGenerator)
     {

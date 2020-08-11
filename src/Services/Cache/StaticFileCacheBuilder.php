@@ -61,17 +61,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /**
      * StaticFileCacheBuilder constructor.
-     * @param ConfigurationServiceInterface $configurationService
-     * @param GalleryServiceInterface $galleryService
-     * @param UserServiceInterface $userService
-     * @param PageServiceInterface $pageService
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @param FormServiceInterface $formService
-     * @param FormGeneratorInterface $formGenerator
-     * @param CompilerInterface $compiler
-     * @param string $kernelProjectDir
-     * @param EntityManagerInterface $entityManager
-     * @param ThemeSyncServiceInterface $themeSyncService
      */
     public function __construct(
         ConfigurationServiceInterface $configurationService,
@@ -193,10 +182,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         return $this->getItems($items);
     }
 
-    /**
-     * @param array $items
-     * @return array
-     */
     private function getItems(array $items): array
     {
         $routes = [];
@@ -214,10 +199,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
         return $routes;
     }
 
-    /**
-     * @param MenuItem $menuItem
-     * @return array
-     */
     private function findRoutesInMenuItem(MenuItem $menuItem): array
     {
         $items = $this->entityManager
@@ -304,8 +285,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /**
      * Builds the cache for the given routing entry
-     *
-     * @param RoutingEntry $routingEntry
      */
     public function buildRouteCache(RoutingEntry $routingEntry): void
     {
@@ -317,9 +296,6 @@ class StaticFileCacheBuilder implements CacheBuilderInterface
 
     /**
      * Builds the cache for the given slug and type
-     *
-     * @param string $slug
-     * @param string $type
      */
     public function buildCacheBySlugAndType(string $slug, string $type): void
     {
