@@ -20,7 +20,7 @@
     "moment-timezone": "0.5.28",
     "roboto-fontface": "0.10.0",
     "slugify": "1.4.0",
-    "tinymce": "5.2.0",
+    "tinymce": "5.4.0",
     "ua-parser-js": "0.7.21",
     "vue": "2.6.11",
     "vue-infinite-scroll": "2.0.2",
