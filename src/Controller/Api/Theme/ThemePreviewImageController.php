@@ -19,10 +19,6 @@ class ThemePreviewImageController extends BaseApiController
 {
     /**
      * @Route("/api/theme/{name}/preview", methods={"GET"}, name="api_theme_preview_get")
-     *
-     * @param string $name
-     * @param ThemeServiceInterface $themeService
-     * @return Response
      */
     public function getAction(string $name, ThemeServiceInterface $themeService): Response
     {
