@@ -10,6 +10,8 @@ use yew::{Component, ComponentLink, Html};
 use yew::prelude::*;
 use yew::services::ConsoleService;
 use yew::services::fetch::FetchTask;
+use yew_router::agent::{RouteAgent, RouteRequest};
+use yew_router::route::Route;
 
 use add_dialog::AddDialog;
 use edit_dialog::EditDialog;
@@ -17,10 +19,12 @@ use edit_dialog::EditDialog;
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::AjaxError;
 use crate::ajax::gallery_service::GalleryService;
+use crate::app::AppRoute;
 use crate::i18n::Translator;
 use crate::models::gallery::{Gallery, GalleryType, Orientation};
 use crate::models::list_model::ListModel;
 
+pub mod designer;
 mod edit_dialog;
 mod add_dialog;
 
@@ -41,12 +45,14 @@ pub struct GalleriesPage {
     add_gallery_open: bool,
     edit_gallery_open: bool,
     keyword: String,
+    router_agent: Box<dyn Bridge<RouteAgent>>,
 }
 
 pub enum Msg {
     OnNewGalleryClick,
     OnEditGalleryClick,
     OnDeleteGalleryClick,
+    OnGalleryDesignerClick,
     OnGalleriesLoaded(Result<ListModel<Gallery>, AjaxError>),
     OnGallerySelected(usize),
     OnMenuAgentResponse(MenuAgentResponse),
@@ -57,6 +63,7 @@ pub enum Msg {
     OnDiscardAdd,
     OnSaveEdit,
     OnDiscardEdit,
+    Ignore,
 }
 
 impl Component for GalleriesPage {
@@ -66,6 +73,7 @@ impl Component for GalleriesPage {
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
         let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let router_agent = RouteAgent::bridge(link.callback(|_| Msg::Ignore));
 
         GalleriesPage {
             link,
@@ -101,6 +109,7 @@ impl Component for GalleriesPage {
             add_gallery_open: false,
             edit_gallery_open: false,
             keyword: "".to_string(),
+            router_agent,
         }
     }
 
@@ -169,6 +178,8 @@ impl Component for GalleriesPage {
             Msg::OnDiscardAdd => self.add_gallery_open = false,
             Msg::OnSaveEdit => self.edit_gallery_open = false,
             Msg::OnDiscardEdit => self.edit_gallery_open = false,
+            Msg::OnGalleryDesignerClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::GalleryDesigner(self.get_selected_gallery().id)))),
+            Msg::Ignore => {}
         }
 
         true
@@ -184,7 +195,7 @@ impl Component for GalleriesPage {
                 <ButtonRow alignment=ButtonRowAlignment::Start>
                     <Button label=self.translator.translate("galleries.overview.action_new") on_click=self.link.callback(|_| Msg::OnNewGalleryClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("galleries.overview.action_edit") on_click=self.link.callback(|_| Msg::OnEditGalleryClick) />
-                    <Button disabled=self.selected_index.is_none() label=self.translator.translate("galleries.overview.action_designer") on_click=self.link.callback(|_| Msg::OnNewGalleryClick) />
+                    <Button disabled=self.selected_index.is_none() label=self.translator.translate("galleries.overview.action_designer") on_click=self.link.callback(|_| Msg::OnGalleryDesignerClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("galleries.overview.action_delete") button_type=ButtonType::Negative on_click=self.link.callback(|_| Msg::OnDeleteGalleryClick) />
                 </ButtonRow>
                 {if self.alert_message.is_some() {

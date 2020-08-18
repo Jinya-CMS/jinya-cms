@@ -14,6 +14,7 @@ use crate::views::authentication::two_factor::TwoFactorPage;
 use crate::views::files::FilesPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
+use crate::views::galleries::designer::GalleryDesignerPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -35,6 +36,8 @@ pub enum AppRoute {
     TwoFactor,
     #[to = "/content/files"]
     Files,
+    #[to = "/content/galleries/{id}/designer"]
+    GalleryDesigner(i32),
     #[to = "/content/galleries"]
     Galleries,
     #[to = "/"]
@@ -140,6 +143,7 @@ impl Component for JinyaDesignerApp {
                                 AppRoute::Homepage => html! {<HomePage />},
                                 AppRoute::Files => html! {<FilesPage />},
                                 AppRoute::Galleries => html! {<GalleriesPage />},
+                                AppRoute::GalleryDesigner(id) => html! {<GalleryDesignerPage id=id />},
                             }
                         })
                         redirect=Router::redirect(|route: Route| {

@@ -13,6 +13,7 @@ strum = "0.17"
 strum_macros = "0.17"
 serde = { version = "1.0.80", features = ["derive"] }
 serde_derive = "1.0.59"
+serde_json = "1.0.57"
 wasm-bindgen = "0.2.58"
 wasm-bindgen-futures = "0.4.15"
 wasm-logger = "0.2"
@@ -41,5 +42,7 @@ features = [
     'Window',
     'Navigator',
     'UrlSearchParams',
-    'FileReader'
+    'FileReader',
+    'DragEvent',
+    'DataTransfer'
 ]
