@@ -32,9 +32,6 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * MenuItemService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param MenuServiceInterface $menuService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -48,10 +45,6 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * Gets the all menu items for the given menu
-     *
-     * @param int $parentId
-     * @param string $type
-     * @return array
      */
     public function getAll(int $parentId, string $type = MenuItemServiceInterface::PARENT): array
     {
@@ -89,10 +82,6 @@ class MenuItemService implements MenuItemServiceInterface
     /**
      * Gets the menu item by position and parent id
      *
-     * @param int $parentId
-     * @param int $position
-     * @param string $type
-     * @return MenuItem
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -134,10 +123,6 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * Adds the given menu item
-     *
-     * @param int $parentId
-     * @param MenuItem $item
-     * @param string $type
      */
     public function addItem(int $parentId, MenuItem $item, string $type = MenuItemServiceInterface::PARENT): void
     {
@@ -170,12 +155,6 @@ class MenuItemService implements MenuItemServiceInterface
         }
     }
 
-    /**
-     * @param int $position
-     * @param int $parentId
-     * @param string $type
-     * @return int
-     */
     private function rearrangeMenuItems(
         int $position,
         int $parentId,
@@ -218,8 +197,6 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * Removes the given @param int $parentId
-     * @param int $position
-     * @param string $type
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see MenuItem
@@ -261,7 +238,6 @@ class MenuItemService implements MenuItemServiceInterface
 
     /**
      * Updates the given @param MenuItem $item
-     * @return MenuItem
      * @see MenuItem
      */
     public function updateItem(MenuItem $item): MenuItem

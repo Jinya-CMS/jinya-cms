@@ -25,8 +25,6 @@ class MailerEvent extends CancellableEvent
 
     /**
      * MailerEvent constructor.
-     * @param Form $form
-     * @param array $data
      */
     public function __construct(Form $form, array $data)
     {
@@ -34,17 +32,11 @@ class MailerEvent extends CancellableEvent
         $this->data = $data;
     }
 
-    /**
-     * @return Form
-     */
     public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;

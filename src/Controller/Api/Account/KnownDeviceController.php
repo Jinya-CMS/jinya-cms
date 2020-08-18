@@ -19,9 +19,6 @@ class KnownDeviceController extends BaseApiController
     /**
      * @Route("/api/account/known_device", methods={"GET"}, name="api_known_device_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param AuthenticationServiceInterface $authService
-     * @return Response
      */
     public function getAllAction(AuthenticationServiceInterface $authService): Response
     {
@@ -40,10 +37,6 @@ class KnownDeviceController extends BaseApiController
     /**
      * @Route("/api/account/known_device/{key}", methods={"DELETE"}, name="api_known_device_delete")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param string $key
-     * @param AuthenticationServiceInterface $authService
-     * @return Response
      */
     public function deleteAction(string $key, AuthenticationServiceInterface $authService): Response
     {
