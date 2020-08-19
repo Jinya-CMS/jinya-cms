@@ -91,11 +91,11 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
             ],
             'file' => [
                 'path' => $file->path,
-                'id' => $file->id,
+                'id' => $file->getIdAsInt(),
                 'name' => $file->name,
                 'type' => $file->type,
             ],
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'position' => $this->position,
         ];
     }

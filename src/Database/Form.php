@@ -138,7 +138,7 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         $updatedBy = $this->getUpdatedBy();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'description' => $this->description,
             'title' => $this->title,
             'toAddress' => $this->toAddress,

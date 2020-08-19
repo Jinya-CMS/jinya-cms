@@ -259,7 +259,7 @@ class Message extends Utils\LoadableEntity implements Utils\FormattableEntityInt
             'trash' => $this->isDeleted,
             'read' => $this->isRead,
             'spam' => $this->spam,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'answer' => $this->answer,
         ];
     }

@@ -78,7 +78,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         $updatedBy = $this->getUpdatedBy();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'name' => $this->name,
             'description' => $this->description,
             'type' => $this->type,

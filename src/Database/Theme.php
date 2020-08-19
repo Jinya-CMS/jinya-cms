@@ -274,7 +274,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
             'name' => $this->name,
             'displayName' => $this->displayName,
             'scssVariables' => $this->scssVariables,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
         ];
     }
 }

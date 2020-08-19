@@ -121,7 +121,7 @@ class File extends LoadableEntity
         $updatedBy = $this->getUpdatedBy();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'name' => $this->name,
             'type' => $this->type,
             'path' => $this->path,

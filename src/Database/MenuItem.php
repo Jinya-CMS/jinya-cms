@@ -197,7 +197,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function format(): array
     {
         $data = [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'position' => $this->position,
             'highlighted' => $this->highlighted,
             'title' => $this->title,
@@ -207,31 +207,31 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         if (isset($this->formId)) {
             $form = $this->getForm();
             $data['form'] = [
-                'id' => $form->id,
+                'id' => $form->getIdAsInt(),
                 'title' => $form->title,
             ];
         } elseif (isset($this->artistId)) {
             $artist = $this->getArtist();
             $data['artist'] = [
-                'id' => $artist->id,
+                'id' => $artist->getIdAsInt(),
                 'artistName' => $artist->artistName,
             ];
         } elseif (isset($this->pageId)) {
             $page = $this->getPage();
             $data['page'] = [
-                'id' => $page->id,
+                'id' => $page->getIdAsInt(),
                 'title' => $page->title,
             ];
         } elseif (isset($this->segmentPageId)) {
             $segmentPage = $this->getSegmentPage();
             $data['segmentPage'] = [
-                'id' => $segmentPage->id,
+                'id' => $segmentPage->getIdAsInt(),
                 'name' => $segmentPage->name,
             ];
         } elseif (isset($this->galleryId)) {
             $gallery = $this->getGallery();
             $data['gallery'] = [
-                'id' => $gallery->id,
+                'id' => $gallery->getIdAsInt(),
                 'name' => $gallery->name,
             ];
         }

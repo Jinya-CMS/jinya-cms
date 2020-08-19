@@ -112,7 +112,7 @@ class SimplePage extends Utils\LoadableEntity
         $updatedBy = $this->getUpdatedBy();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'title' => $this->title,
             'content' => $this->content,
             'created' => [

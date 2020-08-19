@@ -111,7 +111,7 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
         $updatedBy = $this->getUpdatedBy();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'name' => $this->name,
             'created' => [
                 'by' => [

@@ -22,7 +22,6 @@ abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     private static Adapter $adapter;
-    /** @var int|string */
     public $id = -1;
 
     /**
@@ -205,6 +204,16 @@ abstract class LoadableEntity
         return self::getHydrator($additionalStrategies, $prototype, $result);
     }
 
+    public function getIdAsInt(): int
+    {
+        return (int)$this->id;
+    }
+
+    public function getIdAsString(): string
+    {
+        return (string)$this->id;
+    }
+
     /**
      * Creates the given entity
      *
@@ -266,10 +275,8 @@ abstract class LoadableEntity
         switch ($previous->errorInfo[1]) {
             case 1062:
                 return new UniqueFailedException($exception);
-                break;
             case 1452:
                 return new ForeignKeyFailedException($exception);
-                break;
         }
 
         return $exception;

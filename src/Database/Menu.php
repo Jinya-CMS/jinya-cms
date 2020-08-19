@@ -50,13 +50,13 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         $logo = $this->getLogo();
         $logoData = [];
         if ($logo) {
-            $logoData['id'] = $logo->id;
+            $logoData['id'] = $logo->getIdAsInt();
             $logoData['name'] = $logo->name;
         }
 
         return [
             'name' => $this->name,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'logo' => $logoData,
         ];
     }

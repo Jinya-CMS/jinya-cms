@@ -92,7 +92,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'placeholder' => $this->placeholder,
             'helpText' => $this->helpText,
             'position' => $this->position,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'isRequired' => $this->isRequired,
             'isFromAddress' => $this->isFromAddress,
             'isSubject' => $this->isSubject,

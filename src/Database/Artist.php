@@ -185,7 +185,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'profilePicture' => $this->profilePicture,
             'roles' => $this->roles,
             'enabled' => $this->enabled,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
         ];
 
         if ($aboutMe) {

@@ -110,7 +110,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     {
         $data = [
             'position' => $this->position,
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
         ];
         if (isset($this->formId)) {
             $form = Form::findById($this->formId);
