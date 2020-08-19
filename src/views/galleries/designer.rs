@@ -1,6 +1,7 @@
 use core::cmp::Ordering;
 
 use jinya_ui::layout::page::Page;
+use jinya_ui::widgets::toast::Toast;
 use serde::Serialize;
 use serde_derive::*;
 use wasm_bindgen::JsValue;
@@ -10,6 +11,7 @@ use yew::services::fetch::FetchTask;
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::file_service::FileService;
 use crate::ajax::gallery_file_service::GalleryFileService;
+use crate::i18n::Translator;
 use crate::models::file::File;
 use crate::models::gallery_file::GalleryFile;
 use crate::models::list_model::ListModel;
@@ -44,6 +46,8 @@ pub struct GalleryDesignerPage {
     previous_drag_over_position: Option<usize>,
     gallery_file_service: GalleryFileService,
     gallery_file_loader_task: Option<FetchTask>,
+    gallery_file_delete_task: Option<FetchTask>,
+    translator: Translator,
 }
 
 pub enum GalleryDesignerMsg {
@@ -62,6 +66,7 @@ pub enum GalleryDesignerMsg {
     OnPositionDragStart(DragEvent, usize),
     OnFilesDragEnter(DragEvent),
     OnFilesDragOver(DragEvent),
+    OnPositionDeleted(Result<usize, AjaxError>),
 }
 
 impl Component for GalleryDesignerPage {
@@ -81,6 +86,8 @@ impl Component for GalleryDesignerPage {
             previous_drag_over_position: None,
             gallery_file_service: GalleryFileService::new(),
             gallery_file_loader_task: None,
+            gallery_file_delete_task: None,
+            translator: Translator::new(),
         }
     }
 
@@ -182,9 +189,7 @@ impl Component for GalleryDesignerPage {
                         }
                     };
 
-                    for i in 0..self.gallery_files.len() {
-                        self.gallery_files[i].position = i;
-                    }
+                    self.reorder_positions();
 
                     self.drag_over_position = None;
                     self.previous_drag_over_position = None;
@@ -283,7 +288,7 @@ impl Component for GalleryDesignerPage {
                     let data_transfer_unwrapped = data_transfer.unwrap();
                     let item: GalleryDesignerDragData = serde_json::from_str(data_transfer_unwrapped.get_data("text/json").unwrap().as_str()).unwrap();
                     if item.r#type == PositionOrFile::Position {
-                        self.gallery_files.remove(self.selected_position.unwrap());
+                        self.gallery_file_delete_task = Some(self.gallery_file_service.delete_position(self.id, self.selected_position.unwrap(), self.link.callback(|result| GalleryDesignerMsg::OnPositionDeleted(result))));
                     }
                 }
             }
@@ -296,6 +301,14 @@ impl Component for GalleryDesignerPage {
                 event.stop_propagation();
             }
             GalleryDesignerMsg::OnGalleryFilesLoaded(data) => self.gallery_files = data.unwrap(),
+            GalleryDesignerMsg::OnPositionDeleted(result) => {
+                if result.is_ok() {
+                    self.gallery_files.remove(result.unwrap());
+                    self.reorder_positions();
+                } else {
+                    Toast::negative_toast(self.translator.translate("galleries.designer.delete_error"));
+                }
+            }
         }
 
         true
@@ -343,12 +356,19 @@ impl Component for GalleryDesignerPage {
     }
 }
 
+
 impl GalleryDesignerPage {
     fn get_active_item_class_if_selected_item_is_active(&self, hover_item: usize) -> String {
         if self.drag_over_position.is_some() && self.drag_over_position.unwrap() == hover_item {
             "jinya-designer-gallery-designer__item--drag-over".to_string()
         } else {
             "".to_string()
+        }
+    }
+
+    fn reorder_positions(&mut self) {
+        for i in 0..self.gallery_files.len() {
+            self.gallery_files[i].position = i;
         }
     }
 }

@@ -119,5 +119,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.edit.error_conflict", "The gallery could not be saved, because there is a gallery with the same name");
     map.insert("galleries.edit.error_generic", "The gallery could not be saved");
 
+    map.insert("galleries.designer.delete_error","The file could not be removed");
+
     map
 }

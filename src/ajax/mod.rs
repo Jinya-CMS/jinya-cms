@@ -2,8 +2,8 @@ use anyhow::{anyhow, Error};
 use http::{Request, StatusCode};
 use http::response::Parts;
 use yew::format::{Json, Nothing};
-use yew::services::{ConsoleService, StorageService};
 use yew::services::storage::Area;
+use yew::services::StorageService;
 
 use crate::storage::AuthenticationStorage;
 
@@ -181,10 +181,11 @@ fn get_error_from_parts<T>(parts: Parts) -> Result<T, AjaxError> {
         _ => anyhow!("Other unknown error"),
     };
 
-    if parts.status == StatusCode::REQUEST_TIMEOUT {
-        ConsoleService::error(format!("Unexpected error: {}. Check server logs", parts.status).as_str());
-
-        ConsoleService::error(error.to_string().as_str());
+    if parts.status != StatusCode::REQUEST_TIMEOUT {
+        log::error!("Unexpected error: {}. Check server logs", parts.status);
+        log::error!("{}", error.to_string());
+    } else {
+        log::error!("There is something wrong with the code, please contact developer@jinya.de");
     }
 
     Err(AjaxError::new(error, parts.status))
