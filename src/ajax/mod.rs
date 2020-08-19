@@ -7,6 +7,7 @@ use yew::services::storage::Area;
 
 use crate::storage::AuthenticationStorage;
 
+pub mod gallery_file_service;
 pub mod gallery_service;
 pub mod file_service;
 pub mod picsum_service;

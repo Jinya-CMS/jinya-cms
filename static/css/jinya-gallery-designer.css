@@ -63,6 +63,8 @@
 .jinya-designer-gallery-designer__item--position {
     opacity: 1;
     transition: opacity 0.3s;
+    width: 13rem;
+    height: 13rem;
 }
 
 .jinya-designer-gallery-designer__item--drag-over {

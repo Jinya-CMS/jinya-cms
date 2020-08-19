@@ -5,8 +5,10 @@ use crate::models::edited::Edited;
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct File {
     #[serde(skip_serializing)]
+    #[serde(default)]
     pub created: Edited,
     #[serde(skip_serializing)]
+    #[serde(default)]
     pub updated: Edited,
     #[serde(skip_serializing)]
     pub id: i32,

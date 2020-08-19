@@ -9,6 +9,12 @@ pub struct Edited {
     at: String,
 }
 
+impl Default for Edited {
+    fn default() -> Self {
+        Edited::new()
+    }
+}
+
 impl Edited {
     pub fn get_at(&self) -> DateTime<FixedOffset> {
         DateTime::parse_from_rfc3339(self.at.as_str()).unwrap()
