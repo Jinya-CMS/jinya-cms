@@ -52,14 +52,6 @@ class UpdateController extends AbstractController
 
     /**
      * UpdateController constructor.
-     * @param string $currentVersion
-     * @param string $kernelProjectDir
-     * @param Client $client
-     * @param CacheClearerInterface $cacheClearer
-     * @param ThemeSyncServiceInterface $themeSyncService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
-     * @param ThemeServiceInterface $themeService
-     * @param DatabaseMigratorInterface $databaseMigrator
      */
     public function __construct(
         string $currentVersion,
@@ -81,10 +73,6 @@ class UpdateController extends AbstractController
         $this->databaseMigrator = $databaseMigrator;
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     public function indexAction(Request $request): Response
     {
         try {
@@ -145,7 +133,6 @@ class UpdateController extends AbstractController
     }
 
     /**
-     * @param string $url
      * @throws Exception
      */
     private function performFileUpdate(string $url): void
@@ -176,10 +163,6 @@ class UpdateController extends AbstractController
         }
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     public function updateDatabaseAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
@@ -191,10 +174,6 @@ class UpdateController extends AbstractController
         return $this->render('@Jinya/Updater/Default/updateDatabase.html.twig');
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     public function doneAction(Request $request): Response
     {
         if ($request->isMethod('POST')) {
