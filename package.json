@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "babel-runtime": "6.26.0",
-    "@babel/core": "7.8.7",
+    "@babel/core": "7.11.4",
     "@babel/plugin-proposal-export-namespace-from": "7.8.3",
     "@babel/plugin-proposal-function-sent": "7.8.3",
     "@babel/plugin-proposal-numeric-separator": "7.8.3",
