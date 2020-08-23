@@ -23,6 +23,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media", "Media");
     map.insert("app.menu.content.media.files", "Files");
     map.insert("app.menu.content.media.galleries", "Galleries");
+    map.insert("app.menu.content.media.galleries", "Galleries");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -122,6 +123,18 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.designer.error_delete", "The file could not be removed");
     map.insert("galleries.designer.error_add", "The file could not be added");
     map.insert("galleries.designer.error_update", "The file could not be moved");
+
+    map.insert("simple_pages.overview.action_new", "New page");
+    map.insert("simple_pages.overview.action_edit", "Edit page");
+    map.insert("simple_pages.overview.action_delete", "Delete page");
+    map.insert("simple_pages.overview.table.title_column", "Title");
+    map.insert("simple_pages.overview.table.content_column", "Content");
+
+    map.insert("simple_pages.delete.approve", "Delete page");
+    map.insert("simple_pages.delete.decline", "Keep page");
+    map.insert("simple_pages.delete.title", "Really delete page?");
+    map.insert("simple_pages.delete.content", "Are you sure, that you want to delete \"{title}\". The page will be removed from all menus and themes.");
+    map.insert("simple_pages.delete.failed", "The page \"{name}\" could not be deleted.");
 
     map
 }
