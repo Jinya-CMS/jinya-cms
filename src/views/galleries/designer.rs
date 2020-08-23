@@ -47,6 +47,8 @@ pub struct GalleryDesignerPage {
     gallery_file_service: GalleryFileService,
     gallery_file_loader_task: Option<FetchTask>,
     gallery_file_delete_task: Option<FetchTask>,
+    gallery_file_create_task: Option<FetchTask>,
+    gallery_file_update_task: Option<FetchTask>,
     translator: Translator,
 }
 
@@ -67,6 +69,8 @@ pub enum GalleryDesignerMsg {
     OnFilesDragEnter(DragEvent),
     OnFilesDragOver(DragEvent),
     OnPositionDeleted(Result<usize, AjaxError>),
+    OnPositionAdded(Result<GalleryFile, AjaxError>, usize),
+    OnPositionUpdated(Result<bool, AjaxError>, usize, usize, GalleryFile),
 }
 
 impl Component for GalleryDesignerPage {
@@ -87,6 +91,8 @@ impl Component for GalleryDesignerPage {
             gallery_file_service: GalleryFileService::new(),
             gallery_file_loader_task: None,
             gallery_file_delete_task: None,
+            gallery_file_create_task: None,
+            gallery_file_update_task: None,
             translator: Translator::new(),
         }
     }
@@ -145,58 +151,53 @@ impl Component for GalleryDesignerPage {
                                 } else {
                                     self.selected_position.unwrap() + 1
                                 };
-                                if self.previous_drag_over_position.is_some() {
+                                let target_position = if self.previous_drag_over_position.is_some() {
                                     if self.drag_over_position.unwrap() > self.previous_drag_over_position.unwrap() {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap() + 1, gallery_file);
-                                        self.gallery_files.remove(old_position_after_insert);
+                                        self.drag_over_position.unwrap() + 1
                                     } else {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap(), gallery_file);
-                                        self.gallery_files.remove(old_position_after_insert);
+                                        self.drag_over_position.unwrap()
                                     }
                                 } else {
                                     if self.drag_over_position.unwrap() > self.selected_position.unwrap() {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap() + 1, gallery_file);
-                                        self.gallery_files.remove(old_position_after_insert);
+                                        self.drag_over_position.unwrap() + 1
                                     } else {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap(), gallery_file);
-                                        self.gallery_files.remove(old_position_after_insert);
+                                        self.drag_over_position.unwrap()
                                     }
-                                }
+                                };
+                                self.gallery_file_update_task = Some(self.gallery_file_service.update_position(self.id, self.selected_position.unwrap(), target_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionUpdated(result, target_position, old_position_after_insert, gallery_file.clone()))));
                             }
                         }
                         PositionOrFile::File => {
                             let file = self.files[item.position.unwrap()].clone();
-                            let mut gallery_file = GalleryFile {
-                                id: 0,
-                                file,
-                                position: 0,
-                            };
-                            if self.drag_over_position.is_some() {
+                            let target_position = if self.drag_over_position.is_some() {
                                 if self.drag_over_position.unwrap() == self.gallery_files.len() {
-                                    self.gallery_files.push(gallery_file);
+                                    Some(self.gallery_files.len())
                                 } else if self.previous_drag_over_position.is_some() {
                                     if self.drag_over_position.unwrap() > self.previous_drag_over_position.unwrap() {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap() + 1, gallery_file);
+                                        Some(self.drag_over_position.unwrap() + 1)
                                     } else {
-                                        self.gallery_files.insert(self.drag_over_position.unwrap(), gallery_file);
+                                        Some(self.drag_over_position.unwrap())
                                     }
                                 } else {
-                                    self.gallery_files.insert(self.drag_over_position.unwrap(), gallery_file);
+                                    Some(self.drag_over_position.unwrap())
                                 }
                             } else if self.previous_drag_over_position.is_some() {
-                                self.gallery_files.insert(self.previous_drag_over_position.unwrap(), gallery_file);
+                                Some(self.previous_drag_over_position.unwrap())
+                            } else {
+                                None
+                            };
+                            if target_position.is_some() {
+                                self.gallery_file_create_task = Some(self.gallery_file_service.create_position(self.id, file.id, target_position.unwrap(), self.link.callback(move |result| GalleryDesignerMsg::OnPositionAdded(result, target_position.unwrap()))));
                             }
                         }
                     };
-
-                    self.reorder_positions();
 
                     self.drag_over_position = None;
                     self.previous_drag_over_position = None;
                     self.selected_position = None;
                 }
             }
-            GalleryDesignerMsg::OnPositionDragOver(event, idx) => {
+            GalleryDesignerMsg::OnPositionDragOver(event, _) => {
                 let data_transfer = event.data_transfer();
                 if data_transfer.is_some() {
                     let data_transfer_unwrapped = data_transfer.unwrap();
@@ -306,7 +307,24 @@ impl Component for GalleryDesignerPage {
                     self.gallery_files.remove(result.unwrap());
                     self.reorder_positions();
                 } else {
-                    Toast::negative_toast(self.translator.translate("galleries.designer.delete_error"));
+                    Toast::negative_toast(self.translator.translate("galleries.designer.error_delete"));
+                }
+            }
+            GalleryDesignerMsg::OnPositionAdded(result, target_position) => {
+                if result.is_ok() {
+                    self.gallery_files.insert(target_position, result.unwrap());
+                    self.reorder_positions()
+                } else {
+                    Toast::negative_toast(self.translator.translate("galleries.designer.error_add"))
+                }
+            }
+            GalleryDesignerMsg::OnPositionUpdated(result, target_position, old_position_after_insert, gallery_file) => {
+                if result.is_ok() {
+                    self.gallery_files.insert(target_position, gallery_file);
+                    self.gallery_files.remove(old_position_after_insert);
+                    self.reorder_positions()
+                } else {
+                    Toast::negative_toast(self.translator.translate("galleries.designer.error_update"));
                 }
             }
         }

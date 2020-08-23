@@ -119,7 +119,9 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.edit.error_generic", "Die Galerie konnte nicht gespeichert werden");
     map.insert("galleries.edit.error_conflict", "Die Galerie konnte nicht gespeichert werden, weil eine andere Galerie mit dem Namen existiert");
 
-    map.insert("galleries.designer.delete_error","Die Datei konnte nicht entfernt werden");
+    map.insert("galleries.designer.error_delete","Die Datei konnte nicht entfernt werden");
+    map.insert("galleries.designer.error_add","Die Datei konnte nicht hinzugefügt werden");
+    map.insert("galleries.designer.error_update", "Die Datei konnte nicht verschoben werden");
 
     map
 }
