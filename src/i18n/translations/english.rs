@@ -47,7 +47,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.edit.name", "Name");
     map.insert("files.edit.file", "File");
     map.insert("files.edit.file_selected", "File selected");
-    map.insert("files.edit.saved.success", "Sucessfully saved {name}");
+    map.insert("files.edit.saved.success", "Successfully saved {name}");
     map.insert("files.edit.error_generic", "The file could not be saved");
     map.insert("files.edit.error_conflict", "The file could not be saved, because there is a file with the same name");
     map.insert("files.edit.error_filename_empty", "The name must be not empty");
@@ -59,7 +59,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.add.name", "Name");
     map.insert("files.add.file", "File");
     map.insert("files.add.select_file", "Select file");
-    map.insert("files.add.saved.success", "Sucessfully saved {name}");
+    map.insert("files.add.saved.success", "Successfully saved {name}");
     map.insert("files.add.error_generic", "The file could not be saved");
     map.insert("files.add.error_conflict", "The file could not be saved, because there is a file with the same name");
     map.insert("files.add.error_filename_empty", "The name must be not empty");
