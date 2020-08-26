@@ -13,16 +13,8 @@ use Jinya\Entity\Menu\MenuItem;
 
 interface MenuServiceInterface
 {
-    /**
-     * @param Menu $menu
-     * @return Menu
-     */
     public function saveOrUpdate(Menu $menu): Menu;
 
-    /**
-     * @param int $id
-     * @return Menu
-     */
     public function get(int $id): Menu;
 
     /**
@@ -39,9 +31,6 @@ interface MenuServiceInterface
 
     /**
      * Fills the menu items from the given array
-     *
-     * @param int $id
-     * @param array $data
      */
     public function fillFromArray(int $id, array $data): void;
 }

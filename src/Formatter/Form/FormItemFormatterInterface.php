@@ -93,7 +93,6 @@ interface FormItemFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param FormItem $formItem
      * @return FormItemFormatterInterface
      */
     public function init(FormItem $formItem): self;
