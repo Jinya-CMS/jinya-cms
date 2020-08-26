@@ -23,6 +23,8 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media", "Medien");
     map.insert("app.menu.content.media.files", "Dateien");
     map.insert("app.menu.content.media.galleries", "Galerien");
+    map.insert("app.menu.content.pages", "Seiten");
+    map.insert("app.menu.content.pages.simple_pages", "Einfache Seiten");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -82,7 +84,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.delete.approve", "Galerie löschen");
     map.insert("galleries.delete.decline", "Galerie behalten");
     map.insert("galleries.delete.title", "Galerie wirklich löschen?");
-    map.insert("galleries.delete.content", "Bist du sicher, dass du die Galerie \"{name}\" löschen möchtest? Die Datei wird aus allen Menüs und Themes entfernt.");
+    map.insert("galleries.delete.content", "Bist du sicher, dass du die Galerie \"{name}\" löschen möchtest? Die Galerie wird aus allen Menüs und Themes entfernt.");
     map.insert("galleries.delete.failed", "Die Galerie \"{name}\" konnte nicht gelöscht werden.");
 
     map.insert("galleries.add.title", "Galerie hinzufügen");
@@ -122,6 +124,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.designer.error_delete","Die Datei konnte nicht entfernt werden");
     map.insert("galleries.designer.error_add","Die Datei konnte nicht hinzugefügt werden");
     map.insert("galleries.designer.error_update", "Die Datei konnte nicht verschoben werden");
+
+    map.insert("simple_pages.overview.action_new", "Neue Seite");
+    map.insert("simple_pages.overview.action_edit", "Seite bearbeiten");
+    map.insert("simple_pages.overview.action_delete", "Seite löschen");
+    map.insert("simple_pages.overview.table.title_column", "Titel");
+    map.insert("simple_pages.overview.table.content_column", "Inhalt");
+
+    map.insert("simple_pages.delete.approve", "Seite löschen");
+    map.insert("simple_pages.delete.decline", "Seite behalten");
+    map.insert("simple_pages.delete.title", "Seite wirklich löschen?");
+    map.insert("simple_pages.delete.content", "Bist du sicher, dass du die Seite \"{title}\" löschen möchtest? Die Seite wird aus allen Menüs und Themes entfernt.");
+    map.insert("simple_pages.delete.failed", "Die Seite \"{title}\" konnte nicht gelöscht werden.");
 
     map
 }

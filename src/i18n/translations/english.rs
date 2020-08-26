@@ -23,7 +23,8 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media", "Media");
     map.insert("app.menu.content.media.files", "Files");
     map.insert("app.menu.content.media.galleries", "Galleries");
-    map.insert("app.menu.content.media.galleries", "Galleries");
+    map.insert("app.menu.content.pages", "Pages");
+    map.insert("app.menu.content.pages.simple_pages", "Simple Pages");
 
     map.insert("app.title.home_page", "Startpage");
 

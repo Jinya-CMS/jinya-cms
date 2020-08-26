@@ -12,6 +12,7 @@ use crate::storage::AuthenticationStorage;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
 use crate::views::files::FilesPage;
+use crate::views::simple_pages::SimplePagesPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
 use crate::views::galleries::designer::GalleryDesignerPage;
@@ -40,6 +41,8 @@ pub enum AppRoute {
     GalleryDesigner(i32),
     #[to = "/content/galleries"]
     Galleries,
+    #[to = "/content/simple-pages"]
+    SimplePages,
     #[to = "/"]
     Homepage,
 }
@@ -144,6 +147,7 @@ impl Component for JinyaDesignerApp {
                                 AppRoute::Files => html! {<FilesPage />},
                                 AppRoute::Galleries => html! {<GalleriesPage />},
                                 AppRoute::GalleryDesigner(id) => html! {<GalleryDesignerPage id=id />},
+                                AppRoute::SimplePages => html! {<SimplePagesPage />}
                             }
                         })
                         redirect=Router::redirect(|route: Route| {
@@ -170,6 +174,16 @@ impl JinyaDesignerApp {
                     SubItem {
                         label: self.translator.translate("app.menu.content.media.galleries"),
                         route: Some(&AppRoute::Galleries),
+                        on_click: None,
+                    },
+                ],
+            },
+            SubItemGroup {
+                title: self.translator.translate("app.menu.content.pages"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.content.pages.simple_pages"),
+                        route: Some(&AppRoute::SimplePages),
                         on_click: None,
                     },
                 ],

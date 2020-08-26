@@ -15,11 +15,11 @@ use yew_router::route::Route;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::AjaxError;
-use crate::ajax::page_service::SimplePageService;
+use crate::ajax::simple_page_service::SimplePageService;
 use crate::app::AppRoute;
 use crate::i18n::Translator;
-use crate::models::simple_page::SimplePage;
 use crate::models::list_model::ListModel;
+use crate::models::simple_page::SimplePage;
 
 pub struct SimplePagesPage {
     link: ComponentLink<Self>,
@@ -91,8 +91,8 @@ impl Component for SimplePagesPage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnNewPageClick => self.add_page_open = true,
-            Msg::OnEditPageClick => self.edit_page_open = true,
+            Msg::OnNewPageClick => {}
+            Msg::OnEditPageClick => {}
             Msg::OnDeletePageClick => self.show_delete_dialog = true,
             Msg::OnPagesLoaded(result) => {
                 if result.is_ok() {
@@ -124,11 +124,11 @@ impl Component for SimplePagesPage {
                 if result.is_ok() {
                     self.selected_index = None;
                     self.show_delete_dialog = false;
-                    self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnSimple_pagesLoaded(result))));
+                    self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
                 } else {
                     ConsoleService::error(result.err().unwrap().error.to_string().as_str());
                     let page = self.get_selected_page();
-                    self.alert_message = Some(self.translator.translate_with_args("simple_pages.delete.failed", map! {"name" => page.name.as_str()}));
+                    self.alert_message = Some(self.translator.translate_with_args("simple_pages.delete.failed", map! {"name" => page.title.as_str()}));
                     self.show_delete_dialog = false;
                 }
             }
@@ -166,7 +166,7 @@ impl Component for SimplePagesPage {
                         <ConfirmationDialog
                             title=self.translator.translate("simple_pages.delete.title")
                             dialog_type=DialogType::Negative
-                            message=self.translator.translate_with_args("simple_pages.delete.content", map! {"name" => page.name.as_str()})
+                            message=self.translator.translate_with_args("simple_pages.delete.content", map! {"title" => page.title.as_str()})
                             decline_label=self.translator.translate("simple_pages.delete.decline")
                             approve_label=self.translator.translate("simple_pages.delete.approve")
                             on_approve=self.link.callback(|_| Msg::OnDeleteApprove)
@@ -183,14 +183,14 @@ impl Component for SimplePagesPage {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.media.simple_pages")));
-            self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnSimple_pagesLoaded(result))));
+            self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.simple_pages")));
+            self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
         }
     }
 }
 
 impl SimplePagesPage {
-    fn get_selected_page(&self) -> Page {
+    fn get_selected_page(&self) -> SimplePage {
         self.simple_pages[self.selected_index.unwrap()].clone()
     }
 }
