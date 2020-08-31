@@ -32,9 +32,6 @@ trait StaticContentServiceTrait
 
     /**
      * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
      */
     protected function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
@@ -48,8 +45,6 @@ trait StaticContentServiceTrait
 
     /**
      * {@inheritdoc}
-     * @param string $keyword
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException

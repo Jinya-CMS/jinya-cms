@@ -22,13 +22,11 @@ class Page extends HistoryEnabledEntity
 
     /**
      * @ORM\Column(type="text")
-     * @var string
      */
     private string $content;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $title;
 
@@ -40,9 +38,6 @@ class Page extends HistoryEnabledEntity
         return $this->content;
     }
 
-    /**
-     * @param string $content
-     */
     public function setContent(string $content): void
     {
         $this->content = $content;
@@ -56,9 +51,6 @@ class Page extends HistoryEnabledEntity
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
