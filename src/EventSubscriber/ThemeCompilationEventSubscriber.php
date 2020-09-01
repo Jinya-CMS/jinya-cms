@@ -25,8 +25,6 @@ class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 
     /**
      * ThemeCompilationEventSubscriber constructor.
-     * @param LoggerInterface $logger
-     * @param ThemeSyncServiceInterface $themeSyncService
      */
     public function __construct(LoggerInterface $logger, ThemeSyncServiceInterface $themeSyncService)
     {
