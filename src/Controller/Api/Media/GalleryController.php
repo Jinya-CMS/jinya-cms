@@ -27,11 +27,6 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/media/gallery/{slug}/random", methods={"GET"}, name="api_gallery_random")
      *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @param MediaServiceInterface $mediaService
-     * @param MimeTypes $mimeTypes
-     * @return Response
      * @throws Exception
      */
     public function getRandomAction(
@@ -52,11 +47,6 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery", methods={"GET"}, name="api_gallery_get_all")
-     *
-     * @param Request $request
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -92,11 +82,6 @@ class GalleryController extends BaseApiController
 
     /**
      * @Route("/api/media/gallery/{slug}", methods={"GET"}, name="api_gallery_get")
-     *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @return Response
      */
     public function getAction(
         string $slug,
@@ -130,10 +115,6 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/media/gallery", methods={"POST"}, name="api_gallery_post")
      * @IsGranted("ROLE_ADMIN")
-     *
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @return Response
      */
     public function postAction(
         GalleryServiceInterface $galleryService,
@@ -174,10 +155,6 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/media/gallery/{slug}", methods={"PUT"}, name="api_gallery_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @return Response
      */
     public function putAction(
         string $slug,
@@ -211,10 +188,6 @@ class GalleryController extends BaseApiController
     /**
      * @Route("/api/media/gallery/{slug}", methods={"DELETE"}, name="api_gallery_delete")
      * @IsGranted("ROLE_ADMIN")
-     *
-     * @param string $slug
-     * @param GalleryServiceInterface $galleryService
-     * @return Response
      */
     public function deleteAction(
         string $slug,

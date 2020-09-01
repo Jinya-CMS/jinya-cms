@@ -10,7 +10,6 @@ interface GalleryFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Gallery $gallery
      * @return GalleryFormatterInterface
      */
     public function init(Gallery $gallery): self;
