@@ -26,10 +26,6 @@ class MailerService implements MailerServiceInterface
 
     /**
      * MailerService constructor.
-     * @param MailerInterface $mailer
-     * @param string $mailerSender
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param LoggerInterface $logger
      */
     public function __construct(
         MailerInterface $mailer,
@@ -93,10 +89,6 @@ class MailerService implements MailerServiceInterface
 
     /**
      * Gets the body for the given form and data
-     *
-     * @param Form $form
-     * @param array $data
-     * @return string
      */
     public function getBody(Form $form, array $data): string
     {

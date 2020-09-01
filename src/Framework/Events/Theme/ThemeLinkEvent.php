@@ -33,11 +33,6 @@ class ThemeLinkEvent extends CancellableEvent
 
     /**
      * ThemeLinkEvent constructor.
-     * @param string $themeName
-     * @param string $key
-     * @param string $type
-     * @param string $slug
-     * @param int $id
      */
     public function __construct(string $themeName, string $key, string $type, string $slug = '', int $id = -1)
     {
@@ -48,41 +43,26 @@ class ThemeLinkEvent extends CancellableEvent
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

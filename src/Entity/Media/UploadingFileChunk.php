@@ -25,82 +25,55 @@ class UploadingFileChunk
     private ?int $id = -1;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private string $chunkPath;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
      */
     private int $chunkPosition;
 
     /**
-     * @var UploadingFile
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\UploadingFile", inversedBy="chunks")
      */
     private UploadingFile $uploadingFile;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getChunkPath(): string
     {
         return $this->chunkPath;
     }
 
-    /**
-     * @param string $chunkPath
-     */
     public function setChunkPath(string $chunkPath): void
     {
         $this->chunkPath = $chunkPath;
     }
 
-    /**
-     * @return int
-     */
     public function getChunkPosition(): int
     {
         return $this->chunkPosition;
     }
 
-    /**
-     * @param int $chunkPosition
-     */
     public function setChunkPosition(int $chunkPosition): void
     {
         $this->chunkPosition = $chunkPosition;
     }
 
-    /**
-     * @return UploadingFile
-     */
     public function getUploadingFile(): UploadingFile
     {
         return $this->uploadingFile;
     }
 
-    /**
-     * @param UploadingFile $uploadingFile
-     */
     public function setUploadingFile(UploadingFile $uploadingFile): void
     {
         $this->uploadingFile = $uploadingFile;

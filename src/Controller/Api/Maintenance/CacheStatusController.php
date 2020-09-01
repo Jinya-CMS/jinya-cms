@@ -17,11 +17,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/jinya", methods={"PUT"}, name="api_cache_jinya_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param CacheBuilderInterface $cacheBuilder
-     * @param ThemeCompilerServiceInterface $themeCompilerService
-     * @param ConfigurationServiceInterface $configurationService
-     * @return Response
      */
     public function putJinyaCacheAction(
         CacheBuilderInterface $cacheBuilder,
@@ -37,9 +32,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/symfony", methods={"PUT"}, name="api_cache_symfony_put")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param KernelInterface $kernel
-     * @return Response
      */
     public function putSymfonyCacheAction(KernelInterface $kernel): Response
     {
@@ -58,9 +50,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache", methods={"GET"}, name="api_cache_status_get")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param CacheStatusServiceInterface $cacheStatusService
-     * @return Response
      */
     public function getCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
@@ -75,9 +64,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/jinya", methods={"DELETE"}, name="api_cache_status_delete_jinya")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param CacheStatusServiceInterface $cacheStatusService
-     * @return Response
      */
     public function deleteJinyaCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
@@ -91,9 +77,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/symfony", methods={"DELETE"}, name="api_cache_status_delete_symfony")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param CacheStatusServiceInterface $cacheStatusService
-     * @return Response
      */
     public function deleteSymfonyCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
@@ -107,9 +90,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/apcu", methods={"DELETE"}, name="api_cache_status_delete_apcu")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param CacheStatusServiceInterface $cacheStatusService
-     * @return Response
      */
     public function deleteApcuCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {
@@ -123,9 +103,6 @@ class CacheStatusController extends BaseApiController
     /**
      * @Route("/api/cache/opcache", methods={"DELETE"}, name="api_cache_status_delete_opcache")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param CacheStatusServiceInterface $cacheStatusService
-     * @return Response
      */
     public function deleteOpCacheAction(CacheStatusServiceInterface $cacheStatusService): Response
     {

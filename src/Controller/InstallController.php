@@ -52,13 +52,6 @@ class InstallController extends AbstractController
 
     /**
      * InstallController constructor.
-     * @param SchemaToolInterface $schemaTool
-     * @param string $kernelProjectDir
-     * @param UserServiceInterface $userService
-     * @param Environment $twig
-     * @param MediaServiceInterface $mediaService
-     * @param ThemeSyncServiceInterface $themeSyncService
-     * @param DatabaseMigratorInterface $databaseMigrator
      */
     public function __construct(
         SchemaToolInterface $schemaTool,
@@ -79,8 +72,6 @@ class InstallController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @return Response
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -130,7 +121,6 @@ class InstallController extends AbstractController
     }
 
     /**
-     * @param array $parameters
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -145,11 +135,6 @@ class InstallController extends AbstractController
         $fs->dumpFile($this->kernelProjectDir . '/.env', $dotenv);
     }
 
-    /**
-     * @param Request $request
-     * @param ConfigurationServiceInterface $configService
-     * @return Response
-     */
     public function createDatabaseAction(Request $request, ConfigurationServiceInterface $configService): Response
     {
         if ($request->isMethod('POST')) {
@@ -170,18 +155,11 @@ class InstallController extends AbstractController
         return $this->render('@Jinya\Installer\Default\createDatabase.html.twig');
     }
 
-    /**
-     * @return Response
-     */
     public function doneAction(): Response
     {
         return $this->render('@Jinya\Installer\Default\done.html.twig');
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     public function createAdminAction(Request $request): Response
     {
         $fs = new Filesystem();
