@@ -30,8 +30,6 @@ class HistoryService implements HistoryServiceInterface
 
     /**
      * HistoryService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
@@ -52,10 +50,6 @@ class HistoryService implements HistoryServiceInterface
         return $history;
     }
 
-    /**
-     * @param string $class
-     * @return string
-     */
     protected function getFullClassName(string $class): string
     {
         return "Jinya\\Entity\\$class";

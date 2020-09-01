@@ -30,10 +30,6 @@ class GalleryFilePositionUpdateEvent extends CancellableEvent
 
     /**
      * GalleryFilePositionUpdateEvent constructor.
-     * @param string $gallerySlug
-     * @param int $galleryFilePositionId
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function __construct(string $gallerySlug, int $galleryFilePositionId, int $oldPosition, int $newPosition)
     {
@@ -43,33 +39,21 @@ class GalleryFilePositionUpdateEvent extends CancellableEvent
         $this->newPosition = $newPosition;
     }
 
-    /**
-     * @return string
-     */
     public function getGallerySlug(): string
     {
         return $this->gallerySlug;
     }
 
-    /**
-     * @return int
-     */
     public function getGalleryFilePositionId(): int
     {
         return $this->galleryFilePositionId;
     }
 
-    /**
-     * @return int
-     */
     public function getOldPosition(): int
     {
         return $this->oldPosition;
     }
 
-    /**
-     * @return int
-     */
     public function getNewPosition(): int
     {
         return $this->newPosition;

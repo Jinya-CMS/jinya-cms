@@ -34,7 +34,6 @@ class PageEvent extends CancellableEvent
     /**
      * PageEvent constructor.
      * @param Page $page
-     * @param string $slug
      */
     public function __construct(?Page $page, string $slug)
     {
@@ -42,9 +41,6 @@ class PageEvent extends CancellableEvent
         $this->slug = $slug;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;
