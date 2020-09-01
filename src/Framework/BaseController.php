@@ -46,12 +46,6 @@ abstract class BaseController
 
     /**
      * BaseController constructor.
-     * @param RequestStack $requestStack
-     * @param HttpKernelInterface $kernel
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface $tokenStorage
-     * @param RouterInterface $router
-     * @param CompilerInterface $compiler
      */
     public function __construct(
         RequestStack $requestStack,
@@ -71,12 +65,8 @@ abstract class BaseController
 
     /**
      * Renders the given Twig template with the current theme
-     *
-     * @param string $view
-     * @param array $parameters
-     * @return Response
      */
-    final protected function render(string $view, array $parameters = array()): Response
+    final protected function render(string $view, array $parameters = []): Response
     {
         $response = new Response();
 
@@ -88,8 +78,6 @@ abstract class BaseController
     /**
      * Forwards the request to the given RoutingEntry
      *
-     * @param RoutingEntry $route
-     * @return Response
      * @throws Exception
      * @see RoutingEntry
      */
@@ -109,10 +97,6 @@ abstract class BaseController
         return $this->kernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
     }
 
-    /**
-     * @param string $routeName
-     * @return string
-     */
     private function convertRouteToControllerName(string $routeName): string
     {
         $routes = $this->router->getRouteCollection();
@@ -125,8 +109,6 @@ abstract class BaseController
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
      * @param array|string|null $data
-     * @param int $status
-     * @return JsonResponse
      * @see JsonResponse
      * @see json_decode()
      */
@@ -143,8 +125,6 @@ abstract class BaseController
      *
      * @param SplFileInfo|string $file File object or path to file to be sent as response
      * @param string|null $fileName
-     * @param string $disposition
-     * @return BinaryFileResponse
      */
     final protected function file(
         $file,
@@ -161,7 +141,6 @@ abstract class BaseController
      * Checks if the attributes are granted against the current authentication token and optionally supplied subject.
      *
      * @param array|string $attributes
-     * @return bool
      */
     final protected function isGranted($attributes): bool
     {
@@ -173,7 +152,6 @@ abstract class BaseController
      *
      * This will result in a 403 response code.
      *
-     * @return AccessDeniedException
      * @example throw $this->createAccessDeniedException('Unable to access this page!');
      */
     final protected function createAccessDeniedException(): AccessDeniedException
@@ -184,7 +162,6 @@ abstract class BaseController
     /**
      * Get a user from the Security Token Storage.
      *
-     * @return User|null
      * @see TokenInterface::getUser()
      */
     final protected function getUser(): ?User
