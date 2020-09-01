@@ -34,9 +34,6 @@ class FormService implements FormServiceInterface
 
     /**
      * FormService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -50,7 +47,6 @@ class FormService implements FormServiceInterface
 
     /**
      * Gets the specified @param string $slug
-     * @return Form
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see Form by slug
@@ -69,7 +65,6 @@ class FormService implements FormServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param string $keyword
      * @return Form[]
      */
     public function getAll(string $keyword = ''): array
@@ -91,9 +86,6 @@ class FormService implements FormServiceInterface
 
     /**
      * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
      */
     private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
@@ -106,8 +98,6 @@ class FormService implements FormServiceInterface
     /**
      * Counts all entities
      *
-     * @param string $keyword
-     * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
@@ -128,7 +118,6 @@ class FormService implements FormServiceInterface
 
     /**
      * Saves or updates the given @param Form $form
-     * @return Form
      * @throws EmptySlugException
      * @see Form
      */

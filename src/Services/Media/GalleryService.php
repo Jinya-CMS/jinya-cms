@@ -30,9 +30,6 @@ class GalleryService implements GalleryServiceInterface
 
     /**
      * GalleryService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param SlugServiceInterface $slugService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -48,8 +45,6 @@ class GalleryService implements GalleryServiceInterface
     /**
      * Gets a list of all gallerys in the gallery and filtered by the given keyword and tag
      *
-     * @param string $keyword
-     * @param string $tag
      * @return Gallery[]
      */
     public function getAll(string $keyword = '', string $tag = ''): array
@@ -93,9 +88,6 @@ class GalleryService implements GalleryServiceInterface
     /**
      * Counts all gallerys filtered by the given keyword in the given gallery and tag
      *
-     * @param string $keyword
-     * @param string $tag
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException
@@ -112,8 +104,6 @@ class GalleryService implements GalleryServiceInterface
     /**
      * Saves or update the given gallery
      *
-     * @param Gallery $gallery
-     * @return Gallery
      * @throws EmptySlugException
      */
     public function saveOrUpdate(Gallery $gallery): Gallery
@@ -130,8 +120,6 @@ class GalleryService implements GalleryServiceInterface
 
     /**
      * Deletes the given gallery
-     *
-     * @param Gallery $gallery
      */
     public function delete(Gallery $gallery): void
     {
@@ -146,7 +134,6 @@ class GalleryService implements GalleryServiceInterface
      * Gets the gallery by slug or id
      *
      * @param int|string $idOrSlug
-     * @return Gallery|null
      */
     public function get($idOrSlug): ?Gallery
     {
@@ -160,7 +147,6 @@ class GalleryService implements GalleryServiceInterface
     /**
      * Gets the gallery by slug
      *
-     * @param string $slug
      * @return Gallery
      */
     public function getBySlug(string $slug): ?Gallery
