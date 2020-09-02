@@ -31,9 +31,6 @@ class HistoryEvent extends CancellableEvent
 
     /**
      * HistoryEvent constructor.
-     * @param string $class
-     * @param int $id
-     * @param array $history
      */
     public function __construct(string $class, int $id, array $history)
     {
@@ -42,25 +39,16 @@ class HistoryEvent extends CancellableEvent
         $this->history = $history;
     }
 
-    /**
-     * @return string
-     */
     public function getClass(): string
     {
         return $this->class;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return array
-     */
     public function getHistory(): array
     {
         return $this->history;

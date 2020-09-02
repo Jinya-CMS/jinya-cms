@@ -28,103 +28,69 @@ class KnownDevice implements JsonSerializable
 
     /**
      * @ORM\Column(type="string", name="device_key")
-     * @var string
      */
     private string $key;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $userAgent;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $remoteAddress;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", inversedBy="knownDevices")
-     * @var User
      */
     private User $user;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;
     }
 
-    /**
-     * @param string $key
-     */
     public function setKey(string $key): void
     {
         $this->key = $key;
     }
 
-    /**
-     * @return string
-     */
     public function getUserAgent(): string
     {
         return $this->userAgent;
     }
 
-    /**
-     * @param string $userAgent
-     */
     public function setUserAgent(string $userAgent): void
     {
         $this->userAgent = $userAgent;
     }
 
-    /**
-     * @return string
-     */
     public function getRemoteAddress(): string
     {
         return $this->remoteAddress;
     }
 
-    /**
-     * @param string $remoteAddress
-     */
     public function setRemoteAddress(string $remoteAddress): void
     {
         $this->remoteAddress = $remoteAddress;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user): void
     {
         $this->user = $user;
