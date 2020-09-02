@@ -32,11 +32,6 @@ class RedirectMailsEventSubscriber implements EventSubscriberInterface
 
     /**
      * RedirectMailsEventSubscriber constructor.
-     * @param ConfigurationServiceInterface $configService
-     * @param SpamDetectorInterface $spamDetector
-     * @param MessageServiceInterface $messageService
-     * @param MailerServiceInterface $mailerService
-     * @param SlugServiceInterface $slugService
      */
     public function __construct(
         ConfigurationServiceInterface $configService,
