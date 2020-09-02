@@ -25,7 +25,6 @@ class MenuGetEvent extends Event
 
     /**
      * MenuGetEvent constructor.
-     * @param int $id
      * @param Menu $menu
      */
     public function __construct(int $id, ?Menu $menu)
@@ -34,17 +33,11 @@ class MenuGetEvent extends Event
         $this->menu = $menu;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Menu|null
-     */
     public function getMenu(): ?Menu
     {
         return $this->menu;
