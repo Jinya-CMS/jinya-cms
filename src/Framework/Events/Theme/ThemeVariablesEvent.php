@@ -28,8 +28,6 @@ class ThemeVariablesEvent extends CancellableEvent
 
     /**
      * ThemeVariablesEvent constructor.
-     * @param string $themeName
-     * @param array $variable
      */
     public function __construct(string $themeName, array $variable)
     {
@@ -37,17 +35,11 @@ class ThemeVariablesEvent extends CancellableEvent
         $this->variables = $variable;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return array
-     */
     public function getVariables(): array
     {
         return $this->variables;

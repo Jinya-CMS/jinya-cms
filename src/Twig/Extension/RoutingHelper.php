@@ -13,7 +13,6 @@ class RoutingHelper extends AbstractExtension
 
     /**
      * RoutingHelper constructor.
-     * @param RequestContext $request
      */
     public function __construct(RequestContext $request)
     {
