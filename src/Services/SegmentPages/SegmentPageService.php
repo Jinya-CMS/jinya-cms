@@ -39,9 +39,6 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /**
      * SegmentPageService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -55,7 +52,6 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /**
      * Gets the specified @param string $slug
-     * @return SegmentPage
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see SegmentPage by slug
@@ -72,7 +68,6 @@ class SegmentPageService implements SegmentPageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param string $keyword
      * @return SegmentPage[]
      */
     public function getAll(string $keyword = ''): array
@@ -97,9 +92,6 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /**
      * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
      */
     private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
@@ -112,8 +104,6 @@ class SegmentPageService implements SegmentPageServiceInterface
     /**
      * Counts all entities
      *
-     * @param string $keyword
-     * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
@@ -134,7 +124,6 @@ class SegmentPageService implements SegmentPageServiceInterface
 
     /**
      * Saves or updates the given @param SegmentPage $segmentPage
-     * @return SegmentPage
      * @throws EmptySlugException
      * @see SegmentPage
      */
