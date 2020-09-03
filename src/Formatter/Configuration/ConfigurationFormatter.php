@@ -24,7 +24,6 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * ConfigurationFormatter constructor.
-     * @param ThemeFormatterInterface $themeFormatter
      */
     public function __construct(ThemeFormatterInterface $themeFormatter)
     {
@@ -33,9 +32,6 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param Configuration $configuration
-     * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): ConfigurationFormatterInterface
     {
@@ -46,8 +42,6 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * Formats the frontend theme
-     *
-     * @return ConfigurationFormatterInterface
      */
     public function theme(): ConfigurationFormatterInterface
     {
@@ -72,8 +66,6 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * Formats the seconds the api key is valid
-     *
-     * @return ConfigurationFormatterInterface
      */
     public function invalidateApiKeyAfter(): ConfigurationFormatterInterface
     {
@@ -84,8 +76,6 @@ class ConfigurationFormatter implements ConfigurationFormatterInterface
 
     /**
      * Formats whether the messaging center is enabled
-     *
-     * @return ConfigurationFormatterInterface
      */
     public function messagingCenterEnabled(): ConfigurationFormatterInterface
     {

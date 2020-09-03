@@ -25,7 +25,6 @@ class FormItemGetItemsEvent extends Event
 
     /**
      * FormItemGetItemsEvent constructor.
-     * @param string $formSlug
      * @param FormItem[] $items
      */
     public function __construct(string $formSlug, array $items)
@@ -34,9 +33,6 @@ class FormItemGetItemsEvent extends Event
         $this->items = $items;
     }
 
-    /**
-     * @return string
-     */
     public function getFormSlug(): string
     {
         return $this->formSlug;

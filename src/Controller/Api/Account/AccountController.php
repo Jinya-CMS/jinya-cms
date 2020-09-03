@@ -30,11 +30,6 @@ class AccountController extends BaseApiController
 {
     /**
      * @Route("/api/2fa", methods={"POST"}, name="api_account_2fa")
-     *
-     * @param AuthenticationServiceInterface $authenticationService
-     * @param UserServiceInterface $userService
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @return Response
      */
     public function twoFactorAction(
         AuthenticationServiceInterface $authenticationService,
@@ -63,11 +58,6 @@ class AccountController extends BaseApiController
 
     /**
      * @Route("/api/login", methods={"POST"}, name="api_account_login")
-     *
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @param UserServiceInterface $userService
-     * @param AuthenticationServiceInterface $authenticationService
-     * @return Response
      */
     public function loginAction(
         ApiKeyToolInterface $apiKeyTool,
@@ -95,10 +85,6 @@ class AccountController extends BaseApiController
 
     /**
      * @Route("/api/login", methods={"HEAD"}, name="account_login_check")
-     *
-     * @param Request $request
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @return Response
      */
     public function checkLoginAction(Request $request, ApiKeyToolInterface $apiKeyTool): Response
     {
@@ -114,10 +100,6 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/account", methods={"GET"}, name="api_account_get")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param UserServiceInterface $userService
-     * @param UserFormatterInterface $userFormatter
-     * @return Response
      */
     public function getAction(UserServiceInterface $userService, UserFormatterInterface $userFormatter): Response
     {
@@ -142,9 +124,6 @@ class AccountController extends BaseApiController
     /**
      * @Route("/api/account", methods={"PUT"}, name="api_account_put")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
-     *
-     * @param UserServiceInterface $userService
-     * @return Response
      */
     public function putDataAction(UserServiceInterface $userService): Response
     {
@@ -168,10 +147,6 @@ class AccountController extends BaseApiController
      * @Route("/api/account/password", methods={"PUT"}, name="api_account_password_put")
      * @IsGranted("IS_AUTHENTICATED_FULLY", statusCode=401)
      *
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param UserServiceInterface $userService
-     * @param UrlGeneratorInterface $urlGenerator
-     * @return Response
      * @throws EmptyBodyException
      * @throws InvalidContentTypeException
      * @throws Exception

@@ -21,10 +21,6 @@ class ConfigurationController extends BaseApiController
     /**
      * @Route("/api/configuration", methods={"GET"}, name="api_configuration_get")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ConfigurationFormatterInterface $configurationFormatter
-     * @return Response
      */
     public function getAction(
         ConfigurationServiceInterface $configurationService,
@@ -45,11 +41,6 @@ class ConfigurationController extends BaseApiController
     /**
      * @Route("/api/configuration/{themeName}", methods={"PUT"}, name="api_configuration_frontend_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $themeName
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeServiceInterface $themeService
-     * @return Response
      */
     public function putThemeAction(
         string $themeName,

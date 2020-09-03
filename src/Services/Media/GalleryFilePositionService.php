@@ -40,10 +40,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
 
     /**
      * ArtworkPositionService constructor.
-     * @param GalleryServiceInterface $galleryService
-     * @param FileServiceInterface $fileService
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         GalleryServiceInterface $galleryService,
@@ -59,11 +55,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
 
     /**
      * Saves the artwork in the given gallery at the given position
-     *
-     * @param int $fileId
-     * @param int $galleryId
-     * @param int $position
-     * @return int
      */
     public function savePosition(int $fileId, int $galleryId, int $position): int
     {
@@ -91,12 +82,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
         return $galleryFilePosition->getId();
     }
 
-    /**
-     * @param int $oldPosition
-     * @param int $newPosition
-     * @param GalleryFilePosition $galleryFilePosition
-     * @param Gallery $gallery
-     */
     private function rearrangeFiles(
         int $oldPosition,
         int $newPosition,
@@ -151,7 +136,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
     /**
      * Deletes the given artwork position
      *
-     * @param int $id
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -187,9 +171,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
 
     /**
      * Gets the artwork position for the given id
-     *
-     * @param int $id
-     * @return GalleryFilePosition
      */
     public function getPosition(int $id): GalleryFilePosition
     {
@@ -205,9 +186,6 @@ class GalleryFilePositionService implements GalleryFilePositionServiceInterface
 
     /**
      * Sets the artwork of the given artwork position to the new slug
-     *
-     * @param int $id
-     * @param int $fileId
      */
     public function updateFile(int $id, int $fileId): void
     {

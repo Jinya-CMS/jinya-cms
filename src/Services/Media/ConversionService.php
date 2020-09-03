@@ -13,7 +13,6 @@ class ConversionService implements ConversionServiceInterface
 
     /**
      * ConversionService constructor.
-     * @param LoggerInterface $logger
      */
     public function __construct(LoggerInterface $logger)
     {
@@ -21,8 +20,6 @@ class ConversionService implements ConversionServiceInterface
     }
 
     /**
-     * @param string $data
-     * @param int $targetType
      * @return resource
      */
     public function convertImage(string $data, int $targetType)
@@ -147,9 +144,6 @@ class ConversionService implements ConversionServiceInterface
         return null;
     }
 
-    /**
-     * @return array
-     */
     public function getSupportedTypes(): array
     {
         $imageTypes = [];

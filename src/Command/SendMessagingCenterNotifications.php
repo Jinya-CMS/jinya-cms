@@ -25,10 +25,6 @@ class SendMessagingCenterNotifications extends Command
 
     /**
      * SendMessagingCenterNotifications constructor.
-     * @param FormServiceInterface $formService
-     * @param EntityManagerInterface $entityManager
-     * @param MailerInterface $mailer
-     * @param string $mailerSender
      */
     public function __construct(
         FormServiceInterface $formService,
