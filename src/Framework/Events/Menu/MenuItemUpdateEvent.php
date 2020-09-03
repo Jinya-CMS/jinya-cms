@@ -22,16 +22,12 @@ class MenuItemUpdateEvent extends CancellableEvent
 
     /**
      * MenuItemUpdateEvent constructor.
-     * @param MenuItem $item
      */
     public function __construct(MenuItem $item)
     {
         $this->item = $item;
     }
 
-    /**
-     * @return MenuItem
-     */
     public function getItem(): MenuItem
     {
         return $this->item;
