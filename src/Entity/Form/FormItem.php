@@ -31,13 +31,11 @@ class FormItem extends HistoryEnabledEntity
 
     /**
      * @ORM\Column(type="string", nullable=false)
-     * @var string
      */
     private string $type;
 
     /**
      * @ORM\Column(type="json")
-     * @var array
      */
     private array $options = [];
 
@@ -49,24 +47,20 @@ class FormItem extends HistoryEnabledEntity
 
     /**
      * @ORM\Column(type="string", nullable=false)
-     * @var string
      */
     private string $label;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $helpText;
 
     /**
      * @ORM\ManyToOne(inversedBy="items", targetEntity="Jinya\Entity\Form\Form", cascade={"persist"})
-     * @var Form
      */
     private Form $form;
 
     /**
-     * @var int
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $position;
@@ -79,121 +73,76 @@ class FormItem extends HistoryEnabledEntity
         return $this->spamFilter;
     }
 
-    /**
-     * @param array $spamFilter
-     */
     public function setSpamFilter(array $spamFilter): void
     {
         $this->spamFilter = $spamFilter;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @param int $position
-     */
     public function setPosition(int $position): void
     {
         $this->position = $position;
     }
 
-    /**
-     * @return Form
-     */
     public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @param Form $form
-     */
     public function setForm(Form $form): void
     {
         $this->form = $form;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @param array $options
-     */
     public function setOptions(array $options): void
     {
         $this->options = $options;
     }
 
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     */
     public function setLabel(string $label): void
     {
         $this->label = $label;
     }
 
-    /**
-     * @return string
-     */
     public function getHelpText(): string
     {
         return $this->helpText;
     }
 
-    /**
-     * @param string $helpText
-     */
     public function setHelpText(string $helpText): void
     {
         $this->helpText = $helpText;
