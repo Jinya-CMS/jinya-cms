@@ -26,8 +26,6 @@ class SchemaTool implements SchemaToolInterface
 
     /**
      * SchemaTool constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param KernelInterface $kernel
      */
     public function __construct(EntityManagerInterface $entityManager, KernelInterface $kernel)
     {
