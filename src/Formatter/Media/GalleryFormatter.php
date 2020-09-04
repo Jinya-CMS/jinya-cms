@@ -22,16 +22,12 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * GalleryFormatter constructor.
-     * @param UserFormatterInterface $userFormatter
      */
     public function __construct(UserFormatterInterface $userFormatter)
     {
         $this->userFormatter = $userFormatter;
     }
 
-    /**
-     * @param GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
-     */
     public function setGalleryFilePositionFormatter(
         GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
     ): void {
@@ -49,9 +45,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param Gallery $gallery
-     * @return GalleryFormatterInterface
      */
     public function init(Gallery $gallery): GalleryFormatterInterface
     {
@@ -63,8 +56,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the type
-     *
-     * @return GalleryFormatterInterface
      */
     public function description(): GalleryFormatterInterface
     {
@@ -75,8 +66,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return GalleryFormatterInterface
      */
     public function name(): GalleryFormatterInterface
     {
@@ -87,8 +76,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the folder
-     *
-     * @return GalleryFormatterInterface
      */
     public function slug(): GalleryFormatterInterface
     {
@@ -99,8 +86,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return GalleryFormatterInterface
      */
     public function created(): GalleryFormatterInterface
     {
@@ -115,8 +100,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return GalleryFormatterInterface
      */
     public function updated(): GalleryFormatterInterface
     {
@@ -131,8 +114,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return GalleryFormatterInterface
      */
     public function history(): GalleryFormatterInterface
     {
@@ -143,8 +124,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the gallery file positions
-     *
-     * @return GalleryFormatterInterface
      */
     public function files(): GalleryFormatterInterface
     {
@@ -169,8 +148,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return GalleryFormatterInterface
      */
     public function id(): GalleryFormatterInterface
     {
@@ -181,8 +158,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the type
-     *
-     * @return GalleryFormatterInterface
      */
     public function type(): GalleryFormatterInterface
     {
@@ -193,8 +168,6 @@ class GalleryFormatter implements GalleryFormatterInterface
 
     /**
      * Formats the orientation
-     *
-     * @return GalleryFormatterInterface
      */
     public function orientation(): GalleryFormatterInterface
     {
