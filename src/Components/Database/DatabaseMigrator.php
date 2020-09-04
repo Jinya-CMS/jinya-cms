@@ -33,7 +33,6 @@ class DatabaseMigrator implements DatabaseMigratorInterface
     /**
      * Get the latest migration
      *
-     * @return string
      * @throws Exception
      */
     public function getLatestMigrationVersion(): string
@@ -59,7 +58,6 @@ class DatabaseMigrator implements DatabaseMigratorInterface
     /**
      * Sets the given version as the current migration version
      *
-     * @param string $version
      * @throws Exception
      */
     public function setMigrationVersion(string $version): void
