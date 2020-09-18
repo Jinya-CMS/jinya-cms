@@ -23,16 +23,12 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * FileFormatter constructor.
-     * @param UserFormatterInterface $userFormatter
      */
     public function __construct(UserFormatterInterface $userFormatter)
     {
         $this->userFormatter = $userFormatter;
     }
 
-    /**
-     * @param GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
-     */
     public function setGalleryFilePositionFormatter(
         GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
     ): void {
@@ -41,9 +37,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param File $file
-     * @return FileFormatterInterface
      */
     public function init(File $file): FileFormatterInterface
     {
@@ -55,8 +48,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the type
-     *
-     * @return FileFormatterInterface
      */
     public function type(): FileFormatterInterface
     {
@@ -67,8 +58,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return FileFormatterInterface
      */
     public function name(): FileFormatterInterface
     {
@@ -79,8 +68,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return FileFormatterInterface
      */
     public function created(): FileFormatterInterface
     {
@@ -95,8 +82,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return FileFormatterInterface
      */
     public function updated(): FileFormatterInterface
     {
@@ -111,8 +96,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return FileFormatterInterface
      */
     public function history(): FileFormatterInterface
     {
@@ -123,8 +106,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the tags
-     *
-     * @return FileFormatterInterface
      */
     public function tags(): FileFormatterInterface
     {
@@ -140,8 +121,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the path
-     *
-     * @return FileFormatterInterface
      */
     public function path(): FileFormatterInterface
     {
@@ -152,8 +131,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the galleries
-     *
-     * @return FileFormatterInterface
      */
     public function galleries(): FileFormatterInterface
     {
@@ -172,8 +149,6 @@ class FileFormatter implements FileFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return FileFormatterInterface
      */
     public function id(): FileFormatterInterface
     {

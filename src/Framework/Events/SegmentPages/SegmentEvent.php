@@ -33,8 +33,6 @@ class SegmentEvent extends CancellableEvent
 
     /**
      * SegmentEvent constructor.
-     * @param Segment|null $segment
-     * @param int $id
      */
     public function __construct(?Segment $segment, int $id)
     {
@@ -42,9 +40,6 @@ class SegmentEvent extends CancellableEvent
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
