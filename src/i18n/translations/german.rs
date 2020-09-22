@@ -27,6 +27,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.pages.simple_pages", "Einfache Seiten");
     map.insert("app.menu.content.pages.simple_pages.edit", "Seite bearbeiten");
     map.insert("app.menu.content.pages.simple_pages.add", "Seite hinzufügen");
+    map.insert("app.menu.content.pages.segment_pages", "Segment Seiten");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -123,8 +124,8 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.edit.error_generic", "Die Galerie konnte nicht gespeichert werden");
     map.insert("galleries.edit.error_conflict", "Die Galerie konnte nicht gespeichert werden, weil eine andere Galerie mit dem Namen existiert");
 
-    map.insert("galleries.designer.error_delete","Die Datei konnte nicht entfernt werden");
-    map.insert("galleries.designer.error_add","Die Datei konnte nicht hinzugefügt werden");
+    map.insert("galleries.designer.error_delete", "Die Datei konnte nicht entfernt werden");
+    map.insert("galleries.designer.error_add", "Die Datei konnte nicht hinzugefügt werden");
     map.insert("galleries.designer.error_update", "Die Datei konnte nicht verschoben werden");
 
     map.insert("simple_pages.overview.action_new", "Neue Seite");
@@ -150,6 +151,38 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("simple_pages.add.create", "Seite speichern");
     map.insert("simple_pages.add.error_conflict", "Die Seite konnte nicht gespeichert werden, weil eine andere Seite mit dem Namen existiert");
     map.insert("simple_pages.add.error_generic", "Die Seite konnte nicht gespeichert werden");
+
+    map.insert("segment_pages.overview.action_new", "Neue Seite");
+    map.insert("segment_pages.overview.action_edit", "Seite bearbeiten");
+    map.insert("segment_pages.overview.action_delete", "Seite löschen");
+    map.insert("segment_pages.overview.table.name_column", "Name");
+    map.insert("segment_pages.overview.table.segment_count_column", "Segmentanzahl");
+
+    map.insert("segment_pages.add.title", "Seite hinzufügen");
+    map.insert("segment_pages.add.name", "Name");
+    map.insert("segment_pages.add.error_name_empty", "Der Name ist erforderlich");
+    map.insert("segment_pages.add.action_discard", "Seite verwerfen");
+    map.insert("segment_pages.add.action_save", "Seite speichern");
+    map.insert("segment_pages.add.saving", "Die Seite wird gespeichert");
+    map.insert("segment_pages.add.saved", "Die Seite {name} wurde erfolgreich gespeichert");
+    map.insert("segment_pages.add.error_generic", "Die Seite konnte nicht gespeichert werden");
+    map.insert("segment_pages.add.error_conflict", "Die Seite konnte nicht gespeichert werden, weil eine andere Seite mit dem Namen existiert");
+
+    map.insert("segment_pages.edit.title", "{name} bearbeiten");
+    map.insert("segment_pages.edit.name", "Name");
+    map.insert("segment_pages.edit.error_name_empty", "Der Name ist erforderlich");
+    map.insert("segment_pages.edit.action_discard", "Seite verwerfen");
+    map.insert("segment_pages.edit.action_save", "Seite speichern");
+    map.insert("segment_pages.edit.saving", "Die Seite wird gespeichert");
+    map.insert("segment_pages.edit.saved", "Die Seite {name} wurde erfolgreich gespeichert");
+    map.insert("segment_pages.edit.error_generic", "Die Seite konnte nicht gespeichert werden");
+    map.insert("segment_pages.edit.error_conflict", "Die Seite konnte nicht gespeichert werden, weil eine andere Seite mit dem Namen existiert");
+
+    map.insert("segment_pages.delete.approve", "Seite löschen");
+    map.insert("segment_pages.delete.decline", "Seite behalten");
+    map.insert("segment_pages.delete.title", "Seite wirklich löschen?");
+    map.insert("segment_pages.delete.content", "Bist du sicher, dass du die Seite \"{name}\" löschen möchtest? Die Seite wird aus allen Menüs und Themes entfernt.");
+    map.insert("segment_pages.delete.failed", "Die Seite \"{name}\" konnte nicht gelöscht werden.");
 
     map
 }

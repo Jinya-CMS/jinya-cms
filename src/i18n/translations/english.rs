@@ -27,6 +27,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.pages.simple_pages", "Simple Pages");
     map.insert("app.menu.content.pages.simple_pages.edit", "Edit page");
     map.insert("app.menu.content.pages.simple_pages.add", "Add page");
+    map.insert("app.menu.content.pages.segment_pages", "Segment Pages");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -137,7 +138,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("simple_pages.delete.decline", "Keep page");
     map.insert("simple_pages.delete.title", "Really delete page?");
     map.insert("simple_pages.delete.content", "Are you sure, that you want to delete \"{title}\". The page will be removed from all menus and themes.");
-    map.insert("simple_pages.delete.failed", "The page \"{name}\" could not be deleted.");
+    map.insert("simple_pages.delete.failed", "The page \"{title}\" could not be deleted.");
 
     map.insert("simple_pages.edit.title", "Title");
     map.insert("simple_pages.edit.error_empty_title", "The title is required");
@@ -150,6 +151,38 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("simple_pages.add.create", "Save page");
     map.insert("simple_pages.add.error_conflict", "The page could not be saved, because there is a page with the same name");
     map.insert("simple_pages.add.error_generic", "The page could not be saved");
+
+    map.insert("segment_pages.overview.action_new", "New page");
+    map.insert("segment_pages.overview.action_edit", "Edit page");
+    map.insert("segment_pages.overview.action_delete", "Delete page");
+    map.insert("segment_pages.overview.table.name_column", "Name");
+    map.insert("segment_pages.overview.table.segment_count_column", "Segment count");
+
+    map.insert("segment_pages.add.title", "Add page");
+    map.insert("segment_pages.add.name", "Name");
+    map.insert("segment_pages.add.error_name_empty", "The name is required");
+    map.insert("segment_pages.add.action_discard", "Discard page");
+    map.insert("segment_pages.add.action_save", "Save page");
+    map.insert("segment_pages.add.saving", "Saving the page");
+    map.insert("segment_pages.add.saved", "The page {name} was saved successfully.");
+    map.insert("segment_pages.add.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("segment_pages.add.error_generic", "The page could not be saved");
+
+    map.insert("segment_pages.edit.title", "Edit {name}");
+    map.insert("segment_pages.edit.name", "Name");
+    map.insert("segment_pages.edit.error_name_empty", "The name is required");
+    map.insert("segment_pages.edit.action_discard", "Discard page");
+    map.insert("segment_pages.edit.action_save", "Save page");
+    map.insert("segment_pages.edit.saving", "Saving the page");
+    map.insert("segment_pages.edit.saved", "The page {name} was saved successfully.");
+    map.insert("segment_pages.edit.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("segment_pages.edit.error_generic", "The page could not be saved");
+
+    map.insert("segment_pages.delete.approve", "Delete page");
+    map.insert("segment_pages.delete.decline", "Keep page");
+    map.insert("segment_pages.delete.title", "Really delete page?");
+    map.insert("segment_pages.delete.content", "Are you sure, that you want to delete \"{name}\". The page will be removed from all menus and themes.");
+    map.insert("segment_pages.delete.failed", "The page \"{name}\" could not be deleted.");
 
     map
 }

@@ -7,7 +7,6 @@ use jinya_ui::widgets::button::{Button, ButtonType};
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
 use yew::{Component, ComponentLink, Html};
 use yew::prelude::*;
-use yew::services::ConsoleService;
 use yew::services::fetch::FetchTask;
 use yew_router::agent::{RouteAgent, RouteRequest};
 use yew_router::route::Route;

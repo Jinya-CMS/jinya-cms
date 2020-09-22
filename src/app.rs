@@ -4,6 +4,7 @@ use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 use yew_router::{prelude::*, Switch};
 use yew_router::agent::RouteRequest;
+use yew_router::router::Render;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::authentication_service::AuthenticationService;
@@ -15,10 +16,10 @@ use crate::views::files::FilesPage;
 use crate::views::galleries::designer::GalleryDesignerPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
+use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
-use yew_router::router::Render;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -50,6 +51,8 @@ pub enum AppRoute {
     AddSimplePage,
     #[to = "/content/simple-pages"]
     SimplePages,
+    #[to = "/content/segment-pages"]
+    SegmentPages,
     #[to = "/"]
     Homepage,
 }
@@ -183,6 +186,11 @@ impl JinyaDesignerApp {
                         route: Some(&AppRoute::SimplePages),
                         on_click: None,
                     },
+                    SubItem {
+                        label: self.translator.translate("app.menu.content.pages.segment_pages"),
+                        route: Some(&AppRoute::SegmentPages),
+                        on_click: None,
+                    },
                 ],
             },
         ];
@@ -213,6 +221,7 @@ impl JinyaDesignerApp {
                 AppRoute::SimplePages => html! {<SimplePagesPage />},
                 AppRoute::EditSimplePage(id) => html! {<EditSimplePagePage id=id />},
                 AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
+                AppRoute::SegmentPages => html! {<SegmentPagesPage />},
             }
         })
     }
