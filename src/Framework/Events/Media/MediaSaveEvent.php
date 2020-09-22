@@ -29,7 +29,6 @@ class MediaSaveEvent extends Event
     /**
      * SaveMediaEvent constructor.
      * @param resource|UploadedFile $file
-     * @param string $type
      */
     public function __construct($file, string $type)
     {
@@ -45,9 +44,6 @@ class MediaSaveEvent extends Event
         return $this->location;
     }
 
-    /**
-     * @param string $location
-     */
     public function setLocation(string $location): void
     {
         $this->location = $location;
@@ -61,9 +57,6 @@ class MediaSaveEvent extends Event
         return $this->file;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

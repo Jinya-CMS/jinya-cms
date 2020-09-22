@@ -18,8 +18,6 @@ class CompileThemesCommand extends Command
 
     /**
      * CompileThemesCommand constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
      */
     public function __construct(
         ThemeServiceInterface $themeService,

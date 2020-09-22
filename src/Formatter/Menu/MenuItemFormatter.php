@@ -36,8 +36,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return MenuItemFormatterInterface
      */
     public function id(): MenuItemFormatterInterface
     {
@@ -48,8 +46,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the title
-     *
-     * @return MenuItemFormatterInterface
      */
     public function title(): MenuItemFormatterInterface
     {
@@ -60,8 +56,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the page type
-     *
-     * @return MenuItemFormatterInterface
      */
     public function pageType(): MenuItemFormatterInterface
     {
@@ -72,8 +66,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the highlight state
-     *
-     * @return MenuItemFormatterInterface
      */
     public function highlighted(): MenuItemFormatterInterface
     {
@@ -84,8 +76,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the children
-     *
-     * @return MenuItemFormatterInterface
      */
     public function children(): MenuItemFormatterInterface
     {
@@ -108,17 +98,11 @@ class MenuItemFormatter implements MenuItemFormatterInterface
         return $this;
     }
 
-    /**
-     * @param MenuFormatterInterface $menuFormatter
-     */
     public function setMenuFormatter(MenuFormatterInterface $menuFormatter): void
     {
         $this->menuFormatter = $menuFormatter;
     }
 
-    /**
-     * @param RouteFormatterInterface $routeFormatter
-     */
     public function setRouteFormatter(RouteFormatterInterface $routeFormatter): void
     {
         $this->routeFormatter = $routeFormatter;
@@ -126,9 +110,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param MenuItem $menuItem
-     * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): MenuItemFormatterInterface
     {
@@ -139,8 +120,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the parent
-     *
-     * @return MenuItemFormatterInterface
      */
     public function parent(): MenuItemFormatterInterface
     {
@@ -159,8 +138,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the route
-     *
-     * @return MenuItemFormatterInterface
      */
     public function route(): MenuItemFormatterInterface
     {
@@ -176,8 +153,6 @@ class MenuItemFormatter implements MenuItemFormatterInterface
 
     /**
      * Formats the position
-     *
-     * @return MenuItemFormatterInterface
      */
     public function position(): MenuItemFormatterInterface
     {
