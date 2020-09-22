@@ -5,7 +5,6 @@ use jinya_ui::listing::table::{Table, TableCell, TableHeader, TableRow};
 use jinya_ui::widgets::alert::{Alert, AlertType};
 use jinya_ui::widgets::button::{Button, ButtonType};
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
-use jinya_ui::widgets::toast::Toast;
 use yew::{Component, ComponentLink, Html};
 use yew::prelude::*;
 use yew::services::ConsoleService;
@@ -20,6 +19,9 @@ use crate::app::AppRoute;
 use crate::i18n::Translator;
 use crate::models::list_model::ListModel;
 use crate::models::simple_page::SimplePage;
+
+pub mod edit_page;
+pub mod add_page;
 
 pub struct SimplePagesPage {
     link: ComponentLink<Self>,
@@ -91,8 +93,8 @@ impl Component for SimplePagesPage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnNewPageClick => {}
-            Msg::OnEditPageClick => {}
+            Msg::OnNewPageClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::AddSimplePage))),
+            Msg::OnEditPageClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::EditSimplePage(self.get_selected_page().id)))),
             Msg::OnDeletePageClick => self.show_delete_dialog = true,
             Msg::OnPagesLoaded(result) => {
                 if result.is_ok() {
@@ -110,7 +112,7 @@ impl Component for SimplePagesPage {
                         ])
                     }).collect();
                 } else {
-                    ConsoleService::error(result.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string().as_str());
                 }
             }
             Msg::OnPageSelected(idx) => self.selected_index = Some(idx),
@@ -126,7 +128,7 @@ impl Component for SimplePagesPage {
                     self.show_delete_dialog = false;
                     self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
                 } else {
-                    ConsoleService::error(result.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string().as_str());
                     let page = self.get_selected_page();
                     self.alert_message = Some(self.translator.translate_with_args("simple_pages.delete.failed", map! {"name" => page.title.as_str()}));
                     self.show_delete_dialog = false;

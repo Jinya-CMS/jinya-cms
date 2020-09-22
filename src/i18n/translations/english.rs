@@ -25,6 +25,8 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media.galleries", "Galleries");
     map.insert("app.menu.content.pages", "Pages");
     map.insert("app.menu.content.pages.simple_pages", "Simple Pages");
+    map.insert("app.menu.content.pages.simple_pages.edit", "Edit page");
+    map.insert("app.menu.content.pages.simple_pages.add", "Add page");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -136,6 +138,18 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("simple_pages.delete.title", "Really delete page?");
     map.insert("simple_pages.delete.content", "Are you sure, that you want to delete \"{title}\". The page will be removed from all menus and themes.");
     map.insert("simple_pages.delete.failed", "The page \"{name}\" could not be deleted.");
+
+    map.insert("simple_pages.edit.title", "Title");
+    map.insert("simple_pages.edit.error_empty_title", "The title is required");
+    map.insert("simple_pages.edit.update", "Save page");
+    map.insert("simple_pages.edit.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("simple_pages.edit.error_generic", "The page could not be saved");
+
+    map.insert("simple_pages.add.title", "Title");
+    map.insert("simple_pages.add.error_empty_title", "The title is required");
+    map.insert("simple_pages.add.create", "Save page");
+    map.insert("simple_pages.add.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("simple_pages.add.error_generic", "The page could not be saved");
 
     map
 }

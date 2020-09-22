@@ -25,6 +25,8 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media.galleries", "Galerien");
     map.insert("app.menu.content.pages", "Seiten");
     map.insert("app.menu.content.pages.simple_pages", "Einfache Seiten");
+    map.insert("app.menu.content.pages.simple_pages.edit", "Seite bearbeiten");
+    map.insert("app.menu.content.pages.simple_pages.add", "Seite hinzufügen");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -136,6 +138,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("simple_pages.delete.title", "Seite wirklich löschen?");
     map.insert("simple_pages.delete.content", "Bist du sicher, dass du die Seite \"{title}\" löschen möchtest? Die Seite wird aus allen Menüs und Themes entfernt.");
     map.insert("simple_pages.delete.failed", "Die Seite \"{title}\" konnte nicht gelöscht werden.");
+
+    map.insert("simple_pages.edit.title", "Titel");
+    map.insert("simple_pages.edit.error_empty_title", "Der Titel ist erforderlich");
+    map.insert("simple_pages.edit.update", "Seite speichern");
+    map.insert("simple_pages.edit.error_conflict", "Die Seite konnte nicht gespeichert werden, weil eine andere Seite mit dem Namen existiert");
+    map.insert("simple_pages.edit.error_generic", "Die Seite konnte nicht gespeichert werden");
+
+    map.insert("simple_pages.add.title", "Titel");
+    map.insert("simple_pages.add.error_empty_title", "Der Titel ist erforderlich");
+    map.insert("simple_pages.add.create", "Seite speichern");
+    map.insert("simple_pages.add.error_conflict", "Die Seite konnte nicht gespeichert werden, weil eine andere Seite mit dem Namen existiert");
+    map.insert("simple_pages.add.error_generic", "Die Seite konnte nicht gespeichert werden");
 
     map
 }

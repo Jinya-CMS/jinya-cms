@@ -11,7 +11,7 @@ pub struct SimplePage {
     #[serde(default)]
     pub updated: Edited,
     #[serde(skip_serializing)]
-    pub id: i32,
+    pub id: usize,
     pub title: String,
     pub content: String,
 }
@@ -23,7 +23,7 @@ impl SimplePage {
             updated: Edited::new(),
             id: 0,
             title,
-            content: "".to_string(),
+            content,
         }
     }
 }

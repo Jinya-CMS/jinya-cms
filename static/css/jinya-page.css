@@ -1,3 +1,7 @@
 .jinya-page {
     padding-bottom: 2rem;
 }
+
+.tox {
+    z-index: 0;
+}

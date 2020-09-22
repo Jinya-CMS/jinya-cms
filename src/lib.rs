@@ -10,6 +10,7 @@ mod storage;
 mod ajax;
 mod models;
 mod agents;
+mod utils;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
