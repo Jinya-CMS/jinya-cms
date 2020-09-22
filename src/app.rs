@@ -12,9 +12,13 @@ use crate::storage::AuthenticationStorage;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
 use crate::views::files::FilesPage;
+use crate::views::galleries::designer::GalleryDesignerPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
-use crate::views::galleries::designer::GalleryDesignerPage;
+use crate::views::simple_pages::add_page::AddSimplePagePage;
+use crate::views::simple_pages::edit_page::EditSimplePagePage;
+use crate::views::simple_pages::SimplePagesPage;
+use yew_router::router::Render;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -40,6 +44,12 @@ pub enum AppRoute {
     GalleryDesigner(i32),
     #[to = "/content/galleries"]
     Galleries,
+    #[to = "/content/simple-pages/{id}/edit"]
+    EditSimplePage(usize),
+    #[to = "/content/simple-pages/add"]
+    AddSimplePage,
+    #[to = "/content/simple-pages"]
+    SimplePages,
     #[to = "/"]
     Homepage,
 }
@@ -136,16 +146,7 @@ impl Component for JinyaDesignerApp {
                 <main>
                     {self.get_menu()}
                     <Router<AppRoute, ()>
-                        render=Router::render(|switch: AppRoute| {
-                            match switch {
-                                AppRoute::Login => html! {<LoginPage />},
-                                AppRoute::TwoFactor => html! {<TwoFactorPage />},
-                                AppRoute::Homepage => html! {<HomePage />},
-                                AppRoute::Files => html! {<FilesPage />},
-                                AppRoute::Galleries => html! {<GalleriesPage />},
-                                AppRoute::GalleryDesigner(id) => html! {<GalleryDesignerPage id=id />},
-                            }
-                        })
+                        render=self.router_render()
                         redirect=Router::redirect(|route: Route| {
                             AppRoute::Homepage
                         })
@@ -174,6 +175,16 @@ impl JinyaDesignerApp {
                     },
                 ],
             },
+            SubItemGroup {
+                title: self.translator.translate("app.menu.content.pages"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.content.pages.simple_pages"),
+                        route: Some(&AppRoute::SimplePages),
+                        on_click: None,
+                    },
+                ],
+            },
         ];
 
         let placeholder = if self.hide_search {
@@ -189,5 +200,20 @@ impl JinyaDesignerApp {
                 </MenuBar>
             </div>
         }
+    }
+    fn router_render(&self) -> Render<AppRoute, ()> {
+        Router::render(|switch: AppRoute| {
+            match switch {
+                AppRoute::Login => html! {<LoginPage />},
+                AppRoute::TwoFactor => html! {<TwoFactorPage />},
+                AppRoute::Homepage => html! {<HomePage />},
+                AppRoute::Files => html! {<FilesPage />},
+                AppRoute::Galleries => html! {<GalleriesPage />},
+                AppRoute::GalleryDesigner(id) => html! {<GalleryDesignerPage id=id />},
+                AppRoute::SimplePages => html! {<SimplePagesPage />},
+                AppRoute::EditSimplePage(id) => html! {<EditSimplePagePage id=id />},
+                AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
+            }
+        })
     }
 }

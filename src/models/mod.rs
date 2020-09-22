@@ -1,3 +1,4 @@
+pub mod simple_page;
 pub mod gallery_file;
 pub mod gallery;
 pub mod edited;

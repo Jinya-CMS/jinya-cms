@@ -23,6 +23,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.media", "Media");
     map.insert("app.menu.content.media.files", "Files");
     map.insert("app.menu.content.media.galleries", "Galleries");
+    map.insert("app.menu.content.pages", "Pages");
+    map.insert("app.menu.content.pages.simple_pages", "Simple Pages");
+    map.insert("app.menu.content.pages.simple_pages.edit", "Edit page");
+    map.insert("app.menu.content.pages.simple_pages.add", "Add page");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -46,7 +50,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.edit.name", "Name");
     map.insert("files.edit.file", "File");
     map.insert("files.edit.file_selected", "File selected");
-    map.insert("files.edit.saved.success", "Sucessfully saved {name}");
+    map.insert("files.edit.saved.success", "Successfully saved {name}");
     map.insert("files.edit.error_generic", "The file could not be saved");
     map.insert("files.edit.error_conflict", "The file could not be saved, because there is a file with the same name");
     map.insert("files.edit.error_filename_empty", "The name must be not empty");
@@ -58,7 +62,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("files.add.name", "Name");
     map.insert("files.add.file", "File");
     map.insert("files.add.select_file", "Select file");
-    map.insert("files.add.saved.success", "Sucessfully saved {name}");
+    map.insert("files.add.saved.success", "Successfully saved {name}");
     map.insert("files.add.error_generic", "The file could not be saved");
     map.insert("files.add.error_conflict", "The file could not be saved, because there is a file with the same name");
     map.insert("files.add.error_filename_empty", "The name must be not empty");
@@ -122,6 +126,30 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("galleries.designer.error_delete", "The file could not be removed");
     map.insert("galleries.designer.error_add", "The file could not be added");
     map.insert("galleries.designer.error_update", "The file could not be moved");
+
+    map.insert("simple_pages.overview.action_new", "New page");
+    map.insert("simple_pages.overview.action_edit", "Edit page");
+    map.insert("simple_pages.overview.action_delete", "Delete page");
+    map.insert("simple_pages.overview.table.title_column", "Title");
+    map.insert("simple_pages.overview.table.content_column", "Content");
+
+    map.insert("simple_pages.delete.approve", "Delete page");
+    map.insert("simple_pages.delete.decline", "Keep page");
+    map.insert("simple_pages.delete.title", "Really delete page?");
+    map.insert("simple_pages.delete.content", "Are you sure, that you want to delete \"{title}\". The page will be removed from all menus and themes.");
+    map.insert("simple_pages.delete.failed", "The page \"{name}\" could not be deleted.");
+
+    map.insert("simple_pages.edit.title", "Title");
+    map.insert("simple_pages.edit.error_empty_title", "The title is required");
+    map.insert("simple_pages.edit.update", "Save page");
+    map.insert("simple_pages.edit.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("simple_pages.edit.error_generic", "The page could not be saved");
+
+    map.insert("simple_pages.add.title", "Title");
+    map.insert("simple_pages.add.error_empty_title", "The title is required");
+    map.insert("simple_pages.add.create", "Save page");
+    map.insert("simple_pages.add.error_conflict", "The page could not be saved, because there is a page with the same name");
+    map.insert("simple_pages.add.error_generic", "The page could not be saved");
 
     map
 }

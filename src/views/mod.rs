@@ -1,3 +1,4 @@
+pub mod simple_pages;
 pub mod galleries;
 pub mod home;
 pub mod files;
