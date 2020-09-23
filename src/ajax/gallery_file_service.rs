@@ -15,7 +15,7 @@ impl GalleryFileService {
         GalleryFileService {}
     }
 
-    pub fn get_positions(&self, gallery: i32, callback: Callback<Result<Vec<GalleryFile>, AjaxError>>) -> FetchTask {
+    pub fn get_positions(&self, gallery: usize, callback: Callback<Result<Vec<GalleryFile>, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/gallery/{}/file", get_host(), gallery);
         let request = get_request(url);
         let handler = move |response: Response<Json<Result<Vec<GalleryFile>, Error>>>| {
@@ -30,7 +30,7 @@ impl GalleryFileService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn delete_position(&self, gallery: i32, position: usize, callback: Callback<Result<usize, AjaxError>>) -> FetchTask {
+    pub fn delete_position(&self, gallery: usize, position: usize, callback: Callback<Result<usize, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/gallery/{}/file/{}", get_host(), gallery, position);
         let request = delete_request(url);
         let handler = move |response: Response<Json<Result<(), Error>>>| {
@@ -45,13 +45,13 @@ impl GalleryFileService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn create_position(&self, gallery: i32, file: i32, position: usize, callback: Callback<Result<GalleryFile, AjaxError>>) -> FetchTask {
+    pub fn create_position(&self, gallery: usize, file: usize, position: usize, callback: Callback<Result<GalleryFile, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/gallery/{}/file", get_host(), gallery);
 
         #[derive(Deserialize, Serialize)]
         struct RequestData {
             position: usize,
-            file: i32,
+            file: usize,
         }
 
         let body = RequestData {
@@ -72,7 +72,7 @@ impl GalleryFileService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn update_position(&self, gallery: i32, old_position: usize, new_position: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+    pub fn update_position(&self, gallery: usize, old_position: usize, new_position: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/gallery/{}/file/{}", get_host(), gallery, old_position);
 
         #[derive(Deserialize, Serialize)]

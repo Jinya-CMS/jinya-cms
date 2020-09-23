@@ -4,7 +4,7 @@ use crate::models::file::File;
 
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct GalleryFile {
-    pub id: i32,
+    pub id: usize,
     pub file: File,
     pub position: usize,
 }

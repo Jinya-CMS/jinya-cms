@@ -155,6 +155,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.overview.action_new", "Neue Seite");
     map.insert("segment_pages.overview.action_edit", "Seite bearbeiten");
     map.insert("segment_pages.overview.action_delete", "Seite löschen");
+    map.insert("segment_pages.overview.action_designer", "Seitendesigner");
     map.insert("segment_pages.overview.table.name_column", "Name");
     map.insert("segment_pages.overview.table.segment_count_column", "Segmentanzahl");
 
@@ -171,7 +172,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.edit.title", "{name} bearbeiten");
     map.insert("segment_pages.edit.name", "Name");
     map.insert("segment_pages.edit.error_name_empty", "Der Name ist erforderlich");
-    map.insert("segment_pages.edit.action_discard", "Seite verwerfen");
+    map.insert("segment_pages.edit.action_discard", "Änderungen verwerfen");
     map.insert("segment_pages.edit.action_save", "Seite speichern");
     map.insert("segment_pages.edit.saving", "Die Seite wird gespeichert");
     map.insert("segment_pages.edit.saved", "Die Seite {name} wurde erfolgreich gespeichert");
@@ -183,6 +184,22 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.delete.title", "Seite wirklich löschen?");
     map.insert("segment_pages.delete.content", "Bist du sicher, dass du die Seite \"{name}\" löschen möchtest? Die Seite wird aus allen Menüs und Themes entfernt.");
     map.insert("segment_pages.delete.failed", "Die Seite \"{name}\" konnte nicht gelöscht werden.");
+
+    map.insert("segment_pages.designer.action", "Aktion");
+    map.insert("segment_pages.designer.action.script", "Skript");
+    map.insert("segment_pages.designer.action.link", "Link");
+    map.insert("segment_pages.designer.action.none", "Keine");
+    map.insert("segment_pages.designer.target", "Ziel");
+    map.insert("segment_pages.designer.script", "Skript");
+    map.insert("segment_pages.designer.gallery", "Galerie");
+    map.insert("segment_pages.designer.html", "Formatierter Text");
+    map.insert("segment_pages.designer.error_load_galleries", "Laden der Galerien fehlgeschlagen");
+    map.insert("segment_pages.designer.error_load_files", "Laden der Dateien fehlgeschlagen");
+    map.insert("segment_pages.designer.error_load_segments", "Laden der Segmente fehlgeschlagen");
+    map.insert("segment_pages.designer.tabs.files", "Dateien");
+    map.insert("segment_pages.designer.tabs.galleries", "Galerien");
+    map.insert("segment_pages.designer.tabs.other", "Weitere");
+    map.insert("segment_pages.designer.tabs.other.formatted_text", "Formatierter Text");
 
     map
 }

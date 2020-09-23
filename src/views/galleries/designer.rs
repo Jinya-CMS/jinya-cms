@@ -31,14 +31,14 @@ pub struct GalleryDesignerDragData {
 
 #[derive(PartialEq, Clone, Properties)]
 pub struct GalleryDesignerPageProps {
-    pub id: i32,
+    pub id: usize,
 }
 
 pub struct GalleryDesignerPage {
     link: ComponentLink<Self>,
     files: Vec<File>,
     gallery_files: Vec<GalleryFile>,
-    id: i32,
+    id: usize,
     file_service: FileService,
     file_loader_task: Option<FetchTask>,
     drag_over_position: Option<usize>,

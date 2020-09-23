@@ -20,6 +20,7 @@ use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
+use crate::views::segment_pages::designer::SegmentPageDesignerPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -42,7 +43,7 @@ pub enum AppRoute {
     #[to = "/content/files"]
     Files,
     #[to = "/content/galleries/{id}/designer"]
-    GalleryDesigner(i32),
+    GalleryDesigner(usize),
     #[to = "/content/galleries"]
     Galleries,
     #[to = "/content/simple-pages/{id}/edit"]
@@ -51,6 +52,8 @@ pub enum AppRoute {
     AddSimplePage,
     #[to = "/content/simple-pages"]
     SimplePages,
+    #[to = "/content/segment-pages/{id}/designer"]
+    SegmentPageDesigner(usize),
     #[to = "/content/segment-pages"]
     SegmentPages,
     #[to = "/"]
@@ -222,6 +225,7 @@ impl JinyaDesignerApp {
                 AppRoute::EditSimplePage(id) => html! {<EditSimplePagePage id=id />},
                 AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
                 AppRoute::SegmentPages => html! {<SegmentPagesPage />},
+                AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />}
             }
         })
     }

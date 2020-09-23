@@ -1,62 +1,92 @@
 use serde_derive::{Deserialize, Serialize};
 
+use crate::models::file::File;
+use crate::models::gallery::Gallery;
 use crate::models::segment_page::SegmentPage;
+
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+pub struct FormSegment {
+    pub id: usize,
+    pub title: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+pub struct GallerySegment {
+    pub id: usize,
+    pub name: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+pub struct FileSegment {
+    pub id: usize,
+    pub name: String,
+    pub path: String,
+}
 
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct Segment {
     #[serde(skip_serializing)]
     pub id: usize,
-    #[serde(skip_serializing)]
-    pub page_id: usize,
     pub position: usize,
     pub html: Option<String>,
     pub action: Option<String>,
     pub script: Option<String>,
     pub target: Option<String>,
-    pub gallery_id: Option<usize>,
-    pub file_id: Option<usize>,
+    #[serde(default)]
+    pub form: Option<FormSegment>,
+    #[serde(default)]
+    pub gallery: Option<GallerySegment>,
+    #[serde(default)]
+    pub file: Option<FileSegment>,
 }
 
 impl Segment {
-    pub fn gallery_segment(page: SegmentPage, position: usize, gallery_id: usize) -> Segment {
+    pub fn gallery_segment(position: usize, gallery: Gallery) -> Segment {
         Segment {
-            page_id: page.id,
             id: 0,
             position,
             html: None,
             action: None,
             script: None,
             target: None,
-            gallery_id: Some(gallery_id),
-            file_id: None,
+            form: None,
+            gallery: Some(GallerySegment {
+                id: gallery.id,
+                name: gallery.name,
+            }),
+            file: None,
         }
     }
 
-    pub fn html_segment(page: SegmentPage, position: usize, html: String) -> Segment {
+    pub fn html_segment(position: usize, html: String) -> Segment {
         Segment {
-            page_id: page.id,
             id: 0,
             position,
             html: Some(html),
             action: None,
             script: None,
             target: None,
-            gallery_id: None,
-            file_id: None,
+            form: None,
+            gallery: None,
+            file: None,
         }
     }
 
-    pub fn file_segment(page: SegmentPage, position: usize, file_id: usize, action: Option<String>, script: Option<String>, target: Option<String>) -> Segment {
+    pub fn file_segment(position: usize, file: File, action: Option<String>, script: Option<String>, target: Option<String>) -> Segment {
         Segment {
-            page_id: page.id,
             id: 0,
             position,
             html: None,
             action,
             script,
             target,
-            gallery_id: None,
-            file_id: Some(file_id),
+            form: None,
+            gallery: None,
+            file: Some(FileSegment {
+                name: file.name,
+                path: file.path,
+                id: file.id,
+            }),
         }
     }
 }

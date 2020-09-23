@@ -11,7 +11,7 @@ pub struct File {
     #[serde(default)]
     pub updated: Edited,
     #[serde(skip_serializing)]
-    pub id: i32,
+    pub id: usize,
     pub name: String,
     #[serde(skip_serializing)]
     pub path: String,

@@ -23,6 +23,7 @@ use crate::views::segment_pages::edit_dialog::EditDialog;
 
 mod add_dialog;
 mod edit_dialog;
+pub mod designer;
 
 pub struct SegmentPagesPage {
     link: ComponentLink<Self>,
@@ -48,6 +49,7 @@ pub struct SegmentPagesPage {
 pub enum Msg {
     OnNewPageClick,
     OnEditPageClick,
+    OnPageDesignerClick,
     OnDeletePageClick,
     OnPagesLoaded(Result<ListModel<SegmentPage>, AjaxError>),
     OnPageSelected(usize),
@@ -157,7 +159,8 @@ impl Component for SegmentPagesPage {
                 self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
             }
             Msg::OnDiscardAdd => self.show_add_dialog = false,
-            Msg::OnDiscardEdit => self.show_edit_dialog = false
+            Msg::OnDiscardEdit => self.page_to_edit = None,
+            Msg::OnPageDesignerClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::SegmentPageDesigner(self.get_selected_page().id))))
         }
 
         true
@@ -173,6 +176,7 @@ impl Component for SegmentPagesPage {
                 <ButtonRow alignment=ButtonRowAlignment::Start>
                     <Button label=self.translator.translate("segment_pages.overview.action_new") on_click=self.link.callback(|_| Msg::OnNewPageClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("segment_pages.overview.action_edit") on_click=self.link.callback(|_| Msg::OnEditPageClick) />
+                    <Button disabled=self.selected_index.is_none() label=self.translator.translate("segment_pages.overview.action_designer") on_click=self.link.callback(|_| Msg::OnPageDesignerClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("segment_pages.overview.action_delete") button_type=ButtonType::Negative on_click=self.link.callback(|_| Msg::OnDeletePageClick) />
                 </ButtonRow>
                 {if self.alert_message.is_some() {

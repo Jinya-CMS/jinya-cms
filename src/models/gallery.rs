@@ -73,7 +73,7 @@ impl Serialize for GalleryType {
 #[serde(rename_all = "camelCase")]
 pub struct Gallery {
     #[serde(skip_serializing)]
-    pub id: i32,
+    pub id: usize,
     pub name: String,
     #[serde(alias = "type")]
     #[serde(rename = "type")]
@@ -89,7 +89,7 @@ pub struct Gallery {
 impl Gallery {
     pub fn from_all_fields(name: String, description: String, orientation: Orientation, gallery_type: GalleryType) -> Gallery {
         Gallery {
-            id: -1,
+            id: 0,
             name,
             gallery_type,
             orientation,
