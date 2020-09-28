@@ -64,8 +64,6 @@ class CountEvent extends Event
 
     /**
      * CountEvent constructor.
-     * @param string $keyword
-     * @param int $count
      */
     public function __construct(string $keyword, int $count)
     {
@@ -73,17 +71,11 @@ class CountEvent extends Event
         $this->count = $count;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyword(): string
     {
         return $this->keyword;
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->count;
