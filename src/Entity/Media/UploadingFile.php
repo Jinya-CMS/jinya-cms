@@ -28,7 +28,6 @@ class UploadingFile
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Media\File")
-     * @var File
      */
     private File $file;
 
@@ -50,49 +49,31 @@ class UploadingFile
         $this->chunks = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getChunks(): Collection
     {
         return $this->chunks;
     }
 
-    /**
-     * @param Collection $chunks
-     */
     public function setChunks(Collection $chunks): void
     {
         $this->chunks = $chunks;
     }
 
-    /**
-     * @return File
-     */
     public function getFile(): File
     {
         return $this->file;
     }
 
-    /**
-     * @param File $file
-     */
     public function setFile(File $file): void
     {
         $this->file = $file;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     */
     public function setId(string $id): void
     {
         $this->id = $id;

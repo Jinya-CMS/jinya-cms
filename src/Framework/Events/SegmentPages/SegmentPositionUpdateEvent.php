@@ -24,10 +24,6 @@ class SegmentPositionUpdateEvent extends CancellableEvent
 
     /**
      * SegmentPositionUpdateEvent constructor.
-     * @param string $segmentPageSlug
-     * @param int $segmentId
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function __construct(string $segmentPageSlug, int $segmentId, int $oldPosition, int $newPosition)
     {
@@ -37,33 +33,21 @@ class SegmentPositionUpdateEvent extends CancellableEvent
         $this->newPosition = $newPosition;
     }
 
-    /**
-     * @return string
-     */
     public function getSegmentPageSlug(): string
     {
         return $this->segmentPageSlug;
     }
 
-    /**
-     * @return int
-     */
     public function getSegmentId(): int
     {
         return $this->segmentId;
     }
 
-    /**
-     * @return int
-     */
     public function getOldPosition(): int
     {
         return $this->oldPosition;
     }
 
-    /**
-     * @return int
-     */
     public function getNewPosition(): int
     {
         return $this->newPosition;
