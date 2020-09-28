@@ -29,8 +29,6 @@ class MenuService implements MenuServiceInterface
 
     /**
      * MenuService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
@@ -100,9 +98,6 @@ class MenuService implements MenuServiceInterface
 
     /**
      * Fills the menu items from the given array
-     *
-     * @param int $id
-     * @param array $data
      */
     public function fillFromArray(int $id, array $data): void
     {
@@ -169,10 +164,6 @@ class MenuService implements MenuServiceInterface
         return $menuItem;
     }
 
-    /**
-     * @param array $items
-     * @return array
-     */
     private function fixPositions(array $items): array
     {
         $positionZero = array_filter($items, static function (MenuItem $item) {

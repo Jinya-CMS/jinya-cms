@@ -20,7 +20,6 @@ class ClearCacheCommand extends Command
 
     /**
      * CompileCacheCommand constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

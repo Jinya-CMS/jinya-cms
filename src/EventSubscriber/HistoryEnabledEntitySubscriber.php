@@ -24,7 +24,6 @@ class HistoryEnabledEntitySubscriber implements EventSubscriber
 
     /**
      * HistoryEnabledEntitySubscriber constructor.
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(TokenStorageInterface $tokenStorage)
     {

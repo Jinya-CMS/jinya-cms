@@ -27,7 +27,6 @@ class MenuItem implements JsonSerializable
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      */
     private string $title;
 
@@ -39,7 +38,6 @@ class MenuItem implements JsonSerializable
 
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\RoutingEntry", mappedBy="menuItem", cascade={"persist", "remove"})
-     * @var RoutingEntry
      */
     private RoutingEntry $route;
 
@@ -52,25 +50,21 @@ class MenuItem implements JsonSerializable
 
     /**
      * @ORM\OneToMany(targetEntity="Jinya\Entity\Menu\MenuItem", mappedBy="parent", cascade={"persist", "remove"})
-     * @var Collection
      */
     private Collection $children;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private string $pageType;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean")
      */
     private bool $highlighted = false;
 
     /**
      * @ORM\Column(type="integer")
-     * @var int
      */
     private int $position;
 
@@ -85,7 +79,6 @@ class MenuItem implements JsonSerializable
     /**
      * Creates a MenuItem from the given array
      *
-     * @param array $item
      * @return MenuItem
      */
     public static function fromArray(array $item): self
@@ -103,65 +96,41 @@ class MenuItem implements JsonSerializable
         return $menuItem;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @param int $position
-     */
     public function setPosition(int $position): void
     {
         $this->position = $position;
     }
 
-    /**
-     * @return bool
-     */
     public function isHighlighted(): bool
     {
         return $this->highlighted;
     }
 
-    /**
-     * @param bool $highlighted
-     */
     public function setHighlighted(bool $highlighted): void
     {
         $this->highlighted = $highlighted;
     }
 
-    /**
-     * @return string
-     */
     public function getPageType(): string
     {
         return $this->pageType;
     }
 
-    /**
-     * @param string $pageType
-     */
     public function setPageType(string $pageType): void
     {
         $this->pageType = $pageType;
     }
 
-    /**
-     * @return Collection
-     */
     public function getChildren(): Collection
     {
         return $this->children;
     }
 
-    /**
-     * @param Collection $children
-     */
     public function setChildren(Collection $children): void
     {
         $this->children = $children;
@@ -191,17 +160,11 @@ class MenuItem implements JsonSerializable
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return Menu|null
-     */
     public function getMenu(): ?Menu
     {
         return $this->menu;
@@ -215,17 +178,11 @@ class MenuItem implements JsonSerializable
         $this->menu = $menu;
     }
 
-    /**
-     * @return RoutingEntry|null
-     */
     public function getRoute(): ?RoutingEntry
     {
         return $this->route;
     }
 
-    /**
-     * @param RoutingEntry $route
-     */
     public function setRoute(RoutingEntry $route): void
     {
         $this->route = $route;
@@ -272,9 +229,6 @@ class MenuItem implements JsonSerializable
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
