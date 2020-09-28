@@ -22,8 +22,6 @@ class BaseService
 
     /**
      * BaseService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param string $entityType
      */
     public function __construct(EntityManagerInterface $entityManager, string $entityType)
     {
