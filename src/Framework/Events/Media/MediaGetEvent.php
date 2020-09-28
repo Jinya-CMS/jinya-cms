@@ -25,16 +25,12 @@ class MediaGetEvent extends Event
 
     /**
      * MediaGetEvent constructor.
-     * @param string $path
      */
     public function __construct(string $path)
     {
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
@@ -48,9 +44,6 @@ class MediaGetEvent extends Event
         return $this->result;
     }
 
-    /**
-     * @param SplFileInfo $result
-     */
     public function setResult(SplFileInfo $result): void
     {
         $this->result = $result;

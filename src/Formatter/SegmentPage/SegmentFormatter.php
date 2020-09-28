@@ -26,9 +26,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * SegmentFormatter constructor.
-     * @param FormFormatterInterface $formFormatter
-     * @param FileFormatterInterface $fileFormatter
-     * @param GalleryFormatterInterface $galleryFormatter
      */
     public function __construct(
         FormFormatterInterface $formFormatter,
@@ -51,9 +48,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param Segment $segment
-     * @return SegmentFormatterInterface
      */
     public function init(Segment $segment): SegmentFormatterInterface
     {
@@ -65,8 +59,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return SegmentFormatterInterface
      */
     public function id(): SegmentFormatterInterface
     {
@@ -77,8 +69,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the action
-     *
-     * @return SegmentFormatterInterface
      */
     public function action(): SegmentFormatterInterface
     {
@@ -91,8 +81,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the target
-     *
-     * @return SegmentFormatterInterface
      */
     public function target(): SegmentFormatterInterface
     {
@@ -105,8 +93,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the script
-     *
-     * @return SegmentFormatterInterface
      */
     public function script(): SegmentFormatterInterface
     {
@@ -119,8 +105,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the gallery
-     *
-     * @return SegmentFormatterInterface
      */
     public function gallery(): SegmentFormatterInterface
     {
@@ -140,8 +124,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the file
-     *
-     * @return SegmentFormatterInterface
      */
     public function file(): SegmentFormatterInterface
     {
@@ -161,8 +143,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the form
-     *
-     * @return SegmentFormatterInterface
      */
     public function form(): SegmentFormatterInterface
     {
@@ -181,8 +161,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the html
-     *
-     * @return SegmentFormatterInterface
      */
     public function html(): SegmentFormatterInterface
     {
@@ -195,8 +173,6 @@ class SegmentFormatter implements SegmentFormatterInterface
 
     /**
      * Formats the position
-     *
-     * @return SegmentFormatterInterface
      */
     public function position(): SegmentFormatterInterface
     {

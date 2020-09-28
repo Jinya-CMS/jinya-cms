@@ -21,11 +21,6 @@ class ProfilePictureController extends BaseUserController
 {
     /**
      * @Route("/api/user/{id}/profilepicture", methods={"GET"}, name="api_user_profilepicture_get")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function getProfilePictureAction(
         int $id,
@@ -55,12 +50,6 @@ class ProfilePictureController extends BaseUserController
     /**
      * @Route("/api/user/{id}/profilepicture", methods={"PUT"}, name="api_user_profilepicture_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param Request $request
-     * @param UserServiceInterface $userService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function putProfilePictureAction(
         int $id,
@@ -93,11 +82,6 @@ class ProfilePictureController extends BaseUserController
     /**
      * @Route("/api/user/{id}/profilepicture", methods={"DELETE"}, name="api_user_profilepicture_delete")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function deleteProfilePictureAction(
         int $id,

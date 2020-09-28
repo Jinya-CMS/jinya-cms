@@ -22,11 +22,6 @@ class GalleryFileController extends BaseApiController
 {
     /**
      * @Route("/api/media/gallery/file/{galleryId}/file", methods={"GET"}, name="api_gallery_file_get")
-     *
-     * @param int $galleryId
-     * @param GalleryServiceInterface $galleryService
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @return Response
      */
     public function getAction(
         int $galleryId,
@@ -48,11 +43,6 @@ class GalleryFileController extends BaseApiController
     /**
      * @Route("/api/media/gallery/file/{galleryId}/file", methods={"POST"}, name="api_gallery_file_position_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $galleryId
-     * @param GalleryFilePositionServiceInterface $filePositionService
-     * @param GalleryFilePositionFormatterInterface $galleryFilePositionFormatter
-     * @return Response
      */
     public function postAction(
         int $galleryId,
@@ -93,8 +83,6 @@ class GalleryFileController extends BaseApiController
      * @IsGranted("ROLE_WRITER")
      *
      * @param int id$
-     * @param GalleryFilePositionServiceInterface $filePositionService
-     * @return Response
      */
     public function deleteAction(int $id, GalleryFilePositionServiceInterface $filePositionService): Response
     {
@@ -112,12 +100,6 @@ class GalleryFileController extends BaseApiController
      *     name="api_gallery_file_position_put"
      * )
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $oldPosition
-     * @param int $galleryId
-     * @param GalleryFilePositionServiceInterface $filePositionService
-     * @return Response
      */
     public function putPositionAction(
         int $id,
