@@ -13,14 +13,10 @@ use Jinya\Entity\Menu\RoutingEntry;
 
 class RouteService implements RouteServiceInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $entityManager;
 
     /**
      * RouteService constructor.
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
