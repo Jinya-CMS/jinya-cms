@@ -14,13 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AdminData
 {
     /**
-     * @var string
      * @Assert\NotBlank(message="install.users.artist_name.not_blank")
      */
     private string $artistName;
 
     /**
-     * @var string
      * @Assert\Email(message="install.users.email.invalid")
      * @Assert\NotBlank(message="install.users.email.not_blank")
      */
@@ -30,7 +28,6 @@ class AdminData
     private $profilePicture;
 
     /**
-     * @var string
      * @Assert\NotBlank(message="install.users.password.not_blank")
      */
     private string $password;
@@ -43,9 +40,6 @@ class AdminData
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword(string $password): void
     {
         $this->password = $password;
@@ -75,9 +69,6 @@ class AdminData
         return $this->artistName;
     }
 
-    /**
-     * @param string $artistName
-     */
     public function setArtistName(string $artistName): void
     {
         $this->artistName = $artistName;
@@ -91,9 +82,6 @@ class AdminData
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail(string $email): void
     {
         $this->email = $email;

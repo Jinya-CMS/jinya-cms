@@ -32,10 +32,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
 
     /**
      * ThemeCompilerService constructor.
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
-     * @param ScssCompilerServiceInterface $scssCompilerService
-     * @param string $kernelProjectDir
      */
     public function __construct(
         ThemeConfigServiceInterface $themeConfigService,
@@ -59,9 +55,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         $this->concatScripts($theme);
     }
 
-    /**
-     * @param Theme $theme
-     */
     private function compileStyles(Theme $theme): void
     {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
@@ -89,20 +82,11 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         $fs->dumpFile($this->getScssVariablesCompilationCheckPath($theme), implode($variables));
     }
 
-    /**
-     * @param Theme $theme
-     * @return string
-     */
     private function getTargetBasePath(Theme $theme): string
     {
         return $this->kernelProjectDir . '/public/public/' . $theme->getName();
     }
 
-    /**
-     * @param string $style
-     * @param Theme $theme
-     * @return string
-     */
     private function getScssCodeForStyle(string $style, Theme $theme): string
     {
         $stylesPath = $this->themeConfigService->getStylesPath($theme);
@@ -110,11 +94,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         return file_get_contents($stylesPath . '/' . $style);
     }
 
-    /**
-     * @param Theme $theme
-     * @param string $filename
-     * @return string
-     */
     private function getCompilationCheckPathStyles(Theme $theme, string $filename): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/styles/';
@@ -159,10 +138,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         }
     }
 
-    /**
-     * @param Theme $theme
-     * @return string
-     */
     private function getScriptsPath(Theme $theme): string
     {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
@@ -177,11 +152,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         );
     }
 
-    /**
-     * @param string $scriptsBasePath
-     * @param array $scripts
-     * @return string
-     */
     private function getJavaScriptSource(string $scriptsBasePath, array $scripts): string
     {
         $source = '';
@@ -195,11 +165,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         return $source;
     }
 
-    /**
-     * @param Theme $theme
-     * @param string $filename
-     * @return string
-     */
     private function getCompilationCheckPathScripts(Theme $theme, string $filename): string
     {
         $webStylesBasePath = $this->getTargetBasePath($theme) . '/scripts/';
@@ -215,10 +180,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         return $this->isStylesCompiled($theme) && $this->isScriptsCompiled($theme);
     }
 
-    /**
-     * @param Theme $theme
-     * @return bool
-     */
     private function isStylesCompiled(Theme $theme): bool
     {
         $themeConfig = $this->themeConfigService->getThemeConfig($theme->getName());
@@ -245,10 +206,6 @@ class ThemeCompilerService implements ThemeCompilerServiceInterface
         return $isCompiled;
     }
 
-    /**
-     * @param Theme $theme
-     * @return bool
-     */
     private function isScriptsCompiled(Theme $theme): bool
     {
         $fs = new Filesystem();
