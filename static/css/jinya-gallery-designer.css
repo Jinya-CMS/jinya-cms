@@ -4,14 +4,6 @@
     overflow: hidden;
 }
 
-.jinya-designer-gallery-designer__middle-bar {
-    background: var(--primary-color);
-    width: 2px;
-    height: calc(100vh - 9rem + var(--line-height-23));
-    display: block;
-    margin-right: 1rem;
-}
-
 .jinya-designer-gallery-designer__list {
     display: flex;
     flex-flow: row wrap;
@@ -24,6 +16,7 @@
 .jinya-designer-gallery-designer__list--file {
     flex: 0 0 29rem;
     min-width: 29rem;
+    border-right: 2px solid var(--primary-color);
 }
 
 .jinya-designer-gallery-designer__list--positions {

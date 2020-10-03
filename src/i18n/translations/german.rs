@@ -193,13 +193,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.script", "Skript");
     map.insert("segment_pages.designer.gallery", "Galerie");
     map.insert("segment_pages.designer.html", "Formatierter Text");
+    map.insert("segment_pages.designer.file", "Datei");
     map.insert("segment_pages.designer.error_load_galleries", "Laden der Galerien fehlgeschlagen");
     map.insert("segment_pages.designer.error_load_files", "Laden der Dateien fehlgeschlagen");
     map.insert("segment_pages.designer.error_load_segments", "Laden der Segmente fehlgeschlagen");
-    map.insert("segment_pages.designer.tabs.files", "Dateien");
-    map.insert("segment_pages.designer.tabs.galleries", "Galerien");
-    map.insert("segment_pages.designer.tabs.other", "Weitere");
-    map.insert("segment_pages.designer.tabs.other.formatted_text", "Formatierter Text");
+    map.insert("segment_pages.designer.delete.approve", "Segment löschen");
+    map.insert("segment_pages.designer.delete.decline", "Segment behalten");
+    map.insert("segment_pages.designer.delete.title", "Segment wirklich löschen?");
+    map.insert("segment_pages.designer.delete.content", "Bist du sicher, dass du das gewählte Segment löschen willst??");
+    map.insert("segment_pages.designer.delete.failed", "Das Segment konnte nicht gelöscht werden.");
+    map.insert("segment_pages.designer.action_save_gallery", "Änderungen speichern");
+    map.insert("segment_pages.designer.action_discard_gallery", "Änderungen verwerfen");
+    map.insert("segment_pages.designer.error_change_gallery_failed", "Die Gallery konnte nicht geändert werden");
 
     map
 }

@@ -193,13 +193,16 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.script", "Script");
     map.insert("segment_pages.designer.gallery", "Gallery");
     map.insert("segment_pages.designer.html", "Formatted text");
+    map.insert("segment_pages.designer.file", "File");
     map.insert("segment_pages.designer.error_load_galleries", "Failed to load the galleries");
     map.insert("segment_pages.designer.error_load_files", "Failed to load the files");
     map.insert("segment_pages.designer.error_load_segments", "Failed to load the segments");
-    map.insert("segment_pages.designer.tabs.files", "Files");
-    map.insert("segment_pages.designer.tabs.galleries", "Galleries");
-    map.insert("segment_pages.designer.tabs.other", "Other");
-    map.insert("segment_pages.designer.tabs.other.formatted_text", "Formatted text");
+    map.insert("segment_pages.designer.delete.approve", "Delete segment");
+    map.insert("segment_pages.designer.delete.decline", "Keep segment");
+    map.insert("segment_pages.designer.delete.title", "Really delete segment?");
+    map.insert("segment_pages.designer.delete.content", "Are you sure, that you want to delete the selected segment?");
+    map.insert("segment_pages.designer.delete.failed", "The segment could not be deleted.");
+    map.insert("segment_pages.designer.error_change_gallery_failed", "The gallery could not be changed");
 
     map
 }

@@ -4,6 +4,8 @@
     background: var(--white);
     padding: 1rem;
     margin-bottom: 1rem;
+    width: 100%;
+    display: block;
 }
 
 .jinya-designer-segment--html h1,
@@ -22,7 +24,7 @@
 
 .jinya-designer-segment--file {
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 25rem 1fr;
     padding-top: 0;
     padding-left: 0;
     padding-bottom: 0;
@@ -37,7 +39,10 @@
 
 .jinya-designer-segment__modifiers {
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.jinya-designer-segment__modifiers dl {
     margin: 0;
 }
 
@@ -50,7 +55,7 @@
 
 .jinya-designer-segment__action-value,
 .jinya-designer-segment__target-value {
-    font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-regular);
     font-size: var(--font-size-16);
     margin-left: 0;
     padding-right: 0;
@@ -61,12 +66,6 @@
     font-weight: var(--font-weight-light);
     width: 100%;
     display: block;
-}
-
-.jinya-designer-segment__files {
-    display: flex;
-    flex-flow: row wrap;
-    padding-top: 1rem;
 }
 
 .jinya-designer-segment__file {
@@ -85,25 +84,67 @@
     box-shadow: 0 0 6px var(--menu-bar-box-shadown);
 }
 
-.jinya-designer-segment__items {
+.jinya-designer-segment__list-item {
+    border-radius: 5px;
+    box-shadow: 0 0 6px var(--menu-bar-box-shadown);
+    background: var(--white);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
     display: flex;
-    flex-flow: row wrap;
-}
-
-.jinya-designer-segment__item {
-    display: flex;
-    min-width: 100%;
-    flex: 0 0 100%;
-    padding: 1rem 0.5rem;
-    font-size: 1.25rem;
-    border-bottom: 2px solid var(--primary-color);
-    cursor: move;
-    box-sizing: border-box;
-    transition: background 0.3s;
-    gap: 1rem;
-    align-items: center;
 }
 
 .jinya-designer-segment__item:hover {
     background: var(--input-background-color);
+}
+
+.jinya-designer-segment__button {
+    background: var(--color-1);
+    color: var(--color-2);
+    transition: color 0.3s, background 0.3s;
+    width: 2rem;
+    height: 2rem;
+    font-size: var(--font-size-24);
+    display: inline-flex;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    float: right;
+}
+
+.jinya-designer-segment__button:hover {
+    color: var(--color-1);
+    background: var(--color-2);
+}
+
+.jinya-designer-segment__button--primary {
+    --color-1: var(--white);
+    --color-2: var(--primary-color);
+}
+
+.jinya-designer-segment__button--negative {
+    --color-1: var(--white);
+    --color-2: var(--negative-color);
+}
+
+.jinya-designer-segment-page-designer__list {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: baseline;
+    max-height: calc(100vh - 9rem + var(--line-height-23));
+    overflow: auto;
+    padding: 5px;
+}
+
+.jinya-designer-segment-page-designer__list--new-items {
+    flex: 0 0 29rem;
+    min-width: 29rem;
+    border-right: 2px solid var(--primary-color);
+}
+
+.jinya-designer-segment-page-designer__container {
+    display: flex;
+    max-height: calc(100vh - 9rem + var(--line-height-23));
+    overflow: hidden;
 }

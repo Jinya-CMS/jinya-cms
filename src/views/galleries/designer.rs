@@ -352,7 +352,6 @@ impl Component for GalleryDesignerPage {
                             }
                         })}
                     </div>
-                    <div class="jinya-designer-gallery-designer__middle-bar"></div>
                     <div ondragover=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragOver(event)) ondragenter=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragEnter(event)) ondrop=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDrop(event)) class="jinya-designer-gallery-designer__list jinya-designer-gallery-designer__list--positions">
                         {for gallery_files.iter().enumerate().map(|(idx, item)| {
                             html! {
