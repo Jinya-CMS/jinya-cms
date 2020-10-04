@@ -18,7 +18,6 @@ impl TinyMce {
     }
 
     pub fn get_content(&self) -> String {
-        log::info!("{}", self.id.clone());
         getContent(self.id.clone())
     }
 

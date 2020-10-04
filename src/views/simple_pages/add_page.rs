@@ -137,6 +137,7 @@ impl Component for AddSimplePagePage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.simple_pages.add")));
+            self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
             self.tinymce.init_tiny_mce("".to_string())
         }
     }

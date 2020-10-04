@@ -135,6 +135,7 @@
     max-height: calc(100vh - 9rem + var(--line-height-23));
     overflow: auto;
     padding: 5px;
+    width: 100%;
 }
 
 .jinya-designer-segment-page-designer__list--new-items {

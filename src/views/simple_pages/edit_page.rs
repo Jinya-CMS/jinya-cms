@@ -157,6 +157,7 @@ impl Component for EditSimplePagePage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.simple_pages.edit")));
+            self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
             self.load_simple_page_task = Some(self.simple_page_service.get_page(self.id, self.link.callback(|result| Msg::OnPageLoaded(result))));
             self.tinymce.init_tiny_mce("".to_string())
         }

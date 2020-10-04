@@ -202,7 +202,9 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.delete.title", "Really delete segment?");
     map.insert("segment_pages.designer.delete.content", "Are you sure, that you want to delete the selected segment?");
     map.insert("segment_pages.designer.delete.failed", "The segment could not be deleted.");
-    map.insert("segment_pages.designer.error_change_gallery_failed", "The gallery could not be changed");
+    map.insert("segment_pages.designer.action_save_segment", "Save changes");
+    map.insert("segment_pages.designer.action_discard_segment", "Discard changes");
+    map.insert("segment_pages.designer.error_change_segment_failed", "The segment could not be changed");
 
     map
 }
