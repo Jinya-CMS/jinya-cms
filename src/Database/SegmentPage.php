@@ -113,6 +113,7 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
         return [
             'id' => $this->getIdAsInt(),
             'name' => $this->name,
+            'segmentCount' => iterator_count($this->getSegments()),
             'created' => [
                 'by' => [
                     'artistName' => $creator->artistName,

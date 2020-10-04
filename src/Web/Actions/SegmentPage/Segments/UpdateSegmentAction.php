@@ -62,7 +62,9 @@ class UpdateSegmentAction extends Action
                 throw new NoResultException($this->request, 'File not found');
             }
             $segment->fileId = $fileId;
-        } elseif ($segment->fileId) {
+        }
+
+        if ($segment->fileId) {
             $action = $body['action'];
             if ($action === 'link') {
                 $target = $body['target'];

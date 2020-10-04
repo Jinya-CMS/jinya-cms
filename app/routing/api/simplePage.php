@@ -14,8 +14,8 @@ return function (RouteCollectorProxy $api) {
     $api->group('page', function (RouteCollectorProxy $group) {
         $group->get('', ListAllSimplePagesAction::class);
         $group->post('', CreateSimplePageAction::class)->add(new CheckRequiredFieldsMiddleware(['title', 'content']));
-        $group->get('/{slug}', GetSimplePageBySlugAction::class);
-        $group->put('/{slug}', UpdateSimplePageAction::class);
-        $group->delete('/{slug}', DeleteSimplePageAction::class);
+        $group->get('/{id}', GetSimplePageBySlugAction::class);
+        $group->put('/{id}', UpdateSimplePageAction::class);
+        $group->delete('/{id}', DeleteSimplePageAction::class);
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 };

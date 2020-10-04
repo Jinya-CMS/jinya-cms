@@ -5,9 +5,11 @@
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
 DirectoryIndex index.php
 
-Header always set Access-Control-Allow-Origin "*"
-Header always set Access-Control-Allow-Headers "*"
-Header always set Access-Control-Allow-Methods "*"
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Headers "*"
+    Header always set Access-Control-Allow-Methods "*"
+</IfModule>
 
 # By default, Apache does not evaluate symbolic links if you did not enable this
 # feature in your server configuration. Uncomment the following line if you
