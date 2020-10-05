@@ -22,13 +22,6 @@ class MessageController extends BaseApiController
      *     requirements={"action": ".*(deleted|archived|spam)"}
      * )
      * @Route("/api/{formSlug}/message", methods={"GET"}, name="api_message_get_all_by_form")
-     *
-     * @param Request $request
-     * @param MessageServiceInterface $messageService
-     * @param MessageFormatterInterface $messageFormatter
-     * @param string $formSlug
-     * @param string $action
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -110,11 +103,6 @@ class MessageController extends BaseApiController
 
     /**
      * @Route("/api/message/{id}", methods={"GET"}, name="api_message_get")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @param MessageFormatterInterface $messageFormatter
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -145,10 +133,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}/spam", methods={"PUT"}, name="api_message_put_spam")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function putSpamAction(int $id, MessageServiceInterface $messageService): Response
     {
@@ -167,10 +151,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}/inbox", methods={"PUT"}, name="api_message_put_inbox")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function putInboxAction(int $id, MessageServiceInterface $messageService): Response
     {
@@ -189,10 +169,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}/archive", methods={"PUT"}, name="api_message_put_archive")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function putArchiveAction(int $id, MessageServiceInterface $messageService): Response
     {
@@ -211,10 +187,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}/trash", methods={"PUT"}, name="api_message_put_trash")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function putTrashAction(int $id, MessageServiceInterface $messageService): Response
     {
@@ -233,10 +205,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}/read", methods={"PUT"}, name="api_message_put_read")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function putReadAction(int $id, MessageServiceInterface $messageService): Response
     {
@@ -253,10 +221,6 @@ class MessageController extends BaseApiController
     /**
      * @Route("/api/message/{id}", methods={"DELETE"}, name="api_message_delete")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MessageServiceInterface $messageService
-     * @return Response
      */
     public function deleteAction(int $id, MessageServiceInterface $messageService): Response
     {

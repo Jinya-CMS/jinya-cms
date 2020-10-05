@@ -34,7 +34,6 @@ class FileEvent extends CancellableEvent
     /**
      * FileEvent constructor.
      * @param File $file
-     * @param int|null $id
      */
     public function __construct(?File $file, ?int $id)
     {
@@ -42,9 +41,6 @@ class FileEvent extends CancellableEvent
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
