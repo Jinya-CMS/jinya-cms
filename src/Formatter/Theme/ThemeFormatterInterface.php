@@ -16,7 +16,6 @@ interface ThemeFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Theme $theme
      * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): self;
