@@ -64,8 +64,6 @@ class ListEvent extends Event
 
     /**
      * ListEvent constructor.
-     * @param string $keyword
-     * @param array $items
      */
     public function __construct(string $keyword, array $items)
     {
@@ -73,17 +71,11 @@ class ListEvent extends Event
         $this->items = $items;
     }
 
-    /**
-     * @return array
-     */
     public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyword(): string
     {
         return $this->keyword;
