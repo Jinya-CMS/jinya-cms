@@ -25,10 +25,6 @@ class BugController extends BaseApiController
     /**
      * @Route("/api/support/bug", methods={"POST"}, name="api_support_bug")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @param Request $request
-     * @param Client $client
-     * @return Response
      */
     public function submitAction(Request $request, Client $client): Response
     {
@@ -65,9 +61,6 @@ class BugController extends BaseApiController
         return $this->json($data, $status);
     }
 
-    /**
-     * @param string $jinyaVersion
-     */
     public function setJinyaVersion(string $jinyaVersion): void
     {
         $this->jinyaVersion = $jinyaVersion;

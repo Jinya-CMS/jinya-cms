@@ -19,7 +19,6 @@ class MediaGalleryCacheSubscriber implements EventSubscriberInterface
 
     /**
      * ArtGalleryCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {
