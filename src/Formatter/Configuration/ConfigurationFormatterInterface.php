@@ -16,7 +16,6 @@ interface ConfigurationFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Configuration $configuration
      * @return ConfigurationFormatterInterface
      */
     public function init(Configuration $configuration): self;
