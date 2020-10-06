@@ -27,8 +27,6 @@ class GalleryFilePositionCacheSubscriber implements EventSubscriberInterface
 
     /**
      * GalleryFileCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(CacheBuilderInterface $cacheBuilder, EntityManagerInterface $entityManager)
     {

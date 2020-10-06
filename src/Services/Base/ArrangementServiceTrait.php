@@ -11,9 +11,6 @@ namespace Jinya\Services\Base;
 trait ArrangementServiceTrait
 {
     /**
-     * @param array $positions
-     * @param int $oldPosition
-     * @param int $newPosition
      * @param $targetItem
      * @return mixed
      */
