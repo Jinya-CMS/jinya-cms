@@ -29,7 +29,7 @@
     "guzzlehttp/guzzle": "6.5.2",
     "ocramius/proxy-manager": "2.7.0",
     "patchwork/jsqueeze": "2.0.5",
-    "phpmyadmin/sql-parser": "5.2.0",
+    "phpmyadmin/sql-parser": "5.4.0",
     "psr/event-dispatcher": "1.0.0",
     "scssphp/scssphp": "1.0.8",
     "sensio/framework-extra-bundle": "5.5.3",
