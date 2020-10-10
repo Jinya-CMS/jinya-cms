@@ -23,9 +23,6 @@ class BaseSlugEntityService extends BaseService
 
     /**
      * BaseSlugEntityService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param string $entityType
      */
     public function __construct(
         EntityManagerInterface $entityManager,

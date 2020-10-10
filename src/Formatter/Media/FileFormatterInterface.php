@@ -10,7 +10,6 @@ interface FileFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param File $file
      * @return FileFormatterInterface
      */
     public function init(File $file): self;

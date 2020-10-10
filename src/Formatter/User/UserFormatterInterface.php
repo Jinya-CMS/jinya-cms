@@ -16,7 +16,6 @@ interface UserFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param User $user
      * @return UserFormatterInterface
      */
     public function init(User $user): self;
