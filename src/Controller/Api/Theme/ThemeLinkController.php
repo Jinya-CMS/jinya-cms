@@ -15,11 +15,6 @@ class ThemeLinkController extends BaseApiController
     /**
      * @Route("/api/theme/{themeName}/links", methods={"GET"}, name="api_theme_get_links")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $themeName
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeFormatterInterface $themeFormatter
-     * @return Response
      */
     public function getAction(
         string $themeName,
@@ -41,10 +36,6 @@ class ThemeLinkController extends BaseApiController
     /**
      * @Route("/api/theme/{themeName}/links/structure", methods={"GET"}, name="api_theme_get_links_structure")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $themeName
-     * @param ThemeLinkServiceInterface $themeLinkService
-     * @return Response
      */
     public function getStructureAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
     {
@@ -58,10 +49,6 @@ class ThemeLinkController extends BaseApiController
     /**
      * @Route("/api/theme/{themeName}/links", methods={"PUT"}, name="api_theme_put_links")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $themeName
-     * @param ThemeLinkServiceInterface $themeLinkService
-     * @return Response
      */
     public function putLinksAction(string $themeName, ThemeLinkServiceInterface $themeLinkService): Response
     {
