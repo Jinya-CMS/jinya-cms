@@ -4,7 +4,7 @@ use yew::format::Json;
 use yew::prelude::*;
 use yew::services::fetch::*;
 
-use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, put_request_with_body, post_request_with_body};
+use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body};
 use crate::models::segment::Segment;
 
 pub struct SegmentService {}
@@ -178,6 +178,29 @@ impl SegmentService {
         }
 
         let request_body = Body { html: content };
+        let request = put_request_with_body(url, &request_body);
+        let handler = move |response: Response<Json<Result<Vec<Segment>, Error>>>| {
+            let (meta, Json(_)) = response.into_parts();
+            if meta.status.is_success() {
+                callback.emit(Ok(true));
+            } else {
+                callback.emit(get_error_from_parts(meta));
+            }
+        };
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn move_segment(&self, segment_page_id: usize, old_position: usize, new_position: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/segment-page/{}/segment/{}", get_host(), segment_page_id, old_position);
+
+        #[derive(Serialize, Deserialize, Clone, PartialEq)]
+        #[serde(rename_all = "camelCase")]
+        struct Body {
+            pub new_position: usize,
+        }
+
+        let request_body = Body { new_position };
         let request = put_request_with_body(url, &request_body);
         let handler = move |response: Response<Json<Result<Vec<Segment>, Error>>>| {
             let (meta, Json(_)) = response.into_parts();
