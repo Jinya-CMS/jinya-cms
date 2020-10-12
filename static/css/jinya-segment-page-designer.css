@@ -1,11 +1,19 @@
+.jinya-designer-segment-container {
+    padding: 1rem 1rem 0;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
 .jinya-designer-segment {
-    border-radius: 5px;
     box-shadow: 0 0 6px var(--menu-bar-box-shadown);
     background: var(--white);
     padding: 1rem;
-    margin-bottom: 1rem;
     width: 100%;
     display: block;
+    cursor: move;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .jinya-designer-segment--html h1,
@@ -92,6 +100,7 @@
     margin-bottom: 1rem;
     width: 100%;
     display: flex;
+    cursor: move;
 }
 
 .jinya-designer-segment__item:hover {
@@ -134,7 +143,6 @@
     align-content: baseline;
     max-height: calc(100vh - 9rem + var(--line-height-23));
     overflow: auto;
-    padding: 5px;
     width: 100%;
 }
 
@@ -142,10 +150,28 @@
     flex: 0 0 29rem;
     min-width: 29rem;
     border-right: 2px solid var(--primary-color);
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .jinya-designer-segment-page-designer__container {
     display: flex;
     max-height: calc(100vh - 9rem + var(--line-height-23));
     overflow: hidden;
+}
+
+.jinya-designer-segment__drop-target {
+    height: 5rem;
+    width: 100%;
+    border: 2px dashed var(--primary-color);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.jinya-designer-segment__drop-target--drag-over {
+    background: var(--menu-bar-box-shadown);
 }

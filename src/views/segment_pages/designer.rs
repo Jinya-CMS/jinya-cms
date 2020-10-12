@@ -30,6 +30,12 @@ pub struct SegmentPageDesignerPageProps {
     pub id: usize,
 }
 
+enum NewSegmentType {
+    Gallery,
+    File,
+    Html,
+}
+
 pub enum Msg {
     OnSegmentsLoaded(Result<Vec<Segment>, AjaxError>),
     OnFilesLoaded(Result<ListModel<File>, AjaxError>),
@@ -50,6 +56,14 @@ pub enum Msg {
     OnFileSelect(String),
     OnTargetChange(String),
     OnActionCheck,
+    OnNewGalleryDragStart(DragEvent),
+    OnNewFileDragStart(DragEvent),
+    OnNewHtmlDragStart(DragEvent),
+    OnSegmentsDragEnter(DragEvent),
+    OnSegmentsDragOver(DragEvent),
+    OnDragOverSegment(usize),
+    OnNewSegmentDrop,
+    OnAddRequestCompleted(Result<bool, AjaxError>),
 }
 
 pub struct SegmentPageDesignerPage {
@@ -63,6 +77,9 @@ pub struct SegmentPageDesignerPage {
     update_gallery_segment_task: Option<FetchTask>,
     update_html_segment_task: Option<FetchTask>,
     update_file_segment_task: Option<FetchTask>,
+    create_gallery_segment_task: Option<FetchTask>,
+    create_html_segment_task: Option<FetchTask>,
+    create_file_segment_task: Option<FetchTask>,
     segment_service: SegmentService,
     file_service: FileService,
     gallery_service: GalleryService,
@@ -79,6 +96,9 @@ pub struct SegmentPageDesignerPage {
     menu_dispatcher: Dispatcher<MenuAgent>,
     edit_segment_file_action: bool,
     edit_segment_file_target: Option<String>,
+    new_segment_type: Option<NewSegmentType>,
+    current_segment: Option<usize>,
+    is_new: bool,
 }
 
 impl Component for SegmentPageDesignerPage {
@@ -100,6 +120,9 @@ impl Component for SegmentPageDesignerPage {
             update_gallery_segment_task: None,
             update_html_segment_task: None,
             update_file_segment_task: None,
+            create_gallery_segment_task: None,
+            create_html_segment_task: None,
+            create_file_segment_task: None,
             segment_service: SegmentService::new(),
             file_service: FileService::new(),
             gallery_service: GalleryService::new(),
@@ -116,6 +139,9 @@ impl Component for SegmentPageDesignerPage {
             menu_dispatcher,
             edit_segment_file_action: false,
             edit_segment_file_target: None,
+            new_segment_type: None,
+            current_segment: None,
+            is_new: false,
         }
     }
 
@@ -138,6 +164,9 @@ impl Component for SegmentPageDesignerPage {
                         }
                     }).collect();
                     self.fetched_files = items;
+                    if self.is_new {
+                        self.edit_segment_file_name = Some(self.files.first().unwrap().value.to_string());
+                    }
                 } else {
                     Toast::negative_toast(self.translator.translate("segment_pages.designer.error_load_files"))
                 }
@@ -152,6 +181,9 @@ impl Component for SegmentPageDesignerPage {
                         }
                     }).collect();
                     self.fetched_galleries = items;
+                    if self.is_new {
+                        self.edit_segment_gallery_name = Some(self.galleries.first().unwrap().value.to_string());
+                    }
                 } else {
                     Toast::negative_toast(self.translator.translate("segment_pages.designer.error_load_galleries"))
                 }
@@ -195,10 +227,26 @@ impl Component for SegmentPageDesignerPage {
                 let name = self.edit_segment_gallery_name.as_ref().unwrap();
                 let gallery = self.fetched_galleries.iter().find(move |item| item.name.eq(name));
                 if gallery.is_some() {
-                    self.update_gallery_segment_task = Some(self.segment_service.update_gallery_segment(self.id, segment_to_edit.position, gallery.unwrap().id, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                    if self.is_new {
+                        self.create_gallery_segment_task = Some(self.segment_service.create_gallery_segment(self.id, self.current_segment.unwrap(), gallery.unwrap().id, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                    } else {
+                        self.update_gallery_segment_task = Some(self.segment_service.update_gallery_segment(self.id, segment_to_edit.position, gallery.unwrap().id, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                    }
                 }
             }
-            Msg::OnDiscardUpdateGallerySegment => self.segment_to_edit = None,
+            Msg::OnDiscardUpdateGallerySegment => {
+                if self.is_new {
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let position = self.segments.iter().position(|item| item.position == segment_position);
+                    if position.is_some() {
+                        self.segments.remove(position.unwrap());
+                    }
+                }
+                self.segment_to_edit = None;
+                self.is_new = false;
+                self.current_segment = None;
+                self.new_segment_type = None;
+            }
             Msg::OnUpdateRequestCompleted(result) => {
                 if result.is_ok() {
                     self.segment_to_edit = None;
@@ -215,14 +263,28 @@ impl Component for SegmentPageDesignerPage {
             Msg::OnUpdateHtmlSegment => {
                 let segment_to_edit = self.segment_to_edit.as_ref().unwrap();
                 let content = self.tiny_mce.as_ref().unwrap().get_content();
-                self.update_html_segment_task = Some(self.segment_service.update_html_segment(self.id, segment_to_edit.position, content, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                if self.is_new {
+                    self.create_html_segment_task = Some(self.segment_service.create_html_segment(self.id, self.current_segment.unwrap(), content, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                } else {
+                    self.update_html_segment_task = Some(self.segment_service.update_html_segment(self.id, segment_to_edit.position, content, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                }
             }
             Msg::OnDiscardUpdateHtmlSegment => {
+                if self.is_new {
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let position = self.segments.iter().position(|item| item.position == segment_position);
+                    if position.is_some() {
+                        self.segments.remove(position.unwrap());
+                    }
+                }
                 self.segment_to_edit = None;
                 if self.tiny_mce.is_some() {
                     self.tiny_mce.as_ref().unwrap().destroy_editor();
                     self.tiny_mce = None;
                 }
+                self.is_new = false;
+                self.current_segment = None;
+                self.new_segment_type = None;
             }
             Msg::OnUpdateFileSegment => {
                 let segment_to_edit = self.segment_to_edit.as_ref().unwrap();
@@ -234,10 +296,26 @@ impl Component for SegmentPageDesignerPage {
                 };
                 let file = self.fetched_files.iter().find(move |item| item.name.eq(name));
                 if file.is_some() {
-                    self.update_file_segment_task = Some(self.segment_service.update_file_segment(self.id, segment_to_edit.position, file.unwrap().id, self.edit_segment_file_action, target, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                    if self.is_new {
+                        self.create_file_segment_task = Some(self.segment_service.create_file_segment(self.id, self.current_segment.unwrap(), file.unwrap().id, !target.is_empty(), target, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                    } else {
+                        self.update_file_segment_task = Some(self.segment_service.update_file_segment(self.id, segment_to_edit.position, file.unwrap().id, self.edit_segment_file_action, target, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                    }
                 }
             }
-            Msg::OnDiscardUpdateFileSegment => self.segment_to_edit = None,
+            Msg::OnDiscardUpdateFileSegment => {
+                if self.is_new {
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let position = self.segments.iter().position(|item| item.position == segment_position);
+                    if position.is_some() {
+                        self.segments.remove(position.unwrap());
+                    }
+                }
+                self.segment_to_edit = None;
+                self.is_new = false;
+                self.current_segment = None;
+                self.new_segment_type = None;
+            }
             Msg::OnFileSelect(value) => self.edit_segment_file_name = Some(value),
             Msg::OnTargetChange(value) => self.edit_segment_file_target = Some(value),
             Msg::OnActionCheck => {
@@ -246,6 +324,96 @@ impl Component for SegmentPageDesignerPage {
                     self.edit_segment_file_target = Some("".to_string());
                 } else {
                     self.edit_segment_file_target = None;
+                }
+            }
+            Msg::OnNewGalleryDragStart(event) => {
+                let data_transfer = event.data_transfer();
+                if data_transfer.is_some() {
+                    let data_transfer_unwrapped = data_transfer.unwrap();
+                    data_transfer_unwrapped.set_drop_effect("copy");
+                    data_transfer_unwrapped.set_effect_allowed("copy");
+                    self.new_segment_type = Some(NewSegmentType::Gallery);
+                }
+            }
+            Msg::OnNewFileDragStart(event) => {
+                let data_transfer = event.data_transfer();
+                if data_transfer.is_some() {
+                    let data_transfer_unwrapped = data_transfer.unwrap();
+                    data_transfer_unwrapped.set_drop_effect("copy");
+                    data_transfer_unwrapped.set_effect_allowed("copy");
+                    self.new_segment_type = Some(NewSegmentType::File);
+                }
+            }
+            Msg::OnNewHtmlDragStart(event) => {
+                let data_transfer = event.data_transfer();
+                if data_transfer.is_some() {
+                    let data_transfer_unwrapped = data_transfer.unwrap();
+                    data_transfer_unwrapped.set_drop_effect("copy");
+                    data_transfer_unwrapped.set_effect_allowed("copy");
+                    self.new_segment_type = Some(NewSegmentType::Html);
+                }
+            }
+            Msg::OnSegmentsDragEnter(event) => {
+                event.prevent_default();
+                event.stop_propagation();
+            }
+            Msg::OnSegmentsDragOver(event) => {
+                event.prevent_default();
+                event.stop_propagation();
+            }
+            Msg::OnDragOverSegment(idx) => self.current_segment = Some(idx),
+            Msg::OnNewSegmentDrop => {
+                let current_segment = self.current_segment.unwrap();
+                let new_segment = match self.new_segment_type.as_ref().unwrap() {
+                    NewSegmentType::Gallery => {
+                        self.edit_segment_gallery_name = None;
+                        Segment::gallery_segment(current_segment, Gallery::empty_gallery())
+                    }
+                    NewSegmentType::File => {
+                        self.edit_segment_file_name = None;
+                        Segment::file_segment(current_segment, File::from_name("".to_string()), None, None, None)
+                    }
+                    NewSegmentType::Html => {
+                        Segment::html_segment(current_segment, "".to_string())
+                    }
+                };
+                if current_segment > self.segments.len() {
+                    self.segments.push(new_segment.clone());
+                } else {
+                    self.segments.insert(current_segment, new_segment.clone());
+                }
+                self.segment_to_edit = Some(new_segment.clone());
+
+                match self.new_segment_type.as_ref().unwrap() {
+                    NewSegmentType::Gallery => {
+                        self.load_galleries_task = Some(self.gallery_service.get_list("".to_string(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
+                        self.edit_segment_gallery_name = Some("".to_string());
+                    }
+                    NewSegmentType::File => {
+                        self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|result| Msg::OnFilesLoaded(result))));
+                        self.edit_segment_file_target = Some("".to_string());
+                        self.edit_segment_file_action = false;
+                        self.edit_segment_file_name = Some("".to_string());
+                    }
+                    NewSegmentType::Html => {}
+                }
+
+                self.new_segment_type = None;
+                self.is_new = true;
+            }
+            Msg::OnAddRequestCompleted(result) => {
+                if result.is_ok() {
+                    self.segment_to_edit = None;
+                    self.current_segment = None;
+                    self.edit_segment_gallery_name = None;
+                    self.is_new = false;
+                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
+                    if self.tiny_mce.is_some() {
+                        self.tiny_mce.as_ref().unwrap().destroy_editor();
+                        self.tiny_mce = None;
+                    }
+                } else {
+                    Toast::negative_toast(self.translator.translate("segment_pages.designer.error_create_segment_failed"))
                 }
             }
         }
@@ -264,57 +432,69 @@ impl Component for SegmentPageDesignerPage {
             <Page>
                 <div class="jinya-designer-segment-page-designer__container">
                     <div class="jinya-designer-segment-page-designer__list jinya-designer-segment-page-designer__list--new-items">
-                        <div class="jinya-designer-segment__list-item jinya-designer-segment__list-item--gallery">
-                            <span class="mdi mdi-menu mdi-24px"></span>  {self.translator.translate("segment_pages.designer.gallery")}
+                        <div draggable=true ondragstart=self.link.callback(move |event| Msg::OnNewGalleryDragStart(event)) class="jinya-designer-segment__list-item jinya-designer-segment__list-item--gallery">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("segment_pages.designer.gallery")}
                         </div>
-                        <div class="jinya-designer-segment__list-item jinya-designer-segment__list-item--file">
-                            <span class="mdi mdi-menu mdi-24px"></span> {self.translator.translate("segment_pages.designer.file")}
+                        <div draggable=true ondragstart=self.link.callback(move |event| Msg::OnNewFileDragStart(event)) class="jinya-designer-segment__list-item jinya-designer-segment__list-item--file">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("segment_pages.designer.file")}
                         </div>
-                        <div class="jinya-designer-segment__list-item jinya-designer-segment__list-item--html">
-                            <span class="mdi mdi-menu mdi-24px"></span> {self.translator.translate("segment_pages.designer.html")}
+                        <div draggable=true ondragstart=self.link.callback(move |event| Msg::OnNewHtmlDragStart(event)) class="jinya-designer-segment__list-item jinya-designer-segment__list-item--html">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("segment_pages.designer.html")}
                         </div>
                     </div>
-                    <div class="jinya-designer-segment-page-designer__list jinya-designer-segment-page-designer__list--segments">
+                    <div ondragover=self.link.callback(|event| Msg::OnSegmentsDragOver(event)) ondragenter=self.link.callback(|event| Msg::OnSegmentsDragEnter(event)) class="jinya-designer-segment-page-designer__list jinya-designer-segment-page-designer__list--segments">
                         {for self.segments.iter().enumerate().map(|(idx, item)| {
+                            let drop_target_class = if self.current_segment.is_some() {
+                                if self.current_segment.unwrap() == idx {
+                                    "jinya-designer-segment__drop-target jinya-designer-segment__drop-target--drag-over"
+                                } else {
+                                    "jinya-designer-segment__drop-target"
+                                }
+                            } else {
+                                "jinya-designer-segment__drop-target"
+                            };
                             if item.gallery.is_some() {
                                 let gallery = item.gallery.as_ref().unwrap();
                                 html! {
-                                    <div class="jinya-designer-segment jinya-designer-segment--gallery">
-                                        <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
-                                        <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
-                                        <span class="jinya-designer-segment__title jinya-designer-segment__title--gallery">{self.translator.translate("segment_pages.designer.gallery")}</span>
-                                        {if self.segment_to_edit.is_some() && self.segment_to_edit.as_ref().unwrap().id == item.id {
-                                            html! {
-                                                <>
-                                                    <Row>
-                                                        <Dropdown
-                                                            label=self.translator.translate("segment_pages.designer.gallery")
-                                                            on_select=self.link.callback(|value| Msg::OnGallerySelect(value))
-                                                            items=&self.galleries
-                                                            value=self.edit_segment_gallery_name.as_ref().unwrap()
-                                                        />
-                                                    </Row>
-                                                    <ButtonRow>
-                                                        <Button label=self.translator.translate("segment_pages.designer.action_save_segment") button_type=ButtonType::Primary on_click=self.link.callback(|_| Msg::OnUpdateGallerySegment)></Button>
-                                                        <Button label=self.translator.translate("segment_pages.designer.action_discard_segment") button_type=ButtonType::Secondary on_click=self.link.callback(|_| Msg::OnDiscardUpdateGallerySegment)></Button>
-                                                    </ButtonRow>
-                                                </>
-                                            }
-                                        } else {
-                                            html! {
-                                                <span>{&gallery.name}</span>
-                                            }
-                                        }}
+                                    <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                        <div ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop) class=drop_target_class>
+                                            <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                        </div>
+                                        <div draggable=true class="jinya-designer-segment jinya-designer-segment--gallery">
+                                            <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
+                                            <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
+                                            <span class="jinya-designer-segment__title jinya-designer-segment__title--gallery">{self.translator.translate("segment_pages.designer.gallery")}</span>
+                                            {if self.segment_to_edit.is_some() && self.segment_to_edit.as_ref().unwrap().id == item.id {
+                                                html! {
+                                                    <>
+                                                        <Row>
+                                                            <Dropdown
+                                                                label=self.translator.translate("segment_pages.designer.gallery")
+                                                                on_select=self.link.callback(|value| Msg::OnGallerySelect(value))
+                                                                items=&self.galleries
+                                                                value=self.edit_segment_gallery_name.as_ref().unwrap()
+                                                            />
+                                                        </Row>
+                                                        <ButtonRow>
+                                                            <Button label=self.translator.translate("segment_pages.designer.action_save_segment") button_type=ButtonType::Primary on_click=self.link.callback(|_| Msg::OnUpdateGallerySegment)></Button>
+                                                            <Button label=self.translator.translate("segment_pages.designer.action_discard_segment") button_type=ButtonType::Secondary on_click=self.link.callback(|_| Msg::OnDiscardUpdateGallerySegment)></Button>
+                                                        </ButtonRow>
+                                                    </>
+                                                }
+                                            } else {
+                                                html! {
+                                                    <span>{&gallery.name}</span>
+                                                }
+                                            }}
+                                        </div>
                                     </div>
                                 }
                             } else if item.file.is_some() {
                                 if self.segment_to_edit.is_some() && self.segment_to_edit.as_ref().unwrap().id == item.id {
                                     html! {
-                                        <>
-                                            <div class="jinya-designer-segment jinya-designer-segment--gallery">
-                                                <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
-                                                <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
-                                            </div>
+                                        <div draggable=true class="jinya-designer-segment jinya-designer-segment--gallery">
+                                            <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
+                                            <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
                                             <Row>
                                                 <Dropdown
                                                     label=self.translator.translate("segment_pages.designer.file")
@@ -347,7 +527,7 @@ impl Component for SegmentPageDesignerPage {
                                                 <Button label=self.translator.translate("segment_pages.designer.action_save_segment") button_type=ButtonType::Primary on_click=self.link.callback(|_| Msg::OnUpdateFileSegment)></Button>
                                                 <Button label=self.translator.translate("segment_pages.designer.action_discard_segment") button_type=ButtonType::Secondary on_click=self.link.callback(|_| Msg::OnDiscardUpdateFileSegment)></Button>
                                             </ButtonRow>
-                                        </>
+                                        </div>
                                     }
                                 } else {
                                     let file = item.file.as_ref().unwrap();
@@ -362,17 +542,22 @@ impl Component for SegmentPageDesignerPage {
                                         "–".to_string()
                                     };
                                     html! {
-                                        <div class="jinya-designer-segment jinya-designer-segment--file">
-                                            <img class="jinya-designer-segment__image" src={format!("{}{}", get_host(), &file.path)} />
-                                            <div class="jinya-designer-segment__modifiers">
-                                                <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
-                                                <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
-                                                <dl>
-                                                    <dt class="jinya-designer-segment__action-header">{self.translator.translate("segment_pages.designer.action")}</dt>
-                                                    <dd class="jinya-designer-segment__action-value">{&action}</dd>
-                                                    <dt class="jinya-designer-segment__target-header">{self.translator.translate("segment_pages.designer.target")}</dt>
-                                                    <dd class="jinya-designer-segment__target-value">{&target}</dd>
-                                                </dl>
+                                        <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                            <div ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop) class=drop_target_class>
+                                                <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                            </div>
+                                            <div draggable=true class="jinya-designer-segment jinya-designer-segment--file">
+                                                <img class="jinya-designer-segment__image" src={format!("{}{}", get_host(), &file.path)} />
+                                                <div class="jinya-designer-segment__modifiers">
+                                                    <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
+                                                    <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
+                                                    <dl>
+                                                        <dt class="jinya-designer-segment__action-header">{self.translator.translate("segment_pages.designer.action")}</dt>
+                                                        <dd class="jinya-designer-segment__action-value">{&action}</dd>
+                                                        <dt class="jinya-designer-segment__target-header">{self.translator.translate("segment_pages.designer.target")}</dt>
+                                                        <dd class="jinya-designer-segment__target-value">{&target}</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                         </div>
                                     }
@@ -392,31 +577,66 @@ impl Component for SegmentPageDesignerPage {
                                 let node = Node::from(content);
                                 let vnode = VNode::VRef(node);
                                 html! {
-                                    <div class="jinya-designer-segment jinya-designer-segment--html">
-                                        <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
-                                        <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
-                                        <span class="jinya-designer-segment__title jinya-designer-segment__title--gallery">{self.translator.translate("segment_pages.designer.html")}</span>
-                                        {if self.segment_to_edit.is_some() && self.segment_to_edit.as_ref().unwrap().id == item.id {
-                                            html! {
-                                                <>
-                                                    <div id="formatted-text-editor"></div>
-                                                    <ButtonRow>
-                                                        <Button label=self.translator.translate("segment_pages.designer.action_save_segment") button_type=ButtonType::Primary on_click=self.link.callback(|_| Msg::OnUpdateHtmlSegment)></Button>
-                                                        <Button label=self.translator.translate("segment_pages.designer.action_discard_segment") button_type=ButtonType::Secondary on_click=self.link.callback(|_| Msg::OnDiscardUpdateHtmlSegment)></Button>
-                                                    </ButtonRow>
-                                                </>
-                                            }
-                                        } else {
-                                            html! {
-                                                {vnode}
-                                            }
-                                        }}
+                                    <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                        <div ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop) class=drop_target_class>
+                                            <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                        </div>
+                                        <div class="jinya-designer-segment jinya-designer-segment--html">
+                                            <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
+                                            <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
+                                            <span class="jinya-designer-segment__title jinya-designer-segment__title--gallery">{self.translator.translate("segment_pages.designer.html")}</span>
+                                            {if self.segment_to_edit.is_some() && self.segment_to_edit.as_ref().unwrap().id == item.id {
+                                                html! {
+                                                    <>
+                                                        <div id="formatted-text-editor"></div>
+                                                        <ButtonRow>
+                                                            <Button label=self.translator.translate("segment_pages.designer.action_save_segment") button_type=ButtonType::Primary on_click=self.link.callback(|_| Msg::OnUpdateHtmlSegment)></Button>
+                                                            <Button label=self.translator.translate("segment_pages.designer.action_discard_segment") button_type=ButtonType::Secondary on_click=self.link.callback(|_| Msg::OnDiscardUpdateHtmlSegment)></Button>
+                                                        </ButtonRow>
+                                                    </>
+                                                }
+                                            } else {
+                                                html! {
+                                                    {vnode}
+                                                }
+                                            }}
+                                        </div>
                                     </div>
                                 }
                             } else {
                                 html! {}
                             }
                         })}
+                        {if self.current_segment.is_some() {
+                            let idx = self.segments.len() + 1;
+                            if self.current_segment.unwrap() == self.segments.len() + 1 {
+                                html! {
+                                    <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                        <div class="jinya-designer-segment__drop-target jinya-designer-segment__drop-target--drag-over" ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop)>
+                                            <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                        </div>
+                                    </div>
+                                }
+                            } else {
+                                html! {
+                                    <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                        <div class="jinya-designer-segment__drop-target" ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop)>
+                                            <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        } else {
+                            let idx = self.segments.len() + 1;
+                            log::info!("{}", idx);
+                            html! {
+                                <div ondragover=self.link.callback(move |event| Msg::OnDragOverSegment(idx)) class="jinya-designer-segment-container">
+                                    <div class="jinya-designer-segment__drop-target" ondrop=self.link.callback(|event| Msg::OnNewSegmentDrop)>
+                                        <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
+                                    </div>
+                                </div>
+                            }
+                        }}
                     </div>
                 </div>
                 {if self.segment_to_delete.is_some() {

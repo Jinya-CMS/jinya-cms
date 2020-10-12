@@ -201,11 +201,12 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.delete.approve", "Segment löschen");
     map.insert("segment_pages.designer.delete.decline", "Segment behalten");
     map.insert("segment_pages.designer.delete.title", "Segment wirklich löschen?");
-    map.insert("segment_pages.designer.delete.content", "Bist du sicher, dass du das gewählte Segment löschen willst??");
+    map.insert("segment_pages.designer.delete.content", "Bist du sicher, dass du das gewählte Segment löschen willst?");
     map.insert("segment_pages.designer.delete.failed", "Das Segment konnte nicht gelöscht werden.");
     map.insert("segment_pages.designer.action_save_segment", "Änderungen speichern");
     map.insert("segment_pages.designer.action_discard_segment", "Änderungen verwerfen");
     map.insert("segment_pages.designer.error_change_segment_failed", "Das Segment konnte nicht geändert werden");
+    map.insert("segment_pages.designer.error_create_segment_failed", "Das Segment konnte nicht hinzugefügt werden");
 
     map
 }

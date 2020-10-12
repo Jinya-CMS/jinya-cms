@@ -1,5 +1,6 @@
 use serde::*;
 use serde::de::IntoDeserializer;
+use web_sys::ReferrerPolicy::Origin;
 
 use crate::models::edited::Edited;
 
@@ -87,6 +88,18 @@ pub struct Gallery {
 }
 
 impl Gallery {
+    pub fn empty_gallery() -> Gallery {
+        Gallery {
+            id: 0,
+            name: "".to_string(),
+            gallery_type: GalleryType::Sequence,
+            orientation: Orientation::Horizontal,
+            description: "".to_string(),
+            created: Edited::new(),
+            updated: Edited::new(),
+        }
+    }
+
     pub fn from_all_fields(name: String, description: String, orientation: Orientation, gallery_type: GalleryType) -> Gallery {
         Gallery {
             id: 0,

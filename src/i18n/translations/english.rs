@@ -205,6 +205,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.action_save_segment", "Save changes");
     map.insert("segment_pages.designer.action_discard_segment", "Discard changes");
     map.insert("segment_pages.designer.error_change_segment_failed", "The segment could not be changed");
+    map.insert("segment_pages.designer.error_create_segment_failed", "The segment could not be created");
 
     map
 }
