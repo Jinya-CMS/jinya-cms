@@ -17,8 +17,6 @@ class TranslationUtils extends AbstractExtension
 
     /**
      * TranslationUtils constructor.
-     * @param string $kernelProjectDir
-     * @param TranslatorInterface $translator
      */
     public function __construct(string $kernelProjectDir, TranslatorInterface $translator)
     {

@@ -17,7 +17,6 @@ class RequestProcessor
 
     /**
      * RequestProcessor constructor.
-     * @param RequestStack $request
      */
     public function __construct(RequestStack $request)
     {

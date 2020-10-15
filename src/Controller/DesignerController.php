@@ -11,8 +11,6 @@ class DesignerController extends BaseController
     /**
      * @Route("/designer", name="designer_home_index")
      * @Route("/designer/{route}", name="designer_home_index_specific", requirements={"route": ".*"})
-     *
-     * @return Response
      */
     public function indexAction(): Response
     {
