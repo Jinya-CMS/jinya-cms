@@ -50,6 +50,9 @@ pub struct GalleryDesignerPage {
     gallery_file_create_task: Option<FetchTask>,
     gallery_file_update_task: Option<FetchTask>,
     translator: Translator,
+    current_position: Option<usize>,
+    selected_position_type: Option<PositionOrFile>,
+    selected_file: Option<usize>,
 }
 
 pub enum GalleryDesignerMsg {
@@ -58,19 +61,17 @@ pub enum GalleryDesignerMsg {
     OnFileDrag(DragEvent, usize),
     OnPositionDrop(DragEvent),
     OnPositionDropOnFiles(DragEvent),
-    OnPositionDragOver(DragEvent, usize),
-    OnPositionDragEnter(DragEvent, usize),
-    OnNewPositionDragOver(DragEvent),
-    OnNewPositionDragEnter(DragEvent),
+    OnNewPositionDragOver(usize),
     OnPositionsDragOver(DragEvent),
     OnPositionsDragEnter(DragEvent),
-    OnPositionDragExit,
     OnPositionDragStart(DragEvent, usize),
     OnFilesDragEnter(DragEvent),
     OnFilesDragOver(DragEvent),
     OnPositionDeleted(Result<usize, AjaxError>),
-    OnPositionAdded(Result<GalleryFile, AjaxError>, usize),
-    OnPositionUpdated(Result<bool, AjaxError>, usize, usize, GalleryFile),
+    OnPositionAdded(Result<GalleryFile, AjaxError>),
+    OnPositionUpdated(Result<bool, AjaxError>),
+    OnDragEnd,
+    OnInvalidDrop(DragEvent),
 }
 
 impl Component for GalleryDesignerPage {
@@ -94,6 +95,9 @@ impl Component for GalleryDesignerPage {
             gallery_file_create_task: None,
             gallery_file_update_task: None,
             translator: Translator::new(),
+            current_position: None,
+            selected_position_type: None,
+            selected_file: None,
         }
     }
 
@@ -102,195 +106,71 @@ impl Component for GalleryDesignerPage {
             GalleryDesignerMsg::OnFilesLoaded(items) => self.files = items.unwrap().items,
             GalleryDesignerMsg::OnFileDrag(event, idx) => {
                 let data_transfer = event.data_transfer();
+                self.selected_position_type = Some(PositionOrFile::File);
+                self.selected_file = Some(idx);
                 if data_transfer.is_some() {
                     let data_transfer_unwrapped = data_transfer.unwrap();
                     data_transfer_unwrapped.set_drop_effect("copy");
                     data_transfer_unwrapped.set_effect_allowed("copy");
-                    let data = GalleryDesignerDragData {
-                        position: Some(idx),
-                        new_position: None,
-                        r#type: PositionOrFile::File,
-                    };
-                    let serialize_result = serde_json::to_string_pretty(&data);
-                    if serialize_result.is_ok() {
-                        data_transfer_unwrapped.set_data("text/json", serialize_result.unwrap().as_str());
-                    }
                 }
             }
             GalleryDesignerMsg::OnPositionDragStart(event, idx) => {
                 let data_transfer = event.data_transfer();
+                self.selected_position_type = Some(PositionOrFile::Position);
+                self.selected_position = Some(idx);
                 if data_transfer.is_some() {
                     let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("move");
-                    data_transfer_unwrapped.set_effect_allowed("move");
-                    let data = GalleryDesignerDragData {
-                        position: Some(idx),
-                        new_position: None,
-                        r#type: PositionOrFile::Position,
-                    };
-                    self.selected_position = Some(idx);
-                    let serialize_result = serde_json::to_string_pretty(&data);
-                    if serialize_result.is_ok() {
-                        data_transfer_unwrapped.set_data("text/json", serialize_result.unwrap().as_str());
-                    }
+                    data_transfer_unwrapped.set_drop_effect("copy");
+                    data_transfer_unwrapped.set_effect_allowed("copy");
                 }
             }
             GalleryDesignerMsg::OnPositionDrop(event) => {
-                event.prevent_default();
-                event.stop_propagation();
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    let item: GalleryDesignerDragData = serde_json::from_str(data_transfer_unwrapped.get_data("text/json").unwrap().as_str()).unwrap();
-                    match item.r#type {
+                if self.selected_position_type.is_some() {
+                    event.prevent_default();
+                    event.stop_propagation();
+                    let new_position = if self.current_position.is_some() {
+                        if self.current_position.unwrap() >= self.gallery_files.len() {
+                            self.get_last_position()
+                        } else {
+                            self.gallery_files[self.current_position.unwrap()].position
+                        }
+                    } else {
+                        1
+                    };
+                    match self.selected_position_type.as_ref().unwrap() {
                         PositionOrFile::Position => {
-                            if self.drag_over_position.is_some() {
-                                let gallery_file = self.gallery_files[self.selected_position.unwrap()].clone();
-                                let old_position_after_insert = if self.drag_over_position.unwrap() > self.selected_position.unwrap() {
-                                    self.selected_position.unwrap()
-                                } else {
-                                    self.selected_position.unwrap() + 1
-                                };
-                                let target_position = if self.previous_drag_over_position.is_some() {
-                                    if self.drag_over_position.unwrap() > self.previous_drag_over_position.unwrap() {
-                                        self.drag_over_position.unwrap() + 1
-                                    } else {
-                                        self.drag_over_position.unwrap()
-                                    }
-                                } else {
-                                    if self.drag_over_position.unwrap() > self.selected_position.unwrap() {
-                                        self.drag_over_position.unwrap() + 1
-                                    } else {
-                                        self.drag_over_position.unwrap()
-                                    }
-                                };
-                                self.gallery_file_update_task = Some(self.gallery_file_service.update_position(self.id, self.selected_position.unwrap(), target_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionUpdated(result, target_position, old_position_after_insert, gallery_file.clone()))));
-                            }
+                            let old_position = self.gallery_files[self.selected_position.unwrap()].position;
+                            self.gallery_file_update_task = Some(self.gallery_file_service.update_position(self.id, old_position, new_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionUpdated(result))));
                         }
                         PositionOrFile::File => {
-                            let file = self.files[item.position.unwrap()].clone();
-                            let target_position = if self.drag_over_position.is_some() {
-                                if self.drag_over_position.unwrap() == self.gallery_files.len() {
-                                    Some(self.gallery_files.len())
-                                } else if self.previous_drag_over_position.is_some() {
-                                    if self.drag_over_position.unwrap() > self.previous_drag_over_position.unwrap() {
-                                        Some(self.drag_over_position.unwrap() + 1)
-                                    } else {
-                                        Some(self.drag_over_position.unwrap())
-                                    }
-                                } else {
-                                    Some(self.drag_over_position.unwrap())
-                                }
-                            } else if self.previous_drag_over_position.is_some() {
-                                Some(self.previous_drag_over_position.unwrap())
-                            } else {
-                                None
-                            };
-                            if target_position.is_some() {
-                                self.gallery_file_create_task = Some(self.gallery_file_service.create_position(self.id, file.id, target_position.unwrap(), self.link.callback(move |result| GalleryDesignerMsg::OnPositionAdded(result, target_position.unwrap()))));
-                            }
+                            let file = self.files[self.selected_file.unwrap()].clone();
+                            self.gallery_file_create_task = Some(self.gallery_file_service.create_position(self.id, file.id, new_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionAdded(result))));
                         }
-                    };
+                    }
 
-                    self.drag_over_position = None;
-                    self.previous_drag_over_position = None;
                     self.selected_position = None;
+                    self.current_position = None;
+                    self.selected_position_type = None;
                 }
             }
-            GalleryDesignerMsg::OnPositionDragOver(event, _) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                        event.stop_propagation();
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnPositionDragEnter(event, idx) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                        let item: GalleryDesignerDragData = serde_json::from_str(data_transfer_unwrapped.get_data("text/json").unwrap().as_str()).unwrap();
-                        let data = GalleryDesignerDragData {
-                            position: item.position,
-                            new_position: Some(idx),
-                            r#type: item.r#type,
-                        };
-                        self.drag_over_position = Some(idx);
-                        let serialize_result = serde_json::to_string_pretty(&data);
-                        if serialize_result.is_ok() {
-                            data_transfer_unwrapped.set_data("text/json", serialize_result.unwrap().as_str());
-                        }
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnNewPositionDragOver(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                        event.stop_propagation();
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnNewPositionDragEnter(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                        let idx = self.gallery_files.len();
-                        let item: GalleryDesignerDragData = serde_json::from_str(data_transfer_unwrapped.get_data("text/json").unwrap().as_str()).unwrap();
-                        let data = GalleryDesignerDragData {
-                            position: item.position,
-                            new_position: Some(idx),
-                            r#type: item.r#type,
-                        };
-                        self.drag_over_position = Some(idx);
-                        let serialize_result = serde_json::to_string_pretty(&data);
-                        if serialize_result.is_ok() {
-                            data_transfer_unwrapped.set_data("text/json", serialize_result.unwrap().as_str());
-                        }
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnPositionDragExit => self.drag_over_position = None,
+            GalleryDesignerMsg::OnNewPositionDragOver(idx) => self.current_position = Some(idx),
             GalleryDesignerMsg::OnPositionsDragOver(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                        if self.drag_over_position.is_some() {
-                            self.previous_drag_over_position = Some(self.drag_over_position.unwrap());
-                        }
-                        self.drag_over_position = None;
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnPositionsDragEnter(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    if data_transfer_unwrapped.types().includes(&JsValue::from_str("text/json"), 0) {
-                        event.prevent_default();
-                    }
-                }
-            }
-            GalleryDesignerMsg::OnPositionDropOnFiles(event) => {
                 event.prevent_default();
                 event.stop_propagation();
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    let item: GalleryDesignerDragData = serde_json::from_str(data_transfer_unwrapped.get_data("text/json").unwrap().as_str()).unwrap();
-                    if item.r#type == PositionOrFile::Position {
-                        self.gallery_file_delete_task = Some(self.gallery_file_service.delete_position(self.id, self.selected_position.unwrap(), self.link.callback(|result| GalleryDesignerMsg::OnPositionDeleted(result))));
-                    }
+            }
+            GalleryDesignerMsg::OnPositionsDragEnter(event) => {
+                event.prevent_default();
+                event.stop_propagation();
+            }
+            GalleryDesignerMsg::OnPositionDropOnFiles(event) => {
+                if self.selected_position_type.is_some() && self.selected_position_type.as_ref().unwrap().eq(&PositionOrFile::Position) {
+                    event.prevent_default();
+                    event.stop_propagation();
+                    self.gallery_file_delete_task = Some(self.gallery_file_service.delete_position(self.id, self.selected_position.unwrap(), self.link.callback(|result| GalleryDesignerMsg::OnPositionDeleted(result))));
+
+                    self.selected_position = None;
+                    self.current_position = None;
+                    self.selected_position_type = None;
                 }
             }
             GalleryDesignerMsg::OnFilesDragEnter(event) => {
@@ -304,28 +184,36 @@ impl Component for GalleryDesignerPage {
             GalleryDesignerMsg::OnGalleryFilesLoaded(data) => self.gallery_files = data.unwrap(),
             GalleryDesignerMsg::OnPositionDeleted(result) => {
                 if result.is_ok() {
-                    self.gallery_files.remove(result.unwrap());
-                    self.reorder_positions();
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_delete"));
                 }
             }
-            GalleryDesignerMsg::OnPositionAdded(result, target_position) => {
+            GalleryDesignerMsg::OnPositionAdded(result) => {
                 if result.is_ok() {
-                    self.gallery_files.insert(target_position, result.unwrap());
-                    self.reorder_positions()
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_add"))
                 }
             }
-            GalleryDesignerMsg::OnPositionUpdated(result, target_position, old_position_after_insert, gallery_file) => {
+            GalleryDesignerMsg::OnPositionUpdated(result) => {
                 if result.is_ok() {
-                    self.gallery_files.insert(target_position, gallery_file);
-                    self.gallery_files.remove(old_position_after_insert);
-                    self.reorder_positions()
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_update"));
                 }
+            }
+            GalleryDesignerMsg::OnDragEnd => {
+                self.selected_position = None;
+                self.current_position = None;
+                self.selected_position_type = None;
+            }
+            GalleryDesignerMsg::OnInvalidDrop(event) => {
+                event.prevent_default();
+                event.stop_propagation();
+                self.selected_position = None;
+                self.current_position = None;
+                self.selected_position_type = None;
             }
         }
 
@@ -341,24 +229,65 @@ impl Component for GalleryDesignerPage {
     fn view(&self) -> Html {
         let mut gallery_files = self.gallery_files.clone();
         gallery_files.sort_by(|a, b| if a.position > b.position { Ordering::Greater } else if b.position > a.position { Ordering::Less } else { Ordering::Equal });
-        let new_position_active_class = if self.drag_over_position.is_some() && self.gallery_files.len() == self.drag_over_position.unwrap() { "jinya-designer-gallery-designer__item--drag-over" } else { "" };
         html! {
             <Page>
                 <div class="jinya-designer-gallery-designer__container">
                     <div ondragenter=self.link.callback(|event| GalleryDesignerMsg::OnFilesDragEnter(event)) ondragover=self.link.callback(|event| GalleryDesignerMsg::OnFilesDragOver(event)) ondrop=self.link.callback(|event| GalleryDesignerMsg::OnPositionDropOnFiles(event)) class="jinya-designer-gallery-designer__list jinya-designer-gallery-designer__list--file">
                         {for self.files.iter().enumerate().map(|(idx, item)| {
                             html! {
-                                <img ondragstart=self.link.callback(move |event| GalleryDesignerMsg::OnFileDrag(event, idx)) src=format!("{}{}", get_host(), &item.path) class="jinya-designer-gallery-designer__image jinya-designer-gallery-designer__item jinya-designer-gallery-designer__item--file" />
+                                <img ondragend=self.link.callback(|_| GalleryDesignerMsg::OnDragEnd) ondragstart=self.link.callback(move |event| GalleryDesignerMsg::OnFileDrag(event, idx)) src=format!("{}{}", get_host(), &item.path) class="jinya-designer-gallery-designer__image jinya-designer-gallery-designer__item jinya-designer-gallery-designer__item--file" />
                             }
                         })}
                     </div>
-                    <div ondragover=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragOver(event)) ondragenter=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragEnter(event)) ondrop=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDrop(event)) class="jinya-designer-gallery-designer__list jinya-designer-gallery-designer__list--positions">
+                    <div ondrop=self.link.callback(|event| GalleryDesignerMsg::OnInvalidDrop(event)) ondragover=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragOver(event)) ondragenter=self.link.callback(|event| GalleryDesignerMsg::OnPositionsDragEnter(event)) class="jinya-designer-gallery-designer__list jinya-designer-gallery-designer__list--positions">
                         {for gallery_files.iter().enumerate().map(|(idx, item)| {
+                            let drop_target_class = if self.current_position.is_some() {
+                                if self.current_position.unwrap() == idx {
+                                    "jinya-designer-gallery-position__drop-target jinya-designer-gallery-position__drop-target--drag-over"
+                                } else {
+                                    "jinya-designer-gallery-position__drop-target"
+                                }
+                            } else {
+                                "jinya-designer-gallery-position__drop-target"
+                            };
                             html! {
-                                <img ondragover=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDragOver(event, idx)) ondragenter=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDragEnter(event, idx)) ondragstart=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDragStart(event, idx)) src=format!("{}{}", get_host(), &item.file.path) class=("jinya-designer-gallery-designer__image jinya-designer-gallery-designer__item jinya-designer-gallery-designer__item--position", self.get_active_item_class_if_selected_item_is_active(idx)) />
+                                <div ondragover=self.link.callback(move |_| GalleryDesignerMsg::OnNewPositionDragOver(idx)) class="jinya-designer-gallery-position-container">
+                                    <div class=drop_target_class ondrop=self.link.callback(|event| GalleryDesignerMsg::OnPositionDrop(event))>
+                                        <span class="mdi mdi-image-outline jinya-designer-position__drop-target-icon"></span>
+                                    </div>
+                                    <img ondragend=self.link.callback(|_| GalleryDesignerMsg::OnDragEnd) ondragstart=self.link.callback(move |event| GalleryDesignerMsg::OnPositionDragStart(event, idx)) src=format!("{}{}", get_host(), &item.file.path) class=("jinya-designer-gallery-designer__image jinya-designer-gallery-designer__item jinya-designer-gallery-designer__item--position", self.get_active_item_class_if_selected_item_is_active(idx)) />
+                                </div>
                             }
                         })}
-                        <div ondragover=self.link.callback(|event| GalleryDesignerMsg::OnNewPositionDragOver(event)) ondragenter=self.link.callback(|event| GalleryDesignerMsg::OnNewPositionDragEnter(event)) class=("jinya-designer-gallery-designer__item jinya-designer-gallery-designer__item--position jinya-designer-gallery-designer__item--next-item", new_position_active_class)></div>
+                        {if self.current_position.is_some() {
+                            let idx = self.gallery_files.len() + 1;
+                            if self.current_position.unwrap() == self.gallery_files.len() + 1 {
+                                html! {
+                                    <div ondragover=self.link.callback(move |_| GalleryDesignerMsg::OnNewPositionDragOver(idx)) class="jinya-designer-gallery-position-container">
+                                        <div class="jinya-designer-gallery-position__drop-target jinya-designer-gallery-position__drop-target--drag-over" ondrop=self.link.callback(|event| GalleryDesignerMsg::OnPositionDrop(event))>
+                                            <span class="mdi mdi-image-outline jinya-designer-position__drop-target-icon"></span>
+                                        </div>
+                                    </div>
+                                }
+                            } else {
+                                html! {
+                                    <div ondragover=self.link.callback(move |_| GalleryDesignerMsg::OnNewPositionDragOver(idx)) class="jinya-designer-gallery-position-container">
+                                        <div class="jinya-designer-gallery-position__drop-target" ondrop=self.link.callback(|event| GalleryDesignerMsg::OnPositionDrop(event))>
+                                            <span class="mdi mdi-image-outline jinya-designer-position__drop-target-icon"></span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        } else {
+                            let idx = self.gallery_files.len() + 1;
+                            html! {
+                                <div ondragover=self.link.callback(move |_| GalleryDesignerMsg::OnNewPositionDragOver(idx)) class="jinya-designer-gallery-position-container">
+                                    <div class="jinya-designer-gallery-position__drop-target" ondrop=self.link.callback(|event| GalleryDesignerMsg::OnPositionDrop(event))>
+                                        <span class="mdi mdi-image-outline jinya-designer-gallery-position__drop-target-icon"></span>
+                                    </div>
+                                </div>
+                            }
+                        }}
                     </div>
                 </div>
             </Page>
@@ -383,9 +312,14 @@ impl GalleryDesignerPage {
         }
     }
 
-    fn reorder_positions(&mut self) {
-        for i in 0..self.gallery_files.len() {
-            self.gallery_files[i].position = i;
+    fn get_last_position(&self) -> usize {
+        let mut items = self.gallery_files.clone();
+        items.sort_by(|a, b| a.position.cmp(&b.position));
+
+        if items.last().is_some() {
+            items.last().unwrap().position + 1
+        } else {
+            1
         }
     }
 }

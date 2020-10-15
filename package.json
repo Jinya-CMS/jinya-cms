@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "wasm-pack build --target web --profiling && yarn rollup ./main.js --format iife --file ./pkg/index.js",
+    "build": "wasm-pack build --target web --debug && yarn rollup ./main.js --format iife --file ./pkg/index.js",
     "build:prod": "wasm-pack build --target web --release && yarn rollup ./main.js --format iife --file ./pkg/index.js"
   },
   "devDependencies": {

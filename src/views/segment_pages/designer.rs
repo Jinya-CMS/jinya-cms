@@ -234,7 +234,7 @@ impl Component for SegmentPageDesignerPage {
                 let gallery = self.fetched_galleries.iter().find(move |item| item.name.eq(name));
                 if gallery.is_some() {
                     if self.is_new {
-                        self.create_gallery_segment_task = Some(self.segment_service.create_gallery_segment(self.id, self.current_segment.unwrap(), gallery.unwrap().id, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                        self.create_gallery_segment_task = Some(self.segment_service.create_gallery_segment(self.id, self.get_new_position(), gallery.unwrap().id, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
                     } else {
                         self.update_gallery_segment_task = Some(self.segment_service.update_gallery_segment(self.id, segment_to_edit.position, gallery.unwrap().id, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
                     }
@@ -270,7 +270,7 @@ impl Component for SegmentPageDesignerPage {
                 let segment_to_edit = self.segment_to_edit.as_ref().unwrap();
                 let content = self.tiny_mce.as_ref().unwrap().get_content();
                 if self.is_new {
-                    self.create_html_segment_task = Some(self.segment_service.create_html_segment(self.id, self.current_segment.unwrap(), content, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                    self.create_html_segment_task = Some(self.segment_service.create_html_segment(self.id, self.get_new_position(), content, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
                 } else {
                     self.update_html_segment_task = Some(self.segment_service.update_html_segment(self.id, segment_to_edit.position, content, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
                 }
@@ -303,7 +303,7 @@ impl Component for SegmentPageDesignerPage {
                 let file = self.fetched_files.iter().find(move |item| item.name.eq(name));
                 if file.is_some() {
                     if self.is_new {
-                        self.create_file_segment_task = Some(self.segment_service.create_file_segment(self.id, self.current_segment.unwrap(), file.unwrap().id, !target.is_empty(), target, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                        self.create_file_segment_task = Some(self.segment_service.create_file_segment(self.id, self.get_new_position(), file.unwrap().id, !target.is_empty(), target, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
                     } else {
                         self.update_file_segment_task = Some(self.segment_service.update_file_segment(self.id, segment_to_edit.position, file.unwrap().id, self.edit_segment_file_action, target, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
                     }
@@ -369,24 +369,25 @@ impl Component for SegmentPageDesignerPage {
             }
             Msg::OnDragOverSegment(idx) => self.current_segment = Some(idx),
             Msg::OnNewSegmentDrop => {
-                let current_segment_idx = self.current_segment.unwrap();
-                let current_segment = self.segments[current_segment_idx].clone();
                 if self.selected_segment.is_some() {
+                    let new_position = self.get_new_position();
                     let selected_segment_idx = self.selected_segment.unwrap();
                     let selected_segment = self.segments[selected_segment_idx].clone();
-                    self.move_segment_task = Some(self.segment_service.move_segment(self.id, selected_segment.position, current_segment.position, self.link.callback(|result| Msg::OnMoveRequestCompleted(result))));
+                    self.move_segment_task = Some(self.segment_service.move_segment(self.id, selected_segment.position, new_position, self.link.callback(|result| Msg::OnMoveRequestCompleted(result))));
                 } else {
+                    let current_segment_idx = self.current_segment.unwrap();
+                    let current_segment_position = self.get_new_position();
                     let new_segment = match self.new_segment_type.as_ref().unwrap() {
                         NewSegmentType::Gallery => {
                             self.edit_segment_gallery_name = None;
-                            Segment::gallery_segment(current_segment.position, Gallery::empty_gallery())
+                            Segment::gallery_segment(current_segment_position, Gallery::empty_gallery())
                         }
                         NewSegmentType::File => {
                             self.edit_segment_file_name = None;
-                            Segment::file_segment(current_segment.position, File::from_name("".to_string()), None, None, None)
+                            Segment::file_segment(current_segment_position, File::from_name("".to_string()), None, None, None)
                         }
                         NewSegmentType::Html => {
-                            Segment::html_segment(current_segment.position, "".to_string())
+                            Segment::html_segment(current_segment_position, "".to_string())
                         }
                     };
                     if current_segment_idx > self.segments.len() {
@@ -586,7 +587,7 @@ impl Component for SegmentPageDesignerPage {
                                                 <span class="mdi mdi-plus jinya-designer-segment__drop-target-icon"></span>
                                             </div>
                                             <div ondragstart=self.link.callback(move |event| Msg::OnSegmentDragStart(event, idx)) draggable=true class="jinya-designer-segment jinya-designer-segment--file">
-                                                <img class="jinya-designer-segment__image" src={format!("{}{}", get_host(), &file.path)} />
+                                                <img draggable=false class="jinya-designer-segment__image" src={format!("{}{}", get_host(), &file.path)} />
                                                 <div class="jinya-designer-segment__modifiers">
                                                     <a onclick=self.link.callback(move |event| Msg::OnDeleteSegment(event, idx)) class="mdi mdi-delete jinya-designer-segment__button jinya-designer-segment__button--negative"></a>
                                                     <a onclick=self.link.callback(move |event| Msg::OnEditSegment(event, idx)) class="mdi mdi-pencil jinya-designer-segment__button jinya-designer-segment__button--primary"></a>
@@ -713,6 +714,31 @@ impl Component for SegmentPageDesignerPage {
                 editor.init_tiny_mce(text.to_string());
                 self.tiny_mce = Some(editor);
             }
+        }
+    }
+}
+
+impl SegmentPageDesignerPage {
+    fn get_new_position(&self) -> usize {
+        if self.current_segment.is_some() {
+            if self.current_segment.unwrap() >= self.segments.len() {
+                self.get_last_position()
+            } else {
+                self.segments[self.current_segment.unwrap()].position
+            }
+        } else {
+            1
+        }
+    }
+
+    fn get_last_position(&self) -> usize {
+        let mut items = self.segments.clone();
+        items.sort_by(|a, b| a.position.cmp(&b.position));
+
+        if items.last().is_some() {
+            items.last().unwrap().position + 1
+        } else {
+            1
         }
     }
 }

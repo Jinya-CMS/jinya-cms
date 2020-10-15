@@ -170,6 +170,8 @@
     justify-content: center;
     align-items: center;
     font-size: 3rem;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
 }
 
 .jinya-designer-segment__drop-target--drag-over {
