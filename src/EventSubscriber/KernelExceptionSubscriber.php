@@ -25,8 +25,6 @@ class KernelExceptionSubscriber implements EventSubscriberInterface
 
     /**
      * KernelExceptionSubscriber constructor.
-     * @param RouterInterface $router
-     * @param LoggerInterface $logger
      */
     public function __construct(RouterInterface $router, LoggerInterface $logger)
     {
