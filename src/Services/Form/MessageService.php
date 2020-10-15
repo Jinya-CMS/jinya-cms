@@ -31,8 +31,6 @@ class MessageService implements MessageServiceInterface
 
     /**
      * MessageService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -45,8 +43,6 @@ class MessageService implements MessageServiceInterface
 
     /**
      * Gets the specified
-     * @param int $id
-     * @return Message
      */
     public function get(int $id): Message
     {
@@ -62,11 +58,6 @@ class MessageService implements MessageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param int $offset
-     * @param int $count
-     * @param string $keyword
-     * @param string $formSlug
-     * @param string $action
      * @return Message[]
      */
     public function getAll(
@@ -95,11 +86,6 @@ class MessageService implements MessageServiceInterface
 
     /**
      * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @param string $formSlug
-     * @param string $action
-     * @return QueryBuilder
      */
     private function getFilteredQueryBuilder(string $keyword, string $formSlug = '', string $action = ''): QueryBuilder
     {
@@ -143,10 +129,6 @@ class MessageService implements MessageServiceInterface
     /**
      * Counts all entities
      *
-     * @param string $keyword
-     * @param string $formSlug
-     * @param string $action
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException
@@ -167,7 +149,6 @@ class MessageService implements MessageServiceInterface
 
     /**
      * Saves or updates the given
-     * @param Message $message
      * @return Message @see Message
      */
     public function saveOrUpdate(Message $message): Message

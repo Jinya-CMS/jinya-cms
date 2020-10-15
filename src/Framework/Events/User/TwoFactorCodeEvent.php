@@ -22,16 +22,12 @@ class TwoFactorCodeEvent extends Event
 
     /**
      * TwoFactorCodeEvent constructor.
-     * @param string $username
      */
     public function __construct(string $username)
     {
         $this->username = $username;
     }
 
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->username;
@@ -45,9 +41,6 @@ class TwoFactorCodeEvent extends Event
         return $this->twoFactorCode;
     }
 
-    /**
-     * @param string $twoFactorCode
-     */
     public function setTwoFactorCode(string $twoFactorCode): void
     {
         $this->twoFactorCode = $twoFactorCode;

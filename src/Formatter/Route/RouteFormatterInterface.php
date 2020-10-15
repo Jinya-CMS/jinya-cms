@@ -44,7 +44,6 @@ interface RouteFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param RoutingEntry $routingEntry
      * @return RouteFormatterInterface
      */
     public function init(RoutingEntry $routingEntry): self;
