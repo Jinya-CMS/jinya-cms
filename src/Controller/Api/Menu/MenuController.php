@@ -23,10 +23,6 @@ class MenuController extends BaseApiController
 {
     /**
      * @Route("/api/menu", methods={"GET"}, name="api_menu_get_all")
-     *
-     * @param MenuServiceInterface $menuService
-     * @param MenuFormatterInterface $menuFormatter
-     * @return Response
      */
     public function getAllAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
     {
@@ -48,11 +44,6 @@ class MenuController extends BaseApiController
 
     /**
      * @Route("/api/menu/{id}", methods={"GET"}, name="api_menu_get")
-     *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @param MenuFormatterInterface $menuFormatter
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -73,10 +64,6 @@ class MenuController extends BaseApiController
 
     /**
      * @Route("/api/menu", methods={"POST"}, name="api_menu_post")
-     *
-     * @param MenuServiceInterface $menuService
-     * @param MenuFormatterInterface $menuFormatter
-     * @return Response
      */
     public function postAction(MenuServiceInterface $menuService, MenuFormatterInterface $menuFormatter): Response
     {
@@ -106,10 +93,6 @@ class MenuController extends BaseApiController
 
     /**
      * @Route("/api/menu/{id}", methods={"PUT"}, name="api_menu_put")
-     *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @return Response
      */
     public function putAction(int $id, MenuServiceInterface $menuService): Response
     {
@@ -127,11 +110,6 @@ class MenuController extends BaseApiController
 
     /**
      * @Route("/api/menu/{id}", methods={"DELETE"}, name="api_menu_delete")
-     *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function deleteAction(
         int $id,

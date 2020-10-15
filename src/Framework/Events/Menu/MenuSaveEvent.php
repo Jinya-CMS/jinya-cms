@@ -22,16 +22,12 @@ class MenuSaveEvent extends CancellableEvent
 
     /**
      * MenuSaveOrUpdateEvent constructor.
-     * @param Menu $menu
      */
     public function __construct(Menu $menu)
     {
         $this->menu = $menu;
     }
 
-    /**
-     * @return Menu
-     */
     public function getMenu(): Menu
     {
         return $this->menu;
