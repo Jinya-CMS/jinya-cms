@@ -26,8 +26,6 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     /**
      * ApiKeyUserProvider constructor.
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(ApiKeyToolInterface $apiKeyTool, EntityManagerInterface $entityManager)
     {
@@ -65,8 +63,6 @@ class ApiKeyUserProvider implements UserProviderInterface
      * totally reloaded (e.g. from the database), or if the UserInterface
      * object can just be merged into some internal array of users / identity
      * map.
-     *
-     * @param UserInterface $user
      */
     public function refreshUser(UserInterface $user)
     {

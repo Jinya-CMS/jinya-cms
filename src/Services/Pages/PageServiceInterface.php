@@ -14,7 +14,6 @@ interface PageServiceInterface
 {
     /**
      * Gets the specified @param string $slug
-     * @return Page
      * @see Page by slug
      */
     public function get(string $slug): Page;
@@ -22,22 +21,17 @@ interface PageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param string $keyword
      * @return Page[]
      */
     public function getAll(string $keyword = ''): array;
 
     /**
      * Counts all entities
-     *
-     * @param string $keyword
-     * @return int
      */
     public function countAll(string $keyword = ''): int;
 
     /**
      * Saves or updates the given @param Page $page
-     * @return Page
      * @see Page
      */
     public function saveOrUpdate(Page $page): Page;

@@ -24,8 +24,6 @@ class MenuFillFromArrayEvent extends CancellableEvent
 
     /**
      * MenuFillFromArrayEvent constructor.
-     * @param int $id
-     * @param array $data
      */
     public function __construct(int $id, array $data)
     {
@@ -33,17 +31,11 @@ class MenuFillFromArrayEvent extends CancellableEvent
         $this->data = $data;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;

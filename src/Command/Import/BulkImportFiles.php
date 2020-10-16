@@ -36,12 +36,6 @@ class BulkImportFiles extends AuthenticatedCommand
 
     /**
      * BulkImportFiles constructor.
-     * @param FileServiceInterface $fileService
-     * @param MediaServiceInterface $mediaService
-     * @param UserServiceInterface $userService
-     * @param MimeTypes $mimeTypes
-     * @param string $kernelProjectDir
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         FileServiceInterface $fileService,

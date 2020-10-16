@@ -27,8 +27,6 @@ class TwoFactorCodeSubmissionEvent extends Event
 
     /**
      * TwoFactorCodeSubmissionEvent constructor.
-     * @param string $username
-     * @param string $twoFactorCode
      */
     public function __construct(string $username, string $twoFactorCode)
     {
@@ -36,33 +34,21 @@ class TwoFactorCodeSubmissionEvent extends Event
         $this->twoFactorCode = $twoFactorCode;
     }
 
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * @return string
-     */
     public function getTwoFactorCode(): string
     {
         return $this->twoFactorCode;
     }
 
-    /**
-     * @return bool
-     */
     public function isSent(): bool
     {
         return $this->sent;
     }
 
-    /**
-     * @param bool $sent
-     */
     public function setSent(bool $sent): void
     {
         $this->sent = $sent;
