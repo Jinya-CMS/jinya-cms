@@ -30,9 +30,6 @@ class ThemeSyncService implements ThemeSyncServiceInterface
 
     /**
      * ThemeSyncService constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param EntityManagerInterface $entityManager
-     * @param string $themeDirectory
      */
     public function __construct(
         ThemeServiceInterface $themeService,

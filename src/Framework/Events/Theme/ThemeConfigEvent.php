@@ -31,9 +31,6 @@ class ThemeConfigEvent extends CancellableEvent
 
     /**
      * ThemeConfigEvent constructor.
-     * @param string $themeName
-     * @param array $config
-     * @param bool $override
      */
     public function __construct(string $themeName, array $config, bool $override)
     {
@@ -42,25 +39,16 @@ class ThemeConfigEvent extends CancellableEvent
         $this->override = $override;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return $this->config;
     }
 
-    /**
-     * @return bool
-     */
     public function isOverride(): bool
     {
         return $this->override;

@@ -32,10 +32,6 @@ class FormItemPositionEvent extends CancellableEvent
 
     /**
      * FormItemPositionEvent constructor.
-     * @param Form $form
-     * @param FormItem $formItem
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function __construct(Form $form, FormItem $formItem, int $oldPosition, int $newPosition)
     {
@@ -45,33 +41,21 @@ class FormItemPositionEvent extends CancellableEvent
         $this->newPosition = $newPosition;
     }
 
-    /**
-     * @return Form
-     */
     public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @return FormItem
-     */
     public function getFormItem(): FormItem
     {
         return $this->formItem;
     }
 
-    /**
-     * @return int
-     */
     public function getOldPosition(): int
     {
         return $this->oldPosition;
     }
 
-    /**
-     * @return int
-     */
     public function getNewPosition(): int
     {
         return $this->newPosition;
