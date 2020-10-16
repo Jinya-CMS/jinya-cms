@@ -30,9 +30,6 @@ class ThemeCacheSubscriber implements EventSubscriberInterface
 
     /**
      * ThemeCacheSubscriber constructor.
-     * @param ConfigurationServiceInterface $configService
-     * @param CacheBuilderInterface $cacheBuilder
-     * @param LoggerInterface $logger
      */
     public function __construct(
         ConfigurationServiceInterface $configService,

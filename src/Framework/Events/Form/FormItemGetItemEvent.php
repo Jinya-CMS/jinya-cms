@@ -22,8 +22,6 @@ class FormItemGetItemEvent extends Event
 
     /**
      * FormItemGetItemEvent constructor.
-     * @param string $formSlug
-     * @param int $position
      */
     public function __construct(string $formSlug, int $position)
     {
@@ -31,17 +29,11 @@ class FormItemGetItemEvent extends Event
         $this->position = $position;
     }
 
-    /**
-     * @return string
-     */
     public function getFormSlug(): string
     {
         return $this->formSlug;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;

@@ -11,7 +11,6 @@ class TableAnalyser implements TableAnalyserInterface
 
     /**
      * TableAnalyser constructor.
-     * @param Connection $connection
      */
     public function __construct(Connection $connection)
     {
