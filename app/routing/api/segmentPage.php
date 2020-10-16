@@ -5,6 +5,9 @@ use App\Web\Actions\SegmentPage\DeleteSegmentPageAction;
 use App\Web\Actions\SegmentPage\GetSegmentPageByIdAction;
 use App\Web\Actions\SegmentPage\ListAllSegmentPagesAction;
 use App\Web\Actions\SegmentPage\Segments\CreateFileSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateFormSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateGallerySegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateHtmlSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\DeleteSegmentAction;
 use App\Web\Actions\SegmentPage\Segments\GetSegmentsAction;
 use App\Web\Actions\SegmentPage\Segments\UpdateSegmentAction;
@@ -28,15 +31,15 @@ return function (RouteCollectorProxy $api) {
                 'action',
                 'position',
             ]));
-            $file->post('/gallery', CreateFileSegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
+            $file->post('/gallery', CreateGallerySegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
                 'gallery',
                 'position',
             ]));
-            $file->post('/form', CreateFileSegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
+            $file->post('/form', CreateFormSegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
                 'form',
                 'position',
             ]));
-            $file->post('/html', CreateFileSegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
+            $file->post('/html', CreateHtmlSegmentAction::class)->add(new CheckRequiredFieldsMiddleware([
                 'html',
                 'position',
             ]));

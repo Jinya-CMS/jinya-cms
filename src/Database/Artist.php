@@ -205,7 +205,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     {
         $device = KnownDevice::findByCode($knownDeviceCode);
         /** @noinspection NullPointerExceptionInspection */
-        return $device->userId === $this->id;
+        return $device->userId === $this->getIdAsInt();
     }
 
     /**
