@@ -24,8 +24,6 @@ class FileService implements FileServiceInterface
 
     /**
      * FileService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
@@ -37,9 +35,6 @@ class FileService implements FileServiceInterface
     /**
      * Gets a list of all files in the folder and filtered by the given keyword and tag
      *
-     * @param string $keyword
-     * @param string $tag
-     * @param string $type
      * @return File[]
      */
     public function getAll(string $keyword = '', string $tag = '', string $type = ''): array
@@ -97,10 +92,6 @@ class FileService implements FileServiceInterface
     /**
      * Counts all files filtered by the given keyword in the given folder and tag
      *
-     * @param string $keyword
-     * @param string $tag
-     * @param string $type
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException
@@ -116,9 +107,6 @@ class FileService implements FileServiceInterface
 
     /**
      * Saves or update the given file
-     *
-     * @param File $file
-     * @return File
      */
     public function saveOrUpdate(File $file): File
     {
@@ -133,8 +121,6 @@ class FileService implements FileServiceInterface
 
     /**
      * Deletes the given file
-     *
-     * @param File $file
      */
     public function delete(File $file): void
     {
@@ -148,8 +134,6 @@ class FileService implements FileServiceInterface
     /**
      * Gets the file by slug or id
      *
-     * @param int $id
-     * @return File
      * @throws NoResultException
      */
     public function get(int $id): File
@@ -164,9 +148,6 @@ class FileService implements FileServiceInterface
 
     /**
      * Gets the file by name
-     *
-     * @param string $name
-     * @return File|null
      */
     public function getByName(string $name): ?File
     {

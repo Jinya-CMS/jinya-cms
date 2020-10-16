@@ -25,8 +25,6 @@ class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
 
     /**
      * RedirectToUpdaterEventSubscriber constructor.
-     * @param string $kernelProjectDir
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(string $kernelProjectDir, UrlGeneratorInterface $urlGenerator)
     {
