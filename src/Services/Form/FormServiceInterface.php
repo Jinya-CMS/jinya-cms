@@ -14,7 +14,6 @@ interface FormServiceInterface
 {
     /**
      * Gets the specified @param string $slug
-     * @return Form
      * @see Form by slug
      */
     public function get(string $slug): Form;
@@ -22,22 +21,17 @@ interface FormServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param string $keyword
      * @return Form[]
      */
     public function getAll(string $keyword = ''): array;
 
     /**
      * Counts all entities
-     *
-     * @param string $keyword
-     * @return int
      */
     public function countAll(string $keyword = ''): int;
 
     /**
      * Saves or updates the given @param Form $form
-     * @return Form
      * @see Form
      */
     public function saveOrUpdate(Form $form): Form;
