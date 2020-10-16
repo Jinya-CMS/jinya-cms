@@ -29,6 +29,12 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.content.pages.simple_pages.add", "Add page");
     map.insert("app.menu.content.pages.segment_pages", "Segment Pages");
 
+    map.insert("app.menu.my_jinya", "My Jinya");
+    map.insert("app.menu.my_jinya.my_account", "My account");
+    map.insert("app.menu.my_jinya.my_account.my_profile", "My profile");
+    map.insert("app.menu.my_jinya.my_account.change_password", "Change password");
+    map.insert("app.menu.my_jinya.my_account.logout", "Logout");
+
     map.insert("app.title.home_page", "Startpage");
 
     map.insert("files.card.button.information", "More info");

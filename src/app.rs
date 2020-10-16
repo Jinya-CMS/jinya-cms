@@ -16,11 +16,11 @@ use crate::views::files::FilesPage;
 use crate::views::galleries::designer::GalleryDesignerPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
+use crate::views::segment_pages::designer::SegmentPageDesignerPage;
 use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
-use crate::views::segment_pages::designer::SegmentPageDesignerPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -56,6 +56,8 @@ pub enum AppRoute {
     SegmentPageDesigner(usize),
     #[to = "/content/segment-pages"]
     SegmentPages,
+    #[to = "/account/me"]
+    MyProfile,
     #[to = "/"]
     Homepage,
 }
@@ -66,6 +68,8 @@ pub enum Msg {
     OnMenuAgentResponse(MenuAgentResponse),
     OnMenuKeyword(String),
     OnMenuSearch(String),
+    OnChangePassword(MouseEvent),
+    OnLogout(MouseEvent),
     Ignore,
 }
 
@@ -128,7 +132,17 @@ impl Component for JinyaDesignerApp {
                 }
             }
             Msg::OnMenuKeyword(value) => self.menu_agent.send(MenuAgentRequest::Keyword(value)),
-            Msg::OnMenuSearch(value) => self.menu_agent.send(MenuAgentRequest::Search(value))
+            Msg::OnMenuSearch(value) => self.menu_agent.send(MenuAgentRequest::Search(value)),
+            Msg::OnChangePassword(event) => {
+                event.prevent_default();
+            }
+            Msg::OnLogout(event) => {
+                event.prevent_default();
+                AuthenticationStorage::clear_api_key();
+                AuthenticationStorage::clear_roles();
+                AuthenticationStorage::clear_device_code();
+                self.router.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Login)));
+            }
         }
 
         true
@@ -197,6 +211,28 @@ impl JinyaDesignerApp {
                 ],
             },
         ];
+        let my_jinya_group = vec![
+            SubItemGroup {
+                title: self.translator.translate("app.menu.my_jinya.my_account"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.my_jinya.my_account.my_profile"),
+                        route: Some(&AppRoute::MyProfile),
+                        on_click: None,
+                    },
+                    SubItem {
+                        label: self.translator.translate("app.menu.my_jinya.my_account.change_password"),
+                        route: None,
+                        on_click: Some(self.link.callback(|event| Msg::OnChangePassword(event))),
+                    },
+                    SubItem {
+                        label: self.translator.translate("app.menu.my_jinya.my_account.logout"),
+                        route: None,
+                        on_click: Some(self.link.callback(|event| Msg::OnLogout(event))),
+                    },
+                ],
+            },
+        ];
 
         let placeholder = if self.hide_search {
             None
@@ -208,6 +244,7 @@ impl JinyaDesignerApp {
             <div style="position: sticky; top: 0; z-index: 1;">
                 <MenuBar search_placeholder=placeholder title=&self.menu_title on_search=self.link.callback(|value| Msg::OnMenuSearch(value)) on_keyword=self.link.callback(|value| Msg::OnMenuKeyword(value))>
                     <MenuItem<AppRoute> groups=content_group label=self.translator.translate("app.menu.content") />
+                    <MenuItem<AppRoute> groups=my_jinya_group label=self.translator.translate("app.menu.my_jinya") />
                 </MenuBar>
             </div>
         }
@@ -225,7 +262,8 @@ impl JinyaDesignerApp {
                 AppRoute::EditSimplePage(id) => html! {<EditSimplePagePage id=id />},
                 AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
                 AppRoute::SegmentPages => html! {<SegmentPagesPage />},
-                AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />}
+                AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
+                AppRoute::MyProfile => html! {}
             }
         })
     }

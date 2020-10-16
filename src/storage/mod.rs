@@ -98,6 +98,11 @@ impl AuthenticationStorage {
         }
     }
 
+    pub fn clear_device_code() {
+        let mut storage = StorageService::new(Area::Local).unwrap();
+        storage.remove(AuthenticationStorage::get_device_code_storage_key())
+    }
+
     pub fn clear_api_key() {
         let mut storage = StorageService::new(Area::Local).unwrap();
         storage.remove(AuthenticationStorage::get_api_key_storage_key())

@@ -1,6 +1,5 @@
 use serde::*;
 use serde::de::IntoDeserializer;
-use web_sys::ReferrerPolicy::Origin;
 
 use crate::models::edited::Edited;
 
