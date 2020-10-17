@@ -19,7 +19,6 @@ class ConfigurationCacheEventSubscriber implements EventSubscriberInterface
 
     /**
      * ThemeCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {
