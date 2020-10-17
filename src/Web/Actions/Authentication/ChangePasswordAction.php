@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Authentication;
 
 use App\Database\Artist;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\MissingFieldsException;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -17,37 +18,23 @@ class ChangePasswordAction extends Action
      * @throws HttpForbiddenException
      * @throws JsonException
      * @throws MissingFieldsException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $password = $body['password'];
-        $oldPassword = $body['old_password'];
-        $token = $body['token'];
+        $oldPassword = $body['oldPassword'];
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
 
-        if ($token) {
-            if ($password) {
-                if (!$currentArtist->changePassword($token, $password)) {
-                    throw new HttpForbiddenException($this->request, 'Token is invalid');
-                }
-                return $this->noContent();
+        if ($password) {
+            if (!$currentArtist->changePassword($oldPassword, $password)) {
+                throw new HttpForbiddenException($this->request, 'Old password is invalid');
             }
-
-            throw new MissingFieldsException($this->request, ['password']);
+            return $this->noContent();
         }
 
-        $newToken = $currentArtist->generatePasswordChangeToken($oldPassword);
-
-        if ($newToken === null) {
-            throw new HttpForbiddenException($this->request, 'Old password invalid');
-        }
-
-        return $this->respond([
-            'url' => '/api/account/password',
-            'token' => $newToken,
-        ]);
+        throw new MissingFieldsException($this->request, ['password']);
     }
 }

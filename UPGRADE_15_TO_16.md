@@ -517,4 +517,13 @@ alter table theme_asset
 	add constraint FK_theme_asset_theme
 		foreign key (theme_id) references theme (id)
 			on delete cascade;
+
+alter table users
+    drop column last_login;
+
+alter table users
+    drop column confirmation_token;
+
+alter table users
+    drop column password_requested_at;
 ```

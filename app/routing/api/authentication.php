@@ -25,5 +25,8 @@ return function (RouteCollectorProxy $api) {
             return $response->withStatus(Action::HTTP_NO_CONTENT);
         })->add(AuthenticationMiddleware::class);
     });
-    $api->put('account/password', ChangePasswordAction::class)->add(AuthenticationMiddleware::class);
+    $api->put('account/password', ChangePasswordAction::class)->add(new CheckRequiredFieldsMiddleware([
+        'oldPassword',
+        'password',
+    ]))->add(AuthenticationMiddleware::class);
 };

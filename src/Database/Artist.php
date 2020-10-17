@@ -20,7 +20,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public string $email = '';
     public bool $enabled = false;
     public ?string $twoFactorToken = '';
-    public ?string $confirmationToken = '';
     public array $roles = [];
     public string $artistName = '';
     public ?string $profilePicture = '';
@@ -211,17 +210,22 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Changes the password of the user
      *
-     * @param string $token
+     * @param string $oldPassword
      * @param string $password
      * @return bool
      * @throws UniqueFailedException
      */
-    public function changePassword(string $token, string $password): bool
+    public function changePassword(string $oldPassword, string $password): bool
     {
-        if ($this->confirmationToken === $token) {
+        if ($this->validatePassword($oldPassword)) {
             $this->setPassword($password);
-            $this->confirmationToken = null;
             $this->update();
+
+            $apiKeys = ApiKey::findByArtist($this->getIdAsInt());
+            foreach ($apiKeys as $apiKey) {
+                /** @var ApiKey $apiKey */
+                $apiKey->delete();
+            }
             return true;
         }
 
