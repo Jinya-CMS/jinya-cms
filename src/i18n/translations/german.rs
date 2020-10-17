@@ -214,5 +214,16 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("segment_pages.designer.error_change_segment_failed", "Das Segment konnte nicht geändert werden");
     map.insert("segment_pages.designer.error_create_segment_failed", "Das Segment konnte nicht hinzugefügt werden");
 
+    map.insert("my_jinya.my_account.change_password.title", "Passwort ändern");
+    map.insert("my_jinya.my_account.change_password.old_password", "Bisheriges Passwort");
+    map.insert("my_jinya.my_account.change_password.new_password", "Neues Passwort");
+    map.insert("my_jinya.my_account.change_password.action_save", "Passwort ändern");
+    map.insert("my_jinya.my_account.change_password.action_discard", "Passwort beibehalten");
+    map.insert("my_jinya.my_account.change_password.saving", "Passwort wird geändert");
+    map.insert("my_jinya.my_account.change_password.error_old_password_empty", "Bisheriges Passwort muss angegeben werden");
+    map.insert("my_jinya.my_account.change_password.error_new_password_empty", "Neues Passwort muss angegeben werden");
+    map.insert("my_jinya.my_account.change_password.error_forbidden", "Das alte Passwort ist falsch.");
+    map.insert("my_jinya.my_account.change_password.error_generic", "Ein unbekannter Fehler ist aufgetreten.");
+
     map
 }

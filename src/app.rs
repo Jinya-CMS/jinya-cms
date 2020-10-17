@@ -1,3 +1,4 @@
+use jinya_ui::widgets::dialog::content::ContentDialog;
 use jinya_ui::widgets::menu::bar::MenuBar;
 use jinya_ui::widgets::menu::item::{MenuItem, SubItem, SubItemGroup};
 use yew::prelude::*;
@@ -10,6 +11,7 @@ use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::authentication_service::AuthenticationService;
 use crate::i18n::Translator;
 use crate::storage::AuthenticationStorage;
+use crate::views::authentication::change_password_dialog::ChangePasswordDialog;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
 use crate::views::files::FilesPage;
@@ -32,6 +34,7 @@ pub struct JinyaDesignerApp {
     menu_title: String,
     translator: Translator,
     hide_search: bool,
+    change_password_open: bool,
 }
 
 #[derive(Switch, Clone, PartialEq)]
@@ -70,6 +73,8 @@ pub enum Msg {
     OnMenuSearch(String),
     OnChangePassword(MouseEvent),
     OnLogout(MouseEvent),
+    OnChangePasswordSave,
+    OnChangePasswordDiscard,
     Ignore,
 }
 
@@ -109,6 +114,7 @@ impl Component for JinyaDesignerApp {
             menu_title: translator.translate("app.title.home_page"),
             translator,
             hide_search: false,
+            change_password_open: false,
         }
     }
 
@@ -135,6 +141,7 @@ impl Component for JinyaDesignerApp {
             Msg::OnMenuSearch(value) => self.menu_agent.send(MenuAgentRequest::Search(value)),
             Msg::OnChangePassword(event) => {
                 event.prevent_default();
+                self.change_password_open = true;
             }
             Msg::OnLogout(event) => {
                 event.prevent_default();
@@ -143,6 +150,11 @@ impl Component for JinyaDesignerApp {
                 AuthenticationStorage::clear_device_code();
                 self.router.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Login)));
             }
+            Msg::OnChangePasswordSave => {
+                self.change_password_open = false;
+                self.router.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Login)));
+            }
+            Msg::OnChangePasswordDiscard => self.change_password_open = false,
         }
 
         true
@@ -171,6 +183,7 @@ impl Component for JinyaDesignerApp {
                             AppRoute::Homepage
                         })
                     />
+                    <ChangePasswordDialog is_open=self.change_password_open on_save_changes=self.link.callback(|_| Msg::OnChangePasswordSave) on_discard_changes=self.link.callback(|_| Msg::OnChangePasswordDiscard) />
                 </main>
             }
         }
