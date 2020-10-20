@@ -224,5 +224,15 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("my_jinya.my_account.change_password.error_forbidden", "The current password is wrong.");
     map.insert("my_jinya.my_account.change_password.error_generic", "An unknown error occurred.");
 
+    map.insert("my_jinya.my_account.my_profile.save", "Save profile");
+    map.insert("my_jinya.my_account.my_profile.discard", "Discard changes");
+    map.insert("my_jinya.my_account.my_profile.artist_name", "Artist name");
+    map.insert("my_jinya.my_account.my_profile.email", "Email");
+    map.insert("my_jinya.my_account.my_profile.profile_picture", "Profile picture");
+    map.insert("my_jinya.my_account.my_profile.error_artist_name_empty", "Artist name is required");
+    map.insert("my_jinya.my_account.my_profile.error_email_empty", "Email is required");
+    map.insert("my_jinya.my_account.my_profile.error_profile_picture_failed", "Failed to upload profile picture");
+    map.insert("my_jinya.my_account.my_profile.error_profile_failed", "Failed to update profile data");
+
     map
 }

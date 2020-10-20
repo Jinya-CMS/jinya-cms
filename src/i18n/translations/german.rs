@@ -225,5 +225,15 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("my_jinya.my_account.change_password.error_forbidden", "Das alte Passwort ist falsch.");
     map.insert("my_jinya.my_account.change_password.error_generic", "Ein unbekannter Fehler ist aufgetreten.");
 
+    map.insert("my_jinya.my_account.my_profile.save", "Profil speichern");
+    map.insert("my_jinya.my_account.my_profile.discard", "Änderungen verwerfen");
+    map.insert("my_jinya.my_account.my_profile.artist_name", "Künstlername");
+    map.insert("my_jinya.my_account.my_profile.email", "Email");
+    map.insert("my_jinya.my_account.my_profile.profile_picture", "Profilbild");
+    map.insert("my_jinya.my_account.my_profile.error_artist_name_empty", "Der Künstlername ist erforderlich");
+    map.insert("my_jinya.my_account.my_profile.error_email_empty", "Die Emailadresse ist erforderlich");
+    map.insert("my_jinya.my_account.my_profile.error_profile_picture_failed", "Das Profilbild konnte nicht hochgeladen werden");
+    map.insert("my_jinya.my_account.my_profile.error_profile_failed", "Die Änderungen am Profil konnten nicht gespeichert werden.");
+
     map
 }

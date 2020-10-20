@@ -20,7 +20,7 @@ wasm-logger = "0.2"
 wee_alloc = { version = "0.4.4", optional = true }
 http = "0.2.1"
 anyhow = "1.0.31"
-yew = "0.17.2"
+yew = "0.17.4"
 yew-router = "0.14.0"
 #jinya-ui = "1.0.8"
 jinya-ui = { path = "../jinya-ui" }

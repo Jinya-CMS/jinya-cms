@@ -18,6 +18,7 @@ use crate::views::files::FilesPage;
 use crate::views::galleries::designer::GalleryDesignerPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
+use crate::views::my_jinya::my_profile::MyProfilePage;
 use crate::views::segment_pages::designer::SegmentPageDesignerPage;
 use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
@@ -276,7 +277,7 @@ impl JinyaDesignerApp {
                 AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
                 AppRoute::SegmentPages => html! {<SegmentPagesPage />},
                 AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
-                AppRoute::MyProfile => html! {}
+                AppRoute::MyProfile => html! {<MyProfilePage />}
             }
         })
     }
