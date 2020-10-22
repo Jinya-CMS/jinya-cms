@@ -5,3 +5,4 @@ pub mod files;
 pub mod authentication;
 pub mod segment_pages;
 pub mod my_jinya;
+pub mod artists;

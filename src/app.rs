@@ -1,4 +1,3 @@
-use jinya_ui::widgets::dialog::content::ContentDialog;
 use jinya_ui::widgets::menu::bar::MenuBar;
 use jinya_ui::widgets::menu::item::{MenuItem, SubItem, SubItemGroup};
 use yew::prelude::*;
@@ -11,6 +10,7 @@ use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::authentication_service::AuthenticationService;
 use crate::i18n::Translator;
 use crate::storage::AuthenticationStorage;
+use crate::views::artists::ArtistsPage;
 use crate::views::authentication::change_password_dialog::ChangePasswordDialog;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
@@ -62,6 +62,8 @@ pub enum AppRoute {
     SegmentPages,
     #[to = "/account/me"]
     MyProfile,
+    #[to = "/configuration/artists"]
+    Artists,
     #[to = "/"]
     Homepage,
 }
@@ -225,6 +227,18 @@ impl JinyaDesignerApp {
                 ],
             },
         ];
+        let configuration_group = vec![
+            SubItemGroup {
+                title: self.translator.translate("app.menu.configuration.generic"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.configuration.generic.artists"),
+                        route: Some(&AppRoute::Artists),
+                        on_click: None,
+                    },
+                ],
+            },
+        ];
         let my_jinya_group = vec![
             SubItemGroup {
                 title: self.translator.translate("app.menu.my_jinya.my_account"),
@@ -258,6 +272,7 @@ impl JinyaDesignerApp {
             <div style="position: sticky; top: 0; z-index: 1;">
                 <MenuBar search_placeholder=placeholder title=&self.menu_title on_search=self.link.callback(|value| Msg::OnMenuSearch(value)) on_keyword=self.link.callback(|value| Msg::OnMenuKeyword(value))>
                     <MenuItem<AppRoute> groups=content_group label=self.translator.translate("app.menu.content") />
+                    <MenuItem<AppRoute> groups=configuration_group label=self.translator.translate("app.menu.configuration") />
                     <MenuItem<AppRoute> groups=my_jinya_group label=self.translator.translate("app.menu.my_jinya") />
                 </MenuBar>
             </div>
@@ -277,7 +292,8 @@ impl JinyaDesignerApp {
                 AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
                 AppRoute::SegmentPages => html! {<SegmentPagesPage />},
                 AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
-                AppRoute::MyProfile => html! {<MyProfilePage />}
+                AppRoute::MyProfile => html! {<MyProfilePage />},
+                AppRoute::Artists => { html! {<ArtistsPage />} }
             }
         })
     }

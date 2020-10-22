@@ -35,6 +35,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.my_jinya.my_account.change_password", "Change password");
     map.insert("app.menu.my_jinya.my_account.logout", "Logout");
 
+    map.insert("app.menu.configuration", "Configuration");
+    map.insert("app.menu.configuration.generic", "General");
+    map.insert("app.menu.configuration.generic.artists", "Artists");
+
     map.insert("app.title.home_page", "Startpage");
 
     map.insert("files.card.button.information", "More info");
@@ -233,6 +237,34 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("my_jinya.my_account.my_profile.error_email_empty", "Email is required");
     map.insert("my_jinya.my_account.my_profile.error_profile_picture_failed", "Failed to upload profile picture");
     map.insert("my_jinya.my_account.my_profile.error_profile_failed", "Failed to update profile data");
+
+    map.insert("artists.card.button.profile", "Profile");
+    map.insert("artists.card.button.edit", "Edit artist");
+    map.insert("artists.card.button.delete", "Delete artist");
+    map.insert("artists.card.button.deactivate", "Deactivate artist");
+    map.insert("artists.card.button.activate", "Activate artist");
+
+    map.insert("artists.delete.approve", "Delete artist");
+    map.insert("artists.delete.decline", "Keep artist");
+    map.insert("artists.delete.title", "Really delete artist?");
+    map.insert("artists.delete.content", "Are you sure, that you want to delete \"{artist_name}\". The artist won't be able to login or create content.");
+    map.insert("artists.delete.failed", "The artist \"{artist_name}\" could not be deleted.");
+    map.insert("artists.delete.failed_created_content", "The artist \"{artist_name}\" could not be deleted. The artist created content, you can still deactivate the artist.");
+    map.insert("artists.delete.success", "The artist \"{artist_name}\" was deleted.");
+
+    map.insert("artists.deactivate.approve", "Deactivate artist");
+    map.insert("artists.deactivate.decline", "Don't deactivate artist");
+    map.insert("artists.deactivate.title", "Really deactivate artist?");
+    map.insert("artists.deactivate.content", "Are you sure, that you want to deactivate \"{artist_name}\". The artist won't be able to login or create content.");
+    map.insert("artists.deactivate.failed", "The artist \"{artist_name}\" could not be deactivated.");
+    map.insert("artists.deactivate.success", "The artist \"{artist_name}\" was deactivated.");
+
+    map.insert("artists.activate.approve", "Activate artist");
+    map.insert("artists.activate.decline", "Don't activate artist");
+    map.insert("artists.activate.title", "Really activate artist?");
+    map.insert("artists.activate.content", "Are you sure, that you want to activate \"{artist_name}\". The artist will be able to login or create content.");
+    map.insert("artists.activate.failed", "The artist \"{artist_name}\" could not be deactivated.");
+    map.insert("artists.activate.success", "The artist \"{artist_name}\" was activated.");
 
     map
 }

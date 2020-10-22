@@ -1,10 +1,8 @@
-use http::StatusCode;
 use jinya_ui::layout::button_row::ButtonRow;
 use jinya_ui::layout::page::Page;
-use jinya_ui::layout::row::Row;
 use jinya_ui::widgets::button::{Button, ButtonType};
 use jinya_ui::widgets::floating_action_button::Fab;
-use jinya_ui::widgets::form::file_upload::{FileUpload, FileUploadState};
+use jinya_ui::widgets::form::file_upload::FileUpload;
 use jinya_ui::widgets::form::input::{Input, InputState};
 use jinya_ui::widgets::toast::Toast;
 use web_sys::Node;
@@ -14,13 +12,10 @@ use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 use yew::services::reader::{File, FileData, ReaderService, ReaderTask};
 use yew::virtual_dom::VNode;
-use yew_router::agent::{RouteAgent, RouteRequest};
-use yew_router::route::Route;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::profile_service::ProfileService;
-use crate::app::AppRoute;
 use crate::i18n::Translator;
 use crate::models::artist::Artist;
 use crate::utils::TinyMce;
@@ -262,7 +257,9 @@ impl Component for MyProfilePage {
     }
 
     fn destroy(&mut self) {
-        self.tinymce.destroy_editor();
+        if self.tinymce_initialized {
+            self.tinymce.destroy_editor();
+        }
     }
 }
 

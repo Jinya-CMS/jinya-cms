@@ -4,7 +4,6 @@ use jinya_ui::layout::page::Page;
 use jinya_ui::widgets::toast::Toast;
 use serde::Serialize;
 use serde_derive::*;
-use wasm_bindgen::JsValue;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 
