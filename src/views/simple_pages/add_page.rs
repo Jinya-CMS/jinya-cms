@@ -25,7 +25,6 @@ pub struct AddSimplePagePage {
     link: ComponentLink<Self>,
     translator: Translator,
     title: String,
-    content: String,
     simple_page_service: SimplePageService,
     menu_dispatcher: Dispatcher<MenuAgent>,
     alert_message: Option<String>,
@@ -49,7 +48,7 @@ impl Component for AddSimplePagePage {
     type Message = Msg;
     type Properties = ();
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
         let menu_dispatcher = MenuAgent::dispatcher();
         let router_agent = RouteAgent::bridge(link.callback(|_| Msg::Ignore));
@@ -58,7 +57,6 @@ impl Component for AddSimplePagePage {
             link,
             translator,
             title: "".to_string(),
-            content: "".to_string(),
             simple_page_service: SimplePageService::new(),
             menu_dispatcher,
             alert_message: None,

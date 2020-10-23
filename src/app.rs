@@ -11,6 +11,7 @@ use crate::ajax::authentication_service::AuthenticationService;
 use crate::i18n::Translator;
 use crate::storage::AuthenticationStorage;
 use crate::views::artists::ArtistsPage;
+use crate::views::artists::profile::ProfilePage;
 use crate::views::authentication::change_password_dialog::ChangePasswordDialog;
 use crate::views::authentication::login::LoginPage;
 use crate::views::authentication::two_factor::TwoFactorPage;
@@ -29,13 +30,13 @@ pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
     route_service: RouteService<()>,
     route: Route<()>,
-    check_api_key_task: Option<FetchTask>,
     router: Box<dyn Bridge<RouteAgent>>,
     menu_agent: Box<dyn Bridge<MenuAgent>>,
     menu_title: String,
     translator: Translator,
     hide_search: bool,
     change_password_open: bool,
+    check_api_key_task: Option<FetchTask>,
 }
 
 #[derive(Switch, Clone, PartialEq)]
@@ -62,6 +63,8 @@ pub enum AppRoute {
     SegmentPages,
     #[to = "/account/me"]
     MyProfile,
+    #[to = "/configuration/artists/{id}/profile"]
+    ArtistProfile(usize),
     #[to = "/configuration/artists"]
     Artists,
     #[to = "/"]
@@ -78,7 +81,6 @@ pub enum Msg {
     OnLogout(MouseEvent),
     OnChangePasswordSave,
     OnChangePasswordDiscard,
-    Ignore,
 }
 
 impl Component for JinyaDesignerApp {
@@ -91,12 +93,7 @@ impl Component for JinyaDesignerApp {
         route_service.register_callback(callback);
 
         let api_key = AuthenticationStorage::get_api_key();
-        let mut check_api_key_task = None;
         let route = if api_key.is_some() {
-            check_api_key_task = Some(AuthenticationService::new().check_api_key(link.callback(|valid| {
-                Msg::OnAuthenticationChecked(valid)
-            })));
-
             route_service.get_route()
         } else {
             route_service.set_route("/login", ());
@@ -111,13 +108,13 @@ impl Component for JinyaDesignerApp {
             link,
             route_service,
             route,
-            check_api_key_task,
             router,
             menu_agent,
             menu_title: translator.translate("app.title.home_page"),
             translator,
             hide_search: false,
             change_password_open: false,
+            check_api_key_task: None,
         }
     }
 
@@ -130,7 +127,6 @@ impl Component for JinyaDesignerApp {
             Msg::OnAuthenticationChecked(valid) => if !valid {
                 self.router.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Login)));
             },
-            Msg::Ignore => {}
             Msg::OnMenuAgentResponse(response) => {
                 match response {
                     MenuAgentResponse::OnChangeTitle(title) => self.menu_title = title,
@@ -190,6 +186,10 @@ impl Component for JinyaDesignerApp {
                 </main>
             }
         }
+    }
+
+    fn rendered(&mut self, _first_render: bool) {
+        self.check_api_key_task = Some(AuthenticationService::new().check_api_key(self.link.callback(|valid| Msg::OnAuthenticationChecked(valid))));
     }
 }
 
@@ -293,7 +293,8 @@ impl JinyaDesignerApp {
                 AppRoute::SegmentPages => html! {<SegmentPagesPage />},
                 AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
                 AppRoute::MyProfile => html! {<MyProfilePage />},
-                AppRoute::Artists => { html! {<ArtistsPage />} }
+                AppRoute::Artists => html! {<ArtistsPage />},
+                AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />}
             }
         })
     }

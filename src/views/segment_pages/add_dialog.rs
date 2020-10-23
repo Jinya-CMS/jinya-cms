@@ -25,7 +25,6 @@ pub struct AddDialog {
     name_input_state: InputState,
     name_validation_message: String,
     name: String,
-    segment_page: Option<SegmentPage>,
     is_open: bool,
     create_segment_page_task: Option<FetchTask>,
 }
@@ -64,7 +63,6 @@ impl Component for AddDialog {
             name_input_state: InputState::Default,
             name_validation_message: "".to_string(),
             name: "".to_string(),
-            segment_page: None,
             is_open: props.is_open,
             create_segment_page_task: None,
         }

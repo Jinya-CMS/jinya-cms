@@ -46,21 +46,6 @@ impl SegmentPageService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn get_segment_page(&self, id: usize, callback: Callback<Result<SegmentPage, AjaxError>>) -> FetchTask {
-        let url = format!("{}/api/segment-page/{}", get_host(), id);
-        let request = get_request(url);
-        let handler = move |response: Response<Json<Result<SegmentPage, Error>>>| {
-            let (meta, Json(page)) = response.into_parts();
-            if meta.status.is_success() {
-                callback.emit(Ok(page.unwrap()));
-            } else {
-                callback.emit(get_error_from_parts(meta));
-            }
-        };
-
-        FetchService::fetch(request, handler.into()).unwrap()
-    }
-
     pub fn update_segment_page(&self, id: usize, page: SegmentPage, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/segment-page/{}", get_host(), id);
         let request = put_request_with_body(url, &page);
