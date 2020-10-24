@@ -22,8 +22,8 @@ http = "0.2.1"
 anyhow = "1.0.31"
 yew = "0.17.4"
 yew-router = "0.14.0"
-#jinya-ui = "1.0.8"
-jinya-ui = { path = "../jinya-ui" }
+jinya-ui = "1.0.9"
+#jinya-ui = { path = "../jinya-ui" }
 uuid = { version = "0.8", features = ["serde", "v4", "wasm-bindgen"] }
 chrono = "0.4.13"
 
