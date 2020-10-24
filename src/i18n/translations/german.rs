@@ -267,5 +267,37 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("artists.activate.failed", "\"{artist_name}\" konnte nicht aktiviert werden.");
     map.insert("artists.activate.success", "\"{artist_name}\" wurde aktiviert.");
 
+    map.insert("artists.profile.not_found", "Der Künstler wurde nicht gefunden.");
+
+    map.insert("artists.add.title", "Künstler erstellen");
+    map.insert("artists.add.artist_name", "Künstlername");
+    map.insert("artists.add.email", "Email");
+    map.insert("artists.add.password", "Passwort");
+    map.insert("artists.add.profile_picture", "Profilbild");
+    map.insert("artists.add.roles", "Rollen");
+    map.insert("artists.add.action_save", "Künstler erstellen");
+    map.insert("artists.add.action_discard", "Künstler verwerfen");
+    map.insert("artists.add.error_artist_name_empty", "Künstlername ist erforderlich");
+    map.insert("artists.add.error_password_empty", "Passwort ist erforderlich");
+    map.insert("artists.add.error_email_empty", "Email ist erforderlich");
+    map.insert("artists.add.error_generic", "Der Künstler konnte nicht angelegt werden");
+    map.insert("artists.add.error_exists", "Ein Künstler mit der gleichen Emailadresse existiert bereits");
+    map.insert("artists.add.profile_picture.error_generic", "Das Profilbild konnte nicht hochgeladen werden");
+
+    map.insert("artists.edit.title", "Künstler bearbeiten");
+    map.insert("artists.edit.artist_name", "Künstlername");
+    map.insert("artists.edit.email", "Email");
+    map.insert("artists.edit.password", "Passwort");
+    map.insert("artists.edit.profile_picture", "Profilbild");
+    map.insert("artists.edit.roles", "Rollen");
+    map.insert("artists.edit.action_save", "Künstler speichern");
+    map.insert("artists.edit.action_discard", "Änderungen verwerfen");
+    map.insert("artists.edit.error_artist_name_empty", "Künstlername ist erforderlich");
+    map.insert("artists.edit.error_password_empty", "Passwort ist erforderlich");
+    map.insert("artists.edit.error_email_empty", "Email ist erforderlich");
+    map.insert("artists.edit.error_generic", "Der Künstler konnte nicht geändert werden");
+    map.insert("artists.edit.error_exists", "Ein Künstler mit der gleichen Emailadresse existiert bereits");
+    map.insert("artists.edit.profile_picture.error_generic", "Das Profilbild konnte nicht hochgeladen werden");
+
     map
 }

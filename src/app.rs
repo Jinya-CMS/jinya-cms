@@ -188,8 +188,10 @@ impl Component for JinyaDesignerApp {
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
-        self.check_api_key_task = Some(AuthenticationService::new().check_api_key(self.link.callback(|valid| Msg::OnAuthenticationChecked(valid))));
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            self.check_api_key_task = Some(AuthenticationService::new().check_api_key(self.link.callback(|valid| Msg::OnAuthenticationChecked(valid))));
+        }
     }
 }
 

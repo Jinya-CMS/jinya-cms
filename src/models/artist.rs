@@ -11,17 +11,3 @@ pub struct Artist {
     pub id: usize,
     pub about_me: Option<String>,
 }
-
-impl Artist {
-    pub fn from_name_email_roles(artist_name: String, email: String, roles: Vec<String>) -> Artist {
-        Artist {
-            artist_name,
-            email,
-            profile_picture: "".to_string(),
-            roles,
-            enabled: false,
-            id: 0,
-            about_me: None,
-        }
-    }
-}

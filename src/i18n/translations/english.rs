@@ -266,5 +266,36 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("artists.activate.failed", "The artist \"{artist_name}\" could not be deactivated.");
     map.insert("artists.activate.success", "The artist \"{artist_name}\" was activated.");
 
+    map.insert("artists.profile.not_found", "The artist was not found.");
+
+    map.insert("artists.add.title", "Create artist");
+    map.insert("artists.add.artist_name", "Artist name");
+    map.insert("artists.add.email", "Email");
+    map.insert("artists.add.password", "Password");
+    map.insert("artists.add.profile_picture", "Profile picture");
+    map.insert("artists.add.roles", "Roles");
+    map.insert("artists.add.action_save", "Create artist");
+    map.insert("artists.add.action_discard", "Discard artist");
+    map.insert("artists.add.error_artist_name_empty", "The artist name is required");
+    map.insert("artists.add.error_password_empty", "The password is required");
+    map.insert("artists.add.error_email_empty", "The email is required");
+    map.insert("artists.add.error_generic", "The artist could not be created");
+    map.insert("artists.add.error_exists", "An artist with the given email address already exists");
+    map.insert("artists.add.profile_picture.error_generic", "The profile picture could not be uploaded");
+
+    map.insert("artists.edit.title", "Edit artist");
+    map.insert("artists.edit.artist_name", "Artist name");
+    map.insert("artists.edit.email", "Email");
+    map.insert("artists.edit.password", "Password");
+    map.insert("artists.edit.profile_picture", "Profile picture");
+    map.insert("artists.edit.roles", "Roles");
+    map.insert("artists.edit.action_save", "Save artist");
+    map.insert("artists.edit.action_discard", "Discard changes");
+    map.insert("artists.edit.error_artist_name_empty", "The artist name is required");
+    map.insert("artists.edit.error_password_empty", "The password is required");
+    map.insert("artists.edit.error_email_empty", "The email is required");
+    map.insert("artists.edit.error_generic", "The artist could not be updated");
+    map.insert("artists.edit.error_exists", "An artist with the given email address already exists");
+    map.insert("artists.edit.profile_picture.error_generic", "The profile picture could not be uploaded");
     map
 }

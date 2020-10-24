@@ -1,8 +1,6 @@
 use http::StatusCode;
 use jinya_ui::layout::page::Page;
-use jinya_ui::layout::row::Row;
 use jinya_ui::listing::card::{Card, CardButton, CardContainer};
-use jinya_ui::widgets::alert::{Alert, AlertType};
 use jinya_ui::widgets::button::ButtonType;
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
 use jinya_ui::widgets::floating_action_button::Fab;
@@ -22,9 +20,15 @@ use crate::ajax::profile_service::ProfileService;
 use crate::i18n::*;
 use crate::models::artist::Artist;
 use crate::models::list_model::ListModel;
+use yew_router::prelude::RouteAgent;
+use yew::agent::Dispatcher;
+use yew_router::agent::RouteRequest;
+use yew_router::route::Route;
+use crate::app::AppRoute;
 
 mod add_dialog;
 mod edit_dialog;
+pub mod profile;
 
 pub struct ArtistsPage {
     link: ComponentLink<Self>,
@@ -44,6 +48,7 @@ pub struct ArtistsPage {
     keyword: String,
     profile_service: ProfileService,
     me: Option<Artist>,
+    route_dispatcher: Dispatcher<RouteAgent>,
 }
 
 pub enum Msg {
@@ -64,9 +69,9 @@ pub enum Msg {
     OnArtistDeleted(Result<bool, AjaxError>),
     OnArtistActivated(Result<bool, AjaxError>),
     OnArtistDeactivated(Result<bool, AjaxError>),
-    OnSaveEdit(Artist),
+    OnSaveEdit,
     OnDiscardEdit,
-    OnSaveAdd(Artist),
+    OnSaveAdd,
     OnDiscardAdd,
     OnProfileClicked(usize),
 }
@@ -77,6 +82,8 @@ impl Component for ArtistsPage {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let route_dispatcher = RouteAgent::dispatcher();
+
         ArtistsPage {
             link,
             menu_agent,
@@ -95,6 +102,7 @@ impl Component for ArtistsPage {
             keyword: "".to_string(),
             profile_service: ProfileService::new(),
             me: None,
+            route_dispatcher,
         }
     }
 
@@ -136,15 +144,13 @@ impl Component for ArtistsPage {
                     self.artist_to_delete = None;
                 }
             }
-            Msg::OnSaveEdit(artist) => {
+            Msg::OnSaveEdit => {
                 self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
-                Toast::positive_toast(self.translator.translate_with_args("artists.edit.saved.success", map! {"artist_name" => artist.artist_name.as_str()}));
                 self.artist_to_edit = None;
             }
             Msg::OnDiscardEdit => self.artist_to_edit = None,
-            Msg::OnSaveAdd(artist) => {
+            Msg::OnSaveAdd => {
                 self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
-                Toast::positive_toast(self.translator.translate_with_args("artists.add.saved.success", map! {"artist_name" => artist.artist_name.as_str()}));
                 self.add_artist_open = false
             }
             Msg::OnDiscardAdd => self.add_artist_open = false,
@@ -176,7 +182,9 @@ impl Component for ArtistsPage {
                     self.artist_to_deactivate = None;
                 }
             }
-            Msg::OnProfileClicked(idx) => {}
+            Msg::OnProfileClicked(idx) => {
+                self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ArtistProfile(self.artists[idx].id))))
+            }
         }
 
         true
@@ -272,21 +280,21 @@ impl Component for ArtistsPage {
                 } else {
                     html! {}
                 }}
-                // {if self.artist_to_edit.is_some() {
-                //     let artist = self.artist_to_edit.as_ref().unwrap();
-                //     html! {
-                //         <EditDialog artist=artist on_save_changes=self.link.callback(|artist| Msg::OnSaveEdit(artist)) on_discard_changes=self.link.callback(|_| Msg::OnDiscardEdit) />
-                //     }
-                // } else {
-                //     html! {}
-                // }}
-                // {if self.add_artist_open {
-                //     html! {
-                //         <AddDialog is_open=self.add_artist_open on_save_changes=self.link.callback(|artist| Msg::OnSaveAdd(artist)) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
-                //     }
-                // } else {
-                //     html! {}
-                // }}
+                {if self.artist_to_edit.is_some() {
+                    let artist = self.artist_to_edit.as_ref().unwrap();
+                    html! {
+                        <EditDialog artist=artist on_save_changes=self.link.callback(|_ | Msg::OnSaveEdit) on_discard_changes=self.link.callback(|_| Msg::OnDiscardEdit) />
+                    }
+                } else {
+                    html! {}
+                }}
+                {if self.add_artist_open {
+                    html! {
+                        <AddDialog is_open=self.add_artist_open on_save_changes=self.link.callback(|_| Msg::OnSaveAdd) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
+                    }
+                } else {
+                    html! {}
+                }}
                 <Fab icon="account-plus" on_click=self.link.callback(|_| Msg::OnCreateArtistClicked) />
             </Page>
         }

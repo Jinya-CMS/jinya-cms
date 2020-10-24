@@ -4,54 +4,66 @@ use jinya_ui::widgets::alert::{Alert, AlertType};
 use jinya_ui::widgets::dialog::content::ContentDialog;
 use jinya_ui::widgets::form::file_upload::FileUpload;
 use jinya_ui::widgets::form::input::{Input, InputState};
+use jinya_ui::widgets::form::multi_select::*;
+use jinya_ui::widgets::form::multi_select::MultiSelectItem;
 use yew::{Component, ComponentLink, Html};
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 use yew::services::reader::{File, FileData, ReaderService, ReaderTask};
 
 use crate::ajax::AjaxError;
-use crate::ajax::file_service::FileService;
+use crate::ajax::artist_service::ArtistService;
 use crate::i18n::*;
-use crate::models::file::File as JinyaFile;
+use crate::models::artist::Artist;
 
 pub struct EditDialog {
     link: ComponentLink<Self>,
-    file: JinyaFile,
     translator: Translator,
     selected_file: Option<File>,
-    on_save_changes: Callback<JinyaFile>,
+    on_save_changes: Callback<()>,
     on_discard_changes: Callback<()>,
-    start_upload_task: Option<FetchTask>,
-    finish_upload_task: Option<FetchTask>,
-    upload_chunk_task: Option<FetchTask>,
-    change_file_task: Option<FetchTask>,
-    file_service: FileService,
+    upload_profile_picture_task: Option<FetchTask>,
+    edit_artist_task: Option<FetchTask>,
+    artist_service: ArtistService,
     alert_message: String,
     alert_type: AlertType,
     alert_visible: bool,
     reader_task: Option<ReaderTask>,
     saving: bool,
-    name_input_state: InputState,
-    name_validation_message: String,
-    title: String,
+    artist_name_input_state: InputState,
+    artist_name_validation_message: String,
+    artist_name: String,
+    password_input_state: InputState,
+    password_validation_message: String,
+    password: String,
+    email_input_state: InputState,
+    email_validation_message: String,
+    email: String,
+    roles: Vec<MultiSelectItem>,
+    available_roles_options: Vec<MultiSelectItem>,
+    available_roles_original_options: Vec<MultiSelectItem>,
+    id: usize,
 }
 
 #[derive(Clone, PartialEq, Properties)]
 pub struct EditDialogProps {
-    pub file: JinyaFile,
-    pub on_save_changes: Callback<JinyaFile>,
+    pub on_save_changes: Callback<()>,
     pub on_discard_changes: Callback<()>,
+    pub artist: Artist,
 }
 
 pub enum EditDialogMsg {
-    OnNameInput(String),
+    OnArtistNameInput(String),
+    OnEmailInput(String),
+    OnPasswordInput(String),
+    OnRoleSelected(MultiSelectItem),
+    OnRoleDeselected(MultiSelectItem),
+    OnRolesFilter(String),
     OnFileSelect(Vec<File>),
     OnEditPrimary,
     OnEditSecondary,
-    OnUpdated(Result<bool, AjaxError>),
-    OnUploadStarted(Result<bool, AjaxError>),
-    OnChunkUploaded(Result<bool, AjaxError>),
-    OnUploadFinished(Result<bool, AjaxError>),
+    OnArtistUpdated(Result<bool, AjaxError>),
+    OnProfilePictureUploaded(Result<bool, AjaxError>),
     OnReadFile(FileData),
 }
 
@@ -60,102 +72,153 @@ impl Component for EditDialog {
     type Properties = EditDialogProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        let artist = props.artist;
         let translator = Translator::new();
-        let title = translator.translate_with_args("files.edit.title", map! {"name" => props.file.name.as_str()});
+        let available_roles = vec![
+            MultiSelectItem {
+                value: "ROLE_WRITER".to_string(),
+                text: "Writer".to_string(),
+            },
+            MultiSelectItem {
+                value: "ROLE_ADMIN".to_string(),
+                text: "Admin".to_string(),
+            },
+            MultiSelectItem {
+                value: "ROLE_SUPER_ADMIN".to_string(),
+                text: "Super Admin".to_string(),
+            },
+        ];
+
+        let current_roles = available_roles.iter().filter(|item| artist.roles.contains(&item.value)).cloned().collect();
 
         EditDialog {
             link,
-            file: props.file,
             translator,
             selected_file: None,
             on_save_changes: props.on_save_changes,
             on_discard_changes: props.on_discard_changes,
-            start_upload_task: None,
-            finish_upload_task: None,
-            upload_chunk_task: None,
-            change_file_task: None,
-            file_service: FileService::new(),
+            upload_profile_picture_task: None,
+            edit_artist_task: None,
+            artist_service: ArtistService::new(),
             alert_message: "".to_string(),
             alert_type: AlertType::Information,
             alert_visible: false,
             reader_task: None,
             saving: false,
-            name_input_state: InputState::Default,
-            name_validation_message: "".to_string(),
-            title,
+            artist_name_input_state: InputState::Default,
+            artist_name_validation_message: "".to_string(),
+            artist_name: artist.artist_name,
+            password_input_state: InputState::Default,
+            password_validation_message: "".to_string(),
+            password: "".to_string(),
+            email_input_state: InputState::Default,
+            email_validation_message: "".to_string(),
+            email: artist.email,
+            roles: current_roles,
+            available_roles_options: available_roles.clone(),
+            available_roles_original_options: available_roles.clone(),
+            id: artist.id,
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            EditDialogMsg::OnNameInput(value) => {
-                self.file.name = value;
-                self.name_input_state = if self.file.name.is_empty() {
-                    self.name_validation_message = self.translator.translate("files.edit.error_filename_empty");
-                    InputState::Negative
-                } else {
-                    self.name_validation_message = "".to_string();
-                    InputState::Default
-                };
-            }
             EditDialogMsg::OnEditPrimary => {
-                if !self.file.name.is_empty() {
+                if !self.artist_name.is_empty() && !self.email.is_empty() {
                     self.saving = true;
-                    self.change_file_task = Some(self.file_service.update_file(&self.file, self.link.callback(|result| EditDialogMsg::OnUpdated(result))));
+                    let roles = self.roles.iter().map(|item| item.value.clone()).collect();
+                    if self.password.is_empty() {
+                        self.edit_artist_task = Some(self.artist_service.update_artist_without_password(self.id, self.artist_name.clone(), self.email.clone(), roles, self.link.callback(|result| EditDialogMsg::OnArtistUpdated(result))));
+                    } else {
+                        self.edit_artist_task = Some(self.artist_service.update_artist(self.id, self.artist_name.clone(), self.email.clone(), self.password.clone(), roles, self.link.callback(|result| EditDialogMsg::OnArtistUpdated(result))));
+                    }
                 }
             }
             EditDialogMsg::OnEditSecondary => self.on_discard_changes.emit(()),
-            EditDialogMsg::OnFileSelect(files) => self.selected_file = Some(files[0].clone()),
-            EditDialogMsg::OnUpdated(result) => {
-                if result.is_ok() {
-                    if self.selected_file.is_some() {
-                        self.alert_type = AlertType::Information;
-                        self.alert_visible = true;
-                        self.alert_message = self.translator.translate("files.edit.saving");
-                        self.start_upload_task = Some(self.file_service.start_file_upload(&self.file, self.link.callback(|result| EditDialogMsg::OnUploadStarted(result))))
-                    } else {
-                        self.on_save_changes.emit(self.file.clone());
-                    }
+            EditDialogMsg::OnFileSelect(files) => {
+                self.selected_file = Some(files[0].clone());
+            }
+            EditDialogMsg::OnArtistUpdated(result) => {
+                if result.is_ok() && self.selected_file.is_some() {
+                    let file = self.selected_file.as_ref().unwrap().clone();
+                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| EditDialogMsg::OnReadFile(data))).unwrap());
+                    self.saving = false;
+                } else if result.is_ok() {
+                    self.on_save_changes.emit(());
                 } else {
+                    let error = result.err().unwrap();
                     self.alert_visible = true;
-                    self.alert_message = match result.err().unwrap().status_code {
-                        StatusCode::CONFLICT => self.translator.translate("files.edit.error_conflict"),
-                        _ => self.translator.translate("files.edit.error_generic")
-                    };
                     self.alert_type = AlertType::Negative;
+                    match error.status_code {
+                        StatusCode::CONFLICT => self.alert_message = self.translator.translate("artists.edit.error_exists"),
+                        _ => self.alert_message = self.translator.translate("artists.edit.error_generic"),
+                    }
                     self.saving = false;
                 }
             }
-            EditDialogMsg::OnUploadStarted(result) => {
-                if result.is_ok() {
-                    let file = self.selected_file.as_ref().unwrap().clone();
-                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| EditDialogMsg::OnReadFile(data))).unwrap());
-                } else {
-                    self.alert_visible = true;
-                    self.alert_message = self.translator.translate("files.edit.error_generic");
-                    self.alert_type = AlertType::Negative;
-                }
-            }
-            EditDialogMsg::OnChunkUploaded(result) => {
-                if result.is_ok() {
-                    self.finish_upload_task = Some(self.file_service.finish_file_upload(&self.file, self.link.callback(|result| EditDialogMsg::OnUploadFinished(result))))
-                } else {
-                    self.alert_visible = true;
-                    self.alert_message = self.translator.translate("files.edit.error_generic");
-                    self.alert_type = AlertType::Negative;
-                }
-            }
-            EditDialogMsg::OnUploadFinished(result) => {
-                if result.is_ok() {
-                    self.on_save_changes.emit(self.file.clone());
-                } else {
-                    self.alert_visible = true;
-                    self.alert_message = self.translator.translate("files.edit.error_generic");
-                    self.alert_type = AlertType::Negative;
-                }
-            }
             EditDialogMsg::OnReadFile(data) => {
-                self.upload_chunk_task = Some(self.file_service.upload_chunk(&self.file, data, self.link.callback(|result| EditDialogMsg::OnChunkUploaded(result))))
+                self.upload_profile_picture_task = Some(self.artist_service.upload_profile_picture(self.id, data.content, self.link.callback(|result| EditDialogMsg::OnProfilePictureUploaded(result))))
+            }
+            EditDialogMsg::OnArtistNameInput(value) => {
+                self.artist_name = value;
+                self.artist_name_input_state = if self.artist_name.is_empty() {
+                    self.artist_name_validation_message = self.translator.translate("artists.edit.error_artist_name_empty");
+                    InputState::Negative
+                } else {
+                    self.artist_name_validation_message = "".to_string();
+                    InputState::Default
+                };
+            }
+            EditDialogMsg::OnEmailInput(value) => {
+                self.email = value;
+                self.email_input_state = if self.email.is_empty() {
+                    self.email_validation_message = self.translator.translate("artists.edit.error_email_empty");
+                    InputState::Negative
+                } else {
+                    self.email_validation_message = "".to_string();
+                    InputState::Default
+                };
+            }
+            EditDialogMsg::OnPasswordInput(value) => {
+                self.password = value;
+                self.password_input_state = if self.password.is_empty() {
+                    self.password_validation_message = self.translator.translate("artists.edit.error_password_empty");
+                    InputState::Negative
+                } else {
+                    self.password_validation_message = "".to_string();
+                    InputState::Default
+                };
+            }
+            EditDialogMsg::OnProfilePictureUploaded(result) => {
+                self.saving = false;
+                if result.is_ok() {
+                    self.on_save_changes.emit(());
+                } else {
+                    self.alert_visible = true;
+                    self.alert_type = AlertType::Negative;
+                    self.translator.translate("artists.edit.profile_picture.error_generic");
+                }
+            }
+            EditDialogMsg::OnRoleSelected(value) => {
+                self.roles.push(value.clone());
+                let options_idx = self.available_roles_options.iter().position(|item| item.value.eq(&value.value));
+                if options_idx.is_some() {
+                    self.available_roles_options.remove(options_idx.unwrap());
+                }
+            }
+            EditDialogMsg::OnRoleDeselected(value) => {
+                let index = self.roles.binary_search_by(|item| item.value.cmp(&value.value));
+                if index.is_ok() {
+                    self.roles.remove(index.unwrap());
+                }
+            }
+            EditDialogMsg::OnRolesFilter(value) => {
+                let options = &self.available_roles_original_options;
+                self.available_roles_options = options
+                    .iter()
+                    .filter(move |item| item.value.contains(&value))
+                    .cloned()
+                    .collect();
             }
         }
 
@@ -163,7 +226,6 @@ impl Component for EditDialog {
     }
 
     fn change(&mut self, props: Self::Properties) -> bool {
-        self.file = props.file;
         self.on_save_changes = props.on_save_changes;
         self.on_discard_changes = props.on_discard_changes;
 
@@ -176,9 +238,9 @@ impl Component for EditDialog {
                 is_open=true
                 on_primary=self.link.callback(|_| EditDialogMsg::OnEditPrimary)
                 on_secondary=self.link.callback(|_| EditDialogMsg::OnEditSecondary)
-                primary_label=self.translator.translate("files.edit.action_save")
-                secondary_label=self.translator.translate("files.edit.action_discard")
-                title=&self.title
+                primary_label=self.translator.translate("artists.edit.action_save")
+                secondary_label=self.translator.translate("artists.edit.action_discard")
+                title=self.translator.translate("artists.edit.title")
             >
                 {if self.alert_visible {
                     html! {
@@ -190,10 +252,26 @@ impl Component for EditDialog {
                     html! {}
                 }}
                 <Row alignment=RowAlignment::Stretch>
-                    <Input validation_message=&self.name_validation_message state=&self.name_input_state disabled=self.saving label=self.translator.translate("files.edit.name") on_input=self.link.callback(|value| EditDialogMsg::OnNameInput(value)) value=&self.file.name />
+                    <Input validation_message=&self.artist_name_validation_message state=&self.artist_name_input_state disabled=self.saving label=self.translator.translate("artists.edit.artist_name") on_input=self.link.callback(|value| EditDialogMsg::OnArtistNameInput(value)) value=&self.artist_name />
                 </Row>
                 <Row alignment=RowAlignment::Stretch>
-                    <FileUpload disabled=self.saving filename=self.translator.translate("files.edit.file_selected") label=self.translator.translate("files.edit.file") on_select=self.link.callback(|files| EditDialogMsg::OnFileSelect(files)) />
+                    <Input input_type="email" validation_message=&self.email_validation_message state=&self.email_input_state disabled=self.saving label=self.translator.translate("artists.edit.email") on_input=self.link.callback(|value| EditDialogMsg::OnEmailInput(value)) value=&self.email />
+                </Row>
+                <Row alignment=RowAlignment::Stretch>
+                    <Input input_type="password" validation_message=&self.password_validation_message state=&self.password_input_state disabled=self.saving label=self.translator.translate("artists.edit.password") on_input=self.link.callback(|value| EditDialogMsg::OnPasswordInput(value)) value=&self.password />
+                </Row>
+                <Row alignment=RowAlignment::Stretch>
+                    <FileUpload disabled=self.saving placeholder=self.translator.translate("artists.edit.profile_picture") label=self.translator.translate("artists.edit.profile_picture") on_select=self.link.callback(|files| EditDialogMsg::OnFileSelect(files)) />
+                </Row>
+                <Row alignment=RowAlignment::Stretch>
+                    <MultiSelect
+                        label=self.translator.translate("artists.edit.roles")
+                        selected_items=&self.roles
+                        options=&self.available_roles_options
+                        on_deselect=self.link.callback(|item| EditDialogMsg::OnRoleDeselected(item))
+                        on_select=self.link.callback(|item| EditDialogMsg::OnRoleSelected(item))
+                        on_filter=self.link.callback(|keyword| EditDialogMsg::OnRolesFilter(keyword))
+                    />
                 </Row>
             </ContentDialog>
         }
