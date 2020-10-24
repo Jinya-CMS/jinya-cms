@@ -16,6 +16,6 @@ class GetArtistByIdAction extends Action
             throw new HttpNotFoundException($this->request, 'Artist not found');
         }
 
-        return $this->respond($artist->format());
+        return $this->respond($artist->format(true));
     }
 }

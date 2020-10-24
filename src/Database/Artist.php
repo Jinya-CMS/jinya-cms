@@ -135,7 +135,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public function delete(): void
     {
-        if (self::countAdmins() > 1) {
+        if (self::countAdmins() >= 1) {
             $this->internalDelete('users');
         } else {
             throw new DeleteLastAdminException('Cannot delete last admin');

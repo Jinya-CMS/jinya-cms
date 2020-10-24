@@ -45,8 +45,10 @@ class TwoFactorAction extends Action
             return $this->respond([], Action::HTTP_NO_CONTENT);
         }
 
-        $artist->twoFactorToken = null;
-        $artist->update();
+        if ($artist !== null) {
+            $artist->twoFactorToken = null;
+            $artist->update();
+        }
 
         return $this->respond([], Action::HTTP_UNAUTHORIZED);
     }
