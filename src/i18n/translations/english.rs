@@ -38,6 +38,8 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration", "Configuration");
     map.insert("app.menu.configuration.generic", "General");
     map.insert("app.menu.configuration.generic.artists", "Artists");
+    map.insert("app.menu.configuration.frontend", "Frontend");
+    map.insert("app.menu.configuration.frontend.menus", "Menus");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -297,5 +299,18 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("artists.edit.error_generic", "The artist could not be updated");
     map.insert("artists.edit.error_exists", "An artist with the given email address already exists");
     map.insert("artists.edit.profile_picture.error_generic", "The profile picture could not be uploaded");
+
+    map.insert("menus.overview.action_new", "New menu");
+    map.insert("menus.overview.action_edit", "Edit menu");
+    map.insert("menus.overview.action_delete", "Delete menu");
+    map.insert("menus.overview.table.name_column", "Name");
+    map.insert("menus.overview.table.logo_column", "Logo");
+
+    map.insert("menus.delete.approve", "Delete menu");
+    map.insert("menus.delete.decline", "Keep menu");
+    map.insert("menus.delete.title", "Really delete menu?");
+    map.insert("menus.delete.content", "Are you sure, that you want to delete \"{name}\". The menu will be removed from all themes.");
+    map.insert("menus.delete.failed", "The menu \"{name}\" could not be deleted.");
+
     map
 }

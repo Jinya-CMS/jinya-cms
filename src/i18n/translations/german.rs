@@ -38,6 +38,8 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration", "Konfiguration");
     map.insert("app.menu.configuration.generic", "Allgemein");
     map.insert("app.menu.configuration.generic.artists", "Künstler");
+    map.insert("app.menu.configuration.frontend", "Frontend");
+    map.insert("app.menu.configuration.frontend.menus", "Menüs");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -298,6 +300,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("artists.edit.error_generic", "Der Künstler konnte nicht geändert werden");
     map.insert("artists.edit.error_exists", "Ein Künstler mit der gleichen Emailadresse existiert bereits");
     map.insert("artists.edit.profile_picture.error_generic", "Das Profilbild konnte nicht hochgeladen werden");
+
+    map.insert("menus.overview.action_new", "Neues Menü");
+    map.insert("menus.overview.action_edit", "Menü bearbeiten");
+    map.insert("menus.overview.action_delete", "Menü löschen");
+    map.insert("menus.overview.table.name_column", "Name");
+    map.insert("menus.overview.table.logo_column", "Logo");
+
+    map.insert("menus.delete.approve", "Menü löschen");
+    map.insert("menus.delete.decline", "Menü behalten");
+    map.insert("menus.delete.title", "Menü wirklich löschen?");
+    map.insert("menus.delete.content", "Bist du sicher, dass du das Menü \"{name}\" löschen möchtest? Das Menü wird aus allen Themes entfernt.");
+    map.insert("menus.delete.failed", "Das Menü \"{name}\" konnte nicht gelöscht werden.");
 
     map
 }
