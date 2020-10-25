@@ -1,7 +1,9 @@
 use anyhow::{anyhow, Error};
-use http::{Request, StatusCode};
+use http::{Request, Response, StatusCode};
 use http::response::Parts;
+use yew::Callback;
 use yew::format::{Json, Nothing};
+use yew::services::fetch::{FetchService, FetchTask};
 use yew::services::storage::Area;
 use yew::services::StorageService;
 
@@ -18,6 +20,7 @@ pub mod segment_service;
 pub mod profile_service;
 pub mod artist_service;
 pub mod menu_service;
+pub mod menu_item_service;
 
 pub fn get_host() -> String {
     let storage = StorageService::new(Area::Local).unwrap();
@@ -28,19 +31,27 @@ pub fn get_host() -> String {
     }
 }
 
-fn post_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
+fn get_api_key() -> String {
     let api_key_storage = AuthenticationStorage::get_api_key();
+    if let Some(api_key) = api_key_storage {
+        api_key
+    } else {
+        "".to_string()
+    }
+}
+
+fn get_device_code() -> String {
     let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
+    if let Some(device_code) = device_code_storage {
+        device_code
     } else {
         "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    }
+}
+
+fn post_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::post(url)
         .header("Content-Type", "application/json")
@@ -51,18 +62,8 @@ fn post_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
 }
 
 fn put_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::put(url)
         .header("Content-Type", "application/json")
@@ -73,18 +74,8 @@ fn put_request_with_body<T>(url: String, body: &T) -> Request<Json<&T>> {
 }
 
 fn head_request(url: String) -> Request<Nothing> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::head(url)
         .header("JinyaApiKey", api_key)
@@ -94,18 +85,8 @@ fn head_request(url: String) -> Request<Nothing> {
 }
 
 fn get_request(url: String) -> Request<Nothing> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::get(url)
         .header("JinyaApiKey", api_key)
@@ -115,18 +96,8 @@ fn get_request(url: String) -> Request<Nothing> {
 }
 
 fn delete_request(url: String) -> Request<Nothing> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::delete(url)
         .header("JinyaApiKey", api_key)
@@ -136,18 +107,8 @@ fn delete_request(url: String) -> Request<Nothing> {
 }
 
 fn put_request(url: String) -> Request<Nothing> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::put(url)
         .header("JinyaApiKey", api_key)
@@ -157,18 +118,8 @@ fn put_request(url: String) -> Request<Nothing> {
 }
 
 fn put_request_with_binary_body<T>(url: String, body: T) -> Request<T> {
-    let api_key_storage = AuthenticationStorage::get_api_key();
-    let device_code_storage = AuthenticationStorage::get_device_code();
-    let api_key = if api_key_storage.is_some() {
-        api_key_storage.unwrap()
-    } else {
-        "".to_string()
-    };
-    let device_code = if device_code_storage.is_some() {
-        device_code_storage.unwrap()
-    } else {
-        "".to_string()
-    };
+    let api_key = get_api_key();
+    let device_code = get_device_code();
 
     http::Request::put(url)
         .header("JinyaApiKey", api_key)
@@ -195,6 +146,23 @@ fn get_error_from_parts<T>(parts: Parts) -> Result<T, AjaxError> {
     }
 
     Err(AjaxError::new(error, parts.status))
+}
+
+fn delete(url: String, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+    let request = delete_request(url);
+
+    FetchService::fetch(request, bool_handler(callback).into()).unwrap()
+}
+
+fn bool_handler(callback: Callback<Result<bool, AjaxError>>) -> impl Fn(Response<Json<Result<(), Error>>>) {
+    move |response: Response<Json<Result<(), Error>>>| {
+        let (meta, Json(_)) = response.into_parts();
+        if meta.status.is_success() {
+            callback.emit(Ok(true));
+        } else {
+            callback.emit(get_error_from_parts(meta));
+        }
+    }
 }
 
 #[derive(Debug)]

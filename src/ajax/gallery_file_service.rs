@@ -1,3 +1,4 @@
+// TODO: Change to new ajax handler helpers
 use anyhow::Error;
 use http::Response;
 use serde_derive::*;
@@ -16,7 +17,7 @@ impl GalleryFileService {
     }
 
     pub fn get_positions(&self, gallery: usize, callback: Callback<Result<Vec<GalleryFile>, AjaxError>>) -> FetchTask {
-        let url = format!("{}/api/media/gallery/{}/file", get_host(), gallery);
+        let url = format!("{}/api/media/gallery/{}/fi", get_host(), gallery);
         let request = get_request(url);
         let handler = move |response: Response<Json<Result<Vec<GalleryFile>, Error>>>| {
             let (meta, Json(data)) = response.into_parts();

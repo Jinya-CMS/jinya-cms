@@ -313,5 +313,29 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.delete.content", "Bist du sicher, dass du das Menü \"{name}\" löschen möchtest? Das Menü wird aus allen Themes entfernt.");
     map.insert("menus.delete.failed", "Das Menü \"{name}\" konnte nicht gelöscht werden.");
 
+    map.insert("menus.add.title", "Menü hinzufügen");
+    map.insert("menus.add.name", "Name");
+    map.insert("menus.add.logo", "Logo");
+    map.insert("menus.add.error_name_empty", "Der Name ist erforderlich");
+    map.insert("menus.add.action_discard", "Menü verwerfen");
+    map.insert("menus.add.action_save", "Menü speichern");
+    map.insert("menus.add.saving", "Das Menü wird gespeichert");
+    map.insert("menus.add.saved", "Das Menü {name} wurde erfolgreich gespeichert");
+    map.insert("menus.add.error_generic", "Das Menü konnte nicht gespeichert werden");
+    map.insert("menus.add.error_conflict", "Das Menü konnte nicht gespeichert werden, weil ein anderes Menü mit dem Namen existiert");
+    map.insert("menus.add.error_load_files", "Die Dateien konnten nicht geladen werden");
+
+    map.insert("menus.edit.title", "Menü bearbeiten");
+    map.insert("menus.edit.name", "Name");
+    map.insert("menus.edit.logo", "Logo");
+    map.insert("menus.edit.error_name_empty", "Der Name ist erforderlich");
+    map.insert("menus.edit.action_discard", "Änderungen verwerfen");
+    map.insert("menus.edit.action_save", "Menü speichern");
+    map.insert("menus.edit.saving", "Das Menü wird gespeichert");
+    map.insert("menus.edit.saved", "Das Menü {name} wurde erfolgreich gespeichert");
+    map.insert("menus.edit.error_generic", "Das Menü konnte nicht gespeichert werden");
+    map.insert("menus.edit.error_conflict", "Das Menü konnte nicht gespeichert werden, weil ein anderes Menü mit dem Namen existiert");
+    map.insert("menus.edit.error_load_files", "Die Dateien konnten nicht geladen werden");
+
     map
 }

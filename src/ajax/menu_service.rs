@@ -5,7 +5,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, delete_request, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body};
+use crate::ajax::{AjaxError, bool_handler, delete_request, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body, delete};
 use crate::models::list_model::ListModel;
 use crate::models::menu::Menu;
 
@@ -31,7 +31,7 @@ impl MenuService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn add_menu(&self, name: String, logo: Option<usize>, callback: Callback<Result<Menu, AjaxError>>) -> FetchTask {
+    pub fn add_menu(&self, name: String, logo: Option<usize>, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/menu", get_host());
         #[derive(Serialize, Deserialize, Clone, PartialEq)]
         struct Body {
@@ -43,31 +43,14 @@ impl MenuService {
             name,
         };
         let request = post_request_with_body(url, &menu);
-        let handler = move |response: Response<Json<Result<Menu, Error>>>| {
-            let (meta, Json(data)) = response.into_parts();
-            if meta.status.is_success() {
-                callback.emit(Ok(data.unwrap()));
-            } else {
-                callback.emit(get_error_from_parts(meta));
-            }
-        };
 
-        FetchService::fetch(request, handler.into()).unwrap()
+        FetchService::fetch(request, bool_handler(callback).into()).unwrap()
     }
 
     pub fn delete_menu(&self, id: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/menu/{}", get_host(), id);
-        let request = delete_request(url);
-        let handler = move |response: Response<Json<Result<(), Error>>>| {
-            let (meta, Json(_)) = response.into_parts();
-            if meta.status.is_success() {
-                callback.emit(Ok(true))
-            } else {
-                callback.emit(get_error_from_parts(meta));
-            }
-        };
 
-        FetchService::fetch(request, handler.into()).unwrap()
+        delete(url, callback)
     }
 
     pub fn update_menu(&self, id: usize, name: String, logo: Option<usize>, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
@@ -82,15 +65,7 @@ impl MenuService {
             name,
         };
         let request = put_request_with_body(url, &menu);
-        let handler = move |response: Response<Json<Result<(), Error>>>| {
-            let (meta, Json(_)) = response.into_parts();
-            if meta.status.is_success() {
-                callback.emit(Ok(true))
-            } else {
-                callback.emit(get_error_from_parts(meta));
-            }
-        };
 
-        FetchService::fetch(request, handler.into()).unwrap()
+        FetchService::fetch(request, bool_handler(callback).into()).unwrap()
     }
 }

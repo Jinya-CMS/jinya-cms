@@ -312,5 +312,29 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.delete.content", "Are you sure, that you want to delete \"{name}\". The menu will be removed from all themes.");
     map.insert("menus.delete.failed", "The menu \"{name}\" could not be deleted.");
 
+    map.insert("menus.add.title", "Add menu");
+    map.insert("menus.add.name", "Name");
+    map.insert("menus.add.logo", "Logo");
+    map.insert("menus.add.error_name_empty", "The name is required");
+    map.insert("menus.add.action_discard", "Discard menu");
+    map.insert("menus.add.action_save", "Save menu");
+    map.insert("menus.add.saving", "Saving the menu");
+    map.insert("menus.add.saved", "The menu {name} was saved successfully.");
+    map.insert("menus.add.error_conflict", "The menu could not be saved, because there is a menu with the same name");
+    map.insert("menus.add.error_generic", "The menu could not be saved");
+    map.insert("menus.add.error_load_files", "The files could not be loaded");
+
+    map.insert("menus.edit.title", "Edit menu");
+    map.insert("menus.edit.name", "Name");
+    map.insert("menus.edit.logo", "Logo");
+    map.insert("menus.edit.error_name_empty", "The name is required");
+    map.insert("menus.edit.action_discard", "Discard changes");
+    map.insert("menus.edit.action_save", "Save menu");
+    map.insert("menus.edit.saving", "Saving the menu");
+    map.insert("menus.edit.saved", "The menu {name} was saved successfully.");
+    map.insert("menus.edit.error_conflict", "The menu could not be saved, because there is a menu with the same name");
+    map.insert("menus.edit.error_generic", "The menu could not be saved");
+    map.insert("menus.edit.error_load_files", "The files could not be loaded");
+
     map
 }

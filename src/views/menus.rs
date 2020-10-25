@@ -18,6 +18,11 @@ use crate::app::AppRoute;
 use crate::i18n::Translator;
 use crate::models::list_model::ListModel;
 use crate::models::menu::Menu;
+use crate::views::menus::add_dialog::AddDialog;
+use crate::views::menus::edit_dialog::EditDialog;
+
+mod add_dialog;
+mod edit_dialog;
 
 pub struct MenusPage {
     link: ComponentLink<Self>,
@@ -34,11 +39,14 @@ pub struct MenusPage {
     alert_message: Option<String>,
     alert_type: AlertType,
     keyword: String,
+    show_add_dialog: bool,
+    menu_to_edit: Option<Menu>,
 }
 
 pub enum Msg {
     OnNewMenuClick,
     OnEditMenuClick,
+    OnMenuDesignerClick,
     OnDeleteMenuClick,
     OnMenusLoaded(Result<ListModel<Menu>, AjaxError>),
     OnMenuSelected(usize),
@@ -46,7 +54,10 @@ pub enum Msg {
     OnDeleteApprove,
     OnDeleteDecline,
     OnMenuDeleted(Result<bool, AjaxError>),
-    Ignore,
+    OnSaveAdd,
+    OnDiscardAdd,
+    OnSaveEdit,
+    OnDiscardEdit,
 }
 
 impl Component for MenusPage {
@@ -55,7 +66,7 @@ impl Component for MenusPage {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
 
         MenusPage {
             link,
@@ -81,13 +92,15 @@ impl Component for MenusPage {
             alert_message: None,
             alert_type: AlertType::Negative,
             keyword: "".to_string(),
+            show_add_dialog: false,
+            menu_to_edit: None,
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnNewMenuClick => {}
-            Msg::OnEditMenuClick => {}
+            Msg::OnNewMenuClick => self.show_add_dialog = true,
+            Msg::OnEditMenuClick => self.menu_to_edit = Some(self.get_selected_menu()),
             Msg::OnDeleteMenuClick => self.show_delete_dialog = true,
             Msg::OnMenusLoaded(result) => {
                 if result.is_ok() {
@@ -114,7 +127,10 @@ impl Component for MenusPage {
                 }
             }
             Msg::OnMenuSelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_menus_task = Some(self.menu_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnMenusLoaded)));
+            },
             Msg::OnDeleteApprove => self.delete_page_task = Some(self.menu_service.delete_menu(self.get_selected_menu().id, self.link.callback(Msg::OnMenuDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnMenuDeleted(result) => {
@@ -129,7 +145,17 @@ impl Component for MenusPage {
                     self.show_delete_dialog = false;
                 }
             }
-            Msg::Ignore => {}
+            Msg::OnSaveAdd => {
+                self.load_menus_task = Some(self.menu_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnMenusLoaded)));
+                self.show_add_dialog = false
+            }
+            Msg::OnDiscardAdd => self.show_add_dialog = false,
+            Msg::OnSaveEdit => {
+                self.load_menus_task = Some(self.menu_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnMenusLoaded)));
+                self.menu_to_edit = None
+            }
+            Msg::OnDiscardEdit => self.menu_to_edit = None,
+            Msg::OnMenuDesignerClick => {}
         }
 
         true
@@ -145,6 +171,7 @@ impl Component for MenusPage {
                 <ButtonRow alignment=ButtonRowAlignment::Start>
                     <Button label=self.translator.translate("menus.overview.action_new") on_click=self.link.callback(|_| Msg::OnNewMenuClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("menus.overview.action_edit") on_click=self.link.callback(|_| Msg::OnEditMenuClick) />
+                    <Button disabled=self.selected_index.is_none() label=self.translator.translate("menus.overview.action_designer") on_click=self.link.callback(|_| Msg::OnMenuDesignerClick) />
                     <Button disabled=self.selected_index.is_none() label=self.translator.translate("menus.overview.action_delete") button_type=ButtonType::Negative on_click=self.link.callback(|_| Msg::OnDeleteMenuClick) />
                 </ButtonRow>
                 {if self.alert_message.is_some() {
@@ -170,6 +197,21 @@ impl Component for MenusPage {
                             on_decline=self.link.callback(|_| Msg::OnDeleteDecline)
                             is_open=self.show_delete_dialog
                         />
+                    }
+                } else {
+                    html! {}
+                }}
+                {if self.show_add_dialog {
+                    html! {
+                        <AddDialog is_open=self.show_add_dialog on_save_changes=self.link.callback(|_| Msg::OnSaveAdd) on_discard_changes=self.link.callback(|_| Msg::OnDiscardAdd) />
+                    }
+                } else {
+                    html! {}
+                }}
+                {if self.menu_to_edit.is_some() {
+                    let menu = self.menu_to_edit.as_ref().unwrap();
+                    html! {
+                        <EditDialog is_open=self.menu_to_edit.is_some() menu=menu on_save_changes=self.link.callback(|_| Msg::OnSaveEdit) on_discard_changes=self.link.callback(|_| Msg::OnDiscardEdit) />
                     }
                 } else {
                     html! {}
