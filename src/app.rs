@@ -25,6 +25,7 @@ use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
+use crate::views::menus::MenusPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -67,6 +68,8 @@ pub enum AppRoute {
     ArtistProfile(usize),
     #[to = "/configuration/artists"]
     Artists,
+    #[to = "/configuration/menus"]
+    Menus,
     #[to = "/"]
     Homepage,
 }
@@ -240,6 +243,16 @@ impl JinyaDesignerApp {
                     },
                 ],
             },
+            SubItemGroup {
+                title: self.translator.translate("app.menu.configuration.frontend"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.configuration.frontend.menus"),
+                        route: Some(&AppRoute::Menus),
+                        on_click: None,
+                    },
+                ],
+            },
         ];
         let my_jinya_group = vec![
             SubItemGroup {
@@ -296,7 +309,8 @@ impl JinyaDesignerApp {
                 AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
                 AppRoute::MyProfile => html! {<MyProfilePage />},
                 AppRoute::Artists => html! {<ArtistsPage />},
-                AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />}
+                AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />},
+                AppRoute::Menus => html! {<MenusPage />}
             }
         })
     }
