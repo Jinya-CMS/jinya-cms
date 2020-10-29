@@ -36,9 +36,6 @@ class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 
     /**
      * ApiKeyAuthenticator constructor.
-     * @param ApiKeyToolInterface $apiKeyTool
-     * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
      */
     public function __construct(
         ApiKeyToolInterface $apiKeyTool,

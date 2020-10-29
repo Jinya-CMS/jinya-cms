@@ -71,15 +71,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * BaseApiController constructor.
-     * @param TranslatorInterface $translator
-     * @param LoggerInterface $logger
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param RequestStack $requestStack
-     * @param HttpKernelInterface $kernel
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface $tokenStorage
-     * @param RouterInterface $router
-     * @param CompilerInterface $compiler
      */
     public function __construct(
         TranslatorInterface $translator,
@@ -113,11 +104,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * Generates a url from the given route
-     *
-     * @param string $route
-     * @param array $parameter
-     * @param bool $fullUrl
-     * @return string
      */
     protected function generateUrl(string $route, array $parameter = [], bool $fullUrl = false): string
     {
@@ -129,7 +115,6 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * @param string $key
      * @param null $default
      * @return mixed
      * @throws InvalidContentTypeException
@@ -175,10 +160,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * Gets the given header
-     *
-     * @param string $header
-     * @param string $defaultValue
-     * @return string
      */
     protected function getHeader(string $header, string $defaultValue): string
     {
@@ -187,8 +168,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * Executes the given @param callable $function
-     * @param int $successStatusCode
-     * @return array
      * @see callable and return a formatted error if it fails
      */
     protected function tryExecute(callable $function, int $successStatusCode = Response::HTTP_OK): array
@@ -267,7 +246,6 @@ abstract class BaseApiController extends BaseController
     }
 
     /**
-     * @param Throwable $exception
      * @param $code
      */
     protected function logException(Throwable $exception, $code): void
@@ -282,8 +260,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * Checks if we are currently in a debugging environment
-     *
-     * @return bool
      */
     private function isDebug(): bool
     {
@@ -292,8 +268,6 @@ abstract class BaseApiController extends BaseController
 
     /**
      * Formats the given @param string $message
-     * @param Throwable $throwable
-     * @return array
      * @see Throwable as array
      */
     protected function jsonFormatException(string $message, Throwable $throwable): array
@@ -320,15 +294,6 @@ abstract class BaseApiController extends BaseController
         return $data;
     }
 
-    /**
-     * @param int $totalCount
-     * @param int $offset
-     * @param int $count
-     * @param array $parameter
-     * @param string $route
-     * @param array $entities
-     * @return array
-     */
     protected function formatListResult(
         int $totalCount,
         int $offset,
