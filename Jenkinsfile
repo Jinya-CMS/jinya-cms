@@ -2,7 +2,9 @@ pipeline {
   agent none
   stages {
     stage('Lint code') {
-      agent any
+      agent {
+        docker 'php:7.4-apache'
+      }
       steps {
         sh '''php --version
 php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"
@@ -14,6 +16,5 @@ apt install openjdk-11-jdk'''
         sh 'java -version'
       }
     }
-
   }
 }
