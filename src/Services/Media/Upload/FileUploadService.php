@@ -38,11 +38,6 @@ class FileUploadService implements FileUploadServiceInterface
 
     /**
      * VideoUploadService constructor.
-     * @param FileServiceInterface $fileService
-     * @param MediaServiceInterface $mediaService
-     * @param string $tmpDir
-     * @param EntityManagerInterface $entityManager
-     * @param LoggerInterface $logger
      */
     public function __construct(
         FileServiceInterface $fileService,
@@ -60,8 +55,6 @@ class FileUploadService implements FileUploadServiceInterface
 
     /**
      * Starts the upload
-     *
-     * @param int $id
      */
     public function startUpload(int $id): void
     {
@@ -77,8 +70,6 @@ class FileUploadService implements FileUploadServiceInterface
      * Uploads a chunk
      *
      * @param resource $chunk
-     * @param int $position
-     * @param int $id
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -103,8 +94,6 @@ class FileUploadService implements FileUploadServiceInterface
     }
 
     /**
-     * @param int $id
-     * @return UploadingFile
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -122,9 +111,6 @@ class FileUploadService implements FileUploadServiceInterface
 
     /**
      * Finishes the upload
-     *
-     * @param int $id
-     * @return string
      */
     public function finishUpload(int $id): string
     {
@@ -155,7 +141,6 @@ class FileUploadService implements FileUploadServiceInterface
     }
 
     /**
-     * @param int $id
      * @return UploadingFileChunk[]
      */
     private function getChunks(int $id): array
@@ -175,7 +160,6 @@ class FileUploadService implements FileUploadServiceInterface
     /**
      * Removes all chunk data after upload
      *
-     * @param int $id
      * @throws NoResultException
      * @throws NonUniqueResultException
      */

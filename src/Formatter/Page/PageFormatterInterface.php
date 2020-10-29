@@ -16,7 +16,6 @@ interface PageFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Page $page
      * @return PageFormatterInterface
      */
     public function init(Page $page): self;
