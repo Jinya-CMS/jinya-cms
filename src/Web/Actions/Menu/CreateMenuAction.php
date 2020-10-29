@@ -31,6 +31,8 @@ class CreateMenuAction extends Action
             } else {
                 throw new NoResultException($this->request, 'File for logo not found');
             }
+        } else {
+            $menu->logo = null;
         }
 
         try {

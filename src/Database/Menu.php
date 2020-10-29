@@ -52,12 +52,17 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         if ($logo) {
             $logoData['id'] = $logo->getIdAsInt();
             $logoData['name'] = $logo->name;
+
+            return [
+                'name' => $this->name,
+                'id' => $this->getIdAsInt(),
+                'logo' => $logoData,
+            ];
         }
 
         return [
             'name' => $this->name,
             'id' => $this->getIdAsInt(),
-            'logo' => $logoData,
         ];
     }
 
