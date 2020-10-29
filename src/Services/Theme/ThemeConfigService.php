@@ -45,12 +45,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * ThemeConfigService constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param MenuServiceInterface $menuService
-     * @param EntityManagerInterface $entityManager
-     * @param MediaServiceInterface $mediaService
-     * @param ArrayUtilInterface $arrayUtils
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         ThemeServiceInterface $themeService,
@@ -184,8 +178,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Resets the given themes configuration
-     *
-     * @param string $name
      */
     public function resetConfig(string $name): void
     {
@@ -200,8 +192,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Resets the given themes variables
-     *
-     * @param string $name
      */
     public function resetVariables(string $name): void
     {
@@ -216,9 +206,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Removes the given file
-     *
-     * @param string $name
-     * @param string $key
      */
     public function removeFile(string $name, string $key): void
     {
