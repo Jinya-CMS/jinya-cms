@@ -1,9 +1,21 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'php:7.4-apache'
+    }
+
+  }
   stages {
-    stage('Build') {
+    stage('Lint code') {
       steps {
-        git(url: 'https://github.com/Jinya-CMS/jinya-backend.git', branch: 'master')
+        sh '''php --version
+php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"
+php composer-setup.php
+php -r "unlink(\'composer-setup.php\');"'''
+        sh 'composer install --no-dev'
+        sh '''apt update
+apt install openjdk-11-jdk'''
+        sh 'java -version'
       }
     }
 
