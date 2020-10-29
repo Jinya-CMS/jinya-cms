@@ -16,11 +16,6 @@ class ThemeFileController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/file/{key}", methods={"DELETE"}, name="api_theme_delete_file")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param string $key
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function deleteFileAction(
         string $name,
@@ -37,14 +32,6 @@ class ThemeFileController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/file/{key}", methods={"PUT"}, name="api_theme_put_file")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param string $key
-     * @param Request $request
-     * @param ArrayUtilInterface $arrayUtil
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function putFileAction(
         string $name,
