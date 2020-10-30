@@ -27,7 +27,7 @@ spec:
     stages {
         stage('Lint code') {
             steps {
-                sh "docker-php-ext-install pdo pdo_mysql intl"
+                sh "docker-php-ext-install pdo pdo_mysql"
                 sh "php --version"
                 sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
                 sh "php composer-setup.php"
