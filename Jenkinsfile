@@ -43,7 +43,7 @@ spec:
                 sh "export SONAR_HOME=/opt/sonar-scanner-cli-4.5.0.2216"
                 sh 'export PATH="$PATH:/opt/sonar-scanner-cli-4.5.0.2216/bin"'
                 sh "sed -i 's@#sonar\\.host\\.url=http:\\/\\/localhost:9000@sonar.host.url=https://sonarqube.imanuel.dev@g' /opt/sonar-scanner-4.5.0.2216/conf/sonar-scanner.properties"
-                sh "sonar-scanner"
+                sh "/opt/sonar-scanner-cli-4.5.0.2216/bin/sonar-scanner"
             }
         }
     }
