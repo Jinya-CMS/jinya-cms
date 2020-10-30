@@ -27,28 +27,16 @@ spec:
     stages {
         stage('Lint code') {
             steps {
-        sh '''php --version
-php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"
-php composer-setup.php
-php -r "unlink(\'composer-setup.php\');"'''
-        sh 'php composer.phar install --no-dev'
-        sh '''apt update
-apt install openjdk-11-jdk'''
-        sh 'java -version'
+                sh "docker-php-ext-install pdo pdo_mysql intl"
+                sh "php --version"
+                sh "php -r 'copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');'"
+                sh "php composer-setup.php"
+                sh "php -r "unlink(\'composer-setup.php\');"
+                sh 'php composer.phar install --no-dev'
+                sh "apt update"
+                sh "apt install openjdk-11-jdk"
+                sh 'java -version'
             }
         }
     }
-}
-
-pipeline {
-  agent none
-  stages {
-    stage('Lint code') {
-      agent {
-        docker 'php:7.4-apache'
-      }
-      steps {
-      }
-    }
-  }
 }
