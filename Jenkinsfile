@@ -27,6 +27,8 @@ spec:
     stages {
         stage('Lint code') {
             steps {
+                sh "apt-get update"
+                sh "apt-get install openjdk-11-jdk"
                 sh "apt-get install libzip-dev git"
                 sh "docker-php-ext-install pdo pdo_mysql zip"
                 sh "php --version"
@@ -34,8 +36,6 @@ spec:
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install --no-dev'
-                sh "apt update"
-                sh "apt install openjdk-11-jdk"
                 sh 'java -version'
             }
         }
