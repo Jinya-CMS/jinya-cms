@@ -27,6 +27,7 @@ spec:
     stages {
         stage('Lint code') {
             steps {
+                sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
                 sh "apt-get install -y apt-utils"
                 sh "apt-get install -y openjdk-11-jre-headless libzip-dev git"
