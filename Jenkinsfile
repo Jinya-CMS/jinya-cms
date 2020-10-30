@@ -11,7 +11,7 @@ kind: Pod
 spec:
   containers:
   - name: php
-    image: registry.imanuel.dev/_/php:7.4-apache
+    image: registry.imanuel.dev/php:7.4-apache
     command:
     - sleep
     args:
