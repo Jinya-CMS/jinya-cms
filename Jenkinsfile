@@ -43,7 +43,7 @@ spec:
                 sh "export SONAR_HOME /opt/sonar-scanner"
                 sh 'export PATH "$PATH:/opt/sonar-scanner/bin"'
                 sh "mv sonar-scanner-4.5.0.2216 /opt/sonar-scanner"
-                sh "sed -i 's/#sonar\.host\.url=http:\/\/localhost:9000/sonar.host.url=https://sonarqube.imanuel.dev/g' /opt/sonar-scanner/sonar-scanner.properties"
+                sh "sed -i 's/#sonar\\.host\\.url=http:\\/\\/localhost:9000/sonar.host.url=https://sonarqube.imanuel.dev/g' /opt/sonar-scanner/sonar-scanner.properties"
             }
         }
     }
