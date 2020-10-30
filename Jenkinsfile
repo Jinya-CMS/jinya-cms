@@ -11,16 +11,12 @@ kind: Pod
 spec:
   containers:
   - name: php
-    image: php:7.4-apache
+    image: registry.imanuel.dev/_/php:7.4-apache
     command:
     - sleep
     args:
     - infinity
 '''
-            // Can also wrap individual steps:
-            // container('shell') {
-            //     sh 'hostname'
-            // }
             defaultContainer 'php'
         }
     }
