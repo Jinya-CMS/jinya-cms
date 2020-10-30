@@ -1,5 +1,8 @@
 // Uses Declarative syntax to run commands inside a container.
 pipeline {
+    triggers {
+        pollSCM("*/5 * * * *")
+    }
     agent {
         kubernetes {
             yaml '''
