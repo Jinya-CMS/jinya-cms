@@ -27,6 +27,7 @@ spec:
     stages {
         stage('Lint code') {
             steps {
+                sh "apt-get install libzip-dev git"
                 sh "docker-php-ext-install pdo pdo_mysql zip"
                 sh "php --version"
                 sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
