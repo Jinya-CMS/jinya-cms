@@ -9,6 +9,8 @@ pipeline {
 apiVersion: v1
 kind: Pod
 spec:
+  imagePullSecrets:
+    - name: dev-imanuel-jenkins-regcred
   containers:
   - name: php
     image: registry.imanuel.dev/php:7.4-apache
