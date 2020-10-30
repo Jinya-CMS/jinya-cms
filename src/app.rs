@@ -26,6 +26,7 @@ use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
 use crate::views::menus::MenusPage;
+use crate::views::menus::designer::MenuDesignerPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -68,6 +69,8 @@ pub enum AppRoute {
     ArtistProfile(usize),
     #[to = "/configuration/artists"]
     Artists,
+    #[to = "/configuration/menu/{id}/designer"]
+    MenuDesigner(usize),
     #[to = "/configuration/menus"]
     Menus,
     #[to = "/"]
@@ -310,7 +313,8 @@ impl JinyaDesignerApp {
                 AppRoute::MyProfile => html! {<MyProfilePage />},
                 AppRoute::Artists => html! {<ArtistsPage />},
                 AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />},
-                AppRoute::Menus => html! {<MenusPage />}
+                AppRoute::Menus => html! {<MenusPage />},
+                AppRoute::MenuDesigner(id) => html! {<MenuDesignerPage id=id />}
             }
         })
     }

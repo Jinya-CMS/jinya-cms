@@ -32,7 +32,7 @@ pub struct MenuItem {
     pub position: usize,
     pub highlighted: bool,
     pub title: String,
-    pub route: String,
+    pub route: Option<String>,
     pub items: Vec<MenuItem>,
     pub artist: Option<MenuItemArtist>,
     pub gallery: Option<MenuItemGallery>,

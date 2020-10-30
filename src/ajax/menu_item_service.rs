@@ -16,10 +16,10 @@ impl MenuItemService {
         MenuItemService {}
     }
 
-    pub fn get_list(&self, keyword: String, callback: Callback<Result<ListModel<MenuItem>, AjaxError>>) -> FetchTask {
-        let url = format!("{}/api/menu?keyword={}", get_host(), keyword);
+    pub fn get_by_menu(&self, id: usize, callback: Callback<Result<Vec<MenuItem>, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu/{}/item", get_host(), id);
         let request = get_request(url);
-        let handler = move |response: Response<Json<Result<ListModel<MenuItem>, Error>>>| {
+        let handler = move |response: Response<Json<Result<Vec<MenuItem>, Error>>>| {
             let (meta, Json(data)) = response.into_parts();
             if meta.status.is_success() {
                 callback.emit(Ok(data.unwrap()));

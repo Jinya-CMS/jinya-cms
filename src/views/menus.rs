@@ -6,9 +6,10 @@ use jinya_ui::widgets::alert::{Alert, AlertType};
 use jinya_ui::widgets::button::{Button, ButtonType};
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
 use yew::{Component, ComponentLink, Html};
+use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
-use yew_router::agent::{RouteAgent, RouteRequest};
+use yew_router::agent::{RouteAgent, RouteAgentDispatcher, RouteRequest};
 use yew_router::route::Route;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
@@ -23,6 +24,7 @@ use crate::views::menus::edit_dialog::EditDialog;
 
 mod add_dialog;
 mod edit_dialog;
+pub mod designer;
 
 pub struct MenusPage {
     link: ComponentLink<Self>,
@@ -41,6 +43,7 @@ pub struct MenusPage {
     keyword: String,
     show_add_dialog: bool,
     menu_to_edit: Option<Menu>,
+    route_dispatcher: Dispatcher<RouteAgent>,
 }
 
 pub enum Msg {
@@ -67,6 +70,7 @@ impl Component for MenusPage {
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
         let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
+        let route_dispatcher = RouteAgent::dispatcher();
 
         MenusPage {
             link,
@@ -94,6 +98,7 @@ impl Component for MenusPage {
             keyword: "".to_string(),
             show_add_dialog: false,
             menu_to_edit: None,
+            route_dispatcher,
         }
     }
 
@@ -155,7 +160,10 @@ impl Component for MenusPage {
                 self.menu_to_edit = None
             }
             Msg::OnDiscardEdit => self.menu_to_edit = None,
-            Msg::OnMenuDesignerClick => {}
+            Msg::OnMenuDesignerClick => {
+                let menu = self.get_selected_menu();
+                self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::MenuDesigner(menu.id))));
+            }
         }
 
         true

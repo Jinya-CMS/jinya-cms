@@ -303,6 +303,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
 
     map.insert("menus.overview.action_new", "Neues Menü");
     map.insert("menus.overview.action_edit", "Menü bearbeiten");
+    map.insert("menus.overview.action_designer", "Menudesigner");
     map.insert("menus.overview.action_delete", "Menü löschen");
     map.insert("menus.overview.table.name_column", "Name");
     map.insert("menus.overview.table.logo_column", "Logo");

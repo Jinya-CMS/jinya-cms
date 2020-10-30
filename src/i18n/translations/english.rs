@@ -302,6 +302,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
 
     map.insert("menus.overview.action_new", "New menu");
     map.insert("menus.overview.action_edit", "Edit menu");
+    map.insert("menus.overview.action_designer", "Menu designer");
     map.insert("menus.overview.action_delete", "Delete menu");
     map.insert("menus.overview.table.name_column", "Name");
     map.insert("menus.overview.table.logo_column", "Logo");
