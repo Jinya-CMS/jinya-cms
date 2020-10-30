@@ -40,11 +40,10 @@ spec:
                 sh 'java -version'
                 sh 'wget -U "scannercli" -q -O /opt/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip'
                 sh "cd /opt && unzip sonar-scanner-cli.zip"
-                sh "export SONAR_HOME=/opt/sonar-scanner-cli-4.5.0.2216"
-                sh 'export PATH="$PATH:/opt/sonar-scanner-cli-4.5.0.2216/bin"'
+                sh "export SONAR_HOME=/opt/sonar-scanner-4.5.0.2216"
+                sh 'export PATH="$PATH:/opt/sonar-scanner-4.5.0.2216/bin"'
                 sh "sed -i 's@#sonar\\.host\\.url=http:\\/\\/localhost:9000@sonar.host.url=https://sonarqube.imanuel.dev@g' /opt/sonar-scanner-4.5.0.2216/conf/sonar-scanner.properties"
-                sh "ls -la /opt"
-                sh "/opt/sonar-scanner-cli-4.5.0.2216/bin/sonar-scanner"
+                sh "/opt/sonar-scanner-4.5.0.2216/bin/sonar-scanner"
             }
         }
     }
