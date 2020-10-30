@@ -22,11 +22,6 @@ class MenuLogoController extends BaseApiController
 {
     /**
      * @Route("/api/menu/{id}/logo", methods={"GET"}, name="api_menu_logo_get")
-     *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function getAction(int $id, MenuServiceInterface $menuService, MediaServiceInterface $mediaService): Response
     {
@@ -49,12 +44,6 @@ class MenuLogoController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/logo", methods={"PUT"}, name="api_menu_logo_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param Request $request
-     * @param MenuServiceInterface $menuService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function putAction(
         int $id,
@@ -76,11 +65,6 @@ class MenuLogoController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/logo", methods={"DELETE"}, name="api_menu_logo_delete")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @param MediaServiceInterface $mediaService
-     * @return Response
      */
     public function deleteAction(
         int $id,

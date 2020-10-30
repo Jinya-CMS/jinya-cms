@@ -30,9 +30,6 @@ class FormGenerator implements FormGeneratorInterface
 
     /**
      * FormGenerator constructor.
-     * @param FormFactoryInterface $formFactory
-     * @param ConfigurationServiceInterface $frontendConfigurationService
-     * @param SlugServiceInterface $slugService
      */
     public function __construct(
         FormFactoryInterface $formFactory,
