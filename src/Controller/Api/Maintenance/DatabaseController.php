@@ -18,9 +18,6 @@ class DatabaseController extends BaseApiController
     /**
      * @Route("api/maintenance/database/table", methods={"GET"}, name="api_maintenance_database_table")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param TableAnalyserInterface $tableAnalyser
-     * @return Response
      */
     public function getTableInfo(TableAnalyserInterface $tableAnalyser): Response
     {
@@ -42,9 +39,6 @@ class DatabaseController extends BaseApiController
     /**
      * @Route("api/maintenance/database", methods={"GET"}, name="api_maintenance_database")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param DatabaseAnalyserInterface $databaseAnalyser
-     * @return Response
      */
     public function getDatabaseInfo(DatabaseAnalyserInterface $databaseAnalyser): Response
     {
@@ -72,11 +66,6 @@ class DatabaseController extends BaseApiController
     /**
      * @Route("api/maintenance/database/query", methods={"POST"}, name="api_maintenance_database_query_execute")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param QueryAnalyserInterface $queryAnalyser
-     * @param Connection $connection
-     * @param TranslatorInterface $translator
-     * @return Response
      */
     public function executeQuery(
         QueryAnalyserInterface $queryAnalyser,

@@ -27,11 +27,6 @@ class MenuItemController extends BaseApiController
 {
     /**
      * @Route("/api/menu/{id}/items", methods={"GET"}, name="api_menu_items_get_all")
-     *
-     * @param int $id
-     * @param MenuItemServiceInterface $menuItemService
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     * @return Response
      */
     public function getAllAction(
         int $id,
@@ -58,12 +53,6 @@ class MenuItemController extends BaseApiController
 
     /**
      * @Route("/api/menu/{id}/items/{position}", methods={"GET"}, name="api_menu_items_get")
-     *
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -92,13 +81,6 @@ class MenuItemController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/items/{position}", methods={"POST"}, name="api_menu_items_post_parent_menu")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @param MenuFormatterInterface $menuFormatter
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     * @return Response
      */
     public function postMenuParentAction(
         int $id,
@@ -121,14 +103,6 @@ class MenuItemController extends BaseApiController
 
     /**
      * Adds the item
-     *
-     * @param string $type
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @param MenuFormatterInterface $menuFormatter
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     * @return callable
      */
     private function addItem(
         string $type,
@@ -208,13 +182,6 @@ class MenuItemController extends BaseApiController
     /**
      * @Route("/api/menu/{_}/items/{id}/{position}", methods={"POST"}, name="api_menu_items_post_parent_menu_item")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @param MenuFormatterInterface $menuFormatter
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     * @return Response
      */
     public function postMenuItemParentAction(
         int $id,
@@ -238,11 +205,6 @@ class MenuItemController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/items/{position}", methods={"DELETE"}, name="api_menu_items_delete_parent_menu")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @return Response
      */
     public function deleteMenuParentAction(int $id, int $position, MenuItemServiceInterface $menuItemService): Response
     {
@@ -256,11 +218,6 @@ class MenuItemController extends BaseApiController
     /**
      * @Route("/api/menu/{_}/items/{id}/{position}", methods={"DELETE"}, name="api_menu_items_delete_parent_menu_item")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param int $position
-     * @param MenuItemServiceInterface $menuItemService
-     * @return Response
      */
     public function deleteMenuItemParentAction(
         int $id,
@@ -277,11 +234,6 @@ class MenuItemController extends BaseApiController
     /**
      * @Route("/api/menu/{id}/items/batch", methods={"PUT"}, name="api_menu_items_batch")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param Request $request
-     * @param int $id
-     * @param MenuServiceInterface $menuService
-     * @return Response
      */
     public function batchChangeItems(Request $request, int $id, MenuServiceInterface $menuService): Response
     {

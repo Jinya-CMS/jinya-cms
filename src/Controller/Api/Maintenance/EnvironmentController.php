@@ -12,8 +12,6 @@ class EnvironmentController extends BaseApiController
     /**
      * @Route("/api/environment", methods={"GET"}, name="api_environment_get_all")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @return Response
      */
     public function getValuesAction(): Response
     {
