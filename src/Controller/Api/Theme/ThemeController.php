@@ -23,10 +23,6 @@ class ThemeController extends BaseApiController
     /**
      * @Route("/api/theme", methods={"GET"}, name="api_theme_get_all")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeFormatterInterface $themeFormatter
-     * @return Response
      */
     public function getAllAction(ThemeServiceInterface $themeService, ThemeFormatterInterface $themeFormatter): Response
     {
@@ -50,11 +46,6 @@ class ThemeController extends BaseApiController
     /**
      * @Route("/api/theme/{name}", methods={"GET"}, name="api_theme_get")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeFormatterInterface $themeFormatter
-     * @return Response
      */
     public function getAction(
         string $name,
@@ -90,10 +81,6 @@ class ThemeController extends BaseApiController
     /**
      * @Route("/api/theme/{name}", methods={"PUT"}, name="api_theme_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function putAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {

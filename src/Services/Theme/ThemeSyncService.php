@@ -19,20 +19,14 @@ use const DIRECTORY_SEPARATOR;
 
 class ThemeSyncService implements ThemeSyncServiceInterface
 {
-    /** @var ThemeServiceInterface */
     private ThemeServiceInterface $themeService;
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var string */
     private string $themeDirectory;
 
     /**
      * ThemeSyncService constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param EntityManagerInterface $entityManager
-     * @param string $themeDirectory
      */
     public function __construct(
         ThemeServiceInterface $themeService,

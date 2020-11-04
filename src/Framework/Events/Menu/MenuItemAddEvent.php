@@ -17,24 +17,16 @@ class MenuItemAddEvent extends CancellableEvent
 
     public const POST_ADD = 'MenuItemPostAdd';
 
-    /** @var int */
     private int $parentId;
 
-    /** @var string */
     private string $type;
 
-    /** @var MenuItem */
     private MenuItem $item;
 
-    /** @var int */
     private int $position;
 
     /**
      * MenuItemGetEvent constructor.
-     * @param int $parentId
-     * @param string $type
-     * @param int $position
-     * @param MenuItem $item
      */
     public function __construct(int $parentId, string $type, int $position, MenuItem $item)
     {
@@ -44,33 +36,21 @@ class MenuItemAddEvent extends CancellableEvent
         $this->position = $position;
     }
 
-    /**
-     * @return int
-     */
     public function getParentId(): int
     {
         return $this->parentId;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return MenuItem
-     */
     public function getItem(): MenuItem
     {
         return $this->item;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;

@@ -16,12 +16,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FormCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtGalleryCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

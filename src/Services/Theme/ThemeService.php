@@ -23,20 +23,14 @@ class ThemeService implements ThemeServiceInterface
 
     public const THEMES_TWIG_NAMESPACE = 'Theme';
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var FilesystemLoader */
     private FilesystemLoader $twigLoader;
 
-    /** @var string */
     private string $themeDirectory;
 
     /**
      * ThemeService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param FilesystemLoader $twigLoader
-     * @param string $themeDirectory
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -63,8 +57,6 @@ class ThemeService implements ThemeServiceInterface
     }
 
     /**
-     * @param string $name
-     * @return Theme|null
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -90,7 +82,6 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * {@inheritdoc}
-     * @return Theme
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -118,8 +109,6 @@ class ThemeService implements ThemeServiceInterface
 
     /**
      * Updates the theme
-     *
-     * @param Theme $theme
      */
     public function update(Theme $theme): void
     {
