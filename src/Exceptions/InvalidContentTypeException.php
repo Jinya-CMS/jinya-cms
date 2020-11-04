@@ -12,13 +12,10 @@ use Exception;
 
 class InvalidContentTypeException extends Exception
 {
-    /** @var string */
     private string $contentType;
 
     /**
      * InvalidContentTypeException constructor.
-     * @param string $contentType
-     * @param string $message
      */
     public function __construct(string $contentType, string $message)
     {
@@ -27,9 +24,6 @@ class InvalidContentTypeException extends Exception
         $this->message = $message;
     }
 
-    /**
-     * @return string
-     */
     public function getContentType(): string
     {
         return $this->contentType;

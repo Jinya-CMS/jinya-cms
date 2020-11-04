@@ -19,12 +19,10 @@ use function strtolower;
 
 class HistoryEnabledEntitySubscriber implements EventSubscriber
 {
-    /** @var TokenStorageInterface */
     private TokenStorageInterface $tokenStorage;
 
     /**
      * HistoryEnabledEntitySubscriber constructor.
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(TokenStorageInterface $tokenStorage)
     {

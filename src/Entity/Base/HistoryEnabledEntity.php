@@ -32,13 +32,11 @@ abstract class HistoryEnabledEntity implements JsonSerializable
     private ?DateTime $createdAt = null;
 
     /**
-     * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
      */
     private DateTime $lastUpdatedAt;
 
     /**
-     * @var User
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User")
      */
     private User $creator;
@@ -73,25 +71,16 @@ abstract class HistoryEnabledEntity implements JsonSerializable
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     */
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @return User
-     */
     public function getCreator(): User
     {
         return $this->creator;
     }
 
-    /**
-     * @param User $creator
-     */
     public function setCreator(User $creator): void
     {
         $this->creator = $creator;
@@ -105,9 +94,6 @@ abstract class HistoryEnabledEntity implements JsonSerializable
         return $this->lastUpdatedAt;
     }
 
-    /**
-     * @param DateTime $lastUpdatedAt
-     */
     public function setLastUpdatedAt(DateTime $lastUpdatedAt): void
     {
         $this->lastUpdatedAt = $lastUpdatedAt;
