@@ -337,5 +337,12 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.edit.error_generic", "The menu could not be saved");
     map.insert("menus.edit.error_load_files", "The files could not be loaded");
 
+    map.insert("menus.designer.gallery", "Gallery");
+    map.insert("menus.designer.page", "Page");
+    map.insert("menus.designer.segment_page", "Segment page");
+    map.insert("menus.designer.group", "Group");
+    map.insert("menus.designer.link", "Link");
+    map.insert("menus.designer.profile", "Artist profile");
+
     map
 }

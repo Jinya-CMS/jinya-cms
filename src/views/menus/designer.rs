@@ -12,20 +12,20 @@ use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::*;
 use yew::virtual_dom::VNode;
+use yew_router::agent::RouteAgent;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::file_service::FileService;
 use crate::ajax::gallery_service::GalleryService;
+use crate::ajax::menu_item_service::MenuItemService;
 use crate::i18n::Translator;
 use crate::models::file::File;
 use crate::models::gallery::Gallery;
 use crate::models::list_model::ListModel;
+use crate::models::menu_item::MenuItem;
 use crate::models::segment::Segment;
 use crate::utils::TinyMce;
-use crate::ajax::menu_item_service::MenuItemService;
-use crate::models::menu_item::MenuItem;
-use yew_router::agent::RouteAgent;
 
 #[derive(PartialEq, Clone, Properties)]
 pub struct MenuDesignerPageProps {
@@ -96,8 +96,36 @@ impl Component for MenuDesignerPage {
             <Page>
                 <div class="jinya-designer-menu-designer__container">
                     <div class="jinya-designer-menu-designer__list jinya-designer-menu-designer__list--new-items">
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.gallery")}
+                        </div>
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.page")}
+                        </div>
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.segment_page")}
+                        </div>
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.profile")}
+                        </div>
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.link")}
+                        </div>
+                        <div draggable=true class="jinya-designer-menu-item__list-item">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span> {self.translator.translate("menus.designer.group")}
+                        </div>
                     </div>
                     <div class="jinya-designer-menu-designer__list jinya-designer-menu-designer__list--menu-items">
+                        <div class="jinya-designer-menu-item__drop-target">
+                            <span class="mdi mdi-plus jinya-designer-menu-item__drop-target-icon"></span>
+                        </div>
+                        <ul class="jinya-designer-menu-designer__items jinya-designer-menu-designer__items--top">
+                            {for self.menu_items.iter().enumerate().map(|(idx, item)| {
+                                html! {
+                                    {self.get_item_view(item, None, idx == 0, idx > 0)}
+                                }
+                            })}
+                        </ul>
                     </div>
                 </div>
             </Page>
@@ -114,6 +142,86 @@ impl Component for MenuDesignerPage {
 }
 
 impl MenuDesignerPage {
+    fn get_item_view(&self, item: &MenuItem, parent: Option<MenuItem>, first: bool, has_previous: bool) -> Html {
+        html! {
+            <>
+                <li>
+                    <div class="jinya-designer-menu-item__list-item" draggable=true>
+                        <div style="display: flex">
+                            <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                            <span>
+                                {&item.title} {if item.highlighted {
+                                    " (hightlighted) "
+                                } else {
+                                    " "
+                                }}
+                            </span>
+                            {if item.route.is_some() {
+                                html! {
+                                    <span class="jinya-designer-menu-item__link">{"/"}{&item.route.as_ref().unwrap()}</span>
+                                }
+                            } else {
+                                html! {}
+                            }}
+                        </div>
+                        <div class="jinya-designer-menu-item__button-row">
+                            {if first {
+                                html! {}
+                            } else if parent.is_none() {
+                                html! {
+                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
+                                }
+                            } else if item.items.is_empty() {
+                                html! {
+                                    <>
+                                        {if parent.is_some() {
+                                            html! {
+                                                <>
+                                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-left"></a>
+                                                </>
+                                            }
+                                        } else {
+                                            html! {}
+                                        }}
+                                        {if has_previous {
+                                            html! {
+                                                <>
+                                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
+                                                </>
+                                            }
+                                        } else {
+                                            html! {}
+                                        }}
+                                    </>
+                                }
+                            } else {
+                                html! {}
+                            }}
+                            <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-pencil"></a>
+                            <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--negative mdi mdi-delete"></a>
+                        </div>
+                    </div>
+                    <div class="jinya-designer-menu-item__drop-target">
+                        <span class="mdi mdi-plus jinya-designer-menu-item__drop-target-icon"></span>
+                    </div>
+                    {if !item.items.is_empty() {
+                        html! {
+                            <ul class="jinya-designer-menu-designer__items">
+                                {for item.items.iter().enumerate().map(|(idx, subitem)| {
+                                    html! {
+                                        {self.get_item_view(subitem, Some(item.clone()), false, idx > 0)}
+                                    }
+                                })}
+                            </ul>
+                        }
+                    } else {
+                        html! {}
+                    }}
+                </li>
+            </>
+        }
+    }
+
     fn get_last_position(&self) -> usize {
         let mut items = self.menu_items.clone();
         items.sort_by(|a, b| a.position.cmp(&b.position));

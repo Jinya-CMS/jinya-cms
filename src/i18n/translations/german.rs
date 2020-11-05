@@ -338,5 +338,12 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.edit.error_conflict", "Das Menü konnte nicht gespeichert werden, weil ein anderes Menü mit dem Namen existiert");
     map.insert("menus.edit.error_load_files", "Die Dateien konnten nicht geladen werden");
 
+    map.insert("menus.designer.gallery", "Galerie");
+    map.insert("menus.designer.page", "Seite");
+    map.insert("menus.designer.segment_page", "Segment Seite");
+    map.insert("menus.designer.group", "Gruppe");
+    map.insert("menus.designer.link", "Link");
+    map.insert("menus.designer.profile", "Künstlerprofil");
+
     map
 }
