@@ -7,12 +7,9 @@ use jinya_ui::widgets::form::checkbox::Checkbox;
 use jinya_ui::widgets::form::dropdown::{Dropdown, DropdownItem};
 use jinya_ui::widgets::form::input::Input;
 use jinya_ui::widgets::toast::Toast;
-use web_sys::Node;
 use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::*;
-use yew::virtual_dom::VNode;
-use yew_router::agent::RouteAgent;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
 use crate::ajax::{AjaxError, get_host};
@@ -25,31 +22,36 @@ use crate::models::gallery::Gallery;
 use crate::models::list_model::ListModel;
 use crate::models::menu_item::MenuItem;
 use crate::models::segment::Segment;
-use crate::utils::TinyMce;
 
 #[derive(PartialEq, Clone, Properties)]
 pub struct MenuDesignerPageProps {
     pub id: usize,
 }
 
-enum NewSegmentType {
+enum NewItemType {
     Gallery,
-    File,
-    Html,
+    Page,
+    SegmentPage,
+    Group,
+    ExternalLink,
 }
 
 pub enum Msg {
     OnMenuItemsLoaded(Result<Vec<MenuItem>, AjaxError>),
+    OnIncreaseNesting(MouseEvent, Option<MenuItem>, MenuItem),
+    OnDecreaseNesting(MouseEvent, MenuItem),
+    OnRequestComplete,
 }
 
 pub struct MenuDesignerPage {
     link: ComponentLink<Self>,
     id: usize,
     menu_items: Vec<MenuItem>,
-    menu_items_service: MenuItemService,
+    menu_item_service: MenuItemService,
     load_menu_items_task: Option<FetchTask>,
     translator: Translator,
     menu_dispatcher: Dispatcher<MenuAgent>,
+    change_nesting_task: Option<FetchTask>,
 }
 
 impl Component for MenuDesignerPage {
@@ -64,10 +66,11 @@ impl Component for MenuDesignerPage {
             link,
             id: props.id,
             menu_items: vec![],
-            menu_items_service: MenuItemService::new(),
+            menu_item_service: MenuItemService::new(),
             load_menu_items_task: None,
             translator,
             menu_dispatcher,
+            change_nesting_task: None,
         }
     }
 
@@ -77,9 +80,18 @@ impl Component for MenuDesignerPage {
                 if let Ok(data) = result {
                     self.menu_items = data;
                 } else {
-                    Toast::negative_toast(self.translator.translate("segment_pages.designer.error_load_menu-items"))
+                    Toast::negative_toast(self.translator.translate("menus.designer.error_load_menu_items"))
                 }
             }
+            Msg::OnIncreaseNesting(event, previous, item) => {
+                event.prevent_default();
+                self.change_parent(previous, item);
+            }
+            Msg::OnDecreaseNesting(event, item) => {
+                event.prevent_default();
+                self.move_one_level_up(item);
+            }
+            Msg::OnRequestComplete => self.load_menu_items_task = Some(self.menu_item_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded))),
         }
 
         true
@@ -121,8 +133,13 @@ impl Component for MenuDesignerPage {
                         </div>
                         <ul class="jinya-designer-menu-designer__items jinya-designer-menu-designer__items--top">
                             {for self.menu_items.iter().enumerate().map(|(idx, item)| {
+                                let previous = if idx > 0 {
+                                    Some(self.menu_items[idx - 1].clone())
+                                } else {
+                                    None
+                                };
                                 html! {
-                                    {self.get_item_view(item, None, idx == 0, idx > 0)}
+                                    {self.get_item_view(item, None, idx == 0, previous, idx + 1 == item.items.len())}
                                 }
                             })}
                         </ul>
@@ -136,13 +153,13 @@ impl Component for MenuDesignerPage {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.segment_pages")));
             self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
-            self.load_menu_items_task = Some(self.menu_items_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded)));
+            self.load_menu_items_task = Some(self.menu_item_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded)));
         }
     }
 }
 
 impl MenuDesignerPage {
-    fn get_item_view(&self, item: &MenuItem, parent: Option<MenuItem>, first: bool, has_previous: bool) -> Html {
+    fn get_item_view(&self, item: &MenuItem, parent: Option<MenuItem>, first: bool, previous: Option<MenuItem>, last: bool) -> Html {
         html! {
             <>
                 <li>
@@ -168,26 +185,25 @@ impl MenuDesignerPage {
                             {if first {
                                 html! {}
                             } else if parent.is_none() {
+                                let cloned_item = item.clone();
                                 html! {
-                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
+                                    <a onclick=self.link.callback(move |event| Msg::OnIncreaseNesting(event, previous.clone(), cloned_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
                                 }
                             } else if item.items.is_empty() {
                                 html! {
                                     <>
-                                        {if parent.is_some() {
+                                        {if parent.is_some() && last {
+                                            let cloned_item = item.clone();
                                             html! {
-                                                <>
-                                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-left"></a>
-                                                </>
+                                                <a onclick=self.link.callback(move |event| Msg::OnDecreaseNesting(event, cloned_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-left"></a>
                                             }
                                         } else {
                                             html! {}
                                         }}
-                                        {if has_previous {
+                                        {if previous.is_some() {
+                                            let cloned_item = item.clone();
                                             html! {
-                                                <>
-                                                    <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
-                                                </>
+                                                <a onclick=self.link.callback(move |event| Msg::OnIncreaseNesting(event, previous.clone(), cloned_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-chevron-right"></a>
                                             }
                                         } else {
                                             html! {}
@@ -208,8 +224,13 @@ impl MenuDesignerPage {
                         html! {
                             <ul class="jinya-designer-menu-designer__items">
                                 {for item.items.iter().enumerate().map(|(idx, subitem)| {
+                                    let previous = if idx > 0 {
+                                        Some(item.items[idx - 1].clone())
+                                    } else {
+                                        None
+                                    };
                                     html! {
-                                        {self.get_item_view(subitem, Some(item.clone()), false, idx > 0)}
+                                        {self.get_item_view(subitem, Some(item.clone()), false, previous, idx + 1 == item.items.len())}
                                     }
                                 })}
                             </ul>
@@ -231,5 +252,15 @@ impl MenuDesignerPage {
         } else {
             1
         }
+    }
+
+    fn change_parent(&mut self, new_parent: Option<MenuItem>, item: MenuItem) {
+        if let Some(new_parent_item) = new_parent {
+            self.change_nesting_task = Some(self.menu_item_service.change_menu_item_parent(new_parent_item.id, item, self.link.callback(|_| Msg::OnRequestComplete)));
+        }
+    }
+
+    fn move_one_level_up(&mut self, item: MenuItem){
+        self.change_nesting_task = Some(self.menu_item_service.move_item_one_level_up(self.id, item, self.link.callback(|_| Msg::OnRequestComplete)));
     }
 }

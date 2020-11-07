@@ -343,6 +343,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.designer.group", "Group");
     map.insert("menus.designer.link", "Link");
     map.insert("menus.designer.profile", "Artist profile");
+    map.insert("menus.designer.error_load_menu_items", "Error loading the menu items");
 
     map
 }

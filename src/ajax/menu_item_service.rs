@@ -5,7 +5,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, delete, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body, bool_handler};
+use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, post_request_with_body, put_request, put_request_with_body};
 use crate::models::list_model::ListModel;
 use crate::models::menu_item::MenuItem;
 
@@ -41,5 +41,23 @@ impl MenuItemService {
         let url = format!("{}/api/menu/{}/item/{}", get_host(), menu_id, position);
 
         delete(url, callback)
+    }
+
+    pub fn change_menu_item_parent(&self, new_parent_id: usize, item: MenuItem, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu-item/{}/move/parent/to/item/{}", get_host(), item.id, new_parent_id);
+
+        let request = put_request(url);
+        let handler = bool_handler(callback);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn move_item_one_level_up(&self, menu_id: usize, item: MenuItem, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu/{}/item/{}/move/parent/one/level/up", get_host(), menu_id, item.id);
+
+        let request = put_request(url);
+        let handler = bool_handler(callback);
+
+        FetchService::fetch(request, handler.into()).unwrap()
     }
 }
