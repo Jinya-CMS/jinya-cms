@@ -9,6 +9,8 @@ use App\Web\Actions\Menu\Items\DeleteItemByMenuAction;
 use App\Web\Actions\Menu\Items\DeleteItemByMenuItemAction;
 use App\Web\Actions\Menu\Items\GetItemsByMenuAction;
 use App\Web\Actions\Menu\Items\GetItemsByMenuItemAction;
+use App\Web\Actions\Menu\Items\MoveItemParentToItemAction;
+use App\Web\Actions\Menu\Items\ResetItemParentAction;
 use App\Web\Actions\Menu\Items\UpdateItemByMenuAction;
 use App\Web\Actions\Menu\Items\UpdateItemByMenuItemAction;
 use App\Web\Actions\Menu\ListAllMenusAction;
@@ -34,7 +36,10 @@ return function (RouteCollectorProxy $api) {
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']));
             $item->put('/{position}', UpdateItemByMenuAction::class);
             $item->delete('/{position}', DeleteItemByMenuAction::class);
+            $item->put('/{menuItemId}/parent/reset', ResetItemParentAction::class);
         });
+        $group->put('-item/{menuItemId}/move/parent/to/item/{newParent}', MoveItemParentToItemAction::class);
+        $group->put('/{id}/item/{menuItemId}/move/parent/one/level/up', MoveItemParentToItemAction::class);
         $group->group('-item/{id}/item', function (RouteCollectorProxy $item) {
             $item->get('', GetItemsByMenuItemAction::class);
             $item

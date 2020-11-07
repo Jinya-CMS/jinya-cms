@@ -113,6 +113,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
 
     /**
      * @inheritDoc
+     * @return MenuItem
      */
     public static function findById(int $id)
     {
