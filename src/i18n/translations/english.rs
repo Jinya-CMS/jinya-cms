@@ -345,5 +345,11 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.designer.profile", "Artist profile");
     map.insert("menus.designer.error_load_menu_items", "Error loading the menu items");
 
+    map.insert("menus.designer.item.delete.approve", "Delete menu entry");
+    map.insert("menus.designer.item.delete.decline", "Keep menu entry");
+    map.insert("menus.designer.item.delete.title", "Really delete menu entry?");
+    map.insert("menus.designer.item.delete.content", "Are you sure, that you want to delete the menu entry \"{title}\"? All subordinate entries are also deleted.");
+    map.insert("menus.designer.item.delete.failed", "The menu entry could not be deleted.");
+
     map
 }

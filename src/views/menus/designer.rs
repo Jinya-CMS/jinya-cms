@@ -41,6 +41,10 @@ pub enum Msg {
     OnIncreaseNesting(MouseEvent, Option<MenuItem>, MenuItem),
     OnDecreaseNesting(MouseEvent, MenuItem),
     OnRequestComplete,
+    OnMenuItemDeleteClicked(MouseEvent, MenuItem),
+    OnDeleteApprove,
+    OnDeleteDecline,
+    OnDeleteRequestComplete(Result<bool, AjaxError>),
 }
 
 pub struct MenuDesignerPage {
@@ -52,6 +56,8 @@ pub struct MenuDesignerPage {
     translator: Translator,
     menu_dispatcher: Dispatcher<MenuAgent>,
     change_nesting_task: Option<FetchTask>,
+    menu_item_to_delete: Option<MenuItem>,
+    menu_item_delete_task: Option<FetchTask>,
 }
 
 impl Component for MenuDesignerPage {
@@ -71,6 +77,8 @@ impl Component for MenuDesignerPage {
             translator,
             menu_dispatcher,
             change_nesting_task: None,
+            menu_item_to_delete: None,
+            menu_item_delete_task: None,
         }
     }
 
@@ -92,6 +100,21 @@ impl Component for MenuDesignerPage {
                 self.move_one_level_up(item);
             }
             Msg::OnRequestComplete => self.load_menu_items_task = Some(self.menu_item_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded))),
+            Msg::OnMenuItemDeleteClicked(event, item) => {
+                event.prevent_default();
+                self.menu_item_to_delete = Some(item)
+            }
+            Msg::OnDeleteApprove => self.menu_item_delete_task = Some(self.menu_item_service.delete_menu_item(self.menu_item_to_delete.as_ref().unwrap().id, self.link.callback(Msg::OnDeleteRequestComplete))),
+            Msg::OnDeleteDecline => self.menu_item_to_delete = None,
+            Msg::OnDeleteRequestComplete(result) => {
+                if result.is_ok() {
+                    self.menu_item_to_delete = None;
+                    self.load_menu_items_task = Some(self.menu_item_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded)));
+                } else {
+                    self.menu_item_to_delete = None;
+                    Toast::negative_toast(self.translator.translate("menus.designer.item.delete.failed"));
+                }
+            }
         }
 
         true
@@ -145,6 +168,23 @@ impl Component for MenuDesignerPage {
                         </ul>
                     </div>
                 </div>
+                {if self.menu_item_to_delete.is_some() {
+                    let item = self.menu_item_to_delete.as_ref().unwrap();
+                    html! {
+                        <ConfirmationDialog
+                            title=self.translator.translate("menus.designer.item.delete.title")
+                            dialog_type=DialogType::Negative
+                            message=self.translator.translate_with_args("menus.designer.item.delete.content", map! { "title" => item.title.as_str() })
+                            decline_label=self.translator.translate("menus.designer.item.delete.decline")
+                            approve_label=self.translator.translate("menus.designer.item.delete.approve")
+                            on_approve=self.link.callback(|_| Msg::OnDeleteApprove)
+                            on_decline=self.link.callback(|_| Msg::OnDeleteDecline)
+                            is_open=self.menu_item_to_delete.is_some()
+                        />
+                    }
+                } else {
+                    html! {}
+                }}
             </Page>
         }
     }
@@ -160,6 +200,7 @@ impl Component for MenuDesignerPage {
 
 impl MenuDesignerPage {
     fn get_item_view(&self, item: &MenuItem, parent: Option<MenuItem>, first: bool, previous: Option<MenuItem>, last: bool) -> Html {
+        let delete_item = item.clone();
         html! {
             <>
                 <li>
@@ -214,7 +255,7 @@ impl MenuDesignerPage {
                                 html! {}
                             }}
                             <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-pencil"></a>
-                            <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--negative mdi mdi-delete"></a>
+                            <a onclick=self.link.callback(move |event| Msg::OnMenuItemDeleteClicked(event, delete_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--negative mdi mdi-delete"></a>
                         </div>
                     </div>
                     <div class="jinya-designer-menu-item__drop-target">
@@ -260,7 +301,7 @@ impl MenuDesignerPage {
         }
     }
 
-    fn move_one_level_up(&mut self, item: MenuItem){
+    fn move_one_level_up(&mut self, item: MenuItem) {
         self.change_nesting_task = Some(self.menu_item_service.move_item_one_level_up(self.id, item, self.link.callback(|_| Msg::OnRequestComplete)));
     }
 }

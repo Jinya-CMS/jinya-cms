@@ -31,14 +31,8 @@ impl MenuItemService {
         FetchService::fetch(request, handler.into()).unwrap()
     }
 
-    pub fn delete_menu_item_menu_item_parent(&self, menu_item_id: usize, position: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
-        let url = format!("{}/api/menu-item/{}/item/{}", get_host(), menu_item_id, position);
-
-        delete(url, callback)
-    }
-
-    pub fn delete_menu_item_menu_parent(&self, menu_id: usize, position: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
-        let url = format!("{}/api/menu/{}/item/{}", get_host(), menu_id, position);
+    pub fn delete_menu_item(&self, menu_item_id: usize, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu-item/{}", get_host(), menu_item_id);
 
         delete(url, callback)
     }

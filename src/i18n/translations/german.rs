@@ -346,5 +346,11 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.designer.profile", "Künstlerprofil");
     map.insert("menus.designer.error_load_menu_items", "Fehler beim Laden der Menüeinträge");
 
+    map.insert("menus.designer.item.delete.approve", "Menüeintrag löschen");
+    map.insert("menus.designer.item.delete.decline", "Menüeintrag behalten");
+    map.insert("menus.designer.item.delete.title", "Menüeintrag wirklich löschen?");
+    map.insert("menus.designer.item.delete.content", "Bist du sicher, dass du den Menüeintrag \"{title}\" löschen möchtest? Alle untergeordneten Einträge werden auch gelöscht.");
+    map.insert("menus.designer.item.delete.failed", "Der Menüeintrag konnte nicht gelöscht werden.");
+
     map
 }
