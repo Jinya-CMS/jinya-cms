@@ -1,7 +1,5 @@
 use jinya_ui::layout::page::Page;
-use jinya_ui::widgets::button::ButtonType;
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
-use jinya_ui::widgets::form::dropdown::DropdownItem;
 use jinya_ui::widgets::toast::Toast;
 use yew::agent::Dispatcher;
 use yew::prelude::*;
@@ -17,14 +15,6 @@ use crate::views::menus::settings_dialog::{SettingsDialog, SettingsDialogType};
 #[derive(PartialEq, Clone, Properties)]
 pub struct MenuDesignerPageProps {
     pub id: usize,
-}
-
-enum NewItemType {
-    Gallery,
-    Page,
-    SegmentPage,
-    Group,
-    ExternalLink,
 }
 
 pub enum Msg {
@@ -324,17 +314,6 @@ impl MenuDesignerPage {
                     }}
                 </li>
             </>
-        }
-    }
-
-    fn get_last_position(&self) -> usize {
-        let mut items = self.menu_items.clone();
-        items.sort_by(|a, b| a.position.cmp(&b.position));
-
-        if items.last().is_some() {
-            items.last().unwrap().position + 1
-        } else {
-            1
         }
     }
 

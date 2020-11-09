@@ -9,7 +9,7 @@ use yew::{Component, ComponentLink, Html};
 use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
-use yew_router::agent::{RouteAgent, RouteAgentDispatcher, RouteRequest};
+use yew_router::agent::{RouteAgent, RouteRequest};
 use yew_router::route::Route;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};

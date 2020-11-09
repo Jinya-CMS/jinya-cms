@@ -12,12 +12,10 @@ use yew::services::fetch::FetchTask;
 use crate::ajax::AjaxError;
 use crate::ajax::file_service::FileService;
 use crate::ajax::menu_service::MenuService;
-use crate::ajax::segment_page_service::SegmentPageService;
 use crate::i18n::*;
 use crate::models::file::File;
 use crate::models::list_model::ListModel;
 use crate::models::menu::Menu;
-use crate::models::segment_page::SegmentPage;
 
 pub struct EditDialog {
     link: ComponentLink<Self>,

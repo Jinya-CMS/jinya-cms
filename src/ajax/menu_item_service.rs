@@ -1,12 +1,10 @@
 use anyhow::Error;
 use http::Response;
-use serde_derive::*;
 use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, post_request_with_body, put_request, put_request_with_body};
-use crate::models::list_model::ListModel;
+use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, put_request, put_request_with_body};
 use crate::models::menu_item::{MenuItem, SaveMenuItem};
 
 pub struct MenuItemService {}
