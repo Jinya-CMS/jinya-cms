@@ -25,6 +25,7 @@ use crate::views::menus::edit_dialog::EditDialog;
 mod add_dialog;
 mod edit_dialog;
 pub mod designer;
+mod settings_dialog;
 
 pub struct MenusPage {
     link: ComponentLink<Self>,

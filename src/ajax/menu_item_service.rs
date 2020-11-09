@@ -7,7 +7,7 @@ use yew::services::fetch::{FetchService, FetchTask};
 
 use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, post_request_with_body, put_request, put_request_with_body};
 use crate::models::list_model::ListModel;
-use crate::models::menu_item::MenuItem;
+use crate::models::menu_item::{MenuItem, SaveMenuItem};
 
 pub struct MenuItemService {}
 
@@ -27,6 +27,14 @@ impl MenuItemService {
                 callback.emit(get_error_from_parts(meta));
             }
         };
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn update_menu_item(&self, menu_item_id: usize, menu_item: SaveMenuItem, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu-item/{}", get_host(), menu_item_id);
+        let request = put_request_with_body(url, &menu_item);
+        let handler = bool_handler(callback);
 
         FetchService::fetch(request, handler.into()).unwrap()
     }

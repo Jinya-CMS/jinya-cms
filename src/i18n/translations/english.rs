@@ -351,5 +351,21 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.designer.item.delete.content", "Are you sure, that you want to delete the menu entry \"{title}\"? All subordinate entries are also deleted.");
     map.insert("menus.designer.item.delete.failed", "The menu entry could not be deleted.");
 
+    map.insert("menus.designer.settings.action_save", "Save menu item");
+    map.insert("menus.designer.settings.action_discard", "Discard changes");
+    map.insert("menus.designer.settings.dialog_title", "Edit menu item");
+    map.insert("menus.designer.settings.title", "Title");
+    map.insert("menus.designer.settings.route", "Route");
+    map.insert("menus.designer.settings.highlighted", "Highlighted");
+    map.insert("menus.designer.settings.gallery", "Gallery");
+    map.insert("menus.designer.settings.page", "Page");
+    map.insert("menus.designer.settings.segment_page", "Segment page");
+    map.insert("menus.designer.settings.profile", "Artist");
+    map.insert("menus.designer.settings.error_title_empty", "The title is required");
+    map.insert("menus.designer.settings.error_route_empty", "The route is required");
+    map.insert("menus.designer.settings.error_could_not_load_galleries", "The galleries could not be loaded");
+    map.insert("menus.designer.settings.error_could_not_load_simple_pages", "The pages could not be loaded");
+    map.insert("menus.designer.settings.error_could_not_load_segment_pages", "The segment pages could not be loaded");
+    map.insert("menus.designer.settings.error_could_not_load_artists", "The artists could not be loaded");
     map
 }

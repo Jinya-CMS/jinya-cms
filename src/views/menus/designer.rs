@@ -1,27 +1,18 @@
-use jinya_ui::layout::button_row::ButtonRow;
 use jinya_ui::layout::page::Page;
-use jinya_ui::layout::row::Row;
-use jinya_ui::widgets::button::{Button, ButtonType};
+use jinya_ui::widgets::button::ButtonType;
 use jinya_ui::widgets::dialog::confirmation::{ConfirmationDialog, DialogType};
-use jinya_ui::widgets::form::checkbox::Checkbox;
-use jinya_ui::widgets::form::dropdown::{Dropdown, DropdownItem};
-use jinya_ui::widgets::form::input::Input;
+use jinya_ui::widgets::form::dropdown::DropdownItem;
 use jinya_ui::widgets::toast::Toast;
 use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::*;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
-use crate::ajax::{AjaxError, get_host};
-use crate::ajax::file_service::FileService;
-use crate::ajax::gallery_service::GalleryService;
+use crate::ajax::AjaxError;
 use crate::ajax::menu_item_service::MenuItemService;
 use crate::i18n::Translator;
-use crate::models::file::File;
-use crate::models::gallery::Gallery;
-use crate::models::list_model::ListModel;
-use crate::models::menu_item::MenuItem;
-use crate::models::segment::Segment;
+use crate::models::menu_item::{MenuItem, SaveMenuItem};
+use crate::views::menus::settings_dialog::{SettingsDialog, SettingsDialogType};
 
 #[derive(PartialEq, Clone, Properties)]
 pub struct MenuDesignerPageProps {
@@ -42,9 +33,13 @@ pub enum Msg {
     OnDecreaseNesting(MouseEvent, MenuItem),
     OnRequestComplete,
     OnMenuItemDeleteClicked(MouseEvent, MenuItem),
+    OnMenuItemEditClicked(MouseEvent, MenuItem),
     OnDeleteApprove,
     OnDeleteDecline,
     OnDeleteRequestComplete(Result<bool, AjaxError>),
+    OnSaveMenuItemEdit(SaveMenuItem),
+    OnDiscardMenuItemEdit,
+    OnMenuItemSaved(Result<bool, AjaxError>),
 }
 
 pub struct MenuDesignerPage {
@@ -58,6 +53,9 @@ pub struct MenuDesignerPage {
     change_nesting_task: Option<FetchTask>,
     menu_item_to_delete: Option<MenuItem>,
     menu_item_delete_task: Option<FetchTask>,
+    menu_item_update_task: Option<FetchTask>,
+    edit_menu_item_settings_type: Option<SettingsDialogType>,
+    menu_item_to_edit: Option<MenuItem>,
 }
 
 impl Component for MenuDesignerPage {
@@ -79,6 +77,9 @@ impl Component for MenuDesignerPage {
             change_nesting_task: None,
             menu_item_to_delete: None,
             menu_item_delete_task: None,
+            menu_item_update_task: None,
+            edit_menu_item_settings_type: None,
+            menu_item_to_edit: None,
         }
     }
 
@@ -113,6 +114,33 @@ impl Component for MenuDesignerPage {
                 } else {
                     self.menu_item_to_delete = None;
                     Toast::negative_toast(self.translator.translate("menus.designer.item.delete.failed"));
+                }
+            }
+            Msg::OnMenuItemEditClicked(event, item) => {
+                event.prevent_default();
+                self.menu_item_to_edit = Some(item.clone());
+                self.edit_menu_item_settings_type = Some(if item.gallery.is_some() {
+                    SettingsDialogType::Gallery
+                } else if item.page.is_some() {
+                    SettingsDialogType::Page
+                } else if item.segment_page.is_some() {
+                    SettingsDialogType::SegmentPage
+                } else if item.artist.is_some() {
+                    SettingsDialogType::ArtistProfile
+                } else if item.route.is_some() {
+                    SettingsDialogType::Link
+                } else {
+                    SettingsDialogType::Group
+                });
+            }
+            Msg::OnSaveMenuItemEdit(result) => self.menu_item_update_task = Some(self.menu_item_service.update_menu_item(self.menu_item_to_edit.clone().unwrap().id, result, self.link.callback(Msg::OnMenuItemSaved))),
+            Msg::OnDiscardMenuItemEdit => self.menu_item_to_edit = None,
+            Msg::OnMenuItemSaved(result) => {
+                self.menu_item_to_edit = None;
+                if result.is_ok() {
+                    self.load_menu_items_task = Some(self.menu_item_service.get_by_menu(self.id, self.link.callback(Msg::OnMenuItemsLoaded)))
+                } else {
+                    Toast::negative_toast(self.translator.translate("menus.designer.settings.error_save_settings_failed"))
                 }
             }
         }
@@ -185,6 +213,20 @@ impl Component for MenuDesignerPage {
                 } else {
                     html! {}
                 }}
+                {if self.menu_item_to_edit.is_some() {
+                    let item = self.menu_item_to_edit.as_ref().unwrap();
+                    html! {
+                        <SettingsDialog
+                            is_open=self.menu_item_to_edit.is_some()
+                            dialog_type=self.edit_menu_item_settings_type.as_ref().unwrap()
+                            on_save_changes=self.link.callback(Msg::OnSaveMenuItemEdit)
+                            on_discard_changes=self.link.callback(|_| Msg::OnDiscardMenuItemEdit)
+                            menu_item=item
+                        />
+                    }
+                } else {
+                    html! {}
+                }}
             </Page>
         }
     }
@@ -201,6 +243,7 @@ impl Component for MenuDesignerPage {
 impl MenuDesignerPage {
     fn get_item_view(&self, item: &MenuItem, parent: Option<MenuItem>, first: bool, previous: Option<MenuItem>, last: bool) -> Html {
         let delete_item = item.clone();
+        let edit_item = item.clone();
         html! {
             <>
                 <li>
@@ -254,7 +297,7 @@ impl MenuDesignerPage {
                             } else {
                                 html! {}
                             }}
-                            <a class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-pencil"></a>
+                            <a onclick=self.link.callback(move |event| Msg::OnMenuItemEditClicked(event, edit_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--primary mdi mdi-pencil"></a>
                             <a onclick=self.link.callback(move |event| Msg::OnMenuItemDeleteClicked(event, delete_item.clone())) class="jinya-designer-menu-item__button jinya-designer-menu-item__button--negative mdi mdi-delete"></a>
                         </div>
                     </div>
