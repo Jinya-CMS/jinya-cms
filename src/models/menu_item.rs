@@ -41,6 +41,23 @@ pub struct MenuItem {
     pub segment_page: Option<MenuItemSegmentPage>,
 }
 
+impl MenuItem {
+    pub fn empty() -> MenuItem {
+        MenuItem {
+            id: 0,
+            position: 0,
+            highlighted: false,
+            title: "".to_string(),
+            route: None,
+            items: vec![],
+            artist: None,
+            gallery: None,
+            page: None,
+            segment_page: None,
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SaveMenuItem {
@@ -51,6 +68,7 @@ pub struct SaveMenuItem {
     pub gallery: Option<usize>,
     pub page: Option<usize>,
     pub segment_page: Option<usize>,
+    pub position: Option<usize>,
 }
 
 impl SaveMenuItem {
@@ -63,6 +81,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
+            position: None
         }
     }
 
@@ -75,6 +94,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
+            position: None
         }
     }
 
@@ -87,6 +107,7 @@ impl SaveMenuItem {
             gallery: None,
             page: Some(page),
             segment_page: None,
+            position: None
         }
     }
 
@@ -99,6 +120,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: Some(page),
+            position: None
         }
     }
 
@@ -111,6 +133,7 @@ impl SaveMenuItem {
             gallery: Some(gallery),
             page: None,
             segment_page: None,
+            position: None
         }
     }
 
@@ -123,6 +146,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
+            position: None
         }
     }
 }

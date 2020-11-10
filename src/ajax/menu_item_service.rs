@@ -4,7 +4,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, put_request, put_request_with_body};
+use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, put_request, put_request_with_body, post_request_with_body};
 use crate::models::menu_item::{MenuItem, SaveMenuItem};
 
 pub struct MenuItemService {}
@@ -56,6 +56,24 @@ impl MenuItemService {
         let url = format!("{}/api/menu/{}/item/{}/move/parent/one/level/up", get_host(), menu_id, item.id);
 
         let request = put_request(url);
+        let handler = bool_handler(callback);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn add_menu_item_by_parent(&self, parent: usize, item: SaveMenuItem, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu-item/{}/item", get_host(), parent);
+
+        let request = post_request_with_body(url, &item);
+        let handler = bool_handler(callback);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn add_menu_item_by_menu(&self, menu: usize, item: SaveMenuItem, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/menu/{}/item", get_host(), menu);
+
+        let request = post_request_with_body(url, &item);
         let handler = bool_handler(callback);
 
         FetchService::fetch(request, handler.into()).unwrap()
