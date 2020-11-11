@@ -39,6 +39,7 @@ pub enum Msg {
     OnDragOverLastItem(Option<usize>),
     OnItemDrop(DragEvent),
     OnMenuItemDragStart(DragEvent, MenuItem),
+    OnMenuItemParentChanged(Result<bool, AjaxError>),
 }
 
 pub struct MenuDesignerPage {
@@ -62,6 +63,7 @@ pub struct MenuDesignerPage {
     drag_over_item: Option<MenuItem>,
     first_item: bool,
     selected_menu_item: Option<MenuItem>,
+    new_position:Option<usize>,
 }
 
 impl Component for MenuDesignerPage {
@@ -93,6 +95,7 @@ impl Component for MenuDesignerPage {
             drag_over_item: None,
             first_item: false,
             selected_menu_item: None,
+            new_position: None,
         }
     }
 
@@ -204,7 +207,9 @@ impl Component for MenuDesignerPage {
                 event.stop_propagation();
                 if let Some(item) = self.selected_menu_item.as_ref() {
                     if let Some(parent) = self.selected_parent_item {
-                        self.menu_item_update_task = Some(self.menu_item_service.change_menu_item_parent(parent, item.clone(), self.link.callback(Msg::OnMenuItemSaved)));
+                        self.menu_item_update_task = Some(self.menu_item_service.change_menu_item_parent(parent, item.clone(), self.link.callback(Msg::OnMenuItemParentChanged)));
+                    } else {
+                        self.menu_item_update_task = Some(self.menu_item_service.change_menu_item_parent_to_menu(self.id, item.clone(), self.link.callback(Msg::OnMenuItemParentChanged)));
                     }
                 } else {
                     self.new_menu_item = Some(MenuItem::empty());
@@ -216,6 +221,20 @@ impl Component for MenuDesignerPage {
                     data_transfer.set_effect_allowed("copy");
                 }
                 self.selected_menu_item = Some(item);
+            }
+            Msg::OnMenuItemParentChanged(result) => {
+                if result.is_ok() {
+                    if let Some(item) = self.selected_menu_item.as_ref() {
+                        if let Some(drag_over) = self.drag_over_item.as_ref() {
+                            self.menu_item_update_task = Some(self.menu_item_service.update_position(item.clone(), drag_over.position, self.link.callback(|_| Msg::OnRequestComplete)));
+                        } else {
+                            self.menu_item_update_task = Some(self.menu_item_service.update_position(item.clone(), 0, self.link.callback(|_| Msg::OnRequestComplete)));
+                        }
+                    }
+                }
+                self.drag_over_item = None;
+                self.selected_menu_item = None;
+                self.selected_parent_item = None;
             }
         }
 
