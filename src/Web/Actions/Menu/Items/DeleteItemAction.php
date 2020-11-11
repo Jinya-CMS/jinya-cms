@@ -7,7 +7,7 @@ use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class DeleteItemByMenuItemAction extends MenuItemAction
+class DeleteItemAction extends MenuItemAction
 {
 
     /**
@@ -17,9 +17,8 @@ class DeleteItemByMenuItemAction extends MenuItemAction
      */
     protected function action(): Response
     {
-        $menuItemId = $this->args['id'];
-        $position = $this->args['position'];
-        $menuItem = MenuItem::findByMenuItemAndPosition($menuItemId, $position);
+        $menuItemId = $this->args['menuItemId'];
+        $menuItem = MenuItem::findById($menuItemId);
         if (!$menuItem) {
             throw new NoResultException($this->request, 'Menu item not found');
         }

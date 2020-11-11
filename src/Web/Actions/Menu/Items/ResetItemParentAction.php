@@ -12,7 +12,7 @@ class ResetItemParentAction extends Action
 
     protected function action(): Response
     {
-        $menuId = $this->args['id'];
+        $menuId = $this->args['menuId'];
         $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);
         if (!$menuItem) {
@@ -21,7 +21,7 @@ class ResetItemParentAction extends Action
 
         $menuItem->menuId = $menuId;
         $menuItem->parentId = null;
-        $menuItem->update();
+        $menuItem->update(false);
 
         return $this->noContent();
     }

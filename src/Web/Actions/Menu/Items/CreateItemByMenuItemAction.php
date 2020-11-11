@@ -20,7 +20,7 @@ class CreateItemByMenuItemAction extends MenuItemAction
      */
     protected function action(): Response
     {
-        $menuItemId = $this->args['id'];
+        $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);
         if (!$menuItem) {
             throw new NoResultException($this->request, 'Menu item not found');

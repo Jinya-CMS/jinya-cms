@@ -28,7 +28,10 @@ abstract class MenuItemAction extends Action
         }
 
         $body = $this->request->getParsedBody();
-        $menuItem->route = $body['route'];
+        if(isset($body['route'])) {
+            $menuItem->route = $body['route'];
+        }
+
         if (isset($body['artist'])) {
             $artist = Artist::findById($body['artist']);
             if (!$artist) {

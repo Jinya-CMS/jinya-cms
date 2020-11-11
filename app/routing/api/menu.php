@@ -5,13 +5,12 @@ use App\Web\Actions\Menu\DeleteMenuAction;
 use App\Web\Actions\Menu\GetMenuByIdAction;
 use App\Web\Actions\Menu\Items\CreateItemByMenuAction;
 use App\Web\Actions\Menu\Items\CreateItemByMenuItemAction;
-use App\Web\Actions\Menu\Items\DeleteItemByMenuAction;
-use App\Web\Actions\Menu\Items\DeleteItemByMenuItemAction;
+use App\Web\Actions\Menu\Items\DeleteItemAction;
 use App\Web\Actions\Menu\Items\GetItemsByMenuAction;
 use App\Web\Actions\Menu\Items\GetItemsByMenuItemAction;
 use App\Web\Actions\Menu\Items\MoveItemParentToItemAction;
 use App\Web\Actions\Menu\Items\ResetItemParentAction;
-use App\Web\Actions\Menu\Items\UpdateItemByMenuAction;
+use App\Web\Actions\Menu\Items\UpdateItemAction;
 use App\Web\Actions\Menu\Items\UpdateItemByMenuItemAction;
 use App\Web\Actions\Menu\ListAllMenusAction;
 use App\Web\Actions\Menu\UpdateMenuAction;
@@ -34,20 +33,17 @@ return function (RouteCollectorProxy $api) {
                 ->post('', CreateItemByMenuAction::class)
                 ->add(new CheckRequiredOneOfFieldsMiddleware(['artist', 'page', 'form', 'gallery', 'segmentPage']))
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']));
-            $item->put('/{position}', UpdateItemByMenuAction::class);
-            $item->delete('/{position}', DeleteItemByMenuAction::class);
-            $item->put('/{menuItemId}/parent/reset', ResetItemParentAction::class);
         });
-        $group->put('-item/{menuItemId}/move/parent/to/item/{newParent}', MoveItemParentToItemAction::class);
         $group->put('/{id}/item/{menuItemId}/move/parent/one/level/up', MoveItemParentToItemAction::class);
-        $group->group('-item/{id}/item', function (RouteCollectorProxy $item) {
-            $item->get('', GetItemsByMenuItemAction::class);
+        $group->group('-item', function (RouteCollectorProxy $item) {
+            $item->delete('/{menuItemId}', DeleteItemAction::class);
+            $item->put('/{menuItemId}', UpdateItemAction::class);
+            $item->put('/{menuItemId}/move/parent/to/item/{newParent}', MoveItemParentToItemAction::class);
+            $item->put('/{menuItemId}/move/parent/to/menu/{menuId}', ResetItemParentAction::class);
             $item
-                ->post('', CreateItemByMenuItemAction::class)
+                ->post('/{menuItemId}/item', CreateItemByMenuItemAction::class)
                 ->add(new CheckRequiredOneOfFieldsMiddleware(['artist', 'page', 'form', 'gallery', 'segmentPage']))
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']));
-            $item->put('/{position}', UpdateItemByMenuItemAction::class);
-            $item->delete('/{position}', DeleteItemByMenuItemAction::class);
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 };

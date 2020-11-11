@@ -39,7 +39,7 @@ class MoveItemParentToItemAction extends Action
             }
         }
 
-        $menuItem->update();
+        $menuItem->update(false);
 
         return $this->noContent();
     }

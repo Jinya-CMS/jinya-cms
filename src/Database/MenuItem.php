@@ -161,9 +161,12 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * @inheritDoc
      */
-    public function update(): void
+    public function update(bool $rearrange = true): void
     {
-        $this->rearrange($this->position);
+        if ($rearrange) {
+            $this->rearrange($this->position);
+        }
+
         $this->internalUpdate('menu_item');
     }
 
@@ -216,6 +219,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             $data['artist'] = [
                 'id' => $artist->getIdAsInt(),
                 'artistName' => $artist->artistName,
+                'email' => $artist->email,
             ];
         } elseif (isset($this->pageId)) {
             $page = $this->getPage();
