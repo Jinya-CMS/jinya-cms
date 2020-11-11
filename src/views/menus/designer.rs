@@ -63,7 +63,7 @@ pub struct MenuDesignerPage {
     drag_over_item: Option<MenuItem>,
     first_item: bool,
     selected_menu_item: Option<MenuItem>,
-    new_position:Option<usize>,
+    new_position: Option<usize>,
 }
 
 impl Component for MenuDesignerPage {
@@ -226,7 +226,7 @@ impl Component for MenuDesignerPage {
                 if result.is_ok() {
                     if let Some(item) = self.selected_menu_item.as_ref() {
                         if let Some(drag_over) = self.drag_over_item.as_ref() {
-                            self.menu_item_update_task = Some(self.menu_item_service.update_position(item.clone(), drag_over.position, self.link.callback(|_| Msg::OnRequestComplete)));
+                            self.menu_item_update_task = Some(self.menu_item_service.update_position(item.clone(), drag_over.position + 1, self.link.callback(|_| Msg::OnRequestComplete)));
                         } else {
                             self.menu_item_update_task = Some(self.menu_item_service.update_position(item.clone(), 0, self.link.callback(|_| Msg::OnRequestComplete)));
                         }
