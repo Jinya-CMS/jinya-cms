@@ -20,7 +20,6 @@ use function strpos;
 class RoutingEntry implements JsonSerializable
 {
     /**
-     * @var int
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -28,19 +27,16 @@ class RoutingEntry implements JsonSerializable
     private int $id;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private string $url;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private string $routeName = '';
 
     /**
-     * @var array
      * @ORM\Column(type="object")
      */
     private array $routeParameter = [];
@@ -48,7 +44,6 @@ class RoutingEntry implements JsonSerializable
     /**
      * @ORM\OneToOne(targetEntity="Jinya\Entity\Menu\MenuItem", inversedBy="route")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @var MenuItem
      */
     private MenuItem $menuItem;
 
@@ -68,33 +63,21 @@ class RoutingEntry implements JsonSerializable
         return $routingEntry;
     }
 
-    /**
-     * @return MenuItem
-     */
     public function getMenuItem(): MenuItem
     {
         return $this->menuItem;
     }
 
-    /**
-     * @param MenuItem $menuItem
-     */
     public function setMenuItem(MenuItem $menuItem): void
     {
         $this->menuItem = $menuItem;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     */
     public function setUrl(string $url): void
     {
         $this->url = $url;
@@ -108,9 +91,6 @@ class RoutingEntry implements JsonSerializable
         return $this->routeName;
     }
 
-    /**
-     * @param string $routeName
-     */
     public function setRouteName(string $routeName): void
     {
         $this->routeName = $routeName;
@@ -124,9 +104,6 @@ class RoutingEntry implements JsonSerializable
         return $this->routeParameter;
     }
 
-    /**
-     * @param array $routeParameter
-     */
     public function setRouteParameter(array $routeParameter): void
     {
         $this->routeParameter = $routeParameter;
@@ -140,9 +117,6 @@ class RoutingEntry implements JsonSerializable
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     */
     public function setId(string $id): void
     {
         $this->id = $id;

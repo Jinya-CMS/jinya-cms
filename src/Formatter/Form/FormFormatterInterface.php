@@ -16,7 +16,6 @@ interface FormFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param Form $form
      * @return FormFormatterInterface
      */
     public function init(Form $form): self;

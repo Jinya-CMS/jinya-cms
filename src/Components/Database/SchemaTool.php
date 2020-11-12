@@ -18,16 +18,12 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class SchemaTool implements SchemaToolInterface
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var KernelInterface */
     private KernelInterface $kernel;
 
     /**
      * SchemaTool constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param KernelInterface $kernel
      */
     public function __construct(EntityManagerInterface $entityManager, KernelInterface $kernel)
     {

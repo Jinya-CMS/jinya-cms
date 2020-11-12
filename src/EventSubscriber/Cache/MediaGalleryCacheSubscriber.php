@@ -14,12 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MediaGalleryCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtGalleryCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

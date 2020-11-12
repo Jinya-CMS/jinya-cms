@@ -10,7 +10,6 @@ interface MessageFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param Message $message
      * @return MessageFormatterInterface
      */
     public function init(Message $message): self;

@@ -15,11 +15,6 @@ class ScssCompilerService implements ScssCompilerServiceInterface
 {
     /**
      * Compiles the given source path into a css file
-     *
-     * @param string $code
-     * @param string $importPath
-     * @param array $variables
-     * @return string
      */
     public function compileScss(string $code, string $importPath, array $variables): string
     {

@@ -19,19 +19,16 @@ class File extends HistoryEnabledEntity
     use BaseEntity;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $path = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $name;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private string $type = '';
@@ -57,81 +54,51 @@ class File extends HistoryEnabledEntity
         $this->tags = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getGalleries(): Collection
     {
         return $this->galleries;
     }
 
-    /**
-     * @param Collection $galleries
-     */
     public function setGalleries(Collection $galleries): void
     {
         $this->galleries = $galleries;
     }
 
-    /**
-     * @return Collection
-     */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    /**
-     * @param Collection $tags
-     */
     public function setTags(Collection $tags): void
     {
         $this->tags = $tags;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * @param string $path
-     */
     public function setPath(string $path): void
     {
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
