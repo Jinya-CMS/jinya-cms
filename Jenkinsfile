@@ -44,5 +44,14 @@ spec:
                 sh "/opt/sonar-scanner-4.5.0.2216/bin/sonar-scanner"
             }
         }
+        stage('Archive artifact') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh "zip -r ./jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
+                archiveArtifacts artifacts: 'jinya-backend.zip', followSymlinks: false, onlyIfSuccessful: true
+            }
+        }
     }
 }
