@@ -13,18 +13,14 @@ use Jinya\Formatter\User\UserFormatterInterface;
 
 class PageFormatter implements PageFormatterInterface
 {
-    /** @var array */
     private array $formattedData;
 
-    /** @var Page */
     private Page $page;
 
-    /** @var UserFormatterInterface */
     private UserFormatterInterface $userFormatter;
 
     /**
      * PageFormatter constructor.
-     * @param UserFormatterInterface $userFormatter
      */
     public function __construct(UserFormatterInterface $userFormatter)
     {
@@ -42,9 +38,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param Page $page
-     * @return PageFormatterInterface
      */
     public function init(Page $page): PageFormatterInterface
     {
@@ -55,8 +48,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return PageFormatterInterface
      */
     public function id(): PageFormatterInterface
     {
@@ -67,8 +58,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return PageFormatterInterface
      */
     public function created(): PageFormatterInterface
     {
@@ -83,8 +72,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return PageFormatterInterface
      */
     public function updated(): PageFormatterInterface
     {
@@ -99,8 +86,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return PageFormatterInterface
      */
     public function history(): PageFormatterInterface
     {
@@ -111,8 +96,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the content
-     *
-     * @return PageFormatterInterface
      */
     public function content(): PageFormatterInterface
     {
@@ -123,8 +106,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the title
-     *
-     * @return PageFormatterInterface
      */
     public function title(): PageFormatterInterface
     {
@@ -135,8 +116,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the slug
-     *
-     * @return PageFormatterInterface
      */
     public function slug(): PageFormatterInterface
     {
@@ -147,8 +126,6 @@ class PageFormatter implements PageFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return PageFormatterInterface
      */
     public function name(): PageFormatterInterface
     {

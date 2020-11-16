@@ -13,29 +13,19 @@ use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormItemFormatter implements FormItemFormatterInterface
 {
-    /** @var array */
     private array $formattedData;
 
-    /** @var FormFormatterInterface */
     private FormFormatterInterface $formFormatter;
 
-    /** @var UserFormatterInterface */
     private UserFormatterInterface $userFormatter;
 
-    /** @var FormItem */
     private FormItem $formItem;
 
-    /**
-     * @param UserFormatterInterface $userFormatter
-     */
     public function setUserFormatter(UserFormatterInterface $userFormatter): void
     {
         $this->userFormatter = $userFormatter;
     }
 
-    /**
-     * @param FormFormatterInterface $formFormatter
-     */
     public function setFormFormatter(FormFormatterInterface $formFormatter): void
     {
         $this->formFormatter = $formFormatter;
@@ -43,8 +33,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return FormItemFormatterInterface
      */
     public function id(): FormItemFormatterInterface
     {
@@ -55,8 +43,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the type
-     *
-     * @return FormItemFormatterInterface
      */
     public function type(): FormItemFormatterInterface
     {
@@ -67,8 +53,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the options
-     *
-     * @return FormItemFormatterInterface
      */
     public function options(): FormItemFormatterInterface
     {
@@ -79,8 +63,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the label
-     *
-     * @return FormItemFormatterInterface
      */
     public function label(): FormItemFormatterInterface
     {
@@ -91,8 +73,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the help text
-     *
-     * @return FormItemFormatterInterface
      */
     public function helpText(): FormItemFormatterInterface
     {
@@ -103,8 +83,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the form
-     *
-     * @return FormItemFormatterInterface
      */
     public function form(): FormItemFormatterInterface
     {
@@ -119,9 +97,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param FormItem $formItem
-     * @return FormItemFormatterInterface
      */
     public function init(FormItem $formItem): FormItemFormatterInterface
     {
@@ -141,8 +116,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the position
-     *
-     * @return FormItemFormatterInterface
      */
     public function position(): FormItemFormatterInterface
     {
@@ -153,8 +126,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return FormItemFormatterInterface
      */
     public function created(): FormItemFormatterInterface
     {
@@ -169,8 +140,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return FormItemFormatterInterface
      */
     public function updated(): FormItemFormatterInterface
     {
@@ -185,8 +154,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return FormItemFormatterInterface
      */
     public function history(): FormItemFormatterInterface
     {
@@ -197,8 +164,6 @@ class FormItemFormatter implements FormItemFormatterInterface
 
     /**
      * Formats the spam filter
-     *
-     * @return FormItemFormatterInterface
      */
     public function spamFilter(): FormItemFormatterInterface
     {
