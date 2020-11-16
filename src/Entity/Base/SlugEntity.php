@@ -13,13 +13,11 @@ trait SlugEntity
     use BaseEntity;
 
     /**
-     * @var string
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
     private string $slug = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", unique=true, nullable=false)
      */
     private string $name = '';
@@ -32,9 +30,6 @@ trait SlugEntity
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -48,9 +43,6 @@ trait SlugEntity
         return $this->slug;
     }
 
-    /**
-     * @param string $slug
-     */
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;

@@ -12,20 +12,13 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class CancellableEvent extends Event
 {
-    /** @var bool */
     private bool $cancel = false;
 
-    /**
-     * @return bool
-     */
     public function isCancel(): bool
     {
         return $this->cancel;
     }
 
-    /**
-     * @param bool $cancel
-     */
     public function setCancel(bool $cancel): void
     {
         if ($cancel) {

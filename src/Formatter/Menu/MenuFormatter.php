@@ -14,18 +14,12 @@ use function array_map;
 
 class MenuFormatter implements MenuFormatterInterface
 {
-    /** @var array */
     private array $formattedData;
 
-    /** @var Menu */
     private Menu $menu;
 
-    /** @var MenuItemFormatterInterface */
     private MenuItemFormatterInterface $menuItemFormatter;
 
-    /**
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     */
     public function setMenuItemFormatter(MenuItemFormatterInterface $menuItemFormatter): void
     {
         $this->menuItemFormatter = $menuItemFormatter;
@@ -42,7 +36,6 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * Initializes the @param Menu $menu
-     * @return MenuFormatterInterface
      * @see MenuFormatterInterface
      */
     public function init(Menu $menu): MenuFormatterInterface
@@ -54,8 +47,6 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return MenuFormatterInterface
      */
     public function name(): MenuFormatterInterface
     {
@@ -66,8 +57,6 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return MenuFormatterInterface
      */
     public function id(): MenuFormatterInterface
     {
@@ -78,8 +67,6 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * Formats the logo
-     *
-     * @return MenuFormatterInterface
      */
     public function logo(): MenuFormatterInterface
     {
@@ -90,8 +77,6 @@ class MenuFormatter implements MenuFormatterInterface
 
     /**
      * Formats the items
-     *
-     * @return MenuFormatterInterface
      */
     public function items(): MenuFormatterInterface
     {

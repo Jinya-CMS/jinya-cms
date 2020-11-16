@@ -17,23 +17,17 @@ class MenuItemGetEvent extends Event
 
     public const POST_GET = 'MenuItemPostGet';
 
-    /** @var int */
     private int $parentId;
 
-    /** @var string */
     private string $type;
 
     /** @var MenuItem */
     private ?MenuItem $item;
 
-    /** @var int */
     private int $position;
 
     /**
      * MenuItemGetEvent constructor.
-     * @param int $parentId
-     * @param string $type
-     * @param int $position
      * @param MenuItem $item
      */
     public function __construct(int $parentId, string $type, int $position, ?MenuItem $item)
@@ -44,17 +38,11 @@ class MenuItemGetEvent extends Event
         $this->position = $position;
     }
 
-    /**
-     * @return int
-     */
     public function getParentId(): int
     {
         return $this->parentId;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
@@ -68,9 +56,6 @@ class MenuItemGetEvent extends Event
         return $this->item;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;

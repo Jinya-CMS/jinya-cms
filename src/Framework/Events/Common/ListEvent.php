@@ -56,16 +56,12 @@ class ListEvent extends Event
 
     public const SEGMENT_PAGE_PRE_GET_ALL = 'SegmentPagePreGetAll';
 
-    /** @var string */
     private string $keyword;
 
-    /** @var array */
     private array $items;
 
     /**
      * ListEvent constructor.
-     * @param string $keyword
-     * @param array $items
      */
     public function __construct(string $keyword, array $items)
     {
@@ -73,17 +69,11 @@ class ListEvent extends Event
         $this->items = $items;
     }
 
-    /**
-     * @return array
-     */
     public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyword(): string
     {
         return $this->keyword;
