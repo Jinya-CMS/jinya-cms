@@ -34,7 +34,6 @@ class GalleryEvent extends CancellableEvent
     /**
      * GalleryEvent constructor.
      * @param Gallery $gallery
-     * @param int|null $id
      */
     public function __construct(?Gallery $gallery, ?int $id)
     {
@@ -42,9 +41,6 @@ class GalleryEvent extends CancellableEvent
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

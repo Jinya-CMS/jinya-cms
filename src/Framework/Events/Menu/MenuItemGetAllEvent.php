@@ -17,10 +17,8 @@ class MenuItemGetAllEvent extends Event
 
     public const POST_GET_ALL = 'MenuItemPostGetAll';
 
-    /** @var int */
     private int $parentId;
 
-    /** @var string */
     private string $type;
 
     /** @var MenuItem[] */
@@ -28,8 +26,6 @@ class MenuItemGetAllEvent extends Event
 
     /**
      * MenuItemGetAllEvent constructor.
-     * @param int $parentId
-     * @param string $type
      * @param MenuItem[] $items
      */
     public function __construct(int $parentId, string $type, array $items)
@@ -39,17 +35,11 @@ class MenuItemGetAllEvent extends Event
         $this->items = $items;
     }
 
-    /**
-     * @return int
-     */
     public function getParentId(): int
     {
         return $this->parentId;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

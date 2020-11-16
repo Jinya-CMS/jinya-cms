@@ -14,12 +14,6 @@ class ThemeConfigController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/field/{key}", methods={"PUT"}, name="api_theme_put_field")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param string $key
-     * @param ArrayUtilInterface $arrayUtil
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function putFieldAction(
         string $name,
@@ -47,10 +41,6 @@ class ThemeConfigController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/config", methods={"DELETE"}, name="api_theme_delete_config")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function deleteConfigAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {
@@ -64,10 +54,6 @@ class ThemeConfigController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/variables", methods={"DELETE"}, name="api_theme_delete_variables")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function deleteScssVariablesAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {

@@ -18,15 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LikeController extends BaseApiController
 {
-    /** @var string */
     private string $jinyaVersion;
 
     /**
      * @Route("/api/support/like", methods={"POST"}, name="api_support_like")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @param Client $client
-     * @return Response
      */
     public function submitAction(Client $client): Response
     {
@@ -51,9 +47,6 @@ class LikeController extends BaseApiController
         return $this->json($data, $status);
     }
 
-    /**
-     * @param string $jinyaVersion
-     */
     public function setJinyaVersion(string $jinyaVersion): void
     {
         $this->jinyaVersion = $jinyaVersion;
