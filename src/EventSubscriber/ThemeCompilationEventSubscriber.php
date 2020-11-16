@@ -17,16 +17,12 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ThemeCompilationEventSubscriber implements EventSubscriberInterface
 {
-    /** @var LoggerInterface */
     private LoggerInterface $logger;
 
-    /** @var ThemeSyncServiceInterface */
     private ThemeSyncServiceInterface $themeSyncService;
 
     /**
      * ThemeCompilationEventSubscriber constructor.
-     * @param LoggerInterface $logger
-     * @param ThemeSyncServiceInterface $themeSyncService
      */
     public function __construct(LoggerInterface $logger, ThemeSyncServiceInterface $themeSyncService)
     {

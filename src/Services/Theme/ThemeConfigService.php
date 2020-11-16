@@ -23,21 +23,15 @@ use function preg_replace;
 
 class ThemeConfigService implements ThemeConfigServiceInterface
 {
-    /** @var ThemeServiceInterface */
     private ThemeServiceInterface $themeService;
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var MediaServiceInterface */
     private MediaServiceInterface $mediaService;
 
-    /** @var ArrayUtilInterface */
     private ArrayUtilInterface $arrayUtils;
 
     /** @noinspection PhpUndefinedClassInspection */
-
-    /** @var EventDispatcherInterface */
     private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
@@ -45,12 +39,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * ThemeConfigService constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param MenuServiceInterface $menuService
-     * @param EntityManagerInterface $entityManager
-     * @param MediaServiceInterface $mediaService
-     * @param ArrayUtilInterface $arrayUtils
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         ThemeServiceInterface $themeService,
@@ -184,8 +172,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Resets the given themes configuration
-     *
-     * @param string $name
      */
     public function resetConfig(string $name): void
     {
@@ -200,8 +186,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Resets the given themes variables
-     *
-     * @param string $name
      */
     public function resetVariables(string $name): void
     {
@@ -216,9 +200,6 @@ class ThemeConfigService implements ThemeConfigServiceInterface
 
     /**
      * Removes the given file
-     *
-     * @param string $name
-     * @param string $key
      */
     public function removeFile(string $name, string $key): void
     {

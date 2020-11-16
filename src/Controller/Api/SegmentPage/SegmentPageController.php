@@ -16,11 +16,6 @@ class SegmentPageController extends BaseApiController
 {
     /**
      * @Route("/api/segment_page", methods={"GET"}, name="api_segment_page_get_all")
-     *
-     * @param Request $request
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @param SegmentPageFormatterInterface $segmentPageFormatter
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -70,11 +65,6 @@ class SegmentPageController extends BaseApiController
 
     /**
      * @Route("/api/segment_page/{slug}", methods={"GET"}, name="api_get_segment_page")
-     *
-     * @param string $slug
-     * @param SegmentPageFormatterInterface $segmentPageFormatter
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @return Response
      */
     public function getAction(
         string $slug,
@@ -110,10 +100,6 @@ class SegmentPageController extends BaseApiController
     /**
      * @Route("/api/segment_page", methods={"POST"}, name="api_segment_page_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @param SegmentPageFormatterInterface $segmentPageFormatter
-     * @return Response
      */
     public function postAction(
         SegmentPageServiceInterface $segmentPageService,
@@ -154,10 +140,6 @@ class SegmentPageController extends BaseApiController
     /**
      * @Route("/api/segment_page/{slug}", methods={"PUT"}, name="api_segment_page_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $slug
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @return Response
      */
     public function putAction(string $slug, SegmentPageServiceInterface $segmentPageService): Response
     {
@@ -178,10 +160,6 @@ class SegmentPageController extends BaseApiController
     /**
      * @Route("/api/segment_page/{slug}", methods={"DELETE"}, name="api_segment_page_delete")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $slug
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @return Response
      */
     public function deleteAction(string $slug, SegmentPageServiceInterface $segmentPageService): Response
     {

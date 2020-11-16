@@ -22,26 +22,16 @@ use Throwable;
 
 class BulkImportFiles extends AuthenticatedCommand
 {
-    /** @var FileServiceInterface */
     private FileServiceInterface $fileService;
 
-    /** @var MediaServiceInterface */
     private MediaServiceInterface $mediaService;
 
-    /** @var MimeTypes */
     private MimeTypes $mimeTypes;
 
-    /** @var string */
     private string $kernelProjectDir;
 
     /**
      * BulkImportFiles constructor.
-     * @param FileServiceInterface $fileService
-     * @param MediaServiceInterface $mediaService
-     * @param UserServiceInterface $userService
-     * @param MimeTypes $mimeTypes
-     * @param string $kernelProjectDir
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         FileServiceInterface $fileService,

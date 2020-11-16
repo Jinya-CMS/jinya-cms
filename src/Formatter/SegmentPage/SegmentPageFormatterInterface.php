@@ -10,7 +10,6 @@ interface SegmentPageFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatting
      *
-     * @param SegmentPage $segmentPage
      * @return SegmentPageFormatterInterface
      */
     public function init(SegmentPage $segmentPage): self;
