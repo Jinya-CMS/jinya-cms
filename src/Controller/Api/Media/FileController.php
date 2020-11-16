@@ -15,11 +15,6 @@ class FileController extends BaseApiController
 {
     /**
      * @Route("/api/media/file", methods={"GET"}, name="api_file_get_all")
-     *
-     * @param Request $request
-     * @param FileServiceInterface $fileService
-     * @param FileFormatterInterface $fileFormatter
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -63,11 +58,6 @@ class FileController extends BaseApiController
 
     /**
      * @Route("/api/media/file/{id}", methods={"GET"}, name="api_file_get")
-     *
-     * @param int $id
-     * @param FileServiceInterface $fileService
-     * @param FileFormatterInterface $fileFormatter
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -99,10 +89,6 @@ class FileController extends BaseApiController
     /**
      * @Route("/api/media/file", methods={"POST"}, name="api_file_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param FileServiceInterface $fileService
-     * @param FileFormatterInterface $fileFormatter
-     * @return Response
      */
     public function postAction(FileServiceInterface $fileService, FileFormatterInterface $fileFormatter): Response
     {
@@ -136,10 +122,6 @@ class FileController extends BaseApiController
     /**
      * @Route("/api/media/file/{id}", methods={"PUT"}, name="api_file_put")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param int $id
-     * @param FileServiceInterface $fileService
-     * @return Response
      */
     public function putAction(int $id, FileServiceInterface $fileService): Response
     {
@@ -158,10 +140,6 @@ class FileController extends BaseApiController
     /**
      * @Route("/api/media/file/{id}", methods={"DELETE"}, name="api_file_delete")
      * @IsGranted("ROLE_ADMIN")
-     *
-     * @param int $id
-     * @param FileServiceInterface $fileService
-     * @return Response
      */
     public function deleteAction(int $id, FileServiceInterface $fileService): Response
     {

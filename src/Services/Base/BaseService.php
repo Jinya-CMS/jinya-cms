@@ -14,16 +14,12 @@ use Doctrine\ORM\UnitOfWork;
 
 class BaseService
 {
-    /** @var EntityManagerInterface */
     protected EntityManagerInterface $entityManager;
 
-    /** @var string */
     protected string $entityType;
 
     /**
      * BaseService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param string $entityType
      */
     public function __construct(EntityManagerInterface $entityManager, string $entityType)
     {
