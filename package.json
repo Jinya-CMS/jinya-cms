@@ -22,7 +22,7 @@
     "slugify": "1.4.0",
     "tinymce": "5.2.0",
     "ua-parser-js": "0.7.21",
-    "vue": "2.6.11",
+    "vue": "2.6.12",
     "vue-infinite-scroll": "2.0.2",
     "vue-markdown": "2.2.4",
     "vue-monaco": "1.1.0",
@@ -63,7 +63,7 @@
     "postcss-url": "9.0.0",
     "sass-loader": "7.3.1",
     "vue-loader": "15.9.1",
-    "vue-template-compiler": "2.6.11",
+    "vue-template-compiler": "2.6.12",
     "webpack-merge": "4.2.2",
     "webpack-notifier": "1.8.0",
     "worker-loader": "2.0.0"
