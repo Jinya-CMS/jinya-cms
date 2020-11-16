@@ -19,7 +19,6 @@ use Doctrine\Migrations\AbstractMigration;
 class Version20180519211300 extends AbstractMigration
 {
     /**
-     * @param Schema $schema
      * @throws DBALException
      * @throws AbortMigrationException
      */
@@ -98,7 +97,6 @@ class Version20180519211300 extends AbstractMigration
     }
 
     /**
-     * @param Schema $schema
      * @throws DBALException
      * @throws AbortMigrationException
      */

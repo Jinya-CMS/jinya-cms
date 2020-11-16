@@ -56,16 +56,12 @@ class CountEvent extends Event
 
     public const SEGMENTS_POST_COUNT = 'SegmentPostCount';
 
-    /** @var string */
     private string $keyword;
 
-    /** @var int */
     private int $count;
 
     /**
      * CountEvent constructor.
-     * @param string $keyword
-     * @param int $count
      */
     public function __construct(string $keyword, int $count)
     {
@@ -73,17 +69,11 @@ class CountEvent extends Event
         $this->count = $count;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyword(): string
     {
         return $this->keyword;
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->count;

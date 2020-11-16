@@ -27,32 +27,20 @@ use Twig\Error\SyntaxError;
 
 class Compiler implements CompilerInterface
 {
-    /** @var ConfigurationServiceInterface */
     private ConfigurationServiceInterface $configurationService;
 
-    /** @var ThemeCompilerServiceInterface */
     private ThemeCompilerServiceInterface $themeCompilerService;
 
-    /** @var ThemeConfigServiceInterface */
     private ThemeConfigServiceInterface $themeConfigService;
 
-    /** @var ThemeServiceInterface */
     private ThemeServiceInterface $themeService;
 
-    /** @var ThemeLinkServiceInterface */
     private ThemeLinkServiceInterface $themeLinkService;
 
-    /** @var Environment */
     private Environment $twig;
 
     /**
      * Compiler constructor.
-     * @param ConfigurationServiceInterface $configurationService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeLinkServiceInterface $themeLinkService
-     * @param Environment $twig
      */
     public function __construct(
         ConfigurationServiceInterface $configurationService,
@@ -73,9 +61,6 @@ class Compiler implements CompilerInterface
     /**
      * Compiles the given template with the given context
      *
-     * @param string $path
-     * @param array $context
-     * @return string
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -105,10 +90,7 @@ class Compiler implements CompilerInterface
     }
 
     /**
-     * @param string $view
-     * @param array $parameters
      * @param $theme
-     * @return array
      */
     private function includeTheme(string $view, array $parameters, Theme $theme): array
     {
@@ -177,7 +159,6 @@ class Compiler implements CompilerInterface
     /**
      * Adds a global variable to template engine
      *
-     * @param string $name
      * @param $value
      */
     public function addGlobal(string $name, $value): void
