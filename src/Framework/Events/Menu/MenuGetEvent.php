@@ -17,15 +17,12 @@ class MenuGetEvent extends Event
 
     public const POST_GET = 'MenuPostGet';
 
-    /** @var int */
     private int $id;
 
-    /** @var Menu|null */
     private ?Menu $menu;
 
     /**
      * MenuGetEvent constructor.
-     * @param int $id
      * @param Menu $menu
      */
     public function __construct(int $id, ?Menu $menu)
@@ -34,17 +31,11 @@ class MenuGetEvent extends Event
         $this->menu = $menu;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Menu|null
-     */
     public function getMenu(): ?Menu
     {
         return $this->menu;

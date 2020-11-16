@@ -14,12 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SegmentCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ArtworkCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

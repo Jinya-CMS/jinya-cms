@@ -17,21 +17,16 @@ class MenuItemUpdateEvent extends CancellableEvent
 
     public const POST_UPDATE = 'MenuItemPostUpdate';
 
-    /** @var MenuItem */
     private MenuItem $item;
 
     /**
      * MenuItemUpdateEvent constructor.
-     * @param MenuItem $item
      */
     public function __construct(MenuItem $item)
     {
         $this->item = $item;
     }
 
-    /**
-     * @return MenuItem
-     */
     public function getItem(): MenuItem
     {
         return $this->item;

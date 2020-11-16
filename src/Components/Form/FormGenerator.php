@@ -19,20 +19,14 @@ use function strpos;
 
 class FormGenerator implements FormGeneratorInterface
 {
-    /** @var FormFactoryInterface */
     private FormFactoryInterface $formFactory;
 
-    /** @var ConfigurationServiceInterface */
     private ConfigurationServiceInterface $frontendConfigurationService;
 
-    /** @var SlugServiceInterface */
     private SlugServiceInterface $slugService;
 
     /**
      * FormGenerator constructor.
-     * @param FormFactoryInterface $formFactory
-     * @param ConfigurationServiceInterface $frontendConfigurationService
-     * @param SlugServiceInterface $slugService
      */
     public function __construct(
         FormFactoryInterface $formFactory,

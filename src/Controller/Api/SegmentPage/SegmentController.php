@@ -17,11 +17,6 @@ class SegmentController extends BaseApiController
 {
     /**
      * @Route("/api/segment_page/{slug}/segment", methods={"GET"}, name="api_segment_page_segment_get")
-     *
-     * @param string $slug
-     * @param SegmentPageServiceInterface $segmentPageService
-     * @param SegmentPageFormatterInterface $segmentPageFormatter
-     * @return Response
      */
     public function getAction(
         string $slug,
@@ -44,11 +39,6 @@ class SegmentController extends BaseApiController
     /**
      * @Route("/api/segment_page/{slug}/segment", methods={"POST"}, name="api_segment_page_segment_post")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $slug
-     * @param SegmentServiceInterface $segmentService
-     * @param SegmentFormatterInterface $segmentFormatter
-     * @return Response
      */
     public function postAction(
         string $slug,
@@ -108,8 +98,6 @@ class SegmentController extends BaseApiController
      * @IsGranted("ROLE_WRITER")
      *
      * @param int id$
-     * @param SegmentServiceInterface $segmentService
-     * @return Response
      */
     public function deleteAction(int $id, SegmentServiceInterface $segmentService): Response
     {
@@ -124,11 +112,7 @@ class SegmentController extends BaseApiController
      * @Route("/api/segment_page/{slug}/segment/{id}", methods={"PUT"}, name="api_segment_page_segment_put")
      * @IsGranted("ROLE_WRITER")
      *
-     * @param int $id
      * @param int $oldPosition
-     * @param string $slug
-     * @param SegmentServiceInterface $segmentService
-     * @return Response
      */
     public function putPositionAction(
         int $id,
