@@ -153,10 +153,10 @@
   dependencies:
     "@babel/types" "^7.0.0"
 
-"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.8.0", "@babel/helper-plugin-utils@^7.8.3":
-  version "7.8.3"
-  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.8.3.tgz#9ea293be19babc0f52ff8ca88b34c3611b208670"
-  integrity sha512-j+fq49Xds2smCUNYmEHF9kGNkhbet6yVIBp4e6oeQpH1RUs/Ir06xUKzDjDkGcaaokPiTNs2JBWHjaE4csUkZQ==
+"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.8.0", "@babel/helper-plugin-utils@^7.8.3":
+  version "7.10.4"
+  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.10.4.tgz#2f75a831269d4f677de49986dff59927533cf375"
+  integrity sha512-O4KCvQA6lLiMU9l2eawBPMf1xPP8xPfB3iEQw150hOVTqj/rfXz0ThTb4HEzqQfs2Bmo5Ay8BzxfzVtBrr9dVg==
 
 "@babel/helper-regex@^7.0.0", "@babel/helper-regex@^7.4.4":
   version "7.5.5"
@@ -268,12 +268,12 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
 
-"@babel/plugin-proposal-export-namespace-from@7.8.3":
-  version "7.8.3"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-export-namespace-from/-/plugin-proposal-export-namespace-from-7.8.3.tgz#63ad57265d0e3912afd666eb44ce26fa8cd2c774"
-  integrity sha512-WKK+9jz6TWUTX1uej9/EUVOmM1sK7aHv6bZyxbUV3NJjbiIZRqJITeXGMo7D631J72PEnIORh5VOlFCSlrLicg==
+"@babel/plugin-proposal-export-namespace-from@7.12.1":
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-export-namespace-from/-/plugin-proposal-export-namespace-from-7.12.1.tgz#8b9b8f376b2d88f5dd774e4d24a5cc2e3679b6d4"
+  integrity sha512-6CThGf0irEkzujYS5LQcjBx8j/4aQGiVv7J9+2f7pGfxqyKh3WnmVJYW3hdrQjyksErMGBPQrCnHfOtna+WLbw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-export-namespace-from" "^7.8.3"
 
 "@babel/plugin-proposal-function-sent@7.8.3":
