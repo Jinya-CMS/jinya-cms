@@ -14,16 +14,12 @@ class FormItemGetItemEvent extends Event
 {
     public const PRE_GET = 'FormItemPreGet';
 
-    /** @var string */
     private string $formSlug;
 
-    /** @var int */
     private int $position;
 
     /**
      * FormItemGetItemEvent constructor.
-     * @param string $formSlug
-     * @param int $position
      */
     public function __construct(string $formSlug, int $position)
     {
@@ -31,17 +27,11 @@ class FormItemGetItemEvent extends Event
         $this->position = $position;
     }
 
-    /**
-     * @return string
-     */
     public function getFormSlug(): string
     {
         return $this->formSlug;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
