@@ -34,7 +34,6 @@ class GalleryFilePositionEvent extends CancellableEvent
     /**
      * GalleryEvent constructor.
      * @param GalleryFilePosition $galleryFilePosition
-     * @param int|null $id
      */
     public function __construct(?GalleryFilePosition $galleryFilePosition, ?int $id)
     {
@@ -42,17 +41,11 @@ class GalleryFilePositionEvent extends CancellableEvent
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return GalleryFilePosition|null
-     */
     public function getGalleryFilePosition(): ?GalleryFilePosition
     {
         return $this->galleryFilePosition;

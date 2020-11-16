@@ -10,16 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CompileThemesCommand extends Command
 {
-    /** @var ThemeServiceInterface */
     private ThemeServiceInterface $themeService;
 
-    /** @var ThemeCompilerServiceInterface */
     private ThemeCompilerServiceInterface $themeCompilerService;
 
     /**
      * CompileThemesCommand constructor.
-     * @param ThemeServiceInterface $themeService
-     * @param ThemeCompilerServiceInterface $themeCompilerService
      */
     public function __construct(
         ThemeServiceInterface $themeService,

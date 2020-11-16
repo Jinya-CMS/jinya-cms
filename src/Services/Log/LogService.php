@@ -21,16 +21,12 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class LogService implements LogServiceInterface
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var LoggerInterface */
     private LoggerInterface $logger;
 
     /**
      * LogService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param LoggerInterface $log
      */
     public function __construct(EntityManagerInterface $entityManager, LoggerInterface $log)
     {
@@ -64,8 +60,6 @@ class LogService implements LogServiceInterface
 
     /**
      * Gets a @param string $level
-     * @param string $filter
-     * @return QueryBuilder
      * @see QueryBuilder filtered by level and filter
      */
     private function getFilterQueryBuilder(string $level, string $filter): QueryBuilder
@@ -79,9 +73,6 @@ class LogService implements LogServiceInterface
             ->setParameter('level', "%$uppercaseLevel%");
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder()
@@ -98,7 +89,6 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException
@@ -116,9 +106,6 @@ class LogService implements LogServiceInterface
 
     /**
      * {@inheritdoc}
-     * @param string $level
-     * @param string $filter
-     * @return int
      * @throws NonUniqueResultException
      * @throws NoResultException
      * @throws NoResultException

@@ -17,16 +17,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class KernelExceptionSubscriber implements EventSubscriberInterface
 {
-    /** @var RouterInterface */
     private RouterInterface $router;
 
-    /** @var LoggerInterface */
     private LoggerInterface $logger;
 
     /**
      * KernelExceptionSubscriber constructor.
-     * @param RouterInterface $router
-     * @param LoggerInterface $logger
      */
     public function __construct(RouterInterface $router, LoggerInterface $logger)
     {

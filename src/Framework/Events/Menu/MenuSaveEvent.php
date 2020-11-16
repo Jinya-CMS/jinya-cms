@@ -17,21 +17,16 @@ class MenuSaveEvent extends CancellableEvent
 
     public const POST_SAVE = 'MenuPostSave';
 
-    /** @var Menu */
     private Menu $menu;
 
     /**
      * MenuSaveOrUpdateEvent constructor.
-     * @param Menu $menu
      */
     public function __construct(Menu $menu)
     {
         $this->menu = $menu;
     }
 
-    /**
-     * @return Menu
-     */
     public function getMenu(): Menu
     {
         return $this->menu;
