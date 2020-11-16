@@ -32,7 +32,7 @@
     "phpmyadmin/sql-parser": "5.2.0",
     "psr/event-dispatcher": "1.0.0",
     "scssphp/scssphp": "1.0.8",
-    "sensio/framework-extra-bundle": "5.5.3",
+    "sensio/framework-extra-bundle": "5.6.1",
     "symfony/asset": "5.0.5",
     "symfony/console": "5.0.5",
     "symfony/debug-pack": "1.0.7",
