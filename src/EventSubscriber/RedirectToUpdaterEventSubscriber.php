@@ -17,16 +17,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class RedirectToUpdaterEventSubscriber implements EventSubscriberInterface
 {
-    /** @var string */
     private string $kernelProjectDir;
 
-    /** @var UrlGeneratorInterface */
     private UrlGeneratorInterface $urlGenerator;
 
     /**
      * RedirectToUpdaterEventSubscriber constructor.
-     * @param string $kernelProjectDir
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(string $kernelProjectDir, UrlGeneratorInterface $urlGenerator)
     {

@@ -16,12 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CompileCacheCommand extends Command
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     /**
      * CompileCacheCommand constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

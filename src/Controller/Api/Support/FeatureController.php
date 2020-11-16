@@ -18,15 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FeatureController extends BaseApiController
 {
-    /** @var string */
     private string $jinyaVersion;
 
     /**
      * @Route("/api/support/feature", methods={"POST"}, name="api_support_feature")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @param Client $client
-     * @return Response
      */
     public function submitAction(Client $client): Response
     {
@@ -52,9 +48,6 @@ class FeatureController extends BaseApiController
         return $this->json($data, $status);
     }
 
-    /**
-     * @param string $jinyaVersion
-     */
     public function setJinyaVersion(string $jinyaVersion): void
     {
         $this->jinyaVersion = $jinyaVersion;

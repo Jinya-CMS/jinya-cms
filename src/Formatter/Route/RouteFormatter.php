@@ -13,18 +13,12 @@ use Jinya\Formatter\Menu\MenuItemFormatterInterface;
 
 class RouteFormatter implements RouteFormatterInterface
 {
-    /** @var MenuItemFormatterInterface */
     private MenuItemFormatterInterface $menuItemFormatter;
 
-    /** @var array */
     private array $formattedData;
 
-    /** @var RoutingEntry */
     private RoutingEntry $route;
 
-    /**
-     * @param MenuItemFormatterInterface $menuItemFormatter
-     */
     public function setMenuItemFormatter(MenuItemFormatterInterface $menuItemFormatter): void
     {
         $this->menuItemFormatter = $menuItemFormatter;
@@ -41,8 +35,6 @@ class RouteFormatter implements RouteFormatterInterface
 
     /**
      * Formats the route name
-     *
-     * @return RouteFormatterInterface
      */
     public function name(): RouteFormatterInterface
     {
@@ -53,8 +45,6 @@ class RouteFormatter implements RouteFormatterInterface
 
     /**
      * Formats the route parameter
-     *
-     * @return RouteFormatterInterface
      */
     public function parameter(): RouteFormatterInterface
     {
@@ -65,8 +55,6 @@ class RouteFormatter implements RouteFormatterInterface
 
     /**
      * Formats the url
-     *
-     * @return RouteFormatterInterface
      */
     public function url(): RouteFormatterInterface
     {
@@ -77,8 +65,6 @@ class RouteFormatter implements RouteFormatterInterface
 
     /**
      * Formats the menu item
-     *
-     * @return RouteFormatterInterface
      */
     public function menuItem(): RouteFormatterInterface
     {
@@ -92,9 +78,6 @@ class RouteFormatter implements RouteFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param RoutingEntry $routingEntry
-     * @return RouteFormatterInterface
      */
     public function init(RoutingEntry $routingEntry): RouteFormatterInterface
     {
