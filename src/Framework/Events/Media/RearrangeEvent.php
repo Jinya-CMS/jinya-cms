@@ -18,24 +18,16 @@ class RearrangeEvent extends CancellableEvent
 
     public const POST_REARRANGE = 'GalleryFilePositionPostRearrange';
 
-    /** @var Gallery */
     private Gallery $gallery;
 
-    /** @var GalleryFilePosition */
     private GalleryFilePosition $galleryFilePosition;
 
-    /** @var int */
     private int $oldPosition;
 
-    /** @var int */
     private int $newPosition;
 
     /**
      * RearrangeEvent constructor.
-     * @param Gallery $gallery
-     * @param GalleryFilePosition $galleryFilePosition
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function __construct(
         Gallery $gallery,
@@ -49,33 +41,21 @@ class RearrangeEvent extends CancellableEvent
         $this->newPosition = $newPosition;
     }
 
-    /**
-     * @return Gallery
-     */
     public function getGallery(): Gallery
     {
         return $this->gallery;
     }
 
-    /**
-     * @return GalleryFilePosition
-     */
     public function getGalleryFilePosition(): GalleryFilePosition
     {
         return $this->galleryFilePosition;
     }
 
-    /**
-     * @return int
-     */
     public function getOldPosition(): int
     {
         return $this->oldPosition;
     }
 
-    /**
-     * @return int
-     */
     public function getNewPosition(): int
     {
         return $this->newPosition;

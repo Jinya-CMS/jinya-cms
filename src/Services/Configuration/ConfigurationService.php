@@ -18,17 +18,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ConfigurationService implements ConfigurationServiceInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $entityManager;
 
-    /** @var ThemeServiceInterface */
     private ThemeServiceInterface $themeService;
 
     /** @noinspection PhpUndefinedClassInspection */
-
-    /** @var EventDispatcherInterface */
     private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
@@ -36,9 +30,6 @@ class ConfigurationService implements ConfigurationServiceInterface
 
     /**
      * ConfigurationService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param ThemeServiceInterface $themeService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,

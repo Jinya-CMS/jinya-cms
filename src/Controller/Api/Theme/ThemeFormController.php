@@ -19,10 +19,6 @@ class ThemeFormController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/form/config", methods={"GET"}, name="api_theme_form_config_get")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function getConfigFormAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {
@@ -36,10 +32,6 @@ class ThemeFormController extends BaseApiController
     /**
      * @Route("/api/theme/{name}/form/variables", methods={"GET"}, name="api_theme_form_variables_get")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @param string $name
-     * @param ThemeConfigServiceInterface $themeConfigService
-     * @return Response
      */
     public function getVariablesFormAction(string $name, ThemeConfigServiceInterface $themeConfigService): Response
     {

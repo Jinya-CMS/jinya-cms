@@ -23,118 +23,85 @@ class Segment
     use BaseEntity;
 
     /**
-     * @var SegmentPage
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\SegmentPage\SegmentPage", inversedBy="segments", cascade={"persist"})
      */
     private SegmentPage $page;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
      */
     private int $position;
 
     /**
-     * @var Form|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Form\Form")
      */
     private ?Form $form = null;
 
     /**
-     * @var Gallery|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\Gallery")
      */
     private ?Gallery $gallery = null;
 
     /**
-     * @var File|null
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Media\File")
      */
     private ?File $file = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $html = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $action = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $script = null;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $target = null;
 
-    /**
-     * @return SegmentPage
-     */
     public function getPage(): SegmentPage
     {
         return $this->page;
     }
 
-    /**
-     * @param SegmentPage $page
-     */
     public function setPage(SegmentPage $page): void
     {
         $this->page = $page;
     }
 
-    /**
-     * @return Gallery|null
-     */
     public function getGallery(): ?Gallery
     {
         return $this->gallery;
     }
 
-    /**
-     * @param Gallery|null $gallery
-     */
     public function setGallery(?Gallery $gallery): void
     {
         $this->gallery = $gallery;
     }
 
-    /**
-     * @return File|null
-     */
     public function getFile(): ?File
     {
         return $this->file;
     }
 
-    /**
-     * @param File|null $file
-     */
     public function setFile(?File $file): void
     {
         $this->file = $file;
     }
 
-    /**
-     * @return Form|null
-     */
     public function getForm(): ?Form
     {
         return $this->form;
     }
 
-    /**
-     * @param Form|null $form
-     */
     public function setForm(?Form $form): void
     {
         $this->reset();
@@ -149,82 +116,52 @@ class Segment
         $this->gallery = null;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHtml(): ?string
     {
         return $this->html;
     }
 
-    /**
-     * @param string|null $html
-     */
     public function setHtml(?string $html): void
     {
         $this->reset();
         $this->html = $html;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @param string|null $action
-     */
     public function setAction(?string $action): void
     {
         $this->action = $action;
     }
 
-    /**
-     * @return string|null
-     */
     public function getScript(): ?string
     {
         return $this->script;
     }
 
-    /**
-     * @param string|null $script
-     */
     public function setScript(?string $script): void
     {
         $this->script = $script;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTarget(): ?string
     {
         return $this->target;
     }
 
-    /**
-     * @param string|null $target
-     */
     public function setTarget(?string $target): void
     {
         $this->target = $target;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @param int $position
-     */
     public function setPosition(int $position): void
     {
         $this->position = $position;

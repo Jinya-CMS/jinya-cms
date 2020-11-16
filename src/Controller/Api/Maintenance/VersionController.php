@@ -15,23 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VersionController extends BaseApiController
 {
-    /** @var string */
     private string $jinyaVersion;
 
     /**
      * @Route("/api/maintenance/version", methods={"GET"}, name="api_maintenance_version")
      * @IsGranted("ROLE_WRITER")
-     *
-     * @return Response
      */
     public function getVersionAction(): Response
     {
         return $this->json($this->jinyaVersion);
     }
 
-    /**
-     * @param string $jinyaVersion
-     */
     public function setJinyaVersion(string $jinyaVersion): void
     {
         $this->jinyaVersion = $jinyaVersion;
