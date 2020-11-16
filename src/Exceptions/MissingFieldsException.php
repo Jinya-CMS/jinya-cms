@@ -12,12 +12,10 @@ use Exception;
 
 class MissingFieldsException extends Exception
 {
-    /** @var array */
     private array $fields;
 
     /**
      * MissingFieldsException constructor.
-     * @param array $fields
      */
     public function __construct(array $fields)
     {
@@ -25,9 +23,6 @@ class MissingFieldsException extends Exception
         $this->fields = $fields;
     }
 
-    /**
-     * @return array
-     */
     public function getFields(): array
     {
         return $this->fields;

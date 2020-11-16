@@ -18,14 +18,10 @@ use Jinya\Services\Slug\SlugServiceInterface;
 
 class BaseSlugEntityService extends BaseService
 {
-    /** @var SlugServiceInterface */
     protected SlugServiceInterface $slugService;
 
     /**
      * BaseSlugEntityService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param string $entityType
      */
     public function __construct(
         EntityManagerInterface $entityManager,

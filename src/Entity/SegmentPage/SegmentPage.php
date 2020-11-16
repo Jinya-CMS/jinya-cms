@@ -30,17 +30,11 @@ class SegmentPage extends HistoryEnabledEntity
         $this->segments = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getSegments(): Collection
     {
         return $this->segments;
     }
 
-    /**
-     * @param Collection $segments
-     */
     public function setSegments(Collection $segments): void
     {
         $this->segments = $segments;

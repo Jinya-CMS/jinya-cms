@@ -26,11 +26,6 @@ class UserController extends BaseUserController
     /**
      * @Route("/api/user", methods={"GET"}, name="api_user_get_all")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @param Request $request
-     * @param UserServiceInterface $userService
-     * @param UserFormatterInterface $userFormatter
-     * @return Response
      */
     public function getAllAction(
         Request $request,
@@ -75,11 +70,6 @@ class UserController extends BaseUserController
     /**
      * @Route("/api/user/{id}", methods={"GET"}, name="api_user_get")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @param UserFormatterInterface $userFormatter
-     * @return Response
      */
     public function getAction(
         int $id,
@@ -107,11 +97,6 @@ class UserController extends BaseUserController
     /**
      * @Route("/api/user", methods={"POST"}, name="api_user_post")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param UserServiceInterface $userService
-     * @param UserFormatterInterface $userFormatter
-     * @param TranslatorInterface $translator
-     * @return Response
      */
     public function postAction(
         UserServiceInterface $userService,
@@ -172,12 +157,6 @@ class UserController extends BaseUserController
     /**
      * @Route("/api/user/{id}", methods={"PUT"}, name="api_user_put")
      * @IsGranted("ROLE_SUPER_ADMIN", attributes="usermanipulation")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @param UserFormatterInterface $userFormatter
-     * @param TranslatorInterface $translator
-     * @return Response
      */
     public function putAction(
         int $id,
@@ -185,7 +164,7 @@ class UserController extends BaseUserController
         UserFormatterInterface $userFormatter,
         TranslatorInterface $translator
     ): Response {
-        [$data, $status] = $this->tryExecute(function () use ($id, $userService, $userFormatter, $translator) {
+        [$data, $status] = $this->tryExecute(function () use ($id, $userService, $translator) {
             $user = $userService->get($id);
 
             $artistName = $this->getValue('artistName', $user->getArtistName());
@@ -229,10 +208,6 @@ class UserController extends BaseUserController
     /**
      * @Route("/api/user/{id}", methods={"DELETE"}, name="api_user_delete")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @param int $id
-     * @param UserServiceInterface $userService
-     * @return Response
      */
     public function deleteAction(int $id, UserServiceInterface $userService): Response
     {
