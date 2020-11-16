@@ -20,19 +20,14 @@ use Throwable;
 
 class ThemeCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var ConfigurationServiceInterface */
     private ConfigurationServiceInterface $configService;
 
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     private LoggerInterface $logger;
 
     /**
      * ThemeCacheSubscriber constructor.
-     * @param ConfigurationServiceInterface $configService
-     * @param CacheBuilderInterface $cacheBuilder
-     * @param LoggerInterface $logger
      */
     public function __construct(
         ConfigurationServiceInterface $configService,

@@ -18,24 +18,16 @@ class FormItemPositionEvent extends CancellableEvent
 
     public const POST_UPDATE = 'FormItemPositionPostUpdate';
 
-    /** @var Form */
     private Form $form;
 
-    /** @var FormItem */
     private FormItem $formItem;
 
-    /** @var int */
     private int $oldPosition;
 
-    /** @var int */
     private int $newPosition;
 
     /**
      * FormItemPositionEvent constructor.
-     * @param Form $form
-     * @param FormItem $formItem
-     * @param int $oldPosition
-     * @param int $newPosition
      */
     public function __construct(Form $form, FormItem $formItem, int $oldPosition, int $newPosition)
     {
@@ -45,33 +37,21 @@ class FormItemPositionEvent extends CancellableEvent
         $this->newPosition = $newPosition;
     }
 
-    /**
-     * @return Form
-     */
     public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @return FormItem
-     */
     public function getFormItem(): FormItem
     {
         return $this->formItem;
     }
 
-    /**
-     * @return int
-     */
     public function getOldPosition(): int
     {
         return $this->oldPosition;
     }
 
-    /**
-     * @return int
-     */
     public function getNewPosition(): int
     {
         return $this->newPosition;
