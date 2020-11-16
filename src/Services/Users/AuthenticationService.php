@@ -16,28 +16,18 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var MailerInterface */
     private MailerInterface $mailer;
 
-    /** @var string */
     private string $mailerSender;
 
-    /** @var EventDispatcherInterface */
     private EventDispatcherInterface $eventDispatcher;
 
-    /** @var UserServiceInterface */
     private UserServiceInterface $userService;
 
     /**
      * AuthenticationService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param MailerInterface $mailer
-     * @param string $mailerSender
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param UserServiceInterface $userService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -56,7 +46,6 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Sets the two factor code and sends the verification mail
      *
-     * @param string $username
      * @throws TransportExceptionInterface
      * @throws Exception
      */
@@ -102,9 +91,6 @@ class AuthenticationService implements AuthenticationServiceInterface
 
     /**
      * Adds a new device code to the user
-     *
-     * @param string $username
-     * @return string
      */
     public function addKnownDevice(string $username): string
     {
@@ -131,7 +117,6 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Gets all known devices for the given user
      *
-     * @param string $username
      * @return KnownDevice[]
      */
     public function getKnownDevices(string $username): array
@@ -149,8 +134,6 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Deletes the given known device
      *
-     * @param string $username
-     * @param string $deviceCode
      * @throws NoResultException
      * @throws NonUniqueResultException
      */

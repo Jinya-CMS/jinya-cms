@@ -17,16 +17,12 @@ use function array_key_exists;
 
 class MySqlHandler extends AbstractProcessingHandler
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var LoggerInterface */
     private LoggerInterface $logger;
 
     /**
      * MySqlHandler constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param LoggerInterface $logger
      */
     public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
@@ -37,8 +33,6 @@ class MySqlHandler extends AbstractProcessingHandler
 
     /**
      * Writes the record down to the log of the implementing handler
-     *
-     * @param array $record
      */
     protected function write(array $record): void
     {

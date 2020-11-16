@@ -13,16 +13,12 @@ use Throwable;
 
 abstract class AuthenticatedCommand extends Command
 {
-    /** @var TokenStorageInterface */
     private TokenStorageInterface $tokenStorage;
 
-    /** @var UserServiceInterface */
     private UserServiceInterface $userService;
 
     /**
      * AuthenticatedCommand constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @param UserServiceInterface $userService
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserServiceInterface $userService)
     {

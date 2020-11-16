@@ -9,16 +9,12 @@ use Twig\TwigFunction;
 
 class TranslationUtils extends AbstractExtension
 {
-    /** @var string */
     private string $kernelProjectDir;
 
-    /** @var TranslatorInterface */
     private TranslatorInterface $translator;
 
     /**
      * TranslationUtils constructor.
-     * @param string $kernelProjectDir
-     * @param TranslatorInterface $translator
      */
     public function __construct(string $kernelProjectDir, TranslatorInterface $translator)
     {

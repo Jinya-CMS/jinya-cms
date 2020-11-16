@@ -14,12 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConfigurationCacheEventSubscriber implements EventSubscriberInterface
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
     /**
      * ThemeCacheSubscriber constructor.
-     * @param CacheBuilderInterface $cacheBuilder
      */
     public function __construct(CacheBuilderInterface $cacheBuilder)
     {

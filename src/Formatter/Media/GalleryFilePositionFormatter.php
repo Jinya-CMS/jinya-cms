@@ -6,29 +6,19 @@ use Jinya\Entity\Media\GalleryFilePosition;
 
 class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterface
 {
-    /** @var GalleryFilePosition */
     private GalleryFilePosition $position;
 
-    /** @var array */
     private array $formattedData;
 
-    /** @var FileFormatterInterface */
     private FileFormatterInterface $fileFormatter;
 
-    /** @var GalleryFormatterInterface */
     private GalleryFormatterInterface $galleryFormatter;
 
-    /**
-     * @param FileFormatterInterface $fileFormatter
-     */
     public function setFileFormatter(FileFormatterInterface $fileFormatter): void
     {
         $this->fileFormatter = $fileFormatter;
     }
 
-    /**
-     * @param GalleryFormatterInterface $galleryFormatter
-     */
     public function setGalleryFormatter(GalleryFormatterInterface $galleryFormatter): void
     {
         $this->galleryFormatter = $galleryFormatter;
@@ -45,9 +35,6 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
 
     /**
      * Initializes the formatting
-     *
-     * @param GalleryFilePosition $filePosition
-     * @return GalleryFilePositionFormatterInterface
      */
     public function init(GalleryFilePosition $filePosition): GalleryFilePositionFormatterInterface
     {
@@ -59,8 +46,6 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
 
     /**
      * Formats the type
-     *
-     * @return GalleryFilePositionFormatterInterface
      */
     public function file(): GalleryFilePositionFormatterInterface
     {
@@ -77,8 +62,6 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
 
     /**
      * Formats the name
-     *
-     * @return GalleryFilePositionFormatterInterface
      */
     public function gallery(): GalleryFilePositionFormatterInterface
     {
@@ -94,8 +77,6 @@ class GalleryFilePositionFormatter implements GalleryFilePositionFormatterInterf
 
     /**
      * Formats the folder
-     *
-     * @return GalleryFilePositionFormatterInterface
      */
     public function position(): GalleryFilePositionFormatterInterface
     {
