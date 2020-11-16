@@ -17,16 +17,12 @@ class MailerEvent extends CancellableEvent
 
     public const POST_SEND_MAIL = 'MailerPostSendMail';
 
-    /** @var Form */
     private Form $form;
 
-    /** @var array */
     private array $data;
 
     /**
      * MailerEvent constructor.
-     * @param Form $form
-     * @param array $data
      */
     public function __construct(Form $form, array $data)
     {
@@ -34,17 +30,11 @@ class MailerEvent extends CancellableEvent
         $this->data = $data;
     }
 
-    /**
-     * @return Form
-     */
     public function getForm(): Form
     {
         return $this->form;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;

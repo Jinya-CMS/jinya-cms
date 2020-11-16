@@ -17,12 +17,9 @@ use function method_exists;
 
 class HistoryService implements HistoryServiceInterface
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
     /** @noinspection PhpUndefinedClassInspection */
-
-    /** @var EventDispatcherInterface */
     private EventDispatcherInterface $eventDispatcher;
 
     /** @noinspection PhpUndefinedClassInspection */
@@ -30,8 +27,6 @@ class HistoryService implements HistoryServiceInterface
 
     /**
      * HistoryService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher)
     {
@@ -52,10 +47,6 @@ class HistoryService implements HistoryServiceInterface
         return $history;
     }
 
-    /**
-     * @param string $class
-     * @return string
-     */
     protected function getFullClassName(string $class): string
     {
         return "Jinya\\Entity\\$class";

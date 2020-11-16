@@ -14,20 +14,14 @@ use Twig\TwigFunction;
 
 class ActiveMenuItemCheck extends Extension\AbstractExtension
 {
-    /** @var RequestContext */
     private RequestContext $requestContext;
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var LoggerInterface */
     private LoggerInterface $logger;
 
     /**
      * ActiveMenuItemCheck constructor.
-     * @param RequestContext $requestContext
-     * @param EntityManagerInterface $entityManager
-     * @param LoggerInterface $logger
      */
     public function __construct(
         RequestContext $requestContext,
@@ -62,11 +56,6 @@ class ActiveMenuItemCheck extends Extension\AbstractExtension
         ];
     }
 
-    /**
-     * @param array $context
-     * @param MenuItem $menuItem
-     * @return bool
-     */
     public function isChildActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
         foreach ($menuItem->getChildren()->toArray() as $item) {
@@ -78,11 +67,6 @@ class ActiveMenuItemCheck extends Extension\AbstractExtension
         return false;
     }
 
-    /**
-     * @param array $context
-     * @param MenuItem $menuItem
-     * @return bool
-     */
     public function isActiveMenuItem(array $context, MenuItem $menuItem): bool
     {
         /** @noinspection NullPointerExceptionInspection */
