@@ -14,15 +14,11 @@ interface ConfigurationServiceInterface
 {
     /**
      * Gets the frontend configuration
-     *
-     * @return Configuration
      */
     public function getConfig(): Configuration;
 
     /**
      * Saves the frontend configuration
-     *
-     * @param Configuration $configuration
      */
     public function writeConfig(Configuration $configuration): void;
 }
