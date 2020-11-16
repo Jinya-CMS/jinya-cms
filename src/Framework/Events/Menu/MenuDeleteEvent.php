@@ -16,21 +16,16 @@ class MenuDeleteEvent extends CancellableEvent
 
     public const POST_DELETE = 'MenuPostDelete';
 
-    /** @var int */
     private int $id;
 
     /**
      * MenuDeleteEvent constructor.
-     * @param int $id
      */
     public function __construct(int $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

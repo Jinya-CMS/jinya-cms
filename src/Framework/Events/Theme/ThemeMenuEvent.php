@@ -16,16 +16,12 @@ class ThemeMenuEvent extends CancellableEvent
 
     public const POST_SAVE = 'ThemeMenusPostSave';
 
-    /** @var string */
     private string $themeName;
 
-    /** @var array */
     private array $menus;
 
     /**
      * ThemeMenusEvent constructor.
-     * @param string $themeName
-     * @param array $menus
      */
     public function __construct(string $themeName, array $menus)
     {
@@ -33,17 +29,11 @@ class ThemeMenuEvent extends CancellableEvent
         $this->menus = $menus;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return array
-     */
     public function getMenus(): array
     {
         return $this->menus;

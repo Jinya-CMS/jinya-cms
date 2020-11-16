@@ -12,20 +12,14 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class CreateDbCommand extends Command
 {
-    /** @var DatabaseMigratorInterface */
     private DatabaseMigratorInterface $databaseMigrator;
 
-    /** @var SchemaToolInterface */
     private SchemaToolInterface $schemaTool;
 
-    /** @var string */
     private string $kernelProjectDir;
 
     /**
      * InstallCommand constructor.
-     * @param DatabaseMigratorInterface $databaseMigrator
-     * @param SchemaToolInterface $schemaTool
-     * @param string $kernelProjectDir
      */
     public function __construct(
         DatabaseMigratorInterface $databaseMigrator,
@@ -46,8 +40,6 @@ class CreateDbCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return int|void|null
      * @throws DBALException
      */
