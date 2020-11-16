@@ -36,26 +36,22 @@ class Form extends HistoryEnabledEntity
     private $messages;
 
     /**
-     * @var string
      * @Assert\Email
      * @ORM\Column(type="string")
      */
     private string $toAddress;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
     private string $title;
 
     /**
-     * @var string
      * @ORM\Column(type="text")
      */
     private string $description;
 
     /**
-     * @var string
      * @ORM\Column(type="text")
      */
     private string $emailTemplate = '';
@@ -69,65 +65,41 @@ class Form extends HistoryEnabledEntity
         $this->messages = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
     public function getEmailTemplate(): string
     {
         return $this->emailTemplate;
     }
 
-    /**
-     * @param string $emailTemplate
-     */
     public function setEmailTemplate(string $emailTemplate): void
     {
         $this->emailTemplate = $emailTemplate;
     }
 
-    /**
-     * @return Collection
-     */
     public function getItems(): Collection
     {
         return $this->items;
     }
 
-    /**
-     * @param Collection $items
-     */
     public function setItems(Collection $items): void
     {
         $this->items = $items;
@@ -141,25 +113,16 @@ class Form extends HistoryEnabledEntity
         return $this->toAddress;
     }
 
-    /**
-     * @param string $toAddress
-     */
     public function setToAddress(string $toAddress): void
     {
         $this->toAddress = $toAddress;
     }
 
-    /**
-     * @return Collection
-     */
     public function getMessages(): Collection
     {
         return $this->messages;
     }
 
-    /**
-     * @param Collection $messages
-     */
     public function setMessages(Collection $messages): void
     {
         $this->messages = $messages;

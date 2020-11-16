@@ -14,29 +14,19 @@ use Jinya\Formatter\User\UserFormatterInterface;
 
 class FormFormatter implements FormFormatterInterface
 {
-    /** @var array */
     private array $formattedData;
 
-    /** @var Form */
     private Form $form;
 
-    /** @var FormItemFormatterInterface */
     private FormItemFormatterInterface $formItemFormatter;
 
-    /** @var UserFormatterInterface */
     private UserFormatterInterface $userFormatter;
 
-    /**
-     * @param UserFormatterInterface $userFormatter
-     */
     public function setUserFormatter(UserFormatterInterface $userFormatter): void
     {
         $this->userFormatter = $userFormatter;
     }
 
-    /**
-     * @param FormItemFormatterInterface $formItemFormatter
-     */
     public function setFormItemFormatter(FormItemFormatterInterface $formItemFormatter): void
     {
         $this->formItemFormatter = $formItemFormatter;
@@ -44,9 +34,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param Form $form
-     * @return FormFormatterInterface
      */
     public function init(Form $form): FormFormatterInterface
     {
@@ -57,8 +44,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the to address
-     *
-     * @return FormFormatterInterface
      */
     public function toAddress(): FormFormatterInterface
     {
@@ -69,8 +54,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the title
-     *
-     * @return FormFormatterInterface
      */
     public function title(): FormFormatterInterface
     {
@@ -81,8 +64,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the description
-     *
-     * @return FormFormatterInterface
      */
     public function description(): FormFormatterInterface
     {
@@ -93,8 +74,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the email template
-     *
-     * @return FormFormatterInterface
      */
     public function emailTemplate(): FormFormatterInterface
     {
@@ -105,8 +84,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the items
-     *
-     * @return FormFormatterInterface
      */
     public function items(): FormFormatterInterface
     {
@@ -141,8 +118,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the slug
-     *
-     * @return FormFormatterInterface
      */
     public function slug(): FormFormatterInterface
     {
@@ -153,8 +128,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the id
-     *
-     * @return FormFormatterInterface
      */
     public function id(): FormFormatterInterface
     {
@@ -165,8 +138,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return FormFormatterInterface
      */
     public function created(): FormFormatterInterface
     {
@@ -181,8 +152,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return FormFormatterInterface
      */
     public function updated(): FormFormatterInterface
     {
@@ -197,8 +166,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return FormFormatterInterface
      */
     public function history(): FormFormatterInterface
     {
@@ -209,8 +176,6 @@ class FormFormatter implements FormFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return FormFormatterInterface
      */
     public function name(): FormFormatterInterface
     {

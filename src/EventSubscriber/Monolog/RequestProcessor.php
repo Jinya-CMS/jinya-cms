@@ -12,12 +12,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestProcessor
 {
-    /** @var RequestStack */
     private RequestStack $request;
 
     /**
      * RequestProcessor constructor.
-     * @param RequestStack $request
      */
     public function __construct(RequestStack $request)
     {

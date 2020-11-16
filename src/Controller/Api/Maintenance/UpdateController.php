@@ -18,14 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends BaseApiController
 {
-    /** @var string */
     private string $kernelProjectDir;
 
     /**
      * @Route("/api/maintenance/update", methods={"POST"}, name="api_maintenance_update")
      * @IsGranted("ROLE_SUPER_ADMIN")
-     *
-     * @return Response
      */
     public function initiateUpdateAction(): Response
     {
@@ -39,9 +36,6 @@ class UpdateController extends BaseApiController
         return $response;
     }
 
-    /**
-     * @param string $kernelProjectDir
-     */
     public function setKernelProjectDir(string $kernelProjectDir): void
     {
         $this->kernelProjectDir = $kernelProjectDir;

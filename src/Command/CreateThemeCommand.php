@@ -17,20 +17,14 @@ use Twig\Error\SyntaxError;
 
 class CreateThemeCommand extends Command
 {
-    /** @var SlugServiceInterface */
     private SlugServiceInterface $slugService;
 
-    /** @var string */
     private string $themesDir;
 
-    /** @var Environment */
     private Environment $twig;
 
     /**
      * CreateThemeCommand constructor.
-     * @param SlugServiceInterface $slugService
-     * @param string $themesDir
-     * @param Environment $twig
      */
     public function __construct(SlugServiceInterface $slugService, string $themesDir, Environment $twig)
     {
@@ -46,8 +40,6 @@ class CreateThemeCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return int|void|null
      * @throws LoaderError
      * @throws RuntimeError
