@@ -8,22 +8,16 @@ use Jinya\Formatter\User\UserFormatterInterface;
 
 class SegmentPageFormatter implements SegmentPageFormatterInterface
 {
-    /** @var array */
     private array $formatted;
 
-    /** @var SegmentPage */
     private SegmentPage $segmentPage;
 
-    /** @var SegmentFormatterInterface */
     private SegmentFormatterInterface $segmentFormatter;
 
-    /** @var UserFormatterInterface */
     private UserFormatterInterface $userFormatter;
 
     /**
      * SegmentPageFormatter constructor.
-     * @param SegmentFormatterInterface $segmentFormatter
-     * @param UserFormatterInterface $userFormatter
      */
     public function __construct(SegmentFormatterInterface $segmentFormatter, UserFormatterInterface $userFormatter)
     {
@@ -42,9 +36,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Initializes the formatting
-     *
-     * @param SegmentPage $segmentPage
-     * @return SegmentPageFormatterInterface
      */
     public function init(SegmentPage $segmentPage): SegmentPageFormatterInterface
     {
@@ -56,8 +47,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the slug
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function slug(): SegmentPageFormatterInterface
     {
@@ -68,8 +57,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the segments
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function segments(): SegmentPageFormatterInterface
     {
@@ -99,8 +86,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function name(): SegmentPageFormatterInterface
     {
@@ -111,8 +96,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the created info
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function created(): SegmentPageFormatterInterface
     {
@@ -127,8 +110,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the updated info
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function updated(): SegmentPageFormatterInterface
     {
@@ -143,8 +124,6 @@ class SegmentPageFormatter implements SegmentPageFormatterInterface
 
     /**
      * Formats the history
-     *
-     * @return SegmentPageFormatterInterface
      */
     public function history(): SegmentPageFormatterInterface
     {

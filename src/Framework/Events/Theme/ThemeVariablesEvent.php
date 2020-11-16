@@ -20,16 +20,12 @@ class ThemeVariablesEvent extends CancellableEvent
 
     public const POST_RESET = 'ThemeVariablesPostReset';
 
-    /** @var string */
     private string $themeName;
 
-    /** @var array */
     private array $variables;
 
     /**
      * ThemeVariablesEvent constructor.
-     * @param string $themeName
-     * @param array $variable
      */
     public function __construct(string $themeName, array $variable)
     {
@@ -37,17 +33,11 @@ class ThemeVariablesEvent extends CancellableEvent
         $this->variables = $variable;
     }
 
-    /**
-     * @return string
-     */
     public function getThemeName(): string
     {
         return $this->themeName;
     }
 
-    /**
-     * @return array
-     */
     public function getVariables(): array
     {
         return $this->variables;

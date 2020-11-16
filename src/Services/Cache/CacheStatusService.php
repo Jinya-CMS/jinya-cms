@@ -7,20 +7,14 @@ use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
 
 class CacheStatusService implements CacheStatusServiceInterface
 {
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $jinyaCache;
 
-    /** @var CacheClearerInterface */
     private CacheClearerInterface $symfonyCacheClearer;
 
-    /** @var string */
     private string $kernelProjectDir;
 
     /**
      * CacheStatusService constructor.
-     * @param CacheBuilderInterface $jinyaCache
-     * @param CacheClearerInterface $symfonyCacheClearer
-     * @param string $kernelProjectDir
      */
     public function __construct(
         CacheBuilderInterface $jinyaCache,

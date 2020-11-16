@@ -20,9 +20,6 @@ interface ThemeCompilerServiceInterface
 
     /**
      * Checks whether the given theme is compiled
-     *
-     * @param Theme $theme
-     * @return bool
      */
     public function isCompiled(Theme $theme): bool;
 }
