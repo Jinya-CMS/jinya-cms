@@ -112,7 +112,7 @@ impl Component for ArtistsPage {
                 if list.is_ok() {
                     self.artists = list.unwrap().items
                 } else {
-                    ConsoleService::error(list.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", list.err().unwrap().error.to_string().as_str());
                 }
             }
             Msg::OnMenuAgentResponse(response) => match response {

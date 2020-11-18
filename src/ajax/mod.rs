@@ -21,6 +21,7 @@ pub mod profile_service;
 pub mod artist_service;
 pub mod menu_service;
 pub mod menu_item_service;
+pub mod theme_service;
 
 pub fn get_host() -> String {
     let storage = StorageService::new(Area::Local).unwrap();

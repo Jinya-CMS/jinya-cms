@@ -27,6 +27,7 @@ use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
 use crate::views::menus::MenusPage;
 use crate::views::menus::designer::MenuDesignerPage;
+use crate::views::themes::ThemesPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -73,6 +74,8 @@ pub enum AppRoute {
     MenuDesigner(usize),
     #[to = "/configuration/menus"]
     Menus,
+    #[to = "/configuration/themes"]
+    Themes,
     #[to = "/"]
     Homepage,
 }
@@ -254,6 +257,11 @@ impl JinyaDesignerApp {
                         route: Some(&AppRoute::Menus),
                         on_click: None,
                     },
+                    SubItem {
+                        label: self.translator.translate("app.menu.configuration.frontend.themes"),
+                        route: Some(&AppRoute::Themes),
+                        on_click: None,
+                    },
                 ],
             },
         ];
@@ -314,7 +322,8 @@ impl JinyaDesignerApp {
                 AppRoute::Artists => html! {<ArtistsPage />},
                 AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />},
                 AppRoute::Menus => html! {<MenusPage />},
-                AppRoute::MenuDesigner(id) => html! {<MenuDesignerPage id=id />}
+                AppRoute::MenuDesigner(id) => html! {<MenuDesignerPage id=id />},
+                AppRoute::Themes => html! {<ThemesPage />},
             }
         })
     }

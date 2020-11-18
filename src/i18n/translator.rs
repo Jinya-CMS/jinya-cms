@@ -41,8 +41,8 @@ impl<'a> Translator<'a> {
         Translator {
             german: german_translations(),
             english: english_translations(),
-            browser_language: if storage_lang.is_some() {
-                storage_lang.unwrap()
+            browser_language: if let Some(lang) = storage_lang {
+                lang
             } else {
                 navigator_lang
             },
@@ -61,14 +61,12 @@ impl<'a> Translator<'a> {
             _ => None,
         };
 
-        if value.is_none() {
-            if self.english.contains_key(key) {
-                self.english.get(key).unwrap()
-            } else {
-                key
-            }
+        if let Some(value) = value {
+            value
+        } else if self.english.contains_key(key) {
+            self.english.get(key).unwrap()
         } else {
-            value.unwrap()
+            key
         }
     }
 

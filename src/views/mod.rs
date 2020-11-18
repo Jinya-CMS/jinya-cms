@@ -7,3 +7,4 @@ pub mod segment_pages;
 pub mod my_jinya;
 pub mod artists;
 pub mod menus;
+pub mod themes;

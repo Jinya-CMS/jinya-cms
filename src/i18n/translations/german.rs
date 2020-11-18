@@ -40,6 +40,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.generic.artists", "Künstler");
     map.insert("app.menu.configuration.frontend", "Frontend");
     map.insert("app.menu.configuration.frontend.menus", "Menüs");
+    map.insert("app.menu.configuration.frontend.themes", "Themes");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -369,6 +370,18 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("menus.designer.settings.error_could_not_load_segment_pages", "Die Segmentseiten konnten nicht geladen werden");
     map.insert("menus.designer.settings.error_could_not_load_artists", "Die Künstler konnten nicht geladen werden");
     map.insert("menus.designer.settings.error_save_settings_failed", "Der Menüeintrag konnte nicht gespeichert werden");
+
+    map.insert("themes.overview.action_settings", "Einstellungen");
+    map.insert("themes.overview.action_links", "Links");
+    map.insert("themes.overview.action_activate", "Aktivieren");
+    map.insert("themes.overview.action_build", "Cache aktualisieren");
+    map.insert("themes.overview.action_scss", "Stilvariablen");
+    map.insert("themes.overview.notification_activate", "Das Theme {name} wird aktiviert");
+    map.insert("themes.overview.notification_activated", "Das Theme {name} wurde aktiviert");
+    map.insert("themes.overview.error_notification_activate_error", "Das Theme {name} konnte nicht aktiviert werden");
+    map.insert("themes.overview.notification_build", "Der Cache für das Theme {name} wird aktualisiert");
+    map.insert("themes.overview.notification_built", "Der Cache für das Theme {name} wurde aktualisiert");
+    map.insert("themes.overview.error_notification_build_error", "Der Cache für das Theme {name} konnte nicht aktualisiert werden");
 
     map
 }
