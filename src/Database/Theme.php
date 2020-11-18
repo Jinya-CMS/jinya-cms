@@ -8,6 +8,7 @@ use Iterator;
 use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
 use Laminas\Serializer\Adapter\Json;
+use stdClass;
 
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 {
@@ -268,12 +269,20 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 
     public function format(): array
     {
+        $scssVariables = $this->scssVariables;
+        if (empty($scssVariables)) {
+            $scssVariables = new stdClass();
+        }
+        $configuration = $this->configuration;
+        if (empty($configuration)) {
+            $configuration = new stdClass();
+        }
         return [
-            'configuration' => $this->configuration,
+            'configuration' => $configuration,
             'description' => $this->description,
             'name' => $this->name,
             'displayName' => $this->displayName,
-            'scssVariables' => $this->scssVariables,
+            'scssVariables' => $scssVariables,
             'id' => $this->getIdAsInt(),
         ];
     }

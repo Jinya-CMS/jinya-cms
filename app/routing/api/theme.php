@@ -32,7 +32,6 @@ return function (RouteCollectorProxy $api) {
         $theme->get('', ListAllThemesAction::class);
         $theme->group('/{id}', function (RouteCollectorProxy $id) {
             $id->get('', GetThemeAction::class);
-            $id->get('/preview', GetPreviewImageAction::class);
             $id->put('/active', ActivateThemeAction::class);
             $id->put('/assets', CompileThemeAction::class);
             $id->group('/styling', function (RouteCollectorProxy $styling) {
@@ -78,4 +77,5 @@ return function (RouteCollectorProxy $api) {
             });
         });
     })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
+    $api->get('theme/{id}/preview', GetPreviewImageAction::class);
 };
