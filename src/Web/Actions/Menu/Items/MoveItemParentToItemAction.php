@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\Menu\Items;
 
-use App\Database\Menu;
 use App\Database\MenuItem;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
