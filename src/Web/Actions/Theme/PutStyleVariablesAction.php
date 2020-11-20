@@ -4,6 +4,7 @@ namespace App\Web\Actions\Theme;
 
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
+use App\Theming;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -21,16 +22,19 @@ class PutStyleVariablesAction extends ThemeAction
     {
         $this->syncThemes();
         $themeId = $this->args['id'];
-        $theme = Theme::findById($themeId);
-        if (!$theme) {
+        $dbTheme = Theme::findById($themeId);
+        if (!$dbTheme) {
             throw new NoResultException($this->request, 'Theme not found');
         }
 
         $body = $this->request->getParsedBody();
         $variables = $body['variables'];
 
-        $theme->scssVariables = $variables;
-        $theme->update();
+        $dbTheme->scssVariables = $variables;
+        $dbTheme->update();
+
+        $theme = new Theming\Theme($dbTheme);
+        $theme->compileStyleCache();
 
         return $this->noContent();
     }
