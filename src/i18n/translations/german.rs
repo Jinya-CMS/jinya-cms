@@ -41,6 +41,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.frontend", "Frontend");
     map.insert("app.menu.configuration.frontend.menus", "Menüs");
     map.insert("app.menu.configuration.frontend.themes", "Themes");
+    map.insert("app.menu.configuration.frontend.themes.variables", "{name} Stil");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -382,6 +383,10 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.overview.notification_build", "Der Cache für das Theme {name} wird aktualisiert");
     map.insert("themes.overview.notification_built", "Der Cache für das Theme {name} wurde aktualisiert");
     map.insert("themes.overview.error_notification_build_error", "Der Cache für das Theme {name} konnte nicht aktualisiert werden");
+
+    map.insert("themes.variables.action_save", "Stil speichern");
+    map.insert("themes.variables.notification_save_failed", "Die Stiländerungen konnten nicht gespeichert werden");
+    map.insert("themes.variables.notification_saved_successfully", "Die Stiländerungen wurden erfolgreich gespeichert");
 
     map
 }

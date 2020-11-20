@@ -28,6 +28,7 @@ use crate::views::simple_pages::SimplePagesPage;
 use crate::views::menus::MenusPage;
 use crate::views::menus::designer::MenuDesignerPage;
 use crate::views::themes::ThemesPage;
+use crate::views::themes::scss::ScssPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,
@@ -74,6 +75,8 @@ pub enum AppRoute {
     MenuDesigner(usize),
     #[to = "/configuration/menus"]
     Menus,
+    #[to = "/configuration/themes/{id}/styling"]
+    ThemeScssPage(usize),
     #[to = "/configuration/themes"]
     Themes,
     #[to = "/"]
@@ -324,6 +327,7 @@ impl JinyaDesignerApp {
                 AppRoute::Menus => html! {<MenusPage />},
                 AppRoute::MenuDesigner(id) => html! {<MenuDesignerPage id=id />},
                 AppRoute::Themes => html! {<ThemesPage />},
+                AppRoute::ThemeScssPage(id) => html! {<ScssPage id=id />},
             }
         })
     }

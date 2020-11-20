@@ -1,21 +1,23 @@
 use jinya_ui::layout::page::Page;
 use jinya_ui::listing::card::{Card, CardButton, CardContainer};
 use jinya_ui::widgets::button::ButtonType;
-use jinya_ui::widgets::dialog::confirmation::DialogType;
 use jinya_ui::widgets::toast::Toast;
 use yew::{Bridge, Bridged, Component, ComponentLink, Html};
-use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
-use yew_router::prelude::RouteAgent;
+use yew_router::agent::{RouteAgent, RouteRequest};
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::theme_service::ThemeService;
-use crate::app::AppRoute;
 use crate::i18n::*;
 use crate::models::list_model::ListModel;
 use crate::models::theme::Theme;
+use yew::agent::Dispatcher;
+use yew_router::route::Route;
+use crate::app::AppRoute;
+
+pub mod scss;
 
 pub struct ThemesPage {
     link: ComponentLink<Self>,
@@ -28,6 +30,7 @@ pub struct ThemesPage {
     translator: Translator,
     keyword: String,
     selected_theme: Option<Theme>,
+    route_dispatcher: Dispatcher<RouteAgent>,
 }
 
 pub enum Msg {
@@ -37,6 +40,7 @@ pub enum Msg {
     OnBuildClick(usize),
     OnThemeActivated(Result<bool, AjaxError>),
     OnThemeBuilt(Result<bool, AjaxError>),
+    OnScssClick(usize),
     Ignore,
 }
 
@@ -45,7 +49,8 @@ impl Component for ThemesPage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
+        let route_dispatcher = RouteAgent::dispatcher();
 
         ThemesPage {
             link,
@@ -58,6 +63,7 @@ impl Component for ThemesPage {
             translator: Translator::new(),
             keyword: "".to_string(),
             selected_theme: None,
+            route_dispatcher,
         }
     }
 
@@ -109,6 +115,10 @@ impl Component for ThemesPage {
                 self.selected_theme = None;
             }
             Msg::Ignore => {}
+            Msg::OnScssClick(idx) => {
+                let theme = self.themes[idx].clone();
+                self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeScssPage(theme.id))))
+            }
         }
 
         true
@@ -121,22 +131,20 @@ impl Component for ThemesPage {
     fn view(&self) -> Html {
         html! {
             <Page>
-                <div>
-                    <div style="display: flex; align-items: flex-start;">
-                        <CardContainer>
-                            {for self.themes.iter().enumerate().map(move |(idx, item)| {
-                                html! {
-                                    <Card title=&item.name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
-                                        <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::Ignore) />
-                                        <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::Ignore) />
-                                        <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
-                                        <CardButton button_type=ButtonType::Primary icon="shape" tooltip=self.translator.translate("themes.overview.action_build") on_click=self.link.callback(move |_| Msg::OnBuildClick(idx)) />
-                                        <CardButton button_type=ButtonType::Primary icon="sass" tooltip=self.translator.translate("themes.overview.action_scss") on_click=self.link.callback(move |_| Msg::Ignore) />
-                                    </Card>
-                                }
-                            })}
-                        </CardContainer>
-                    </div>
+                <div style="display: flex; align-items: flex-start;">
+                    <CardContainer>
+                        {for self.themes.iter().enumerate().map(move |(idx, item)| {
+                            html! {
+                                <Card title=&item.name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
+                                    <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::Ignore) />
+                                    <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::Ignore) />
+                                    <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
+                                    <CardButton button_type=ButtonType::Primary icon="shape" tooltip=self.translator.translate("themes.overview.action_build") on_click=self.link.callback(move |_| Msg::OnBuildClick(idx)) />
+                                    <CardButton button_type=ButtonType::Primary icon="sass" tooltip=self.translator.translate("themes.overview.action_scss") on_click=self.link.callback(move |_| Msg::OnScssClick(idx)) />
+                                </Card>
+                            }
+                        })}
+                    </CardContainer>
                 </div>
             </Page>
         }
@@ -145,7 +153,7 @@ impl Component for ThemesPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.configuration.frontend.themes")));
-            self.load_themes_task = Some(self.theme_service.get_list("".to_string(), self.link.callback(|result| Msg::OnThemesLoaded(result))));
+            self.load_themes_task = Some(self.theme_service.get_list("".to_string(), self.link.callback(Msg::OnThemesLoaded)));
         }
     }
 }

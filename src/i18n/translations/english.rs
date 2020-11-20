@@ -41,6 +41,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.frontend", "Frontend");
     map.insert("app.menu.configuration.frontend.menus", "Menus");
     map.insert("app.menu.configuration.frontend.themes", "Themes");
+    map.insert("app.menu.configuration.frontend.themes.variables", "{name} styling");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -380,6 +381,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.overview.notification_build", "The cache for the theme {name} is being refreshed");
     map.insert("themes.overview.notification_built", "The cache for the theme {name} has been refreshed");
     map.insert("themes.overview.error_notification_build_error", "The cache for the theme {name} could not be refreshed");
+
+    map.insert("themes.variables.action_save", "Save styling");
+    map.insert("themes.variables.notification_save_failed", "The styling changes could not be saved");
+    map.insert("themes.variables.notification_saved_successfully", "The styling changes were saved successfully");
 
     map
 }
