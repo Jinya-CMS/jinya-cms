@@ -385,6 +385,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.overview.error_notification_build_error", "Der Cache für das Theme {name} konnte nicht aktualisiert werden");
 
     map.insert("themes.variables.action_save", "Stil speichern");
+    map.insert("themes.variables.action_back", "Zurück");
     map.insert("themes.variables.notification_save_failed", "Die Stiländerungen konnten nicht gespeichert werden");
     map.insert("themes.variables.notification_saved_successfully", "Die Stiländerungen wurden erfolgreich gespeichert");
 

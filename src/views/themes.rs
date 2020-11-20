@@ -135,7 +135,7 @@ impl Component for ThemesPage {
                     <CardContainer>
                         {for self.themes.iter().enumerate().map(move |(idx, item)| {
                             html! {
-                                <Card title=&item.name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
+                                <Card title=&item.display_name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
                                     <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::Ignore) />
                                     <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::Ignore) />
                                     <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
