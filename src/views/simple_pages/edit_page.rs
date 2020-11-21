@@ -40,6 +40,7 @@ pub struct EditSimplePagePage {
     update_page_task: Option<FetchTask>,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum Msg {
     OnSaveClick,
     OnPageLoaded(Result<SimplePage, AjaxError>),
@@ -85,11 +86,10 @@ impl Component for EditSimplePagePage {
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
             Msg::OnSaveClick => {
-                self.update_page_task = Some(self.simple_page_service.update_page(self.id, SimplePage::from_title_and_content(self.title.to_string(), self.tinymce.get_content()), self.link.callback(|result| Msg::OnPageUpdated(result))))
+                self.update_page_task = Some(self.simple_page_service.update_page(self.id, SimplePage::from_title_and_content(self.title.to_string(), self.tinymce.get_content()), self.link.callback(Msg::OnPageUpdated)))
             }
             Msg::OnPageLoaded(result) => {
-                if result.is_ok() {
-                    let page = result.unwrap();
+                if let Ok(page) = result {
                     self.content = page.content;
                     self.title = page.title;
                     self.tinymce.set_content(self.content.to_string())
@@ -113,7 +113,7 @@ impl Component for EditSimplePagePage {
                     self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::SimplePages)))
                 } else {
                     self.alert_type = AlertType::Negative;
-                    if result.unwrap_err().status_code == StatusCode::CONFLICT {
+                    if result.err().unwrap().status_code == StatusCode::CONFLICT {
                         self.alert_message = Some(self.translator.translate("simple_pages.edit.error_conflict"));
                     } else {
                         self.alert_message = Some(self.translator.translate("simple_pages.edit.error_generic"));
@@ -158,7 +158,7 @@ impl Component for EditSimplePagePage {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.simple_pages.edit")));
             self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
-            self.load_simple_page_task = Some(self.simple_page_service.get_page(self.id, self.link.callback(|result| Msg::OnPageLoaded(result))));
+            self.load_simple_page_task = Some(self.simple_page_service.get_page(self.id, self.link.callback(Msg::OnPageLoaded)));
             self.tinymce.init_tiny_mce("".to_string())
         }
     }

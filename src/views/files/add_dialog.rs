@@ -46,6 +46,7 @@ pub struct AddDialogProps {
     pub is_open: bool,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum AddDialogMsg {
     OnNameInput(String),
     OnFileSelect(Vec<File>),
@@ -109,7 +110,7 @@ impl Component for AddDialog {
                     self.file_validation_message = self.translator.translate("files.add.error_file_missing")
                 } else if !self.name.is_empty() && self.selected_file.is_some() {
                     self.saving = true;
-                    self.change_file_task = Some(self.file_service.add_file(self.name.clone(), self.link.callback(|result| AddDialogMsg::OnAdded(result))));
+                    self.change_file_task = Some(self.file_service.add_file(self.name.clone(), self.link.callback(AddDialogMsg::OnAdded)));
                 }
             }
             AddDialogMsg::OnAddSecondary => self.on_discard_changes.emit(()),
@@ -119,12 +120,12 @@ impl Component for AddDialog {
                 self.file_validation_message = "".to_string();
             }
             AddDialogMsg::OnAdded(result) => {
-                if result.is_ok() {
-                    self.file = Some(result.unwrap());
+                if let Ok(file) = result {
+                    self.file = Some(file);
                     self.alert_visible = true;
                     self.alert_type = AlertType::Information;
                     self.alert_message = self.translator.translate("files.add.saving");
-                    self.start_upload_task = Some(self.file_service.start_file_upload(self.file.as_ref().unwrap(), self.link.callback(|result| AddDialogMsg::OnUploadStarted(result))))
+                    self.start_upload_task = Some(self.file_service.start_file_upload(self.file.as_ref().unwrap(), self.link.callback(AddDialogMsg::OnUploadStarted)))
                 } else {
                     self.alert_visible = true;
                     self.alert_message = match result.err().unwrap().status_code {
@@ -138,7 +139,7 @@ impl Component for AddDialog {
             AddDialogMsg::OnUploadStarted(result) => {
                 if result.is_ok() {
                     let file = self.selected_file.as_ref().unwrap().clone();
-                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| AddDialogMsg::OnReadFile(data))).unwrap());
+                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(AddDialogMsg::OnReadFile)).unwrap());
                 } else {
                     self.alert_visible = true;
                     self.alert_message = self.translator.translate("files.add.error_generic");
@@ -147,7 +148,7 @@ impl Component for AddDialog {
             }
             AddDialogMsg::OnChunkUploaded(result) => {
                 if result.is_ok() {
-                    self.finish_upload_task = Some(self.file_service.finish_file_upload(self.file.as_ref().unwrap(), self.link.callback(|result| AddDialogMsg::OnUploadFinished(result))))
+                    self.finish_upload_task = Some(self.file_service.finish_file_upload(self.file.as_ref().unwrap(), self.link.callback(AddDialogMsg::OnUploadFinished)))
                 } else {
                     self.alert_visible = true;
                     self.alert_message = self.translator.translate("files.add.error_generic");
@@ -164,7 +165,7 @@ impl Component for AddDialog {
                 }
             }
             AddDialogMsg::OnReadFile(data) => {
-                self.upload_chunk_task = Some(self.file_service.upload_chunk(self.file.as_ref().unwrap(), data, self.link.callback(|result| AddDialogMsg::OnChunkUploaded(result))))
+                self.upload_chunk_task = Some(self.file_service.upload_chunk(self.file.as_ref().unwrap(), data, self.link.callback(AddDialogMsg::OnChunkUploaded)))
             }
         }
 

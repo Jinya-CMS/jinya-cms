@@ -80,7 +80,7 @@ impl Component for ArtistsPage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         let route_dispatcher = RouteAgent::dispatcher();
 
         ArtistsPage {
@@ -107,32 +107,29 @@ impl Component for ArtistsPage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnArtistsLoaded(list) => {
-                if list.is_ok() {
-                    self.artists = list.unwrap().items
+            Msg::OnArtistsLoaded(result) => {
+                if let Ok(list) = result {
+                    self.artists = list.items
                 } else {
-                    log::error!("{}", list.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string().as_str());
                 }
             }
-            Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => {
-                    self.keyword = value;
-                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
-                }
-                _ => {}
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
             },
             Msg::OnCreateArtistClicked => self.add_artist_open = true,
             Msg::OnDeleteArtistClicked(idx) => self.artist_to_delete = Some(self.artists[idx].clone()),
             Msg::OnEditArtistClicked(idx) => self.artist_to_edit = Some(self.artists[idx].clone()),
-            Msg::OnDeleteApprove => self.delete_artist_task = Some(self.artist_service.delete_artist(self.artist_to_delete.as_ref().unwrap().id, self.link.callback(|result| Msg::OnArtistDeleted(result)))),
+            Msg::OnDeleteApprove => self.delete_artist_task = Some(self.artist_service.delete_artist(self.artist_to_delete.as_ref().unwrap().id, self.link.callback(Msg::OnArtistDeleted))),
             Msg::OnDeleteDecline => self.artist_to_delete = None,
-            Msg::OnActivateApprove => self.activate_artist_task = Some(self.artist_service.activate_artist(self.artist_to_activate.as_ref().unwrap().id, self.link.callback(|result| Msg::OnArtistActivated(result)))),
+            Msg::OnActivateApprove => self.activate_artist_task = Some(self.artist_service.activate_artist(self.artist_to_activate.as_ref().unwrap().id, self.link.callback(Msg::OnArtistActivated))),
             Msg::OnActivateDecline => self.artist_to_activate = None,
-            Msg::OnDeactivateApprove => self.deactivate_artist_task = Some(self.artist_service.deactivate_artist(self.artist_to_deactivate.as_ref().unwrap().id, self.link.callback(|result| Msg::OnArtistDeactivated(result)))),
+            Msg::OnDeactivateApprove => self.deactivate_artist_task = Some(self.artist_service.deactivate_artist(self.artist_to_deactivate.as_ref().unwrap().id, self.link.callback(Msg::OnArtistDeactivated))),
             Msg::OnDeactivateDecline => self.artist_to_deactivate = None,
             Msg::OnArtistDeleted(result) => {
                 if result.is_ok() {
-                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                     self.artist_to_delete = None;
                 } else {
                     if result.err().unwrap().status_code == StatusCode::CONFLICT {
@@ -144,19 +141,19 @@ impl Component for ArtistsPage {
                 }
             }
             Msg::OnSaveEdit => {
-                self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                 self.artist_to_edit = None;
             }
             Msg::OnDiscardEdit => self.artist_to_edit = None,
             Msg::OnSaveAdd => {
-                self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                 self.add_artist_open = false
             }
             Msg::OnDiscardAdd => self.add_artist_open = false,
             Msg::OnProfileLoaded(result) => {
-                if result.is_ok() {
-                    self.me = Some(result.unwrap());
-                    self.load_artists_task = Some(self.artist_service.get_list("".to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                if let Ok(me) = result {
+                    self.me = Some(me);
+                    self.load_artists_task = Some(self.artist_service.get_list("".to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                 }
             }
             Msg::OnDeactivateArtistClicked(idx) => self.artist_to_deactivate = Some(self.artists[idx].clone()),
@@ -164,7 +161,7 @@ impl Component for ArtistsPage {
             Msg::OnArtistActivated(result) => {
                 if result.is_ok() {
                     Toast::positive_toast(self.translator.translate_with_args("artists.activate.success", map! {"artist_name" => self.artist_to_activate.as_ref().unwrap().artist_name.as_str()}));
-                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                     self.artist_to_activate = None;
                 } else {
                     Toast::negative_toast(self.translator.translate_with_args("artists.activate.failed", map! {"artist_name" => self.artist_to_activate.as_ref().unwrap().artist_name.as_str()}));
@@ -174,7 +171,7 @@ impl Component for ArtistsPage {
             Msg::OnArtistDeactivated(result) => {
                 if result.is_ok() {
                     Toast::positive_toast(self.translator.translate_with_args("artists.deactivate.success", map! {"artist_name" => self.artist_to_deactivate.as_ref().unwrap().artist_name.as_str()}));
-                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnArtistsLoaded(response))));
+                    self.load_artists_task = Some(self.artist_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnArtistsLoaded)));
                     self.artist_to_deactivate = None;
                 } else {
                     Toast::negative_toast(self.translator.translate_with_args("artists.deactivate.failed", map! {"artist_name" => self.artist_to_deactivate.as_ref().unwrap().artist_name.as_str()}));
@@ -302,7 +299,7 @@ impl Component for ArtistsPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.configuration.generic.artists")));
-            self.load_artists_task = Some(self.profile_service.get_profile(self.link.callback(|result| Msg::OnProfileLoaded(result))));
+            self.load_artists_task = Some(self.profile_service.get_profile(self.link.callback(Msg::OnProfileLoaded)));
         }
     }
 }

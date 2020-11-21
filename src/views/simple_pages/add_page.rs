@@ -73,7 +73,7 @@ impl Component for AddSimplePagePage {
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
             Msg::OnSaveClick => {
-                self.create_page_task = Some(self.simple_page_service.create_page(SimplePage::from_title_and_content(self.title.to_string(), self.tinymce.get_content()), self.link.callback(|result| Msg::OnPageCreated(result))))
+                self.create_page_task = Some(self.simple_page_service.create_page(SimplePage::from_title_and_content(self.title.to_string(), self.tinymce.get_content()), self.link.callback(Msg::OnPageCreated)))
             }
             Msg::Ignore => {}
             Msg::OnTitleInput(title) => {
@@ -91,7 +91,7 @@ impl Component for AddSimplePagePage {
                     self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::SimplePages)))
                 } else {
                     self.alert_type = AlertType::Negative;
-                    if result.unwrap_err().status_code == StatusCode::CONFLICT {
+                    if result.err().unwrap().status_code == StatusCode::CONFLICT {
                         self.alert_message = Some(self.translator.translate("simple_pages.add.error_conflict"));
                     } else {
                         self.alert_message = Some(self.translator.translate("simple_pages.add.error_generic"));

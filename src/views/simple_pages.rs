@@ -59,7 +59,7 @@ impl Component for SimplePagesPage {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         let router_agent = RouteAgent::bridge(link.callback(|_| Msg::Ignore));
 
         SimplePagesPage {
@@ -96,8 +96,8 @@ impl Component for SimplePagesPage {
             Msg::OnEditPageClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::EditSimplePage(self.get_selected_page().id)))),
             Msg::OnDeletePageClick => self.show_delete_dialog = true,
             Msg::OnPagesLoaded(result) => {
-                if result.is_ok() {
-                    self.simple_pages = result.unwrap().items;
+                if let Ok(list) = result {
+                    self.simple_pages = list.items;
                     self.rows = self.simple_pages.iter().enumerate().map(|(_, item)| {
                         TableRow::new(vec![
                             TableCell {
@@ -115,17 +115,14 @@ impl Component for SimplePagesPage {
                 }
             }
             Msg::OnPageSelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => self.keyword = value,
-                _ => {}
-            },
-            Msg::OnDeleteApprove => self.delete_page_task = Some(self.simple_page_service.delete_page(self.get_selected_page(), self.link.callback(|result| Msg::OnPageDeleted(result)))),
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnDeleteApprove => self.delete_page_task = Some(self.simple_page_service.delete_page(self.get_selected_page(), self.link.callback(Msg::OnPageDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnPageDeleted(result) => {
                 if result.is_ok() {
                     self.selected_index = None;
                     self.show_delete_dialog = false;
-                    self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+                    self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
                 } else {
                     log::error!("{}", result.err().unwrap().error.to_string().as_str());
                     let page = self.get_selected_page();
@@ -185,7 +182,7 @@ impl Component for SimplePagesPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.simple_pages")));
-            self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+            self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
         }
     }
 }

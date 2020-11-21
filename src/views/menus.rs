@@ -109,8 +109,8 @@ impl Component for MenusPage {
             Msg::OnEditMenuClick => self.menu_to_edit = Some(self.get_selected_menu()),
             Msg::OnDeleteMenuClick => self.show_delete_dialog = true,
             Msg::OnMenusLoaded(result) => {
-                if result.is_ok() {
-                    self.menus = result.unwrap().items;
+                if let Ok(list) = result {
+                    self.menus = list.items;
                     self.rows = self.menus.iter().enumerate().map(|(_, item)| {
                         let logo_name = if item.logo.is_some() {
                             item.logo.as_ref().unwrap().name.to_string()

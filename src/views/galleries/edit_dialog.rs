@@ -91,16 +91,16 @@ impl Component for EditDialog {
             EditDialogMsg::OnEditPrimary => {
                 if !self.gallery.name.is_empty() {
                     self.saving = true;
-                    self.update_gallery_task = Some(self.gallery_service.update_gallery(self.gallery.clone(), self.link.callback(|result| EditDialogMsg::OnUpdated(result))));
+                    self.update_gallery_task = Some(self.gallery_service.update_gallery(self.gallery.clone(), self.link.callback(EditDialogMsg::OnUpdated)));
                 }
             }
             EditDialogMsg::OnEditSecondary => self.on_discard_changes.emit(()),
             EditDialogMsg::OnUpdated(result) => {
-                if result.is_ok() {
+                if let Ok(ok) = result {
                     self.alert_visible = true;
                     self.alert_type = AlertType::Information;
                     self.alert_message = self.translator.translate("galleries.edit.saving");
-                    self.on_save_changes.emit(result.unwrap())
+                    self.on_save_changes.emit(ok)
                 } else {
                     self.alert_visible = true;
                     self.alert_message = match result.err().unwrap().status_code {

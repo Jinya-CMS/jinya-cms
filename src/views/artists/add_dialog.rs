@@ -115,7 +115,7 @@ impl Component for AddDialog {
             roles: vec![],
             is_open: props.is_open,
             available_roles_options: available_roles.clone(),
-            available_roles_original_options: available_roles.clone(),
+            available_roles_original_options: available_roles,
             id: None,
         }
     }
@@ -126,7 +126,7 @@ impl Component for AddDialog {
                 if !self.artist_name.is_empty() && !self.password.is_empty() && !self.email.is_empty() {
                     self.saving = true;
                     let roles = self.roles.iter().map(|item| item.value.clone()).collect();
-                    self.add_artist_task = Some(self.artist_service.add_artist(self.artist_name.clone(), self.email.clone(), self.password.clone(), roles, self.link.callback(|result| AddDialogMsg::OnArtistCreated(result))));
+                    self.add_artist_task = Some(self.artist_service.add_artist(self.artist_name.clone(), self.email.clone(), self.password.clone(), roles, self.link.callback(AddDialogMsg::OnArtistCreated)));
                 }
             }
             AddDialogMsg::OnAddSecondary => self.on_discard_changes.emit(()),
@@ -134,13 +134,15 @@ impl Component for AddDialog {
                 self.selected_file = Some(files[0].clone());
             }
             AddDialogMsg::OnArtistCreated(result) => {
-                if result.is_ok() && self.selected_file.is_some() {
-                    let file = self.selected_file.as_ref().unwrap().clone();
-                    self.id = Some(result.unwrap().id);
-                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| AddDialogMsg::OnReadFile(data))).unwrap());
-                    self.saving = false;
-                } else if result.is_ok() {
-                    self.on_save_changes.emit(());
+                if let Ok(artist) = result {
+                    if self.selected_file.is_some() {
+                        let file = self.selected_file.as_ref().unwrap().clone();
+                        self.id = Some(artist.id);
+                        self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(AddDialogMsg::OnReadFile)).unwrap());
+                        self.saving = false;
+                    } else {
+                        self.on_save_changes.emit(());
+                    }
                 } else {
                     let error = result.err().unwrap();
                     self.alert_visible = true;
@@ -153,7 +155,7 @@ impl Component for AddDialog {
                 }
             }
             AddDialogMsg::OnReadFile(data) => {
-                self.upload_profile_picture_task = Some(self.artist_service.upload_profile_picture(self.id.unwrap(), data.content, self.link.callback(|result| AddDialogMsg::OnProfilePictureUploaded(result))))
+                self.upload_profile_picture_task = Some(self.artist_service.upload_profile_picture(self.id.unwrap(), data.content, self.link.callback(AddDialogMsg::OnProfilePictureUploaded)))
             }
             AddDialogMsg::OnArtistNameInput(value) => {
                 self.artist_name = value;
@@ -198,14 +200,14 @@ impl Component for AddDialog {
             AddDialogMsg::OnRoleSelected(value) => {
                 self.roles.push(value.clone());
                 let options_idx = self.available_roles_options.iter().position(|item| item.value.eq(&value.value));
-                if options_idx.is_some() {
-                    self.available_roles_options.remove(options_idx.unwrap());
+                if let Some(idx) =options_idx {
+                    self.available_roles_options.remove(idx);
                 }
             }
             AddDialogMsg::OnRoleDeselected(value) => {
                 let index = self.roles.binary_search_by(|item| item.value.cmp(&value.value));
-                if index.is_ok() {
-                    self.roles.remove(index.unwrap());
+                if let Ok(idx) = index {
+                    self.roles.remove(idx);
                 }
             }
             AddDialogMsg::OnRolesFilter(value) => {

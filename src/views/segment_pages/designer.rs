@@ -153,23 +153,23 @@ impl Component for SegmentPageDesignerPage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnSegmentsLoaded(data) => {
-                if data.is_ok() {
-                    self.segments = data.unwrap()
+            Msg::OnSegmentsLoaded(result) => {
+                if let Ok(segments) = result {
+                    self.segments = segments
                 } else {
                     Toast::negative_toast(self.translator.translate("segment_pages.designer.error_load_segments"))
                 }
             }
-            Msg::OnFilesLoaded(data) => {
-                if data.is_ok() {
-                    let items = data.unwrap().items;
-                    self.files = items.iter().map(|item| {
+            Msg::OnFilesLoaded(result) => {
+                if let Ok(list) = result {
+                    let files = list.items;
+                    self.files = files.iter().map(|item| {
                         DropdownItem {
                             value: item.name.to_string(),
                             text: item.name.to_string(),
                         }
                     }).collect();
-                    self.fetched_files = items;
+                    self.fetched_files = files;
                     if self.is_new {
                         self.edit_segment_file_name = Some(self.files.first().unwrap().value.to_string());
                     }
@@ -177,9 +177,9 @@ impl Component for SegmentPageDesignerPage {
                     Toast::negative_toast(self.translator.translate("segment_pages.designer.error_load_files"))
                 }
             }
-            Msg::OnGalleriesLoaded(data) => {
-                if data.is_ok() {
-                    let items = data.unwrap().items;
+            Msg::OnGalleriesLoaded(result) => {
+                if let Ok(list) = result {
+                    let items = list.items;
                     self.galleries = items.iter().map(|item| {
                         DropdownItem {
                             value: item.name.to_string(),
@@ -198,33 +198,31 @@ impl Component for SegmentPageDesignerPage {
                 event.prevent_default();
                 self.segment_to_delete = Some(self.segments[idx].clone());
             }
-            Msg::OnDeleteApprove => self.delete_segment_task = Some(self.segment_service.delete_segment(self.id, self.segment_to_delete.as_ref().unwrap().position, self.link.callback(|result| Msg::OnDeleteRequestCompleted(result)))),
+            Msg::OnDeleteApprove => self.delete_segment_task = Some(self.segment_service.delete_segment(self.id, self.segment_to_delete.as_ref().unwrap().position, self.link.callback(Msg::OnDeleteRequestCompleted))),
             Msg::OnDeleteDecline => self.segment_to_delete = None,
             Msg::OnDeleteRequestCompleted(result) => {
                 self.segment_to_delete = None;
                 if result.is_err() {
                     Toast::negative_toast(self.translator.translate("segment_pages.designer.delete.failed"))
                 } else {
-                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
+                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(Msg::OnSegmentsLoaded)));
                 }
             }
             Msg::OnEditSegment(event, idx) => {
                 event.prevent_default();
                 self.segment_to_edit = Some(self.segments[idx].clone());
                 let segment = self.segment_to_edit.as_ref().unwrap();
-                if self.tiny_mce.is_some() {
-                    self.tiny_mce.as_ref().unwrap().destroy_editor();
+                if let Some(tiny_mce) = self.tiny_mce.as_ref() {
+                    tiny_mce.destroy_editor();
                 }
-                if segment.gallery.is_some() {
-                    let gallery = segment.gallery.as_ref().unwrap();
+                if let Some(gallery) = segment.gallery.as_ref() {
                     self.edit_segment_gallery_name = Some(gallery.name.to_string());
-                    self.load_galleries_task = Some(self.gallery_service.get_list("".to_string(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
-                } else if segment.file.is_some() {
-                    let file = segment.file.as_ref().unwrap();
+                    self.load_galleries_task = Some(self.gallery_service.get_list("".to_string(), self.link.callback(Msg::OnGalleriesLoaded)));
+                } else if let Some(file) = segment.file.as_ref() {
                     self.edit_segment_file_name = Some(file.name.to_string());
                     self.edit_segment_file_target = segment.target.clone();
                     self.edit_segment_file_action = segment.action.is_some() && segment.action.as_ref().unwrap().eq("link");
-                    self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|result| Msg::OnFilesLoaded(result))));
+                    self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(Msg::OnFilesLoaded)));
                 }
             }
             Msg::OnGallerySelect(item) => self.edit_segment_gallery_name = Some(item),
@@ -232,20 +230,20 @@ impl Component for SegmentPageDesignerPage {
                 let segment_to_edit = self.segment_to_edit.as_ref().unwrap();
                 let name = self.edit_segment_gallery_name.as_ref().unwrap();
                 let gallery = self.fetched_galleries.iter().find(move |item| item.name.eq(name));
-                if gallery.is_some() {
+                if let Some(gallery) = gallery {
                     if self.is_new {
-                        self.create_gallery_segment_task = Some(self.segment_service.create_gallery_segment(self.id, self.get_new_position(), gallery.unwrap().id, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                        self.create_gallery_segment_task = Some(self.segment_service.create_gallery_segment(self.id, self.get_new_position(), gallery.id, self.link.callback(Msg::OnAddRequestCompleted)));
                     } else {
-                        self.update_gallery_segment_task = Some(self.segment_service.update_gallery_segment(self.id, segment_to_edit.position, gallery.unwrap().id, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                        self.update_gallery_segment_task = Some(self.segment_service.update_gallery_segment(self.id, segment_to_edit.position, gallery.id, self.link.callback(Msg::OnUpdateRequestCompleted)));
                     }
                 }
             }
             Msg::OnDiscardUpdateGallerySegment => {
                 if self.is_new {
-                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position;
                     let position = self.segments.iter().position(|item| item.position == segment_position);
-                    if position.is_some() {
-                        self.segments.remove(position.unwrap());
+                    if let Some(position) = position {
+                        self.segments.remove(position);
                     }
                 }
                 self.segment_to_edit = None;
@@ -257,9 +255,9 @@ impl Component for SegmentPageDesignerPage {
                 if result.is_ok() {
                     self.segment_to_edit = None;
                     self.edit_segment_gallery_name = None;
-                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
-                    if self.tiny_mce.is_some() {
-                        self.tiny_mce.as_ref().unwrap().destroy_editor();
+                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(Msg::OnSegmentsLoaded)));
+                    if let Some(tiny_mce) = self.tiny_mce.as_ref() {
+                        tiny_mce.destroy_editor();
                         self.tiny_mce = None;
                     }
                 } else {
@@ -270,17 +268,17 @@ impl Component for SegmentPageDesignerPage {
                 let segment_to_edit = self.segment_to_edit.as_ref().unwrap();
                 let content = self.tiny_mce.as_ref().unwrap().get_content();
                 if self.is_new {
-                    self.create_html_segment_task = Some(self.segment_service.create_html_segment(self.id, self.get_new_position(), content, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                    self.create_html_segment_task = Some(self.segment_service.create_html_segment(self.id, self.get_new_position(), content, self.link.callback(Msg::OnAddRequestCompleted)));
                 } else {
-                    self.update_html_segment_task = Some(self.segment_service.update_html_segment(self.id, segment_to_edit.position, content, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                    self.update_html_segment_task = Some(self.segment_service.update_html_segment(self.id, segment_to_edit.position, content, self.link.callback(Msg::OnUpdateRequestCompleted)));
                 }
             }
             Msg::OnDiscardUpdateHtmlSegment => {
                 if self.is_new {
-                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position;
                     let position = self.segments.iter().position(|item| item.position == segment_position);
-                    if position.is_some() {
-                        self.segments.remove(position.unwrap());
+                    if let Some(position) = position {
+                        self.segments.remove(position);
                     }
                 }
                 self.segment_to_edit = None;
@@ -301,20 +299,20 @@ impl Component for SegmentPageDesignerPage {
                     "".to_string()
                 };
                 let file = self.fetched_files.iter().find(move |item| item.name.eq(name));
-                if file.is_some() {
+                if let Some(file) = file {
                     if self.is_new {
-                        self.create_file_segment_task = Some(self.segment_service.create_file_segment(self.id, self.get_new_position(), file.unwrap().id, !target.is_empty(), target, self.link.callback(|result| Msg::OnAddRequestCompleted(result))));
+                        self.create_file_segment_task = Some(self.segment_service.create_file_segment(self.id, self.get_new_position(), file.id, !target.is_empty(), target, self.link.callback(Msg::OnAddRequestCompleted)));
                     } else {
-                        self.update_file_segment_task = Some(self.segment_service.update_file_segment(self.id, segment_to_edit.position, file.unwrap().id, self.edit_segment_file_action, target, self.link.callback(|result| Msg::OnUpdateRequestCompleted(result))));
+                        self.update_file_segment_task = Some(self.segment_service.update_file_segment(self.id, segment_to_edit.position, file.id, self.edit_segment_file_action, target, self.link.callback(Msg::OnUpdateRequestCompleted)));
                     }
                 }
             }
             Msg::OnDiscardUpdateFileSegment => {
                 if self.is_new {
-                    let segment_position = self.segment_to_edit.as_ref().unwrap().position.clone();
+                    let segment_position = self.segment_to_edit.as_ref().unwrap().position;
                     let position = self.segments.iter().position(|item| item.position == segment_position);
-                    if position.is_some() {
-                        self.segments.remove(position.unwrap());
+                    if let Some(position) = position {
+                        self.segments.remove(position);
                     }
                 }
                 self.segment_to_edit = None;
@@ -333,29 +331,23 @@ impl Component for SegmentPageDesignerPage {
                 }
             }
             Msg::OnNewGalleryDragStart(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                     self.new_segment_type = Some(NewSegmentType::Gallery);
                 }
             }
             Msg::OnNewFileDragStart(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                     self.new_segment_type = Some(NewSegmentType::File);
                 }
             }
             Msg::OnNewHtmlDragStart(event) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                     self.new_segment_type = Some(NewSegmentType::Html);
                 }
             }
@@ -373,7 +365,7 @@ impl Component for SegmentPageDesignerPage {
                     let new_position = self.get_new_position();
                     let selected_segment_idx = self.selected_segment.unwrap();
                     let selected_segment = self.segments[selected_segment_idx].clone();
-                    self.move_segment_task = Some(self.segment_service.move_segment(self.id, selected_segment.position, new_position, self.link.callback(|result| Msg::OnMoveRequestCompleted(result))));
+                    self.move_segment_task = Some(self.segment_service.move_segment(self.id, selected_segment.position, new_position, self.link.callback(Msg::OnMoveRequestCompleted)));
                 } else {
                     let current_segment_idx = self.current_segment.unwrap();
                     let current_segment_position = self.get_new_position();
@@ -395,15 +387,15 @@ impl Component for SegmentPageDesignerPage {
                     } else {
                         self.segments.insert(current_segment_idx, new_segment.clone());
                     }
-                    self.segment_to_edit = Some(new_segment.clone());
+                    self.segment_to_edit = Some(new_segment);
 
                     match self.new_segment_type.as_ref().unwrap() {
                         NewSegmentType::Gallery => {
-                            self.load_galleries_task = Some(self.gallery_service.get_list("".to_string(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
+                            self.load_galleries_task = Some(self.gallery_service.get_list("".to_string(), self.link.callback(Msg::OnGalleriesLoaded)));
                             self.edit_segment_gallery_name = Some("".to_string());
                         }
                         NewSegmentType::File => {
-                            self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|result| Msg::OnFilesLoaded(result))));
+                            self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(Msg::OnFilesLoaded)));
                             self.edit_segment_file_target = Some("".to_string());
                             self.edit_segment_file_action = false;
                             self.edit_segment_file_name = Some("".to_string());
@@ -421,7 +413,7 @@ impl Component for SegmentPageDesignerPage {
                     self.current_segment = None;
                     self.edit_segment_gallery_name = None;
                     self.is_new = false;
-                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
+                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(Msg::OnSegmentsLoaded)));
                     if self.tiny_mce.is_some() {
                         self.tiny_mce.as_ref().unwrap().destroy_editor();
                         self.tiny_mce = None;
@@ -437,7 +429,7 @@ impl Component for SegmentPageDesignerPage {
                     self.current_segment = None;
                     self.edit_segment_gallery_name = None;
                     self.is_new = false;
-                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
+                    self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(Msg::OnSegmentsLoaded)));
                     if self.tiny_mce.is_some() {
                         self.tiny_mce.as_ref().unwrap().destroy_editor();
                         self.tiny_mce = None;
@@ -447,12 +439,9 @@ impl Component for SegmentPageDesignerPage {
                 }
             }
             Msg::OnSegmentDragStart(event, idx) => {
-                let data_transfer = event.data_transfer();
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
-                    self.new_segment_type = Some(NewSegmentType::File);
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                 }
                 self.selected_segment = Some(idx);
             }
@@ -702,7 +691,7 @@ impl Component for SegmentPageDesignerPage {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.segment_pages")));
             self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
-            self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(|data| Msg::OnSegmentsLoaded(data))));
+            self.load_segments_task = Some(self.segment_service.get_segments(self.id, self.link.callback(Msg::OnSegmentsLoaded)));
         }
 
         if self.segment_to_edit.is_some() {

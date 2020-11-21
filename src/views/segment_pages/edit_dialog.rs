@@ -84,12 +84,12 @@ impl Component for EditDialog {
             EditDialogMsg::OnEditPrimary => {
                 if !self.segment_page.name.is_empty() {
                     self.saving = true;
-                    self.change_segment_page_task = Some(self.segment_page_service.update_segment_page(self.segment_page.id, SegmentPage::from_name(self.segment_page.name.to_string()), self.link.callback(|result| EditDialogMsg::OnUpdated(result))));
+                    self.change_segment_page_task = Some(self.segment_page_service.update_segment_page(self.segment_page.id, SegmentPage::from_name(self.segment_page.name.to_string()), self.link.callback(EditDialogMsg::OnUpdated)));
                 }
             }
             EditDialogMsg::OnEditSecondary => self.on_discard_changes.emit(()),
             EditDialogMsg::OnUpdated(result) => {
-                if !(result.is_ok()) {
+                if result.is_err() {
                     self.alert_visible = true;
                     self.alert_message = match result.err().unwrap().status_code {
                         StatusCode::CONFLICT => self.translator.translate("segment_pages.edit.error_conflict"),

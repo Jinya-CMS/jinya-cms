@@ -10,7 +10,6 @@ use yew::{Component, ComponentLink, Html};
 use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
-use yew_router::agent::RouteAgent;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest};
 use crate::ajax::AjaxError;
@@ -37,7 +36,6 @@ pub struct LinksPage {
     translator: Translator,
     load_theme_task: Option<FetchTask>,
     load_theme_config_structure_task: Option<FetchTask>,
-    route_dispatcher: Dispatcher<RouteAgent>,
     links: Option<ThemeLinks>,
 
     load_segment_pages_task: Option<FetchTask>,
@@ -117,7 +115,6 @@ impl Component for LinksPage {
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let menu_dispatcher = MenuAgent::dispatcher();
-        let route_dispatcher = RouteAgent::dispatcher();
 
         LinksPage {
             link,
@@ -127,7 +124,6 @@ impl Component for LinksPage {
             translator: Translator::new(),
             load_theme_task: None,
             load_theme_config_structure_task: None,
-            route_dispatcher,
             links: None,
             load_segment_pages_task: None,
             load_selected_segment_pages_task: None,

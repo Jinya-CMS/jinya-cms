@@ -54,7 +54,7 @@ impl Component for TwoFactorPage {
             link,
             code: "".to_string(),
             image_task: None,
-            image_seed: seed.to_string(),
+            image_seed: seed,
             image_credits: "".to_string(),
             image_meta_task: None,
             translator: Translator::new(),
@@ -69,11 +69,11 @@ impl Component for TwoFactorPage {
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
             Msg::OnImageTaskFetched(picsum_id) => {
-                self.image_meta_task = Some(self.picsum_service.fetch_picsum_metadata(picsum_id, self.link.callback(|data| Msg::OnImageMetaFetched(data))))
+                self.image_meta_task = Some(self.picsum_service.fetch_picsum_metadata(picsum_id, self.link.callback(Msg::OnImageMetaFetched)))
             }
-            Msg::OnImageMetaFetched(picsum_meta) => {
-                if picsum_meta.is_ok() {
-                    self.image_credits = picsum_meta.unwrap().author;
+            Msg::OnImageMetaFetched(result) => {
+                if let Ok(picsum_meta) = result {
+                    self.image_credits = picsum_meta.author;
                 }
             }
             Msg::OnLogin => {
@@ -81,7 +81,7 @@ impl Component for TwoFactorPage {
                     AuthenticationStorage::get_username().unwrap(),
                     AuthenticationStorage::get_password().unwrap(),
                     Some(self.code.to_string()),
-                    self.link.callback(|result| Msg::OnLoginFinished(result))));
+                    self.link.callback(Msg::OnLoginFinished)));
             }
             Msg::OnCode(value) => {
                 self.code = value;
@@ -133,7 +133,7 @@ impl Component for TwoFactorPage {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(|id| Msg::OnImageTaskFetched(id))));
+            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(Msg::OnImageTaskFetched)));
         }
     }
 }

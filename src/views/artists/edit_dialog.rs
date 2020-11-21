@@ -116,7 +116,7 @@ impl Component for EditDialog {
             email: artist.email,
             roles: current_roles,
             available_roles_options: available_roles.clone(),
-            available_roles_original_options: available_roles.clone(),
+            available_roles_original_options: available_roles,
             id: artist.id,
         }
     }
@@ -128,9 +128,9 @@ impl Component for EditDialog {
                     self.saving = true;
                     let roles = self.roles.iter().map(|item| item.value.clone()).collect();
                     if self.password.is_empty() {
-                        self.edit_artist_task = Some(self.artist_service.update_artist_without_password(self.id, self.artist_name.clone(), self.email.clone(), roles, self.link.callback(|result| EditDialogMsg::OnArtistUpdated(result))));
+                        self.edit_artist_task = Some(self.artist_service.update_artist_without_password(self.id, self.artist_name.clone(), self.email.clone(), roles, self.link.callback(EditDialogMsg::OnArtistUpdated)));
                     } else {
-                        self.edit_artist_task = Some(self.artist_service.update_artist(self.id, self.artist_name.clone(), self.email.clone(), self.password.clone(), roles, self.link.callback(|result| EditDialogMsg::OnArtistUpdated(result))));
+                        self.edit_artist_task = Some(self.artist_service.update_artist(self.id, self.artist_name.clone(), self.email.clone(), self.password.clone(), roles, self.link.callback(EditDialogMsg::OnArtistUpdated)));
                     }
                 }
             }
@@ -141,7 +141,7 @@ impl Component for EditDialog {
             EditDialogMsg::OnArtistUpdated(result) => {
                 if result.is_ok() && self.selected_file.is_some() {
                     let file = self.selected_file.as_ref().unwrap().clone();
-                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| EditDialogMsg::OnReadFile(data))).unwrap());
+                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(EditDialogMsg::OnReadFile)).unwrap());
                     self.saving = false;
                 } else if result.is_ok() {
                     self.on_save_changes.emit(());
@@ -157,7 +157,7 @@ impl Component for EditDialog {
                 }
             }
             EditDialogMsg::OnReadFile(data) => {
-                self.upload_profile_picture_task = Some(self.artist_service.upload_profile_picture(self.id, data.content, self.link.callback(|result| EditDialogMsg::OnProfilePictureUploaded(result))))
+                self.upload_profile_picture_task = Some(self.artist_service.upload_profile_picture(self.id, data.content, self.link.callback(EditDialogMsg::OnProfilePictureUploaded)))
             }
             EditDialogMsg::OnArtistNameInput(value) => {
                 self.artist_name = value;
@@ -202,14 +202,14 @@ impl Component for EditDialog {
             EditDialogMsg::OnRoleSelected(value) => {
                 self.roles.push(value.clone());
                 let options_idx = self.available_roles_options.iter().position(|item| item.value.eq(&value.value));
-                if options_idx.is_some() {
-                    self.available_roles_options.remove(options_idx.unwrap());
+                if let Some(idx)  = options_idx {
+                    self.available_roles_options.remove(idx);
                 }
             }
             EditDialogMsg::OnRoleDeselected(value) => {
                 let index = self.roles.binary_search_by(|item| item.value.cmp(&value.value));
-                if index.is_ok() {
-                    self.roles.remove(index.unwrap());
+                if  let Ok(idx)  = index {
+                    self.roles.remove(idx);
                 }
             }
             EditDialogMsg::OnRolesFilter(value) => {

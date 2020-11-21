@@ -115,8 +115,8 @@ impl Component for JinyaDesignerApp {
             AppRoute::Login.into()
         };
 
-        let router = RouteAgent::bridge(link.callback(|route| Msg::OnRouteChanged(route)));
-        let menu_agent = MenuAgent::bridge(link.callback(|data| Msg::OnMenuAgentResponse(data)));
+        let router = RouteAgent::bridge(link.callback(Msg::OnRouteChanged));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         let translator = Translator::new();
 
         JinyaDesignerApp {
@@ -205,7 +205,7 @@ impl Component for JinyaDesignerApp {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            self.check_api_key_task = Some(AuthenticationService::new().check_api_key(self.link.callback(|valid| Msg::OnAuthenticationChecked(valid))));
+            self.check_api_key_task = Some(AuthenticationService::new().check_api_key(self.link.callback(Msg::OnAuthenticationChecked)));
         }
     }
 }
@@ -283,12 +283,12 @@ impl JinyaDesignerApp {
                     SubItem {
                         label: self.translator.translate("app.menu.my_jinya.my_account.change_password"),
                         route: None,
-                        on_click: Some(self.link.callback(|event| Msg::OnChangePassword(event))),
+                        on_click: Some(self.link.callback(Msg::OnChangePassword)),
                     },
                     SubItem {
                         label: self.translator.translate("app.menu.my_jinya.my_account.logout"),
                         route: None,
-                        on_click: Some(self.link.callback(|event| Msg::OnLogout(event))),
+                        on_click: Some(self.link.callback(Msg::OnLogout)),
                     },
                 ],
             },

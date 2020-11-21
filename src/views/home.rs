@@ -47,11 +47,11 @@ impl Component for HomePage {
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
             Msg::OnImageTaskFetched(picsum_id) => {
-                self.image_meta_task = Some(self.picsum_service.fetch_picsum_metadata(picsum_id, self.link.callback(|infos| Msg::OnImageMetaFetched(infos))))
+                self.image_meta_task = Some(self.picsum_service.fetch_picsum_metadata(picsum_id, self.link.callback(Msg::OnImageMetaFetched)))
             }
-            Msg::OnImageMetaFetched(picsum_meta) => {
-                if picsum_meta.is_ok() {
-                    self.image_credits = picsum_meta.unwrap().author;
+            Msg::OnImageMetaFetched(result) => {
+                if let Ok(picsum_meta) = result {
+                    self.image_credits = picsum_meta.author;
                 }
             }
             Msg::Ignore => {}
@@ -77,7 +77,7 @@ impl Component for HomePage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::HideSearch);
-            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(|id| Msg::OnImageTaskFetched(id))));
+            self.image_task = Some(self.picsum_service.get_picsum_id(&self.image_seed, self.link.callback(Msg::OnImageTaskFetched)));
         }
     }
 }

@@ -78,7 +78,7 @@ impl FileService {
 
     pub fn upload_chunk(&self, file: &File, file_data: FileData, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/media/file/{}/content/0", get_host(), file.id);
-        let request = put_request_with_binary_body(url, Ok(file_data.clone().content));
+        let request = put_request_with_binary_body(url, Ok(file_data.content));
         let handler = move |response: Response<Json<Result<(), Error>>>| {
             let (meta, Json(_)) = response.into_parts();
             if meta.status.is_success() {

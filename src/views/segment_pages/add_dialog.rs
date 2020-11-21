@@ -83,12 +83,12 @@ impl Component for AddDialog {
             AddDialogMsg::OnAddPrimary => {
                 if !self.name.is_empty() {
                     self.saving = true;
-                    self.create_segment_page_task = Some(self.segment_page_service.create_segment_page(SegmentPage::from_name(self.name.to_string()), self.link.callback(|result| AddDialogMsg::OnAdded(result))));
+                    self.create_segment_page_task = Some(self.segment_page_service.create_segment_page(SegmentPage::from_name(self.name.to_string()), self.link.callback(AddDialogMsg::OnAdded)));
                 }
             }
             AddDialogMsg::OnAddSecondary => self.on_discard_changes.emit(()),
             AddDialogMsg::OnAdded(result) => {
-                if !(result.is_ok()) {
+                if result.is_err() {
                     self.alert_visible = true;
                     self.alert_message = match result.err().unwrap().status_code {
                         StatusCode::CONFLICT => self.translator.translate("segment_pages.add.error_conflict"),

@@ -69,7 +69,7 @@ impl Component for SegmentPagesPage {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         let router_agent = RouteAgent::bridge(link.callback(|_| Msg::Ignore));
 
         SegmentPagesPage {
@@ -108,8 +108,8 @@ impl Component for SegmentPagesPage {
             Msg::OnEditPageClick => self.page_to_edit = Some(self.get_selected_page()),
             Msg::OnDeletePageClick => self.show_delete_dialog = true,
             Msg::OnPagesLoaded(result) => {
-                if result.is_ok() {
-                    self.segment_pages = result.unwrap().items;
+                if let Ok(list) = result {
+                    self.segment_pages = list.items;
                     self.rows = self.segment_pages.iter().enumerate().map(|(_, item)| {
                         TableRow::new(vec![
                             TableCell {
@@ -118,7 +118,7 @@ impl Component for SegmentPagesPage {
                             },
                             TableCell {
                                 key: "segment_count".to_string(),
-                                value: format!("{}", item.segment_count).to_string(),
+                                value: format!("{}", item.segment_count),
                             },
                         ])
                     }).collect();
@@ -127,17 +127,14 @@ impl Component for SegmentPagesPage {
                 }
             }
             Msg::OnPageSelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => self.keyword = value,
-                _ => {}
-            },
-            Msg::OnDeleteApprove => self.delete_page_task = Some(self.segment_page_service.delete_segment_page(self.get_selected_page(), self.link.callback(|result| Msg::OnPageDeleted(result)))),
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnDeleteApprove => self.delete_page_task = Some(self.segment_page_service.delete_segment_page(self.get_selected_page(), self.link.callback(Msg::OnPageDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnPageDeleted(result) => {
                 if result.is_ok() {
                     self.selected_index = None;
                     self.show_delete_dialog = false;
-                    self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+                    self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
                 } else {
                     log::error!("{}", result.err().unwrap().error.to_string().as_str());
                     let page = self.get_selected_page();
@@ -149,12 +146,12 @@ impl Component for SegmentPagesPage {
             Msg::OnSaveAdd => {
                 self.selected_index = None;
                 self.show_add_dialog = false;
-                self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+                self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
             }
             Msg::OnSaveEdit => {
                 self.selected_index = None;
                 self.page_to_edit = None;
-                self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+                self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
             }
             Msg::OnDiscardAdd => self.show_add_dialog = false,
             Msg::OnDiscardEdit => self.page_to_edit = None,
@@ -226,7 +223,7 @@ impl Component for SegmentPagesPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.pages.segment_pages")));
-            self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnPagesLoaded(result))));
+            self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
         }
     }
 }

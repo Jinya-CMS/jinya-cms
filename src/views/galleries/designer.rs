@@ -1,5 +1,3 @@
-use core::cmp::Ordering;
-
 use jinya_ui::layout::page::Page;
 use jinya_ui::widgets::toast::Toast;
 use serde::Serialize;
@@ -53,6 +51,7 @@ pub struct GalleryDesignerPage {
     selected_file: Option<usize>,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum GalleryDesignerMsg {
     OnFilesLoaded(Result<ListModel<File>, AjaxError>),
     OnGalleryFilesLoaded(Result<Vec<GalleryFile>, AjaxError>),
@@ -102,23 +101,19 @@ impl Component for GalleryDesignerPage {
         match msg {
             GalleryDesignerMsg::OnFilesLoaded(items) => self.files = items.unwrap().items,
             GalleryDesignerMsg::OnFileDrag(event, idx) => {
-                let data_transfer = event.data_transfer();
                 self.selected_position_type = Some(PositionOrFile::File);
                 self.selected_file = Some(idx);
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                 }
             }
             GalleryDesignerMsg::OnPositionDragStart(event, idx) => {
-                let data_transfer = event.data_transfer();
                 self.selected_position_type = Some(PositionOrFile::Position);
                 self.selected_position = Some(idx);
-                if data_transfer.is_some() {
-                    let data_transfer_unwrapped = data_transfer.unwrap();
-                    data_transfer_unwrapped.set_drop_effect("copy");
-                    data_transfer_unwrapped.set_effect_allowed("copy");
+                if let Some(data_transfer) = event.data_transfer() {
+                    data_transfer.set_drop_effect("copy");
+                    data_transfer.set_effect_allowed("copy");
                 }
             }
             GalleryDesignerMsg::OnPositionDrop(event) => {
@@ -137,11 +132,11 @@ impl Component for GalleryDesignerPage {
                     match self.selected_position_type.as_ref().unwrap() {
                         PositionOrFile::Position => {
                             let old_position = self.gallery_files[self.selected_position.unwrap()].position;
-                            self.gallery_file_update_task = Some(self.gallery_file_service.update_position(self.id, old_position, new_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionUpdated(result))));
+                            self.gallery_file_update_task = Some(self.gallery_file_service.update_position(self.id, old_position, new_position, self.link.callback(GalleryDesignerMsg::OnPositionUpdated)));
                         }
                         PositionOrFile::File => {
                             let file = self.files[self.selected_file.unwrap()].clone();
-                            self.gallery_file_create_task = Some(self.gallery_file_service.create_position(self.id, file.id, new_position, self.link.callback(move |result| GalleryDesignerMsg::OnPositionAdded(result))));
+                            self.gallery_file_create_task = Some(self.gallery_file_service.create_position(self.id, file.id, new_position, self.link.callback(GalleryDesignerMsg::OnPositionAdded)));
                         }
                     }
 
@@ -163,7 +158,7 @@ impl Component for GalleryDesignerPage {
                 if self.selected_position_type.is_some() && self.selected_position_type.as_ref().unwrap().eq(&PositionOrFile::Position) {
                     event.prevent_default();
                     event.stop_propagation();
-                    self.gallery_file_delete_task = Some(self.gallery_file_service.delete_position(self.id, self.selected_position.unwrap(), self.link.callback(|result| GalleryDesignerMsg::OnPositionDeleted(result))));
+                    self.gallery_file_delete_task = Some(self.gallery_file_service.delete_position(self.id, self.selected_position.unwrap(), self.link.callback(GalleryDesignerMsg::OnPositionDeleted)));
 
                     self.selected_position = None;
                     self.current_position = None;
@@ -181,21 +176,21 @@ impl Component for GalleryDesignerPage {
             GalleryDesignerMsg::OnGalleryFilesLoaded(data) => self.gallery_files = data.unwrap(),
             GalleryDesignerMsg::OnPositionDeleted(result) => {
                 if result.is_ok() {
-                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(GalleryDesignerMsg::OnGalleryFilesLoaded)));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_delete"));
                 }
             }
             GalleryDesignerMsg::OnPositionAdded(result) => {
                 if result.is_ok() {
-                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(GalleryDesignerMsg::OnGalleryFilesLoaded)));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_add"))
                 }
             }
             GalleryDesignerMsg::OnPositionUpdated(result) => {
                 if result.is_ok() {
-                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
+                    self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(GalleryDesignerMsg::OnGalleryFilesLoaded)));
                 } else {
                     Toast::negative_toast(self.translator.translate("galleries.designer.error_update"));
                 }
@@ -225,7 +220,7 @@ impl Component for GalleryDesignerPage {
 
     fn view(&self) -> Html {
         let mut gallery_files = self.gallery_files.clone();
-        gallery_files.sort_by(|a, b| if a.position > b.position { Ordering::Greater } else if b.position > a.position { Ordering::Less } else { Ordering::Equal });
+        gallery_files.sort_by(|a, b| a.position.cmp(&b.position));
         html! {
             <Page>
                 <div class="jinya-designer-gallery-designer__container">
@@ -293,8 +288,8 @@ impl Component for GalleryDesignerPage {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(|result| GalleryDesignerMsg::OnGalleryFilesLoaded(result))));
-            self.file_loader_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|result| GalleryDesignerMsg::OnFilesLoaded(result))));
+            self.gallery_file_loader_task = Some(self.gallery_file_service.get_positions(self.id, self.link.callback(GalleryDesignerMsg::OnGalleryFilesLoaded)));
+            self.file_loader_task = Some(self.file_service.get_list("".to_string(), self.link.callback(GalleryDesignerMsg::OnFilesLoaded)));
         }
     }
 }

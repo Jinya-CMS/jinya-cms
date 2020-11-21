@@ -8,7 +8,6 @@ use jinya_ui::widgets::floating_action_button::Fab;
 use jinya_ui::widgets::toast::Toast;
 use yew::{Bridge, Bridged, Component, ComponentLink, Html};
 use yew::prelude::*;
-use yew::services::ConsoleService;
 use yew::services::fetch::FetchTask;
 
 use add_dialog::AddDialog;
@@ -63,7 +62,7 @@ impl Component for FilesPage {
     type Properties = ();
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         FilesPage {
             link,
             menu_agent,
@@ -84,19 +83,16 @@ impl Component for FilesPage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnFilesLoaded(list) => {
-                if list.is_ok() {
-                    self.files = list.unwrap().items
+            Msg::OnFilesLoaded(result) => {
+                if let Ok(list) = result {
+                    self.files = list.items
                 } else {
-                    ConsoleService::error(list.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string());
                 }
             }
-            Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => {
-                    self.keyword = value;
-                    self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
-                }
-                _ => {}
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnFilesLoaded)));
             },
             Msg::OnFileSelected(idx) => self.selected_file = Some(self.files[idx].clone()),
             Msg::OnUploadFileClicked => self.add_file_open = true,
@@ -107,14 +103,14 @@ impl Component for FilesPage {
                     if result.is_ok() {
                         Msg::OnFileDeleted
                     } else {
-                        ConsoleService::error(result.err().unwrap().error.to_string().as_str());
+                        log::error!("{}", result.err().unwrap().error.to_string());
                         Msg::OnDeleteFailed
                     }
                 })))
             }
             Msg::OnDeleteDecline => self.file_to_delete = None,
             Msg::OnFileDeleted => {
-                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnFilesLoaded)));
                 self.file_to_delete = None;
             }
             Msg::OnDeleteFailed => {
@@ -123,13 +119,13 @@ impl Component for FilesPage {
                 self.file_to_delete = None;
             }
             Msg::OnSaveEdit(name) => {
-                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnFilesLoaded)));
                 Toast::positive_toast(self.translator.translate_with_args("files.edit.saved.success", map! {"name" => name.name.as_str()}));
                 self.file_to_edit = None;
             }
             Msg::OnDiscardEdit => self.file_to_edit = None,
             Msg::OnSaveAdd(name) => {
-                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+                self.load_files_task = Some(self.file_service.get_list(self.keyword.to_string(), self.link.callback(Msg::OnFilesLoaded)));
                 Toast::positive_toast(self.translator.translate_with_args("files.add.saved.success", map! {"name" => name.name.as_str()}));
                 self.add_file_open = false
             }
@@ -233,7 +229,7 @@ impl Component for FilesPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.media.files")));
-            self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(|response| Msg::OnFilesLoaded(response))));
+            self.load_files_task = Some(self.file_service.get_list("".to_string(), self.link.callback(Msg::OnFilesLoaded)));
         }
     }
 }

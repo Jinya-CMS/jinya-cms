@@ -89,7 +89,7 @@ impl Component for ChangePasswordDialog {
             ChangePasswordDialogMsg::OnChangePrimary => {
                 if !self.old_password.is_empty() && !self.new_password.is_empty() {
                     self.saving = true;
-                    self.change_password_task = Some(self.authentication_service.change_password(self.old_password.clone(), self.new_password.clone(), self.link.callback(|result| ChangePasswordDialogMsg::OnChanged(result))));
+                    self.change_password_task = Some(self.authentication_service.change_password(self.old_password.clone(), self.new_password.clone(), self.link.callback(ChangePasswordDialogMsg::OnChanged)));
                 }
             }
             ChangePasswordDialogMsg::OnChangeSecondary => self.on_discard_changes.emit(()),

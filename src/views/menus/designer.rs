@@ -17,6 +17,7 @@ pub struct MenuDesignerPageProps {
     pub id: usize,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum Msg {
     OnMenuItemsLoaded(Result<Vec<MenuItem>, AjaxError>),
     OnIncreaseNesting(MouseEvent, Option<MenuItem>, MenuItem),
@@ -63,7 +64,6 @@ pub struct MenuDesignerPage {
     drag_over_item: Option<MenuItem>,
     first_item: bool,
     selected_menu_item: Option<MenuItem>,
-    new_position: Option<usize>,
 }
 
 impl Component for MenuDesignerPage {
@@ -95,7 +95,6 @@ impl Component for MenuDesignerPage {
             drag_over_item: None,
             first_item: false,
             selected_menu_item: None,
-            new_position: None,
         }
     }
 
@@ -152,7 +151,7 @@ impl Component for MenuDesignerPage {
             Msg::OnSaveMenuItemEdit(result) => self.menu_item_update_task = Some(self.menu_item_service.update_menu_item(self.menu_item_to_edit.clone().unwrap().id, result, self.link.callback(Msg::OnMenuItemSaved))),
             Msg::OnDiscardMenuItemEdit => self.menu_item_to_edit = None,
             Msg::OnSaveMenuItemAdd(result) => {
-                let mut item = result.clone();
+                let mut item = result;
                 item.position = Some(if let Some(drag_over_item) = self.drag_over_item.as_ref() {
                     drag_over_item.position + 1
                 } else {

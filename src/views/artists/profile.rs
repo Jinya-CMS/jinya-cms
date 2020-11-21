@@ -59,9 +59,9 @@ impl Component for ProfilePage {
 
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
-            Msg::OnProfileLoaded(artist) => {
-                if artist.is_ok() {
-                    self.profile = Some(artist.unwrap());
+            Msg::OnProfileLoaded(result) => {
+                if let Ok(profile) = result {
+                    self.profile = Some(profile);
                 } else {
                     Toast::negative_toast(self.translator.translate("artists.profile.not_found"));
                     self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Artists)));
@@ -116,7 +116,7 @@ impl Component for ProfilePage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
-            self.load_profile_task = Some(self.artist_service.get_artist(self.id, self.link.callback(|result| Msg::OnProfileLoaded(result))));
+            self.load_profile_task = Some(self.artist_service.get_artist(self.id, self.link.callback(Msg::OnProfileLoaded)));
         }
     }
 }

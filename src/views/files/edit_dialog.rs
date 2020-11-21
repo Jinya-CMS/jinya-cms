@@ -101,7 +101,7 @@ impl Component for EditDialog {
             EditDialogMsg::OnEditPrimary => {
                 if !self.file.name.is_empty() {
                     self.saving = true;
-                    self.change_file_task = Some(self.file_service.update_file(&self.file, self.link.callback(|result| EditDialogMsg::OnUpdated(result))));
+                    self.change_file_task = Some(self.file_service.update_file(&self.file, self.link.callback(EditDialogMsg::OnUpdated)));
                 }
             }
             EditDialogMsg::OnEditSecondary => self.on_discard_changes.emit(()),
@@ -112,7 +112,7 @@ impl Component for EditDialog {
                         self.alert_type = AlertType::Information;
                         self.alert_visible = true;
                         self.alert_message = self.translator.translate("files.edit.saving");
-                        self.start_upload_task = Some(self.file_service.start_file_upload(&self.file, self.link.callback(|result| EditDialogMsg::OnUploadStarted(result))))
+                        self.start_upload_task = Some(self.file_service.start_file_upload(&self.file, self.link.callback(EditDialogMsg::OnUploadStarted)))
                     } else {
                         self.on_save_changes.emit(self.file.clone());
                     }
@@ -129,7 +129,7 @@ impl Component for EditDialog {
             EditDialogMsg::OnUploadStarted(result) => {
                 if result.is_ok() {
                     let file = self.selected_file.as_ref().unwrap().clone();
-                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(|data| EditDialogMsg::OnReadFile(data))).unwrap());
+                    self.reader_task = Some(ReaderService::new().read_file(file, self.link.callback(EditDialogMsg::OnReadFile)).unwrap());
                 } else {
                     self.alert_visible = true;
                     self.alert_message = self.translator.translate("files.edit.error_generic");
@@ -138,7 +138,7 @@ impl Component for EditDialog {
             }
             EditDialogMsg::OnChunkUploaded(result) => {
                 if result.is_ok() {
-                    self.finish_upload_task = Some(self.file_service.finish_file_upload(&self.file, self.link.callback(|result| EditDialogMsg::OnUploadFinished(result))))
+                    self.finish_upload_task = Some(self.file_service.finish_file_upload(&self.file, self.link.callback(EditDialogMsg::OnUploadFinished)))
                 } else {
                     self.alert_visible = true;
                     self.alert_message = self.translator.translate("files.edit.error_generic");
@@ -155,7 +155,7 @@ impl Component for EditDialog {
                 }
             }
             EditDialogMsg::OnReadFile(data) => {
-                self.upload_chunk_task = Some(self.file_service.upload_chunk(&self.file, data, self.link.callback(|result| EditDialogMsg::OnChunkUploaded(result))))
+                self.upload_chunk_task = Some(self.file_service.upload_chunk(&self.file, data, self.link.callback(EditDialogMsg::OnChunkUploaded)))
             }
         }
 

@@ -64,9 +64,8 @@ impl AuthenticationService {
         }
 
         let handler = move |response: Response<Json<Result<LoginResponse, Error>>>| {
-            let (_, Json(data)) = response.into_parts();
-            if data.is_ok() {
-                let response = data.unwrap();
+            let (_, Json(result)) = response.into_parts();
+            if let Ok(response) = result {
                 AuthenticationStorage::set_api_key(&response.api_key);
                 AuthenticationStorage::set_device_code(&response.device_code);
                 AuthenticationStorage::set_roles(response.roles);
@@ -79,7 +78,7 @@ impl AuthenticationService {
         let body = LoginRequest {
             username,
             password,
-            two_factor_code: second_factor.unwrap_or("".to_string()),
+            two_factor_code: second_factor.unwrap_or_else(|| "".to_string()),
         };
         let request = post_request_with_body(url, &body);
         FetchService::fetch(request, handler.into()).unwrap()

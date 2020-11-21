@@ -43,6 +43,7 @@ pub struct AddDialogProps {
     pub is_open: bool,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum AddDialogMsg {
     OnNameInput(String),
     OnDescriptionInput(String),
@@ -96,16 +97,16 @@ impl Component for AddDialog {
             AddDialogMsg::OnAddPrimary => {
                 if !self.name.is_empty() {
                     self.saving = true;
-                    self.create_gallery_task = Some(self.gallery_service.add_gallery(self.name.clone(), self.description.clone(), self.orientation.clone(), self.gallery_type.clone(), self.link.callback(|result| AddDialogMsg::OnAdded(result))));
+                    self.create_gallery_task = Some(self.gallery_service.add_gallery(self.name.clone(), self.description.clone(), self.orientation.clone(), self.gallery_type.clone(), self.link.callback(AddDialogMsg::OnAdded)));
                 }
             }
             AddDialogMsg::OnAddSecondary => self.on_discard_changes.emit(()),
             AddDialogMsg::OnAdded(result) => {
-                if result.is_ok() {
+                if let Ok(gallery) = result {
                     self.alert_visible = true;
                     self.alert_type = AlertType::Information;
                     self.alert_message = self.translator.translate("galleries.add.saving");
-                    self.on_save_changes.emit(result.unwrap())
+                    self.on_save_changes.emit(gallery)
                 } else {
                     self.alert_visible = true;
                     self.alert_message = match result.err().unwrap().status_code {

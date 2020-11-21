@@ -100,18 +100,18 @@ impl Component for MyProfilePage {
                 self.email = self.profile.as_ref().unwrap().email.to_string();
             }
             Msg::OnProfileLoaded(result) => {
-                if result.is_ok() {
-                    self.profile = Some(result.unwrap());
+                if let Ok(profile) = result {
+                    self.profile = Some(profile);
                     self.menu_dispatcher.send(MenuAgentRequest::ChangeTitle(self.profile.as_ref().unwrap().artist_name.clone()));
-                } else {}
+                }
             }
             Msg::OnSaveClick => {
                 self.profile_saving = true;
                 if self.selected_file.is_some() {
                     self.picture_saving = true;
-                    self.reader_task = Some(self.reader_service.read_file(self.selected_file.clone().unwrap(), self.link.callback(|data| Msg::OnProfilePictureRead(data))).unwrap())
+                    self.reader_task = Some(self.reader_service.read_file(self.selected_file.clone().unwrap(), self.link.callback(Msg::OnProfilePictureRead)).unwrap())
                 }
-                self.save_profile_task = Some(self.profile_service.put_profile(self.artist_name.clone(), self.email.clone(), self.tinymce.get_content(), self.link.callback(|result| Msg::OnDetailsSaved(result))));
+                self.save_profile_task = Some(self.profile_service.put_profile(self.artist_name.clone(), self.email.clone(), self.tinymce.get_content(), self.link.callback(Msg::OnDetailsSaved)));
             }
             Msg::OnDiscardClick => {
                 self.edit_mode = false;
@@ -149,7 +149,7 @@ impl Component for MyProfilePage {
                 }
             }
             Msg::OnProfilePictureRead(data) => {
-                self.save_profile_picture_task = Some(self.profile_service.upload_profile_picture(data.content, self.link.callback(|result| Msg::OnProfilePictureSaved(result))));
+                self.save_profile_picture_task = Some(self.profile_service.upload_profile_picture(data.content, self.link.callback(Msg::OnProfilePictureSaved)));
             }
             Msg::OnProfilePictureSaved(result) => {
                 if result.is_ok() {
@@ -243,7 +243,7 @@ impl Component for MyProfilePage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_dispatcher.send(MenuAgentRequest::HideSearch);
-            self.load_profile_task = Some(self.profile_service.get_profile(self.link.callback(|result| Msg::OnProfileLoaded(result))));
+            self.load_profile_task = Some(self.profile_service.get_profile(self.link.callback(Msg::OnProfileLoaded)));
         }
         if self.edit_mode {
             if !self.tinymce_initialized {
@@ -267,7 +267,7 @@ impl MyProfilePage {
     pub fn disable_edit_mode(&mut self) {
         if !self.picture_saving && !self.profile_saving {
             self.edit_mode = false;
-            self.load_profile_task = Some(self.profile_service.get_profile(self.link.callback(|result| Msg::OnProfileLoaded(result))));
+            self.load_profile_task = Some(self.profile_service.get_profile(self.link.callback(Msg::OnProfileLoaded)));
         }
     }
 }

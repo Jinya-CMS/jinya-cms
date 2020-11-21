@@ -48,6 +48,7 @@ pub struct GalleriesPage {
     router_agent: Box<dyn Bridge<RouteAgent>>,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum Msg {
     OnNewGalleryClick,
     OnEditGalleryClick,
@@ -72,7 +73,7 @@ impl Component for GalleriesPage {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let translator = Translator::new();
-        let menu_agent = MenuAgent::bridge(link.callback(|response| Msg::OnMenuAgentResponse(response)));
+        let menu_agent = MenuAgent::bridge(link.callback(Msg::OnMenuAgentResponse));
         let router_agent = RouteAgent::bridge(link.callback(|_| Msg::Ignore));
 
         GalleriesPage {
@@ -119,8 +120,8 @@ impl Component for GalleriesPage {
             Msg::OnEditGalleryClick => self.edit_gallery_open = true,
             Msg::OnDeleteGalleryClick => self.show_delete_dialog = true,
             Msg::OnGalleriesLoaded(result) => {
-                if result.is_ok() {
-                    self.galleries = result.unwrap().items;
+                if let Ok(list) = result {
+                    self.galleries = list.items;
                     self.rows = self.galleries.iter().enumerate().map(|(_, item)| {
                         TableRow::new(vec![
                             TableCell {
@@ -132,14 +133,14 @@ impl Component for GalleriesPage {
                                 value: match &item.orientation {
                                     Orientation::Vertical => self.translator.translate("galleries.overview.table.orientation.vertical"),
                                     Orientation::Horizontal => self.translator.translate("galleries.overview.table.orientation.horizontal"),
-                                }.to_string(),
+                                },
                             },
                             TableCell {
                                 key: "type".to_string(),
                                 value: match &item.gallery_type {
                                     GalleryType::Masonry => self.translator.translate("galleries.overview.table.type.masonry"),
                                     GalleryType::Sequence => self.translator.translate("galleries.overview.table.type.sequence"),
-                                }.to_string(),
+                                },
                             },
                             TableCell {
                                 key: "description".to_string(),
@@ -152,17 +153,14 @@ impl Component for GalleriesPage {
                 }
             }
             Msg::OnGallerySelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => match response {
-                MenuAgentResponse::OnSearch(value) => self.keyword = value,
-                _ => {}
-            },
-            Msg::OnDeleteApprove => self.delete_gallery_task = Some(self.gallery_service.delete_gallery(self.get_selected_gallery(), self.link.callback(|result| Msg::OnGalleryDeleted(result)))),
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnDeleteApprove => self.delete_gallery_task = Some(self.gallery_service.delete_gallery(self.get_selected_gallery(), self.link.callback(Msg::OnGalleryDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnGalleryDeleted(result) => {
                 if result.is_ok() {
                     self.selected_index = None;
                     self.show_delete_dialog = false;
-                    self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
+                    self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnGalleriesLoaded)));
                 } else {
                     ConsoleService::error(result.err().unwrap().error.to_string().as_str());
                     let gallery = self.get_selected_gallery();
@@ -172,7 +170,7 @@ impl Component for GalleriesPage {
             }
             Msg::OnSaveAdd(gallery) => {
                 self.add_gallery_open = false;
-                self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
+                self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnGalleriesLoaded)));
                 Toast::positive_toast(self.translator.translate_with_args("galleries.add.saved", map! {"name" => gallery.name.as_str()}));
             }
             Msg::OnDiscardAdd => self.add_gallery_open = false,
@@ -247,7 +245,7 @@ impl Component for GalleriesPage {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             self.menu_agent.send(MenuAgentRequest::ChangeTitle(self.translator.translate("app.menu.content.media.galleries")));
-            self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(|result| Msg::OnGalleriesLoaded(result))));
+            self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnGalleriesLoaded)));
         }
     }
 }
