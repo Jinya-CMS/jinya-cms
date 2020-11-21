@@ -35,5 +35,17 @@ spec:
                 }
             }
         }
+        stage('Archive artifact') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh 'apt-get install nodejs'
+                sh 'yarn'
+                sh 'yarn build:prod'
+                sh "zip -r ./jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
+                archiveArtifacts artifacts: 'jinya-designer.zip', followSymlinks: false, onlyIfSuccessful: true
+            }
+        }
     }
 }
