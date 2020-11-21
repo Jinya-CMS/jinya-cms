@@ -42,6 +42,7 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.frontend.menus", "Menüs");
     map.insert("app.menu.configuration.frontend.themes", "Themes");
     map.insert("app.menu.configuration.frontend.themes.variables", "{name} Stil");
+    map.insert("app.menu.configuration.frontend.themes.links", "{name} Links");
 
     map.insert("app.title.home_page", "Startseite");
 
@@ -388,6 +389,29 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.variables.action_back", "Zurück");
     map.insert("themes.variables.notification_save_failed", "Die Stiländerungen konnten nicht gespeichert werden");
     map.insert("themes.variables.notification_saved_successfully", "Die Stiländerungen wurden erfolgreich gespeichert");
+
+    map.insert("themes.links.notification.segment_page_changed", "Die Segmentseite wurde aktualisiert");
+    map.insert("themes.links.notification.segment_page_failed", "Die Segmentseite konnte nicht aktualisiert werden");
+    map.insert("themes.links.notification.page_changed", "Die Seite wurde aktualisiert");
+    map.insert("themes.links.notification.page_failed", "Die Seite konnte nicht aktualisiert werden");
+    map.insert("themes.links.notification.gallery_changed", "Die Galerie wurde aktualisiert");
+    map.insert("themes.links.notification.gallery_failed", "Die Galerie konnte nicht aktualisiert werden");
+    map.insert("themes.links.notification.menu_changed", "Das Menü wurde aktualisiert");
+    map.insert("themes.links.notification.menu_failed", "Das Menü konnte nicht aktualisiert werden");
+    map.insert("themes.links.notification.file_changed", "Die Datei wurde aktualisiert");
+    map.insert("themes.links.notification.file_failed", "Die Datei konnte nicht aktualisiert werden");
+
+    map.insert("themes.links.placeholder.segment_page", "Segmentseite auswählen");
+    map.insert("themes.links.placeholder.page", "Seite auswählen");
+    map.insert("themes.links.placeholder.gallery", "Galerie auswählen");
+    map.insert("themes.links.placeholder.menu", "Menü auswählen");
+    map.insert("themes.links.placeholder.file", "Datei auswählen");
+
+    map.insert("themes.links.legend.segment_page", "Segmentseiten");
+    map.insert("themes.links.legend.page", "Seiten");
+    map.insert("themes.links.legend.gallery", "Galerien");
+    map.insert("themes.links.legend.menu", "Menüs");
+    map.insert("themes.links.legend.file", "Dateien");
 
     map
 }

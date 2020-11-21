@@ -3,21 +3,22 @@ use jinya_ui::listing::card::{Card, CardButton, CardContainer};
 use jinya_ui::widgets::button::ButtonType;
 use jinya_ui::widgets::toast::Toast;
 use yew::{Bridge, Bridged, Component, ComponentLink, Html};
+use yew::agent::Dispatcher;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 use yew_router::agent::{RouteAgent, RouteRequest};
+use yew_router::route::Route;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
 use crate::ajax::{AjaxError, get_host};
 use crate::ajax::theme_service::ThemeService;
+use crate::app::AppRoute;
 use crate::i18n::*;
 use crate::models::list_model::ListModel;
 use crate::models::theme::Theme;
-use yew::agent::Dispatcher;
-use yew_router::route::Route;
-use crate::app::AppRoute;
 
 pub mod scss;
+pub mod links;
 
 pub struct ThemesPage {
     link: ComponentLink<Self>,
@@ -41,6 +42,7 @@ pub enum Msg {
     OnThemeActivated(Result<bool, AjaxError>),
     OnThemeBuilt(Result<bool, AjaxError>),
     OnScssClick(usize),
+    OnLinksClick(usize),
     Ignore,
 }
 
@@ -119,6 +121,10 @@ impl Component for ThemesPage {
                 let theme = self.themes[idx].clone();
                 self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeScssPage(theme.id))))
             }
+            Msg::OnLinksClick(idx) => {
+                let theme = self.themes[idx].clone();
+                self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeLinksPage(theme.id))))
+            }
         }
 
         true
@@ -137,7 +143,7 @@ impl Component for ThemesPage {
                             html! {
                                 <Card title=&item.display_name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
                                     <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::Ignore) />
-                                    <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::Ignore) />
+                                    <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::OnLinksClick(idx)) />
                                     <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
                                     <CardButton button_type=ButtonType::Primary icon="shape" tooltip=self.translator.translate("themes.overview.action_build") on_click=self.link.callback(move |_| Msg::OnBuildClick(idx)) />
                                     <CardButton button_type=ButtonType::Primary icon="sass" tooltip=self.translator.translate("themes.overview.action_scss") on_click=self.link.callback(move |_| Msg::OnScssClick(idx)) />

@@ -42,6 +42,7 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.frontend.menus", "Menus");
     map.insert("app.menu.configuration.frontend.themes", "Themes");
     map.insert("app.menu.configuration.frontend.themes.variables", "{name} styling");
+    map.insert("app.menu.configuration.frontend.themes.links", "{name} link");
 
     map.insert("app.title.home_page", "Startpage");
 
@@ -386,6 +387,29 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.variables.action_back", "Back");
     map.insert("themes.variables.notification_save_failed", "The styling changes could not be saved");
     map.insert("themes.variables.notification_saved_successfully", "The styling changes were saved successfully");
+
+    map.insert("themes.links.notification.segment_page_changed", "The segment page was saved");
+    map.insert("themes.links.notification.segment_page_failed", "The segment page could not be saved");
+    map.insert("themes.links.notification.page_changed", "The page was saved");
+    map.insert("themes.links.notification.page_failed", "The page could not be saved");
+    map.insert("themes.links.notification.gallery_changed", "The gallery was saved");
+    map.insert("themes.links.notification.gallery_failed", "The gallery could not be saved");
+    map.insert("themes.links.notification.menu_changed", "The menu was saved");
+    map.insert("themes.links.notification.menu_failed", "The menu could not be saved");
+    map.insert("themes.links.notification.file_changed", "The file was saved");
+    map.insert("themes.links.notification.file_failed", "The file could not be saved");
+
+    map.insert("themes.links.placeholder.segment_page", "Choose segment page");
+    map.insert("themes.links.placeholder.page", "Choose page");
+    map.insert("themes.links.placeholder.gallery", "Choose gallery");
+    map.insert("themes.links.placeholder.menu", "Choose menu");
+    map.insert("themes.links.placeholder.file", "Choose file");
+
+    map.insert("themes.links.legend.segment_page", "Segment pages");
+    map.insert("themes.links.legend.page", "Pages");
+    map.insert("themes.links.legend.gallery", "Galleries");
+    map.insert("themes.links.legend.menu", "Menus");
+    map.insert("themes.links.legend.file", "Files");
 
     map
 }
