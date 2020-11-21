@@ -44,5 +44,5 @@ pub struct ThemeGroup {
 pub struct ThemeConfigurationStructure {
     pub title: String,
     pub links: ThemeLinks,
-    pub groups: Vec<ThemeGroup>
+    pub groups: Vec<ThemeGroup>,
 }

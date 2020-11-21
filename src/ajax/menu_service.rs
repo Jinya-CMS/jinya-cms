@@ -5,7 +5,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, bool_handler, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body, delete};
+use crate::ajax::{AjaxError, bool_handler, delete, get_error_from_parts, get_host, get_request, post_request_with_body, put_request_with_body};
 use crate::models::list_model::ListModel;
 use crate::models::menu::Menu;
 

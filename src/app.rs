@@ -19,17 +19,17 @@ use crate::views::files::FilesPage;
 use crate::views::galleries::designer::GalleryDesignerPage;
 use crate::views::galleries::GalleriesPage;
 use crate::views::home::HomePage;
+use crate::views::menus::designer::MenuDesignerPage;
+use crate::views::menus::MenusPage;
 use crate::views::my_jinya::my_profile::MyProfilePage;
 use crate::views::segment_pages::designer::SegmentPageDesignerPage;
 use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
-use crate::views::menus::MenusPage;
-use crate::views::menus::designer::MenuDesignerPage;
-use crate::views::themes::ThemesPage;
-use crate::views::themes::scss::ScssPage;
 use crate::views::themes::links::LinksPage;
+use crate::views::themes::scss::ScssPage;
+use crate::views::themes::ThemesPage;
 
 pub struct JinyaDesignerApp {
     link: ComponentLink<Self>,

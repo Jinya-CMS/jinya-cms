@@ -94,7 +94,7 @@ impl Component for EditSimplePagePage {
                     self.title = page.title;
                     self.tinymce.set_content(self.content.to_string())
                 } else {
-                    log::error!("{}",result.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string().as_str());
                 }
             }
             Msg::Ignore => {}

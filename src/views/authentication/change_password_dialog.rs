@@ -8,8 +8,8 @@ use yew::prelude::*;
 use yew::services::fetch::FetchTask;
 
 use crate::ajax::AjaxError;
-use crate::i18n::*;
 use crate::ajax::authentication_service::AuthenticationService;
+use crate::i18n::*;
 
 pub struct ChangePasswordDialog {
     link: ComponentLink<Self>,
@@ -70,7 +70,7 @@ impl Component for ChangePasswordDialog {
             new_password_validation_message: "".to_string(),
             new_password: "".to_string(),
             is_open: props.is_open,
-            authentication_service: AuthenticationService::new()
+            authentication_service: AuthenticationService::new(),
         }
     }
 

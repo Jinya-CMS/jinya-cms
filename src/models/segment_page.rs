@@ -25,7 +25,7 @@ impl SegmentPage {
             updated: Edited::new(),
             id: 0,
             name,
-            segment_count: 0
+            segment_count: 0,
         }
     }
 }

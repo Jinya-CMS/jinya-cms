@@ -58,12 +58,12 @@ impl ArtistService {
             pub roles: Vec<String>,
             pub enabled: bool,
         }
-        let body = Body{
+        let body = Body {
             artist_name,
             email,
             password,
             roles,
-            enabled:true,
+            enabled: true,
         };
         let request = post_request_with_body(url, &body);
         let handler = move |response: Response<Json<Result<Artist, Error>>>| {

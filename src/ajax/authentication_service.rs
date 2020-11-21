@@ -6,7 +6,7 @@ use yew::Callback;
 use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
-use crate::ajax::{AjaxError, head_request, post_request_with_body, put_request_with_body, get_error_from_parts};
+use crate::ajax::{AjaxError, get_error_from_parts, head_request, post_request_with_body, put_request_with_body};
 use crate::storage::AuthenticationStorage;
 
 #[derive(Default)]

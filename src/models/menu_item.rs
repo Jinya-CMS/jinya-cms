@@ -81,7 +81,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
-            position: None
+            position: None,
         }
     }
 
@@ -94,7 +94,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
-            position: None
+            position: None,
         }
     }
 
@@ -107,7 +107,7 @@ impl SaveMenuItem {
             gallery: None,
             page: Some(page),
             segment_page: None,
-            position: None
+            position: None,
         }
     }
 
@@ -120,7 +120,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: Some(page),
-            position: None
+            position: None,
         }
     }
 
@@ -133,7 +133,7 @@ impl SaveMenuItem {
             gallery: Some(gallery),
             page: None,
             segment_page: None,
-            position: None
+            position: None,
         }
     }
 
@@ -146,7 +146,7 @@ impl SaveMenuItem {
             gallery: None,
             page: None,
             segment_page: None,
-            position: None
+            position: None,
         }
     }
 }

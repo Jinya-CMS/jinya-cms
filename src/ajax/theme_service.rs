@@ -9,13 +9,13 @@ use yew::format::Json;
 use yew::services::fetch::{FetchService, FetchTask};
 
 use crate::ajax::{AjaxError, bool_handler, get_error_from_parts, get_host, get_request, put_request, put_request_with_body};
-use crate::models::list_model::ListModel;
-use crate::models::segment_page::SegmentPage;
-use crate::models::theme::{Theme, ThemeConfigurationStructure};
-use crate::models::simple_page::SimplePage;
 use crate::models::file::File;
 use crate::models::gallery::Gallery;
+use crate::models::list_model::ListModel;
 use crate::models::menu::Menu;
+use crate::models::segment_page::SegmentPage;
+use crate::models::simple_page::SimplePage;
+use crate::models::theme::{Theme, ThemeConfigurationStructure};
 
 pub struct ThemeService {}
 
