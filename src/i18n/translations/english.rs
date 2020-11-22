@@ -411,5 +411,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.links.legend.menu", "Menus");
     map.insert("themes.links.legend.file", "Files");
 
+    map.insert("themes.configuration.action_save", "Save settings");
+    map.insert("themes.configuration.action_back", "Back");
+    map.insert("themes.configuration.notification_saved", "The settings were saved successfully");
+    map.insert("themes.configuration.notification_save_error", "The settings could not be saved");
+
     map
 }

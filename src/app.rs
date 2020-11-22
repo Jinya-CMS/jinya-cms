@@ -27,6 +27,7 @@ use crate::views::segment_pages::SegmentPagesPage;
 use crate::views::simple_pages::add_page::AddSimplePagePage;
 use crate::views::simple_pages::edit_page::EditSimplePagePage;
 use crate::views::simple_pages::SimplePagesPage;
+use crate::views::themes::configuration::ConfigurationPage;
 use crate::views::themes::links::LinksPage;
 use crate::views::themes::scss::ScssPage;
 use crate::views::themes::ThemesPage;
@@ -80,6 +81,8 @@ pub enum AppRoute {
     ThemeScssPage(usize),
     #[to = "/configuration/themes/{id}/links"]
     ThemeLinksPage(usize),
+    #[to = "/configuration/themes/{id}/settings"]
+    ThemeConfigurationPage(usize),
     #[to = "/configuration/themes"]
     Themes,
     #[to = "/"]
@@ -332,6 +335,7 @@ impl JinyaDesignerApp {
                 AppRoute::Themes => html! {<ThemesPage />},
                 AppRoute::ThemeScssPage(id) => html! {<ScssPage id=id />},
                 AppRoute::ThemeLinksPage(id) => html! {<LinksPage id=id />},
+                AppRoute::ThemeConfigurationPage(id) => html! {<ConfigurationPage id=id />},
             }
         })
     }

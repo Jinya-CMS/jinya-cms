@@ -19,6 +19,7 @@ use crate::models::theme::Theme;
 
 pub mod scss;
 pub mod links;
+pub mod configuration;
 
 pub struct ThemesPage {
     link: ComponentLink<Self>,
@@ -43,7 +44,7 @@ pub enum Msg {
     OnThemeBuilt(Result<bool, AjaxError>),
     OnScssClick(usize),
     OnLinksClick(usize),
-    Ignore,
+    OnConfigurationClick(usize),
 }
 
 impl Component for ThemesPage {
@@ -116,7 +117,6 @@ impl Component for ThemesPage {
                 }
                 self.selected_theme = None;
             }
-            Msg::Ignore => {}
             Msg::OnScssClick(idx) => {
                 let theme = self.themes[idx].clone();
                 self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeScssPage(theme.id))))
@@ -124,6 +124,10 @@ impl Component for ThemesPage {
             Msg::OnLinksClick(idx) => {
                 let theme = self.themes[idx].clone();
                 self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeLinksPage(theme.id))))
+            }
+            Msg::OnConfigurationClick(idx) => {
+                let theme = self.themes[idx].clone();
+                self.route_dispatcher.send(RouteRequest::ChangeRoute(Route::from(AppRoute::ThemeConfigurationPage(theme.id))))
             }
         }
 
@@ -137,21 +141,19 @@ impl Component for ThemesPage {
     fn view(&self) -> Html {
         html! {
             <Page>
-                <div style="display: flex; align-items: flex-start;">
-                    <CardContainer>
-                        {for self.themes.iter().enumerate().map(move |(idx, item)| {
-                            html! {
-                                <Card title=&item.display_name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
-                                    <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::Ignore) />
-                                    <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::OnLinksClick(idx)) />
-                                    <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
-                                    <CardButton button_type=ButtonType::Primary icon="shape" tooltip=self.translator.translate("themes.overview.action_build") on_click=self.link.callback(move |_| Msg::OnBuildClick(idx)) />
-                                    <CardButton button_type=ButtonType::Primary icon="sass" tooltip=self.translator.translate("themes.overview.action_scss") on_click=self.link.callback(move |_| Msg::OnScssClick(idx)) />
-                                </Card>
-                            }
-                        })}
-                    </CardContainer>
-                </div>
+                <CardContainer>
+                    {for self.themes.iter().enumerate().map(move |(idx, item)| {
+                        html! {
+                            <Card title=&item.display_name src=format!("{}/api/theme/{}/preview", get_host(), &item.id)>
+                                <CardButton button_type=ButtonType::Primary icon="cog" tooltip=self.translator.translate("themes.overview.action_settings") on_click=self.link.callback(move |_| Msg::OnConfigurationClick(idx)) />
+                                <CardButton button_type=ButtonType::Primary icon="link" tooltip=self.translator.translate("themes.overview.action_links") on_click=self.link.callback(move |_| Msg::OnLinksClick(idx)) />
+                                <CardButton button_type=ButtonType::Primary icon="check" tooltip=self.translator.translate("themes.overview.action_activate") on_click=self.link.callback(move |_| Msg::OnActivateClick(idx)) />
+                                <CardButton button_type=ButtonType::Primary icon="shape" tooltip=self.translator.translate("themes.overview.action_build") on_click=self.link.callback(move |_| Msg::OnBuildClick(idx)) />
+                                <CardButton button_type=ButtonType::Primary icon="sass" tooltip=self.translator.translate("themes.overview.action_scss") on_click=self.link.callback(move |_| Msg::OnScssClick(idx)) />
+                            </Card>
+                        }
+                    })}
+                </CardContainer>
             </Page>
         }
     }

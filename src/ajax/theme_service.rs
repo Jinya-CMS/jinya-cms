@@ -57,17 +57,21 @@ impl ThemeService {
 
     pub fn get_variables(&self, id: usize, callback: Callback<Result<Map<String, Value>, AjaxError>>) -> FetchTask {
         let url = format!("{}/api/theme/{}/styling", get_host(), id);
-        let handler = move |response: Response<Json<Result<Map<String, Value>, Error>>>| {
+        let handler = ThemeService::serde_map_handler(callback);
+        let request = get_request(url);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    fn serde_map_handler(callback: Callback<Result<Map<String, Value>, AjaxError>>) -> impl Fn(Response<Json<Result<Map<String, Value>, Error>>>) {
+        move |response: Response<Json<Result<Map<String, Value>, Error>>>| {
             let (meta, Json(data)) = response.into_parts();
             if meta.status.is_success() {
                 callback.emit(Ok(data.unwrap()));
             } else {
                 callback.emit(get_error_from_parts(meta));
             }
-        };
-        let request = get_request(url);
-
-        FetchService::fetch(request, handler.into()).unwrap()
+        }
     }
 
     pub fn save_variables(&self, id: usize, variables: Map<String, Value>, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
@@ -78,6 +82,27 @@ impl ThemeService {
             pub variables: Map<String, Value>,
         }
         let data = RequestData { variables };
+        let request = put_request_with_body(url, &data);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn get_configuration(&self, id: usize, callback: Callback<Result<Map<String, Value>, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/theme/{}/configuration/default", get_host(), id);
+        let handler = ThemeService::serde_map_handler(callback);
+        let request = get_request(url);
+
+        FetchService::fetch(request, handler.into()).unwrap()
+    }
+
+    pub fn save_configuration(&self, id: usize, configuration: Map<String, Value>, callback: Callback<Result<bool, AjaxError>>) -> FetchTask {
+        let url = format!("{}/api/theme/{}/configuration", get_host(), id);
+        let handler = bool_handler(callback);
+        #[derive(Deserialize, Serialize, Clone, PartialEq)]
+        struct RequestData {
+            pub configuration: Map<String, Value>,
+        }
+        let data = RequestData { configuration };
         let request = put_request_with_body(url, &data);
 
         FetchService::fetch(request, handler.into()).unwrap()

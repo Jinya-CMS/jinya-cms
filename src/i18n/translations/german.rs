@@ -413,5 +413,10 @@ pub fn german_translations() -> HashMap<&'static str, &'static str> {
     map.insert("themes.links.legend.menu", "Menüs");
     map.insert("themes.links.legend.file", "Dateien");
 
+    map.insert("themes.configuration.action_save", "Einstellungen speichern");
+    map.insert("themes.configuration.action_back", "Zurück");
+    map.insert("themes.configuration.notification_saved", "Die Einstellungen wurden erfolgreiche gespeichert");
+    map.insert("themes.configuration.notification_save_error", "Die Einstellungen konnten nicht gespeichert werden");
+
     map
 }

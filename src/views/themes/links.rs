@@ -74,6 +74,7 @@ pub struct LinksPage {
     save_gallery_task: Option<FetchTask>,
 }
 
+#[allow(clippy::large_enum_variant)]
 pub enum Msg {
     OnThemeLoaded(Result<Theme, AjaxError>),
     OnConfigStructureLoaded(Result<ThemeConfigurationStructure, AjaxError>),
@@ -169,7 +170,6 @@ impl Component for LinksPage {
                 self.links = Some(structure.links);
                 self.reload();
             },
-
             Msg::OnSegmentPagesLoaded(result) => {
                 if let Ok(items) = result {
                     self.segment_pages = items.items.iter().enumerate().map(|(_, item)| {
