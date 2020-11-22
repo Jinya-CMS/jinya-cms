@@ -23,31 +23,24 @@ return [
         'footer' => [
             'copyright' => null,
         ],
-        'favicon' => [
-            'small' => null,
-            'shortcut_icon' => null,
-            'large' => null,
-        ],
         'fonts' => [
             'menu' => 'https://fonts.googleapis.com/css?family=Open+Sans',
             'heading' => 'https://fonts.googleapis.com/css?family=Raleway:300,400',
             'paragraph' => 'https://fonts.googleapis.com/css?family=Open+Sans',
             'brand' => 'https://fonts.googleapis.com/css?family=Josefin+Sans',
         ],
-        'form' => [
-            'input' => [
-                'optional' => ' (optional]',
-            ],
-            'buttons' => [
-                'submit' => 'Submit',
-            ],
-            'dropdowns' => [
-                'placeholder' => 'Please choose...',
-            ],
-            'messages' => [
-                'mail_sent_message' => 'Mail was sent successfully',
-                'mail_not_sent_message' => 'Mail could not be sent',
-            ],
+        'input' => [
+            'optional' => ' (optional)',
+        ],
+        'buttons' => [
+            'submit' => 'Submit',
+        ],
+        'dropdowns' => [
+            'placeholder' => 'Please choose...',
+        ],
+        'messages' => [
+            'mail_sent_message' => 'Mail was sent successfully',
+            'mail_not_sent_message' => 'Mail could not be sent',
         ],
         'profile' => [
             'show_email' => false,
@@ -79,27 +72,6 @@ return [
                 ],
             ],
             [
-                'name' => 'favicon',
-                'title' => 'Favicon',
-                'fields' => [
-                    [
-                        'name' => 'small',
-                        'type' => 'file',
-                        'label' => 'Kleines Icon 64x64 Pixel',
-                    ],
-                    [
-                        'name' => 'large',
-                        'type' => 'file',
-                        'label' => 'Großes Icon 512x512 Pixel',
-                    ],
-                    [
-                        'name' => 'shortcut_icon',
-                        'type' => 'file',
-                        'label' => 'Favicon im Icon Format',
-                    ],
-                ],
-            ],
-            [
                 'name' => 'fonts',
                 'title' => 'Fontlinks',
                 'fields' => [
@@ -126,57 +98,51 @@ return [
                 ],
             ],
             [
-                'name' => 'form',
-                'title' => 'Formulare',
-                'groups' => [
+                'name' => 'input',
+                'title' => 'Eingabefeldoptionen',
+                'fields' => [
                     [
-                        'name' => 'input',
-                        'title' => 'Eingabefeldoptionen',
-                        'fields' => [
-                            [
-                                'name' => 'optional',
-                                'type' => 'string',
-                                'label' => 'Markierung für optionale Felder',
-                            ],
-                        ],
+                        'name' => 'optional',
+                        'type' => 'string',
+                        'label' => 'Markierung für optionale Felder',
+                    ],
+                ],
+            ],
+            [
+                'name' => 'buttons',
+                'title' => 'Button Beschriftungen',
+                'fields' => [
+                    [
+                        'name' => 'submit',
+                        'type' => 'string',
+                        'label' => 'Abschicken',
+                    ],
+                ],
+            ],
+            [
+                'name' => 'dropdowns',
+                'title' => 'Dropdowns',
+                'fields' => [
+                    [
+                        'name' => 'placeholder',
+                        'type' => 'string',
+                        'label' => 'Standardtext',
+                    ],
+                ],
+            ],
+            [
+                'name' => 'messages',
+                'title' => 'Meldungen',
+                'fields' => [
+                    [
+                        'name' => 'mail_sent_message',
+                        'type' => 'string',
+                        'label' => 'Email gesendet',
                     ],
                     [
-                        'name' => 'buttons',
-                        'title' => 'Button Beschriftungen',
-                        'fields' => [
-                            [
-                                'name' => 'submit',
-                                'type' => 'string',
-                                'label' => 'Abschicken',
-                            ],
-                        ],
-                    ],
-                    [
-                        'name' => 'dropdowns',
-                        'title' => 'Dropdowns',
-                        'fields' => [
-                            [
-                                'name' => 'placeholder',
-                                'type' => 'string',
-                                'label' => 'Standardtext',
-                            ],
-                        ],
-                    ],
-                    [
-                        'name' => 'messages',
-                        'title' => 'Meldungen',
-                        'fields' => [
-                            [
-                                'name' => 'mail_sent_message',
-                                'type' => 'string',
-                                'label' => 'Email gesendet',
-                            ],
-                            [
-                                'name' => 'mail_not_sent_message',
-                                'type' => 'string',
-                                'label' => 'Fehler beim senden',
-                            ],
-                        ],
+                        'name' => 'mail_not_sent_message',
+                        'type' => 'string',
+                        'label' => 'Fehler beim senden',
                     ],
                 ],
             ],
@@ -200,6 +166,11 @@ return [
                 'primary' => 'Kopfmenü',
                 'footer' => 'Fußzeilenmenü',
                 'shadow' => 'Nicht sichtbare Links',
+            ],
+            'files' => [
+                'faviconSmall' => 'Kleines Favicon 64x64',
+                'faviconShortcutIcon' => 'Kleines im ico Format',
+                'faviconLarge' => 'Großes Favicon 512x512',
             ],
         ],
     ],

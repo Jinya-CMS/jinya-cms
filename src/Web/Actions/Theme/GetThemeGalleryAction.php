@@ -25,7 +25,12 @@ class GetThemeGalleryAction extends ThemeAction
         }
 
         $galleries = $theme->getGalleries();
+        $result = [];
 
-        return $this->respond($this->formatIterator($galleries));
+        foreach ($galleries as $key => $gallery) {
+            $result[$key] = $gallery->format();
+        }
+
+        return $this->respond($result);
     }
 }

@@ -5,12 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= $this->e($configuration['page']['title']) ?><?= isset($title) ? " – $this->e( $title)" : '' ?></title>
+    <title><?= $this->e($configuration['page']['title']) ?><?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width"/>
     <?= $this->getStyleTags() ?>
-
     <?php if (isset($configuration['fonts']['menu'])): ?>
         <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['menu']) ?>">
     <?php endif ?>
@@ -23,9 +22,16 @@
     <?php if (isset($configuration['fonts']['brand'])): ?>
         <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['brand']) ?>">
     <?php endif ?>
-    <link href="<?= $this->e($configuration['favicon']['shortcut_icon']) ?>" rel="shortcut icon">
-    <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($configuration['favicon']['large']) ?>">
-    <link rel="icon" type="image/png" sizes="64x64" href="<?= $this->e($configuration['favicon']['small']) ?>">
+    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
+        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($theme->getFiles()['faviconLarge']->path) ?>">
+    <?php endif ?>
+    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
+        <link rel="icon" type="image/png" sizes="64x64"
+              href="<?= $this->e($theme->getFiles()['faviconSmall']->path) ?>">
+    <?php endif ?>
+    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
+        <link rel="shortcut icon" href="<?= $this->e($theme->getFiles()['faviconShortcutIcon']->path) ?>">
+    <?php endif ?>
     <meta name="apple-mobile-web-app-title" content="<?= $this->e($configuration['page']['title']) ?>">
     <meta name="application-name" content="<?= $this->e($configuration['page']['title']) ?>">
 </head>

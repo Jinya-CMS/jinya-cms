@@ -28,7 +28,12 @@ class GetThemeSegmentPageAction extends ThemeAction
         }
 
         $segmentPages = $theme->getSegmentPages();
+        $result = [];
 
-        return $this->respond($this->formatIterator($segmentPages));
+        foreach ($segmentPages as $key => $segmentPage) {
+            $result[$key] = $segmentPage->format();
+        }
+
+        return $this->respond($result);
     }
 }

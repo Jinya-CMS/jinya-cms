@@ -28,7 +28,12 @@ class GetThemeMenuAction extends ThemeAction
         }
 
         $menus = $theme->getMenus();
+        $result = [];
 
-        return $this->respond($this->formatIterator($menus));
+        foreach ($menus as $key => $menu) {
+            $result[$key] = $menu->format();
+        }
+
+        return $this->respond($result);
     }
 }

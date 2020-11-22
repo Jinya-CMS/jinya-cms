@@ -28,7 +28,12 @@ class GetThemePageAction extends ThemeAction
         }
 
         $pages = $theme->getPages();
+        $result = [];
 
-        return $this->respond($this->formatIterator($pages));
+        foreach ($pages as $key => $page) {
+            $result[$key] = $page->format();
+        }
+
+        return $this->respond($result);
     }
 }

@@ -3,7 +3,7 @@
 use App\Web\Actions\Theme\ActivateThemeAction;
 use App\Web\Actions\Theme\CompileThemeAction;
 use App\Web\Actions\Theme\GetConfigurationStructureAction;
-use App\Web\Actions\Theme\GetConfigurationValuesAction;
+use App\Web\Actions\Theme\GetDefaultConfigurationValues;
 use App\Web\Actions\Theme\GetPreviewImageAction;
 use App\Web\Actions\Theme\GetStyleVariablesAction;
 use App\Web\Actions\Theme\GetThemeAction;
@@ -71,7 +71,7 @@ return function (RouteCollectorProxy $api) {
             });
             $id->group('/configuration', function (RouteCollectorProxy $config) {
                 $config->get('/structure', GetConfigurationStructureAction::class);
-                $config->get('', GetConfigurationValuesAction::class);
+                $config->get('/default', GetDefaultConfigurationValues::class);
                 $config->put('', PutConfigurationAction::class)
                     ->add(new CheckRequiredFieldsMiddleware(['configuration']));
             });

@@ -25,7 +25,12 @@ class GetThemeFileAction extends ThemeAction
         }
 
         $files = $theme->getFiles();
+        $result = [];
 
-        return $this->respond($this->formatIterator($files));
+        foreach ($files as $key => $file) {
+            $result[$key] = $file->format();
+        }
+
+        return $this->respond($result);
     }
 }

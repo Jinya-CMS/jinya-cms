@@ -8,7 +8,7 @@ use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class GetConfigurationValuesAction extends ThemeAction
+class GetDefaultConfigurationValues extends ThemeAction
 {
 
     /**
@@ -26,8 +26,7 @@ class GetConfigurationValuesAction extends ThemeAction
 
         $theme = new Theming\Theme($dbTheme);
         $config = $theme->getConfigurationValues();
-        $dbConfig = $dbTheme->configuration;
 
-        return $this->respond(array_merge($config, $dbConfig));
+        return $this->respond($config);
     }
 }

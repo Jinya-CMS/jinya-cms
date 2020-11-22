@@ -16,11 +16,11 @@ $formItems = $form->getItems();
             </div>
             <?php if ($success): ?>
                 <div class="jinya-message--positive">
-                    <?= $configuration['form']['messages']['mail_sent_message'] ?>
+                    <?= $configuration['messages']['mail_sent_message'] ?>
                 </div>
             <?php elseif ($success === false || count($missingFields) > 0): ?>
                 <div class="jinya-message--negative">
-                    <?= $configuration['form']['messages']['mail_not_sent_message'] ?>
+                    <?= $configuration['messages']['mail_not_sent_message'] ?>
                 </div>
             <?php endif ?>
             <?php foreach ($formItems as $item): ?>
@@ -61,7 +61,7 @@ $formItems = $form->getItems();
                 <?php endif ?>
             <?php endforeach ?>
             <div class="jinya-form__row--buttons">
-                <button class="jinya-button" type="submit"><?= $configuration['form']['buttons']['submit'] ?></button>
+                <button class="jinya-button" type="submit"><?= $configuration['buttons']['submit'] ?></button>
             </div>
         </form>
     </main>

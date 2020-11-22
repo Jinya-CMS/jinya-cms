@@ -25,7 +25,12 @@ class GetThemeFormAction extends ThemeAction
         }
 
         $forms = $theme->getForms();
+        $result = [];
 
-        return $this->respond($this->formatIterator($forms));
+        foreach ($forms as $key => $form) {
+            $result[$key] = $form->format();
+        }
+
+        return $this->respond($result);
     }
 }
