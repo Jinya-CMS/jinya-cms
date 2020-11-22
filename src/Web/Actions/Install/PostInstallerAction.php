@@ -4,7 +4,6 @@ namespace App\Web\Actions\Install;
 
 use App\Database\Artist;
 use App\Database\Migrations\Migrator;
-use App\Database\Theme;
 use App\Theming\ThemeSyncer;
 use App\Web\Middleware\RoleMiddleware;
 use Dotenv\Dotenv;

@@ -7,7 +7,6 @@ use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Exception\HttpNotFoundException;
 
 class DeletePositionAction extends Action
 {

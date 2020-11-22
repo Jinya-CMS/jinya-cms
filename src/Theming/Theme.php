@@ -73,11 +73,20 @@ class Theme implements ExtensionInterface
     public function register(Engine $engine)
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
+        // TODO: remove
         $engine->addData([
             'theme' => $this->dbTheme,
             'configuration' => array_merge($this->getConfigurationValues(), $this->dbTheme->configuration),
         ]);
-        $engine->registerFunction('getStyleTags', function () {
+        // TODO: $this->segmentPage(name)
+        // TODO: $this->simplePage(name)
+        // TODO: $this->file(name)
+        // TODO: $this->gallery(name)
+        // TODO: $this->menu(name)
+        // TODO: $this->asset(name)
+        // TODO: $this->form(name)
+        // TODO: $this->config(group, field)
+        $engine->registerFunction('getStyleTags',/* TODO: rename to styles */ function () {
             $styleFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
             $styleFiles = array_map(fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
                 $styleFiles);
@@ -89,7 +98,7 @@ class Theme implements ExtensionInterface
 
             return $tags;
         });
-        $engine->registerFunction('getScriptTags', function () {
+        $engine->registerFunction('getScriptTags',/* TODO: rename to scripts */  function () {
             $scriptFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
             $scriptFiles = array_map(fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
                 $scriptFiles);

@@ -258,24 +258,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Generates the password change token
-     *
-     * @param string $oldPassword
-     * @return string
-     * @throws Exception
-     */
-    public function generatePasswordChangeToken(string $oldPassword): ?string
-    {
-        if ($this->validatePassword($oldPassword)) {
-            $this->confirmationToken = bin2hex(random_bytes(24));
-            $this->update();
-            return $this->confirmationToken;
-        }
-
-        return null;
-    }
-
-    /**
      * Validates the given password against the hash in the database
      *
      * @param string $password
