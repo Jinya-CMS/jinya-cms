@@ -192,9 +192,9 @@ impl Component for ConfigurationPage {
 }
 
 impl ConfigurationPage {
-    fn get_value_from_bool_group(field_name: &String, config: Option<&Value>) -> Option<bool> {
+    fn get_value_from_bool_group(field_name: &str, config: Option<&Value>) -> Option<bool> {
         if let Some(group) = config {
-            let val = group.as_object().unwrap().get(field_name.as_str());
+            let val = group.as_object().unwrap().get(field_name);
             if let Some(val) = val {
                 val.as_bool()
             } else {
@@ -205,9 +205,9 @@ impl ConfigurationPage {
         }
     }
 
-    fn get_value_from_string_group(field_name: &String, config: Option<&Value>) -> String {
+    fn get_value_from_string_group(field_name: &str, config: Option<&Value>) -> String {
         if let Some(group) = config {
-            let val = group.as_object().unwrap().get(field_name.as_str());
+            let val = group.as_object().unwrap().get(field_name);
             if let Some(val) = val {
                 if val.is_string() {
                     val.as_str().unwrap().to_string()
