@@ -28,13 +28,11 @@ class FormEvent extends CancellableEvent
     /** @var Form */
     private ?Form $form;
 
-    /** @var string */
     private string $slug;
 
     /**
      * FormEvent constructor.
      * @param Form $form
-     * @param string $slug
      */
     public function __construct(?Form $form, string $slug)
     {
@@ -42,9 +40,6 @@ class FormEvent extends CancellableEvent
         $this->slug = $slug;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;

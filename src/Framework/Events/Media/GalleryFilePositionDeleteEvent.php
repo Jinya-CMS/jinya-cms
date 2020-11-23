@@ -17,16 +17,12 @@ class GalleryFilePositionDeleteEvent extends CancellableEvent
 
     public const POST_DELETE = 'GalleryFilePositionPostDelete';
 
-    /** @var int */
     private int $id;
 
-    /** @var GalleryFilePosition */
     private GalleryFilePosition $galleryFilePosition;
 
     /**
      * GalleryFilePositionDeleteEvent constructor.
-     * @param int $id
-     * @param GalleryFilePosition $galleryFilePosition
      */
     public function __construct(GalleryFilePosition $galleryFilePosition, int $id)
     {
@@ -34,17 +30,11 @@ class GalleryFilePositionDeleteEvent extends CancellableEvent
         $this->galleryFilePosition = $galleryFilePosition;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return GalleryFilePosition
-     */
     public function getGalleryFilePosition(): GalleryFilePosition
     {
         return $this->galleryFilePosition;

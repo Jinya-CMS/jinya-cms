@@ -24,24 +24,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MenuCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var ConfigurationServiceInterface */
     private ConfigurationServiceInterface $configService;
 
-    /** @var CacheBuilderInterface */
     private CacheBuilderInterface $cacheBuilder;
 
-    /** @var MenuService */
     private MenuService $menuService;
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
     /**
      * MenuCacheSubscriber constructor.
-     * @param ConfigurationServiceInterface $configService
-     * @param CacheBuilderInterface $cacheBuilder
-     * @param MenuService $menuService
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         ConfigurationServiceInterface $configService,
