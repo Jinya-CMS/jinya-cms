@@ -8,12 +8,10 @@ use Twig\TwigFunction;
 
 class RoutingHelper extends AbstractExtension
 {
-    /** @var RequestContext */
     private RequestContext $request;
 
     /**
      * RoutingHelper constructor.
-     * @param RequestContext $request
      */
     public function __construct(RequestContext $request)
     {

@@ -21,13 +21,10 @@ class GalleryFilePositionUpdateFileEvent extends CancellableEvent
     /** @var GalleryFilePosition */
     private $galleryFilePosition;
 
-    /** @var int */
     private int $positionId;
 
     /**
      * ArtworkPositionUpdateArtworkEvent constructor.
-     * @param File $galleryFilePosition
-     * @param int $positionId
      */
     public function __construct(File $galleryFilePosition, int $positionId)
     {
@@ -35,17 +32,11 @@ class GalleryFilePositionUpdateFileEvent extends CancellableEvent
         $this->positionId = $positionId;
     }
 
-    /**
-     * @return File
-     */
     public function getFile(): File
     {
         return $this->galleryFilePosition;
     }
 
-    /**
-     * @return int
-     */
     public function getPositionId(): int
     {
         return $this->positionId;

@@ -21,42 +21,26 @@ use function array_key_exists;
 
 class ThemeFormatter implements ThemeFormatterInterface
 {
-    /** @var array */
     private array $formattedData;
 
-    /** @var Theme */
     private Theme $theme;
 
-    /** @var MenuFormatterInterface */
     private MenuFormatterInterface $menuFormatter;
 
-    /** @var UrlGeneratorInterface */
     private UrlGeneratorInterface $urlGenerator;
 
-    /** @var GalleryFormatterInterface */
     private GalleryFormatterInterface $galleryFormatter;
 
-    /** @var FileFormatterInterface */
     private FileFormatterInterface $fileFormatter;
 
-    /** @var PageFormatterInterface */
     private PageFormatterInterface $pageFormatter;
 
-    /** @var SegmentPageFormatterInterface */
     private SegmentPageFormatterInterface $segmentPageFormatter;
 
-    /** @var FormFormatterInterface */
     private FormFormatterInterface $formFormatter;
 
     /**
      * ThemeFormatter constructor.
-     * @param MenuFormatterInterface $menuFormatter
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param GalleryFormatterInterface $galleryFormatter
-     * @param FileFormatterInterface $fileFormatter
-     * @param PageFormatterInterface $pageFormatter
-     * @param SegmentPageFormatterInterface $segmentPageFormatter
-     * @param FormFormatterInterface $formFormatter
      */
     public function __construct(
         MenuFormatterInterface $menuFormatter,
@@ -87,9 +71,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Initializes the formatter
-     *
-     * @param Theme $theme
-     * @return ThemeFormatterInterface
      */
     public function init(Theme $theme): ThemeFormatterInterface
     {
@@ -100,8 +81,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the preview image
-     *
-     * @return ThemeFormatterInterface
      */
     public function previewImage(): ThemeFormatterInterface
     {
@@ -116,8 +95,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the config
-     *
-     * @return ThemeFormatterInterface
      */
     public function config(): ThemeFormatterInterface
     {
@@ -128,8 +105,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the description
-     *
-     * @return ThemeFormatterInterface
      */
     public function description(): ThemeFormatterInterface
     {
@@ -140,8 +115,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the name
-     *
-     * @return ThemeFormatterInterface
      */
     public function name(): ThemeFormatterInterface
     {
@@ -152,8 +125,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the display name
-     *
-     * @return ThemeFormatterInterface
      */
     public function displayName(): ThemeFormatterInterface
     {
@@ -164,8 +135,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the SCSS variables
-     *
-     * @return ThemeFormatterInterface
      */
     public function scssVariables(): ThemeFormatterInterface
     {
@@ -176,8 +145,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the primary menu
-     *
-     * @return ThemeFormatterInterface
      */
     public function primaryMenu(): ThemeFormatterInterface
     {
@@ -194,8 +161,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the secondary menu
-     *
-     * @return ThemeFormatterInterface
      */
     public function secondaryMenu(): ThemeFormatterInterface
     {
@@ -212,8 +177,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the footer menu
-     *
-     * @return ThemeFormatterInterface
      */
     public function footerMenu(): ThemeFormatterInterface
     {
@@ -230,8 +193,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the menus
-     *
-     * @return ThemeFormatterInterface
      */
     public function menus(): ThemeFormatterInterface
     {
@@ -250,8 +211,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the forms
-     *
-     * @return ThemeFormatterInterface
      */
     public function forms(): ThemeFormatterInterface
     {
@@ -271,8 +230,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the links
-     *
-     * @return ThemeFormatterInterface
      */
     public function links(): ThemeFormatterInterface
     {
@@ -287,8 +244,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the pages
-     *
-     * @return ThemeFormatterInterface
      */
     public function pages(): ThemeFormatterInterface
     {
@@ -308,8 +263,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the segment pages
-     *
-     * @return ThemeFormatterInterface
      */
     public function segmentPages(): ThemeFormatterInterface
     {
@@ -328,8 +281,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the files
-     *
-     * @return ThemeFormatterInterface
      */
     public function files(): ThemeFormatterInterface
     {
@@ -348,8 +299,6 @@ class ThemeFormatter implements ThemeFormatterInterface
 
     /**
      * Formats the artworks
-     *
-     * @return ThemeFormatterInterface
      */
     public function galleries(): ThemeFormatterInterface
     {

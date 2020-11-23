@@ -23,20 +23,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PageService implements PageServiceInterface
 {
-    /** @var BaseSlugEntityService */
     private BaseSlugEntityService $baseService;
 
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var EventDispatcherInterface */
     private EventDispatcherInterface $eventDispatcher;
 
     /**
      * PageService constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param SlugServiceInterface $slugService
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -50,7 +44,6 @@ class PageService implements PageServiceInterface
 
     /**
      * Gets the specified @param string $slug
-     * @return Page
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @see Page by slug
@@ -67,7 +60,6 @@ class PageService implements PageServiceInterface
     /**
      * Gets all entities by the given parameters
      *
-     * @param string $keyword
      * @return Page[]
      */
     public function getAll(string $keyword = ''): array
@@ -86,9 +78,6 @@ class PageService implements PageServiceInterface
 
     /**
      * Gets a querybuilder with a keyword filter
-     *
-     * @param string $keyword
-     * @return QueryBuilder
      */
     private function getFilteredQueryBuilder(string $keyword): QueryBuilder
     {
@@ -101,8 +90,6 @@ class PageService implements PageServiceInterface
     /**
      * Counts all entities
      *
-     * @param string $keyword
-     * @return int
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws NoResultException
@@ -123,7 +110,6 @@ class PageService implements PageServiceInterface
 
     /**
      * Saves or updates the given @param Page $page
-     * @return Page
      * @throws EmptySlugException
      * @see Page
      */

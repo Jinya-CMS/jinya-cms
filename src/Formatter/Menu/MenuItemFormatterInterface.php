@@ -16,7 +16,6 @@ interface MenuItemFormatterInterface extends FormatterInterface
     /**
      * Initializes the formatter
      *
-     * @param MenuItem $menuItem
      * @return MenuItemFormatterInterface
      */
     public function init(MenuItem $menuItem): self;
