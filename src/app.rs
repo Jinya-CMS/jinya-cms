@@ -215,50 +215,63 @@ impl Component for JinyaDesignerApp {
 
 impl JinyaDesignerApp {
     fn get_menu(&self) -> Html {
-        let content_group = vec![
-            SubItemGroup {
-                title: self.translator.translate("app.menu.content.media"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.content.media.files"),
-                        route: Some(&AppRoute::Files),
-                        on_click: None,
-                    },
-                    SubItem {
-                        label: self.translator.translate("app.menu.content.media.galleries"),
-                        route: Some(&AppRoute::Galleries),
-                        on_click: None,
-                    },
-                ],
-            },
-            SubItemGroup {
-                title: self.translator.translate("app.menu.content.pages"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.content.pages.simple_pages"),
-                        route: Some(&AppRoute::SimplePages),
-                        on_click: None,
-                    },
-                    SubItem {
-                        label: self.translator.translate("app.menu.content.pages.segment_pages"),
-                        route: Some(&AppRoute::SegmentPages),
-                        on_click: None,
-                    },
-                ],
-            },
-        ];
-        let configuration_group = vec![
-            SubItemGroup {
-                title: self.translator.translate("app.menu.configuration.generic"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.configuration.generic.artists"),
-                        route: Some(&AppRoute::Artists),
-                        on_click: None,
-                    },
-                ],
-            },
-            SubItemGroup {
+        let roles = AuthenticationStorage::get_roles().unwrap();
+        let is_writer = roles.contains(&"ROLE_WRITER".to_string());
+        let is_admin = roles.contains(&"ROLE_ADMIN".to_string());
+        let content_group = if is_writer {
+            vec![
+                SubItemGroup {
+                    title: self.translator.translate("app.menu.content.media"),
+                    items: vec![
+                        SubItem {
+                            label: self.translator.translate("app.menu.content.media.files"),
+                            route: Some(&AppRoute::Files),
+                            on_click: None,
+                        },
+                        SubItem {
+                            label: self.translator.translate("app.menu.content.media.galleries"),
+                            route: Some(&AppRoute::Galleries),
+                            on_click: None,
+                        },
+                    ],
+                },
+                SubItemGroup {
+                    title: self.translator.translate("app.menu.content.pages"),
+                    items: vec![
+                        SubItem {
+                            label: self.translator.translate("app.menu.content.pages.simple_pages"),
+                            route: Some(&AppRoute::SimplePages),
+                            on_click: None,
+                        },
+                        SubItem {
+                            label: self.translator.translate("app.menu.content.pages.segment_pages"),
+                            route: Some(&AppRoute::SegmentPages),
+                            on_click: None,
+                        },
+                    ],
+                },
+            ]
+        } else {
+            vec![]
+        };
+        let mut configuration_group = if is_admin {
+            vec![
+                SubItemGroup {
+                    title: self.translator.translate("app.menu.configuration.generic"),
+                    items: vec![
+                        SubItem {
+                            label: self.translator.translate("app.menu.configuration.generic.artists"),
+                            route: Some(&AppRoute::Artists),
+                            on_click: None,
+                        },
+                    ],
+                },
+            ]
+        } else {
+            vec![]
+        };
+        if is_writer {
+            configuration_group.push(SubItemGroup {
                 title: self.translator.translate("app.menu.configuration.frontend"),
                 items: vec![
                     SubItem {
@@ -272,8 +285,8 @@ impl JinyaDesignerApp {
                         on_click: None,
                     },
                 ],
-            },
-        ];
+            });
+        }
         let my_jinya_group = vec![
             SubItemGroup {
                 title: self.translator.translate("app.menu.my_jinya.my_account"),
@@ -313,29 +326,33 @@ impl JinyaDesignerApp {
             </div>
         }
     }
+
     fn router_render(&self) -> Render<AppRoute, ()> {
-        Router::render(|switch: AppRoute| {
+        let roles = AuthenticationStorage::get_roles().unwrap();
+        let is_writer = roles.contains(&"ROLE_WRITER".to_string());
+        let is_admin = roles.contains(&"ROLE_ADMIN".to_string());
+        Router::render(move |switch: AppRoute| {
             match switch {
                 AppRoute::Login => html! {<LoginPage />},
                 AppRoute::TwoFactor => html! {<TwoFactorPage />},
                 AppRoute::Homepage => html! {<HomePage />},
-                AppRoute::Files => html! {<FilesPage />},
-                AppRoute::Galleries => html! {<GalleriesPage />},
-                AppRoute::GalleryDesigner(id) => html! {<GalleryDesignerPage id=id />},
-                AppRoute::SimplePages => html! {<SimplePagesPage />},
-                AppRoute::EditSimplePage(id) => html! {<EditSimplePagePage id=id />},
-                AppRoute::AddSimplePage => html! {<AddSimplePagePage />},
-                AppRoute::SegmentPages => html! {<SegmentPagesPage />},
-                AppRoute::SegmentPageDesigner(id) => html! {<SegmentPageDesignerPage id=id />},
-                AppRoute::MyProfile => html! {<MyProfilePage />},
-                AppRoute::Artists => html! {<ArtistsPage />},
-                AppRoute::ArtistProfile(id) => html! {<ProfilePage id=id />},
-                AppRoute::Menus => html! {<MenusPage />},
-                AppRoute::MenuDesigner(id) => html! {<MenuDesignerPage id=id />},
-                AppRoute::Themes => html! {<ThemesPage />},
-                AppRoute::ThemeScssPage(id) => html! {<ScssPage id=id />},
-                AppRoute::ThemeLinksPage(id) => html! {<LinksPage id=id />},
-                AppRoute::ThemeConfigurationPage(id) => html! {<ConfigurationPage id=id />},
+                AppRoute::Files => if is_writer { html! {<FilesPage />} } else { html! {} },
+                AppRoute::Galleries => if is_writer { html! {<GalleriesPage />} } else { html! {} },
+                AppRoute::GalleryDesigner(id) => if is_writer { html! {<GalleryDesignerPage id=id />} } else { html! {} },
+                AppRoute::SimplePages => if is_writer { html! {<SimplePagesPage />} } else { html! {} },
+                AppRoute::EditSimplePage(id) => if is_writer { html! {<EditSimplePagePage id=id />} } else { html! {} },
+                AppRoute::AddSimplePage => if is_writer { html! {<AddSimplePagePage />} } else { html! {} },
+                AppRoute::SegmentPages => if is_writer { html! {<SegmentPagesPage />} } else { html! {} },
+                AppRoute::SegmentPageDesigner(id) => if is_writer { html! {<SegmentPageDesignerPage id=id />} } else { html! {} },
+                AppRoute::MyProfile => if is_admin { html! {<MyProfilePage />} } else { html! {} },
+                AppRoute::Artists => if is_admin { html! {<ArtistsPage />} } else { html! {} },
+                AppRoute::ArtistProfile(id) => if is_admin { html! {<ProfilePage id=id />} } else { html! {} },
+                AppRoute::Menus => if is_writer { html! {<MenusPage /> } } else { html! {} },
+                AppRoute::MenuDesigner(id) => if is_writer { html! {<MenuDesignerPage id=id /> } } else { html! {} },
+                AppRoute::Themes => if is_writer { html! {<ThemesPage /> } } else { html! {} },
+                AppRoute::ThemeScssPage(id) => if is_writer { html! {<ScssPage id=id /> } } else { html! {} },
+                AppRoute::ThemeLinksPage(id) => if is_writer { html! {<LinksPage id=id /> } } else { html! {} },
+                AppRoute::ThemeConfigurationPage(id) => if is_writer { html! {<ConfigurationPage id=id /> } } else { html! {} },
             }
         })
     }
