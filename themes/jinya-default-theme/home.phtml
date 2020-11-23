@@ -1,7 +1,6 @@
 <?php
-/** @var \App\Database\Theme $theme */
 /** @var \App\Database\SegmentPage $startMasonry */
-$startMasonry = $theme->getSegmentPages()['startpage'];
+$startMasonry = $this->segmentPage('startpage');
 ?>
 <?php $this->layout('theme::layout') ?>
 <?php $this->start('maincontent') ?>

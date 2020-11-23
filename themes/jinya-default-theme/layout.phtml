@@ -9,7 +9,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width"/>
-    <?= $this->getStyleTags() ?>
+    <?= $this->styles() ?>
     <?php if (isset($configuration['fonts']['menu'])): ?>
         <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['menu']) ?>">
     <?php endif ?>
@@ -50,10 +50,11 @@
                     'item' => $menuItem,
                     'class' => 'jinya-footer-menu__item',
                 ]) ?>
-            <?php endforeach; endif ?>
+            <?php endforeach ?>
+        <?php endif ?>
     </nav>
 </footer>
-<?= $this->getScriptTags() ?>
+<?= $this->scripts() ?>
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 </body>
 </html>

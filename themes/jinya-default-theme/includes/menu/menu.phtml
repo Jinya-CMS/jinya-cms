@@ -3,7 +3,7 @@
 /** @var \App\Database\Menu $menu */
 /** @var \App\Database\MenuItem $activeMenuItem */
 $activeMenuItem = $this->getActiveMenuItem();
-$menu = $theme->getMenus()['primary'];
+$menu = $this->menu('primary');
 ?>
 <header class="jinya-header">
     <?php if (isset($menu)): ?>
