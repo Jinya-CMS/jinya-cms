@@ -29,16 +29,11 @@ interface CacheBuilderInterface
 
     /**
      * Builds the cache for the given routing entry
-     *
-     * @param RoutingEntry $routingEntry
      */
     public function buildRouteCache(RoutingEntry $routingEntry): void;
 
     /**
      * Builds the cache for the given slug and type
-     *
-     * @param string $slug
-     * @param string $type
      */
     public function buildCacheBySlugAndType(string $slug, string $type): void;
 
@@ -49,8 +44,6 @@ interface CacheBuilderInterface
 
     /**
      * Gets the cache file
-     *
-     * @return string
      */
     public function getCacheFile(): string;
 }

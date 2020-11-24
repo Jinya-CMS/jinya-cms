@@ -21,16 +21,12 @@ use Jinya\Services\Configuration\ConfigurationServiceInterface;
 
 class ApiKeyTool implements ApiKeyToolInterface
 {
-    /** @var EntityManagerInterface */
     private EntityManagerInterface $entityManager;
 
-    /** @var ConfigurationServiceInterface */
     private ConfigurationServiceInterface $configurationService;
 
     /**
      * ApiKeyTool constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param ConfigurationServiceInterface $configurationService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -42,9 +38,6 @@ class ApiKeyTool implements ApiKeyToolInterface
 
     /**
      * Creates an api key for the given user
-     *
-     * @param User $user
-     * @return string
      */
     public function createApiKey(User $user): string
     {
@@ -69,7 +62,6 @@ class ApiKeyTool implements ApiKeyToolInterface
     /**
      * Refreshes the validate since time
      *
-     * @param string $key
      * @throws Exception
      */
     public function refreshToken(string $key): void
@@ -86,8 +78,6 @@ class ApiKeyTool implements ApiKeyToolInterface
 
     /**
      * Invalidates all tokens for the given user
-     *
-     * @param int $userId
      */
     public function invalidateAll(int $userId): void
     {
@@ -102,8 +92,6 @@ class ApiKeyTool implements ApiKeyToolInterface
     /**
      * Invalidates the given api key if it is owned by the given user
      *
-     * @param string $username
-     * @param string $key
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -118,8 +106,6 @@ class ApiKeyTool implements ApiKeyToolInterface
     /**
      * Gets the user for the given api key
      *
-     * @param string $key
-     * @return User
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -137,8 +123,6 @@ class ApiKeyTool implements ApiKeyToolInterface
 
     /**
      * Invalidates the given api key
-     *
-     * @param string $key
      */
     public function invalidate(string $key): void
     {
@@ -153,8 +137,6 @@ class ApiKeyTool implements ApiKeyToolInterface
     /**
      * Gets all api keys for the given user
      *
-     * @param string $email
-     * @return array
      * @throws Exception
      */
     public function getAllForUser(string $email): array
@@ -185,8 +167,6 @@ class ApiKeyTool implements ApiKeyToolInterface
     /**
      * Checks whether the given api key should get invalidated
      *
-     * @param string $key
-     * @return bool
      * @throws Exception
      */
     public function shouldInvalidate(string $key): bool
@@ -209,9 +189,6 @@ class ApiKeyTool implements ApiKeyToolInterface
 
     /**
      * Check if the given key exists in the database
-     *
-     * @param string $key
-     * @return bool
      */
     public function keyExists(string $key): bool
     {

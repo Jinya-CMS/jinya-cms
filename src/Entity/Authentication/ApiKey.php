@@ -21,35 +21,27 @@ class ApiKey implements JsonSerializable
 {
     /**
      * @ORM\ManyToOne(targetEntity="Jinya\Entity\Artist\User", cascade={"remove"})
-     *
-     * @var User
      */
     private User $user;
 
     /**
      * @ORM\Column(type="string", name="api_key")
      * @ORM\Id
-     *
-     * @var string
      */
     private string $key;
 
     /**
      * @ORM\Column(type="datetime")
-     *
-     * @var DateTime
      */
     private DateTime $validSince;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      */
     private string $userAgent;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      */
     private string $remoteAddress;
 
@@ -69,9 +61,6 @@ class ApiKey implements JsonSerializable
         return $this->userAgent;
     }
 
-    /**
-     * @param string $userAgent
-     */
     public function setUserAgent(string $userAgent): void
     {
         $this->userAgent = $userAgent;
@@ -85,57 +74,36 @@ class ApiKey implements JsonSerializable
         return $this->remoteAddress;
     }
 
-    /**
-     * @param string $remoteAddress
-     */
     public function setRemoteAddress(string $remoteAddress): void
     {
         $this->remoteAddress = $remoteAddress;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getValidSince(): DateTime
     {
         return $this->validSince;
     }
 
-    /**
-     * @param DateTime $validSince
-     */
     public function setValidSince(DateTime $validSince): void
     {
         $this->validSince = $validSince;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user): void
     {
         $this->user = $user;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;
     }
 
-    /**
-     * @param string $key
-     */
     public function setKey(string $key): void
     {
         $this->key = $key;

@@ -17,29 +17,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ChangelogController extends BaseApiController
 {
-    /**
-     * @var string
-     */
     private string $jinyaVersion;
 
-    /**
-     * @var string
-     */
     private string $kernelProjectDir;
 
     /**
      * ChangelogController constructor.
-     * @param string $jinyaVersion
-     * @param string $kernelProjectDir
-     * @param TranslatorInterface $translator
-     * @param LoggerInterface $logger
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param RequestStack $requestStack
-     * @param HttpKernelInterface $kernel
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface $tokenStorage
-     * @param RouterInterface $router
-     * @param CompilerInterface $compiler
      */
     public function __construct(
         string $jinyaVersion,
@@ -71,8 +54,6 @@ class ChangelogController extends BaseApiController
 
     /**
      * @Route("/api/changelog", name="api_changelog_get", methods={"GET"})
-     *
-     * @return Response
      */
     public function getAction(): Response
     {
