@@ -115,7 +115,10 @@ impl Component for SimplePagesPage {
                 }
             }
             Msg::OnPageSelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_simple_pages_task = Some(self.simple_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
+            },
             Msg::OnDeleteApprove => self.delete_page_task = Some(self.simple_page_service.delete_page(self.get_selected_page(), self.link.callback(Msg::OnPageDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnPageDeleted(result) => {

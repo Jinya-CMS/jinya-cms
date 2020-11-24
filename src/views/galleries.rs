@@ -153,7 +153,10 @@ impl Component for GalleriesPage {
                 }
             }
             Msg::OnGallerySelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnGalleriesLoaded)));
+            },
             Msg::OnDeleteApprove => self.delete_gallery_task = Some(self.gallery_service.delete_gallery(self.get_selected_gallery(), self.link.callback(Msg::OnGalleryDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnGalleryDeleted(result) => {

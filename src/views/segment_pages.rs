@@ -127,7 +127,10 @@ impl Component for SegmentPagesPage {
                 }
             }
             Msg::OnPageSelected(idx) => self.selected_index = Some(idx),
-            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response { self.keyword = value },
+            Msg::OnMenuAgentResponse(response) => if let MenuAgentResponse::OnSearch(value) = response {
+                self.keyword = value;
+                self.load_segment_pages_task = Some(self.segment_page_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnPagesLoaded)));
+            },
             Msg::OnDeleteApprove => self.delete_page_task = Some(self.segment_page_service.delete_segment_page(self.get_selected_page(), self.link.callback(Msg::OnPageDeleted))),
             Msg::OnDeleteDecline => self.show_delete_dialog = false,
             Msg::OnPageDeleted(result) => {
