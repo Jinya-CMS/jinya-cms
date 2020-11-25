@@ -44,6 +44,10 @@ pub fn english_translations() -> HashMap<&'static str, &'static str> {
     map.insert("app.menu.configuration.frontend.themes.variables", "{name} styling");
     map.insert("app.menu.configuration.frontend.themes.links", "{name} link");
 
+    map.insert("app.menu.maintenance", "Maintenance");
+    map.insert("app.menu.maintenance.system", "System");
+    map.insert("app.menu.maintenance.system.update", "Update");
+
     map.insert("app.title.home_page", "Startpage");
 
     map.insert("files.card.button.information", "More info");
