@@ -2,12 +2,15 @@ use jinya_ui::widgets::menu::bar::MenuBar;
 use jinya_ui::widgets::menu::item::{MenuItem, SubItem, SubItemGroup};
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
+use yew::utils::window;
 use yew_router::{prelude::*, Switch};
 use yew_router::agent::RouteRequest;
 use yew_router::router::Render;
 
 use crate::agents::menu_agent::{MenuAgent, MenuAgentRequest, MenuAgentResponse};
+use crate::ajax::{AjaxError, get_host};
 use crate::ajax::authentication_service::AuthenticationService;
+use crate::ajax::update_service::UpdateService;
 use crate::i18n::Translator;
 use crate::storage::AuthenticationStorage;
 use crate::views::artists::ArtistsPage;
@@ -43,6 +46,8 @@ pub struct JinyaDesignerApp {
     hide_search: bool,
     change_password_open: bool,
     check_api_key_task: Option<FetchTask>,
+    update_service: UpdateService,
+    update_task: Option<FetchTask>,
 }
 
 #[derive(Switch, Clone, PartialEq)]
@@ -99,6 +104,8 @@ pub enum Msg {
     OnLogout(MouseEvent),
     OnChangePasswordSave,
     OnChangePasswordDiscard,
+    OnStartUpdate(MouseEvent),
+    OnUpdateStarted(Result<bool, AjaxError>),
 }
 
 impl Component for JinyaDesignerApp {
@@ -133,9 +140,12 @@ impl Component for JinyaDesignerApp {
             hide_search: false,
             change_password_open: false,
             check_api_key_task: None,
+            update_service: UpdateService::new(),
+            update_task: None,
         }
     }
 
+    #[allow(unused_must_use)]
     fn update(&mut self, msg: Self::Message) -> bool {
         match msg {
             Msg::OnRouteChanged(route) => {
@@ -172,6 +182,13 @@ impl Component for JinyaDesignerApp {
                 self.router.send(RouteRequest::ChangeRoute(Route::from(AppRoute::Login)));
             }
             Msg::OnChangePasswordDiscard => self.change_password_open = false,
+            Msg::OnStartUpdate(event) => {
+                event.prevent_default();
+                self.update_task = Some(self.update_service.start_update(self.link.callback(Msg::OnUpdateStarted)));
+            }
+            Msg::OnUpdateStarted(result) => if result.is_ok() {
+                window().location().set_href(format!("{}/update", get_host()).as_str());
+            }
         }
 
         true
@@ -309,6 +326,18 @@ impl JinyaDesignerApp {
                 ],
             },
         ];
+        let maintenance_group = vec![
+            SubItemGroup {
+                title: self.translator.translate("app.menu.maintenance.system"),
+                items: vec![
+                    SubItem {
+                        label: self.translator.translate("app.menu.maintenance.system.update"),
+                        route: None,
+                        on_click: Some(self.link.callback(Msg::OnStartUpdate)),
+                    },
+                ],
+            },
+        ];
 
         let placeholder = if self.hide_search {
             None
@@ -321,6 +350,7 @@ impl JinyaDesignerApp {
                 <MenuBar search_placeholder=placeholder title=&self.menu_title on_search=self.link.callback(|value| Msg::OnMenuSearch(value)) on_keyword=self.link.callback(|value| Msg::OnMenuKeyword(value))>
                     <MenuItem<AppRoute> groups=content_group label=self.translator.translate("app.menu.content") />
                     <MenuItem<AppRoute> groups=configuration_group label=self.translator.translate("app.menu.configuration") />
+                    <MenuItem<AppRoute> groups=maintenance_group label=self.translator.translate("app.menu.maintenance") />
                     <MenuItem<AppRoute> groups=my_jinya_group label=self.translator.translate("app.menu.my_jinya") />
                 </MenuBar>
             </div>
