@@ -47,45 +47,45 @@ pub struct JinyaDesignerApp {
 
 #[derive(Switch, Clone, PartialEq)]
 pub enum AppRoute {
-    #[to = "/login"]
+    #[to = "/designer/login"]
     Login,
-    #[to = "/two-factor"]
+    #[to = "/designer/two-factor"]
     TwoFactor,
-    #[to = "/content/files"]
+    #[to = "/designer/content/files"]
     Files,
-    #[to = "/content/galleries/{id}/designer"]
+    #[to = "/designer/content/galleries/{id}/designer"]
     GalleryDesigner(usize),
-    #[to = "/content/galleries"]
+    #[to = "/designer/content/galleries"]
     Galleries,
-    #[to = "/content/simple-pages/{id}/edit"]
+    #[to = "/designer/content/simple-pages/{id}/edit"]
     EditSimplePage(usize),
-    #[to = "/content/simple-pages/add"]
+    #[to = "/designer/content/simple-pages/add"]
     AddSimplePage,
-    #[to = "/content/simple-pages"]
+    #[to = "/designer/content/simple-pages"]
     SimplePages,
-    #[to = "/content/segment-pages/{id}/designer"]
+    #[to = "/designer/content/segment-pages/{id}/designer"]
     SegmentPageDesigner(usize),
-    #[to = "/content/segment-pages"]
+    #[to = "/designer/content/segment-pages"]
     SegmentPages,
-    #[to = "/account/me"]
+    #[to = "/designer/account/me"]
     MyProfile,
-    #[to = "/configuration/artists/{id}/profile"]
+    #[to = "/designer/configuration/artists/{id}/profile"]
     ArtistProfile(usize),
-    #[to = "/configuration/artists"]
+    #[to = "/designer/configuration/artists"]
     Artists,
-    #[to = "/configuration/menu/{id}/designer"]
+    #[to = "/designer/configuration/menu/{id}/designer"]
     MenuDesigner(usize),
-    #[to = "/configuration/menus"]
+    #[to = "/designer/configuration/menus"]
     Menus,
-    #[to = "/configuration/themes/{id}/styling"]
+    #[to = "/designer/configuration/themes/{id}/styling"]
     ThemeScssPage(usize),
-    #[to = "/configuration/themes/{id}/links"]
+    #[to = "/designer/configuration/themes/{id}/links"]
     ThemeLinksPage(usize),
-    #[to = "/configuration/themes/{id}/settings"]
+    #[to = "/designer/configuration/themes/{id}/settings"]
     ThemeConfigurationPage(usize),
-    #[to = "/configuration/themes"]
+    #[to = "/designer/configuration/themes"]
     Themes,
-    #[to = "/"]
+    #[to = "/designer/"]
     Homepage,
 }
 
