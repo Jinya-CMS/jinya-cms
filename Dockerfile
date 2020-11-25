@@ -2,7 +2,9 @@ FROM php:7.4-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update
+RUN apt-get install libzip-dev -y
+RUN docker-php-ext-install pdo pdo_mysql zip
 RUN a2enmod rewrite
 RUN a2enmod headers
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf

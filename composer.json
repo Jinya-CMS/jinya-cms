@@ -6,6 +6,7 @@
     "php": ">=7.4",
     "ext-fileinfo": "*",
     "ext-json": "*",
+    "ext-zip": "*",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "laminas/laminas-crypt": "3.3.1",
@@ -22,7 +23,6 @@
     "scssphp/scssphp": "1.2.1",
     "slim/psr7": "0.5.0",
     "slim/slim": "4.5.0",
-    "slim/views": "0.1.3",
     "tedivm/jshrink": "1.3.3",
     "vlucas/phpdotenv": "4.1.4"
   },

@@ -6,6 +6,8 @@ use App\Web\Actions\Frontend\GetHomeAction;
 use App\Web\Actions\Frontend\PostFrontAction;
 use App\Web\Actions\Install\GetInstallerAction;
 use App\Web\Actions\Install\PostInstallerAction;
+use App\Web\Actions\Update\GetUpdateAction;
+use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -53,11 +55,28 @@ return function (App $app) {
         $installer->post('', PostInstallerAction::class);
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         if (file_exists(__ROOT__ . '/installed.lock')) {
-            return (new Response())->withStatus(Action::HTTP_MOVED_PERMANENTLY)->withHeader('Location',
-                '/');
+            return (new Response())
+                ->withStatus(Action::HTTP_MOVED_PERMANENTLY)
+                ->withHeader('Location', '/');
         }
 
         return $handler->handle($request);
+    });
+    $app->group('/update', function (RouteCollectorProxy $installer) {
+        $installer->get('', GetUpdateAction::class);
+        $installer->post('', PostUpdateAction::class);
+    })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+        $cookies = $request->getCookieParams();
+        $updateLock = __ROOT__ . '/update.lock';
+        if (isset($cookies['JinyaUpdateKey'])
+            && file_exists($updateLock)
+            && file_get_contents($updateLock) === $cookies['JinyaUpdateKey']) {
+            return $handler->handle($request);
+        }
+
+        return (new Response())
+            ->withStatus(Action::HTTP_MOVED_PERMANENTLY)
+            ->withHeader('Location', '/');
     });
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);

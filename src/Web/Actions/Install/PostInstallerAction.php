@@ -36,8 +36,9 @@ class PostInstallerAction extends InstallAction
                 $artist->create();
 
                 touch(__ROOT__ . '/installed.lock');
-                return $this->response->withStatus(self::HTTP_MOVED_PERMANENTLY)->withHeader('Location',
-                    '/');
+                return $this->response
+                    ->withStatus(self::HTTP_MOVED_PERMANENTLY)
+                    ->withHeader('Location', '/');
             } catch (Throwable $exception) {
                 return $this->render('install::first-admin', [
                     'data' => $postData,
@@ -50,13 +51,14 @@ class PostInstallerAction extends InstallAction
 APP_ENV=prod
 
 JINYA_API_KEY_EXPIRY=86400
+JINYA_UPDATE_SERVER=https://releases.jinya.de/cms.json
 
 DOTENV;
 
-        $data = array_map(fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
+        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
 
-        foreach ($data as $datum) {
-            $dotenv .= PHP_EOL . $datum;
+        foreach ($data as $item) {
+            $dotenv .= PHP_EOL . $item;
         }
 
         file_put_contents(__ROOT__ . '/.env', $dotenv);
