@@ -31,6 +31,7 @@ class PostUpdateAction extends UpdateAction
                 $zipStream->open($updatePath);
                 $zipStream->extractTo(__ROOT__);
                 $zipStream->close();
+                unlink(__ROOT__ . '/update.lock');
             } catch (Throwable $exception) {
                 return $this->render(
                     'update::update',
