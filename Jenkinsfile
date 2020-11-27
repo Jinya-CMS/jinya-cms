@@ -62,7 +62,7 @@ spec:
                         }
                         stage('Clone main') {
                             when {
-                                branch: 'main'
+                                branch 'main'
                             }
                             steps {
                                 git branch: "main", url: 'https://github.com/Jinya-CMS/jinya-designer.git'
@@ -93,7 +93,7 @@ spec:
                         }
                         stage('Clone main') {
                             when {
-                                branch: 'main'
+                                branch 'main'
                             }
                             steps {
                                 git branch: "main", url: 'https://github.com/Jinya-CMS/jinya-backend.git'
