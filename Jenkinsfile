@@ -49,7 +49,7 @@ spec:
     }
     stages {
         stage('Build Jinya') {
-            parralel {
+            parallel {
                 stage('Build designer') {
                     stages {
                         stage('Clone tag') {
@@ -137,7 +137,7 @@ spec:
             }
         }
         stage('Upload new Jinya version') {
-            parralel {
+            parallel {
                 stage('Upload artifact') {
                     when {
                         buildingTag()
