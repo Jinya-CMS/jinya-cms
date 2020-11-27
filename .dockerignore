@@ -1,9 +1,2 @@
-node_modules
-var/log
-var/profiler
-config/install.lock
-vagrant-files
-.vagrant
-.scannerwork
-.git
-.circleci
+.idea
+.vscode
