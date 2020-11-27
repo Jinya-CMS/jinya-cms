@@ -62,6 +62,8 @@ spec:
                             }
                             steps {
                                 container('rust') {
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-designer.git"
                                 }
                             }
@@ -72,6 +74,8 @@ spec:
                             }
                             steps {
                                 container('rust') {
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b main https://github.com/Jinya-CMS/jinya-designer.git"
                                 }
                             }
@@ -98,6 +102,8 @@ spec:
                             }
                             steps {
                                 container('php') {
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -108,6 +114,8 @@ spec:
                             }
                             steps {
                                 container('php') {
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b main https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -118,7 +126,7 @@ spec:
                                     sh "mkdir -p /usr/share/man/man1"
                                     sh "apt-get update"
                                     sh "apt-get install -y apt-utils"
-                                    sh "apt-get install -y libzip-dev git wget unzip zip"
+                                    sh "apt-get install -y libzip-dev wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
                                     sh "cd jinya-backend"
