@@ -61,7 +61,9 @@ spec:
                                 buildingTag()
                             }
                             steps {
-                                git branch: "refs/tags/$TAG_NAME", url: 'https://github.com/Jinya-CMS/jinya-designer.git'
+                                container('rust') {
+                                    sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-designer.git"
+                                }
                             }
                         }
                         stage('Clone main') {
@@ -69,7 +71,9 @@ spec:
                                 branch 'main'
                             }
                             steps {
-                                git branch: "main", url: 'https://github.com/Jinya-CMS/jinya-designer.git'
+                                container('rust') {
+                                    sh "git clone -b main https://github.com/Jinya-CMS/jinya-designer.git"
+                                }
                             }
                         }
                         stage('Build rust') {
@@ -92,7 +96,9 @@ spec:
                                 buildingTag()
                             }
                             steps {
-                                git branch: "refs/tags/$TAG_NAME", url: 'https://github.com/Jinya-CMS/jinya-backend.git'
+                                container('rust') {
+                                    sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-backend.git"
+                                }
                             }
                         }
                         stage('Clone main') {
@@ -100,13 +106,14 @@ spec:
                                 branch 'main'
                             }
                             steps {
-                                git branch: "main", url: 'https://github.com/Jinya-CMS/jinya-backend.git'
+                                container('rust') {
+                                    sh "git clone -b main https://github.com/Jinya-CMS/jinya-backend.git"
+                                }
                             }
                         }
                         stage('Build php') {
                             steps {
                                 container('php') {
-                                    git branch: "refs/tags/$TAG_NAME", url: 'https://github.com/Jinya-CMS/jinya-backend.git'
                                     sh "mkdir -p /usr/share/man/man1"
                                     sh "apt-get update"
                                     sh "apt-get install -y apt-utils"
