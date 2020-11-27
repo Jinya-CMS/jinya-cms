@@ -9,6 +9,10 @@ pipeline {
 apiVersion: v1
 kind: Pod
 spec:
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
   imagePullSecrets:
     - name: dev-imanuel-jenkins-regcred
   containers:
