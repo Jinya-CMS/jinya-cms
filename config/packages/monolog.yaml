@@ -1,7 +1,0 @@
-monolog:
-    channels: ['logging']
-    handlers:
-        db:
-            type: service
-            id: Jinya\Logging\MySqlHandler
-            channels: ['!doctrine', '!logging']

@@ -1,8 +1,0 @@
-twig:
-    paths:
-      '%kernel.project_dir%/templates': Jinya
-      '%kernel.project_dir%/themes': Theme
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-    globals:
-      ajax: false
