@@ -79,6 +79,7 @@ spec:
                         stage('Build rust') {
                             steps {
                                 container('rust') {
+                                    sh "apt-get update"
                                     sh 'apt-get install nodejs'
                                     sh 'yarn'
                                     sh 'yarn build:prod'
@@ -96,7 +97,7 @@ spec:
                                 buildingTag()
                             }
                             steps {
-                                container('rust') {
+                                container('php') {
                                     sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -106,7 +107,7 @@ spec:
                                 branch 'main'
                             }
                             steps {
-                                container('rust') {
+                                container('php') {
                                     sh "git clone -b main https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -120,6 +121,7 @@ spec:
                                     sh "apt-get install -y libzip-dev git wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
+                                    sh "cd jinya-backend"
                                     sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
                                     sh "php composer-setup.php"
                                     sh '''php -r "unlink(\'composer-setup.php\');"'''
