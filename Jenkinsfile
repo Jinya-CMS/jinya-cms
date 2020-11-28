@@ -157,7 +157,7 @@ spec:
                     sh 'rm -rf ./jinya-designer'
                     sh 'mv ./jinya-backend ./jinya-cms'
                     sh 'apt-get update'
-                    sh 'apt-get install unzip curl -y'
+                    sh 'apt-get install zip unzip curl -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
                 }
