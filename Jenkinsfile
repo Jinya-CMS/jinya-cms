@@ -86,9 +86,11 @@ spec:
                                     sh "apt-get update"
                                     sh 'apt-get install -y nodejs npm zip'
                                     sh 'npm install -g yarn'
-                                    sh 'cd jinya-designer && yarn'
-                                    sh 'cd jinya-designer && yarn build:prod'
-                                    stash excludes: '.git/**,src/**,node_modules/**,target/**', name: 'jinya-designer'
+                                    dir('jinya-designer') {
+                                        sh 'yarn'
+                                        sh 'yarn build:prod'
+                                        stash excludes: '.git/**,src/**,node_modules/**,target/**', name: 'jinya-designer'
+                                    }
                                 }
                             }
                         }
@@ -129,12 +131,13 @@ spec:
                                     sh "apt-get install -y libzip-dev wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
-                                    sh '''cd jinya-backend && php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
-                                    sh "cd jinya-backend && php composer-setup.php"
-                                    sh '''cd jinya-backend && php -r "unlink(\'composer-setup.php\');"'''
-                                    sh 'cd jinya-backend && php composer.phar install --no-dev'
-                                    sh "cd jinya-backend && zip -r ../jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                                    stash excludes: '.git/**,.sonarwork/**,sonar-project.properties', name: 'jinya-backend'
+                                    dir('jinya-backend') {
+                                        sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
+                                        sh "php composer-setup.php"
+                                        sh '''php -r "unlink(\'composer-setup.php\');"'''
+                                        sh 'php composer.phar install --no-dev'
+                                        stash excludes: '.git/**,.sonarwork/**,sonar-project.properties', name: 'jinya-backend'
+                                    }
                                 }
                             }
                         }
