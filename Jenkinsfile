@@ -170,14 +170,15 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                        def imageImanuelDev = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
                         docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
-                            image.push()
+                            imageImanuelDev.push()
                         }
 
-                        image.tag("jinyacms/jinya-cms:$TAG_NAME")
+                        def imageDockerHub = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                        imageDockerHub.tag("jinyacms/jinya-cms:$TAG_NAME")
                         docker.withRegistry('', 'hub.docker.com') {
-                            image.push()
+                            imageDockerHub.push()
                         }
                     }
                 }
