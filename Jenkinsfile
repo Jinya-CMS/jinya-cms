@@ -34,12 +34,6 @@ spec:
     - sleep
     args:
     - infinity
-  - name: upload
-    image: registry.imanuel.dev/library/debian:buster
-    command:
-    - sleep
-    args:
-    - infinity
   - name: docker
     image: registry.imanuel.dev/library/docker:stable
     command:
@@ -145,9 +139,15 @@ spec:
                 }
             }
         }
-        stage('Create package') {
+        stage('Create and publish package') {
+            when {
+                buildingTag()
+            }
+            environment {
+                JINYA_RELEASES_AUTH = credentials('releases.jinya.de')
+            }
             steps {
-                container('package') {
+                container('docker') {
                     unstash 'jinya-designer'
                     unstash 'jinya-backend'
                     sh 'mkdir -p ./jinya-backend/public/designer'
@@ -155,57 +155,19 @@ spec:
                     sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
                     sh 'rm -rf ./jinya-designer'
-                    stash name: 'jinya-cms'
-                }
-            }
-        }
-        stage('Upload new Jinya version') {
-            parallel {
-                stage('Upload artifact') {
-                    when {
-                        buildingTag()
-                    }
-                    environment {
-                        JINYA_RELEASES_AUTH = credentials('releases.jinya.de')
-                    }
-                    steps {
-                        container('upload') {
-                            unstash 'jinya-cms'
-                            sh 'apt update'
-                            sh 'apt install zip unzip curl'
-                            sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
-                            sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
+                    sh 'apt-get update'
+                    sh 'apt-get install unzip curl -y'
+                    sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
+                    archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
+                    script {
+                        def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                        docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
+                            image.push()
                         }
-                    }
-                }
-                stage('Archive artifact') {
-                    steps {
-                        container('upload') {
-                            unstash 'jinya-cms'
-                            sh 'apt install zip'
-                            sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
-                            archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
-                        }
-                    }
-                }
-                stage('Create docker image') {
-                    when {
-                        buildingTag()
-                    }
-                    steps {
-                        container('docker') {
-                            unstash 'jinya-cms'
-                            script {
-                                def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
-                                docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
-                                    image.push()
-                                }
 
-                                image.tag("jinyacms/jinya-cms:$TAG_NAME")
-                                docker.withRegistry('', 'hub.docker.com') {
-                                    image.push()
-                                }
-                            }
+                        image.tag("jinyacms/jinya-cms:$TAG_NAME")
+                        docker.withRegistry('', 'hub.docker.com') {
+                            image.push()
                         }
                     }
                 }
