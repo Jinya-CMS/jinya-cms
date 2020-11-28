@@ -170,8 +170,8 @@ spec:
                     }
                     steps {
                         container('upload') {
+                            sh 'apk add tar gzip zip curl'
                             unstash 'jinya-cms'
-                            sh 'apk add zip curl'
                             sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
                         }
@@ -180,6 +180,7 @@ spec:
                 stage('Archive artifact') {
                     steps {
                         container('upload') {
+                            sh 'apk add tar gzip'
                             unstash 'jinya-cms'
                             sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
@@ -192,6 +193,7 @@ spec:
                     }
                     steps {
                         container('docker') {
+                            sh 'apk add tar gzip'
                             unstash 'jinya-cms'
                             script {
                                 def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
