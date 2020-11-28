@@ -88,7 +88,7 @@ spec:
                                     sh 'npm install -g yarn'
                                     sh 'cd jinya-designer && yarn'
                                     sh 'cd jinya-designer && yarn build:prod'
-                                    stash excludes: '.git/**,src/**,node_modules/**,target/**' name: 'jinya-designer'
+                                    stash excludes: '.git/**,src/**,node_modules/**,target/**', name: 'jinya-designer'
                                 }
                             }
                         }
@@ -134,7 +134,7 @@ spec:
                                     sh '''cd jinya-backend && php -r "unlink(\'composer-setup.php\');"'''
                                     sh 'cd jinya-backend && php composer.phar install --no-dev'
                                     sh "cd jinya-backend && zip -r ../jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                                    stash excludes: '.git/**,.sonarwork/**,sonar-project.properties' name: 'jinya-backend'
+                                    stash excludes: '.git/**,.sonarwork/**,sonar-project.properties', name: 'jinya-backend'
                                 }
                             }
                         }
