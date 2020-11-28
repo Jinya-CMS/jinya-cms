@@ -160,6 +160,7 @@ spec:
                     sh 'apt-get install zip unzip curl -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
+                    sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
                 }
             }
         }
@@ -169,16 +170,18 @@ spec:
             }
             steps {
                 container('docker') {
+                    unstash 'jinya-designer'
+                    unstash 'jinya-backend'
+                    sh 'mkdir -p ./jinya-backend/public/designer'
+                    sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
+                    sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
+                    sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
+                    sh 'rm -rf ./jinya-designer'
+                    sh 'mv ./jinya-backend ./jinya-cms'
                     script {
-                        def imageImanuelDev = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
-                        docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
-                            imageImanuelDev.push()
-                        }
-                    }
-                    script {
-                        def imageDockerHub = docker.build "jinyacms/jinya-cms:$TAG_NAME"
-                        docker.withRegistry('https://index.docker.io/v1/', 'hub.docker.com') {
-                            imageDockerHub.push()
+                        def image = docker.build "jinyacms/jinya-cms:$TAG_NAME"
+                        docker.withRegistry('', 'hub.docker.com') {
+                            image.push()
                         }
                     }
                 }
