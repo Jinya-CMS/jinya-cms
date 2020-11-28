@@ -176,7 +176,7 @@ spec:
                         }
 
                         def imageDockerHub = docker.build "jinyacms/jinya-cms:$TAG_NAME"
-                        docker.withRegistry('', 'hub.docker.com') {
+                        docker.withRegistry('https://index.docker.io/v1/', 'hub.docker.com') {
                             imageDockerHub.push()
                         }
                     }
