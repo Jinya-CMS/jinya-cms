@@ -169,14 +169,6 @@ spec:
             }
             steps {
                 container('docker') {
-                    unstash 'jinya-designer'
-                    unstash 'jinya-backend'
-                    sh 'mkdir -p ./jinya-backend/public/designer'
-                    sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
-                    sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
-                    sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
-                    sh 'rm -rf ./jinya-designer'
-                    sh 'mv ./jinya-backend ./jinya-cms'
                     script {
                         def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
                         docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
