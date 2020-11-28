@@ -173,6 +173,7 @@ spec:
                     unstash 'jinya-designer'
                     unstash 'jinya-backend'
                     sh 'mkdir -p ./jinya-backend/public/designer'
+                    sh 'ls -la .'
                     sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
