@@ -84,7 +84,7 @@ spec:
                             steps {
                                 container('rust') {
                                     sh "apt-get update"
-                                    sh 'apt-get install -y nodejs yarn'
+                                    sh 'apt-get install -y nodejs npm zip'
                                     sh 'npm install -g yarn'
                                     sh 'cd jinya-designer && yarn'
                                     sh 'cd jinya-designer && yarn build:prod'
@@ -150,8 +150,11 @@ spec:
                     unstash 'jinya-backend'
                     sh 'apk add zip curl'
                     sh 'unzip jinya-backend.zip -d ./jinya-cms'
-                    sh 'unzip jinya-designer.zip -d ./jinya-cms/public'
-                    sh 'mv ./jinya-cms/public/index.html /jinya-cms/public/designer/index.html'
+                    sh 'unzip jinya-designer.zip -d ./jinya-designer'
+                    sh 'mkdir -p ./jinya-designer/public/designer'
+                    sh 'cp -r ./jinya-designer/pkg ./jinya-cms/public/'
+                    sh 'cp -r ./jinya-designer/static ./jinya-cms/public/'
+                    sh 'cp -r ./jinya-designer/index.html ./jinya-cms/public/designer/index.html'
                     sh 'cd ./jinya-cms && zip -r ../jinya-cms.zip ./*'
                     stash includes: 'jinya-cms.zip', name: 'jinya-cms'
                 }
