@@ -129,9 +129,9 @@ spec:
                                     sh "apt-get install -y libzip-dev wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
-                                    sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
-                                    sh "php composer-setup.php"
-                                    sh '''php -r "unlink(\'composer-setup.php\');"'''
+                                    sh '''cd jinya-backend && php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
+                                    sh "cd jinya-backend && php composer-setup.php"
+                                    sh '''cd jinya-backend && php -r "unlink(\'composer-setup.php\');"'''
                                     sh 'cd jinya-backend && php composer.phar install --no-dev'
                                     sh "cd jinya-backend && zip -r ../jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
                                     stash includes: 'jinya-backend.zip', name: 'jinya-backend'
