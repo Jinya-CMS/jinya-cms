@@ -29,13 +29,13 @@ spec:
     args:
     - infinity
   - name: package
-    image: registry.imanuel.dev/library/alpine:3
+    image: registry.imanuel.dev/library/debian:buster
     command:
     - sleep
     args:
     - infinity
   - name: upload
-    image: registry.imanuel.dev/library/alpine:3
+    image: registry.imanuel.dev/library/debian:buster
     command:
     - sleep
     args:
@@ -170,8 +170,9 @@ spec:
                     }
                     steps {
                         container('upload') {
-                            sh 'apk add tar gzip zip curl'
                             unstash 'jinya-cms'
+                            sh 'apt update'
+                            sh 'apt install zip unzip curl'
                             sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
                         }
@@ -180,8 +181,8 @@ spec:
                 stage('Archive artifact') {
                     steps {
                         container('upload') {
-                            sh 'apk add tar gzip'
                             unstash 'jinya-cms'
+                            sh 'apt install zip'
                             sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
                         }
@@ -193,7 +194,6 @@ spec:
                     }
                     steps {
                         container('docker') {
-                            sh 'apk add tar gzip'
                             unstash 'jinya-cms'
                             script {
                                 def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
