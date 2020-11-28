@@ -88,8 +88,7 @@ spec:
                                     sh 'npm install -g yarn'
                                     sh 'cd jinya-designer && yarn'
                                     sh 'cd jinya-designer && yarn build:prod'
-                                    sh "cd jinya-designer && zip -r ../jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
-                                    stash includes: 'jinya-designer.zip', name: 'jinya-designer'
+                                    stash excludes: '.git/**,src/**,node_modules/**,target/**' name: 'jinya-designer'
                                 }
                             }
                         }
@@ -135,7 +134,7 @@ spec:
                                     sh '''cd jinya-backend && php -r "unlink(\'composer-setup.php\');"'''
                                     sh 'cd jinya-backend && php composer.phar install --no-dev'
                                     sh "cd jinya-backend && zip -r ../jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                                    stash includes: 'jinya-backend.zip', name: 'jinya-backend'
+                                    stash excludes: '.git/**,.sonarwork/**,sonar-project.properties' name: 'jinya-backend'
                                 }
                             }
                         }
@@ -149,9 +148,7 @@ spec:
                     unstash 'jinya-designer'
                     unstash 'jinya-backend'
                     sh 'apk add zip curl'
-                    sh 'unzip jinya-backend.zip -d ./jinya-cms'
-                    sh 'unzip jinya-designer.zip -d ./jinya-designer'
-                    sh 'mkdir -p ./jinya-designer/public/designer'
+                    sh 'mkdir -p ./jinya-backend/public/designer'
                     sh 'cp -r ./jinya-designer/pkg ./jinya-cms/public/'
                     sh 'cp -r ./jinya-designer/static ./jinya-cms/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-cms/public/designer/index.html'
@@ -198,7 +195,7 @@ spec:
                                     image.push()
                                 }
 
-                                image.tag('jinyacms/jinya-cms:$TAG_NAME')
+                                image.tag("jinyacms/jinya-cms:$TAG_NAME")
                                 docker.withRegistry('', 'hub.docker.com') {
                                     image.push()
                                 }
