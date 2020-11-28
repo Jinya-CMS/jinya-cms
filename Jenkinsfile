@@ -152,10 +152,10 @@ spec:
                     unstash 'jinya-backend'
                     sh 'apk add zip curl'
                     sh 'mkdir -p ./jinya-backend/public/designer'
-                    sh 'cp -r ./jinya-designer/pkg ./jinya-cms/public/'
-                    sh 'cp -r ./jinya-designer/static ./jinya-cms/public/'
-                    sh 'cp -r ./jinya-designer/index.html ./jinya-cms/public/designer/index.html'
-                    sh 'cd ./jinya-cms && zip -r ../jinya-cms.zip ./*'
+                    sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
+                    sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
+                    sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
+                    sh 'cd ./jinya-backend && zip -r ../jinya-cms.zip ./*'
                     stash includes: 'jinya-cms.zip', name: 'jinya-cms'
                 }
             }
