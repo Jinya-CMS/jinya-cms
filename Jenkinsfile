@@ -155,6 +155,7 @@ spec:
                     sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
                     sh 'rm -rf ./jinya-designer'
+                    sh 'mv ./jinya-backend ./jinya-cms'
                     sh 'apt-get update'
                     sh 'apt-get install unzip curl -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
