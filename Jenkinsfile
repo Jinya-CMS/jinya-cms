@@ -17,13 +17,13 @@ spec:
     - name: dev-imanuel-jenkins-regcred
   containers:
   - name: php
-    image: registry.imanuel.dev/library/php:7.4-alpine
+    image: registry.imanuel.dev/library/php:7.4-apache
     command:
     - sleep
     args:
     - infinity
   - name: rust
-    image: registry.imanuel.dev/library/rust:1.48-alpine
+    image: registry.imanuel.dev/library/rust:1.48
     command:
     - sleep
     args:
@@ -62,7 +62,8 @@ spec:
                             }
                             steps {
                                 container('rust') {
-                                    sh "apk add git"
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-designer.git"
                                 }
                             }
@@ -73,7 +74,8 @@ spec:
                             }
                             steps {
                                 container('rust') {
-                                    sh "apk add git"
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b main https://github.com/Jinya-CMS/jinya-designer.git"
                                 }
                             }
@@ -81,7 +83,9 @@ spec:
                         stage('Build rust') {
                             steps {
                                 container('rust') {
-                                    sh 'apk add nodejs yarn'
+                                    sh "apt-get update"
+                                    sh 'apt-get install -y nodejs yarn'
+                                    sh 'npm install -g yarn'
                                     sh 'cd jinya-designer && yarn'
                                     sh 'cd jinya-designer && yarn build:prod'
                                     sh "cd jinya-designer && zip -r ../jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
@@ -99,7 +103,8 @@ spec:
                             }
                             steps {
                                 container('php') {
-                                    sh "apk add git"
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -110,7 +115,8 @@ spec:
                             }
                             steps {
                                 container('php') {
-                                    sh "apk add git"
+                                    sh "apt-get update"
+                                    sh "apt-get install -y git"
                                     sh "git clone -b main https://github.com/Jinya-CMS/jinya-backend.git"
                                 }
                             }
@@ -118,7 +124,10 @@ spec:
                         stage('Build php') {
                             steps {
                                 container('php') {
-                                    sh "apk add libzip libzip-dev zip"
+                                    sh "mkdir -p /usr/share/man/man1"
+                                    sh "apt-get update"
+                                    sh "apt-get install -y apt-utils"
+                                    sh "apt-get install -y libzip-dev wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
                                     sh '''cd jinya-backend && php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
