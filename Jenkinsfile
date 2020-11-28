@@ -150,11 +150,11 @@ spec:
                 container('package') {
                     unstash 'jinya-designer'
                     unstash 'jinya-backend'
-                    sh 'apk add zip curl'
                     sh 'mkdir -p ./jinya-backend/public/designer'
                     sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
+                    sh 'rm -rf ./jinya-designer'
                     stash name: 'jinya-cms'
                 }
             }
@@ -171,6 +171,7 @@ spec:
                     steps {
                         container('upload') {
                             unstash 'jinya-cms'
+                            sh 'apk add zip curl'
                             sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
                         }
