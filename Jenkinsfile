@@ -84,10 +84,10 @@ spec:
                             steps {
                                 container('rust') {
                                     sh "apt-get update"
-                                    sh 'apt-get install nodejs'
-                                    sh 'yarn'
-                                    sh 'yarn build:prod'
-                                    sh "zip -r ./jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
+                                    sh 'apt-get install -y nodejs'
+                                    sh 'cd jinya-designer && yarn'
+                                    sh 'cd jinya-designer && yarn build:prod'
+                                    sh "cd jinya-designer && zip -r ../jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
                                     stash includes: 'jinya-designer.zip', name: 'jinya-designer'
                                 }
                             }
@@ -129,12 +129,11 @@ spec:
                                     sh "apt-get install -y libzip-dev wget unzip zip"
                                     sh "docker-php-ext-install pdo pdo_mysql zip"
                                     sh "php --version"
-                                    sh "cd jinya-backend"
                                     sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
                                     sh "php composer-setup.php"
                                     sh '''php -r "unlink(\'composer-setup.php\');"'''
-                                    sh 'php composer.phar install --no-dev'
-                                    sh "zip -r ./jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
+                                    sh 'cd jinya-backend && php composer.phar install --no-dev'
+                                    sh "cd jinya-backend && zip -r ../jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
                                     stash includes: 'jinya-backend.zip', name: 'jinya-backend'
                                 }
                             }
