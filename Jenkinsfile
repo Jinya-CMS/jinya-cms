@@ -155,8 +155,7 @@ spec:
                     sh 'cp -r ./jinya-designer/pkg ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/static ./jinya-backend/public/'
                     sh 'cp -r ./jinya-designer/index.html ./jinya-backend/public/designer/index.html'
-                    sh 'cd ./jinya-backend && zip -r ../jinya-cms.zip ./*'
-                    stash includes: 'jinya-cms.zip', name: 'jinya-cms'
+                    stash includes: './jinya-backend/**', name: 'jinya-cms'
                 }
             }
         }
@@ -172,6 +171,7 @@ spec:
                     steps {
                         container('upload') {
                             unstash 'jinya-cms'
+                            sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
                         }
                     }
@@ -180,6 +180,7 @@ spec:
                     steps {
                         container('upload') {
                             unstash 'jinya-cms'
+                            sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                             archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
                         }
                     }
@@ -191,7 +192,6 @@ spec:
                     steps {
                         container('docker') {
                             unstash 'jinya-cms'
-                            sh 'unzip jinya-cms.zip -d ./jinya-cms'
                             script {
                                 def image = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
                                 docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
