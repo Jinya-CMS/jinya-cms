@@ -174,7 +174,8 @@ spec:
                         docker.withRegistry('https://registry-hosted.imanuel.dev', 'nexus.imanuel.dev') {
                             imageImanuelDev.push()
                         }
-
+                    }
+                    script {
                         def imageDockerHub = docker.build "jinyacms/jinya-cms:$TAG_NAME"
                         docker.withRegistry('https://index.docker.io/v1/', 'hub.docker.com') {
                             imageDockerHub.push()
