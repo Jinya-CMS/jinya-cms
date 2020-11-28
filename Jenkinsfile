@@ -84,7 +84,7 @@ spec:
                             steps {
                                 container('rust') {
                                     sh "apt-get update"
-                                    sh 'apt-get install -y nodejs'
+                                    sh 'apt-get install -y nodejs yarn'
                                     sh 'cd jinya-designer && yarn'
                                     sh 'cd jinya-designer && yarn build:prod'
                                     sh "cd jinya-designer && zip -r ../jinya-designer.zip ./* --exclude .git/ --exclude src/ --exclude node_modules/ --exclude target/"
