@@ -175,8 +175,7 @@ spec:
                             imageImanuelDev.push()
                         }
 
-                        def imageDockerHub = docker.build "registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
-                        imageDockerHub.tag("jinyacms/jinya-cms:$TAG_NAME")
+                        def imageDockerHub = docker.build "jinyacms/jinya-cms:$TAG_NAME"
                         docker.withRegistry('', 'hub.docker.com') {
                             imageDockerHub.push()
                         }
