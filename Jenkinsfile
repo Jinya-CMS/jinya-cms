@@ -170,7 +170,7 @@ spec:
             }
             steps {
                 container('docker') {
-                    withDockerRegistry(credentialsId: 'hub.docker.com') {
+                    withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
                         sh "docker build -t jinyacms/jinya-cms:$TAG_NAME ."
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
                     }
