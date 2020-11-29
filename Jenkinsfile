@@ -170,10 +170,8 @@ spec:
             }
             steps {
                 container('docker') {
-                    unstash 'jinya-designer'
-                    unstash 'jinya-backend'
-                    sh "docker build -t jinyacms/jinya-cms:$TAG_NAME ."
-                    withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
+                    withDockerRegistry(credentialsId: 'hub.docker.com') {
+                        sh "docker build -t jinyacms/jinya-cms:$TAG_NAME ."
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
                     }
                 }
