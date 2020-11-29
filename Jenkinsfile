@@ -176,17 +176,11 @@ spec:
                     sh 'pwd && ls -la .'
                     sh "docker build jinyacms/jinya-cms:$TAG_NAME."
                     sh "docker tag jinyamcs/jinya-cms:$TAG_NAME registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
-                    withDockerRegistry(credentialsId: 'hub.docker.com') {
+                    withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
                     }
                     withDockerRegistry(credentialsId: 'nexus.imanuel.dev', url: 'https://registry-hosted.imanuel.dev') {
                         sh "docker push registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
-                    }
-                    script {
-                        def image = docker.build "jinyacms/jinya-cms:$TAG_NAME"
-                        docker.withRegistry('', 'hub.docker.com') {
-                            image.push()
-                        }
                     }
                 }
             }
