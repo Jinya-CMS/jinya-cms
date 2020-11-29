@@ -174,7 +174,7 @@ spec:
                     unstash 'jinya-backend'
                     sh 'mkdir -p ./jinya-backend/public/designer'
                     sh 'pwd && ls -la ./jinya-cms'
-                    sh "docker build -t jinyacms/jinya-cms:$TAG_NAME."
+                    sh "docker build -t jinyacms/jinya-cms:$TAG_NAME ."
                     sh "docker tag jinyamcs/jinya-cms:$TAG_NAME registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
                     withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
