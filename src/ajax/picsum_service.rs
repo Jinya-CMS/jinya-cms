@@ -28,8 +28,9 @@ impl PicsumService {
         let url = format!("https://picsum.photos/seed/{}/2560/1440", seed);
         let request = http::Request::get(url).body(Nothing).unwrap();
         let handler = move |response: Response<Json<Result<String, Error>>>| {
-            let picsum_id = response.headers().get("picsum-id").unwrap().to_str().unwrap().to_string();
-            callback.emit(picsum_id)
+            if let Some(picsum_id) = response.headers().get("picsum-id") {
+                callback.emit(picsum_id.to_str().unwrap_or_default().to_string());
+            }
         };
 
         FetchService::fetch(request, handler.into()).unwrap()

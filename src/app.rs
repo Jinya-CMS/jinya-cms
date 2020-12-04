@@ -232,133 +232,136 @@ impl Component for JinyaDesignerApp {
 
 impl JinyaDesignerApp {
     fn get_menu(&self) -> Html {
-        let roles = AuthenticationStorage::get_roles().unwrap();
-        let is_writer = roles.contains(&"ROLE_WRITER".to_string());
-        let is_admin = roles.contains(&"ROLE_ADMIN".to_string());
-        let content_group = if is_writer {
-            vec![
-                SubItemGroup {
-                    title: self.translator.translate("app.menu.content.media"),
+        if let Some(roles) = AuthenticationStorage::get_roles() {
+            let is_writer = roles.contains(&"ROLE_WRITER".to_string());
+            let is_admin = roles.contains(&"ROLE_ADMIN".to_string());
+            let content_group = if is_writer {
+                vec![
+                    SubItemGroup {
+                        title: self.translator.translate("app.menu.content.media"),
+                        items: vec![
+                            SubItem {
+                                label: self.translator.translate("app.menu.content.media.files"),
+                                route: Some(&AppRoute::Files),
+                                on_click: None,
+                            },
+                            SubItem {
+                                label: self.translator.translate("app.menu.content.media.galleries"),
+                                route: Some(&AppRoute::Galleries),
+                                on_click: None,
+                            },
+                        ],
+                    },
+                    SubItemGroup {
+                        title: self.translator.translate("app.menu.content.pages"),
+                        items: vec![
+                            SubItem {
+                                label: self.translator.translate("app.menu.content.pages.simple_pages"),
+                                route: Some(&AppRoute::SimplePages),
+                                on_click: None,
+                            },
+                            SubItem {
+                                label: self.translator.translate("app.menu.content.pages.segment_pages"),
+                                route: Some(&AppRoute::SegmentPages),
+                                on_click: None,
+                            },
+                        ],
+                    },
+                ]
+            } else {
+                vec![]
+            };
+            let mut configuration_group = if is_admin {
+                vec![
+                    SubItemGroup {
+                        title: self.translator.translate("app.menu.configuration.generic"),
+                        items: vec![
+                            SubItem {
+                                label: self.translator.translate("app.menu.configuration.generic.artists"),
+                                route: Some(&AppRoute::Artists),
+                                on_click: None,
+                            },
+                        ],
+                    },
+                ]
+            } else {
+                vec![]
+            };
+            if is_writer {
+                configuration_group.push(SubItemGroup {
+                    title: self.translator.translate("app.menu.configuration.frontend"),
                     items: vec![
                         SubItem {
-                            label: self.translator.translate("app.menu.content.media.files"),
-                            route: Some(&AppRoute::Files),
+                            label: self.translator.translate("app.menu.configuration.frontend.menus"),
+                            route: Some(&AppRoute::Menus),
                             on_click: None,
                         },
                         SubItem {
-                            label: self.translator.translate("app.menu.content.media.galleries"),
-                            route: Some(&AppRoute::Galleries),
+                            label: self.translator.translate("app.menu.configuration.frontend.themes"),
+                            route: Some(&AppRoute::Themes),
                             on_click: None,
                         },
                     ],
-                },
+                });
+            }
+            let my_jinya_group = vec![
                 SubItemGroup {
-                    title: self.translator.translate("app.menu.content.pages"),
+                    title: self.translator.translate("app.menu.my_jinya.my_account"),
                     items: vec![
                         SubItem {
-                            label: self.translator.translate("app.menu.content.pages.simple_pages"),
-                            route: Some(&AppRoute::SimplePages),
+                            label: self.translator.translate("app.menu.my_jinya.my_account.my_profile"),
+                            route: Some(&AppRoute::MyProfile),
                             on_click: None,
                         },
                         SubItem {
-                            label: self.translator.translate("app.menu.content.pages.segment_pages"),
-                            route: Some(&AppRoute::SegmentPages),
-                            on_click: None,
+                            label: self.translator.translate("app.menu.my_jinya.my_account.change_password"),
+                            route: None,
+                            on_click: Some(self.link.callback(Msg::OnChangePassword)),
+                        },
+                        SubItem {
+                            label: self.translator.translate("app.menu.my_jinya.my_account.logout"),
+                            route: None,
+                            on_click: Some(self.link.callback(Msg::OnLogout)),
                         },
                     ],
                 },
-            ]
-        } else {
-            vec![]
-        };
-        let mut configuration_group = if is_admin {
-            vec![
+            ];
+            let maintenance_group = vec![
                 SubItemGroup {
-                    title: self.translator.translate("app.menu.configuration.generic"),
+                    title: self.translator.translate("app.menu.maintenance.system"),
                     items: vec![
                         SubItem {
-                            label: self.translator.translate("app.menu.configuration.generic.artists"),
-                            route: Some(&AppRoute::Artists),
-                            on_click: None,
+                            label: self.translator.translate("app.menu.maintenance.system.update"),
+                            route: None,
+                            on_click: Some(self.link.callback(Msg::OnStartUpdate)),
                         },
                     ],
                 },
-            ]
-        } else {
-            vec![]
-        };
-        if is_writer {
-            configuration_group.push(SubItemGroup {
-                title: self.translator.translate("app.menu.configuration.frontend"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.configuration.frontend.menus"),
-                        route: Some(&AppRoute::Menus),
-                        on_click: None,
-                    },
-                    SubItem {
-                        label: self.translator.translate("app.menu.configuration.frontend.themes"),
-                        route: Some(&AppRoute::Themes),
-                        on_click: None,
-                    },
-                ],
-            });
-        }
-        let my_jinya_group = vec![
-            SubItemGroup {
-                title: self.translator.translate("app.menu.my_jinya.my_account"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.my_jinya.my_account.my_profile"),
-                        route: Some(&AppRoute::MyProfile),
-                        on_click: None,
-                    },
-                    SubItem {
-                        label: self.translator.translate("app.menu.my_jinya.my_account.change_password"),
-                        route: None,
-                        on_click: Some(self.link.callback(Msg::OnChangePassword)),
-                    },
-                    SubItem {
-                        label: self.translator.translate("app.menu.my_jinya.my_account.logout"),
-                        route: None,
-                        on_click: Some(self.link.callback(Msg::OnLogout)),
-                    },
-                ],
-            },
-        ];
-        let maintenance_group = vec![
-            SubItemGroup {
-                title: self.translator.translate("app.menu.maintenance.system"),
-                items: vec![
-                    SubItem {
-                        label: self.translator.translate("app.menu.maintenance.system.update"),
-                        route: None,
-                        on_click: Some(self.link.callback(Msg::OnStartUpdate)),
-                    },
-                ],
-            },
-        ];
+            ];
 
-        let placeholder = if self.hide_search {
-            None
-        } else {
-            Some(self.translator.translate("app.menu.search"))
-        };
+            let placeholder = if self.hide_search {
+                None
+            } else {
+                Some(self.translator.translate("app.menu.search"))
+            };
 
-        html! {
-            <div style="position: sticky; top: 0; z-index: 1;">
-                <MenuBar search_placeholder=placeholder title=&self.menu_title on_search=self.link.callback(|value| Msg::OnMenuSearch(value)) on_keyword=self.link.callback(|value| Msg::OnMenuKeyword(value))>
-                    <MenuItem<AppRoute> groups=content_group label=self.translator.translate("app.menu.content") />
-                    <MenuItem<AppRoute> groups=configuration_group label=self.translator.translate("app.menu.configuration") />
-                    <MenuItem<AppRoute> groups=maintenance_group label=self.translator.translate("app.menu.maintenance") />
-                    <MenuItem<AppRoute> groups=my_jinya_group label=self.translator.translate("app.menu.my_jinya") />
-                </MenuBar>
-            </div>
+            html! {
+                <div style="position: sticky; top: 0; z-index: 1;">
+                    <MenuBar search_placeholder=placeholder title=&self.menu_title on_search=self.link.callback(|value| Msg::OnMenuSearch(value)) on_keyword=self.link.callback(|value| Msg::OnMenuKeyword(value))>
+                        <MenuItem<AppRoute> groups=content_group label=self.translator.translate("app.menu.content") />
+                        <MenuItem<AppRoute> groups=configuration_group label=self.translator.translate("app.menu.configuration") />
+                        <MenuItem<AppRoute> groups=maintenance_group label=self.translator.translate("app.menu.maintenance") />
+                        <MenuItem<AppRoute> groups=my_jinya_group label=self.translator.translate("app.menu.my_jinya") />
+                    </MenuBar>
+                </div>
+            }
+        } else {
+            html! {}
         }
     }
 
     fn router_render(&self) -> Render<AppRoute, ()> {
-        let roles = AuthenticationStorage::get_roles().unwrap();
+        let roles = AuthenticationStorage::get_roles().unwrap_or_default();
         let is_writer = roles.contains(&"ROLE_WRITER".to_string());
         let is_admin = roles.contains(&"ROLE_ADMIN".to_string());
         Router::render(move |switch: AppRoute| {
