@@ -7,6 +7,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemePageAction extends ThemeAction
 {
@@ -32,6 +33,10 @@ class GetThemePageAction extends ThemeAction
 
         foreach ($pages as $key => $page) {
             $result[$key] = $page->format();
+        }
+
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);

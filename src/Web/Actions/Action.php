@@ -147,7 +147,7 @@ abstract class Action
      * @return Response
      * @throws JsonException
      */
-    protected function respond(?array $payload = null, int $statusCode = Action::HTTP_OK): Response
+    protected function respond($payload = null, int $statusCode = Action::HTTP_OK): Response
     {
         $json = json_encode($payload, JSON_THROW_ON_ERROR, 512);
         $this->response->getBody()->write($json);

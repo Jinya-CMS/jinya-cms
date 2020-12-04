@@ -6,6 +6,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemeFileAction extends ThemeAction
 {
@@ -29,6 +30,9 @@ class GetThemeFileAction extends ThemeAction
 
         foreach ($files as $key => $file) {
             $result[$key] = $file->format();
+        }
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);

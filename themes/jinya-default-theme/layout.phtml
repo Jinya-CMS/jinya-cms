@@ -1,57 +1,57 @@
-<?php
-/** @var array $configuration */
-/** @var \App\Database\Theme $theme */
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= $this->e($configuration['page']['title']) ?><?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
+    <title><?= $this->e($this->config('page', 'title')) ?><?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta name="viewport" content="width=device-width"/>
     <?= $this->styles() ?>
-    <?php if (isset($configuration['fonts']['menu'])): ?>
-        <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['menu']) ?>">
-    <?php endif ?>
-    <?php if (isset($configuration['fonts']['heading'])): ?>
-        <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['heading']) ?>">
-    <?php endif ?>
-    <?php if (isset($configuration['fonts']['paragraph'])): ?>
-        <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['paragraph']) ?>">
-    <?php endif ?>
-    <?php if (isset($configuration['fonts']['brand'])): ?>
-        <link rel="stylesheet" href="<?= $this->e($configuration['fonts']['brand']) ?>">
-    <?php endif ?>
-    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
-        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($theme->getFiles()['faviconLarge']->path) ?>">
-    <?php endif ?>
-    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'menu')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'heading')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'paragraph')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'brand')) ?>">
+    <?php
+    if ($this->hasFile('faviconLarge')): ?>
+        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($this->file('faviconLarge')->path) ?>">
+    <?php
+    endif ?>
+    <?php
+    if ($this->hasFile('faviconSmall')): ?>
         <link rel="icon" type="image/png" sizes="64x64"
-              href="<?= $this->e($theme->getFiles()['faviconSmall']->path) ?>">
-    <?php endif ?>
-    <?php if (isset($theme->getFiles()['faviconLarge']->path)): ?>
-        <link rel="shortcut icon" href="<?= $this->e($theme->getFiles()['faviconShortcutIcon']->path) ?>">
-    <?php endif ?>
-    <meta name="apple-mobile-web-app-title" content="<?= $this->e($configuration['page']['title']) ?>">
-    <meta name="application-name" content="<?= $this->e($configuration['page']['title']) ?>">
+              href="<?= $this->e($this->file('faviconSmall')->path) ?>">
+    <?php
+    endif ?>
+    <?php
+    if ($this->hasFile('faviconShortcutIcon')): ?>
+        <link rel="shortcut icon" href="<?= $this->e($this->file('faviconShortcutIcon')->path) ?>">
+    <?php
+    endif ?>
+    <meta name="apple-mobile-web-app-title" content="<?= $this->e($this->config('page', 'title')) ?>">
+    <meta name="application-name" content="<?= $this->e($this->config('page', 'title')) ?>">
 </head>
 <body class="jinya-body">
 <?= $this->insert('theme::includes/menu/menu') ?>
 <?= $this->section('maincontent') ?>
 <footer class="jinya-footer">
     <div class="jinya-footer__copyright">
-        <?= $this->e($configuration['footer']['copyright']) ?>
+        <?= $this->e($this->config('footer', 'copyright')) ?>
     </div>
     <nav class="jinya-footer__menu">
-        <?php if (isset($theme->getMenus()['footer'])):
+        <?php
+        if ($this->hasMenu('footer')):
             /** @var \App\Database\MenuItem $menuItem */
-            foreach ($theme->getMenus()['footer']->getItems() as $menuItem): ?>
-                <?= $this->insert('theme::includes/menu_link', [
-                    'item' => $menuItem,
-                    'class' => 'jinya-footer-menu__item',
-                ]) ?>
-            <?php endforeach ?>
-        <?php endif ?>
+            foreach ($this->menu('footer')->getItems() as $menuItem): ?>
+                <?= $this->insert(
+                    'theme::includes/menu_link',
+                    [
+                        'item' => $menuItem,
+                        'class' => 'jinya-footer-menu__item',
+                    ]
+                ) ?>
+            <?php
+            endforeach ?>
+        <?php
+        endif ?>
     </nav>
 </footer>
 <?= $this->scripts() ?>

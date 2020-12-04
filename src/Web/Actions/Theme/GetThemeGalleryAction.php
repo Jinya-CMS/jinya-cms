@@ -6,6 +6,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemeGalleryAction extends ThemeAction
 {
@@ -29,6 +30,9 @@ class GetThemeGalleryAction extends ThemeAction
 
         foreach ($galleries as $key => $gallery) {
             $result[$key] = $gallery->format();
+        }
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);

@@ -7,6 +7,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemeMenuAction extends ThemeAction
 {
@@ -32,6 +33,9 @@ class GetThemeMenuAction extends ThemeAction
 
         foreach ($menus as $key => $menu) {
             $result[$key] = $menu->format();
+        }
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);

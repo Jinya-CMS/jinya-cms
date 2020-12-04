@@ -77,17 +77,35 @@ class Theme implements ExtensionInterface
         // $this->segmentPage(name)
         $engine->registerFunction('segmentPage', fn(string $name) => $this->dbTheme->getSegmentPages()[$name]);
 
+        // $this->hasSegmentPage(name)
+        $engine->registerFunction(
+            'hasSegmentPage',
+            fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name])
+        );
+
         // $this->page(name)
         $engine->registerFunction('page', fn(string $name) => $this->dbTheme->getPages()[$name]);
+
+        // $this->hasPage(name)
+        $engine->registerFunction('hasPage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
 
         // $this->file(name)
         $engine->registerFunction('file', fn(string $name) => $this->dbTheme->getFiles()[$name]);
 
+        // $this->hasFile(name)
+        $engine->registerFunction('hasFile', fn(string $name) => isset($this->dbTheme->getFiles()[$name]));
+
         // $this->gallery(name)
         $engine->registerFunction('gallery', fn(string $name) => $this->dbTheme->getGalleries()[$name]);
 
+        // $this->hasGallery(name)
+        $engine->registerFunction('hasGallery', fn(string $name) => isset($this->dbTheme->getGalleries()[$name]));
+
         // $this->menu(name)
         $engine->registerFunction('menu', fn(string $name) => $this->dbTheme->getMenus()[$name]);
+
+        // $this->hasMenu(name)
+        $engine->registerFunction('hasMenu', fn(string $name) => isset($this->dbTheme->getMenus()[$name]));
 
         // $this->asset(name)
         $engine->registerFunction('asset', fn(string $name) => $this->dbTheme->getAssets()[$name]);
@@ -95,11 +113,17 @@ class Theme implements ExtensionInterface
         // $this->form(name)
         $engine->registerFunction('form', fn(string $name) => $this->dbTheme->getForms()[$name]);
 
+        // $this->hasForm(name)
+        $engine->registerFunction('hasForm', fn(string $name) => isset($this->dbTheme->getForms()[$name]));
+
         // $this->config(group, field)
-        $engine->registerFunction('config', fn(
-            string $group,
-            string $field
-        ) => $this->dbTheme->configuration[$group][$field] ?? $this->configuration['configuration'][$group][$field]);
+        $engine->registerFunction(
+            'config',
+            fn(
+                string $group,
+                string $field
+            ) => $this->dbTheme->configuration[$group][$field] ?? $this->configuration['configuration'][$group][$field]
+        );
 
         // $this->styles()
         $engine->registerFunction(

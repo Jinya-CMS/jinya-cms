@@ -7,6 +7,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemeSegmentPageAction extends ThemeAction
 {
@@ -32,6 +33,9 @@ class GetThemeSegmentPageAction extends ThemeAction
 
         foreach ($segmentPages as $key => $segmentPage) {
             $result[$key] = $segmentPage->format();
+        }
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);

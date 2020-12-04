@@ -6,6 +6,7 @@ use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use stdClass;
 
 class GetThemeFormAction extends ThemeAction
 {
@@ -29,6 +30,9 @@ class GetThemeFormAction extends ThemeAction
 
         foreach ($forms as $key => $form) {
             $result[$key] = $form->format();
+        }
+        if (empty($result)) {
+            $result = new stdClass();
         }
 
         return $this->respond($result);
