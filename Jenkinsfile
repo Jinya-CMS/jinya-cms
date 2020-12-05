@@ -174,9 +174,8 @@ spec:
                     unstash 'jinya-backend'
                     sh 'chown -R root:root .'
                     sh 'chmod -R 775 .'
-                    sh 'mkdir -p ./jinya-backend/public/designer'
                     sh 'pwd && ls -la .'
-                    sh "docker build -t registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME ."
+                    sh "docker build -t registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile"
                     sh "docker tag registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:$TAG_NAME"
 
                     withDockerRegistry(credentialsId: 'nexus.imanuel.dev', url: 'https://registry-hosted.imanuel.dev') {
