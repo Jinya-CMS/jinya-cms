@@ -157,7 +157,7 @@ spec:
                     sh 'rm -rf ./jinya-designer'
                     sh 'mv ./jinya-backend ./jinya-cms'
                     sh 'apt-get update'
-                    sh 'apt-get install zip unzip curl -y'
+                    sh 'apt-get install zip unzip -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
                     sh 'go run ./main.go'
@@ -173,7 +173,7 @@ spec:
                     unstash 'jinya-designer'
                     unstash 'jinya-backend'
                     sh 'mkdir -p ./jinya-backend/public/designer'
-                    sh 'pwd && ls -la ./jinya-cms'
+                    sh 'pwd && ls -la .'
                     sh "docker build -t registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME ."
                     sh "docker tag registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:$TAG_NAME"
 

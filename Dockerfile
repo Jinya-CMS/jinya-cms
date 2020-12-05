@@ -3,9 +3,9 @@ FROM php:7.4-apache
 VOLUME /var/www/html
 WORKDIR /var/www/jinya
 
-COPY docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
-COPY docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
-COPY docker/entrypoint.sh /entrypoint.sh
+COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
+COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
+COPY ./docker/entrypoint.sh /entrypoint.sh
 COPY --chown=www-data ./jinya-cms /var/www/jinya/
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
