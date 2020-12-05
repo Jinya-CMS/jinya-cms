@@ -1,8 +1,5 @@
 FROM php:7.4-apache
 
-VOLUME /var/www/html
-WORKDIR /var/www/jinya
-
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 COPY ./docker/entrypoint.sh /entrypoint.sh
