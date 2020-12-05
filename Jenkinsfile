@@ -29,7 +29,7 @@ spec:
     args:
     - infinity
   - name: package
-    image: registry.imanuel.dev/library/debian:buster
+    image: registry.imanuel.dev/library/golang:buster
     command:
     - sleep
     args:
@@ -159,8 +159,9 @@ spec:
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip curl -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
+                    sh 'go build -o jinya-upload -l ./main.go'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
-                    sh "curl -X POST -H \"Content-Type: application/octet-stream\" -H \"JinyaAuthKey: ${env.JINYA_RELEASES_AUTH}\" -d @jinya-cms.zip https://releases.jinya.de/cms/push/${env.TAG_NAME}"
+                    sh "./jinya-upload"
                 }
             }
         }
