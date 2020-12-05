@@ -159,9 +159,8 @@ spec:
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip curl -y'
                     sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
-                    sh 'go build -o jinya-upload -l ./main.go'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
-                    sh "./jinya-upload"
+                    sh 'go run ./main.go'
                 }
             }
         }
