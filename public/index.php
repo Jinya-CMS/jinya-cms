@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 require __DIR__ . '/../defines.php';
 require __ROOT__ . '/vendor/autoload.php';
@@ -10,8 +11,21 @@ use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 if (file_exists(__ROOT__ . '/.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__ROOT__);
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__ROOT__);
     $dotenv->load();
+    $dotenv->required(
+        [
+            'APP_ENV',
+            'MYSQL_PASSWORD',
+            'MYSQL_USER',
+            'MYSQL_DATABASE',
+            'MYSQL_HOST',
+            'MAILER_HOST',
+            'MAILER_PORT',
+            'MAILER_SMTP_AUTH',
+            'MAILER_FROM',
+        ]
+    );
 }
 
 // Instantiate PHP-DI ContainerBuilder
