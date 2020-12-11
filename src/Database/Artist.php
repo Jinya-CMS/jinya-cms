@@ -4,16 +4,16 @@ namespace App\Database;
 
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Web\Middleware\RoleMiddleware;
 use Exception;
 use Iterator;
-use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
-use Laminas\Serializer\Adapter\PhpSerialize;
+use LogicException;
 
 class Artist extends LoadableEntity implements FormattableEntityInterface
 {
@@ -38,11 +38,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['email' => $email]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result, new self(),
+        return self::hydrateSingleResult(
+            $result,
+            new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -51,11 +54,15 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findById(int $id)
     {
-        return self::fetchSingleById('users', $id, new self(),
+        return self::fetchSingleById(
+            'users',
+            $id,
+            new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -71,11 +78,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
 
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(),
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -95,11 +105,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['apiKey' => $apiKey]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result, new self(),
+        return self::hydrateSingleResult(
+            $result,
+            new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -122,11 +135,13 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public function create(): void
     {
-        $this->id = $this->internalCreate('users',
+        $this->id = $this->internalCreate(
+            'users',
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -163,11 +178,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('users', new self(),
+        return self::fetchArray(
+            'users',
+            new self(),
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 
     /**
@@ -233,14 +251,29 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
+     * Validates the given password against the hash in the database
+     *
+     * @param string $password
+     * @return bool
+     */
+    public function validatePassword(string $password): bool
+    {
+        return password_verify($password, $this->password) && $this->enabled;
+    }
+
+    /**
      * Sets the artists password and hashes it
      *
      * @param string $password
      */
     public function setPassword(string $password): void
     {
-        $bcrypt = new Bcrypt();
-        $this->password = $bcrypt->create($password);
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        if (is_string($hash)) {
+            $this->password = $hash;
+        } else {
+            throw new LogicException('The result is must be a string');
+        }
     }
 
     /**
@@ -250,22 +283,12 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public function update(): void
     {
-        $this->internalUpdate('users',
+        $this->internalUpdate(
+            'users',
             [
                 'enabled' => new BooleanStrategy('1', '0'),
-                'roles' => new SerializableStrategy(new PhpSerialize()),
-            ]);
-    }
-
-    /**
-     * Validates the given password against the hash in the database
-     *
-     * @param string $password
-     * @return bool
-     */
-    public function validatePassword(string $password): bool
-    {
-        $bcrypt = new Bcrypt();
-        return $bcrypt->verify($password, $this->password) && $this->enabled;
+                'roles' => new PhpSerializeStrategy(),
+            ]
+        );
     }
 }

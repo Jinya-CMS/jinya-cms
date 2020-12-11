@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use App\Database\Strategies\JsonStrategy;
 use Exception;
 use Iterator;
 use Laminas\Db\Sql\Predicate\PredicateSet;
@@ -66,8 +67,8 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             'id' => $id,
             'position' => $position
         ]), new self(), [
-            'spamFilter' => new SerializableStrategy(new Json()),
-            'options' => new SerializableStrategy(new Json()),
+            'spamFilter' => new JsonStrategy(),
+            'options' => new JsonStrategy(),
         ]);
     }
 
@@ -107,8 +108,8 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         $this->internalRearrange('form_item', 'form_id', $this->formId, $this->position);
         $this->internalCreate('form_item', [
-            'spamFilter' => new SerializableStrategy(new Json()),
-            'options' => new SerializableStrategy(new Json()),
+            'spamFilter' => new JsonStrategy(),
+            'options' => new JsonStrategy(),
         ]);
     }
 
@@ -127,8 +128,8 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function update(): void
     {
         $this->internalUpdate('form_item', [
-            'spamFilter' => new SerializableStrategy(new Json()),
-            'options' => new SerializableStrategy(new Json()),
+            'spamFilter' => new JsonStrategy(),
+            'options' => new JsonStrategy(),
         ]);
     }
 

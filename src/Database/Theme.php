@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
@@ -36,8 +37,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
 
         return self::hydrateSingleResult($result, new self(), [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -49,8 +50,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     public static function findById(int $id)
     {
         return self::fetchSingleById('theme', $id, new self(), [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -68,8 +69,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
 
         return self::hydrateMultipleResults($result, new self(), [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -79,8 +80,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     public static function findAll(): Iterator
     {
         return self::fetchArray('theme', new self(), [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -102,8 +103,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['name' => $name]);
 
         return self::hydrateSingleResult($result, new self(), [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -243,8 +244,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     public function create(): void
     {
         $this->internalCreate('theme', [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 
@@ -262,8 +263,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     public function update(): void
     {
         $this->internalUpdate('theme', [
-            'scssVariables' => new SerializableStrategy(new Json()),
-            'configuration' => new SerializableStrategy(new Json()),
+            'scssVariables' => new JsonStrategy(),
+            'configuration' => new JsonStrategy(),
         ]);
     }
 

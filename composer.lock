@@ -4,44 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70751b367374abf91c514852de0246c6",
+    "content-hash": "92c1b614fb7ab0c60c6689d15f5df936",
     "packages": [
-        {
-            "name": "container-interop/container-interop",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/container-interop/container-interop.git",
-                "reference": "79cbf1341c22ec75643d841642dd5d6acd83bdb8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/79cbf1341c22ec75643d841642dd5d6acd83bdb8",
-                "reference": "79cbf1341c22ec75643d841642dd5d6acd83bdb8",
-                "shasum": ""
-            },
-            "require": {
-                "psr/container": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Interop\\Container\\": "src/Interop/Container/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
-            "homepage": "https://github.com/container-interop/container-interop",
-            "support": {
-                "issues": "https://github.com/container-interop/container-interop/issues",
-                "source": "https://github.com/container-interop/container-interop/tree/master"
-            },
-            "abandoned": "psr/container",
-            "time": "2017-02-14T19:40:03+00:00"
-        },
         {
             "name": "fig/http-message-util",
             "version": "1.1.5",
@@ -205,70 +169,6 @@
                 "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.0"
             },
             "time": "2020-11-17T11:09:47+00:00"
-        },
-        {
-            "name": "laminas/laminas-crypt",
-            "version": "3.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-crypt.git",
-                "reference": "5f5dfe3ca08c965cc1f44f95831a83a81a93bf78"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-crypt/zipball/5f5dfe3ca08c965cc1f44f95831a83a81a93bf78",
-                "reference": "5f5dfe3ca08c965cc1f44f95831a83a81a93bf78",
-                "shasum": ""
-            },
-            "require": {
-                "container-interop/container-interop": "^1.2",
-                "ext-mbstring": "*",
-                "laminas/laminas-math": "^3.0",
-                "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0"
-            },
-            "replace": {
-                "zendframework/zend-crypt": "self.version"
-            },
-            "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
-            },
-            "suggest": {
-                "ext-openssl": "Required for most features of Laminas\\Crypt"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3.x-dev",
-                    "dev-develop": "3.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\Crypt\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Strong cryptography tools and password hashing",
-            "homepage": "https://laminas.dev",
-            "keywords": [
-                "crypt",
-                "laminas"
-            ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-crypt/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-crypt/issues",
-                "rss": "https://github.com/laminas/laminas-crypt/releases.atom",
-                "source": "https://github.com/laminas/laminas-crypt"
-            },
-            "time": "2019-12-31T16:33:24+00:00"
         },
         {
             "name": "laminas/laminas-db",
@@ -475,69 +375,6 @@
                 "source": "https://github.com/laminas/laminas-json"
             },
             "time": "2019-12-31T17:15:04+00:00"
-        },
-        {
-            "name": "laminas/laminas-math",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-math.git",
-                "reference": "dd603c7d151d46eafd243a405d5b7eefa4222d74"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-math/zipball/dd603c7d151d46eafd243a405d5b7eefa4222d74",
-                "reference": "dd603c7d151d46eafd243a405d5b7eefa4222d74",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "paragonie/random_compat": "^2.0.11 || 9.99.99",
-                "php": "^5.6 || ^7.0"
-            },
-            "replace": {
-                "zendframework/zend-math": "self.version"
-            },
-            "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
-            },
-            "suggest": {
-                "ext-bcmath": "If using the bcmath functionality",
-                "ext-gmp": "If using the gmp functionality"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2.x-dev",
-                    "dev-develop": "3.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\Math\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Create cryptographically secure pseudo-random numbers, and manage big integers",
-            "homepage": "https://laminas.dev",
-            "keywords": [
-                "laminas",
-                "math"
-            ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-math/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-math/issues",
-                "rss": "https://github.com/laminas/laminas-math/releases.atom",
-                "source": "https://github.com/laminas/laminas-math"
-            },
-            "time": "2019-12-31T17:24:18+00:00"
         },
         {
             "name": "laminas/laminas-serializer",
@@ -990,56 +827,6 @@
                 "source": "https://github.com/opis/closure/tree/3.6.1"
             },
             "time": "2020-11-07T02:01:34+00:00"
-        },
-        {
-            "name": "paragonie/random_compat",
-            "version": "v9.99.99",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
-                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "vimeo/psalm": "^1"
-            },
-            "suggest": {
-                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "security@paragonie.com",
-                    "homepage": "https://paragonie.com"
-                }
-            ],
-            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-            "keywords": [
-                "csprng",
-                "polyfill",
-                "pseudorandom",
-                "random"
-            ],
-            "support": {
-                "email": "info@paragonie.com",
-                "issues": "https://github.com/paragonie/random_compat/issues",
-                "source": "https://github.com/paragonie/random_compat"
-            },
-            "time": "2018-07-02T15:55:56+00:00"
         },
         {
             "name": "php-di/invoker",

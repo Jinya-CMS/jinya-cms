@@ -20,10 +20,7 @@ class SkipFieldFilter implements FilterInterface
         $this->propertiesToSkip = $propertiesToSkip;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function filter(string $property): bool
+    public function filter(string $property, ?object $instance = null): bool
     {
         return !in_array($property, $this->propertiesToSkip, true);
     }
