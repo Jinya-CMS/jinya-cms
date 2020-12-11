@@ -158,3 +158,4 @@ $RECYCLE.BIN/
 /themes
 !/themes/jinya-default-theme
 /.scannerwork/
+/composer.phar
