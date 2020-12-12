@@ -121,7 +121,13 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'id' => "int",
+        'name' => "string",
+        'segmentCount' => "int",
+        'created' => "array",
+        'updated' => "array"
+    ])] public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();

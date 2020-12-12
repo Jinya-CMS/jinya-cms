@@ -5,7 +5,6 @@ namespace App\Database;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
-use RuntimeException;
 
 class ThemeAsset extends ThemeHelperEntity
 {

@@ -38,7 +38,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param string $name
      * @return mixed
      */
-    abstract public static function findByThemeAndName(int $themeId, string $name);
+    abstract public static function findByThemeAndName(int $themeId, string $name): mixed;
 
     /**
      * Finds the items for the given theme
@@ -55,12 +55,12 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param string $name
      * @param string $table
      * @param $prototype
-     * @return mixed
+     * @return object|null
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, $prototype): mixed
+    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, $prototype): ?object
     {
         $sql = "SELECT * FROM $table WHERE theme_id = :id AND name = :name";
         $result = self::executeStatement(
@@ -70,6 +70,9 @@ abstract class ThemeHelperEntity extends LoadableEntity
                 'name' => $name
             ]
         );
+        if (count($result) === 0) {
+            return null;
+        }
 
         return self::hydrateSingleResult($result[0], $prototype);
     }

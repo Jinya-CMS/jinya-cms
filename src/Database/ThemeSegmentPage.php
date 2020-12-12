@@ -42,7 +42,7 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
         return self::fetchByTheme($themeId, 'theme_segment_page', new self());
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'segmentPage' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

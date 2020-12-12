@@ -6,6 +6,7 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
 use Laminas\Serializer\Adapter\Json;
@@ -148,7 +149,7 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'id' => "int",
         'description' => "string",
         'title' => "string",

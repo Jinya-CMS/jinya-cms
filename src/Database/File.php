@@ -5,7 +5,6 @@ namespace App\Database;
 use App\Authentication\CurrentUser;
 use App\Database\Utils\LoadableEntity;
 use DateTime;
-use Exception;
 use Iterator;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
@@ -126,7 +125,14 @@ class File extends LoadableEntity
         );
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'id' => "int",
+        'name' => "string",
+        'type' => "string",
+        'path' => "string",
+        'created' => "array",
+        'updated' => "array"
+    ])] public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();

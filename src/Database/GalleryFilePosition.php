@@ -91,7 +91,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'gallery' => "array",
+        'file' => "array",
+        'id' => "int",
+        'position' => "int"
+    ])] public function format(): array
     {
         $gallery = $this->getGallery();
         $file = $this->getFile();

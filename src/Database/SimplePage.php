@@ -123,7 +123,13 @@ class SimplePage extends Utils\LoadableEntity
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'id' => "int",
+        'title' => "string",
+        'content' => "string",
+        'created' => "array",
+        'updated' => "array"
+    ])] public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();

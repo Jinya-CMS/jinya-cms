@@ -74,6 +74,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findByMenuItemAndPosition(int $menuItemId, int $position): ?MenuItem
     {
@@ -88,6 +89,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 ]
             );
 
+        if (count($result) === 0) {
+            return null;
+        }
         return self::hydrateSingleResult($result[0], new self());
     }
 
@@ -99,6 +103,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findByRoute($route): ?MenuItem
     {
@@ -111,6 +116,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                     'routeWithTrailingSlash' => "/$route",
                 ]
             );
+        if (count($result) === 0) {
+            return null;
+        }
 
         return self::hydrateSingleResult($result[0], new self());
     }

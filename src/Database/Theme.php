@@ -25,6 +25,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function getActiveTheme(): ?Theme
     {
@@ -32,6 +33,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 
         $result = self::executeStatement($sql);
 
+        if (count($result) === 0) {
+            return null;
+        }
         return self::hydrateSingleResult(
             $result[0],
             new self(),
@@ -101,6 +105,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findByName(string $name): ?Theme
     {
@@ -108,6 +113,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 
         $result = self::executeStatement($sql, ['name' => $name]);
 
+        if (count($result) === 0) {
+            return null;
+        }
         return self::hydrateSingleResult(
             $result,
             new self(),
@@ -254,6 +262,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme assets
      *
      * @return ThemeAsset[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getAssets(): array
     {
@@ -304,7 +315,14 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         );
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'configuration' => "array|\stdClass",
+        'description' => "string",
+        'name' => "string",
+        'displayName' => "string",
+        'scssVariables' => "array|\stdClass",
+        'id' => "int"
+    ])] public function format(): array
     {
         $scssVariables = $this->scssVariables;
         if (empty($scssVariables)) {

@@ -122,7 +122,17 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
         return SegmentPage::findById($this->pageId);
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'position' => "int",
+        'id' => "int",
+        'form' => "array",
+        'gallery' => "array",
+        'target' => "null|string",
+        'html' => "null|string",
+        'script' => "null|string",
+        'action' => "null|string",
+        'file' => "array"
+    ])] public function format(): array
     {
         $data = [
             'position' => $this->position,

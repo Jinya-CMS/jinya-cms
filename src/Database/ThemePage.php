@@ -42,7 +42,7 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_page', new self());
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'page' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

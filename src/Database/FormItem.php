@@ -52,6 +52,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findByPosition(int $id, int $position): ?FormItem
     {
@@ -64,6 +65,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 'position' => $position
             ]
         );
+        if (count($result) === 0) {
+            return null;
+        }
 
         return self::hydrateSingleResult(
             $result[0],

@@ -42,7 +42,7 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_file', new self());
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'file' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

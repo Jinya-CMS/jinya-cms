@@ -40,6 +40,9 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email = :email';
         $result = self::executeStatement($sql, ['email' => $email]);
 
+        if (count($result) === 0) {
+            return null;
+        }
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult(
             $result[0],
@@ -103,6 +106,9 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users u JOIN api_key ak on u.id = ak.user_id WHERE ak.api_key = :apiKey';
         $result = self::executeStatement($sql, ['apiKey' => $apiKey]);
 
+        if (count($result) === 0) {
+            return null;
+        }
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult(
             $result,

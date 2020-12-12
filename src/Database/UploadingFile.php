@@ -23,8 +23,11 @@ class UploadingFile extends Utils\LoadableEntity
         $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
         $result = self::executeStatement($sql, ['fileId' => $fileId]);
 
+        if (count($result) === 0) {
+            return null;
+        }
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result, new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**

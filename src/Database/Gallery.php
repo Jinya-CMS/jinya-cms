@@ -76,7 +76,15 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         );
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'id' => "int",
+        'name' => "string",
+        'description' => "string",
+        'type' => "string",
+        'orientation' => "string",
+        'created' => "array",
+        'updated' => "array"
+    ])] public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();

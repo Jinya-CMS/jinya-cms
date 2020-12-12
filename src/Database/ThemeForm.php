@@ -42,7 +42,7 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_form', new self());
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

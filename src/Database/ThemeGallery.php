@@ -42,7 +42,7 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
         return self::fetchByTheme($themeId, 'theme_gallery', new self());
     }
 
-    public function format(): array
+    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

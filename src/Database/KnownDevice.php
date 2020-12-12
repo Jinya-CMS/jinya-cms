@@ -65,6 +65,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     public static function findByCode(string $knownDeviceCode): ?KnownDevice
     {
@@ -73,6 +74,9 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
             $sql,
             ['knownDeviceCode' => $knownDeviceCode]
         );
+        if (count($result) === 0) {
+            return null;
+        }
 
         return self::hydrateSingleResult($result[0], new self());
     }

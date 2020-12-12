@@ -2,21 +2,27 @@
 
 namespace App\Database\Migrations;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
 
 abstract class Migrator extends LoadableEntity
 {
     /**
      * Migrates the installation of Jinya
+     *
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function migrate(): void
     {
-        $sql = self::getSql();
-        $connection = $sql->getAdapter()->driver->getConnection();
-        $result = $connection->execute("SHOW TABLES LIKE 'migration_state'");
-        if ($result->getAffectedRows() === 0) {
+        $sql = "SHOW TABLES LIKE 'migration_state'";
+        $result = self::executeStatement($sql);
+        if (count($result) === 0) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
-            $connection->execute($initialMigration['sql']);
+            self::executeStatement($initialMigration['sql']);
         }
 
         $migrationsPath = __ROOT__ . '/src/Migrations';
@@ -30,17 +36,14 @@ abstract class Migrator extends LoadableEntity
             $migration = require $file;
             $script = $migration['sql'];
             $version = $migration['version'];
-            $wasMigrated = $sql
-                    ->prepareStatementForSqlObject(
-                        $sql->select('version')->from('migration_state')->where(['version' => $version])
-                    )
-                    ->execute()
-                    ->getAffectedRows() > 0;
+            $migrateCheckSql = 'SELECT version FROM migration_state WHERE version = :version';
+            $result = self::executeStatement($migrateCheckSql, ['version' => $version]);
+            $wasMigrated = count($result) > 0;
 
             if (!$wasMigrated) {
-                $connection->execute($script);
-                $insert = $sql->insert('migration_state')->columns(['version'])->values([$version]);
-                $sql->prepareStatementForSqlObject($insert)->execute();
+                self::executeStatement($script);
+                $insert = 'INSERT INTO migration_state (version) VALUES (:version)';
+                self::executeStatement($insert, ['version' => $version]);
             }
         }
     }

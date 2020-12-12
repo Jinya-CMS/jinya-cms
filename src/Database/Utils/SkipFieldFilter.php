@@ -2,6 +2,7 @@
 
 namespace App\Database\Utils;
 
+use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\Filter\FilterInterface;
 
 class SkipFieldFilter implements FilterInterface
@@ -18,7 +19,7 @@ class SkipFieldFilter implements FilterInterface
         $this->propertiesToSkip = $propertiesToSkip;
     }
 
-    public function filter(string $property, ?object $instance = null): bool
+    #[Pure] public function filter(string $property, ?object $instance = null): bool
     {
         return !in_array($property, $this->propertiesToSkip, true);
     }
