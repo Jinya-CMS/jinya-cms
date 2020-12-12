@@ -7,8 +7,10 @@ use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
+use App\Mailing\Factory\MailerFactory;
 use App\Web\Exceptions\MissingFieldsException;
 use League\Plates\Engine;
+use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
 
 class FormMessageHandler
@@ -36,13 +38,15 @@ class FormMessageHandler
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws Exception
      */
     public function handleFormPost(Form $form, array $body): void
     {
         $formValues = [];
         $missingFields = [];
-        $fromAddress = getenv('MAILER_FROM');
         $subject = 'New message for form ' . $form->title;
+        $isSpam = false;
+        $fromAddress = 'Some person';
         foreach ($form->getItems() as $item) {
             /** @var $item FormItem */
             $value = $body[$item->id];
@@ -60,13 +64,38 @@ class FormMessageHandler
 
             $formValues[$item->label] = $value ?? null;
             $spamFilter = $item->spamFilter;
+            $isSpam |= $this->isSpam($value, $spamFilter);
         }
 
-        // TODO: Implement mail based form handling
+        if (!$isSpam) {
+            $mailer = MailerFactory::getMailer();
+            if ($fromAddress !== 'Some person') {
+                $mailer->addReplyTo($fromAddress);
+            }
+            $mailer->addAddress($form->toAddress);
+            $mailer->setFrom(getenv('MAILER_FROM'));
+            $mailer->Subject = $subject;
+            $mailer->Body = $this->renderTemplate($formValues, $subject);
+        }
 
         if (!empty($missingFields)) {
             throw new MissingFieldsException($this->request, $missingFields);
         }
+    }
+
+    private function isSpam(string $value, array $spamValues): bool
+    {
+        if (empty($spamValues)) {
+            return false;
+        }
+
+        foreach ($spamValues as $spamValue) {
+            if (stripos($value, $spamValue) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function renderTemplate(array $data, string $title): string
