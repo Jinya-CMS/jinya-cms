@@ -6,14 +6,14 @@ use JsonSerializable;
 
 class IniValue implements JsonSerializable
 {
-    /** @var string */
+    /** @var string|null */
     private ?string $value;
 
-    /** @var string */
+    /** @var string|null */
     private ?string $configName;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getValue(): ?string
     {
@@ -21,7 +21,7 @@ class IniValue implements JsonSerializable
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      */
     public function setValue(?string $value): void
     {

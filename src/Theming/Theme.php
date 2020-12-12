@@ -49,6 +49,9 @@ class Theme implements ExtensionInterface
      * Gets the currently activated theme
      *
      * @return Theme
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      */
     public static function getActiveTheme(): Theme
     {

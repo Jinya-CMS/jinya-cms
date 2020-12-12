@@ -2,14 +2,11 @@
 
 namespace App\Database;
 
-use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use RuntimeException;
 
 class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-
     public int $pageId;
     public ?int $formId;
     public ?int $galleryId;
@@ -23,7 +20,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     /**
      * @inheritDoc
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -50,26 +47,36 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * @param int $id
      * @param int $position
      * @return Segment|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByPosition(int $id, int $position): ?Segment
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('segment')
-            ->where(['page_id = :id', 'position = :position'], PredicateSet::OP_AND);
+        $sql = 'SELECT id, page_id, form_id, gallery_id, file_id, position, html, action, script, target FROM segment WHERE page_id = :id AND position = :position';
+        $result = self::executeStatement(
+            $sql,
+            [
+                'id' => $id,
+                'position' => $position
+            ]
+        );
+
+        if (count($result) === 0) {
+            return null;
+        }
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'id' => $id,
-            'position' => $position
-        ]), new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
      * Gets the file
      *
      * @return File|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getFile(): ?File
     {
@@ -80,6 +87,9 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * Gets the form
      *
      * @return Form|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getForm(): ?Form
     {
@@ -90,6 +100,9 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * Gets the gallery
      *
      * @return Gallery|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getGallery(): ?Gallery
     {
@@ -100,6 +113,9 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * Gets the corresponding segment page
      *
      * @return SegmentPage
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getSegmentPage(): SegmentPage
     {
@@ -149,7 +165,6 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function create(): void
     {

@@ -4,7 +4,6 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use RuntimeException;
 
 class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -41,21 +40,29 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      *
      * @param int $menuId
      * @param int $position
-     * @return MenuItem
+     * @return MenuItem|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByMenuAndPosition(int $menuId, int $position): ?MenuItem
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu_item')
-            ->where(['menu_id = :id', 'position = :position'], PredicateSet::OP_AND);
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE menu_id = :id AND position = :position';
+
+        $result = self::executeStatement(
+            $sql,
+            [
+                'id' => $menuId,
+                'position' => $position
+            ]
+        );
+
+        if (count($result) === 0) {
+            return null;
+        }
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'id' => $menuId,
-            'position' => $position
-        ]), new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -63,48 +70,58 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      *
      * @param int $menuItemId
      * @param int $position
-     * @return MenuItem
+     * @return MenuItem|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByMenuItemAndPosition(int $menuItemId, int $position): ?MenuItem
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu_item')
-            ->where(['parent_id = :id', 'position = :position'], PredicateSet::OP_AND);
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE parent_id = :id AND position = :position';
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'id' => $menuItemId,
-            'position' => $position
-        ]), new self());
+        $result =
+            self::executeStatement(
+                $sql,
+                [
+                    'id' => $menuItemId,
+                    'position' => $position
+                ]
+            );
+
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
      * Finds the menu item with the given route
      *
      * @param $route
-     * @return MenuItem
+     * @return MenuItem|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByRoute($route): ?MenuItem
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu_item')
-            ->where(['route = :route', 'route = :routeWithTrailingSlash'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE route = :route OR route = :routeWithTrailingSlash';
+        $result =
+            self::executeStatement(
+                $sql,
+                [
+                    'route' => $route,
+                    'routeWithTrailingSlash' => "/$route",
+                ]
+            );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'route' => $route,
-            'routeWithTrailingSlash' => "/$route",
-        ]), new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
      * Gets the parent
      *
      * @return MenuItem|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getParent(): ?MenuItem
     {
@@ -115,7 +132,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @inheritDoc
      * @return MenuItem
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         return self::fetchSingleById('menu_item', $id, new self());
     }
@@ -124,6 +141,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the menu
      *
      * @return Menu|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getMenu(): ?Menu
     {
@@ -183,6 +203,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Formats the menu items below this recursive
      *
      * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function formatRecursive(): array
     {
@@ -196,6 +219,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Formats the given menu item
      *
      * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      * @noinspection NullPointerExceptionInspection
      */
     public function format(): array
@@ -248,6 +274,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the associated form
      *
      * @return Form|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getForm(): ?Form
     {
@@ -262,6 +291,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the associated artist
      *
      * @return Artist|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getArtist(): ?Artist
     {
@@ -276,6 +308,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the associated page
      *
      * @return SimplePage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getPage(): ?SimplePage
     {
@@ -290,6 +325,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the associated segment page
      *
      * @return SegmentPage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getSegmentPage(): ?SegmentPage
     {
@@ -304,6 +342,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the associated gallery
      *
      * @return Gallery|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getGallery(): ?Gallery
     {
@@ -319,6 +360,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      *
      * @param Iterator $iterator
      * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     private function formatIterator(Iterator $iterator): array
     {
@@ -335,17 +379,15 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the menu items
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu_item')
-            ->where(['parent_id = :id'])
-            ->order('position ASC');
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE parent_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+        $result = self::executeStatement($sql, ['id' => $this->id]);
 
         return self::hydrateMultipleResults($result, new self());
     }

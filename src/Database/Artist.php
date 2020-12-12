@@ -3,6 +3,8 @@
 namespace App\Database;
 
 use App\Database\Exceptions\DeleteLastAdminException;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
@@ -10,9 +12,8 @@ use App\Database\Utils\LoadableEntity;
 use App\Web\Middleware\RoleMiddleware;
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
-use Laminas\Hydrator\Strategy\SerializableStrategy;
 use LogicException;
 
 class Artist extends LoadableEntity implements FormattableEntityInterface
@@ -29,20 +30,22 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Finds the artist with the given email
      * @param string $email
-     * @return Artist
+     * @return Artist|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findByEmail(string $email): ?Artist
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('users')->where('email = :email');
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['email' => $email]);
+        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email = :email';
+        $result = self::executeStatement($sql, ['email' => $email]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult(
-            $result,
+            $result[0],
             new self(),
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -50,16 +53,19 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
 
     /**
      * @param int $id
-     * @return Artist
+     * @return object|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         return self::fetchSingleById(
             'users',
             $id,
             new self(),
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -70,19 +76,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('users')
-            ->where(['email LIKE :keyword', 'artist_name LIKE :keyword'], PredicateSet::OP_OR);
-
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email LIKE :emailKeyword OR artist_name LIKE :nameKeyword';
+        $result = self::executeStatement($sql, ['emailKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
 
         return self::hydrateMultipleResults(
             $result,
             new self(),
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -92,24 +93,22 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * Finds a user for the given api key
      *
      * @param string $apiKey
-     * @return Artist
+     * @return Artist|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function findByApiKey(string $apiKey): ?Artist
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from(['u' => 'users'])
-            ->join(['ak' => 'api_key'], 'ak.user_id = u.id')
-            ->where('ak.api_key = :apiKey');
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['apiKey' => $apiKey]);
+        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users u JOIN api_key ak on u.id = ak.user_id WHERE ak.api_key = :apiKey';
+        $result = self::executeStatement($sql, ['apiKey' => $apiKey]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult(
             $result,
             new self(),
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -131,6 +130,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Creates the artist
      *
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
     public function create(): void
@@ -138,7 +139,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $this->id = $this->internalCreate(
             'users',
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -159,6 +160,10 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
 
     /**
      * Counts all available admins
+     * @return int
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public static function countAdmins(): int
     {
@@ -182,7 +187,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'users',
             new self(),
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );
@@ -194,8 +199,18 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @param bool $aboutMe
      * @return array
      */
-    public function format(bool $aboutMe = false): array
-    {
+    #[ArrayShape([
+        'artistName' => "string",
+        'email' => "string",
+        'profilePicture' => "null|string",
+        'roles' => "array",
+        'enabled' => "bool",
+        'id' => "int",
+        'aboutMe' => "null|string"
+    ])]
+    public function format(
+        bool $aboutMe = false
+    ): array {
         $data = [
             'artistName' => $this->artistName,
             'email' => $this->email,
@@ -217,6 +232,9 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      *
      * @param string $knownDeviceCode
      * @return bool
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function validateDevice(string $knownDeviceCode): bool
     {
@@ -231,6 +249,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @param string $oldPassword
      * @param string $password
      * @return bool
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
     public function changePassword(string $oldPassword, string $password): bool
@@ -279,6 +299,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Updates the artist
      *
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
     public function update(): void
@@ -286,7 +308,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $this->internalUpdate(
             'users',
             [
-                'enabled' => new BooleanStrategy('1', '0'),
+                'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
             ]
         );

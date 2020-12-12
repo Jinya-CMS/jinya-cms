@@ -5,19 +5,23 @@ namespace App\Database;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use Exception;
 use Iterator;
-use Laminas\Db\Adapter\Exception\InvalidQueryException;
 use RuntimeException;
 
 class UploadingFile extends Utils\LoadableEntity
 {
     public int $fileId;
 
+    /**
+     * @param int $fileId
+     * @return UploadingFile|null
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     */
     public static function findByFile(int $fileId): ?UploadingFile
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('uploading_file')->where(['file_id = :fileId']);
-
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['fileId' => $fileId]);
+        $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
+        $result = self::executeStatement($sql, ['fileId' => $fileId]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult($result, new self());
@@ -27,7 +31,7 @@ class UploadingFile extends Utils\LoadableEntity
      * @inheritDoc
      * @return UploadingFile
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -52,6 +56,9 @@ class UploadingFile extends Utils\LoadableEntity
      * Gets all chunks
      *
      * @return Iterator
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
      */
     public function getChunks(): Iterator
     {
@@ -62,6 +69,9 @@ class UploadingFile extends Utils\LoadableEntity
      * Gets the corresponding file
      *
      * @return File
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
      */
     public function getFile(): File
     {
@@ -75,14 +85,8 @@ class UploadingFile extends Utils\LoadableEntity
      */
     public function create(): void
     {
-        $sql = self::getSql();
-        $insert = $sql->insert('uploading_file');
-        $insert->values(['id' => bin2hex(random_bytes(20)), 'file_id' => $this->fileId]);
-        try {
-            self::executeStatement($sql->prepareStatementForSqlObject($insert));
-        } catch (InvalidQueryException $exception) {
-            throw $this->convertInvalidQueryExceptionToException($exception);
-        }
+        $sql = 'INSERT INTO uploading_file (id, file_id) VALUES (:id, :fileId)';
+        self::executeStatement($sql, ['id' => $this->id, 'fileId' => $this->fileId]);
     }
 
     /**

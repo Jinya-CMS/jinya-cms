@@ -13,8 +13,12 @@ class GetFileByIdAction extends Action
 
     /**
      * @inheritDoc
-     * @throws JsonException
+     * @return Response
      * @throws HttpNotFoundException
+     * @throws JsonException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function action(): Response
     {

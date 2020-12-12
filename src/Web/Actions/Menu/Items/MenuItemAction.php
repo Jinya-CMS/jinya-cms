@@ -17,9 +17,12 @@ abstract class MenuItemAction extends Action
     /**
      * Fills the menu item with the data from the body
      *
-     * @param MenuItem $menuItem
+     * @param MenuItem|null $menuItem
      * @return MenuItem
      * @throws NoResultException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     public function fillMenuItem(MenuItem $menuItem = null): MenuItem
     {

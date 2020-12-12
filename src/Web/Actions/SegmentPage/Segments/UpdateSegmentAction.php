@@ -18,10 +18,13 @@ class UpdateSegmentAction extends Action
 
     /**
      * @inheritDoc
-     * @throws JsonException
+     * @return Response
      * @throws HttpNotFoundException
-     * @throws UniqueFailedException
+     * @throws JsonException
      * @throws NoResultException
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

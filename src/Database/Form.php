@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
 use Laminas\Serializer\Adapter\Json;
@@ -24,16 +23,19 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
 
     /**
      * @inheritDoc
-     * @return Form
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @return object
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('form', $id, new self(),
+        return self::fetchSingleById(
+            'form',
+            $id,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -41,19 +43,18 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('form')
-            ->where(['name LIKE :keyword', 'description LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, to_address, title, description FROM form f WHERE f.title LIKE :titleKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(),
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -61,33 +62,38 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('form', new self(),
+        return self::fetchArray(
+            'form',
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
      * Gets all form items in the form
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('form_item')
-            ->where(['form_id = :id'])
-            ->order('position ASC');
+        $sql = 'SELECT id, form_id, type, options, spam_filter, label, help_text, position, is_from_address, is_subject, is_required, placeholder FROM form_item WHERE form_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+        $result = self::executeStatement($sql, ['id' => $this->id]);
 
-        return self::hydrateMultipleResults($result, new FormItem(), [
-            'spamFilter' => new SerializableStrategy(new Json()),
-            'options' => new SerializableStrategy(new Json()),
-        ]);
+        return self::hydrateMultipleResults(
+            $result,
+            new FormItem(),
+            [
+                'spamFilter' => new SerializableStrategy(new Json()),
+                'options' => new SerializableStrategy(new Json()),
+            ]
+        );
     }
 
     /**
@@ -102,11 +108,13 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->internalCreate('form',
+        $this->internalCreate(
+            'form',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -125,14 +133,29 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
 
-        $this->internalUpdate('form',
+        $this->internalUpdate(
+            'form',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
-    public function format(): array
+    /**
+     * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    #[\JetBrains\PhpStorm\ArrayShape([
+        'id' => "int",
+        'description' => "string",
+        'title' => "string",
+        'toAddress' => "string",
+        'created' => "array",
+        'updated' => "array"
+    ])] public function format(): array
     {
         $creator = $this->getCreator();
         $updatedBy = $this->getUpdatedBy();
@@ -165,6 +188,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * Gets the creator of this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getCreator(): Artist
     {
@@ -175,6 +201,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * Gets the artist that last updated this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUpdatedBy(): Artist
     {

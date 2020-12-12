@@ -6,7 +6,6 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SimplePage extends Utils\LoadableEntity
@@ -23,12 +22,17 @@ class SimplePage extends Utils\LoadableEntity
      * @inheritDoc
      * @return SimplePage
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('page', $id, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::fetchSingleById(
+            'page',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -36,18 +40,18 @@ class SimplePage extends Utils\LoadableEntity
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('page')
-            ->where(['title LIKE :keyword', 'content LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, content, title FROM page WHERE title LIKE :titleKeyword OR content LIKE :contentKeyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['contentKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -55,10 +59,14 @@ class SimplePage extends Utils\LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('page', new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::fetchArray(
+            'page',
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -73,10 +81,13 @@ class SimplePage extends Utils\LoadableEntity
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->id = $this->internalCreate('page', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        $this->id = $this->internalCreate(
+            'page',
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -95,16 +106,22 @@ class SimplePage extends Utils\LoadableEntity
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
 
-        $this->internalUpdate('page', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        $this->internalUpdate(
+            'page',
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
      * Formats the current page
      *
      * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function format(): array
     {
@@ -138,6 +155,9 @@ class SimplePage extends Utils\LoadableEntity
      * Gets the creator
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getCreator(): Artist
     {
@@ -148,6 +168,9 @@ class SimplePage extends Utils\LoadableEntity
      * Gets the artist who last updated the page
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUpdatedBy(): Artist
     {

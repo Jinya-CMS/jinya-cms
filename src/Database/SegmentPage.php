@@ -6,12 +6,10 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
-
     public int $creatorId;
     public int $updatedById;
     public DateTime $createdAt;
@@ -22,12 +20,17 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * @inheritDoc
      * @return SegmentPage
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('segment_page', $id, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::fetchSingleById(
+            'segment_page',
+            $id,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -35,18 +38,18 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('segment_page')
-            ->where(['name LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT * FROM segment_page WHERE name LIKE :keyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -54,10 +57,14 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('segment_page', new self(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::fetchArray(
+            'segment_page',
+            new self(),
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -72,10 +79,13 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->id = $this->internalCreate('segment_page', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        $this->id = $this->internalCreate(
+            'segment_page',
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -94,16 +104,22 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
 
-        $this->internalUpdate('segment_page', [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        $this->internalUpdate(
+            'segment_page',
+            [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
      * Formats the current segment_page
      *
      * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function format(): array
     {
@@ -137,6 +153,9 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * Gets the creator
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getCreator(): Artist
     {
@@ -147,6 +166,9 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * Gets the artist who last updated the segment_page
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUpdatedBy(): Artist
     {
@@ -157,17 +179,15 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * Get all segments in page
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getSegments(): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('segment')
-            ->where(['page_id = :id'])
-            ->order('position ASC');
+        $sql = 'SELECT id, page_id, form_id, gallery_id, file_id, position, html, action, script, target FROM segment WHERE page_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+        $result = self::executeStatement($sql, ['id' => $this->id]);
 
         return self::hydrateMultipleResults($result, new Segment());
     }

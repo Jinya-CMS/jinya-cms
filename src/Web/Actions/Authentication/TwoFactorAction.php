@@ -29,6 +29,8 @@ class TwoFactorAction extends Action
      * @inheritDoc
      * @return Response
      * @throws JsonException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      * @throws \App\Database\Exceptions\UniqueFailedException
      * @throws \PHPMailer\PHPMailer\Exception
      */

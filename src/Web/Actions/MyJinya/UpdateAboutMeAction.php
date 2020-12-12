@@ -13,8 +13,11 @@ class UpdateAboutMeAction extends Action
 {
     /**
      * @inheritDoc
+     * @return Response
      * @throws JsonException
      * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

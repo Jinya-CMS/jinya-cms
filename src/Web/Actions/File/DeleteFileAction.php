@@ -16,6 +16,9 @@ class DeleteFileAction extends Action
      * @return Response
      * @throws JsonException
      * @throws NoResultException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function action(): Response
     {

@@ -19,6 +19,8 @@ class ChangePasswordAction extends Action
      * @throws JsonException
      * @throws MissingFieldsException
      * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

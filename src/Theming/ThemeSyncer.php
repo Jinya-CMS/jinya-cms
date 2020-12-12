@@ -9,19 +9,25 @@ class ThemeSyncer
     public const THEME_BASE_PATH = __DIR__ . '/../../themes/';
 
     /**
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      */
     public function syncThemes(): void
     {
         $allThemes = iterator_to_array(Database\Theme::findAll());
-        $themes = array_filter(array_diff(scandir(self::THEME_BASE_PATH), ['..', '.']),
-            fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(self::THEME_BASE_PATH . "$item/theme.php"));
+        $themes = array_filter(
+            array_diff(scandir(self::THEME_BASE_PATH), ['..', '.']),
+            static fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
+                    self::THEME_BASE_PATH . "$item/theme.php"
+                )
+        );
         foreach ($themes as $dir) {
             $name = $dir;
             $dir = self::THEME_BASE_PATH . $dir;
             /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
-            if (count(array_filter($allThemes, fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
+            if (count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -32,8 +38,10 @@ class ThemeSyncer
             }
         }
 
-        $nonExistingThemes = array_filter($allThemes,
-            fn(Database\Theme $theme) => !in_array($theme->name, $themes, true));
+        $nonExistingThemes = array_filter(
+            $allThemes,
+            fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
+        );
 
         $activeTheme = Database\Theme::getActiveTheme();
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');

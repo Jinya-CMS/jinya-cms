@@ -3,38 +3,39 @@
 namespace App\Database\Utils;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Message;
-use Exception;
 use Iterator;
-use Laminas\Db\Adapter\Adapter;
-use Laminas\Db\Adapter\Driver\ResultInterface;
-use Laminas\Db\Adapter\Driver\StatementInterface;
-use Laminas\Db\Adapter\Exception\InvalidQueryException;
-use Laminas\Db\ResultSet\HydratingResultSet;
-use Laminas\Db\Sql\Sql;
+use JetBrains\PhpStorm\Pure;
+use Laminas\Hydrator\HydratorInterface;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Hydrator\Strategy\StrategyInterface;
-use PDOException;
+use PDO;
 
 abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
-    private static Adapter $adapter;
-    public $id = -1;
+    public static ?PDO $pdo;
+    public int|string $id = -1;
 
     /**
      * @param int $id
-     * @return mixed
+     * @return object|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
-    abstract public static function findById(int $id);
+    abstract public static function findById(int $id): ?object;
 
     /**
      * Gets all entities that match the given keyword
      *
      * @param string $keyword
      * @return Iterator
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     abstract public static function findByKeyword(string $keyword): Iterator;
 
@@ -42,6 +43,9 @@ abstract class LoadableEntity
      * Gets all entities of the given type
      *
      * @return Iterator
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     abstract public static function findAll(): Iterator;
 
@@ -51,36 +55,46 @@ abstract class LoadableEntity
      * @param string $sql
      * @return array|int
      */
-    public static function executeSqlString(string $sql)
+    public static function executeSqlString(string $sql): array|int
     {
-        $result = self::getAdapter()->getDriver()->getConnection()->execute($sql);
-        if ($result->isQueryResult()) {
-            return iterator_to_array($result);
+        $pdo = self::getPdo();
+        $stmt = $pdo->query($sql);
+        if ($stmt->columnCount() > 0) {
+            return $stmt->fetchAll();
         }
 
-        return $result->getAffectedRows();
+        return $stmt->rowCount();
     }
 
     /**
-     * Gets an adapter for the current database
-     *
-     * @return Adapter
+     * @return PDO
      */
-    protected static function getAdapter(): Adapter
+    protected static function getPdo(): PDO
     {
-        if (!isset(self::$adapter)) {
-            self::$adapter = new Adapter([
-                'driver' => 'Pdo_Mysql',
-                'database' => getenv('MYSQL_DATABASE'),
-                'username' => getenv('MYSQL_USER'),
-                'password' => getenv('MYSQL_PASSWORD'),
-                'hostname' => getenv('MYSQL_HOST') ?: '127.0.0.1',
-                'port' => getenv('MYSQL_PORT') ?: 3306,
-                'charset' => getenv('MYSQL_CHARSET') ?: 'utf8mb4',
-            ]);
+        if (isset(self::$pdo) && self::$pdo !== null) {
+            return self::$pdo;
         }
 
-        return self::$adapter;
+        $database = getenv('MYSQL_DATABASE');
+        $user = getenv('MYSQL_USER');
+        $password = getenv('MYSQL_PASSWORD');
+        $host = getenv('MYSQL_HOST') ?: '127.0.0.1';
+        $port = getenv('MYSQL_PORT') ?: 3306;
+        $charset = getenv('MYSQL_CHARSET') ?: 'utf8mb4';
+        $pdo = new PDO(
+            "mysql:host=$host;port=$port;dbname=$database",
+            $user,
+            $password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+        $pdo->exec("set names $charset");
+        self::$pdo = $pdo;
+
+        return $pdo;
     }
 
     /**
@@ -88,83 +102,113 @@ abstract class LoadableEntity
      *
      * @param string $table
      * @param int $id
+     * @param mixed $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return Message
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @return object|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
-    protected static function fetchSingleById(string $table, int $id, $prototype, array $additionalStrategies = [])
-    {
-        $sql = self::getSql();
-        $select = $sql->select()->from($table)->where(['id = :id']);
+    protected static function fetchSingleById(
+        string $table,
+        int $id,
+        mixed $prototype,
+        array $additionalStrategies = []
+    ): ?object {
+        $sql = "SELECT * FROM $table WHERE id = :id";
+        $result = self::executeStatement($sql, ['id' => $id]);
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $id]);
+        if (count($result) === 0) {
+            return null;
+        }
 
-        return self::hydrateSingleResult($result, $prototype, $additionalStrategies);
-    }
-
-    /**
-     * @return Sql
-     */
-    protected static function getSql(): Sql
-    {
-        return new Sql(self::getAdapter());
+        return self::hydrateSingleResult($result[0], $prototype, $additionalStrategies);
     }
 
     /**
      * Executes the given statement and returns the result
      *
-     * @param StatementInterface $statement
+     * @param string $statement
      * @param array $parameters
-     * @return ResultInterface
+     * @return array|int
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
      */
-    protected static function executeStatement(StatementInterface $statement, array $parameters = []): ResultInterface
+    protected static function executeStatement(string $statement, array $parameters = []): array|int
     {
-        $statement->prepare();
+        $pdo = self::getPdo();
+        $stmt = $pdo->prepare($statement);
+        $stmt->execute($parameters);
+        if ($stmt->errorCode() !== '00000') {
+            $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
+            throw self::convertInvalidQueryExceptionToException($ex);
+        }
 
-        return $statement->execute($parameters);
+        if ($stmt->columnCount() > 0) {
+            return $stmt->fetchAll();
+        }
+
+        return $stmt->rowCount();
+    }
+
+    /**
+     * @param InvalidQueryException $exception
+     * @return UniqueFailedException|ForeignKeyFailedException|InvalidQueryException
+     */
+    #[Pure]
+    protected static function convertInvalidQueryExceptionToException(
+        InvalidQueryException $exception
+    ): UniqueFailedException|ForeignKeyFailedException|InvalidQueryException {
+        switch ($exception->errorInfo[1]) {
+            case 1062:
+                return new UniqueFailedException($exception);
+            case 1452:
+                return new ForeignKeyFailedException($exception);
+        }
+
+        return $exception;
     }
 
     /**
      * Hydrates the result using the given prototype and returns the object that was hydrated
      *
-     * @param ResultInterface $result
+     * @param array $result
      * @param $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return object
+     * @return object|null
      */
-    protected static function hydrateSingleResult(ResultInterface $result, $prototype, array $additionalStrategies = [])
-    {
-        $resultSet = self::getHydrator($additionalStrategies, $prototype, $result);
-
-        $resultSet->rewind();
-        if (!$resultSet->valid()) {
-            return null;
+    protected static function hydrateSingleResult(
+        array $result,
+        mixed $prototype,
+        array $additionalStrategies = []
+    ): ?object {
+        $hydrator = self::getHydrator($additionalStrategies);
+        foreach ($result as $key => $item) {
+            if (!is_string($key)) {
+                unset($result[$key]);
+            }
         }
 
-        return $resultSet->current();
+        if ($result === null) {
+            return null;
+        }
+        return $hydrator->hydrate($result, $prototype);
     }
 
     /**
      * @param array $additionalStrategies
-     * @param $prototype
-     * @param ResultInterface $result
-     * @return HydratingResultSet
+     * @return HydratorInterface
      */
-    protected static function getHydrator(
-        array $additionalStrategies,
-        $prototype,
-        ResultInterface $result
-    ): HydratingResultSet {
+    protected static function getHydrator(array $additionalStrategies): HydratorInterface
+    {
         $hydrator = new ReflectionHydrator();
         $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
         foreach ($additionalStrategies as $key => $additionalStrategy) {
             $hydrator->addStrategy($key, $additionalStrategy);
         }
 
-        $resultSet = new HydratingResultSet($hydrator, $prototype);
-        $resultSet->initialize($result);
-
-        return $resultSet;
+        return $hydrator;
     }
 
     /**
@@ -174,16 +218,16 @@ abstract class LoadableEntity
      * @param $prototype
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected static function fetchArray(
         string $table,
-        $prototype,
+        mixed $prototype,
         array $additionalStrategies = []
     ): Iterator {
-        $sql = new Sql(self::getAdapter());
-        $select = $sql->select($table);
-
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+        $result = self::executeStatement("SELECT * FROM $table");
 
         return self::hydrateMultipleResults($result, $prototype, $additionalStrategies);
     }
@@ -191,17 +235,27 @@ abstract class LoadableEntity
     /**
      * Hydrates the result using the given prototype as array
      *
-     * @param ResultInterface $result
+     * @param array $result
      * @param mixed $prototype
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
      */
     protected static function hydrateMultipleResults(
-        ResultInterface $result,
-        $prototype,
+        array $result,
+        mixed $prototype,
         array $additionalStrategies = []
     ): Iterator {
-        return self::getHydrator($additionalStrategies, $prototype, $result);
+        $hydrator = self::getHydrator($additionalStrategies);
+
+        foreach ($result as $item) {
+            foreach ($item as $key => $field) {
+                if (!is_string($key)) {
+                    unset($item[$key]);
+                }
+            }
+            $proto = clone $prototype;
+            yield $hydrator->hydrate($item, $proto);
+        }
     }
 
     public function getIdAsInt(): int
@@ -217,18 +271,25 @@ abstract class LoadableEntity
     /**
      * Creates the given entity
      *
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
     abstract public function create(): void;
 
     /**
      * Deletes the given entity
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     abstract public function delete(): void;
 
     /**
      * Updates the given entity
      *
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
     abstract public function update(): void;
@@ -238,92 +299,60 @@ abstract class LoadableEntity
      * @param array $strategies
      * @param array $skippedFields
      * @return int
-     * @throws Exception
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function internalCreate(string $table, array $strategies = [], array $skippedFields = []): int
     {
-        $hydrator = new ReflectionHydrator();
-        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
-        foreach ($strategies as $key => $strategy) {
-            $hydrator->addStrategy($key, $strategy);
-        }
-        $hydrator->addFilter('excludes', new SkipFieldFilter([...$skippedFields, 'id']));
+        $hydrator = self::getHydrator($strategies);
+        $hydrator->addFilter('excludes', new SkipFieldFilter([...$skippedFields, 'id', 'pdo']));
 
-        $sql = self::getSql();
-        $insert = $sql->insert($table);
-        $insert->values($hydrator->extract($this));
-        try {
-            self::executeStatement($sql->prepareStatementForSqlObject($insert));
-        } catch (InvalidQueryException $exception) {
-            throw $this->convertInvalidQueryExceptionToException($exception);
-        }
+        $extracted = $hydrator->extract($this);
+        $keys = array_keys($extracted);
+        $columns = implode(',', $keys);
+        $values = implode(',', array_map(static fn(string $value) => ":$value", $keys));
+        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        self::executeStatement($sql, $extracted);
 
-        $result = $sql->getAdapter()->driver->getConnection()->execute('SELECT LAST_INSERT_ID() as id');
-        $this->id = (int)$result->current()['id'];
+        $this->id = (int)self::getPdo()->lastInsertId();
 
         return $this->id;
     }
 
     /**
-     * @param Exception $exception
-     * @return Exception
-     */
-    protected function convertInvalidQueryExceptionToException(Exception $exception): Exception
-    {
-        /** @var PDOException $previous */
-        $previous = $exception->getPrevious();
-        switch ($previous->errorInfo[1]) {
-            case 1062:
-                return new UniqueFailedException($exception);
-            case 1452:
-                return new ForeignKeyFailedException($exception);
-        }
-
-        return $exception;
-    }
-
-    /**
      * @param string $table
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function internalDelete(string $table): void
     {
-        $sql = self::getSql();
-        $delete = $sql->delete()->from($table)->where(['id = :id']);
-        self::executeStatement($sql->prepareStatementForSqlObject($delete), ['id' => $this->id]);
+        $sql = "DELETE FROM $table WHERE id = :id";
+        self::executeStatement($sql, ['id' => $this->id]);
     }
 
     /**
      * @param string $table
      * @param array $strategies
+     * @param array $skippedFields
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
-     * @throws Exception
      */
-    protected function internalUpdate(string $table, array $strategies = []): void
+    protected function internalUpdate(string $table, array $strategies = [], array $skippedFields = []): void
     {
-        $sql = self::getSql();
-        $hydrator = new ReflectionHydrator();
-        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
-        foreach ($strategies as $key => $strategy) {
-            $hydrator->addStrategy($key, $strategy);
-        }
+        $hydrator = self::getHydrator($strategies);
+        $hydrator->addFilter('excludes', new SkipFieldFilter([...$skippedFields, 'id', 'pdo']));
 
-        $data = $hydrator->extract($this);
-        $params = [];
-        foreach ($data as $key => $value) {
-            if ($key === 'id') {
-                continue;
-            }
-            $params[$key] = $value;
+        $extracted = $hydrator->extract($this);
+        $update = [];
+        foreach ($extracted as $key => $item) {
+            $update[] = "$key=:$key";
         }
-
-        $update = $sql->update($table)
-            ->where(['id = :id'])
-            ->set($params);
-
-        try {
-            self::executeStatement($sql->prepareStatementForSqlObject($update), ['id' => $this->id]);
-        } catch (InvalidQueryException $exception) {
-            throw $this->convertInvalidQueryExceptionToException($exception);
-        }
+        $setInstructions = implode(',', $update);
+        $sql = "UPDATE $table SET $setInstructions WHERE id = :id";
+        $extracted['id'] = $this->id;
+        self::executeStatement($sql, $extracted);
     }
 }

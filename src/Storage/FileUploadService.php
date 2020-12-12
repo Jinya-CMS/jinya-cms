@@ -18,8 +18,10 @@ class FileUploadService extends StorageBaseService
      * @param int $position
      * @param string|resource $data
      * @return UploadingFileChunk
-     * @throws UniqueFailedException
      * @throws EmptyResultException
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {
@@ -46,6 +48,8 @@ class FileUploadService extends StorageBaseService
      * @param int $fileId
      * @return File
      * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     public function finishUpload(int $fileId): File
     {
@@ -97,6 +101,9 @@ class FileUploadService extends StorageBaseService
      * Removes all chunks for the given file
      *
      * @param int $fileId
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     public function clearChunks(int $fileId): void
     {

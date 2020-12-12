@@ -2,10 +2,9 @@
 
 namespace App\Database\Utils;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use Laminas\Db\Adapter\Driver\ResultInterface;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 
 abstract class RearrangableEntity extends LoadableEntity
 {
@@ -16,6 +15,8 @@ abstract class RearrangableEntity extends LoadableEntity
      *
      * @param int $newPosition
      * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function move(int $newPosition): void
     {
@@ -30,31 +31,20 @@ abstract class RearrangableEntity extends LoadableEntity
      * @param string $parentIdName
      * @param int $parentId
      * @param int $newPosition
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function internalRearrange(string $table, string $parentIdName, int $parentId, int $newPosition): void
     {
-        $sql = self::getSql();
-        $select = $sql->select()
-            ->from($table)
-            ->columns(['id', 'position'])
-            ->where(['position >= :newPosition', "$parentIdName = :parentId"], PredicateSet::OP_AND)
-            ->order('position ASC');
-
-        $result = $sql->prepareStatementForSqlObject($select)->execute([
-            'newPosition' => $newPosition,
-            'parentId' => $parentId,
-        ]);
-
-        if ($result instanceof ResultInterface && $result->isQueryResult()) {
-            $resultSet = new ResultSet();
-            $resultSet->initialize($result);
+        $sql = "SELECT position, id FROM $table WHERE position >= :newPosition AND $parentIdName = :parentId ORDER BY position";
+        $result = self::executeStatement($sql, ['newPosition' => $newPosition, 'parentId' => $parentId]);
+        if (is_array($result)) {
             $previousPosition = $newPosition;
-            foreach ($resultSet as $row) {
-                $update = $sql->update($table)
-                    ->set(['position' => ++$previousPosition])
-                    ->where('id = :id');
-                $statement = $sql->prepareStatementForSqlObject($update);
-                $statement->execute(['id' => $row->id]);
+            foreach ($result as $item) {
+                $previousPosition++;
+                $stmt = "UPDATE $table SET position = :position WHERE id = :id";
+                self::executeStatement($stmt, ['position' => $previousPosition, 'id' => $item['id']]);
             }
         }
     }

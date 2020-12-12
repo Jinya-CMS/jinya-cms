@@ -10,6 +10,8 @@ abstract class ThemeAction extends Action
 {
     /**
      * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function syncThemes(): void
     {

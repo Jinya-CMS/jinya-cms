@@ -23,6 +23,9 @@ abstract class FrontAction extends Action
      * FrontAction constructor.
      * @param Engine $engine
      * @param LoggerInterface $logger
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      */
     public function __construct(Engine $engine, LoggerInterface $logger)
     {
@@ -105,6 +108,9 @@ abstract class FrontAction extends Action
     /**
      * @param Database\MenuItem $menuItem
      * @return Response
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      */
     protected function renderMenuItem(Database\MenuItem $menuItem): Response
     {

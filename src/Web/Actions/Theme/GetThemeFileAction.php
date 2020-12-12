@@ -13,8 +13,11 @@ class GetThemeFileAction extends ThemeAction
 
     /**
      * @return Response
-     * @throws NoResultException
      * @throws JsonException
+     * @throws NoResultException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function action(): Response
     {

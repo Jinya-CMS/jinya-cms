@@ -2,6 +2,8 @@
 
 namespace App\Web\Actions\Gallery\Positions;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
@@ -20,6 +22,8 @@ class CreatePositionAction extends Action
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

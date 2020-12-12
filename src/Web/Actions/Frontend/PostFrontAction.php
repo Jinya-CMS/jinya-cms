@@ -2,6 +2,9 @@
 
 namespace App\Web\Actions\Frontend;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use App\Messaging\FormMessageHandler;
 use App\Web\Exceptions\MissingFieldsException;
@@ -12,7 +15,10 @@ class PostFrontAction extends FrontAction
 
     /**
      * @inheritDoc
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @return Response
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function protectedAction(): Response
     {

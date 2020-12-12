@@ -13,6 +13,10 @@ class GetConfigurationStructureAction extends ThemeAction
 
     /**
      * @inheritDoc
+     * @return Response
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      * @throws JsonException
      * @throws NoResultException
      */

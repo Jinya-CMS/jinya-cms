@@ -14,8 +14,11 @@ class CreateArtistAction extends Action
 
     /**
      * @inheritDoc
+     * @return Response
      * @throws ConflictException
      * @throws JsonException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

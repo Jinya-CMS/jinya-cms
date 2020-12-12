@@ -4,7 +4,6 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 
 class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
@@ -16,7 +15,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * @inheritDoc
      * @return Menu
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         return self::fetchSingleById('menu', $id, new self());
     }
@@ -26,13 +25,9 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu')
-            ->where(['name LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, name, logo FROM menu WHERE name LIKE :keyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
 
         return self::hydrateMultipleResults($result, new self());
     }
@@ -45,6 +40,12 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
         return self::fetchArray('menu', new self());
     }
 
+    /**
+     * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
     public function format(): array
     {
         $logo = $this->getLogo();
@@ -69,7 +70,10 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * Gets the logo file
      *
-     * @return File
+     * @return File|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getLogo(): ?File
     {
@@ -109,17 +113,15 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * Gets the menu items
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('menu_item')
-            ->where(['menu_id = :id'])
-            ->order('position ASC');
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE menu_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+        $result = self::executeStatement($sql, ['id' => $this->id]);
 
         return self::hydrateMultipleResults($result, new MenuItem());
     }

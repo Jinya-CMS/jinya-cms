@@ -23,13 +23,17 @@ class File extends LoadableEntity
      * @inheritDoc
      * @return File
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('file', $id, new self(),
+        return self::fetchSingleById(
+            'file',
+            $id,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -37,19 +41,17 @@ class File extends LoadableEntity
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('file')
-            ->where(['name LIKE :keyword']);
+        $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, path, name, type FROM file WHERE name LIKE :keyword';
+        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults($result, new self(),
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -57,17 +59,23 @@ class File extends LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('file', new self(),
+        return self::fetchArray(
+            'file',
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
      * Gets the uploading chunks
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUploadChunks(): Iterator
     {
@@ -76,7 +84,6 @@ class File extends LoadableEntity
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function create(): void
     {
@@ -86,11 +93,13 @@ class File extends LoadableEntity
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->id = $this->internalCreate('file',
+        $this->id = $this->internalCreate(
+            'file',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -108,11 +117,13 @@ class File extends LoadableEntity
     {
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
-        $this->internalUpdate('file',
+        $this->internalUpdate(
+            'file',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     public function format(): array
@@ -148,6 +159,9 @@ class File extends LoadableEntity
      * Gets the creator of this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getCreator(): Artist
     {
@@ -158,6 +172,9 @@ class File extends LoadableEntity
      * Gets the artist that last updated this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUpdatedBy(): Artist
     {

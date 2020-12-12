@@ -2,11 +2,13 @@
 
 namespace App\Database;
 
+use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
-class KnownDevice extends Utils\LoadableEntity
+class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInterface
 {
     public int $userId;
     public string $deviceKey;
@@ -16,7 +18,7 @@ class KnownDevice extends Utils\LoadableEntity
     /**
      * @inheritDoc
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         return self::fetchSingleById('known_device', $id, new self());
     }
@@ -34,13 +36,15 @@ class KnownDevice extends Utils\LoadableEntity
      *
      * @param int $artistId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByArtist(int $artistId): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('known_device')->where(['user_id' => $artistId]);
+        $sql = 'SELECT id, user_id, device_key, user_agent, remote_address FROM known_device WHERE user_id = :artistId';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+        $result = self::executeStatement($sql, ['artistId' => $artistId]);
 
         return self::hydrateMultipleResults($result, new self());
     }
@@ -57,22 +61,24 @@ class KnownDevice extends Utils\LoadableEntity
      * Gets a known device by code
      *
      * @param string $knownDeviceCode
-     * @return KnownDevice
+     * @return KnownDevice|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByCode(string $knownDeviceCode): ?KnownDevice
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('known_device')->where('device_key = :knownDeviceCode');
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select),
-            ['knownDeviceCode' => $knownDeviceCode]);
+        $sql = 'SELECT id, user_id, device_key, user_agent, remote_address FROM known_device WHERE device_key = :knownDeviceCode';
+        $result = self::executeStatement(
+            $sql,
+            ['knownDeviceCode' => $knownDeviceCode]
+        );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result, new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function create(): void
     {
@@ -104,6 +110,10 @@ class KnownDevice extends Utils\LoadableEntity
         $this->deviceKey = bin2hex(random_bytes(20));
     }
 
+    /**
+     * @inheritdoc
+     */
+    #[ArrayShape(['remoteAddress' => "string", 'userAgent' => "string", 'key' => "string"])]
     public function format(): array
     {
         return [

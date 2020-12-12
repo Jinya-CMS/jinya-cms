@@ -2,13 +2,11 @@
 
 namespace App\Database;
 
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
-use Laminas\Hydrator\Strategy\SerializableStrategy;
-use Laminas\Serializer\Adapter\Json;
 use stdClass;
 
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
@@ -23,36 +21,42 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets the currently active theme
      *
-     * @return Theme
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @return Theme|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function getActiveTheme(): ?Theme
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('theme')
-            ->join('configuration', 'configuration.current_frontend_theme_id = theme.id', []);
+        $sql = 'SELECT t.id AS id, configuration, description, name, display_name, scss_variables FROM theme t JOIN configuration c on t.id = c.current_frontend_theme_id';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+        $result = self::executeStatement($sql);
 
-        return self::hydrateSingleResult($result, new self(), [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        return self::hydrateSingleResult(
+            $result[0],
+            new self(),
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
      * @inheritDoc
      * @return Theme
-     * @noinspection PhpIncompatibleReturnTypeInspection
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('theme', $id, new self(), [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        return self::fetchSingleById(
+            'theme',
+            $id,
+            new self(),
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
@@ -60,18 +64,18 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('theme')
-            ->where(['display_name LIKE :keyword', 'description LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE display_name LIKE :nameKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(), [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
@@ -79,49 +83,60 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('theme', new self(), [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        return self::fetchArray(
+            'theme',
+            new self(),
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
      * Finds the theme with the given name
      *
      * @param string $name
-     * @return Theme
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @return Theme|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByName(string $name): ?Theme
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('theme')
-            ->where('name = :name');
+        $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE name = :name';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['name' => $name]);
+        $result = self::executeStatement($sql, ['name' => $name]);
 
-        return self::hydrateSingleResult($result, new self(), [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        return self::hydrateSingleResult(
+            $result,
+            new self(),
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
      * Makes the current theme active
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function makeActiveTheme(): void
     {
-        $sql = self::getSql();
-        $update = $sql->update('configuration')->set(['current_frontend_theme_id' => $this->id]);
-        $sql->prepareStatementForSqlObject($update)->execute();
+        $sql = 'UPDATE configuration SET current_frontend_theme_id = :id';
+        self::executeStatement($sql, ['id' => $this->id]);
     }
 
     /**
      * Gets all theme files
      *
      * @return File[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getFiles(): array
     {
@@ -139,6 +154,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme galleries
      *
      * @return Gallery[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getGalleries(): array
     {
@@ -156,6 +174,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme forms
      *
      * @return Form[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getForms(): array
     {
@@ -173,6 +194,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme menus
      *
      * @return Menu[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getMenus(): array
     {
@@ -190,6 +214,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme segmentPages
      *
      * @return SegmentPage[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getSegmentPages(): array
     {
@@ -207,6 +234,9 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * Gets all theme pages
      *
      * @return SimplePage[]
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function getPages(): array
     {
@@ -243,10 +273,13 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public function create(): void
     {
-        $this->internalCreate('theme', [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        $this->internalCreate(
+            'theme',
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
@@ -262,10 +295,13 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public function update(): void
     {
-        $this->internalUpdate('theme', [
-            'scssVariables' => new JsonStrategy(),
-            'configuration' => new JsonStrategy(),
-        ]);
+        $this->internalUpdate(
+            'theme',
+            [
+                'scssVariables' => new JsonStrategy(),
+                'configuration' => new JsonStrategy(),
+            ]
+        );
     }
 
     public function format(): array

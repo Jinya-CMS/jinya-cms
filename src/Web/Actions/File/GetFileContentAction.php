@@ -12,7 +12,11 @@ class GetFileContentAction extends Action
 
     /**
      * @inheritDoc
+     * @return Response
      * @throws HttpNotFoundException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     protected function action(): Response
     {

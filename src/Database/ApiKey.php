@@ -5,7 +5,6 @@ namespace App\Database;
 use DateTime;
 use Exception;
 use Iterator;
-use Laminas\Db\Adapter\Exception\InvalidQueryException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
@@ -20,7 +19,7 @@ class ApiKey extends Utils\LoadableEntity
     /**
      * @inheritDoc
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -29,17 +28,26 @@ class ApiKey extends Utils\LoadableEntity
      * Gets the api key object that belongs to the key
      *
      * @param string $apiKey
-     * @return ApiKey
+     * @return ApiKey|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByApiKey(string $apiKey): ?ApiKey
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('api_key')->where('api_key = :apiKey');
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['apiKey' => $apiKey]);
+        $sql = "SELECT api_key, user_id, valid_since, user_agent, remote_address FROM api_key WHERE api_key = :apiKey";
+        $result = self::executeStatement($sql, ['apiKey' => $apiKey]);
+
+        if (count($result) === 0) {
+            return null;
+        }
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result, new self(),
-            ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
+        return self::hydrateSingleResult(
+            $result[0],
+            new self(),
+            ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]
+        );
     }
 
     /**
@@ -55,9 +63,13 @@ class ApiKey extends Utils\LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('api_key', new self(), [
-            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::fetchArray(
+            'api_key',
+            new self(),
+            [
+                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -65,17 +77,23 @@ class ApiKey extends Utils\LoadableEntity
      *
      * @param int $artistId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByArtist(int $artistId): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from('api_key')->where(['user_id' => $artistId]);
+        $sql = 'SELECT * FROM api_key WHERE user_id = :artistId';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select));
+        $result = self::executeStatement($sql, ['artistId' => $artistId]);
 
-        return self::hydrateMultipleResults($result, new self(), [
-            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ]);
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
+            [
+                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ]
+        );
     }
 
     /**
@@ -92,6 +110,9 @@ class ApiKey extends Utils\LoadableEntity
      * Gets the artist belonging to the api key
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getArtist(): Artist
     {
@@ -103,9 +124,13 @@ class ApiKey extends Utils\LoadableEntity
      */
     public function create(): void
     {
-        $this->internalCreate('api_key', [
-            'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-        ], ['id']);
+        $this->internalCreate(
+            'api_key',
+            [
+                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            ],
+            ['id']
+        );
     }
 
     /**
@@ -113,9 +138,8 @@ class ApiKey extends Utils\LoadableEntity
      */
     public function delete(): void
     {
-        $sql = self::getSql();
-        $delete = $sql->delete()->from('api_key')->where(['api_key = :apiKey']);
-        self::executeStatement($sql->prepareStatementForSqlObject($delete), ['apiKey' => $this->apiKey]);
+        $sql = 'DELETE FROM api_key WHERE api_key = :apiKey';
+        self::executeStatement($sql, ['apiKey' => $this->apiKey]);
     }
 
     /**
@@ -124,18 +148,12 @@ class ApiKey extends Utils\LoadableEntity
      */
     public function update(): void
     {
-        $sql = self::getSql();
-
+        $sql = 'UPDATE api_key SET valid_since = :validSince WHERE api_key = :apiKey';
         $converter = new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT);
 
-        $update = $sql->update('api_key')
-            ->where(['api_key = :apiKey'])
-            ->set(['valid_since' => $converter->extract($this->validSince)]);
-
-        try {
-            self::executeStatement($sql->prepareStatementForSqlObject($update), ['apiKey' => $this->apiKey]);
-        } catch (InvalidQueryException $exception) {
-            throw $this->convertInvalidQueryExceptionToException($exception);
-        }
+        self::executeStatement(
+            $sql,
+            ['apiKey' => $this->apiKey, 'validSince' => $converter->extract($this->validSince)]
+        );
     }
 }

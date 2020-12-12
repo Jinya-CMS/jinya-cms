@@ -18,7 +18,10 @@ class ThemeAsset extends ThemeHelperEntity
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeAsset
+     * @return ThemeAsset|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
     {
@@ -30,34 +33,13 @@ class ThemeAsset extends ThemeHelperEntity
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
         return self::fetchByTheme($themeId, 'theme_asset', new self());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function findById(int $id)
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function findByKeyword(string $keyword): Iterator
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function findAll(): Iterator
-    {
-        throw new RuntimeException('Not implemented');
     }
 
     /**

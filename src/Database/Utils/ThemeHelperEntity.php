@@ -2,10 +2,10 @@
 
 namespace App\Database\Utils;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use Exception;
 use Iterator;
-use Laminas\Db\Adapter\Exception\InvalidQueryException;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use RuntimeException;
@@ -16,7 +16,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
     public string $name = '';
     public int $themeId = -1;
 
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -56,18 +56,22 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param string $table
      * @param $prototype
      * @return mixed
+     * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
-    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, $prototype)
+    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, $prototype): mixed
     {
-        $sql = self::getSql();
-        $select = $sql->select()->from($table)->where(['theme_id = :id AND name = :name']);
+        $sql = "SELECT * FROM $table WHERE theme_id = :id AND name = :name";
+        $result = self::executeStatement(
+            $sql,
+            [
+                'id' => $themeId,
+                'name' => $name
+            ]
+        );
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), [
-            'id' => $themeId,
-            'name' => $name
-        ]);
-
-        return self::hydrateSingleResult($result, $prototype);
+        return self::hydrateSingleResult($result[0], $prototype);
     }
 
     /**
@@ -77,68 +81,63 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param string $table
      * @param $prototype
      * @return Iterator
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected static function fetchByTheme(int $themeId, string $table, $prototype): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from($table)
-            ->where(['theme_id = :id']);
-
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $themeId]);
+        $sql = "SELECT * FROM $table WHERE theme_id = :id";
+        $result = self::executeStatement($sql, ['id' => $themeId]);
 
         return self::hydrateMultipleResults($result, $prototype);
     }
 
     /**
      * @param string $table
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function internalDelete(string $table): void
     {
-        $sql = self::getSql();
-        $delete = $sql->delete()->from($table)->where(['theme_id = :themeId', 'name = :name']);
-        self::executeStatement($sql->prepareStatementForSqlObject($delete), [
-            'name' => $this->name,
-            'themeId' => $this->themeId,
-        ]);
+        $sql = "DELETE FROM $table WHERE theme_id = :themeId AND name = :name";
+        self::executeStatement(
+            $sql,
+            [
+                'name' => $this->name,
+                'themeId' => $this->themeId,
+            ]
+        );
     }
 
     /**
      * @param string $table
      * @param array $strategies
+     * @param array $skippedFields
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
-     * @throws Exception
      */
-    protected function internalUpdate(string $table, array $strategies = []): void
+    protected function internalUpdate(string $table, array $strategies = [], array $skippedFields = []): void
     {
-        $sql = self::getSql();
         $hydrator = new ReflectionHydrator();
         $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
         foreach ($strategies as $key => $strategy) {
             $hydrator->addStrategy($key, $strategy);
         }
+        $hydrator = self::getHydrator($strategies);
+        $hydrator->addFilter('excludes', new SkipFieldFilter([...$skippedFields, 'id', 'pdo']));
 
-        $data = $hydrator->extract($this);
-        $params = [];
-        foreach ($data as $key => $value) {
-            if ($key === 'id') {
-                continue;
-            }
-            $params[$key] = $value;
+        $extracted = $hydrator->extract($this);
+        $update = [];
+        foreach ($extracted as $key => $item) {
+            $update[] = "$key=:$key";
         }
-
-        $update = $sql->update($table)
-            ->where(['theme_id = :themeId', 'name = :name'])
-            ->set($params);
-
-        try {
-            self::executeStatement($sql->prepareStatementForSqlObject($update), [
-                'name' => $this->name,
-                'themeId' => $this->themeId,
-            ]);
-        } catch (InvalidQueryException $exception) {
-            throw $this->convertInvalidQueryExceptionToException($exception);
-        }
+        $setInstructions = implode(',', $update);
+        $sql = "UPDATE $table SET $setInstructions WHERE theme_id = :wThemeId AND name = :wName";
+        $extracted['wName'] = $this->name;
+        $extracted['wThemeId'] = $this->themeId;
+        self::executeStatement($sql, $extracted);
     }
 }

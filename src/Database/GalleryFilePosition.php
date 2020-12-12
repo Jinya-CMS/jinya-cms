@@ -4,7 +4,6 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use RuntimeException;
 
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -17,7 +16,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @inheritDoc
      * @return GalleryFilePosition
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -43,21 +42,28 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      *
      * @param int $id
      * @param int $position
-     * @return GalleryFilePosition
+     * @return GalleryFilePosition|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByPosition(int $id, int $position): ?GalleryFilePosition
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('gallery_file_position')
-            ->where(['gallery_id = :id', 'position = :position'], PredicateSet::OP_AND);
+        $sql = 'SELECT * FROM gallery_file_position WHERE gallery_id = :id AND position = :position';
+        $result = self::executeStatement(
+            $sql,
+            [
+                'id' => $id,
+                'position' => $position
+            ]
+        );
+
+        if (count($result) === 0) {
+            return null;
+        }
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'id' => $id,
-            'position' => $position
-        ]), new self());
+        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -79,6 +85,12 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
         $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, -1);
     }
 
+    /**
+     * @return array
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
     public function format(): array
     {
         $gallery = $this->getGallery();
@@ -104,6 +116,9 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * Gets the associated gallery
      *
      * @return Gallery
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getGallery(): Gallery
     {
@@ -114,6 +129,9 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * Gets the associated file
      *
      * @return File
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getFile(): File
     {

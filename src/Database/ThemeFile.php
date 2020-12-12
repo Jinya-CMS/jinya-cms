@@ -18,7 +18,10 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeFile
+     * @return ThemeFile|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeFile
     {
@@ -30,6 +33,9 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      * Gets the file of the theme file
      *
      * @return File
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getFile(): File
     {

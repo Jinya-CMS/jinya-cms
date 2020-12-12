@@ -18,7 +18,10 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeForm
+     * @return ThemeForm|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeForm
     {
@@ -30,6 +33,9 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      * Gets the form of the theme form
      *
      * @return Form
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getForm(): Form
     {

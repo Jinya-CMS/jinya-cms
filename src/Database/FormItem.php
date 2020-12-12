@@ -3,11 +3,7 @@
 namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
-use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
-use Laminas\Hydrator\Strategy\SerializableStrategy;
-use Laminas\Serializer\Adapter\Json;
 use RuntimeException;
 
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -26,7 +22,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * @inheritDoc
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         throw new RuntimeException('Not implemented');
     }
@@ -52,28 +48,38 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      *
      * @param int $id
      * @param int $position
-     * @return FormItem
+     * @return FormItem|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByPosition(int $id, int $position): ?FormItem
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('form_item')
-            ->where(['form_id = :id', 'position = :position'], PredicateSet::OP_AND);
+        $sql = 'SELECT id, form_id, type, options, spam_filter, label, help_text, position, is_from_address, is_subject, is_required, placeholder FROM form_item WHERE form_id = :id AND position = :position';
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($sql->prepareStatementForSqlObject($select)->execute([
-            'id' => $id,
-            'position' => $position
-        ]), new self(), [
-            'spamFilter' => new JsonStrategy(),
-            'options' => new JsonStrategy(),
-        ]);
+        $result = self::executeStatement(
+            $sql,
+            [
+                'id' => $id,
+                'position' => $position
+            ]
+        );
+
+        return self::hydrateSingleResult(
+            $result[0],
+            new self(),
+            [
+                'spamFilter' => new JsonStrategy(),
+                'options' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
      * @return Form
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getForm(): Form
     {
@@ -102,15 +108,17 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function create(): void
     {
         $this->internalRearrange('form_item', 'form_id', $this->formId, $this->position);
-        $this->internalCreate('form_item', [
-            'spamFilter' => new JsonStrategy(),
-            'options' => new JsonStrategy(),
-        ]);
+        $this->internalCreate(
+            'form_item',
+            [
+                'spamFilter' => new JsonStrategy(),
+                'options' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**
@@ -127,10 +135,13 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public function update(): void
     {
-        $this->internalUpdate('form_item', [
-            'spamFilter' => new JsonStrategy(),
-            'options' => new JsonStrategy(),
-        ]);
+        $this->internalUpdate(
+            'form_item',
+            [
+                'spamFilter' => new JsonStrategy(),
+                'options' => new JsonStrategy(),
+            ]
+        );
     }
 
     /**

@@ -18,7 +18,10 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemePage
+     * @return ThemePage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemePage
     {
@@ -30,6 +33,9 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      * Gets the page of the theme page
      *
      * @return SimplePage
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getPage(): SimplePage
     {

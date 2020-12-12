@@ -18,7 +18,10 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeSegmentPage
+     * @return ThemeSegmentPage|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeSegmentPage
     {
@@ -30,6 +33,9 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
      * Gets the page of the theme page
      *
      * @return SegmentPage
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getSegmentPage(): SegmentPage
     {

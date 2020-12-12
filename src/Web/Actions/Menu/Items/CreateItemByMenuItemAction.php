@@ -14,9 +14,12 @@ class CreateItemByMenuItemAction extends MenuItemAction
 
     /**
      * @inheritDoc
-     * @throws NoResultException
+     * @return Response
      * @throws JsonException
+     * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

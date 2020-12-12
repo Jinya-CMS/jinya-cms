@@ -23,7 +23,7 @@ class DatabaseAnalyzer
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
     public static function getServerInfo(): array
     {
-        $variables = self::getVariables(true);
+        $variables = self::getVariables(self::GLOBAL_VARIABLES);
 
         return [
             'version' => $variables['version'],

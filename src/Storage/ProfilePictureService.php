@@ -13,8 +13,10 @@ class ProfilePictureService extends StorageBaseService
      *
      * @param int $artistId
      * @param string|resource $data
-     * @throws UniqueFailedException
      * @throws EmptyResultException
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     public function saveProfilePicture(int $artistId, $data): void
     {
@@ -39,6 +41,9 @@ class ProfilePictureService extends StorageBaseService
      *
      * @param int $artistId
      * @throws EmptyResultException
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     public function deleteProfilePicture(int $artistId): void
     {

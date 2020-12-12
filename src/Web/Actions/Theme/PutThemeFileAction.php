@@ -15,9 +15,11 @@ class PutThemeFileAction extends ThemeAction
 
     /**
      * @return Response
+     * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws JsonException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

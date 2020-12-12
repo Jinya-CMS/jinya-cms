@@ -17,6 +17,7 @@ class UploadProfilePictureAction extends Action
 
     /**
      * UploadProfilePictureAction constructor.
+     * @param LoggerInterface $logger
      * @param ProfilePictureService $profilePictureService
      */
     public function __construct(LoggerInterface $logger,ProfilePictureService $profilePictureService)

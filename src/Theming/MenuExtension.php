@@ -21,6 +21,9 @@ class MenuExtension implements ExtensionInterface
      *
      * @param MenuItem $menuItem
      * @return bool
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     public function isChildActiveMenuItem(MenuItem $menuItem): bool
     {
@@ -48,6 +51,9 @@ class MenuExtension implements ExtensionInterface
      * Gets the active menu item
      *
      * @return MenuItem|null
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \App\Database\Exceptions\UniqueFailedException
      */
     public function getActiveMenuItem(): ?MenuItem
     {

@@ -18,7 +18,10 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeMenu
+     * @return ThemeMenu|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeMenu
     {
@@ -30,6 +33,9 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      * Gets the menu of the theme menu
      *
      * @return Menu
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getMenu(): Menu
     {

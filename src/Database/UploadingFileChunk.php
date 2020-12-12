@@ -14,7 +14,7 @@ class UploadingFileChunk extends Utils\LoadableEntity
     /**
      * @inheritDoc
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
         return self::fetchSingleById('uploading_file_chunk', $id, new self());
     }
@@ -40,22 +40,14 @@ class UploadingFileChunk extends Utils\LoadableEntity
      *
      * @param int $fileId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByFile(int $fileId): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->columns([
-                'id' => 'id',
-                'chunk_path' => 'chunk_path',
-                'chunk_position' => 'chunk_position',
-            ])
-            ->from(['ufc' => 'uploading_file_chunk'])
-            ->join(['uf' => 'uploading_file'], 'ufc.uploading_file_id = uf.id', ['uploading_file_id' => 'id'])
-            ->where('uf.file_id = :fileId')
-            ->order(['chunk_position']);
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['fileId' => $fileId]);
+        $sql = 'SELECT ufc.id AS id, ufc.chunk_position AS chunk_position, ufc.chunk_path AS chunk_path FROM uploading_file_chunk ufc JOIN uploading_file uf on ufc.uploading_file_id = uf.id WHERE uf.file_id = :fileId ORDER BY ufc.chunk_position';
+        $result = self::executeStatement($sql, ['fileId' => $fileId]);
 
         return self::hydrateMultipleResults($result, new self());
     }

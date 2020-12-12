@@ -18,7 +18,10 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      *
      * @param int $themeId
      * @param string $name
-     * @return ThemeGallery
+     * @return ThemeGallery|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeGallery
     {
@@ -30,6 +33,9 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      *
      * @param int $themeId
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
     {
@@ -48,6 +54,9 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      * Gets the gallery of the theme gallery
      *
      * @return Gallery
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getGallery(): Gallery
     {

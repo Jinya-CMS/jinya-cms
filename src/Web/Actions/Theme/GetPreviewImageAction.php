@@ -13,7 +13,12 @@ class GetPreviewImageAction extends ThemeAction
 
     /**
      * @inheritDoc
+     * @return Response
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
+     * @throws \JsonException
      */
     protected function action(): Response
     {

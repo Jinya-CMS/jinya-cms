@@ -4,9 +4,7 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use DateTime;
-use Exception;
 use Iterator;
-use Laminas\Db\Sql\Predicate\PredicateSet;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -31,13 +29,17 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      * @inheritDoc
      * @return Gallery
      */
-    public static function findById(int $id)
+    public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('gallery', $id, new self(),
+        return self::fetchSingleById(
+            'gallery',
+            $id,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -45,19 +47,18 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('gallery')
-            ->where(['name LIKE :keyword', 'description LIKE :keyword'], PredicateSet::OP_OR);
+        $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, name, description, type, orientation FROM gallery WHERE name LIKE :nameKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['keyword' => "%$keyword%"]);
+        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self(),
+        return self::hydrateMultipleResults(
+            $result,
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -65,11 +66,14 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('gallery', new self(),
+        return self::fetchArray(
+            'gallery',
+            new self(),
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     public function format(): array
@@ -106,6 +110,9 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      * Gets the creator of this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getCreator(): Artist
     {
@@ -116,6 +123,9 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      * Gets the artist that last updated this file
      *
      * @return Artist
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getUpdatedBy(): Artist
     {
@@ -124,7 +134,6 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function create(): void
     {
@@ -134,11 +143,13 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         $this->createdAt = new DateTime();
         $this->creatorId = (int)CurrentUser::$currentUser->id;
 
-        $this->id = $this->internalCreate('gallery',
+        $this->id = $this->internalCreate(
+            'gallery',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -156,28 +167,28 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     {
         $this->lastUpdatedAt = new DateTime();
         $this->updatedById = (int)CurrentUser::$currentUser->id;
-        $this->internalUpdate('gallery',
+        $this->internalUpdate(
+            'gallery',
             [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]);
+            ]
+        );
     }
 
     /**
      * Get all files in gallery
      *
      * @return Iterator
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function getFiles(): Iterator
     {
-        $sql = self::getSql();
-        $select = $sql
-            ->select()
-            ->from('gallery_file_position')
-            ->where(['gallery_id = :id'])
-            ->order('position ASC');
+        $sql = 'SELECT id, gallery_id, file_id, position FROM gallery_file_position WHERE gallery_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql->prepareStatementForSqlObject($select), ['id' => $this->id]);
+        $result = self::executeStatement($sql, ['id' => $this->id]);
 
         return self::hydrateMultipleResults($result, new GalleryFilePosition());
     }
