@@ -50,19 +50,7 @@ spec:
             parallel {
                 stage('Build designer') {
                     stages {
-                        stage('Clone tag') {
-                            when {
-                                buildingTag()
-                            }
-                            steps {
-                                container('rust') {
-                                    sh "apt-get update"
-                                    sh "apt-get install -y git"
-                                    sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-designer.git"
-                                }
-                            }
-                        }
-                        stage('Clone main') {
+                        stage('Update submodules') {
                             when {
                                 branch 'main'
                             }
@@ -70,7 +58,7 @@ spec:
                                 container('rust') {
                                     sh "apt-get update"
                                     sh "apt-get install -y git"
-                                    sh "git clone -b main https://github.com/Jinya-CMS/jinya-designer.git"
+                                    sh "git submodule update"
                                 }
                             }
                         }
@@ -92,19 +80,7 @@ spec:
                 }
                 stage('Build backend') {
                     stages {
-                        stage('Clone tag') {
-                            when {
-                                buildingTag()
-                            }
-                            steps {
-                                container('php') {
-                                    sh "apt-get update"
-                                    sh "apt-get install -y git"
-                                    sh "git clone -b ${env.TAG_NAME} https://github.com/Jinya-CMS/jinya-backend.git"
-                                }
-                            }
-                        }
-                        stage('Clone main') {
+                        stage('Update submodules') {
                             when {
                                 branch 'main'
                             }
@@ -112,7 +88,7 @@ spec:
                                 container('php') {
                                     sh "apt-get update"
                                     sh "apt-get install -y git"
-                                    sh "git clone -b main https://github.com/Jinya-CMS/jinya-backend.git"
+                                    sh "git submodule update"
                                 }
                             }
                         }
