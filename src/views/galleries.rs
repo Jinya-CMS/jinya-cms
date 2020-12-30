@@ -149,7 +149,7 @@ impl Component for GalleriesPage {
                         ])
                     }).collect();
                 } else {
-                    ConsoleService::error(result.err().unwrap().error.to_string().as_str());
+                    log::error!("{}", result.err().unwrap().error.to_string());
                 }
             }
             Msg::OnGallerySelected(idx) => self.selected_index = Some(idx),
@@ -177,7 +177,10 @@ impl Component for GalleriesPage {
                 Toast::positive_toast(self.translator.translate_with_args("galleries.add.saved", map! {"name" => gallery.name.as_str()}));
             }
             Msg::OnDiscardAdd => self.add_gallery_open = false,
-            Msg::OnSaveEdit => self.edit_gallery_open = false,
+            Msg::OnSaveEdit => {
+                self.edit_gallery_open = false;
+                self.load_galleries_task = Some(self.gallery_service.get_list(self.keyword.clone(), self.link.callback(Msg::OnGalleriesLoaded)));
+            }
             Msg::OnDiscardEdit => self.edit_gallery_open = false,
             Msg::OnGalleryDesignerClick => self.router_agent.send(RouteRequest::ChangeRoute(Route::from(AppRoute::GalleryDesigner(self.get_selected_gallery().id)))),
             Msg::Ignore => {}
