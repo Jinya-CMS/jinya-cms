@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
