@@ -51,7 +51,7 @@ class PostInstallerAction extends InstallAction
 APP_ENV=prod
 
 JINYA_API_KEY_EXPIRY=86400
-JINYA_UPDATE_SERVER=https://releases.jinya.de/cms.json
+JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
@@ -63,7 +63,7 @@ DOTENV;
 
         file_put_contents(__ROOT__ . '/.env', $dotenv);
 
-        $dotenvUtil = Dotenv::createImmutable(__ROOT__);
+        $dotenvUtil = Dotenv::createUnsafeImmutable(__ROOT__);
         $dotenvUtil->load();
 
         try {
