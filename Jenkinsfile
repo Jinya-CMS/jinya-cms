@@ -17,7 +17,7 @@ spec:
     - name: dev-imanuel-jenkins-regcred
   containers:
   - name: php
-    image: registry.imanuel.dev/library/php:7.4-apache
+    image: registry.imanuel.dev/library/php:8.0-apache
     command:
     - sleep
     args:
@@ -51,13 +51,11 @@ spec:
                 stage('Build designer') {
                     stages {
                         stage('Update submodules') {
-                            when {
-                                branch 'main'
-                            }
                             steps {
                                 container('rust') {
                                     sh "apt-get update"
                                     sh "apt-get install -y git"
+                                    sh "git submodule init"
                                     sh "git submodule update"
                                 }
                             }
@@ -81,13 +79,11 @@ spec:
                 stage('Build backend') {
                     stages {
                         stage('Update submodules') {
-                            when {
-                                branch 'main'
-                            }
                             steps {
                                 container('php') {
                                     sh "apt-get update"
                                     sh "apt-get install -y git"
+                                    sh "git submodule init"
                                     sh "git submodule update"
                                 }
                             }
