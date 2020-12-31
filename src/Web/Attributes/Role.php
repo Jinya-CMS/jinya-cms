@@ -11,14 +11,12 @@ class Role
     public const WRITER = 'ROLE_WRITER';
     public const ADMIN = 'ROLE_ADMIN';
 
-    private string $role;
 
     /**
      * Role constructor.
      * @param string $role
      */
-    public function __construct(string $role = self::READER)
+    public function __construct(private string $role = self::READER)
     {
-        $this->role = $role;
     }
 }
