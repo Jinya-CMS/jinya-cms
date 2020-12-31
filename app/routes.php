@@ -36,6 +36,7 @@ return function (App $app) {
             $menu = require __DIR__ . '/routing/api/menu.php';
             $database = require __DIR__ . '/routing/api/database.php';
             $theme = require __DIR__ . '/routing/api/theme.php';
+            $locateIp = require __DIR__ . '/routing/api/locateIp.php';
 
             $artistRoutes($api);
             $authenticationRoutes($api);
@@ -51,6 +52,7 @@ return function (App $app) {
             $menu($api);
             $database($api);
             $theme($api);
+            $locateIp($api);
 
             $api->put('update', InitUpdateProcess::class)->add(
                 new RoleMiddleware(RoleMiddleware::ROLE_SUPER_ADMIN)
