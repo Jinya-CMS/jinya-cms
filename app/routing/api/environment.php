@@ -8,6 +8,6 @@ use Slim\Routing\RouteCollectorProxy;
 return function (RouteCollectorProxy $api) {
     $api
         ->get('environment', GetEnvironmentAction::class)
-        ->add(new RoleMiddleware(RoleMiddleware::ROLE_SUPER_ADMIN))
+        ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
         ->add(AuthenticationMiddleware::class);
 };

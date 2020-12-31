@@ -14,5 +14,5 @@ return function (RouteCollectorProxy $api) {
             $group->post('/query', ExecuteQueryAction::class)->add(new CheckRequiredFieldsMiddleware(['query']));
             $group->get('/analyze', DatabaseAnalyzerAction::class);
         }
-    )->add(new RoleMiddleware(RoleMiddleware::ROLE_SUPER_ADMIN))->add(AuthenticationMiddleware::class);
+    )->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))->add(AuthenticationMiddleware::class);
 };

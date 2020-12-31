@@ -14,7 +14,6 @@ class RoleMiddleware implements MiddlewareInterface
 
     public const ROLE_WRITER = 'ROLE_WRITER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
-    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     private string $role;
 

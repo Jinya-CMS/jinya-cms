@@ -27,7 +27,6 @@ class PostInstallerAction extends InstallAction
             $artist->roles = [
                 RoleMiddleware::ROLE_WRITER,
                 RoleMiddleware::ROLE_ADMIN,
-                RoleMiddleware::ROLE_SUPER_ADMIN,
             ];
             $artist->enabled = true;
             try {

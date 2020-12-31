@@ -55,7 +55,7 @@ return function (App $app) {
             $locateIp($api);
 
             $api->put('update', InitUpdateProcess::class)->add(
-                new RoleMiddleware(RoleMiddleware::ROLE_SUPER_ADMIN)
+                new RoleMiddleware(RoleMiddleware::ROLE_ADMIN)
             )->add(AuthenticationMiddleware::class);
         }
     );
