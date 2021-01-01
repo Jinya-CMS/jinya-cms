@@ -17,7 +17,7 @@ class Authenticated
      * @param string $role
      */
     public function __construct(
-        public string $role = self::READER,
+        public string $role = '',
     ) {
     }
 }

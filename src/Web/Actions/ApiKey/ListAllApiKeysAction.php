@@ -8,10 +8,14 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/api_key', JinyaAction::GET)]
+#[Authenticated]
 class ListAllApiKeysAction extends Action
 {
 

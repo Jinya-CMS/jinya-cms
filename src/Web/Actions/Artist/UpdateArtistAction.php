@@ -3,13 +3,19 @@
 namespace App\Web\Actions\Artist;
 
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/user/{id}', JinyaAction::PUT)]
+#[Authenticated(role: Authenticated::ADMIN)]
 class UpdateArtistAction extends Action
 {
 
@@ -20,8 +26,8 @@ class UpdateArtistAction extends Action
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

@@ -19,8 +19,6 @@ class JinyaAction
      * @param string $url
      * @param string $name
      * @param string $method
-     * @param bool $authenticated
-     * @param string[] $requiredFields
      */
     public function __construct(
         public string $url,

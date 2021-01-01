@@ -3,12 +3,20 @@
 namespace App\Web\Actions\Authentication;
 
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Mailing\Types\TwoFactorMail;
 use App\Web\Actions\Action;
+use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use JsonException;
+use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
 
+#[JinyaAction('/api/account/password', JinyaAction::PUT)]
+#[RequiredFields(['username', 'password'])]
 class TwoFactorAction extends Action
 {
 
@@ -29,10 +37,10 @@ class TwoFactorAction extends Action
      * @inheritDoc
      * @return Response
      * @throws JsonException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
-     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws Exception
      */
     protected function action(): Response
     {

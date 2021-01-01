@@ -6,15 +6,19 @@ use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\KnownDevice;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\BadCredentialsException;
 use App\Web\Exceptions\UnknownDeviceException;
 use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/account/password', JinyaAction::PUT)]
+#[RequiredFields(['username', 'password'])]
 class LoginAction extends Action
 {
-
     /**
      * @inheritDoc
      * @throws Exception

@@ -69,7 +69,7 @@ class RouteResolver
                 $action = $actionAttributes[0];
                 $actionAttribute = $action->newInstance();
                 $actionRoute = $proxy->map([$actionAttribute->method], $actionAttribute->url, $route['class']);
-                $actionRoute->setName($actionAttribute->name);
+                $actionRoute->setName($route['class']);
                 if (!empty($authenticatedAttributes)) {
                     /** @var Authenticated $authenticated */
                     $authenticated = $authenticatedAttributes[0]->newInstance();
