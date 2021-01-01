@@ -9,6 +9,7 @@ use App\Database\Form;
 use App\Database\FormItem;
 use App\Mailing\Factory\MailerFactory;
 use App\Web\Exceptions\MissingFieldsException;
+use JetBrains\PhpStorm\Pure;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
@@ -83,7 +84,7 @@ class FormMessageHandler
         }
     }
 
-    private function isSpam(string $value, array $spamValues): bool
+    #[Pure] private function isSpam(string $value, array $spamValues): bool
     {
         if (empty($spamValues)) {
             return false;

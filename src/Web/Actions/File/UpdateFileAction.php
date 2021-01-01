@@ -5,12 +5,16 @@ namespace App\Web\Actions\File;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Exception;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/media/file/{id}', JinyaAction::PUT)]
+#[Authenticated(role: Authenticated::WRITER)]
 class UpdateFileAction extends Action
 {
 
@@ -35,7 +39,7 @@ class UpdateFileAction extends Action
 
         try {
             $file->update();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Name already used');
         }
 

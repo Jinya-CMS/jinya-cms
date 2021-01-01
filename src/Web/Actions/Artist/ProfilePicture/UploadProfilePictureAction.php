@@ -11,6 +11,7 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
+use JetBrains\PhpStorm\Pure;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
@@ -26,7 +27,7 @@ class UploadProfilePictureAction extends Action
      * @param LoggerInterface $logger
      * @param ProfilePictureService $profilePictureService
      */
-    public function __construct(LoggerInterface $logger,ProfilePictureService $profilePictureService)
+    #[Pure] public function __construct(LoggerInterface $logger,ProfilePictureService $profilePictureService)
     {
         parent::__construct($logger);
         $this->profilePictureService = $profilePictureService;
@@ -46,7 +47,7 @@ class UploadProfilePictureAction extends Action
         $id = $this->args['id'];
         try {
             $this->profilePictureService->saveProfilePicture($id, $this->request->getBody()->detach());
-        } catch (EmptyResultException $exception) {
+        } catch (EmptyResultException) {
             throw new NoResultException($this->request, 'Artist not found');
         }
 

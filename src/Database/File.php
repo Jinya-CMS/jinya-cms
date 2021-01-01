@@ -6,6 +6,7 @@ use App\Authentication\CurrentUser;
 use App\Database\Utils\LoadableEntity;
 use DateTime;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class File extends LoadableEntity
@@ -125,7 +126,7 @@ class File extends LoadableEntity
         );
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'id' => "int",
         'name' => "string",
         'type' => "string",

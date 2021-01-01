@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Update;
 
 use App\Web\Actions\Action;
+use JetBrains\PhpStorm\Pure;
 use JsonException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
@@ -19,7 +20,7 @@ abstract class UpdateAction extends Action
      * @param Engine $engine
      * @param LoggerInterface $logger
      */
-    public function __construct(Engine $engine, LoggerInterface $logger)
+    #[Pure] public function __construct(Engine $engine, LoggerInterface $logger)
     {
         parent::__construct($logger);
         $this->engine = $engine;
@@ -63,7 +64,6 @@ abstract class UpdateAction extends Action
      */
     protected function getReleases(): array
     {
-        $cmsJson = json_decode(file_get_contents(getenv('JINYA_UPDATE_SERVER')), true, 512, JSON_THROW_ON_ERROR);
-        return $cmsJson;
+        return json_decode(file_get_contents(getenv('JINYA_UPDATE_SERVER')), true, 512, JSON_THROW_ON_ERROR);
     }
 }

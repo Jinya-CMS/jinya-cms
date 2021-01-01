@@ -2,6 +2,7 @@
 
 namespace App\Maintenance\PhpInfo;
 
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 class PhpInfoService
@@ -11,7 +12,7 @@ class PhpInfoService
      *
      * @return string
      */
-    public function getUname(): string
+    #[Pure] public function getUname(): string
     {
         return php_uname();
     }
@@ -29,7 +30,7 @@ class PhpInfoService
         foreach ($loadedExtensions as $extensionName) {
             try {
                 $iniValues = ini_get_all($extensionName);
-            } catch (Throwable $exception) {
+            } catch (Throwable) {
                 $iniValues = [];
             }
 
@@ -105,7 +106,7 @@ class PhpInfoService
      *
      * @return string
      */
-    public function getZendVersion(): string
+    #[Pure] public function getZendVersion(): string
     {
         return zend_version();
     }

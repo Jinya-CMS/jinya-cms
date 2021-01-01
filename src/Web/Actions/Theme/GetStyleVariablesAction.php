@@ -4,10 +4,14 @@ namespace App\Web\Actions\Theme;
 
 use App\Database;
 use App\Theming;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/theme/{id}/styling', JinyaAction::GET)]
+#[Authenticated(Authenticated::WRITER)]
 class GetStyleVariablesAction extends ThemeAction
 {
 

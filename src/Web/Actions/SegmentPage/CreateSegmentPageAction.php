@@ -5,10 +5,16 @@ namespace App\Web\Actions\SegmentPage;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SegmentPage;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/segment-page', JinyaAction::POST)]
+#[Authenticated(Authenticated::WRITER)]
+#[RequiredFields(['name'])]
 class CreateSegmentPageAction extends Action
 {
     /**
@@ -23,7 +29,7 @@ class CreateSegmentPageAction extends Action
 
         try {
             $segmentPage->create();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Name already used');
         }
 

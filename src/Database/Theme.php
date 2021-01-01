@@ -7,6 +7,7 @@ use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use stdClass;
 
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
@@ -134,6 +135,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public function makeActiveTheme(): void
     {
+        /** @noinspection SqlWithoutWhere */
         $sql = 'UPDATE configuration SET current_frontend_theme_id = :id';
         self::executeStatement($sql, ['id' => $this->id]);
     }
@@ -315,7 +317,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         );
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'configuration' => "array|\stdClass",
         'description' => "string",
         'name' => "string",

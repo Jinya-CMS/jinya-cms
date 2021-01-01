@@ -4,10 +4,13 @@ namespace App\Web\Actions\Theme;
 
 use App\Database;
 use App\Theming;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Stream;
 
+#[JinyaAction('/api/theme/{id}/preview', JinyaAction::GET)]
 class GetPreviewImageAction extends ThemeAction
 {
 
@@ -18,7 +21,7 @@ class GetPreviewImageAction extends ThemeAction
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function action(): Response
     {

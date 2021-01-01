@@ -2,12 +2,19 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 
+#[JinyaAction('/api/theme/{id}/form', JinyaAction::GET)]
+#[Authenticated(Authenticated::WRITER)]
 class GetThemeFormAction extends ThemeAction
 {
 
@@ -15,9 +22,9 @@ class GetThemeFormAction extends ThemeAction
      * @return Response
      * @throws JsonException
      * @throws NoResultException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

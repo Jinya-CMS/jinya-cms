@@ -6,6 +6,7 @@ namespace App\Web\Actions;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Storage\StorageBaseService;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -114,7 +115,7 @@ abstract class Action
      * @return Response
      * @throws HttpBadRequestException
      */
-    public function __invoke(Request $request, Response $response, $args): Response
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         $this->request = $request;
         $this->response = $response;
@@ -149,7 +150,7 @@ abstract class Action
      */
     protected function respond($payload = null, int $statusCode = Action::HTTP_OK): Response
     {
-        $json = json_encode($payload, JSON_THROW_ON_ERROR, 512);
+        $json = json_encode($payload, JSON_THROW_ON_ERROR);
         $this->response->getBody()->write($json);
 
         return $this->response
@@ -157,7 +158,12 @@ abstract class Action
             ->withStatus($statusCode);
     }
 
-    protected function formatList(array $data, int $offset = 0, int $count = -1): array
+    #[ArrayShape([
+        'offset' => "int",
+        'itemsCount' => "int|void",
+        'totalCount' => "int|void",
+        'items' => "array"
+    ])] protected function formatList(array $data, int $offset = 0, int $count = -1): array
     {
         return [
             'offset' => $offset,

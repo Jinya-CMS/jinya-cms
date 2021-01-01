@@ -2,17 +2,23 @@
 
 namespace App\Web\Actions\SegmentPage\Segments;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Segment;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
+#[JinyaAction('/api/segment-page/{id}/segment/{position}', JinyaAction::PUT)]
+#[Authenticated(Authenticated::WRITER)]
 class UpdateSegmentAction extends Action
 {
 
@@ -23,8 +29,8 @@ class UpdateSegmentAction extends Action
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

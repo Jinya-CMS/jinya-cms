@@ -20,6 +20,6 @@ class JsonStrategy implements StrategyInterface
      */
     public function hydrate($value, ?array $data)
     {
-        return json_decode($value, associative: true, flags: JSON_THROW_ON_ERROR);
+        return json_decode($value, true, 512, JSON_THROW_ON_ERROR);
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Web\Actions\Menu\Items;
 
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\MenuItem;
@@ -20,9 +23,9 @@ abstract class MenuItemAction extends Action
      * @param MenuItem|null $menuItem
      * @return MenuItem
      * @throws NoResultException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function fillMenuItem(MenuItem $menuItem = null): MenuItem
     {
@@ -31,7 +34,7 @@ abstract class MenuItemAction extends Action
         }
 
         $body = $this->request->getParsedBody();
-        if(isset($body['route'])) {
+        if (isset($body['route'])) {
             $menuItem->route = $body['route'];
         }
 

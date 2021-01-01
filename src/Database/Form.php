@@ -9,7 +9,7 @@ use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
-use Laminas\Serializer\Adapter\Json;
+use PHP_CodeSniffer\Reports\Json;
 
 class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {

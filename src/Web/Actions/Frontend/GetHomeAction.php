@@ -5,7 +5,7 @@ namespace App\Web\Actions\Frontend;
 use App\Web\Attributes\JinyaAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/', 'get-home-action')]
+#[JinyaAction('/', JinyaAction::GET)]
 class GetHomeAction extends FrontAction
 {
 

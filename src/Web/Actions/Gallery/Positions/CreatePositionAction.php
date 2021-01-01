@@ -9,10 +9,14 @@ use App\Database\File;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/media/gallery/{galleryId}/file', JinyaAction::POST)]
+#[Authenticated(role: Authenticated::WRITER)]
 class CreatePositionAction extends Action
 {
 

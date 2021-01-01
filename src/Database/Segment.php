@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
 class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -122,7 +123,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
         return SegmentPage::findById($this->pageId);
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'position' => "int",
         'id' => "int",
         'form' => "array",

@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Install;
 
 use App\Web\Actions\Action;
+use JetBrains\PhpStorm\Pure;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -18,7 +19,7 @@ abstract class InstallAction extends Action
      * @param Engine $engine
      * @param LoggerInterface $logger
      */
-    public function __construct(Engine $engine, LoggerInterface $logger)
+    #[Pure] public function __construct(Engine $engine, LoggerInterface $logger)
     {
         parent::__construct($logger);
         $this->engine = $engine;

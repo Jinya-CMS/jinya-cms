@@ -5,6 +5,7 @@ namespace App\Database;
 use App\Authentication\CurrentUser;
 use DateTime;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -76,7 +77,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         );
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'id' => "int",
         'name' => "string",
         'description' => "string",

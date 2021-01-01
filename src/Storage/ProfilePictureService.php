@@ -4,6 +4,8 @@ namespace App\Storage;
 
 use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 
 class ProfilePictureService extends StorageBaseService
@@ -15,8 +17,8 @@ class ProfilePictureService extends StorageBaseService
      * @param string|resource $data
      * @throws EmptyResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function saveProfilePicture(int $artistId, $data): void
     {
@@ -42,8 +44,8 @@ class ProfilePictureService extends StorageBaseService
      * @param int $artistId
      * @throws EmptyResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function deleteProfilePicture(int $artistId): void
     {

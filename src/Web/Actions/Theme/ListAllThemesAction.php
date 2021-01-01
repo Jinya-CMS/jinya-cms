@@ -6,9 +6,13 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/theme', JinyaAction::GET)]
+#[Authenticated(Authenticated::WRITER)]
 class ListAllThemesAction extends ThemeAction
 {
 

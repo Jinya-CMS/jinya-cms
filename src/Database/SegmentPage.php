@@ -6,6 +6,7 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -121,7 +122,7 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'id' => "int",
         'name' => "string",
         'segmentCount' => "int",

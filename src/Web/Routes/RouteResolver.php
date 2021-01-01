@@ -8,8 +8,8 @@ use App\Web\Attributes\RequiredFields;
 use App\Web\Attributes\RequireOneField;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
+use App\Web\Middleware\CheckRequiredOneOfFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
-use Composer\Autoload\ClassLoader;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionAttribute;
@@ -19,7 +19,7 @@ use Slim\Routing\RouteCollectorProxy;
 
 class RouteResolver
 {
-    public function resolveRoutes(App $app, ClassLoader $autoLoader): RouteCollectorProxy
+    public function resolveRoutes(App $app): RouteCollectorProxy
     {
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../Actions'));
         $classesWithFullPath = [];
@@ -66,29 +66,42 @@ class RouteResolver
             /** @var ReflectionAttribute[] $authenticatedAttributes */
             $authenticatedAttributes = $route['authenticated'];
             if (!empty($actionAttributes)) {
-                $action = $actionAttributes[0];
-                $actionAttribute = $action->newInstance();
-                $actionRoute = $proxy->map([$actionAttribute->method], $actionAttribute->url, $route['class']);
-                $actionRoute->setName($route['class']);
-                if (!empty($authenticatedAttributes)) {
-                    /** @var Authenticated $authenticated */
-                    $authenticated = $authenticatedAttributes[0]->newInstance();
-                    $actionRoute->addMiddleware(new AuthenticationMiddleware());
-                    if ($authenticated->role !== '') {
-                        $actionRoute->addMiddleware(new RoleMiddleware($authenticated->role));
+                foreach ($actionAttributes as $action) {
+                    /** @var JinyaAction $actionAttribute */
+                    $actionAttribute = $action->newInstance();
+                    $actionRoute = match ($actionAttribute->method) {
+                        JinyaAction::GET => $proxy->get($actionAttribute->url, $route['class']),
+                        JinyaAction::POST => $proxy->post($actionAttribute->url, $route['class']),
+                        JinyaAction::PUT => $proxy->put($actionAttribute->url, $route['class']),
+                        JinyaAction::DELETE => $proxy->delete($actionAttribute->url, $route['class']),
+                        JinyaAction::HEAD => $proxy->map(['HEAD'], $actionAttribute->url, $route['class']),
+                        default => null,
+                    };
+                    $actionRoute->setName($route['class']);
+                    if (!empty($authenticatedAttributes)) {
+                        /** @var Authenticated $authenticated */
+                        $authenticated = $authenticatedAttributes[0]->newInstance();
+                        if ($authenticated->role !== '') {
+                            $actionRoute->addMiddleware(new RoleMiddleware($authenticated->role));
+                        }
+                        $actionRoute->addMiddleware(new AuthenticationMiddleware());
                     }
-                }
 
-                if (!empty($requiredFieldsAttributes)) {
-                    /** @var RequiredFields $attribute */
-                    $attribute = $requiredFieldsAttributes[0]->newInstance();
-                    $actionRoute->addMiddleware(new CheckRequiredFieldsMiddleware($attribute->requiredFields));
-                }
+                    if (!empty($requiredFieldsAttributes)) {
+                        /** @var RequiredFields $requiredFieldsAttribute */
+                        $requiredFieldsAttribute = $requiredFieldsAttributes[0]->newInstance();
+                        $actionRoute->addMiddleware(
+                            new CheckRequiredFieldsMiddleware($requiredFieldsAttribute->requiredFields)
+                        );
+                    }
 
-                if (!empty($requireOneFieldAttributes)) {
-                    /** @var RequireOneField $attribute */
-                    $attribute = $requiredFieldsAttributes[0]->newInstance();
-                    $actionRoute->addMiddleware(new CheckRequiredFieldsMiddleware($attribute->validFields));
+                    if (!empty($requireOneFieldAttributes)) {
+                        /** @var RequireOneField $requireOneFieldAttribute */
+                        $requireOneFieldAttribute = $requireOneFieldAttributes[0]->newInstance();
+                        $actionRoute->addMiddleware(
+                            new CheckRequiredOneOfFieldsMiddleware($requireOneFieldAttribute->validFields)
+                        );
+                    }
                 }
             }
         }

@@ -5,11 +5,17 @@ namespace App\Web\Actions\SimplePage;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SimplePage;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
 use Exception;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/page', JinyaAction::POST)]
+#[Authenticated(Authenticated::WRITER)]
+#[RequiredFields(['title', 'content'])]
 class CreateSimplePageAction extends Action
 {
 
@@ -29,7 +35,7 @@ class CreateSimplePageAction extends Action
 
         try {
             $page->create();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Title is used');
         }
 

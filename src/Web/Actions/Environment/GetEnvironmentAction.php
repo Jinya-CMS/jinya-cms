@@ -3,10 +3,14 @@
 namespace App\Web\Actions\Environment;
 
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use Dotenv\Dotenv;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/environment', JinyaAction::GET)]
+#[Authenticated(role: Authenticated::ADMIN)]
 class GetEnvironmentAction extends Action
 {
 

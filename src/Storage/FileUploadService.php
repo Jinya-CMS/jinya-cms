@@ -3,6 +3,8 @@
 namespace App\Storage;
 
 use App\Database\Exceptions\EmptyResultException;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
@@ -20,8 +22,8 @@ class FileUploadService extends StorageBaseService
      * @return UploadingFileChunk
      * @throws EmptyResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {
@@ -48,8 +50,8 @@ class FileUploadService extends StorageBaseService
      * @param int $fileId
      * @return File
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function finishUpload(int $fileId): File
     {
@@ -102,8 +104,8 @@ class FileUploadService extends StorageBaseService
      *
      * @param int $fileId
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     public function clearChunks(int $fileId): void
     {

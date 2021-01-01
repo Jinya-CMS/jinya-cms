@@ -5,10 +5,16 @@ namespace App\Web\Actions\Form;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/form', JinyaAction::POST)]
+#[Authenticated(role: Authenticated::WRITER)]
+#[RequiredFields(['title', 'toAddress'])]
 class CreateFormAction extends Action
 {
     /**
@@ -25,7 +31,7 @@ class CreateFormAction extends Action
 
         try {
             $form->create();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Title already used');
         }
 

@@ -8,6 +8,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use App\Messaging\FormMessageHandler;
 use App\Web\Exceptions\MissingFieldsException;
+use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class PostFrontAction extends FrontAction
@@ -19,6 +20,7 @@ class PostFrontAction extends FrontAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws Exception
      */
     protected function protectedAction(): Response
     {

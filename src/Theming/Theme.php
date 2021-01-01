@@ -137,7 +137,7 @@ class Theme implements ExtensionInterface
                     fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
                     $styleFiles,
                 );
-                $styleFiles = array_filter($styleFiles, static fn($item) => substr($item, -strlen('.css')) === '.css');
+                $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
                 $tags = '';
                 foreach ($styleFiles as $file) {
                     $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
@@ -156,7 +156,7 @@ class Theme implements ExtensionInterface
                     fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
                     $scriptFiles,
                 );
-                $scriptFiles = array_filter($scriptFiles, static fn($item) => substr($item, -strlen('.js')) === '.js');
+                $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
                 $tags = '';
                 foreach ($scriptFiles as $file) {
                     $tags .= "<script src='$file'></script>";
@@ -215,7 +215,7 @@ class Theme implements ExtensionInterface
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
         $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
 
-        return array_filter($files, fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -256,7 +256,7 @@ class Theme implements ExtensionInterface
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
         $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
 
-        return array_filter($files, fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -315,7 +315,7 @@ class Theme implements ExtensionInterface
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
         $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
 
-        return array_filter($files, fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     public function getStyleVariables(): array

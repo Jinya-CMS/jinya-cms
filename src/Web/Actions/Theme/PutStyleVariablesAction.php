@@ -2,13 +2,19 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Theming;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/theme/{id}/styling', JinyaAction::PUT)]
+#[Authenticated(Authenticated::WRITER)]
 class PutStyleVariablesAction extends ThemeAction
 {
 
@@ -18,8 +24,8 @@ class PutStyleVariablesAction extends ThemeAction
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

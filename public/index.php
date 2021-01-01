@@ -58,7 +58,7 @@ $middleware = require __ROOT__ . '/app/middleware.php';
 $middleware($app);
 
 $resolver = new RouteResolver();
-$resolver->resolveRoutes($app, $autoloader);
+$resolver->resolveRoutes($app);
 
 // Register routes
 $routes = require __ROOT__ . '/app/routes.php';

@@ -6,6 +6,7 @@ use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -42,7 +43,7 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_menu', new self());
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'menu' => "array"])] public function format(): array
+    #[ArrayShape(['name' => "string", 'menu' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

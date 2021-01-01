@@ -6,6 +6,7 @@ use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -42,7 +43,7 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_form', new self());
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
+    #[ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

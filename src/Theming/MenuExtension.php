@@ -2,7 +2,11 @@
 
 namespace App\Theming;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
+use JetBrains\PhpStorm\Pure;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
@@ -21,9 +25,9 @@ class MenuExtension implements ExtensionInterface
      *
      * @param MenuItem $menuItem
      * @return bool
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function isChildActiveMenuItem(MenuItem $menuItem): bool
     {
@@ -42,7 +46,7 @@ class MenuExtension implements ExtensionInterface
      * @param MenuItem $menuItem
      * @return bool
      */
-    public function isActiveMenuItem(MenuItem $menuItem): bool
+    #[Pure] public function isActiveMenuItem(MenuItem $menuItem): bool
     {
         return $menuItem->route !== null && $menuItem->route === ltrim($_SERVER['REQUEST_URI'], '/');
     }
@@ -51,9 +55,9 @@ class MenuExtension implements ExtensionInterface
      * Gets the active menu item
      *
      * @return MenuItem|null
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     public function getActiveMenuItem(): ?MenuItem
     {

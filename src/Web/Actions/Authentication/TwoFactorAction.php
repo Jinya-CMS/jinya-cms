@@ -10,12 +10,13 @@ use App\Mailing\Types\TwoFactorMail;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
+use JetBrains\PhpStorm\Pure;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
 
-#[JinyaAction('/api/account/password', JinyaAction::PUT)]
+#[JinyaAction('/api/2fa', JinyaAction::PUT)]
 #[RequiredFields(['username', 'password'])]
 class TwoFactorAction extends Action
 {
@@ -27,7 +28,7 @@ class TwoFactorAction extends Action
      * @param LoggerInterface $logger
      * @param TwoFactorMail $twoFactorMail
      */
-    public function __construct(LoggerInterface $logger, TwoFactorMail $twoFactorMail)
+    #[Pure] public function __construct(LoggerInterface $logger, TwoFactorMail $twoFactorMail)
     {
         parent::__construct($logger);
         $this->twoFactorMail = $twoFactorMail;

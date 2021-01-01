@@ -6,6 +6,7 @@ use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -42,7 +43,7 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
         return self::fetchByTheme($themeId, 'theme_segment_page', new self());
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'segmentPage' => "array"])] public function format(): array
+    #[ArrayShape(['name' => "string", 'segmentPage' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

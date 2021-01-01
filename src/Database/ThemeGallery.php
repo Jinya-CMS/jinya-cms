@@ -6,6 +6,7 @@ use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -42,7 +43,7 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
         return self::fetchByTheme($themeId, 'theme_gallery', new self());
     }
 
-    #[\JetBrains\PhpStorm\ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
+    #[ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
     {
         return [
             'name' => $this->name,

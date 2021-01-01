@@ -3,6 +3,7 @@
 namespace App\Web\Middleware;
 
 use App\Database\Artist;
+use App\Web\Attributes\Authenticated;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -34,7 +35,11 @@ class RoleMiddleware implements MiddlewareInterface
     {
         /** @var Artist $artist */
         $artist = $request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
-        if (!in_array($this->role, $artist->roles, true)) {
+        $cascadedRole = match ($this->role) {
+            Authenticated::READER => Authenticated::WRITER,
+            default => '',
+        };
+        if (!(in_array($this->role, $artist->roles, true) || in_array($cascadedRole, $artist->roles, true))) {
             throw new HttpForbiddenException($request, 'Not enough permissions');
         }
 

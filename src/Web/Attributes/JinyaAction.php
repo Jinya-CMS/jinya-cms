@@ -17,13 +17,11 @@ class JinyaAction
     /**
      * Route constructor.
      * @param string $url
-     * @param string $name
      * @param string $method
      */
     public function __construct(
         public string $url,
-        public string $name,
-        public string $method = self::GET,
+        public string $method,
     ) {
     }
 }

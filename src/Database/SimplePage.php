@@ -6,6 +6,7 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SimplePage extends Utils\LoadableEntity
@@ -123,7 +124,7 @@ class SimplePage extends Utils\LoadableEntity
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'id' => "int",
         'title' => "string",
         'content' => "string",

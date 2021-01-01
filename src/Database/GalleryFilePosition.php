@@ -4,6 +4,7 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -91,7 +92,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    #[\JetBrains\PhpStorm\ArrayShape([
+    #[ArrayShape([
         'gallery' => "array",
         'file' => "array",
         'id' => "int",

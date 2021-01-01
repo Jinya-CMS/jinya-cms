@@ -5,7 +5,7 @@ namespace App\Web\Actions\Install;
 use App\Database\Artist;
 use App\Database\Migrations\Migrator;
 use App\Theming\ThemeSyncer;
-use App\Web\Middleware\RoleMiddleware;
+use App\Web\Attributes\Authenticated;
 use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
@@ -25,8 +25,9 @@ class PostInstallerAction extends InstallAction
             $artist->setPassword($postData['password']);
             $artist->artistName = $postData['artistname'];
             $artist->roles = [
-                RoleMiddleware::ROLE_WRITER,
-                RoleMiddleware::ROLE_ADMIN,
+                Authenticated::READER,
+                Authenticated::WRITER,
+                Authenticated::ADMIN,
             ];
             $artist->enabled = true;
             try {

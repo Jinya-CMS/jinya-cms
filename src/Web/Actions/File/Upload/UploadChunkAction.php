@@ -3,14 +3,21 @@
 namespace App\Web\Actions\File\Upload;
 
 use App\Database\Exceptions\EmptyResultException;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\FileUploadService;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
+use JetBrains\PhpStorm\Pure;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
 
+#[JinyaAction('/api/media/file/{id}/content/{position}', JinyaAction::PUT)]
+#[Authenticated(role: Authenticated::WRITER)]
 class UploadChunkAction extends Action
 {
     private FileUploadService $fileUploadService;
@@ -20,7 +27,7 @@ class UploadChunkAction extends Action
      * @param LoggerInterface $logger
      * @param FileUploadService $fileUploadService
      */
-    public function __construct(LoggerInterface $logger, FileUploadService $fileUploadService)
+    #[Pure] public function __construct(LoggerInterface $logger, FileUploadService $fileUploadService)
     {
         parent::__construct($logger);
         $this->fileUploadService = $fileUploadService;
@@ -28,9 +35,12 @@ class UploadChunkAction extends Action
 
     /**
      * @inheritDoc
-     * @throws NoResultException
+     * @return Response
      * @throws JsonException
+     * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {
@@ -39,7 +49,7 @@ class UploadChunkAction extends Action
 
         try {
             $this->fileUploadService->saveChunk($fileId, $position, $this->request->getBody()->detach());
-        } catch (EmptyResultException $exception) {
+        } catch (EmptyResultException) {
             throw new NoResultException($this->request, 'File not found');
         }
 

@@ -2,14 +2,20 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\Theme;
 use App\Database\ThemeForm;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/theme/{id}/form/{name}', JinyaAction::PUT)]
+#[Authenticated(Authenticated::WRITER)]
 class PutThemeFormAction extends ThemeAction
 {
 
@@ -18,8 +24,8 @@ class PutThemeFormAction extends ThemeAction
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

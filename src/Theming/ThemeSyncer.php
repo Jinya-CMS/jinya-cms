@@ -40,7 +40,7 @@ class ThemeSyncer
 
         $nonExistingThemes = array_filter(
             $allThemes,
-            fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
+            static fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
         );
 
         $activeTheme = Database\Theme::getActiveTheme();

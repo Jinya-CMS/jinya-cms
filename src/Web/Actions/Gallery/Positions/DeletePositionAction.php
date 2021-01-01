@@ -2,12 +2,19 @@
 
 namespace App\Web\Actions\Gallery\Positions;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\GalleryFilePosition;
 use App\Web\Actions\Action;
+use App\Web\Attributes\Authenticated;
+use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
+#[JinyaAction('/api/media/gallery/{galleryId}/file/{position}', JinyaAction::DELETE)]
+#[Authenticated(role: Authenticated::WRITER)]
 class DeletePositionAction extends Action
 {
 
@@ -16,9 +23,9 @@ class DeletePositionAction extends Action
      * @return Response
      * @throws JsonException
      * @throws NoResultException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

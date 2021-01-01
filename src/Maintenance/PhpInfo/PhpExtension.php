@@ -2,6 +2,7 @@
 
 namespace App\Maintenance\PhpInfo;
 
+use JetBrains\PhpStorm\ArrayShape;
 use JsonSerializable;
 
 class PhpExtension implements JsonSerializable
@@ -74,7 +75,11 @@ class PhpExtension implements JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    #[ArrayShape([
+        'iniValues' => "\App\Maintenance\PhpInfo\IniValue[]",
+        'version' => "string",
+        'name' => "string"
+    ])] public function jsonSerialize()
     {
         return [
             'iniValues' => $this->iniValues,
