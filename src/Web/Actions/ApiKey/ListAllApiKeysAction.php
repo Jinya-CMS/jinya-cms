@@ -4,6 +4,9 @@ namespace App\Web\Actions\ApiKey;
 
 use App\Database\ApiKey;
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Middleware\AuthenticationMiddleware;
 use JsonException;
@@ -16,9 +19,9 @@ class ListAllApiKeysAction extends Action
      * @inheritDoc
      * @return Response
      * @throws JsonException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

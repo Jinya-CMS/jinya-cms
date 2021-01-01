@@ -12,6 +12,9 @@ use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
 use App\Web\Middleware\RoleMiddleware;
+use App\Web\Routes\RouteResolver;
+use Composer\Autoload\ClassLoader;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\App;
@@ -19,47 +22,49 @@ use Slim\Psr7\Response;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
-    $app->group(
-        '/api/',
-        function (RouteCollectorProxy $api) {
-            $artistRoutes = require __DIR__ . '/routing/api/artist.php';
-            $authenticationRoutes = require __DIR__ . '/routing/api/authentication.php';
-            $fileRoutes = require __DIR__ . '/routing/api/file.php';
-            $simplePageRoutes = require __DIR__ . '/routing/api/simplePage.php';
-            $myJinyaRoutes = require __DIR__ . '/routing/api/myjinya.php';
-            $knownDeviceRoutes = require __DIR__ . '/routing/api/knownDevice.php';
-            $phpInfo = require __DIR__ . '/routing/api/phpinfo.php';
-            $environment = require __DIR__ . '/routing/api/environment.php';
-            $gallery = require __DIR__ . '/routing/api/gallery.php';
-            $form = require __DIR__ . '/routing/api/form.php';
-            $segmentPage = require __DIR__ . '/routing/api/segmentPage.php';
-            $menu = require __DIR__ . '/routing/api/menu.php';
-            $database = require __DIR__ . '/routing/api/database.php';
-            $theme = require __DIR__ . '/routing/api/theme.php';
-            $locateIp = require __DIR__ . '/routing/api/locateIp.php';
+//    $app->group(
+//        '/api/',
+//        function (RouteCollectorProxy $api) {
+//            $artistRoutes = require __DIR__ . '/routing/api/artist.php';
+//            $authenticationRoutes = require __DIR__ . '/routing/api/authentication.php';
+//            $fileRoutes = require __DIR__ . '/routing/api/file.php';
+//            $simplePageRoutes = require __DIR__ . '/routing/api/simplePage.php';
+//            $myJinyaRoutes = require __DIR__ . '/routing/api/myjinya.php';
+//            $knownDeviceRoutes = require __DIR__ . '/routing/api/knownDevice.php';
+//            $phpInfo = require __DIR__ . '/routing/api/phpinfo.php';
+//            $environment = require __DIR__ . '/routing/api/environment.php';
+//            $gallery = require __DIR__ . '/routing/api/gallery.php';
+//            $form = require __DIR__ . '/routing/api/form.php';
+//            $segmentPage = require __DIR__ . '/routing/api/segmentPage.php';
+//            $menu = require __DIR__ . '/routing/api/menu.php';
+//            $database = require __DIR__ . '/routing/api/database.php';
+//            $theme = require __DIR__ . '/routing/api/theme.php';
+//            $locateIp = require __DIR__ . '/routing/api/locateIp.php';
+//
+//            $artistRoutes($api);
+//            $authenticationRoutes($api);
+//            $fileRoutes($api);
+//            $simplePageRoutes($api);
+//            $myJinyaRoutes($api);
+//            $knownDeviceRoutes($api);
+//            $phpInfo($api);
+//            $environment($api);
+//            $gallery($api);
+//            $form($api);
+//            $segmentPage($api);
+//            $menu($api);
+//            $database($api);
+//            $theme($api);
+//            $locateIp($api);
+//        }
+//    );
 
-            $artistRoutes($api);
-            $authenticationRoutes($api);
-            $fileRoutes($api);
-            $simplePageRoutes($api);
-            $myJinyaRoutes($api);
-            $knownDeviceRoutes($api);
-            $phpInfo($api);
-            $environment($api);
-            $gallery($api);
-            $form($api);
-            $segmentPage($api);
-            $menu($api);
-            $database($api);
-            $theme($api);
-            $locateIp($api);
-
-            $api->put('update', InitUpdateProcess::class)->add(
-                new RoleMiddleware(RoleMiddleware::ROLE_ADMIN)
-            )->add(AuthenticationMiddleware::class);
-        }
-    );
-    $app->get('/', GetHomeAction::class);
+    $app->put('/api/update', InitUpdateProcess::class)->add(
+        new RoleMiddleware(RoleMiddleware::ROLE_ADMIN)
+    )->add(AuthenticationMiddleware::class);
+    $app->map(['HEAD'], '/api/login', function (ServerRequestInterface $request, ResponseInterface $response) {
+        return $response->withStatus(Action::HTTP_NO_CONTENT);
+    })->add(AuthenticationMiddleware::class);
     $app->group(
         '/installer',
         function (RouteCollectorProxy $installer) {

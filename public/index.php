@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 require __DIR__ . '/../defines.php';
-require __ROOT__ . '/vendor/autoload.php';
+/** @var ClassLoader $autoloader */
+$autoloader = require __ROOT__ . '/vendor/autoload.php';
 
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;
+use App\Web\Routes\RouteResolver;
+use Composer\Autoload\ClassLoader;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
@@ -53,6 +56,9 @@ $app = AppFactory::create();
 // Register middleware
 $middleware = require __ROOT__ . '/app/middleware.php';
 $middleware($app);
+
+$resolver = new RouteResolver();
+$resolver->resolveRoutes($app, $autoloader);
 
 // Register routes
 $routes = require __ROOT__ . '/app/routes.php';
