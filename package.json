@@ -1,12 +1,18 @@
 {
-  "private": true,
+  "name": "jinya-designer",
+  "svelte": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "wasm-pack build --target web --debug && yarn rollup ./main.js --format iife --file ./pkg/index.js",
-    "build:prod": "wasm-pack build --target web --release && yarn rollup ./main.js --format iife --file ./pkg/index.js"
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "page": "1.11.6"
   },
   "devDependencies": {
-    "rollup": "^2.23.0",
-    "wasm-pack": "^0.9.1"
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "11.0.1",
+    "rollup": "2.35.1",
+    "rollup-plugin-svelte": "7.0.0",
+    "svelte": "3.31.1"
   }
 }
