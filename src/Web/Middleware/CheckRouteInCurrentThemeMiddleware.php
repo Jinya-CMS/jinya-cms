@@ -8,11 +8,11 @@ use App\Theming;
 use App\Web\Actions\Action;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
+use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Psr7\Response;
 use Throwable;
 
 class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface

@@ -8,11 +8,11 @@ use App\Storage\StorageBaseService;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JsonException;
+use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
-use Slim\Psr7\Stream;
 
 abstract class Action
 {
@@ -187,7 +187,7 @@ abstract class Action
         string $basePath = StorageBaseService::BASE_PATH . '/public/'
     ): Response {
         return $this->response
-            ->withBody(new Stream(fopen($basePath . $path, 'rb')))
+            ->withBody(Stream::create(fopen($basePath . $path, 'rb')))
             ->withHeader('Content-Type', $contentType)
             ->withStatus(self::HTTP_OK);
     }

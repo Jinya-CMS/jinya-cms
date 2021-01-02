@@ -3,8 +3,8 @@
 namespace App\Web\Actions\Update;
 
 use App\Web\Actions\Action;
+use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Psr7\Response;
 use Throwable;
 use ZipArchive;
 
