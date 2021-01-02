@@ -18,7 +18,8 @@
     "phpmailer/phpmailer": "v6.1.7",
     "phpmyadmin/sql-parser": "dev-master",
     "scssphp/scssphp": "1.2.1",
-    "slim/psr7": "1.3.0",
+    "nyholm/psr7": "1.3.2",
+    "nyholm/psr7-server": "1.0.1",
     "slim/slim": "4.7.1",
     "tedivm/jshrink": "dev-master",
     "vlucas/phpdotenv": "v5.2.0"

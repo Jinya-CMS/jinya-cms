@@ -7,8 +7,8 @@ use App\Theming;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
+use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Psr7\Stream;
 
 #[JinyaAction('/api/theme/{id}/preview', JinyaAction::GET)]
 class GetPreviewImageAction extends ThemeAction
@@ -34,7 +34,7 @@ class GetPreviewImageAction extends ThemeAction
         $theme = new Theming\Theme($dbTheme);
         if (file_exists($theme->getPreviewImagePath())) {
             return $this->response
-                ->withBody(new Stream(fopen($theme->getPreviewImagePath(), 'rb')))
+                ->withBody(Stream::create(fopen($theme->getPreviewImagePath(), 'rb')))
                 ->withHeader('Content-Type', 'application/octet-stream')
                 ->withStatus(self::HTTP_OK);
         }
