@@ -16,7 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
 
-#[JinyaAction('/api/2fa', JinyaAction::PUT)]
+#[JinyaAction('/api/2fa', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
 class TwoFactorAction extends Action
 {

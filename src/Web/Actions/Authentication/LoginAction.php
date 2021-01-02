@@ -15,7 +15,7 @@ use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/account/password', JinyaAction::PUT)]
+#[JinyaAction('/api/login', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
 class LoginAction extends Action
 {
