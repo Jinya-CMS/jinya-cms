@@ -4,7 +4,7 @@
   import RequestSecondFactor from './2fa-flow/RequestSecondFactor.svelte';
   import TwoFaLogin from './2fa-flow/Login.svelte';
   import DeviceCodeLogin from './device-code-flow/Login.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   const dispatch = createEventDispatcher();
@@ -17,13 +17,15 @@
   page('/designer/2fa', () => {
     activeRoute = '2fa';
   });
-  page.start();
 
-  if (twoFactorApproved) {
-    page('/designer/login');
-  } else {
-    page('/designer/2fa');
-  }
+  onMount(() => {
+    page.start();
+    if (twoFactorApproved) {
+      page('/designer/login');
+    } else {
+      page('/designer/2fa');
+    }
+  });
 </script>
 
 <main class="jinya-page-layout">

@@ -18,6 +18,18 @@ export function getDeviceCode() {
   return localStorage.getItem('/jinya/device/code');
 }
 
+export function deleteJinyaApiKey() {
+  localStorage.removeItem('/jinya/api/key');
+}
+
+export function deleteRoles() {
+  localStorage.removeItem('/jinya/auth/roles');
+}
+
+export function getRoles() {
+  return JSON.parse(localStorage.getItem('/jinya/auth/roles'));
+}
+
 export function setDeviceCode(code) {
   localStorage.setItem('/jinya/device/code', code);
 }
@@ -28,6 +40,10 @@ export function setEmail(email) {
 
 export function setPassword(password) {
   sessionStorage.setItem('/jinya/auth/password', password);
+}
+
+export function setRoles(roles) {
+  localStorage.setItem('/jinya/auth/roles', JSON.stringify(roles));
 }
 
 export function getEmail() {

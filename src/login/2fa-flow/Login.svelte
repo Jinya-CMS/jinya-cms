@@ -7,7 +7,8 @@
     getEmail,
     getPassword,
     setDeviceCode,
-    setJinyaApiKey
+    setJinyaApiKey,
+    setRoles
   } from '../../storage/authentication/storage';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -27,10 +28,10 @@
         });
         setDeviceCode(response.deviceCode);
         setJinyaApiKey(response.apiKey);
+        setRoles(response.roles);
         deleteEmail();
         deletePassword();
         dispatch('authenticated');
-        page.stop();
       }
     } catch (e) {
       jinyaAlert($_('login.error.2fa_failed.title'), $_('login.error.2fa_failed.message'), $_('alert.dismiss'));
@@ -41,7 +42,8 @@
 <form bind:this={form}>
     <div class="jinya-input__group">
         <label for="twoFactorCode" class="jinya-label">{$_('login.2fa_flow.label.two_factor_code')}</label>
-        <input required maxlength="6" minlength="6" bind:value={twoFactorCode} type="text" pattern="\d.*" id="twoFactorCode"
+        <input required maxlength="6" minlength="6" bind:value={twoFactorCode} type="text" pattern="\d.*"
+               id="twoFactorCode"
                class="jinya-input">
     </div>
     <div class="jinya-button__container">

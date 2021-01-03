@@ -106,6 +106,8 @@
     line-height: 48px;
     vertical-align: text-top;
     color: var(--menu-text-color);
+    text-decoration: none;
+    margin-right: 24px;
 }
 
 .jinya-menu-bar__main-item--active {
@@ -119,6 +121,8 @@
     line-height: 16px;
     vertical-align: text-top;
     margin-right: 16px;
+    text-decoration: none;
+    color: var(--black);
 }
 
 .jinya-menu-bar__sub-item--active {
@@ -134,4 +138,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.jinya-top-bar__menu-item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-light);
+    color: var(--black);
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.jinya-top-bar__menu-item--logout {
+    margin-left: 16px;
+}
+
+.jinya-top-bar__menu-item:after {
+    content: '';
+    height: 16px;
+    width: 1px;
+    background: var(--black);
+    margin-top: 4px;
+    margin-left: 16px;
+}
+
+.jinya-top-bar__menu-item:last-child:after {
+    content: unset;
+}
+
+.jinya-top-bar__menu {
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+    grid-column: content;
 }

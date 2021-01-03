@@ -38,5 +38,60 @@
         "message": "Your two factor code is invalid, please check your emails for the correct code."
       }
     }
+  },
+  "media": {
+    "menu": {
+      "title": "Media",
+      "files": "Files",
+      "galleries": "Galleries"
+    }
+  },
+  "pages_and_forms": {
+    "menu": {
+      "title": "Pages & Forms",
+      "simple_pages": "Simple pages",
+      "segment_pages": "Segment pages",
+      "forms": "Forms"
+    }
+  },
+  "design": {
+    "menu": {
+      "title": "Design",
+      "themes": "Theme",
+      "menus": "Menus"
+    }
+  },
+  "my_jinya": {
+    "menu": {
+      "title": "My Jinya",
+      "my_profile": "My profile",
+      "active_sessions": "Active sessions",
+      "active_devices": "Active devices"
+    }
+  },
+  "maintenance": {
+    "menu": {
+      "title": "Maintenance",
+      "update": "Update",
+      "app_config": "Jinya configuration",
+      "php_info": "PHP info"
+    }
+  },
+  "database": {
+    "menu": {
+      "title": "Database",
+      "mysql_info": "MySQL info",
+      "tables": "Tables",
+      "query_tool": "Query tool"
+    }
+  },
+  "artists": {
+    "menu": {
+      "title": "Artists",
+      "artists": "Artists"
+    }
+  },
+  "top_menu": {
+    "logout": "Logout"
   }
 }

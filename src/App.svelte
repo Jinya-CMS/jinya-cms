@@ -7,7 +7,7 @@
 </script>
 
 {#if authenticated}
-    <AppLayout />
+    <AppLayout on:logout={() => location.reload()} />
 {:else}
-    <LoginLayout on:authenticated={() => authenticated = true} />
+    <LoginLayout on:authenticated={() => location.reload()} />
 {/if}

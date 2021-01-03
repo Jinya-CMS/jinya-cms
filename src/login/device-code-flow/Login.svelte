@@ -1,6 +1,6 @@
 <script>
   import { post } from '../../http/request';
-  import { setDeviceCode, setJinyaApiKey } from '../../storage/authentication/storage';
+  import { deleteEmail, setDeviceCode, setJinyaApiKey, setRoles } from '../../storage/authentication/storage';
   import { createEventDispatcher } from 'svelte';
   import { jinyaAlert } from '../../ui/alert';
   import { _ } from 'svelte-i18n';
@@ -19,6 +19,7 @@
         });
         setDeviceCode(response.deviceCode);
         setJinyaApiKey(response.apiKey);
+        setRoles(response.roles);
         dispatch('authenticated');
       }
     } catch (e) {
