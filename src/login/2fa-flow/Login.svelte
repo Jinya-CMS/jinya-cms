@@ -10,6 +10,8 @@
     setJinyaApiKey
   } from '../../storage/authentication/storage';
   import { createEventDispatcher } from 'svelte';
+  import { _ } from 'svelte-i18n';
+  import { jinyaAlert } from '../../ui/alert';
 
   const dispatch = createEventDispatcher();
   let twoFactorCode;
@@ -31,18 +33,18 @@
         page.stop();
       }
     } catch (e) {
-      alert(e.message);
+      jinyaAlert($_('login.error.2fa_failed.title'), $_('login.error.2fa_failed.message'), $_('alert.dismiss'));
     }
   }
 </script>
 
 <form bind:this={form}>
     <div class="jinya-input__group">
-        <label for="twoFactorCode" class="jinya-label">Two factor code</label>
-        <input required maxlength="6" minlength="6" bind:value={twoFactorCode} type="number" id="twoFactorCode"
+        <label for="twoFactorCode" class="jinya-label">{$_('login.2fa_flow.label.two_factor_code')}</label>
+        <input required maxlength="6" minlength="6" bind:value={twoFactorCode} type="text" pattern="\d.*" id="twoFactorCode"
                class="jinya-input">
     </div>
     <div class="jinya-button__container">
-        <button on:click={login} class="jinya-button" type="button">Request second factor</button>
+        <button on:click={login} class="jinya-button" type="button">{$_('login.2fa_flow.action.login')}</button>
     </div>
 </form>

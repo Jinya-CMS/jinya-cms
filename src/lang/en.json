@@ -1,0 +1,42 @@
+{
+  "alert": {
+    "dismiss": "Dismiss"
+  },
+  "login": {
+    "menu": {
+      "title": "Login",
+      "request_second_factor": "Request second factor",
+      "login": "login"
+    },
+    "2fa_flow": {
+      "label": {
+        "email": "Email",
+        "password": "Password",
+        "two_factor_code": "Two factor code"
+      },
+      "action": {
+        "request": "Request second factor",
+        "login": "Login"
+      }
+    },
+    "device_code_flow": {
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "action": {
+        "login": "Login"
+      }
+    },
+    "error": {
+      "login_failed": {
+        "title": "Login failed",
+        "message": "Your email and password don't match, please use a different combination."
+      },
+      "2fa_failed": {
+        "title": "Login failed",
+        "message": "Your two factor code is invalid, please check your emails for the correct code."
+      }
+    }
+  }
+}

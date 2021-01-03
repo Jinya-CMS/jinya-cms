@@ -5,6 +5,7 @@
   import TwoFaLogin from './2fa-flow/Login.svelte';
   import DeviceCodeLogin from './device-code-flow/Login.svelte';
   import { createEventDispatcher } from 'svelte';
+  import { _ } from 'svelte-i18n';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -34,11 +35,13 @@
         <button disabled type="button" class="jinya-menu-bar__back-button"></button>
         <nav class="jinya-menu-bar__menu-collection">
             <div class="jinya-menu-bar__main-menu">
-                <span class="jinya-menu-bar__main-item jinya-menu-bar__main-item--active">Login</span>
+                <span class="jinya-menu-bar__main-item jinya-menu-bar__main-item--active">{$_('login.menu.title')}</span>
             </div>
             <div class="jinya-menu-bar__sub-menu">
-                <span class="jinya-menu-bar__sub-item" class:jinya-menu-bar__sub-item--active={activeRoute === '2fa'}>Request second factor</span>
-                <span class="jinya-menu-bar__sub-item" class:jinya-menu-bar__sub-item--active={activeRoute === 'login'}>Login</span>
+                <span class="jinya-menu-bar__sub-item"
+                      class:jinya-menu-bar__sub-item--active={activeRoute === '2fa'}>{$_('login.menu.request_second_factor')}</span>
+                <span class="jinya-menu-bar__sub-item"
+                      class:jinya-menu-bar__sub-item--active={activeRoute === 'login'}>{$_('login.menu.login')}</span>
             </div>
         </nav>
     </div>

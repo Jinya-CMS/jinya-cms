@@ -1,11 +1,11 @@
 import AlertModal from './AlertModal.svelte';
 
-export function jinyaAlert(title, message, buttonLabel = 'Acknowledge') {
+export function jinyaAlert(title, message, buttonLabel = 'Dismiss') {
   return new Promise((resolve => {
     const container = document.createElement('div');
     container.id = 'jinya-modal-container';
     document.body.appendChild(container);
-    const modal = new AlertModal({
+    new AlertModal({
       target: container,
       props: {
         title,
