@@ -1,0 +1,77 @@
+.jinya-input__group {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto;
+    grid-row-gap: 10px;
+}
+
+.jinya-input {
+    width: 240px;
+    height: 28px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    font-size: 16px;
+    border: 1px solid var(--control-border-color);
+}
+
+.jinya-input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+.jinya-input:invalid {
+    border-color: var(--negative-color);
+    outline: none;
+    box-shadow: none;
+}
+
+.jinya-label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.jinya-button {
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: 16px;
+    padding: 3px 16px;
+    box-sizing: border-box;
+    border: 1px solid var(--control-border-color);
+    background: var(--white);
+    color: var(--black);
+}
+
+.jinya-button:disabled {
+    cursor: not-allowed;
+    border: 1px solid var(--control-border-color);
+    background: var(--white);
+    color: var(--disabled-color);
+}
+
+.jinya-button:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    outline: none;
+    box-shadow: none;
+}
+
+.jinya-button:disabled:hover {
+    background: var(--white);
+    color: var(--control-border-color);
+    outline: none;
+    box-shadow: none;
+}
+
+.jinya-button:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: none;
+}
+
+.jinya-button__container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}

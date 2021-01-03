@@ -3,11 +3,11 @@
   import AppLayout from './login/Layout.svelte';
   import { hasJinyaApiKey } from './storage/authentication/storage';
 
-  const authenticated = hasJinyaApiKey();
+  let authenticated = hasJinyaApiKey();
 </script>
 
 {#if authenticated}
     <AppLayout />
 {:else}
-    <LoginLayout />
+    <LoginLayout on:authenticated={() => authenticated = true} />
 {/if}
