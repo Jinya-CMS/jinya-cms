@@ -1,0 +1,65 @@
+.jinya-modal__backdrop,
+.jinya-modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #FFFFFF4D;
+    height: 100vh;
+    width: 100vw;
+}
+
+.jinya-modal__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jinya-modal {
+    border: 1px solid var(--primary-color);
+    background: var(--white);
+}
+
+.jinya-modal__header {
+    background: var(--top-gradient);
+    height: 32px;
+    padding: 24px 140px 0 32px;
+    box-sizing: border-box;
+}
+
+.jinya-modal__deco-bar {
+    height: 8px;
+    width: 208px;
+    background: var(--primary-color);
+}
+
+.jinya-modal__body {
+    padding: 0 32px 24px;
+}
+
+.jinya-modal__title {
+    padding: 0;
+    margin: 10px 0;
+    text-transform: uppercase;
+    font-size: 36px;
+    line-height: 36px;
+    height: 36px;
+    vertical-align: text-top;
+    font-weight: var(--font-weight-normal);
+    font-family: var(--font-family);
+}
+
+.jinya-modal__content {
+    font-weight: var(--font-weight-normal);
+    font-family: var(--font-family);
+    padding: 0;
+    margin: 0;
+}
+
+.jinya-modal__button-bar {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}

@@ -2,6 +2,7 @@
   import { post } from '../../http/request';
   import { setDeviceCode, setJinyaApiKey } from '../../storage/authentication/storage';
   import { createEventDispatcher } from 'svelte';
+  import { jinyaAlert } from '../../ui/alert';
 
   const dispatch = createEventDispatcher();
   let username;
@@ -20,7 +21,7 @@
         dispatch('authenticated');
       }
     } catch (e) {
-      alert(e.message);
+      jinyaAlert('', '');
     }
   }
 </script>
