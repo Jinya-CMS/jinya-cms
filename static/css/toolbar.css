@@ -1,0 +1,8 @@
+.jinya-toolbar {
+    display: flex;
+    gap: 16px;
+}
+
+.jinya-toolbar__group {
+    display: flex;
+}

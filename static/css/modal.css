@@ -18,29 +18,23 @@
 
 .jinya-modal {
     border: 1px solid var(--primary-color);
-    background: var(--white);
-}
-
-.jinya-modal__header {
-    background: var(--top-gradient);
-    height: 32px;
-    padding: 24px 140px 0 32px;
+    background: linear-gradient(to top, var(--white) 0%, var(--white) 80%, var(--gradient-top-color) 100%);
+    padding: 24px 32px;
+    min-width: 274px;
     box-sizing: border-box;
 }
 
-.jinya-modal__deco-bar {
-    height: 8px;
+.jinya-modal::before {
+    content: '';
+    position: absolute;
     width: 208px;
+    height: 8px;
     background: var(--primary-color);
-}
-
-.jinya-modal__body {
-    padding: 0 32px 24px;
 }
 
 .jinya-modal__title {
     padding: 0;
-    margin: 10px 0;
+    margin: 18px 0 10px;
     text-transform: uppercase;
     font-size: 36px;
     line-height: 36px;
@@ -62,4 +56,9 @@
     justify-content: flex-end;
     width: 100%;
     margin-top: 10px;
+    gap: 16px;
+}
+
+.jinya-modal__button-bar > .jinya-button {
+    border-left-width: 1px;
 }

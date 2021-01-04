@@ -50,6 +50,12 @@
     color: var(--disabled-color);
 }
 
+.jinya-button:disabled + .jinya-button,
+.jinya-button:disabled + .jinya-button:disabled,
+.jinya-button + .jinya-button {
+    border-left-width: 0;
+}
+
 .jinya-button:hover {
     background: var(--primary-color);
     color: var(--white);
@@ -74,4 +80,32 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+}
+
+.jinya-input--picker {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.jinya-picker__name {
+    padding: 4px 8px;
+    text-overflow: ellipsis;
+    white-space: pre;
+    overflow-x: hidden;
+}
+
+.jinya-picker__button {
+    color: var(--black);
+    justify-self: flex-end;
+    margin-left: auto;
+    cursor: pointer;
+    width: 26px;
+    display: flex;
+    justify-content: center;
+}
+
+.jinya-picker__button:hover {
+    background: var(--black);
+    color: var(--white);
 }

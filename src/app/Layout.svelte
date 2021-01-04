@@ -1,7 +1,7 @@
 <script>
   import page from 'page';
   import { _ } from 'svelte-i18n';
-  import Fileview from '../media/files/Fileview.svelte';
+  import Fileview from './media/files/Fileview.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost } from '../http/request';
@@ -9,17 +9,20 @@
   const dispatch = createEventDispatcher();
   let activeRoute;
   let activeCategory;
+  let activeComponent;
   let profilepicture = '';
   const roles = getRoles();
   let allowBackstage = roles.includes('ROLE_ADMIN');
   let allowFrontstage = roles.includes('ROLE_WRITER');
   let isBackstage = !allowFrontstage;
+  let me;
 
   if (allowFrontstage) {
     page('/designer/media/files', () => {
       activeRoute = 'files';
       activeCategory = 'media';
       isBackstage = false;
+      activeComponent = Fileview;
     });
     page('/designer/media/galleries', () => {
       activeRoute = 'galleries';
@@ -124,7 +127,7 @@
 
   onMount(async () => {
     page.start();
-    const me = await get('/api/me');
+    me = await get('/api/me');
     profilepicture = `${getHost()}/${me.profilePicture}`;
   });
 
@@ -147,7 +150,7 @@
                    class="jinya-top-bar__menu-item">{$_('design.menu.title')}</a>
                 <a href="/designer/my-jinya/my-profile"
                    class="jinya-top-bar__menu-item">{$_('my_jinya.menu.title')}</a>
-            {:else if allowBackstage}
+            {:else if allowBackstage && !isBackstage}
                 <a href="/designer/backstage/maintenance/update"
                    class="jinya-top-bar__menu-item">{$_('maintenance.menu.title')}</a>
                 <a href="/designer/backstage/database/mysql-info"
@@ -155,7 +158,7 @@
                 <a href="/designer/backstage/artists" class="jinya-top-bar__menu-item">{$_('artists.menu.title')}</a>
             {/if}
         </div>
-        <img src={profilepicture} class="jinya-profile-picture">
+        <img src={profilepicture} class="jinya-profile-picture" alt={me?.artistName}>
         <a class="jinya-top-bar__menu-item jinya-top-bar__menu-item--logout"
            on:click={logout}>{$_('top_menu.logout')}</a>
     </div>
@@ -234,9 +237,9 @@
             </div>
         </nav>
     </div>
-    <div class="jinya-page-content jinya-page-content--login">
-        {#if activeRoute === 'files'}
-            <Fileview />
-        {/if}
+    <div class="jinya-page-body jinya-page-body--app">
+        <div class="jinya-page-body__content">
+            <svelte:component this={activeComponent} />
+        </div>
     </div>
 </main>

@@ -9,8 +9,10 @@
     --negative-color: #e2180d;
     --positive-color: #146621;
     --information-color: #182B70;
+    --gradient-top-color: #EDEDEE;
+    --gradient-bottom-color: var(--white);
 
-    --top-gradient: linear-gradient(to top, var(--white) 0%, #EDEDEE 100%);
+    --top-gradient: linear-gradient(to top, var(--gradient-bottom-color) 0%, var(--gradient-top-color) 100%);
 
     --font-weight-bold: bold;
     --font-weight-normal: normal;

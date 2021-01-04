@@ -44,6 +44,44 @@
       "title": "Media",
       "files": "Files",
       "galleries": "Galleries"
+    },
+    "files": {
+      "action": {
+        "upload_single_file": "Upload single file",
+        "upload_multiple_file": "Upload multiple files",
+        "delete_file": "Delete file",
+        "edit_file": "Edit file"
+      },
+      "delete": {
+        "title": "Delete file",
+        "message": "Do you really want to delete file {name}?",
+        "approve": "Delete file",
+        "decline": "Keep file"
+      },
+      "upload_single_file": {
+        "title": "Upload file",
+        "file": "File",
+        "name": "Name",
+        "upload": "Upload file",
+        "cancel": "Cancel upload",
+        "error": {
+          "title": "Upload failed",
+          "conflict": "A file with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit file",
+        "file": "File",
+        "name": "Name",
+        "save": "Save file",
+        "cancel": "Discard changes",
+        "error": {
+          "title": "Edit failed",
+          "conflict": "A file with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      }
     }
   },
   "pages_and_forms": {

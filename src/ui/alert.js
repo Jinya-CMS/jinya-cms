@@ -1,5 +1,12 @@
 import AlertModal from './AlertModal.svelte';
 
+/**
+ *
+ * @param title string
+ * @param message string
+ * @param buttonLabel string
+ * @returns {Promise<void>}
+ */
 export function jinyaAlert(title, message, buttonLabel = 'Dismiss') {
   return new Promise((resolve => {
     const container = document.createElement('div');

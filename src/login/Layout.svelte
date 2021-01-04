@@ -47,7 +47,7 @@
             </div>
         </nav>
     </div>
-    <div class="jinya-page-content jinya-page-content--login">
+    <div class="jinya-page-body jinya-page-content--login">
         {#if twoFactorApproved}
             <DeviceCodeLogin on:authenticated={() => dispatch('authenticated')} />
         {:else}
