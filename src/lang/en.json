@@ -70,6 +70,13 @@
           "generic": "An unknown error occurred, please contact your administrator"
         }
       },
+      "upload_multiple_files": {
+        "title": "Upload files",
+        "files": "Files",
+        "upload": "Upload files",
+        "cancel": "Cancel upload",
+        "n_files_selected": "{length} file(s) selected"
+      },
       "edit": {
         "title": "Edit file",
         "file": "File",

@@ -1,10 +1,12 @@
 <script>
-  import { onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { get, getHost, httpDelete, post, put, upload } from '../../../http/request';
   import { jinyaConfirm } from '../../../ui/confirm';
   import { jinyaAlert } from '../../../ui/alert';
+  import { readDataUrl } from '../../../files/reader';
 
+  const dispatch = createEventDispatcher();
   let files = [];
   let selectedFile;
 
@@ -12,6 +14,10 @@
   let uploadSingleFileName;
   let uploadSingleFileFile;
   let uploadSingleFileFileName = '';
+
+  let uploadMultipleFilesOpen = false;
+  let uploadMultipleFilesFiles = [];
+  let uploadMultipleFilesSelectedFiles = [];
 
   let editFileOpen = false;
   let editFileName;
@@ -29,6 +35,16 @@
     const file = editFileFile[0];
     editFileFileName = file.name;
   }
+  $: if (uploadMultipleFilesFiles) {
+    const promises = [];
+    for (const file of uploadMultipleFilesFiles) {
+      promises.push(readDataUrl(file));
+    }
+
+    Promise.all(promises).then((files) => {
+      uploadMultipleFilesSelectedFiles = files;
+    });
+  }
 
   async function deleteFile() {
     const reallyDelete = await jinyaConfirm($_('media.files.delete.title'), $_('media.files.delete.message', { values: selectedFile }), $_('media.files.delete.approve'), $_('media.files.delete.decline'));
@@ -40,11 +56,16 @@
     }
   }
 
-  function onUploadCloseClick() {
+  function onSingleUploadCloseClick() {
     uploadSingleFileOpen = false;
     uploadSingleFileFile = null;
     uploadSingleFileFileName = '';
     uploadSingleFileName = '';
+  }
+
+  function onMultipleCloseClick() {
+    uploadMultipleFilesOpen = false;
+    uploadMultipleFilesFiles = null;
   }
 
   function onEditFileClick() {
@@ -60,6 +81,11 @@
     editFileName = '';
   }
 
+  function onMultipleFilesUpload() {
+    dispatch('multiple-files-upload-start', uploadMultipleFilesFiles);
+    onMultipleCloseClick();
+  }
+
   async function onSingleFileUpload() {
     if (!(uploadSingleFileName && uploadSingleFileFile)) {
       return;
@@ -71,7 +97,7 @@
       await put(`/api/media/file/${postResult.id}/content/finish`);
 
       await loadFiles();
-      onUploadCloseClick();
+      onSingleUploadCloseClick();
     } catch (e) {
       if (e.status === 409) {
         await jinyaAlert($_('media.files.upload_single_file.error.title'), $_('media.files.upload_single_file.error.conflict'), $_('alert.dismiss'));
@@ -119,7 +145,8 @@
         <div class="jinya-toolbar__group">
             <button on:click={() => uploadSingleFileOpen = true} class="jinya-button"
                     type="button">{$_('media.files.action.upload_single_file')}</button>
-            <button class="jinya-button" type="button">{$_('media.files.action.upload_multiple_file')}</button>
+            <button on:click={() => uploadMultipleFilesOpen = true} class="jinya-button"
+                    type="button">{$_('media.files.action.upload_multiple_file')}</button>
         </div>
         <div class="jinya-toolbar__group">
             <button disabled={!selectedFile} class="jinya-button" on:click={onEditFileClick}
@@ -160,9 +187,47 @@
             </div>
             <div class="jinya-modal__button-bar">
                 <button class="jinya-button"
-                        on:click={onUploadCloseClick}>{$_('media.files.upload_single_file.cancel')}</button>
+                        on:click={onSingleUploadCloseClick}>{$_('media.files.upload_single_file.cancel')}</button>
                 <button class="jinya-button"
                         on:click={onSingleFileUpload}>{$_('media.files.upload_single_file.upload')}</button>
+            </div>
+        </div>
+    </div>
+{/if}
+{#if uploadMultipleFilesOpen}
+    <div class="jinya-modal__backdrop"></div>
+    <div class="jinya-modal__container">
+        <div class="jinya-modal jinya-modal--multiple-files">
+            <h1 class="jinya-modal__title">{$_('media.files.upload_multiple_files.title')}</h1>
+            <div class="jinya-modal__content">
+                <div class="jinya-input__group">
+                    <label for="uploadMultipleFilesPicker"
+                           class="jinya-label">{$_('media.files.upload_multiple_files.files')}</label>
+                    <div class="jinya-input jinya-input--multiple-picker jinya-input--picker">
+                        <label class="jinya-picker__name"
+                               for="uploadSingleFileFile">{$_('media.files.upload_multiple_files.n_files_selected', { values: uploadMultipleFilesFiles })}</label>
+                        <label class="jinya-picker__button" for="uploadMultipleFilesPicker"><span
+                                class="mdi mdi-upload mdi-24px"></span></label>
+                        <input style="display: none" multiple required bind:files={uploadMultipleFilesFiles} type="file"
+                               id="uploadMultipleFilesPicker">
+                    </div>
+                </div>
+                <div class="jinya-media-tile__container--modal">
+                    {#each uploadMultipleFilesFiles as file}
+                        {#await readDataUrl(file)}
+                        {:then src}
+                            <div class="jinya-media-tile jinya-media-tile--small">
+                                <img class="jinya-media-tile__img jinya-media-tile__img--small" {src}>
+                            </div>
+                        {/await}
+                    {/each}
+                </div>
+            </div>
+            <div class="jinya-modal__button-bar">
+                <button class="jinya-button"
+                        on:click={onMultipleCloseClick}>{$_('media.files.upload_multiple_files.cancel')}</button>
+                <button class="jinya-button"
+                        on:click={onMultipleFilesUpload}>{$_('media.files.upload_multiple_files.upload')}</button>
             </div>
         </div>
     </div>

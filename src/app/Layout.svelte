@@ -4,7 +4,7 @@
   import Fileview from './media/files/Fileview.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
-  import { get, getHost } from '../http/request';
+  import { get, getHost, post, put, upload } from '../http/request';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -136,6 +136,28 @@
     deleteRoles();
     dispatch('logout');
   }
+
+  /**
+   *
+   * @param event CustomEvent
+   */
+  async function startUpload(event) {
+    const files = event.detail;
+    for (const file of files) {
+      try {
+        const postResult = await post('/api/media/file', { name: file.name });
+        await put(`/api/media/file/${postResult.id}/content`);
+        await upload(`/api/media/file/${postResult.id}/content/0`, file);
+        await put(`/api/media/file/${postResult.id}/content/finish`);
+      } catch (e) {
+        if (e.status === 409) {
+          console.error($_('media.files.upload_single_file.error.conflict'));
+        } else {
+          console.error($_('media.files.upload_single_file.error.generic'));
+        }
+      }
+    }
+  }
 </script>
 
 <main class="jinya-page-layout">
@@ -239,7 +261,11 @@
     </div>
     <div class="jinya-page-body jinya-page-body--app">
         <div class="jinya-page-body__content">
-            <svelte:component this={activeComponent} />
+            {#if activeRoute === 'files'}
+                <Fileview on:multiple-files-upload-start={startUpload} />
+            {:else}
+                <svelte:component this={activeComponent} />
+            {/if}
         </div>
     </div>
 </main>
