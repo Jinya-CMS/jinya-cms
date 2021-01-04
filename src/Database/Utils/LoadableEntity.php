@@ -12,6 +12,7 @@ use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 use PDO;
+use PDOException;
 
 abstract class LoadableEntity
 {
@@ -139,17 +140,22 @@ abstract class LoadableEntity
     {
         $pdo = self::getPdo();
         $stmt = $pdo->prepare($statement);
-        $stmt->execute($parameters);
-        if ($stmt->errorCode() !== '00000') {
-            $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
+        try {
+            $stmt->execute($parameters);
+            if ($stmt->errorCode() !== '00000') {
+                $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
+                throw self::convertInvalidQueryExceptionToException($ex);
+            }
+
+            if ($stmt->columnCount() > 0) {
+                return $stmt->fetchAll();
+            }
+
+            return $stmt->rowCount();
+        } catch (PDOException $exception) {
+            $ex = new InvalidQueryException(errorInfo: $exception->errorInfo);
             throw self::convertInvalidQueryExceptionToException($ex);
         }
-
-        if ($stmt->columnCount() > 0) {
-            return $stmt->fetchAll();
-        }
-
-        return $stmt->rowCount();
     }
 
     /**

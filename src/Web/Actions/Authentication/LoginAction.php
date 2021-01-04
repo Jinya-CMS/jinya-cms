@@ -6,7 +6,6 @@ use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\KnownDevice;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\BadCredentialsException;
@@ -26,9 +25,9 @@ class LoginAction extends Action
     protected function action(): Response
     {
         $body = $this->request->getParsedBody();
-        $username = $body['username'];
-        $password = $body['password'];
-        $twoFactorCode = $body['twoFactorCode'];
+        $username = $body['username'] ?? '';
+        $password = $body['password'] ?? '';
+        $twoFactorCode = $body['twoFactorCode'] ?? '';
         $knownDeviceCode = $this->request->getHeaderLine('JinyaDeviceCode');
 
         $artist = Artist::findByEmail($username);
@@ -69,11 +68,13 @@ class LoginAction extends Action
             $artist->twoFactorToken = null;
             $artist->update();
 
-            return $this->respond([
-                'apiKey' => $apiKey->apiKey,
-                'deviceCode' => $knownDevice->deviceKey,
-                'roles' => $artist->roles,
-            ]);
+            return $this->respond(
+                [
+                    'apiKey' => $apiKey->apiKey,
+                    'deviceCode' => $knownDevice->deviceKey,
+                    'roles' => $artist->roles,
+                ]
+            );
         }
 
         throw new BadCredentialsException($this->request, 'Bad credentials');
