@@ -188,3 +188,46 @@
     flex-flow: row nowrap;
     grid-column: content;
 }
+
+.jinya-bottom-bar {
+    display: flex;
+    grid-row: bottom-bar;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.jinya-progress-bar {
+    width: 380px;
+    height: 8px;
+    display: block;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.jinya-progress-bar,
+.jinya-progress-bar::-webkit-progress-bar {
+    appearance: none;
+    background: var(--control-border-color);
+}
+
+.jinya-progress-bar::-webkit-progress-value {
+    background: var(--primary-color);
+}
+
+.jinya-progress-bar::-moz-progress-bar {
+    background: var(--primary-color);
+}
+
+.jinya-progress-bar__top-label {
+    font-size: 16px;
+    color: var(--black);
+    display: block;
+}
+
+.jinya-progress-bar__bottom-label {
+    font-size: 13px;
+    color: var(--black);
+    display: block;
+}

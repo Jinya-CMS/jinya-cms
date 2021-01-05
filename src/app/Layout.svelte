@@ -16,6 +16,9 @@
   let allowFrontstage = roles.includes('ROLE_WRITER');
   let isBackstage = !allowFrontstage;
   let me;
+  let filesToUpload = 0;
+  let filesUploaded = 0;
+  let uploadDone = false;
 
   if (allowFrontstage) {
     page('/designer/media/files', () => {
@@ -143,6 +146,9 @@
    */
   async function startUpload(event) {
     const files = event.detail;
+    filesToUpload = files.length;
+    filesUploaded = 0;
+    uploadDone = false;
     for (const file of files) {
       try {
         const postResult = await post('/api/media/file', { name: file.name });
@@ -156,7 +162,9 @@
           console.error($_('media.files.upload_single_file.error.generic'));
         }
       }
+      filesUploaded++;
     }
+    uploadDone = true;
   }
 </script>
 
@@ -262,10 +270,25 @@
     <div class="jinya-page-body jinya-page-body--app">
         <div class="jinya-page-body__content">
             {#if activeRoute === 'files'}
-                <Fileview on:multiple-files-upload-start={startUpload} />
+                <Fileview uploadDone={uploadDone} on:multiple-files-upload-start={startUpload} />
             {:else}
                 <svelte:component this={activeComponent} />
             {/if}
         </div>
     </div>
+    {#if 0 < filesToUpload}
+        <div class="jinya-bottom-bar">
+            <span class="jinya-progress-bar__top-label">
+                {#if filesUploaded !== filesToUpload}
+                    {$_('bottom_bar.upload_title.uploading')}
+                {:else}
+                    {$_('bottom_bar.upload_title.uploaded')}
+                {/if}
+            </span>
+            <progress class="jinya-progress-bar" value={filesUploaded} max={filesToUpload}></progress>
+            <span class="jinya-progress-bar__bottom-label">
+                {$_('bottom_bar.upload_progress', { values: { filesToUpload, filesUploaded } })}
+            </span>
+        </div>
+    {/if}
 </main>

@@ -138,5 +138,12 @@
   },
   "top_menu": {
     "logout": "Logout"
+  },
+  "bottom_bar": {
+    "upload_title": {
+      "uploading": "File upload pending…",
+      "uploaded": "File upload done"
+    },
+    "upload_progress": "Uploaded {filesUploaded} of {filesToUpload} files"
   }
 }

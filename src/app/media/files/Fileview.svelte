@@ -6,6 +6,8 @@
   import { jinyaAlert } from '../../../ui/alert';
   import { readDataUrl } from '../../../files/reader';
 
+  export let uploadDone = false;
+
   const dispatch = createEventDispatcher();
   let files = [];
   let selectedFile;
@@ -45,6 +47,9 @@
       uploadMultipleFilesSelectedFiles = files;
     });
   }
+  $: if (uploadDone) {
+    loadFiles();
+  }
 
   async function deleteFile() {
     const reallyDelete = await jinyaConfirm($_('media.files.delete.title'), $_('media.files.delete.message', { values: selectedFile }), $_('media.files.delete.approve'), $_('media.files.delete.decline'));
@@ -65,7 +70,7 @@
 
   function onMultipleCloseClick() {
     uploadMultipleFilesOpen = false;
-    uploadMultipleFilesFiles = null;
+    uploadMultipleFilesFiles = [];
   }
 
   function onEditFileClick() {
