@@ -1,10 +1,10 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { get, getHost, httpDelete, post, put, upload } from '../../../http/request';
-  import { jinyaConfirm } from '../../../ui/confirm';
-  import { jinyaAlert } from '../../../ui/alert';
-  import { readDataUrl } from '../../../files/reader';
+  import { get, getHost, httpDelete, post, put, upload } from '../../http/request';
+  import { jinyaConfirm } from '../../ui/confirm';
+  import { jinyaAlert } from '../../ui/alert';
+  import { readDataUrl } from '../../files/reader';
 
   export let uploadDone = false;
 
@@ -146,17 +146,17 @@
 </script>
 
 <div class="jinya-media-view">
-    <div class="jinya-toolbar jinya-toolbar--media">
-        <div class="jinya-toolbar__group">
-            <button on:click={() => uploadSingleFileOpen = true} class="jinya-button"
+    <div class="cosmo-toolbar jinya-toolbar--media">
+        <div class="cosmo-toolbar__group">
+            <button on:click={() => uploadSingleFileOpen = true} class="cosmo-button"
                     type="button">{$_('media.files.action.upload_single_file')}</button>
-            <button on:click={() => uploadMultipleFilesOpen = true} class="jinya-button"
+            <button on:click={() => uploadMultipleFilesOpen = true} class="cosmo-button"
                     type="button">{$_('media.files.action.upload_multiple_file')}</button>
         </div>
-        <div class="jinya-toolbar__group">
-            <button disabled={!selectedFile} class="jinya-button" on:click={onEditFileClick}
+        <div class="cosmo-toolbar__group">
+            <button disabled={!selectedFile} class="cosmo-button" on:click={onEditFileClick}
                     type="button">{$_('media.files.action.edit_file')}</button>
-            <button disabled={!selectedFile} class="jinya-button" on:click={() => deleteFile()}
+            <button disabled={!selectedFile} class="cosmo-button" on:click={() => deleteFile()}
                     type="button">{$_('media.files.action.delete_file')}</button>
         </div>
     </div>
@@ -170,48 +170,48 @@
     </div>
 </div>
 {#if uploadSingleFileOpen}
-    <div class="jinya-modal__backdrop"></div>
-    <div class="jinya-modal__container">
-        <div class="jinya-modal">
-            <h1 class="jinya-modal__title">{$_('media.files.upload_single_file.title')}</h1>
-            <div class="jinya-modal__content">
-                <div class="jinya-input__group">
-                    <label for="uploadFileName" class="jinya-label">{$_('media.files.upload_single_file.name')}</label>
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+            <h1 class="cosmo-modal__title">{$_('media.files.upload_single_file.title')}</h1>
+            <div class="cosmo-modal__content">
+                <div class="cosmo-input__group">
+                    <label for="uploadFileName" class="cosmo-label">{$_('media.files.upload_single_file.name')}</label>
                     <input required bind:value={uploadSingleFileName} type="text" id="uploadFileName"
-                           class="jinya-input">
+                           class="cosmo-input">
                     <label for="uploadSingleFileFile"
-                           class="jinya-label">{$_('media.files.upload_single_file.file')}</label>
-                    <div class="jinya-input jinya-input--picker">
-                        <label class="jinya-picker__name" for="uploadSingleFileFile">{uploadSingleFileFileName}</label>
-                        <label class="jinya-picker__button" for="uploadSingleFileFile"><span
+                           class="cosmo-label">{$_('media.files.upload_single_file.file')}</label>
+                    <div class="cosmo-input cosmo-input--picker">
+                        <label class="cosmo-picker__name" for="uploadSingleFileFile">{uploadSingleFileFileName}</label>
+                        <label class="cosmo-picker__button" for="uploadSingleFileFile"><span
                                 class="mdi mdi-upload mdi-24px"></span></label>
                         <input style="display: none" required bind:files={uploadSingleFileFile} type="file"
                                id="uploadSingleFileFile">
                     </div>
                 </div>
             </div>
-            <div class="jinya-modal__button-bar">
-                <button class="jinya-button"
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button"
                         on:click={onSingleUploadCloseClick}>{$_('media.files.upload_single_file.cancel')}</button>
-                <button class="jinya-button"
+                <button class="cosmo-button"
                         on:click={onSingleFileUpload}>{$_('media.files.upload_single_file.upload')}</button>
             </div>
         </div>
     </div>
 {/if}
 {#if uploadMultipleFilesOpen}
-    <div class="jinya-modal__backdrop"></div>
-    <div class="jinya-modal__container">
-        <div class="jinya-modal jinya-modal--multiple-files">
-            <h1 class="jinya-modal__title">{$_('media.files.upload_multiple_files.title')}</h1>
-            <div class="jinya-modal__content">
-                <div class="jinya-input__group">
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal jinya-modal--multiple-files">
+            <h1 class="cosmo-modal__title">{$_('media.files.upload_multiple_files.title')}</h1>
+            <div class="cosmo-modal__content">
+                <div class="cosmo-input__group">
                     <label for="uploadMultipleFilesPicker"
-                           class="jinya-label">{$_('media.files.upload_multiple_files.files')}</label>
-                    <div class="jinya-input jinya-input--multiple-picker jinya-input--picker">
-                        <label class="jinya-picker__name"
+                           class="cosmo-label">{$_('media.files.upload_multiple_files.files')}</label>
+                    <div class="cosmo-input jinya-input--multiple-picker cosmo-input--picker">
+                        <label class="cosmo-picker__name"
                                for="uploadSingleFileFile">{$_('media.files.upload_multiple_files.n_files_selected', { values: uploadMultipleFilesFiles })}</label>
-                        <label class="jinya-picker__button" for="uploadMultipleFilesPicker"><span
+                        <label class="cosmo-picker__button" for="uploadMultipleFilesPicker"><span
                                 class="mdi mdi-upload mdi-24px"></span></label>
                         <input style="display: none" multiple required bind:files={uploadMultipleFilesFiles} type="file"
                                id="uploadMultipleFilesPicker">
@@ -228,38 +228,38 @@
                     {/each}
                 </div>
             </div>
-            <div class="jinya-modal__button-bar">
-                <button class="jinya-button"
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button"
                         on:click={onMultipleCloseClick}>{$_('media.files.upload_multiple_files.cancel')}</button>
-                <button class="jinya-button"
+                <button class="cosmo-button"
                         on:click={onMultipleFilesUpload}>{$_('media.files.upload_multiple_files.upload')}</button>
             </div>
         </div>
     </div>
 {/if}
 {#if editFileOpen}
-    <div class="jinya-modal__backdrop"></div>
-    <div class="jinya-modal__container">
-        <div class="jinya-modal">
-            <h1 class="jinya-modal__title">{$_('media.files.edit.title')}</h1>
-            <div class="jinya-modal__content">
-                <div class="jinya-input__group">
-                    <label for="uploadFileName" class="jinya-label">{$_('media.files.edit.name')}</label>
-                    <input required bind:value={editFileName} type="text" id="editFileName" class="jinya-input">
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+            <h1 class="cosmo-modal__title">{$_('media.files.edit.title')}</h1>
+            <div class="cosmo-modal__content">
+                <div class="cosmo-input__group">
+                    <label for="uploadFileName" class="cosmo-label">{$_('media.files.edit.name')}</label>
+                    <input required bind:value={editFileName} type="text" id="editFileName" class="cosmo-input">
                     <label for="editFileName"
-                           class="jinya-label">{$_('media.files.edit.file')}</label>
-                    <div class="jinya-input jinya-input--picker">
-                        <label class="jinya-picker__name" for="editFileFile">{editFileFileName}</label>
-                        <label class="jinya-picker__button" for="editFileFile"><span
+                           class="cosmo-label">{$_('media.files.edit.file')}</label>
+                    <div class="cosmo-input cosmo-input--picker">
+                        <label class="cosmo-picker__name" for="editFileFile">{editFileFileName}</label>
+                        <label class="cosmo-picker__button" for="editFileFile"><span
                                 class="mdi mdi-upload mdi-24px"></span></label>
                         <input style="display: none" required bind:files={editFileFile} type="file"
                                id="editFileFile">
                     </div>
                 </div>
             </div>
-            <div class="jinya-modal__button-bar">
-                <button class="jinya-button" on:click={onEditCloseClick}>{$_('media.files.edit.cancel')}</button>
-                <button class="jinya-button" on:click={onEditFileSave}>{$_('media.files.edit.save')}</button>
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button" on:click={onEditCloseClick}>{$_('media.files.edit.cancel')}</button>
+                <button class="cosmo-button" on:click={onEditFileSave}>{$_('media.files.edit.save')}</button>
             </div>
         </div>
     </div>

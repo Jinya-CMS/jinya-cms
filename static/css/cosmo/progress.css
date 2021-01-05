@@ -1,0 +1,35 @@
+.cosmo-progress-bar {
+    width: 380px;
+    height: 8px;
+    display: block;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.cosmo-progress-bar,
+.cosmo-progress-bar::-webkit-progress-bar {
+    appearance: none;
+    background: var(--control-border-color);
+}
+
+.cosmo-progress-bar::-webkit-progress-value {
+    background: var(--primary-color);
+}
+
+.cosmo-progress-bar::-moz-progress-bar {
+    background: var(--primary-color);
+}
+
+.cosmo-progress-bar__top-label {
+    font-size: 16px;
+    color: var(--black);
+    display: block;
+}
+
+.cosmo-progress-bar__bottom-label {
+    font-size: 13px;
+    color: var(--black);
+    display: block;
+}

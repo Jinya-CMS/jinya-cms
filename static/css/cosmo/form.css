@@ -1,11 +1,11 @@
-.jinya-input__group {
+.cosmo-input__group {
     display: grid;
     align-items: center;
     grid-template-columns: auto 1fr;
     grid-row-gap: 10px;
 }
 
-.jinya-input {
+.cosmo-input {
     width: 240px;
     height: 28px;
     padding: 4px 8px;
@@ -15,24 +15,24 @@
     border: 1px solid var(--control-border-color);
 }
 
-.jinya-input:focus {
+.cosmo-input:focus {
     outline: none;
     box-shadow: none;
     border-color: var(--primary-color);
 }
 
-.jinya-input:invalid {
+.cosmo-input:invalid {
     border-color: var(--negative-color);
     outline: none;
     box-shadow: none;
 }
 
-.jinya-label {
+.cosmo-label {
     font-size: 16px;
     margin-right: 10px;
 }
 
-.jinya-button {
+.cosmo-button {
     cursor: pointer;
     font-family: var(--font-family);
     font-size: 16px;
@@ -43,59 +43,59 @@
     color: var(--black);
 }
 
-.jinya-button:disabled {
+.cosmo-button:disabled {
     cursor: not-allowed;
     border: 1px solid var(--control-border-color);
     background: var(--white);
     color: var(--disabled-color);
 }
 
-.jinya-button:disabled + .jinya-button,
-.jinya-button:disabled + .jinya-button:disabled,
-.jinya-button + .jinya-button {
+.cosmo-button:disabled + .cosmo-button,
+.cosmo-button:disabled + .cosmo-button:disabled,
+.cosmo-button + .cosmo-button {
     border-left-width: 0;
 }
 
-.jinya-button:hover {
+.cosmo-button:hover {
     background: var(--primary-color);
     color: var(--white);
     outline: none;
     box-shadow: none;
 }
 
-.jinya-button:disabled:hover {
+.cosmo-button:disabled:hover {
     background: var(--white);
     color: var(--control-border-color);
     outline: none;
     box-shadow: none;
 }
 
-.jinya-button:focus {
+.cosmo-button:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: none;
 }
 
-.jinya-button__container {
+.cosmo-button__container {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
 }
 
-.jinya-input--picker {
+.cosmo-input--picker {
     display: flex;
     align-items: center;
     padding: 0;
 }
 
-.jinya-picker__name {
+.cosmo-picker__name {
     padding: 4px 8px;
     text-overflow: ellipsis;
     white-space: pre;
     overflow-x: hidden;
 }
 
-.jinya-picker__button {
+.cosmo-picker__button {
     color: var(--black);
     justify-self: flex-end;
     margin-left: auto;
@@ -105,7 +105,7 @@
     justify-content: center;
 }
 
-.jinya-picker__button:hover {
+.cosmo-picker__button:hover {
     background: var(--black);
     color: var(--white);
 }

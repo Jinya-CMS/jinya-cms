@@ -1,8 +1,8 @@
-.jinya-toolbar {
+.cosmo-toolbar {
     display: flex;
     gap: 16px;
 }
 
-.jinya-toolbar__group {
+.cosmo-toolbar__group {
     display: flex;
 }

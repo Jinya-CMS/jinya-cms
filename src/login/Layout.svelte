@@ -28,26 +28,26 @@
   });
 </script>
 
-<main class="jinya-page-layout">
-    <div class="jinya-top-bar">
-        <div class="jinya-profile-picture"></div>
+<main class="cosmo-page-layout">
+    <div class="cosmo-top-bar">
+        <div class="cosmo-profile-picture"></div>
     </div>
-    <div class="jinya-menu-bar">
-        <div class="jinya-menu-bar__touch"></div>
-        <button disabled type="button" class="jinya-menu-bar__back-button"></button>
-        <nav class="jinya-menu-bar__menu-collection">
-            <div class="jinya-menu-bar__main-menu">
-                <span class="jinya-menu-bar__main-item jinya-menu-bar__main-item--active">{$_('login.menu.title')}</span>
+    <div class="cosmo-menu-bar">
+        <div class="cosmo-menu-bar__touch"></div>
+        <button disabled type="button" class="cosmo-menu-bar__back-button"></button>
+        <nav class="cosmo-menu-bar__menu-collection">
+            <div class="cosmo-menu-bar__main-menu">
+                <span class="cosmo-menu-bar__main-item cosmo-menu-bar__main-item--active">{$_('login.menu.title')}</span>
             </div>
-            <div class="jinya-menu-bar__sub-menu">
-                <span class="jinya-menu-bar__sub-item"
-                      class:jinya-menu-bar__sub-item--active={activeRoute === '2fa'}>{$_('login.menu.request_second_factor')}</span>
-                <span class="jinya-menu-bar__sub-item"
-                      class:jinya-menu-bar__sub-item--active={activeRoute === 'login'}>{$_('login.menu.login')}</span>
+            <div class="cosmo-menu-bar__sub-menu">
+                <span class="cosmo-menu-bar__sub-item"
+                      class:cosmo-menu-bar__sub-item--active={activeRoute === '2fa'}>{$_('login.menu.request_second_factor')}</span>
+                <span class="cosmo-menu-bar__sub-item"
+                      class:cosmo-menu-bar__sub-item--active={activeRoute === 'login'}>{$_('login.menu.login')}</span>
             </div>
         </nav>
     </div>
-    <div class="jinya-page-body jinya-page-content--login">
+    <div class="cosmo-page-body jinya-page-content--login">
         {#if twoFactorApproved}
             <DeviceCodeLogin on:authenticated={() => dispatch('authenticated')} />
         {:else}

@@ -40,13 +40,13 @@
 </script>
 
 <form bind:this={form}>
-    <div class="jinya-input__group">
-        <label for="twoFactorCode" class="jinya-label">{$_('login.2fa_flow.label.two_factor_code')}</label>
+    <div class="cosmo-input__group">
+        <label for="twoFactorCode" class="cosmo-label">{$_('login.2fa_flow.label.two_factor_code')}</label>
         <input required maxlength="6" minlength="6" bind:value={twoFactorCode} type="text" pattern="\d.*"
                id="twoFactorCode"
-               class="jinya-input">
+               class="cosmo-input">
     </div>
-    <div class="jinya-button__container">
-        <button on:click={login} class="jinya-button" type="button">{$_('login.2fa_flow.action.login')}</button>
+    <div class="cosmo-button__container">
+        <button on:click={login} class="cosmo-button" type="button">{$_('login.2fa_flow.action.login')}</button>
     </div>
 </form>

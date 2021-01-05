@@ -29,13 +29,13 @@
 </script>
 
 <form bind:this={form}>
-    <div class="jinya-input__group">
-        <label for="email" class="jinya-label">{$_('login.device_code_flow.label.email')}</label>
-        <input required bind:value={username} type="email" id="email" class="jinya-input">
-        <label for="password" class="jinya-label">{$_('login.device_code_flow.label.password')}</label>
-        <input required bind:value={password} type="password" id="password" class="jinya-input">
+    <div class="cosmo-input__group">
+        <label for="email" class="cosmo-label">{$_('login.device_code_flow.label.email')}</label>
+        <input required bind:value={username} type="email" id="email" class="cosmo-input">
+        <label for="password" class="cosmo-label">{$_('login.device_code_flow.label.password')}</label>
+        <input required bind:value={password} type="password" id="password" class="cosmo-input">
     </div>
-    <div class="jinya-button__container">
-        <button on:click={login} class="jinya-button" type="button">{$_('login.device_code_flow.action.login')}</button>
+    <div class="cosmo-button__container">
+        <button on:click={login} class="cosmo-button" type="button">{$_('login.device_code_flow.action.login')}</button>
     </div>
 </form>
