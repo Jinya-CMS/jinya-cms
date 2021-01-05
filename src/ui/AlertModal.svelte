@@ -8,15 +8,10 @@
 <div class="cosmo-modal__backdrop"></div>
 <div class="cosmo-modal__container">
     <div class="cosmo-modal">
-        <div class="jinya-modal__header">
-            <div class="jinya-modal__deco-bar"></div>
-        </div>
-        <div class="jinya-modal__body">
-            <h1 class="cosmo-modal__title">{title}</h1>
-            <p class="cosmo-modal__content">{@html message}</p>
-            <div class="cosmo-modal__button-bar">
-                <button class="cosmo-button" on:click={onButtonClick}>{buttonLabel}</button>
-            </div>
+        <h1 class="cosmo-modal__title">{title}</h1>
+        <p class="cosmo-modal__content">{@html message}</p>
+        <div class="cosmo-modal__button-bar">
+            <button class="cosmo-button" on:click={onButtonClick}>{buttonLabel}</button>
         </div>
     </div>
 </div>
