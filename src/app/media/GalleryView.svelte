@@ -35,6 +35,17 @@
       const idx = positions.map(position => position.file).findIndex(position => position.id === file.id);
       return idx === -1;
     });
+    positions.sort((a, b) => {
+      if (a.position < b.position) {
+        return -1;
+      }
+
+      if (a.position > b.position) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
   $: if (filesElement instanceof HTMLElement) {
@@ -63,31 +74,25 @@
         if (positions.length === 0) {
           position = 0;
         } else if (positions.length === dropIdx) {
-          position = positions[positions.length - 1].position + 1;
+          position = positions[positions.length - 1].position + 2;
         } else {
           position = positions[dropIdx].position;
         }
         await post(`/api/media/gallery/${selectedGallery.id}/file`, {
           file: file.id,
-          position: position,
+          position,
         });
         await selectGallery(selectedGallery);
       },
       async onUpdate(e) {
-        const fileIdx = e.oldIndex;
-        const oldPosition = positions[fileIdx];
+        const oldPosition = e.item.getAttribute('data-old-position');
         const dropIdx = e.newIndex;
-        let position;
-        if (positions.length === dropIdx) {
-          position = positions[positions.length - 1].position + 1;
-        } else {
-          position = positions[dropIdx].position;
-        }
-        await put(`/api/media/gallery/${selectedGallery.id}/file/${oldPosition.position}`, {
-          position: position,
+        const position = positions[dropIdx].position;
+        await put(`/api/media/gallery/${selectedGallery.id}/file/${oldPosition}`, {
+          newPosition: position + 1,
         });
         await selectGallery(selectedGallery);
-      }
+      },
     });
   }
 
@@ -202,13 +207,13 @@
         {/if}
         <div class="jinya-designer__content">
             <div bind:this={positionsElement} class="jinya-designer__result">
-                {#each positions as position(position.id)}
-                    <img class="jinya-media-tile jinya-media-tile--draggable" alt={position.file?.name}
-                         src={`${getHost()}/${position.file?.path}`}>
+                {#each positions as position (position.id)}
+                    <img class="jinya-media-tile jinya-media-tile--draggable" data-old-position={position.position}
+                         alt={position.name} src={`${getHost()}/${position.file?.path}`}>
                 {/each}
             </div>
             <div bind:this={filesElement} class="jinya-designer__toolbox">
-                {#each files as file(file.id)}
+                {#each files as file (file.id)}
                     <img class="jinya-media-tile jinya-media-tile--medium jinya-media-tile--draggable" alt={file.name}
                          src={`${getHost()}/${file.path}`}>
                 {/each}
