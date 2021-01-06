@@ -89,6 +89,63 @@
           "generic": "An unknown error occurred, please contact your administrator"
         }
       }
+    },
+    "galleries": {
+      "action": {
+        "new": "Create gallery",
+        "edit": "Edit gallery",
+        "delete": "Delete gallery"
+      },
+      "create": {
+        "title": "Create gallery",
+        "name": "Name",
+        "description": "Description",
+        "orientation": "Orientation",
+        "type": "Type",
+        "horizontal": "Horizontal",
+        "vertical": "Vertical",
+        "masonry": "Masonry",
+        "sequence": "Sequence",
+        "create": "Create gallery",
+        "cancel": "Discard gallery",
+        "error": {
+          "title": "Create failed",
+          "conflict": "A gallery with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit gallery",
+        "name": "Name",
+        "description": "Description",
+        "orientation": "Orientation",
+        "type": "Type",
+        "horizontal": "Horizontal",
+        "vertical": "Vertical",
+        "masonry": "Masonry",
+        "sequence": "Sequence",
+        "update": "Update gallery",
+        "cancel": "Discard gallery",
+        "error": {
+          "title": "Update failed",
+          "conflict": "A gallery with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "delete": {
+        "title": "Delete gallery",
+        "message": "Do you really want to delete the gallery {name}?",
+        "keep": "Keep gallery",
+        "delete": "Delete gallery"
+      },
+      "designer": {
+        "title": {
+          "vertical_sequence": "vertical sequence gallery",
+          "horizontal_sequence": "horizontal sequence gallery",
+          "vertical_masonry": "vertical masonry gallery",
+          "horizontal_masonry": "horizontal masonry gallery"
+        }
+      }
     }
   },
   "pages_and_forms": {

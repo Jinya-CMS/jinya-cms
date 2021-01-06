@@ -7,7 +7,6 @@
 .jinya-page-body--app {
     display: grid;
     grid-template-columns: 164px [content] 1fr 164px;
-    grid-template-rows: 32px 1fr;
 }
 
 .jinya-top-bar__menu-item--logout {

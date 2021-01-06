@@ -46,11 +46,6 @@
   dependencies:
     tslib "^2.0.1"
 
-"@mdi/font@5.8.55":
-  version "5.8.55"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.8.55.tgz#1464155bcbc8a6e4af6dffd611fe8e38e09af285"
-  integrity sha512-8mrwfFBsmj+D67ZiGQSe5TU/lcWCtDyli2eshQ2fvLCZGRPqFMM23YQp4+JMOTpk5yMZKTeAwNWIYfITy76OHA==
-
 "@rollup/plugin-commonjs@^17.0.0":
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-17.0.0.tgz#2ae2228354cf0fbba6cf9f06f30b2c66a974324c"
@@ -890,6 +885,11 @@ slice-ansi@^4.0.0:
     ansi-styles "^4.0.0"
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
+
+sortablejs@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.2.tgz#6e40364d913f98b85a14f6678f92b5c1221f5290"
+  integrity sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==
 
 sourcemap-codec@^1.4.4:
   version "1.4.8"

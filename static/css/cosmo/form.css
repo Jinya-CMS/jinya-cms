@@ -5,7 +5,8 @@
     grid-row-gap: 10px;
 }
 
-.cosmo-input {
+.cosmo-input,
+.cosmo-textarea {
     width: 240px;
     height: 28px;
     padding: 4px 8px;
@@ -15,13 +16,15 @@
     border: 1px solid var(--control-border-color);
 }
 
-.cosmo-input:focus {
+.cosmo-input:focus,
+.cosmo-textarea:focus {
     outline: none;
     box-shadow: none;
     border-color: var(--primary-color);
 }
 
-.cosmo-input:invalid {
+.cosmo-input:invalid,
+.cosmo-textarea:invalid {
     border-color: var(--negative-color);
     outline: none;
     box-shadow: none;
@@ -108,4 +111,51 @@
 .cosmo-picker__button:hover {
     background: var(--black);
     color: var(--white);
+}
+
+.cosmo-textarea {
+    height: unset;
+}
+
+.cosmo-label--textarea,
+.cosmo-label--radio {
+    align-self: baseline;
+}
+
+.cosmo-radio__group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+}
+
+.cosmo-radio {
+    appearance: none;
+}
+
+.cosmo-radio + label {
+    display: flex;
+    position: relative;
+}
+
+.cosmo-radio + label::before,
+.cosmo-radio + label::after {
+    content: '';
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.cosmo-radio + label::before {
+    border: 1px solid var(--control-border-color);
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+
+.cosmo-radio:checked + label::after {
+    position: absolute;
+    background: var(--primary-color);
+    height: 10px;
+    width: 10px;
+    left: 4px;
+    top: 4px;
 }

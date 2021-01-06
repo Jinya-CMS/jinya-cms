@@ -4,11 +4,21 @@
     display: block;
     position: relative;
     box-sizing: border-box;
+    object-fit: cover;
 }
 
 .jinya-media-tile--small {
     height: 72px;
     width: 72px;
+}
+
+.jinya-media-tile--medium {
+    height: 104px;
+    width: 104px;
+}
+
+.jinya-media-tile--draggable {
+    cursor: move;
 }
 
 .jinya-media-tile--selected {
@@ -86,4 +96,10 @@
 
 .jinya-input--multiple-picker {
     width: unset;
+}
+
+.jinya-button--list-new {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
 }

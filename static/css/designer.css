@@ -1,5 +1,43 @@
-@import "../mdi/mdi.css";
-@import "cosmo/cosmo.css";
-@import "body.css";
-@import "layout.css";
-@import "media.css";
+.jinya-designer {
+    display: grid;
+    grid-template-rows: [header] 36px 20px [toolbar] 28px 30px [content] 1fr;
+}
+
+.jinya-designer__title {
+    grid-row: header;
+}
+
+.cosmo-toolbar--designer {
+    grid-row: toolbar;
+}
+
+.jinya-designer__content {
+    display: grid;
+    grid-row: content;
+    grid-template-columns: [content] 1fr [toolbox] 464px;
+    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px);
+}
+
+.jinya-designer__result {
+    grid-column: content;
+    display: flex;
+    box-sizing: border-box;
+    border-right: 1px solid var(--control-border-color);
+    padding-right: 16px;
+    margin-right: 16px;
+    overflow-y: auto;
+    max-height: 100%;
+    gap: 16px;
+    flex-flow: row wrap;
+    align-content: baseline;
+    justify-content: flex-start;
+}
+
+.jinya-designer__toolbox {
+    grid-column: toolbox;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+    max-height: 100%;
+}

@@ -8,16 +8,17 @@
   },
   "dependencies": {
     "page": "1.11.6",
+    "sortablejs": "1.10.2",
     "svelte-i18n": "3.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "11.0.1",
     "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "11.0.1",
+    "eslint": "7.17.0",
+    "eslint-plugin-svelte3": "3.0.0",
     "rollup": "2.35.1",
     "rollup-plugin-svelte": "7.0.0",
-    "svelte": "3.31.1",
-    "eslint": "7.17.0",
-    "eslint-plugin-svelte3": "3.0.0"
+    "svelte": "3.31.1"
   }
 }

@@ -1,0 +1,13 @@
+.cosmo-title {
+    font-weight: var(--font-weight-light);
+    margin: 0;
+    vertical-align: text-top;
+    font-size: 36px;
+}
+
+.cosmo-title + .cosmo-title {
+    margin-left: 16px;
+    border-left: 1px solid var(--black);
+    padding-left: 16px;
+    box-sizing: border-box;
+}
