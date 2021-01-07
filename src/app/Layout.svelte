@@ -177,7 +177,7 @@
                    class="cosmo-top-bar__menu-item">{$_('media.menu.title')}</a>
                 <a href="/designer/pages-and-forms/simple-pages"
                    class="cosmo-top-bar__menu-item">{$_('pages_and_forms.menu.title')}</a>
-                <a href="/designer/design/themes"
+                <a href="/designer/design/menus"
                    class="cosmo-top-bar__menu-item">{$_('design.menu.title')}</a>
                 <a href="/designer/my-jinya/my-profile"
                    class="cosmo-top-bar__menu-item">{$_('my_jinya.menu.title')}</a>
