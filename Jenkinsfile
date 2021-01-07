@@ -13,7 +13,7 @@ spec:
     - name: dev-imanuel-jenkins-regcred
   containers:
   - name: node
-    image: registry.imanuel.dev/library/node:latest
+    image: registry.imanuel.dev/library/node:buster
     command:
     - sleep
     args:
