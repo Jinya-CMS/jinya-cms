@@ -39,7 +39,7 @@ class UpdatePositionAction extends Action
         }
 
         $body = $this->request->getParsedBody();
-        $fileId = $body['file'];
+        $fileId = $body['file'] ?? null;
 
         if ($fileId) {
             $file = File::findById($fileId);

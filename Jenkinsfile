@@ -13,7 +13,7 @@ spec:
     - name: dev-imanuel-jenkins-regcred
   containers:
   - name: php
-    image: registry.imanuel.dev/library/php:7.4-apache
+    image: registry.imanuel.dev/library/php:8.0-apache
     command:
     - sleep
     args:
