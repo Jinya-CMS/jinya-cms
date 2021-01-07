@@ -191,6 +191,67 @@
         "keep": "Keep page",
         "delete": "Delete page"
       }
+    },
+    "segment": {
+      "action": {
+        "new": "Create page",
+        "edit": "Change title",
+        "delete": "Delete page",
+        "edit_segment": "Edit segment",
+        "delete_segment": "Delete segment"
+      },
+      "create": {
+        "title": "Create page",
+        "name": "Name",
+        "create": "Create page",
+        "cancel": "Discard page",
+        "error": {
+          "title": "Create failed",
+          "conflict": "A page with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit page",
+        "name": "Name",
+        "update": "Update page",
+        "cancel": "Discard changes",
+        "error": {
+          "title": "Update failed",
+          "conflict": "A page with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "delete": {
+        "title": "Delete page",
+        "message": "Do you really want to delete the page {name}?",
+        "keep": "Keep page",
+        "delete": "Delete page"
+      },
+      "delete_segment": {
+        "title": "Delete segment",
+        "message": "Do you really want to delete the selected segment?",
+        "keep": "Keep segment",
+        "delete": "Delete segment"
+      },
+      "designer": {
+        "action": "Action",
+        "link": "Link",
+        "action_link": "Link",
+        "action_none": "None",
+        "file": "File",
+        "gallery": "Gallery",
+        "html": "Formatted text",
+        "edit": {
+          "title": "Edit segment",
+          "file": "File",
+          "has_link": "Has link",
+          "target": "Target",
+          "gallery": "Gallery",
+          "update": "Update segment",
+          "cancel": "Discard changes"
+        }
+      }
     }
   },
   "design": {

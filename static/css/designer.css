@@ -33,6 +33,12 @@
     justify-content: flex-start;
 }
 
+.jinya-designer__result--horizontal {
+    flex-flow: row wrap;
+    gap: 16px;
+    align-content: flex-start;
+}
+
 .jinya-designer__toolbox {
     grid-column: toolbox;
     overflow-y: auto;
@@ -40,4 +46,5 @@
     flex-flow: row wrap;
     gap: 8px;
     max-height: 100%;
+    align-content: flex-start;
 }

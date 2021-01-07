@@ -4,6 +4,7 @@
   import FileView from './media/FileView.svelte';
   import GalleryView from './media/GalleryView.svelte';
   import SimplePageView from './pages/SimplePageView.svelte';
+  import SegmentPageView from './pages/SegmentPageView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, post, put, upload } from '../http/request';
@@ -45,6 +46,7 @@
       activeRoute = 'segment-pages';
       activeCategory = 'pages-and-forms';
       isBackstage = false;
+      activeComponent = SegmentPageView;
     });
     page('/designer/pages-and-forms/forms', () => {
       activeRoute = 'forms';

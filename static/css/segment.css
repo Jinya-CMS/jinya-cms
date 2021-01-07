@@ -1,0 +1,114 @@
+.jinya-segment {
+    display: grid;
+    min-width: 100%;
+    flex: 0 0 100%;
+    grid-template-rows: [title] auto [content] auto;
+    border: 1px solid var(--control-border-color);
+    box-sizing: border-box;
+    padding: 16px;
+    gap: 8px;
+    cursor: move;
+}
+
+.jinya-segment--selected {
+    border: 4px solid var(--primary-color);
+    padding: 13px;
+    position: relative;
+}
+
+.jinya-segment--selected::after {
+    content: "\F012C";
+    width: 24px;
+    height: 24px;
+    background: var(--primary-color);
+    display: flex;
+    position: absolute;
+    font-size: 125%;
+    top: 0;
+    right: 0;
+    justify-content: center;
+    color: var(--white);
+    font-family: mdi;
+    align-items: center;
+}
+
+.jinya-segment--file {
+    grid-template-columns: [image] 210px [details] 1fr;
+    grid-template-rows: unset;
+    height: 144px;
+    padding: unset;
+    gap: unset;
+}
+
+.jinya-segment--file-selected {
+    grid-template-columns: [image] 207px [details] 1fr;
+}
+
+.jinya-segment__image {
+    display: block;
+    grid-column: image;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.jinya-segment__details {
+    grid-row: content;
+}
+
+.jinya-segment__details--file {
+    grid-column: details;
+    grid-row: unset;
+    padding: 12px;
+}
+
+.jinya-segment__details--file-selected {
+    padding-top: 9px;
+}
+
+.jinya-segment__title {
+    text-transform: uppercase;
+    font-weight: var(--font-weight-light);
+    font-size: 16px;
+    line-height: 16px;
+    vertical-align: text-top;
+    grid-row: title;
+}
+
+.jinya-segment__title--file {
+    grid-row: unset;
+}
+
+.jinya-segment__action {
+    display: grid;
+    grid-template-columns: [title] auto [data] 1fr;
+    gap: 8px;
+}
+
+.jinya-segment__label {
+    grid-column: title;
+    margin: 0;
+    padding: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.jinya-segment__content {
+    grid-column: data;
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    font-weight: var(--font-weight-light);
+}
+
+.jinya-segment__template {
+    display: flex;
+    flex: 0 0 100%;
+    min-width: 100%;
+    border: 1px solid var(--control-border-color);
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 8px;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-light);
+    align-items: flex-start;
+}
