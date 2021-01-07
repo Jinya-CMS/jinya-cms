@@ -44,6 +44,7 @@
     border: 1px solid var(--control-border-color);
     background: var(--white);
     color: var(--black);
+    line-height: 19px;
 }
 
 .cosmo-button:disabled {
@@ -79,10 +80,21 @@
     box-shadow: none;
 }
 
+.cosmo-button--full-width {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
 .cosmo-button__container {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    gap: 16px;
+}
+
+.cosmo-button__container > .cosmo-button + .cosmo-button {
+    border-left-width: 1px;
 }
 
 .cosmo-input--picker {

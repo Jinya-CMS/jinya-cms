@@ -186,7 +186,7 @@
                on:click={() => selectGallery(gallery)}>{gallery.name}</a>
         {/each}
         <button on:click={() => createGalleryOpen = true}
-                class="cosmo-button jinya-button--list-new">{$_('media.galleries.action.new')}</button>
+                class="cosmo-button cosmo-button--full-width">{$_('media.galleries.action.new')}</button>
     </nav>
     <div class="cosmo-list__content jinya-designer">
         {#if selectedGallery}

@@ -125,7 +125,7 @@
         "masonry": "Masonry",
         "sequence": "Sequence",
         "update": "Update gallery",
-        "cancel": "Discard gallery",
+        "cancel": "Discard changes",
         "error": {
           "title": "Update failed",
           "conflict": "A gallery with the chosen name already exists.",
@@ -154,6 +154,43 @@
       "simple_pages": "Simple pages",
       "segment_pages": "Segment pages",
       "forms": "Forms"
+    },
+    "simple": {
+      "action": {
+        "new": "Create page",
+        "edit": "Change title",
+        "delete": "Delete page",
+        "save_content": "Save page",
+        "discard_content": "Discard changes"
+      },
+      "create": {
+        "title": "Create page",
+        "page_title": "Title",
+        "create": "Create page",
+        "cancel": "Discard page",
+        "error": {
+          "title": "Create failed",
+          "conflict": "A page with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit page",
+        "page_title": "Title",
+        "update": "Update page",
+        "cancel": "Discard changes",
+        "error": {
+          "title": "Update failed",
+          "conflict": "A page with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "delete": {
+        "title": "Delete page",
+        "message": "Do you really want to delete the page {title}?",
+        "keep": "Keep page",
+        "delete": "Delete page"
+      }
     }
   },
   "design": {

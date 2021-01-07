@@ -2,6 +2,7 @@ import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
+import copy from 'rollup-plugin-copy';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -32,6 +33,20 @@ export default {
       dedupe: ['svelte']
     }),
     commonjs(),
+    copy({
+      targets: [
+        {
+          src: 'node_modules/tinymce/skins/content',
+          dest: 'public/build/skins/',
+        },
+        {
+          src: 'node_modules/tinymce/skins/ui',
+          dest: 'public/build/skins/',
+        },
+      ],
+      verbose: true,
+      copyOnce: true,
+    }),
   ],
   watch: {
     clearScreen: false
