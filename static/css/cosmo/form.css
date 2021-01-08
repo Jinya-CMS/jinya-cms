@@ -7,7 +7,7 @@
 
 .cosmo-input,
 .cosmo-textarea {
-    width: 240px;
+    min-width: 240px;
     height: 28px;
     padding: 4px 8px;
     box-sizing: border-box;

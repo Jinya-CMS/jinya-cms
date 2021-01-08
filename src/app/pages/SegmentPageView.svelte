@@ -26,6 +26,7 @@
   import 'tinymce/plugins/wordcount';
   import ConflictError from '../../http/Error/ConflictError';
   import Sortable from 'sortablejs';
+  import { init } from 'tinymce';
 
   let createPageName = '';
   let createPageOpen = false;
@@ -58,9 +59,12 @@
   $: if (segmentToolboxElement instanceof HTMLElement) {
     new Sortable(segmentToolboxElement, {
       group: { name: 'segment_page', put: false, pull: 'clone' },
-      handle: '.mdi.mdi-drag-horizontal-variant',
+      sort: false,
+      handle: '.jinya-designer__drag-handle',
       onEnd(e) {
-        e.item.remove();
+        if (!e.to.classList.contains('jinya-designer__toolbox')) {
+          e.item.remove();
+        }
       }
     });
   }
@@ -97,7 +101,6 @@
         const oldPosition = e.item.getAttribute('data-old-position');
         const dropIdx = e.newIndex;
         const position = segments[dropIdx].position;
-        console.log(position);
         await put(`/api/segment-page/${selectedPage.id}/segment/${oldPosition}`, {
           newPosition: position,
         });
@@ -110,6 +113,7 @@
     selectedPage = page;
     editPageName = selectedPage.name;
     segments = await get(`/api/segment-page/${selectedPage.id}/segment`);
+    selectedSegment = null;
   }
 
   async function loadPages() {
@@ -192,7 +196,7 @@
     editSegmentGallery = selectedSegment.gallery?.id;
     if (selectedSegment.html) {
       await tick();
-      segmentEditorTiny = (await tinymce.init({
+      segmentEditorTiny = (await init({
         target: editSegmentHtmlElement,
         object_resizing: true,
         relative_urls: false,
@@ -411,15 +415,15 @@
             </div>
             <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
                 <div data-type="gallery" class="jinya-segment__template">
-                    <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
                 </div>
                 <div data-type="file" class="jinya-segment__template">
-                    <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.segment.designer.file')}</span>
                 </div>
                 <div data-type="html" class="jinya-segment__template">
-                    <span class="mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.segment.designer.html')}</span>
                 </div>
             </div>

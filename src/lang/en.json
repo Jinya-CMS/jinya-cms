@@ -252,6 +252,73 @@
           "cancel": "Discard changes"
         }
       }
+    },
+    "form": {
+      "action": {
+        "new": "Create form",
+        "edit": "Edit form",
+        "delete": "Delete form",
+        "edit_item": "Edit item",
+        "delete_item": "Delete item"
+      },
+      "create": {
+        "title": "Create form",
+        "form_title": "Title",
+        "to_address": "To address",
+        "description": "Description",
+        "create": "Create form",
+        "cancel": "Discard form",
+        "error": {
+          "title": "Create failed",
+          "conflict": "A form with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit form",
+        "form_title": "Title",
+        "to_address": "To address",
+        "description": "Description",
+        "update": "Update form",
+        "cancel": "Discard changes",
+        "error": {
+          "title": "Update failed",
+          "conflict": "A form with the chosen title already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "delete": {
+        "title": "Delete form",
+        "message": "Do you really want to delete the form {title}?",
+        "keep": "Keep form",
+        "delete": "Delete form"
+      },
+      "delete_item": {
+        "title": "Delete item",
+        "message": "Do you really want to delete the selected item?",
+        "keep": "Keep item",
+        "delete": "Delete item"
+      },
+      "designer": {
+        "type_email": "Email input",
+        "type_text": "Text input",
+        "type_select": "Dropdown",
+        "type_textarea": "Multi line input",
+        "type_checkbox": "Checkbox",
+        "edit": {
+          "title": "Edit item",
+          "update": "Update item",
+          "cancel": "Discard item",
+          "label": "Label",
+          "placeholder": "Placeholder",
+          "help_text": "Help text",
+          "spam_filter": "Spam filter",
+          "items": "Items",
+          "is_subject": "Is subject",
+          "is_from_address": "Is from address",
+          "is_required": "Is required"
+        }
+      }
     }
   },
   "design": {
