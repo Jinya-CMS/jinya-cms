@@ -378,14 +378,14 @@
                 {#each segments as segment (segment.id)}
                     {#if segment.file}
                         <div data-old-position={segment.position}
-                             class:jinya-segment--selected={selectedSegment === segment}
-                             class:jinya-segment--file-selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-segment jinya-segment--file">
+                             class:jinya-designer-item--selected={selectedSegment === segment}
+                             class:jinya-designer-item--file-selected={selectedSegment === segment}
+                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--file">
                             <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
                                  alt={segment.file.name}>
-                            <div class="jinya-segment__details jinya-segment__details--file"
-                                 class:jinya-segment__details--file-selected={selectedSegment === segment}>
-                                <span class="jinya-segment__title">{$_('pages_and_forms.segment.designer.file')}</span>
+                            <div class="jinya-designer-item__details jinya-designer-item__details--file"
+                                 class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
+                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
                                 <dl class="jinya-segment__action">
                                     <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.action')}</dt>
                                     <dd class="jinya-segment__content">{$_(`pages_and_forms.segment.designer.action_${segment.action}`)}</dd>
@@ -398,32 +398,32 @@
                         </div>
                     {:else if segment.gallery}
                         <div data-old-position={segment.position}
-                             class:jinya-segment--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-segment jinya-segment--gallery">
-                            <span class="jinya-segment__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
-                            <span class="jinya-segment__details jinya-segment__details--gallery">{segment.gallery.name}</span>
+                             class:jinya-designer-item--selected={selectedSegment === segment}
+                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--gallery">
+                            <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
+                            <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
                         </div>
                     {:else if segment.html}
                         <div data-old-position={segment.position}
-                             class:jinya-segment--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-segment jinya-segment--html">
-                            <span class="jinya-segment__title">{$_('pages_and_forms.segment.designer.html')}</span>
-                            <div class="jinya-segment__details jinya-segment__details--html">{@html segment.html}</div>
+                             class:jinya-designer-item--selected={selectedSegment === segment}
+                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--html">
+                            <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
+                            <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
                         </div>
                     {/if}
                 {/each}
             </div>
             <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="gallery" class="jinya-segment__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="gallery" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
                 </div>
-                <div data-type="file" class="jinya-segment__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="file" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('pages_and_forms.segment.designer.file')}</span>
                 </div>
-                <div data-type="html" class="jinya-segment__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="html" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('pages_and_forms.segment.designer.html')}</span>
                 </div>
             </div>

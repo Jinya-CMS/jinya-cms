@@ -426,12 +426,12 @@
         <div class="jinya-designer__content">
             <div bind:this={menuItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
                 {#each menuItems as item (item.id)}
-                    <div data-id={item.id} class="jinya-menu-item" on:click={() => selectMenuItem(item)}
-                         class:jinya-menu-item--selected={selectedMenuItem === item}
+                    <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu" on:click={() => selectMenuItem(item)}
+                         class:jinya-designer-item--selected={selectedMenuItem === item}
                          style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
-                        <span class="jinya-menu-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
+                        <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
                         <span>
-                            <span class="jinya-menu-item__label">{item.title}</span>
+                            <span>{item.title}</span>
                             {#if item.route}
                                 <span class="jinya-menu-item__route">{item.route}</span>
                             {/if}
@@ -440,28 +440,28 @@
                 {/each}
             </div>
             <div bind:this={menuItemToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="gallery" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="gallery" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_gallery')}</span>
                 </div>
-                <div data-type="page" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="page" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_page')}</span>
                 </div>
-                <div data-type="segment_page" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="segment_page" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_segment_page')}</span>
                 </div>
-                <div data-type="form" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="form" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_form')}</span>
                 </div>
-                <div data-type="group" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="group" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_group')}</span>
                 </div>
-                <div data-type="external_link" class="jinya-menu-item__template">
-                    <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
+                <div data-type="external_link" class="jinya-designer-item__template">
+                    <span class="jinya-designer__drag-handle"></span>
                     <span>{$_('design.menus.designer.type_external_link')}</span>
                 </div>
             </div>
