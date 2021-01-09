@@ -326,6 +326,72 @@
       "title": "Design",
       "themes": "Theme",
       "menus": "Menus"
+    },
+    "menus": {
+      "action": {
+        "new": "Create menu",
+        "edit": "Edit menu",
+        "delete": "Delete menu",
+        "edit_item": "Edit item",
+        "delete_item": "Delete item",
+        "decrease_nesting": "Decrease nesting",
+        "increase_nesting": "Increase nesting"
+      },
+      "create": {
+        "title": "Create menu",
+        "name": "Name",
+        "logo": "Logo",
+        "logo_none": "No logo",
+        "create": "Create menu",
+        "cancel": "Discard menu",
+        "error": {
+          "title": "Create failed",
+          "conflict": "A menu with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "edit": {
+        "title": "Edit menu",
+        "name": "Name",
+        "logo": "Logo",
+        "logo_none": "No logo",
+        "update": "Update menu",
+        "cancel": "Discard changes",
+        "error": {
+          "title": "Update failed",
+          "conflict": "A menu with the chosen name already exists.",
+          "generic": "An unknown error occurred, please contact your administrator"
+        }
+      },
+      "delete": {
+        "title": "Delete menu",
+        "message": "Do you really want to delete the menu {name}?",
+        "keep": "Keep menu",
+        "delete": "Delete menu"
+      },
+      "delete_item": {
+        "title": "Delete item",
+        "message": "Do you really want to delete the selected item?",
+        "keep": "Keep item",
+        "delete": "Delete item"
+      },
+      "designer": {
+        "type_gallery": "Gallery",
+        "type_page": "Simple page",
+        "type_segment_page": "Segment page",
+        "type_form": "Form",
+        "type_artist": "Artist profile",
+        "type_group": "Group",
+        "type_external_link": "External link",
+        "edit": {
+          "title": "Edit item",
+          "update": "Update item",
+          "cancel": "Discard changes",
+          "item_title": "Title",
+          "route": "Link",
+          "is_highlighted": "Is highlighted"
+        }
+      }
     }
   },
   "my_jinya": {

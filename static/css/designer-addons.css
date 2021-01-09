@@ -7,7 +7,8 @@
 }
 
 .jinya-segment,
-.jinya-form-item {
+.jinya-form-item,
+.jinya-menu-item {
     display: grid;
     min-width: 100%;
     flex: 0 0 100%;
@@ -19,15 +20,22 @@
     cursor: move;
 }
 
+.jinya-menu-item {
+    flex: 1 1 100%;
+    min-width: unset;
+}
+
 .jinya-segment--selected,
-.jinya-form-item--selected {
+.jinya-form-item--selected,
+.jinya-menu-item--selected {
     border: 4px solid var(--primary-color);
     padding: 13px;
     position: relative;
 }
 
 .jinya-segment--selected::after,
-.jinya-form-item--selected::after {
+.jinya-form-item--selected::after,
+.jinya-menu-item--selected::after {
     content: "\F012C";
     width: 24px;
     height: 24px;
@@ -78,7 +86,8 @@
 }
 
 .jinya-segment__title,
-.jinya-from-item__type {
+.jinya-form-item__type,
+.jinya-menu-item__title {
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
     font-size: 16px;
@@ -113,7 +122,8 @@
 }
 
 .jinya-segment__template,
-.jinya-from-item__template {
+.jinya-form-item__template,
+.jinya-menu-item__template {
     display: flex;
     flex: 0 0 100%;
     min-width: 100%;
@@ -124,4 +134,9 @@
     text-transform: uppercase;
     font-weight: var(--font-weight-light);
     align-items: flex-start;
+}
+
+.jinya-menu-item__route {
+    font-style: italic;
+    font-weight: var(--font-weight-light);
 }

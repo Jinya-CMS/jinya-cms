@@ -38,8 +38,6 @@
 
   let forms = [];
   let formItems = [];
-  let files = [];
-  let galleries = [];
 
   let selectedForm = null;
   let selectedFormItem = null;
@@ -65,7 +63,7 @@
     new Sortable(formItemToolboxElement, {
       group: { name: 'form_items', put: false, pull: 'clone' },
       sort: false,
-      handle: '.mdi.mdi-drag-horizontal-variant',
+      handle: '.jinya-designer__drag-handle',
       onEnd(e) {
         if (!e.to.classList.contains('jinya-designer__toolbox')) {
           e.item.remove();
@@ -353,8 +351,8 @@
     }
   }
 
-  function selectFormItem(segment) {
-    selectedFormItem = segment;
+  function selectFormItem(item) {
+    selectedFormItem = item;
   }
 
   function cancelEditFormItem() {
@@ -432,29 +430,29 @@
                     <div data-old-position={item.position} class="jinya-form-item"
                          class:jinya-form-item--selected={selectedFormItem === item}
                          on:click={() => selectFormItem(item)}>
-                        <span class="jinya-from-item__type">{$_(`pages_and_forms.form.designer.type_${item.type}`)}</span>
+                        <span class="jinya-form-item__type">{$_(`pages_and_forms.form.designer.type_${item.type}`)}</span>
                         <span class="jinya-form-item__label">{item.label}</span>
                     </div>
                 {/each}
             </div>
             <div bind:this={formItemToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="text" class="jinya-from-item__template">
+                <div data-type="text" class="jinya-form-item__template">
                     <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.form.designer.type_text')}</span>
                 </div>
-                <div data-type="email" class="jinya-from-item__template">
+                <div data-type="email" class="jinya-form-item__template">
                     <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.form.designer.type_email')}</span>
                 </div>
-                <div data-type="textarea" class="jinya-from-item__template">
+                <div data-type="textarea" class="jinya-form-item__template">
                     <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.form.designer.type_textarea')}</span>
                 </div>
-                <div data-type="select" class="jinya-from-item__template">
+                <div data-type="select" class="jinya-form-item__template">
                     <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.form.designer.type_select')}</span>
                 </div>
-                <div data-type="checkbox" class="jinya-from-item__template">
+                <div data-type="checkbox" class="jinya-form-item__template">
                     <span class="jinya-designer__drag-handle mdi mdi-drag-horizontal-variant mdi-24px"></span>
                     <span>{$_('pages_and_forms.form.designer.type_checkbox')}</span>
                 </div>

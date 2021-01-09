@@ -6,6 +6,7 @@
   import SimplePageView from './pages/SimplePageView.svelte';
   import SegmentPageView from './pages/SegmentPageView.svelte';
   import FormView from './forms/FormView.svelte';
+  import MenuView from './design/MenuView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, post, put, upload } from '../http/request';
@@ -65,6 +66,7 @@
       activeRoute = 'menus';
       activeCategory = 'design';
       isBackstage = false;
+      activeComponent = MenuView;
     });
 
     page('/designer/my-jinya/my-profile', () => {
@@ -75,6 +77,7 @@
     page('/designer/my-jinya/active-sessions', () => {
       activeRoute = 'active-sessions';
       activeCategory = 'my-jinya';
+      isBackstage = false;
     });
     page('/designer/my-jinya/active-devices', () => {
       activeRoute = 'active-devices';
@@ -220,7 +223,7 @@
                     <a href="/designer/pages-and-forms/simple-pages"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'pages-and-forms'}
                        class="cosmo-menu-bar__main-item">{$_('pages_and_forms.menu.title')}</a>
-                    <a href="/designer/design/themes"
+                    <a href="/designer/design/menus"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'design'}
                        class="cosmo-menu-bar__main-item">{$_('design.menu.title')}</a>
                     <a href="/designer/my-jinya/my-profile"

@@ -210,7 +210,7 @@
 }
 
 .cosmo-select {
-    width: 240px;
+    min-width: 240px;
     font-size: 16px;
     border: 1px solid var(--control-border-color);
     background: var(--white);
