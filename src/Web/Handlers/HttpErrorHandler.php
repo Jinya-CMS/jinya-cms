@@ -32,6 +32,7 @@ class HttpErrorHandler extends SlimErrorHandler
         $code = Action::HTTP_INTERNAL_SERVER_ERROR;
         if ($exception instanceof MissingFieldsException || $exception instanceof MissingOneOfFieldsException) {
             $data = $exception;
+            $code = Action::HTTP_BAD_REQUEST;
         }
 
         if ($exception instanceof HttpSpecializedException) {

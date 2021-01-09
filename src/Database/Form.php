@@ -3,13 +3,13 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\Strategies\JsonStrategy;
 use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use Laminas\Hydrator\Strategy\SerializableStrategy;
-use PHP_CodeSniffer\Reports\Json;
 
 class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
@@ -91,8 +91,8 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
             $result,
             new FormItem(),
             [
-                'spamFilter' => new SerializableStrategy(new Json()),
-                'options' => new SerializableStrategy(new Json()),
+                'spamFilter' => new JsonStrategy(),
+                'options' => new JsonStrategy(),
             ]
         );
     }

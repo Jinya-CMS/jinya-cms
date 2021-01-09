@@ -52,9 +52,9 @@ class CreateFileSegmentAction extends Action
         $segment->galleryId = null;
         $segment->formId = null;
         $segment->html = null;
-        $segment->script = $body['script'];
-        $segment->target = $body['target'];
-        $segment->action = $body['action'];
+        $segment->script = $body['script'] ?? '';
+        $segment->target = $body['target'] ?? '';
+        $segment->action = $body['action'] ?? '';
         $segment->position = $body['position'];
 
         $segment->create();

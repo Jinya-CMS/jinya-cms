@@ -40,10 +40,10 @@ class UpdateSegmentAction extends Action
             throw new HttpNotFoundException($this->request, 'Segment not found');
         }
 
-        $galleryId = $body['gallery'];
-        $fileId = $body['file'];
-        $formId = $body['form'];
-        $html = $body['html'];
+        $galleryId = $body['gallery'] ?? '';
+        $fileId = $body['file'] ?? '';
+        $formId = $body['form'] ?? '';
+        $html = $body['html'] ?? '';
 
         if ($segment->galleryId && $galleryId) {
             if (!Gallery::findById($galleryId)) {
@@ -74,14 +74,14 @@ class UpdateSegmentAction extends Action
         }
 
         if ($segment->fileId) {
-            $action = $body['action'];
+            $action = $body['action'] ?? '';
             if ($action === 'link') {
-                $target = $body['target'];
+                $target = $body['target'] ?? '';
                 $segment->target = $target;
                 $segment->action = $action;
                 $segment->script = null;
             } elseif ($action === 'script') {
-                $script = $body['script'];
+                $script = $body['script'] ?? '';
                 $segment->script = $script;
                 $segment->action = $action;
                 $segment->target = null;

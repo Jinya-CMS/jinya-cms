@@ -18,7 +18,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/menu/{id}/item', JinyaAction::POST)]
 #[Authenticated(Authenticated::WRITER)]
 #[RequiredFields(['position', 'title'])]
-#[RequireOneField(['artist', 'page', 'form', 'gallery', 'segmentPage'])]
 class CreateItemByMenuAction extends MenuItemAction
 {
 

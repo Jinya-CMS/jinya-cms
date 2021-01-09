@@ -13,7 +13,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/user', JinyaAction::GET)]
-#[Authenticated(role: Authenticated::ADMIN)]
+#[Authenticated(role: Authenticated::READER)]
 class ListAllArtistsAction extends Action
 {
 
