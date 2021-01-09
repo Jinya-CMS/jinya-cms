@@ -382,7 +382,7 @@
     await loadMenus();
     get('/api/segment-page').then(result => segmentPages = result.items ?? []);
     get('/api/page').then(result => pages = result.items ?? []);
-    get('/api/menu').then(result => forms = result.items ?? []);
+    get('/api/form').then(result => forms = result.items ?? []);
     get('/api/media/gallery').then(result => galleries = result.items ?? []);
     get('/api/media/file').then(result => files = result.items ?? []);
     get('/api/user').then(result => artists = result.items ?? []);

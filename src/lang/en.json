@@ -392,6 +392,91 @@
           "is_highlighted": "Is highlighted"
         }
       }
+    },
+    "themes": {
+      "action": {
+        "activate": "Activate theme",
+        "compile_assets": "Generate assets"
+      },
+      "activate": {
+        "title": "Activate theme",
+        "message": "Do you want to activate the theme {displayName}?",
+        "approve": "Activate theme",
+        "decline": "Don't activate theme",
+        "success": {
+          "title": "Activate theme",
+          "message": "The theme {displayName} was activated successfully"
+        },
+        "error": {
+          "title": "Error activating theme",
+          "message": "The theme {displayName} could not be activated, please contact your administrator"
+        }
+      },
+      "assets": {
+        "title": "Generate assets",
+        "message": "Do you want to generate the assets for the theme {displayName}?",
+        "approve": "Generate assets",
+        "decline": "Cancel",
+        "success": {
+          "title": "Generate assets",
+          "message": "The assets for the theme {displayName} wer generated successfully"
+        },
+        "error": {
+          "title": "Error generating assets",
+          "message": "The assets for the theme {displayName} could not be generated, please contact your administrator"
+        }
+      },
+      "tabs": {
+        "details": "Details",
+        "configuration": "Configuration",
+        "links": "Links",
+        "variables": "Variables"
+      },
+      "details": {
+        "preview": "Theme preview"
+      },
+      "variables": {
+        "save": "Save variables",
+        "discard": "Discard changes",
+        "error": {
+          "title": "Error saving variables",
+          "message": "The variables could not be saved, please contact your administrator."
+        },
+        "success": {
+          "title": "Save variables",
+          "message": "The variables were successfully saved"
+        }
+      },
+      "configuration": {
+        "save": "Save configuration",
+        "discard": "Discard changes",
+        "error": {
+          "title": "Error saving configuration",
+          "message": "The configuration could not be saved, please contact your administrator."
+        },
+        "success": {
+          "title": "Save configuration",
+          "message": "The configuration was successfully saved"
+        }
+      },
+      "links": {
+        "files": "Files",
+        "galleries": "Galleries",
+        "pages": "Simple pages",
+        "segment_pages": "Segment pages",
+        "forms": "Forms",
+        "menus": "Menus",
+        "save": "Save links",
+        "discard": "Discard changes",
+        "error": {
+          "title": "Error saving links",
+          "message": "The links could not be saved, please contact your administrator."
+        },
+        "success": {
+          "title": "Save links",
+          "message": "The links  were successfully saved"
+        }
+      }
     }
   },
   "my_jinya": {

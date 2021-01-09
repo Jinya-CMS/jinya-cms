@@ -4,7 +4,7 @@
   "scripts": {
     "build:dev": "rollup -c -w",
     "build:prod": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:prod"
   },
   "dependencies": {
     "page": "1.11.6",

@@ -1,7 +1,7 @@
 .cosmo-input__group {
     display: grid;
     align-items: center;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: [label] auto [input] 1fr;
     grid-row-gap: 10px;
 }
 
@@ -229,4 +229,13 @@
     border: 1px solid var(--primary-color);
     outline: none;
     box-shadow: none;
+}
+
+.cosmo-input__header {
+    font-size: 24px;
+    height: 24px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    grid-column: span 2;
+    margin-top: 10px;
 }

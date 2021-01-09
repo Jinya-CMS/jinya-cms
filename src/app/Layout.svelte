@@ -7,6 +7,7 @@
   import SegmentPageView from './pages/SegmentPageView.svelte';
   import FormView from './forms/FormView.svelte';
   import MenuView from './design/MenuView.svelte';
+  import ThemeView from './design/ThemeView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, post, put, upload } from '../http/request';
@@ -57,16 +58,17 @@
       activeComponent = FormView;
     });
 
-    page('/designer/design/themes', () => {
-      activeRoute = 'themes';
-      activeCategory = 'design';
-      isBackstage = false;
-    });
     page('/designer/design/menus', () => {
       activeRoute = 'menus';
       activeCategory = 'design';
       isBackstage = false;
       activeComponent = MenuView;
+    });
+    page('/designer/design/themes', () => {
+      activeRoute = 'themes';
+      activeCategory = 'design';
+      isBackstage = false;
+      activeComponent = ThemeView;
     });
 
     page('/designer/my-jinya/my-profile', () => {
