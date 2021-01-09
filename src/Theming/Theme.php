@@ -185,7 +185,7 @@ class Theme implements ExtensionInterface
         $this->clearStyleCache();
         $stylesheets = $this->configuration['styles']['files'] ?? [];
         $styleCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/';
-        if (!mkdir($styleCachePath, 0777, true) && !is_dir($styleCachePath)) {
+        if (!@mkdir($styleCachePath, 0777, true) && !is_dir($styleCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $styleCachePath));
         }
         $this->scssCompiler->setVariables($this->dbTheme->scssVariables);
@@ -228,7 +228,7 @@ class Theme implements ExtensionInterface
         $this->clearScriptCache();
         $scripts = $this->configuration['scripts'] ?? [];
         $scriptCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/';
-        if (!mkdir($scriptCachePath, 0777, true) && !is_dir($scriptCachePath)) {
+        if (!@mkdir($scriptCachePath, 0777, true) && !is_dir($scriptCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $scriptCachePath));
         }
 
@@ -269,7 +269,7 @@ class Theme implements ExtensionInterface
         $this->clearAssetCache();
         $assets = $this->configuration['assets'] ?? [];
         $assetCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets/';
-        if (!mkdir($assetCachePath, 0777, true) && !is_dir($assetCachePath)) {
+        if (!@mkdir($assetCachePath, 0777, true) && !is_dir($assetCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $assetCachePath));
         }
 
