@@ -181,7 +181,7 @@
 
 <div class="cosmo-list">
     <nav class="cosmo-list__items">
-        {#each galleries as gallery}
+        {#each galleries as gallery (gallery.id)}
             <a class:cosmo-list__item--active={gallery.id === selectedGallery.id} class="cosmo-list__item"
                on:click={() => selectGallery(gallery)}>{gallery.name}</a>
         {/each}

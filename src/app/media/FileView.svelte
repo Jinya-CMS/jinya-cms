@@ -161,7 +161,7 @@
         </div>
     </div>
     <div class="jinya-media-tile__container">
-        {#each files as file}
+        {#each files as file (file.id)}
             <div on:click={() => selectedFile = file} class:jinya-media-tile--selected={selectedFile === file}
                  class="jinya-media-tile" data-title={file.name}>
                 <img class="jinya-media-tile__img" src={`${getHost()}${file.path}`} alt={file.name}>

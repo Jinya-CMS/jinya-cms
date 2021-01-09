@@ -397,7 +397,7 @@
 
 <div class="cosmo-list">
     <nav class="cosmo-list__items">
-        {#each forms as form}
+        {#each forms as form (form.id)}
             <a class:cosmo-list__item--active={form.id === selectedForm.id} class="cosmo-list__item"
                on:click={() => selectForm(form)}>{form.title}</a>
         {/each}

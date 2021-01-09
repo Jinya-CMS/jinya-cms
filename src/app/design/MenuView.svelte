@@ -380,8 +380,7 @@
 
   onMount(async () => {
     await loadMenus();
-    const segmentPagesResult = await get('/api/segment-page');
-    segmentPages = segmentPagesResult.items ?? [];
+    get('/api/segment-page').then(result => segmentPages = result.items ?? []);
     get('/api/page').then(result => pages = result.items ?? []);
     get('/api/menu').then(result => forms = result.items ?? []);
     get('/api/media/gallery').then(result => galleries = result.items ?? []);
@@ -392,7 +391,7 @@
 
 <div class="cosmo-list">
     <nav class="cosmo-list__items">
-        {#each menus as menu}
+        {#each menus as menu (menu.id)}
             <a class:cosmo-list__item--active={menu.id === selectedMenu.id} class="cosmo-list__item"
                on:click={() => selectMenu(menu)}>{menu.name}</a>
         {/each}

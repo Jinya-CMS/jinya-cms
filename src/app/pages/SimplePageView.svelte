@@ -202,7 +202,7 @@
 
 <div class="cosmo-list">
     <nav class="cosmo-list__items">
-        {#each pages as page}
+        {#each pages as page (page.id)}
             <a class:cosmo-list__item--active={page.id === selectedPage.id} class="cosmo-list__item"
                on:click={() => selectPage(page)}>{page.title}</a>
         {/each}
