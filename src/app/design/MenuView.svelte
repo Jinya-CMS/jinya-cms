@@ -99,14 +99,31 @@
       },
       async onUpdate(e) {
         const dropIdx = e.newIndex;
-        const menuItemId = e.item.getAttribute('data-id');
+        const menuItemId = parseInt(e.item.getAttribute('data-id'));
         const position = menuItems[dropIdx].position;
         const id = menuItems[dropIdx].id;
         const newParent = menuItems[dropIdx].parent.id;
-        await put(`/api/menu-item/${menuItemId}/move/parent/to/item/${newParent}`);
-        await put(`/api/menu-item/${menuItemId}`, {
-          position,
-        });
+        const newParentItem = menuItems[dropIdx].parent;
+        const dataParentId = parseInt(e.item.previousSibling.getAttribute('data-parent-id'));
+        let currentParent = menuItems.find(item => item.id === dataParentId);
+        let allowMove = true;
+        while (currentParent) {
+          if (currentParent?.id === menuItemId) {
+            allowMove = false;
+            break;
+          }
+
+          currentParent = currentParent.parent;
+        }
+
+        if (allowMove) {
+          await put(`/api/menu-item/${menuItemId}/move/parent/to/item/${newParent}`);
+          await put(`/api/menu-item/${menuItemId}`, {
+            position,
+          });
+        }
+        menuItems = [];
+        await tick();
         await selectMenu(selectedMenu);
       },
     });
@@ -160,8 +177,8 @@
         });
         createMenuOpen = false;
         await loadMenus();
-        const form = menus.find(item => item.name === createMenuName);
-        await selectMenu(form);
+        const menu = menus.find(item => item.name === createMenuName);
+        await selectMenu(menu);
         createMenuName = '';
         createMenuLogo = null;
       } catch (e) {
@@ -426,7 +443,7 @@
             <div bind:this={menuItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
                 {#each menuItems as item (item.id)}
                     <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu"
-                         on:click={() => selectMenuItem(item)}
+                         on:click={() => selectMenuItem(item)} data-parent-id={item.parent?.id}
                          class:jinya-designer-item--selected={selectedMenuItem === item}
                          style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
                         <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
