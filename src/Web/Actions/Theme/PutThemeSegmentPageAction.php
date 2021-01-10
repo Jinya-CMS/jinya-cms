@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemeSegmentPageAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemeSegmentPageAction extends ThemeAction
         }
 
         $themeSegmentPage = ThemeSegmentPage::findByThemeAndName($themeId, $name);
-        if ($themeSegmentPage !== null) {
+        if (null !== $themeSegmentPage) {
             $themeSegmentPage->themeId = $themeId;
             $themeSegmentPage->segmentPageId = $segmentPage->id;
             $themeSegmentPage->name = $name;

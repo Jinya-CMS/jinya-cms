@@ -22,7 +22,6 @@ use Slim\Exception\HttpForbiddenException;
 class ChangePasswordAction extends Action
 {
     /**
-     * @return Response
      * @throws HttpForbiddenException
      * @throws JsonException
      * @throws MissingFieldsException
@@ -42,6 +41,7 @@ class ChangePasswordAction extends Action
             if (!$currentArtist->changePassword($oldPassword, $password)) {
                 throw new HttpForbiddenException($this->request, 'Old password is invalid');
             }
+
             return $this->noContent();
         }
 

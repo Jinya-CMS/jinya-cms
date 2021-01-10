@@ -14,9 +14,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class LocatorAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws JsonException
      * @throws GuzzleException
      */
