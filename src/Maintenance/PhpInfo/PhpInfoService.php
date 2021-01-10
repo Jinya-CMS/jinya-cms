@@ -29,7 +29,7 @@ class PhpInfoService
 
         foreach ($loadedExtensions as $extensionName) {
             try {
-                $iniValues = ini_get_all($extensionName);
+                $iniValues = @ini_get_all($extensionName);
             } catch (Throwable) {
                 $iniValues = [];
             }
@@ -38,19 +38,21 @@ class PhpInfoService
             $extension->setExtensionName($extensionName);
             $extension->setVersion(phpversion($extensionName));
 
-            foreach ($iniValues as $iniName => $iniValue) {
-                $iniConfig = new IniValue();
-                $iniConfig->setConfigName($iniName);
-                if (is_array($iniValue)) {
-                    if (array_key_exists('local_value', $iniValue)) {
-                        $iniConfig->setValue($iniValue['local_value']);
-                    } elseif (array_key_exists('global_value', $iniValue)) {
-                        $iniConfig->setValue($iniValue['global_value']);
+            if ($iniValues) {
+                foreach ($iniValues as $iniName => $iniValue) {
+                    $iniConfig = new IniValue();
+                    $iniConfig->setConfigName($iniName);
+                    if (is_array($iniValue)) {
+                        if (array_key_exists('local_value', $iniValue)) {
+                            $iniConfig->setValue($iniValue['local_value']);
+                        } elseif (array_key_exists('global_value', $iniValue)) {
+                            $iniConfig->setValue($iniValue['global_value']);
+                        }
+                    } else {
+                        $iniConfig->setValue($iniValue);
                     }
-                } else {
-                    $iniConfig->setValue($iniValue);
+                    $extension->addIniValue($iniConfig);
                 }
-                $extension->addIniValue($iniConfig);
             }
 
             $extensions[] = $extension;
@@ -68,9 +70,13 @@ class PhpInfoService
     {
         $iniValues = ini_get_all();
 
-        $items = array_filter($iniValues, static function ($key) {
-            return !strpos($key, '.');
-        }, ARRAY_FILTER_USE_KEY);
+        $items = array_filter(
+            $iniValues,
+            static function ($key) {
+                return !strpos($key, '.');
+            },
+            ARRAY_FILTER_USE_KEY
+        );
         $values = [];
 
         foreach ($items as $key => $iniValue) {
