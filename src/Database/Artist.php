@@ -217,20 +217,15 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public function format(
         bool $aboutMe = false
     ): array {
-        $data = [
+        return [
             'artistName' => $this->artistName,
             'email' => $this->email,
             'profilePicture' => $this->profilePicture,
             'roles' => $this->roles,
             'enabled' => $this->enabled,
             'id' => $this->getIdAsInt(),
+            'aboutMe'=>$this->aboutMe,
         ];
-
-        if ($aboutMe) {
-            $data['aboutMe'] = $this->aboutMe;
-        }
-
-        return $data;
     }
 
     /**
