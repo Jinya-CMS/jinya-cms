@@ -11,7 +11,7 @@ use App\Web\Attributes\RequiredFields;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/maintenance/database/query', JinyaAction::GET)]
+#[JinyaAction('/api/maintenance/database/query', JinyaAction::POST)]
 #[Authenticated(role: Authenticated::ADMIN)]
 #[RequiredFields(['query'])]
 class ExecuteQueryAction extends Action

@@ -14,10 +14,12 @@ class DatabaseAnalyzer
     public static function getTables(): array
     {
         $tables = LoadableEntity::executeSqlString('SHOW TABLES');
-        return array_map(
-            static fn(array $table) => LoadableEntity::executeSqlString("EXPLAIN ${table['Tables_in_jinya']}"),
-            $tables,
-        );
+        $result = [];
+        foreach ($tables as $table) {
+            $result[$table['Tables_in_jinya']] = LoadableEntity::executeSqlString("EXPLAIN ${table['Tables_in_jinya']}");
+        }
+
+        return $result;
     }
 
     #[ArrayShape(['version' => 'string', 'comment' => 'string', 'compileMachine' => 'string', 'compileOs' => 'string'])]
