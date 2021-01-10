@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class DeleteMenuAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteMenuAction extends Action
     protected function action(): Response
     {
         $menu = Menu::findById($this->args['id']);
-        if ($menu === null) {
+        if (null === $menu) {
             throw new NoResultException($this->request, 'Menu not found');
         }
 

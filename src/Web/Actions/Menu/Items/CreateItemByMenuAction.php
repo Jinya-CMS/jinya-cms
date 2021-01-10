@@ -10,7 +10,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
-use App\Web\Attributes\RequireOneField;
 use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -20,10 +19,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['position', 'title'])]
 class CreateItemByMenuAction extends MenuItemAction
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
