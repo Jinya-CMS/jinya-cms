@@ -9,11 +9,11 @@ use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
+use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\App;
-use Slim\Psr7\Response;
 use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
