@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::WRITER)]
 class DeleteFormAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteFormAction extends Action
     protected function action(): Response
     {
         $form = Form::findById($this->args['id']);
-        if ($form === null) {
+        if (null === $form) {
             throw new NoResultException($this->request, 'Form not found');
         }
 

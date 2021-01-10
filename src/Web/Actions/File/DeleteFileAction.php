@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::WRITER)]
 class DeleteFileAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class DeleteFileAction extends Action
     {
         $id = $this->args['id'];
         $file = File::findById($id);
-        if ($file === null) {
+        if (null === $file) {
             throw new NoResultException($this->request, 'File not found');
         }
         $file->delete();

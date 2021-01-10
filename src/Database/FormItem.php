@@ -20,7 +20,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public ?string $placeholder;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findById(int $id): ?object
     {
@@ -28,7 +28,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -36,7 +36,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findAll(): Iterator
     {
@@ -46,9 +46,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the form item at the given position in the given form
      *
-     * @param int $id
-     * @param int $position
-     * @return FormItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -62,10 +59,10 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             $sql,
             [
                 'id' => $id,
-                'position' => $position
+                'position' => $position,
             ]
         );
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
 
@@ -80,7 +77,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @return Form
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -90,9 +86,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         return Form::findById($this->formId);
     }
 
-    /**
-     * @return array
-     */
     public function format(): array
     {
         return [
@@ -111,7 +104,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function create(): void
     {
@@ -126,7 +119,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -135,7 +128,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function update(): void
     {
@@ -149,7 +142,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function move(int $newPosition): void
     {

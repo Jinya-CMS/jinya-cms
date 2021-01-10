@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemeFileAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemeFileAction extends ThemeAction
         }
 
         $themeFile = ThemeFile::findByThemeAndName($themeId, $name);
-        if ($themeFile !== null) {
+        if (null !== $themeFile) {
             $themeFile->themeId = $themeId;
             $themeFile->fileId = $file->id;
             $themeFile->name = $name;

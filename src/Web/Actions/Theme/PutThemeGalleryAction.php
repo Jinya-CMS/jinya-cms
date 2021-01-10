@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemeGalleryAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemeGalleryAction extends ThemeAction
         }
 
         $themeGallery = ThemeGallery::findByThemeAndName($themeId, $name);
-        if ($themeGallery !== null) {
+        if (null !== $themeGallery) {
             $themeGallery->themeId = $themeId;
             $themeGallery->galleryId = $gallery->id;
             $themeGallery->name = $name;

@@ -8,9 +8,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/', JinyaAction::GET)]
 class GetHomeAction extends FrontAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function protectedAction(): Response
     {
