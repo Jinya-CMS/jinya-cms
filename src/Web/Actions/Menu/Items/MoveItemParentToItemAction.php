@@ -14,7 +14,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class MoveItemParentToItemAction extends Action
 {
-
     protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];

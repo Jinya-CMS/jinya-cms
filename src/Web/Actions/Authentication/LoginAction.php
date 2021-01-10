@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class LoginAction extends Action
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exception
      */
     protected function action(): Response
@@ -31,13 +31,13 @@ class LoginAction extends Action
         $knownDeviceCode = $this->request->getHeaderLine('JinyaDeviceCode');
 
         $artist = Artist::findByEmail($username);
-        if ($artist !== null && $artist->validatePassword($password)) {
+        if (null !== $artist && $artist->validatePassword($password)) {
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
                 $knownDevice = KnownDevice::findByCode($knownDeviceCode);
             } elseif ($artist->twoFactorToken === $twoFactorCode) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->setDeviceKey();
-                $knownDevice->userId = (int)$artist->id;
+                $knownDevice->userId = (int) $artist->id;
                 $knownDevice->create();
             } elseif (empty($knownDeviceCode) && empty($twoFactorCode)) {
                 throw new UnknownDeviceException($this->request, 'Unknown device');
@@ -46,7 +46,7 @@ class LoginAction extends Action
             }
 
             $apiKey = new ApiKey();
-            $apiKey->userId = (int)$artist->id;
+            $apiKey->userId = (int) $artist->id;
             $apiKey->setApiKey();
             $apiKey->validSince = new DateTime();
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');

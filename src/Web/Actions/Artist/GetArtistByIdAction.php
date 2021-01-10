@@ -15,8 +15,8 @@ class GetArtistByIdAction extends Action
 {
     protected function action(): Response
     {
-        $artist = Artist::findById((int)$this->args['id']);
-        if ($artist === null) {
+        $artist = Artist::findById((int) $this->args['id']);
+        if (null === $artist) {
             throw new HttpNotFoundException($this->request, 'Artist not found');
         }
 

@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemeMenuAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemeMenuAction extends ThemeAction
         }
 
         $themeMenu = ThemeMenu::findByThemeAndName($themeId, $name);
-        if ($themeMenu !== null) {
+        if (null !== $themeMenu) {
             $themeMenu->themeId = $themeId;
             $themeMenu->menuId = $menu->id;
             $themeMenu->name = $name;
