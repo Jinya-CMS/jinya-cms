@@ -24,7 +24,7 @@ class GetEnvironmentAction extends Action
         $data = array_map(
             static fn($key, $value) => [
                 'key' => $key,
-                'value' => stripos($key, 'password') === false ? $value : '******',
+                'value' => stripos($key, 'password') === false ? $value : '••••••',
             ],
             array_keys($env),
             array_values($env)
