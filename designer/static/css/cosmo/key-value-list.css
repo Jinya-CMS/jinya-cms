@@ -1,0 +1,17 @@
+.cosmo-key-value-list {
+    margin: 0;
+    padding: 0;
+    display: grid;
+}
+
+.cosmo-key-value-list__key {
+    font-weight: var(--font-weight-normal);
+    margin: 0;
+    padding: 0;
+}
+
+.cosmo-key-value-list__value {
+    font-weight: var(--font-weight-light);
+    padding: 0;
+    margin: 0 0 8px;
+}

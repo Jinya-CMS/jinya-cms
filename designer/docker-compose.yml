@@ -1,0 +1,13 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  jinya-designer:
+    build: .
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html

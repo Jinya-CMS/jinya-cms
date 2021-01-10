@@ -1,0 +1,33 @@
+.cosmo-tab-control {
+    display: grid;
+    grid-template-rows: [tablist] 20px [tabcontent] 1fr;
+    max-height: 100%;
+    gap: 10px;
+}
+
+.cosmo-tab-control__content {
+    max-height: 100%;
+    overflow-y: auto;
+    grid-row: tabcontent;
+}
+
+.cosmo-tab-control__tabs {
+    grid-row: tablist;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.cosmo-tab-control__tab-link {
+    text-transform: uppercase;
+    color: var(--menu-text-color);
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    height: 20px;
+    cursor: pointer;
+}
+
+.cosmo-tab-control__tab-link--active {
+    color: var(--black);
+}

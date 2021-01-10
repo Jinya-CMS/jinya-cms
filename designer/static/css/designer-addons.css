@@ -1,0 +1,33 @@
+.jinya-menu-item__route {
+    font-style: italic;
+    font-weight: var(--font-weight-light);
+}
+
+.jinya-segment__image {
+    display: block;
+    grid-column: image;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.jinya-segment__action {
+    display: grid;
+    grid-template-columns: [title] auto [data] 1fr;
+    gap: 8px;
+}
+
+.jinya-segment__label {
+    grid-column: title;
+    margin: 0;
+    padding: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.jinya-segment__content {
+    grid-column: data;
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    font-weight: var(--font-weight-light);
+}

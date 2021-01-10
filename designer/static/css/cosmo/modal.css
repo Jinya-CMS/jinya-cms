@@ -1,0 +1,65 @@
+.cosmo-modal__backdrop,
+.cosmo-modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #FFFFFF4D;
+    height: 100vh;
+    width: 100vw;
+}
+
+.cosmo-modal__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.cosmo-modal {
+    border: 1px solid var(--primary-color);
+    background: linear-gradient(to top, var(--white) 0%, var(--white) 80%, var(--gradient-top-color) 100%);
+    padding: 24px 32px;
+    min-width: 274px;
+    box-sizing: border-box;
+}
+
+.cosmo-modal::before {
+    content: '';
+    position: absolute;
+    width: 208px;
+    height: 8px;
+    background: var(--primary-color);
+}
+
+.cosmo-modal__title {
+    padding: 0;
+    margin: 18px 0 10px;
+    text-transform: uppercase;
+    font-size: 36px;
+    line-height: 36px;
+    height: 36px;
+    vertical-align: text-top;
+    font-weight: var(--font-weight-normal);
+    font-family: var(--font-family);
+}
+
+.cosmo-modal__content {
+    font-weight: var(--font-weight-normal);
+    font-family: var(--font-family);
+    padding: 0;
+    margin: 0;
+}
+
+.cosmo-modal__button-bar {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+    gap: 16px;
+}
+
+.cosmo-modal__button-bar > .cosmo-button {
+    border-left-width: 1px;
+}

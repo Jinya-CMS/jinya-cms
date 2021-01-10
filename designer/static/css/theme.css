@@ -1,0 +1,27 @@
+.jinya-designer__content--theme {
+    grid-template-columns: unset;
+}
+
+.cosmo-tab-control__content--details {
+    display: grid;
+    grid-template-columns: [image] 800px [description] 1fr;
+    gap: 10px;
+}
+
+.jinya-theme-details__preview {
+    grid-column: image;
+    width: 100%;
+    height: auto;
+}
+
+.jinya-theme-details__description {
+    grid-column: description;
+}
+
+.cosmo-tab-control--theme {
+    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px);
+}
+
+.cosmo-tab-control__content--theme {
+    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px - 20px - 10px);
+}

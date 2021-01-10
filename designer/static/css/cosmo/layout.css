@@ -1,0 +1,187 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.cosmo-page-layout {
+    display: grid;
+    grid-template-rows: [top-menu] 64px [main-menu] 80px [top-spacing] 32px [content] 1fr [bottom-spacing] 28px [bottom-bar] 68px;
+}
+
+.cosmo-profile-picture {
+    display: block;
+    width: 64px;
+    height: 64px;
+    background: var(--primary-color);
+    grid-column: profilepicture;
+    object-fit: cover;
+}
+
+.cosmo-top-bar {
+    display: grid;
+    grid-template-columns: [left-column] 164px [content] 1fr [profilepicture] 64px [right-column] 164px;
+    grid-row: top-menu;
+    background: var(--top-gradient);
+}
+
+.cosmo-menu-bar {
+    grid-row: main-menu;
+    display: grid;
+    grid-template-columns: [left-column] 24px [spacing1] 18px [backbutton] 48px [spacing2] 74px [content] 1fr;
+}
+
+.cosmo-menu-bar__touch {
+    grid-column: left-column;
+    background: var(--primary-color);
+    grid-row: span 2;
+}
+
+.cosmo-menu-bar__back-button {
+    grid-column: backbutton;
+    border: 4px solid var(--control-border-color);
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    box-sizing: border-box;
+    background: var(--white);
+    position: relative;
+    cursor: pointer;
+}
+
+.cosmo-menu-bar__back-button::before,
+.cosmo-menu-bar__back-button::after {
+    content: '';
+}
+
+.cosmo-menu-bar__back-button::before {
+    border: 4px solid var(--primary-color);
+    box-sizing: border-box;
+    height: 18px;
+    width: 18px;
+    display: block;
+    border-right: 0;
+    border-bottom: 0;
+    transform: translateY(-50%) rotate(-45deg);
+    position: absolute;
+    top: 50%;
+}
+
+.cosmo-menu-bar__back-button::after {
+    display: block;
+    width: 28px;
+    height: 4px;
+    background: var(--primary-color);
+}
+
+.cosmo-menu-bar__back-button:hover {
+    border-color: var(--primary-color);
+}
+
+.cosmo-menu-bar__back-button:disabled {
+    border-color: var(--control-border-color);
+    cursor: not-allowed;
+}
+
+.cosmo-menu-bar__back-button:disabled::after {
+    background: var(--control-border-color);
+}
+
+.cosmo-menu-bar__back-button:disabled::before {
+    border-color: var(--control-border-color);
+}
+
+.cosmo-menu-bar__menu-collection {
+    display: grid;
+    grid-column: content;
+    grid-template-rows: [main-menu] 48px [sub-menu] 16px;
+    grid-row-gap: 16px;
+}
+
+.cosmo-menu-bar__main-menu {
+    grid-row: main-menu;
+}
+
+.cosmo-menu-bar__sub-menu {
+    grid-row: sub-menu;
+}
+
+.cosmo-menu-bar__main-item {
+    text-transform: lowercase;
+    font-size: 48px;
+    font-weight: var(--font-weight-light);
+    line-height: 48px;
+    vertical-align: text-top;
+    color: var(--menu-text-color);
+    text-decoration: none;
+    margin-right: 24px;
+}
+
+.cosmo-menu-bar__main-item--active {
+    color: var(--menu-text-selected-color);
+}
+
+.cosmo-menu-bar__sub-item {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: var(--font-weight-light);
+    line-height: 16px;
+    vertical-align: text-top;
+    margin-right: 16px;
+    text-decoration: none;
+    color: var(--black);
+}
+
+.cosmo-menu-bar__sub-item--active {
+    font-weight: var(--font-weight-bold);
+}
+
+.cosmo-page-body {
+    grid-row: content;
+    height: calc(100vh - 64px - 32px - 80px - 28px - 68px);
+}
+
+.cosmo-page-body__content {
+    grid-column: content;
+    overflow-y: auto;
+    height: calc(100vh - 64px - 32px - 80px - 28px - 68px);
+}
+
+.cosmo-top-bar__menu-item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-light);
+    color: var(--black);
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.cosmo-top-bar__menu-item:after {
+    content: '';
+    height: 16px;
+    width: 1px;
+    background: var(--black);
+    margin-top: 4px;
+    margin-left: 16px;
+}
+
+.cosmo-top-bar__menu-item:last-child:after {
+    content: unset;
+}
+
+.cosmo-top-bar__menu {
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+    grid-column: content;
+}
+
+.cosmo-bottom-bar {
+    display: flex;
+    grid-row: bottom-bar;
+    flex-flow: column wrap;
+    align-items: center;
+}

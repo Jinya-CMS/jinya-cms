@@ -1,0 +1,45 @@
+.cosmo-list {
+    display: grid;
+    grid-template-columns: [items-list] 212px 16px [content] 1fr;
+    height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
+}
+
+.cosmo-list__items {
+    grid-column: items-list;
+    display: flex;
+    flex-flow: column;
+    padding-right: 16px;
+    border-right: 1px solid var(--control-border-color);
+    box-sizing: border-box;
+    height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
+    overflow-y: auto;
+}
+
+.cosmo-list__item {
+    color: var(--black);
+    padding: 4px 8px;
+    overflow-x: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 29px;
+}
+
+.cosmo-list__item:hover {
+    background: var(--control-border-color);
+}
+
+.cosmo-list__item--active,
+.cosmo-list__item--active:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: var(--font-weight-bold);
+}
+
+.cosmo-list__content {
+    grid-column: content;
+    height: 100%;
+    overflow-y: auto;
+}

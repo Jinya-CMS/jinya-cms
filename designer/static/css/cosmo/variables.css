@@ -1,0 +1,23 @@
+:root {
+    --control-border-color: #CCCCCC;
+    --primary-color: #514B57;
+    --white: #FFFFFF;
+    --black: #333333;
+    --menu-text-selected-color: var(--black);
+    --menu-text-color: #00000040;
+    --disabled-color: var(--menu-text-color);
+    --negative-color: #e2180d;
+    --positive-color: #146621;
+    --information-color: #182B70;
+    --gradient-top-color: #EDEDEE;
+    --gradient-bottom-color: var(--white);
+
+    --top-gradient: linear-gradient(to top, var(--gradient-bottom-color) 0%, var(--gradient-top-color) 100%);
+
+    --font-weight-bold: bold;
+    --font-weight-normal: normal;
+    --font-weight-light: 300;
+    --font-family: Lato, sans-serif;
+
+    font-family: var(--font-family);
+}
