@@ -1,5 +1,5 @@
 import App from './App.svelte';
-import { addMessages, init } from 'svelte-i18n';
+import { addMessages, getLocaleFromNavigator, init } from 'svelte-i18n';
 import de from './lang/de.json';
 import en from './lang/en.json';
 
@@ -8,6 +8,7 @@ addMessages('en', en);
 
 init({
   fallbackLocale: 'en',
+  initialLocale: getLocaleFromNavigator(),
 });
 
 const app = new App({

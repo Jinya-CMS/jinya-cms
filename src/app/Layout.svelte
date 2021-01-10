@@ -11,6 +11,7 @@
   import MyProfileView from './my-jinya/MyProfileView.svelte';
   import ActiveSessionsView from './my-jinya/ActiveSessionsView.svelte';
   import ActiveDevicesView from './my-jinya/ActiveDevicesView.svelte';
+  import VersionView from './maintenance/VersionView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -106,10 +107,10 @@
 
   if (allowBackstage) {
     page('/designer/backstage/maintenance/update', checkApiKey, () => {
-      console.log('Update');
       activeRoute = 'update';
       activeCategory = 'maintenance';
       isBackstage = true;
+      activeComponent = VersionView;
     });
     page('/designer/backstage/maintenance/app-config', checkApiKey, () => {
       activeRoute = 'app-config';

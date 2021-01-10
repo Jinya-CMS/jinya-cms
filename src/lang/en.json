@@ -556,6 +556,10 @@
       "update": "Update",
       "app_config": "Jinya configuration",
       "php_info": "PHP info"
+    },
+    "update": {
+      "version_text": "You currently have version {openB}{currentVersion}{closeB} installed, there is an update available to {openB}{mostRecentVersion}{closeB}.",
+      "update_now": "Update now"
     }
   },
   "database": {
