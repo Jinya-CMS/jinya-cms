@@ -12,9 +12,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::ADMIN)]
 class InitUpdateProcess extends Action
 {
-
     /**
-     * @return Response
      * @throws JsonException
      */
     protected function action(): Response
@@ -24,6 +22,7 @@ class InitUpdateProcess extends Action
         file_put_contents($updateLock, $updateCode);
 
         setcookie('JinyaUpdateKey', $updateCode, 0, '/');
+
         return $this->respond([], Action::HTTP_NO_CONTENT);
     }
 }

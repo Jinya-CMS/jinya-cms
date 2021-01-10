@@ -11,9 +11,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/known_device/{key}', JinyaAction::HEAD)]
 class ValidateKnownDeviceAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {
