@@ -232,11 +232,20 @@
                                 {#each configurationStructure.groups as group (group.name)}
                                     <span class="cosmo-input__header">{group.title}</span>
                                     {#each group.fields as field (field.name)}
-                                        <label class="cosmo-label"
-                                               for={`${group.name}_${field.name}`}>{field.label}</label>
-                                        <input id={`${group.name}_${field.name}`} class="cosmo-input" type="text"
-                                               placeholder={defaultConfiguration[group.name][field.name]}
-                                               bind:value={configuration[group.name][field.name]}>
+                                        {#if field.type === 'string'}
+                                            <label class="cosmo-label"
+                                                   for={`${group.name}_${field.name}`}>{field.label}</label>
+                                            <input id={`${group.name}_${field.name}`} class="cosmo-input" type="text"
+                                                   placeholder={defaultConfiguration[group.name][field.name]}
+                                                   bind:value={configuration[group.name][field.name]}>
+                                        {:else if field.type === 'boolean'}
+                                            <div class="cosmo-checkbox__group">
+                                                <input bind:checked={configuration[group.name][field.name]}
+                                                       type="checkbox" id={`${group.name}_${field.name}`}
+                                                       class="cosmo-checkbox">
+                                                <label for={`${group.name}_${field.name}`}>{$_(field.label)}</label>
+                                            </div>
+                                        {/if}
                                     {/each}
                                 {/each}
                             </div>
