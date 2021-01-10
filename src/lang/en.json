@@ -604,6 +604,15 @@
       "key": "Keys",
       "default": "Default value",
       "extra": "Extra data"
+    },
+    "query_tool": {
+      "execute": "Execute queries",
+      "no_result": "No results were returned for the query",
+      "rows_affected": "{count} rows were affected by the query",
+      "error": {
+        "title": "Error executing",
+        "message": "There was an error executing the queries, please check the server logs"
+      }
     }
   },
   "artists": {

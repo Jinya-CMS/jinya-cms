@@ -1,0 +1,27 @@
+.jinya-horizontal-split {
+    display: grid;
+    grid-template-rows: [top] 1fr [bottom] 1fr;
+    min-height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
+    max-height: calc(100vh - 64px - 80px - 32px - 28px - 68px);
+    gap: 10px;
+}
+
+.jinya-code-editor__container {
+    display: grid;
+    grid-template-rows: [editor] 1fr [button] auto;
+    grid-row: top;
+}
+
+.jinya-code-editor {
+    grid-row: editor;
+    height: 100%;
+    border: 1px solid var(--control-border-color)
+}
+
+.jinya-code-editor__execute {
+    grid-row: button;
+}
+
+.cosmo-tab-control--query-tool {
+    max-height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px - 19px - 10px - 30vh);
+}

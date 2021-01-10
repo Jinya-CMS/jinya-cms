@@ -3,16 +3,17 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import copy from 'rollup-plugin-copy';
+import postcss from 'rollup-plugin-postcss';
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
   input: 'src/main.js',
   output: {
-    sourcemap: true,
-    format: 'iife',
+    sourcemap: !production,
     name: 'app',
-    file: 'public/build/bundle.js'
+    file: 'public/build/bundle.js',
+    inlineDynamicImports: true
   },
   plugins: [
     json(),
@@ -22,6 +23,7 @@ export default {
         dev: !production
       }
     }),
+    postcss(),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In

@@ -16,6 +16,7 @@
   import PhpInfoView from './maintenance/PhpInfoView.svelte';
   import MySqlInfoView from './database/MySqlInfoView.svelte';
   import TablesView from './database/TablesView.svelte';
+  import QueryToolView from './database/QueryToolView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -145,6 +146,7 @@
       activeRoute = 'query-tool';
       activeCategory = 'database';
       isBackstage = true;
+      activeComponent = QueryToolView;
     });
 
     page('/designer/backstage/artists', checkApiKey, () => {
