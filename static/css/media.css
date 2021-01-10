@@ -72,11 +72,6 @@
     color: var(--white);
 }
 
-.jinya-media-view {
-    display: grid;
-    grid-template-rows: [toolbar] 31px 30px [content] 1fr;
-}
-
 .jinya-toolbar--media {
     grid-row: toolbar;
 }

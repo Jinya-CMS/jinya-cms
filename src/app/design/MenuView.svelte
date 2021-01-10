@@ -425,7 +425,8 @@
         <div class="jinya-designer__content">
             <div bind:this={menuItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
                 {#each menuItems as item (item.id)}
-                    <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu" on:click={() => selectMenuItem(item)}
+                    <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu"
+                         on:click={() => selectMenuItem(item)}
                          class:jinya-designer-item--selected={selectedMenuItem === item}
                          style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
                         <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>

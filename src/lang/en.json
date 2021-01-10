@@ -485,6 +485,34 @@
       "my_profile": "My profile",
       "active_sessions": "Active sessions",
       "active_devices": "Active devices"
+    },
+    "my_profile": {
+      "action": {
+        "change_password": "Change password",
+        "edit_profile": "Edit profile",
+        "save_profile": "Save profile",
+        "discard_profile": "Discard changes"
+      },
+      "email": "Email",
+      "artist_name": "Artist name",
+      "profile_picture": "Profile picture",
+      "change_password": {
+        "title": "Change password",
+        "new_password_repeat": "Repeat password",
+        "new_password": "New password",
+        "old_password": "Old password",
+        "keep": "Keep old password",
+        "change": "Change password",
+        "error": {
+          "forbidden": "The old password is wrong",
+          "generic": "Changing the password didn't work, please contact your administrator",
+          "title": "Error changing password"
+        },
+        "not_match": {
+          "title": "Passwords don't match",
+          "message": "The new passwords need to match, please correct."
+        }
+      }
     }
   },
   "maintenance": {

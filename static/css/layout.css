@@ -12,3 +12,9 @@
 .jinya-top-bar__menu-item--logout {
     margin-left: 16px;
 }
+
+.jinya-media-view,
+.jinya-profile-view {
+    display: grid;
+    grid-template-rows: [toolbar] 31px 30px [content] 1fr;
+}

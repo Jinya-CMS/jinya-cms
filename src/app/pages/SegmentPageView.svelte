@@ -1,9 +1,11 @@
 <script>
-  import { get, getHost, httpDelete, post, put, upload } from '../../http/request';
+  import { get, getHost, httpDelete, post, put } from '../../http/request';
   import { onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { jinyaConfirm } from '../../ui/confirm';
   import { jinyaAlert } from '../../ui/alert';
+  import Sortable from 'sortablejs';
+  import { createTiny } from '../../ui/tiny';
 
   import 'tinymce/icons/default';
   import 'tinymce/themes/silver';
@@ -24,9 +26,6 @@
   import 'tinymce/plugins/table';
   import 'tinymce/plugins/visualblocks';
   import 'tinymce/plugins/wordcount';
-  import ConflictError from '../../http/Error/ConflictError';
-  import Sortable from 'sortablejs';
-  import { init } from 'tinymce';
 
   let createPageName = '';
   let createPageOpen = false;
@@ -196,74 +195,7 @@
     editSegmentGallery = selectedSegment.gallery?.id;
     if (selectedSegment.html) {
       await tick();
-      segmentEditorTiny = (await init({
-        target: editSegmentHtmlElement,
-        object_resizing: true,
-        relative_urls: false,
-        image_advtab: true,
-        remove_script_host: false,
-        convert_urls: true,
-        height: '400px',
-        width: '600px',
-        async image_list(success) {
-          const files = await get('/api/media/file');
-          success(files.items.map((item) => ({ title: item.name, value: `${getHost()}${item.path}` })));
-        },
-        plugins: [
-          'advlist',
-          'anchor',
-          'autolink',
-          'charmap',
-          'code',
-          'fullscreen',
-          'help',
-          'hr',
-          'image',
-          'link',
-          'lists',
-          'media',
-          'paste',
-          'searchreplace',
-          'table',
-          'visualblocks',
-          'wordcount',
-        ],
-        toolbar: 'undo redo | '
-          + 'styleselect | '
-          + 'bold italic | '
-          + 'alignleft aligncenter alignright alignjustify | '
-          + 'bullist numlist outdent indent | '
-          + 'forecolor backcolor | '
-          + 'link image | ',
-        file_picker_type: 'image',
-        file_picker_callback(cb) {
-          const input = document.createElement('input');
-          input.setAttribute('type', 'file');
-          input.setAttribute('accept', 'image/*');
-
-          input.onchange = async (event) => {
-            const file = event.target.files[0];
-            try {
-              const { id } = await post('/api/media/file', { name: file.name });
-              await put(`/api/media/file/${id}/content`);
-              await upload(`/api/media/file/${id}/content/0`, file);
-              await put(`/api/media/file/${id}/content/finish`);
-              const uploadedFile = await get(`/api/media/file/${id}`);
-
-              cb(`${getHost()}${uploadedFile.path}`, { title: file.name });
-            } catch (e) {
-              if (e instanceof ConflictError) {
-                const files = await get(`/api/media/file?keyword=${encodeURIComponent(file.name)}`);
-                const selectedFile = files.items[0];
-
-                cb(`${getHost()}${selectedFile.path}`, { title: selectedFile.name, });
-              }
-            }
-          };
-
-          input.click();
-        },
-      }))[0];
+      segmentEditorTiny = await createTiny(editSegmentHtmlElement);
       segmentEditorTiny.setContent(selectedSegment.html);
     }
   }
@@ -380,7 +312,8 @@
                         <div data-old-position={segment.position}
                              class:jinya-designer-item--selected={selectedSegment === segment}
                              class:jinya-designer-item--file-selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--file">
+                             on:click={() => selectSegment(segment)}
+                             class="jinya-designer-item jinya-designer-item--file">
                             <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
                                  alt={segment.file.name}>
                             <div class="jinya-designer-item__details jinya-designer-item__details--file"
@@ -399,14 +332,16 @@
                     {:else if segment.gallery}
                         <div data-old-position={segment.position}
                              class:jinya-designer-item--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--gallery">
+                             on:click={() => selectSegment(segment)}
+                             class="jinya-designer-item jinya-designer-item--gallery">
                             <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
                             <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
                         </div>
                     {:else if segment.html}
                         <div data-old-position={segment.position}
                              class:jinya-designer-item--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)} class="jinya-designer-item jinya-designer-item--html">
+                             on:click={() => selectSegment(segment)}
+                             class="jinya-designer-item jinya-designer-item--html">
                             <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
                             <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
                         </div>

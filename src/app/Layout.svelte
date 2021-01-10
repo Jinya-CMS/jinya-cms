@@ -8,9 +8,10 @@
   import FormView from './forms/FormView.svelte';
   import MenuView from './design/MenuView.svelte';
   import ThemeView from './design/ThemeView.svelte';
+  import MyProfileView from './my-jinya/MyProfileView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
-  import { get, getHost, post, put, upload } from '../http/request';
+  import { get, getHost, head, post, put, upload } from '../http/request';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -26,62 +27,73 @@
   let filesUploaded = 0;
   let uploadDone = false;
 
+  async function checkApiKey(ctx, next) {
+    try {
+      await head('/api/login');
+      next();
+    } catch (e) {
+      deleteJinyaApiKey();
+      deleteRoles();
+      dispatch('logout');
+    }
+  }
+
   if (allowFrontstage) {
-    page('/designer/media/files', () => {
+    page('/designer/media/files', checkApiKey, () => {
       activeRoute = 'files';
       activeCategory = 'media';
       isBackstage = false;
     });
-    page('/designer/media/galleries', () => {
+    page('/designer/media/galleries', checkApiKey, () => {
       activeRoute = 'galleries';
       activeCategory = 'media';
       isBackstage = false;
       activeComponent = GalleryView;
     });
 
-    page('/designer/pages-and-forms/simple-pages', () => {
+    page('/designer/pages-and-forms/simple-pages', checkApiKey, () => {
       activeRoute = 'simple-pages';
       activeCategory = 'pages-and-forms';
       isBackstage = false;
       activeComponent = SimplePageView;
     });
-    page('/designer/pages-and-forms/segment-pages', () => {
+    page('/designer/pages-and-forms/segment-pages', checkApiKey, () => {
       activeRoute = 'segment-pages';
       activeCategory = 'pages-and-forms';
       isBackstage = false;
       activeComponent = SegmentPageView;
     });
-    page('/designer/pages-and-forms/forms', () => {
+    page('/designer/pages-and-forms/forms', checkApiKey, () => {
       activeRoute = 'forms';
       activeCategory = 'pages-and-forms';
       isBackstage = false;
       activeComponent = FormView;
     });
 
-    page('/designer/design/menus', () => {
+    page('/designer/design/menus', checkApiKey, () => {
       activeRoute = 'menus';
       activeCategory = 'design';
       isBackstage = false;
       activeComponent = MenuView;
     });
-    page('/designer/design/themes', () => {
+    page('/designer/design/themes', checkApiKey, () => {
       activeRoute = 'themes';
       activeCategory = 'design';
       isBackstage = false;
       activeComponent = ThemeView;
     });
 
-    page('/designer/my-jinya/my-profile', () => {
+    page('/designer/my-jinya/my-profile', checkApiKey, () => {
       activeRoute = 'my-profile';
       activeCategory = 'my-jinya';
       isBackstage = false;
     });
-    page('/designer/my-jinya/active-sessions', () => {
+    page('/designer/my-jinya/active-sessions', checkApiKey, () => {
       activeRoute = 'active-sessions';
       activeCategory = 'my-jinya';
       isBackstage = false;
     });
-    page('/designer/my-jinya/active-devices', () => {
+    page('/designer/my-jinya/active-devices', checkApiKey, () => {
       activeRoute = 'active-devices';
       activeCategory = 'my-jinya';
       isBackstage = false;
@@ -89,40 +101,40 @@
   }
 
   if (allowBackstage) {
-    page('/designer/backstage/maintenance/update', () => {
+    page('/designer/backstage/maintenance/update', checkApiKey, () => {
       console.log('Update');
       activeRoute = 'update';
       activeCategory = 'maintenance';
       isBackstage = true;
     });
-    page('/designer/backstage/maintenance/app-config', () => {
+    page('/designer/backstage/maintenance/app-config', checkApiKey, () => {
       activeRoute = 'app-config';
       activeCategory = 'maintenance';
       isBackstage = true;
     });
-    page('/designer/backstage/maintenance/php-info', () => {
+    page('/designer/backstage/maintenance/php-info', checkApiKey, () => {
       activeRoute = 'php-info';
       activeCategory = 'maintenance';
       isBackstage = true;
     });
 
-    page('/designer/backstage/database/mysql-info', () => {
+    page('/designer/backstage/database/mysql-info', checkApiKey, () => {
       activeRoute = 'mysql-info';
       activeCategory = 'database';
       isBackstage = true;
     });
-    page('/designer/backstage/database/tables', () => {
+    page('/designer/backstage/database/tables', checkApiKey, () => {
       activeRoute = 'tables';
       activeCategory = 'database';
       isBackstage = true;
     });
-    page('/designer/backstage/database/query-tool', () => {
+    page('/designer/backstage/database/query-tool', checkApiKey, () => {
       activeRoute = 'query-tool';
       activeCategory = 'database';
       isBackstage = true;
     });
 
-    page('/designer/backstage/artists', () => {
+    page('/designer/backstage/artists', checkApiKey, () => {
       activeRoute = 'artists';
       activeCategory = 'artists';
       isBackstage = true;
@@ -140,10 +152,14 @@
     page.redirect('/designer/*', '/designer/backstage/maintenance/update');
   }
 
-  onMount(async () => {
-    page.start();
+  async function updateMe() {
     me = await get('/api/me');
     profilepicture = `${getHost()}/${me.profilePicture}`;
+  }
+
+  onMount(async () => {
+    page.start();
+    updateMe();
   });
 
   function logout() {
@@ -283,6 +299,8 @@
         <div class="cosmo-page-body__content">
             {#if activeRoute === 'files'}
                 <FileView uploadDone={uploadDone} on:multiple-files-upload-start={startUpload} />
+            {:else if activeRoute === 'my-profile'}
+                <MyProfileView on:update-me={updateMe} on:logout={logout} />
             {:else}
                 <svelte:component this={activeComponent} />
             {/if}
