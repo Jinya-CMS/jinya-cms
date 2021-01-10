@@ -12,7 +12,6 @@ use RuntimeException;
 
 abstract class ThemeHelperEntity extends LoadableEntity
 {
-
     public string $name = '';
     public int $themeId = -1;
 
@@ -33,29 +32,18 @@ abstract class ThemeHelperEntity extends LoadableEntity
 
     /**
      * Finds a file by name and theme
-     *
-     * @param int $themeId
-     * @param string $name
-     * @return mixed
      */
     abstract public static function findByThemeAndName(int $themeId, string $name): mixed;
 
     /**
      * Finds the items for the given theme
-     *
-     * @param int $themeId
-     * @return Iterator
      */
     abstract public static function findByTheme(int $themeId): Iterator;
 
     /**
      * Fetches the item by theme and name
      *
-     * @param int $themeId
-     * @param string $name
-     * @param string $table
      * @param $prototype
-     * @return object|null
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -67,10 +55,10 @@ abstract class ThemeHelperEntity extends LoadableEntity
             $sql,
             [
                 'id' => $themeId,
-                'name' => $name
+                'name' => $name,
             ]
         );
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
 
@@ -80,10 +68,7 @@ abstract class ThemeHelperEntity extends LoadableEntity
     /**
      * Fetches the items for the given theme
      *
-     * @param int $themeId
-     * @param string $table
      * @param $prototype
-     * @return Iterator
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -97,7 +82,6 @@ abstract class ThemeHelperEntity extends LoadableEntity
     }
 
     /**
-     * @param string $table
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -115,9 +99,6 @@ abstract class ThemeHelperEntity extends LoadableEntity
     }
 
     /**
-     * @param string $table
-     * @param array $strategies
-     * @param array $skippedFields
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

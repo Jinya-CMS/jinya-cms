@@ -19,10 +19,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class ListAllKnownDevicesAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

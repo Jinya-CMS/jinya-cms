@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class GetSimplePageByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class GetSimplePageByIdAction extends Action
     {
         $id = $this->args['id'];
         $page = SimplePage::findById($id);
-        if ($page === null) {
+        if (null === $page) {
             throw new NoResultException($this->request, 'Page not found');
         }
 

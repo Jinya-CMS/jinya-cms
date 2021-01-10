@@ -12,7 +12,6 @@ class TwoFactorMail
 
     /**
      * TwoFactorMail constructor.
-     * @param Engine $templateEngine
      */
     public function __construct(Engine $templateEngine)
     {
@@ -22,9 +21,6 @@ class TwoFactorMail
     /**
      * Sends the two factor email
      *
-     * @param string $artistEmail
-     * @param string $artistName
-     * @param string $twoFactorCode
      * @throws Exception
      */
     public function sendMail(string $artistEmail, string $artistName, string $twoFactorCode): void

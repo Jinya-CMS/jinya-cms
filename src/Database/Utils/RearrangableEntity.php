@@ -13,7 +13,6 @@ abstract class RearrangableEntity extends LoadableEntity
     /**
      * Moves the entity
      *
-     * @param int $newPosition
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -27,10 +26,6 @@ abstract class RearrangableEntity extends LoadableEntity
     /**
      * Rearranges the items in the same parent
      *
-     * @param string $table
-     * @param string $parentIdName
-     * @param int $parentId
-     * @param int $newPosition
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -42,7 +37,7 @@ abstract class RearrangableEntity extends LoadableEntity
         if (is_array($result)) {
             $previousPosition = $newPosition;
             foreach ($result as $item) {
-                $previousPosition++;
+                ++$previousPosition;
                 $stmt = "UPDATE $table SET position = :position WHERE id = :id";
                 self::executeStatement($stmt, ['position' => $previousPosition, 'id' => $item['id']]);
             }
