@@ -51,7 +51,7 @@
                     <dt class="cosmo-key-value-list__key">{$_('maintenance.php.php')}</dt>
                     <dd class="cosmo-key-value-list__value">{phpInfo.php.version}</dd>
                 </dl>
-                {:else}
+            {:else}
                 <table class="cosmo-table">
                     <thead>
                     <tr>

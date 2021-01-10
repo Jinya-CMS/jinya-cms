@@ -576,6 +576,16 @@
         "name": "Name",
         "value": "Value"
       }
+    },
+    "mysql": {
+      "system_and_server": "Server",
+      "global_variables": "Global variables",
+      "local_variables": "Local variables",
+      "session_variables": "Session variables",
+      "server_type": "Server type",
+      "server_version": "Server version",
+      "compile_machine": "Compile machine",
+      "compile_os": "Compile operating system"
     }
   },
   "database": {

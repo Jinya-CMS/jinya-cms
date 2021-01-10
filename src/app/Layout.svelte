@@ -14,6 +14,7 @@
   import VersionView from './maintenance/VersionView.svelte';
   import JinyaConfigurationView from './maintenance/JinyaConfigurationView.svelte';
   import PhpInfoView from './maintenance/PhpInfoView.svelte';
+  import MySqlInfoView from './database/MySqlInfoView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -131,6 +132,7 @@
       activeRoute = 'mysql-info';
       activeCategory = 'database';
       isBackstage = true;
+      activeComponent = MySqlInfoView;
     });
     page('/designer/backstage/database/tables', checkApiKey, () => {
       activeRoute = 'tables';
