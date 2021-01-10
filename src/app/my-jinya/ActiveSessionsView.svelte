@@ -68,7 +68,7 @@
             <td>{getBrowser(session.userAgent)}</td>
             <td>{getDevice(session.userAgent)}</td>
             <td>
-                {#await locateIp(session.ip)}
+                {#await locateIp(session.remoteAddress)}
                     {$_('my_jinya.sessions.locating')}
                 {:then result}
                     {#if result.city}
@@ -78,7 +78,7 @@
                     {/if}
                 {/await}
             </td>
-            <td>{session.ip}</td>
+            <td>{session.remoteAddress}</td>
             <td>
                 <button disabled={session.key === getJinyaApiKey()} on:click={() => logout(session.key)}
                         class="cosmo-button">{$_('my_jinya.sessions.action.logout')}</button>

@@ -531,6 +531,23 @@
         "place": "Place",
         "actions": "Actions"
       }
+    },
+    "devices": {
+      "locating": "Locating IP…",
+      "browser": "{browser} on {os}",
+      "device": "{vendor} {model}",
+      "unknown_device": "Unknown device",
+      "action": {
+        "forget": "Forget"
+      },
+      "unknown": "Unknown location",
+      "table": {
+        "ip": "IP address",
+        "browser": "Browser",
+        "device": "Device",
+        "place": "Place",
+        "actions": "Actions"
+      }
     }
   },
   "maintenance": {
