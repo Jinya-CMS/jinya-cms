@@ -1,0 +1,18 @@
+<?php
+/** @var \App\Database\Artist $artist */
+?>
+<?php $this->layout('theme::layout', ['title' => $artist->artistName]) ?>
+<?php $this->start('maincontent') ?>
+    <main class="jinya-profile">
+        <aside class="jinya-profile__sidebar">
+            <h1 class="jinya-profile__artist-name"><?= $this->e($artist->artistName) ?></h1>
+            <img src="<?= $artist->profilePicture ?>" alt="<?= $this->e($artist->artistName) ?>" class="jinya-profile__picture">
+            <?php if ($this->config('profile', 'show_email')): ?>
+                <a href="mailto:<?= $this->e($artist->email) ?>" class="jinya-profile__email"><?= $this->e($artist->email) ?></a>
+            <?php endif ?>
+        </aside>
+        <section class="jinya-profile__about-me">
+            <?= $artist->aboutMe ?>
+        </section>
+    </main>
+<?php $this->stop() ?>

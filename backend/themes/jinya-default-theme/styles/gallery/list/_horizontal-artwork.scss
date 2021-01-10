@@ -1,0 +1,28 @@
+.jinya-horizontal-gallery {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100vw;
+    overflow: auto;
+    margin-top: 4rem;
+    margin-left: -10vw;
+}
+
+.jinya-horizontal-gallery__artwork {
+    margin: 0 1rem;
+    padding: 0;
+}
+
+.jinya-horizontal-gallery-artwork__image {
+    height: 60vh;
+    width: auto;
+}
+
+.jinya-horizontal-gallery-caption__title {
+    margin: 1rem 0 0;
+    font-family: $heading-font-family;
+    font-weight: lighter;
+}
+
+.jinya-horizontal-gallery-caption__content {
+    margin: 1rem 0 0;
+}

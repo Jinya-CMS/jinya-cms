@@ -1,0 +1,18 @@
+:root {
+    font-size: 16px;
+}
+
+.jinya-body {
+    padding: 0;
+    margin: 2rem 10% 0;
+    color: $text-color-primary;
+    font-family: $paragraph-font-family;
+
+    @include jinya-media-query($small: true, $medium: true, $screen: true) {
+        margin: 1rem 10% 0;
+
+        &.is--menu-open {
+            overflow: hidden;
+        }
+    }
+}

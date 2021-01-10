@@ -1,0 +1,18 @@
+<?php
+/** @var $data string[] */
+/** @var $title string */
+?>
+
+<div>
+    <h1><?= $title ?></h1>
+    <table>
+        <tbody>
+        <?php foreach ($data as $key => $item): ?>
+            <tr>
+                <th><?= $key ?></th>
+                <th><?= $item ?></th>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>

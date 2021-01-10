@@ -1,0 +1,12 @@
+.jinya-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $jinya-header-border-bottom-color;
+    box-sizing: border-box;
+
+    @include jinya-media-query($screen: true, $small: true, $medium: true) {
+        flex-flow: row wrap;
+        padding-bottom: 1rem;
+    }
+}

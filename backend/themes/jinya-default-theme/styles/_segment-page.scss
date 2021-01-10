@@ -1,0 +1,27 @@
+.jinya-segment-page__segment-page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.jinya-segment-page__segment {
+    flex: 0 0 100%;
+    padding-bottom: 2rem;
+}
+
+.jinya-segment-page__html-segment {
+    @include content-styling;
+}
+
+.jinya-segment-page__artwork {
+    width: 100%;
+}
+
+.jinya-gallery--segment-page {
+    .jinya-vertical-gallery__artwork {
+        border: 1px solid $primary-lighter;
+    }
+
+    .jinya-horizontal-gallery__artwork {
+        border: 1px solid $primary-lighter;
+    }
+}

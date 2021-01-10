@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?= $this->e($this->config('page', 'title')) ?><?= isset($title) ? ' – ' . $this->e($title) : '' ?></title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width"/>
+    <?= $this->styles() ?>
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'menu')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'heading')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'paragraph')) ?>">
+    <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'brand')) ?>">
+    <?php
+    if ($this->hasFile('faviconLarge')): ?>
+        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($this->file('faviconLarge')->path) ?>">
+    <?php
+    endif ?>
+    <?php
+    if ($this->hasFile('faviconSmall')): ?>
+        <link rel="icon" type="image/png" sizes="64x64"
+              href="<?= $this->e($this->file('faviconSmall')->path) ?>">
+    <?php
+    endif ?>
+    <?php
+    if ($this->hasFile('faviconShortcutIcon')): ?>
+        <link rel="shortcut icon" href="<?= $this->e($this->file('faviconShortcutIcon')->path) ?>">
+    <?php
+    endif ?>
+    <meta name="apple-mobile-web-app-title" content="<?= $this->e($this->config('page', 'title')) ?>">
+    <meta name="application-name" content="<?= $this->e($this->config('page', 'title')) ?>">
+</head>
+<body class="jinya-body">
+<?= $this->insert('theme::includes/menu/menu') ?>
+<?= $this->section('maincontent') ?>
+<footer class="jinya-footer">
+    <div class="jinya-footer__copyright">
+        <?= $this->e($this->config('footer', 'copyright')) ?>
+    </div>
+    <nav class="jinya-footer__menu">
+        <?php
+        if ($this->hasMenu('footer')):
+            /** @var \App\Database\MenuItem $menuItem */
+            foreach ($this->menu('footer')->getItems() as $menuItem): ?>
+                <?= $this->insert(
+                    'theme::includes/menu_link',
+                    [
+                        'item' => $menuItem,
+                        'class' => 'jinya-footer-menu__item',
+                    ]
+                ) ?>
+            <?php
+            endforeach ?>
+        <?php
+        endif ?>
+    </nav>
+</footer>
+<?= $this->scripts() ?>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+</body>
+</html>

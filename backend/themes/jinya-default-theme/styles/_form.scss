@@ -1,0 +1,126 @@
+.jinya-form {
+    @if ($jinya-form-center-items) {
+        margin: 0 auto;
+    }
+    width: $jinya-form-input-width;
+
+    @include jinya-media-query($screen: true, $small: true) {
+        width: 100%;
+    }
+}
+
+%jinya-form__row {
+    flex-flow: column wrap;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.jinya-form__row--buttons {
+    @extend %jinya-form__row;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.jinya-form__row--field {
+    @extend %jinya-form__row;
+}
+
+.jinya-form__row--checkbox {
+    @extend %jinya-form__row;
+    flex-flow: unset;
+}
+
+.jinya-form__label {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+%jinya-field__input {
+    flex: 0 0 100%;
+    min-width: 100%;
+    font-family: $jinya-form-input-font-family;
+    font-size: $jinya-form-input-font-size;
+    padding: $jinya-form-input-padding;
+    box-sizing: border-box;
+    background: $jinya-form-input-background-color;
+    border: none;
+    border-bottom: 2px solid $jinya-form-input-border-color;
+    outline: none;
+    transition: box-shadow 0.3s;
+    border-radius: $jinya-form-input-border-radius;
+
+    &:focus {
+        box-shadow: 0 0.25rem 0.25rem 0 $jinya-form-input-border-color;
+    }
+
+    &:invalid {
+        border-bottom: 2px solid $jinya-form-input-invalid-color;
+        box-shadow: none;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0.25rem 0.25rem 0 $jinya-form-input-invalid-color;
+        }
+    }
+}
+
+.jinya-form__checkbox {
+    &:focus {
+        box-shadow: 0 0.25rem 0.25rem 0 $jinya-form-input-border-color;
+    }
+
+    &:invalid {
+        box-shadow: 0 0 1.5px 1px $jinya-form-input-invalid-color;
+        outline: none;
+    }
+}
+
+.jinya-form__input {
+    @extend %jinya-field__input;
+}
+
+.jinya-form__textarea {
+    @extend %jinya-field__input;
+    resize: none;
+}
+
+.jinya-form__select {
+    @extend %jinya-field__input;
+
+    &:empty {
+        font-size: $text-color-secondary;
+    }
+}
+
+.jinya-form__title {
+    @extend %jinya-page-title;
+}
+
+.jinya-button {
+    border: none;
+    border-bottom: 2px solid $jinya-form-button-primary-color;
+    background: $jinya-form-button-primary-color-light;
+    padding: $jinya-form-button-padding;
+    font-family: "open-sans", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+    outline: none;
+    border-radius: $jinya-form-button-border-radius;
+    background: $jinya-form-button-white-color;
+    color: $jinya-form-button-primary-color;
+    box-sizing: border-box;
+
+    &:hover,
+    &:focus {
+        box-shadow: 0 0.25rem 0.25rem 0 $primary;
+    }
+}
+
+.jinya-message--positive {
+    @include jinya-message(pastelize($positive));
+}
+
+.jinya-message--negative {
+    @include jinya-message(pastelize($negative));
+}

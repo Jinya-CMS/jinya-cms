@@ -1,0 +1,124 @@
+$jinya-debug: false !default;
+
+$white: #fff !default;
+$black: #000 !default;
+
+$primary: #504a56 !default;
+$secondary: #966554 !default;
+$positive: #146621 !default;
+$info: #182B70 !default;
+$negative: #5C0B0B !default;
+
+$primary-light: scale_color($primary, $lightness: 25%);
+$primary-lighter: scale_color($primary, $lightness: 50%);
+$primary-lightest: scale_color($primary, $lightness: 75%);
+
+$primary-dark: scale_color($primary, $lightness: -25%);
+$primary-darker: scale_color($primary, $lightness: -50%);
+$primary-darkest: scale_color($primary, $lightness: -75%);
+
+$secondary-light: scale_color($secondary, $lightness: 25%);
+$secondary-lighter: scale_color($secondary, $lightness: 50%);
+$secondary-lightest: scale_color($secondary, $lightness: 75%);
+
+$secondary-dark: scale_color($secondary, $lightness: -25%);
+$secondary-darker: scale_color($secondary, $lightness: -50%);
+$secondary-darkest: scale_color($secondary, $lightness: -75%);
+
+$text-color-primary: grayscale($primary-darker);
+$text-color-secondary: grayscale($secondary-darker);
+
+$link-color-primary: $primary-dark !default;
+$link-hover-color-primary: $primary-darker !default;
+
+$breakpoint-small-max-width: 799px !default;
+
+$breakpoint-medium-min-width: 800px !default;
+$breakpoint-medium-max-width: 1365px !default;
+
+$breakpoint-large-min-width: 1366px !default;
+$breakpoint-large-max-width: 1919px !default;
+
+$breakpoint-extra-large-min-width: 1920px !default;
+
+$screen-media-query: only screen;
+$small-media-query: (max-width: $breakpoint-small-max-width);
+$medium-media-query: (min-width: $breakpoint-medium-min-width) and (max-width: $breakpoint-medium-max-width);
+$large-media-query: (min-width: $breakpoint-large-min-width) and (max-width: $breakpoint-large-max-width);
+$extra-large-media-query: (min-width: $breakpoint-extra-large-min-width);
+
+$menu-font-family: 'Open Sans', 'sans serif' !default;
+$paragraph-font-family: 'Open Sans', 'sans serif' !default;
+$heading-font-family: Raleway, 'sans serif' !default;
+$brand-font-family: 'Josefin Sans', 'sans serif' !default;
+
+$jinya-header-font-size: 1.5rem !default;
+$jinya-header-color: $primary !default;
+$jinya-header-border-bottom-color: $secondary !default;
+$jinya-header-padding: 1rem !default;
+
+$blockquote-color: $secondary-light !default;
+
+$jinya-brand-font-size: $jinya-header-font-size !default;
+$jinya-brand-font-family: $brand-font-family !default;
+$jinya-brand-color: $jinya-header-color !default;
+$jinya-brand-padding: 0.5rem 0 0.5rem 0.5rem !default;
+
+$jinya-menu-font-size: $jinya-header-font-size !default;
+$jinya-menu-font-family: $menu-font-family !default;
+
+$jinya-menu-back-arrow-bar-color: $primary;
+$jinya-menu-back-arrow-hover-color: $primary-dark;
+
+$jinya-menu-item-color: $secondary !default;
+$jinya-menu-item-active-color: $primary !default;
+$jinya-menu-item-hover-color: $secondary-darker !default;
+$jinya-menu-item-padding: 0.5rem !default;
+$jinya-menu-item-mobile-color: $primary-dark !default;
+
+$jinya-menu-hamburger-background: $white;
+$jinya-menu-hamburger-bar-color: $primary;
+
+$jinya-submenu-margin: 2rem -0.5rem 0 !default;
+$jinya-submenu-background: $secondary-lightest;
+$jinya-submenu-item-color: $secondary-darker !default;
+$jinya-submenu-item-active-color: $primary !default;
+$jinya-submenu-item-hover-color: $secondary-darkest !default;
+$jinya-submenu-item-padding: 0.5rem !default;
+$jinya-submenu-item-mobile-color: $secondary-dark !default;
+
+$jinya-footer-padding: 0.5rem 0 !default;
+$jinya-footer-margin: 2rem 0 !default;
+$jinya-footer-border-top-color: $secondary-light !default;
+$jinya-footer-menu-item-padding: 0 0.5rem !default;
+$jinya-footer-menu-item-color: $secondary-dark !default;
+$jinya-footer-menu-item-hover-color: $secondary-darkest !default;
+$jinya-footer-menu-item-padding: 0.5rem !default;
+$jinya-footer-menu-item-font-family: $menu-font-family !default;
+
+$jinya-vertical-gallery-artwork-width: calc(50% - 0.5rem) !default;
+$jinya-vertical-gallery-caption-width: calc(50% - 0.5rem) !default;
+$jinya-vertical-gallery-caption-font-weight: lighter !default;
+$jinya-vertical-gallery-caption-font-size: 2rem !default;
+$jinya-vertical-gallery-artwork-border-bottom-color: $secondary-lightest !default;
+
+$jinya-form-center-items: true !default;
+
+$jinya-page-title-font-family: $heading-font-family !default;
+$jinya-page-title-font-size: 3rem !default;
+$jinya-page-center-title: true !default;
+
+$jinya-form-input-width: 30rem !default;
+$jinya-form-input-font-family: $paragraph-font-family !default;
+$jinya-form-input-font-size: 0.875rem !default;
+$jinya-form-input-border-color: $primary !default;
+$jinya-form-input-padding: 0.5em !default;
+$jinya-form-input-border-radius: 5px !default;
+$jinya-form-input-invalid-color: $negative !default;
+$jinya-form-input-background-color: $white !default;
+
+$jinya-form-button-border-radius: 5px !default;
+$jinya-form-button-padding: 0.5rem 1rem !default;
+$jinya-form-button-primary-color: $primary !default;
+$jinya-form-button-primary-color-light: $primary-light !default;
+$jinya-form-button-white-color: $white !default;

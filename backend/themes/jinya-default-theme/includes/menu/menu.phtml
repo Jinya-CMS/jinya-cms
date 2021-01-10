@@ -1,0 +1,35 @@
+<?php
+/** @var \App\Database\Theme $theme */
+/** @var \App\Database\Menu $menu */
+/** @var \App\Database\MenuItem $activeMenuItem */
+$activeMenuItem = $this->getActiveMenuItem();
+$menu = $this->menu('primary');
+?>
+<header class="jinya-header">
+    <?php if (isset($menu)): ?>
+        <ul class="jinya-menu">
+            <?php if ($activeMenuItem !== null && $activeMenuItem->parentId !== null): ?>
+                <li class="jinya-menu__item has--back-arrow ">
+                    <a class="jinya-menu__back-arrow"></a>
+                </li>
+            <?php else: ?>
+                <li class="jinya-menu__item has--back-arrow is--hidden">
+                    <a class="jinya-menu__back-arrow"></a>
+                </li>
+            <?php endif ?>
+            <?php foreach ($menu->getItems() as $item): ?>
+                <?= $this->insert('theme::includes/menu/item',
+                    [
+                        'item' => $item,
+                        'activeMenuItem' => $activeMenuItem,
+                    ]) ?>
+            <?php endforeach ?>
+        </ul>
+    <?php endif ?>
+    <a class="jinya-brand" href="/"><?= $this->e($menu->name) ?></a>
+    <button class="jinya-menu__hamburger">
+        <span class="jinya-menu-hamburger__bar"></span>
+        <span class="jinya-menu-hamburger__bar"></span>
+        <span class="jinya-menu-hamburger__bar"></span>
+    </button>
+</header>
