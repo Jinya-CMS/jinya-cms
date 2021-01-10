@@ -14,9 +14,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class GetArtistInfoAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws JsonException
      */
     protected function action(): Response

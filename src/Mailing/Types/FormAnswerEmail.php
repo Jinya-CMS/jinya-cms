@@ -7,15 +7,9 @@ use PHPMailer\PHPMailer\Exception;
 
 class FormAnswerEmail
 {
-
     /**
      * Sends an answer to a message
      *
-     * @param string $artistEmail
-     * @param string $artistName
-     * @param string $toAddress
-     * @param string $subject
-     * @param string $answer
      * @throws Exception
      */
     public function sendMail(

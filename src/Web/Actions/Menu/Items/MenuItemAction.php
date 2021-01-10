@@ -20,8 +20,6 @@ abstract class MenuItemAction extends Action
     /**
      * Fills the menu item with the data from the body
      *
-     * @param MenuItem|null $menuItem
-     * @return MenuItem
      * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -108,9 +106,6 @@ abstract class MenuItemAction extends Action
 
     /**
      * Formats an iterator recursively
-     *
-     * @param Iterator $iterator
-     * @return array
      */
     protected function formatIteratorRecursive(Iterator $iterator): array
     {

@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::WRITER)]
 class UpdateItemAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

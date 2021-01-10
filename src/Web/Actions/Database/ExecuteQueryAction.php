@@ -16,9 +16,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['query'])]
 class ExecuteQueryAction extends Action
 {
-
     /**
-     * @return Response
      * @throws JsonException
      */
     protected function action(): Response

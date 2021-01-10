@@ -10,7 +10,7 @@ class MailerFactory
     public static function getMailer(): PHPMailer
     {
         $mailer = new PHPMailer();
-        if (getenv('APP_ENV') === 'dev') {
+        if ('dev' === getenv('APP_ENV')) {
             $mailer->SMTPDebug = SMTP::DEBUG_SERVER | SMTP::DEBUG_CLIENT | SMTP::DEBUG_CONNECTION;
         }
         $mailer->Host = getenv('MAILER_HOST');

@@ -6,9 +6,8 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 class JsonStrategy implements StrategyInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function extract($value, ?object $object = null)
     {
@@ -16,7 +15,7 @@ class JsonStrategy implements StrategyInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function hydrate($value, ?array $data)
     {
