@@ -13,18 +13,16 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class GetEnvironmentAction extends Action
 {
-
     /**
-     * @return Response
      * @throws JsonException
      */
     protected function action(): Response
     {
         $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env'));
         $data = array_map(
-            static fn($key, $value) => [
+            static fn ($key, $value) => [
                 'key' => $key,
-                'value' => stripos($key, 'password') === false ? $value : '••••••',
+                'value' => false === stripos($key, 'password') ? $value : '••••••',
             ],
             array_keys($env),
             array_values($env)

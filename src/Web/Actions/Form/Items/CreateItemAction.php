@@ -20,10 +20,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['label', 'position'])]
 class CreateItemAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

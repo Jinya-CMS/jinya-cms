@@ -10,9 +10,8 @@ use ZipArchive;
 
 class PostUpdateAction extends UpdateAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): ResponseInterface
     {

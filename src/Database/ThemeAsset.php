@@ -8,16 +8,12 @@ use Iterator;
 
 class ThemeAsset extends ThemeHelperEntity
 {
-
     public int $themeId = -1;
     public string $publicPath = '';
 
     /**
      * Finds a page by name and theme
      *
-     * @param int $themeId
-     * @param string $name
-     * @return ThemeAsset|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -30,8 +26,6 @@ class ThemeAsset extends ThemeHelperEntity
     /**
      * Finds the pages for the given theme
      *
-     * @param int $themeId
-     * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -42,7 +36,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exception
      */
     public function create(): void
@@ -51,7 +45,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -59,7 +53,7 @@ class ThemeAsset extends ThemeHelperEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exceptions\UniqueFailedException
      */
     public function update(): void

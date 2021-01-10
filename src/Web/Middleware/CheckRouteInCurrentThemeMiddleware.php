@@ -17,21 +17,18 @@ use Throwable;
 
 class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 {
-
     private Engine $engine;
 
     /**
      * CheckRouteInCurrentThemeMiddleware constructor.
-     * @param Engine $engine
      */
     public function __construct(Engine $engine)
     {
         $this->engine = $engine;
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -50,11 +47,12 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
         $activeThemingTheme = new Theming\Theme($activeTheme);
         $response = new Response();
 
-        if ($activeThemingTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+        if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $activeThemingTheme->getErrorBehavior()) {
             $redirectUri = $uri->getScheme() . '://' . $uri->getHost();
-            if (($uri->getScheme() === 'https' && $uri->getPort() !== 443) || ($uri->getScheme() === 'http' && $uri->getPort() !== 80)) {
+            if (('https' === $uri->getScheme() && 443 !== $uri->getPort()) || ('http' === $uri->getScheme() && 80 !== $uri->getPort())) {
                 $redirectUri .= ':' . $uri->getPort();
             }
+
             return $response
                 ->withHeader('Location', $redirectUri)
                 ->withStatus(302);

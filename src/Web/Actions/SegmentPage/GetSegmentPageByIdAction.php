@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::READER)]
 class GetSegmentPageByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class GetSegmentPageByIdAction extends Action
     {
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);
-        if ($segmentPage === null) {
+        if (null === $segmentPage) {
             throw new NoResultException($this->request, 'Segment page not found');
         }
 

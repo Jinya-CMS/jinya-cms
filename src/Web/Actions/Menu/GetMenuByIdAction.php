@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::READER)]
 class GetMenuByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class GetMenuByIdAction extends Action
     {
         $id = $this->args['id'];
         $menu = Menu::findById($id);
-        if ($menu === null) {
+        if (null === $menu) {
             throw new NoResultException($this->request, 'Menu not found');
         }
 
