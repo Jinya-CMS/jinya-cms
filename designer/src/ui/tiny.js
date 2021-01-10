@@ -16,6 +16,7 @@ export async function createTiny(element, height = '500px') {
     image_advtab: true,
     remove_script_host: false,
     convert_urls: true,
+    skin_url: '/designer/build/skins/ui/oxide',
     height,
     width: '100%',
     async image_list(success) {
