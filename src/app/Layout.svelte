@@ -13,6 +13,7 @@
   import ActiveDevicesView from './my-jinya/ActiveDevicesView.svelte';
   import VersionView from './maintenance/VersionView.svelte';
   import JinyaConfigurationView from './maintenance/JinyaConfigurationView.svelte';
+  import PhpInfoView from './maintenance/PhpInfoView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -123,6 +124,7 @@
       activeRoute = 'php-info';
       activeCategory = 'maintenance';
       isBackstage = true;
+      activeComponent = PhpInfoView;
     });
 
     page('/designer/backstage/database/mysql-info', checkApiKey, () => {

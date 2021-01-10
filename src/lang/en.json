@@ -564,6 +564,18 @@
     "configuration": {
       "key": "Key",
       "value": "Value"
+    },
+    "php": {
+      "configuration": "Configuration",
+      "system_and_server": "System and server",
+      "operating_system": "Operating system",
+      "zend_engine": "Zend Engine version",
+      "apache": "Apache Version",
+      "php": "PHP Version",
+      "ini": {
+        "name": "Name",
+        "value": "Value"
+      }
     }
   },
   "database": {
