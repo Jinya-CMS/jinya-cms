@@ -15,10 +15,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class ListAllThemesAction extends ThemeAction
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException

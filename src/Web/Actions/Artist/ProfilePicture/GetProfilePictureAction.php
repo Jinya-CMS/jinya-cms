@@ -17,8 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetProfilePictureAction extends Action
 {
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -28,7 +27,7 @@ class GetProfilePictureAction extends Action
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);
-        if ($artist === null) {
+        if (null === $artist) {
             throw new NoResultException($this->request, 'Artist not found');
         }
 

@@ -20,7 +20,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public ?int $pageId = null;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -28,7 +28,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findAll(): Iterator
     {
@@ -38,9 +38,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Finds a menu item by its parent menu and the position
      *
-     * @param int $menuId
-     * @param int $position
-     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -53,24 +50,21 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             $sql,
             [
                 'id' => $menuId,
-                'position' => $position
+                'position' => $position,
             ]
         );
 
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
      * Finds a menu item by its parent menu item and the position
      *
-     * @param int $menuItemId
-     * @param int $position
-     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -85,13 +79,14 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 $sql,
                 [
                     'id' => $menuItemId,
-                    'position' => $position
+                    'position' => $position,
                 ]
             );
 
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
+
         return self::hydrateSingleResult($result[0], new self());
     }
 
@@ -99,7 +94,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Finds the menu item with the given route
      *
      * @param $route
-     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -116,7 +110,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                     'routeWithTrailingSlash' => "/$route",
                 ]
             );
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
 
@@ -126,7 +120,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the parent
      *
-     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -137,7 +130,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @return MenuItem
      */
     public static function findById(int $id): ?object
@@ -148,7 +141,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the menu
      *
-     * @return Menu|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -159,7 +151,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exception
      */
     public function create(): void
@@ -170,7 +162,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
 
     private function rearrange(int $position): void
     {
-        if ($this->menuId !== null) {
+        if (null !== $this->menuId) {
             $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $position);
         } else {
             $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $position);
@@ -178,7 +170,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -187,7 +179,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function update(bool $rearrange = true): void
     {
@@ -199,7 +191,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function move(int $newPosition): void
     {
@@ -210,7 +202,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Formats the menu items below this recursive
      *
-     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -226,7 +217,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Formats the given menu item
      *
-     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -281,14 +271,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated form
      *
-     * @return Form|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getForm(): ?Form
     {
-        if ($this->formId === null) {
+        if (null === $this->formId) {
             return null;
         }
 
@@ -298,14 +287,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated artist
      *
-     * @return Artist|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getArtist(): ?Artist
     {
-        if ($this->artistId === null) {
+        if (null === $this->artistId) {
             return null;
         }
 
@@ -315,14 +303,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated page
      *
-     * @return SimplePage|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getPage(): ?SimplePage
     {
-        if ($this->pageId === null) {
+        if (null === $this->pageId) {
             return null;
         }
 
@@ -332,14 +319,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated segment page
      *
-     * @return SegmentPage|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getSegmentPage(): ?SegmentPage
     {
-        if ($this->segmentPageId === null) {
+        if (null === $this->segmentPageId) {
             return null;
         }
 
@@ -349,14 +335,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated gallery
      *
-     * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getGallery(): ?Gallery
     {
-        if ($this->galleryId === null) {
+        if (null === $this->galleryId) {
             return null;
         }
 
@@ -366,8 +351,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Format the artist list
      *
-     * @param Iterator $iterator
-     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -376,7 +359,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         $data = [];
         foreach ($iterator as $item) {
-            /** @var $item MenuItem */
+            /* @var $item MenuItem */
             $data[] = $item->formatRecursive();
         }
 
@@ -386,7 +369,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the menu items
      *
-     * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
