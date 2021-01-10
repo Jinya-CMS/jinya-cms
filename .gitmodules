@@ -1,8 +1,0 @@
-[submodule "jinya-designer"]
-	path = jinya-designer
-	url = https://github.com/Jinya-CMS/jinya-designer.git
-	branch = main
-[submodule "jinya-backend"]
-	path = jinya-backend
-	url = https://github.com/Jinya-CMS/jinya-backend.git
-	branch = main
