@@ -91,5 +91,5 @@ export function upload(url, file) {
 }
 
 export function getHost() {
-  return localStorage.getItem('/jinya/dev/host');
+  return '';
 }

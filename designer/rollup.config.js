@@ -12,7 +12,7 @@ export default {
   output: {
     sourcemap: !production,
     name: 'app',
-    file: 'public/build/bundle.js',
+    file: '../public/designer/build/bundle.js',
     inlineDynamicImports: true
   },
   plugins: [
@@ -39,11 +39,11 @@ export default {
       targets: [
         {
           src: 'node_modules/tinymce/skins/content',
-          dest: 'public/build/skins/',
+          dest: '../public/designer/build/skins/',
         },
         {
           src: 'node_modules/tinymce/skins/ui',
-          dest: 'public/build/skins/',
+          dest: '../public/designer/build/skins/',
         },
       ],
       verbose: true,

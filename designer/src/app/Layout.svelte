@@ -169,7 +169,7 @@
 
   async function updateMe() {
     me = await get('/api/me');
-    profilepicture = `${getHost()}/${me.profilePicture}`;
+    profilepicture = `${getHost()}${me.profilePicture}`;
   }
 
   onMount(async () => {
