@@ -21,10 +21,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['file', 'action', 'position'])]
 class CreateFileSegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

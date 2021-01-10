@@ -7,16 +7,15 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class GetFrontAction extends FrontAction
 {
-
     protected function protectedAction(): Response
     {
         $route = $this->args['route'];
-        if ($route === '' || $route === '/') {
+        if ('' === $route || '/' === $route) {
             return $this->render('theme::home', []);
         }
 
         $menuItem = MenuItem::findByRoute($route);
-        if ($menuItem !== null) {
+        if (null !== $menuItem) {
             return $this->renderMenuItem($menuItem);
         }
 

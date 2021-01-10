@@ -24,7 +24,6 @@ class Theme implements ExtensionInterface
 
     /**
      * Theme constructor.
-     * @param Database\Theme $dbTheme
      */
     public function __construct(Database\Theme $dbTheme)
     {
@@ -48,7 +47,6 @@ class Theme implements ExtensionInterface
     /**
      * Gets the currently activated theme
      *
-     * @return Theme
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
@@ -60,8 +58,6 @@ class Theme implements ExtensionInterface
 
     /**
      * Gets the desired error behavior
-     *
-     * @return string
      */
     public function getErrorBehavior(): string
     {
@@ -70,59 +66,57 @@ class Theme implements ExtensionInterface
 
     /**
      * Registers the theme in the engine
-     *
-     * @param Engine $engine
      */
     public function register(Engine $engine)
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
 
         // $this->segmentPage(name)
-        $engine->registerFunction('segmentPage', fn(string $name) => $this->dbTheme->getSegmentPages()[$name]);
+        $engine->registerFunction('segmentPage', fn (string $name) => $this->dbTheme->getSegmentPages()[$name]);
 
         // $this->hasSegmentPage(name)
         $engine->registerFunction(
             'hasSegmentPage',
-            fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name])
+            fn (string $name) => isset($this->dbTheme->getSegmentPages()[$name])
         );
 
         // $this->page(name)
-        $engine->registerFunction('page', fn(string $name) => $this->dbTheme->getPages()[$name]);
+        $engine->registerFunction('page', fn (string $name) => $this->dbTheme->getPages()[$name]);
 
         // $this->hasPage(name)
-        $engine->registerFunction('hasPage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
+        $engine->registerFunction('hasPage', fn (string $name) => isset($this->dbTheme->getPages()[$name]));
 
         // $this->file(name)
-        $engine->registerFunction('file', fn(string $name) => $this->dbTheme->getFiles()[$name]);
+        $engine->registerFunction('file', fn (string $name) => $this->dbTheme->getFiles()[$name]);
 
         // $this->hasFile(name)
-        $engine->registerFunction('hasFile', fn(string $name) => isset($this->dbTheme->getFiles()[$name]));
+        $engine->registerFunction('hasFile', fn (string $name) => isset($this->dbTheme->getFiles()[$name]));
 
         // $this->gallery(name)
-        $engine->registerFunction('gallery', fn(string $name) => $this->dbTheme->getGalleries()[$name]);
+        $engine->registerFunction('gallery', fn (string $name) => $this->dbTheme->getGalleries()[$name]);
 
         // $this->hasGallery(name)
-        $engine->registerFunction('hasGallery', fn(string $name) => isset($this->dbTheme->getGalleries()[$name]));
+        $engine->registerFunction('hasGallery', fn (string $name) => isset($this->dbTheme->getGalleries()[$name]));
 
         // $this->menu(name)
-        $engine->registerFunction('menu', fn(string $name) => $this->dbTheme->getMenus()[$name]);
+        $engine->registerFunction('menu', fn (string $name) => $this->dbTheme->getMenus()[$name]);
 
         // $this->hasMenu(name)
-        $engine->registerFunction('hasMenu', fn(string $name) => isset($this->dbTheme->getMenus()[$name]));
+        $engine->registerFunction('hasMenu', fn (string $name) => isset($this->dbTheme->getMenus()[$name]));
 
         // $this->asset(name)
-        $engine->registerFunction('asset', fn(string $name) => $this->dbTheme->getAssets()[$name]);
+        $engine->registerFunction('asset', fn (string $name) => $this->dbTheme->getAssets()[$name]);
 
         // $this->form(name)
-        $engine->registerFunction('form', fn(string $name) => $this->dbTheme->getForms()[$name]);
+        $engine->registerFunction('form', fn (string $name) => $this->dbTheme->getForms()[$name]);
 
         // $this->hasForm(name)
-        $engine->registerFunction('hasForm', fn(string $name) => isset($this->dbTheme->getForms()[$name]));
+        $engine->registerFunction('hasForm', fn (string $name) => isset($this->dbTheme->getForms()[$name]));
 
         // $this->config(group, field)
         $engine->registerFunction(
             'config',
-            fn(
+            fn (
                 string $group,
                 string $field
             ) => $this->dbTheme->configuration[$group][$field] ?? $this->configuration['configuration'][$group][$field]
@@ -134,10 +128,10 @@ class Theme implements ExtensionInterface
             function () {
                 $styleFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
                 $styleFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
+                    fn ($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
                     $styleFiles,
                 );
-                $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
+                $styleFiles = array_filter($styleFiles, static fn ($item) => str_ends_with($item, '.css'));
                 $tags = '';
                 foreach ($styleFiles as $file) {
                     $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
@@ -153,10 +147,10 @@ class Theme implements ExtensionInterface
             function () {
                 $scriptFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
                 $scriptFiles = array_map(
-                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
+                    fn ($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
                     $scriptFiles,
                 );
-                $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
+                $scriptFiles = array_filter($scriptFiles, static fn ($item) => str_ends_with($item, '.js'));
                 $tags = '';
                 foreach ($scriptFiles as $file) {
                     $tags .= "<script src='$file'></script>";
@@ -169,8 +163,6 @@ class Theme implements ExtensionInterface
 
     /**
      * Gets the configuration values
-     *
-     * @return array
      */
     public function getConfigurationValues(): array
     {
@@ -213,9 +205,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -254,9 +246,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -277,7 +269,7 @@ class Theme implements ExtensionInterface
             $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
 
             if (!file_exists($asset)) {
-                if ($assetFromDb !== null) {
+                if (null !== $assetFromDb) {
                     $assetFromDb->delete();
                 }
 
@@ -287,7 +279,7 @@ class Theme implements ExtensionInterface
             $publicPath = uniqid('asset', true) . '.' . pathinfo($asset, PATHINFO_EXTENSION);
             copy($asset, $assetCachePath . $publicPath);
 
-            if ($assetFromDb === null) {
+            if (null === $assetFromDb) {
                 $assetFromDb = new Database\ThemeAsset();
                 $assetFromDb->name = $key;
                 $assetFromDb->publicPath = self::BASE_PUBLIC_PATH . $this->dbTheme->name . '/assets/' . $publicPath;
@@ -313,9 +305,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
+        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
 
-        return array_filter($files, static fn($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
     }
 
     public function getStyleVariables(): array
@@ -341,6 +333,7 @@ class Theme implements ExtensionInterface
         } finally {
             fclose($handle);
         }
+
         return $variables;
     }
 

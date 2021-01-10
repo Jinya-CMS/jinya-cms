@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::WRITER)]
 class DeleteItemAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
