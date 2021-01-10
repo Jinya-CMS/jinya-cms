@@ -21,10 +21,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['form', 'position'])]
 class CreateFormSegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

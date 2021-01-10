@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class DeleteApiKeyAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteApiKeyAction extends Action
     protected function action(): Response
     {
         $device = ApiKey::findByApiKey($this->args['key']);
-        if ($device === null) {
+        if (null === $device) {
             throw new NoResultException($this->request, 'Api key not found');
         }
 

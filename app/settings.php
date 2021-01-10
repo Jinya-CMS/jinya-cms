@@ -10,7 +10,7 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions(
         [
             'settings' => [
-                'displayErrorDetails' => getenv('APP_ENV') === 'dev',
+                'displayErrorDetails' => 'dev' === getenv('APP_ENV'),
                 'logger' => [
                     'name' => 'jinya-backend',
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',

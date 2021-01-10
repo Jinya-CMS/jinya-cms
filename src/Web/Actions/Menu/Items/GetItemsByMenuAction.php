@@ -16,10 +16,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::READER)]
 class GetItemsByMenuAction extends MenuItemAction
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException

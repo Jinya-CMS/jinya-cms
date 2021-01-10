@@ -20,15 +20,15 @@ abstract class Migrator extends LoadableEntity
     {
         $sql = "SHOW TABLES LIKE 'migration_state'";
         $result = self::executeStatement($sql);
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
             self::executeStatement($initialMigration['sql']);
         }
 
         $migrationsPath = __ROOT__ . '/src/Migrations';
         $files = array_map(
-            static fn(string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn(string $item) => $item !== '.' && $item !== '..'),
+            static fn (string $item) => "$migrationsPath/$item",
+            array_filter(scandir($migrationsPath), static fn (string $item) => '.' !== $item && '..' !== $item),
         );
 
         foreach ($files as $file) {

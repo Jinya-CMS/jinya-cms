@@ -16,7 +16,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     public string $remoteAddress = '';
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findById(int $id): ?object
     {
@@ -24,7 +24,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -34,8 +34,6 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     /**
      * Gets all known devices for the given artist
      *
-     * @param int $artistId
-     * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -50,7 +48,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findAll(): Iterator
     {
@@ -60,8 +58,6 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     /**
      * Gets a known device by code
      *
-     * @param string $knownDeviceCode
-     * @return KnownDevice|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -74,7 +70,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
             $sql,
             ['knownDeviceCode' => $knownDeviceCode]
         );
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
 
@@ -82,7 +78,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function create(): void
     {
@@ -90,7 +86,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -98,7 +94,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function update(): void
     {
@@ -115,7 +111,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     #[ArrayShape(['remoteAddress' => "string", 'userAgent' => "string", 'key' => "string"])]
     public function format(): array
