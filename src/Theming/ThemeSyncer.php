@@ -18,7 +18,7 @@ class ThemeSyncer
         $allThemes = iterator_to_array(Database\Theme::findAll());
         $themes = array_filter(
             array_diff(scandir(self::THEME_BASE_PATH), ['..', '.']),
-            static fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
+            static fn ($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
                     self::THEME_BASE_PATH . "$item/theme.php"
                 )
         );
@@ -27,7 +27,7 @@ class ThemeSyncer
             $dir = self::THEME_BASE_PATH . $dir;
             /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
-            if (count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name)) === 0) {
+            if (0 === count(array_filter($allThemes, static fn (Database\Theme $theme) => $theme->name === $name))) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -40,20 +40,20 @@ class ThemeSyncer
 
         $nonExistingThemes = array_filter(
             $allThemes,
-            static fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
+            static fn (Database\Theme $theme) => !in_array($theme->name, $themes, true)
         );
 
         $activeTheme = Database\Theme::getActiveTheme();
         $defaultTheme = Database\Theme::findByName('jinya-default-theme');
         foreach ($nonExistingThemes as $nonExistingTheme) {
-            if ($activeTheme === null || $nonExistingTheme->name === $activeTheme->name) {
-                /** @noinspection NullPointerExceptionInspection */
+            if (null === $activeTheme || $nonExistingTheme->name === $activeTheme->name) {
+                /* @noinspection NullPointerExceptionInspection */
                 $defaultTheme->makeActiveTheme();
             }
             $nonExistingTheme->delete();
         }
 
-        if ($activeTheme === null) {
+        if (null === $activeTheme) {
             $defaultTheme->makeActiveTheme();
         }
     }

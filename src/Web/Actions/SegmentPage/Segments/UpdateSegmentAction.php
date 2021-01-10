@@ -21,10 +21,8 @@ use Slim\Exception\HttpNotFoundException;
 #[Authenticated(Authenticated::WRITER)]
 class UpdateSegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws HttpNotFoundException
      * @throws JsonException
      * @throws NoResultException
@@ -75,17 +73,17 @@ class UpdateSegmentAction extends Action
 
         if ($segment->fileId) {
             $action = $body['action'] ?? '';
-            if ($action === 'link') {
+            if ('link' === $action) {
                 $target = $body['target'] ?? '';
                 $segment->target = $target;
                 $segment->action = $action;
                 $segment->script = null;
-            } elseif ($action === 'script') {
+            } elseif ('script' === $action) {
                 $script = $body['script'] ?? '';
                 $segment->script = $script;
                 $segment->action = $action;
                 $segment->target = null;
-            } elseif ($action === 'none') {
+            } elseif ('none' === $action) {
                 $segment->action = $action;
                 $segment->script = null;
                 $segment->target = null;

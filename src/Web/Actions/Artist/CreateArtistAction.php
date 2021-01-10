@@ -19,10 +19,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['artistName', 'email', 'password'])]
 class CreateArtistAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws ConflictException
      * @throws JsonException
      * @throws ForeignKeyFailedException

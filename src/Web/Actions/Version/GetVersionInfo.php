@@ -11,9 +11,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::ADMIN)]
 class GetVersionInfo extends UpdateAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {

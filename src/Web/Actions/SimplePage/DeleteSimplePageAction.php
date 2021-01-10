@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class DeleteSimplePageAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteSimplePageAction extends Action
     protected function action(): Response
     {
         $page = SimplePage::findById($this->args['id']);
-        if ($page === null) {
+        if (null === $page) {
             throw new NoResultException($this->request, 'Page not found');
         }
 
