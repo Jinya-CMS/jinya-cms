@@ -28,13 +28,17 @@ spec:
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
                 sh "apt-get install -y apt-utils"
-                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip"
+                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip nodejs yarn"
                 sh "docker-php-ext-install pdo pdo_mysql zip"
                 sh "php --version"
                 sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install --no-dev'
+                dir('designer') {
+                    sh 'yarn'
+                    sh 'yarn build:prod'
+                }
                 sh 'java -version'
                 sh 'wget -U "scannercli" -q -O /opt/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip'
                 sh "cd /opt && unzip sonar-scanner-cli.zip"
@@ -49,8 +53,43 @@ spec:
                 branch 'main'
             }
             steps {
-                sh "zip -r ./jinya-backend.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                archiveArtifacts artifacts: 'jinya-backend.zip', followSymlinks: false, onlyIfSuccessful: true
+                sh "zip -r ./jinya-cms.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
+                archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false, onlyIfSuccessful: true
+            }
+        }
+        stage('Create and publish package') {
+            when {
+                buildingTag()
+            }
+            environment {
+                JINYA_RELEASES_AUTH = credentials('releases.jinya.de')
+            }
+            steps {
+                container('package') {
+                    sh 'apt-get update'
+                    sh 'apt-get install zip unzip -y'
+                    sh 'cd jinya-cms && zip -r ../jinya-cms.zip ./*'
+                    archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
+                    sh 'go run ./main.go'
+                }
+            }
+        }
+        stage('Build and push docker image') {
+            when {
+                buildingTag()
+            }
+            steps {
+                container('docker') {
+                    sh "docker build -t registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile ."
+                    sh "docker tag registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:$TAG_NAME"
+
+                    withDockerRegistry(credentialsId: 'nexus.imanuel.dev', url: 'https://registry-hosted.imanuel.dev') {
+                        sh "docker push registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                    }
+                    withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
+                        sh "docker push jinyacms/jinya-cms:$TAG_NAME"
+                    }
+                }
             }
         }
     }
