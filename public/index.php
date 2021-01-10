@@ -34,7 +34,7 @@ if (file_exists(__ROOT__ . '/.env')) {
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
 
-if (getenv('APP_ENV') === 'prod') {
+if ('prod' === getenv('APP_ENV')) {
     $containerBuilder->enableCompilation(__ROOT__ . '/var/cache');
 }
 
@@ -75,7 +75,7 @@ $app->addRoutingMiddleware();
 $callableResolver = $app->getCallableResolver();
 $responseFactory = $app->getResponseFactory();
 $errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
-$errorMiddleware = $app->addErrorMiddleware(getenv('APP_ENV') === 'dev', true, getenv('APP_ENV') === 'dev');
+$errorMiddleware = $app->addErrorMiddleware('dev' === getenv('APP_ENV'), true, 'dev' === getenv('APP_ENV'));
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Run App & Emit Response

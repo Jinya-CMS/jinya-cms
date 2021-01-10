@@ -16,10 +16,8 @@ use Slim\Exception\HttpNotFoundException;
 #[Authenticated(role: Authenticated::READER)]
 class GetFileContentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws HttpNotFoundException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -30,7 +28,7 @@ class GetFileContentAction extends Action
         $fileId = $this->args['id'];
         $file = File::findById($fileId);
 
-        if ($file === null) {
+        if (null === $file) {
             throw new HttpNotFoundException($this->request, 'File not found');
         }
 

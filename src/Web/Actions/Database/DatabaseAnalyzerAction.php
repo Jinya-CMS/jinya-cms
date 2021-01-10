@@ -12,9 +12,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class DatabaseAnalyzerAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {

@@ -15,9 +15,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class CompileThemeAction extends ThemeAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws Exception
