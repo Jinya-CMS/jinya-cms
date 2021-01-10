@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemeFormAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemeFormAction extends ThemeAction
         }
 
         $themeForm = ThemeForm::findByThemeAndName($themeId, $name);
-        if ($themeForm !== null) {
+        if (null !== $themeForm) {
             $themeForm->themeId = $themeId;
             $themeForm->formId = $form->id;
             $themeForm->name = $name;

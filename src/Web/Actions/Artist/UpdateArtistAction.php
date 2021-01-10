@@ -18,10 +18,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class UpdateArtistAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws ConflictException
      * @throws JsonException
      * @throws NoResultException
@@ -31,9 +29,9 @@ class UpdateArtistAction extends Action
      */
     protected function action(): Response
     {
-        $id = (int)$this->args['id'];
+        $id = (int) $this->args['id'];
         $artist = Artist::findById($id);
-        if ($artist === null) {
+        if (null === $artist) {
             throw new NoResultException($this->request, 'Artist not found');
         }
         $body = $this->request->getParsedBody();

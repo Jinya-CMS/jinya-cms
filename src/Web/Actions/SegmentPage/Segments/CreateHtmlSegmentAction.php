@@ -20,10 +20,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['html', 'position'])]
 class CreateHtmlSegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

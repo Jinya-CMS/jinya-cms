@@ -18,8 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class UpdateAboutMeAction extends Action
 {
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
