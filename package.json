@@ -10,7 +10,8 @@
     "page": "1.11.6",
     "sortablejs": "1.10.2",
     "svelte-i18n": "3.3.0",
-    "tinymce": "^5.6.2"
+    "tinymce": "^5.6.2",
+    "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

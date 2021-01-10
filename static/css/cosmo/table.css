@@ -1,0 +1,14 @@
+.cosmo-table {
+    border-collapse: collapse;
+}
+
+.cosmo-table thead tr th {
+    font-weight: var(--font-weight-bold);
+    padding-bottom: 8px;
+}
+
+.cosmo-table tbody tr td {
+    border-bottom: 1px solid var(--black);
+    font-weight: var(--font-weight-light);
+    padding: 2px 8px;
+}

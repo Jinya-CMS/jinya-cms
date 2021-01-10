@@ -9,6 +9,7 @@
   import MenuView from './design/MenuView.svelte';
   import ThemeView from './design/ThemeView.svelte';
   import MyProfileView from './my-jinya/MyProfileView.svelte';
+  import ActiveSessionsView from './my-jinya/ActiveSessionsView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -92,6 +93,7 @@
       activeRoute = 'active-sessions';
       activeCategory = 'my-jinya';
       isBackstage = false;
+      activeComponent = ActiveSessionsView;
     });
     page('/designer/my-jinya/active-devices', checkApiKey, () => {
       activeRoute = 'active-devices';
@@ -159,7 +161,7 @@
 
   onMount(async () => {
     page.start();
-    updateMe();
+    await updateMe();
   });
 
   function logout() {
