@@ -576,6 +576,14 @@
         "name": "Name",
         "value": "Value"
       }
+    }
+  },
+  "database": {
+    "menu": {
+      "title": "Database",
+      "mysql_info": "MySQL info",
+      "tables": "Tables",
+      "query_tool": "Query tool"
     },
     "mysql": {
       "system_and_server": "Server",
@@ -585,15 +593,17 @@
       "server_type": "Server type",
       "server_version": "Server version",
       "compile_machine": "Compile machine",
-      "compile_os": "Compile operating system"
-    }
-  },
-  "database": {
-    "menu": {
-      "title": "Database",
-      "mysql_info": "MySQL info",
-      "tables": "Tables",
-      "query_tool": "Query tool"
+      "compile_os": "Compile operating system",
+      "name": "Variable",
+      "value": "Value"
+    },
+    "tables": {
+      "field": "Column name",
+      "type": "Type",
+      "null": "Allow null",
+      "key": "Keys",
+      "default": "Default value",
+      "extra": "Extra data"
     }
   },
   "artists": {
