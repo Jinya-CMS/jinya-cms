@@ -2,13 +2,15 @@
 
 namespace App\Database;
 
+use App\Database\Utils\FormattableEntityInterface;
 use DateTime;
 use Exception;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
-class ApiKey extends Utils\LoadableEntity
+class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
 {
     public string $apiKey;
     public int $userId;
@@ -155,5 +157,20 @@ class ApiKey extends Utils\LoadableEntity
             $sql,
             ['apiKey' => $this->apiKey, 'validSince' => $converter->extract($this->validSince)]
         );
+    }
+
+    #[ArrayShape([
+        'remoteAddress' => "string",
+        'validSince' => DateTime::class,
+        'userAgent' => "string",
+        'key' => "string"
+    ])] public function format(): array
+    {
+        return [
+            'remoteAddress' => $this->remoteAddress,
+            'validSince' => $this->validSince->format(DATE_ATOM),
+            'userAgent' => $this->userAgent,
+            'key' => $this->apiKey,
+        ];
     }
 }

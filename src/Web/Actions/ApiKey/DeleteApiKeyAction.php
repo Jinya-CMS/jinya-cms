@@ -13,7 +13,7 @@ use App\Web\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/api_key', JinyaAction::DELETE)]
+#[JinyaAction('/api/api_key/{key}', JinyaAction::DELETE)]
 #[Authenticated]
 class DeleteApiKeyAction extends Action
 {

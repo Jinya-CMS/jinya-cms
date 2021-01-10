@@ -13,7 +13,7 @@ use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::GET)]
-#[Authenticated(role: Authenticated::ADMIN)]
+#[Authenticated(role: Authenticated::WRITER)]
 class GetProfilePictureAction extends Action
 {
     /**
