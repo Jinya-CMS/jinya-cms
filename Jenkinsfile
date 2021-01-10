@@ -35,10 +35,8 @@ spec:
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install --no-dev'
-                dir('designer') {
-                    sh 'yarn'
-                    sh 'yarn build:prod'
-                }
+                sh 'cd designer && yarn'
+                sh 'cd designer && yarn build:prod'
                 sh 'java -version'
                 sh 'wget -U "scannercli" -q -O /opt/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip'
                 sh "cd /opt && unzip sonar-scanner-cli.zip"
