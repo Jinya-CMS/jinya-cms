@@ -559,6 +559,7 @@
     },
     "update": {
       "version_text": "You currently have version {openB}{currentVersion}{closeB} installed, there is an update available to {openB}{mostRecentVersion}{closeB}.",
+      "version_text_no_update": "You currently have version {openB}{currentVersion}{closeB} installed, this is the most recent version.",
       "update_now": "Update now"
     },
     "configuration": {
