@@ -30,7 +30,7 @@ spec:
                 sh "apt-get install -y apt-utils"
                 sh 'curl -sL https://deb.nodesource.com/setup_current.x -o nodesource_setup.sh'
                 sh 'bash nodesource_setup.sh'
-                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip nodejs npm"
+                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip nodejs"
                 sh 'npm install -g yarn'
                 sh "docker-php-ext-install pdo pdo_mysql zip"
                 sh "php --version"
