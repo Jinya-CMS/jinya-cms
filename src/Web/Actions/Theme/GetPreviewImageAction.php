@@ -13,10 +13,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/theme/{id}/preview', JinyaAction::GET)]
 class GetPreviewImageAction extends ThemeAction
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException

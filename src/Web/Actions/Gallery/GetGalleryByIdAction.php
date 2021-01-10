@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::READER)]
 class GetGalleryByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class GetGalleryByIdAction extends Action
     {
         $id = $this->args['id'];
         $gallery = Gallery::findById($id);
-        if ($gallery === null) {
+        if (null === $gallery) {
             throw new NoResultException($this->request, 'Gallery not found');
         }
 

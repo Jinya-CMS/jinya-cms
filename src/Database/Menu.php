@@ -7,12 +7,11 @@ use Iterator;
 
 class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
-
     public string $name;
     public ?int $logo;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @return Menu
      */
     public static function findById(int $id): ?object
@@ -21,7 +20,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -33,7 +32,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findAll(): Iterator
     {
@@ -41,7 +40,6 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -70,14 +68,13 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * Gets the logo file
      *
-     * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getLogo(): ?File
     {
-        if ($this->logo === null) {
+        if (null === $this->logo) {
             return null;
         }
 
@@ -85,7 +82,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exception
      */
     public function create(): void
@@ -94,7 +91,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -102,7 +99,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function update(): void
     {
@@ -112,7 +109,6 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * Gets the menu items
      *
-     * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException

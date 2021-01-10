@@ -16,10 +16,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::READER)]
 class ListAllSimplePagesAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

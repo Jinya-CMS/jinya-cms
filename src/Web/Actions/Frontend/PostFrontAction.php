@@ -13,10 +13,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class PostFrontAction extends FrontAction
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -26,13 +24,13 @@ class PostFrontAction extends FrontAction
     {
         $route = $this->args['route'];
         $menuItem = MenuItem::findByRoute($route);
-        if ($menuItem !== null) {
-            if ($menuItem->formId !== null) {
+        if (null !== $menuItem) {
+            if (null !== $menuItem->formId) {
                 $form = $menuItem->getForm();
                 $parsedBody = $this->request->getParsedBody();
                 $formHandler = new FormMessageHandler($this->request, $this->engine);
                 try {
-                    /** @noinspection NullPointerExceptionInspection */
+                    /* @noinspection NullPointerExceptionInspection */
                     $formHandler->handleFormPost($form, $parsedBody);
                     $form = $menuItem->getForm();
 

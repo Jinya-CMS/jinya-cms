@@ -17,8 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ActivateArtistAction extends Action
 {
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
