@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+designer
+docker-compose.yml
+Dockerfile
+Jenkinsfile
+.env
