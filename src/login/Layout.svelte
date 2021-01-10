@@ -1,17 +1,31 @@
 <script>
   import page from 'page';
-  import { hasDeviceCode } from '../storage/authentication/storage';
+  import { deleteDeviceCode, getDeviceCode, hasDeviceCode } from '../storage/authentication/storage';
   import RequestSecondFactor from './2fa-flow/RequestSecondFactor.svelte';
   import TwoFaLogin from './2fa-flow/Login.svelte';
   import DeviceCodeLogin from './device-code-flow/Login.svelte';
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher, onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { head } from '../http/request';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
-  const twoFactorApproved = hasDeviceCode();
+  let twoFactorApproved = hasDeviceCode();
+  let login = false;
 
-  page('/designer/login', () => {
+  page('/designer/login', async (ctx, next) => {
+    try {
+      if (hasDeviceCode()) {
+        await head(`/api/known_device/${getDeviceCode()}`);
+      }
+      next();
+    } catch (e) {
+      twoFactorApproved = false;
+      deleteDeviceCode();
+      await tick();
+      page('/designer/2fa');
+    }
+  }, () => {
     activeRoute = 'login';
   });
   page('/designer/2fa', () => {

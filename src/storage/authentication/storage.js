@@ -18,6 +18,10 @@ export function getDeviceCode() {
   return localStorage.getItem('/jinya/device/code');
 }
 
+export function deleteDeviceCode() {
+  return localStorage.removeItem('/jinya/device/code');
+}
+
 export function deleteJinyaApiKey() {
   localStorage.removeItem('/jinya/api/key');
 }
