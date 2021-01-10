@@ -12,8 +12,6 @@ class UploadingFile extends Utils\LoadableEntity
     public int $fileId;
 
     /**
-     * @param int $fileId
-     * @return UploadingFile|null
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -23,15 +21,15 @@ class UploadingFile extends Utils\LoadableEntity
         $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
         $result = self::executeStatement($sql, ['fileId' => $fileId]);
 
-        if (count($result) === 0) {
+        if (0 === count($result)) {
             return null;
         }
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @return UploadingFile
      */
     public static function findById(int $id): ?object
@@ -40,7 +38,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findByKeyword(string $keyword): Iterator
     {
@@ -48,7 +46,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public static function findAll(): Iterator
     {
@@ -58,7 +56,6 @@ class UploadingFile extends Utils\LoadableEntity
     /**
      * Gets all chunks
      *
-     * @return Iterator
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -71,7 +68,6 @@ class UploadingFile extends Utils\LoadableEntity
     /**
      * Gets the corresponding file
      *
-     * @return File
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -82,7 +78,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws Exception
      * @throws ForeignKeyFailedException
      */
@@ -93,7 +89,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function delete(): void
     {
@@ -101,7 +97,7 @@ class UploadingFile extends Utils\LoadableEntity
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function update(): void
     {

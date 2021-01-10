@@ -12,9 +12,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::ADMIN)]
 class GetPhpInfoAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {

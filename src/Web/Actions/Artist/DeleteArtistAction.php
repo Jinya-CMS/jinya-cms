@@ -20,10 +20,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class DeleteArtistAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws ConflictException
      * @throws CreatedContentException
      * @throws JsonException
@@ -36,7 +34,7 @@ class DeleteArtistAction extends Action
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);
-        if ($artist === null) {
+        if (null === $artist) {
             throw new NoResultException($this->request, 'Artist not found');
         }
 

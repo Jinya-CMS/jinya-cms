@@ -18,7 +18,6 @@ class CheckRequiredOneOfFieldsMiddleware implements MiddlewareInterface
 
     /**
      * CheckFieldsMiddleware constructor.
-     * @param array $fields
      */
     public function __construct(array $fields)
     {
@@ -37,10 +36,6 @@ class CheckRequiredOneOfFieldsMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param array $body
-     * @param array $requiredFields
-     * @param Request $request
-     * @return bool
      * @throws MissingOneOfFieldsException
      */
     private function checkRequiredFields(array $body, array $requiredFields, Request $request): bool

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Web\Handlers;
@@ -14,7 +15,7 @@ use Slim\Handlers\ErrorHandler as SlimErrorHandler;
 class HttpErrorHandler extends SlimErrorHandler
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws JsonException
      */
     protected function respond(): Response

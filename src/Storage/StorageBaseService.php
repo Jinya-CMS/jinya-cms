@@ -10,7 +10,6 @@ abstract class StorageBaseService
 
     /**
      * @param resource $fileContent
-     * @return string
      */
     protected function getFileHash($fileContent): string
     {
