@@ -101,7 +101,6 @@
         const dropIdx = e.newIndex;
         const menuItemId = parseInt(e.item.getAttribute('data-id'));
         const position = menuItems[dropIdx].position;
-        const id = menuItems[dropIdx].id;
         const newParent = menuItems[dropIdx].parent.id;
         const newParentItem = menuItems[dropIdx].parent;
         const dataParentId = parseInt(e.item.previousSibling.getAttribute('data-parent-id'));
