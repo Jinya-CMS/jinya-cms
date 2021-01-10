@@ -16,10 +16,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::READER)]
 class ListAllFormsAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException

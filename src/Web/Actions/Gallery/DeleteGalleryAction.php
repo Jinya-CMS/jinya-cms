@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::WRITER)]
 class DeleteGalleryAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteGalleryAction extends Action
     protected function action(): Response
     {
         $gallery = Gallery::findById($this->args['id']);
-        if ($gallery === null) {
+        if (null === $gallery) {
             throw new NoResultException($this->request, 'Gallery not found');
         }
 

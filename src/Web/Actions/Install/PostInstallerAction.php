@@ -12,9 +12,8 @@ use Throwable;
 
 class PostInstallerAction extends InstallAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {
@@ -36,6 +35,7 @@ class PostInstallerAction extends InstallAction
                 $artist->create();
 
                 touch(__ROOT__ . '/installed.lock');
+
                 return $this->response
                     ->withStatus(self::HTTP_MOVED_PERMANENTLY)
                     ->withHeader('Location', '/');
@@ -55,7 +55,7 @@ JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
-        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
+        $data = array_map(static fn (string $key, string $value) => "$key=$value", array_keys($postData), $postData);
 
         foreach ($data as $item) {
             $dotenv .= PHP_EOL . $item;
