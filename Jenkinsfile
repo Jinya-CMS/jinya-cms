@@ -35,6 +35,7 @@ spec:
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install --no-dev'
+                sh 'ls -la'
                 sh 'cd designer && yarn'
                 sh 'cd designer && yarn build:prod'
                 sh 'java -version'
