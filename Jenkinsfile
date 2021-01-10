@@ -28,7 +28,8 @@ spec:
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
                 sh "apt-get install -y apt-utils"
-                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip nodejs yarn"
+                sh "apt-get install -y openjdk-11-jre-headless libzip-dev git wget unzip zip nodejs npm"
+                sh 'npm install -g yarn'
                 sh "docker-php-ext-install pdo pdo_mysql zip"
                 sh "php --version"
                 sh '''php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'''
@@ -36,8 +37,10 @@ spec:
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install --no-dev'
                 sh 'ls -la'
-                sh 'cd designer && yarn'
-                sh 'cd designer && yarn build:prod'
+                dir('designer') {
+                    sh 'yarn'
+                    sh 'yarn build:prod'
+                }
                 sh 'java -version'
                 sh 'wget -U "scannercli" -q -O /opt/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip'
                 sh "cd /opt && unzip sonar-scanner-cli.zip"
