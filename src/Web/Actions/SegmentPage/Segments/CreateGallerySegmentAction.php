@@ -21,10 +21,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['gallery', 'position'])]
 class CreateGallerySegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException

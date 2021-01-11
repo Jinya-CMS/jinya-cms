@@ -13,7 +13,6 @@ class ProfilePictureService extends StorageBaseService
     /**
      * Sets and saves the profile picture of the given artist
      *
-     * @param int $artistId
      * @param string|resource $data
      * @throws EmptyResultException
      * @throws UniqueFailedException
@@ -23,7 +22,7 @@ class ProfilePictureService extends StorageBaseService
     public function saveProfilePicture(int $artistId, $data): void
     {
         $artist = Artist::findById($artistId);
-        if ($artist === null) {
+        if (null === $artist) {
             throw new EmptyResultException('The artist was not found');
         }
 
@@ -41,7 +40,6 @@ class ProfilePictureService extends StorageBaseService
     /**
      * Deletes the artists profile picture
      *
-     * @param int $artistId
      * @throws EmptyResultException
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -50,7 +48,7 @@ class ProfilePictureService extends StorageBaseService
     public function deleteProfilePicture(int $artistId): void
     {
         $artist = Artist::findById($artistId);
-        if ($artist === null) {
+        if (null === $artist) {
             throw new EmptyResultException('Artist not found');
         }
         unlink(self::BASE_PATH . $artist->profilePicture);

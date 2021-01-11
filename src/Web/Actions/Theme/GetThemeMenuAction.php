@@ -17,9 +17,7 @@ use stdClass;
 #[Authenticated(Authenticated::WRITER)]
 class GetThemeMenuAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
