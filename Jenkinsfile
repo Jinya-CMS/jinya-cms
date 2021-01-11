@@ -90,7 +90,7 @@ spec:
                 container('package') {
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
-                    sh 'zip -r ../jinya-cms.zip ./*'
+                    sh 'zip -r ./jinya-cms.zip ./*'
                     archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
                     sh 'go run ./main.go'
                 }
