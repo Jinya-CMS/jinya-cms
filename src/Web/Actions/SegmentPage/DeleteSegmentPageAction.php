@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class DeleteSegmentPageAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -30,7 +28,7 @@ class DeleteSegmentPageAction extends Action
     protected function action(): Response
     {
         $segmentPage = SegmentPage::findById($this->args['id']);
-        if ($segmentPage === null) {
+        if (null === $segmentPage) {
             throw new NoResultException($this->request, 'Segment page not found');
         }
 

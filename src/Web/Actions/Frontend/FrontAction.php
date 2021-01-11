@@ -14,15 +14,12 @@ use Throwable;
 
 abstract class FrontAction extends Action
 {
-
     protected Engine $engine;
 
     protected Theming\Theme $activeTheme;
 
     /**
      * FrontAction constructor.
-     * @param Engine $engine
-     * @param LoggerInterface $logger
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
@@ -35,16 +32,17 @@ abstract class FrontAction extends Action
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {
         try {
             return $this->protectedAction();
         } catch (Throwable $exception) {
-            if ($this->activeTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+            if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
                 $this->logger->error($exception->getMessage());
                 $this->logger->error($exception->getTraceAsString());
+
                 return $this->response
                     ->withHeader('Location', $this->request->getUri()->getHost())
                     ->withStatus(302);
@@ -74,18 +72,12 @@ abstract class FrontAction extends Action
     /**
      * Gets executed in a secure context
      *
-     * @return Response
      * @throws HttpException
      */
     abstract protected function protectedAction(): Response;
 
     /**
      * Renders the given template with the given data
-     *
-     * @param string $template
-     * @param array $data
-     * @param int $statusCode
-     * @return Response
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {
@@ -97,7 +89,7 @@ abstract class FrontAction extends Action
         $this->engine->loadExtension(new URI($this->request->getUri()->getPath()));
 
         $renderResult = $this->engine
-            ->render(stripos($template, 'theme::') === 0 ? $template : "theme::$template", $data);
+            ->render(0 === stripos($template, 'theme::') ? $template : "theme::$template", $data);
         $this->response->getBody()->write($renderResult);
 
         return $this->response
@@ -106,40 +98,43 @@ abstract class FrontAction extends Action
     }
 
     /**
-     * @param Database\MenuItem $menuItem
-     * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      */
     protected function renderMenuItem(Database\MenuItem $menuItem): Response
     {
-        if ($menuItem->segmentPageId !== null) {
+        if (null !== $menuItem->segmentPageId) {
             $segmentPage = $menuItem->getSegmentPage();
+
             return $this->render('theme::segment-page', ['page' => $segmentPage]);
         }
 
-        if ($menuItem->formId !== null) {
+        if (null !== $menuItem->formId) {
             $form = $menuItem->getForm();
+
             return $this->render('theme::form', ['form' => $form]);
         }
 
-        if ($menuItem->artistId !== null) {
+        if (null !== $menuItem->artistId) {
             $artist = $menuItem->getArtist();
+
             return $this->render('theme::profile', ['artist' => $artist]);
         }
 
-        if ($menuItem->galleryId !== null) {
+        if (null !== $menuItem->galleryId) {
             $gallery = $menuItem->getGallery();
+
             return $this->render('theme::gallery', ['gallery' => $gallery]);
         }
 
-        if ($menuItem->pageId !== null) {
+        if (null !== $menuItem->pageId) {
             $page = $menuItem->getPage();
+
             return $this->render('theme::simple-page', ['page' => $page]);
         }
 
-        if ($this->activeTheme->getErrorBehavior() === Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE) {
+        if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
             return $this->response
                 ->withHeader('Location', $this->request->getUri()->getHost())
                 ->withStatus(302);

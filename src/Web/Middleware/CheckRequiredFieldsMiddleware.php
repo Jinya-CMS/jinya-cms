@@ -18,7 +18,6 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
 
     /**
      * CheckFieldsMiddleware constructor.
-     * @param array $fields
      */
     public function __construct(array $fields)
     {
@@ -37,10 +36,6 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param array $body
-     * @param array $requiredFields
-     * @param Request $request
-     * @return bool
      * @throws MissingFieldsException
      */
     private function checkRequiredFields(array $body, array $requiredFields, Request $request): bool
@@ -52,7 +47,6 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
             return true;
         }
 
-        throw new MissingFieldsException($request,
-            array_values(array_diff($requiredFields, array_values($intersectBody))));
+        throw new MissingFieldsException($request, array_values(array_diff($requiredFields, array_values($intersectBody))));
     }
 }
