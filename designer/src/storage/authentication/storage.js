@@ -31,7 +31,7 @@ export function deleteRoles() {
 }
 
 export function getRoles() {
-  return JSON.parse(localStorage.getItem('/jinya/auth/roles'));
+  return JSON.parse(localStorage.getItem('/jinya/auth/roles')) ?? [];
 }
 
 export function setDeviceCode(code) {
