@@ -3,7 +3,7 @@ FROM php:8.0-apache
 COPY ./docker/conf/memory-limit.ini /usr/local/etc/php/conf.d/memory-limit.ini
 COPY ./docker/conf/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 COPY ./docker/entrypoint.sh /entrypoint.sh
-COPY --chown=www-data ./jinya-cms /var/www/jinya/
+COPY --chown=www-data ./ /var/www/jinya/
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
