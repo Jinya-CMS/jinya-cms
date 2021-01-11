@@ -19,8 +19,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class DeactivateArtistAction extends Action
 {
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws ConflictException
      * @throws JsonException
      * @throws UniqueFailedException
@@ -30,7 +29,7 @@ class DeactivateArtistAction extends Action
     protected function action(): Response
     {
         $artist = Artist::findById($this->args['id']);
-        if (Artist::countAdmins() === 1 && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
+        if (1 === Artist::countAdmins() && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
             throw new ConflictException($this->request, 'Cannot disable last admin');
         }
 

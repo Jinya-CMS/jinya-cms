@@ -17,10 +17,8 @@ use Slim\Exception\HttpNotFoundException;
 #[Authenticated(role: Authenticated::READER)]
 class GetFileByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws HttpNotFoundException
      * @throws JsonException
      * @throws ForeignKeyFailedException
@@ -29,8 +27,8 @@ class GetFileByIdAction extends Action
      */
     protected function action(): Response
     {
-        $artist = File::findById((int)$this->args['id']);
-        if ($artist === null) {
+        $artist = File::findById((int) $this->args['id']);
+        if (null === $artist) {
             throw new HttpNotFoundException($this->request, 'Artist not found');
         }
 

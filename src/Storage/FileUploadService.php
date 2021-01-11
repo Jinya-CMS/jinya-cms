@@ -16,10 +16,7 @@ class FileUploadService extends StorageBaseService
     /**
      * Saves a new file chunk and returns it
      *
-     * @param int $fileId
-     * @param int $position
      * @param string|resource $data
-     * @return UploadingFileChunk
      * @throws EmptyResultException
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
@@ -31,7 +28,7 @@ class FileUploadService extends StorageBaseService
         file_put_contents($path, $data);
 
         $uploadingFile = UploadingFile::findByFile($fileId);
-        if ($uploadingFile === null) {
+        if (null === $uploadingFile) {
             throw new EmptyResultException('File not found');
         }
 
@@ -47,8 +44,6 @@ class FileUploadService extends StorageBaseService
     /**
      * Finishes the upload for the given file
      *
-     * @param int $fileId
-     * @return File
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -90,7 +85,7 @@ class FileUploadService extends StorageBaseService
             $this->clearChunks($fileId);
 
             $uploadingFile = UploadingFile::findByFile($fileId);
-            /** @noinspection NullPointerExceptionInspection */
+            /* @noinspection NullPointerExceptionInspection */
             $uploadingFile->delete();
         } finally {
             fclose($tmpFileHandle);
@@ -102,7 +97,6 @@ class FileUploadService extends StorageBaseService
     /**
      * Removes all chunks for the given file
      *
-     * @param int $fileId
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
