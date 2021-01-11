@@ -7,9 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class GetUpdateAction extends UpdateAction
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws JsonException
      */
     protected function action(): Response

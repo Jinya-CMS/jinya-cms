@@ -18,9 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class PutThemePageAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws UniqueFailedException
@@ -46,7 +44,7 @@ class PutThemePageAction extends ThemeAction
         }
 
         $themePage = ThemePage::findByThemeAndName($themeId, $name);
-        if ($themePage !== null) {
+        if (null !== $themePage) {
             $themePage->themeId = $themeId;
             $themePage->pageId = $page->id;
             $themePage->name = $name;

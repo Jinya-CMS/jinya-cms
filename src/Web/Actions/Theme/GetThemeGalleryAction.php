@@ -17,9 +17,7 @@ use stdClass;
 #[Authenticated(Authenticated::WRITER)]
 class GetThemeGalleryAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException

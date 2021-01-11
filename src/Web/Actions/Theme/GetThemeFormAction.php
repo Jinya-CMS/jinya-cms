@@ -17,9 +17,7 @@ use stdClass;
 #[Authenticated(Authenticated::WRITER)]
 class GetThemeFormAction extends ThemeAction
 {
-
     /**
-     * @return Response
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException

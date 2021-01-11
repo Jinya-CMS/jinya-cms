@@ -15,11 +15,10 @@ use Slim\Exception\HttpForbiddenException;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
-
     public const LOGGED_IN_ARTIST = 'logged_in_artist';
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      * @throws HttpForbiddenException
      * @throws Exception
      */

@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 class ResetItemParentAction extends Action
 {
-
     protected function action(): Response
     {
         $menuId = $this->args['menuId'];
