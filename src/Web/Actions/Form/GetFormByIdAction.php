@@ -17,10 +17,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::READER)]
 class GetFormByIdAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class GetFormByIdAction extends Action
     {
         $id = $this->args['id'];
         $form = Form::findById($id);
-        if ($form === null) {
+        if (null === $form) {
             throw new NoResultException($this->request, 'Form not found');
         }
 

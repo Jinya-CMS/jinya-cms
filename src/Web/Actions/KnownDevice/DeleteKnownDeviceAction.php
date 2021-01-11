@@ -18,10 +18,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class DeleteKnownDeviceAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws JsonException
      * @throws NoResultException
      * @throws ForeignKeyFailedException
@@ -31,7 +29,7 @@ class DeleteKnownDeviceAction extends Action
     protected function action(): Response
     {
         $device = KnownDevice::findByCode($this->args['key']);
-        if ($device === null) {
+        if (null === $device) {
             throw new NoResultException($this->request, 'Known device not found');
         }
 

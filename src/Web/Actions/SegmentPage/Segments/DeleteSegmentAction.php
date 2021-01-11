@@ -17,10 +17,8 @@ use Slim\Exception\HttpNotFoundException;
 #[Authenticated(Authenticated::WRITER)]
 class DeleteSegmentAction extends Action
 {
-
     /**
-     * @inheritDoc
-     * @return Response
+     * {@inheritDoc}
      * @throws HttpNotFoundException
      * @throws JsonException
      * @throws ForeignKeyFailedException

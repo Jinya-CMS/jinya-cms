@@ -19,9 +19,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated]
 class UpdateProfilePictureAction extends Action
 {
-
     /**
-     * @return Response
      * @throws EmptyResultException
      * @throws JsonException
      * @throws UniqueFailedException
