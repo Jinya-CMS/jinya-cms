@@ -17,6 +17,7 @@
   import MySqlInfoView from './database/MySqlInfoView.svelte';
   import TablesView from './database/TablesView.svelte';
   import QueryToolView from './database/QueryToolView.svelte';
+  import ArtistView from './artists/ArtistView.svelte';
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import { createEventDispatcher, onMount } from 'svelte';
   import { get, getHost, head, post, put, upload } from '../http/request';
@@ -153,6 +154,7 @@
       activeRoute = 'artists';
       activeCategory = 'artists';
       isBackstage = true;
+      activeComponent = ArtistView;
     });
 
     page.redirect('/designer/backstage', '/designer/backstage/maintenance/update');
@@ -313,11 +315,11 @@
     <div class="cosmo-page-body jinya-page-body--app">
         <div class="cosmo-page-body__content">
             {#if activeRoute === 'files'}
-                <FileView uploadDone={uploadDone} on:multiple-files-upload-start={startUpload} />
+                <FileView uploadDone={uploadDone} on:multiple-files-upload-start={startUpload}/>
             {:else if activeRoute === 'my-profile'}
-                <MyProfileView on:update-me={updateMe} on:logout={logout} />
+                <MyProfileView on:update-me={updateMe} on:logout={logout}/>
             {:else}
-                <svelte:component this={activeComponent} />
+                <svelte:component this={activeComponent}/>
             {/if}
         </div>
     </div>

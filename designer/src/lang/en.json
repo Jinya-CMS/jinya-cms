@@ -620,6 +620,65 @@
     "menu": {
       "title": "Artists",
       "artists": "Artists"
+    },
+    "action": {
+      "edit": "Edit artist",
+      "delete": "Delete artist",
+      "disable": "Disable artist",
+      "enable": "Enable artist",
+      "new": "Create artist"
+    },
+    "create": {
+      "title": "Create artist",
+      "create": "Create artist",
+      "cancel": "Discard artist",
+      "name": "Artist name",
+      "email": "Email",
+      "password": "Password",
+      "roles": "Roles",
+      "is_reader": "Reader",
+      "is_writer": "Writer",
+      "is_admin": "Admin",
+      "error": {
+        "title": "Create failed",
+        "conflict": "A artist with the chosen email already exists.",
+        "generic": "An unknown error occurred, please contact your administrator"
+      }
+    },
+    "edit": {
+      "title": "Edit artist",
+      "update": "Update artist",
+      "cancel": "Discard changes",
+      "name": "Artist name",
+      "email": "Email",
+      "password": "Password",
+      "roles": "Roles",
+      "is_reader": "Reader",
+      "is_writer": "Writer",
+      "is_admin": "Admin",
+      "error": {
+        "title": "Update failed",
+        "conflict": "A artist with the chosen email already exists.",
+        "generic": "An unknown error occurred, please contact your administrator"
+      }
+    },
+    "delete": {
+      "title": "Delete artist",
+      "message": "Do you really want to delete the artist {artistName}?",
+      "keep": "Keep artist",
+      "delete": "Delete artist"
+    },
+    "disable": {
+      "title": "Disable artist",
+      "message": "Do you really want to disable the artist {artistName}?",
+      "keep": "Keep artist enabled",
+      "delete": "Disable artist"
+    },
+    "enable": {
+      "title": "Enable artist",
+      "message": "Do you really want to enable the artist {artistName}?",
+      "keep": "Keep artist disabled",
+      "delete": "Enable artist"
     }
   },
   "top_menu": {
