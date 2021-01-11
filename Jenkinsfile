@@ -18,6 +18,20 @@ spec:
     - sleep
     args:
     - infinity
+  - name: package
+    image: registry.imanuel.dev/library/golang:buster
+    command:
+    - sleep
+    args:
+    - infinity
+  - name: docker
+    image: registry.imanuel.dev/library/docker:stable
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
 '''
             defaultContainer 'php'
         }
