@@ -308,7 +308,7 @@
         "edit": {
           "title": "Edit item",
           "update": "Update item",
-          "cancel": "Discard item",
+          "cancel": "Discard changes",
           "label": "Label",
           "placeholder": "Placeholder",
           "help_text": "Help text",
