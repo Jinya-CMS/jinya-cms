@@ -24,7 +24,7 @@
     "rollup-plugin-copy": "3.3.0",
     "rollup-plugin-monaco-editor": "0.0.7",
     "rollup-plugin-postcss": "4.0.0",
-    "rollup-plugin-svelte": "7.0.0",
+    "rollup-plugin-svelte": "7.1.0",
     "svelte": "3.31.2",
     "postcss": "8.2.4"
   }
