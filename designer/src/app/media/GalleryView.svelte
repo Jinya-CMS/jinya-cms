@@ -209,13 +209,13 @@
             <div bind:this={positionsElement} class="jinya-designer__result">
                 {#each positions as position (position.id)}
                     <img class="jinya-media-tile jinya-media-tile--draggable" data-old-position={position.position}
-                         alt={position.name} src={`${getHost()}/${position.file?.path}`}>
+                         alt={position.name} src={`${getHost()}${position.file?.path}`}>
                 {/each}
             </div>
             <div bind:this={filesElement} class="jinya-designer__toolbox">
                 {#each files as file (file.id)}
                     <img class="jinya-media-tile jinya-media-tile--medium jinya-media-tile--draggable" alt={file.name}
-                         src={`${getHost()}/${file.path}`}>
+                         src={`${getHost()}${file.path}`}>
                 {/each}
             </div>
         </div>
