@@ -1,4 +1,4 @@
 <?php
 
 define('__ROOT__', __DIR__);
-define('INSTALLED_VERSION', '18.0.3');
+define('INSTALLED_VERSION', '18.1.1');
