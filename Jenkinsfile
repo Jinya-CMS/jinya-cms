@@ -13,23 +13,21 @@ spec:
     - name: docker-sock
       hostPath:
         path: /var/run/docker.sock
-  imagePullSecrets:
-    - name: dev-imanuel-jenkins-regcred
   containers:
   - name: php
-    image: registry.imanuel.dev/library/php:8.0-apache
+    image: php:8-apache
     command:
     - sleep
     args:
     - infinity
   - name: package
-    image: registry.imanuel.dev/library/golang:buster
+    image: golang:latest
     command:
     - sleep
     args:
     - infinity
   - name: docker
-    image: registry.imanuel.dev/library/docker:stable
+    image: docker:latest
     command:
     - cat
     tty: true
