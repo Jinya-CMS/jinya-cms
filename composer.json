@@ -22,7 +22,7 @@
     "nyholm/psr7-server": "1.0.1",
     "slim/slim": "4.7.1",
     "tedivm/jshrink": "dev-master",
-    "vlucas/phpdotenv": "v5.2.0",
+    "vlucas/phpdotenv": "v5.3.0",
     "jenssegers/agent": "v2.6.4"
   },
   "require-dev": {
