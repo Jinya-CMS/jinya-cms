@@ -5,6 +5,7 @@ namespace App\Web\Actions\Authentication;
 use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\KnownDevice;
+use App\Mailing\Types\NewLoginMail;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
@@ -12,12 +13,20 @@ use App\Web\Exceptions\BadCredentialsException;
 use App\Web\Exceptions\UnknownDeviceException;
 use DateTime;
 use Exception;
+use League\Plates\Engine;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 #[JinyaAction('/api/login', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
 class LoginAction extends Action
 {
+    public function __construct(LoggerInterface $logger, public Engine $engine)
+    {
+        parent::__construct($logger);
+    }
+
     /**
      * {@inheritDoc}
      * @throws Exception
@@ -37,7 +46,7 @@ class LoginAction extends Action
             } elseif ($artist->twoFactorToken === $twoFactorCode) {
                 $knownDevice = new KnownDevice();
                 $knownDevice->setDeviceKey();
-                $knownDevice->userId = (int) $artist->id;
+                $knownDevice->userId = (int)$artist->id;
                 $knownDevice->create();
             } elseif (empty($knownDeviceCode) && empty($twoFactorCode)) {
                 throw new UnknownDeviceException($this->request, 'Unknown device');
@@ -46,7 +55,7 @@ class LoginAction extends Action
             }
 
             $apiKey = new ApiKey();
-            $apiKey->userId = (int) $artist->id;
+            $apiKey->userId = (int)$artist->id;
             $apiKey->setApiKey();
             $apiKey->validSince = new DateTime();
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');
@@ -67,6 +76,13 @@ class LoginAction extends Action
 
             $artist->twoFactorToken = null;
             $artist->update();
+
+            try {
+                $mail = new NewLoginMail($this->engine);
+                $mail->sendMail($artist->email, $artist->artistName, $apiKey);
+            } catch (Throwable $exception) {
+                $this->logger->warning($exception->getMessage());
+            }
 
             return $this->respond(
                 [
