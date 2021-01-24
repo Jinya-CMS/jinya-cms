@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var $this Template
+ * @var $artistName string
+ * @var $remoteAddress string
+ * @var $location array
+ * @var $browser string
+ * @var $platform string
+ */
+
+use League\Plates\Template\Template;
+
+?>
+<html lang="en">
+<body>
+<p>
+    Hello <?= $this->e($artistName) ?><br/><br/>
+    there was a new saved device added to your account.
+</p>
+<p>
+    The IP address is <?= $this->e($remoteAddress) ?>.
+    <?php
+    if (array_key_exists('city', $location) && !empty($location['city'])): ?>
+        Which is located at, <?= $this->e($location['city']) ?><?php
+        if (!empty($location['region'])): ?>, <?= $this->e($location['region']) ?><?php
+        endif ?><?php
+    if (!empty($location['country'])): ?> in <?= $this->e($location['country']) ?><?php
+    endif ?>.
+    <?php
+    endif ?>
+</p>
+<?php
+if (!empty($browser)): ?>
+    <p>
+        The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+    </p>
+<?php
+endif ?>
+<p>
+    Greetings,<br/>
+    Your Jinya Team
+</p>
+</body>
+</html>
