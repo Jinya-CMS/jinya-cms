@@ -21,6 +21,9 @@ class TwoFactorMail
     /**
      * Sends the two factor email
      *
+     * @param string $artistEmail
+     * @param string $artistName
+     * @param string $twoFactorCode
      * @throws Exception
      */
     public function sendMail(string $artistEmail, string $artistName, string $twoFactorCode): void
@@ -41,6 +44,7 @@ class TwoFactorMail
         );
 
         $mailer = MailerFactory::getMailer();
+        $mailer->Subject = 'Your two factor code';
         $mailer->setFrom(getenv('MAILER_FROM'));
         $mailer->addAddress($artistEmail);
         $mailer->AltBody = $renderedTextMail;
