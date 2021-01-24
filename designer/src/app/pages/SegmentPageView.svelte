@@ -288,7 +288,7 @@
     <div class="cosmo-list__content jinya-designer">
         {#if selectedPage}
             <div class="jinya-designer__title">
-                <span class="cosmo-title">{selectedPage.name}</span>
+                <span class="cosmo-title">#{selectedPage.id} {selectedPage.name}</span>
             </div>
             <div class="cosmo-toolbar cosmo-toolbar--designer">
                 <div class="cosmo-toolbar__group">

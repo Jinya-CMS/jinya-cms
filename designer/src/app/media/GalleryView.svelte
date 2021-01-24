@@ -191,7 +191,7 @@
     <div class="cosmo-list__content jinya-designer">
         {#if selectedGallery}
             <div class="jinya-designer__title">
-                <span class="cosmo-title">{selectedGallery.name}</span>
+                <span class="cosmo-title">#{selectedGallery.id} {selectedGallery.name}</span>
                 <span class="cosmo-title">
                     {$_(`media.galleries.designer.title.${selectedGallery.orientation.toLowerCase()}_${selectedGallery.type.toLowerCase()}`)}
                 </span>

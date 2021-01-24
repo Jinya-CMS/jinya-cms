@@ -21,6 +21,7 @@ class HttpErrorHandler extends SlimErrorHandler
     protected function respond(): Response
     {
         $exception = $this->exception;
+        $this->logger->warning($exception);
 
         $data = [
             'success' => false,

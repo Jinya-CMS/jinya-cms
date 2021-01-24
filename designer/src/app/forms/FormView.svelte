@@ -272,7 +272,7 @@
     <div class="cosmo-list__content jinya-designer">
         {#if selectedForm}
             <div class="jinya-designer__title">
-                <span class="cosmo-title">{selectedForm.title}</span>
+                <span class="cosmo-title">#{selectedForm.id} {selectedForm.title}</span>
             </div>
             <div class="cosmo-toolbar cosmo-toolbar--designer">
                 <div class="cosmo-toolbar__group">
