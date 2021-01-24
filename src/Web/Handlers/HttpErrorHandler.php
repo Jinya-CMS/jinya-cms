@@ -11,6 +11,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpSpecializedException;
 use Slim\Handlers\ErrorHandler as SlimErrorHandler;
+use Throwable;
 
 class HttpErrorHandler extends SlimErrorHandler
 {
@@ -21,7 +22,10 @@ class HttpErrorHandler extends SlimErrorHandler
     protected function respond(): Response
     {
         $exception = $this->exception;
-        $this->logger->warning($exception);
+        try {
+            $this->logger->error(json_encode($exception, JSON_THROW_ON_ERROR));
+        } catch (Throwable $ex) {
+        }
 
         $data = [
             'success' => false,
