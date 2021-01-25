@@ -16,7 +16,7 @@ abstract class Migrator extends LoadableEntity
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public static function migrate(): void
+    public static function migrate(): int
     {
         $sql = "SHOW TABLES LIKE 'migration_state'";
         $result = self::executeStatement($sql);
@@ -25,12 +25,13 @@ abstract class Migrator extends LoadableEntity
             self::executeStatement($initialMigration['sql']);
         }
 
-        $migrationsPath = __ROOT__ . '/src/Migrations';
+        $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
-            static fn (string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn (string $item) => '.' !== $item && '..' !== $item),
+            static fn(string $item) => "$migrationsPath/$item",
+            array_filter(scandir($migrationsPath), static fn(string $item) => '.' !== $item && '..' !== $item),
         );
 
+        $executedMigrations = 0;
         foreach ($files as $file) {
             /** @noinspection PhpIncludeInspection */
             $migration = require $file;
@@ -44,7 +45,10 @@ abstract class Migrator extends LoadableEntity
                 self::executeStatement($script);
                 $insert = 'INSERT INTO migration_state (version) VALUES (:version)';
                 self::executeStatement($insert, ['version' => $version]);
+                $executedMigrations++;
             }
         }
+
+        return $executedMigrations;
     }
 }
