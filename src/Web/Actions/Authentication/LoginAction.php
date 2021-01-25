@@ -43,6 +43,11 @@ class LoginAction extends Action
         $knownDeviceCode = $this->request->getHeaderLine('JinyaDeviceCode');
 
         $artist = Artist::findByEmail($username);
+        if ($artist !== null && $artist->loginBlockedUntil !== null && $artist->loginBlockedUntil->getTimestamp(
+            ) >= time()) {
+            throw new BadCredentialsException($this->request, 'Your account is currently locked');
+        }
+
         if (null !== $artist && $artist->validatePassword($password)) {
             $userAgentHeader = $this->request->getHeaderLine('User-Agent');
             if (!empty($knownDeviceCode) && $artist->validateDevice($knownDeviceCode)) {
@@ -84,6 +89,7 @@ class LoginAction extends Action
             $apiKey->create();
 
             $artist->twoFactorToken = null;
+            $artist->unlockAccount();
             $artist->update();
 
             try {
@@ -99,6 +105,10 @@ class LoginAction extends Action
                     'roles' => $artist->roles,
                 ]
             );
+        }
+
+        if (!$artist->validatePassword($password)) {
+            $artist->registerFailedLogin();
         }
 
         throw new BadCredentialsException($this->request, 'Bad credentials');

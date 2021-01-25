@@ -10,10 +10,12 @@ use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Web\Middleware\RoleMiddleware;
+use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
+use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use LogicException;
 
 class Artist extends LoadableEntity implements FormattableEntityInterface
@@ -25,6 +27,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public string $artistName = '';
     public ?string $profilePicture = '';
     public ?string $aboutMe = '';
+    public ?int $failedLoginAttempts = 0;
+    public ?DateTime $loginBlockedUntil = null;
     private string $password = '';
 
     /**
@@ -37,7 +41,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findByEmail(string $email): ?Artist
     {
-        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email = :email';
+        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me, failed_login_attempts, login_blocked_until FROM users WHERE email = :email';
         $result = self::executeStatement($sql, ['email' => $email]);
 
         if (count($result) === 0) {
@@ -50,6 +54,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             [
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
+                'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             ]
         );
     }
@@ -224,7 +229,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'roles' => $this->roles,
             'enabled' => $this->enabled,
             'id' => $this->getIdAsInt(),
-            'aboutMe'=>$this->aboutMe,
+            'aboutMe' => $this->aboutMe,
         ];
     }
 
@@ -311,7 +316,24 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             [
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
+                'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
             ]
         );
+    }
+
+    public function registerFailedLogin(): void
+    {
+        ++$this->failedLoginAttempts;
+        if ($this->failedLoginAttempts >= 10) {
+            $this->loginBlockedUntil = (new DateTime('now'))->add(new \DateInterval('PT10M'));
+        }
+        $this->update();
+    }
+
+    public function unlockAccount(): void
+    {
+        $this->failedLoginAttempts = null;
+        $this->loginBlockedUntil = null;
+        $this->update();
     }
 }

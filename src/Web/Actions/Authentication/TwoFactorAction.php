@@ -10,6 +10,7 @@ use App\Mailing\Types\TwoFactorMail;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
+use App\Web\Exceptions\BadCredentialsException;
 use JetBrains\PhpStorm\Pure;
 use JsonException;
 use PHPMailer\PHPMailer\Exception;
@@ -41,12 +42,18 @@ class TwoFactorAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws BadCredentialsException
      * @throws Exception
      */
     protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $artist = Artist::findByEmail($body['username']);
+        if ($artist !== null && $artist->loginBlockedUntil !== null && $artist->loginBlockedUntil->getTimestamp(
+            ) >= time()) {
+            throw new BadCredentialsException($this->request, 'Your account is currently locked');
+        }
+
         if ($artist !== null && $artist->validatePassword($body['password'])) {
             $artist->setTwoFactorCode();
             $artist->update();
@@ -58,6 +65,10 @@ class TwoFactorAction extends Action
 
         if ($artist !== null) {
             $artist->twoFactorToken = null;
+            if (!$artist->validatePassword($body['password'])) {
+                $artist->registerFailedLogin();
+            }
+
             $artist->update();
         }
 
