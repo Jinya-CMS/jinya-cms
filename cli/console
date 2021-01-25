@@ -1,0 +1,96 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/../defines.php';
+require __ROOT__ . '/vendor/autoload.php';
+
+use App\Console\AbstractCommand;
+use App\Console\JinyaCommand;
+use Dotenv\Exception\ValidationException;
+use League\CLImate\CLImate;
+
+$climate = new CLImate();
+
+if (file_exists(__ROOT__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__ROOT__);
+    $dotenv->load();
+    try {
+        $dotenv->required(
+            [
+                'APP_ENV',
+                'MYSQL_PASSWORD',
+                'MYSQL_USER',
+                'MYSQL_DATABASE',
+                'MYSQL_HOST',
+                'MAILER_HOST',
+                'MAILER_PORT',
+                'MAILER_SMTP_AUTH',
+                'MAILER_FROM',
+            ]
+        );
+    } catch (ValidationException $exception) {
+        $climate->to('error')->error($exception->getMessage());
+        $climate->to('error')->error("Failed to load and verify dotenv");
+        exit(1);
+    }
+}
+
+$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__ . '/src/Console'));
+$classesWithFullPath = [];
+foreach ($files as $file) {
+    if ($file->isFile()) {
+        $classesWithFullPath[] = $file->getPathname();
+    }
+}
+foreach ($classesWithFullPath as $path) {
+    $class = 'App' . str_replace('.php', '', implode('\\', explode('/', explode('src', $path)[1])));
+    class_exists($class, true);
+}
+
+$classes = get_declared_classes();
+$commands = [];
+foreach ($classes as $class) {
+    $reflectionClass = new ReflectionClass($class);
+    $parentClass = $reflectionClass->getParentClass();
+    if ($parentClass && str_ends_with($parentClass->getName(), 'AbstractCommand')) {
+        /** @var JinyaCommand $attribute */
+        $attribute = $reflectionClass->getAttributes(JinyaCommand::class)[0]->newInstance();
+        $commands[$attribute->command] = $class;
+    }
+}
+
+if ($argc >= 2) {
+    $commandName = $argv[1];
+    if (array_key_exists($commandName, $commands)) {
+        $reflectionCommand = new ReflectionClass($commands[$commandName]);
+        /** @var AbstractCommand $command */
+        $command = $reflectionCommand->newInstance();
+        try {
+            $command->run();
+        } catch (Throwable $exception) {
+            $climate->to('error')->error("Failed to run command $commandName");
+            $climate->to('error')->error($exception->getMessage());
+            $climate->to('error')->error($exception->getTraceAsString());
+            exit(1);
+        }
+    } elseif (empty($commandName) || $commandName === 'help') {
+        $validCommands = array_keys($commands);
+        $climate->info('Available commands are:');
+        foreach ($validCommands as $validCommand) {
+            $climate->info("▶ $validCommand");
+        }
+        exit(0);
+    } else {
+        $climate->error("Command $commandName not declared");
+        exit(1);
+    }
+} else {
+    $validCommands = array_keys($commands);
+    $climate->info('Available commands are:');
+    foreach ($validCommands as $validCommand) {
+        $climate->info("▶ $validCommand");
+    }
+    exit(0);
+}

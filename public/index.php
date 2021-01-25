@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 require __DIR__ . '/../defines.php';
-/** @var ClassLoader $autoloader */
-$autoloader = require __ROOT__ . '/vendor/autoload.php';
+require __ROOT__ . '/vendor/autoload.php';
 
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;

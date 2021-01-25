@@ -24,7 +24,7 @@ class RouteResolver
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../Actions'));
         $classesWithFullPath = [];
         foreach ($files as $file) {
-            if (is_file($file)) {
+            if ($file->isFile()) {
                 $classesWithFullPath[] = $file->getPathname();
             }
         }
