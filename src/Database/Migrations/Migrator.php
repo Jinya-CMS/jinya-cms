@@ -27,8 +27,8 @@ abstract class Migrator extends LoadableEntity
 
         $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
-            static fn(string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn(string $item) => '.' !== $item && '..' !== $item),
+            static fn (string $item) => "$migrationsPath/$item",
+            array_filter(scandir($migrationsPath), static fn (string $item) => '.' !== $item && '..' !== $item),
         );
 
         $executedMigrations = 0;
@@ -45,7 +45,7 @@ abstract class Migrator extends LoadableEntity
                 self::executeStatement($script);
                 $insert = 'INSERT INTO migration_state (version) VALUES (:version)';
                 self::executeStatement($insert, ['version' => $version]);
-                $executedMigrations++;
+                ++$executedMigrations;
             }
         }
 
