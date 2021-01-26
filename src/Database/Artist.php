@@ -324,7 +324,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public function registerFailedLogin(): void
     {
         ++$this->failedLoginAttempts;
-        if ($this->failedLoginAttempts >= 10) {
+        if ($this->failedLoginAttempts >= 5) {
             $this->loginBlockedUntil = (new DateTime('now'))->add(new \DateInterval('PT10M'));
         }
         $this->update();
