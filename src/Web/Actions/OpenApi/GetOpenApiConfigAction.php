@@ -10,9 +10,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/system/openapi', JinyaAction::GET)]
 class GetOpenApiConfigAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {
