@@ -1,6 +1,14 @@
 # How to Contribute
-Good to hear, that you want to contribute.
 
-If you want to provide a new feature, improvement or bug fix, simply fork this repository and make your changes. After that send a small pull request to this repository to the main branch.
+## Pull Requests
 
-All PHP code in your PR must adhere to the [PSR-12 standard](https://www.php-fig.org/psr/psr-12/). All JavaScript and Svelte code in your PR must adhere to the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/blob/master/README.md).
+1. Fork the Slim Skeleton repository
+2. Create a new branch for each feature or improvement
+3. Send a pull request from each feature branch to the **4.x** branch
+
+It is very important to separate new features or improvements into separate feature branches, and to send a
+pull request for each branch. This allows us to review and pull in new features or improvements individually.
+
+## Style Guide
+
+All pull requests must adhere to the [PSR-2 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md).

@@ -3,6 +3,8 @@
 namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use DateTime;
 use Exception;
 use Iterator;
@@ -10,12 +12,18 @@ use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
+#[OpenApiModel('Contains an api key for authentication', hasId: false)]
 class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
 {
+    #[OpenApiField(required: true)]
     public string $apiKey;
+    #[OpenApiField(required: true)]
     public int $userId;
+    #[OpenApiField(required: true, format: OpenApiField::FORMAT_DATE_TIME)]
     public DateTime $validSince;
+    #[OpenApiField(required: true)]
     public string $userAgent;
+    #[OpenApiField(required: true)]
     public string $remoteAddress;
 
     /**

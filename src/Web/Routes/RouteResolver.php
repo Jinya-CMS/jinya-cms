@@ -12,6 +12,7 @@ use App\Web\Middleware\CheckRequiredOneOfFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionAttribute;
 use ReflectionClass;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
@@ -19,59 +20,6 @@ use Slim\Routing\RouteCollectorProxy;
 class RouteResolver
 {
     public function resolveRoutes(App $app): RouteCollectorProxy
-    {
-        $routes = $this->getRoutes();
-
-        $proxy = new RouteCollectorProxy(
-            $app->getResponseFactory(),
-            $app->getCallableResolver(),
-            $app->getContainer(),
-            $app->getRouteCollector()
-        );
-
-        foreach ($routes as $route) {
-            $requiredFieldsAttribute = $route->getRequiredFieldsAttribute();
-            $requireOneFieldAttribute = $route->getRequireOneFieldAttribute();
-            $authenticatedAttribute = $route->getAuthenticatedAttribute();
-            foreach ($route->getActions() as $action) {
-                $actionRoute = match ($action->method) {
-                    JinyaAction::GET => $proxy->get($action->url, $route['class']),
-                    JinyaAction::POST => $proxy->post($action->url, $route['class']),
-                    JinyaAction::PUT => $proxy->put($action->url, $route['class']),
-                    JinyaAction::DELETE => $proxy->delete($action->url, $route['class']),
-                    JinyaAction::HEAD => $proxy->map(['HEAD'], $action->url, $route['class']),
-                    default => null,
-                };
-                $actionRoute->setName($route->class);
-                if ($authenticatedAttribute !== null) {
-                    if ($authenticatedAttribute->role !== '') {
-                        $actionRoute->addMiddleware(new RoleMiddleware($authenticatedAttribute->role));
-                    }
-                    $actionRoute->addMiddleware(new AuthenticationMiddleware());
-                }
-
-                if ($requiredFieldsAttribute !== null) {
-                    $actionRoute->addMiddleware(
-                        new CheckRequiredFieldsMiddleware($requiredFieldsAttribute->requiredFields)
-                    );
-                }
-
-                if ($requireOneFieldAttribute !== null) {
-                    $actionRoute->addMiddleware(
-                        new CheckRequiredOneOfFieldsMiddleware($requireOneFieldAttribute->validFields)
-                    );
-                }
-            }
-        }
-
-        return $proxy;
-    }
-
-    /**
-     * @return Route[]
-     * @throws \ReflectionException
-     */
-    public function getRoutes(): array
     {
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../Actions'));
         $classesWithFullPath = [];
@@ -91,21 +39,73 @@ class RouteResolver
             $reflectionClass = new ReflectionClass($class);
             $parentClass = $reflectionClass->getParentClass();
             if ($parentClass && str_ends_with($parentClass->getName(), 'Action')) {
-                $requiredFields = $reflectionClass->getAttributes(RequiredFields::class);
-                $requiredFieldsAttribute = empty($requiredFields) ? null : $requiredFields[0];
-                $requiredOneField = $reflectionClass->getAttributes(RequireOneField::class);
-                $requiredOneFieldAttribute = empty($requiredOneField) ? null : $requiredOneField[0];
-                $authenticated = $reflectionClass->getAttributes(Authenticated::class);
-                $authenticatedAttribute = empty($authenticated) ? null : $authenticated[0];
-                $routes[] = new Route(
-                    $reflectionClass->getAttributes(JinyaAction::class),
-                    $requiredFieldsAttribute,
-                    $requiredOneFieldAttribute,
-                    $authenticatedAttribute,
-                    $class,
-                );
+                $routes[] = [
+                    'jinyaAction' => $reflectionClass->getAttributes(JinyaAction::class),
+                    'requiredFields' => $reflectionClass->getAttributes(RequiredFields::class),
+                    'authenticated' => $reflectionClass->getAttributes(Authenticated::class),
+                    'requireOneField' => $reflectionClass->getAttributes(RequireOneField::class),
+                    'class' => $class,
+                ];
             }
         }
-        return $routes;
+
+        $proxy = new RouteCollectorProxy(
+            $app->getResponseFactory(),
+            $app->getCallableResolver(),
+            $app->getContainer(),
+            $app->getRouteCollector()
+        );
+
+        foreach ($routes as $route) {
+            /** @var ReflectionAttribute[] $actionAttributes */
+            $actionAttributes = $route['jinyaAction'];
+            /** @var ReflectionAttribute[] $requiredFieldsAttributes */
+            $requiredFieldsAttributes = $route['requiredFields'];
+            /** @var ReflectionAttribute[] $requireOneFieldAttributes */
+            $requireOneFieldAttributes = $route['requireOneField'];
+            /** @var ReflectionAttribute[] $authenticatedAttributes */
+            $authenticatedAttributes = $route['authenticated'];
+            if (!empty($actionAttributes)) {
+                foreach ($actionAttributes as $action) {
+                    /** @var JinyaAction $actionAttribute */
+                    $actionAttribute = $action->newInstance();
+                    $actionRoute = match ($actionAttribute->method) {
+                        JinyaAction::GET => $proxy->get($actionAttribute->url, $route['class']),
+                        JinyaAction::POST => $proxy->post($actionAttribute->url, $route['class']),
+                        JinyaAction::PUT => $proxy->put($actionAttribute->url, $route['class']),
+                        JinyaAction::DELETE => $proxy->delete($actionAttribute->url, $route['class']),
+                        JinyaAction::HEAD => $proxy->map(['HEAD'], $actionAttribute->url, $route['class']),
+                        default => null,
+                    };
+                    $actionRoute->setName($route['class']);
+                    if (!empty($authenticatedAttributes)) {
+                        /** @var Authenticated $authenticated */
+                        $authenticated = $authenticatedAttributes[0]->newInstance();
+                        if ($authenticated->role !== '') {
+                            $actionRoute->addMiddleware(new RoleMiddleware($authenticated->role));
+                        }
+                        $actionRoute->addMiddleware(new AuthenticationMiddleware());
+                    }
+
+                    if (!empty($requiredFieldsAttributes)) {
+                        /** @var RequiredFields $requiredFieldsAttribute */
+                        $requiredFieldsAttribute = $requiredFieldsAttributes[0]->newInstance();
+                        $actionRoute->addMiddleware(
+                            new CheckRequiredFieldsMiddleware($requiredFieldsAttribute->requiredFields)
+                        );
+                    }
+
+                    if (!empty($requireOneFieldAttributes)) {
+                        /** @var RequireOneField $requireOneFieldAttribute */
+                        $requireOneFieldAttribute = $requireOneFieldAttributes[0]->newInstance();
+                        $actionRoute->addMiddleware(
+                            new CheckRequiredOneOfFieldsMiddleware($requireOneFieldAttribute->validFields)
+                        );
+                    }
+                }
+            }
+        }
+
+        return $proxy;
     }
 }
