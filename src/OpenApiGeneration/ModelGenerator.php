@@ -125,7 +125,7 @@ class ModelGenerator
                     }
 
                     if ($fieldAttribute->object) {
-                        $openApiProperty['type'] = 'object';
+                        $openApiProperty['type'] = self::TYPE_OBJECT;
                         if ($fieldAttribute->objectRef !== null) {
                             $refPath = explode('\\', $fieldAttribute->objectRef);
                             $refPath = array_reverse($refPath);
