@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 
 volumes:
   logs:
@@ -20,7 +20,9 @@ services:
       - 8525:8025
       - 1525:1025
   jinya-backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - 8080:80
     volumes:

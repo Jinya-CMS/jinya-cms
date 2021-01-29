@@ -2,15 +2,30 @@
 
 namespace App\Database;
 
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
+#[OpenApiModel('Gallery file positions contain information about the files in a gallery')]
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiField(structure: [
+        'id' => ['type' => 'int'],
+        'name' => ['type' => 'string'],
+        'description' => ['type' => 'string'],
+    ], name: 'gallery')]
     public int $galleryId;
+    #[OpenApiField(structure: [
+        'path' => ['type' => 'string'],
+        'id' => ['type' => 'int'],
+        'name' => ['type' => 'string'],
+        'type' => ['type' => 'string'],
+    ], name: 'file')]
     public int $fileId;
+    #[OpenApiField(required: true)]
     public int $position;
 
     /**

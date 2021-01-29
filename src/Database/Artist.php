@@ -9,6 +9,9 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\Web\Middleware\RoleMiddleware;
 use DateTime;
 use Exception;
@@ -18,17 +21,28 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use LogicException;
 
+#[OpenApiModel("Artists are the users of Jinya", hasId: true)]
 class Artist extends LoadableEntity implements FormattableEntityInterface
 {
+    #[OpenApiField(required: true, format: OpenApiField::FORMAT_EMAIL)]
     public string $email = '';
+    #[OpenApiField(required: true, defaultValue: false)]
     public bool $enabled = false;
+    #[OpenApiHiddenField]
     public ?string $twoFactorToken = '';
+    #[OpenApiField(required: true, enumValues: ["ROLE_ADMIN", "ROLE_READER", "ROLE_WRITER"])]
     public array $roles = [];
+    #[OpenApiField(required: true)]
     public string $artistName = '';
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $profilePicture = '';
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $aboutMe = '';
+    #[OpenApiHiddenField]
     public ?int $failedLoginAttempts = 0;
+    #[OpenApiHiddenField]
     public ?DateTime $loginBlockedUntil = null;
+    #[OpenApiHiddenField]
     private string $password = '';
 
     /**

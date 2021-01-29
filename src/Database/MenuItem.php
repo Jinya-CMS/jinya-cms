@@ -2,21 +2,53 @@
 
 namespace App\Database;
 
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
+use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use Exception;
 use Iterator;
 use RuntimeException;
 
+#[OpenApiModel('A menu item contains the navigation information')]
+#[OpenApiRecursiveField('items')]
 class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiHiddenField]
     public ?int $menuId = null;
+    #[OpenApiHiddenField]
     public ?int $parentId = null;
+    #[OpenApiField(required: true)]
     public string $title;
+    #[OpenApiField(required: false, defaultValue: null)]
     public ?string $route;
+    #[OpenApiField(required: false)]
     public bool $highlighted = false;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'title' => ['type' => 'string'],
+    ], name: 'form')]
     public ?int $formId = null;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'artistName' => ['type' => 'string'],
+        'email' => ['type' => 'string', 'format' => 'email'],
+    ], name: 'artist')]
     public ?int $artistId = null;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'name' => ['type' => 'string'],
+    ], name: 'gallery')]
     public ?int $galleryId = null;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'name' => ['type' => 'string'],
+    ], name: 'segmentPage')]
     public ?int $segmentPageId = null;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'title' => ['type' => 'string'],
+    ], name: 'page')]
     public ?int $pageId = null;
 
     /**
@@ -38,6 +70,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Finds a menu item by its parent menu and the position
      *
+     * @param int $menuId
+     * @param int $position
+     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -94,6 +129,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Finds the menu item with the given route
      *
      * @param $route
+     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
@@ -351,6 +387,8 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Format the artist list
      *
+     * @param Iterator $iterator
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException

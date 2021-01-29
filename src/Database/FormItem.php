@@ -3,20 +3,33 @@
 namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use RuntimeException;
 
+#[OpenApiModel(description: 'A form item is part of a form, containing information to send')]
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiField(required: false, defaultValue: 'text')]
     public string $type;
+    #[OpenApiField(required: false, defaultValue: [])]
     public array $options;
+    #[OpenApiField(required: false, defaultValue: [])]
     public array $spamFilter;
+    #[OpenApiField(required: true)]
     public string $label;
+    #[OpenApiField(required: false)]
     public string $helpText;
+    #[OpenApiField(required: false, defaultValue: '')]
     public int $formId;
+    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isFromAddress;
+    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isSubject;
+    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isRequired;
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $placeholder;
 
     /**
@@ -86,6 +99,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         return Form::findById($this->formId);
     }
 
+    /**
+     * @return array
+     */
     public function format(): array
     {
         return [

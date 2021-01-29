@@ -7,6 +7,7 @@ require __ROOT__ . '/vendor/autoload.php';
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;
 use App\Web\Routes\RouteResolver;
+use Composer\Autoload\ClassLoader;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;

@@ -2,11 +2,12 @@
 
 namespace App\OpenApiGeneration;
 
+use App\OpenApiGeneration\Attributes\OpenApiAdditionalField;
 use App\OpenApiGeneration\Attributes\OpenApiField;
 use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
+use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use App\OpenApiGeneration\Exceptions\OpenApiModelException;
-use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -16,12 +17,14 @@ use ReflectionNamedType;
 
 class ModelGenerator
 {
+    private const TYPE_OBJECT = 'object';
+
     /**
-     * @return Iterator
+     * @return array
      * @throws OpenApiModelException
      * @throws ReflectionException
      */
-    public function generateModels(): Iterator
+    public function generateModels(): array
     {
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__ . '/src/Database'));
         $classesWithFullPath = [];
@@ -36,12 +39,16 @@ class ModelGenerator
         }
 
         $classes = get_declared_classes();
+        $result = [];
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);
             if (!empty($reflectionClass->getAttributes(OpenApiModel::class))) {
-                yield $this->generateModel($reflectionClass);
+                $model = $this->generateModel($reflectionClass);
+                $result[$model['title']] = $model;
             }
         }
+
+        return $result;
     }
 
     /**
@@ -64,7 +71,7 @@ class ModelGenerator
 
         $result = [
             'title' => $reflectionClass->getShortName(),
-            'type' => 'object',
+            'type' => self::TYPE_OBJECT,
         ];
 
         /** @var OpenApiModel $attribute */
@@ -85,7 +92,11 @@ class ModelGenerator
             $openApiFieldAttributes = $property->getAttributes(OpenApiField::class);
             $propertyType = $property->getType();
             if ($propertyType instanceof ReflectionNamedType) {
-                $openApiProperty['type'] = $propertyType->getName();
+                $openApiProperty['type'] = match ($propertyType->getName()) {
+                    'int' => 'integer',
+                    'bool' => 'boolean',
+                    default => $propertyType->getName()
+                };
                 if (!empty($openApiFieldAttributes)) {
                     /** @var OpenApiField $fieldAttribute */
                     $fieldAttribute = $openApiFieldAttributes[0]->newInstance();
@@ -109,10 +120,53 @@ class ModelGenerator
                     if ($fieldAttribute->array && !empty($fieldAttribute->arrayRef)) {
                         $refPath = explode('\\', $fieldAttribute->arrayRef);
                         $refPath = array_reverse($refPath);
-                        $openApiProperties['items'] = ['$ref' => "#/components/schemas/$refPath[0]"];
+                        $openApiProperty['type'] = 'array';
+                        $openApiProperty['items'] = ['$ref' => "#/components/schemas/$refPath[0]"];
                     }
+
+                    if ($fieldAttribute->object) {
+                        $openApiProperty['type'] = 'object';
+                        if ($fieldAttribute->objectRef !== null) {
+                            $refPath = explode('\\', $fieldAttribute->objectRef);
+                            $refPath = array_reverse($refPath);
+                            $openApiProperty['$ref'] = "#/components/schemas/$refPath[0]";
+                        }
+                    }
+
+                    if (!empty($fieldAttribute->structure)) {
+                        $openApiProperty['type'] = self::TYPE_OBJECT;
+                        $openApiProperty['properties'] = $fieldAttribute->structure;
+                    }
+                } else {
+                    $fieldAttribute = null;
                 }
-                $openApiProperties[$property->getName()] = $openApiProperty;
+                if ($fieldAttribute !== null && $fieldAttribute->name !== null) {
+                    $openApiProperties[$fieldAttribute->name] = $openApiProperty;
+                } else {
+                    $openApiProperties[$property->getName()] = $openApiProperty;
+                }
+            }
+        }
+
+        $openApiRecursiveFieldAttributes = $reflectionClass->getAttributes(OpenApiRecursiveField::class);
+        if (!empty($openApiRecursiveFieldAttributes)) {
+            foreach ($openApiRecursiveFieldAttributes as $openApiRecursiveFieldAttribute) {
+                /** @var OpenApiRecursiveField $openApiRecursiveField */
+                $openApiRecursiveField = $openApiRecursiveFieldAttribute->newInstance();
+                $name = $reflectionClass->getShortName();
+                $openApiProperties[$openApiRecursiveField->name] = [
+                    'items' => ['$ref' => "#/components/schemas/$name"],
+                    'type' => 'array',
+                ];
+            }
+        }
+
+        $openApiAdditionalFieldAttributes = $reflectionClass->getAttributes(OpenApiAdditionalField::class);
+        if (!empty($openApiAdditionalFieldAttributes)) {
+            foreach ($openApiAdditionalFieldAttributes as $openApiAdditionalFieldAttribute) {
+                /** @var OpenApiAdditionalField $openApiAdditionalField */
+                $openApiAdditionalField = $openApiAdditionalFieldAttribute->newInstance();
+                $openApiProperties[$openApiAdditionalField->name] = ['type' => $openApiAdditionalField->type];
             }
         }
 

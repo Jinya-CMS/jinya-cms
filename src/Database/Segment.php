@@ -2,21 +2,50 @@
 
 namespace App\Database;
 
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
+#[OpenApiModel('A segment is a part of a segment page')]
 class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiField(required: false, defaultValue: '')]
     public int $pageId;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'title' => ['type' => 'string'],
+        'description' => ['type' => 'string'],
+        'toAddress' => ['type' => 'string', 'format' => 'email'],
+    ], name: 'form')]
     public ?int $formId;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'name' => ['type' => 'string'],
+        'description' => ['type' => 'string'],
+        'type' => ['type' => 'string', 'enum' => [Gallery::TYPE_SEQUENCE, Gallery::TYPE_MASONRY]],
+        'orientation' => [
+            'type' => 'string',
+            'enum' => [Gallery::ORIENTATION_VERTICAL, Gallery::ORIENTATION_HORIZONTAL]
+        ],
+    ], name: 'gallery')]
     public ?int $galleryId;
+    #[OpenApiField(required: false, structure: [
+        'id' => ['type' => 'integer'],
+        'name' => ['type' => 'string'],
+        'type' => ['type' => 'string'],
+        'path' => ['type' => 'string'],
+    ], name: 'file')]
     public ?int $fileId;
+    #[OpenApiField(required: false, enumValues: ['link', 'script', 'none'])]
     public ?string $action;
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $script;
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $target;
+    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $html;
-    public int $position;
 
     /**
      * @inheritDoc

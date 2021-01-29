@@ -5,6 +5,7 @@ namespace App\Database\Utils;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\OpenApiGeneration\Attributes\OpenApiField;
 use Iterator;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
@@ -12,6 +13,7 @@ use RuntimeException;
 
 abstract class ThemeHelperEntity extends LoadableEntity
 {
+    #[OpenApiField(required: true)]
     public string $name = '';
     public int $themeId = -1;
 

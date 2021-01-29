@@ -5,9 +5,11 @@ namespace App\Database\Utils;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\OpenApiGeneration\Attributes\OpenApiField;
 
 abstract class RearrangableEntity extends LoadableEntity
 {
+    #[OpenApiField(required: true)]
     public int $position;
 
     /**

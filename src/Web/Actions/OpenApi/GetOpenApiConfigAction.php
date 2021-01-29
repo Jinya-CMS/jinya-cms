@@ -18,7 +18,32 @@ class GetOpenApiConfigAction extends Action
     {
         $modelGenerator = new ModelGenerator();
         $models = $modelGenerator->generateModels();
-
-        return $this->respond(iterator_to_array($models));
+        $result = [
+            'openapi' => '3.0.0',
+            'info' => [
+                'title' => 'Jinya CMS API',
+                'version' => INSTALLED_VERSION,
+                'description' => 'The OpenAPI specification for your installed Jinya version',
+                'contact' => [
+                    'name' => 'Jinya Developers',
+                    'url' => 'https://github.com/Jinya-CMS/jinya-cms',
+                    'email' => 'developers@jinya.de',
+                ],
+                'license' => [
+                    'name' => 'MIT',
+                    'url' => 'https://github.com/Jinya-CMS/jinya-CMS/blob/main/LICENSE',
+                ],
+            ],
+            'servers' => [
+                [
+                    'url' => 'https://' . $this->request->getHeader('host')[0],
+                    'description' => 'Your Jinya instance',
+                ],
+            ],
+            'components' => [
+                'schemas' => $models,
+            ],
+        ];
+        return $this->respond($result, jsonFlags: JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
     }
 }

@@ -2,12 +2,26 @@
 
 namespace App\Database;
 
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 
+#[OpenApiModel('A menu controls the navigation of the Jinya instance')]
 class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiField(required: true)]
     public string $name;
+    #[OpenApiField(required: false, defaultValue: null, structure: [
+        'name' => [
+            'type' => 'string',
+            'required' => true,
+        ],
+        'id' => [
+            'type' => 'integer',
+            'required' => true,
+        ],
+    ])]
     public ?int $logo;
 
     /**

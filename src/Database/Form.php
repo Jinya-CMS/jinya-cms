@@ -4,22 +4,32 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Strategies\JsonStrategy;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
-use Laminas\Hydrator\Strategy\SerializableStrategy;
 
+#[OpenApiModel(description: 'A form is used to give your users the option to send you a message')]
 class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
+    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'created')]
     public int $creatorId;
+    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'updated')]
     public int $updatedById;
+    #[OpenApiHiddenField]
     public DateTime $createdAt;
+    #[OpenApiHiddenField]
     public DateTime $lastUpdatedAt;
 
+    #[OpenApiField(required: true)]
     public string $title;
+    #[OpenApiField(required: false, defaultValue: '')]
     public string $description = '';
+    #[OpenApiField(required: true, format: OpenApiField::FORMAT_EMAIL)]
     public string $toAddress;
 
     /**

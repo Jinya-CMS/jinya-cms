@@ -4,15 +4,18 @@ namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
+#[OpenApiModel('A theme segment page represents a segment page in the current theme configuration')]
 class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
+    #[OpenApiField(object: true, objectRef: SegmentPage::class, name: 'segmentPage')]
     public int $segmentPageId = -1;
-    public int $themeId = -1;
 
     /**
      * Finds a page by name and theme

@@ -5,9 +5,9 @@ namespace App\OpenApiGeneration\Attributes;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
-class OpenApiRequest
+class OpenApiRecursiveField
 {
-    public function __construct(public array $structure, public string $description)
+    public function __construct(public string $name)
     {
     }
 }

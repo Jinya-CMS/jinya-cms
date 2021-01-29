@@ -4,15 +4,18 @@ namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
+#[OpenApiModel('A theme form represents a form in the current theme configuration')]
 class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
+    #[OpenApiField(object: true, objectRef: Form::class, name: 'form')]
     public int $formId = -1;
-    public int $themeId = -1;
 
     /**
      * Finds a form by name and theme

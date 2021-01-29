@@ -4,15 +4,18 @@ namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
+#[OpenApiModel('A theme file represents a file in the current theme configuration')]
 class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
+    #[OpenApiField(object: true, objectRef: File::class, name: 'file')]
     public int $fileId = -1;
-    public int $themeId = -1;
 
     /**
      * Finds a file by name and theme

@@ -3,20 +3,30 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[OpenApiModel('A simple page only contains HTML based content')]
 class SimplePage extends Utils\LoadableEntity
 {
-
+    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'created')]
     public int $creatorId;
+    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'updated')]
     public int $updatedById;
+    #[OpenApiHiddenField]
     public DateTime $createdAt;
+    #[OpenApiHiddenField]
     public DateTime $lastUpdatedAt;
+
+    #[OpenApiField(required: true)]
     public string $content;
+    #[OpenApiField(required: true)]
     public string $title;
 
     /**
