@@ -6,13 +6,12 @@ use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
+use App\Utils\ClassResolver;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use ReflectionClass;
 use ReflectionException;
 use stdClass;
@@ -37,19 +36,8 @@ class EndpointGenerator
      */
     public function generateEndpoints(): array
     {
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__ . '/src/Web/Actions'));
-        $classesWithFullPath = [];
-        foreach ($files as $file) {
-            if ($file->isFile()) {
-                $classesWithFullPath[] = $file->getPathname();
-            }
-        }
-        foreach ($classesWithFullPath as $path) {
-            $class = 'App' . str_replace('.php', '', implode('\\', explode('/', explode('src', $path)[1])));
-            class_exists($class, true);
-        }
+        $classes = ClassResolver::loadClasses(__ROOT__ . '/src/Web/Actions');
 
-        $classes = get_declared_classes();
         $openApiEndpoints = [];
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);

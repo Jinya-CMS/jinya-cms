@@ -8,9 +8,8 @@ use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use App\OpenApiGeneration\Exceptions\OpenApiModelException;
+use App\Utils\ClassResolver;
 use JetBrains\PhpStorm\ArrayShape;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
@@ -26,19 +25,7 @@ class ModelGenerator
      */
     public function generateModels(): array
     {
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__ROOT__ . '/src/Database'));
-        $classesWithFullPath = [];
-        foreach ($files as $file) {
-            if ($file->isFile()) {
-                $classesWithFullPath[] = $file->getPathname();
-            }
-        }
-        foreach ($classesWithFullPath as $path) {
-            $class = 'App' . str_replace('.php', '', implode('\\', explode('/', explode('src', $path)[1])));
-            class_exists($class, true);
-        }
-
-        $classes = get_declared_classes();
+        $classes = ClassResolver::loadClasses(__ROOT__ . '/src/Database');
         $result = [];
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);

@@ -2,6 +2,7 @@
 
 namespace App\Web\Routes;
 
+use App\Utils\ClassResolver;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
@@ -10,8 +11,6 @@ use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\CheckRequiredOneOfFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use ReflectionAttribute;
 use ReflectionClass;
 use Slim\App;
@@ -21,19 +20,7 @@ class RouteResolver
 {
     public function resolveRoutes(App $app): RouteCollectorProxy
     {
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../Actions'));
-        $classesWithFullPath = [];
-        foreach ($files as $file) {
-            if ($file->isFile()) {
-                $classesWithFullPath[] = $file->getPathname();
-            }
-        }
-        foreach ($classesWithFullPath as $path) {
-            $class = 'App\Web' . str_replace('.php', '', implode('\\', explode('/', explode('..', $path)[1])));
-            class_exists($class, true);
-        }
-
-        $classes = get_declared_classes();
+        $classes = ClassResolver::loadClasses(__ROOT__ . '/src/Web/Actions');
         $routes = [];
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);
