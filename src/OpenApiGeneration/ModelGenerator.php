@@ -48,6 +48,8 @@ class ModelGenerator
             }
         }
 
+        ksort($result);
+
         return $result;
     }
 
