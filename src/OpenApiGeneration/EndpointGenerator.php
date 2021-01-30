@@ -2,6 +2,7 @@
 
 namespace App\OpenApiGeneration;
 
+use App\OpenApiGeneration\Attributes\OpenApiListResponse;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
@@ -90,6 +91,7 @@ class EndpointGenerator
         $reflectionClass = $openApiMethod->reflectionClass;
         $openApiRequestAttributes = $reflectionClass->getAttributes(OpenApiRequest::class);
         $openApiResponseAttributes = $reflectionClass->getAttributes(OpenApiResponse::class);
+        $openApiListResponseAttributes = $reflectionClass->getAttributes(OpenApiListResponse::class);
         $openApiParameterAttributes = $reflectionClass->getAttributes(OpenApiParameter::class);
         $authenticatedAttributes = $reflectionClass->getAttributes(Authenticated::class);
         $openApiRequestJsonBodyAttributes = $reflectionClass->getAttributes(OpenApiRequestBody::class);
@@ -177,6 +179,86 @@ class EndpointGenerator
                 }
 
                 $result['responses'][(string)$openApiResponse->statusCode] = $response;
+            }
+        }
+        if (!empty($openApiListResponseAttributes)) {
+            $result['responses'] = $result['responses'] ?? [];
+            foreach ($openApiListResponseAttributes as $openApiListResponseAttribute) {
+                /** @var OpenApiResponse $openApiListResponse */
+                $openApiListResponse = $openApiListResponseAttribute->newInstance();
+                $response = [
+                    'description' => $openApiListResponse->description,
+                ];
+                if (!empty($openApiListResponse->ref)) {
+                    $response['content'] = [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'items' => [
+                                        'type' => 'array',
+                                        'items' => [
+                                            '$ref' => "#/components/schemas/$openApiListResponse->ref",
+                                        ],
+                                    ],
+                                    'itemsCount' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'totalCount' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'offset' => [
+                                        'type' => 'integer',
+                                    ]
+                                ],
+                            ],
+                        ],
+                    ];
+                } elseif (!empty($openApiListResponse->schema)) {
+                    $response['content'] = [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'items' => [
+                                        'type' => 'array',
+                                        'items' => [
+                                            'type' => 'object',
+                                            'properties' => $openApiListResponse->schema,
+                                        ],
+                                    ],
+                                    'itemsCount' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'totalCount' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'offset' => [
+                                        'type' => 'integer',
+                                    ]
+                                ],
+                            ],
+                        ],
+                    ];
+                }
+                if (!empty($openApiListResponse->example)) {
+                    $exampleItems = [];
+                    for ($i = 0; $i < random_int(5, 20); $i++) {
+                        $exampleItems[] = $this->generateExample($openApiListResponse->example);
+                    }
+                    $response['content']['application/json']['examples'] = [
+                        $openApiListResponse->exampleName => [
+                            'value' => [
+                                'offset' => 0,
+                                'itemsCount' => count($exampleItems),
+                                'totalCount' => count($exampleItems),
+                                'items' => $exampleItems,
+                            ],
+                        ],
+                    ];
+                }
+
+                $result['responses'][(string)$openApiListResponse->statusCode] = $response;
             }
         }
 

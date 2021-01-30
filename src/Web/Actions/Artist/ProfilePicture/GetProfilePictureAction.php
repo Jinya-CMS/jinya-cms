@@ -6,6 +6,8 @@ use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
+use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -14,6 +16,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::GET)]
 #[Authenticated(role: Authenticated::WRITER)]
+#[OpenApiRequest('This action gets the given profile picture')]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 class GetProfilePictureAction extends Action
 {
     /**

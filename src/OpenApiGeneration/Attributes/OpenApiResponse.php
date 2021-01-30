@@ -8,6 +8,37 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 class OpenApiResponse
 {
+    public const FAKER_USER_AGENT = 'userAgent';
+    public const FAKER_ISO8601 = 'iso8601';
+    public const FAKER_IPV4 = 'ipv4';
+    public const FAKER_EMAIL = 'safeEmail';
+    public const FAKER_SHA1 = 'sha1';
+    public const EXCEPTION_SCHEMA = [
+        'success' => ['type' => 'boolean'],
+        'error' => [
+            'type' => 'object',
+            'properties' => [
+                'message' => ['type' => 'string'],
+                'type' => ['type' => 'string'],
+            ],
+        ],
+    ];
+
+    public const INVALID_API_KEY = [
+        'success' => false,
+        'error' => [
+            'message' => 'Api key invalid',
+            'type' => 'HttpForbiddenException',
+        ],
+    ];
+
+    public const NOT_FOUND = [
+        'success' => false,
+        'error' => [
+            'message' => 'Entity not found',
+            'type' => 'HttpNotFoundException',
+        ],
+    ];
 
     public function __construct(
         public string $description,
