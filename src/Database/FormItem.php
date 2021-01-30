@@ -99,9 +99,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         return Form::findById($this->formId);
     }
 
-    /**
-     * @return array
-     */
     public function format(): array
     {
         return [
