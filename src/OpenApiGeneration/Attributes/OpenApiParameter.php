@@ -8,6 +8,7 @@ use Attribute;
 class OpenApiParameter
 {
     public const IN_PATH = 'path';
+    public const IN_HEADER = 'header';
     public const IN_QUERY = 'query';
     public const TYPE_STRING = 'string';
     public const TYPE_EMAIL = 'email';
@@ -17,6 +18,7 @@ class OpenApiParameter
     public const TYPE_BOOLEAN = 'boolean';
 
     public function __construct(
+        public string $name,
         public bool $required,
         public string $type = self::TYPE_STRING,
         public string $in = self::IN_PATH

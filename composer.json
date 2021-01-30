@@ -24,7 +24,8 @@
     "slim/slim": "4.7.1",
     "tedivm/jshrink": "dev-master",
     "vlucas/phpdotenv": "v5.3.0",
-    "jenssegers/agent": "v2.6.4"
+    "jenssegers/agent": "v2.6.4",
+    "fakerphp/faker": "v1.13.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",

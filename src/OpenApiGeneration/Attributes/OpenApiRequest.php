@@ -4,10 +4,10 @@ namespace App\OpenApiGeneration\Attributes;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_CLASS)]
 class OpenApiRequest
 {
-    public function __construct(public array $structure, public string $description)
+    public function __construct(public string $summary, public bool $binary = false)
     {
     }
 }
