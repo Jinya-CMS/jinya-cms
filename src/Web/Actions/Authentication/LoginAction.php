@@ -7,6 +7,11 @@ use App\Database\Artist;
 use App\Database\KnownDevice;
 use App\Mailing\Types\NewLoginMail;
 use App\Mailing\Types\NewSavedDeviceMail;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
+use App\OpenApiGeneration\Attributes\OpenApiRequest;
+use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
+use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
@@ -20,6 +25,45 @@ use Throwable;
 
 #[JinyaAction('/api/login', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
+#[OpenApiRequest('This action creates a new api key')]
+#[OpenApiParameter('JinyaDeviceCode', false, in: OpenApiParameter::IN_HEADER)]
+#[OpenApiRequestBody([
+    'username' => ['type' => 'string', 'format' => 'email'],
+    'password' => ['type' => 'string', 'format' => 'password'],
+    'twoFactorCode' => ['type' => 'string'],
+])]
+#[OpenApiRequestExample('Login with two factor code', [
+    'email' => OpenApiResponse::FAKER_EMAIL,
+    'password' => OpenApiResponse::FAKER_PASSWORD,
+    'twoFactorCode' => OpenApiResponse::FAKER_NUMERIFY,
+])]
+#[OpenApiRequestExample('Login without two factor code', [
+    'email' => OpenApiResponse::FAKER_EMAIL,
+    'password' => OpenApiResponse::FAKER_PASSWORD,
+])]
+#[OpenApiResponse('Successfully logged in', example: [
+    'apiKey' => OpenApiResponse::FAKER_SHA1,
+    'deviceCode' => OpenApiResponse::FAKER_SHA1,
+    'roles' => ['ROLE_READER'],
+], exampleName: 'API key response', schema: [
+    'apiKey' => ['type' => 'string'],
+    'deviceCode' => ['type' => 'string'],
+    'roles' => ['type' => 'array'],
+])]
+#[OpenApiResponse('Invalid credentials', example: [
+    'success' => false,
+    'error' => [
+        'message' => 'Bad credentials',
+        'type' => 'BadCredentialsException',
+    ],
+], exampleName: 'Invalid credentials', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
+#[OpenApiResponse('Invalid device code', example: [
+    'success' => false,
+    'error' => [
+        'message' => 'Unknown device',
+        'type' => 'UnknownDeviceException',
+    ],
+], exampleName: 'Invalid device code', statusCode: Action::HTTP_UNAUTHORIZED, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class LoginAction extends Action
 {
     public function __construct(

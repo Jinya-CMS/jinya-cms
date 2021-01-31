@@ -24,7 +24,6 @@ use Psr\Log\LoggerInterface;
 #[OpenApiRequest('This action puts the given profile picture', binary: true)]
 #[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully uploaded the profile picture', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 #[OpenApiResponse('Artist not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Artist not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class UploadProfilePictureAction extends Action
 {

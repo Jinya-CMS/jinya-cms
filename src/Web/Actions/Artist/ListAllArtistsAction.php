@@ -28,7 +28,6 @@ use Psr\Http\Message\ResponseInterface as Response;
     'id' => 1,
     'aboutMe' => OpenApiResponse::FAKER_PARAGRAPH,
 ], exampleName: 'List of artists', ref: Artist::class)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class ListAllArtistsAction extends Action
 {
     /**

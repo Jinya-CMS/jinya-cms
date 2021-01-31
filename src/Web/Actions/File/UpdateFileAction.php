@@ -4,6 +4,10 @@ namespace App\Web\Actions\File;
 
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
+use App\OpenApiGeneration\Attributes\OpenApiRequest;
+use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
+use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -15,6 +19,21 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/file/{id}', JinyaAction::PUT)]
 #[Authenticated(role: Authenticated::WRITER)]
+#[OpenApiRequest('This action create a new file')]
+#[OpenApiRequestBody([
+    'name' => ['type' => 'string'],
+])]
+#[OpenApiRequestExample('File with required fields', [
+    'name' => OpenApiResponse::FAKER_WORD,
+])]
+#[OpenApiResponse('Successfully updated the file', statusCode: Action::HTTP_CREATED, ref: File::class)]
+#[OpenApiResponse('Name exists', example: [
+    'success' => false,
+    'error' => [
+        'message' => 'Name exists',
+        'type' => 'ConflictException',
+    ],
+], exampleName: 'Name exists', statusCode: Action::HTTP_CONFLICT, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class UpdateFileAction extends Action
 {
 

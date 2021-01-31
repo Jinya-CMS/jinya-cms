@@ -23,7 +23,6 @@ class OpenApiResponse
             ],
         ],
     ];
-
     public const INVALID_API_KEY = [
         'success' => false,
         'error' => [
@@ -31,7 +30,6 @@ class OpenApiResponse
             'type' => 'HttpForbiddenException',
         ],
     ];
-
     public const NOT_FOUND = [
         'success' => false,
         'error' => [
@@ -44,6 +42,16 @@ class OpenApiResponse
     public const FAKER_WORD = 'word';
     public const FAKER_PASSWORD = 'password';
     public const FAKER_USERNAME = 'userName';
+    public const FAKER_NUMERIFY = 'numerify';
+    public const FAKER_MIMETYPE = 'mimeType';
+    public const MODIFICATION_EXAMPLE = [
+        'by' => [
+            'artistName' => OpenApiResponse::FAKER_USERNAME,
+            'email' => OpenApiResponse::FAKER_EMAIL,
+            'profilePicture' => OpenApiResponse::FAKER_SHA1,
+        ],
+        'at' => OpenApiResponse::FAKER_ISO8601,
+    ];
 
     public function __construct(
         public string $description,

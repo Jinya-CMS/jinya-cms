@@ -45,7 +45,6 @@ use Psr\Http\Message\ResponseInterface as Response;
     'artistName' => OpenApiResponse::FAKER_USERNAME,
 ])]
 #[OpenApiResponse('Successfully created the artist', statusCode: Action::HTTP_CREATED, ref: Artist::class)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 #[OpenApiResponse('Email exists', example: [
     'success' => false,
     'error' => [

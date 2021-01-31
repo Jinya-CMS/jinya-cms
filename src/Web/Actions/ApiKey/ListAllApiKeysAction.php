@@ -26,7 +26,6 @@ use Psr\Http\Message\ResponseInterface as Response;
     'userAgent' => OpenApiResponse::FAKER_USER_AGENT,
     'key' => OpenApiResponse::FAKER_SHA1,
 ], exampleName: 'List of API keys', ref: ApiKey::class)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class ListAllApiKeysAction extends Action
 {
     /**

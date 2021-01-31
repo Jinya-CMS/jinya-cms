@@ -21,7 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiRequest('This action deletes the given api key')]
 #[OpenApiParameter('key', true)]
 #[OpenApiResponse('Successfully delete the api key', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 #[OpenApiResponse('API key not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'API key not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class DeleteApiKeyAction extends Action
 {

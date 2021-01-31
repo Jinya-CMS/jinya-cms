@@ -40,7 +40,6 @@ use Psr\Http\Message\ResponseInterface as Response;
     'enabled' => true,
 ])]
 #[OpenApiResponse('Successfully updated the artist', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Not authenticated', example: OpenApiResponse::INVALID_API_KEY, exampleName: 'Invalid API key', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 #[OpenApiResponse('Email exists', example: [
     'success' => false,
     'error' => [

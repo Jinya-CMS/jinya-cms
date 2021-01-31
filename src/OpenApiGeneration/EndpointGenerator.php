@@ -9,6 +9,7 @@ use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Utils\ClassResolver;
+use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
@@ -114,9 +115,6 @@ class EndpointGenerator
                     ],
                 ];
             }
-        }
-        if (!empty($authenticatedAttributes)) {
-            $result['security'] = [['Jinya-Api-Key' => []]];
         }
         if (!empty($openApiParameterAttributes)) {
             $result['parameters'] = [];
@@ -285,6 +283,32 @@ class EndpointGenerator
                 $result['responses'][(string)$openApiListResponse->statusCode] = $response;
             }
         }
+        if (!empty($authenticatedAttributes)) {
+            $result['security'] = [['Jinya-Api-Key' => []]];
+            $result['responses'] = $result['responses'] ?? [];
+            $result['responses'][Action::HTTP_FORBIDDEN] = [
+                'description' => 'Api key invalid',
+                'content' => [
+                    'application/json' => [
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => OpenApiResponse::EXCEPTION_SCHEMA,
+                        ],
+                        'examples' => [
+                            'Not authenticated' => [
+                                'value' => [
+                                    'success' => false,
+                                    'error' => [
+                                        'message' => 'Api key invalid',
+                                        'type' => 'HttpForbiddenException',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+        }
 
         return $result;
     }
@@ -309,7 +333,11 @@ class EndpointGenerator
             }
             if (is_string($item)) {
                 try {
-                    $result[$key] = $this->faker->format($item, []);
+                    if ($item === OpenApiResponse::FAKER_NUMERIFY) {
+                        $result[$key] = $this->faker->numerify('######');
+                    } else {
+                        $result[$key] = $this->faker->format($item, []);
+                    }
                 } catch (InvalidArgumentException) {
                     $result[$key] = $item;
                 }
