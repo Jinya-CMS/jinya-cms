@@ -30,7 +30,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public bool $enabled = false;
     #[OpenApiHiddenField]
     public ?string $twoFactorToken = '';
-    #[OpenApiField(required: true, enumValues: ["ROLE_ADMIN", "ROLE_READER", "ROLE_WRITER"])]
+    #[OpenApiField(required: true, enumValues: ["ROLE_ADMIN", "ROLE_READER", "ROLE_WRITER"], array: true, arrayType: 'string')]
     public array $roles = [];
     #[OpenApiField(required: true)]
     public string $artistName = '';

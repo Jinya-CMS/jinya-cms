@@ -48,7 +48,7 @@ class GetOpenApiConfigAction extends Action
             'components' => [
                 'schemas' => $models,
                 'securitySchemes' => [
-                    'Jinya Api Key' => [
+                    'Jinya-Api-Key' => [
                         'name' => 'JinyaApiKey',
                         'type' => 'apiKey',
                         'in' => OpenApiParameter::IN_HEADER,

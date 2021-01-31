@@ -30,6 +30,7 @@ class OpenApiField
         public ?string $objectRef = null,
         public bool $array = false,
         public string $arrayRef = '',
+        public string $arrayType = 'string',
         public array $structure = [],
         public ?string $name = null,
     ) {

@@ -15,11 +15,9 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     #[OpenApiField(required: false, defaultValue: null, structure: [
         'name' => [
             'type' => 'string',
-            'required' => true,
         ],
         'id' => [
             'type' => 'integer',
-            'required' => true,
         ],
     ])]
     public ?int $logo;

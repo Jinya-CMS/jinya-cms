@@ -6,10 +6,12 @@ use App\OpenApiGeneration\Attributes\OpenApiListResponse;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
+use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Utils\ClassResolver;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use App\Web\Attributes\RequiredFields;
 use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
@@ -43,7 +45,8 @@ class EndpointGenerator
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);
             $actionAttributes = $reflectionClass->getAttributes(JinyaAction::class);
-            if (!empty($actionAttributes)) {
+            $openApiRequestAttributes = $reflectionClass->getAttributes(OpenApiRequest::class);
+            if (!empty($actionAttributes) && !empty($openApiRequestAttributes)) {
                 foreach ($actionAttributes as $actionAttribute) {
                     /** @var JinyaAction $action */
                     $action = $actionAttribute->newInstance();
@@ -94,7 +97,9 @@ class EndpointGenerator
         $openApiListResponseAttributes = $reflectionClass->getAttributes(OpenApiListResponse::class);
         $openApiParameterAttributes = $reflectionClass->getAttributes(OpenApiParameter::class);
         $authenticatedAttributes = $reflectionClass->getAttributes(Authenticated::class);
-        $openApiRequestJsonBodyAttributes = $reflectionClass->getAttributes(OpenApiRequestBody::class);
+        $openApiRequestBodyAttributes = $reflectionClass->getAttributes(OpenApiRequestBody::class);
+        $openApiRequestExampleAttributes = $reflectionClass->getAttributes(OpenApiRequestExample::class);
+        $requiredFieldsAttributes = $reflectionClass->getAttributes(RequiredFields::class);
 
         $result = [];
         if (!empty($openApiRequestAttributes)) {
@@ -111,7 +116,7 @@ class EndpointGenerator
             }
         }
         if (!empty($authenticatedAttributes)) {
-            $result['security'] = ['Jinya Api Key' => new stdClass()];
+            $result['security'] = [['Jinya-Api-Key' => []]];
         }
         if (!empty($openApiParameterAttributes)) {
             $result['parameters'] = [];
@@ -128,21 +133,36 @@ class EndpointGenerator
                 ];
             }
         }
-        if (!empty($openApiRequestJsonBodyAttributes)) {
+        if (!empty($openApiRequestBodyAttributes)) {
             /** @var OpenApiRequestBody $openApiRequestBody */
-            $openApiRequestBody = $openApiRequestJsonBodyAttributes[0]->newInstance();
+            $openApiRequestBody = $openApiRequestBodyAttributes[0]->newInstance();
             $result['requestBody'] = [
                 'content' => [
                     'application/json' => [
-                        'schema' => $openApiRequestBody->schema,
-                        'examples' => [
-                            $openApiRequestBody->exampleName => [
-                                'value' => $this->generateExample($openApiRequestBody->example),
-                            ],
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => $openApiRequestBody->schema,
                         ],
+                        'examples' => [],
                     ],
                 ],
             ];
+            if (!empty($requiredFieldsAttributes)) {
+                /** @var RequiredFields $requiredFields */
+                $requiredFields = $requiredFieldsAttributes[0]->newInstance();
+                $result['requestBody']['content']['application/json']['schema']['required'] = $requiredFields->requiredFields;
+            }
+            if (!empty($openApiRequestExampleAttributes)) {
+                foreach ($openApiRequestExampleAttributes as $openApiRequestExampleAttribute) {
+                    /** @var OpenApiRequestExample $openApiRequestExample */
+                    $openApiRequestExample = $openApiRequestExampleAttribute->newInstance();
+                    $result['requestBody']['content']['application/json']['examples'][$openApiRequestExample->name] = [
+                        'value' => $this->generateExample(
+                            $openApiRequestExample->example
+                        )
+                    ];
+                }
+            }
         }
         if (!empty($openApiResponseAttributes)) {
             $result['responses'] = [];
@@ -153,10 +173,12 @@ class EndpointGenerator
                     'description' => $openApiResponse->description,
                 ];
                 if (!empty($openApiResponse->ref)) {
+                    $refPath = explode('\\', $openApiResponse->ref);
+                    $refPath = array_reverse($refPath);
                     $response['content'] = [
                         'application/json' => [
                             'schema' => [
-                                '$ref' => "#/components/schemas/$openApiResponse->ref",
+                                '$ref' => "#/components/schemas/$refPath[0]",
                             ],
                         ],
                     ];
@@ -190,6 +212,8 @@ class EndpointGenerator
                     'description' => $openApiListResponse->description,
                 ];
                 if (!empty($openApiListResponse->ref)) {
+                    $refPath = explode('\\', $openApiListResponse->ref);
+                    $refPath = array_reverse($refPath);
                     $response['content'] = [
                         'application/json' => [
                             'schema' => [
@@ -198,7 +222,7 @@ class EndpointGenerator
                                     'items' => [
                                         'type' => 'array',
                                         'items' => [
-                                            '$ref' => "#/components/schemas/$openApiListResponse->ref",
+                                            '$ref' => "#/components/schemas/$refPath[0]",
                                         ],
                                     ],
                                     'itemsCount' => [

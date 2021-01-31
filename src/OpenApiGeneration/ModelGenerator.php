@@ -9,6 +9,7 @@ use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use App\OpenApiGeneration\Exceptions\OpenApiModelException;
 use App\Utils\ClassResolver;
+use DateTime;
 use JetBrains\PhpStorm\ArrayShape;
 use ReflectionClass;
 use ReflectionException;
@@ -70,6 +71,7 @@ class ModelGenerator
 
         $result['description'] = $attribute->description;
         $openApiProperties = [];
+        $requiredFields = [];
 
         foreach ($properties as $property) {
             $openApiProperty = [];
@@ -84,6 +86,7 @@ class ModelGenerator
                 $openApiProperty['type'] = match ($propertyType->getName()) {
                     'int' => 'integer',
                     'bool' => 'boolean',
+                    DateTime::class => 'string',
                     default => $propertyType->getName()
                 };
                 if (!empty($openApiFieldAttributes)) {
@@ -91,7 +94,11 @@ class ModelGenerator
                     $fieldAttribute = $openApiFieldAttributes[0]->newInstance();
 
                     if ($fieldAttribute->required !== null) {
-                        $openApiProperty['required'] = $fieldAttribute->required;
+                        if ($fieldAttribute !== null && $fieldAttribute->name !== null) {
+                            $requiredFields[] = $fieldAttribute->name;
+                        } else {
+                            $requiredFields[] = $property->getName();
+                        }
                     }
 
                     if ($fieldAttribute->defaultValue !== null) {
@@ -111,6 +118,9 @@ class ModelGenerator
                         $refPath = array_reverse($refPath);
                         $openApiProperty['type'] = 'array';
                         $openApiProperty['items'] = ['$ref' => "#/components/schemas/$refPath[0]"];
+                    } elseif ($fieldAttribute->array && !empty($fieldAttribute->arrayType)) {
+                        $openApiProperty['type'] = 'array';
+                        $openApiProperty['items'] = ['type' => $fieldAttribute->arrayType];
                     }
 
                     if ($fieldAttribute->object) {
@@ -162,10 +172,10 @@ class ModelGenerator
         if ($attribute->hasId) {
             $openApiProperties['id'] = [
                 'type' => $attribute->idType,
-                'required' => true,
             ];
         }
         $result['properties'] = $openApiProperties;
+        $result['required'] = $requiredFields;
 
         return $result;
     }

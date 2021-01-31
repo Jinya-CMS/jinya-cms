@@ -39,6 +39,11 @@ class OpenApiResponse
             'type' => 'HttpNotFoundException',
         ],
     ];
+    public const FAKER_NAME = 'name';
+    public const FAKER_PARAGRAPH = 'paragraph';
+    public const FAKER_WORD = 'word';
+    public const FAKER_PASSWORD = 'password';
+    public const FAKER_USERNAME = 'userName';
 
     public function __construct(
         public string $description,

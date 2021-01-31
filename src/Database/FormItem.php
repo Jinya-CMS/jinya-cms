@@ -11,11 +11,11 @@ use RuntimeException;
 #[OpenApiModel(description: 'A form item is part of a form, containing information to send')]
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiField(required: false, defaultValue: 'text')]
+    #[OpenApiField(required: false, defaultValue: 'text', arrayType: 'string')]
     public string $type;
-    #[OpenApiField(required: false, defaultValue: [])]
+    #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
     public array $options;
-    #[OpenApiField(required: false, defaultValue: [])]
+    #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
     public array $spamFilter;
     #[OpenApiField(required: true)]
     public string $label;

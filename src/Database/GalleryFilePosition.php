@@ -13,14 +13,14 @@ use RuntimeException;
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
     #[OpenApiField(structure: [
-        'id' => ['type' => 'int'],
+        'id' => ['type' => 'integer'],
         'name' => ['type' => 'string'],
         'description' => ['type' => 'string'],
     ], name: 'gallery')]
     public int $galleryId;
     #[OpenApiField(structure: [
         'path' => ['type' => 'string'],
-        'id' => ['type' => 'int'],
+        'id' => ['type' => 'integer'],
         'name' => ['type' => 'string'],
         'type' => ['type' => 'string'],
     ], name: 'file')]
