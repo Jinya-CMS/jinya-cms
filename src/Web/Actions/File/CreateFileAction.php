@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\File;
 
-use App\Database\Artist;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
@@ -28,7 +27,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiRequestExample('File with required fields', [
     'name' => OpenApiResponse::FAKER_WORD,
 ])]
-#[OpenApiResponse('Successfully created the file', statusCode: Action::HTTP_CREATED, ref: File::class)]
+#[OpenApiResponse('Successfully created the file', example: [
+    'path' => OpenApiResponse::FAKER_SHA1,
+    'name' => OpenApiResponse::FAKER_WORD,
+    'type' => OpenApiResponse::FAKER_MIMETYPE,
+    'id' => 1,
+    'created' => OpenApiResponse::MODIFICATION_EXAMPLE,
+    'updated' => OpenApiResponse::MODIFICATION_EXAMPLE,
+], exampleName: 'Returned file', statusCode: Action::HTTP_CREATED, ref: File::class)]
 #[OpenApiResponse('Name exists', example: [
     'success' => false,
     'error' => [

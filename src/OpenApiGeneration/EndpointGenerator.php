@@ -2,6 +2,7 @@
 
 namespace App\OpenApiGeneration;
 
+use App\OpenApiGeneration\Attributes\OpenApiArrayResponse;
 use App\OpenApiGeneration\Attributes\OpenApiListResponse;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
@@ -96,6 +97,7 @@ class EndpointGenerator
         $openApiRequestAttributes = $reflectionClass->getAttributes(OpenApiRequest::class);
         $openApiResponseAttributes = $reflectionClass->getAttributes(OpenApiResponse::class);
         $openApiListResponseAttributes = $reflectionClass->getAttributes(OpenApiListResponse::class);
+        $openApiArrayResponseAttributes = $reflectionClass->getAttributes(OpenApiArrayResponse::class);
         $openApiParameterAttributes = $reflectionClass->getAttributes(OpenApiParameter::class);
         $authenticatedAttributes = $reflectionClass->getAttributes(Authenticated::class);
         $openApiRequestBodyAttributes = $reflectionClass->getAttributes(OpenApiRequestBody::class);
@@ -281,6 +283,53 @@ class EndpointGenerator
                 }
 
                 $result['responses'][(string)$openApiListResponse->statusCode] = $response;
+            }
+        }
+        if (!empty($openApiArrayResponseAttributes)) {
+            $result['responses'] = $result['responses'] ?? [];
+            foreach ($openApiArrayResponseAttributes as $openApiArrayResponseAttribute) {
+                /** @var OpenApiResponse $openApiArrayResponse */
+                $openApiArrayResponse = $openApiArrayResponseAttribute->newInstance();
+                $response = [
+                    'description' => $openApiArrayResponse->description,
+                ];
+                if (!empty($openApiArrayResponse->ref)) {
+                    $refPath = explode('\\', $openApiArrayResponse->ref);
+                    $refPath = array_reverse($refPath);
+                    $response['content'] = [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'array',
+                                'items' => [
+                                    '$ref' => "#/components/schemas/$refPath[0]",
+                                ],
+                            ],
+                        ],
+                    ];
+                } elseif (!empty($openApiArrayResponse->schema)) {
+                    $response['content'] = [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => $openApiArrayResponse->schema,
+                                ],
+                            ],
+                        ],
+                    ];
+                }
+                if (!empty($openApiArrayResponse->example)) {
+                    $exampleItems = [];
+                    for ($i = 0; $i < random_int(5, 20); $i++) {
+                        $exampleItems[] = $this->generateExample($openApiArrayResponse->example);
+                    }
+                    $response['content']['application/json']['examples'] = [
+                        $openApiArrayResponse->exampleName => $exampleItems,
+                    ];
+                }
+
+                $result['responses'][(string)$openApiArrayResponse->statusCode] = $response;
             }
         }
         if (!empty($authenticatedAttributes)) {
