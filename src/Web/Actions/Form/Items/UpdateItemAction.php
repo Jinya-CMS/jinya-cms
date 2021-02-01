@@ -25,7 +25,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiRequestBody([
     'label' => ['type' => 'string'],
     'placeholder' => ['type' => 'string'],
-    'position' => ['type' => 'string'],
+    'position' => ['type' => 'integer'],
     'helpText' => ['type' => 'string'],
     'type' => ['type' => 'string'],
     'options' => ['type' => 'array', 'items' => ['type' => 'string']],
