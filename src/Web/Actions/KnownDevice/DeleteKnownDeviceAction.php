@@ -6,6 +6,9 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
+use App\OpenApiGeneration\Attributes\OpenApiRequest;
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -16,6 +19,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/account/known_device/{key}', JinyaAction::DELETE)]
 #[JinyaAction('/api/known_device/{key}', JinyaAction::DELETE)]
 #[Authenticated]
+#[OpenApiRequest('This action deletes the given known device')]
+#[OpenApiParameter('key', true)]
+#[OpenApiResponse('Known device was deleted', statusCode: Action::HTTP_NO_CONTENT)]
+#[OpenApiResponse('Known device unknown', example: OpenApiResponse::NOT_FOUND, exampleName: 'Known device unknown', statusCode: Action::HTTP_FORBIDDEN, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class DeleteKnownDeviceAction extends Action
 {
     /**

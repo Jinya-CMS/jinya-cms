@@ -325,7 +325,9 @@ class EndpointGenerator
                         $exampleItems[] = $this->generateExample($openApiArrayResponse->example);
                     }
                     $response['content']['application/json']['examples'] = [
-                        $openApiArrayResponse->exampleName => $exampleItems,
+                        $openApiArrayResponse->exampleName => [
+                            'value' => $exampleItems,
+                        ],
                     ];
                 }
 

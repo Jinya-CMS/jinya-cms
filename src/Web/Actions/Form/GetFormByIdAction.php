@@ -6,6 +6,7 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
@@ -17,6 +18,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/form/{id}', JinyaAction::GET)]
 #[Authenticated(role: Authenticated::READER)]
 #[OpenApiRequest('This action gets the given form')]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully got the form', example: [
     'id' => 1,
     'title' => OpenApiResponse::FAKER_WORD,

@@ -48,7 +48,7 @@ use Throwable;
 ], exampleName: 'API key response', schema: [
     'apiKey' => ['type' => 'string'],
     'deviceCode' => ['type' => 'string'],
-    'roles' => ['type' => 'array'],
+    'roles' => ['type' => 'array', 'items' => ['type' => 'string']],
 ])]
 #[OpenApiResponse('Invalid credentials', example: [
     'success' => false,

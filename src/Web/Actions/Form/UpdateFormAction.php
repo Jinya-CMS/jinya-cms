@@ -6,6 +6,7 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
@@ -31,6 +32,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     'toAddress' => OpenApiResponse::FAKER_EMAIL,
     'description' => OpenApiResponse::FAKER_PARAGRAPH,
 ])]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully updated the form', statusCode: Action::HTTP_NO_CONTENT)]
 #[OpenApiResponse('Title exists', example: [
     'success' => false,

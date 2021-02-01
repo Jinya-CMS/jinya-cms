@@ -4,6 +4,7 @@ namespace App\Web\Actions\File;
 
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
@@ -23,6 +24,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiRequestBody([
     'name' => ['type' => 'string'],
 ])]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiRequestExample('File with required fields', [
     'name' => OpenApiResponse::FAKER_WORD,
 ])]

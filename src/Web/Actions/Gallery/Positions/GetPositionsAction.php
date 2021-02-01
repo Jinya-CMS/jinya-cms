@@ -7,6 +7,7 @@ use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\FormItem;
 use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
 use App\OpenApiGeneration\Attributes\OpenApiArrayResponse;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
@@ -36,7 +37,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     ],
     'id' => 0,
     'position' => 0,
-], exampleName: 'List of gallery file positions', ref: FormItem::class)]
+], exampleName: 'List of gallery file positions', ref: GalleryFilePosition::class)]
 #[OpenApiResponse('Gallery not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Gallery not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class GetPositionsAction extends Action
 {

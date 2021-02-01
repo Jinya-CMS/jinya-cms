@@ -6,6 +6,7 @@ use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
@@ -40,6 +41,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     'enabled' => true,
 ])]
 #[OpenApiResponse('Successfully updated the artist', statusCode: Action::HTTP_NO_CONTENT)]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Email exists', example: [
     'success' => false,
     'error' => [

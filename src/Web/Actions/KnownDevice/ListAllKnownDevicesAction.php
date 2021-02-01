@@ -2,11 +2,15 @@
 
 namespace App\Web\Actions\KnownDevice;
 
+use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
+use App\OpenApiGeneration\Attributes\OpenApiListResponse;
+use App\OpenApiGeneration\Attributes\OpenApiRequest;
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -17,6 +21,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/account/known_device', JinyaAction::GET)]
 #[JinyaAction('/api/known_device', JinyaAction::GET)]
 #[Authenticated]
+#[OpenApiRequest('This action lists all known devices')]
+#[OpenApiListResponse('Successfully got the known devices', example: [
+    'remoteAddress' => OpenApiResponse::FAKER_IPV4,
+    'userAgent' => OpenApiResponse::FAKER_USER_AGENT,
+    'key' => OpenApiResponse::FAKER_SHA1,
+], exampleName: 'List of known devices', ref: KnownDevice::class)]
 class ListAllKnownDevicesAction extends Action
 {
     /**
