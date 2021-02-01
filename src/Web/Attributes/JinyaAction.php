@@ -18,10 +18,12 @@ class JinyaAction
      * Route constructor.
      * @param string $url
      * @param string $method
+     * @param string $name
      */
     public function __construct(
         public string $url,
         public string $method,
+        public string $name = '',
     ) {
     }
 }

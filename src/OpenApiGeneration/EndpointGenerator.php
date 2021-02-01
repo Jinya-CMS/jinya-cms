@@ -61,7 +61,7 @@ class EndpointGenerator
                     } else {
                         $foundEndpoint = array_values($foundEndpoints)[0];
                     }
-                    $foundEndpoint->methods[$action->method] = new OpenApiMethod($reflectionClass);
+                    $foundEndpoint->methods[$action->method] = new OpenApiMethod($reflectionClass, $action);
                     if (empty($foundEndpoints)) {
                         $openApiEndpoints[] = $foundEndpoint;
                     }
@@ -83,7 +83,7 @@ class EndpointGenerator
     {
         $items = [];
         foreach ($openApiEndpoint->methods as $key => $openApiMethod) {
-            $items[strtolower($key)] = $this->generateMethod($openApiMethod);
+            $items[strtolower($key)] = $this->generateMethod($openApiMethod, $openApiMethod->jinyaAction);
         }
 
         ksort($items);
@@ -91,7 +91,7 @@ class EndpointGenerator
         return $items;
     }
 
-    public function generateMethod(OpenApiMethod $openApiMethod): array
+    public function generateMethod(OpenApiMethod $openApiMethod, JinyaAction $jinyaAction): array
     {
         $reflectionClass = $openApiMethod->reflectionClass;
         $openApiRequestAttributes = $reflectionClass->getAttributes(OpenApiRequest::class);
@@ -109,7 +109,7 @@ class EndpointGenerator
             /** @var OpenApiRequest $openApiRequest */
             $openApiRequest = $openApiRequestAttributes[0]->newInstance();
             $result['summary'] = $openApiRequest->summary;
-            $result['operationId'] = $this->convertToSnakeCase($reflectionClass->getShortName());
+            $result['operationId'] = $jinyaAction->name ?? $this->convertToSnakeCase($reflectionClass->getShortName());
             if ($openApiRequest->binary) {
                 $result['requestBody'] = [
                     'content' => [
@@ -123,6 +123,9 @@ class EndpointGenerator
             foreach ($openApiParameterAttributes as $openApiParameterAttribute) {
                 /** @var OpenApiParameter $openApiParameter */
                 $openApiParameter = $openApiParameterAttribute->newInstance();
+                if (!str_contains($jinyaAction->url, '{' . $openApiParameter->name . '}')) {
+                    continue;
+                }
                 $result['parameters'][] = [
                     'name' => $openApiParameter->name,
                     'in' => $openApiParameter->in,
@@ -347,13 +350,7 @@ class EndpointGenerator
                         ],
                         'examples' => [
                             'Not authenticated' => [
-                                'value' => [
-                                    'success' => false,
-                                    'error' => [
-                                        'message' => 'Api key invalid',
-                                        'type' => 'HttpForbiddenException',
-                                    ],
-                                ],
+                                'value' => OpenApiResponse::INVALID_API_KEY,
                             ],
                         ],
                     ],
@@ -381,8 +378,7 @@ class EndpointGenerator
         foreach ($example as $key => $item) {
             if (is_array($item)) {
                 $result[$key] = $this->generateExample($item);
-            }
-            if (is_string($item)) {
+            } elseif (is_string($item)) {
                 try {
                     if ($item === OpenApiResponse::FAKER_NUMERIFY) {
                         $result[$key] = $this->faker->numerify('######');
@@ -392,6 +388,8 @@ class EndpointGenerator
                 } catch (InvalidArgumentException) {
                     $result[$key] = $item;
                 }
+            } else {
+                $result[$key] = $item;
             }
         }
 

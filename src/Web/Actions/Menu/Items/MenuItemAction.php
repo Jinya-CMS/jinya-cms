@@ -11,12 +11,37 @@ use App\Database\Gallery;
 use App\Database\MenuItem;
 use App\Database\SegmentPage;
 use App\Database\SimplePage;
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Iterator;
 
 abstract class MenuItemAction extends Action
 {
+    public const MENU_ITEM_EXAMPLE = [
+        'id' => 0,
+        'position' => 0,
+        'highlighted' => false,
+        'title' => OpenApiResponse::FAKER_WORD,
+        'route' => OpenApiResponse::FAKER_URL,
+    ];
+    public const MENU_ITEM_REQUEST_EXAMPLE = [
+        'position' => 0,
+        'highlighted' => false,
+        'title' => OpenApiResponse::FAKER_WORD,
+        'route' => OpenApiResponse::FAKER_URL,
+        'page' => 0,
+    ];
+    public const MENU_ITEM_SCHEMA = [
+        'title' => ['type' => 'string'],
+        'position' => ['type' => 'integer'],
+        'artist' => ['type' => 'integer'],
+        'form' => ['type' => 'integer'],
+        'page' => ['type' => 'integer'],
+        'segmentPage' => ['type' => 'integer'],
+        'gallery' => ['type' => 'integer'],
+    ];
+
     /**
      * Fills the menu item with the data from the body
      *

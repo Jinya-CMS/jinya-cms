@@ -52,6 +52,7 @@ class OpenApiResponse
         ],
         'at' => OpenApiResponse::FAKER_ISO8601,
     ];
+    public const FAKER_URL = 'url';
 
     public function __construct(
         public string $description,

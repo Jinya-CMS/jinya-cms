@@ -17,7 +17,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/account/known_device/{key}', JinyaAction::DELETE)]
-#[JinyaAction('/api/known_device/{key}', JinyaAction::DELETE)]
+#[JinyaAction('/api/known_device/{key}', JinyaAction::DELETE, name: 'delete_known_device_key')]
 #[Authenticated]
 #[OpenApiRequest('This action deletes the given known device')]
 #[OpenApiParameter('key', true)]

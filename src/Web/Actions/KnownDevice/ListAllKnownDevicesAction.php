@@ -19,7 +19,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/account/known_device', JinyaAction::GET)]
-#[JinyaAction('/api/known_device', JinyaAction::GET)]
+#[JinyaAction('/api/known_device', JinyaAction::GET, name: 'list_all_known_device_key')]
 #[Authenticated]
 #[OpenApiRequest('This action lists all known devices')]
 #[OpenApiListResponse('Successfully got the known devices', example: [
