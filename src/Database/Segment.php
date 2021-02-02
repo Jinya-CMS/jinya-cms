@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -11,7 +12,7 @@ use RuntimeException;
 #[OpenApiModel('A segment is a part of a segment page')]
 class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiField(required: false, defaultValue: '')]
+    #[OpenApiHiddenField]
     public int $pageId;
     #[OpenApiField(required: false, structure: [
         'id' => ['type' => 'integer'],
@@ -38,9 +39,9 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
         'path' => ['type' => 'string'],
     ], name: 'file')]
     public ?int $fileId;
-    #[OpenApiField(required: false, enumValues: ['link', 'script', 'none'])]
+    #[OpenApiField(required: false, enumValues: ['link', 'none'])]
     public ?string $action;
-    #[OpenApiField(required: false, defaultValue: '')]
+    #[OpenApiHiddenField]
     public ?string $script;
     #[OpenApiField(required: false, defaultValue: '')]
     public ?string $target;

@@ -21,7 +21,7 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use LogicException;
 
-#[OpenApiModel("Artists are the users of Jinya", hasId: true)]
+#[OpenApiModel("Artists are the users of Jinya")]
 class Artist extends LoadableEntity implements FormattableEntityInterface
 {
     #[OpenApiField(required: true, format: OpenApiField::FORMAT_EMAIL)]
@@ -221,7 +221,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     /**
      * Formats the artist
      *
-     * @param bool $aboutMe
      * @return array
      */
     #[ArrayShape([
@@ -233,9 +232,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         'id' => "int",
         'aboutMe' => "null|string"
     ])]
-    public function format(
-        bool $aboutMe = false
-    ): array {
+    public function format(): array {
         return [
             'artistName' => $this->artistName,
             'email' => $this->email,

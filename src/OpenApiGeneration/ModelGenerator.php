@@ -93,7 +93,7 @@ class ModelGenerator
                     /** @var OpenApiField $fieldAttribute */
                     $fieldAttribute = $openApiFieldAttributes[0]->newInstance();
 
-                    if ($fieldAttribute->required !== null) {
+                    if ($fieldAttribute->required) {
                         if ($fieldAttribute !== null && $fieldAttribute->name !== null) {
                             $requiredFields[] = $fieldAttribute->name;
                         } else {
@@ -173,6 +173,7 @@ class ModelGenerator
             $openApiProperties['id'] = [
                 'type' => $attribute->idType,
             ];
+            $requiredFields[] = 'id';
         }
         $result['properties'] = $openApiProperties;
         $result['required'] = $requiredFields;
