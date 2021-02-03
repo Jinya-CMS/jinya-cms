@@ -146,7 +146,6 @@ class EndpointGenerator
                             'type' => 'object',
                             'properties' => $openApiRequestBody->schema,
                         ],
-                        'examples' => [],
                     ],
                 ],
             ];
@@ -156,6 +155,7 @@ class EndpointGenerator
                 $result['requestBody']['content']['application/json']['schema']['required'] = $requiredFields->requiredFields;
             }
             if (!empty($openApiRequestExampleAttributes)) {
+                $result['requestBody']['content']['application/json']['examples'] = [];
                 foreach ($openApiRequestExampleAttributes as $openApiRequestExampleAttribute) {
                     /** @var OpenApiRequestExample $openApiRequestExample */
                     $openApiRequestExample = $openApiRequestExampleAttribute->newInstance();
@@ -175,7 +175,29 @@ class EndpointGenerator
                 $response = [
                     'description' => $openApiResponse->description,
                 ];
-                if (!empty($openApiResponse->ref)) {
+                if ($openApiResponse->map === true) {
+                    if (empty($openApiResponse->ref)) {
+                        $response['content'] = [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'additionalProperties' => true,
+                                ],
+                            ],
+                        ];
+                    } else {
+                        $refPath = explode('\\', $openApiResponse->ref);
+                        $refPath = array_reverse($refPath);
+                        $response['content'] = [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'additionalProperties' => ['$ref' => "#/components/schemas/$refPath[0]"],
+                                ],
+                            ],
+                        ];
+                    }
+                } elseif (!empty($openApiResponse->ref)) {
                     $refPath = explode('\\', $openApiResponse->ref);
                     $refPath = array_reverse($refPath);
                     $response['content'] = [

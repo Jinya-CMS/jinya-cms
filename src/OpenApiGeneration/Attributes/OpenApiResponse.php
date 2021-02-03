@@ -61,6 +61,7 @@ class OpenApiResponse
         public int $statusCode = Action::HTTP_OK,
         public ?string $ref = null,
         public array $schema = [],
+        public bool $map = false,
     ) {
     }
 }

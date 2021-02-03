@@ -6,6 +6,7 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SegmentPage;
+use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
@@ -20,6 +21,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/segment-page/{id}', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
+#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiRequest('This action updated the given segment page')]
 #[OpenApiRequestBody([
     'name' => ['type' => 'string'],

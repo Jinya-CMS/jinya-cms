@@ -35,6 +35,7 @@ use Slim\Exception\HttpNotFoundException;
     'gallery' => ['type' => 'integer'],
 ])]
 #[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
+#[OpenApiParameter('position', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiRequestExample('Update file segment', [
     'file' => 0,
     'position' => 0,

@@ -47,16 +47,16 @@ return [
         ],
     ],
     'configurationStructure' => [
-        'title' => 'Jinya default Theme konfigurieren',
+        'title' => 'Configure Jinya default theme',
         'groups' => [
             [
                 'name' => 'page',
-                'title' => 'Seite',
+                'title' => 'Page',
                 'fields' => [
                     [
                         'name' => 'title',
                         'type' => 'string',
-                        'label' => 'Titel',
+                        'label' => 'Title',
                     ],
                 ],
             ],
@@ -67,28 +67,28 @@ return [
                     [
                         'name' => 'copyright',
                         'type' => 'string',
-                        'label' => 'Copyright Nachricht',
+                        'label' => 'Copyright message',
                     ],
                 ],
             ],
             [
                 'name' => 'fonts',
-                'title' => 'Fontlinks',
+                'title' => 'Font links',
                 'fields' => [
                     [
                         'name' => 'menu',
                         'type' => 'string',
-                        'label' => 'Menueinträge',
+                        'label' => 'Menu entries',
                     ],
                     [
                         'name' => 'heading',
                         'type' => 'string',
-                        'label' => 'Überschriften',
+                        'label' => 'Headings',
                     ],
                     [
                         'name' => 'paragraph',
                         'type' => 'string',
-                        'label' => 'Fließtext',
+                        'label' => 'Text',
                     ],
                     [
                         'name' => 'brand',
@@ -99,23 +99,23 @@ return [
             ],
             [
                 'name' => 'input',
-                'title' => 'Eingabefeldoptionen',
+                'title' => 'Input field options',
                 'fields' => [
                     [
                         'name' => 'optional',
                         'type' => 'string',
-                        'label' => 'Markierung für optionale Felder',
+                        'label' => 'Mark optional fields',
                     ],
                 ],
             ],
             [
                 'name' => 'buttons',
-                'title' => 'Button Beschriftungen',
+                'title' => 'Button labels',
                 'fields' => [
                     [
                         'name' => 'submit',
                         'type' => 'string',
-                        'label' => 'Abschicken',
+                        'label' => 'Submit',
                     ],
                 ],
             ],
@@ -126,51 +126,51 @@ return [
                     [
                         'name' => 'placeholder',
                         'type' => 'string',
-                        'label' => 'Standardtext',
+                        'label' => 'Placeholder',
                     ],
                 ],
             ],
             [
                 'name' => 'messages',
-                'title' => 'Meldungen',
+                'title' => 'Messages',
                 'fields' => [
                     [
                         'name' => 'mail_sent_message',
                         'type' => 'string',
-                        'label' => 'Email gesendet',
+                        'label' => 'Mail sent message',
                     ],
                     [
                         'name' => 'mail_not_sent_message',
                         'type' => 'string',
-                        'label' => 'Fehler beim senden',
+                        'label' => 'Mail not sent message',
                     ],
                 ],
             ],
             [
                 'name' => 'profile',
-                'title' => 'Profilseiten',
+                'title' => 'Profile pages',
                 'fields' => [
                     [
                         'name' => 'show_email',
                         'type' => 'boolean',
-                        'label' => 'Emailadresse anzeigen',
+                        'label' => 'Show mail address',
                     ],
                 ],
             ],
         ],
         'links' => [
             'segment_pages' => [
-                'startpage' => 'Startseite',
+                'startpage' => 'Homepage',
             ],
             'menus' => [
-                'primary' => 'Kopfmenü',
-                'footer' => 'Fußzeilenmenü',
-                'shadow' => 'Nicht sichtbare Links',
+                'primary' => 'Main menu',
+                'footer' => 'Footer menu',
+                'shadow' => 'Invisible links',
             ],
             'files' => [
-                'faviconSmall' => 'Kleines Favicon 64x64',
-                'faviconShortcutIcon' => 'Kleines im ico Format',
-                'faviconLarge' => 'Großes Favicon 512x512',
+                'faviconSmall' => 'Small favicon 64x64',
+                'faviconShortcutIcon' => 'Small favicon in ico file format',
+                'faviconLarge' => 'Big favicon 512x512',
             ],
         ],
     ],

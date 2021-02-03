@@ -23,7 +23,7 @@ class JinyaAction
     public function __construct(
         public string $url,
         public string $method,
-        public string $name = '',
+        public ?string $name = null,
     ) {
     }
 }
