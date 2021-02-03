@@ -19,7 +19,6 @@ use Faker\Generator;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
-use stdClass;
 
 class EndpointGenerator
 {
@@ -113,7 +112,12 @@ class EndpointGenerator
             if ($openApiRequest->binary) {
                 $result['requestBody'] = [
                     'content' => [
-                        'application/octet-stream' => new stdClass(),
+                        'application/octet-stream' => [
+                            'schema' => [
+                                'type' => 'string',
+                                'format' => 'binary',
+                            ],
+                        ],
                     ],
                 ];
             }

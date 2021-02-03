@@ -38,7 +38,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     'isSubject' => false,
 ], exampleName: 'List of form items', ref: FormItem::class)]
 #[OpenApiResponse('Form not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Form not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class GetItemsAction extends Action
+class GetFormItemsAction extends Action
 {
     /**
      * {@inheritDoc}

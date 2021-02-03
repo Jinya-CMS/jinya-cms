@@ -21,7 +21,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiParameter('newParent', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully deleted the menu', statusCode: Action::HTTP_NO_CONTENT)]
 #[OpenApiResponse('Menu not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class MoveItemParentToItemAction extends Action
+class MoveMenuItemParentToItemAction extends Action
 {
     protected function action(): Response
     {

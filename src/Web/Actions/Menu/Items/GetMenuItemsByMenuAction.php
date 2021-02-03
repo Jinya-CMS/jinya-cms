@@ -25,7 +25,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiArrayResponse('Successfully got the menu items', example: self::MENU_ITEM_EXAMPLE, exampleName: 'List of menu items', ref: MenuItem::class)]
 #[OpenApiResponse('Menu not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class GetItemsByMenuAction extends MenuItemAction
+class GetMenuItemsByMenuAction extends MenuItemAction
 {
     /**
      * {@inheritDoc}

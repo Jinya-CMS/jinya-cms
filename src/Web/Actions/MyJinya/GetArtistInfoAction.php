@@ -13,7 +13,7 @@ use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/account', JinyaAction::GET)]
-#[JinyaAction('/api/me', JinyaAction::GET)]
+#[JinyaAction('/api/me', JinyaAction::GET, name: 'get_me')]
 #[Authenticated]
 #[OpenApiRequest('This action gets the artist info')]
 #[OpenApiResponse('Successfully got the artist info', example: [

@@ -67,7 +67,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     'isSubject' => false,
 ], exampleName: 'Created form item', statusCode: Action::HTTP_CREATED, ref: FormItem::class)]
 #[OpenApiResponse('Form not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Form not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class CreateItemAction extends Action
+class CreateFormItemAction extends Action
 {
     /**
      * {@inheritDoc}

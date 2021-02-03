@@ -50,7 +50,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 ])]
 #[OpenApiResponse('Successfully updated the form item', statusCode: Action::HTTP_NO_CONTENT)]
 #[OpenApiResponse('Form or form item not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Form or form item not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class UpdateItemAction extends Action
+class UpdateFormItemAction extends Action
 {
     /**
      * {@inheritDoc}

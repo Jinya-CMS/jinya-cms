@@ -27,7 +27,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiRequestExample('Menu item with multiple fields', self::MENU_ITEM_REQUEST_EXAMPLE)]
 #[OpenApiResponse('Successfully updated menu item', example: self::MENU_ITEM_EXAMPLE, exampleName: 'Successfully updated menu item', statusCode: Action::HTTP_CREATED, ref: MenuItem::class)]
 #[OpenApiResponse('Menu item not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu item not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class UpdateItemAction extends MenuItemAction
+class UpdateMenuItemAction extends MenuItemAction
 {
     /**
      * {@inheritDoc}

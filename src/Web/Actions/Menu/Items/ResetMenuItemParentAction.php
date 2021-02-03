@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiParameter('menuId', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully reset the menu items parent', statusCode: Action::HTTP_NO_CONTENT)]
 #[OpenApiResponse('Menu or menu item not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu or menu item not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
-class ResetItemParentAction extends Action
+class ResetMenuItemParentAction extends Action
 {
     protected function action(): Response
     {
