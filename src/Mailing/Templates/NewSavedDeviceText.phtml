@@ -16,8 +16,8 @@ there was a new saved device added to your account.
 The IP address is <?= $this->e($remoteAddress) ?>.
 <?php
 if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region']) ?> in <?= $this->e(
-        $location['country']
+Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region_name']) ?> in <?= $this->e(
+        $location['country_name']
     ) ?>.
 <?php
 endif ?>
