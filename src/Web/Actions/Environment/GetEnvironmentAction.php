@@ -16,7 +16,7 @@ class GetEnvironmentAction extends Action
     {
         $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env'));
         $data = array_map(
-            static fn($key, $value) => [
+            static fn ($key, $value) => [
                 'key' => $key,
                 'value' => false === stripos($key, 'password') ? $value : '••••••',
             ],
