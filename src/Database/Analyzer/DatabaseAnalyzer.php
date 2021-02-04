@@ -16,7 +16,8 @@ class DatabaseAnalyzer
         $tables = LoadableEntity::executeSqlString('SHOW TABLES');
         $result = [];
         foreach ($tables as $table) {
-            $result[$table['Tables_in_jinya']] = LoadableEntity::executeSqlString("EXPLAIN ${table['Tables_in_jinya']}");
+            $tableName = $table[array_keys($table)[0]];
+            $result[$tableName] = LoadableEntity::executeSqlString("EXPLAIN ${tableName}");
         }
 
         return $result;
