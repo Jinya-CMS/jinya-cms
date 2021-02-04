@@ -8,8 +8,6 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SimplePage;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
-use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
