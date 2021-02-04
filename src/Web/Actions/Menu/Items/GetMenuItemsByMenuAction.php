@@ -5,7 +5,6 @@ namespace App\Web\Actions\Menu\Items;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\GalleryFilePosition;
 use App\Database\Menu;
 use App\Database\MenuItem;
 use App\OpenApiGeneration\Attributes\OpenApiArrayResponse;
