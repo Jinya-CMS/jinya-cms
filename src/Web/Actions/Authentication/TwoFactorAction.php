@@ -7,7 +7,6 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Mailing\Types\TwoFactorMail;
-use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
 use App\OpenApiGeneration\Attributes\OpenApiRequestExample;

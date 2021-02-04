@@ -95,7 +95,9 @@ class LoginAction extends Action
                 $knownDevice = new KnownDevice();
                 $knownDevice->setDeviceKey();
                 $knownDevice->userId = (int)$artist->id;
-                $knownDevice->remoteAddress = $_SERVER['REMOTE_ADDR'];
+                $knownDevice->remoteAddress = $this->request->getHeaderLine(
+                    'X-Forwarded-For'
+                ) ?: $_SERVER['REMOTE_ADDR'];
                 if (!empty($userAgentHeader)) {
                     $knownDevice->userAgent = $userAgentHeader;
                 } else {
@@ -124,7 +126,9 @@ class LoginAction extends Action
                 $apiKey->userAgent = 'unknown';
             }
 
-            $apiKey->remoteAddress = $_SERVER['REMOTE_ADDR'];
+            $apiKey->remoteAddress = $this->request->getHeaderLine(
+                'X-Forwarded-For'
+            ) ?: $_SERVER['REMOTE_ADDR'];
             $apiKey->create();
 
             $artist->twoFactorToken = null;
