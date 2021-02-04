@@ -5,7 +5,6 @@ namespace App\Web\Actions\Theme;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\Theme;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
