@@ -5,7 +5,6 @@ namespace App\Database\Utils;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\OpenApiGeneration\Attributes\OpenApiField;
 use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
@@ -72,23 +71,6 @@ abstract class LoadableEntity
     }
 
     /**
-     * Executes the given sql statement and returns an int
-     *
-     * @param string $sql
-     * @return int
-     */
-    public static function fetchColumn(string $sql): int
-    {
-        $pdo = self::getPdo();
-        $stmt = $pdo->query($sql);
-        if ($stmt->columnCount() > 0) {
-            return $stmt->fetchColumn();
-        }
-
-        return $stmt->rowCount();
-    }
-
-    /**
      * @return PDO
      */
     public static function getPdo(): PDO
@@ -117,6 +99,23 @@ abstract class LoadableEntity
         self::$pdo = $pdo;
 
         return $pdo;
+    }
+
+    /**
+     * Executes the given sql statement and returns an int
+     *
+     * @param string $sql
+     * @return int
+     */
+    public static function fetchColumn(string $sql): int
+    {
+        $pdo = self::getPdo();
+        $stmt = $pdo->query($sql);
+        if ($stmt->columnCount() > 0) {
+            return $stmt->fetchColumn();
+        }
+
+        return $stmt->rowCount();
     }
 
     /**
@@ -205,7 +204,7 @@ abstract class LoadableEntity
      * @param StrategyInterface[] $additionalStrategies
      * @return object|null
      */
-    protected static function hydrateSingleResult(
+    public static function hydrateSingleResult(
         array $result,
         mixed $prototype,
         array $additionalStrategies = []
@@ -267,7 +266,7 @@ abstract class LoadableEntity
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
      */
-    protected static function hydrateMultipleResults(
+    public static function hydrateMultipleResults(
         array $result,
         mixed $prototype,
         array $additionalStrategies = []

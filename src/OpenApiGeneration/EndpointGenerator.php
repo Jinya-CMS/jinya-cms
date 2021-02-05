@@ -130,7 +130,7 @@ class EndpointGenerator
                 if (!str_contains($jinyaAction->url, '{' . $openApiParameter->name . '}')) {
                     continue;
                 }
-                $result['parameters'][] = [
+                $parameter = [
                     'name' => $openApiParameter->name,
                     'in' => $openApiParameter->in,
                     'required' => $openApiParameter->required,
@@ -138,6 +138,10 @@ class EndpointGenerator
                         'type' => $openApiParameter->type,
                     ],
                 ];
+                if (!empty($openApiParameter->enumValues)) {
+                    $parameter['schema']['enum'] = $openApiParameter->enumValues;
+                }
+                $result['parameters'][] = $parameter;
             }
         }
         if (!empty($openApiRequestBodyAttributes)) {

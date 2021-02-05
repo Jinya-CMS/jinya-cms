@@ -21,7 +21,8 @@ class OpenApiParameter
         public string $name,
         public bool $required,
         public string $type = self::TYPE_STRING,
-        public string $in = self::IN_PATH
+        public string $in = self::IN_PATH,
+        public array $enumValues = [],
     ) {
     }
 }
