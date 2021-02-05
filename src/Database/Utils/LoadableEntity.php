@@ -20,7 +20,7 @@ abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     #[OpenApiHiddenField]
-    public static ?PDO $pdo;
+    protected static ?PDO $pdo;
     #[OpenApiHiddenField]
     public int|string $id = -1;
 
@@ -72,9 +72,26 @@ abstract class LoadableEntity
     }
 
     /**
+     * Executes the given sql statement and returns an int
+     *
+     * @param string $sql
+     * @return int
+     */
+    public static function fetchColumn(string $sql): int
+    {
+        $pdo = self::getPdo();
+        $stmt = $pdo->query($sql);
+        if ($stmt->columnCount() > 0) {
+            return $stmt->fetchColumn();
+        }
+
+        return $stmt->rowCount();
+    }
+
+    /**
      * @return PDO
      */
-    protected static function getPdo(): PDO
+    public static function getPdo(): PDO
     {
         if (isset(self::$pdo) && self::$pdo !== null) {
             return self::$pdo;
