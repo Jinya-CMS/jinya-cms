@@ -40,10 +40,13 @@ class PostInstallerAction extends InstallAction
                     ->withStatus(self::HTTP_MOVED_PERMANENTLY)
                     ->withHeader('Location', '/');
             } catch (Throwable $exception) {
-                return $this->render('install::first-admin', [
-                    'data' => $postData,
-                    'error' => $exception->getMessage(),
-                ]);
+                return $this->render(
+                    'install::first-admin',
+                    [
+                        'data' => $postData,
+                        'error' => $exception->getMessage(),
+                    ]
+                );
             }
         }
 
@@ -55,11 +58,9 @@ JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
-        $data = array_map(static fn (string $key, string $value) => "$key=$value", array_keys($postData), $postData);
+        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
 
-        foreach ($data as $item) {
-            $dotenv .= PHP_EOL . $item;
-        }
+        $dotenv .= PHP_EOL . implode(PHP_EOL, $data);
 
         file_put_contents(__ROOT__ . '/.env', $dotenv);
 

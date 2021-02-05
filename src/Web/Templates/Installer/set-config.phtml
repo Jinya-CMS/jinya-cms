@@ -1,15 +1,20 @@
 <?php
 /** @var string[] $data */
+
 ?>
-<?php $this->layout('install::layout', ['title' => 'Set configuration']) ?>
-<?php $this->start('body') ?>
+<?php
+$this->layout('install::layout', ['title' => 'Set configuration']) ?>
+<?php
+$this->start('body') ?>
 <form class="installer-form" method="post">
     <h1>Jinya configuration</h1>
-    <?php if (isset($error)): ?>
+    <?php
+    if (isset($error)): ?>
         <div class="installer-message--error">
             <?= $error ?>
         </div>
-    <?php endif ?>
+    <?php
+    endif ?>
     <fieldset class="installer-fieldset">
         <legend class="installer-legend">Mysql Database</legend>
         <div class="installer-block">
@@ -79,8 +84,27 @@
                    value="<?= $data['MAILER_FROM'] ?>">
         </div>
     </fieldset>
+    <fieldset class="installer-fieldset">
+        <legend class="installer-legend">Matomo</legend>
+        <div class="installer-block">
+            <label for="MATOMO_SERVER">Server</label>
+            <input class="installer-input" type="text" name="MATOMO_SERVER" id="MATOMO_SERVER"
+                   value="<?= $data['MATOMO_SERVER'] ?>">
+        </div>
+        <div class="installer-block">
+            <label for="MAILER_API_KEY">Api Key</label>
+            <input class="installer-input" type="text" name="MAILER_API_KEY" id="MAILER_API_KEY"
+                   value="<?= $data['MAILER_PORT'] ?>">
+        </div>
+        <div class="installer-block">
+            <label for="MATOMO_SITE_ID">Api Key</label>
+            <input class="installer-input" type="text" name="MATOMO_SITE_ID" id="MATOMO_SITE_ID"
+                   value="<?= $data['MATOMO_SITE_ID'] ?>">
+        </div>
+    </fieldset>
     <div>
         <button class="installer-button" type="submit">Save config and create database</button>
     </div>
 </form>
-<?php $this->stop() ?>
+<?php
+$this->stop() ?>
