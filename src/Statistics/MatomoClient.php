@@ -2,10 +2,20 @@
 
 namespace App\Statistics;
 
+use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use JsonException;
 
 class MatomoClient
 {
+    public const STATS_SCHEMA = [
+        'label' => ['type' => 'string'],
+        'visitCount' => ['type' => 'integer'],
+    ];
+    public const STATS_EXAMPLE = [
+        'label' => OpenApiResponse::FAKER_WORD,
+        'visitCount' => 32498,
+    ];
+
     private string $matomoServer;
     private string $matomoApiKey;
     private string $matomoSiteId;
