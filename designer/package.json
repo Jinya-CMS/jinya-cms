@@ -20,7 +20,7 @@
     "@rollup/plugin-node-resolve": "11.1.0",
     "eslint": "7.18.0",
     "eslint-plugin-svelte3": "3.0.0",
-    "rollup": "2.38.1",
+    "rollup": "2.38.5",
     "rollup-plugin-copy": "3.3.0",
     "rollup-plugin-monaco-editor": "0.0.7",
     "rollup-plugin-postcss": "4.0.0",
