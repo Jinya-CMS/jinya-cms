@@ -2316,10 +2316,10 @@ svelte-i18n@3.3.0:
     sade "^1.7.4"
     tiny-glob "^0.2.6"
 
-svelte@3.32.0:
-  version "3.32.0"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.32.0.tgz#06d7dcdf65e62a708c74231f7099569df43e3af6"
-  integrity sha512-+EA3qfKDG0uB16s7m1z9Nc1o01G7YC4eq1cnHOzCy+fKsvGAJrjhjBIM3zCW2eZUu639UbHQElaOPQWUjBN3Yw==
+svelte@3.32.2:
+  version "3.32.2"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.32.2.tgz#c3a370b951ea2e0730dfd314b5fa57fd93ece399"
+  integrity sha512-Zxh1MQQl/+vnToKbU1Per+PoMN8Jb2MeKJcGxiOsCGR677hXw7jkMfbnNXq33+dxIzV/HfA4xtoSPJrqeB0VUg==
 
 svgo@^1.0.0:
   version "1.3.2"
