@@ -690,5 +690,25 @@
       "uploaded": "File upload done"
     },
     "upload_progress": "Uploaded {filesUploaded} of {filesToUpload} files"
+  },
+  "statistics": {
+    "menu": {
+      "database": "Database",
+      "matomo": "Access",
+      "title": "Statistics"
+    },
+    "database": {
+      "entities": "Types",
+      "file": "Files",
+      "galleries": "Galleries",
+      "forms": "Forms",
+      "simple_pages": "Simple pages",
+      "segment_pages": "Segment pages",
+      "history": {
+        "file": "File history",
+        "created": "Uploaded files",
+        "updated": "Updated files"
+      }
+    }
   }
 }

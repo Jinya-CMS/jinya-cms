@@ -690,5 +690,25 @@
       "uploaded": "Alle Dateien wurden hochgeladen"
     },
     "upload_progress": "{filesUploaded} vom {filesToUpload} Dateien hochgeladen"
+  },
+  "statistics": {
+    "menu": {
+      "database": "Datenbank",
+      "matomo": "Zugriffe",
+      "title": "Statistiken"
+    },
+    "database": {
+      "entities": "Typen",
+      "file": "Dateien",
+      "galleries": "Galerien",
+      "forms": "Formulare",
+      "simple_pages": "Einfache Seiten",
+      "segment_pages": "Segmentseiten",
+      "history": {
+        "file": "Dateihistorie",
+        "created": "Hochgeladene Dateien",
+        "updated": "Geänderte Dateien"
+      }
+    }
   }
 }

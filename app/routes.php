@@ -62,6 +62,16 @@ return function (App $app) {
                 ->withHeader('Location', '/');
         }
     );
+    $app->map(['HEAD'],
+        '/api/matomo',
+        function (ServerRequestInterface $request, ResponseInterface $response) {
+            if (getenv('MATOMO_API_KEY') && getenv('MATOMO_SERVER') && getenv('MATOMO_SITE_ID')) {
+                return $response->withStatus(Action::HTTP_NO_CONTENT);
+            }
+
+            return $response->withStatus(Action::HTTP_NOT_FOUND);
+        }
+    )->add(AuthenticationMiddleware::class);
     $app->group(
         '/{route:.*}',
         function (RouteCollectorProxy $frontend) {

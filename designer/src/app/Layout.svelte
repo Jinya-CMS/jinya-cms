@@ -1,6 +1,7 @@
 <script>
   import page from 'page';
-  import { _ } from 'svelte-i18n';
+  import {_} from 'svelte-i18n';
+  import DatabaseStatisticsView from './statistics/DatabaseStatisticsView.svelte';
   import FileView from './media/FileView.svelte';
   import GalleryView from './media/GalleryView.svelte';
   import SimplePageView from './pages/SimplePageView.svelte';
@@ -18,9 +19,9 @@
   import TablesView from './database/TablesView.svelte';
   import QueryToolView from './database/QueryToolView.svelte';
   import ArtistView from './artists/ArtistView.svelte';
-  import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { get, getHost, head, post, put, upload } from '../http/request';
+  import {deleteJinyaApiKey, deleteRoles, getRoles} from '../storage/authentication/storage';
+  import {createEventDispatcher, onMount} from 'svelte';
+  import {get, getHost, head, post, put, upload} from '../http/request';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -30,6 +31,7 @@
   const roles = getRoles();
   let allowBackstage = roles.includes('ROLE_ADMIN');
   let allowFrontstage = roles.includes('ROLE_WRITER');
+  let matomoEnabled = false;
   let isBackstage = !allowFrontstage;
   let me;
   let filesToUpload = 0;
@@ -47,7 +49,23 @@
     }
   }
 
+  async function checkForMatomo() {
+    try {
+      await head('/api/matomo');
+      matomoEnabled = true;
+    } catch (e) {
+      matomoEnabled = false;
+    }
+  }
+
   if (allowFrontstage) {
+    page('/designer/statistics/database', checkApiKey, ()=>{
+      activeRoute = 'database';
+      activeCategory = 'statistics';
+      isBackstage = false;
+      activeComponent = DatabaseStatisticsView;
+    });
+
     page('/designer/media/files', checkApiKey, () => {
       activeRoute = 'files';
       activeCategory = 'media';
@@ -175,6 +193,7 @@
   }
 
   onMount(async () => {
+    await checkForMatomo();
     page.start();
     await updateMe();
   });
@@ -196,7 +215,7 @@
     uploadDone = false;
     for (const file of files) {
       try {
-        const postResult = await post('/api/media/file', { name: file.name });
+        const postResult = await post('/api/media/file', {name: file.name});
         await put(`/api/media/file/${postResult.id}/content`);
         await upload(`/api/media/file/${postResult.id}/content/0`, file);
         await put(`/api/media/file/${postResult.id}/content/finish`);
@@ -217,6 +236,8 @@
     <div class="cosmo-top-bar">
         <div class="cosmo-top-bar__menu">
             {#if isBackstage && allowFrontstage}
+                <a href="/designer/statistics/database"
+                   class="cosmo-top-bar__menu-item">{$_('statistics.menu.title')}</a>
                 <a href="/designer/media/files"
                    class="cosmo-top-bar__menu-item">{$_('media.menu.title')}</a>
                 <a href="/designer/pages-and-forms/simple-pages"
@@ -253,7 +274,11 @@
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'artists'}
                        class="cosmo-menu-bar__main-item">{$_('artists.menu.title')}</a>
                 {:else}
-                    <a href="/designer/media/files" class:cosmo-menu-bar__main-item--active={activeCategory === 'media'}
+                    <a href="/designer/statistics/database"
+                       class:cosmo-menu-bar__main-item--active={activeCategory === 'statistics'}
+                       class="cosmo-menu-bar__main-item">{$_('statistics.menu.title')}</a>
+                    <a href="/designer/media/files"
+                       class:cosmo-menu-bar__main-item--active={activeCategory === 'media'}
                        class="cosmo-menu-bar__main-item">{$_('media.menu.title')}</a>
                     <a href="/designer/pages-and-forms/simple-pages"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'pages-and-forms'}
@@ -267,7 +292,14 @@
                 {/if}
             </div>
             <div class="cosmo-menu-bar__sub-menu">
-                {#if activeCategory === 'media'}
+                {#if activeCategory === 'statistics'}
+                    <a href="/designer/statistics/database" class="cosmo-menu-bar__sub-item"
+                       class:cosmo-menu-bar__sub-item--active={activeRoute === 'database'}>{$_('statistics.menu.database')}</a>
+                    {#if matomoEnabled}
+                        <a href="/designer/statistics/matomo" class="cosmo-menu-bar__sub-item"
+                           class:cosmo-menu-bar__sub-item--active={activeRoute === 'matomo'}>{$_('statistics.menu.matomo')}</a>
+                    {/if}
+                {:else if activeCategory === 'media'}
                     <a href="/designer/media/files" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'files'}>{$_('media.menu.files')}</a>
                     <a href="/designer/media/galleries" class="cosmo-menu-bar__sub-item"
@@ -334,7 +366,7 @@
             </span>
             <progress class="cosmo-progress-bar" value={filesUploaded} max={filesToUpload}></progress>
             <span class="cosmo-progress-bar__bottom-label">
-                {$_('bottom_bar.upload_progress', { values: { filesToUpload, filesUploaded } })}
+                {$_('bottom_bar.upload_progress', {values: {filesToUpload, filesUploaded}})}
             </span>
         </div>
     {/if}
