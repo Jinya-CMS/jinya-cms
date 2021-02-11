@@ -2304,10 +2304,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-i18n@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.0.tgz#6c93f005b749263ef9db84c38cd7b0456019ad2f"
-  integrity sha512-2pIfd4G8QfB87udPugt6g2Wl/qZ0kIB60+nQKHdon7d7aFzY5qsYT2NqQgK7dnVO2Gu0R8i2kSsNzsaVSk5UsA==
+svelte-i18n@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.2.tgz#61395a35467c3b099efbadd453e6a0c729b97a3d"
+  integrity sha512-db+rRbBSdcIyXsfs2/BiKD38BUSP8Ch0e3FHQnmexN+Y95d4LWUH3nJdz6OoEWWWtQAvUeWqqAV/mqgjVcnuaA==
   dependencies:
     deepmerge "^4.2.2"
     dlv "^1.1.3"
