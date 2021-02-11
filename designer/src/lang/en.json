@@ -697,6 +697,11 @@
       "matomo": "Access",
       "title": "Statistics"
     },
+    "system": {
+      "title": "Storage",
+      "free": "Free storage",
+      "used": "Used storage"
+    },
     "database": {
       "entities": "Types",
       "file": "Files",

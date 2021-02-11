@@ -697,6 +697,11 @@
       "matomo": "Zugriffe",
       "title": "Statistiken"
     },
+    "system": {
+      "title": "Speicher",
+      "free": "Freier Speicher",
+      "used": "Belegter Speicher"
+    },
     "database": {
       "entities": "Typen",
       "file": "Dateien",

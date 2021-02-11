@@ -6,6 +6,7 @@
 
   let entityShare;
   let fileHistory;
+  let systemStats;
 
   onMount(async () => {
     const entityShareData = await get('/api/statistics/entity');
@@ -29,6 +30,29 @@
       ],
     });
     await entityShareChart.render();
+
+    const systemStatsData = await get('/api/statistics/system');
+    const systemStatsChart = new ApexCharts(systemStats, {
+      chart: {
+        type: 'pie',
+        height: 400,
+        width: 500,
+      },
+      dataLabels:{
+        formatter(val, { seriesIndex, dataPointIndex, w }){
+          return `${(w.config.series[seriesIndex] / 1024 / 1024 / 1024).toFixed(2)} GB`
+        },
+      },
+      series: [
+        systemStatsData.total - systemStatsData.free,
+        systemStatsData.free,
+      ],
+      labels: [
+        $_('statistics.system.used'),
+        $_('statistics.system.free'),
+      ],
+    });
+    await systemStatsChart.render();
 
     const fileHistoryData = await get('/api/statistics/history/file');
     const fileHistoryChart = new ApexCharts(fileHistory, {
@@ -67,7 +91,8 @@
   });
 </script>
 
-<div>
+<div class="jinya-stats__row">
     <div bind:this={entityShare}></div>
-    <div bind:this={fileHistory}></div>
+    <div bind:this={systemStats}></div>
 </div>
+<div bind:this={fileHistory}></div>
