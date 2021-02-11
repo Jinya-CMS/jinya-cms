@@ -702,6 +702,15 @@
       "free": "Freier Speicher",
       "used": "Belegter Speicher"
     },
+    "access": {
+      "browser": "Zugriffe nach Browser",
+      "country": "Zugriffe nach Land",
+      "device_brand": "Zugriffe nach Gerätemarke",
+      "device_type": "Zugriffe nach Gerätetyp",
+      "language": "Zugriffe nach Sprache",
+      "operating_system": "Zugriffe nach Betriebssystem",
+      "title": "Zugriffstatistiken des letzten Monats"
+    },
     "database": {
       "entities": "Typen",
       "file": "Dateien",

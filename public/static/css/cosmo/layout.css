@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background: var(--white);
 }
 
 .cosmo-page-layout {

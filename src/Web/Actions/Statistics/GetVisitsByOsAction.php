@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(Authenticated::WRITER)]
 #[OpenApiRequest('This action gets the visit statistics by os')]
 #[OpenApiResponse('A successful response', example: MatomoClient::STATS_EXAMPLE, exampleName: 'Returned statistics', schema: MatomoClient::STATS_SCHEMA)]
-class GetVistsByOsAction extends Action
+class GetVisitsByOsAction extends Action
 {
 
     protected function action(): Response

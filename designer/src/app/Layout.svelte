@@ -1,7 +1,8 @@
 <script>
   import page from 'page';
-  import {_} from 'svelte-i18n';
+  import { _ } from 'svelte-i18n';
   import DatabaseStatisticsView from './statistics/DatabaseStatisticsView.svelte';
+  import AccessStatisticsView from './statistics/AccessStatisticsView.svelte';
   import FileView from './media/FileView.svelte';
   import GalleryView from './media/GalleryView.svelte';
   import SimplePageView from './pages/SimplePageView.svelte';
@@ -19,9 +20,9 @@
   import TablesView from './database/TablesView.svelte';
   import QueryToolView from './database/QueryToolView.svelte';
   import ArtistView from './artists/ArtistView.svelte';
-  import {deleteJinyaApiKey, deleteRoles, getRoles} from '../storage/authentication/storage';
-  import {createEventDispatcher, onMount} from 'svelte';
-  import {get, getHost, head, post, put, upload} from '../http/request';
+  import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { get, getHost, head, post, put, upload } from '../http/request';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -49,21 +50,31 @@
     }
   }
 
-  async function checkForMatomo() {
+  async function checkForMatomo(ctx = undefined, next = undefined) {
     try {
       await head('/api/matomo');
       matomoEnabled = true;
+      if (next) {
+        next();
+      }
     } catch (e) {
       matomoEnabled = false;
+      page('/designer/statistics/database');
     }
   }
 
   if (allowFrontstage) {
-    page('/designer/statistics/database', checkApiKey, ()=>{
+    page('/designer/statistics/database', checkApiKey, () => {
       activeRoute = 'database';
       activeCategory = 'statistics';
       isBackstage = false;
       activeComponent = DatabaseStatisticsView;
+    });
+    page('/designer/statistics/matomo', checkApiKey, checkForMatomo, () => {
+      activeRoute = 'matomo';
+      activeCategory = 'statistics';
+      isBackstage = false;
+      activeComponent = AccessStatisticsView;
     });
 
     page('/designer/media/files', checkApiKey, () => {

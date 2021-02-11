@@ -10,17 +10,17 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/statistics/visits/brand', JinyaAction::GET)]
+#[JinyaAction('/api/statistics/visits/type', JinyaAction::GET)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action gets the visit statistics by device brand')]
+#[OpenApiRequest('This action gets the visit statistics by device type')]
 #[OpenApiResponse('A successful response', example: MatomoClient::STATS_EXAMPLE, exampleName: 'Returned statistics', schema: MatomoClient::STATS_SCHEMA)]
-class GetVistsByDeviceBrandAction extends Action
+class GetVisitsByDeviceTypeAction extends Action
 {
 
     protected function action(): Response
     {
         $client = MatomoClient::newClient();
 
-        return $this->respond($client->getVisitsByDeviceBrand());
+        return $this->respond($client->getVisitsByDeviceType());
     }
 }

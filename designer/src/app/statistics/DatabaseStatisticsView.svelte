@@ -38,8 +38,8 @@
         height: 400,
         width: 500,
       },
-      dataLabels:{
-        formatter(val, { seriesIndex, dataPointIndex, w }){
+      dataLabels: {
+        formatter(val, {seriesIndex, w}) {
           return `${(w.config.series[seriesIndex] / 1024 / 1024 / 1024).toFixed(2)} GB`
         },
       },

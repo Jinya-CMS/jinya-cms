@@ -702,6 +702,15 @@
       "free": "Free storage",
       "used": "Used storage"
     },
+    "access": {
+      "browser": "Visits by browser",
+      "country": "Visits by country",
+      "device_brand": "Visits by device brand",
+      "device_type": "Visits by device type",
+      "language": "Visits by language",
+      "operating_system": "Visits by operating system",
+      "title": "Access statistics for the last month"
+    },
     "database": {
       "entities": "Types",
       "file": "Files",

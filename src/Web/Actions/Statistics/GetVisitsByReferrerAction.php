@@ -10,17 +10,17 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/statistics/visits/language', JinyaAction::GET)]
+#[JinyaAction('/api/statistics/visits/referrer', JinyaAction::GET)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action gets the visit statistics by language')]
+#[OpenApiRequest('This action gets the visit statistics by referrer')]
 #[OpenApiResponse('A successful response', example: MatomoClient::STATS_EXAMPLE, exampleName: 'Returned statistics', schema: MatomoClient::STATS_SCHEMA)]
-class GetVistsByLanguageAction extends Action
+class GetVisitsByReferrerAction extends Action
 {
 
     protected function action(): Response
     {
         $client = MatomoClient::newClient();
 
-        return $this->respond($client->getVisitsByLanguage());
+        return $this->respond($client->getVisitsByReferrer());
     }
 }

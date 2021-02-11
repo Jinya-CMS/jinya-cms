@@ -3,6 +3,8 @@
 namespace App\Statistics;
 
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
+use DateInterval;
+use DateTime;
 use JsonException;
 
 class MatomoClient
@@ -40,9 +42,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByCountry(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByCountry(string $period = 'range'): array
     {
-        $result = $this->requestMatomo('UserCountry.getCountry', $period, $date);
+        $result = $this->requestMatomo('UserCountry.getCountry', $period);
 
         $data = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -61,8 +63,12 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    private function requestMatomo(string $action, string $period = 'month', string $date = 'today'): array
+    private function requestMatomo(string $action, string $period = 'range'): array
     {
+        $today = new DateTime();
+        $to = $today->format('Y-m-d');
+        $from = $today->sub(new DateInterval('P1M'))->format('Y-m-d');
+        $date = "$from,$to";
         $url = "https://matomo.statistical.li/?module=API&method=$action&idSite=$this->matomoSiteId&period=$period&date=$date&format=JSON&token_auth=$this->matomoApiKey&filter_sort_column=label&filter_sort_order=asc";
         $fetched = file_get_contents($url);
 
@@ -75,9 +81,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByBrowsers(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByBrowsers(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('DevicesDetection.getBrowsers', $period, $date);
+        $data = $this->requestMatomo('DevicesDetection.getBrowsers', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -94,9 +100,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByOsVersions(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByOsVersions(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('DevicesDetection.getOsVersions', $period, $date);
+        $data = $this->requestMatomo('DevicesDetection.getOsVersions', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -113,9 +119,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByDeviceBrand(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByDeviceBrand(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('DevicesDetection.getBrand', $period, $date);
+        $data = $this->requestMatomo('DevicesDetection.getBrand', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -132,9 +138,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByDeviceType(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByDeviceType(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('DevicesDetection.getType', $period, $date);
+        $data = $this->requestMatomo('DevicesDetection.getType', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -151,9 +157,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByLanguage(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByLanguage(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('UserLanguage.getLanguage', $period, $date);
+        $data = $this->requestMatomo('UserLanguage.getLanguage', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
@@ -170,9 +176,9 @@ class MatomoClient
      * @return array
      * @throws JsonException
      */
-    public function getVisitsByReferrer(string $period = 'month', string $date = 'today'): array
+    public function getVisitsByReferrer(string $period = 'range'): array
     {
-        $data = $this->requestMatomo('Referrers.getReferrerType', $period, $date);
+        $data = $this->requestMatomo('Referrers.getReferrerType', $period);
 
         $result = array_map(
             static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
