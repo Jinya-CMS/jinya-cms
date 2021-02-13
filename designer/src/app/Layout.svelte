@@ -191,8 +191,8 @@
   }
 
   if (allowFrontstage) {
-    page.redirect('/designer', '/designer/media/files');
-    page.redirect('/designer/*', '/designer/media/files');
+    page.redirect('/designer', '/designer/statistics/matomo');
+    page.redirect('/designer/*', '/designer/statistics/matomo');
   } else if (allowBackstage) {
     page.redirect('/designer', '/designer/backstage/maintenance/update');
     page.redirect('/designer/*', '/designer/backstage/maintenance/update');
@@ -247,7 +247,7 @@
     <div class="cosmo-top-bar">
         <div class="cosmo-top-bar__menu">
             {#if isBackstage && allowFrontstage}
-                <a href="/designer/statistics/database"
+                <a href="/designer/statistics/matomo"
                    class="cosmo-top-bar__menu-item">{$_('statistics.menu.title')}</a>
                 <a href="/designer/media/files"
                    class="cosmo-top-bar__menu-item">{$_('media.menu.title')}</a>
@@ -285,7 +285,7 @@
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'artists'}
                        class="cosmo-menu-bar__main-item">{$_('artists.menu.title')}</a>
                 {:else}
-                    <a href="/designer/statistics/database"
+                    <a href="/designer/statistics/matomo"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'statistics'}
                        class="cosmo-menu-bar__main-item">{$_('statistics.menu.title')}</a>
                     <a href="/designer/media/files"
@@ -304,12 +304,12 @@
             </div>
             <div class="cosmo-menu-bar__sub-menu">
                 {#if activeCategory === 'statistics'}
-                    <a href="/designer/statistics/database" class="cosmo-menu-bar__sub-item"
-                       class:cosmo-menu-bar__sub-item--active={activeRoute === 'database'}>{$_('statistics.menu.database')}</a>
                     {#if matomoEnabled}
                         <a href="/designer/statistics/matomo" class="cosmo-menu-bar__sub-item"
                            class:cosmo-menu-bar__sub-item--active={activeRoute === 'matomo'}>{$_('statistics.menu.matomo')}</a>
                     {/if}
+                    <a href="/designer/statistics/database" className="cosmo-menu-bar__sub-item"
+                       class:cosmo-menu-bar__sub-item--active={activeRoute === 'database'}>{$_('statistics.menu.database')}</a>
                 {:else if activeCategory === 'media'}
                     <a href="/designer/media/files" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'files'}>{$_('media.menu.files')}</a>
