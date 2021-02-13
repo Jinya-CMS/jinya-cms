@@ -37,9 +37,7 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByCountry(string $period = 'range'): array
@@ -47,20 +45,17 @@ class MatomoClient
         $result = $this->requestMatomo('UserCountry.getCountry', $period);
 
         $data = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $result
         );
 
-        usort($data, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($data, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
 
         return $data;
     }
 
     /**
-     * @param string $action
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     private function requestMatomo(string $action, string $period = 'range'): array
@@ -76,9 +71,7 @@ class MatomoClient
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByBrowsers(string $period = 'range'): array
@@ -86,18 +79,17 @@ class MatomoClient
         $data = $this->requestMatomo('DevicesDetection.getBrowsers', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByOsVersions(string $period = 'range'): array
@@ -105,18 +97,17 @@ class MatomoClient
         $data = $this->requestMatomo('DevicesDetection.getOsVersions', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByDeviceBrand(string $period = 'range'): array
@@ -124,18 +115,17 @@ class MatomoClient
         $data = $this->requestMatomo('DevicesDetection.getBrand', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByDeviceType(string $period = 'range'): array
@@ -143,18 +133,17 @@ class MatomoClient
         $data = $this->requestMatomo('DevicesDetection.getType', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByLanguage(string $period = 'range'): array
@@ -162,18 +151,17 @@ class MatomoClient
         $data = $this->requestMatomo('UserLanguage.getLanguage', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 
     /**
-     * @param string $period
      * @param string $date
-     * @return array
      * @throws JsonException
      */
     public function getVisitsByReferrer(string $period = 'range'): array
@@ -181,11 +169,12 @@ class MatomoClient
         $data = $this->requestMatomo('Referrers.getReferrerType', $period);
 
         $result = array_map(
-            static fn(array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
+            static fn (array $item) => ['label' => $item['label'], 'visitCount' => $item['nb_visits']],
             $data
         );
 
-        usort($result, static fn(array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+        usort($result, static fn (array $item1, array $item2) => strcmp($item1['label'], $item2['label']));
+
         return $result;
     }
 }
