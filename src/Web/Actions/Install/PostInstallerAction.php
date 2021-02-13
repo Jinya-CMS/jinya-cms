@@ -58,7 +58,7 @@ JINYA_UPDATE_SERVER=https://releases.jinya.de/cms
 
 DOTENV;
 
-        $data = array_map(static fn(string $key, string $value) => "$key=$value", array_keys($postData), $postData);
+        $data = array_map(static fn (string $key, string $value) => "$key=$value", array_keys($postData), $postData);
 
         $dotenv .= PHP_EOL . implode(PHP_EOL, $data);
 
