@@ -308,7 +308,7 @@
                         <a href="/designer/statistics/matomo" class="cosmo-menu-bar__sub-item"
                            class:cosmo-menu-bar__sub-item--active={activeRoute === 'matomo'}>{$_('statistics.menu.matomo')}</a>
                     {/if}
-                    <a href="/designer/statistics/database" className="cosmo-menu-bar__sub-item"
+                    <a href="/designer/statistics/database" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'database'}>{$_('statistics.menu.database')}</a>
                 {:else if activeCategory === 'media'}
                     <a href="/designer/media/files" class="cosmo-menu-bar__sub-item"
