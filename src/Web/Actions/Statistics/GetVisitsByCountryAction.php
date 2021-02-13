@@ -16,9 +16,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiResponse('A successful response', example: MatomoClient::STATS_EXAMPLE, exampleName: 'Returned statistics', schema: MatomoClient::STATS_SCHEMA)]
 class GetVisitsByCountryAction extends Action
 {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function action(): Response
     {
