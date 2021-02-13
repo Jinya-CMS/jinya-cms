@@ -7,26 +7,26 @@
     "prepublishOnly": "npm run build:prod"
   },
   "dependencies": {
-    "apexcharts": "^3.24.0",
-    "monaco-editor": "0.21.2",
+    "apexcharts": "3.24.0",
+    "monaco-editor": "0.22.3",
     "page": "1.11.6",
     "sortablejs": "1.13.0",
-    "svelte-i18n": "3.3.0",
-    "tinymce": "5.6.2",
-    "ua-parser-js": "0.7.23"
+    "svelte-i18n": "3.3.2",
+    "tinymce": "5.7.0",
+    "ua-parser-js": "0.7.24"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "17.0.0",
+    "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-json": "4.1.0",
-    "@rollup/plugin-node-resolve": "11.1.0",
-    "eslint": "7.18.0",
+    "@rollup/plugin-node-resolve": "11.1.1",
+    "eslint": "7.20.0",
     "eslint-plugin-svelte3": "3.0.0",
-    "rollup": "2.38.5",
+    "rollup": "2.39.0",
     "rollup-plugin-copy": "3.3.0",
     "rollup-plugin-monaco-editor": "0.0.7",
     "rollup-plugin-postcss": "4.0.0",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.32.0",
-    "postcss": "8.2.5"
+    "svelte": "3.32.3",
+    "postcss": "8.2.6"
   }
 }
