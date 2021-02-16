@@ -83,7 +83,7 @@ use Nyholm\Psr7\Response as NyholmResponse;
         ],
     ],
 ])]
-class HistoryStatisticsAction extends Action
+class GetHistoryStatisticsAction extends Action
 {
 
     /**

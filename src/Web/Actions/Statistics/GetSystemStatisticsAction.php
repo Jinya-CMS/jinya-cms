@@ -29,7 +29,7 @@ use Psr\Http\Message\ResponseInterface as Response;
         ],
     ],
 ])]
-class SystemStatisticsAction extends Action
+class GetSystemStatisticsAction extends Action
 {
 
     /**

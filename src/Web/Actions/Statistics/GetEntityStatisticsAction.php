@@ -26,7 +26,7 @@ use Psr\Http\Message\ResponseInterface as Response;
     'segmentPages' => ['type' => 'integer'],
     'forms' => ['type' => 'integer'],
 ])]
-class EntityStatisticsAction extends Action
+class GetEntityStatisticsAction extends Action
 {
 
     /**
