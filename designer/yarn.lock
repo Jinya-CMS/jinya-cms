@@ -757,10 +757,10 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-plugin-svelte3@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-svelte3/-/eslint-plugin-svelte3-3.0.0.tgz#7c085ccc214e07feaa125b02f51a5789bc807a7f"
-  integrity sha512-8IZAT1Qkk1X6z+zLGeIF4OYYhYodr5iUoCczovEAbtzf2VOoyrS1rk66SkYknJKjPh8rwFErjCpN4dFa2Bmbng==
+eslint-plugin-svelte3@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-svelte3/-/eslint-plugin-svelte3-3.1.0.tgz#2a59cf2041c5dc1cf3e2929c09c2f221a86ebba1"
+  integrity sha512-SV78vuJIEO6PB6K2DBINGzCi/0a+YuWZ0LobRX8MdkEOA5EsNoe02DzkRc/4YmNtx/wbqHdcAqatUVW1b7TzsA==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
