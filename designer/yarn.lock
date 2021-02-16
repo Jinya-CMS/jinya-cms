@@ -2316,10 +2316,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-i18n@3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.2.tgz#61395a35467c3b099efbadd453e6a0c729b97a3d"
-  integrity sha512-db+rRbBSdcIyXsfs2/BiKD38BUSP8Ch0e3FHQnmexN+Y95d4LWUH3nJdz6OoEWWWtQAvUeWqqAV/mqgjVcnuaA==
+svelte-i18n@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.4.tgz#9b788750551e6600b787617d3065814346edbaeb"
+  integrity sha512-0mrtiR2nPFZRdDEZCzECkVhxrxclZi7LsH0v6v5Pgdb7tO+QfzALaPYl8D2wxsPmN2+YitpML3n20sRRpYQHBA==
   dependencies:
     deepmerge "^4.2.2"
     dlv "^1.1.3"
