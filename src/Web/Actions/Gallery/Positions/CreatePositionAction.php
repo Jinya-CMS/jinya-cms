@@ -24,7 +24,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/gallery/{galleryId}/file', JinyaAction::POST)]
 #[Authenticated(role: Authenticated::WRITER)]
-#[RequiredFields(['fileId', 'position'])]
+#[RequiredFields(['file', 'position'])]
 #[OpenApiRequest('This action create a new gallery file position')]
 #[OpenApiRequestBody([
     'fileId' => ['type' => 'integer'],
