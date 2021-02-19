@@ -9,6 +9,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
+use App\Storage\StorageBaseService;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -40,6 +41,6 @@ class GetProfilePictureAction extends Action
 
         $path = $artist->profilePicture;
 
-        return $this->respondFile($path, mime_content_type($path));
+        return $this->respondFile($path, mime_content_type(StorageBaseService::BASE_PATH . '/public/' . $path));
     }
 }
