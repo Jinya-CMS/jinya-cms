@@ -619,11 +619,6 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dlv@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
-  integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
-
 doctrine@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-3.0.0.tgz#addebead72a6574db783639dc87a121773973961"
@@ -2316,13 +2311,12 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-i18n@3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.2.tgz#61395a35467c3b099efbadd453e6a0c729b97a3d"
-  integrity sha512-db+rRbBSdcIyXsfs2/BiKD38BUSP8Ch0e3FHQnmexN+Y95d4LWUH3nJdz6OoEWWWtQAvUeWqqAV/mqgjVcnuaA==
+svelte-i18n@3.3.6:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.6.tgz#5d2a9f598b6e4999964afafad023c7f2f42c2e1f"
+  integrity sha512-HfXf2zPzVSuTRLXpfzMbAkE7C6v1JjHYhOaLM7e1Zr6w8l/9HpjDLVgd08ob0gwQqMDehJ630RVgcPOYJq46tQ==
   dependencies:
     deepmerge "^4.2.2"
-    dlv "^1.1.3"
     estree-walker "^2.0.1"
     intl-messageformat "^9.3.15"
     sade "^1.7.4"
