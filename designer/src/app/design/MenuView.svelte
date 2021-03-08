@@ -43,7 +43,7 @@
 
   $: if (menuItemToolboxElement instanceof HTMLElement) {
     new Sortable(menuItemToolboxElement, {
-      group: { name: 'menu_items', put: false, pull: 'clone' },
+      group: {name: 'menu_items', put: false, pull: 'clone'},
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -56,7 +56,7 @@
 
   $: if (menuItemListElement instanceof HTMLElement) {
     new Sortable(menuItemListElement, {
-      group: { name: 'menu_items', put: true, pull: false },
+      group: {name: 'menu_items', put: true, pull: false},
       sort: true,
       async onAdd(e) {
         createNewMenuItem = true;
@@ -80,7 +80,7 @@
           }
         }
 
-        selectedMenuItem = { type: e.item.getAttribute('data-type') };
+        selectedMenuItem = {type: e.item.getAttribute('data-type')};
         switch (e.item.getAttribute('data-type')) {
           case 'gallery':
             selectedMenuItem.gallery = galleries[0];
@@ -101,22 +101,28 @@
         const dropIdx = e.newIndex;
         const menuItemId = parseInt(e.item.getAttribute('data-id'));
         const position = menuItems[dropIdx].position;
-        const newParent = menuItems[dropIdx].parent.id;
-        const newParentItem = menuItems[dropIdx].parent;
+        const newParent = menuItems[dropIdx]?.parent?.id;
         const dataParentId = parseInt(e.item.previousSibling.getAttribute('data-parent-id'));
         let currentParent = menuItems.find(item => item.id === dataParentId);
-        let allowMove = true;
-        while (currentParent) {
-          if (currentParent?.id === menuItemId) {
-            allowMove = false;
-            break;
+        if (newParent) {
+          let allowMove = true;
+          while (currentParent) {
+            if (currentParent?.id === menuItemId) {
+              allowMove = false;
+              break;
+            }
+
+            currentParent = currentParent.parent;
           }
 
-          currentParent = currentParent.parent;
-        }
-
-        if (allowMove) {
-          await put(`/api/menu-item/${menuItemId}/move/parent/to/item/${newParent}`);
+          if (allowMove) {
+            await put(`/api/menu-item/${menuItemId}/move/parent/to/item/${newParent}`);
+            await put(`/api/menu-item/${menuItemId}`, {
+              position,
+            });
+          }
+        } else {
+          await put(`/api/menu/${menuItemId}/move/parent/to/menu/${selectedMenu.id}`);
           await put(`/api/menu-item/${menuItemId}`, {
             position,
           });
@@ -160,7 +166,7 @@
   }
 
   async function deleteMenu() {
-    const result = await jinyaConfirm($_('design.menus.delete.title'), $_('design.menus.delete.message', { values: selectedMenu }), $_('design.menus.delete.delete'), $_('design.menus.delete.keep'));
+    const result = await jinyaConfirm($_('design.menus.delete.title'), $_('design.menus.delete.message', {values: selectedMenu}), $_('design.menus.delete.delete'), $_('design.menus.delete.keep'));
     if (result) {
       await httpDelete(`/api/menu/${selectedMenu.id}`);
       await loadMenus();
@@ -270,7 +276,7 @@
   }
 
   async function deleteMenuItem() {
-    const result = await jinyaConfirm($_('design.menus.delete_item.title'), $_('design.menus.delete_item.message', { values: selectedMenu }), $_('design.menus.delete_item.delete'), $_('design.menus.delete_item.keep'));
+    const result = await jinyaConfirm($_('design.menus.delete_item.title'), $_('design.menus.delete_item.message', {values: selectedMenu}), $_('design.menus.delete_item.delete'), $_('design.menus.delete_item.keep'));
     if (result) {
       await httpDelete(`/api/menu/${selectedMenu.id}/item/${selectedMenuItem.position}`);
       await selectMenu(selectedMenu);
