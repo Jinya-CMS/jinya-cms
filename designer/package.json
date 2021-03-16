@@ -7,7 +7,7 @@
     "prepublishOnly": "npm run build:prod"
   },
   "dependencies": {
-    "apexcharts": "3.24.0",
+    "apexcharts": "3.26.0",
     "monaco-editor": "0.22.3",
     "page": "1.11.6",
     "sortablejs": "1.13.0",
