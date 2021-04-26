@@ -20,7 +20,7 @@
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
     "eslint": "7.24.0",
-    "eslint-plugin-svelte3": "3.1.2",
+    "eslint-plugin-svelte3": "3.2.0",
     "rollup": "2.45.2",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-monaco-editor": "0.0.7",
