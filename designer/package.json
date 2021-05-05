@@ -16,7 +16,7 @@
     "ua-parser-js": "0.7.28"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "18.0.0",
+    "@rollup/plugin-commonjs": "18.1.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.1",
     "eslint": "7.24.0",
