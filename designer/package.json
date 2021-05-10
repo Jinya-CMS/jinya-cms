@@ -27,6 +27,6 @@
     "rollup-plugin-postcss": "4.0.0",
     "rollup-plugin-svelte": "7.1.0",
     "svelte": "3.38.2",
-    "postcss": "8.2.14"
+    "postcss": "8.2.15"
   }
 }
