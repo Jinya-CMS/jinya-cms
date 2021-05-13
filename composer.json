@@ -20,7 +20,7 @@
     "league/climate": "3.7.0",
     "scssphp/scssphp": "v1.4.1",
     "nyholm/psr7": "1.4.0",
-    "nyholm/psr7-server": "1.0.1",
+    "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.7.1",
     "tedivm/jshrink": "v1.4.0",
     "vlucas/phpdotenv": "v5.3.0",
