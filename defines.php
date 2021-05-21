@@ -1,4 +1,4 @@
 <?php
 
 const __ROOT__ = __DIR__;
-const INSTALLED_VERSION = '20.0.6';
+const INSTALLED_VERSION = '20.0.7';
