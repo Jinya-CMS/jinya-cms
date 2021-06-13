@@ -1,10 +1,15 @@
-<?php /** @var $this Template */
+<?php
+/**
+ * @var $this Template
+ * @var $artistName string
+ * @var $twoFactorCode string
+ */
 
 use League\Plates\Template\Template; ?>
-Hello <?= $this->e('artistName') ?>
+Hello <?= $this->e($artistName) ?>
 
 you tried to login from a new device, please verify with this code that this was actually you.
-<?= $this->e('twoFactorCode') ?>
+<?= $this->e($twoFactorCode) ?>
 
 Greetings,
 Your Jinya Team
