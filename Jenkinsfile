@@ -93,12 +93,15 @@ spec:
             }
             steps {
                 container('docker') {
-                    sh "docker build -t registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile ."
-                    sh "docker tag registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:$TAG_NAME"
-                    sh "docker tag registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:latest"
+                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile ."
+                    sh "docker tag quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME quay.imanuel.dev/jinya/jinya-cms:latest"
 
-                    withDockerRegistry(credentialsId: 'nexus.imanuel.dev', url: 'https://registry-hosted.imanuel.dev') {
-                        sh "docker push registry-hosted.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                    sh "docker tag quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:$TAG_NAME"
+                    sh "docker tag quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME jinyacms/jinya-cms:latest"
+
+                    withDockerRegistry(credentialsId: 'quay.imanuel.dev', url: 'https://quay.imanuel.dev') {
+                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME"
+                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:latest"
                     }
                     withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
