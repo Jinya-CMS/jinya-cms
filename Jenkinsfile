@@ -15,19 +15,19 @@ spec:
         path: /var/run/docker.sock
   containers:
   - name: php
-    image: php:8-apache
+    image: quay.imanuel.dev/dockerhub/library---php:8-apache
     command:
     - sleep
     args:
     - infinity
   - name: package
-    image: golang:latest
+    image: quay.imanuel.dev/dockerhub/library---golang:latest
     command:
     - sleep
     args:
     - infinity
   - name: docker
-    image: docker:latest
+    image: quay.imanuel.dev/dockerhub/library---docker:stable
     command:
     - cat
     tty: true
