@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Utils\UuidGenerator;
 use Exception;
 use Iterator;
 use RuntimeException;
@@ -84,6 +85,7 @@ class UploadingFile extends Utils\LoadableEntity
      */
     public function create(): void
     {
+        $this->id = UuidGenerator::generateV4();
         $sql = 'INSERT INTO uploading_file (id, file_id) VALUES (:id, :fileId)';
         self::executeStatement($sql, ['id' => $this->id, 'fileId' => $this->fileId]);
     }

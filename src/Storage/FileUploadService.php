@@ -9,6 +9,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
+use App\Utils\UuidGenerator;
 use RuntimeException;
 
 class FileUploadService extends StorageBaseService
@@ -24,7 +25,7 @@ class FileUploadService extends StorageBaseService
      */
     public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {
-        $path = tempnam(sys_get_temp_dir(), 'upload-chunk');
+        $path = __JINYA_TEMP . UuidGenerator::generateV4();
         file_put_contents($path, $data);
 
         $uploadingFile = UploadingFile::findByFile($fileId);
@@ -69,7 +70,7 @@ class FileUploadService extends StorageBaseService
                         fwrite($tmpFileHandle, $chunkData);
                     }
                 } finally {
-                    fclose($chunkFileHandle);
+                    @fclose($chunkFileHandle);
                 }
             }
 
@@ -88,7 +89,7 @@ class FileUploadService extends StorageBaseService
             /* @noinspection NullPointerExceptionInspection */
             $uploadingFile->delete();
         } finally {
-            fclose($tmpFileHandle);
+            @fclose($tmpFileHandle);
         }
 
         return $file;
