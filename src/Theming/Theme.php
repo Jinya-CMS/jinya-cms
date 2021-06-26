@@ -9,7 +9,9 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Formatter\Compressed;
 use ScssPhp\ScssPhp\Formatter\Crunched;
+use ScssPhp\ScssPhp\OutputStyle;
 
 class Theme implements ExtensionInterface
 {
@@ -30,7 +32,7 @@ class Theme implements ExtensionInterface
         $this->dbTheme = $dbTheme;
         $this->scssCompiler = new Compiler();
         $this->scssCompiler->setSourceMap(Compiler::SOURCE_MAP_NONE);
-        $this->scssCompiler->setFormatter(Crunched::class);
+        $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
         $this->parseThemePhp();
     }
 
@@ -180,7 +182,7 @@ class Theme implements ExtensionInterface
         if (!@mkdir($styleCachePath, 0777, true) && !is_dir($styleCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $styleCachePath));
         }
-        $this->scssCompiler->setVariables($this->dbTheme->scssVariables);
+        $this->scssCompiler->addVariables($this->dbTheme->scssVariables);
 
         foreach ($stylesheets as $stylesheet) {
             if (!file_exists($stylesheet)) {
@@ -188,8 +190,8 @@ class Theme implements ExtensionInterface
             }
 
             $this->scssCompiler->setImportPaths(dirname($stylesheet));
-            $result = $this->scssCompiler->compile(file_get_contents($stylesheet));
-            file_put_contents($styleCachePath . uniqid('style', true) . '.css', $result);
+            $result = $this->scssCompiler->compileString(file_get_contents($stylesheet));
+            file_put_contents($styleCachePath . uniqid('style', true) . '.css', $result->getCss());
         }
     }
 
