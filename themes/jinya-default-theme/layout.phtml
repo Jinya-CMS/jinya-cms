@@ -12,18 +12,18 @@
     <link rel="stylesheet" href="<?= $this->e($this->config('fonts', 'brand')) ?>">
     <?php
     if ($this->hasFile('faviconLarge')): ?>
-        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->e($this->file('faviconLarge')->path) ?>">
+        <link rel="apple-touch-icon" sizes="512x512" href="<?= $this->file('faviconLarge')->path ?>">
     <?php
     endif ?>
     <?php
     if ($this->hasFile('faviconSmall')): ?>
         <link rel="icon" type="image/png" sizes="64x64"
-              href="<?= $this->e($this->file('faviconSmall')->path) ?>">
+              href="<?= $this->file('faviconSmall')->path ?>">
     <?php
     endif ?>
     <?php
     if ($this->hasFile('faviconShortcutIcon')): ?>
-        <link rel="shortcut icon" href="<?= $this->e($this->file('faviconShortcutIcon')->path) ?>">
+        <link rel="shortcut icon" href="<?= $this->file('faviconShortcutIcon')->path ?>">
     <?php
     endif ?>
     <meta name="apple-mobile-web-app-title" content="<?= $this->e($this->config('page', 'title')) ?>">
