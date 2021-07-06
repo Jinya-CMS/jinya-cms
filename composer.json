@@ -13,7 +13,7 @@
     "laminas/laminas-hydrator": "4.2.1",
     "guzzlehttp/guzzle": "7.3.0",
     "jinya/plates": "3.4.0",
-    "monolog/monolog": "2.2.0",
+    "monolog/monolog": "2.3.0",
     "php-di/php-di": "6.3.4",
     "phpmailer/phpmailer": "v6.5.0",
     "phpmyadmin/sql-parser": "5.4.2",
