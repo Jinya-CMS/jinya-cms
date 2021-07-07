@@ -10,7 +10,7 @@
     "apexcharts": "3.27.1",
     "monaco-editor": "0.25.2",
     "page": "1.11.6",
-    "sortablejs": "1.13.0",
+    "sortablejs": "1.14.0",
     "svelte-i18n": "3.3.9",
     "tinymce": "5.8.2",
     "ua-parser-js": "0.7.28"
