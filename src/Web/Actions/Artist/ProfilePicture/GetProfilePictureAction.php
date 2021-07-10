@@ -17,7 +17,6 @@ use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::GET)]
-#[Authenticated(role: Authenticated::WRITER)]
 #[OpenApiRequest('This action gets the given profile picture')]
 #[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
 #[OpenApiResponse('Successfully got the profile picture')]
