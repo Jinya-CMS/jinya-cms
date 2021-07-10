@@ -45,6 +45,10 @@ export default {
           src: 'node_modules/tinymce/skins/ui',
           dest: '../public/designer/build/skins/',
         },
+        {
+          src: 'node_modules/@jinyacms/cosmo',
+          dest: '../public/static/',
+        },
       ],
       verbose: true,
       copyOnce: true,

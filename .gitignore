@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 /.scannerwork/
 /composer.phar
 /public/designer/build/
+/public/static/cosmo/
