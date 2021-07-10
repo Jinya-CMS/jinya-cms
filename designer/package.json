@@ -7,8 +7,8 @@
     "prepublishOnly": "npm run build:prod"
   },
   "dependencies": {
+    "@jinyacms/cosmo": "0.6.0",
     "apexcharts": "3.27.2",
-    "@jinyacms/cosmo": "0.2.0",
     "monaco-editor": "0.25.2",
     "page": "1.11.6",
     "sortablejs": "1.14.0",
