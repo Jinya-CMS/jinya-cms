@@ -46,8 +46,12 @@ export default {
           dest: '../public/designer/build/skins/',
         },
         {
-          src: 'node_modules/@jinyacms/cosmo',
-          dest: '../public/static/',
+          src: 'node_modules/@jinyacms/cosmo/*.*',
+          dest: '../public/static/cosmo/',
+        },
+        {
+          src: 'node_modules/@jinyacms/cosmo/fonts/*.*',
+          dest: '../public/static/cosmo/fonts',
         },
       ],
       verbose: true,

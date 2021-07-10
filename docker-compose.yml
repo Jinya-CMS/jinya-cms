@@ -30,9 +30,3 @@ services:
     links:
       - jinya-mailhog
       - jinya-mysql-database
-  jinya-swagger-ui:
-    image: swaggerapi/swagger-ui
-    ports:
-    - 8060:8080
-    links:
-      - jinya-backend
