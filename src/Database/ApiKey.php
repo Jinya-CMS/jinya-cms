@@ -73,13 +73,7 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
-            'api_key',
-            new self(),
-            [
-                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+        throw new RuntimeException();
     }
 
     /**
