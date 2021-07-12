@@ -4,6 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/../defines.php';
 require __ROOT__ . '/vendor/autoload.php';
 
+use App\Utils\AppSettingsInitializer;
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;
 use App\Web\Routes\RouteResolver;
@@ -11,23 +12,7 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
-if (file_exists(__ROOT__ . '/.env')) {
-    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__ROOT__);
-    $dotenv->load();
-    $dotenv->required(
-        [
-            'APP_ENV',
-            'MYSQL_PASSWORD',
-            'MYSQL_USER',
-            'MYSQL_DATABASE',
-            'MYSQL_HOST',
-            'MAILER_HOST',
-            'MAILER_PORT',
-            'MAILER_SMTP_AUTH',
-            'MAILER_FROM',
-        ]
-    );
-}
+AppSettingsInitializer::loadDotEnv();
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
