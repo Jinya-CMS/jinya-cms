@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class UuidGeneratorTest extends TestCase
 {
 
-    public function testGenerateV4()
+    public function testGenerateV4(): void
     {
         try {
             $uuid = UuidGenerator::generateV4();
