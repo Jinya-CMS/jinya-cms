@@ -21,7 +21,9 @@ class ApiKeyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->testArtist = Artist::findAll()->current();
+        $this->testArtist = new Artist();
+        $this->testArtist->create();
+
         $this->testApiKey = new ApiKey();
         $this->testApiKey->userId = $this->testArtist->id;
         $this->testApiKey->setApiKey();
@@ -29,14 +31,6 @@ class ApiKeyTest extends TestCase
         $this->testApiKey->userAgent = 'Firefox';
         $this->testApiKey->remoteAddress = '127.0.0.1';
         $this->testApiKey->create();
-    }
-
-    protected function tearDown(): void
-    {
-        try {
-            $this->testApiKey->delete();
-        } catch (Throwable) {
-        }
     }
 
     public function testFormat(): void

@@ -26,7 +26,7 @@ class LoadableEntityTest extends TestCase
 
     public function testExecuteSqlStringValidInteger(): void
     {
-        $result = LoadableEntity::executeSqlString('UPDATE configuration SET messaging_center_enabled = 0');
+        $result = LoadableEntity::executeSqlString('INSERT INTO configuration (id) VALUES(0)');
         $this->assertIsInt($result);
     }
 

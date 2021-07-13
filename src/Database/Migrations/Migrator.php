@@ -2,13 +2,25 @@
 
 namespace App\Database\Migrations;
 
+use App\Database\Analyzer\QueryAnalyzer;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
+use PhpMyAdmin\SqlParser\Statement;
 
 abstract class Migrator extends LoadableEntity
 {
+    /**
+     * @param string $sql
+     * @return Statement[]
+     */
+    private static function getStatements(string $sql): array
+    {
+        $queryAnalyzer = new QueryAnalyzer();
+        return $queryAnalyzer->getStatements($sql);
+    }
+
     /**
      * Migrates the installation of Jinya
      *
@@ -22,13 +34,16 @@ abstract class Migrator extends LoadableEntity
         $result = self::executeStatement($sql);
         if (0 === count($result)) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
-            self::executeStatement($initialMigration['sql']);
+            $stmts = self::getStatements($initialMigration['sql']);
+            foreach ($stmts as $stmt) {
+                self::executeStatement($stmt->build());
+            }
         }
 
         $migrationsPath = __ROOT__ . '/migrations';
         $files = array_map(
-            static fn (string $item) => "$migrationsPath/$item",
-            array_filter(scandir($migrationsPath), static fn (string $item) => '.' !== $item && '..' !== $item),
+            static fn(string $item) => "$migrationsPath/$item",
+            array_filter(scandir($migrationsPath), static fn(string $item) => '.' !== $item && '..' !== $item),
         );
 
         $executedMigrations = 0;
@@ -42,7 +57,10 @@ abstract class Migrator extends LoadableEntity
             $wasMigrated = count($result) > 0;
 
             if (!$wasMigrated) {
-                self::executeStatement($script);
+                $stmts = self::getStatements($script);
+                foreach ($stmts as $stmt) {
+                    self::executeStatement($stmt->build());
+                }
                 $insert = 'INSERT INTO migration_state (version) VALUES (:version)';
                 self::executeStatement($insert, ['version' => $version]);
                 ++$executedMigrations;
