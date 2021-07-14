@@ -1,0 +1,363 @@
+<?php
+
+namespace Database;
+
+use App\Database\ApiKey;
+use App\Database\Artist;
+use App\Database\Exceptions\DeleteLastAdminException;
+use App\Database\Exceptions\UniqueFailedException;
+use App\Database\KnownDevice;
+use DateTime;
+use InvalidArgumentException;
+use League\CLImate\Settings\Art;
+use LogicException;
+use PHPUnit\Framework\TestCase;
+use function DI\create;
+
+class ArtistTest extends TestCase
+{
+    private function createArtist(bool $isAdmin = true, bool $isWriter = true, bool $isReader = true, bool $enabled = true, string $email = 'test@example.com', string $password = 'test1234', bool $execute = true): Artist
+    {
+        $artist = new Artist();
+        $artist->email = $email;
+        $artist->aboutMe = 'About me';
+        $artist->profilePicture = 'profilepicture';
+        $artist->artistName = 'Test Artist';
+        $artist->enabled = $enabled;
+        $artist->roles = [];
+        $artist->setPassword($password);
+        if ($isAdmin) {
+            $artist->roles[] = 'ROLE_ADMIN';
+        }
+        if ($isReader) {
+            $artist->roles[] = 'ROLE_READER';
+        }
+        if ($isWriter) {
+            $artist->roles[] = 'ROLE_WRITER';
+        }
+
+        if ($execute) {
+            $artist->create();
+        }
+
+        return $artist;
+    }
+
+    protected function setUp(): void
+    {
+    }
+
+    public function testValidatePasswordEnabledAndValid(): void
+    {
+        $artist = $this->createArtist();
+        $this->assertTrue($artist->validatePassword('test1234'));
+    }
+
+    public function testValidatePasswordNotEnabledButValid(): void
+    {
+        $artist = $this->createArtist(enabled: false);
+        $this->assertFalse($artist->validatePassword('test1234'));
+    }
+
+    public function testValidatePasswordEnabledButNotValid(): void
+    {
+        $artist = $this->createArtist();
+        $this->assertFalse($artist->validatePassword('test12345'));
+    }
+
+    public function testValidatePasswordNotEnabledAndNotValid(): void
+    {
+        $artist = $this->createArtist(enabled: false);
+        $this->assertFalse($artist->validatePassword('test12345'));
+    }
+
+    public function testCreateAllValid(): void
+    {
+        $artist = $this->createArtist(execute: false);
+        $artist->create();
+
+        $savedArtist = Artist::findById($artist->id);
+        $this->assertEquals($artist, $savedArtist);
+    }
+
+    public function testCreateDuplicate(): void
+    {
+        $this->expectException(UniqueFailedException::class);
+        $artist = $this->createArtist(execute: false);
+        $artist->create();
+        $artist->create();
+    }
+
+    public function testValidateDeviceValid(): void
+    {
+        $artist = $this->createArtist();
+        $knownDevice = new KnownDevice();
+        $knownDevice->setDeviceKey();
+        $knownDevice->userAgent = 'PHPUnit';
+        $knownDevice->remoteAddress = '127.0.0.1';
+        $knownDevice->userId = $artist->getIdAsInt();
+
+        $knownDevice->create();
+
+        $valid = $artist->validateDevice($knownDevice->deviceKey);
+        $this->assertTrue($valid);
+    }
+
+    public function testValidateDeviceInvalid(): void
+    {
+        $artist = $this->createArtist();
+
+        $valid = $artist->validateDevice('123456789');
+        $this->assertFalse($valid);
+    }
+
+    public function testUnlockAccount(): void
+    {
+        $artist = $this->createArtist();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $this->assertEquals(5, $artist->failedLoginAttempts);
+        $this->assertNotNull($artist->loginBlockedUntil);
+        $artist->unlockAccount();
+        $this->assertTrue(true);
+    }
+
+    public function testRegisterFailedLoginOneFailedAttempt(): void
+    {
+        $artist = $this->createArtist();
+        $artist->registerFailedLogin();
+        $this->assertEquals(1, $artist->failedLoginAttempts);
+    }
+
+    public function testRegisterFailedLoginFiveFailedAttempts(): void
+    {
+        $artist = $this->createArtist();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $artist->registerFailedLogin();
+        $this->assertEquals(5, $artist->failedLoginAttempts);
+        $this->assertNotNull($artist->loginBlockedUntil);
+    }
+
+    public function testChangePasswordValidOldPassword(): void
+    {
+        $artist = $this->createArtist();
+        $this->assertTrue($artist->changePassword('test1234', 'start1234'));
+        $this->assertTrue($artist->validatePassword('start1234'));
+    }
+
+    public function testChangePasswordInvalidOldPassword(): void
+    {
+        $artist = $this->createArtist();
+        $this->assertFalse($artist->changePassword('start1234', 'test1234'));
+    }
+
+    public function testChangePasswordEmptyNewPassword(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectErrorMessage('Password cannot be empty');
+        $artist = $this->createArtist();
+        $artist->changePassword('test1234', '');
+    }
+
+    public function testSetPasswordValid(): void
+    {
+        $artist = $this->createArtist();
+        $artist->setPassword('start1234');
+        $this->assertTrue($artist->validatePassword('start1234'));
+    }
+
+    public function testSetPasswordEmptyPassword(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectErrorMessage('Password cannot be empty');
+        $artist = $this->createArtist();
+        $artist->setPassword('');
+    }
+
+    public function testFindAll(): void
+    {
+        $this->createArtist();
+        $secondArtist = $this->createArtist(execute: false);
+        $secondArtist->email = 'test2@example.com';
+        $secondArtist->create();
+        $artists = Artist::findAll();
+        $this->assertCount(2, $artists);
+    }
+
+    public function testFormat(): void
+    {
+        $artist = $this->createArtist();
+        $this->assertEquals([
+            'artistName' => $artist->artistName,
+            'email' => $artist->email,
+            'profilePicture' => $artist->profilePicture,
+            'roles' => $artist->roles,
+            'enabled' => $artist->enabled,
+            'id' => $artist->getIdAsInt(),
+            'aboutMe' => $artist->aboutMe,
+        ], $artist->format());
+    }
+
+    public function testSetTwoFactorCode(): void
+    {
+        $artist = $this->createArtist();
+        $artist->setTwoFactorCode();
+        $this->assertMatchesRegularExpression('/\d{6}/', $artist->twoFactorToken);
+    }
+
+    public function testUpdate(): void
+    {
+        $artist = $this->createArtist();
+        $artist->email = 'test@test.de';
+        $artist->aboutMe = 'aboutme';
+        $artist->profilePicture = '_profilepicture';
+        $artist->artistName = 'artist';
+        $artist->enabled = true;
+        $artist->roles = [];
+        $artist->setPassword('test');
+        $artist->update();
+
+        $savedArtist = Artist::findById($artist->id);
+        $this->assertEquals($artist, $savedArtist);
+    }
+
+    public function testUpdateUnsaved(): void
+    {
+        $artist = $this->createArtist(execute: false);
+        $artist->email = 'test@test.de';
+        $artist->aboutMe = 'aboutme';
+        $artist->profilePicture = '_profilepicture';
+        $artist->artistName = 'artist';
+        $artist->enabled = true;
+        $artist->roles = [];
+        $artist->setPassword('test');
+        $artist->update();
+
+        $this->assertEquals(-1, $artist->id);
+    }
+
+    public function testFindById(): void
+    {
+        $artist = $this->createArtist();
+        $foundArtist = Artist::findById($artist->getIdAsInt());
+
+        $this->assertEquals($artist, $foundArtist);
+    }
+
+    public function testFindByIdNotExist(): void
+    {
+        $foundArtist = Artist::findById(-1);
+
+        $this->assertNull($foundArtist);
+    }
+
+    public function testDelete(): void
+    {
+        $this->createArtist(email: 'test2@example.com');
+        $artist = $this->createArtist();
+        $artist->delete();
+
+        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $this->assertNull($foundArtist);
+    }
+
+    public function testDeleteWithApiKey(): void
+    {
+        $this->createArtist(email: 'test2@example.com');
+        $artist = $this->createArtist();
+        $apiKey = new ApiKey();
+        $apiKey->userId = $artist->getIdAsInt();
+        $apiKey->setApiKey();
+        $apiKey->remoteAddress = '127.0.0.1';
+        $apiKey->userAgent = 'PHPUnit';
+        $apiKey->validSince = new DateTime();
+        $apiKey->create();
+        $artist->delete();
+
+        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $this->assertNull($foundArtist);
+    }
+
+    public function testDeleteUnsaved(): void
+    {
+        $this->createArtist();
+        $this->createArtist(email: 'test2@example.com');
+        $artist = $this->createArtist(execute: false);
+        $artist->delete();
+
+        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $this->assertNull($foundArtist);
+    }
+
+    public function testDeleteLastUser(): void
+    {
+        $this->expectException(DeleteLastAdminException::class);
+        $artist = $this->createArtist(isAdmin: false, isWriter: true, isReader: true);
+        $artist->delete();
+
+        $foundArtist = Artist::findById($artist->getIdAsInt());
+        $this->assertNull($foundArtist);
+    }
+
+    public function testDeleteLastAdmin(): void
+    {
+        $this->expectException(DeleteLastAdminException::class);
+        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $artist = $this->createArtist();
+        $artist->delete();
+    }
+
+    public function testDeleteLastNromalUserAdminNotDeleted(): void
+    {
+        $this->createArtist();
+        $artist = $this->createArtist(isAdmin: false, isWriter: true, isReader: true, email: 'test2@example.com');
+        $artist->delete();
+
+        $this->assertTrue(true);
+    }
+
+    public function testFindByKeywordEmail(): void
+    {
+        $this->createArtist();
+        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $artists = Artist::findByKeyword('test@');
+        $this->assertCount(1, $artists);
+    }
+
+    public function testFindByKeywordArtistName(): void
+    {
+        $this->createArtist();
+        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $artists = Artist::findByKeyword('Artist');
+        $this->assertCount(2, $artists);
+    }
+
+    public function testCountAdmins(): void
+    {
+        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $this->createArtist();
+        $this->assertEquals(1, Artist::countAdmins(-1));
+    }
+
+    public function testFindByEmail(): void
+    {
+        $this->createArtist();
+        $artist = $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $foundArtist = Artist::findByEmail('test2@example.com');
+        $this->assertEquals($artist, $foundArtist);
+    }
+
+    public function testFindByEmailNotExist(): void
+    {
+        $this->createArtist();
+        $this->createArtist(isAdmin: false, email: 'test2@example.com');
+        $foundArtist = Artist::findByEmail('notexists@example.com');
+        $this->assertNull($foundArtist);
+    }
+}

@@ -15,6 +15,7 @@ use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\Web\Middleware\RoleMiddleware;
 use DateTime;
 use Exception;
+use InvalidArgumentException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
@@ -112,34 +113,6 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Finds a user for the given api key
-     *
-     * @param string $apiKey
-     * @return Artist|null
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
-     * @throws UniqueFailedException
-     */
-    public static function findByApiKey(string $apiKey): ?Artist
-    {
-        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users u JOIN api_key ak on u.id = ak.user_id WHERE ak.api_key = :apiKey';
-        $result = self::executeStatement($sql, ['apiKey' => $apiKey]);
-
-        if (count($result) === 0) {
-            return null;
-        }
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult(
-            $result,
-            new self(),
-            [
-                'enabled' => new BooleanStrategy(1, 0),
-                'roles' => new PhpSerializeStrategy(),
-            ]
-        );
-    }
-
-    /**
      * Securely sets the two factor code
      *
      * @throws Exception
@@ -176,7 +149,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public function delete(): void
     {
-        if (self::countAdmins() >= 1) {
+        if (self::countAdmins($this->getIdAsInt()) >= 1) {
             $this->internalDelete('users');
         } else {
             throw new DeleteLastAdminException('Cannot delete last admin');
@@ -190,12 +163,12 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public static function countAdmins(): int
+    public static function countAdmins(int $id): int
     {
         $users = self::findAll();
         $admins = 0;
         foreach ($users as $user) {
-            if ($user->enabled && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
+            if ($id !== $user->getIdAsInt() && $user->enabled && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
                 $admins++;
             }
         }
@@ -232,7 +205,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         'id' => "int",
         'aboutMe' => "null|string"
     ])]
-    public function format(): array {
+    public function format(): array
+    {
         return [
             'artistName' => $this->artistName,
             'email' => $this->email,
@@ -256,8 +230,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public function validateDevice(string $knownDeviceCode): bool
     {
         $device = KnownDevice::findByCode($knownDeviceCode);
-        /** @noinspection NullPointerExceptionInspection */
-        return $device->userId === $this->getIdAsInt();
+        return $device !== null && $device->userId === $this->getIdAsInt();
     }
 
     /**
@@ -305,11 +278,14 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public function setPassword(string $password): void
     {
+        if ($password === '') {
+            throw new InvalidArgumentException('Password cannot be empty');
+        }
         $hash = password_hash($password, PASSWORD_BCRYPT);
         if (is_string($hash)) {
             $this->password = $hash;
         } else {
-            throw new LogicException('The result is must be a string');
+            throw new LogicException('The result must be a string');
         }
     }
 
