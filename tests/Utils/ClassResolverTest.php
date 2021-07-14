@@ -21,12 +21,12 @@ class ClassResolverTest extends TestCase
 
     public function testLoadClassesOneResultDueToMatchingPath(): void
     {
-        $classes = ClassResolver::loadClasses(__DIR__ . DIRECTORY_SEPARATOR . 'ClassResolverData', 'tests');
+        $classes = ClassResolver::loadClasses(__DIR__ . DIRECTORY_SEPARATOR . 'ClassResolverData', __DIR__);
         $this->assertIsArray($classes, 'The result must be an array');
 
         $count = 0;
         foreach ($classes as $class) {
-            if (str_starts_with('App\\Utils\\ClassResolverData', $class)) {
+            if (str_starts_with($class, 'App\\Utils')) {
                 $count++;
             }
         }

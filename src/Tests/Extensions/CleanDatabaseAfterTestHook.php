@@ -20,7 +20,6 @@ class CleanDatabaseAfterTestHook implements AfterTestHook
         LoadableEntity::executeSqlString('DELETE FROM known_device');
         LoadableEntity::executeSqlString('DELETE FROM menu_item');
         LoadableEntity::executeSqlString('DELETE FROM message');
-        LoadableEntity::executeSqlString('DELETE FROM migration_state');
         LoadableEntity::executeSqlString('DELETE FROM segment');
         LoadableEntity::executeSqlString('DELETE FROM theme_asset');
         LoadableEntity::executeSqlString('DELETE FROM theme_file');

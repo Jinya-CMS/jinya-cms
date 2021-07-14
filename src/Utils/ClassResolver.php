@@ -21,7 +21,7 @@ class ClassResolver
             }
         }
         foreach ($classesWithFullPath as $path) {
-            if (str_starts_with($path, 'src')) {
+            if (str_starts_with($path, $pathPrefix)) {
                 $class = 'App' . str_replace('.php', '', implode('\\', explode('/', explode($pathPrefix, $path)[1])));
                 class_exists($class, true);
             }

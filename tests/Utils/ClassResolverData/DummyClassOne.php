@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Utils\ClassResolverData;
+namespace App\Utils\ClassResolverData;
 
 
 class DummyClassOne
