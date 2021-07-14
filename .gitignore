@@ -161,3 +161,4 @@ $RECYCLE.BIN/
 /composer.phar
 /public/designer/build/
 /public/static/cosmo/
+/.phpunit.cache/
