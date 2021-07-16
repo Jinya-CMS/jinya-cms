@@ -42,6 +42,20 @@ spec:
     - infinity
     ports:
     - containerPort: 3306
+    args:
+    - --transaction-isolation=READ-COMMITTED
+    - --binlog-format=ROW
+    - --max-connections=1000
+    - --bind-address=0.0.0.0
+    env:
+    - name: MYSQL_DATABASE
+      value: jinya
+    - name: MYSQL_PASSWORD
+      value: jinya
+    - name: MYSQL_ROOT_PASSWORD
+      value: jinya
+    - name: MYSQL_USER
+      value: jinya
   - name: mailhog
     image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
     command:
