@@ -14,56 +14,52 @@ spec:
       hostPath:
         path: /var/run/docker.sock
   containers:
-  - name: php
-    image: quay.imanuel.dev/dockerhub/library---php:8-apache
-    command:
-    - sleep
-    args:
-    - infinity
-  - name: package
-    image: quay.imanuel.dev/dockerhub/library---golang:latest
-    command:
-    - sleep
-    args:
-    - infinity
-  - name: docker
-    image: quay.imanuel.dev/dockerhub/library---docker:stable
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-  - name: mysql
-    image: quay.imanuel.dev/dockerhub/library---mysql:8
-    command:
-    - sleep
-    args:
-    - infinity
-    ports:
-    - containerPort: 3306
-    args:
-    - --transaction-isolation=READ-COMMITTED
-    - --binlog-format=ROW
-    - --max-connections=1000
-    - --bind-address=0.0.0.0
-    env:
-    - name: MYSQL_DATABASE
-      value: jinya
-    - name: MYSQL_PASSWORD
-      value: jinya
-    - name: MYSQL_ROOT_PASSWORD
-      value: jinya
-    - name: MYSQL_USER
-      value: jinya
-  - name: mailhog
-    image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
-    command:
-    - sleep
-    args:
-    - infinity
-    ports:
-    - containerPort: 1025
+    - name: php
+      image: quay.imanuel.dev/dockerhub/library---php:8-apache
+      command:
+        - sleep
+      args:
+        - infinity
+    - name: package
+      image: quay.imanuel.dev/dockerhub/library---golang:latest
+      command:
+        - sleep
+      args:
+        - infinity
+    - name: docker
+      image: quay.imanuel.dev/dockerhub/library---docker:stable
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock
+    - name: mysql
+      image: quay.imanuel.dev/dockerhub/library---mysql:8
+      ports:
+        - containerPort: 3306
+      args:
+        - --transaction-isolation=READ-COMMITTED
+        - --binlog-format=ROW
+        - --max-connections=1000
+        - --bind-address=0.0.0.0
+      env:
+        - name: MYSQL_DATABASE
+          value: jinya
+        - name: MYSQL_PASSWORD
+          value: jinya
+        - name: MYSQL_ROOT_PASSWORD
+          value: jinya
+        - name: MYSQL_USER
+          value: jinya
+    - name: mailhog
+      image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+      command:
+        - sleep
+      args:
+        - infinity
+      ports:
+        - containerPort: 1025
 '''
             defaultContainer 'php'
         }
