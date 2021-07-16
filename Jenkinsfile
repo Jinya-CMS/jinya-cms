@@ -69,7 +69,7 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
-                sh './vendor/bin/phpunit --configuration ./phpunit.jenkins.xml'
+                sh './vendor/bin/phpunit --log-junit --configuration ./phpunit.jenkins.xml'
             }
         }
         stage('Archive artifact') {
@@ -120,6 +120,11 @@ spec:
                     }
                 }
             }
+        }
+    }
+    post {
+        always {
+            junit 'build/reports/**/*.xml'
         }
     }
 }
