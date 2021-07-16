@@ -80,7 +80,6 @@ spec:
                 sh "php composer-setup.php"
                 sh '''php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php composer.phar install'
-                sh 'ls -la'
                 dir('designer') {
                     sh 'yarn'
                     sh 'yarn build:prod'
@@ -140,7 +139,8 @@ spec:
     }
     post {
         always {
-            junit 'phpunit.xml'
+            junit 'report.xml'
+            archiveArtifacts artifacts: 'report.xml', followSymlinks: false, onlyIfSuccessful: true
         }
     }
 }

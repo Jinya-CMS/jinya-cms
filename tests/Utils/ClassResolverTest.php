@@ -21,16 +21,16 @@ class ClassResolverTest extends TestCase
 
     public function testLoadClassesOneResultDueToMatchingPath(): void
     {
-        $classes = ClassResolver::loadClasses(__DIR__ . DIRECTORY_SEPARATOR . 'ClassResolverData', __DIR__);
+        $classes = ClassResolver::loadClasses(__DIR__ . '../../src', __DIR__);
         $this->assertIsArray($classes, 'The result must be an array');
 
         $count = 0;
         foreach ($classes as $class) {
-            if (str_starts_with($class, 'App\\Utils')) {
+            if (str_starts_with($class, 'App\\Tests')) {
                 $count++;
             }
         }
-        $this->assertEquals(1, $count, 'There should be one class loaded');
+        $this->assertGreaterThanOrEqual(3, $count, 'There should be at least one class loaded');
     }
 
     public function testLoadClassesInvalidPath(): void
