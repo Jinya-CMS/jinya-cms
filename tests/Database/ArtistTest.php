@@ -151,6 +151,22 @@ class ArtistTest extends TestCase
         $this->assertTrue($artist->validatePassword('start1234'));
     }
 
+    public function testChangePasswordWithApiKey(): void
+    {
+        $artist = $this->createArtist();
+        $apiKey = new ApiKey();
+        $apiKey->userId = $artist->getIdAsInt();
+        $apiKey->setApiKey();
+        $apiKey->remoteAddress = '127.0.0.1';
+        $apiKey->userAgent = 'PHPUnit';
+        $apiKey->validSince = new DateTime();
+        $apiKey->create();
+
+        $this->assertTrue($artist->changePassword('test1234', 'start1234'));
+        $this->assertTrue($artist->validatePassword('start1234'));
+        $this->assertCount(0, ApiKey::findByArtist($artist->getIdAsInt()));
+    }
+
     public function testChangePasswordInvalidOldPassword(): void
     {
         $artist = $this->createArtist();
