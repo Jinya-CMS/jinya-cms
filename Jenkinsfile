@@ -37,13 +37,15 @@ spec:
   - name: mysql
     image: quay.imanuel.dev/dockerhub/library---mysql:8
     command:
-    - cat
-    tty: true
-  - name: mysql
+    - sleep
+    args:
+    - infinity
+  - name: mailhog
     image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
     command:
-    - cat
-    tty: true
+    - sleep
+    args:
+    - infinity
 '''
             defaultContainer 'php'
         }
