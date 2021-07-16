@@ -34,12 +34,22 @@ spec:
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-sock
+  - name: mysql
+    image: quay.imanuel.dev/dockerhub/library---mysql:8
+    command:
+    - cat
+    tty: true
+  - name: mysql
+    image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
+    command:
+    - cat
+    tty: true
 '''
             defaultContainer 'php'
         }
     }
     stages {
-        stage('Lint code') {
+        stage('Test code') {
             steps {
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
@@ -59,6 +69,7 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
+                sh './vendor/bin/phpunit --configuration ./phpunit.jenkins.xml'
             }
         }
         stage('Archive artifact') {
