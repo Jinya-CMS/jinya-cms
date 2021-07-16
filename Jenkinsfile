@@ -40,12 +40,16 @@ spec:
     - sleep
     args:
     - infinity
+    ports:
+    - containerPort: 3306
   - name: mailhog
     image: quay.imanuel.dev/dockerhub/mailhog---mailhog:latest
     command:
     - sleep
     args:
     - infinity
+    ports:
+    - containerPort: 1025
 '''
             defaultContainer 'php'
         }
@@ -71,7 +75,7 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
-                sh './vendor/bin/phpunit --log-junit phpunit.xml --configuration ./phpunit.jenkins.xml'
+                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
             }
         }
         stage('Archive artifact') {
