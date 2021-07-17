@@ -84,7 +84,7 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
-                sh './vendor/bin/psalm'
+                // sh './vendor/bin/psalm'
                 sh './vendor/bin/phpstan --no-progress ./src ./tests ./app ./cli ./public'
                 sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
             }
