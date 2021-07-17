@@ -65,7 +65,7 @@ spec:
         }
     }
     stages {
-        stage('Test code') {
+        stage('Lint and test code') {
             steps {
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
@@ -84,6 +84,8 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
+                sh './vendor/bin/psalm'
+                sh './vendor/bin/phpstan --no-progress ./src ./tests ./app ./cli ./public'
                 sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
             }
         }
