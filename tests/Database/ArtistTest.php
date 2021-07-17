@@ -9,10 +9,7 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use DateTime;
 use InvalidArgumentException;
-use League\CLImate\Settings\Art;
-use LogicException;
 use PHPUnit\Framework\TestCase;
-use function DI\create;
 
 class ArtistTest extends TestCase
 {

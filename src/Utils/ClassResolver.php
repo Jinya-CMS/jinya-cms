@@ -7,7 +7,7 @@ use RecursiveIteratorIterator;
 
 class ClassResolver
 {
-    public static function loadClasses(string $searchPath, string $pathPrefix = 'src'): array
+    public static function loadClasses(string $searchPath, string $pathPrefix = __ROOT__ . '/src'): array
     {
         if (!file_exists($searchPath)) {
             return get_declared_classes();
