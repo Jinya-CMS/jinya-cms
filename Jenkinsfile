@@ -65,7 +65,7 @@ spec:
         }
     }
     stages {
-        stage('Lint and test code') {
+        stage('Install dependencies') {
             steps {
                 sh "mkdir -p /usr/share/man/man1"
                 sh "apt-get update"
@@ -84,9 +84,25 @@ spec:
                     sh 'yarn'
                     sh 'yarn build:prod'
                 }
-                // sh './vendor/bin/psalm'
-                sh './vendor/bin/phpstan --no-progress ./src ./tests ./app ./cli ./public'
-                sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
+            }
+        }
+        stage('Tests and liniting') {
+            parallel {
+                stage('Phpstan') {
+                    steps {
+                        sh './vendor/bin/phpstan --no-progress ./src ./tests ./app ./cli ./public'
+                    }
+                }
+                /*stage('Psalm') {
+                    steps {
+                        sh './vendor/bin/psalm'
+                    }
+                }*/
+                stage('PHPUnit') {
+                    steps {
+                        sh './vendor/bin/phpunit --log-junit ./report.xml --configuration ./phpunit.jenkins.xml'
+                    }
+                }
             }
         }
         stage('Archive artifact') {
