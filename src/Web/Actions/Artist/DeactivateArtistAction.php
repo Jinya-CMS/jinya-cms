@@ -2,6 +2,7 @@
 
 namespace App\Web\Actions\Artist;
 
+use App\Authentication\CurrentUser;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
@@ -36,7 +37,7 @@ class DeactivateArtistAction extends Action
     protected function action(): Response
     {
         $artist = Artist::findById($this->args['id']);
-        if (1 === Artist::countAdmins() && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
+        if (1 === Artist::countAdmins(CurrentUser::$currentUser->getIdAsInt()) && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
             throw new ConflictException($this->request, 'Cannot disable last admin');
         }
 

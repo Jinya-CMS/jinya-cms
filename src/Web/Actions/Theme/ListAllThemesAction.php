@@ -63,8 +63,8 @@ class ListAllThemesAction extends ThemeAction
     protected function action(): Response
     {
         $this->syncThemes();
-        if (isset($params['keyword'])) {
-            return $this->respondList($this->formatIterator(Theme::findByKeyword($params['keyword'])));
+        if (isset($this->args['keyword'])) {
+            return $this->respondList($this->formatIterator(Theme::findByKeyword($this->args['keyword'])));
         }
 
         return $this->respondList($this->formatIterator(Theme::findAll()));
