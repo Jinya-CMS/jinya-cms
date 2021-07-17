@@ -158,7 +158,7 @@ class FileTest extends TestCase
         $this->assertCount(3, $files);
     }
 
-    public function testFindAllNonFound(): void
+    public function testFindAllNoneFound(): void
     {
         $files = File::findAll();
         $this->assertCount(0, $files);

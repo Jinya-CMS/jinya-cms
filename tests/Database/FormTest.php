@@ -1,0 +1,201 @@
+<?php
+
+namespace Database;
+
+use App\Authentication\CurrentUser;
+use App\Database\Artist;
+use App\Database\Exceptions\UniqueFailedException;
+use App\Database\Form;
+use App\Database\FormItem;
+use PHPUnit\Framework\TestCase;
+
+class FormTest extends TestCase
+{
+    private Artist $artist;
+
+    protected function setUp(): void
+    {
+        $this->artist = new Artist();
+        $this->artist->email = 'test@example.com';
+        $this->artist->aboutMe = 'About me';
+        $this->artist->profilePicture = 'profilepicture';
+        $this->artist->artistName = 'Test Artist';
+        $this->artist->enabled = true;
+        $this->artist->roles = [];
+        $this->artist->setPassword('start1234');
+        $this->artist->roles[] = 'ROLE_ADMIN';
+        $this->artist->roles[] = 'ROLE_READER';
+        $this->artist->roles[] = 'ROLE_WRITER';
+
+        $this->artist->create();
+        CurrentUser::$currentUser = $this->artist;
+    }
+
+    private function createForm(string $title = 'Testform', bool $execute = true): Form
+    {
+        $form = new Form();
+        $form->description = 'Test description';
+        $form->title = $title;
+        $form->toAddress = 'noreply@example.com';
+
+        if ($execute) {
+            $form->create();
+        }
+
+        return $form;
+    }
+
+    public function testFindById(): void
+    {
+        $form = $this->createForm();
+        $foundForm = Form::findById($form->id);
+
+        $this->assertEquals($form->id, $foundForm->id);
+        $this->assertEquals($form->title, $foundForm->title);
+    }
+
+    public function testFindByIdNotFound(): void
+    {
+        $foundForm = Form::findById(-1);
+        $this->assertNull($foundForm);
+    }
+
+    public function testFindAll(): void
+    {
+        $this->createForm();
+        $this->createForm(title: 'Test');
+        $this->createForm(title: 'Test32');
+
+        $this->assertCount(3, Form::findAll());
+    }
+
+    public function testFindAllNoneFound(): void
+    {
+        $forms = Form::findAll();
+        $this->assertCount(0, $forms);
+    }
+
+    public function testGetUpdatedBy(): void
+    {
+        $form = $this->createForm();
+        $updatedBy = $form->getUpdatedBy();
+        $this->assertEquals($this->artist, $updatedBy);
+    }
+
+    public function testDelete(): void
+    {
+        $form = $this->createForm();
+        $form->delete();
+
+        $foundForm = Form::findById($form->id);
+        $this->assertNull($foundForm);
+    }
+
+    public function testDeleteNotExists(): void
+    {
+        $form = $this->createForm(execute: false);
+        $form->delete();
+
+        $foundForm = Form::findById($form->id);
+        $this->assertNull($foundForm);
+    }
+
+    public function testGetCreator(): void
+    {
+        $form = $this->createForm();
+        $creator = $form->getCreator();
+        $this->assertEquals($this->artist, $creator);
+    }
+
+    public function testFormat(): void
+    {
+        $form = $this->createForm();
+        $this->assertArrayHasKey('id', $form->format());
+        $this->assertArrayHasKey('description', $form->format());
+        $this->assertArrayHasKey('title', $form->format());
+        $this->assertArrayHasKey('toAddress', $form->format());
+        $this->assertArrayHasKey('created', $form->format());
+    }
+
+    public function testUpdate(): void
+    {
+        $form = $this->createForm();
+        $this->assertEquals('Testform', $form->title);
+
+        $form->title = 'Update me';
+        $form->description = 'Updated desc';
+        $form->toAddress = 'test@example.com';
+        $form->update();
+
+        $foundForm = Form::findById($form->id);
+        $this->assertEquals($form->title, $foundForm->title);
+        $this->assertEquals($form->description, $foundForm->description);
+        $this->assertEquals($form->toAddress, $foundForm->toAddress);
+    }
+
+    public function testUpdateUniqueFailed(): void
+    {
+        $this->expectException(UniqueFailedException::class);
+        $this->createForm(title: 'Test');
+        $form = $this->createForm();
+        $this->assertEquals('Testform', $form->title);
+
+        $form->title = 'Test';
+        $form->description = 'Updated desc';
+        $form->toAddress = 'test@example.com';
+        $form->update();
+    }
+
+    public function testUpdateNotSaved(): void
+    {
+        $this->expectError();
+        $form = $this->createForm(execute: false);
+        $this->assertEquals('Testform', $form->title);
+
+        $form->title = 'Update me';
+        $form->description = 'Updated desc';
+        $form->toAddress = 'test@example.com';
+        $form->update();
+
+        Form::findById($form->id);
+    }
+
+    public function testFindByKeyword(): void
+    {
+        $this->createForm();
+        $this->createForm(title: 'Formular');
+        $this->createForm(title: 'Test32');
+
+        $this->assertCount(2, Form::findByKeyword('Form'));
+    }
+
+    public function testGetItems(): void
+    {
+        $form = $this->createForm();
+        $item = new FormItem();
+        $item->type = 'text';
+        $item->formId = $form->id;
+        $item->label = 'Label';
+        $item->position = 0;
+        $item->create();
+
+        $items = $form->getItems();
+        $this->assertCount(1, $items);
+    }
+
+    public function testCreate(): void
+    {
+        $form = $this->createForm(execute: false);
+        $form->create();
+
+        $foundForm = Form::findById($form->id);
+        $this->assertNotNull($foundForm);
+    }
+
+    public function testCreateUniqueFailed(): void
+    {
+        $this->expectException(UniqueFailedException::class);
+        $this->createForm();
+        $this->createForm();
+    }
+}

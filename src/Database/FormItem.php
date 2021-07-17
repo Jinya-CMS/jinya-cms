@@ -12,25 +12,25 @@ use RuntimeException;
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
     #[OpenApiField(required: false, defaultValue: 'text', arrayType: 'string')]
-    public string $type;
+    public string $type = 'text';
     #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
-    public array $options;
+    public array $options = [];
     #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
-    public array $spamFilter;
+    public array $spamFilter = [];
     #[OpenApiField(required: true)]
     public string $label;
     #[OpenApiField(required: false)]
-    public string $helpText;
-    #[OpenApiField(required: false, defaultValue: '')]
+    public string $helpText = '';
+    #[OpenApiField(required: true, defaultValue: '')]
     public int $formId;
     #[OpenApiField(required: false, defaultValue: false)]
-    public bool $isFromAddress;
+    public bool $isFromAddress = false;
     #[OpenApiField(required: false, defaultValue: false)]
-    public bool $isSubject;
+    public bool $isSubject = false;
     #[OpenApiField(required: false, defaultValue: false)]
-    public bool $isRequired;
+    public bool $isRequired = false;
     #[OpenApiField(required: false, defaultValue: '')]
-    public ?string $placeholder;
+    public ?string $placeholder = '';
 
     /**
      * {@inheritDoc}
