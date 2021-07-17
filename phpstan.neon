@@ -1,4 +1,4 @@
-level: 6
 parameters:
+  level: 6
   bootstrapFiles:
     - defines.php
