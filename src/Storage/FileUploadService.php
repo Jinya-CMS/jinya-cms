@@ -70,7 +70,9 @@ class FileUploadService extends StorageBaseService
                         fwrite($tmpFileHandle, $chunkData);
                     }
                 } finally {
-                    @fclose($chunkFileHandle);
+                    if (is_resource($chunkFileHandle)) {
+                        @fclose($chunkFileHandle);
+                    }
                 }
             }
 
@@ -89,7 +91,9 @@ class FileUploadService extends StorageBaseService
             /* @noinspection NullPointerExceptionInspection */
             $uploadingFile->delete();
         } finally {
-            @fclose($tmpFileHandle);
+            if (is_resource($tmpFileHandle)) {
+                @fclose($tmpFileHandle);
+            }
         }
 
         return $file;
