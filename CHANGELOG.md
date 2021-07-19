@@ -1,5 +1,9 @@
 # Changelog
 
+# Release notes - Jinya Gallery CMS - Version 20.0.11
+## Fixed issues
+* [#21](https://taiga.imanuel.dev/project/jinya-cms/issue/21) Wrong perms for tmp dir
+
 ## Release notes - Jinya Gallery CMS - Version 20.0.10
 ### Fixed issues
 * [#9](https://taiga.imanuel.dev/project/jinya-cms/issue/9) Change chunk directory to local tmp directory
