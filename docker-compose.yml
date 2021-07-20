@@ -28,6 +28,12 @@ services:
     ports:
       - 8525:8025
       - 1525:1025
+  jinya-webgrind:
+    image: jokkedk/webgrind:latest
+    ports:
+      - 8088:80
+    volumes:
+      - ./profile:/tmp
   jinya-backend:
     build:
       context: .
