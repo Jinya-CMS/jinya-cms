@@ -11,26 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class FormTest extends TestCase
 {
-    private Artist $artist;
-
-    protected function setUp(): void
-    {
-        $this->artist = new Artist();
-        $this->artist->email = 'test@example.com';
-        $this->artist->aboutMe = 'About me';
-        $this->artist->profilePicture = 'profilepicture';
-        $this->artist->artistName = 'Test Artist';
-        $this->artist->enabled = true;
-        $this->artist->roles = [];
-        $this->artist->setPassword('start1234');
-        $this->artist->roles[] = 'ROLE_ADMIN';
-        $this->artist->roles[] = 'ROLE_READER';
-        $this->artist->roles[] = 'ROLE_WRITER';
-
-        $this->artist->create();
-        CurrentUser::$currentUser = $this->artist;
-    }
-
     private function createForm(string $title = 'Testform', bool $execute = true): Form
     {
         $form = new Form();

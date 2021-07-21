@@ -26,6 +26,7 @@
         <extension class="App\Tests\Extensions\MigrationHook"/>
         <extension class="App\Tests\Extensions\DefinesHook"/>
         <extension class="App\Tests\Extensions\CleanDatabaseAfterTestHook"/>
+        <extension class="App\Tests\Extensions\CreateArtistHook"/>
     </extensions>
 
     <php>

@@ -200,7 +200,7 @@ class ArtistTest extends TestCase
         $secondArtist->email = 'test2@example.com';
         $secondArtist->create();
         $artists = Artist::findAll();
-        $this->assertCount(2, $artists);
+        $this->assertGreaterThanOrEqual(2, iterator_count($artists));
     }
 
     public function testFormat(): void
