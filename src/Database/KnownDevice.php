@@ -28,7 +28,7 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
      */
     public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('known_device', $id, new self());
+        throw new RuntimeException('Not implemented');
     }
 
     /**
