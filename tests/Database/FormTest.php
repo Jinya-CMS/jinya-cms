@@ -3,7 +3,6 @@
 namespace Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Artist;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
@@ -59,7 +58,7 @@ class FormTest extends TestCase
     {
         $form = $this->createForm();
         $updatedBy = $form->getUpdatedBy();
-        $this->assertEquals($this->artist, $updatedBy);
+        $this->assertEquals(CurrentUser::$currentUser, $updatedBy);
     }
 
     public function testDelete(): void
@@ -84,7 +83,7 @@ class FormTest extends TestCase
     {
         $form = $this->createForm();
         $creator = $form->getCreator();
-        $this->assertEquals($this->artist, $creator);
+        $this->assertEquals(CurrentUser::$currentUser, $creator);
     }
 
     public function testFormat(): void
@@ -158,6 +157,28 @@ class FormTest extends TestCase
         $item->label = 'Label';
         $item->position = 0;
         $item->create();
+
+        $items = $form->getItems();
+        $this->assertCount(1, $items);
+    }
+
+    public function testGetItemsMultipleForms(): void
+    {
+        $form = $this->createForm();
+        $item = new FormItem();
+        $item->type = 'text';
+        $item->formId = $form->id;
+        $item->label = 'Label';
+        $item->position = 0;
+        $item->create();
+
+        $form2 = $this->createForm(title: 'Form2');
+        $item2 = new FormItem();
+        $item2->type = 'text';
+        $item2->formId = $form2->id;
+        $item2->label = 'Label';
+        $item2->position = 0;
+        $item2->create();
 
         $items = $form->getItems();
         $this->assertCount(1, $items);

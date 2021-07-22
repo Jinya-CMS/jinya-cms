@@ -147,3 +147,4 @@ $RECYCLE.BIN/
 /public/static/cosmo/
 /.phpunit.cache/
 /profile/
+/build/
