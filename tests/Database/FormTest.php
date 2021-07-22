@@ -70,6 +70,21 @@ class FormTest extends TestCase
         $this->assertNull($foundForm);
     }
 
+    public function testDeleteWithItems(): void
+    {
+        $form = $this->createForm();
+        $item = new FormItem();
+        $item->type = 'text';
+        $item->formId = $form->id;
+        $item->label = 'Label';
+        $item->position = 0;
+        $item->create();
+        $form->delete();
+
+        $foundForm = Form::findById($form->id);
+        $this->assertNull($foundForm);
+    }
+
     public function testDeleteNotExists(): void
     {
         $form = $this->createForm(execute: false);

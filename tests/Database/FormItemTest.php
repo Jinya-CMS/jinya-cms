@@ -2,6 +2,7 @@
 
 namespace Jinya\Tests\Database;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use PHPUnit\Framework\TestCase;
@@ -109,6 +110,14 @@ class FormItemTest extends TestCase
         $formItem = $this->createFormItem(execute: false);
         $formItem->create();
         $this->assertTrue(true);
+    }
+
+    public function testCreateFormNotExistent(): void
+    {
+        $this->expectException(ForeignKeyFailedException::class);
+        $formItem = $this->createFormItem(execute: false);
+        $formItem->formId = -1;
+        $formItem->create();
     }
 
     public function testFindByKeyword(): void

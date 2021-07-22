@@ -12,26 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    private Artist $artist;
-
-    protected function setUp(): void
-    {
-        $this->artist = new Artist();
-        $this->artist->email = 'test@example.com';
-        $this->artist->aboutMe = 'About me';
-        $this->artist->profilePicture = 'profilepicture';
-        $this->artist->artistName = 'Test Artist';
-        $this->artist->enabled = true;
-        $this->artist->roles = [];
-        $this->artist->setPassword('start1234');
-        $this->artist->roles[] = 'ROLE_ADMIN';
-        $this->artist->roles[] = 'ROLE_READER';
-        $this->artist->roles[] = 'ROLE_WRITER';
-
-        $this->artist->create();
-        CurrentUser::$currentUser = $this->artist;
-    }
-
     private function createFile(bool $execute = true, string $name = 'Testfile'): File
     {
         $file = new File();
@@ -170,7 +150,7 @@ class FileTest extends TestCase
         $creator = $file->getCreator();
 
         $this->assertNotNull($creator);
-        $this->assertEquals($this->artist, $creator);
+        $this->assertEquals(CurrentUser::$currentUser, $creator);
     }
 
     public function testDelete(): void
@@ -217,6 +197,6 @@ class FileTest extends TestCase
         $updatedBy = $file->getUpdatedBy();
 
         $this->assertNotNull($updatedBy);
-        $this->assertEquals($this->artist, $updatedBy);
+        $this->assertEquals(CurrentUser::$currentUser, $updatedBy);
     }
 }
