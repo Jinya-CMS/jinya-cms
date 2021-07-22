@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils;
+namespace Jinya\Tests\Utils;
 
 use App\Utils\UuidGenerator;
 use Exception;

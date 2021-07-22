@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Utils;
+namespace Jinya\Tests\Database\Utils;
 
 use App\Database\Utils\SkipFieldFilter;
 use PHPUnit\Framework\TestCase;

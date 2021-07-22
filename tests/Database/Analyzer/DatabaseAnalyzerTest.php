@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Analyzer;
+namespace Jinya\Tests\Database\Analyzer;
 
 use App\Database\Analyzer\DatabaseAnalyzer;
 use App\Utils\AppSettingsInitializer;

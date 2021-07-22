@@ -1,6 +1,6 @@
 <?php
 
-namespace Database;
+namespace Jinya\Tests\Database;
 
 use App\Database\ApiKey;
 use App\Database\Artist;

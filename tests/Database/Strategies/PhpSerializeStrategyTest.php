@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Strategies;
+namespace Jinya\Tests\Database\Strategies;
 
 use App\Database\Strategies\PhpSerializeStrategy;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database;
+namespace Jinya\Tests\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
