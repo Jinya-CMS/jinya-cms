@@ -8,6 +8,7 @@ use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use Exception;
 use Iterator;
+use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
 #[OpenApiModel('A menu item contains the navigation information')]
@@ -94,7 +95,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         }
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result[0], new self());
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -122,7 +123,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
-        return self::hydrateSingleResult($result[0], new self());
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -150,7 +151,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
-        return self::hydrateSingleResult($result[0], new self());
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -171,7 +172,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('menu_item', $id, new self());
+        return self::fetchSingleById('menu_item', $id, new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -193,7 +194,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function create(): void
     {
         $this->rearrange($this->position);
-        $this->internalCreate('menu_item');
+        $this->internalCreate('menu_item', ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     private function rearrange(int $position): void
@@ -223,7 +224,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             $this->rearrange($this->position);
         }
 
-        $this->internalUpdate('menu_item');
+        $this->internalUpdate('menu_item', ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
