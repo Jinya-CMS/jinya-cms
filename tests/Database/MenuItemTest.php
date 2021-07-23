@@ -2,11 +2,16 @@
 
 namespace Jinya\Tests\Database;
 
+use App\Authentication\CurrentUser;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\Form;
+use App\Database\Gallery;
 use App\Database\Menu;
 use App\Database\MenuItem;
+use App\Database\SegmentPage;
+use App\Database\SimplePage;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -24,85 +29,241 @@ class MenuItemTest extends TestCase
         return $menuItem;
     }
 
-    public function testGetSegmentPage(): void
+    public function testCreateArtist(): void
     {
+        $menu = $this->createMenu();
 
-    }
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->artistId = CurrentUser::$currentUser->getIdAsInt();
+        $menuItem->create();
 
-    public function testGetForm(): void
-    {
-
-    }
-
-    public function testGetPage(): void
-    {
-
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+        $this->assertEquals($menuItem->artistId, $found->artistId);
     }
 
     public function testGetArtist(): void
     {
-
-    }
-
-    public function testGetGallery(): void
-    {
-
-    }
-
-    public function testFormatNone(): void
-    {
-
-    }
-
-    public function testFormatForm(): void
-    {
-
+        $menuItem = $this->createMenuItem();
+        $menuItem->artistId = CurrentUser::$currentUser->getIdAsInt();
+        $artist = $menuItem->getArtist();
+        $this->assertEquals(CurrentUser::$currentUser, $artist);
     }
 
     public function testFormatArtist(): void
     {
+        $menuItem = $this->createMenuItem();
+        $menuItem->artistId = CurrentUser::$currentUser->getIdAsInt();
+        $format = $menuItem->format();
 
+        $this->assertArrayHasKey('artist', $format);
+        $this->assertArrayHasKey('id', $format['artist']);
+        $this->assertArrayHasKey('artistName', $format['artist']);
+        $this->assertArrayHasKey('email', $format['artist']);
+        $this->checkFormatFields($menuItem);
     }
 
-    public function testFormatGallery(): void
+    private function createForm(): Form
     {
+        $form = new Form();
+        $form->description = 'Test description';
+        $form->title = 'Testform';
+        $form->toAddress = 'noreply@example.com';
 
-    }
+        $form->create();
 
-    public function testFormatPage(): void
-    {
-
-    }
-
-    public function testFormatSegmentPage(): void
-    {
-
-    }
-
-    public function testCreateSegmentPage(): void
-    {
-
-    }
-
-    public function testCreatePage(): void
-    {
-
+        return $form;
     }
 
     public function testCreateForm(): void
     {
+        $menu = $this->createMenu();
 
+        $form = $this->createForm();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->formId = $form->getIdAsInt();
+        $menuItem->create();
+
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+
+        $this->assertEquals($form->getIdAsInt(), $found->formId);
+    }
+
+    public function testGetForm(): void
+    {
+        $form = $this->createForm();
+        $menuItem = $this->createMenuItem();
+        $menuItem->formId = $form->getIdAsInt();
+
+        $this->assertEquals($form->format(), $menuItem->getForm()->format());
+    }
+
+    public function testFormatForm(): void
+    {
+        $menu = $this->createMenu();
+        $form = $this->createForm();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->formId = $form->getIdAsInt();
+        $format = $menuItem->format();
+
+        $this->assertArrayHasKey('form', $format);
+        $this->assertArrayHasKey('id', $format['form']);
+        $this->assertArrayHasKey('title', $format['form']);
+        $this->checkFormatFields($menuItem);
+    }
+
+    private function createSimplePage(): SimplePage
+    {
+        $page = new SimplePage();
+        $page->title = 'Test';
+        $page->content = 'Test';
+        $page->create();
+
+        return $page;
+    }
+
+    public function testCreatePage(): void
+    {
+        $menu = $this->createMenu();
+
+        $page = $this->createSimplePage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->pageId = $page->getIdAsInt();
+        $menuItem->create();
+
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+
+        $this->assertEquals($page->getIdAsInt(), $found->pageId);
+    }
+
+    public function testGetPage(): void
+    {
+        $page = $this->createSimplePage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->pageId = $page->getIdAsInt();
+
+        $this->assertEquals($page->format(), $menuItem->getPage()->format());
+    }
+
+    public function testFormatPage(): void
+    {
+        $page = $this->createSimplePage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->pageId = $page->getIdAsInt();
+        $format = $menuItem->format();
+
+        $this->assertArrayHasKey('page', $format);
+        $this->assertArrayHasKey('id', $format['page']);
+        $this->assertArrayHasKey('title', $format['page']);
+        $this->checkFormatFields($menuItem);
+    }
+
+    private function createSegmentPage(): SegmentPage
+    {
+        $page = new SegmentPage();
+        $page->name = 'Test';
+        $page->create();
+
+        return $page;
+    }
+
+    public function testCreateSegmentPage(): void
+    {
+        $menu = $this->createMenu();
+
+        $page = $this->createSegmentPage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->segmentPageId = $page->getIdAsInt();
+        $menuItem->create();
+
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+
+        $this->assertEquals($page->getIdAsInt(), $found->segmentPageId);
+    }
+
+    public function testGetSegmentPage(): void
+    {
+        $page = $this->createSegmentPage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->segmentPageId = $page->getIdAsInt();
+
+        $this->assertEquals($page->format(), $menuItem->getSegmentPage()->format());
+    }
+
+    public function testFormatSegmentPage(): void
+    {
+        $page = $this->createSegmentPage();
+        $menuItem = $this->createMenuItem();
+        $menuItem->segmentPageId = $page->getIdAsInt();
+        $format = $menuItem->format();
+
+        $this->assertArrayHasKey('segmentPage', $format);
+        $this->assertArrayHasKey('id', $format['segmentPage']);
+        $this->assertArrayHasKey('name', $format['segmentPage']);
+        $this->checkFormatFields($menuItem);
+    }
+
+    private function createGallery(): Gallery
+    {
+        $gallery = new Gallery();
+        $gallery->name = 'Gallery';
+        $gallery->create();
+
+        return $gallery;
     }
 
     public function testCreateGallery(): void
     {
+        $menu = $this->createMenu();
 
+        $gallery = $this->createGallery();
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->getIdAsInt();
+        $menuItem->galleryId = $gallery->getIdAsInt();
+        $menuItem->create();
+
+        $found = MenuItem::findById($menuItem->getIdAsInt());
+
+        $this->assertEquals($gallery->getIdAsInt(), $found->galleryId);
     }
 
-    public function testCreateArtist(): void
+    public function testGetGallery(): void
     {
+        $gallery = $this->createGallery();
+        $menuItem = $this->createMenuItem();
+        $menuItem->galleryId = $gallery->getIdAsInt();
 
+        $this->assertEquals($gallery->format(), $menuItem->getGallery()->format());
     }
+
+    public function testFormatGallery(): void
+    {
+        $gallery = $this->createGallery();
+        $menuItem = $this->createMenuItem();
+        $menuItem->galleryId = $gallery->getIdAsInt();
+        $format = $menuItem->format();
+
+        $this->assertArrayHasKey('gallery', $format);
+        $this->assertArrayHasKey('id', $format['gallery']);
+        $this->assertArrayHasKey('name', $format['gallery']);
+        $this->checkFormatFields($menuItem);
+    }
+
+    public function testFormatNone(): void
+    {
+        $menu = $this->createMenu();
+
+        $menuItem = $this->createMenuItem();
+        $menuItem->menuId = $menu->id;
+        $menuItem->create();
+
+        $this->checkFormatFields($menuItem);
+    }
+
 
     public function testFindAll(): void
     {
@@ -449,6 +610,22 @@ class MenuItemTest extends TestCase
         $menu = new Menu();
         $menu->name = 'Test';
         $menu->create();
+
         return $menu;
+    }
+
+    /**
+     * @param MenuItem $menuItem
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
+    public function checkFormatFields(MenuItem $menuItem): void
+    {
+        $this->assertArrayHasKey('id', $menuItem->format());
+        $this->assertArrayHasKey('position', $menuItem->format());
+        $this->assertArrayHasKey('highlighted', $menuItem->format());
+        $this->assertArrayHasKey('title', $menuItem->format());
+        $this->assertArrayHasKey('route', $menuItem->format());
     }
 }
