@@ -598,6 +598,16 @@ class MenuItemTest extends TestCase
         $this->assertNull($found);
     }
 
+    public function testEmptyChildItems():void
+    {
+        $menuItem = $this->createMenuItem();
+
+        $this->assertNull($menuItem->getPage());
+        $this->assertNull($menuItem->getSegmentPage());
+        $this->assertNull($menuItem->getForm());
+        $this->assertNull($menuItem->getGallery());
+        $this->assertNull($menuItem->getArtist());
+}
 
     /**
      * @return Menu
