@@ -20,7 +20,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
             'type' => 'integer',
         ],
     ])]
-    public ?int $logo;
+    public ?int $logo = null;
 
     /**
      * {@inheritDoc}

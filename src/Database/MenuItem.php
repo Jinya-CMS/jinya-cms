@@ -9,6 +9,7 @@ use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use Exception;
 use Iterator;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
+use LogicException;
 use RuntimeException;
 
 #[OpenApiModel('A menu item contains the navigation information')]
@@ -163,7 +164,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public function getParent(): ?MenuItem
     {
-        return self::findById($this->parentId);
+        if ($this->parentId !== null) {
+            return self::findById($this->parentId);
+        }
+
+        return null;
     }
 
     /**
@@ -184,7 +189,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public function getMenu(): ?Menu
     {
-        return Menu::findById($this->parentId);
+        if ($this->menuId !== null) {
+            return Menu::findById($this->menuId);
+        }
+
+        return null;
     }
 
     /**
@@ -201,8 +210,10 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         if (null !== $this->menuId) {
             $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $position);
-        } else {
+        } else if (null !== $this->parentId) {
             $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $position);
+        } else {
+            throw new LogicException('No parent provided');
         }
     }
 
