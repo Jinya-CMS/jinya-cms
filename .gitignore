@@ -148,3 +148,4 @@ $RECYCLE.BIN/
 /.phpunit.cache/
 /profile/
 /build/
+.idea
