@@ -76,7 +76,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
 
     /**
      * @param int $id
-     * @return object|null
+     * @return Artist|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

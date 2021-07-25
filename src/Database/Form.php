@@ -34,7 +34,7 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
 
     /**
      * @inheritDoc
-     * @return object
+     * @return Form|null
      */
     public static function findById(int $id): ?object
     {
