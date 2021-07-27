@@ -1,5 +1,13 @@
 # Changelog
 
+# Release notes - Jinya Gallery CMS - Version 20.0.12
+## User Stories
+* [#28](https://taiga.imanuel.dev/project/jinya-cms/issue/28) Increase gallery designer performance
+
+## Fixed issues
+* [#26](https://taiga.imanuel.dev/project/jinya-cms/issue/26) Drag targets are too small 
+* [#27](https://taiga.imanuel.dev/project/jinya-cms/issue/27) Discard gallery does nothing 
+
 # Release notes - Jinya Gallery CMS - Version 20.0.11
 ## Fixed issues
 * [#21](https://taiga.imanuel.dev/project/jinya-cms/issue/21) Wrong perms for tmp dir
