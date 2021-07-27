@@ -5,6 +5,7 @@
 * [#28](https://taiga.imanuel.dev/project/jinya-cms/issue/28) Increase gallery designer performance
 
 ## Fixed issues
+* [#25](https://taiga.imanuel.dev/project/jinya-cms/issue/25) Cannot delete menu item 
 * [#26](https://taiga.imanuel.dev/project/jinya-cms/issue/26) Drag targets are too small 
 * [#27](https://taiga.imanuel.dev/project/jinya-cms/issue/27) Discard gallery does nothing 
 
