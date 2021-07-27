@@ -32,7 +32,7 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.6",
     "vimeo/psalm": "4.8.1",
-    "phpstan/phpstan": "0.12.92"
+    "phpstan/phpstan": "0.12.93"
   },
   "config": {
     "process-timeout": 0,
@@ -50,8 +50,7 @@
   },
   "scripts": {
     "start": "php -S 0.0.0.0:8080 -t public",
-    "test": "./vendor/bin/phpunit",
-    "phpcs": "phpcs --standard=PSR12"
+    "test": "./vendor/bin/phpunit"
   },
   "description": "Jinya CMS is a modern content management system targeted at artists"
 }
