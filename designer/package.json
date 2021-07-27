@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@jinyacms/cosmo": "0.6.0",
-    "apexcharts": "3.27.2",
+    "apexcharts": "3.27.3",
     "monaco-editor": "0.26.1",
     "page": "1.11.6",
     "sortablejs": "1.14.0",
@@ -19,15 +19,15 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "19.0.1",
     "@rollup/plugin-json": "4.1.0",
-    "@rollup/plugin-node-resolve": "13.0.2",
-    "eslint": "7.30.0",
+    "@rollup/plugin-node-resolve": "13.0.4",
+    "eslint": "7.31.0",
     "eslint-plugin-svelte3": "3.2.0",
-    "rollup": "2.53.2",
-    "postcss": "8.3.5",
+    "postcss": "8.3.6",
+    "rollup": "2.54.0",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-monaco-editor": "0.0.8",
     "rollup-plugin-postcss": "4.0.0",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.38.3"
+    "svelte": "3.40.2"
   }
 }
