@@ -278,7 +278,7 @@
   async function deleteMenuItem() {
     const result = await jinyaConfirm($_('design.menus.delete_item.title'), $_('design.menus.delete_item.message', {values: selectedMenu}), $_('design.menus.delete_item.delete'), $_('design.menus.delete_item.keep'));
     if (result) {
-      await httpDelete(`/api/menu/${selectedMenu.id}/item/${selectedMenuItem.position}`);
+      await httpDelete(`/api/menu-item/${selectedMenuItem.id}`);
       await selectMenu(selectedMenu);
     }
   }
