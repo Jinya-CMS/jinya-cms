@@ -2063,6 +2063,11 @@ recast@^0.20.4:
     source-map "~0.6.1"
     tslib "^2.0.1"
 
+regenerator-runtime@^0.13.9:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
+
 regexpp@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
@@ -2134,13 +2139,14 @@ rollup-plugin-copy@3.4.0:
     globby "10.0.1"
     is-plain-object "^3.0.0"
 
-rollup-plugin-monaco-editor@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.0.8.tgz#f16e6dec2d5404cfe6e9554fd8d3ca321edd03c1"
-  integrity sha512-ntXXltqcEZJM4g0eFOy79MjfiQA39rzWU3N9XCbW0knI69wZoUZptAS6ywjEwVWO7ySLIEx3fYhVYGYEzYL5sw==
+rollup-plugin-monaco-editor@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.1.0.tgz#d676ecd8084b4e6f360a2533b19b0a1c6bd892be"
+  integrity sha512-58+N51L8lhhZt8LhoJCRAoPiRSUcRYxFnEPEubZaj2JeDT9MdEAs7BhJLj/EHFJ/5qYCwsaxRtOClrXjh34sCA==
   dependencies:
     es-module-lexer "^0.3.26"
     recast "^0.20.4"
+    regenerator-runtime "^0.13.9"
     semver "^7.3.5"
 
 rollup-plugin-postcss@4.0.0:
