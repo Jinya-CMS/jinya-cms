@@ -10,7 +10,7 @@
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
-    "laminas/laminas-hydrator": "4.2.1",
+    "laminas/laminas-hydrator": "4.2.2",
     "guzzlehttp/guzzle": "7.3.0",
     "jinya/plates": "3.4.0",
     "monolog/monolog": "2.3.2",
