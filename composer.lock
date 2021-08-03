@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29fdd1d1c300d05d064495056d1b6686",
+    "content-hash": "93d6aab502c4fa06c458775f29f46086",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -613,16 +613,16 @@
         },
         {
             "name": "laminas/laminas-hydrator",
-            "version": "4.2.1",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-hydrator.git",
-                "reference": "e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2"
+                "reference": "ed5d9cacc551a37b552cb44e1bbf315512612248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2",
-                "reference": "e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2",
+                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/ed5d9cacc551a37b552cb44e1bbf315512612248",
+                "reference": "ed5d9cacc551a37b552cb44e1bbf315512612248",
                 "shasum": ""
             },
             "require": {
@@ -685,7 +685,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-06-29T11:04:20+00:00"
+            "time": "2021-08-02T15:28:57+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
