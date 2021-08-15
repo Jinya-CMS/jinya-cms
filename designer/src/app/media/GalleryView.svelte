@@ -50,7 +50,7 @@
 
   $: if (filesElement instanceof HTMLElement) {
     filesSortable = new Sortable(filesElement, {
-      group: {name: 'gallery', pull: 'clone', put: true},
+      group: {name: 'gallery', pull: true, put: true},
       sort: false,
       async onAdd(e) {
         e.item.style.display = 'none';
