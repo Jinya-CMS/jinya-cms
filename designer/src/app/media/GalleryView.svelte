@@ -50,7 +50,7 @@
 
   $: if (filesElement instanceof HTMLElement) {
     filesSortable = new Sortable(filesElement, {
-      group: {name: 'gallery', pull: true, put: true},
+      group: 'gallery',
       sort: false,
       async onAdd(e) {
         e.item.style.display = 'none';
@@ -67,7 +67,6 @@
       group: 'gallery',
       sort: true,
       async onAdd(e) {
-        e.item.classList.remove('jinya-media-tile--medium');
         const fileIdx = e.oldIndex;
         const file = files[fileIdx];
         const dropIdx = e.newIndex;
@@ -79,40 +78,20 @@
         } else {
           position = positions[dropIdx].position;
         }
-        const galleryFilePosition = await post(`/api/media/gallery/${selectedGallery.id}/file`, {
+        await post(`/api/media/gallery/${selectedGallery.id}/file`, {
           file: file.id,
           position,
         });
-
-        positions.splice(dropIdx, 0, galleryFilePosition);
-        for (const position1 of positions.slice(dropIdx, positions.length)) {
-          position1.position += 1;
-        }
-
-        files = files.filter(file => {
-          const idx = positions.map(position => position.file).findIndex(position => position.id === file.id);
-          return idx === -1;
-        });
-        positions = positions;
+        await selectGallery(selectedGallery);
       },
       async onUpdate(e) {
         const oldPosition = e.item.getAttribute('data-old-position');
         const dropIdx = e.newIndex;
         const position = positions[dropIdx].position;
         await put(`/api/media/gallery/${selectedGallery.id}/file/${oldPosition}`, {
-          newPosition: position,
+          newPosition: position + 1,
         });
-
-        const galleryFilePosition = positions.find(item => item.position = oldPosition);
-        positions.splice(oldPosition, 1);
-        positions.splice(dropIdx, 0, galleryFilePosition);
-        let counter = 1;
-        for (const position1 of positions) {
-          position1.position = counter;
-          counter++;
-        }
-
-        positions = positions;
+        await selectGallery(selectedGallery);
       },
     });
   }
@@ -126,7 +105,7 @@
   }
 
   async function deleteGallery() {
-    const result = await jinyaConfirm($_('media.galleries.delete.title'), $_('media.galleries.delete.message', {values: selectedGallery}), $_('media.galleries.delete.delete'), $_('media.galleries.delete.keep'));
+    const result = await jinyaConfirm($_('media.galleries.delete.title'), $_('media.galleries.delete.message', { values: selectedGallery }), $_('media.galleries.delete.delete'), $_('media.galleries.delete.keep'));
     if (result) {
       await httpDelete(`/api/media/gallery/${selectedGallery.id}`);
       await loadGalleries();
@@ -278,7 +257,7 @@
             </div>
             <div class="cosmo-modal__button-bar">
                 <button class="cosmo-button"
-                        on:click={() => createGalleryOpen = false}>{$_('media.galleries.create.cancel')}</button>
+                        on:click={() => createGalleryOpen}>{$_('media.galleries.create.cancel')}</button>
                 <button class="cosmo-button" on:click={createGallery}>{$_('media.galleries.create.create')}</button>
             </div>
         </div>
