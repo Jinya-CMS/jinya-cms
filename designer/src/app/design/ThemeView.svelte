@@ -106,7 +106,8 @@
         }
 
         themeFiles = files;
-      }),]);
+      }),
+    ]);
 
     defaultVariables = await get(`/api/theme/${selectedTheme.id}/styling`);
     variables = selectedTheme.scssVariables;
