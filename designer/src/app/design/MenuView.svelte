@@ -40,6 +40,7 @@
   let createNewMenuItem = false;
   let createPosition;
   let createMenuItemParent = null;
+  let loading = true;
 
   $: if (menuItemToolboxElement instanceof HTMLElement) {
     new Sortable(menuItemToolboxElement, {
@@ -135,11 +136,13 @@
   }
 
   async function selectMenu(menu) {
+    loading = true;
     selectedMenu = menu;
     editMenuName = selectedMenu.name;
     menuItems = await get(`/api/menu/${selectedMenu.id}/item`);
     menuItems = flattenMenuItems(null, 0, menuItems);
     selectMenuItem(null);
+    loading = false;
   }
 
   function flattenMenuItems(parent, nestingIndex, items) {
@@ -420,8 +423,12 @@
         <button on:click={openCreate}
                 class="cosmo-button cosmo-button--full-width">{$_('design.menus.action.new')}</button>
     </nav>
-    <div class="cosmo-list__content jinya-designer">
-        {#if selectedMenu}
+    {#if loading}
+        <div class="cosmo-list__content jinya-loader__container">
+            <div class="lds-dual-ring"></div>
+        </div>
+    {:else if selectedMenu}
+        <div class="cosmo-list__content jinya-designer">
             <div class="jinya-designer__title">
                 <span class="cosmo-title">{selectedMenu.name}</span>
             </div>
@@ -443,52 +450,52 @@
                             class="cosmo-button">{$_('design.menus.action.delete_item')}</button>
                 </div>
             </div>
-        {/if}
-        <div class="jinya-designer__content">
-            <div bind:this={menuItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
-                {#each menuItems as item (item.id)}
-                    <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu"
-                         on:click={() => selectMenuItem(item)} data-parent-id={item.parent?.id}
-                         class:jinya-designer-item--selected={selectedMenuItem === item}
-                         style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
-                        <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
-                        <span>
+            <div class="jinya-designer__content">
+                <div bind:this={menuItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
+                    {#each menuItems as item (item.id)}
+                        <div data-id={item.id} class="jinya-designer-item jinya-designer-item--menu"
+                             on:click={() => selectMenuItem(item)} data-parent-id={item.parent?.id}
+                             class:jinya-designer-item--selected={selectedMenuItem === item}
+                             style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
+                            <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
+                            <span>
                             <span>{item.title}</span>
-                            {#if item.route}
+                                {#if item.route}
                                 <span class="jinya-menu-item__route">{item.route}</span>
                             {/if}
                         </span>
+                        </div>
+                    {/each}
+                </div>
+                <div bind:this={menuItemToolboxElement} class="jinya-designer__toolbox">
+                    <div data-type="gallery" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_gallery')}</span>
                     </div>
-                {/each}
-            </div>
-            <div bind:this={menuItemToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="gallery" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_gallery')}</span>
-                </div>
-                <div data-type="page" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_page')}</span>
-                </div>
-                <div data-type="segment_page" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_segment_page')}</span>
-                </div>
-                <div data-type="form" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_form')}</span>
-                </div>
-                <div data-type="group" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_group')}</span>
-                </div>
-                <div data-type="external_link" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('design.menus.designer.type_external_link')}</span>
+                    <div data-type="page" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_page')}</span>
+                    </div>
+                    <div data-type="segment_page" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_segment_page')}</span>
+                    </div>
+                    <div data-type="form" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_form')}</span>
+                    </div>
+                    <div data-type="group" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_group')}</span>
+                    </div>
+                    <div data-type="external_link" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_external_link')}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 {#if createMenuOpen}
     <div class="cosmo-modal__backdrop"></div>

@@ -57,10 +57,11 @@
   let createNewFormItem = false;
   let createPosition;
   let formDescriptionTiny;
+  let loading = true;
 
   $: if (formItemToolboxElement instanceof HTMLElement) {
     new Sortable(formItemToolboxElement, {
-      group: { name: 'form_items', put: false, pull: 'clone' },
+      group: {name: 'form_items', put: false, pull: 'clone'},
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -73,7 +74,7 @@
 
   $: if (formItemListElement instanceof HTMLElement) {
     new Sortable(formItemListElement, {
-      group: { name: 'form_items', put: true, pull: false },
+      group: {name: 'form_items', put: true, pull: false},
       sort: true,
       async onAdd(e) {
         createNewFormItem = true;
@@ -85,7 +86,7 @@
         } else {
           createPosition = formItems[dropIdx].position;
         }
-        selectedFormItem = { type: e.item.getAttribute('data-type') };
+        selectedFormItem = {type: e.item.getAttribute('data-type')};
         await editFormItem();
       },
       async onUpdate(e) {
@@ -101,10 +102,12 @@
   }
 
   async function selectForm(form) {
+    loading = true;
     selectedForm = form;
     editFormTitle = selectedForm.name;
     formItems = await get(`/api/form/${selectedForm.id}/item`);
     selectedFormItem = null;
+    loading = false;
   }
 
   async function loadForms() {
@@ -116,7 +119,7 @@
   }
 
   async function deleteForm() {
-    const result = await jinyaConfirm($_('pages_and_forms.form.delete.title'), $_('pages_and_forms.form.delete.message', { values: selectedForm }), $_('pages_and_forms.form.delete.delete'), $_('pages_and_forms.form.delete.keep'));
+    const result = await jinyaConfirm($_('pages_and_forms.form.delete.title'), $_('pages_and_forms.form.delete.message', {values: selectedForm}), $_('pages_and_forms.form.delete.delete'), $_('pages_and_forms.form.delete.keep'));
     if (result) {
       await httpDelete(`/api/form/${selectedForm.id}`);
       await loadForms();
@@ -209,7 +212,7 @@
   }
 
   async function deleteFormItem() {
-    const result = await jinyaConfirm($_('pages_and_forms.form.delete_item.title'), $_('pages_and_forms.form.delete_item.message', { values: selectedForm }), $_('pages_and_forms.form.delete_item.delete'), $_('pages_and_forms.form.delete_item.keep'));
+    const result = await jinyaConfirm($_('pages_and_forms.form.delete_item.title'), $_('pages_and_forms.form.delete_item.message', {values: selectedForm}), $_('pages_and_forms.form.delete_item.delete'), $_('pages_and_forms.form.delete_item.keep'));
     if (result) {
       await httpDelete(`/api/form/${selectedForm.id}/item/${selectedFormItem.position}`);
       await selectForm(selectedForm);
@@ -269,8 +272,12 @@
         <button on:click={openCreate}
                 class="cosmo-button cosmo-button--full-width">{$_('pages_and_forms.form.action.new')}</button>
     </nav>
-    <div class="cosmo-list__content jinya-designer">
-        {#if selectedForm}
+    {#if loading}
+        <div class="cosmo-list__content jinya-loader__container">
+            <div class="lds-dual-ring"></div>
+        </div>
+    {:else if selectedForm}
+        <div class="cosmo-list__content jinya-designer">
             <div class="jinya-designer__title">
                 <span class="cosmo-title">#{selectedForm.id} {selectedForm.title}</span>
             </div>
@@ -288,42 +295,42 @@
                             class="cosmo-button">{$_('pages_and_forms.form.action.delete_item')}</button>
                 </div>
             </div>
-        {/if}
-        <div class="jinya-designer__content">
-            <div bind:this={formItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
-                {#each formItems as item (item.id)}
-                    <div data-old-position={item.position} class="jinya-designer-item"
-                         class:jinya-designer-item--selected={selectedFormItem === item}
-                         on:click={() => selectFormItem(item)}>
-                        <span class="jinya-designer-item__title">{$_(`pages_and_forms.form.designer.type_${item.type}`)}</span>
-                        <span class="jinya-form-item__label">{item.label}</span>
+            <div class="jinya-designer__content">
+                <div bind:this={formItemListElement} class="jinya-designer__result jinya-designer__result--horizontal">
+                    {#each formItems as item (item.id)}
+                        <div data-old-position={item.position} class="jinya-designer-item"
+                             class:jinya-designer-item--selected={selectedFormItem === item}
+                             on:click={() => selectFormItem(item)}>
+                            <span class="jinya-designer-item__title">{$_(`pages_and_forms.form.designer.type_${item.type}`)}</span>
+                            <span class="jinya-form-item__label">{item.label}</span>
+                        </div>
+                    {/each}
+                </div>
+                <div bind:this={formItemToolboxElement} class="jinya-designer__toolbox">
+                    <div data-type="text" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.form.designer.type_text')}</span>
                     </div>
-                {/each}
-            </div>
-            <div bind:this={formItemToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="text" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.form.designer.type_text')}</span>
-                </div>
-                <div data-type="email" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.form.designer.type_email')}</span>
-                </div>
-                <div data-type="textarea" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.form.designer.type_textarea')}</span>
-                </div>
-                <div data-type="select" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.form.designer.type_select')}</span>
-                </div>
-                <div data-type="checkbox" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.form.designer.type_checkbox')}</span>
+                    <div data-type="email" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.form.designer.type_email')}</span>
+                    </div>
+                    <div data-type="textarea" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.form.designer.type_textarea')}</span>
+                    </div>
+                    <div data-type="select" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.form.designer.type_select')}</span>
+                    </div>
+                    <div data-type="checkbox" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.form.designer.type_checkbox')}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 {#if createFormOpen}
     <div class="cosmo-modal__backdrop"></div>
