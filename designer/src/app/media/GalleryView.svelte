@@ -27,9 +27,11 @@
   let positions = [];
   let files = [];
   let allFiles = {};
+  let loading = true;
 
   async function selectGallery(gallery) {
     selectedGallery = gallery;
+    loading = true;
     positions = await get(`/api/media/gallery/${gallery.id}/file`);
     allFiles = await get('/api/media/file');
     files = allFiles.items.filter(file => {
@@ -62,6 +64,7 @@
     } else {
       positionsStore = writable(positions);
     }
+    loading = false;
   }
 
   const filesSortable = function (node, {items, options}) {
@@ -253,8 +256,12 @@
         <button on:click={() => createGalleryOpen = true}
                 class="cosmo-button cosmo-button--full-width">{$_('media.galleries.action.new')}</button>
     </nav>
-    <div class="cosmo-list__content jinya-designer">
-        {#if selectedGallery.id !== undefined}
+    {#if loading}
+        <div class="cosmo-list__content jinya-loader__container">
+            <div class="lds-dual-ring"></div>
+        </div>
+    {:else if selectedGallery.id !== undefined}
+        <div class="cosmo-list__content jinya-designer">
             <div class="jinya-designer__title">
                 <span class="cosmo-title">#{selectedGallery.id} {selectedGallery.name}</span>
                 <span class="cosmo-title">
@@ -285,8 +292,8 @@
                     {/each}
                 </div>
             </div>
-        {/if}
-    </div>
+        </div>
+    {/if}
 </div>
 {#if createGalleryOpen}
     <div class="cosmo-modal__backdrop"></div>
