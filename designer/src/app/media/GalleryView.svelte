@@ -258,7 +258,7 @@
     </nav>
     {#if loading}
         <div class="cosmo-list__content jinya-loader__container">
-            <div class="lds-dual-ring"></div>
+            <div class="jinya-loader"></div>
         </div>
     {:else if selectedGallery.id !== undefined}
         <div class="cosmo-list__content jinya-designer">

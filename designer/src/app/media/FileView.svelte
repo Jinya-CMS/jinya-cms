@@ -25,6 +25,7 @@
   let editFileName;
   let editFileFile;
   let editFileFileName = '';
+  let loading = true;
 
   $: if (uploadSingleFileFile) {
     const file = uploadSingleFileFile[0];
@@ -52,7 +53,7 @@
   }
 
   async function deleteFile() {
-    const reallyDelete = await jinyaConfirm($_('media.files.delete.title'), $_('media.files.delete.message', { values: selectedFile }), $_('media.files.delete.approve'), $_('media.files.delete.decline'));
+    const reallyDelete = await jinyaConfirm($_('media.files.delete.title'), $_('media.files.delete.message', {values: selectedFile}), $_('media.files.delete.approve'), $_('media.files.delete.decline'));
     if (reallyDelete) {
       await httpDelete(`/api/media/file/${selectedFile.id}`);
       const result = await get('/api/media/file');
@@ -96,7 +97,7 @@
       return;
     }
     try {
-      const postResult = await post('/api/media/file', { name: uploadSingleFileName });
+      const postResult = await post('/api/media/file', {name: uploadSingleFileName});
       await put(`/api/media/file/${postResult.id}/content`);
       await upload(`/api/media/file/${postResult.id}/content/0`, uploadSingleFileFile[0]);
       await put(`/api/media/file/${postResult.id}/content/finish`);
@@ -123,7 +124,7 @@
     }
 
     try {
-      await put(`/api/media/file/${selectedFile.id}`, { name: editFileName });
+      await put(`/api/media/file/${selectedFile.id}`, {name: editFileName});
       if (editFileFile && editFileFile.length > 0) {
         await put(`/api/media/file/${selectedFile.id}/content`);
         await upload(`/api/media/file/${selectedFile.id}/content/0`, editFileFile[0]);
@@ -141,7 +142,9 @@
   }
 
   onMount(async () => {
+    loading = true;
     await loadFiles();
+    loading = false;
   });
 </script>
 
@@ -160,14 +163,20 @@
                     type="button">{$_('media.files.action.delete_file')}</button>
         </div>
     </div>
-    <div class="jinya-media-tile__container">
-        {#each files as file (file.id)}
-            <div on:click={() => selectedFile = file} class:jinya-media-tile--selected={selectedFile === file}
-                 class="jinya-media-tile" data-title={`#${file.id} ${file.name}`}>
-                <img class="jinya-media-tile__img" src={`${getHost()}${file.path}`} alt={file.name}>
-            </div>
-        {/each}
-    </div>
+    {#if loading}
+        <div class="jinya-media-view__loader jinya-loader__container">
+            <div class="jinya-loader"></div>
+        </div>
+    {:else}
+        <div class="jinya-media-tile__container">
+            {#each files as file (file.id)}
+                <div on:click={() => selectedFile = file} class:jinya-media-tile--selected={selectedFile === file}
+                     class="jinya-media-tile" data-title={`#${file.id} ${file.name}`}>
+                    <img class="jinya-media-tile__img" src={`${getHost()}${file.path}`} alt={file.name}>
+                </div>
+            {/each}
+        </div>
+    {/if}
 </div>
 {#if uploadSingleFileOpen}
     <div class="cosmo-modal__backdrop"></div>
@@ -210,7 +219,7 @@
                            class="cosmo-label">{$_('media.files.upload_multiple_files.files')}</label>
                     <div class="cosmo-input jinya-input--multiple-picker cosmo-input--picker">
                         <label class="cosmo-picker__name"
-                               for="uploadSingleFileFile">{$_('media.files.upload_multiple_files.n_files_selected', { values: uploadMultipleFilesFiles })}</label>
+                               for="uploadSingleFileFile">{$_('media.files.upload_multiple_files.n_files_selected', {values: uploadMultipleFilesFiles})}</label>
                         <label class="cosmo-picker__button" for="uploadMultipleFilesPicker"><span
                                 class="mdi mdi-upload mdi-24px"></span></label>
                         <input style="display: none" multiple required bind:files={uploadMultipleFilesFiles} type="file"
