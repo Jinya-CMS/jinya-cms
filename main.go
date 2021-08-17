@@ -6,10 +6,13 @@ import (
 )
 
 func main() {
-	host := "https://releases.jinya.de/cms/push/"
+	host := "https://releases.jinya.de/cms/push/"+os.Getenv("TAG_NAME")
 	if contains(os.Args, "-debug") {
-		host = "http://localhost:8090/cms/push/"
+		host = "http://localhost:8090/cms/push/"+os.Getenv("TAG_NAME")
 	}
+	if contains(os.Args, "-unstable") {
+	    host := "https://releases.jinya.de/cms/unstable/push/20.x."+os.Getenv("BUILD_NUMBER")+"-unstable"
+    }
 	file, err := os.Open("jinya-cms.zip")
 	if err != nil {
 		panic(err)
