@@ -8,6 +8,8 @@ class GetInstallerAction extends InstallAction
 {
     protected function action(): Response
     {
-        return $this->render('install::set-config', []);
+        return $this->render('install::set-config', ['data' => [
+
+        ]]);
     }
 }

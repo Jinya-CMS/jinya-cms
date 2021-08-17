@@ -126,7 +126,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
             return null;
         }
         return self::hydrateSingleResult(
-            $result,
+            $result[0],
             new self(),
             [
                 'scssVariables' => new JsonStrategy(),
