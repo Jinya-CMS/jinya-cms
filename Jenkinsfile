@@ -61,15 +61,6 @@ spec:
                 }
             }
         }
-        stage('Archive artifact') {
-            when {
-                branch 'main'
-            }
-            steps {
-                sh "zip -r ./jinya-cms.zip ./* --exclude .git/ --exclude .sonarwork/ --exclude sonar-project.properties"
-                archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false, onlyIfSuccessful: true
-            }
-        }
         stage('Create and publish package') {
             when {
                 buildingTag()
@@ -79,7 +70,6 @@ spec:
             }
             steps {
                 container('package') {
-                    sh 'sed -i "s/%VERSION%/$TAG_NAME/g" ./defines.php'
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
                     sh 'zip -r ./jinya-cms.zip ./*'
