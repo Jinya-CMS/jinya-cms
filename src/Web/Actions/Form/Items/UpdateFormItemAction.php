@@ -89,7 +89,7 @@ class UpdateFormItemAction extends Action
         }
 
         if (isset($body['spamFilter'])) {
-            $formItem->spamFilter = $body['spamFilter'];
+            $formItem->spamFilter = array_filter($body['spamFilter']);
         }
 
         if (isset($body['isFromAddress'])) {

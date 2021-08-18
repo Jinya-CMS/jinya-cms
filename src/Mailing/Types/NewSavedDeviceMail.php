@@ -18,11 +18,10 @@ class NewSavedDeviceMail
 
     /**
      * NewSavedDeviceMail constructor.
-     * @param Engine $templateEngine
      */
-    public function __construct(Engine $templateEngine)
+    public function __construct()
     {
-        $this->templateEngine = $templateEngine;
+        $this->templateEngine = \App\Theming\Engine::getPlatesEngine();
     }
 
     /**

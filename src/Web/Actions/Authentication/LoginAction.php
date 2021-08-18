@@ -66,12 +66,14 @@ use Throwable;
 ], exampleName: 'Invalid device code', statusCode: Action::HTTP_UNAUTHORIZED, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class LoginAction extends Action
 {
-    public function __construct(
-        LoggerInterface $logger,
-        public NewLoginMail $newLoginMail,
-        public NewSavedDeviceMail $newSavedDeviceMail
-    ) {
-        parent::__construct($logger);
+    public NewLoginMail $newLoginMail;
+    public NewSavedDeviceMail $newSavedDeviceMail;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->newLoginMail = new NewLoginMail();
+        $this->newSavedDeviceMail = new NewSavedDeviceMail();
     }
 
     /**

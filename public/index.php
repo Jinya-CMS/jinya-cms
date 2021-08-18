@@ -36,19 +36,6 @@ if ('prod' === getenv('APP_ENV')) {
     $containerBuilder->enableCompilation(__ROOT__ . '/var/cache');
 }
 
-// Set up settings
-$settings = require __ROOT__ . '/app/settings.php';
-$settings($containerBuilder);
-
-// Set up dependencies
-$dependencies = require __ROOT__ . '/app/dependencies.php';
-$dependencies($containerBuilder);
-
-// Build PHP-DI Container instance
-$container = $containerBuilder->build();
-
-// Instantiate the app
-AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 // Register middleware

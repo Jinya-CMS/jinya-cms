@@ -13,9 +13,9 @@ class TwoFactorMail
     /**
      * TwoFactorMail constructor.
      */
-    public function __construct(Engine $templateEngine)
+    public function __construct()
     {
-        $this->templateEngine = $templateEngine;
+        $this->templateEngine = \App\Theming\Engine::getPlatesEngine();
     }
 
     /**
