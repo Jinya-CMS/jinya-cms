@@ -29,7 +29,15 @@ class PhpInfoService
 
         foreach ($loadedExtensions as $extensionName) {
             try {
-                $iniValues = @ini_get_all($extensionName);
+                if ($extensionName === 'Zend OPcache') {
+                    $iniValues = array_filter(
+                        ini_get_all(),
+                        static fn($item) => str_starts_with($item, 'opcache'),
+                        ARRAY_FILTER_USE_KEY,
+                    );
+                } else {
+                    $iniValues = @ini_get_all($extensionName);
+                }
             } catch (Throwable) {
                 $iniValues = [];
             }
