@@ -29,13 +29,6 @@ if (file_exists(__ROOT__ . '/.env')) {
     );
 }
 
-// Instantiate PHP-DI ContainerBuilder
-$containerBuilder = new ContainerBuilder();
-
-if ('prod' === getenv('APP_ENV')) {
-    $containerBuilder->enableCompilation(__ROOT__ . '/var/cache');
-}
-
 $app = AppFactory::create();
 
 // Register middleware
