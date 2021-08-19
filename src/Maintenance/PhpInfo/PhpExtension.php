@@ -7,84 +7,29 @@ use JsonSerializable;
 
 class PhpExtension implements JsonSerializable
 {
-    /** @var string */
-    private string $extensionName;
+    public string $extensionName;
 
-    /** @var IniValue[] */
-    private array $iniValues = [];
+    public array $iniValues = [];
 
-    /** @var string */
-    private string $version;
+    public string $version;
 
-    /**
-     * @return string
-     */
-    public function getExtensionName(): string
-    {
-        return $this->extensionName;
-    }
-
-    /**
-     * @param string $extensionName
-     */
-    public function setExtensionName(string $extensionName): void
-    {
-        $this->extensionName = $extensionName;
-    }
-
-    /**
-     * @return IniValue[]
-     */
-    public function getIniValues(): array
-    {
-        return $this->iniValues;
-    }
-
-    /**
-     * @param IniValue[] $iniValues
-     */
-    public function setIniValues(array $iniValues): void
-    {
-        $this->iniValues = $iniValues;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param string $version
-     */
-    public function setVersion(string $version): void
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * @param IniValue $iniValue
-     */
-    public function addIniValue(IniValue $iniValue): void
-    {
-        $this->iniValues[] = $iniValue;
-    }
+    public array $additionalData = [];
 
     /**
      * {@inheritdoc}
      */
     #[ArrayShape([
-        'iniValues' => "\App\Maintenance\PhpInfo\IniValue[]",
-        'version' => "string",
-        'name' => "string"
+        'iniValues' => '\App\Maintenance\PhpInfo\IniValue[]',
+        'version' => 'string',
+        'name' => 'string',
+        'additionalData' => 'array'
     ])] public function jsonSerialize()
     {
         return [
             'iniValues' => $this->iniValues,
             'version' => $this->version,
             'name' => $this->extensionName,
+            'additionalData' => $this->additionalData,
         ];
     }
 }

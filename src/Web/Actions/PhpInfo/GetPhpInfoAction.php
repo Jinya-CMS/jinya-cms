@@ -30,7 +30,6 @@ class GetPhpInfoAction extends Action
             'php' => [
                 'version' => $phpInfoService->getVersion(),
                 'extensions' => $phpInfoService->getLoadedExtensions(),
-                'iniValues' => $phpInfoService->getIniValues(),
             ],
             'zend' => [
                 'version' => $phpInfoService->getZendVersion(),

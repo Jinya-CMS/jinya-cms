@@ -3,6 +3,7 @@
 namespace App\Maintenance\PhpInfo;
 
 use JetBrains\PhpStorm\Pure;
+use ReflectionExtension;
 use Throwable;
 
 class PhpInfoService
@@ -21,6 +22,7 @@ class PhpInfoService
      * Gets an array of loaded extensions
      *
      * @return PhpExtension[]
+     * @throws \ReflectionException
      */
     public function getLoadedExtensions(): array
     {
@@ -28,38 +30,27 @@ class PhpInfoService
         $loadedExtensions = get_loaded_extensions();
 
         foreach ($loadedExtensions as $extensionName) {
-            try {
-                if ($extensionName === 'Zend OPcache') {
-                    $iniValues = array_filter(
-                        ini_get_all(),
-                        static fn($item) => str_starts_with($item, 'opcache'),
-                        ARRAY_FILTER_USE_KEY,
-                    );
-                } else {
-                    $iniValues = @ini_get_all($extensionName);
-                }
-            } catch (Throwable) {
-                $iniValues = [];
-            }
-
             $extension = new PhpExtension();
-            $extension->setExtensionName($extensionName);
-            $extension->setVersion(phpversion($extensionName));
+            $reflectionExtension = new ReflectionExtension($extensionName);
+            $iniValues = $reflectionExtension->getINIEntries();
+
+            $extension->extensionName = $reflectionExtension->getName();
+            $extension->version = $reflectionExtension->getVersion();
 
             if ($iniValues) {
                 foreach ($iniValues as $iniName => $iniValue) {
                     $iniConfig = new IniValue();
-                    $iniConfig->setConfigName($iniName);
+                    $iniConfig->configName = $iniName;
                     if (is_array($iniValue)) {
                         if (array_key_exists('local_value', $iniValue)) {
-                            $iniConfig->setValue($iniValue['local_value']);
+                            $iniConfig->value = $iniValue['local_value'];
                         } elseif (array_key_exists('global_value', $iniValue)) {
-                            $iniConfig->setValue($iniValue['global_value']);
+                            $iniConfig->value = $iniValue['global_value'];
                         }
                     } else {
-                        $iniConfig->setValue($iniValue);
+                        $iniConfig->value = $iniValue;
                     }
-                    $extension->addIniValue($iniConfig);
+                    $extension->iniValues[] = $iniConfig;
                 }
             }
 
@@ -67,42 +58,6 @@ class PhpInfoService
         }
 
         return $extensions;
-    }
-
-    /**
-     * Gets an array of all ini values
-     *
-     * @return IniValue[]
-     */
-    public function getIniValues(): array
-    {
-        $iniValues = ini_get_all();
-
-        $items = array_filter(
-            $iniValues,
-            static function ($key) {
-                return !strpos($key, '.');
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-        $values = [];
-
-        foreach ($items as $key => $iniValue) {
-            $iniConfig = new IniValue();
-            if (is_array($iniValue)) {
-                if (array_key_exists('local_value', $iniValue)) {
-                    $iniConfig->setValue($iniValue['local_value']);
-                } elseif (array_key_exists('global_value', $iniValue)) {
-                    $iniConfig->setValue($iniValue['global_value']);
-                }
-            } else {
-                $iniConfig->setValue($iniValue);
-            }
-            $iniConfig->setConfigName($key);
-            $values[] = $iniConfig;
-        }
-
-        return $values;
     }
 
     /**

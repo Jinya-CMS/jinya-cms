@@ -8,10 +8,7 @@
   let activeIniValues = [];
 
   function selectExtension(extension) {
-    if (extension === '') {
-      activeExtension = '';
-      activeIniValues = phpInfo.php.iniValues;
-    } else if (extension === null) {
+    if (extension === null) {
       activeExtension = null;
       activeIniValues = [];
     } else {
@@ -30,8 +27,6 @@
         <nav class="cosmo-list__items">
             <a class:cosmo-list__item--active={null === activeExtension} class="cosmo-list__item"
                on:click={() => selectExtension(null)}>{$_('maintenance.php.system_and_server')}</a>
-            <a class:cosmo-list__item--active={'' === activeExtension} class="cosmo-list__item"
-               on:click={() => selectExtension('')}>{$_('maintenance.php.configuration')}</a>
             {#each phpInfo.php.extensions as extension (extension.name)}
                 <a class:cosmo-list__item--active={extension.name === activeExtension} class="cosmo-list__item"
                    on:click={() => selectExtension(extension)}>{extension.name}</a>
