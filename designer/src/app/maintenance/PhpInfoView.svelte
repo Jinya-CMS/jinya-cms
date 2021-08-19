@@ -5,6 +5,7 @@
 
   let phpInfo = null;
   let activeExtension = null;
+  let activeExtensionVersion = '';
   let activeIniValues = [];
 
   function selectExtension(extension) {
@@ -13,6 +14,7 @@
       activeIniValues = [];
     } else {
       activeExtension = extension.name;
+      activeExtensionVersion = extension.version;
       activeIniValues = extension.iniValues;
     }
   }
@@ -47,22 +49,29 @@
                     <dd class="cosmo-key-value-list__value">{phpInfo.php.version}</dd>
                 </dl>
             {:else}
-                <table class="cosmo-table">
-                    <thead>
-                    <tr>
-                        <th>{$_('maintenance.php.ini.name')}</th>
-                        <th>{$_('maintenance.php.ini.value')}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {#each activeIniValues as value (value.name)}
+                <span class="cosmo-title">{activeExtension}</span>
+                <dl class="cosmo-key-value-list">
+                    <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.version')}</dt>
+                    <dd class="cosmo-key-value-list__value">{activeExtensionVersion}</dd>
+                </dl>
+                {#if activeIniValues.length > 0}
+                    <table class="cosmo-table">
+                        <thead>
                         <tr>
-                            <td>{value.name}</td>
-                            <td>{value.value}</td>
+                            <th>{$_('maintenance.php.ini.name')}</th>
+                            <th>{$_('maintenance.php.ini.value')}</th>
                         </tr>
-                    {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {#each activeIniValues as value (value.name)}
+                            <tr>
+                                <td>{value.name}</td>
+                                <td>{value.value}</td>
+                            </tr>
+                        {/each}
+                        </tbody>
+                    </table>
+                {/if}
             {/if}
         </div>
     {/if}

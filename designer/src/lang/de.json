@@ -573,6 +573,9 @@
       "zend_engine": "Zend Engine Version",
       "apache": "Apache Version",
       "php": "PHP Version",
+      "extension": {
+        "version": "Version"
+      },
       "ini": {
         "name": "Name",
         "value": "Wert"
