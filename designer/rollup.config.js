@@ -5,7 +5,7 @@ import json from '@rollup/plugin-json';
 import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 
-const production = false; //!process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH;
 
 export default {
   input: 'src/main.js',
