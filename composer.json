@@ -28,7 +28,7 @@
     "melbahja/semver": "1.0.1"
   },
   "suggest": {
-    "ext-zend opcache": "*",
+    "ext-zend-opcache": "*",
     "ext-apcu": "*"
   },
   "require-dev": {

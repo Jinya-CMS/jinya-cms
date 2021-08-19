@@ -4,6 +4,7 @@ namespace App\Maintenance\PhpInfo;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JsonSerializable;
+use stdClass;
 
 class PhpExtension implements JsonSerializable
 {
@@ -13,7 +14,7 @@ class PhpExtension implements JsonSerializable
 
     public string $version;
 
-    public array $additionalData = [];
+    public array|stdClass $additionalData = [];
 
     /**
      * {@inheritdoc}

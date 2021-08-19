@@ -574,7 +574,29 @@
       "apache": "Apache Version",
       "php": "PHP Version",
       "extension": {
-        "version": "Version"
+        "version": "Version",
+        "more_info": "More informations",
+        "ini_values": "Settings",
+        "opcache": {
+          "enabled": "Activated",
+          "full": "Cache full",
+          "usedMemory": "Used memory (in MB)",
+          "freeMemory": "Free memory (in MB)",
+          "wastedMemory": "Wasted memory (in MB)",
+          "currentWastedMemoryPercentage": "Wasted memory (in percent)",
+          "jitEnabled": "JIT enabled"
+        },
+        "apcu": {
+          "enabled": "Activated",
+          "numberSlots": "Number slots",
+          "numberEntries": "Number entries",
+          "memorySize": "Memory size (in MB)",
+          "memoryType": "Memory type"
+        },
+        "hash": {
+          "enabled": "Activated",
+          "algos": "Hash algorithms"
+        }
       },
       "ini": {
         "name": "Name",
@@ -607,7 +629,12 @@
       "null": "Allow null",
       "key": "Keys",
       "default": "Default value",
-      "extra": "Extra data"
+      "extra": "Extra data",
+      "structure": "Structure",
+      "details": "Details",
+      "entryCount": "Entry count",
+      "size": "Table size in KB",
+      "engine": "Storage engine"
     },
     "query_tool": {
       "execute": "Execute queries",

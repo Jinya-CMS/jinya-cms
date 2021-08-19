@@ -7,6 +7,8 @@
   let activeExtension = null;
   let activeExtensionVersion = '';
   let activeIniValues = [];
+  let type = '';
+  let additionalData = [];
 
   function selectExtension(extension) {
     if (extension === null) {
@@ -16,6 +18,8 @@
       activeExtension = extension.name;
       activeExtensionVersion = extension.version;
       activeIniValues = extension.iniValues;
+      type = extension.additionalData.type;
+      additionalData = extension.additionalData;
     }
   }
 
@@ -55,6 +59,7 @@
                     <dd class="cosmo-key-value-list__value">{activeExtensionVersion}</dd>
                 </dl>
                 {#if activeIniValues.length > 0}
+                    <h2>{$_('maintenance.php.extension.ini_values')}</h2>
                     <table class="cosmo-table">
                         <thead>
                         <tr>
@@ -71,6 +76,47 @@
                         {/each}
                         </tbody>
                     </table>
+                {/if}
+                {#if type === 'opcache'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.full')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.full}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.usedMemory')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.usedMemory} MB</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.freeMemory')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.freeMemory} MB</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.wastedMemory')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.wastedMemory} MB</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.currentWastedMemoryPercentage')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.currentWastedMemoryPercentage} %</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.opcache.jitEnabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.jitEnabled}</dd>
+                    </dl>
+                {:else if type === 'hash'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.hash.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.hash.algos')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.algos}</dd>
+                    </dl>
+                {:else if type === 'apcu'}
+                    <h2>{$_('maintenance.php.extension.more_info')}</h2>
+                    <dl class="cosmo-key-value-list">
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.enabled')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.enabled}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.numberSlots')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.numberSlots}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.numberEntries')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.numberEntries}</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.memorySize')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.memorySize} MB</dd>
+                        <dt class="cosmo-key-value-list__key">{$_('maintenance.php.extension.apcu.memoryType')}</dt>
+                        <dd class="cosmo-key-value-list__value">{additionalData.memoryType}</dd>
+                    </dl>
                 {/if}
             {/if}
         </div>
