@@ -644,6 +644,15 @@
       "updateRule": "Action on update",
       "none": "Not applicable"
     },
+    "indexes": {
+      "title": "Indexes",
+      "keyName": "Key name",
+      "columnName": "Column name",
+      "cardinality": "Cardinality",
+      "indexType": "Index type",
+      "collation": "Collation",
+      "unique": "Unique"
+    },
     "details": "Details",
     "entryCount": "Entry count",
     "size": "Table size in KB",

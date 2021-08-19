@@ -643,6 +643,15 @@
       "updateRule": "Aktion bei Update",
       "none": "Nicht anwendbar"
     },
+    "indexes": {
+      "title": "Indexes",
+      "keyName": "Schlüsselname",
+      "columnName": "Spalten Name",
+      "cardinality": "Kardinalität",
+      "indexType": "Indextyp",
+      "collation": "Collation",
+      "unique": "Einzigartig"
+    },
     "structure": "Struktur",
     "details": "Details",
     "entryCount": "Anzahl Einträge",
