@@ -629,13 +629,25 @@
       "null": "Erlaubt null",
       "key": "Schlüssel",
       "default": "Standardwert",
-      "extra": "Extradaten",
-      "structure": "Struktur",
-      "details": "Details",
-      "entryCount": "Anzahl Einträge",
-      "size": "Tabellengröße in KB",
-      "engine": "Speicher Engine"
+      "extra": "Extradaten"
     },
+    "constraints": {
+      "title": "Constraints",
+      "constraintName": "Name",
+      "constraintType": "Constrainttyp",
+      "columnName": "Spalten Name",
+      "referencedTableName": "Referenzierte Tabelle",
+      "referencedColumnName": "Referenzierte Spalte",
+      "positionInUniqueConstraint": "Position in Unique Constraint",
+      "deleteRule": "Aktion bei Löschen",
+      "updateRule": "Aktion bei Update",
+      "none": "Nicht anwendbar"
+    },
+    "structure": "Struktur",
+    "details": "Details",
+    "entryCount": "Anzahl Einträge",
+    "size": "Tabellengröße in KB",
+    "engine": "Speicher Engine",
     "query_tool": {
       "execute": "Queries ausführen",
       "no_result": "Für diese Query gibt es keine Ergebnisse",

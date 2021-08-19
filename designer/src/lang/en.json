@@ -629,13 +629,25 @@
       "null": "Allow null",
       "key": "Keys",
       "default": "Default value",
-      "extra": "Extra data",
-      "structure": "Structure",
-      "details": "Details",
-      "entryCount": "Entry count",
-      "size": "Table size in KB",
-      "engine": "Storage engine"
+      "extra": "Extra data"
     },
+    "structure": "Structure",
+    "constraints": {
+      "title": "Constraints",
+      "constraintName": "Name",
+      "constraintType": "Constraint type",
+      "columnName": "Column name",
+      "referencedTableName": "Referenced table",
+      "referencedColumnName": "Referenced column",
+      "positionInUniqueConstraint": "Position in unique constraint",
+      "deleteRule": "Action on delete",
+      "updateRule": "Action on update",
+      "none": "Not applicable"
+    },
+    "details": "Details",
+    "entryCount": "Entry count",
+    "size": "Table size in KB",
+    "engine": "Storage engine",
     "query_tool": {
       "execute": "Execute queries",
       "no_result": "No results were returned for the query",
