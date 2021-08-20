@@ -74,51 +74,51 @@ class Theme implements ExtensionInterface
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
 
         // $this->segmentPage(name)
-        $engine->registerFunction('segmentPage', fn (string $name) => $this->dbTheme->getSegmentPages()[$name]);
+        $engine->registerFunction('segmentPage', fn(string $name) => $this->dbTheme->getSegmentPages()[$name]);
 
         // $this->hasSegmentPage(name)
         $engine->registerFunction(
             'hasSegmentPage',
-            fn (string $name) => isset($this->dbTheme->getSegmentPages()[$name])
+            fn(string $name) => isset($this->dbTheme->getSegmentPages()[$name])
         );
 
         // $this->page(name)
-        $engine->registerFunction('page', fn (string $name) => $this->dbTheme->getPages()[$name]);
+        $engine->registerFunction('page', fn(string $name) => $this->dbTheme->getPages()[$name]);
 
         // $this->hasPage(name)
-        $engine->registerFunction('hasPage', fn (string $name) => isset($this->dbTheme->getPages()[$name]));
+        $engine->registerFunction('hasPage', fn(string $name) => isset($this->dbTheme->getPages()[$name]));
 
         // $this->file(name)
-        $engine->registerFunction('file', fn (string $name) => $this->dbTheme->getFiles()[$name]);
+        $engine->registerFunction('file', fn(string $name) => $this->dbTheme->getFiles()[$name]);
 
         // $this->hasFile(name)
-        $engine->registerFunction('hasFile', fn (string $name) => isset($this->dbTheme->getFiles()[$name]));
+        $engine->registerFunction('hasFile', fn(string $name) => isset($this->dbTheme->getFiles()[$name]));
 
         // $this->gallery(name)
-        $engine->registerFunction('gallery', fn (string $name) => $this->dbTheme->getGalleries()[$name]);
+        $engine->registerFunction('gallery', fn(string $name) => $this->dbTheme->getGalleries()[$name]);
 
         // $this->hasGallery(name)
-        $engine->registerFunction('hasGallery', fn (string $name) => isset($this->dbTheme->getGalleries()[$name]));
+        $engine->registerFunction('hasGallery', fn(string $name) => isset($this->dbTheme->getGalleries()[$name]));
 
         // $this->menu(name)
-        $engine->registerFunction('menu', fn (string $name) => $this->dbTheme->getMenus()[$name]);
+        $engine->registerFunction('menu', fn(string $name) => $this->dbTheme->getMenus()[$name]);
 
         // $this->hasMenu(name)
-        $engine->registerFunction('hasMenu', fn (string $name) => isset($this->dbTheme->getMenus()[$name]));
+        $engine->registerFunction('hasMenu', fn(string $name) => isset($this->dbTheme->getMenus()[$name]));
 
         // $this->asset(name)
-        $engine->registerFunction('asset', fn (string $name) => $this->dbTheme->getAssets()[$name]);
+        $engine->registerFunction('asset', fn(string $name) => $this->dbTheme->getAssets()[$name]);
 
         // $this->form(name)
-        $engine->registerFunction('form', fn (string $name) => $this->dbTheme->getForms()[$name]);
+        $engine->registerFunction('form', fn(string $name) => $this->dbTheme->getForms()[$name]);
 
         // $this->hasForm(name)
-        $engine->registerFunction('hasForm', fn (string $name) => isset($this->dbTheme->getForms()[$name]));
+        $engine->registerFunction('hasForm', fn(string $name) => isset($this->dbTheme->getForms()[$name]));
 
         // $this->config(group, field)
         $engine->registerFunction(
             'config',
-            fn (
+            fn(
                 string $group,
                 string $field
             ) => $this->dbTheme->configuration[$group][$field] ?? $this->configuration['configuration'][$group][$field]
@@ -130,10 +130,10 @@ class Theme implements ExtensionInterface
             function () {
                 $styleFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/');
                 $styleFiles = array_map(
-                    fn ($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
+                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/styles/$item",
                     $styleFiles,
                 );
-                $styleFiles = array_filter($styleFiles, static fn ($item) => str_ends_with($item, '.css'));
+                $styleFiles = array_filter($styleFiles, static fn($item) => str_ends_with($item, '.css'));
                 $tags = '';
                 foreach ($styleFiles as $file) {
                     $tags .= "<link type='text/css' rel='stylesheet' href='$file'>";
@@ -149,10 +149,10 @@ class Theme implements ExtensionInterface
             function () {
                 $scriptFiles = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/');
                 $scriptFiles = array_map(
-                    fn ($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
+                    fn($item) => self::BASE_PUBLIC_PATH . $this->dbTheme->name . "/scripts/$item",
                     $scriptFiles,
                 );
-                $scriptFiles = array_filter($scriptFiles, static fn ($item) => str_ends_with($item, '.js'));
+                $scriptFiles = array_filter($scriptFiles, static fn($item) => str_ends_with($item, '.js'));
                 $tags = '';
                 foreach ($scriptFiles as $file) {
                     $tags .= "<script src='$file'></script>";
@@ -176,12 +176,12 @@ class Theme implements ExtensionInterface
      */
     public function compileStyleCache(): void
     {
-        $this->clearStyleCache();
-        $stylesheets = $this->configuration['styles']['files'] ?? [];
         $styleCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles/';
         if (!@mkdir($styleCachePath, 0777, true) && !is_dir($styleCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $styleCachePath));
         }
+        $this->clearStyleCache();
+        $stylesheets = $this->configuration['styles']['files'] ?? [];
         $this->scssCompiler->addVariables($this->dbTheme->scssVariables);
 
         foreach ($stylesheets as $stylesheet) {
@@ -207,9 +207,9 @@ class Theme implements ExtensionInterface
     private function getStyleCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/styles');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/styles/$item", $files);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -219,12 +219,12 @@ class Theme implements ExtensionInterface
      */
     public function compileScriptCache(): void
     {
-        $this->clearScriptCache();
-        $scripts = $this->configuration['scripts'] ?? [];
         $scriptCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts/';
         if (!@mkdir($scriptCachePath, 0777, true) && !is_dir($scriptCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $scriptCachePath));
         }
+        $this->clearScriptCache();
+        $scripts = $this->configuration['scripts'] ?? [];
 
         foreach ($scripts as $script) {
             if (!file_exists($script)) {
@@ -248,9 +248,9 @@ class Theme implements ExtensionInterface
     private function getScriptCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/scripts');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/scripts/$item", $files);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     /**
@@ -260,12 +260,12 @@ class Theme implements ExtensionInterface
      */
     public function compileAssetCache(): void
     {
-        $this->clearAssetCache();
-        $assets = $this->configuration['assets'] ?? [];
         $assetCachePath = self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets/';
         if (!@mkdir($assetCachePath, 0777, true) && !is_dir($assetCachePath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $assetCachePath));
         }
+        $this->clearAssetCache();
+        $assets = $this->configuration['assets'] ?? [];
 
         foreach ($assets as $key => $asset) {
             $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
@@ -307,9 +307,9 @@ class Theme implements ExtensionInterface
     private function getAssetCache(): array
     {
         $files = scandir(self::BASE_CACHE_PATH . $this->dbTheme->name . '/assets');
-        $files = array_map(fn ($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
+        $files = array_map(fn($item) => self::BASE_CACHE_PATH . $this->dbTheme->name . "/assets/$item", $files);
 
-        return array_filter($files, static fn ($item) => is_file($item)) ?? [];
+        return array_filter($files, static fn($item) => is_file($item)) ?? [];
     }
 
     public function getStyleVariables(): array
