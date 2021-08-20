@@ -112,7 +112,7 @@ spec:
             }
             steps {
                 container('package') {
-                    sh 'sed -i "s/%VERSION%/20.0.$BUILD_NUMBER-unstable/g" ./defines.php'
+                    sh 'sed -i "s/%VERSION%/20.1.$BUILD_NUMBER-unstable/g" ./defines.php'
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
                     sh 'zip -r ./jinya-cms.zip ./*'
@@ -128,10 +128,10 @@ spec:
             steps {
                 container('docker') {
                     sh 'sed -i "s/%VERSION%/20.0.$BUILD_NUMBER-unstable/g" ./defines.php'
-                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:20.0.$BUILD_NUMBER-unstable -f ./Dockerfile ."
+                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:20.1.$BUILD_NUMBER-unstable -f ./Dockerfile ."
 
                     withDockerRegistry(credentialsId: 'quay.imanuel.dev', url: 'https://quay.imanuel.dev') {
-                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:20.0.$BUILD_NUMBER-unstable"
+                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:20.1.$BUILD_NUMBER-unstable"
                     }
                 }
             }
