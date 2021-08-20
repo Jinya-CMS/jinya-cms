@@ -25,7 +25,7 @@
   let editFileName;
   let editFileFile;
   let editFileFileName = '';
-  let loading = true;
+  let loading = false;
 
   $: if (uploadSingleFileFile) {
     const file = uploadSingleFileFile[0];

@@ -40,7 +40,7 @@
   let createNewMenuItem = false;
   let createPosition;
   let createMenuItemParent = null;
-  let loading = true;
+  let loading = false;
 
   $: if (menuItemToolboxElement instanceof HTMLElement) {
     new Sortable(menuItemToolboxElement, {

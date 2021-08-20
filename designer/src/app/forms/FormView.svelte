@@ -57,7 +57,7 @@
   let createNewFormItem = false;
   let createPosition;
   let formDescriptionTiny;
-  let loading = true;
+  let loading = false;
 
   $: if (formItemToolboxElement instanceof HTMLElement) {
     new Sortable(formItemToolboxElement, {

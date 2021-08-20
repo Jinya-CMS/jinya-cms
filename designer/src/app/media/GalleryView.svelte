@@ -27,7 +27,7 @@
   let positions = [];
   let files = [];
   let allFiles = {};
-  let loading = true;
+  let loading = false;
 
   async function selectGallery(gallery) {
     selectedGallery = gallery;

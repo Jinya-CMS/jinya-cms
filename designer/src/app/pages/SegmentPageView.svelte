@@ -54,7 +54,7 @@
   let createNewSegment = false;
   let createPosition;
   let createNewSegmentType;
-  let loading = true;
+  let loading = false;
 
   $: if (segmentToolboxElement instanceof HTMLElement) {
     new Sortable(segmentToolboxElement, {
