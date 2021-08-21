@@ -102,15 +102,15 @@
         const dropIdx = e.newIndex;
         const position = segments[dropIdx].position;
         await put(`/api/segment-page/${selectedPage.id}/segment/${oldPosition}`, {
-          newPosition: position,
+          newPosition: position > oldPosition ? position + 1 : position,
         });
-        await selectPage(selectedPage);
+        await selectPage(selectedPage, false);
       },
     });
   }
 
-  async function selectPage(page) {
-    loading = true;
+  async function selectPage(page, load = true) {
+    loading = load;
     selectedPage = page;
     editPageName = selectedPage.name;
     segments = await get(`/api/segment-page/${selectedPage.id}/segment`);
@@ -267,7 +267,7 @@
       await put(`/api/segment-page/${selectedPage.id}/segment/${selectedSegment.position}`, data);
     }
     cancelEditSegment();
-    await selectPage(selectedPage);
+    await selectPage(selectedPage, false);
   }
 
   onMount(async () => {
