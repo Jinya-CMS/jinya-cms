@@ -81,10 +81,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@jinyacms/cosmo@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@jinyacms/cosmo/-/cosmo-0.7.0.tgz#193fdef0c68f6c783f1f1a54a79de47c5194fb34"
-  integrity sha512-nAZypatsUngqMZMx/IuovefZWGKngSba7RMsKWW9iXSELk5B2dqpeHAxFqsuKs9k+zS5WGyLEaAobnN8Iu7+Aw==
+"@jinyacms/cosmo@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@jinyacms/cosmo/-/cosmo-0.10.0.tgz#28e6244dc0a1599acc940135f82b22c93dec0d33"
+  integrity sha512-36Uq5MWw2kmidy0h0rbA6WCBlJEhVgie3nOyjLJy0j0/y3sd/njbJzoSn10agXLpZ4szb6vmBv3TJ6KUEvV9Yg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

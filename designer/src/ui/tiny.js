@@ -14,14 +14,15 @@ export async function createTiny(element, height = '500px') {
     object_resizing: true,
     relative_urls: false,
     image_advtab: true,
+    content_css: ['/static/cosmo/variables.css', '/static/cosmo/lato.css', '/static/css/tiny/content/content.css'],
     remove_script_host: false,
     convert_urls: true,
-    skin_url: '/designer/build/skins/ui/oxide',
+    skin_url: '/static/css/tiny/ui',
     height,
     width: '100%',
     async image_list(success) {
       const files = await get('/api/media/file');
-      success(files.items.map((item) => ({ title: item.name, value: `${getHost()}${item.path}` })));
+      success(files.items.map((item) => ({title: item.name, value: `${getHost()}${item.path}`})));
     },
     plugins: [
       'advlist',
@@ -58,19 +59,19 @@ export async function createTiny(element, height = '500px') {
       input.onchange = async (event) => {
         const file = event.target.files[0];
         try {
-          const { id } = await post('/api/media/file', { name: file.name });
+          const {id} = await post('/api/media/file', {name: file.name});
           await put(`/api/media/file/${id}/content`);
           await upload(`/api/media/file/${id}/content/0`, file);
           await put(`/api/media/file/${id}/content/finish`);
           const uploadedFile = await get(`/api/media/file/${id}`);
 
-          cb(`${getHost()}${uploadedFile.path}`, { title: file.name });
+          cb(`${getHost()}${uploadedFile.path}`, {title: file.name});
         } catch (e) {
           if (e instanceof ConflictError) {
             const files = await get(`/api/media/file?keyword=${encodeURIComponent(file.name)}`);
             const selectedFile = files.items[0];
 
-            cb(`${getHost()}${selectedFile.path}`, { title: selectedFile.name, });
+            cb(`${getHost()}${selectedFile.path}`, {title: selectedFile.name,});
           }
         }
       };

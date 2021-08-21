@@ -207,7 +207,9 @@
       editItemIsSubject = selectedFormItem.isSubject;
       editItemIsFromAddress = selectedFormItem.isFromAddress;
       editItemIsRequired = selectedFormItem.isRequired;
-      editItemOptions = selectedFormItem.options?.join('\n');
+      if (Array.isArray(selectedFormItem.options)) {
+        editItemOptions = selectedFormItem.options.join('\n');
+      }
     }
   }
 
