@@ -331,7 +331,7 @@
             </div>
             <div class="cosmo-modal__button-bar">
                 <button class="cosmo-button"
-                        on:click={() => createGalleryOpen}>{$_('media.galleries.create.cancel')}</button>
+                        on:click={() => createGalleryOpen = false}>{$_('media.galleries.create.cancel')}</button>
                 <button class="cosmo-button" on:click={createGallery}>{$_('media.galleries.create.create')}</button>
             </div>
         </div>
