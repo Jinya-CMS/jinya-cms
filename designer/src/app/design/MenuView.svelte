@@ -99,11 +99,13 @@
         await editMenuItem();
       },
       async onUpdate(e) {
-        const dropIdx = e.newIndex;
+        const dropIdx = e.newIndex > e.oldIndex ? e.newIndex + 1 : e.newIndex;
         const menuItemId = parseInt(e.item.getAttribute('data-id'));
-        const position = menuItems[dropIdx].position;
-        const newParent = menuItems[dropIdx]?.parent?.id;
-        const dataParentId = parseInt(e.item.previousSibling.getAttribute('data-parent-id'));
+        const item = menuItems[e.oldIndex];
+        const targetItem = dropIdx === menuItems.length ? menuItems[e.newIndex] : menuItems[dropIdx];
+        const position = dropIdx === menuItems.length ? menuItems[e.newIndex].position + 1 : targetItem.position;
+        const newParent = targetItem?.parent?.id;
+        const dataParentId = item.parent?.id;
         let currentParent = menuItems.find(item => item.id === dataParentId);
         if (newParent) {
           let allowMove = true;
@@ -130,13 +132,13 @@
         }
         menuItems = [];
         await tick();
-        await selectMenu(selectedMenu);
+        await selectMenu(selectedMenu, false);
       },
     });
   }
 
-  async function selectMenu(menu) {
-    loading = true;
+  async function selectMenu(menu, load = true) {
+    loading = load;
     selectedMenu = menu;
     editMenuName = selectedMenu.name;
     menuItems = await get(`/api/menu/${selectedMenu.id}/item`);
@@ -355,26 +357,26 @@
     }
 
     cancelEditMenuItem();
-    await selectMenu(selectedMenu);
+    await selectMenu(selectedMenu, false);
   }
 
   async function decreaseNesting() {
     await put(`/api/menu/${selectedMenu.id}/item/${selectedMenuItem.id}/move/parent/one/level/up`);
-    await selectMenu(selectedMenu);
+    await selectMenu(selectedMenu, false);
   }
 
   async function increaseNesting() {
     const previous = menuItems[menuItems.indexOf(selectedMenuItem) - 1];
-    await put(`/api/menu-item/${selectedMenuItem.id}/move/parent/to/item/${previous.id}`);
-    await selectMenu(selectedMenu);
+    if (previous.nestingIndex > 0 && selectedMenuItem.nestingIndex === previous.nestingIndex) {
+      await put(`/api/menu-item/${selectedMenuItem.id}/move/parent/to/item/${previous.id}`);
+    } else {
+      await put(`/api/menu-item/${selectedMenuItem.id}/move/parent/to/item/${previous.parent?.id ?? previous.id}`);
+    }
+    await selectMenu(selectedMenu, false);
   }
 
   function checkIfNestingDecreaseIsAllowed() {
-    if (!selectedMenuItem || selectedMenuItem.nestingIndex === 0) {
-      return false;
-    }
-
-    return true;
+    return !(!selectedMenuItem || selectedMenuItem.nestingIndex === 0);
   }
 
   function checkIfNestingIncreaseIsAllowed() {
@@ -388,19 +390,15 @@
     }
 
     const previous = menuItems[current - 1];
-    if (previous.nestingIndex > selectedMenuItem?.nestingIndex) {
-      return false;
-    }
+    // if (previous.nestingIndex > selectedMenuItem?.nestingIndex) {
+    //   return false;
+    // }
 
     if (selectedMenuItem?.items[0]?.position === selectedMenuItem?.position) {
       return false;
     }
 
-    if (selectedMenuItem?.parent && selectedMenuItem?.parent === previous) {
-      return false;
-    }
-
-    return true;
+    return !(selectedMenuItem?.parent && selectedMenuItem?.parent === previous);
   }
 
   onMount(async () => {

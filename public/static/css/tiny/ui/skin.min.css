@@ -3244,10 +3244,10 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tbtn--enabled,
 .tox .tox-tbtn--enabled:hover {
-    background: var(--white);
+    background: var(--black);
     border: 0;
     box-shadow: none;
-    color: var(--black);
+    color: var(--white);
 }
 
 .tox .tox-tbtn--enabled > *,
@@ -3258,7 +3258,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tbtn--enabled svg,
 .tox .tox-tbtn--enabled:hover svg {
     /* stylelint-disable-line no-descending-specificity */
-    fill: var(--black);
+    fill: var(--white);
 }
 
 .tox .tox-tbtn:focus:not(.tox-tbtn--disabled) {
