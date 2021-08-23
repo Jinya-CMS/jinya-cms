@@ -83,6 +83,9 @@ class PhpInfoService
     {
         $extensions = [];
         $loadedExtensions = get_loaded_extensions();
+        array_splice($loadedExtensions, array_search('Core', $loadedExtensions), 1);
+        natcasesort($loadedExtensions);
+        array_unshift($loadedExtensions, 'Core');
 
         foreach ($loadedExtensions as $extensionName) {
             $extension = new PhpExtension();
