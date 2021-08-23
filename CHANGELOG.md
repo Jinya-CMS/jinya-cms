@@ -2,17 +2,17 @@
 
 # Release notes - Jinya Gallery CMS - Version 21.0.0
 ## User Stories
-* [#22](https://taiga.imanuel.dev/project/jinya-cms/issue/22) Use proper OPCache config resolution
-* [#24](https://taiga.imanuel.dev/project/jinya-cms/issue/24) Remove DIC
-* [#31](https://taiga.imanuel.dev/project/jinya-cms/issue/31) Add loading spinner
-* [#41](https://taiga.imanuel.dev/project/jinya-cms/issue/41) Gallery designer needs rewrite
-* [#44](https://taiga.imanuel.dev/project/jinya-cms/issue/44) Better extension display page
-* [#63](https://taiga.imanuel.dev/project/jinya-cms/issue/63) Details about tables
-* [#64](https://taiga.imanuel.dev/project/jinya-cms/issue/64) Clean environment before docker build
-* [#65](https://taiga.imanuel.dev/project/jinya-cms/issue/65) More localized date in matomo stats
-* [#66](https://taiga.imanuel.dev/project/jinya-cms/issue/66) Empty theme with all options
-* [#70](https://taiga.imanuel.dev/project/jinya-cms/issue/70) Bump Cosmo CSS
-* [#73](https://taiga.imanuel.dev/project/jinya-cms/issue/73) Sort extensions alphabetically
+* [#22](https://taiga.imanuel.dev/project/jinya-cms/us/22) Use proper OPCache config resolution
+* [#24](https://taiga.imanuel.dev/project/jinya-cms/us/24) Remove DIC
+* [#31](https://taiga.imanuel.dev/project/jinya-cms/us/31) Add loading spinner
+* [#41](https://taiga.imanuel.dev/project/jinya-cms/us/41) Gallery designer needs rewrite
+* [#44](https://taiga.imanuel.dev/project/jinya-cms/us/44) Better extension display page
+* [#63](https://taiga.imanuel.dev/project/jinya-cms/us/63) Details about tables
+* [#64](https://taiga.imanuel.dev/project/jinya-cms/us/64) Clean environment before docker build
+* [#65](https://taiga.imanuel.dev/project/jinya-cms/us/65) More localized date in matomo stats
+* [#66](https://taiga.imanuel.dev/project/jinya-cms/us/66) Empty theme with all options
+* [#70](https://taiga.imanuel.dev/project/jinya-cms/us/70) Bump Cosmo CSS
+* [#73](https://taiga.imanuel.dev/project/jinya-cms/us/73) Sort extensions alphabetically
 
 ## Fixed issues 
 * [#27](https://taiga.imanuel.dev/project/jinya-cms/issue/27) Discard gallery does nothing
@@ -29,7 +29,7 @@
 
 # Release notes - Jinya Gallery CMS - Version 20.0.12
 ## User Stories
-* [#28](https://taiga.imanuel.dev/project/jinya-cms/issue/28) Increase gallery designer performance
+* [#28](https://taiga.imanuel.dev/project/jinya-cms/us/28) Increase gallery designer performance
 
 ## Fixed issues
 * [#26](https://taiga.imanuel.dev/project/jinya-cms/issue/26) Drag targets are too small 
