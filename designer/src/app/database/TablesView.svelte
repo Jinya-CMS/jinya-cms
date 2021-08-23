@@ -27,7 +27,7 @@
             {/each}
         </nav>
         <div class="cosmo-list__content">
-            <div class="cosmo-tab-control cosmo-tab-control--query-tool">
+            <div class="cosmo-tab-control">
                 <div class="cosmo-tab-control__tabs">
                     <a on:click={() => activeTab = 'details'}
                        class:cosmo-tab-control__tab-link--active={activeTab === 'details'}
