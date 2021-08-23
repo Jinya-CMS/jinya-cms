@@ -70,6 +70,7 @@ spec:
             }
             steps {
                 container('package') {
+                    sh "sed -i 's/%VERSION%/$TAG_NAME/g' ./defines.php"
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
                     sh 'zip -r ./jinya-cms.zip ./*'
@@ -84,7 +85,7 @@ spec:
             }
             steps {
                 container('docker') {
-                    sh 'sed -i "s/%VERSION%/$TAG_NAME/g" ./defines.php'
+                    sh "sed -i 's/%VERSION%/$TAG_NAME/g' ./defines.php"
 
                     sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile ."
                     sh "docker tag quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME quay.imanuel.dev/jinya/jinya-cms:latest"

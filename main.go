@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	req, err := http.NewRequest(http.MethodPost, host+os.Getenv("TAG_NAME"), file)
+	req, err := http.NewRequest(http.MethodPost, host, file)
 	if err != nil {
 		panic(err)
 	}
