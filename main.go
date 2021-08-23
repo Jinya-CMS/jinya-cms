@@ -11,7 +11,7 @@ func main() {
 		host = "http://localhost:8090/cms/push/"+os.Getenv("TAG_NAME")
 	}
 	if contains(os.Args, "-unstable") {
-	    host = "https://releases.jinya.de/cms/unstable/push/20.1."+os.Getenv("BUILD_NUMBER")+"-unstable"
+	    host = "https://releases.jinya.de/cms/unstable/push/21.0."+os.Getenv("BUILD_NUMBER")+"-unstable"
     }
 	file, err := os.Open("jinya-cms.zip")
 	if err != nil {
