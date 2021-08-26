@@ -31,6 +31,9 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="src/Database/Artist.php">
+    <ImpureMethodCall occurrences="1">
+      <code>getIdAsInt</code>
+    </ImpureMethodCall>
     <LessSpecificReturnStatement occurrences="2"/>
     <MoreSpecificReturnType occurrences="2">
       <code>Artist|null</code>
@@ -87,6 +90,9 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/FormItem.php">
+    <ImpureMethodCall occurrences="1">
+      <code>getIdAsInt</code>
+    </ImpureMethodCall>
     <LessSpecificReturnStatement occurrences="1"/>
     <MoreSpecificReturnType occurrences="1">
       <code>?FormItem</code>
@@ -168,9 +174,6 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="src/Database/MenuItem.php">
-    <InvalidDocblock occurrences="1">
-      <code>public static function findByRoute(?string $route): ?MenuItem</code>
-    </InvalidDocblock>
     <LessSpecificReturnStatement occurrences="4">
       <code>self::fetchSingleById('menu_item', $id, new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
       <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
@@ -179,8 +182,8 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="4">
       <code>?MenuItem</code>
-      <code>?MenuItem</code>
       <code>MenuItem</code>
+      <code>MenuItem|null</code>
       <code>MenuItem|null</code>
     </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="4">
@@ -282,9 +285,9 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/Theme.php">
-    <InvalidArgument occurrences="1">
-      <code>new self()</code>
-    </InvalidArgument>
+    <ImpureMethodCall occurrences="1">
+      <code>getIdAsInt</code>
+    </ImpureMethodCall>
     <InvalidScalarArgument occurrences="7">
       <code>$this-&gt;id</code>
       <code>$this-&gt;id</code>
@@ -385,9 +388,6 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Database/UploadingFile.php">
-    <InvalidArgument occurrences="1">
-      <code>new self()</code>
-    </InvalidArgument>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::hydrateSingleResult($result[0], new self())</code>
     </LessSpecificReturnStatement>
@@ -422,7 +422,8 @@
       <code>$password</code>
       <code>$user</code>
     </PossiblyFalseArgument>
-    <PossiblyInvalidArgument occurrences="1">
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
@@ -432,10 +433,9 @@
       <code>isset(self::$pdo) &amp;&amp; self::$pdo !== null</code>
       <code>self::$pdo !== null</code>
     </RedundantCondition>
-    <UndefinedClass occurrences="2">
-      <code>\App\Database\ApiKey|\App\Database\Artist|\App\Database\FormItem|\App\Database\GalleryFilePosition|\App\Database\KnownDevice|\App\Database\MenuItem|\App\Database\Segment|\App\Database\Theme|\App\Database\UploadingFiled $prototype</code>
-      <code>\App\Database\Artist|\App\Database\File|\App\Database\Form|\App\Database\Gallery|\App\Database\Menu|\App\Database\SegmentPage|\App\Database\SimplePage|\App\Database\Themed $prototype</code>
-    </UndefinedClass>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>$result === null</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="2">
       <code>addFilter</code>
       <code>addFilter</code>
@@ -445,9 +445,6 @@
     <DuplicateArrayKey occurrences="1">
       <code>$skippedFields</code>
     </DuplicateArrayKey>
-    <InvalidArgument occurrences="1">
-      <code>$prototype</code>
-    </InvalidArgument>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -584,6 +581,9 @@
     <InvalidScalarArgument occurrences="1">
       <code>$this-&gt;dbTheme-&gt;id</code>
     </InvalidScalarArgument>
+    <InvalidThrow occurrences="1">
+      <code>\ScssPhp\ScssPhp\Exception\SassException</code>
+    </InvalidThrow>
     <PossiblyInvalidPropertyAssignmentValue occurrences="2">
       <code>$this-&gt;dbTheme-&gt;id</code>
       <code>$this-&gt;dbTheme-&gt;id</code>
@@ -667,16 +667,8 @@
   </file>
   <file src="src/Web/Actions/Artist/GetArtistByIdAction.php">
     <InvalidArgument occurrences="1">
-      <code>$artist-&gt;format(true)</code>
+      <code>$artist-&gt;format()</code>
     </InvalidArgument>
-    <TooManyArguments occurrences="1">
-      <code>format</code>
-    </TooManyArguments>
-  </file>
-  <file src="src/Web/Actions/Artist/ProfilePicture/DeleteProfilePictureAction.php">
-    <TooManyArguments occurrences="1">
-      <code>parent::__construct($logger)</code>
-    </TooManyArguments>
   </file>
   <file src="src/Web/Actions/Artist/ProfilePicture/GetProfilePictureAction.php">
     <PossiblyNullArgument occurrences="1">
@@ -687,9 +679,6 @@
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;request-&gt;getBody()-&gt;detach()</code>
     </PossiblyNullArgument>
-    <TooManyArguments occurrences="1">
-      <code>parent::__construct($logger)</code>
-    </TooManyArguments>
   </file>
   <file src="src/Web/Actions/Authentication/ChangePasswordAction.php">
     <PossiblyInvalidArrayAccess occurrences="2">
@@ -877,9 +866,6 @@
     </InvalidArgument>
   </file>
   <file src="src/Web/Actions/Install/InstallAction.php">
-    <TooManyArguments occurrences="1">
-      <code>parent::__construct($logger)</code>
-    </TooManyArguments>
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
@@ -949,9 +935,8 @@
     </PossiblyInvalidPropertyAssignmentValue>
   </file>
   <file src="src/Web/Actions/Menu/Items/MoveMenuItemParentToItemAction.php">
-    <PossiblyNullPropertyFetch occurrences="3">
+    <PossiblyNullPropertyFetch occurrences="2">
       <code>$parent-&gt;parentId</code>
-      <code>$parent-&gt;position</code>
       <code>$parent-&gt;position</code>
     </PossiblyNullPropertyFetch>
   </file>
@@ -1147,49 +1132,31 @@
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeFormAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeGalleryAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeMenuAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemePageAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeSegmentPageAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
     <PossiblyInvalidArrayAccess occurrences="1">
@@ -1362,16 +1329,15 @@
       <code>$result</code>
       <code>$this-&gt;checkMenuItem($item, $path)</code>
     </PossiblyInvalidOperand>
-    <PossiblyNullReference occurrences="2">
-      <code>getItems</code>
+    <PossiblyNullReference occurrences="1">
       <code>getMenus</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Web/Routes/Route.php">
     <LessSpecificReturnStatement occurrences="3">
-      <code>$this-&gt;authenticatedAttributes !== null ? $this-&gt;authenticatedAttributes-&gt;newInstance() : null</code>
-      <code>$this-&gt;requireOneFieldAttributes !== null ? $this-&gt;requireOneFieldAttributes-&gt;newInstance() : null</code>
-      <code>$this-&gt;requiredFieldsAttributes !== null ? $this-&gt;requiredFieldsAttributes-&gt;newInstance() : null</code>
+      <code>$this-&gt;authenticatedAttributes?-&gt;newInstance()</code>
+      <code>$this-&gt;requireOneFieldAttributes?-&gt;newInstance()</code>
+      <code>$this-&gt;requiredFieldsAttributes?-&gt;newInstance()</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="4">
       <code>?Authenticated</code>
