@@ -67,7 +67,7 @@ class MatomoClient
         $to = $today->format('Y-m-d');
         $from = $today->sub(new DateInterval('P1M'))->format('Y-m-d');
         $date = "$from,$to";
-        $url = "https://$this->matomoServer/?module=API&method=$action&idSite=$this->matomoSiteId&period=$period&date=$date&format=JSON&token_auth=$this->matomoApiKey&filter_sort_column=label&filter_sort_order=asc";
+        $url = "$this->matomoServer?module=API&method=$action&idSite=$this->matomoSiteId&period=$period&date=$date&format=JSON&token_auth=$this->matomoApiKey&filter_sort_column=label&filter_sort_order=asc";
         $fetched = file_get_contents($url);
 
         return json_decode($fetched, true, 512, JSON_THROW_ON_ERROR);
