@@ -5,6 +5,13 @@ namespace App\Database\Utils;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\ThemeAsset;
+use App\Database\ThemeFile;
+use App\Database\ThemeForm;
+use App\Database\ThemeGallery;
+use App\Database\ThemeMenu;
+use App\Database\ThemePage;
+use App\Database\ThemeSegmentPage;
 use App\OpenApiGeneration\Attributes\OpenApiField;
 use Iterator;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
@@ -45,12 +52,16 @@ abstract class ThemeHelperEntity extends LoadableEntity
     /**
      * Fetches the item by theme and name
      *
-     * @param $prototype
-     * @throws UniqueFailedException
+     * @param int $themeId
+     * @param string $name
+     * @param string $table
+     * @param ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage $prototype
+     * @return object|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
-    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, $prototype): ?object
+    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage $prototype): ?object
     {
         $sql = "SELECT * FROM $table WHERE theme_id = :id AND name = :name";
         $result = self::executeStatement(
@@ -70,12 +81,15 @@ abstract class ThemeHelperEntity extends LoadableEntity
     /**
      * Fetches the items for the given theme
      *
-     * @param $prototype
+     * @param int $themeId
+     * @param string $table
+     * @param ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage $prototype
+     * @return Iterator
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected static function fetchByTheme(int $themeId, string $table, $prototype): Iterator
+    protected static function fetchByTheme(int $themeId, string $table, ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage $prototype): Iterator
     {
         $sql = "SELECT * FROM $table WHERE theme_id = :id";
         $result = self::executeStatement($sql, ['id' => $themeId]);

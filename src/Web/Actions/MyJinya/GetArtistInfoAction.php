@@ -29,7 +29,7 @@ class GetArtistInfoAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
+     * @return Response
      */
     protected function action(): Response
     {

@@ -4,10 +4,12 @@ namespace App\Web\Actions\OpenApi;
 
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\EndpointGenerator;
+use App\OpenApiGeneration\Exceptions\OpenApiModelException;
 use App\OpenApiGeneration\ModelGenerator;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use Psr\Http\Message\ResponseInterface as Response;
+use ReflectionException;
 
 #[JinyaAction('/api/system/openapi', JinyaAction::GET)]
 class GetOpenApiConfigAction extends Action
@@ -15,6 +17,7 @@ class GetOpenApiConfigAction extends Action
 
     /**
      * @inheritDoc
+     * @throws ReflectionException|OpenApiModelException
      */
     protected function action(): Response
     {

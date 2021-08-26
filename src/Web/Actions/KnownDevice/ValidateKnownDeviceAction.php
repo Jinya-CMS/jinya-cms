@@ -2,6 +2,9 @@
 
 namespace App\Web\Actions\KnownDevice;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
@@ -9,6 +12,7 @@ use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\BadCredentialsException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/known_device/{key}', JinyaAction::HEAD)]
@@ -26,6 +30,12 @@ class ValidateKnownDeviceAction extends Action
 {
     /**
      * {@inheritDoc}
+     * @return Response
+     * @throws BadCredentialsException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws JsonException
      */
     protected function action(): Response
     {

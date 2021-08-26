@@ -72,8 +72,10 @@ class UploadingFile extends Utils\LoadableEntity
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
+     *
+     * @return File|null
      */
-    public function getFile(): File
+    public function getFile(): ?File
     {
         return File::findById($this->fileId);
     }

@@ -9,8 +9,6 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Formatter\Compressed;
-use ScssPhp\ScssPhp\Formatter\Crunched;
 use ScssPhp\ScssPhp\OutputStyle;
 
 class Theme implements ExtensionInterface
@@ -68,6 +66,8 @@ class Theme implements ExtensionInterface
 
     /**
      * Registers the theme in the engine
+     *
+     * @return void
      */
     public function register(Engine $engine)
     {
@@ -173,6 +173,7 @@ class Theme implements ExtensionInterface
 
     /**
      * Compiles the style cache of the given theme
+     * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     public function compileStyleCache(): void
     {
@@ -271,9 +272,7 @@ class Theme implements ExtensionInterface
             $assetFromDb = Database\ThemeAsset::findByThemeAndName($this->dbTheme->id, $key);
 
             if (!file_exists($asset)) {
-                if (null !== $assetFromDb) {
-                    $assetFromDb->delete();
-                }
+                $assetFromDb?->delete();
 
                 continue;
             }

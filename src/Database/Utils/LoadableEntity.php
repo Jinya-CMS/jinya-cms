@@ -2,9 +2,25 @@
 
 namespace App\Database\Utils;
 
+use App\Database\ApiKey;
+use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\File;
+use App\Database\Form;
+use App\Database\FormItem;
+use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
+use App\Database\KnownDevice;
+use App\Database\Menu;
+use App\Database\MenuItem;
+use App\Database\Segment;
+use App\Database\SegmentPage;
+use App\Database\SimplePage;
+use App\Database\Theme;
+use App\Database\Themed;
+use App\Database\UploadingFiled;
 use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
@@ -186,28 +202,26 @@ abstract class LoadableEntity
     protected static function convertInvalidQueryExceptionToException(
         InvalidQueryException $exception
     ): UniqueFailedException|ForeignKeyFailedException|InvalidQueryException {
-        switch ($exception->errorInfo[1]) {
-            case 1062:
-                return new UniqueFailedException($exception);
-            case 1452:
-                return new ForeignKeyFailedException($exception);
-        }
+        return match ($exception->errorInfo[1]) {
+            1062 => new UniqueFailedException($exception),
+            1452 => new ForeignKeyFailedException($exception),
+            default => $exception,
+        };
 
-        return $exception;
     }
 
     /**
      * Hydrates the result using the given prototype and returns the object that was hydrated
      *
      * @param array $result
-     * @param $prototype
+     * @param ApiKey|Artist|FormItem|GalleryFilePosition|KnownDevice|MenuItem|Segment|Theme|UploadingFiled $prototype
      * @param StrategyInterface[] $additionalStrategies
      * @return object|null
      */
     public static function hydrateSingleResult(
-        array $result,
-        mixed $prototype,
-        array $additionalStrategies = []
+        array                                                                                        $result,
+        ApiKey|Artist|FormItem|GalleryFilePosition|KnownDevice|MenuItem|Segment|Theme|UploadingFiled $prototype,
+        array                                                                                        $additionalStrategies = []
     ): ?object {
         $hydrator = self::getHydrator($additionalStrategies);
         foreach ($result as $key => $item) {
@@ -241,7 +255,7 @@ abstract class LoadableEntity
      * Fetches all data in a table and creates a array
      *
      * @param string $table
-     * @param $prototype
+     * @param Artist|File|Form|Gallery|Menu|SegmentPage|SimplePage|Themed $prototype
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
      * @throws ForeignKeyFailedException
@@ -249,9 +263,9 @@ abstract class LoadableEntity
      * @throws UniqueFailedException
      */
     protected static function fetchArray(
-        string $table,
-        mixed $prototype,
-        array $additionalStrategies = []
+        string                                                      $table,
+        Artist|File|Form|Gallery|Menu|SegmentPage|SimplePage|Themed $prototype,
+        array                                                       $additionalStrategies = []
     ): Iterator {
         $result = self::executeStatement("SELECT * FROM $table");
 

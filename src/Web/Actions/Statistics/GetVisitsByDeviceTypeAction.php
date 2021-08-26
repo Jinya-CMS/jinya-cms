@@ -17,6 +17,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 class GetVisitsByDeviceTypeAction extends Action
 {
 
+    /**
+     * @throws \JsonException
+     */
     protected function action(): Response
     {
         $client = MatomoClient::newClient();

@@ -24,6 +24,10 @@ class CheckRequiredOneOfFieldsMiddleware implements MiddlewareInterface
         $this->fields = $fields;
     }
 
+    /**
+     * @throws HttpNotImplementedException
+     * @throws MissingOneOfFieldsException
+     */
     public function process(Request $request, RequestHandler $handler): ResponseInterface
     {
         $body = $request->getParsedBody();

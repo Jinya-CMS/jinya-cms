@@ -12,6 +12,7 @@ class PostUpdateAction extends UpdateAction
 {
     /**
      * {@inheritDoc}
+     * @throws \JsonException
      */
     protected function action(): ResponseInterface
     {

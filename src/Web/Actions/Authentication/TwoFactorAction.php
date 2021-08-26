@@ -53,6 +53,7 @@ class TwoFactorAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      * @throws Exception
+     * @throws \Exception
      */
     protected function action(): Response
     {

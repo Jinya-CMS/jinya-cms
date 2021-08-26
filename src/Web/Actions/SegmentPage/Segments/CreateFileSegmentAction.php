@@ -60,11 +60,11 @@ class CreateFileSegmentAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws NoResultException
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

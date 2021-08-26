@@ -29,6 +29,9 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 
     /**
      * {@inheritDoc}
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     * @throws Database\Exceptions\UniqueFailedException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -82,7 +85,12 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
         }
     }
 
-    public function checkMenuItem(MenuItem $menuItem, string $path): bool
+    /**
+     * @throws Database\Exceptions\UniqueFailedException
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\InvalidQueryException
+     */
+    public function checkMenuItem(MenuItem $menuItem, string $path): bool|int|float
     {
         $result = $path === $menuItem->route;
         foreach ($menuItem->getItems() as $item) {

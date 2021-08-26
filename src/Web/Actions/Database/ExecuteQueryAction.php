@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ExecuteQueryAction extends Action
 {
     /**
-     * @throws JsonException
+     * @return Response
      */
     protected function action(): Response
     {
@@ -30,29 +30,16 @@ class ExecuteQueryAction extends Action
         $result = [];
         foreach ($statements as $statement) {
             $builtStatement = $statement->build();
-            switch ($queryAnalyzer->getQueryType($statement)) {
-                case 'UPDATE':
-                case 'DELETE':
-                case 'INSERT':
-                case 'SELECT':
-                case 'EXPLAIN':
-                case 'CHECK':
-                case 'CHECKSUM':
-                case 'ANALYSE':
-                case 'SHOW':
-                    $result[] = [
-                        'statement' => $builtStatement,
-                        'result' => LoadableEntity::executeSqlString($builtStatement),
-                    ];
-                    break;
-                default:
-                    $result[] = [
-                        'statement' => $builtStatement,
-                        'result' => 'Query not allowed',
-                    ];
-
-                    break;
-            }
+            $result[] = match ($queryAnalyzer->getQueryType($statement)) {
+                'UPDATE', 'DELETE', 'INSERT', 'SELECT', 'EXPLAIN', 'CHECK', 'CHECKSUM', 'ANALYSE', 'SHOW' => [
+                    'statement' => $builtStatement,
+                    'result' => LoadableEntity::executeSqlString($builtStatement),
+                ],
+                default => [
+                    'statement' => $builtStatement,
+                    'result' => 'Query not allowed',
+                ],
+            };
         }
 
         return $this->respond($result);

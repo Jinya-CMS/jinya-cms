@@ -21,6 +21,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiResponse('Menu or menu item not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu or menu item not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class ResetMenuItemParentAction extends Action
 {
+    /**
+     * @throws NoResultException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws \JsonException
+     */
     protected function action(): Response
     {
         $menuId = $this->args['menuId'];

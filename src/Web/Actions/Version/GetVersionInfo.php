@@ -23,6 +23,7 @@ class GetVersionInfo extends UpdateAction
 {
     /**
      * {@inheritDoc}
+     * @throws \JsonException
      */
     protected function action(): Response
     {

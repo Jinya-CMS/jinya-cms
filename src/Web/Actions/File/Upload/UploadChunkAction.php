@@ -32,10 +32,8 @@ class UploadChunkAction extends Action
 
     /**
      * UploadChunkAction constructor.
-     * @param LoggerInterface $logger
-     * @param FileUploadService $fileUploadService
      */
-    #[Pure] public function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->fileUploadService = new FileUploadService();

@@ -18,6 +18,9 @@ use Slim\Routing\RouteCollectorProxy;
 
 class RouteResolver
 {
+    /**
+     * @throws \ReflectionException
+     */
     public function resolveRoutes(App $app): RouteCollectorProxy
     {
         $classes = ClassResolver::loadClasses(__ROOT__ . '/src/Web/Actions');

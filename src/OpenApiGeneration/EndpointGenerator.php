@@ -90,6 +90,9 @@ class EndpointGenerator
         return $items;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function generateMethod(OpenApiMethod $openApiMethod, JinyaAction $jinyaAction): array
     {
         $reflectionClass = $openApiMethod->reflectionClass;

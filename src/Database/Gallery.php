@@ -89,6 +89,11 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
         );
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape([
         'id' => "int",
         'name' => "string",
@@ -130,12 +135,13 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     /**
      * Gets the creator of this file
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getCreator(): Artist
+    public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
     }
@@ -143,12 +149,13 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     /**
      * Gets the artist that last updated this file
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getUpdatedBy(): Artist
+    public function getUpdatedBy(): ?Artist
     {
         return Artist::findById($this->updatedById);
     }

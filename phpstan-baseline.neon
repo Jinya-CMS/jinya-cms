@@ -56,11 +56,6 @@ parameters:
 			path: src/Database/ApiKey.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:getArtist\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
 			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
 			count: 1
 			path: src/Database/ApiKey.php
@@ -87,6 +82,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Artist\\:\\:findByEmail\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
+			count: 1
+			path: src/Database/Artist.php
+
+		-
+			message: "#^Method App\\\\Database\\\\Artist\\:\\:findById\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Artist.php
 
@@ -156,16 +156,6 @@ parameters:
 			path: src/Database/File.php
 
 		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:getCreator\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:getUpdatedBy\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
 			message: "#^Method App\\\\Database\\\\File\\:\\:getUploadChunks\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/File.php
@@ -186,6 +176,11 @@ parameters:
 			path: src/Database/Form.php
 
 		-
+			message: "#^Method App\\\\Database\\\\Form\\:\\:findById\\(\\) should return App\\\\Database\\\\Form\\|null but returns object\\|null\\.$#"
+			count: 1
+			path: src/Database/Form.php
+
+		-
 			message: "#^Method App\\\\Database\\\\Form\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Form.php
@@ -196,17 +191,7 @@ parameters:
 			path: src/Database/Form.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:getCreator\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Form\\:\\:getItems\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:getUpdatedBy\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Form.php
 
@@ -237,11 +222,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\FormItem\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/FormItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\FormItem\\:\\:getForm\\(\\) should return App\\\\Database\\\\Form but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/FormItem.php
 
@@ -281,17 +261,7 @@ parameters:
 			path: src/Database/Gallery.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:getCreator\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Gallery\\:\\:getFiles\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:getUpdatedBy\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Gallery.php
 
@@ -431,11 +401,6 @@ parameters:
 			path: src/Database/MenuItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByRoute\\(\\) has parameter \\$route with no typehint specified\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByRoute\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/MenuItem.php
@@ -461,22 +426,7 @@ parameters:
 			path: src/Database/MenuItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:getArtist\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:getForm\\(\\) should return App\\\\Database\\\\Form\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:getItems\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$route\\)\\: Unexpected token \"\\$route\", expected type at offset 73$#"
 			count: 1
 			path: src/Database/MenuItem.php
 
@@ -501,21 +451,6 @@ parameters:
 			path: src/Database/Migrations/Migrator.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$title\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$toAddress\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
 			message: "#^Cannot access offset 0 on array\\|int\\.$#"
 			count: 1
 			path: src/Database/Segment.php
@@ -537,11 +472,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Segment\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Segment\\:\\:getForm\\(\\) should return App\\\\Database\\\\Form\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Segment.php
 
@@ -571,17 +501,7 @@ parameters:
 			path: src/Database/SegmentPage.php
 
 		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:getCreator\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
 			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:getSegments\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:getUpdatedBy\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/SegmentPage.php
 
@@ -611,16 +531,6 @@ parameters:
 			path: src/Database/SimplePage.php
 
 		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:getCreator\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:getUpdatedBy\\(\\) should return App\\\\Database\\\\Artist but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
-
-		-
 			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
 			count: 1
 			path: src/Database/SimplePage.php
@@ -637,7 +547,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 0 on array\\|int\\.$#"
-			count: 1
+			count: 2
 			path: src/Database/Theme.php
 
 		-
@@ -671,12 +581,37 @@ parameters:
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateSingleResult\\(\\) expects array, array\\|int given\\.$#"
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getForms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getGalleries\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getMenus\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getPages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Method App\\\\Database\\\\Theme\\:\\:getSegmentPages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
@@ -718,6 +653,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|int given\\.$#"
 			count: 2
+			path: src/Database/Theme.php
+
+		-
+			message: "#^Parameter \\#2 \\$prototype of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchArray\\(\\) expects App\\\\Database\\\\Artist\\|App\\\\Database\\\\File\\|App\\\\Database\\\\Form\\|App\\\\Database\\\\Gallery\\|App\\\\Database\\\\Menu\\|App\\\\Database\\\\SegmentPage\\|App\\\\Database\\\\SimplePage\\|App\\\\Database\\\\Themed, App\\\\Database\\\\Theme given\\.$#"
+			count: 1
 			path: src/Database/Theme.php
 
 		-
@@ -767,11 +707,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/ThemeForm.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:getForm\\(\\) should return App\\\\Database\\\\Form but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeForm.php
 
@@ -866,6 +801,16 @@ parameters:
 			path: src/Database/UploadingFile.php
 
 		-
+			message: "#^Parameter \\#2 \\$prototype of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateSingleResult\\(\\) expects App\\\\Database\\\\ApiKey\\|App\\\\Database\\\\Artist\\|App\\\\Database\\\\FormItem\\|App\\\\Database\\\\GalleryFilePosition\\|App\\\\Database\\\\KnownDevice\\|App\\\\Database\\\\MenuItem\\|App\\\\Database\\\\Segment\\|App\\\\Database\\\\Theme\\|App\\\\Database\\\\UploadingFiled, App\\\\Database\\\\UploadingFile given\\.$#"
+			count: 1
+			path: src/Database/UploadingFile.php
+
+		-
+			message: "#^Property App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:\\$id \\(int\\|string\\) does not accept string\\|false\\.$#"
+			count: 1
+			path: src/Database/UploadingFile.php
+
+		-
 			message: "#^Method App\\\\Database\\\\UploadingFileChunk\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/UploadingFileChunk.php
@@ -956,7 +901,7 @@ parameters:
 			path: src/Database/Utils/LoadableEntity.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchColumn\\(\\) should return int but returns int\\|string\\|false\\|null\\.$#"
+			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchColumn\\(\\) should return int\\|string but returns int\\|string\\|false\\|null\\.$#"
 			count: 1
 			path: src/Database/Utils/LoadableEntity.php
 
@@ -1011,16 +956,6 @@ parameters:
 			path: src/Database/Utils/LoadableEntity.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$prototype\\)\\: Unexpected token \"\\$prototype\", expected type at offset 108$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$prototype\\)\\: Unexpected token \"\\$prototype\", expected type at offset 147$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
 			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
 			count: 1
 			path: src/Database/Utils/LoadableEntity.php
@@ -1041,7 +976,22 @@ parameters:
 			path: src/Database/Utils/LoadableEntity.php
 
 		-
+			message: "#^Parameter \\$prototype of method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchArray\\(\\) has invalid typehint type App\\\\Database\\\\Themed\\.$#"
+			count: 2
+			path: src/Database/Utils/LoadableEntity.php
+
+		-
+			message: "#^Parameter \\$prototype of method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateSingleResult\\(\\) has invalid typehint type App\\\\Database\\\\UploadingFiled\\.$#"
+			count: 2
+			path: src/Database/Utils/LoadableEntity.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between array and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/Database/Utils/LoadableEntity.php
+
+		-
+			message: "#^Unable to resolve the template type T in call to method Laminas\\\\Hydrator\\\\HydrationInterface\\:\\:hydrate\\(\\)$#"
 			count: 1
 			path: src/Database/Utils/LoadableEntity.php
 
@@ -1066,17 +1016,7 @@ parameters:
 			path: src/Database/Utils/ThemeHelperEntity.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:fetchByTheme\\(\\) has parameter \\$prototype with no typehint specified\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:fetchByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:fetchByThemeAndName\\(\\) has parameter \\$prototype with no typehint specified\\.$#"
 			count: 1
 			path: src/Database/Utils/ThemeHelperEntity.php
 
@@ -1106,22 +1046,17 @@ parameters:
 			path: src/Database/Utils/ThemeHelperEntity.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$prototype\\)\\: Unexpected token \"\\$prototype\", expected type at offset 67$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$prototype\\)\\: Unexpected token \"\\$prototype\", expected type at offset 70$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
 			message: "#^Parameter \\#1 \\$result of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateMultipleResults\\(\\) expects array, array\\|int given\\.$#"
 			count: 1
 			path: src/Database/Utils/ThemeHelperEntity.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|int given\\.$#"
+			count: 1
+			path: src/Database/Utils/ThemeHelperEntity.php
+
+		-
+			message: "#^Parameter \\#2 \\$prototype of static method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:hydrateSingleResult\\(\\) expects App\\\\Database\\\\ApiKey\\|App\\\\Database\\\\Artist\\|App\\\\Database\\\\FormItem\\|App\\\\Database\\\\GalleryFilePosition\\|App\\\\Database\\\\KnownDevice\\|App\\\\Database\\\\MenuItem\\|App\\\\Database\\\\Segment\\|App\\\\Database\\\\Theme\\|App\\\\Database\\\\UploadingFiled, App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage given\\.$#"
 			count: 1
 			path: src/Database/Utils/ThemeHelperEntity.php
 
@@ -1166,11 +1101,6 @@ parameters:
 			path: src/Mailing/Types/NewLoginMail.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$knownDevice with type App\\\\Database\\\\ApiKey is incompatible with native type App\\\\Database\\\\KnownDevice\\.$#"
-			count: 1
-			path: src/Mailing/Types/NewSavedDeviceMail.php
-
-		-
 			message: "#^Parameter \\#1 \\$address of method PHPMailer\\\\PHPMailer\\\\PHPMailer\\:\\:setFrom\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Mailing/Types/NewSavedDeviceMail.php
@@ -1179,6 +1109,21 @@ parameters:
 			message: "#^Parameter \\#1 \\$address of method PHPMailer\\\\PHPMailer\\\\PHPMailer\\:\\:setFrom\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Mailing/Types/TwoFactorMail.php
+
+		-
+			message: "#^Property App\\\\Maintenance\\\\PhpInfo\\\\PhpExtension\\:\\:\\$additionalData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Maintenance/PhpInfo/PhpExtension.php
+
+		-
+			message: "#^Property App\\\\Maintenance\\\\PhpInfo\\\\PhpExtension\\:\\:\\$iniValues type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Maintenance/PhpInfo/PhpExtension.php
+
+		-
+			message: "#^Method App\\\\Maintenance\\\\PhpInfo\\\\PhpInfoService\\:\\:getAdditionalData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Maintenance/PhpInfo/PhpInfoService.php
 
 		-
 			message: "#^Method App\\\\Maintenance\\\\PhpInfo\\\\PhpInfoService\\:\\:getApacheModules\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -1191,12 +1136,7 @@ parameters:
 			path: src/Maintenance/PhpInfo/PhpInfoService.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_filter expects array, array\\|false given\\.$#"
-			count: 1
-			path: src/Maintenance/PhpInfo/PhpInfoService.php
-
-		-
-			message: "#^Parameter \\#1 \\$version of method App\\\\Maintenance\\\\PhpInfo\\\\PhpExtension\\:\\:setVersion\\(\\) expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$offset of function array_splice expects int, int\\|string\\|false given\\.$#"
 			count: 1
 			path: src/Maintenance/PhpInfo/PhpInfoService.php
 
@@ -1212,11 +1152,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Messaging\\\\FormMessageHandler\\:\\:renderTemplate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Messaging/FormMessageHandler.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$item FormItem\\)\\: Unexpected token \"\\$item\", expected type at offset 9$#"
 			count: 1
 			path: src/Messaging/FormMessageHandler.php
 
@@ -1456,11 +1391,6 @@ parameters:
 			path: src/Statistics/MatomoClient.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$date$#"
-			count: 8
-			path: src/Statistics/MatomoClient.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Statistics/MatomoClient.php
@@ -1496,11 +1426,6 @@ parameters:
 			path: src/Storage/FileUploadService.php
 
 		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 2
-			path: src/Storage/FileUploadService.php
-
-		-
 			message: "#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/Storage/FileUploadService.php
@@ -1526,19 +1451,9 @@ parameters:
 			path: src/Storage/FileUploadService.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$profilePicture\\.$#"
-			count: 2
-			path: src/Storage/ProfilePictureService.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
+			message: "#^Access to an undefined property App\\\\Tests\\\\Extensions\\\\CreateArtistHook\\:\\:\\$artist\\.$#"
 			count: 1
-			path: src/Storage/ProfilePictureService.php
-
-		-
-			message: "#^Method App\\\\Theming\\\\MenuExtension\\:\\:register\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Theming/MenuExtension.php
+			path: src/Tests/Extensions/CreateArtistHook.php
 
 		-
 			message: "#^Parameter \\#2 \\$callback of method League\\\\Plates\\\\Engine\\:\\:registerFunction\\(\\) expects League\\\\Plates\\\\callback, array\\<int, \\$this\\(App\\\\Theming\\\\MenuExtension\\)\\|string\\> given\\.$#"
@@ -1576,7 +1491,7 @@ parameters:
 			path: src/Theming/Theme.php
 
 		-
-			message: "#^Method App\\\\Theming\\\\Theme\\:\\:register\\(\\) has no return typehint specified\\.$#"
+			message: "#^PHPDoc tag @throws with type ScssPhp\\\\ScssPhp\\\\Exception\\\\SassException is not subtype of Throwable$#"
 			count: 1
 			path: src/Theming/Theme.php
 
@@ -1636,11 +1551,6 @@ parameters:
 			path: src/Utils/ClassResolver.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\UuidGenerator\\:\\:generateV4\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Utils/UuidGenerator.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Web/Actions/Action.php
@@ -1696,16 +1606,6 @@ parameters:
 			path: src/Web/Actions/ApiKey/ListAllApiKeysAction.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$enabled\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/ActivateArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/ActivateArtistAction.php
-
-		-
 			message: "#^Cannot access offset 'artistName' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Artist/CreateArtistAction.php
@@ -1736,69 +1636,14 @@ parameters:
 			path: src/Web/Actions/Artist/CreateArtistAction.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$enabled\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/DeactivateArtistAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$roles\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/DeactivateArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/DeactivateArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/DeleteArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:format\\(\\)\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
 			count: 1
 			path: src/Web/Actions/Artist/GetArtistByIdAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$profilePicture\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/ProfilePicture/GetProfilePictureAction.php
 
 		-
 			message: "#^Parameter \\#2 \\$contentType of method App\\\\Web\\\\Actions\\\\Action\\:\\:respondFile\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Web/Actions/Artist/ProfilePicture/GetProfilePictureAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$artistName\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$email\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$enabled\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$roles\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:setPassword\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/UpdateArtistAction.php
 
 		-
 			message: "#^Cannot access offset 'artistName' on array\\|object\\.$#"
@@ -1936,19 +1781,9 @@ parameters:
 			path: src/Web/Actions/Form/CreateFormAction.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:delete\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/DeleteFormAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:format\\(\\)\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/GetFormByIdAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
 
 		-
 			message: "#^Cannot access offset 'helpText' on array\\|object\\.$#"
@@ -2006,9 +1841,9 @@ parameters:
 			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:getItems\\(\\)\\.$#"
+			message: "#^Property App\\\\Database\\\\FormItem\\:\\:\\$formId \\(int\\) does not accept int\\|string\\.$#"
 			count: 1
-			path: src/Web/Actions/Form/Items/GetFormItemsAction.php
+			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
 
 		-
 			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
@@ -2064,26 +1899,6 @@ parameters:
 			message: "#^Cannot access offset 'type' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/Items/UpdateFormItemAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/UpdateFormAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$title\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/UpdateFormAction.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$toAddress\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/UpdateFormAction.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/UpdateFormAction.php
 
 		-
 			message: "#^Cannot access offset 'description' on array\\|object\\.$#"
@@ -2256,11 +2071,6 @@ parameters:
 			path: src/Web/Actions/Menu/Items/GetMenuItemsByMenuAction.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 2
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
 			message: "#^Cannot access offset 'artist' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
@@ -2312,6 +2122,16 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Menu\\\\Items\\\\MenuItemAction\\:\\:formatIteratorRecursive\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Web/Actions/Menu/Items/MenuItemAction.php
+
+		-
+			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$artistId \\(int\\|null\\) does not accept int\\|string\\.$#"
+			count: 1
+			path: src/Web/Actions/Menu/Items/MenuItemAction.php
+
+		-
+			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$formId \\(int\\|null\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 
@@ -2616,32 +2436,32 @@ parameters:
 			path: src/Web/Actions/Theme/GetThemeAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemeFileAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemeFormAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemeGalleryAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemeMenuAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemePageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<array\\>\\|stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetThemeSegmentPageAction.php
 
@@ -2666,13 +2486,13 @@ parameters:
 			path: src/Web/Actions/Theme/PutThemeFileAction.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 2
+			message: "#^Cannot access offset 'form' on array\\|object\\.$#"
+			count: 1
 			path: src/Web/Actions/Theme/PutThemeFormAction.php
 
 		-
-			message: "#^Cannot access offset 'form' on array\\|object\\.$#"
-			count: 1
+			message: "#^Property App\\\\Database\\\\ThemeForm\\:\\:\\$formId \\(int\\) does not accept int\\|string\\.$#"
+			count: 2
 			path: src/Web/Actions/Theme/PutThemeFormAction.php
 
 		-
@@ -2876,11 +2696,6 @@ parameters:
 			path: src/Web/Middleware/CheckRequiredOneOfFieldsMiddleware.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Middleware\\\\CheckRouteInCurrentThemeMiddleware\\:\\:checkMenuItem\\(\\) should return bool but returns bool\\|int\\.$#"
-			count: 1
-			path: src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php
-
-		-
 			message: "#^Generator expects value type App\\\\Web\\\\Attributes\\\\JinyaAction, object given\\.$#"
 			count: 1
 			path: src/Web/Routes/Route.php
@@ -2899,69 +2714,4 @@ parameters:
 			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getRequiredFieldsAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\RequiredFields\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Parameter \\#1 \\$artistId of static method App\\\\Database\\\\ApiKey\\:\\:findByArtist\\(\\) expects int, int\\|string given\\.$#"
-			count: 1
-			path: tests/Database/ApiKeyTest.php
-
-		-
-			message: "#^Property App\\\\Database\\\\ApiKey\\:\\:\\$userId \\(int\\) does not accept int\\|string\\.$#"
-			count: 5
-			path: tests/Database/ApiKeyTest.php
-
-		-
-			message: "#^Property App\\\\Database\\\\ApiKey\\:\\:\\$validSince \\(DateTime\\) does not accept DateTime\\|false\\.$#"
-			count: 1
-			path: tests/Database/ApiKeyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of static method App\\\\Database\\\\Artist\\:\\:findById\\(\\) expects int, int\\|string given\\.$#"
-			count: 2
-			path: tests/Database/ArtistTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of static method App\\\\Database\\\\File\\:\\:findById\\(\\) expects int, int\\|string given\\.$#"
-			count: 5
-			path: tests/Database/FileTest.php
-
-		-
-			message: "#^Property App\\\\Database\\\\UploadingFile\\:\\:\\$fileId \\(int\\) does not accept int\\|string\\.$#"
-			count: 2
-			path: tests/Database/FileTest.php
-
-		-
-			message: "#^Property App\\\\Database\\\\UploadingFileChunk\\:\\:\\$uploadingFileId \\(string\\) does not accept int\\|string\\.$#"
-			count: 4
-			path: tests/Database/FileTest.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
-			count: 1
-			path: tests/Database/FormTest.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 1
-			path: tests/Database/FormTest.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$title\\.$#"
-			count: 2
-			path: tests/Database/FormTest.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$toAddress\\.$#"
-			count: 1
-			path: tests/Database/FormTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of static method App\\\\Database\\\\Form\\:\\:findById\\(\\) expects int, int\\|string given\\.$#"
-			count: 6
-			path: tests/Database/FormTest.php
-
-		-
-			message: "#^Property App\\\\Database\\\\FormItem\\:\\:\\$formId \\(int\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: tests/Database/FormTest.php
 

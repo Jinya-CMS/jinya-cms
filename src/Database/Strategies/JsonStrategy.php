@@ -8,6 +8,7 @@ class JsonStrategy implements StrategyInterface
 {
     /**
      * {@inheritDoc}
+     * @throws \JsonException
      */
     public function extract($value, ?object $object = null)
     {
@@ -16,6 +17,7 @@ class JsonStrategy implements StrategyInterface
 
     /**
      * {@inheritDoc}
+     * @throws \JsonException
      */
     public function hydrate($value, ?array $data)
     {

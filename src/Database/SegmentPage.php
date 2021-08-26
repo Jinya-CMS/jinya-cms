@@ -170,12 +170,13 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
     /**
      * Gets the creator
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getCreator(): Artist
+    public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
     }
@@ -183,12 +184,13 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
     /**
      * Gets the artist who last updated the segment_page
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getUpdatedBy(): Artist
+    public function getUpdatedBy(): ?Artist
     {
         return Artist::findById($this->updatedById);
     }

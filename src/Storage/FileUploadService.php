@@ -22,6 +22,7 @@ class FileUploadService extends StorageBaseService
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws \Exception
      */
     public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {

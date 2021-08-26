@@ -9,6 +9,11 @@ use PHPUnit\Runner\BeforeTestHook;
 class CreateArtistHook implements BeforeTestHook
 {
 
+    /**
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     */
     public function executeBeforeTest(string $test): void
     {
         $this->artist = new Artist();

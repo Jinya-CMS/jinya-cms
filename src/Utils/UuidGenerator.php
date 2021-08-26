@@ -8,8 +8,10 @@ class UuidGenerator
 {
     /**
      * @throws Exception
+     *
+     * @return false|string
      */
-    public static function generateV4()
+    public static function generateV4(): string|bool
     {
         $data = random_bytes(16);
         assert(strlen($data) === 16);

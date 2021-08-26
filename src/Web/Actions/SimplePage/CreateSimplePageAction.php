@@ -52,9 +52,11 @@ class CreateSimplePageAction extends Action
 
     /**
      * @inheritDoc
+     * @return Response
      * @throws ConflictException
-     * @throws JsonException
-     * @throws Exception
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

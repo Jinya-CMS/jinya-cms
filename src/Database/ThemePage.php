@@ -46,6 +46,11 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_page', new self());
     }
 
+    /**
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'page' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
     /**
      * Gets the page of the theme page
      *
-     * @return SimplePage
+     * @return SimplePage|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getPage(): SimplePage
+    public function getPage(): ?SimplePage
     {
         return SimplePage::findById($this->pageId);
     }

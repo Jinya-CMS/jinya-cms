@@ -20,7 +20,7 @@ class PhpInfoService
         return php_uname();
     }
 
-    private function calculateMb(int $bytes): int
+    private function calculateMb(int $bytes): float|int
     {
         return $bytes / 1024 / 1024;
     }

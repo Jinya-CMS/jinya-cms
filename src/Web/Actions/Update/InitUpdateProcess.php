@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class InitUpdateProcess extends Action
 {
     /**
-     * @throws JsonException
+     * @return Response
      */
     protected function action(): Response
     {

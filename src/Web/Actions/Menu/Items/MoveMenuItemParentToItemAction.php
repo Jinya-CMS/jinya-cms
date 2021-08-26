@@ -23,6 +23,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[OpenApiResponse('Menu not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Menu not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class MoveMenuItemParentToItemAction extends Action
 {
+    /**
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \JsonException
+     * @throws NoResultException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     */
     protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];
@@ -40,15 +47,13 @@ class MoveMenuItemParentToItemAction extends Action
             if ($parent->parentId) {
                 $menuItem->parentId = $parent->parentId;
                 $menuItem->menuId = null;
-                $newPosition = $parent->position + 1;
-                $menuItem->move($newPosition);
             } else {
                 $menuId = $this->args['id'];
                 $menuItem->menuId = $menuId;
                 $menuItem->parentId = null;
-                $newPosition = $parent->position + 1;
-                $menuItem->move($newPosition);
             }
+            $newPosition = $parent->position + 1;
+            $menuItem->move($newPosition);
         }
 
         $menuItem->update(false);

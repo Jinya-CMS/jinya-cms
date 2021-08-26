@@ -28,6 +28,12 @@ use Slim\Exception\HttpNotFoundException;
 #[OpenApiResponse('Artist not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Artist not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class GetArtistByIdAction extends Action
 {
+    /**
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws HttpNotFoundException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     */
     protected function action(): Response
     {
         $artist = Artist::findById((int)$this->args['id']);
@@ -35,6 +41,6 @@ class GetArtistByIdAction extends Action
             throw new HttpNotFoundException($this->request, 'Artist not found');
         }
 
-        return $this->respond($artist->format(true));
+        return $this->respond($artist->format());
     }
 }

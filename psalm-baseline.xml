@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.8.1@f73f2299dbc59a3e6c4d66cff4605176e728ee69">
-  <file src=".phpstorm.meta.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>0</code>
-    </InvalidScalarArgument>
-    <InvalidStaticInvocation occurrences="1">
-      <code>\DI\Container::get(0)</code>
-    </InvalidStaticInvocation>
-    <UndefinedClass occurrences="1">
-      <code>\Psr\Container\ContainerInterface</code>
-    </UndefinedClass>
-    <UndefinedFunction occurrences="3"/>
-  </file>
-  <file src="app/dependencies.php">
-    <UndefinedClass occurrences="1">
-      <code>$settings</code>
-    </UndefinedClass>
-  </file>
   <file src="app/routes.php">
     <UndefinedConstant occurrences="2">
       <code>__ROOT__</code>
       <code>__ROOT__</code>
     </UndefinedConstant>
-  </file>
-  <file src="defines.php">
-    <InvalidArgument occurrences="1">
-      <code>true</code>
-    </InvalidArgument>
-    <InvalidScalarArgument occurrences="1">
-      <code>true</code>
-    </InvalidScalarArgument>
-  </file>
-  <file src="designer/node_modules/flatted/php/flatted.php">
-    <UndefinedPropertyFetch occurrences="2">
-      <code>$value-&gt;value</code>
-      <code>$value-&gt;value</code>
-    </UndefinedPropertyFetch>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;value</code>
-    </UndefinedThisPropertyAssignment>
   </file>
   <file src="src/Console/RoutesCommand.php">
     <UndefinedMethod occurrences="1">
@@ -52,16 +18,10 @@
     </PossiblyInvalidIterator>
   </file>
   <file src="src/Database/ApiKey.php">
-    <LessSpecificReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;userId)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>ApiKey|null</code>
-      <code>Artist</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>Artist::findById($this-&gt;userId)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -71,8 +31,9 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="src/Database/Artist.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
+    <LessSpecificReturnStatement occurrences="2"/>
+    <MoreSpecificReturnType occurrences="2">
+      <code>Artist|null</code>
       <code>Artist|null</code>
     </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
@@ -87,60 +48,49 @@
     <InvalidScalarArgument occurrences="1">
       <code>$this-&gt;id</code>
     </InvalidScalarArgument>
-    <LessSpecificReturnStatement occurrences="3">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="3">
-      <code>Artist</code>
-      <code>Artist</code>
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>File</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyFetch occurrences="2">
+    <PossiblyNullPropertyFetch occurrences="8">
+      <code>$creator-&gt;artistName</code>
+      <code>$creator-&gt;email</code>
+      <code>$creator-&gt;profilePicture</code>
+      <code>$updatedBy-&gt;artistName</code>
+      <code>$updatedBy-&gt;email</code>
+      <code>$updatedBy-&gt;profilePicture</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/Form.php">
-    <LessSpecificReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>Artist</code>
-      <code>Artist</code>
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
+      <code>Form|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyFetch occurrences="2">
+    <PossiblyNullPropertyFetch occurrences="8">
+      <code>$creator-&gt;artistName</code>
+      <code>$creator-&gt;email</code>
+      <code>$creator-&gt;profilePicture</code>
+      <code>$updatedBy-&gt;artistName</code>
+      <code>$updatedBy-&gt;email</code>
+      <code>$updatedBy-&gt;profilePicture</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/FormItem.php">
-    <LessSpecificReturnStatement occurrences="2">
-      <code>Form::findById($this-&gt;formId)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>?FormItem</code>
-      <code>Form</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>Form::findById($this-&gt;formId)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -149,49 +99,46 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="src/Database/Gallery.php">
-    <LessSpecificReturnStatement occurrences="3">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="3">
-      <code>Artist</code>
-      <code>Artist</code>
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>Gallery</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyFetch occurrences="2">
+    <PossiblyNullPropertyFetch occurrences="8">
+      <code>$creator-&gt;artistName</code>
+      <code>$creator-&gt;email</code>
+      <code>$creator-&gt;profilePicture</code>
+      <code>$updatedBy-&gt;artistName</code>
+      <code>$updatedBy-&gt;email</code>
+      <code>$updatedBy-&gt;profilePicture</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/GalleryFilePosition.php">
-    <InvalidNullableReturnType occurrences="2">
-      <code>File</code>
-      <code>Gallery</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::hydrateSingleResult($result[0], new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>GalleryFilePosition|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>File::findById($this-&gt;fileId)</code>
-      <code>Gallery::findById($this-&gt;galleryId)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$result[0]</code>
     </PossiblyInvalidArrayAccess>
+    <PossiblyNullPropertyFetch occurrences="3">
+      <code>$file-&gt;path</code>
+      <code>$gallery-&gt;description</code>
+      <code>$gallery-&gt;name</code>
+    </PossiblyNullPropertyFetch>
+    <PossiblyNullReference occurrences="1">
+      <code>getIdAsInt</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/KnownDevice.php">
     <LessSpecificReturnStatement occurrences="1">
@@ -221,20 +168,19 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="src/Database/MenuItem.php">
-    <LessSpecificReturnStatement occurrences="6">
-      <code>Artist::findById($this-&gt;artistId)</code>
-      <code>Form::findById($this-&gt;formId)</code>
-      <code>self::fetchSingleById('menu_item', $id, new self())</code>
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-      <code>self::hydrateSingleResult($result[0], new self())</code>
+    <InvalidDocblock occurrences="1">
+      <code>public static function findByRoute(?string $route): ?MenuItem</code>
+    </InvalidDocblock>
+    <LessSpecificReturnStatement occurrences="4">
+      <code>self::fetchSingleById('menu_item', $id, new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
+      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
+      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
+      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="6">
-      <code>?Artist</code>
-      <code>?Form</code>
+    <MoreSpecificReturnType occurrences="4">
+      <code>?MenuItem</code>
       <code>?MenuItem</code>
       <code>MenuItem</code>
-      <code>MenuItem|null</code>
       <code>MenuItem|null</code>
     </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="4">
@@ -248,11 +194,6 @@
       <code>$result[0]</code>
       <code>$result[0]</code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyNullArgument occurrences="3">
-      <code>$this-&gt;parentId</code>
-      <code>$this-&gt;parentId</code>
-      <code>$this-&gt;parentId</code>
-    </PossiblyNullArgument>
     <PossiblyNullReference occurrences="5">
       <code>getIdAsInt</code>
       <code>getIdAsInt</code>
@@ -271,20 +212,12 @@
     </UndefinedConstant>
   </file>
   <file src="src/Database/Segment.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>SegmentPage</code>
-    </InvalidNullableReturnType>
-    <LessSpecificReturnStatement occurrences="2">
-      <code>Form::findById($this-&gt;formId)</code>
+    <LessSpecificReturnStatement occurrences="1">
       <code>self::hydrateSingleResult($result[0], new self())</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>Form|null</code>
+    <MoreSpecificReturnType occurrences="1">
       <code>Segment|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>SegmentPage::findById($this-&gt;pageId)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -310,51 +243,48 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/SegmentPage.php">
-    <LessSpecificReturnStatement occurrences="3">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="3">
-      <code>Artist</code>
-      <code>Artist</code>
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>SegmentPage</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyFetch occurrences="2">
+    <PossiblyNullPropertyFetch occurrences="8">
+      <code>$creator-&gt;artistName</code>
+      <code>$creator-&gt;email</code>
+      <code>$creator-&gt;profilePicture</code>
+      <code>$updatedBy-&gt;artistName</code>
+      <code>$updatedBy-&gt;email</code>
+      <code>$updatedBy-&gt;profilePicture</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/SimplePage.php">
-    <LessSpecificReturnStatement occurrences="3">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="3">
-      <code>Artist</code>
-      <code>Artist</code>
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
       <code>SimplePage</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="2">
-      <code>Artist::findById($this-&gt;creatorId)</code>
-      <code>Artist::findById($this-&gt;updatedById)</code>
-    </NullableReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyFetch occurrences="2">
+    <PossiblyNullPropertyFetch occurrences="8">
+      <code>$creator-&gt;artistName</code>
+      <code>$creator-&gt;email</code>
+      <code>$creator-&gt;profilePicture</code>
+      <code>$updatedBy-&gt;artistName</code>
+      <code>$updatedBy-&gt;email</code>
+      <code>$updatedBy-&gt;profilePicture</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
       <code>CurrentUser::$currentUser-&gt;id</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/Theme.php">
+    <InvalidArgument occurrences="1">
+      <code>new self()</code>
+    </InvalidArgument>
     <InvalidScalarArgument occurrences="7">
       <code>$this-&gt;id</code>
       <code>$this-&gt;id</code>
@@ -370,13 +300,13 @@
       <code>Theme|null</code>
       <code>Theme|null</code>
     </MoreSpecificReturnType>
-    <PossiblyInvalidArgument occurrences="4">
-      <code>$result</code>
+    <PossiblyInvalidArgument occurrences="3">
       <code>$result</code>
       <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="1">
+    <PossiblyInvalidArrayAccess occurrences="2">
+      <code>$result[0]</code>
       <code>$result[0]</code>
     </PossiblyInvalidArrayAccess>
   </file>
@@ -389,101 +319,84 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Database/ThemeFile.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>File</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_file', new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>ThemeFile|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>File::findById($this-&gt;fileId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeForm.php">
-    <LessSpecificReturnStatement occurrences="2">
-      <code>Form::findById($this-&gt;formId)</code>
+    <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_form', new self())</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
-      <code>Form</code>
+    <MoreSpecificReturnType occurrences="1">
       <code>ThemeForm|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>Form::findById($this-&gt;formId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeGallery.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>Gallery</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_gallery', new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>ThemeGallery|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>Gallery::findById($this-&gt;galleryId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeMenu.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>Menu</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_menu', new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>ThemeMenu|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>Menu::findById($this-&gt;menuId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemePage.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>SimplePage</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_page', new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>ThemePage|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>SimplePage::findById($this-&gt;pageId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeSegmentPage.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>SegmentPage</code>
-    </InvalidNullableReturnType>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::fetchByThemeAndName($themeId, $name, 'theme_segment_page', new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>ThemeSegmentPage|null</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>SegmentPage::findById($this-&gt;segmentPageId)</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/UploadingFile.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>File</code>
-    </InvalidNullableReturnType>
+    <InvalidArgument occurrences="1">
+      <code>new self()</code>
+    </InvalidArgument>
     <LessSpecificReturnStatement occurrences="1">
       <code>self::hydrateSingleResult($result[0], new self())</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>?UploadingFile</code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>File::findById($this-&gt;fileId)</code>
-    </NullableReturnStatement>
+    <PossiblyFalsePropertyAssignmentValue occurrences="1">
+      <code>UuidGenerator::generateV4()</code>
+    </PossiblyFalsePropertyAssignmentValue>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -509,8 +422,7 @@
       <code>$password</code>
       <code>$user</code>
     </PossiblyFalseArgument>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$result</code>
+    <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
@@ -520,9 +432,10 @@
       <code>isset(self::$pdo) &amp;&amp; self::$pdo !== null</code>
       <code>self::$pdo !== null</code>
     </RedundantCondition>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>$result === null</code>
-    </TypeDoesNotContainNull>
+    <UndefinedClass occurrences="2">
+      <code>\App\Database\ApiKey|\App\Database\Artist|\App\Database\FormItem|\App\Database\GalleryFilePosition|\App\Database\KnownDevice|\App\Database\MenuItem|\App\Database\Segment|\App\Database\Theme|\App\Database\UploadingFiled $prototype</code>
+      <code>\App\Database\Artist|\App\Database\File|\App\Database\Form|\App\Database\Gallery|\App\Database\Menu|\App\Database\SegmentPage|\App\Database\SimplePage|\App\Database\Themed $prototype</code>
+    </UndefinedClass>
     <UndefinedInterfaceMethod occurrences="2">
       <code>addFilter</code>
       <code>addFilter</code>
@@ -532,6 +445,9 @@
     <DuplicateArrayKey occurrences="1">
       <code>$skippedFields</code>
     </DuplicateArrayKey>
+    <InvalidArgument occurrences="1">
+      <code>$prototype</code>
+    </InvalidArgument>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -566,9 +482,6 @@
     </PossiblyFalseArgument>
   </file>
   <file src="src/Mailing/Types/NewSavedDeviceMail.php">
-    <MismatchingDocblockParamType occurrences="1">
-      <code>ApiKey</code>
-    </MismatchingDocblockParamType>
     <PossiblyFalseArgument occurrences="1">
       <code>getenv('MAILER_FROM')</code>
     </PossiblyFalseArgument>
@@ -578,28 +491,24 @@
       <code>getenv('MAILER_FROM')</code>
     </PossiblyFalseArgument>
   </file>
-  <file src="src/Maintenance/PhpInfo/IniValue.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>string</code>
-    </InvalidNullableReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;configName</code>
-    </NullableReturnStatement>
-  </file>
   <file src="src/Maintenance/PhpInfo/PhpInfoService.php">
     <ImpureFunctionCall occurrences="2">
       <code>php_uname</code>
       <code>zend_version</code>
     </ImpureFunctionCall>
+    <PossiblyFalseArgument occurrences="1">
+      <code>array_search('Core', $loadedExtensions)</code>
+    </PossiblyFalseArgument>
   </file>
   <file src="src/Messaging/FormMessageHandler.php">
     <InvalidOperand occurrences="1">
       <code>$this-&gt;isSpam($value, $spamFilter)</code>
     </InvalidOperand>
-    <MissingDocblockType occurrences="1">
+    <MissingDocblockType occurrences="1"/>
+    <PossiblyFalseArgument occurrences="4">
+      <code>$fromAddress</code>
+      <code>$subject</code>
       <code>$value</code>
-    </MissingDocblockType>
-    <PossiblyFalseArgument occurrences="1">
       <code>getenv('MAILER_FROM')</code>
     </PossiblyFalseArgument>
     <PossiblyFalseOperand occurrences="1">
@@ -660,6 +569,17 @@
       <code>__ROOT__</code>
     </UndefinedConstant>
   </file>
+  <file src="src/Tests/Extensions/CreateArtistHook.php">
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;artist</code>
+    </UndefinedThisPropertyAssignment>
+  </file>
+  <file src="src/Theming/Engine.php">
+    <UndefinedConstant occurrences="2">
+      <code>__ROOT__</code>
+      <code>__ROOT__</code>
+    </UndefinedConstant>
+  </file>
   <file src="src/Theming/Theme.php">
     <InvalidScalarArgument occurrences="1">
       <code>$this-&gt;dbTheme-&gt;id</code>
@@ -672,9 +592,9 @@
       <code>Database\Theme::getActiveTheme()</code>
     </PossiblyNullArgument>
     <RedundantCondition occurrences="3">
-      <code>array_filter($files, static fn ($item) =&gt; is_file($item))</code>
-      <code>array_filter($files, static fn ($item) =&gt; is_file($item))</code>
-      <code>array_filter($files, static fn ($item) =&gt; is_file($item))</code>
+      <code>array_filter($files, static fn($item) =&gt; is_file($item))</code>
+      <code>array_filter($files, static fn($item) =&gt; is_file($item))</code>
+      <code>array_filter($files, static fn($item) =&gt; is_file($item))</code>
     </RedundantCondition>
     <TypeDoesNotContainNull occurrences="3">
       <code>[]</code>
@@ -745,10 +665,31 @@
       <code>update</code>
     </PossiblyNullReference>
   </file>
+  <file src="src/Web/Actions/Artist/GetArtistByIdAction.php">
+    <InvalidArgument occurrences="1">
+      <code>$artist-&gt;format(true)</code>
+    </InvalidArgument>
+    <TooManyArguments occurrences="1">
+      <code>format</code>
+    </TooManyArguments>
+  </file>
+  <file src="src/Web/Actions/Artist/ProfilePicture/DeleteProfilePictureAction.php">
+    <TooManyArguments occurrences="1">
+      <code>parent::__construct($logger)</code>
+    </TooManyArguments>
+  </file>
+  <file src="src/Web/Actions/Artist/ProfilePicture/GetProfilePictureAction.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$path</code>
+    </PossiblyNullArgument>
+  </file>
   <file src="src/Web/Actions/Artist/ProfilePicture/UploadProfilePictureAction.php">
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;request-&gt;getBody()-&gt;detach()</code>
     </PossiblyNullArgument>
+    <TooManyArguments occurrences="1">
+      <code>parent::__construct($logger)</code>
+    </TooManyArguments>
   </file>
   <file src="src/Web/Actions/Authentication/ChangePasswordAction.php">
     <PossiblyInvalidArrayAccess occurrences="2">
@@ -764,9 +705,7 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/Authentication/LoginAction.php">
-    <InvalidArgument occurrences="2">
-      <code>$knownDevice</code>
-    </InvalidArgument>
+    <InvalidArgument occurrences="1"/>
     <PossiblyNullPropertyFetch occurrences="1">
       <code>$knownDevice-&gt;deviceKey</code>
     </PossiblyNullPropertyFetch>
@@ -849,6 +788,11 @@
       <code>$body['toAddress']</code>
     </PossiblyNullArrayAccess>
   </file>
+  <file src="src/Web/Actions/Form/GetFormByIdAction.php">
+    <InvalidArgument occurrences="1">
+      <code>$form-&gt;format()</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Web/Actions/Form/Items/CreateFormItemAction.php">
     <InvalidArgument occurrences="1">
       <code>$formItem-&gt;format()</code>
@@ -857,10 +801,22 @@
       <code>$body['label']</code>
       <code>$body['position']</code>
     </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
+      <code>$form-&gt;id</code>
+    </PossiblyInvalidPropertyAssignmentValue>
+    <PossiblyNullArgument occurrences="1">
+      <code>$body['spamFilter']</code>
+    </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="2">
       <code>$body['label']</code>
       <code>$body['position']</code>
     </PossiblyNullArrayAccess>
+    <RedundantCondition occurrences="1">
+      <code>array_filter($body['spamFilter'])</code>
+    </RedundantCondition>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>[]</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Web/Actions/Form/Items/GetFormItemsAction.php">
     <InvalidArgument occurrences="1">
@@ -921,6 +877,9 @@
     </InvalidArgument>
   </file>
   <file src="src/Web/Actions/Install/InstallAction.php">
+    <TooManyArguments occurrences="1">
+      <code>parent::__construct($logger)</code>
+    </TooManyArguments>
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
@@ -943,6 +902,11 @@
   </file>
   <file src="src/Web/Actions/LocateIp/LocatorAction.php">
     <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Web/Actions/Logging/Logger.php">
+    <UndefinedConstant occurrences="1">
+      <code>__ROOT__</code>
+    </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/Menu/CreateMenuAction.php">
     <InvalidArgument occurrences="1">
@@ -976,7 +940,9 @@
     </InvalidArgument>
   </file>
   <file src="src/Web/Actions/Menu/Items/MenuItemAction.php">
-    <PossiblyInvalidPropertyAssignmentValue occurrences="3">
+    <PossiblyInvalidPropertyAssignmentValue occurrences="5">
+      <code>$artist-&gt;id</code>
+      <code>$form-&gt;id</code>
       <code>$gallery-&gt;id</code>
       <code>$page-&gt;id</code>
       <code>$segmentPage-&gt;id</code>
@@ -1181,31 +1147,49 @@
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeFormAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeGalleryAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeMenuAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemePageAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/GetThemeSegmentPageAction.php">
     <InvalidArgument occurrences="1">
       <code>$result</code>
     </InvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
     <PossiblyInvalidArrayAccess occurrences="1">
@@ -1242,6 +1226,10 @@
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['form']</code>
     </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidPropertyAssignmentValue occurrences="2">
+      <code>$form-&gt;id</code>
+      <code>$form-&gt;id</code>
+    </PossiblyInvalidPropertyAssignmentValue>
     <PossiblyNullArgument occurrences="1">
       <code>$formId</code>
     </PossiblyNullArgument>
@@ -1354,6 +1342,11 @@
       <code>$code</code>
     </InvalidScalarArgument>
   </file>
+  <file src="src/Web/Middleware/AuthenticationMiddleware.php">
+    <PossiblyNullPropertyFetch occurrences="1">
+      <code>$artist-&gt;enabled</code>
+    </PossiblyNullPropertyFetch>
+  </file>
   <file src="src/Web/Middleware/CheckRequiredFieldsMiddleware.php">
     <PossiblyInvalidArgument occurrences="1">
       <code>$body</code>
@@ -1365,19 +1358,12 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="src/Web/Middleware/CheckRouteInCurrentThemeMiddleware.php">
-    <InvalidOperand occurrences="1">
+    <PossiblyInvalidOperand occurrences="2">
+      <code>$result</code>
       <code>$this-&gt;checkMenuItem($item, $path)</code>
-    </InvalidOperand>
-    <InvalidReturnStatement occurrences="1">
-      <code>$result</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>bool</code>
-    </InvalidReturnType>
-    <PossiblyInvalidOperand occurrences="1">
-      <code>$result</code>
     </PossiblyInvalidOperand>
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference occurrences="2">
+      <code>getItems</code>
       <code>getMenus</code>
     </PossiblyNullReference>
   </file>
@@ -1401,119 +1387,5 @@
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
-  </file>
-  <file src="tests/Database/Analyzer/DatabaseAnalyzerTest.php">
-    <RedundantCondition occurrences="4">
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Database/Analyzer/QueryAnalyzerTest.php">
-    <RedundantCondition occurrences="1">
-      <code>assertIsArray</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Database/ApiKeyTest.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>$this-&gt;testArtist-&gt;id</code>
-    </InvalidScalarArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="5">
-      <code>$this-&gt;testArtist-&gt;id</code>
-      <code>$this-&gt;testArtist-&gt;id</code>
-      <code>$this-&gt;testArtist-&gt;id</code>
-      <code>$this-&gt;testArtist-&gt;id</code>
-      <code>$this-&gt;testArtist-&gt;id</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullPropertyFetch occurrences="4">
-      <code>$apiKey-&gt;apiKey</code>
-      <code>$apiKey-&gt;validSince</code>
-      <code>$apiKey-&gt;validSince</code>
-      <code>$savedApiKey-&gt;apiKey</code>
-    </PossiblyNullPropertyFetch>
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
-    </PossiblyNullReference>
-    <RedundantCondition occurrences="1">
-      <code>assertNotNull</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Database/ArtistTest.php">
-    <InvalidScalarArgument occurrences="2">
-      <code>$artist-&gt;id</code>
-      <code>$artist-&gt;id</code>
-    </InvalidScalarArgument>
-    <PossiblyNullArgument occurrences="1">
-      <code>$artist-&gt;twoFactorToken</code>
-    </PossiblyNullArgument>
-  </file>
-  <file src="tests/Database/FileTest.php">
-    <InvalidScalarArgument occurrences="5">
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-    </InvalidScalarArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="6">
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-      <code>$uploadingFile-&gt;id</code>
-      <code>$uploadingFile-&gt;id</code>
-      <code>$uploadingFile-&gt;id</code>
-      <code>$uploadingFile-&gt;id</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullPropertyFetch occurrences="5">
-      <code>$foundFile-&gt;id</code>
-      <code>$foundFile-&gt;id</code>
-      <code>$foundFile-&gt;name</code>
-      <code>$foundFile-&gt;name</code>
-      <code>$updatedFile-&gt;name</code>
-    </PossiblyNullPropertyFetch>
-    <RedundantCondition occurrences="2">
-      <code>assertNotNull</code>
-      <code>assertNotNull</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Database/FormTest.php">
-    <InvalidScalarArgument occurrences="6">
-      <code>$form-&gt;id</code>
-      <code>$form-&gt;id</code>
-      <code>$form-&gt;id</code>
-      <code>$form-&gt;id</code>
-      <code>$form-&gt;id</code>
-      <code>$form-&gt;id</code>
-    </InvalidScalarArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$form-&gt;id</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullPropertyFetch occurrences="5">
-      <code>$foundForm-&gt;description</code>
-      <code>$foundForm-&gt;id</code>
-      <code>$foundForm-&gt;title</code>
-      <code>$foundForm-&gt;title</code>
-      <code>$foundForm-&gt;toAddress</code>
-    </PossiblyNullPropertyFetch>
-  </file>
-  <file src="tests/Database/Utils/LoadableEntityTest.php">
-    <RedundantCondition occurrences="4">
-      <code>assertIsInt</code>
-      <code>assertNotNull</code>
-      <code>assertNotNull</code>
-      <code>assertNotNull</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Database/Utils/SkipFieldFilterTest.php">
-    <RedundantCondition occurrences="1">
-      <code>assertNotNull</code>
-    </RedundantCondition>
-  </file>
-  <file src="tests/Utils/ClassResolverTest.php">
-    <RedundantCondition occurrences="3">
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-    </RedundantCondition>
   </file>
 </files>

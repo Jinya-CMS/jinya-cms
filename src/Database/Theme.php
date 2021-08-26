@@ -10,6 +10,7 @@ use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 use stdClass;
 
 #[OpenApiModel('A theme controls the frontend of the Jinya instance')]
@@ -151,7 +152,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme files
      *
-     * @return File[]
+     * @return array (File|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -171,7 +173,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme galleries
      *
-     * @return Gallery[]
+     * @return array (Gallery|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -191,7 +194,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme forms
      *
-     * @return Form[]
+     * @return array (Form|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -211,7 +215,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme menus
      *
-     * @return Menu[]
+     * @return array (Menu|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -231,7 +236,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme segmentPages
      *
-     * @return SegmentPage[]
+     * @return array (SegmentPage|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -251,7 +257,8 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme pages
      *
-     * @return SimplePage[]
+     * @return array (SimplePage|null)[]
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
@@ -325,7 +332,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         );
     }
 
-    #[ArrayShape([
+    #[Pure] #[ArrayShape([
         'configuration' => "array|\stdClass",
         'description' => "string",
         'name' => "string",

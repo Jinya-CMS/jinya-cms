@@ -130,14 +130,16 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Finds the menu item with the given route
      *
-     * @param $route
+     * @param null|string $route
+     *
      * @return MenuItem|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @noinspection PhpIncompatibleReturnTypeInspection
      */
-    public static function findByRoute($route): ?MenuItem
+    public static function findByRoute(?string $route): ?MenuItem
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE route = :route OR route = :routeWithTrailingSlash';
         $result =
@@ -206,6 +208,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         $this->internalCreate('menu_item', ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     private function rearrange(int $position): void
     {
         if (null !== $this->menuId) {

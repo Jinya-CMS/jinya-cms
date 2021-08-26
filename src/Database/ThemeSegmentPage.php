@@ -46,6 +46,11 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
         return self::fetchByTheme($themeId, 'theme_segment_page', new self());
     }
 
+    /**
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'segmentPage' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemeSegmentPage extends ThemeHelperEntity implements FormattableEntityInt
     /**
      * Gets the page of the theme page
      *
-     * @return SegmentPage
+     * @return SegmentPage|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getSegmentPage(): SegmentPage
+    public function getSegmentPage(): ?SegmentPage
     {
         return SegmentPage::findById($this->segmentPageId);
     }

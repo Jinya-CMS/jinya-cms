@@ -46,6 +46,11 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_file', new self());
     }
 
+    /**
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'file' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
     /**
      * Gets the file of the theme file
      *
-     * @return File
+     * @return File|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getFile(): File
+    public function getFile(): ?File
     {
         return File::findById($this->fileId);
     }

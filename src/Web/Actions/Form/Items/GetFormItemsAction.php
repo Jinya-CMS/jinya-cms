@@ -42,10 +42,10 @@ class GetFormItemsAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws NoResultException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
      */
     protected function action(): Response

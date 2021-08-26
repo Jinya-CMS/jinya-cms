@@ -171,12 +171,13 @@ class SimplePage extends Utils\LoadableEntity
     /**
      * Gets the creator
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getCreator(): Artist
+    public function getCreator(): ?Artist
     {
         return Artist::findById($this->creatorId);
     }
@@ -184,12 +185,13 @@ class SimplePage extends Utils\LoadableEntity
     /**
      * Gets the artist who last updated the page
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getUpdatedBy(): Artist
+    public function getUpdatedBy(): ?Artist
     {
         return Artist::findById($this->updatedById);
     }

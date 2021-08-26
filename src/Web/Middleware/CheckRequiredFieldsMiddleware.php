@@ -24,6 +24,10 @@ class CheckRequiredFieldsMiddleware implements MiddlewareInterface
         $this->fields = $fields;
     }
 
+    /**
+     * @throws HttpNotImplementedException
+     * @throws MissingFieldsException
+     */
     public function process(Request $request, RequestHandler $handler): ResponseInterface
     {
         $body = $request->getParsedBody();

@@ -46,6 +46,11 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
         return self::fetchByTheme($themeId, 'theme_gallery', new self());
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
     /**
      * Gets the gallery of the theme gallery
      *
-     * @return Gallery
+     * @return Gallery|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getGallery(): Gallery
+    public function getGallery(): ?Gallery
     {
         return Gallery::findById($this->galleryId);
     }

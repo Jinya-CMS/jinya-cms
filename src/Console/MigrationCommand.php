@@ -10,6 +10,9 @@ use App\Database\Migrations\Migrator;
 #[JinyaCommand("migrate")]
 class MigrationCommand extends AbstractCommand
 {
+    /**
+     * @throws \JsonException
+     */
     public function run(): void
     {
         $this->climate->info('Starting database migration');

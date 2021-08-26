@@ -19,6 +19,7 @@ class GetVisitsByCountryAction extends Action
 
     /**
      * @inheritDoc
+     * @throws \JsonException
      */
     protected function action(): Response
     {

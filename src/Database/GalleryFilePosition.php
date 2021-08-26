@@ -136,12 +136,13 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     /**
      * Gets the associated gallery
      *
-     * @return Gallery
+     * @return Gallery|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getGallery(): Gallery
+    public function getGallery(): ?Gallery
     {
         return Gallery::findById($this->galleryId);
     }
@@ -149,12 +150,13 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     /**
      * Gets the associated file
      *
-     * @return File
+     * @return File|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getFile(): File
+    public function getFile(): ?File
     {
         return File::findById($this->fileId);
     }

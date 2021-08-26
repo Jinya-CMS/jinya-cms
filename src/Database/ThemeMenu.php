@@ -46,6 +46,11 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_menu', new self());
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'menu' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
     /**
      * Gets the menu of the theme menu
      *
-     * @return Menu
+     * @return Menu|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getMenu(): Menu
+    public function getMenu(): ?Menu
     {
         return Menu::findById($this->menuId);
     }

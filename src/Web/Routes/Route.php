@@ -30,17 +30,17 @@ class Route
 
     public function getAuthenticatedAttribute(): ?Authenticated
     {
-        return $this->authenticatedAttributes !== null ? $this->authenticatedAttributes->newInstance() : null;
+        return $this->authenticatedAttributes?->newInstance();
     }
 
     public function getRequiredFieldsAttribute(): ?RequiredFields
     {
-        return $this->requiredFieldsAttributes !== null ? $this->requiredFieldsAttributes->newInstance() : null;
+        return $this->requiredFieldsAttributes?->newInstance();
     }
 
     public function getRequireOneFieldAttribute(): ?RequireOneField
     {
-        return $this->requireOneFieldAttributes !== null ? $this->requireOneFieldAttributes->newInstance() : null;
+        return $this->requireOneFieldAttributes?->newInstance();
     }
 
     /**

@@ -90,7 +90,7 @@ spec:
             parallel {
                 stage('Phpstan') {
                     steps {
-                        sh './vendor/bin/phpstan --no-progress analyze ./src ./tests ./app ./cli ./public'
+                        sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public'
                     }
                 }
                 stage('Psalm') {

@@ -29,7 +29,8 @@ class NewSavedDeviceMail
      *
      * @param string $artistEmail
      * @param string $artistName
-     * @param ApiKey $knownDevice
+     * @param KnownDevice $knownDevice
+     *
      * @throws Exception
      * @throws JsonException
      * @throws GuzzleException

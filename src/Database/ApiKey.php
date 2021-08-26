@@ -113,12 +113,13 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets the artist belonging to the api key
      *
-     * @return Artist
+     * @return Artist|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getArtist(): Artist
+    public function getArtist(): ?Artist
     {
         return Artist::findById($this->userId);
     }

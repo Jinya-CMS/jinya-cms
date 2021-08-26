@@ -47,9 +47,11 @@ class CreateFileAction extends Action
 
     /**
      * @inheritDoc
-     * @throws JsonException
+     * @return Response
      * @throws ConflictException
-     * @throws Exception
+     * @throws UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
      */
     protected function action(): Response
     {

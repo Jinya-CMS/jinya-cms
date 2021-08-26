@@ -13,11 +13,13 @@ use App\OpenApiGeneration\Attributes\OpenApiField;
 use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
 use App\Web\Middleware\RoleMiddleware;
+use DateInterval;
 use DateTime;
 use Exception;
 use InvalidArgumentException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use LogicException;
@@ -158,6 +160,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
 
     /**
      * Counts all available admins
+     * @param int $id
      * @return int
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -196,7 +199,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      *
      * @return array
      */
-    #[ArrayShape([
+    #[Pure] #[ArrayShape([
         'artistName' => "string",
         'email' => "string",
         'profilePicture' => "null|string",
@@ -308,15 +311,25 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         );
     }
 
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     */
     public function registerFailedLogin(): void
     {
         ++$this->failedLoginAttempts;
         if ($this->failedLoginAttempts >= 5) {
-            $this->loginBlockedUntil = (new DateTime('now'))->add(new \DateInterval('PT10M'));
+            $this->loginBlockedUntil = (new DateTime('now'))->add(new DateInterval('PT10M'));
         }
         $this->update();
     }
 
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     */
     public function unlockAccount(): void
     {
         $this->failedLoginAttempts = null;

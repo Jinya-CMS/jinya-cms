@@ -18,7 +18,7 @@ abstract class UpdateAction extends Action
     /**
      * InstallAction constructor.
      */
-    #[Pure] public function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->engine = \App\Theming\Engine::getPlatesEngine();

@@ -6,6 +6,7 @@ use App\Database\Strategies\JsonStrategy;
 use App\OpenApiGeneration\Attributes\OpenApiField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
+use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
@@ -94,13 +95,15 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     *
+     * @return Form|null
      */
-    public function getForm(): Form
+    public function getForm(): ?Form
     {
         return Form::findById($this->formId);
     }
 
-    public function format(): array
+    #[Pure] public function format(): array
     {
         return [
             'type' => $this->type,

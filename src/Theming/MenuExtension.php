@@ -13,6 +13,9 @@ use League\Plates\Extension\ExtensionInterface;
 class MenuExtension implements ExtensionInterface
 {
 
+    /**
+     * @return void
+     */
     public function register(Engine $engine)
     {
         $engine->registerFunction('getActiveMenuItem', [$this, 'getActiveMenuItem']);

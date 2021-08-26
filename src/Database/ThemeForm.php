@@ -46,6 +46,11 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
         return self::fetchByTheme($themeId, 'theme_form', new self());
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
     {
         return [
@@ -57,12 +62,13 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
     /**
      * Gets the form of the theme form
      *
-     * @return Form
+     * @return Form|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getForm(): Form
+    public function getForm(): ?Form
     {
         return Form::findById($this->formId);
     }

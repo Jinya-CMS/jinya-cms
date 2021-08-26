@@ -14,6 +14,7 @@ class GetPhpInfoAction extends Action
 {
     /**
      * {@inheritDoc}
+     * @throws \ReflectionException
      */
     protected function action(): Response
     {

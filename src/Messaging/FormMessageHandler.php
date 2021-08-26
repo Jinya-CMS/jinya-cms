@@ -20,8 +20,6 @@ class FormMessageHandler
 
     /**
      * FormMessageHandler constructor.
-     * @param ServerRequestInterface $request
-     * @param Engine $engine
      */
     public function __construct()
     {
@@ -33,11 +31,12 @@ class FormMessageHandler
      *
      * @param Form $form
      * @param array $body
-     * @throws MissingFieldsException
-     * @throws UniqueFailedException
+     * @param ServerRequestInterface $request
+     * @throws Exception
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws Exception
+     * @throws MissingFieldsException
+     * @throws UniqueFailedException
      */
     public function handleFormPost(Form $form, array $body, ServerRequestInterface $request): void
     {
@@ -88,7 +87,7 @@ class FormMessageHandler
         }
     }
 
-    #[Pure] private function isSpam(string $value, array $spamValues): bool
+    private function isSpam(string $value, array $spamValues): bool
     {
         $values = array_filter($spamValues);
         if (empty($values)) {

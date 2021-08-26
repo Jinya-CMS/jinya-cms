@@ -7,6 +7,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class GetFrontAction extends FrontAction
 {
+    /**
+     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws \App\Database\Exceptions\ForeignKeyFailedException
+     * @throws \App\Database\Exceptions\InvalidQueryException
+     */
     protected function protectedAction(): Response
     {
         $route = $this->args['route'];

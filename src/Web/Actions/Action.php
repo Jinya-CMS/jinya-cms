@@ -102,7 +102,6 @@ abstract class Action
     protected array $args;
 
     /**
-     * @param LoggerInterface $logger
      */
     public function __construct()
     {
@@ -136,7 +135,6 @@ abstract class Action
      * @param int $offset
      * @param int $count
      * @return Response
-     * @throws JsonException
      */
     protected function respondList(array $data, int $offset = 0, int $count = -1): Response
     {
@@ -197,7 +195,6 @@ abstract class Action
      * Generates a HTTP 204 No Content response
      *
      * @return Response
-     * @throws JsonException
      */
     protected function noContent(): Response
     {

@@ -143,16 +143,22 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     /**
      * Gets the corresponding segment page
      *
-     * @return SegmentPage
+     * @return SegmentPage|null
+     *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
-    public function getSegmentPage(): SegmentPage
+    public function getSegmentPage(): ?SegmentPage
     {
         return SegmentPage::findById($this->pageId);
     }
 
+    /**
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     #[ArrayShape([
         'position' => "int",
         'id' => "int",

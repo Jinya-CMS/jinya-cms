@@ -32,13 +32,11 @@ class DeleteProfilePictureAction extends Action
 
     /**
      * DeleteProfilePictureAction constructor.
-     * @param LoggerInterface $logger
-     * @param ProfilePictureService $profilePictureService
      */
-    #[Pure] public function __construct(LoggerInterface $logger, ProfilePictureService $profilePictureService)
+    public function __construct()
     {
-        parent::__construct($logger);
-        $this->profilePictureService = $profilePictureService;
+        parent::__construct();
+        $this->profilePictureService = new ProfilePictureService();
     }
 
     /**
