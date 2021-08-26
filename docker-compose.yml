@@ -6,7 +6,7 @@ volumes:
 
 services:
   jinya-mysql-database:
-    image: library/mysql:8
+    image: library/mariadb:10
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya
@@ -15,7 +15,7 @@ services:
     ports:
       - 3336:3306
   jinya-mysql-test-database:
-    image: library/mysql:8
+    image: library/mariadb:10
     environment:
       MYSQL_DATABASE: jinya
       MYSQL_PASSWORD: jinya

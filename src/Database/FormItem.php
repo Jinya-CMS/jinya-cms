@@ -131,9 +131,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             [
                 'spamFilter' => new JsonStrategy(),
                 'options' => new JsonStrategy(),
-                'isFromAddress' => new BooleanStrategy(1, 0),
-                'isSubject' => new BooleanStrategy(1, 0),
-                'isRequired' => new BooleanStrategy(1, 0),
             ]
         );
     }
@@ -157,9 +154,6 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             [
                 'spamFilter' => new JsonStrategy(),
                 'options' => new JsonStrategy(),
-                'isFromAddress' => new BooleanStrategy(1, 0),
-                'isSubject' => new BooleanStrategy(1, 0),
-                'isRequired' => new BooleanStrategy(1, 0),
             ]
         );
     }
