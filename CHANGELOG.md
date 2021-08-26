@@ -1,10 +1,45 @@
 # Changelog
 
-# Release notes - Jinya Gallery CMS - Version 20.0.12
-## User Stories
-* [#28](https://taiga.imanuel.dev/project/jinya-cms/issue/28) Increase gallery designer performance
+## Release notes - Jinya Gallery CMS - Version 21.0.2
+### Fixed issues
+* [#75](https://taiga.imanuel.dev/project/jinya-cms/issue/75) Error creating Menu Item
 
-## Fixed issues
+## Release notes - Jinya Gallery CMS - Version 21.0.1
+### Fixed issues
+* [#74](https://taiga.imanuel.dev/project/jinya-cms/issue/74) Wrong class on tab control for table data
+
+## Release notes - Jinya Gallery CMS - Version 21.0.0
+### User Stories
+* [#22](https://taiga.imanuel.dev/project/jinya-cms/us/22) Use proper OPCache config resolution
+* [#24](https://taiga.imanuel.dev/project/jinya-cms/us/24) Remove DIC
+* [#31](https://taiga.imanuel.dev/project/jinya-cms/us/31) Add loading spinner
+* [#41](https://taiga.imanuel.dev/project/jinya-cms/us/41) Gallery designer needs rewrite
+* [#44](https://taiga.imanuel.dev/project/jinya-cms/us/44) Better extension display page
+* [#63](https://taiga.imanuel.dev/project/jinya-cms/us/63) Details about tables
+* [#64](https://taiga.imanuel.dev/project/jinya-cms/us/64) Clean environment before docker build
+* [#65](https://taiga.imanuel.dev/project/jinya-cms/us/65) More localized date in matomo stats
+* [#66](https://taiga.imanuel.dev/project/jinya-cms/us/66) Empty theme with all options
+* [#70](https://taiga.imanuel.dev/project/jinya-cms/us/70) Bump Cosmo CSS
+* [#73](https://taiga.imanuel.dev/project/jinya-cms/us/73) Sort extensions alphabetically
+
+### Fixed issues
+* [#27](https://taiga.imanuel.dev/project/jinya-cms/issue/27) Discard gallery does nothing
+* [#30](https://taiga.imanuel.dev/project/jinya-cms/issue/30) Gallery designer needs rewrite
+* [#39](https://taiga.imanuel.dev/project/jinya-cms/issue/39) Installer is buggy
+* [#40](https://taiga.imanuel.dev/project/jinya-cms/issue/40) jinya-content is not created if missing
+* [#67](https://taiga.imanuel.dev/project/jinya-cms/issue/67) Loading spinner displays with no items
+* [#71](https://taiga.imanuel.dev/project/jinya-cms/issue/71) Segment page not sorting correctly
+* [#72](https://taiga.imanuel.dev/project/jinya-cms/issue/72) Menu not sorting correctly
+
+## Release notes - Jinya Gallery CMS - Version 20.0.13
+### Fixed issues
+* [#29](https://taiga.imanuel.dev/project/jinya-cms/issue/29) Gallery designer clones, needs to pull
+
+## Release notes - Jinya Gallery CMS - Version 20.0.12
+### User Stories
+* [#28](https://taiga.imanuel.dev/project/jinya-cms/us/28) Increase gallery designer performance
+
+### Fixed issues
 * [#25](https://taiga.imanuel.dev/project/jinya-cms/issue/25) Cannot delete menu item 
 * [#26](https://taiga.imanuel.dev/project/jinya-cms/issue/26) Drag targets are too small 
 * [#27](https://taiga.imanuel.dev/project/jinya-cms/issue/27) Discard gallery does nothing 

@@ -16,15 +16,17 @@
         <div class="installer-block">
             <label for="artistname">Artist name</label>
             <input required class="installer-input" type="text" name="artistname" id="artistname"
-                   value="<?= $data['artistname'] ?>">
+                   value="<?= $data['artistname'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="email">Email</label>
-            <input required class="installer-input" type="email" name="email" id="email" value="<?= $data['email'] ?>">
+            <input required class="installer-input" type="email" name="email" id="email"
+                   value="<?= $data['email'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="password">Password</label>
-            <input required class="installer-input" type="password" value="<?= $data['password'] ?>" name="password"
+            <input required class="installer-input" type="password" value="<?= $data['password'] ?? '' ?>"
+                   name="password"
                    id="password">
         </div>
     </fieldset>

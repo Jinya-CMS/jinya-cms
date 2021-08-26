@@ -22,9 +22,9 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
     /**
      * CheckRouteInCurrentThemeMiddleware constructor.
      */
-    public function __construct(Engine $engine)
+    public function __construct()
     {
-        $this->engine = $engine;
+        $this->engine = Theming\Engine::getPlatesEngine();
     }
 
     /**

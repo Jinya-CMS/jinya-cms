@@ -54,10 +54,11 @@
   let createNewSegment = false;
   let createPosition;
   let createNewSegmentType;
+  let loading = false;
 
   $: if (segmentToolboxElement instanceof HTMLElement) {
     new Sortable(segmentToolboxElement, {
-      group: { name: 'segment_page', put: false, pull: 'clone' },
+      group: {name: 'segment_page', put: false, pull: 'clone'},
       sort: false,
       handle: '.jinya-designer__drag-handle',
       onEnd(e) {
@@ -70,7 +71,7 @@
 
   $: if (segmentListElement instanceof HTMLElement) {
     new Sortable(segmentListElement, {
-      group: { name: 'segment_page', put: true, pull: false },
+      group: {name: 'segment_page', put: true, pull: false},
       sort: true,
       async onAdd(e) {
         createNewSegment = true;
@@ -85,13 +86,13 @@
         createNewSegmentType = e.item.getAttribute('data-type');
         switch (createNewSegmentType) {
           case 'gallery':
-            selectedSegment = { gallery: galleries[0] };
+            selectedSegment = {gallery: galleries[0]};
             break;
           case 'file':
-            selectedSegment = { file: files[0] };
+            selectedSegment = {file: files[0]};
             break;
           case 'html':
-            selectedSegment = { html: '<p></p>' };
+            selectedSegment = {html: '<p></p>'};
             break;
         }
         await editSegment();
@@ -101,18 +102,20 @@
         const dropIdx = e.newIndex;
         const position = segments[dropIdx].position;
         await put(`/api/segment-page/${selectedPage.id}/segment/${oldPosition}`, {
-          newPosition: position,
+          newPosition: position > oldPosition ? position + 1 : position,
         });
-        await selectPage(selectedPage);
+        await selectPage(selectedPage, false);
       },
     });
   }
 
-  async function selectPage(page) {
+  async function selectPage(page, load = true) {
+    loading = load;
     selectedPage = page;
     editPageName = selectedPage.name;
     segments = await get(`/api/segment-page/${selectedPage.id}/segment`);
     selectedSegment = null;
+    loading = false;
   }
 
   async function loadPages() {
@@ -124,7 +127,7 @@
   }
 
   async function deletePage() {
-    const result = await jinyaConfirm($_('pages_and_forms.segment.delete.title'), $_('pages_and_forms.segment.delete.message', { values: selectedPage }), $_('pages_and_forms.segment.delete.delete'), $_('pages_and_forms.segment.delete.keep'));
+    const result = await jinyaConfirm($_('pages_and_forms.segment.delete.title'), $_('pages_and_forms.segment.delete.message', {values: selectedPage}), $_('pages_and_forms.segment.delete.delete'), $_('pages_and_forms.segment.delete.keep'));
     if (result) {
       await httpDelete(`/api/segment-page/${selectedPage.id}`);
       await loadPages();
@@ -201,7 +204,7 @@
   }
 
   async function deleteSegment() {
-    const result = await jinyaConfirm($_('pages_and_forms.segment.delete_segment.title'), $_('pages_and_forms.segment.delete_segment.message', { values: selectedPage }), $_('pages_and_forms.segment.delete_segment.delete'), $_('pages_and_forms.segment.delete_segment.keep'));
+    const result = await jinyaConfirm($_('pages_and_forms.segment.delete_segment.title'), $_('pages_and_forms.segment.delete_segment.message', {values: selectedPage}), $_('pages_and_forms.segment.delete_segment.delete'), $_('pages_and_forms.segment.delete_segment.keep'));
     if (result) {
       await httpDelete(`/api/segment-page/${selectedPage.id}/segment/${selectedSegment.position}`);
       await selectPage(selectedPage);
@@ -264,7 +267,7 @@
       await put(`/api/segment-page/${selectedPage.id}/segment/${selectedSegment.position}`, data);
     }
     cancelEditSegment();
-    await selectPage(selectedPage);
+    await selectPage(selectedPage, false);
   }
 
   onMount(async () => {
@@ -285,8 +288,12 @@
         <button on:click={() => createPageOpen = true}
                 class="cosmo-button cosmo-button--full-width">{$_('pages_and_forms.segment.action.new')}</button>
     </nav>
-    <div class="cosmo-list__content jinya-designer">
-        {#if selectedPage}
+    {#if loading}
+        <div class="cosmo-list__content jinya-loader__container">
+            <div class="jinya-loader"></div>
+        </div>
+    {:else if selectedPage}
+        <div class="cosmo-list__content jinya-designer">
             <div class="jinya-designer__title">
                 <span class="cosmo-title">#{selectedPage.id} {selectedPage.name}</span>
             </div>
@@ -304,66 +311,66 @@
                             class="cosmo-button">{$_('pages_and_forms.segment.action.delete_segment')}</button>
                 </div>
             </div>
-        {/if}
-        <div class="jinya-designer__content">
-            <div bind:this={segmentListElement} class="jinya-designer__result jinya-designer__result--horizontal">
-                {#each segments as segment (segment.id)}
-                    {#if segment.file}
-                        <div data-old-position={segment.position}
-                             class:jinya-designer-item--selected={selectedSegment === segment}
-                             class:jinya-designer-item--file-selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)}
-                             class="jinya-designer-item jinya-designer-item--file">
-                            <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
-                                 alt={segment.file.name}>
-                            <div class="jinya-designer-item__details jinya-designer-item__details--file"
-                                 class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
-                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
-                                <dl class="jinya-segment__action">
-                                    <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.action')}</dt>
-                                    <dd class="jinya-segment__content">{$_(`pages_and_forms.segment.designer.action_${segment.action}`)}</dd>
-                                    {#if segment.action === 'link'}
-                                        <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.link')}</dt>
-                                        <dd class="jinya-segment__content">{segment.target}</dd>
-                                    {/if}
-                                </dl>
+            <div class="jinya-designer__content">
+                <div bind:this={segmentListElement} class="jinya-designer__result jinya-designer__result--horizontal">
+                    {#each segments as segment (segment.id)}
+                        {#if segment.file}
+                            <div data-old-position={segment.position}
+                                 class:jinya-designer-item--selected={selectedSegment === segment}
+                                 class:jinya-designer-item--file-selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--file">
+                                <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
+                                     alt={segment.file.name}>
+                                <div class="jinya-designer-item__details jinya-designer-item__details--file"
+                                     class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
+                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
+                                    <dl class="jinya-segment__action">
+                                        <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.action')}</dt>
+                                        <dd class="jinya-segment__content">{$_(`pages_and_forms.segment.designer.action_${segment.action}`)}</dd>
+                                        {#if segment.action === 'link'}
+                                            <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.link')}</dt>
+                                            <dd class="jinya-segment__content">{segment.target}</dd>
+                                        {/if}
+                                    </dl>
+                                </div>
                             </div>
-                        </div>
-                    {:else if segment.gallery}
-                        <div data-old-position={segment.position}
-                             class:jinya-designer-item--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)}
-                             class="jinya-designer-item jinya-designer-item--gallery">
-                            <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
-                            <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
-                        </div>
-                    {:else if segment.html}
-                        <div data-old-position={segment.position}
-                             class:jinya-designer-item--selected={selectedSegment === segment}
-                             on:click={() => selectSegment(segment)}
-                             class="jinya-designer-item jinya-designer-item--html">
-                            <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
-                            <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
-                        </div>
-                    {/if}
-                {/each}
-            </div>
-            <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
-                <div data-type="gallery" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
+                        {:else if segment.gallery}
+                            <div data-old-position={segment.position}
+                                 class:jinya-designer-item--selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--gallery">
+                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
+                                <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
+                            </div>
+                        {:else if segment.html}
+                            <div data-old-position={segment.position}
+                                 class:jinya-designer-item--selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--html">
+                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
+                                <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
+                            </div>
+                        {/if}
+                    {/each}
                 </div>
-                <div data-type="file" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.segment.designer.file')}</span>
-                </div>
-                <div data-type="html" class="jinya-designer-item__template">
-                    <span class="jinya-designer__drag-handle"></span>
-                    <span>{$_('pages_and_forms.segment.designer.html')}</span>
+                <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
+                    <div data-type="gallery" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
+                    </div>
+                    <div data-type="file" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.file')}</span>
+                    </div>
+                    <div data-type="html" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.html')}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 {#if createPageOpen}
     <div class="cosmo-modal__backdrop"></div>

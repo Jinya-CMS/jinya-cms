@@ -238,10 +238,17 @@
   const to = new Date(Date.now());
   const from = new Date(Date.now());
   from.setMonth(to.getMonth() - 1);
+  function getLang() {
+    if (navigator.languages) {
+      return navigator.languages[0];
+    }
+
+    return navigator.language;
+  }
 </script>
 
-<span class="cosmo-title">{$_('statistics.access.title')} | {from.toLocaleDateString()}
-    – {to.toLocaleDateString()}</span>
+<span class="cosmo-title">{$_('statistics.access.title')} | {from.toLocaleDateString(getLang(), { year: 'numeric', month: '2-digit', day: '2-digit' })}
+    – {to.toLocaleDateString(getLang(), { year: 'numeric', month: '2-digit', day: '2-digit' })}</span>
 <div bind:this={country}></div>
 <div class="jinya-stats__row">
     <div bind:this={language}></div>

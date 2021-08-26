@@ -39,13 +39,11 @@ class TwoFactorAction extends Action
 
     /**
      * TwoFactorAction constructor.
-     * @param LoggerInterface $logger
-     * @param TwoFactorMail $twoFactorMail
      */
-    #[Pure] public function __construct(LoggerInterface $logger, TwoFactorMail $twoFactorMail)
+    public function __construct()
     {
-        parent::__construct($logger);
-        $this->twoFactorMail = $twoFactorMail;
+        parent::__construct();
+        $this->twoFactorMail = new TwoFactorMail();
     }
 
     /**

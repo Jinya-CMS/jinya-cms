@@ -13,6 +13,7 @@
   $: if (codeEditorElement instanceof HTMLElement) {
     codeEditor = editor.create(codeEditorElement, {
       language: 'mysql',
+      theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hc-black' : 'vs',
     });
   }
 
@@ -24,7 +25,7 @@
   async function execute() {
     const query = codeEditor.getValue();
     try {
-      queryResult = await post('/api/maintenance/database/query', { query });
+      queryResult = await post('/api/maintenance/database/query', {query});
       if (queryResult.length > 0) {
         selectQuery(queryResult[0].statement);
       }
@@ -75,7 +76,7 @@
                                 </tbody>
                             </table>
                         {:else if !isNaN(activeResult.result)}
-                            {$_('database.query_tool.rows_affected', { values: { count: activeResult.result } })}
+                            {$_('database.query_tool.rows_affected', {values: {count: activeResult.result}})}
                         {/if}
                     {/if}
                 </div>

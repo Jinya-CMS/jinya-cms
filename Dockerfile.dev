@@ -12,6 +12,7 @@ RUN docker-php-ext-install pdo pdo_mysql zip opcache
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 #RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.log_level=0" >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN echo "xdebug.mode=profile" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.discover_client_host=yes" >> /usr/local/etc/php/conf.d/xdebug.ini && echo "xdebug.output_dir=/var/www/html/profile" >> /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install apcu && docker-php-ext-enable apcu
 RUN a2enmod rewrite
 RUN a2enmod headers
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf

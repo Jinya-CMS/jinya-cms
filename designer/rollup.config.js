@@ -10,7 +10,7 @@ const production = !process.env.ROLLUP_WATCH;
 export default {
   input: 'src/main.js',
   output: {
-    sourcemap: !production,
+    sourcemap: true,
     name: 'app',
     file: '../public/designer/build/bundle.js',
     inlineDynamicImports: true
@@ -20,7 +20,7 @@ export default {
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production
-        dev: !production
+        dev: !production,
       }
     }),
     postcss(),
@@ -37,14 +37,6 @@ export default {
     commonjs(),
     copy({
       targets: [
-        {
-          src: 'node_modules/tinymce/skins/content',
-          dest: '../public/designer/build/skins/',
-        },
-        {
-          src: 'node_modules/tinymce/skins/ui',
-          dest: '../public/designer/build/skins/',
-        },
         {
           src: 'node_modules/@jinyacms/cosmo/*.*',
           dest: '../public/static/cosmo/',

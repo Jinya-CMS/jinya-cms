@@ -16,7 +16,6 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class FormMessageHandler
 {
-    private ServerRequestInterface $request;
     private Engine $engine;
 
     /**
@@ -24,10 +23,9 @@ class FormMessageHandler
      * @param ServerRequestInterface $request
      * @param Engine $engine
      */
-    public function __construct(ServerRequestInterface $request, Engine $engine)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->engine = $engine;
+        $this->engine = \App\Theming\Engine::getPlatesEngine();
     }
 
     /**
@@ -41,7 +39,7 @@ class FormMessageHandler
      * @throws InvalidQueryException
      * @throws Exception
      */
-    public function handleFormPost(Form $form, array $body): void
+    public function handleFormPost(Form $form, array $body, ServerRequestInterface $request): void
     {
         $formValues = [];
         $missingFields = [];
@@ -50,7 +48,11 @@ class FormMessageHandler
         $fromAddress = 'Some person';
         foreach ($form->getItems() as $item) {
             /** @var $item FormItem */
-            $value = $body[$item->id];
+            if ($item->type === 'checkbox') {
+                $value = $body[$item->id] ?? false;
+            } else {
+                $value = $body[$item->id];
+            }
             if ($item->isRequired && !isset($value)) {
                 $missingFields[] = $item->label;
             }
@@ -77,20 +79,23 @@ class FormMessageHandler
             $mailer->setFrom(getenv('MAILER_FROM'));
             $mailer->Subject = $subject;
             $mailer->Body = $this->renderTemplate($formValues, $subject);
+            $mailer->isHTML(true);
+            $mailer->send();
         }
 
         if (!empty($missingFields)) {
-            throw new MissingFieldsException($this->request, $missingFields);
+            throw new MissingFieldsException($request, $missingFields);
         }
     }
 
     #[Pure] private function isSpam(string $value, array $spamValues): bool
     {
-        if (empty($spamValues)) {
+        $values = array_filter($spamValues);
+        if (empty($values)) {
             return false;
         }
 
-        foreach ($spamValues as $spamValue) {
+        foreach ($values as $spamValue) {
             if (stripos($value, $spamValue) !== false) {
                 return true;
             }

@@ -17,13 +17,11 @@ abstract class UpdateAction extends Action
 
     /**
      * InstallAction constructor.
-     * @param Engine $engine
-     * @param LoggerInterface $logger
      */
-    #[Pure] public function __construct(Engine $engine, LoggerInterface $logger)
+    #[Pure] public function __construct()
     {
-        parent::__construct($logger);
-        $this->engine = $engine;
+        parent::__construct();
+        $this->engine = \App\Theming\Engine::getPlatesEngine();
     }
 
     /**

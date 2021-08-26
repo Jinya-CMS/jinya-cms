@@ -7,20 +7,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\LoadableEntity;
-use PhpMyAdmin\SqlParser\Statement;
+use Error;
 
 abstract class Migrator extends LoadableEntity
 {
-    /**
-     * @param string $sql
-     * @return Statement[]
-     */
-    private static function getStatements(string $sql): array
-    {
-        $queryAnalyzer = new QueryAnalyzer();
-        return $queryAnalyzer->getStatements($sql);
-    }
-
     /**
      * Migrates the installation of Jinya
      *
@@ -34,10 +24,7 @@ abstract class Migrator extends LoadableEntity
         $result = self::executeStatement($sql);
         if (0 === count($result)) {
             $initialMigration = require __DIR__ . '/initial-migration.php';
-            $stmts = self::getStatements($initialMigration['sql']);
-            foreach ($stmts as $stmt) {
-                self::executeStatement($stmt->build());
-            }
+            self::executeSingleMigration($initialMigration['sql']);
         }
 
         $migrationsPath = __ROOT__ . '/migrations';
@@ -48,7 +35,6 @@ abstract class Migrator extends LoadableEntity
 
         $executedMigrations = 0;
         foreach ($files as $file) {
-            /** @noinspection PhpIncludeInspection */
             $migration = require $file;
             $script = $migration['sql'];
             $version = $migration['version'];
@@ -57,10 +43,7 @@ abstract class Migrator extends LoadableEntity
             $wasMigrated = count($result) > 0;
 
             if (!$wasMigrated) {
-                $stmts = self::getStatements($script);
-                foreach ($stmts as $stmt) {
-                    self::executeStatement($stmt->build());
-                }
+                self::executeSingleMigration($script);
                 $insert = 'INSERT INTO migration_state (version) VALUES (:version)';
                 self::executeStatement($insert, ['version' => $version]);
                 ++$executedMigrations;
@@ -68,5 +51,17 @@ abstract class Migrator extends LoadableEntity
         }
 
         return $executedMigrations;
+    }
+
+    /**
+     * @param string $script
+     */
+    public static function executeSingleMigration(string $script): void
+    {
+        $pdo = self::getPdo();
+        $queryAnalyzer = new QueryAnalyzer();
+        foreach ($queryAnalyzer->getStatements($script) as $statement) {
+            $pdo->exec($statement->build());
+        }
     }
 }

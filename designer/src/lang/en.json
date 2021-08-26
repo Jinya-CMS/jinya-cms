@@ -573,6 +573,31 @@
       "zend_engine": "Zend Engine version",
       "apache": "Apache Version",
       "php": "PHP Version",
+      "extension": {
+        "version": "Version",
+        "more_info": "More informations",
+        "ini_values": "Settings",
+        "opcache": {
+          "enabled": "Activated",
+          "full": "Cache full",
+          "usedMemory": "Used memory (in MB)",
+          "freeMemory": "Free memory (in MB)",
+          "wastedMemory": "Wasted memory (in MB)",
+          "currentWastedMemoryPercentage": "Wasted memory (in percent)",
+          "jitEnabled": "JIT enabled"
+        },
+        "apcu": {
+          "enabled": "Activated",
+          "numberSlots": "Number slots",
+          "numberEntries": "Number entries",
+          "memorySize": "Memory size (in MB)",
+          "memoryType": "Memory type"
+        },
+        "hash": {
+          "enabled": "Activated",
+          "algos": "Hash algorithms"
+        }
+      },
       "ini": {
         "name": "Name",
         "value": "Value"
@@ -606,6 +631,32 @@
       "default": "Default value",
       "extra": "Extra data"
     },
+    "structure": "Structure",
+    "constraints": {
+      "title": "Constraints",
+      "constraintName": "Name",
+      "constraintType": "Constraint type",
+      "columnName": "Column name",
+      "referencedTableName": "Referenced table",
+      "referencedColumnName": "Referenced column",
+      "positionInUniqueConstraint": "Position in unique constraint",
+      "deleteRule": "Action on delete",
+      "updateRule": "Action on update",
+      "none": "Not applicable"
+    },
+    "indexes": {
+      "title": "Indexes",
+      "keyName": "Key name",
+      "columnName": "Column name",
+      "cardinality": "Cardinality",
+      "indexType": "Index type",
+      "collation": "Collation",
+      "unique": "Unique"
+    },
+    "details": "Details",
+    "entryCount": "Entry count",
+    "size": "Table size in KB",
+    "engine": "Storage engine",
     "query_tool": {
       "execute": "Execute queries",
       "no_result": "No results were returned for the query",

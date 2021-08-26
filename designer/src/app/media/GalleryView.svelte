@@ -1,11 +1,14 @@
 <script>
   import { get, getHost, httpDelete, post, put } from '../../http/request';
   import { onMount } from 'svelte';
+  import { writable, get as getStore } from 'svelte/store';
   import { _ } from 'svelte-i18n';
   import Sortable from 'sortablejs';
   import { jinyaConfirm } from '../../ui/confirm';
   import { jinyaAlert } from '../../ui/alert';
 
+  let filesStore = writable([]);
+  let positionsStore = writable([]);
   let createGalleryName = '';
   let createGalleryOrientation = 'horizontal';
   let createGalleryType = 'sequence';
@@ -19,18 +22,18 @@
   let editGalleryOpen = false;
 
   let galleries = [];
-  let selectedGallery = null;
-  let files = [];
+  let selectedGallery = {};
+
   let positions = [];
-  let filesElement;
-  let filesSortable;
-  let positionsElement;
-  let positionsSortable;
+  let files = [];
+  let allFiles = {};
+  let loading = false;
 
   async function selectGallery(gallery) {
     selectedGallery = gallery;
-    positions = await get(`/api/media/gallery/${selectedGallery.id}/file`);
-    const allFiles = await get('/api/media/file');
+    loading = true;
+    positions = await get(`/api/media/gallery/${gallery.id}/file`);
+    allFiles = await get('/api/media/file');
     files = allFiles.items.filter(file => {
       const idx = positions.map(position => position.file).findIndex(position => position.id === file.id);
       return idx === -1;
@@ -46,26 +49,63 @@
 
       return 0;
     });
+
+    if (filesStore.length > 0) {
+      filesStore.update(() => {
+        return files;
+      });
+    } else {
+      filesStore = writable(files);
+    }
+    if (positionsStore.length > 0) {
+      positionsStore.update(() => {
+        return positions;
+      });
+    } else {
+      positionsStore = writable(positions);
+    }
+    loading = false;
   }
 
-  $: if (filesElement instanceof HTMLElement) {
-    filesSortable = new Sortable(filesElement, {
-      group: {name: 'gallery', pull: 'clone', put: true},
-      sort: false,
+  const filesSortable = function (node, {items, options}) {
+    let sortable;
+    let toRemoveOnDestroy = [];
+    options = Object.assign(options, {
       async onAdd(e) {
-        e.item.style.display = 'none';
+        e.item.classList.add('jinya-media-tile--medium');
         const idx = e.oldIndex;
         const position = positions[idx];
         await httpDelete(`/api/media/gallery/${selectedGallery.id}/file/${position.position}`);
-        await selectGallery(selectedGallery);
-      }
-    });
-  }
+        positions = await get(`/api/media/gallery/${selectedGallery.id}/file`);
 
-  $: if (positionsElement instanceof HTMLElement) {
-    positionsSortable = new Sortable(positionsElement, {
-      group: 'gallery',
-      sort: true,
+        files = allFiles.items.filter(file => {
+          const idx = positions.map(position => position.file).findIndex(position => position.id === file.id);
+          return idx === -1;
+        });
+
+        e.from.appendChild(e.item);
+
+        positionsStore = writable(positions);
+        filesStore = writable(files);
+      },
+    });
+
+    sortable = new Sortable(node, options);
+
+    return {
+      update(items) {
+        sortable.destroy();
+        sortable = new Sortable(node, options);
+      },
+      destroy() {
+        sortable.destroy();
+      }
+    };
+  };
+
+  const positionsSortable = function (node, {items, options}) {
+    let sortable;
+    options = Object.assign(options, {
       async onAdd(e) {
         e.item.classList.remove('jinya-media-tile--medium');
         const fileIdx = e.oldIndex;
@@ -84,38 +124,45 @@
           position,
         });
 
-        positions.splice(dropIdx, 0, galleryFilePosition);
-        for (const position1 of positions.slice(dropIdx, positions.length)) {
-          position1.position += 1;
-        }
+        positions = await get(`/api/media/gallery/${selectedGallery.id}/file`);
 
-        files = files.filter(file => {
+        files = allFiles.items.filter(file => {
           const idx = positions.map(position => position.file).findIndex(position => position.id === file.id);
           return idx === -1;
         });
-        positions = positions;
+
+        e.from.appendChild(e.item);
+
+        positionsStore = writable(positions);
+        filesStore = writable(files);
       },
       async onUpdate(e) {
-        const oldPosition = e.item.getAttribute('data-old-position');
+        const oldPosition = positions[e.oldIndex].position;
         const dropIdx = e.newIndex;
         const position = positions[dropIdx].position;
         await put(`/api/media/gallery/${selectedGallery.id}/file/${oldPosition}`, {
-          newPosition: position,
+          newPosition: position > oldPosition ? position + 1 : position,
         });
 
-        const galleryFilePosition = positions.find(item => item.position = oldPosition);
-        positions.splice(oldPosition, 1);
-        positions.splice(dropIdx, 0, galleryFilePosition);
-        let counter = 1;
-        for (const position1 of positions) {
-          position1.position = counter;
-          counter++;
-        }
-
-        positions = positions;
+        positions = await get(`/api/media/gallery/${selectedGallery.id}/file`);
+        positionsStore.update(() => {
+          return positions;
+        });
       },
     });
-  }
+
+    sortable = new Sortable(node, options);
+
+    return {
+      update(items) {
+        sortable.destroy();
+        sortable = new Sortable(node, options);
+      },
+      destroy() {
+        sortable.destroy();
+      }
+    };
+  };
 
   async function loadGalleries() {
     const response = await get('/api/media/gallery');
@@ -209,8 +256,12 @@
         <button on:click={() => createGalleryOpen = true}
                 class="cosmo-button cosmo-button--full-width">{$_('media.galleries.action.new')}</button>
     </nav>
-    <div class="cosmo-list__content jinya-designer">
-        {#if selectedGallery}
+    {#if loading}
+        <div class="cosmo-list__content jinya-loader__container">
+            <div class="jinya-loader"></div>
+        </div>
+    {:else if selectedGallery.id !== undefined}
+        <div class="cosmo-list__content jinya-designer">
             <div class="jinya-designer__title">
                 <span class="cosmo-title">#{selectedGallery.id} {selectedGallery.name}</span>
                 <span class="cosmo-title">
@@ -225,22 +276,24 @@
                             class="cosmo-button">{$_('media.galleries.action.delete')}</button>
                 </div>
             </div>
-        {/if}
-        <div class="jinya-designer__content">
-            <div bind:this={positionsElement} class="jinya-designer__result">
-                {#each positions as position (position.id)}
-                    <img class="jinya-media-tile jinya-media-tile--draggable" data-old-position={position.position}
-                         alt={position.name} src={`${getHost()}${position.file?.path}`}>
-                {/each}
-            </div>
-            <div bind:this={filesElement} class="jinya-designer__toolbox">
-                {#each files as file (file.id)}
-                    <img class="jinya-media-tile jinya-media-tile--medium jinya-media-tile--draggable" alt={file.name}
-                         src={`${getHost()}${file.path}`}>
-                {/each}
+            <div class="jinya-designer__content">
+                <div class="jinya-designer__result"
+                     use:positionsSortable="{{ items: positionsStore, options: { group: 'gallery', sort: true, } }}">
+                    {#each getStore(positionsStore) as position, index (position.id)}
+                        <img class="jinya-media-tile jinya-media-tile--draggable" alt={position.name}
+                             src={`${getHost()}${position.file?.path}`}>
+                    {/each}
+                </div>
+                <div class="jinya-designer__toolbox"
+                     use:filesSortable="{{ items: filesStore, options: { group: 'gallery', sort: false, } }}">
+                    {#each getStore(filesStore) as file, index (file.id)}
+                        <img class="jinya-media-tile jinya-media-tile--medium jinya-media-tile--draggable"
+                             alt={file.name} src={`${getHost()}${file.path}`}>
+                    {/each}
+                </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 {#if createGalleryOpen}
     <div class="cosmo-modal__backdrop"></div>

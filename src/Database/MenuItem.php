@@ -23,7 +23,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     #[OpenApiField(required: true)]
     public string $title;
     #[OpenApiField(required: false, defaultValue: null)]
-    public ?string $route;
+    public ?string $route = null;
     #[OpenApiField(required: false)]
     public bool $highlighted = false;
     #[OpenApiField(required: false, structure: [
@@ -210,7 +210,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         if (null !== $this->menuId) {
             $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $position);
-        } else if (null !== $this->parentId) {
+        } elseif (null !== $this->parentId) {
             $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $position);
         } else {
             throw new LogicException('No parent provided');

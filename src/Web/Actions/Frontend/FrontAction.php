@@ -24,10 +24,10 @@ abstract class FrontAction extends Action
      * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      */
-    public function __construct(Engine $engine, LoggerInterface $logger)
+    public function __construct()
     {
-        parent::__construct($logger);
-        $this->engine = $engine;
+        parent::__construct();
+        $this->engine = Theming\Engine::getPlatesEngine();
         $this->activeTheme = new Theming\Theme(Database\Theme::getActiveTheme());
     }
 

@@ -105,9 +105,9 @@ abstract class LoadableEntity
      * Executes the given sql statement and returns an int
      *
      * @param string $sql
-     * @return int
+     * @return int|string
      */
-    public static function fetchColumn(string $sql): int
+    public static function fetchColumn(string $sql): int|string
     {
         $pdo = self::getPdo();
         $stmt = $pdo->query($sql);

@@ -20,28 +20,28 @@ $this->start('body') ?>
         <div class="installer-block">
             <label for="MYSQL_HOST">Server</label>
             <input class="installer-input" type="text" name="MYSQL_HOST" id="MYSQL_HOST"
-                   value="<?= $data['MYSQL_HOST'] ?>">
+                   value="<?= $data['MYSQL_HOST'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MYSQL_PORT">Port</label>
-            <input class="installer-input" type="number" min="1" max="65535" value="<?= $data['MYSQL_PORT'] ?>"
+            <input class="installer-input" type="number" min="1" max="65535" value="<?= $data['MYSQL_PORT'] ?? '' ?>"
                    name="MYSQL_PORT"
                    id="MYSQL_PORT">
         </div>
         <div class="installer-block">
             <label for="MYSQL_DATABASE">Database</label>
-            <input class="installer-input" type="text" name="MYSQL_DATABASE" value="<?= $data['MYSQL_DATABASE'] ?>"
-                   id="MYSQL_DATABASE">
+            <input class="installer-input" type="text" name="MYSQL_DATABASE"
+                   value="<?= $data['MYSQL_DATABASE'] ?? '' ?>" id="MYSQL_DATABASE">
         </div>
         <div class="installer-block">
             <label for="MYSQL_USER">Username</label>
             <input class="installer-input" type="text" name="MYSQL_USER" id="MYSQL_USER"
-                   value="<?= $data['MYSQL_USER'] ?>">
+                   value="<?= $data['MYSQL_USER'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MYSQL_PASSWORD">Password</label>
             <input class="installer-input" type="password" name="MYSQL_PASSWORD" id="MYSQL_PASSWORD"
-                   value="<?= $data['MYSQL_PASSWORD'] ?>">
+                   value="<?= $data['MYSQL_PASSWORD'] ?? '' ?>">
         </div>
     </fieldset>
     <fieldset class="installer-fieldset">
@@ -49,22 +49,22 @@ $this->start('body') ?>
         <div class="installer-block">
             <label for="MAILER_HOST">Server</label>
             <input class="installer-input" type="text" name="MAILER_HOST" id="MAILER_HOST"
-                   value="<?= $data['MAILER_HOST'] ?>">
+                   value="<?= $data['MAILER_HOST'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MAILER_PORT">Port</label>
             <input class="installer-input" type="number" min="1" max="65535" name="MAILER_PORT" id="MAILER_PORT"
-                   value="<?= $data['MAILER_PORT'] ?>">
+                   value="<?= $data['MAILER_PORT'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MAILER_USERNAME">Username</label>
             <input class="installer-input" type="text" name="MAILER_USERNAME" id="MAILER_USERNAME"
-                   value="<?= $data['MAILER_USERNAME'] ?>">
+                   value="<?= $data['MAILER_USERNAME'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MAILER_PASSWORD">Password</label>
             <input class="installer-input" type="password" name="MAILER_PASSWORD" id="MAILER_PASSWORD"
-                   value="<?= $data['MAILER_PASSWORD'] ?>">
+                   value="<?= $data['MAILER_PASSWORD'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MAILER_ENCRYPTION">Encryption</label>
@@ -81,7 +81,7 @@ $this->start('body') ?>
         <div class="installer-block">
             <label for="MAILER_FROM">From address</label>
             <input class="installer-input" type="email" name="MAILER_FROM" id="MAILER_FROM"
-                   value="<?= $data['MAILER_FROM'] ?>">
+                   value="<?= $data['MAILER_FROM'] ?? '' ?>">
         </div>
     </fieldset>
     <fieldset class="installer-fieldset">
@@ -89,17 +89,17 @@ $this->start('body') ?>
         <div class="installer-block">
             <label for="MATOMO_SERVER">Server</label>
             <input class="installer-input" type="text" name="MATOMO_SERVER" id="MATOMO_SERVER"
-                   value="<?= $data['MATOMO_SERVER'] ?>">
+                   value="<?= $data['MATOMO_SERVER'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MAILER_API_KEY">Api Key</label>
             <input class="installer-input" type="text" name="MAILER_API_KEY" id="MAILER_API_KEY"
-                   value="<?= $data['MAILER_PORT'] ?>">
+                   value="<?= $data['MAILER_PORT'] ?? '' ?>">
         </div>
         <div class="installer-block">
             <label for="MATOMO_SITE_ID">Api Key</label>
             <input class="installer-input" type="text" name="MATOMO_SITE_ID" id="MATOMO_SITE_ID"
-                   value="<?= $data['MATOMO_SITE_ID'] ?>">
+                   value="<?= $data['MATOMO_SITE_ID'] ?? '' ?>">
         </div>
     </fieldset>
     <div>

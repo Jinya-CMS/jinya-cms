@@ -573,6 +573,31 @@
       "zend_engine": "Zend Engine Version",
       "apache": "Apache Version",
       "php": "PHP Version",
+      "extension": {
+        "version": "Version",
+        "more_info": "Mehr Informationen",
+        "ini_values": "Einstellungen",
+        "opcache": {
+          "enabled": "Aktiviert",
+          "full": "Cache voll",
+          "usedMemory": "Belegter Speicher (in MB)",
+          "freeMemory": "Freier Speicher (in MB)",
+          "wastedMemory": "Verschwendeter Speicher (in MB)",
+          "currentWastedMemoryPercentage": "Verschwendeter Speicher (Prozent)",
+          "jitEnabled": "JIT aktiviert"
+        },
+        "apcu": {
+          "enabled": "Aktiviert",
+          "numberSlots": "Anzahl Slots",
+          "numberEntries": "Anzahl Einträge",
+          "memorySize": "Speichergröße (in MB)",
+          "memoryType": "Speichertyp"
+        },
+        "hash": {
+          "enabled": "Aktiviert",
+          "algos": "Hashalgorithmen"
+        }
+      },
       "ini": {
         "name": "Name",
         "value": "Wert"
@@ -606,6 +631,32 @@
       "default": "Standardwert",
       "extra": "Extradaten"
     },
+    "constraints": {
+      "title": "Constraints",
+      "constraintName": "Name",
+      "constraintType": "Constrainttyp",
+      "columnName": "Spalten Name",
+      "referencedTableName": "Referenzierte Tabelle",
+      "referencedColumnName": "Referenzierte Spalte",
+      "positionInUniqueConstraint": "Position in Unique Constraint",
+      "deleteRule": "Aktion bei Löschen",
+      "updateRule": "Aktion bei Update",
+      "none": "Nicht anwendbar"
+    },
+    "indexes": {
+      "title": "Indexes",
+      "keyName": "Schlüsselname",
+      "columnName": "Spalten Name",
+      "cardinality": "Kardinalität",
+      "indexType": "Indextyp",
+      "collation": "Collation",
+      "unique": "Einzigartig"
+    },
+    "structure": "Struktur",
+    "details": "Details",
+    "entryCount": "Anzahl Einträge",
+    "size": "Tabellengröße in KB",
+    "engine": "Speicher Engine",
     "query_tool": {
       "execute": "Queries ausführen",
       "no_result": "Für diese Query gibt es keine Ergebnisse",

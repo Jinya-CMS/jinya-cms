@@ -123,6 +123,7 @@ spec:
             }
             steps {
                 container('package') {
+                    sh "sed -i 's/%VERSION%/$TAG_NAME/g' ./defines.php"
                     sh 'apt-get update'
                     sh 'apt-get install zip unzip -y'
                     sh 'zip -r ./jinya-cms.zip ./*'
@@ -137,6 +138,8 @@ spec:
             }
             steps {
                 container('docker') {
+                    sh "sed -i 's/%VERSION%/$TAG_NAME/g' ./defines.php"
+
                     sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME -f ./Dockerfile ."
                     sh "docker tag quay.imanuel.dev/jinya/jinya-cms:$TAG_NAME quay.imanuel.dev/jinya/jinya-cms:latest"
 
@@ -150,6 +153,39 @@ spec:
                     withDockerRegistry(credentialsId: 'hub.docker.com', url: '') {
                         sh "docker push jinyacms/jinya-cms:$TAG_NAME"
                         sh "docker push jinyacms/jinya-cms:latest"
+                    }
+                }
+            }
+        }
+        stage('Create and publish unstable package') {
+            when {
+                branch 'main'
+            }
+            environment {
+                JINYA_RELEASES_AUTH = credentials('releases.jinya.de')
+            }
+            steps {
+                container('package') {
+                    sh 'sed -i "s/%VERSION%/21.0.$BUILD_NUMBER-unstable/g" ./defines.php'
+                    sh 'apt-get update'
+                    sh 'apt-get install zip unzip -y'
+                    sh 'zip -r ./jinya-cms.zip ./*'
+                    archiveArtifacts artifacts: 'jinya-cms.zip', followSymlinks: false
+                    sh 'go run ./main.go -unstable'
+                }
+            }
+        }
+        stage('Build and push unstable docker image') {
+            when {
+                branch 'main'
+            }
+            steps {
+                container('docker') {
+                    sh 'sed -i "s/%VERSION%/21.0.$BUILD_NUMBER-unstable/g" ./defines.php'
+                    sh "docker build -t quay.imanuel.dev/jinya/jinya-cms:21.0.$BUILD_NUMBER-unstable -f ./Dockerfile ."
+
+                    withDockerRegistry(credentialsId: 'quay.imanuel.dev', url: 'https://quay.imanuel.dev') {
+                        sh "docker push quay.imanuel.dev/jinya/jinya-cms:21.0.$BUILD_NUMBER-unstable"
                     }
                 }
             }

@@ -38,7 +38,7 @@ class PostInstallerAction extends InstallAction
 
                 return $this->response
                     ->withStatus(self::HTTP_MOVED_PERMANENTLY)
-                    ->withHeader('Location', '/');
+                    ->withHeader('Location', '/designer');
             } catch (Throwable $exception) {
                 return $this->render(
                     'install::first-admin',

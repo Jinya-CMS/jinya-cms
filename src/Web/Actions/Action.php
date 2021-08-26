@@ -5,6 +5,7 @@ namespace App\Web\Actions;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Storage\StorageBaseService;
+use App\Web\Actions\Logging\Logger;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JsonException;
@@ -103,9 +104,9 @@ abstract class Action
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct()
     {
-        $this->logger = $logger;
+        $this->logger = Logger::getLogger();
     }
 
     /**

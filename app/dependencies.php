@@ -9,12 +9,20 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions(
         [
             LoggerInterface::class => function (ContainerInterface $c): LoggerInterface {
-                $settings = $c->get('settings');
+                $settings = [
+                    'displayErrorDetails' => 'dev' === getenv('APP_ENV'),
+                    'logger' => [
+                        'name' => 'jinya-backend',
+                        'path' => isset($_ENV['DOCKER']) ? 'php://stdout' : __ROOT__ . '/logs/app.log',
+                        'level' => getenv('LOGLEVEL') ?: LogLevel::INFO,
+                    ],
+                ];
 
                 $loggerSettings = $settings['logger'];
                 $logger = new Logger($loggerSettings['name']);

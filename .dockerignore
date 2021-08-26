@@ -4,3 +4,9 @@ docker-compose.yml
 Dockerfile
 Jenkinsfile
 .env
+composer.phar
+designer@tmp
+jinya-cms.zip
+main.go
+nodesource_setup.sh
+screenshots
