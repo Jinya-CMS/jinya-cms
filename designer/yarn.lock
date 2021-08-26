@@ -1987,10 +1987,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-i18n@3.3.9:
-  version "3.3.9"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.9.tgz#33da4b8da2b482db3130814d9398f31ae2e2c1f9"
-  integrity sha512-0w+4kHH/T5DJ4VvX4N2LxYaKxFIKgfc1yzB08ZUOAuQsWC+zgr95mqfgmQVRJ7GxHxneVJcq33VjOzmXzRmYVA==
+svelte-i18n@3.3.10:
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.10.tgz#762abec5593fcf553cff73884248a99a0f7c172f"
+  integrity sha512-MWoiZOCgX2P57UqjSp2Sly6csSuySoxbmC/e+vak3valteEa0CqHYzPTA6NNNj8pBCpdaMp9sBRkG1eebk0rFg==
   dependencies:
     deepmerge "^4.2.2"
     estree-walker "^2.0.1"
