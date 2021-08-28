@@ -1,11 +1,25 @@
 # Changelog
 
-## Release notes - Jinya Gallery CMS - Version 21.0.2
+## Release notes - Jinya Gallery CMS - Version 21.0.4
+
 ### Fixed issues
+
+* [#90](https://taiga.imanuel.dev/project/jinya-cms/issue/90) Updater not executing migrations
+
+## Release notes - Jinya Gallery CMS - Version 21.0.3
+
+Update for dependencies
+
+## Release notes - Jinya Gallery CMS - Version 21.0.2
+
+### Fixed issues
+
 * [#75](https://taiga.imanuel.dev/project/jinya-cms/issue/75) Error creating Menu Item
 
 ## Release notes - Jinya Gallery CMS - Version 21.0.1
+
 ### Fixed issues
+
 * [#74](https://taiga.imanuel.dev/project/jinya-cms/issue/74) Wrong class on tab control for table data
 
 ## Release notes - Jinya Gallery CMS - Version 21.0.0
