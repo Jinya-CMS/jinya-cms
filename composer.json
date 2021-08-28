@@ -34,7 +34,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.8",
-    "vimeo/psalm": "4.8.1",
+    "vimeo/psalm": "4.9.3",
     "phpstan/phpstan": "0.12.93"
   },
   "config": {
