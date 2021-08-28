@@ -22,7 +22,6 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
-use LogicException;
 
 #[OpenApiModel("Artists are the users of Jinya")]
 class Artist extends LoadableEntity implements FormattableEntityInterface
@@ -285,11 +284,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             throw new InvalidArgumentException('Password cannot be empty');
         }
         $hash = password_hash($password, PASSWORD_BCRYPT);
-        if (is_string($hash)) {
-            $this->password = $hash;
-        } else {
-            throw new LogicException('The result must be a string');
-        }
+        $this->password = $hash;
     }
 
     /**

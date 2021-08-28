@@ -2,9 +2,9 @@
 
 namespace App\Web\Actions\Logging;
 
+use Monolog\Handler\StreamHandler;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
-use Monolog\Handler\StreamHandler;
 use Psr\Log\LogLevel;
 
 class Logger
@@ -18,6 +18,7 @@ class Logger
         $processor = new UidProcessor();
         $logger->pushProcessor($processor);
 
+        /** @phpstan-ignore-next-line */
         $handler = new StreamHandler($path, $level);
         $logger->pushHandler($handler);
 

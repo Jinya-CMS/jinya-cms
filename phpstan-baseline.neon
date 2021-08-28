@@ -71,11 +71,6 @@ parameters:
 			path: src/Database/Artist.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Artist\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Artist.php

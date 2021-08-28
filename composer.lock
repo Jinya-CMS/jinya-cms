@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "9381632162fc489b8a174e7fb1d47fe0",
-    "packages": [
-        {
-            "name": "fakerphp/faker",
-            "version": "v1.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "a9e691eded055fc60a226b23e5b734cf",
+  "packages": [
+    {
+      "name": "fakerphp/faker",
+      "version": "v1.15.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/FakerPHP/Faker.git",
+        "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/89c6201c74db25fa759ff16e78a4d8f32547770e",
                 "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e",
@@ -3856,20 +3856,20 @@
             },
             "time": "2021-03-17T13:42:18+00:00"
         },
-        {
-            "name": "phpstan/phpstan",
-            "version": "0.12.93",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "7b7602f05d340ffa418c59299f8c053ac6c3e7ea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7b7602f05d340ffa418c59299f8c053ac6c3e7ea",
-                "reference": "7b7602f05d340ffa418c59299f8c053ac6c3e7ea",
-                "shasum": ""
-            },
+      {
+        "name": "phpstan/phpstan",
+        "version": "0.12.96",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/phpstan/phpstan.git",
+          "reference": "a98bdc51318f20fcae8c953d266f81a70254917f"
+        },
+        "dist": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a98bdc51318f20fcae8c953d266f81a70254917f",
+          "reference": "a98bdc51318f20fcae8c953d266f81a70254917f",
+          "shasum": ""
+        },
             "require": {
                 "php": "^7.1|^8.0"
             },
@@ -3898,7 +3898,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.93"
+              "source": "https://github.com/phpstan/phpstan/tree/0.12.96"
             },
             "funding": [
                 {
@@ -3918,7 +3918,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-20T10:49:53+00:00"
+        "time": "2021-08-21T11:55:13+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6244,42 +6244,42 @@
             ],
             "time": "2021-07-28T10:34:58+00:00"
         },
-        {
-            "name": "vimeo/psalm",
-            "version": "4.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f73f2299dbc59a3e6c4d66cff4605176e728ee69"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f73f2299dbc59a3e6c4d66cff4605176e728ee69",
-                "reference": "f73f2299dbc59a3e6c4d66cff4605176e728ee69",
-                "shasum": ""
-            },
+      {
+        "name": "vimeo/psalm",
+        "version": "4.9.3",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/vimeo/psalm.git",
+          "reference": "4c262932602b9bbab5020863d1eb22d49de0dbf4"
+        },
+        "dist": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/vimeo/psalm/zipball/4c262932602b9bbab5020863d1eb22d49de0dbf4",
+          "reference": "4c262932602b9bbab5020863d1eb22d49de0dbf4",
+          "shasum": ""
+        },
             "require": {
                 "amphp/amp": "^2.4.2",
                 "amphp/byte-stream": "^1.5",
                 "composer/package-versions-deprecated": "^1.8.0",
                 "composer/semver": "^1.4 || ^2.0 || ^3.0",
                 "composer/xdebug-handler": "^1.1 || ^2.0",
-                "dnoegel/php-xdg-base-dir": "^0.1.1",
-                "ext-dom": "*",
-                "ext-json": "*",
-                "ext-libxml": "*",
-                "ext-mbstring": "*",
-                "ext-simplexml": "*",
-                "ext-tokenizer": "*",
-                "felixfbecker/advanced-json-rpc": "^3.0.3",
-                "felixfbecker/language-server-protocol": "^1.5",
-                "netresearch/jsonmapper": "^1.0 || ^2.0 || ^3.0 || ^4.0",
-                "nikic/php-parser": "^4.10.5",
-                "openlss/lib-array2xml": "^1.0",
-                "php": "^7.1|^8",
-                "sebastian/diff": "^3.0 || ^4.0",
-                "symfony/console": "^3.4.17 || ^4.1.6 || ^5.0",
-                "webmozart/path-util": "^2.3"
+              "dnoegel/php-xdg-base-dir": "^0.1.1",
+              "ext-dom": "*",
+              "ext-json": "*",
+              "ext-libxml": "*",
+              "ext-mbstring": "*",
+              "ext-simplexml": "*",
+              "ext-tokenizer": "*",
+              "felixfbecker/advanced-json-rpc": "^3.0.3",
+              "felixfbecker/language-server-protocol": "^1.5",
+              "netresearch/jsonmapper": "^1.0 || ^2.0 || ^3.0 || ^4.0",
+              "nikic/php-parser": "^4.12",
+              "openlss/lib-array2xml": "^1.0",
+              "php": "^7.1|^8",
+              "sebastian/diff": "^3.0 || ^4.0",
+              "symfony/console": "^3.4.17 || ^4.1.6 || ^5.0",
+              "webmozart/path-util": "^2.3"
             },
             "provide": {
                 "psalm/psalm": "self.version"
@@ -6297,7 +6297,6 @@
                 "slevomat/coding-standard": "^7.0",
                 "squizlabs/php_codesniffer": "^3.5",
                 "symfony/process": "^4.3 || ^5.0",
-                "weirdan/phpunit-appveyor-reporter": "^1.0.0",
                 "weirdan/prophecy-shim": "^1.0 || ^2.0"
             },
             "suggest": {
@@ -6345,9 +6344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/4.8.1"
+              "source": "https://github.com/vimeo/psalm/tree/4.9.3"
             },
-            "time": "2021-06-20T23:03:20+00:00"
+        "time": "2021-08-14T16:19:38+00:00"
         },
         {
             "name": "webmozart/path-util",
