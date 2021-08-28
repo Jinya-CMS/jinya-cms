@@ -2,7 +2,9 @@
 
 namespace App\Web\Actions\Update;
 
+use App\Database\Migrations\Migrator;
 use App\Web\Actions\Action;
+use JsonException;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -12,7 +14,7 @@ class PostUpdateAction extends UpdateAction
 {
     /**
      * {@inheritDoc}
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function action(): ResponseInterface
     {
@@ -31,6 +33,7 @@ class PostUpdateAction extends UpdateAction
                 $zipStream->open($updatePath);
                 $zipStream->extractTo(__ROOT__);
                 $zipStream->close();
+                Migrator::migrate();
                 unlink(__ROOT__ . '/update.lock');
             } catch (Throwable $exception) {
                 return $this->render(
