@@ -7,6 +7,7 @@ use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use Iterator;
+use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
@@ -63,12 +64,15 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
         $this->internalUpdate('blog_category');
     }
 
-    public function format(): array
+    /**
+     * @return array{id: int, name: string, description: string, parent: array|null}
+     */
+    #[ArrayShape(['id' => "int|string", 'name' => "string", 'description' => "string", 'parent' => "array"])] public function format(): array
     {
         $parent = $this->getParent()?->format();
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdAsInt(),
             'name' => $this->name,
             'description' => $this->description,
             'parent' => $parent,
