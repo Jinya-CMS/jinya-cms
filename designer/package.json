@@ -28,6 +28,6 @@
     "rollup-plugin-monaco-editor": "0.1.0",
     "rollup-plugin-postcss": "4.0.1",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.42.3"
+    "svelte": "3.42.4"
   }
 }
