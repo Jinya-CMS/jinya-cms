@@ -217,8 +217,12 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         if (null !== $this->menuId) {
             $this->internalRearrange('menu_item', 'menu_id', $this->menuId, $position);
+            $this->update(false);
+            $this->resetOrder('menu_item', 'menu_id', $this->menuId);
         } elseif (null !== $this->parentId) {
             $this->internalRearrange('menu_item', 'parent_id', $this->parentId, $position);
+            $this->update(false);
+            $this->resetOrder('menu_item', 'parent_id', $this->parentId);
         } else {
             throw new LogicException('No parent provided');
         }
@@ -251,7 +255,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function move(int $newPosition): void
     {
         $this->rearrange($newPosition);
-        parent::move($newPosition);
     }
 
     /**

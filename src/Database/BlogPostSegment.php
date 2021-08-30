@@ -138,6 +138,7 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
     {
         $this->internalRearrange('blog_post_segment', 'blog_post_id', $this->blogPostId, $this->position);
         $this->internalCreate('blog_post_segment');
+        $this->resetOrder('blog_post_segment', 'blog_post_id', $this->blogPostId);
     }
 
     /**
@@ -147,6 +148,7 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
     {
         $this->internalDelete('blog_post_segment');
         $this->internalRearrange('blog_post_segment', 'blog_post_id', $this->blogPostId, -1);
+        $this->resetOrder('blog_post_segment', 'blog_post_id', $this->blogPostId);
     }
 
     /**
@@ -174,6 +176,7 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
     public function move(int $newPosition): void
     {
         $this->internalRearrange('blog_post_segment', 'blog_post_id', $this->blogPostId, $newPosition);
-        parent::move($newPosition);
+        $this->update();
+        $this->resetOrder('blog_post_segment', 'blog_post_id', $this->blogPostId);
     }
 }

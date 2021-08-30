@@ -78,12 +78,12 @@ class FormItemTest extends TestCase
 
     public function testMove(): void
     {
-        $this->createFormItem(1, label: '1');
-        $this->createFormItem(2, label: '2');
-        $this->createFormItem(3, label: '3');
-        $formItem = $this->createFormItem(4, label: '4');
+        $this->createFormItem(0, label: '1');
+        $this->createFormItem(1, label: '2');
+        $this->createFormItem(2, label: '3');
+        $formItem = $this->createFormItem(3, label: '4');
 
-        $formItem->move(2);
+        $formItem->move(1);
         $items = iterator_to_array($this->form->getItems());
         $this->assertEquals('1', $items[0]->label);
         $this->assertEquals('4', $items[1]->label);
@@ -128,21 +128,21 @@ class FormItemTest extends TestCase
 
     public function testFindByPosition(): void
     {
+        $this->createFormItem(0);
         $this->createFormItem(1);
         $this->createFormItem(2);
-        $this->createFormItem(3);
-        $formItem = $this->createFormItem(4);
+        $formItem = $this->createFormItem(3);
 
-        $foundItem = FormItem::findByPosition($this->form->getIdAsInt(), 4);
+        $foundItem = FormItem::findByPosition($this->form->getIdAsInt(), 3);
         $this->assertEquals($formItem, $foundItem);
     }
 
     public function testFindByPositionNotExisting(): void
     {
+        $this->createFormItem(0);
         $this->createFormItem(1);
         $this->createFormItem(2);
         $this->createFormItem(3);
-        $this->createFormItem(4);
 
         $foundItem = FormItem::findByPosition($this->form->getIdAsInt(), 5);
         $this->assertNull($foundItem);

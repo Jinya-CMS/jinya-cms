@@ -4,11 +4,11 @@ namespace Jinya\Tests\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\File;
-use App\Database\GalleryFilePosition;
 use App\Database\Gallery;
+use App\Database\GalleryFilePosition;
+use App\Utils\UuidGenerator;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use App\Utils\UuidGenerator;
 
 class GalleryFilePositionTest extends TestCase
 {
@@ -94,12 +94,12 @@ class GalleryFilePositionTest extends TestCase
 
     public function testMove(): void
     {
+        $this->createGalleryFilePosition(0, file: $this->file2->getIdAsInt());
         $this->createGalleryFilePosition(1, file: $this->file2->getIdAsInt());
-        $this->createGalleryFilePosition(2, file: $this->file2->getIdAsInt());
-        $this->createGalleryFilePosition(3);
-        $galleryFilePosition = $this->createGalleryFilePosition(4);
+        $this->createGalleryFilePosition(2);
+        $galleryFilePosition = $this->createGalleryFilePosition(3);
 
-        $galleryFilePosition->move(2);
+        $galleryFilePosition->move(1);
         $items = iterator_to_array($this->gallery->getFiles());
         $this->assertEquals($this->file2->getIdAsInt(), $items[0]->fileId);
         $this->assertEquals($this->file->getIdAsInt(), $items[1]->fileId);
@@ -152,12 +152,12 @@ class GalleryFilePositionTest extends TestCase
 
     public function testFindByPosition(): void
     {
+        $this->createGalleryFilePosition(0);
         $this->createGalleryFilePosition(1);
         $this->createGalleryFilePosition(2);
-        $this->createGalleryFilePosition(3);
-        $galleryFilePosition = $this->createGalleryFilePosition(4);
+        $galleryFilePosition = $this->createGalleryFilePosition(3);
 
-        $foundItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), 4);
+        $foundItem = GalleryFilePosition::findByPosition($this->gallery->getIdAsInt(), 3);
         $this->assertEquals($galleryFilePosition, $foundItem);
     }
 

@@ -90,6 +90,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     {
         $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, $this->position);
         $this->internalCreate('gallery_file_position');
+        $this->resetOrder('gallery_file_position', 'gallery_id', $this->galleryId);
     }
 
     /**
@@ -99,6 +100,7 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     {
         $this->internalDelete('gallery_file_position');
         $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, -1);
+        $this->resetOrder('gallery_file_position', 'gallery_id', $this->galleryId);
     }
 
     /**
@@ -167,7 +169,8 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     public function move(int $newPosition): void
     {
         $this->internalRearrange('gallery_file_position', 'gallery_id', $this->galleryId, $newPosition);
-        parent::move($newPosition);
+        $this->update();
+        $this->resetOrder('gallery_file_position', 'gallery_id', $this->galleryId);
     }
 
     /**

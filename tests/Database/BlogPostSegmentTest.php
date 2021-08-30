@@ -61,7 +61,7 @@ class BlogPostSegmentTest extends TestCase
     public function testUpdate(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt());
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt());
         $segment->position = 5;
         $segment->update();
         $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 5);
@@ -71,7 +71,7 @@ class BlogPostSegmentTest extends TestCase
     public function testUpdateNotExistent(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), execute: false);
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), execute: false);
         $segment->position = 5;
         $segment->update();
         $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 5);
@@ -81,25 +81,25 @@ class BlogPostSegmentTest extends TestCase
     public function testCreate(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), execute: false);
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), execute: false);
         $segment->create();
-        $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 1);
+        $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 0);
         $this->assertEquals($segment, $foundSegment);
     }
 
     public function testFindByPosition(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt());
-        $this->createBlogPostSegment(2, $post->getIdAsInt());
-        $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 1);
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt());
+        $this->createBlogPostSegment(1, $post->getIdAsInt());
+        $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 0);
         $this->assertEquals($segment, $foundSegment);
     }
 
     public function testFormatHtml(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), html: 'Test');
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), html: 'Test');
         $this->assertEquals([
             'position' => $segment->position,
             'id' => $segment->getIdAsInt(),
@@ -111,7 +111,7 @@ class BlogPostSegmentTest extends TestCase
     {
         $file = $this->createFile();
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), fileId: $file->getIdAsInt());
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), fileId: $file->getIdAsInt());
         $this->assertEquals([
             'position' => $segment->position,
             'id' => $segment->getIdAsInt(),
@@ -140,7 +140,7 @@ class BlogPostSegmentTest extends TestCase
     {
         $gallery = $this->createGallery();
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), galleryId: $gallery->getIdAsInt());
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), galleryId: $gallery->getIdAsInt());
         $this->assertEquals([
             'position' => $segment->position,
             'id' => $segment->getIdAsInt(),
@@ -167,7 +167,7 @@ class BlogPostSegmentTest extends TestCase
     public function testDelete(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt());
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt());
         $segment->delete();
         $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 5);
         $this->assertNull($foundSegment);
@@ -176,10 +176,27 @@ class BlogPostSegmentTest extends TestCase
     public function testDeleteNotExistent(): void
     {
         $post = $this->createBlogPost();
-        $segment = $this->createBlogPostSegment(1, $post->getIdAsInt(), execute: false);
+        $segment = $this->createBlogPostSegment(0, $post->getIdAsInt(), execute: false);
         $segment->delete();
         $foundSegment = BlogPostSegment::findByPosition($post->getIdAsInt(), 5);
         $this->assertNull($foundSegment);
+    }
+
+    public function testMove(): void
+    {
+        $post = $this->createBlogPost();
+        $segment1 = $this->createBlogPostSegment(0, $post->getIdAsInt());
+        $segment2 = $this->createBlogPostSegment(1, $post->getIdAsInt());
+        $segment3 = $this->createBlogPostSegment(2, $post->getIdAsInt());
+        $segment2->move(0);
+
+        $foundSegment1 = BlogPostSegment::findByPosition($post->getIdAsInt(), 0);
+        $foundSegment2 = BlogPostSegment::findByPosition($post->getIdAsInt(), 1);
+        $foundSegment3 = BlogPostSegment::findByPosition($post->getIdAsInt(), 2);
+
+        $this->assertEquals($foundSegment1->getIdAsInt(), $segment2->getIdAsInt());
+        $this->assertEquals($foundSegment2->getIdAsInt(), $segment1->getIdAsInt());
+        $this->assertEquals($foundSegment3->getIdAsInt(), $segment3->getIdAsInt());
     }
 
     public function testFindById(): void
