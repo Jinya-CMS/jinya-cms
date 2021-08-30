@@ -224,7 +224,7 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="1">
+    <PossiblyInvalidArrayAccess occurrences="2">
       <code>$result[0]</code>
     </PossiblyInvalidArrayAccess>
     <PossiblyNullArgument occurrences="3">

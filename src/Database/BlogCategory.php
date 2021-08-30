@@ -6,16 +6,27 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
+use App\OpenApiGeneration\Attributes\OpenApiField;
+use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[OpenApiModel('A blog category', hasId: true)]
 class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInterface
 {
 
+    #[OpenApiField(required: true)]
     public string $name;
+    #[OpenApiField(required: false)]
     public ?string $description = null;
+    #[OpenApiField(required: true, structure: [
+        'id' => ['type' => 'integer'],
+        'name' => ['type' => 'string'],
+        'description' => ['type' => 'string'],
+        'parent' => ['type' => 'object'],
+    ], name: 'parent')]
     public ?int $parentId = null;
 
     /**
@@ -66,6 +77,9 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
 
     /**
      * @return array{id: int, name: string, description: string|null, parent: array|null}
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
      */
     #[ArrayShape(['id' => "int|string", 'name' => "string", 'description' => "string", 'parent' => "array"])] public function format(): array
     {

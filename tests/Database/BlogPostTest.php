@@ -118,12 +118,22 @@ class BlogPostTest extends TestCase
             'id' => $post->id,
             'title' => $post->title,
             'slug' => $post->slug,
-            'headerImage' => $post->getHeaderImage()?->format() ?? [],
-            'category' => $post->getCategory()?->format() ?? [],
+            'headerImage' => [
+                'id' => $post->getHeaderImage()->getIdAsInt(),
+                'name' => $post->getHeaderImage()->name,
+            ],
+            'category' => [
+                'id' => $post->getCategory()->getIdAsInt(),
+                'name' => $post->getCategory()->name,
+            ],
             'public' => $post->public,
             'created' => [
                 'at' => $post->createdAt->format(DATE_ATOM),
-                'by' => $post->getCreator()?->format() ?? [],
+                'by' => [
+                    'artistName' => CurrentUser::$currentUser->artistName,
+                    'email' => CurrentUser::$currentUser->email,
+                    'profilePicture' => CurrentUser::$currentUser->profilePicture,
+                ],
             ],
         ], $post->format());
     }
