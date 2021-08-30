@@ -566,17 +566,7 @@ parameters:
 			path: src/Database/ThemeAsset.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeAsset\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeAsset\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeAsset.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeFile\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeFile.php
 
@@ -591,22 +581,12 @@ parameters:
 			path: src/Database/ThemeForm.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeForm\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeForm.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemeForm.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeGallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeGallery\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeGallery.php
 
@@ -621,11 +601,6 @@ parameters:
 			path: src/Database/ThemeMenu.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeMenu\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeMenu.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemeMenu.php
@@ -636,22 +611,12 @@ parameters:
 			path: src/Database/ThemePage.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemePage\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemePage.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemePage.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeSegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeSegmentPage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeSegmentPage.php
 

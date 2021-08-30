@@ -52,7 +52,7 @@ abstract class RearrangableEntity extends LoadableEntity
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function resetOrder(string $table, string $parentIdName, int $parentId)
+    protected function resetOrder(string $table, string $parentIdName, int $parentId): void
     {
         $sql = "SELECT position, id FROM $table WHERE $parentIdName = :parentId ORDER BY position";
         $result = self::executeStatement($sql, ['parentId' => $parentId]);
