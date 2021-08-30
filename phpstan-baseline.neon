@@ -36,11 +36,6 @@ parameters:
 			path: src/Database/ApiKey.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByApiKey\\(\\) should return App\\\\Database\\\\ApiKey\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByArtist\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/ApiKey.php
@@ -72,16 +67,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Artist\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findByEmail\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findById\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Artist.php
 
@@ -136,11 +121,6 @@ parameters:
 			path: src/Database/File.php
 
 		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:findById\\(\\) should return App\\\\Database\\\\File\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
 			message: "#^Method App\\\\Database\\\\File\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/File.php
@@ -167,11 +147,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Form\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:findById\\(\\) should return App\\\\Database\\\\Form\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Form.php
 
@@ -211,11 +186,6 @@ parameters:
 			path: src/Database/FormItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\FormItem\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\FormItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/FormItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\FormItem\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/FormItem.php
@@ -237,11 +207,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findById\\(\\) should return App\\\\Database\\\\Gallery\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Gallery.php
 
@@ -281,11 +246,6 @@ parameters:
 			path: src/Database/GalleryFilePosition.php
 
 		-
-			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\GalleryFilePosition\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/GalleryFilePosition.php
-
-		-
 			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/GalleryFilePosition.php
@@ -311,11 +271,6 @@ parameters:
 			path: src/Database/KnownDevice.php
 
 		-
-			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByCode\\(\\) should return App\\\\Database\\\\KnownDevice\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/KnownDevice.php
-
-		-
 			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/KnownDevice.php
@@ -337,11 +292,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Menu\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Menu.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Menu\\:\\:findById\\(\\) should return App\\\\Database\\\\Menu\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Menu.php
 
@@ -376,27 +326,7 @@ parameters:
 			path: src/Database/MenuItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findById\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByMenuAndPosition\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByMenuItemAndPosition\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByRoute\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/MenuItem.php
 
@@ -461,11 +391,6 @@ parameters:
 			path: src/Database/Segment.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Segment\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\Segment\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Segment\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Segment.php
@@ -477,11 +402,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findById\\(\\) should return App\\\\Database\\\\SegmentPage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/SegmentPage.php
 
@@ -507,11 +427,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findById\\(\\) should return App\\\\Database\\\\SimplePage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/SimplePage.php
 
@@ -551,27 +466,12 @@ parameters:
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findById\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Theme\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findByName\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Theme\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:getActiveTheme\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
@@ -767,11 +667,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findByFile\\(\\) should return App\\\\Database\\\\UploadingFile\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/UploadingFile.php
 

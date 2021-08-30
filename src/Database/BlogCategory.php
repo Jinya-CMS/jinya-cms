@@ -15,7 +15,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
 {
 
     public string $name;
-    public string $description;
+    public ?string $description = null;
     public ?int $parentId = null;
 
     /**
@@ -65,7 +65,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
     }
 
     /**
-     * @return array{id: int, name: string, description: string, parent: array|null}
+     * @return array{id: int, name: string, description: string|null, parent: array|null}
      */
     #[ArrayShape(['id' => "int|string", 'name' => "string", 'description' => "string", 'parent' => "array"])] public function format(): array
     {
@@ -79,6 +79,12 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
         ];
     }
 
+    /**
+     * @return BlogCategory|null
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     */
     public function getParent(): BlogCategory|null
     {
         if ($this->parentId === null) {
@@ -90,15 +96,9 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
 
     /**
      * @inheritDoc
-     * @noinspection PhpIncompatibleReturnTypeInspection
-     * @psalm-suppress MoreSpecificReturnType
      */
     public static function findById(int $id): BlogCategory|null
     {
-        /**
-         * @phpstan-ignore-next-line
-         * @psalm-suppress LessSpecificReturnStatement
-         */
         return parent::fetchSingleById('blog_category', $id, new self());
     }
 

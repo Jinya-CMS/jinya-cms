@@ -22,30 +22,62 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
     /**
      * @inheritDoc
      */
-    public static function findById(int $id): ?object
+    public static function findById(int $id): BlogPost|null
     {
-        // TODO: Implement findById() method.
+        return self::fetchSingleById('blog_post', $id, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
      * @inheritDoc
+     * @return Iterator<BlogPost>
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        // TODO: Implement findByKeyword() method.
+        $sql = 'SELECT * FROM blog_post WHERE title LIKE :titleKeyword OR slug LIKE :slugKeyword';
+        /** @var array<array> */
+        $result = self::executeStatement($sql, ['titleKeyword' => "%$keyword%", 'slugKeyword' => "%$keyword%"]);
+
+        return self::hydrateMultipleResults($result, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
      * @inheritDoc
+     * @return Iterator<BlogPost>
      */
     public static function findAll(): Iterator
     {
-        // TODO: Implement findAll() method.
+        return self::fetchArray('blog_post', new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
-    public static function findBySlug(string $slug): BlogPost
+    /**
+     * @param string $slug
+     * @return BlogPost|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    public static function findBySlug(string $slug): BlogPost|null
     {
+        $sql = 'SELECT * FROM blog_post WHERE slug = :slug';
+        /** @var array<array{id: int, title: string, slug: string, header_image_id: int, public: int, created_at: string, creator_id: int, category_id: int}> */
+        $result = self::executeStatement($sql, ['slug' => $slug]);
+        if (count($result) !== 1) {
+            return null;
+        }
 
+        return self::hydrateSingleResult($result[0], new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
@@ -67,7 +99,7 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
      */
     public function delete(): void
     {
-        // TODO: Implement delete() method.
+        $this->internalDelete('blog_post');
     }
 
     /**
@@ -75,29 +107,86 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
      */
     public function update(): void
     {
-        // TODO: Implement update() method.
+        $this->internalUpdate('blog_post', [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
      * @inheritDoc
+     * @psalm-suppress MoreSpecificReturnType
+     * @return array{id: int, title: string, slug: string, headerImage: array, public: bool, created: array, category: array}
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
      */
     public function format(): array
     {
-        // TODO: Implement format() method.
+        /**
+         * @psalm-suppress LessSpecificReturnStatement
+         * @phpstan-ignore-next-line
+         */
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'headerImage' => $this->getHeaderImage()?->format() ?? [],
+            'category' => $this->getCategory()?->format() ?? [],
+            'public' => $this->public,
+            'created' => [
+                'at' => $this->createdAt->format(DATE_ATOM),
+                'by' => $this->getCreator()?->format() ?? [],
+            ],
+        ];
     }
 
-    public function getCategory(): BlogCategory
+    /**
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
+    public function getCategory(): BlogCategory|null
     {
-
+        return BlogCategory::findById($this->categoryId);
     }
 
-    public function getCreator(): Artist
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
+    public function getCreator(): Artist|null
     {
-
+        return Artist::findById($this->creatorId);
     }
 
+    /**
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws Exceptions\InvalidQueryException
+     */
     public function getHeaderImage(): File|null
     {
+        if ($this->headerImageId === null) {
+            return null;
+        }
 
+        return File::findById($this->headerImageId);
+    }
+
+    /**
+     * @return Iterator<BlogPostSegment>
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    public function getSegments(): Iterator
+    {
+        $sql = 'SELECT * FROM blog_post_segment WHERE blog_post_id = :postId';
+        /** @var array<array> */
+        $result = self::executeStatement($sql, ['postId' => $this->id]);
+
+        return self::hydrateMultipleResults($result, new BlogPostSegment());
     }
 }

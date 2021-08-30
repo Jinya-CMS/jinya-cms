@@ -52,7 +52,6 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
             return null;
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return self::hydrateSingleResult(
             $result[0],
             new self(),
