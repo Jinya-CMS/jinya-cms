@@ -7,7 +7,6 @@ use App\Storage\StorageBaseService;
 use App\Web\Actions\Logging\Logger;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
-use JsonException;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -101,9 +100,9 @@ abstract class Action
     public array $args;
 
     /**
-     * @var array<string, mixed>|object|null
+     * @var array<string, mixed>|null
      */
-    public array|object|null $body;
+    public array|null $body;
 
     /**
      * @var array<string, mixed>
@@ -129,6 +128,7 @@ abstract class Action
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
+        /** @phpstan-ignore-next-line */
         $this->body = $request->getParsedBody();
         $this->queryParams = $request->getQueryParams();
 
@@ -153,12 +153,12 @@ abstract class Action
     }
 
     /**
-     * @param null $payload
+     * @param mixed $payload
      * @param int $statusCode
      * @param int $jsonFlags
      * @return Response
      */
-    protected function respond($payload = null, int $statusCode = Action::HTTP_OK, int $jsonFlags = JSON_THROW_ON_ERROR): Response
+    protected function respond(mixed $payload = null, int $statusCode = Action::HTTP_OK, int $jsonFlags = JSON_THROW_ON_ERROR): Response
     {
         $json = json_encode($payload, $jsonFlags);
         $this->response->getBody()->write($json);
