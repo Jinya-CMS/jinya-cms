@@ -5,15 +5,11 @@ namespace App\Database;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
-#[OpenApiModel('A theme blog category represents a blog category in the current theme configuration')]
 class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiField(object: true, objectRef: BlogCategory::class, name: 'blogCategory')]
     public int $blogCategoryId = -1;
 
     /**

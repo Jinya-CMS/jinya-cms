@@ -2,41 +2,17 @@
 
 namespace App\Database;
 
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
-#[OpenApiModel('A blog post segment', hasId: false)]
 class BlogPostSegment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'name' => ['type' => 'string'],
-        'description' => ['type' => 'string'],
-        'type' => ['type' => 'string', 'enum' => [Gallery::TYPE_SEQUENCE, Gallery::TYPE_MASONRY]],
-        'orientation' => [
-            'type' => 'string',
-            'enum' => [Gallery::ORIENTATION_VERTICAL, Gallery::ORIENTATION_HORIZONTAL]
-        ],
-    ], name: 'gallery')]
     public ?int $galleryId = null;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'name' => ['type' => 'string'],
-        'type' => ['type' => 'string'],
-        'path' => ['type' => 'string'],
-    ], name: 'file')]
     public ?int $fileId = null;
-    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $html = null;
-    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $link = null;
-    #[OpenApiHiddenField]
     public int $blogPostId;
-    #[OpenApiField(required: true)]
     public int $position;
 
     /**

@@ -4,36 +4,19 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Utils\FormattableEntityInterface;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use DateTime;
 use Iterator;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-#[OpenApiModel('A blog post', hasId: true)]
 class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterface
 {
-    #[OpenApiField(required: true)]
     public string $title;
-    #[OpenApiField(required: true)]
     public string $slug;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'title' => ['type' => 'string'],
-    ], name: 'headerImage')]
     public ?int $headerImageId = null;
-    #[OpenApiField(required: false, defaultValue: false)]
     public bool $public = false;
-    #[OpenApiHiddenField]
     public DateTime $createdAt;
-    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'created')]
     public int $creatorId;
-    #[OpenApiField(required: true, structure: [
-        'id' => ['type' => 'integer'],
-        'name' => ['type' => 'string'],
-    ], name: 'category')]
     public int $categoryId;
 
     /**
