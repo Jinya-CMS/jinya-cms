@@ -43,6 +43,10 @@ class ListAllBlogCategoriesActionTest extends TestCase
         $json = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         $this->assertNotEmpty($json['items']);
         $this->assertCount(count($this->categories), $json['items']);
+
+        $items = $json['items'];
+        $first = $items[0];
+        $this->assertEquals($this->categories[0]->format(), $first);
     }
 
     public function testActionByKeyword(): void
@@ -60,5 +64,9 @@ class ListAllBlogCategoriesActionTest extends TestCase
         $json = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         $this->assertNotEmpty($json['items']);
         $this->assertCount(1, $json['items']);
+
+        $items = $json['items'];
+        $first = $items[0];
+        $this->assertEquals($this->categories[0]->format(), $first);
     }
 }
