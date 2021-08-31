@@ -23,13 +23,13 @@ class CreateCategoryActionTest extends TestCase
         $parentCat->create();
 
         $action = new CreateCategoryAction();
-        $action->response = new Response();
-        $action->body = [
+        $actionBody = [
             'name' => Uuid::uuid(),
             'description' => Uuid::uuid(),
             'parentId' => $parentCat->getIdAsInt(),
         ];
-        $response = $action->action();
+        $request = (new ServerRequest(JinyaAction::POST, '/blog/category'))->withParsedBody($actionBody);
+        $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
 
         $response->getBody()->rewind();
@@ -43,11 +43,11 @@ class CreateCategoryActionTest extends TestCase
     public function testActionRequiredFields(): void
     {
         $action = new CreateCategoryAction();
-        $action->response = new Response();
-        $action->body = [
+        $actionBody = [
             'name' => Uuid::uuid(),
         ];
-        $response = $action->action();
+        $request = (new ServerRequest(JinyaAction::POST, '/blog/category'))->withParsedBody($actionBody);
+        $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
 
         $response->getBody()->rewind();
@@ -63,12 +63,11 @@ class CreateCategoryActionTest extends TestCase
         $this->expectException(ConflictException::class);
         $this->expectExceptionMessage('Name exists');
         $action = new CreateCategoryAction();
-        $action->request = new ServerRequest(JinyaAction::POST, '/blog/category');
-        $action->response = new Response();
-        $action->body = [
+        $actionBody = [
             'name' => Uuid::uuid(),
         ];
-        $response = $action->action();
+        $request = (new ServerRequest(JinyaAction::POST, '/blog/category'))->withParsedBody($actionBody);
+        $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
 
         $response->getBody()->rewind();
@@ -78,6 +77,6 @@ class CreateCategoryActionTest extends TestCase
         $cat = BlogCategory::findById($json['id']);
         $this->assertEquals($cat->format(), $json);
 
-        $action->action();
+        $action($request, new Response(), []);
     }
 }

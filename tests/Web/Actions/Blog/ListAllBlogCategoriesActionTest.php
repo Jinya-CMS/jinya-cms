@@ -5,8 +5,10 @@ namespace Jinya\Tests\Web\Actions\Blog;
 use App\Database\BlogCategory;
 use App\Web\Actions\Action;
 use App\Web\Actions\Blog\Category\ListAllBlogCategoriesAction;
+use App\Web\Attributes\JinyaAction;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
+use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
 class ListAllBlogCategoriesActionTest extends TestCase
@@ -32,8 +34,7 @@ class ListAllBlogCategoriesActionTest extends TestCase
     public function testAction(): void
     {
         $action = new ListAllBlogCategoriesAction();
-        $action->response = new Response();
-        $response = $action->action();
+        $response = $action(new ServerRequest(JinyaAction::GET, '/blog/category'), new Response(), []);
         $this->assertEquals(Action::HTTP_OK, $response->getStatusCode());
 
         $response->getBody()->rewind();
@@ -52,9 +53,8 @@ class ListAllBlogCategoriesActionTest extends TestCase
     public function testActionByKeyword(): void
     {
         $action = new ListAllBlogCategoriesAction();
-        $action->response = new Response();
-        $action->queryParams = ['keyword' => $this->categories[0]->description];
-        $response = $action->action();
+        $request = (new ServerRequest(JinyaAction::GET, '/blog/category'))->withQueryParams(['keyword' => $this->categories[0]->description]);
+        $response = $action($request, new Response(), []);
         $this->assertEquals(Action::HTTP_OK, $response->getStatusCode());
 
         $response->getBody()->rewind();
