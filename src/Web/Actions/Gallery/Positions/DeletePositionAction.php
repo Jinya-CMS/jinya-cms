@@ -33,7 +33,7 @@ class DeletePositionAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $galleryId = $this->args['galleryId'];
         $position = $this->args['position'];

@@ -37,7 +37,7 @@ class DeleteArtistAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);

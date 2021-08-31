@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\KnownDevice;
 
-use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
@@ -36,7 +35,7 @@ class ListAllKnownDevicesAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);

@@ -60,7 +60,7 @@ class CreateArtistAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $artist = new Artist();

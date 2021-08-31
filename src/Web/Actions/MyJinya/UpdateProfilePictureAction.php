@@ -30,7 +30,7 @@ class UpdateProfilePictureAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         /** @var Artist $currentArtist */
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);

@@ -46,7 +46,7 @@ class CreateSegmentPageAction extends Action
      * @inheritDoc
      * @throws Exception
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $segmentPage = new SegmentPage();

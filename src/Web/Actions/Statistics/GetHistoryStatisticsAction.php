@@ -9,8 +9,8 @@ use App\Statistics\History;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
-use Psr\Http\Message\ResponseInterface as Response;
 use Nyholm\Psr7\Response as NyholmResponse;
+use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/statistics/history/{type}', JinyaAction::GET)]
 #[Authenticated(Authenticated::WRITER)]
@@ -89,7 +89,7 @@ class GetHistoryStatisticsAction extends Action
     /**
      * @inheritDoc
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $historyStats = new History();
         $type = str_replace('-', '_', $this->args['type']);

@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\Artist;
 
-use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
@@ -37,7 +36,7 @@ class ListAllArtistsAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $params = $this->request->getQueryParams();
         if (isset($params['keyword'])) {

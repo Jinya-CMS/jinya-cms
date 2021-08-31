@@ -6,7 +6,6 @@ use App\Database\Analyzer\DatabaseAnalyzer;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
-use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/maintenance/database/analyze', JinyaAction::GET)]
@@ -16,7 +15,7 @@ class DatabaseAnalyzerAction extends Action
     /**
      * {@inheritDoc}
      */
-    protected function action(): Response
+    public function action(): Response
     {
             $tables = DatabaseAnalyzer::getTables();
             $server = DatabaseAnalyzer::getServerInfo();

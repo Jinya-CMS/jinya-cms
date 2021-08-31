@@ -28,7 +28,7 @@ class ResetMenuItemParentAction extends Action
      * @throws \App\Database\Exceptions\InvalidQueryException
      * @throws \JsonException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $menuId = $this->args['menuId'];
         $menuItemId = $this->args['menuItemId'];

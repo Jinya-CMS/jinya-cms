@@ -25,7 +25,7 @@ class GetVersionInfo extends UpdateAction
      * {@inheritDoc}
      * @throws \JsonException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         return $this->respond(
             [

@@ -20,7 +20,7 @@ class GetVisitsByDeviceTypeAction extends Action
     /**
      * @throws \JsonException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $client = MatomoClient::newClient();
 

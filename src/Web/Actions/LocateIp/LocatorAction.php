@@ -33,7 +33,7 @@ class LocatorAction extends Action
      * @throws JsonException
      * @throws GuzzleException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $ip = $this->args['ip'];
         $client = new Client();

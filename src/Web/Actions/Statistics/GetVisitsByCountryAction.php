@@ -21,7 +21,7 @@ class GetVisitsByCountryAction extends Action
      * @inheritDoc
      * @throws \JsonException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $matomoClient = MatomoClient::newClient();
 

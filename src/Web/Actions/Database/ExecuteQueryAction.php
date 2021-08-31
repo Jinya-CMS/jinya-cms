@@ -8,7 +8,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/maintenance/database/query', JinyaAction::POST)]
@@ -19,7 +18,7 @@ class ExecuteQueryAction extends Action
     /**
      * @return Response
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $query = $this->request->getParsedBody()['query'];
 

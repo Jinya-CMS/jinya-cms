@@ -32,7 +32,7 @@ class DeleteApiKeyAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $device = ApiKey::findByApiKey($this->args['key']);
         if (null === $device) {

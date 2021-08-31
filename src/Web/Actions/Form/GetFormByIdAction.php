@@ -37,7 +37,7 @@ class GetFormByIdAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $form = Form::findById($id);

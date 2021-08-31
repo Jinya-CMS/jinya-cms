@@ -33,7 +33,7 @@ class StartUploadAction extends Action
      * @throws UniqueFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $uploadingFile = new UploadingFile();

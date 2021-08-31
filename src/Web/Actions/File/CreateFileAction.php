@@ -13,8 +13,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
-use Exception;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/file', JinyaAction::POST)]
@@ -53,7 +51,7 @@ class CreateFileAction extends Action
      * @throws \App\Database\Exceptions\ForeignKeyFailedException
      * @throws \App\Database\Exceptions\InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $file = new File();

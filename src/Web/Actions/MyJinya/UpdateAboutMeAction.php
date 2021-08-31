@@ -47,7 +47,7 @@ class UpdateAboutMeAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         /** @var Artist $currentArtist */

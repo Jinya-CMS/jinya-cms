@@ -15,7 +15,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/menu/{id}/item', JinyaAction::GET)]
@@ -34,7 +33,7 @@ class GetMenuItemsByMenuAction extends MenuItemAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $menuId = $this->args['id'];
         $menu = Menu::findById($menuId);

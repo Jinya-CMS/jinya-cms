@@ -5,7 +5,6 @@ namespace App\Web\Actions\Menu\Items;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\GalleryFilePosition;
 use App\Database\Menu;
 use App\Database\MenuItem;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
@@ -42,7 +41,7 @@ class CreateMenuItemByMenuAction extends MenuItemAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $menuId = $this->args['id'];
         $menu = Menu::findById($menuId);

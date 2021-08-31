@@ -37,7 +37,7 @@ class GetFileByIdAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $file = File::findById((int)$this->args['id']);
         if (null === $file) {

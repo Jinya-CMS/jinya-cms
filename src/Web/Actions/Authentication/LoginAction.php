@@ -20,7 +20,6 @@ use App\Web\Exceptions\UnknownDeviceException;
 use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 #[JinyaAction('/api/login', JinyaAction::POST)]
@@ -80,7 +79,7 @@ class LoginAction extends Action
      * {@inheritDoc}
      * @throws Exception
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $username = $body['username'] ?? '';

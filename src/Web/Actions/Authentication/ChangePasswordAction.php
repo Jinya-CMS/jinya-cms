@@ -50,7 +50,7 @@ class ChangePasswordAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $password = $body['password'];

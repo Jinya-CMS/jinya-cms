@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Web\Actions;
 
@@ -84,22 +83,32 @@ abstract class Action
     /**
      * @var LoggerInterface
      */
-    protected LoggerInterface $logger;
+    public LoggerInterface $logger;
 
     /**
      * @var Request
      */
-    protected Request $request;
+    public Request $request;
 
     /**
      * @var Response
      */
-    protected Response $response;
+    public Response $response;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
-    protected array $args;
+    public array $args;
+
+    /**
+     * @var array<string, mixed>|object|null
+     */
+    public array|object|null $body;
+
+    /**
+     * @var array<string, mixed>
+     */
+    public array $queryParams;
 
     /**
      */
@@ -111,7 +120,7 @@ abstract class Action
     /**
      * @param Request $request
      * @param Response $response
-     * @param array $args
+     * @param array<string, mixed> $args
      * @return Response
      * @throws HttpBadRequestException
      */
@@ -120,6 +129,8 @@ abstract class Action
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
+        $this->body = $request->getParsedBody();
+        $this->queryParams = $request->getQueryParams();
 
         return $this->action();
     }
@@ -128,7 +139,7 @@ abstract class Action
      * @return Response
      * @throws HttpBadRequestException
      */
-    abstract protected function action(): Response;
+    abstract public function action(): Response;
 
     /**
      * @param array $data
@@ -184,7 +195,8 @@ abstract class Action
         string $path,
         string $contentType = 'application/octet-stream',
         string $basePath = StorageBaseService::BASE_PATH . '/public/'
-    ): Response {
+    ): Response
+    {
         return $this->response
             ->withBody(Stream::create(fopen($basePath . $path, 'rb')))
             ->withHeader('Content-Type', $contentType)

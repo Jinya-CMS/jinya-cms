@@ -14,10 +14,8 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JetBrains\PhpStorm\Pure;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 
 #[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::DELETE)]
 #[Authenticated(role: Authenticated::ADMIN)]
@@ -48,7 +46,7 @@ class DeleteProfilePictureAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         try {
             $this->profilePictureService->deleteProfilePicture($this->args['id']);

@@ -67,7 +67,7 @@ class UpdateSegmentAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $segment = Segment::findByPosition($this->args['id'], $this->args['position']);

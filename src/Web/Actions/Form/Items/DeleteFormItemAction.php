@@ -33,7 +33,7 @@ class DeleteFormItemAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $formItem = FormItem::findByPosition($this->args['id'], $this->args['position']);
         if (!$formItem) {

@@ -8,7 +8,6 @@ use App\Web\Actions\Action;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpException;
 use Throwable;
 
@@ -34,7 +33,7 @@ abstract class FrontAction extends Action
     /**
      * {@inheritDoc}
      */
-    protected function action(): Response
+    public function action(): Response
     {
         try {
             return $this->protectedAction();

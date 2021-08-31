@@ -16,7 +16,7 @@ class PostUpdateAction extends UpdateAction
      * {@inheritDoc}
      * @throws JsonException
      */
-    protected function action(): ResponseInterface
+    public function action(): ResponseInterface
     {
         $body = $this->request->getParsedBody();
         if (isset($body['cancel'])) {

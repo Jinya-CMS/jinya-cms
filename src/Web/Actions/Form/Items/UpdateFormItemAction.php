@@ -5,7 +5,6 @@ namespace App\Web\Actions\Form\Items;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Form;
 use App\Database\FormItem;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
@@ -60,7 +59,7 @@ class UpdateFormItemAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $formItem = FormItem::findByPosition($this->args['id'], $this->args['position']);

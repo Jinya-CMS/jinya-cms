@@ -33,7 +33,7 @@ class DeleteKnownDeviceAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $device = KnownDevice::findByCode($this->args['key']);
         if (null === $device) {

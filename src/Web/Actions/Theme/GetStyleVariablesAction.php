@@ -100,7 +100,7 @@ class GetStyleVariablesAction extends ThemeAction
      * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $themeId = $this->args['id'];
         $dbTheme = Database\Theme::findById($themeId);

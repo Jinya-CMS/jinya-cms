@@ -15,7 +15,7 @@ class PostInstallerAction extends InstallAction
     /**
      * {@inheritDoc}
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $postData = $this->request->getParsedBody();
         if (isset($postData['action'])) {

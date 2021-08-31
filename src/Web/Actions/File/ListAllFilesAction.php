@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\File;
 
-use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
@@ -36,7 +35,7 @@ class ListAllFilesAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $params = $this->request->getQueryParams();
         if (isset($params['keyword'])) {

@@ -15,7 +15,7 @@ class InitUpdateProcess extends Action
     /**
      * @return Response
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $updateCode = sha1(time());
         $updateLock = __ROOT__ . '/update.lock';

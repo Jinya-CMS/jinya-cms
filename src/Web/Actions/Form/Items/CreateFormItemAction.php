@@ -17,7 +17,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/form/{id}/item', JinyaAction::POST)]
@@ -77,7 +76,7 @@ class CreateFormItemAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $id = $this->args['id'];

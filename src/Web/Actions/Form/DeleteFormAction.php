@@ -32,7 +32,7 @@ class DeleteFormAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $form = Form::findById($this->args['id']);
         if (null === $form) {

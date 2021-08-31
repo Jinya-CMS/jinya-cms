@@ -32,7 +32,7 @@ class DeleteSimplePageAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $page = SimplePage::findById($this->args['id']);
         if (null === $page) {

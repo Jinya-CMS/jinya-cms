@@ -44,7 +44,7 @@ class UpdatePositionAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $galleryId = $this->args['galleryId'];
         $position = $this->args['position'];

@@ -57,7 +57,7 @@ class CreateGalleryAction extends Action
      * @inheritDoc
      * @throws Exception
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $gallery = new Gallery();

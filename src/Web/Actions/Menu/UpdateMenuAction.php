@@ -54,7 +54,7 @@ class UpdateMenuAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $id = $this->args['id'];

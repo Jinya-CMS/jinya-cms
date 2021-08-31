@@ -10,7 +10,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/segment-page/{id}', JinyaAction::GET)]
@@ -25,7 +24,7 @@ class GetSegmentPageByIdAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);

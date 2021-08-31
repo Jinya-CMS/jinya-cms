@@ -32,7 +32,7 @@ class GetEntityStatisticsAction extends Action
     /**
      * @inheritDoc
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $entityStats = new Entity();
         return $this->respond($entityStats->getEntityShare());

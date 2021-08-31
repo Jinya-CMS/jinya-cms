@@ -62,7 +62,7 @@ class GetThemeAction extends ThemeAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $themeId = $this->args['id'];
         $theme = Theme::findById($themeId);

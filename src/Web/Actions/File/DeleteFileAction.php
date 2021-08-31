@@ -32,7 +32,7 @@ class DeleteFileAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $file = File::findById($id);

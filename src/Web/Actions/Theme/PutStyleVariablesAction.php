@@ -35,7 +35,7 @@ class PutStyleVariablesAction extends ThemeAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $this->syncThemes();
         $themeId = $this->args['id'];

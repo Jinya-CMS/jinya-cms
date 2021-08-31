@@ -33,7 +33,7 @@ class GetThemeMenuAction extends ThemeAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $this->syncThemes();
         $themeId = $this->args['id'];

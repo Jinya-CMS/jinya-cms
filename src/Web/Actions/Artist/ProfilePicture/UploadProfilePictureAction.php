@@ -14,10 +14,8 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JetBrains\PhpStorm\Pure;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 
 #[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::PUT)]
 #[Authenticated(role: Authenticated::ADMIN)]
@@ -47,7 +45,7 @@ class UploadProfilePictureAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         try {

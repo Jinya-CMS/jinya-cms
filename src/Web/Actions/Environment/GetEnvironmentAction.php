@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class GetEnvironmentAction extends Action
 {
-    protected function action(): Response
+    public function action(): Response
     {
         $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env'));
         $data = array_map(

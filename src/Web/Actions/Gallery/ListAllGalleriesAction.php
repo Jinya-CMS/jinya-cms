@@ -36,7 +36,7 @@ class ListAllGalleriesAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $params = $this->request->getQueryParams();
         if (isset($params['keyword'])) {

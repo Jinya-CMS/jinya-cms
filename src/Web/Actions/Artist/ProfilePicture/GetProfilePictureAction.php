@@ -11,7 +11,6 @@ use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Storage\StorageBaseService;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -30,7 +29,7 @@ class GetProfilePictureAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);

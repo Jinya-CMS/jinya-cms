@@ -14,10 +14,8 @@ use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
-use JetBrains\PhpStorm\Pure;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 
 #[JinyaAction('/api/2fa', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
@@ -55,7 +53,7 @@ class TwoFactorAction extends Action
      * @throws Exception
      * @throws \Exception
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $body = $this->request->getParsedBody();
         $artist = Artist::findByEmail($body['username']);

@@ -34,7 +34,7 @@ class DeactivateArtistAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    protected function action(): Response
+    public function action(): Response
     {
         $artist = Artist::findById($this->args['id']);
         if (1 === Artist::countAdmins(CurrentUser::$currentUser->getIdAsInt()) && in_array(RoleMiddleware::ROLE_ADMIN, $artist->roles, true)) {
