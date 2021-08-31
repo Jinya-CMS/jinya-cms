@@ -1801,10 +1801,10 @@ rollup-plugin-copy@3.4.0:
     globby "10.0.1"
     is-plain-object "^3.0.0"
 
-rollup-plugin-monaco-editor@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.1.0.tgz#d676ecd8084b4e6f360a2533b19b0a1c6bd892be"
-  integrity sha512-58+N51L8lhhZt8LhoJCRAoPiRSUcRYxFnEPEubZaj2JeDT9MdEAs7BhJLj/EHFJ/5qYCwsaxRtOClrXjh34sCA==
+rollup-plugin-monaco-editor@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.1.1.tgz#621e32fb11d74079736bbdab03aefc4d711305a7"
+  integrity sha512-jp7QJJhPC3LJMHxXQDvTBfvAmC5slhGMz+F6T4sqCxd9kMUcUCdb1gRmjT9BLx2abOKd1oVyTtMhgf1N5SKgkw==
   dependencies:
     es-module-lexer "^0.3.26"
     recast "^0.20.4"
