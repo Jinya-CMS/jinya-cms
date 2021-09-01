@@ -1381,11 +1381,6 @@ parameters:
 			path: src/Utils/ClassResolver.php
 
 		-
-			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Web/Actions/Action.php
-
-		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:formatIterator\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Web/Actions/Action.php
@@ -1416,17 +1411,7 @@ parameters:
 			path: src/Web/Actions/Action.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 2
-			path: src/Web/Actions/Action.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of method Psr\\\\Http\\\\Message\\\\StreamInterface\\:\\:write\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Web/Actions/Action.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Actions\\\\Action\\:\\:\\$args type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Web/Actions/Action.php
 
@@ -1459,16 +1444,6 @@ parameters:
 			message: "#^Cannot access offset 'roles' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Artist/CreateArtistAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/CreateArtistAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/GetArtistByIdAction.php
 
 		-
 			message: "#^Parameter \\#2 \\$contentType of method App\\\\Web\\\\Actions\\\\Action\\:\\:respondFile\\(\\) expects string, string\\|false given\\.$#"
@@ -1526,11 +1501,6 @@ parameters:
 			path: src/Web/Actions/Authentication/LoginAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\|string\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Authentication/LoginAction.php
-
-		-
 			message: "#^Cannot access offset 'password' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Authentication/TwoFactorAction.php
@@ -1541,22 +1511,7 @@ parameters:
 			path: src/Web/Actions/Authentication/TwoFactorAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 2
-			path: src/Web/Actions/Authentication/TwoFactorAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Database/DatabaseAnalyzerAction.php
-
-		-
 			message: "#^Cannot access offset 'query' on array\\|object\\.$#"
-			count: 1
-			path: src/Web/Actions/Database/ExecuteQueryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<int, array\\<string, array\\|int\\|string\\>\\> given\\.$#"
 			count: 1
 			path: src/Web/Actions/Database/ExecuteQueryAction.php
 
@@ -1566,24 +1521,9 @@ parameters:
 			path: src/Web/Actions/Environment/GetEnvironmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<int, array\\<string, mixed\\>\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Environment/GetEnvironmentAction.php
-
-		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/File/CreateFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/File/CreateFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/File/GetFileByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
@@ -1604,16 +1544,6 @@ parameters:
 			message: "#^Cannot access offset 'toAddress' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/CreateFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/CreateFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/GetFormByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'helpText' on array\\|object\\.$#"
@@ -1666,19 +1596,9 @@ parameters:
 			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
-
-		-
 			message: "#^Property App\\\\Database\\\\FormItem\\:\\:\\$formId \\(int\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/Items/GetFormItemsAction.php
 
 		-
 			message: "#^Cannot access offset 'helpText' on array\\|object\\.$#"
@@ -1776,16 +1696,6 @@ parameters:
 			path: src/Web/Actions/Gallery/CreateGalleryAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/CreateGalleryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/GetGalleryByIdAction.php
-
-		-
 			message: "#^Cannot access offset 'file' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
@@ -1794,16 +1704,6 @@ parameters:
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/Positions/GetPositionsAction.php
 
 		-
 			message: "#^Cannot access offset 'file' on array\\|object\\.$#"
@@ -1861,11 +1761,6 @@ parameters:
 			path: src/Web/Actions/KnownDevice/ListAllKnownDevicesAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/LocateIp/LocatorAction.php
-
-		-
 			message: "#^Cannot access offset 'logo' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/CreateMenuAction.php
@@ -1874,31 +1769,6 @@ parameters:
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/CreateMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/CreateMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/GetMenuByIdAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/CreateMenuItemByMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/CreateMenuItemByMenuItemAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/GetMenuItemsByMenuAction.php
 
 		-
 			message: "#^Cannot access offset 'artist' on array\\|object\\.$#"
@@ -2011,29 +1881,9 @@ parameters:
 			path: src/Web/Actions/MyJinya/UpdateProfilePictureAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\|string\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/OpenApi/GetOpenApiConfigAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\<string, array\\|string\\>\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/PhpInfo/GetPhpInfoAction.php
-
-		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/CreateSegmentPageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/CreateSegmentPageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/GetSegmentPageByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'action' on array\\|object\\.$#"
@@ -2061,22 +1911,12 @@ parameters:
 			path: src/Web/Actions/SegmentPage/Segments/CreateFileSegmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateFileSegmentAction.php
-
-		-
 			message: "#^Cannot access offset 'form' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
 
 		-
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
 
@@ -2091,11 +1931,6 @@ parameters:
 			path: src/Web/Actions/SegmentPage/Segments/CreateGallerySegmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateGallerySegmentAction.php
-
-		-
 			message: "#^Cannot access offset 'html' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
@@ -2104,16 +1939,6 @@ parameters:
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/GetSegmentsAction.php
 
 		-
 			message: "#^Cannot access offset 'action' on array\\|object\\.$#"
@@ -2171,16 +1996,6 @@ parameters:
 			path: src/Web/Actions/SimplePage/CreateSimplePageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SimplePage/CreateSimplePageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SimplePage/GetSimplePageByIdAction.php
-
-		-
 			message: "#^Cannot access offset 'content' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SimplePage/UpdateSimplePageAction.php
@@ -2191,109 +2006,9 @@ parameters:
 			path: src/Web/Actions/SimplePage/UpdateSimplePageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetEntityStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetHistoryStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, float\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetSystemStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByBrowserAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByCountryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByDeviceBrandAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByDeviceTypeAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByLanguageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByOsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByReferrerAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetConfigurationStructureAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetDefaultConfigurationValues.php
-
-		-
 			message: "#^Parameter \\#1 \\$body of static method Nyholm\\\\Psr7\\\\Stream\\:\\:create\\(\\) expects Psr\\\\Http\\\\Message\\\\StreamInterface\\|resource\\|string, resource\\|false given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetPreviewImageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetStyleVariablesAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeGalleryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemePageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeSegmentPageAction.php
 
 		-
 			message: "#^Cannot access offset 'configuration' on array\\|object\\.$#"
@@ -2366,11 +2081,6 @@ parameters:
 			path: src/Web/Actions/Theme/PutThemeSegmentPageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Update/InitUpdateProcess.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function sha1 expects string, int given\\.$#"
 			count: 1
 			path: src/Web/Actions/Update/InitUpdateProcess.php
@@ -2404,11 +2114,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Web/Actions/Update/UpdateAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, int\\|string\\|null\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Version/GetVersionInfo.php
 
 		-
 			message: "#^Method App\\\\Web\\\\Attributes\\\\RequireOneField\\:\\:__construct\\(\\) has parameter \\$validFields with no value type specified in iterable type array\\.$#"
