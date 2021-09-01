@@ -13,7 +13,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/theme/{id}', JinyaAction::GET)]
@@ -62,7 +61,7 @@ class GetThemeAction extends ThemeAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $themeId = $this->args['id'];
         $theme = Theme::findById($themeId);

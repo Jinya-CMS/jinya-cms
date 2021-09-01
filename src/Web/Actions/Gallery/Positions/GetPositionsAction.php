@@ -46,7 +46,7 @@ class GetPositionsAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $galleryId = $this->args['galleryId'];
         $gallery = Gallery::findById($galleryId);

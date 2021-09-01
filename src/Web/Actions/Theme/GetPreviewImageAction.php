@@ -29,7 +29,7 @@ class GetPreviewImageAction extends ThemeAction
      * @throws NoResultException
      * @throws JsonException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $themeId = $this->args['id'];
         $dbTheme = Database\Theme::findById($themeId);

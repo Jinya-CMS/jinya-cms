@@ -32,7 +32,7 @@ class DeleteMenuItemAction extends MenuItemAction
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);

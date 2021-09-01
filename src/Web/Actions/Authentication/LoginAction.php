@@ -79,7 +79,7 @@ class LoginAction extends Action
      * {@inheritDoc}
      * @throws Exception
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $username = $body['username'] ?? '';

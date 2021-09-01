@@ -53,7 +53,7 @@ class TwoFactorAction extends Action
      * @throws Exception
      * @throws \Exception
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $artist = Artist::findByEmail($body['username']);

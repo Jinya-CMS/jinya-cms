@@ -26,7 +26,7 @@ class CreateCategoryAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $category = new BlogCategory();
         /** @psalm-suppress PossiblyNullArrayAccess */

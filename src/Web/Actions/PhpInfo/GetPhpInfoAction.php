@@ -16,7 +16,7 @@ class GetPhpInfoAction extends Action
      * {@inheritDoc}
      * @throws \ReflectionException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $phpInfoService = new PhpInfoService();
 

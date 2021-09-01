@@ -30,7 +30,7 @@ class GetArtistInfoAction extends Action
      * {@inheritDoc}
      * @return Response
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $currentArtist = $this->request->getAttribute(AuthenticationMiddleware::LOGGED_IN_ARTIST);
 

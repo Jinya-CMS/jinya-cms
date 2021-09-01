@@ -82,27 +82,27 @@ abstract class Action
     /**
      * @var LoggerInterface
      */
-    public LoggerInterface $logger;
+    protected LoggerInterface $logger;
 
     /**
      * @var Request
      */
-    public Request $request;
+    protected Request $request;
 
     /**
      * @var Response
      */
-    public Response $response;
+    protected Response $response;
 
     /**
      * @var array<string, mixed>
      */
-    public array $args;
+    protected array $args;
 
     /**
      * @var array<string, mixed>|null
      */
-    public array|null $body;
+    protected array|null $body;
 
     /**
      * @var array<string, mixed>
@@ -139,7 +139,7 @@ abstract class Action
      * @return Response
      * @throws HttpBadRequestException
      */
-    abstract public function action(): Response;
+    abstract protected function action(): Response;
 
     /**
      * @param array $data

@@ -30,7 +30,7 @@ class ActivateArtistAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $artist = Artist::findById($this->args['id']);
         $artist->enabled = true;

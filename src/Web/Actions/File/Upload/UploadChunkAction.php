@@ -46,7 +46,7 @@ class UploadChunkAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $fileId = $this->args['id'];
         $position = $this->args['position'];

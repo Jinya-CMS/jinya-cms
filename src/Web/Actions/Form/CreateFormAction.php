@@ -55,7 +55,7 @@ class CreateFormAction extends Action
      * @inheritDoc
      * @throws Exception
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $form = new Form();

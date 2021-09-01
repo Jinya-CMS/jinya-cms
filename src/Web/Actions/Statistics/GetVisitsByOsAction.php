@@ -20,7 +20,7 @@ class GetVisitsByOsAction extends Action
     /**
      * @throws \JsonException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $client = MatomoClient::newClient();
 

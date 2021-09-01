@@ -37,7 +37,7 @@ class ValidateKnownDeviceAction extends Action
      * @throws UniqueFailedException
      * @throws JsonException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $key = $this->args['key'];
         if (KnownDevice::findByCode($key)) {

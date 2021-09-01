@@ -42,7 +42,7 @@ class CreateMenuItemByMenuItemAction extends MenuItemAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);

@@ -34,7 +34,7 @@ class GetArtistByIdAction extends Action
      * @throws \App\Database\Exceptions\ForeignKeyFailedException
      * @throws \App\Database\Exceptions\InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $artist = Artist::findById((int)$this->args['id']);
         if (null === $artist) {

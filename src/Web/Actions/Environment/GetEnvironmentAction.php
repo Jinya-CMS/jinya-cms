@@ -12,11 +12,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[Authenticated(role: Authenticated::ADMIN)]
 class GetEnvironmentAction extends Action
 {
-    public function action(): Response
+    protected function action(): Response
     {
         $env = Dotenv::parse(file_get_contents(__ROOT__ . '/.env'));
         $data = array_map(
-            static fn ($key, $value) => [
+            static fn($key, $value) => [
                 'key' => $key,
                 'value' => false === stripos($key, 'password') ? $value : '••••••',
             ],

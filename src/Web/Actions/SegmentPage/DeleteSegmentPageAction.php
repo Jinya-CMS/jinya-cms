@@ -32,7 +32,7 @@ class DeleteSegmentPageAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $segmentPage = SegmentPage::findById($this->args['id']);
         if (null === $segmentPage) {

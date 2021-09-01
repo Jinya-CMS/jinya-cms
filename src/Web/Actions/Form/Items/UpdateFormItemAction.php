@@ -59,7 +59,7 @@ class UpdateFormItemAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $formItem = FormItem::findByPosition($this->args['id'], $this->args['position']);

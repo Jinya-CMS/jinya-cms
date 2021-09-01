@@ -60,9 +60,9 @@ class UpdateArtistAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
-        $id = (int) $this->args['id'];
+        $id = (int)$this->args['id'];
         $artist = Artist::findById($id);
         if (null === $artist) {
             throw new NoResultException($this->request, 'Artist not found');

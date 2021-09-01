@@ -60,7 +60,7 @@ class ListAllThemesAction extends ThemeAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $this->syncThemes();
         if (isset($this->args['keyword'])) {

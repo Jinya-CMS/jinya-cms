@@ -35,7 +35,7 @@ class GetSystemStatisticsAction extends Action
     /**
      * @inheritDoc
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $storageStats = new Storage();
         return $this->respond(

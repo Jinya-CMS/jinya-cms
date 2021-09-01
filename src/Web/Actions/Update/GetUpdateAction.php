@@ -11,7 +11,7 @@ class GetUpdateAction extends UpdateAction
      * {@inheritDoc}
      * @throws JsonException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         return $this->render(
             'update::update',

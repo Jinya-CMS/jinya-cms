@@ -31,7 +31,7 @@ class GetThemeFileAction extends ThemeAction
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $themeId = $this->args['id'];
         $theme = Theme::findById($themeId);

@@ -33,7 +33,7 @@ abstract class FrontAction extends Action
     /**
      * {@inheritDoc}
      */
-    public function action(): Response
+    protected function action(): Response
     {
         try {
             return $this->protectedAction();

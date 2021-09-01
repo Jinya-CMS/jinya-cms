@@ -30,7 +30,7 @@ class MoveMenuItemParentToItemAction extends Action
      * @throws NoResultException
      * @throws \App\Database\Exceptions\InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);

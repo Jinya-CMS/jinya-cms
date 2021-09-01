@@ -24,7 +24,7 @@ class GetSegmentPageByIdAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $id = $this->args['id'];
         $segmentPage = SegmentPage::findById($id);

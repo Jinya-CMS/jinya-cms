@@ -51,7 +51,7 @@ class CreateFileAction extends Action
      * @throws \App\Database\Exceptions\ForeignKeyFailedException
      * @throws \App\Database\Exceptions\InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $file = new File();

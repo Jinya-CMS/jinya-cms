@@ -58,7 +58,7 @@ class GetDefaultConfigurationValues extends ThemeAction
      * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $themeId = $this->args['id'];
         $dbTheme = Database\Theme::findById($themeId);

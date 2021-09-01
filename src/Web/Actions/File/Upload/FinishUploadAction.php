@@ -43,7 +43,7 @@ class FinishUploadAction extends Action
      * @throws UniqueFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $fileId = $this->args['id'];
         try {

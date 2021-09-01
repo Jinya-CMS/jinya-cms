@@ -19,7 +19,7 @@ class GetOpenApiConfigAction extends Action
      * @inheritDoc
      * @throws ReflectionException|OpenApiModelException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $modelGenerator = new ModelGenerator();
         $models = $modelGenerator->generateModels();

@@ -38,7 +38,7 @@ class GetMenuByIdAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $id = $this->args['id'];
         $menu = Menu::findById($id);

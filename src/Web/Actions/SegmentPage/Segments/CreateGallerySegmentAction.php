@@ -59,7 +59,7 @@ class CreateGallerySegmentAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $id = $this->args['id'];

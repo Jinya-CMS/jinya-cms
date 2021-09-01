@@ -56,7 +56,7 @@ class CreateMenuAction extends Action
      * @throws ConflictException
      * @throws Exception
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $menu = new Menu();

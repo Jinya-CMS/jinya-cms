@@ -23,7 +23,7 @@ class GetFileContentAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $fileId = $this->args['id'];
         $file = File::findById($fileId);

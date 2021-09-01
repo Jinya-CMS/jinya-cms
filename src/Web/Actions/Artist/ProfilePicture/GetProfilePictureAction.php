@@ -29,7 +29,7 @@ class GetProfilePictureAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $id = $this->args['id'];
         $artist = Artist::findById($id);

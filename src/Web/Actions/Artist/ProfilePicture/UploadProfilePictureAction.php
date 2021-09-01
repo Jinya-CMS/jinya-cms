@@ -45,7 +45,7 @@ class UploadProfilePictureAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $id = $this->args['id'];
         try {

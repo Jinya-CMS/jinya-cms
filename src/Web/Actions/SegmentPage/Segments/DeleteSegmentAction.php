@@ -33,7 +33,7 @@ class DeleteSegmentAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $segment = Segment::findByPosition($this->args['id'], $this->args['position']);
         if (!$segment) {

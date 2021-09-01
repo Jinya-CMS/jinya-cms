@@ -36,7 +36,7 @@ class UpdateMenuItemAction extends MenuItemAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menuItemId = $this->args['menuItemId'];
         $menuItem = MenuItem::findById($menuItemId);

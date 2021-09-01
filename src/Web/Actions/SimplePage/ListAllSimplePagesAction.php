@@ -33,7 +33,7 @@ class ListAllSimplePagesAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $params = $this->request->getQueryParams();
         if (isset($params['keyword'])) {

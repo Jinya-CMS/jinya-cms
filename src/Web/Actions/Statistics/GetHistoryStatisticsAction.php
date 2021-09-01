@@ -89,7 +89,7 @@ class GetHistoryStatisticsAction extends Action
     /**
      * @inheritDoc
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $historyStats = new History();
         $type = str_replace('-', '_', $this->args['type']);

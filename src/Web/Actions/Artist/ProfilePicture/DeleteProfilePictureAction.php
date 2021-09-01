@@ -46,7 +46,7 @@ class DeleteProfilePictureAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         try {
             $this->profilePictureService->deleteProfilePicture($this->args['id']);

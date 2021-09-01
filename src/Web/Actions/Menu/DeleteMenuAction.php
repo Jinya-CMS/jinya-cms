@@ -32,7 +32,7 @@ class DeleteMenuAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menu = Menu::findById($this->args['id']);
         if (null === $menu) {

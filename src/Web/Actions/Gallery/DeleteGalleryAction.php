@@ -32,7 +32,7 @@ class DeleteGalleryAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $gallery = Gallery::findById($this->args['id']);
         if (null === $gallery) {

@@ -22,7 +22,7 @@ class ListAllBlogCategoriesAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         if (isset($this->queryParams['keyword'])) {
             return $this->respondList($this->formatIterator(BlogCategory::findByKeyword($this->queryParams['keyword'])));

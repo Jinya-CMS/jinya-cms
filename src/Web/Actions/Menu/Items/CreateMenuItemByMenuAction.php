@@ -41,7 +41,7 @@ class CreateMenuItemByMenuAction extends MenuItemAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $menuId = $this->args['id'];
         $menu = Menu::findById($menuId);

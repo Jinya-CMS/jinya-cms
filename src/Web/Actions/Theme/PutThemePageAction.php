@@ -36,7 +36,7 @@ class PutThemePageAction extends ThemeAction
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $this->syncThemes();
         $themeId = $this->args['id'];

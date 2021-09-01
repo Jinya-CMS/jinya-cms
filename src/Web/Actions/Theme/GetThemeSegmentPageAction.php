@@ -14,7 +14,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 
@@ -33,7 +32,7 @@ class GetThemeSegmentPageAction extends ThemeAction
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $this->syncThemes();
         $themeId = $this->args['id'];

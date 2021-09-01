@@ -59,7 +59,7 @@ class CreatePositionAction extends Action
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function action(): Response
+    protected function action(): Response
     {
         $body = $this->request->getParsedBody();
         $galleryId = $this->args['galleryId'];
