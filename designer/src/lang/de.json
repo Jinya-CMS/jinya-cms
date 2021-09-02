@@ -321,6 +321,60 @@
       }
     }
   },
+  "blog": {
+    "menu": {
+      "title": "Blog",
+      "categories": "Kategorien"
+    },
+    "categories": {
+      "action": {
+        "new": "Kategorie erstellen",
+        "delete": "Kategorie löschen",
+        "edit": "Kategorie bearbeiten"
+      },
+      "details": {
+        "name": "Name",
+        "description": "Beschreibung",
+        "description_none": "Keine Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie"
+      },
+      "create": {
+        "title": "Kategorie erstellen",
+        "name": "Name",
+        "description": "Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie",
+        "cancel": "Kategorie verwerfen",
+        "create": "Kategorie erstellen",
+        "error": {
+          "title": "Fehler beim Erstellen",
+          "conflict": "Eine Kategorie mit dem gewählten Namen existiert bereits.",
+          "generic": "Ein unbekannter Fehler ist aufgetreten."
+        }
+      },
+      "edit": {
+        "title": "Kategorie bearbeiten",
+        "name": "Name",
+        "description": "Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie",
+        "cancel": "Änderungen verwerfen",
+        "edit": "Kategorie speichern",
+        "error": {
+          "title": "Fehler beim Speichern",
+          "conflict": "Eine Kategorie mit dem gewählten Namen existiert bereits.",
+          "generic": "Ein unbekannter Fehler ist aufgetreten."
+        }
+      },
+      "delete": {
+        "title": "Kategorie löschen",
+        "message": "Soll die Kategorie {name} wirklich gelöscht werden?",
+        "keep": "Kategorie behalten",
+        "delete": "Kategorie löschen"
+      }
+    }
+  },
   "design": {
     "menu": {
       "title": "Design",

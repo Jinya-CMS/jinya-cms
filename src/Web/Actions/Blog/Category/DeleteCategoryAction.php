@@ -12,7 +12,7 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/blog/category/{id}', JinyaAction::GET)]
+#[JinyaAction('/api/blog/category/{id}', JinyaAction::DELETE)]
 #[Authenticated(role: Authenticated::READER)]
 class DeleteCategoryAction extends Action
 {

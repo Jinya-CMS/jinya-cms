@@ -1,28 +1,29 @@
 <script>
   import page from 'page';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import DatabaseStatisticsView from './statistics/DatabaseStatisticsView.svelte';
-  import AccessStatisticsView from './statistics/AccessStatisticsView.svelte';
-  import FileView from './media/FileView.svelte';
-  import GalleryView from './media/GalleryView.svelte';
-  import SimplePageView from './pages/SimplePageView.svelte';
-  import SegmentPageView from './pages/SegmentPageView.svelte';
-  import FormView from './forms/FormView.svelte';
+  import { get, getHost, head, post, put, upload } from '../http/request';
+  import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
+  import ArtistView from './artists/ArtistView.svelte';
+  import BlogCategoryView from "./blog/BlogCategoryView.svelte";
+  import MySqlInfoView from './database/MySqlInfoView.svelte';
+  import QueryToolView from './database/QueryToolView.svelte';
+  import TablesView from './database/TablesView.svelte';
   import MenuView from './design/MenuView.svelte';
   import ThemeView from './design/ThemeView.svelte';
-  import MyProfileView from './my-jinya/MyProfileView.svelte';
-  import ActiveSessionsView from './my-jinya/ActiveSessionsView.svelte';
-  import ActiveDevicesView from './my-jinya/ActiveDevicesView.svelte';
-  import VersionView from './maintenance/VersionView.svelte';
+  import FormView from './forms/FormView.svelte';
   import JinyaConfigurationView from './maintenance/JinyaConfigurationView.svelte';
   import PhpInfoView from './maintenance/PhpInfoView.svelte';
-  import MySqlInfoView from './database/MySqlInfoView.svelte';
-  import TablesView from './database/TablesView.svelte';
-  import QueryToolView from './database/QueryToolView.svelte';
-  import ArtistView from './artists/ArtistView.svelte';
-  import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { get, getHost, head, post, put, upload } from '../http/request';
+  import VersionView from './maintenance/VersionView.svelte';
+  import FileView from './media/FileView.svelte';
+  import GalleryView from './media/GalleryView.svelte';
+  import ActiveDevicesView from './my-jinya/ActiveDevicesView.svelte';
+  import ActiveSessionsView from './my-jinya/ActiveSessionsView.svelte';
+  import MyProfileView from './my-jinya/MyProfileView.svelte';
+  import SegmentPageView from './pages/SegmentPageView.svelte';
+  import SimplePageView from './pages/SimplePageView.svelte';
+  import AccessStatisticsView from './statistics/AccessStatisticsView.svelte';
+  import DatabaseStatisticsView from './statistics/DatabaseStatisticsView.svelte';
 
   const dispatch = createEventDispatcher();
   let activeRoute;
@@ -137,6 +138,13 @@
       activeCategory = 'my-jinya';
       isBackstage = false;
       activeComponent = ActiveDevicesView;
+    });
+
+    page('/designer/blog/categories', checkApiKey, () => {
+      activeRoute = 'blog-categories';
+      activeCategory = 'blog';
+      isBackstage = false;
+      activeComponent = BlogCategoryView;
     });
   }
 
@@ -253,6 +261,8 @@
                    class="cosmo-top-bar__menu-item">{$_('media.menu.title')}</a>
                 <a href="/designer/pages-and-forms/simple-pages"
                    class="cosmo-top-bar__menu-item">{$_('pages_and_forms.menu.title')}</a>
+                <a href="/designer/blog/categories"
+                   class="cosmo-top-bar__menu-item">{$_('blog.menu.title')}</a>
                 <a href="/designer/design/menus"
                    class="cosmo-top-bar__menu-item">{$_('design.menu.title')}</a>
                 <a href="/designer/my-jinya/my-profile"
@@ -294,6 +304,9 @@
                     <a href="/designer/pages-and-forms/simple-pages"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'pages-and-forms'}
                        class="cosmo-menu-bar__main-item">{$_('pages_and_forms.menu.title')}</a>
+                    <a href="/designer/blog/categories"
+                       class:cosmo-menu-bar__main-item--active={activeCategory === 'blog'}
+                       class="cosmo-menu-bar__main-item">{$_('blog.menu.title')}</a>
                     <a href="/designer/design/menus"
                        class:cosmo-menu-bar__main-item--active={activeCategory === 'design'}
                        class="cosmo-menu-bar__main-item">{$_('design.menu.title')}</a>
@@ -322,6 +335,9 @@
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'segment-pages'}>{$_('pages_and_forms.menu.segment_pages')}</a>
                     <a href="/designer/pages-and-forms/forms" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'forms'}>{$_('pages_and_forms.menu.forms')}</a>
+                {:else if activeCategory === 'blog'}
+                    <a href="/designer/blog/categories" class="cosmo-menu-bar__sub-item"
+                       class:cosmo-menu-bar__sub-item--active={activeRoute === 'blog-categories'}>{$_('blog.menu.categories')}</a>
                 {:else if activeCategory === 'design'}
                     <a href="/designer/design/menus" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'menus'}>{$_('design.menu.menus')}</a>

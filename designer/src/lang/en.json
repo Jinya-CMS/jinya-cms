@@ -321,6 +321,60 @@
       }
     }
   },
+  "blog": {
+    "menu": {
+      "title": "Blog",
+      "categories": "Categories"
+    },
+    "categories": {
+      "action": {
+        "new": "Create category",
+        "delete": "Delete category",
+        "edit": "Edit category"
+      },
+      "details": {
+        "name": "Name",
+        "description": "Description",
+        "description_none": "No description",
+        "parent": "Parent category",
+        "parent_none": "No parent category"
+      },
+      "create": {
+        "title": "Create category",
+        "name": "Name",
+        "description": "Description",
+        "parent": "Parent category",
+        "parent_none": "No parent category",
+        "cancel": "Discard category",
+        "create": "Create category",
+        "error": {
+          "title": "Error creating category",
+          "conflict": "A category with the chosen name already exists.",
+          "generic": "An unknown error occured."
+        }
+      },
+      "edit": {
+        "title": "Edit category",
+        "name": "Name",
+        "description": "Description",
+        "parent": "Parent category",
+        "parent_none": "No parent category",
+        "cancel": "Discard changes",
+        "edit": "Update category",
+        "error": {
+          "title": "Error saving category",
+          "conflict": "A category with the chosen name already exists.",
+          "generic": "An unknown error occured."
+        }
+      },
+      "delete": {
+        "title": "Delete category",
+        "message": "Do you really want to delete the category {name}?",
+        "keep": "Keep category",
+        "delete": "Delete category"
+      }
+    }
+  },
   "design": {
     "menu": {
       "title": "Design",
