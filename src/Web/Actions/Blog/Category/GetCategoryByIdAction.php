@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Web\Actions\Blog\Category;
+
+use App\Database\BlogCategory;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
+use App\Web\Actions\Action;
+use App\Web\Exceptions\NoResultException;
+use Psr\Http\Message\ResponseInterface as Response;
+
+class GetCategoryByIdAction extends Action
+{
+
+    /**
+     * @return Response
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws NoResultException
+     */
+    protected function action(): Response
+    {
+        $id = $this->args['id'];
+        $category = BlogCategory::findById($id);
+        if ($category === null) {
+            throw new NoResultException($this->request, 'Category not found');
+        }
+
+        return $this->respond(payload: $category->format());
+    }
+}
