@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/category', JinyaAction::GET)]
 #[Authenticated(role: Authenticated::READER)]
-class ListAllBlogCategoriesAction extends Action
+class ListAllCategoriesAction extends Action
 {
 
     /**
