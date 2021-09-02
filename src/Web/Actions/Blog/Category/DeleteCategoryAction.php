@@ -14,15 +14,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/category/{id}', JinyaAction::GET)]
 #[Authenticated(role: Authenticated::READER)]
-class GetCategoryByIdAction extends Action
+class DeleteCategoryAction extends Action
 {
-
     /**
      * @return Response
+     * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
-     * @throws NoResultException
      */
     protected function action(): Response
     {
@@ -32,6 +31,8 @@ class GetCategoryByIdAction extends Action
             throw new NoResultException($this->request, 'Category not found');
         }
 
-        return $this->respond(payload: $category->format());
+        $category->delete();
+
+        return $this->noContent();
     }
 }
