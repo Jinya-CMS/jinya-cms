@@ -17,7 +17,7 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
     public bool $public = false;
     public DateTime $createdAt;
     public int $creatorId;
-    public int $categoryId;
+    public ?int $categoryId = null;
 
     /**
      * @inheritDoc
@@ -172,6 +172,10 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
      */
     public function getCategory(): BlogCategory|null
     {
+        if ($this->categoryId === null) {
+            return null;
+        }
+
         return BlogCategory::findById($this->categoryId);
     }
 
