@@ -129,6 +129,7 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
             $headerFormat = [
                 'id' => $headerImage->id,
                 'name' => $headerImage->name,
+                'path' => $headerImage->path,
             ];
         } else {
             $headerFormat = null;

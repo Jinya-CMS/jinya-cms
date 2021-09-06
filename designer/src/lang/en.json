@@ -324,7 +324,8 @@
   "blog": {
     "menu": {
       "title": "Blog",
-      "categories": "Categories"
+      "categories": "Categories",
+      "posts": "Posts"
     },
     "categories": {
       "action": {
@@ -372,6 +373,52 @@
         "message": "Do you really want to delete the category {name}?",
         "keep": "Keep category",
         "delete": "Delete category"
+      }
+    },
+    "posts": {
+      "overview": {
+        "all": "All Categories",
+        "action": {
+          "new": "New post",
+          "delete": "Delete post",
+          "edit": "Edit post"
+        },
+        "delete": {
+          "title": "Delete post",
+          "message": "Do you really want to delete the post {title}?",
+          "keep": "Keep post",
+          "delete": "Delete post"
+        }
+      },
+      "edit": {
+        "title_new": "New post",
+        "title_edit": "Edit post {title}",
+        "tabs": {
+          "settings": "Settings",
+          "segments": "Segments"
+        },
+        "category": "Category",
+        "no_category": "No Category",
+        "slug": "Slug",
+        "title": "Title",
+        "public": "Public",
+        "header_image": "Post image",
+        "action": {
+          "save_new": "Create post",
+          "discard_new": "Discard post",
+          "save_edit": "Save post",
+          "discard_edit": "Discard changes"
+        },
+        "error": {
+          "title": "Error while saving",
+          "slug_exists": "The chosen slug already exists",
+          "title_exists": "The chosen title already exists",
+          "generic": "An unknown error occurred saving the post"
+        },
+        "success": {
+          "title": "Post was saved",
+          "message": "Your post was saved successfully"
+        }
       }
     }
   },

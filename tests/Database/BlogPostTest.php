@@ -121,6 +121,7 @@ class BlogPostTest extends TestCase
             'headerImage' => [
                 'id' => $post->getHeaderImage()->getIdAsInt(),
                 'name' => $post->getHeaderImage()->name,
+                'path' => $post->getHeaderImage()->path,
             ],
             'category' => [
                 'id' => $post->getCategory()->getIdAsInt(),

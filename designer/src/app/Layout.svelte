@@ -6,6 +6,8 @@
   import { deleteJinyaApiKey, deleteRoles, getRoles } from '../storage/authentication/storage';
   import ArtistView from './artists/ArtistView.svelte';
   import BlogCategoryView from "./blog/BlogCategoryView.svelte";
+  import BlogPostEditView from "./blog/BlogPostEditView.svelte";
+  import BlogPostOverviewView from "./blog/BlogPostOverviewView.svelte";
   import MySqlInfoView from './database/MySqlInfoView.svelte';
   import QueryToolView from './database/QueryToolView.svelte';
   import TablesView from './database/TablesView.svelte';
@@ -39,6 +41,7 @@
   let filesToUpload = 0;
   let filesUploaded = 0;
   let uploadDone = false;
+  let selectedBlogPostId = 'new';
 
   async function checkApiKey(ctx, next) {
     try {
@@ -145,6 +148,19 @@
       activeCategory = 'blog';
       isBackstage = false;
       activeComponent = BlogCategoryView;
+    });
+    page('/designer/blog/posts', checkApiKey, () => {
+      activeRoute = 'blog-posts-overview';
+      activeCategory = 'blog';
+      isBackstage = false;
+      activeComponent = BlogPostOverviewView;
+    });
+    page('/designer/blog/posts/edit/:id', checkApiKey, (ctx) => {
+      activeRoute = 'blog-posts-edit';
+      activeCategory = 'blog';
+      isBackstage = false;
+      selectedBlogPostId = ctx.params.id;
+      activeComponent = BlogPostEditView;
     });
   }
 
@@ -338,6 +354,8 @@
                 {:else if activeCategory === 'blog'}
                     <a href="/designer/blog/categories" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'blog-categories'}>{$_('blog.menu.categories')}</a>
+                    <a href="/designer/blog/posts" class="cosmo-menu-bar__sub-item"
+                       class:cosmo-menu-bar__sub-item--active={activeRoute === 'blog-posts-overview' || activeRoute === 'blog-posts-edit'}>{$_('blog.menu.posts')}</a>
                 {:else if activeCategory === 'design'}
                     <a href="/designer/design/menus" class="cosmo-menu-bar__sub-item"
                        class:cosmo-menu-bar__sub-item--active={activeRoute === 'menus'}>{$_('design.menu.menus')}</a>
@@ -377,6 +395,8 @@
                 <FileView uploadDone={uploadDone} on:multiple-files-upload-start={startUpload}/>
             {:else if activeRoute === 'my-profile'}
                 <MyProfileView on:update-me={updateMe} on:logout={logout}/>
+            {:else if activeRoute === 'blog-posts-edit'}
+                <BlogPostEditView newPost={selectedBlogPostId === 'new'} selectedPostId={selectedBlogPostId}/>
             {:else}
                 <svelte:component this={activeComponent}/>
             {/if}

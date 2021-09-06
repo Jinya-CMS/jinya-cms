@@ -14,7 +14,7 @@ use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/blog/post/{id}', JinyaAction::POST)]
+#[JinyaAction('/api/blog/post/{id}', JinyaAction::PUT)]
 #[Authenticated(role: Authenticated::WRITER)]
 #[RequiredFields(['title', 'slug'])]
 class UpdatePostAction extends Action
