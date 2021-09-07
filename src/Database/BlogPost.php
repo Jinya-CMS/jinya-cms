@@ -3,11 +3,13 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\Exceptions\TransactionFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use DateTime;
 use Iterator;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
+use PDOException;
 
 class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterface
 {
@@ -18,6 +20,55 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
     public DateTime $createdAt;
     public int $creatorId;
     public ?int $categoryId = null;
+
+    /**
+     * @param array<array{html: string, file: integer, gallery: integer, link: string}> $newSegments
+     * @throws TransactionFailedException
+     */
+    public function batchReplaceSegments(array $newSegments): void
+    {
+        $pdo = self::getPdo();
+        $begin = $pdo->beginTransaction();
+        if (!$begin) {
+            throw new TransactionFailedException('Transaction could not be initialized');
+        }
+
+        $newSegmentStatements = [];
+
+        foreach ($newSegments as $idx => $newSegment) {
+            if (array_key_exists('file', $newSegment)) {
+                $query = 'INSERT INTO blog_post_segment (blog_post_id, file_id, position, link) VALUES (:blogPostId, :fileId, :position, :link)';
+                $params = ['fileId' => $newSegment['file'], 'link' => $newSegment['link'] ?? null];
+                /** @phpstan-ignore-next-line */
+            } else if (array_key_exists('gallery', $newSegment)) {
+                $query = 'INSERT INTO blog_post_segment (blog_post_id, gallery_id, position) VALUES (:blogPostId, :galleryId, :position)';
+                $params = ['galleryId' => $newSegment['gallery']];
+                /** @phpstan-ignore-next-line */
+            } else {
+                $query = 'INSERT INTO blog_post_segment (blog_post_id, html, position) VALUES (:blogPostId, :html, :position)';
+                $params = ['html' => $newSegment['html'] ?? ''];
+            }
+
+            $params['position'] = $idx;
+            $params['blogPostId'] = $this->id;
+            $newSegmentStatements[] = [
+                'query' => $query,
+                'params' => $params,
+            ];
+        }
+
+        try {
+            $pdo->prepare('DELETE FROM blog_post_segment WHERE blog_post_id = :id')->execute(['id' => $this->id]);
+            foreach ($newSegmentStatements as $newSegment) {
+                $pdo->prepare($newSegment['query'])->execute($newSegment['params']);
+            }
+
+            $pdo->commit();
+        } catch (PDOException $ex) {
+            $pdo->rollBack();
+            throw $ex;
+        }
+    }
 
     /**
      * @inheritDoc

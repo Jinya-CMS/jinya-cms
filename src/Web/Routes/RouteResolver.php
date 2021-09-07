@@ -47,13 +47,13 @@ class RouteResolver
         );
 
         foreach ($routes as $route) {
-            /** @var ReflectionAttribute[] $actionAttributes */
+            /** @var ReflectionAttribute<JinyaAction>[] $actionAttributes */
             $actionAttributes = $route['jinyaAction'];
-            /** @var ReflectionAttribute[] $requiredFieldsAttributes */
+            /** @var ReflectionAttribute<RequiredFields>[] $requiredFieldsAttributes */
             $requiredFieldsAttributes = $route['requiredFields'];
-            /** @var ReflectionAttribute[] $requireOneFieldAttributes */
+            /** @var ReflectionAttribute<RequireOneField>[] $requireOneFieldAttributes */
             $requireOneFieldAttributes = $route['requireOneField'];
-            /** @var ReflectionAttribute[] $authenticatedAttributes */
+            /** @var ReflectionAttribute<Authenticated>[] $authenticatedAttributes */
             $authenticatedAttributes = $route['authenticated'];
             if (!empty($actionAttributes)) {
                 foreach ($actionAttributes as $action) {

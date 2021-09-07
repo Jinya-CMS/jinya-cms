@@ -2230,23 +2230,3 @@ parameters:
 			count: 1
 			path: src/Web/Middleware/CheckRequiredOneOfFieldsMiddleware.php
 
-		-
-			message: "#^Generator expects value type App\\\\Web\\\\Attributes\\\\JinyaAction, object given\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getAuthenticatedAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\Authenticated\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getRequireOneFieldAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\RequireOneField\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getRequiredFieldsAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\RequiredFields\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-

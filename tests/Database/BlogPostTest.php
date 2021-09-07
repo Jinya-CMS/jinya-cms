@@ -8,6 +8,7 @@ use App\Database\BlogPost;
 use App\Database\BlogPostSegment;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
+use App\Database\Gallery;
 use Faker\Provider\Uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -240,5 +241,77 @@ class BlogPostTest extends TestCase
         $post = $this->createBlogPost();
         $creator = $post->getCreator();
         $this->assertEquals(CurrentUser::$currentUser, $creator);
+    }
+
+    public function testBatchReplaceSegmentsEmptyArray(): void
+    {
+        $post = $this->createBlogPost();
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+
+        $this->assertCount(5, $post->getSegments());
+
+        $post->batchReplaceSegments([]);
+        $this->assertCount(0, $post->getSegments());
+    }
+
+    private function createGallery(): Gallery
+    {
+        $gallery = new Gallery();
+        $gallery->name = 'Gallery';
+        $gallery->create();
+
+        return $gallery;
+    }
+
+
+    public function testBatchReplaceSegmentsCreateSegments(): void
+    {
+        $post = $this->createBlogPost();
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+        $this->createBlogPostSegment($post->getIdAsInt());
+
+        $this->assertCount(5, $post->getSegments());
+
+        $file = $this->createFile();
+        $gallery = $this->createGallery();
+        $post->batchReplaceSegments([
+            ['html' => 'Test segment'],
+            ['file' => $file->getIdAsInt()],
+            ['file' => $file->getIdAsInt(), 'link' => 'https://google.com'],
+            ['gallery' => $gallery->getIdAsInt()],
+        ]);
+
+        $segments = $post->getSegments();
+        $this->assertCount(4, $segments);
+
+        $segments = $post->getSegments();
+
+        $segment = $segments->current();
+        $this->assertEquals('Test segment', $segment->html);
+        $this->assertEquals(0, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
+        $this->assertEquals(1, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($file->getIdAsInt(), $segment->fileId);
+        $this->assertEquals('https://google.com', $segment->link);
+        $this->assertEquals(2, $segment->position);
+        $segments->next();
+
+        $segment = $segments->current();
+        $this->assertEquals($gallery->getIdAsInt(), $segment->galleryId);
+        $this->assertEquals(3, $segment->position);
+        $segments->next();
     }
 }

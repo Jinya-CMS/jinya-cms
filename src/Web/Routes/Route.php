@@ -13,10 +13,10 @@ class Route
 {
     /**
      * Route constructor.
-     * @param ReflectionAttribute[] $actionAttributes
-     * @param ReflectionAttribute|null $requiredFieldsAttributes
-     * @param ReflectionAttribute|null $authenticatedAttributes
-     * @param ReflectionAttribute|null $requireOneFieldAttributes
+     * @param ReflectionAttribute<JinyaAction>[] $actionAttributes
+     * @param ReflectionAttribute<RequiredFields>|null $requiredFieldsAttributes
+     * @param ReflectionAttribute<Authenticated>|null $authenticatedAttributes
+     * @param ReflectionAttribute<RequireOneField>|null $requireOneFieldAttributes
      * @param string $class
      */
     public function __construct(
