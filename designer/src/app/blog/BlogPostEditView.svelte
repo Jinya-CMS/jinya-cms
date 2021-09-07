@@ -1,8 +1,11 @@
 <script>
-  import { onMount } from "svelte";
+  import Sortable from "sortablejs";
+  import { onMount, tick } from "svelte";
   import { _ } from "svelte-i18n";
   import { get, getHost, post as httpPost, put } from "../../http/request";
   import { jinyaAlert } from "../../ui/alert";
+  import { jinyaConfirm } from "../../ui/confirm";
+  import { createTiny } from "../../ui/tiny";
   import { string_to_slug } from "../../utils/slugify";
 
   export let newPost = false;
@@ -19,6 +22,24 @@
   let postPublic = false;
   let headerImageId = null;
   let categoryId = null;
+  let segments = [];
+
+  let editSegmentOpen;
+  let editSegmentFile;
+  let editSegmentIsLink;
+  let editSegmentTarget;
+  let editSegmentGallery;
+  let editSegmentHtml;
+  let editSegmentHtmlElement;
+  let selectedSegment = null;
+  let selectedSegmentId = null;
+  let selectedSegmentType = 'html';
+  let segmentToolboxElement;
+  let segmentListElement;
+  let segmentEditorTiny;
+  let createNewSegment = false;
+  let createPosition;
+  let createNewSegmentType;
 
   let post;
   let slugModifiedByHand = false;
@@ -90,6 +111,142 @@
     }
   }
 
+  $: if (segmentToolboxElement instanceof HTMLElement) {
+    new Sortable(segmentToolboxElement, {
+      group: {name: 'segment_page', put: false, pull: 'clone'},
+      sort: false,
+      handle: '.jinya-designer__drag-handle',
+      onEnd(e) {
+        if (!e.to.classList.contains('jinya-designer__toolbox')) {
+          e.item.remove();
+        }
+      }
+    });
+  }
+
+  $: if (segmentListElement instanceof HTMLElement) {
+    new Sortable(segmentListElement, {
+      group: {name: 'segment_page', put: true, pull: false},
+      sort: true,
+      async onAdd(e) {
+        createNewSegment = true;
+        createPosition = e.newIndex;
+        createNewSegmentType = e.item.getAttribute('data-type');
+        switch (createNewSegmentType) {
+          case 'gallery':
+            segments.splice(createPosition, 0, {gallery: galleries[0], id: Date.now()});
+            break;
+          case 'file':
+            segments.splice(createPosition, 0, {file: files[0], id: Date.now()});
+            break;
+          case 'html':
+            segments.splice(createPosition, 0, {html: '<p></p>', id: Date.now()});
+            break;
+        }
+        selectedSegmentId = createPosition;
+        selectedSegment = segments[selectedSegmentId];
+        if (selectedSegment.gallery) {
+          selectedSegmentType = 'gallery';
+        } else if (selectedSegment.file) {
+          selectedSegmentType = 'file';
+        } else if (selectedSegment.html) {
+          selectedSegmentType = 'html';
+        }
+        await editSegment();
+      },
+      async onUpdate(e) {
+        const dropIdx = e.newIndex;
+        const oldIndex = e.oldIndex;
+        const segment = segments[oldIndex];
+        segments.splice(segments.findIndex(item => item.id === segment.id), 1);
+        segments.splice(dropIdx, 0, segment);
+      },
+    });
+  }
+
+  async function editSegment() {
+    editSegmentOpen = true;
+    editSegmentFile = selectedSegment?.file?.id;
+    editSegmentIsLink = selectedSegment?.link;
+    editSegmentTarget = selectedSegment?.link;
+    editSegmentGallery = selectedSegment?.gallery?.id;
+    if (editSegmentGallery) {
+      selectedSegmentType = 'gallery';
+    } else if (editSegmentFile) {
+      selectedSegmentType = 'file';
+    } else {
+      selectedSegmentType = 'html';
+    }
+    if (selectedSegment?.html) {
+      await tick();
+      segmentEditorTiny = await createTiny(editSegmentHtmlElement);
+      segmentEditorTiny.setContent(selectedSegment.html);
+    }
+  }
+
+  async function deleteSegment() {
+    const result = await jinyaConfirm($_('blog.posts.edit.segment.delete_segment.title'), $_('blog.posts.edit.segment.delete_segment.message'), $_('blog.posts.edit.segment.delete_segment.delete'), $_('blog.posts.edit.segment.delete_segment.keep'));
+    if (result) {
+      segments.splice(selectedSegmentId, 1);
+      selectedSegmentType = '';
+      selectedSegmentId = null;
+      selectedSegment = null;
+    }
+  }
+
+  function selectSegment(segment) {
+    selectedSegment = segment;
+    selectedSegmentId = segments.findIndex(s => s.id === segment.id);
+  }
+
+  function cancelEditSegment() {
+    if (createNewSegment) {
+      segments.splice(selectedSegmentId, 1);
+    }
+
+    createNewSegment = false;
+    editSegmentOpen = false;
+    editSegmentFile = null;
+    editSegmentIsLink = false;
+    editSegmentTarget = null;
+    editSegmentGallery = null;
+    editSegmentHtml = null;
+    segmentEditorTiny?.destroy();
+    segmentEditorTiny = null;
+  }
+
+  async function updateSegment() {
+    if (selectedSegmentType === 'file') {
+      const file = files.find(f => f.id === editSegmentFile);
+      segments[selectedSegmentId].file = {
+        id: editSegmentFile,
+        name: file.name,
+        path: file.path,
+      };
+      segments[selectedSegmentId].link = editSegmentTarget;
+    } else if (selectedSegmentType === 'gallery') {
+      segments[selectedSegmentId].gallery = {
+        id: editSegmentGallery,
+        name: galleries.find(f => f.id === editSegmentGallery).name,
+      };
+    } else if (selectedSegmentType === 'html') {
+      segments[selectedSegmentId].html = segmentEditorTiny.getContent();
+      segmentEditorTiny.destroy();
+    }
+
+    createNewSegment = false;
+    editSegmentOpen = false;
+    editSegmentFile = null;
+    editSegmentIsLink = false;
+    editSegmentTarget = null;
+    editSegmentGallery = null;
+    editSegmentHtml = null;
+    segmentEditorTiny = null;
+    selectedSegmentType = '';
+    selectedSegmentId = null;
+    selectedSegment = null;
+  }
+
   onMount(async () => {
     if (!newPost) {
       post = await get(`/api/blog/post/${selectedPostId}`);
@@ -99,6 +256,7 @@
       headerImageId = post.headerImage.id;
       categoryId = post.category.id;
       slugModifiedByHand = true;
+      segments = await get(`/api/blog/post/${selectedPostId}/segment`);
     }
 
     const cats = await get('/api/blog/category');
@@ -158,6 +316,73 @@
                     {/each}
                 </div>
             </div>
+        {:else if tab === 'segments'}
+            <div class="jinya-designer">
+                <div class="cosmo-toolbar cosmo-toolbar--designer">
+                    <div class="cosmo-toolbar__group">
+                        <button disabled={!selectedSegment} on:click={editSegment}
+                                class="cosmo-button">{$_('pages_and_forms.segment.action.edit_segment')}</button>
+                        <button disabled={!selectedSegment} on:click={deleteSegment}
+                                class="cosmo-button">{$_('pages_and_forms.segment.action.delete_segment')}</button>
+                    </div>
+                </div>
+                <div class="jinya-designer__content">
+                    <div bind:this={segmentListElement}
+                         class="jinya-designer__result jinya-designer__result--horizontal">
+                        {#each segments as segment (segment.id)}
+                            {#if segment.file}
+                                <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                     class:jinya-designer-item--file-selected={selectedSegment === segment}
+                                     on:click={() => selectSegment(segment)}
+                                     class="jinya-designer-item jinya-designer-item--file">
+                                    <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
+                                         alt={segment.file.name}>
+                                    <div class="jinya-designer-item__details jinya-designer-item__details--file"
+                                         class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
+                                        <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
+                                        <dl class="jinya-segment__action">
+                                            <dt class="jinya-segment__label">{$_('blog.posts.edit.segment.file.name')}</dt>
+                                            <dd class="jinya-segment__content">{segment.file.name}</dd>
+                                            {#if segment.link}
+                                                <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.link')}</dt>
+                                                <dd class="jinya-segment__content">{segment.link}</dd>
+                                            {/if}
+                                        </dl>
+                                    </div>
+                                </div>
+                            {:else if segment.gallery}
+                                <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                     on:click={() => selectSegment(segment)}
+                                     class="jinya-designer-item jinya-designer-item--gallery">
+                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
+                                    <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
+                                </div>
+                            {:else if segment.html}
+                                <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                     on:click={() => selectSegment(segment)}
+                                     class="jinya-designer-item jinya-designer-item--html">
+                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
+                                    <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
+                                </div>
+                            {/if}
+                        {/each}
+                    </div>
+                    <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
+                        <div data-type="gallery" class="jinya-designer-item__template">
+                            <span class="jinya-designer__drag-handle"></span>
+                            <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
+                        </div>
+                        <div data-type="file" class="jinya-designer-item__template">
+                            <span class="jinya-designer__drag-handle"></span>
+                            <span>{$_('pages_and_forms.segment.designer.file')}</span>
+                        </div>
+                        <div data-type="html" class="jinya-designer-item__template">
+                            <span class="jinya-designer__drag-handle"></span>
+                            <span>{$_('pages_and_forms.segment.designer.html')}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {/if}
         <div class="cosmo-button__container">
             <button class="cosmo-button"
@@ -167,3 +392,55 @@
         </div>
     </div>
 </div>
+{#if editSegmentOpen}
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+            <h1 class="cosmo-modal__title">{$_('pages_and_forms.segment.designer.edit.title')}</h1>
+            <div class="cosmo-modal__content">
+                {#if selectedSegmentType === 'file'}
+                    <div class="cosmo-input__group">
+                        <label for="editSegmentFile"
+                               class="cosmo-label">{$_('pages_and_forms.segment.designer.edit.file')}</label>
+                        <select required bind:value={editSegmentFile} id="editSegmentFile" class="cosmo-select">
+                            {#each files as file}
+                                <option value={file.id}>{file.name}</option>
+                            {/each}
+                        </select>
+                        <div class="cosmo-checkbox__group">
+                            <input class="cosmo-checkbox" type="checkbox" id="editSegmentLink"
+                                   bind:checked={editSegmentIsLink}>
+                            <label for="editSegmentLink">{$_('pages_and_forms.segment.designer.edit.has_link')}</label>
+                        </div>
+                        {#if editSegmentIsLink}
+                            <label for="editSegmentTarget"
+                                   class="cosmo-label">{$_('pages_and_forms.segment.designer.edit.target')}</label>
+                            <input required bind:value={editSegmentTarget} type="text" id="editSegmentTarget"
+                                   class="cosmo-input">
+                        {/if}
+                    </div>
+                {:else if selectedSegmentType === 'gallery'}
+                    <div class="cosmo-input__group">
+                        <label for="editSegmentGallery"
+                               class="cosmo-label">{$_('pages_and_forms.segment.designer.edit.gallery')}</label>
+                        <select required bind:value={editSegmentGallery} id="editSegmentGallery" class="cosmo-select">
+                            {#each galleries as gallery}
+                                <option value={gallery.id}>{gallery.name}</option>
+                            {/each}
+                        </select>
+                    </div>
+                {:else if selectedSegmentType === 'html'}
+                    <div class="cosmo-input__group">
+                        <textarea bind:this={editSegmentHtmlElement}></textarea>
+                    </div>
+                {/if}
+            </div>
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button"
+                        on:click={cancelEditSegment}>{$_('pages_and_forms.segment.designer.edit.cancel')}</button>
+                <button class="cosmo-button"
+                        on:click={updateSegment}>{$_('pages_and_forms.segment.designer.edit.update')}</button>
+            </div>
+        </div>
+    </div>
+{/if}

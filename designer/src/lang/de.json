@@ -418,6 +418,17 @@
         "success": {
           "title": "Artikel gespeichert",
           "message": "Der Artikel wurde erfolgreich gespeichert"
+        },
+        "segment": {
+          "delete_segment": {
+            "title": "Segment entfernen",
+            "message": "Soll das gewählte Segment wirklich entfernt werden?",
+            "delete": "Segment entfernen",
+            "keep": "Segment behalten"
+          },
+          "file": {
+            "name": "Name"
+          }
         }
       }
     }

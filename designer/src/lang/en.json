@@ -418,6 +418,17 @@
         "success": {
           "title": "Post was saved",
           "message": "Your post was saved successfully"
+        },
+        "segment": {
+          "delete_segment": {
+            "title": "Remove segment",
+            "message": "Do you really want to remove the selected segment?",
+            "delete": "Remove segment",
+            "keep": "Keep segment"
+          },
+          "file": {
+            "name": "Name"
+          }
         }
       }
     }
