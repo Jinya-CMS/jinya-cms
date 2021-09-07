@@ -24,7 +24,7 @@
     "tedivm/jshrink": "v1.4.0",
     "vlucas/phpdotenv": "v5.3.0",
     "jenssegers/agent": "v2.6.4",
-    "fakerphp/faker": "v1.15.0",
+    "fakerphp/faker": "v1.16.0",
     "melbahja/semver": "1.0.1"
   },
   "suggest": {
