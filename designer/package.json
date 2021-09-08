@@ -13,7 +13,7 @@
     "page": "1.11.6",
     "sortablejs": "1.14.0",
     "svelte-i18n": "3.3.10",
-    "tinymce": "5.9.1",
+    "tinymce": "5.9.2",
     "ua-parser-js": "0.7.28"
   },
   "devDependencies": {
