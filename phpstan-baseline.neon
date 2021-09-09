@@ -1776,6 +1776,11 @@ parameters:
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 
 		-
+			message: "#^Cannot access offset 'blogHomePage' on array\\|object\\.$#"
+			count: 1
+			path: src/Web/Actions/Menu/Items/MenuItemAction.php
+
+		-
 			message: "#^Cannot access offset 'form' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
@@ -1822,31 +1827,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Menu\\\\Items\\\\MenuItemAction\\:\\:formatIteratorRecursive\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$artistId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$formId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$galleryId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$pageId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$segmentPageId \\(int\\|null\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 

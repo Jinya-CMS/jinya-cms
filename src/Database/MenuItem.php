@@ -96,7 +96,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -124,7 +124,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -154,7 +154,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -179,7 +179,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findById(int $id): ?object
     {
-        return self::fetchSingleById('menu_item', $id, new self(), ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+        return self::fetchSingleById('menu_item', $id, new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**

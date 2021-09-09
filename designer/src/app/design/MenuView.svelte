@@ -95,6 +95,9 @@
           case 'form':
             selectedMenuItem.form = forms[0];
             break;
+          case 'artist':
+            selectedMenuItem.artist = artists[0];
+            break;
         }
         await editMenuItem();
       },
@@ -352,6 +355,10 @@
         break;
     }
 
+    if (!data.blogHomePage) {
+      data.blogHomePage = false;
+    }
+
     if (createNewMenuItem) {
       createNewMenuItem = false;
       data.position = createPosition;
@@ -489,6 +496,10 @@
                     <div data-type="form" class="jinya-designer-item__template">
                         <span class="jinya-designer__drag-handle"></span>
                         <span>{$_('design.menus.designer.type_form')}</span>
+                    </div>
+                    <div data-type="artist" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_artist')}</span>
                     </div>
                     <div data-type="group" class="jinya-designer-item__template">
                         <span class="jinya-designer__drag-handle"></span>
