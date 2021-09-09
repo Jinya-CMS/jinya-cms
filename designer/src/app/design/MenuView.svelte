@@ -1,10 +1,10 @@
 <script>
-  import { get, httpDelete, post, put } from '../../http/request';
+  import Sortable from 'sortablejs';
   import { onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { jinyaConfirm } from '../../ui/confirm';
+  import { get, httpDelete, post, put } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
-  import Sortable from 'sortablejs';
+  import { jinyaConfirm } from '../../ui/confirm';
 
   let createMenuName = '';
   let createMenuLogo = null;
@@ -277,6 +277,9 @@
       case 'external_link':
         editMenuItemElement = null;
         break;
+      case 'blog_home_page':
+        editMenuItemElement = null;
+        break;
     }
   }
 
@@ -302,6 +305,8 @@
       type = 'gallery';
     } else if (item.artist) {
       type = 'artist';
+    } else if (item.blogHomePage) {
+      type = 'blog_home_page';
     } else {
       type = 'external_link';
     }
@@ -341,6 +346,9 @@
         break;
       case 'artist':
         data.artist = editMenuItemElement;
+        break;
+      case 'blog_home_page':
+        data.blogHomePage = true;
         break;
     }
 
@@ -490,6 +498,10 @@
                         <span class="jinya-designer__drag-handle"></span>
                         <span>{$_('design.menus.designer.type_external_link')}</span>
                     </div>
+                    <div data-type="blog_home_page" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_blog_home_page')}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -555,7 +567,7 @@
                            class="cosmo-label">{$_('design.menus.designer.edit.item_title')}</label>
                     <input required bind:value={editMenuItemTitle} type="text" id="editMenuItemTitle"
                            class="cosmo-input">
-                    {#if selectedMenuItem.type !== 'group'}
+                    {#if selectedMenuItem.type !== 'group' || selectedMenuItem.type !== 'blog_home_page'}
                         <label for="editMenuItemRoute"
                                class="cosmo-label">{$_('design.menus.designer.edit.route')}</label>
                         <input bind:value={editMenuItemRoute} type="text" id="editMenuItemRoute" class="cosmo-input">

@@ -127,7 +127,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public function getItems(): Iterator
     {
-        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route FROM menu_item WHERE menu_id = :id ORDER BY position';
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route, blog_home_page FROM menu_item WHERE menu_id = :id ORDER BY position';
 
         $result = self::executeStatement($sql, ['id' => $this->id]);
 

@@ -495,6 +495,7 @@
         "type_artist": "Artist profile",
         "type_group": "Group",
         "type_external_link": "External link",
+        "type_blog_home_page": "Blog home page",
         "edit": {
           "title": "Edit item",
           "update": "Update item",

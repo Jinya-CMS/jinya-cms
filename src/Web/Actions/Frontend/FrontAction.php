@@ -133,6 +133,10 @@ abstract class FrontAction extends Action
             return $this->render('theme::simple-page', ['page' => $page]);
         }
 
+        if ($menuItem->blogHomePage) {
+            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findAll(), 'categories' => Database\BlogCategory::findAll()]);
+        }
+
         if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
             return $this->response
                 ->withHeader('Location', $this->request->getUri()->getHost())
