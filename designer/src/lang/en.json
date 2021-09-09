@@ -496,6 +496,7 @@
         "type_group": "Group",
         "type_external_link": "External link",
         "type_blog_home_page": "Blog home page",
+        "type_blog_category": "Blog category",
         "edit": {
           "title": "Edit item",
           "update": "Update item",

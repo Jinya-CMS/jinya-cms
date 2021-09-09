@@ -3,6 +3,7 @@
 namespace App\Web\Actions\Menu\Items;
 
 use App\Database\Artist;
+use App\Database\BlogCategory;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
@@ -72,6 +73,7 @@ abstract class MenuItemAction extends Action
             $menuItem->pageId = null;
             $menuItem->segmentPageId = null;
             $menuItem->galleryId = null;
+            $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
         } elseif (isset($body['form'])) {
             $form = Form::findById($body['form']);
@@ -84,6 +86,7 @@ abstract class MenuItemAction extends Action
             $menuItem->pageId = null;
             $menuItem->segmentPageId = null;
             $menuItem->galleryId = null;
+            $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
         } elseif (isset($body['page'])) {
             $page = SimplePage::findById($body['page']);
@@ -96,6 +99,7 @@ abstract class MenuItemAction extends Action
             $menuItem->formId = null;
             $menuItem->segmentPageId = null;
             $menuItem->galleryId = null;
+            $menuItem->categoryId = null;
             $menuItem->blogHomePage = false;
         } elseif (isset($body['segmentPage'])) {
             $segmentPage = SegmentPage::findById($body['segmentPage']);
@@ -115,6 +119,20 @@ abstract class MenuItemAction extends Action
             $menuItem->pageId = null;
             $menuItem->segmentPageId = null;
             $menuItem->formId = null;
+            $menuItem->categoryId = null;
+            $menuItem->blogHomePage = false;
+        } elseif (isset($body['category'])) {
+            $category = BlogCategory::findById($body['category']);
+            if (!$category) {
+                throw new NoResultException($this->request, 'Category not found');
+            }
+
+            $menuItem->categoryId = $category->getIdAsInt();
+            $menuItem->artistId = null;
+            $menuItem->pageId = null;
+            $menuItem->segmentPageId = null;
+            $menuItem->formId = null;
+            $menuItem->galleryId = null;
             $menuItem->blogHomePage = false;
         }
 

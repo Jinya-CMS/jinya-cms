@@ -52,6 +52,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         'title' => ['type' => 'string'],
     ], name: 'page')]
     public ?int $pageId = null;
+    public ?int $categoryId = null;
     public ?bool $blogHomePage = false;
 
     /**
@@ -82,7 +83,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findByMenuAndPosition(int $menuId, int $position): ?MenuItem
     {
-        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route, blog_home_page FROM menu_item WHERE menu_id = :id AND position = :position';
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE menu_id = :id AND position = :position';
 
         $result = self::executeStatement(
             $sql,
@@ -109,7 +110,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findByMenuItemAndPosition(int $menuItemId, int $position): ?MenuItem
     {
-        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id AND position = :position';
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id AND position = :position';
 
         $result =
             self::executeStatement(
@@ -141,7 +142,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public static function findByRoute(?string $route): ?MenuItem
     {
-        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route, blog_home_page FROM menu_item WHERE route = :route OR route = :routeWithTrailingSlash';
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE route = :route OR route = :routeWithTrailingSlash';
         $result =
             self::executeStatement(
                 $sql,
@@ -322,6 +323,12 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 'id' => $gallery->getIdAsInt(),
                 'name' => $gallery->name,
             ];
+        } elseif (isset($this->categoryId)) {
+            $category = $this->getBlogCategory();
+            $data['category'] = [
+                'id' => $category->getIdAsInt(),
+                'name' => $category->name,
+            ];
         }
 
         return $data;
@@ -341,6 +348,22 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         }
 
         return Form::findById($this->formId);
+    }
+
+    /**
+     * Gets the associated category
+     *
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    public function getBlogCategory(): ?BlogCategory
+    {
+        if (null === $this->categoryId) {
+            return null;
+        }
+
+        return BlogCategory::findById($this->categoryId);
     }
 
     /**
@@ -436,7 +459,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      */
     public function getItems(): Iterator
     {
-        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id ORDER BY position';
+        $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id ORDER BY position';
 
         $result = self::executeStatement($sql, ['id' => $this->id]);
 

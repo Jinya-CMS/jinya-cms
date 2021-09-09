@@ -495,7 +495,8 @@
         "type_artist": "Künstlerprofil",
         "type_group": "Gruppe",
         "type_external_link": "Externer Link",
-        "type_blog_home_page": "Blog home page",
+        "type_blog_home_page": "Blog Startseite",
+        "type_blog_category": "Blog Kategorie",
         "edit": {
           "title": "Element bearbeiten",
           "update": "Element speichern",
