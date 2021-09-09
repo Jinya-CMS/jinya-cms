@@ -68,3 +68,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.jinya-designer__content--blog {
+    height: calc(100vh - 64px - 80px - 32px - 36px - 20px - 28px - 30px - 28px - 68px - 121px);
+}

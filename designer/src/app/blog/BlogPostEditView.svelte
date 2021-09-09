@@ -97,6 +97,7 @@
           }
           await put(`/api/blog/post/${selectedPostId}`, data);
         }
+        await put(`/api/blog/post/${selectedPostId}/segment`, {segments});
         newPost = false;
         await jinyaAlert($_('blog.posts.edit.success.title'), $_(`blog.posts.edit.success.message`), $_('alert.dismiss'));
       } catch (e) {
@@ -134,10 +135,10 @@
         createNewSegmentType = e.item.getAttribute('data-type');
         switch (createNewSegmentType) {
           case 'gallery':
-            segments.splice(createPosition, 0, {gallery: galleries[0], id: Date.now()});
+            segments.splice(createPosition, 0, {gallery: galleries[0].id, id: Date.now()});
             break;
           case 'file':
-            segments.splice(createPosition, 0, {file: files[0], id: Date.now()});
+            segments.splice(createPosition, 0, {file: files[0].id, id: Date.now()});
             break;
           case 'html':
             segments.splice(createPosition, 0, {html: '<p></p>', id: Date.now()});
@@ -166,10 +167,10 @@
 
   async function editSegment() {
     editSegmentOpen = true;
-    editSegmentFile = selectedSegment?.file?.id;
+    editSegmentFile = selectedSegment?.file;
     editSegmentIsLink = selectedSegment?.link;
     editSegmentTarget = selectedSegment?.link;
-    editSegmentGallery = selectedSegment?.gallery?.id;
+    editSegmentGallery = selectedSegment?.gallery;
     if (editSegmentGallery) {
       selectedSegmentType = 'gallery';
     } else if (editSegmentFile) {
@@ -218,17 +219,10 @@
   async function updateSegment() {
     if (selectedSegmentType === 'file') {
       const file = files.find(f => f.id === editSegmentFile);
-      segments[selectedSegmentId].file = {
-        id: editSegmentFile,
-        name: file.name,
-        path: file.path,
-      };
+      segments[selectedSegmentId].file = editSegmentFile;
       segments[selectedSegmentId].link = editSegmentTarget;
     } else if (selectedSegmentType === 'gallery') {
-      segments[selectedSegmentId].gallery = {
-        id: editSegmentGallery,
-        name: galleries.find(f => f.id === editSegmentGallery).name,
-      };
+      segments[selectedSegmentId].gallery = editSegmentGallery;
     } else if (selectedSegmentType === 'html') {
       segments[selectedSegmentId].html = segmentEditorTiny.getContent();
       segmentEditorTiny.destroy();
@@ -256,7 +250,16 @@
       headerImageId = post.headerImage.id;
       categoryId = post.category.id;
       slugModifiedByHand = true;
-      segments = await get(`/api/blog/post/${selectedPostId}/segment`);
+      const loadedSegments = (await get(`/api/blog/post/${selectedPostId}/segment`));
+      for (const loadedSegment of loadedSegments) {
+        if (loadedSegment.file) {
+          segments.push({...loadedSegment, file: loadedSegment.file.id});
+        } else if (loadedSegment.gallery) {
+          segments.push({...loadedSegment, gallery: loadedSegment.gallery.id});
+        } else {
+          segments.push(loadedSegment);
+        }
+      }
     }
 
     const cats = await get('/api/blog/category');
@@ -270,126 +273,138 @@
   });
 </script>
 
-<div>
-    <span class="cosmo-title">
-        {#if newPost}
-            {$_('blog.posts.edit.title_new')}
-        {:else}
-            {$_('blog.posts.edit.title_edit', {values: {title}})}
-        {/if}
-    </span>
-    <div class="cosmo-tab-control">
-        <div class="cosmo-tab-control__tabs">
-            <a class="cosmo-tab-control__tab-link" class:cosmo-tab-control__tab-link--active={tab === 'settings'}
-               on:click={() => tab = 'settings'}>{$_('blog.posts.edit.tabs.settings')}</a>
-            <a class="cosmo-tab-control__tab-link" class:cosmo-tab-control__tab-link--active={tab === 'segments'}
-               on:click={() => tab = 'segments'}>{$_('blog.posts.edit.tabs.segments')}</a>
-        </div>
-        {#if tab === 'settings'}
-            <div class="cosmo-tab-control__content">
-                <div class="cosmo-input__group">
-                    <label for="title" class="cosmo-label">{$_('blog.posts.edit.title')}</label>
-                    <input required bind:value={title} type="text" id="title" class="cosmo-input">
-                    <label for="slug" class="cosmo-label">{$_('blog.posts.edit.slug')}</label>
-                    <input on:change={() => slugModifiedByHand = true} required bind:value={slug} type="text" id="slug"
-                           class="cosmo-input">
-                    <label for="category" class="cosmo-label">{$_('blog.posts.edit.category')}</label>
-                    <select required bind:value={categoryId} id="category" class="cosmo-select">
-                        <option value={null}>{$_('blog.posts.edit.no_category')}</option>
-                        {#each categories as cat}
-                            <option value={cat.id}>{cat.name}</option>
-                        {/each}
-                    </select>
-                    <div class="cosmo-checkbox__group">
-                        <input class="cosmo-checkbox" type="checkbox" id="public" bind:checked={postPublic}>
-                        <label for="public">{$_('blog.posts.edit.public')}</label>
-                    </div>
+<span class="cosmo-title">
+    {#if newPost}
+        {$_('blog.posts.edit.title_new')}
+    {:else}
+        {$_('blog.posts.edit.title_edit', {values: {title}})}
+    {/if}
+</span>
+<div class="cosmo-tab-control">
+    <div class="cosmo-tab-control__tabs">
+        <a class="cosmo-tab-control__tab-link" class:cosmo-tab-control__tab-link--active={tab === 'settings'}
+           on:click={() => tab = 'settings'}>{$_('blog.posts.edit.tabs.settings')}</a>
+        <a class="cosmo-tab-control__tab-link" class:cosmo-tab-control__tab-link--active={tab === 'segments'}
+           on:click={() => tab = 'segments'}>{$_('blog.posts.edit.tabs.segments')}</a>
+    </div>
+    {#if tab === 'settings'}
+        <div class="cosmo-tab-control__content">
+            <div class="cosmo-input__group">
+                <label for="title" class="cosmo-label">{$_('blog.posts.edit.title')}</label>
+                <input required bind:value={title} type="text" id="title" class="cosmo-input">
+                <label for="slug" class="cosmo-label">{$_('blog.posts.edit.slug')}</label>
+                <input on:change={() => slugModifiedByHand = true} required bind:value={slug} type="text"
+                       id="slug"
+                       class="cosmo-input">
+                <label for="category" class="cosmo-label">{$_('blog.posts.edit.category')}</label>
+                <select required bind:value={categoryId} id="category" class="cosmo-select">
+                    <option value={null}>{$_('blog.posts.edit.no_category')}</option>
+                    {#each categories as cat}
+                        <option value={cat.id}>{cat.name}</option>
+                    {/each}
+                </select>
+                <div class="cosmo-checkbox__group">
+                    <input class="cosmo-checkbox" type="checkbox" id="public" bind:checked={postPublic}>
+                    <label for="public">{$_('blog.posts.edit.public')}</label>
                 </div>
-                <h4>{$_('blog.posts.edit.header_image')}</h4>
-                <div class="jinya-media-tile__container--modal">
-                    {#each files as file (file.id)}
-                        <div class="jinya-media-tile jinya-media-tile--medium" on:click={() => headerImageId = file.id}
-                             class:jinya-media-tile--selected={file.id === headerImageId}>
-                            <img class="jinya-media-tile__img jinya-media-tile__img--small"
-                                 src={`${getHost()}${file.path}`}>
-                        </div>
+            </div>
+            <h4>{$_('blog.posts.edit.header_image')}</h4>
+            <div class="jinya-media-tile__container--modal">
+                {#each files as file (file.id)}
+                    <div class="jinya-media-tile jinya-media-tile--medium"
+                         on:click={() => headerImageId = file.id}
+                         class:jinya-media-tile--selected={file.id === headerImageId}>
+                        <img class="jinya-media-tile__img jinya-media-tile__img--small"
+                             src={`${getHost()}${file.path}`}>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {:else if tab === 'segments'}
+        <div class="jinya-designer">
+            <div class="cosmo-toolbar cosmo-toolbar--designer">
+                <div class="cosmo-toolbar__group">
+                    <button disabled={!selectedSegment} on:click={editSegment}
+                            class="cosmo-button">{$_('pages_and_forms.segment.action.edit_segment')}</button>
+                    <button disabled={!selectedSegment} on:click={deleteSegment}
+                            class="cosmo-button">{$_('pages_and_forms.segment.action.delete_segment')}</button>
+                </div>
+            </div>
+            <div class="jinya-designer__content jinya-designer__content--blog">
+                <div bind:this={segmentListElement}
+                     class="jinya-designer__result jinya-designer__result--horizontal">
+                    {#each segments as segment (segment.id)}
+                        {#if segment.file}
+                            <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                 class:jinya-designer-item--file-selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--file">
+                                <img class="jinya-segment__image"
+                                     src={`${getHost()}${files.find(f => f.id === segment.file)?.path}`}
+                                     alt={files.find(f => f.id === segment.file)?.name}>
+                                <div class="jinya-designer-item__details jinya-designer-item__details--file"
+                                     class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
+                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
+                                    <dl class="jinya-segment__action">
+                                        <dt class="jinya-segment__label">{$_('blog.posts.edit.segment.file.name')}</dt>
+                                        <dd class="jinya-segment__content">{files.find(f => f.id === segment.file)?.name}</dd>
+                                        {#if segment.link}
+                                            <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.link')}</dt>
+                                            <dd class="jinya-segment__content">{segment.link}</dd>
+                                        {/if}
+                                    </dl>
+                                </div>
+                            </div>
+                        {:else if segment.gallery}
+                            <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--gallery">
+                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
+                                <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{galleries.find(f => f.id === segment.gallery)?.name}</span>
+                                <div class="jinya-media-tile__container--segment">
+                                    {#await get(`/api/media/gallery/${segment.gallery}/file`)}
+                                    {:then positions}
+                                        {#each positions as file (file.id)}
+                                            <div class="jinya-media-tile jinya-media-tile--small">
+                                                <img class="jinya-media-tile__img jinya-media-tile__img--small"
+                                                     src={`${getHost()}${file.file.path}`}>
+                                            </div>
+                                        {/each}
+                                    {/await}
+                                </div>
+                            </div>
+                        {:else if segment.html}
+                            <div class:jinya-designer-item--selected={selectedSegment === segment}
+                                 on:click={() => selectSegment(segment)}
+                                 class="jinya-designer-item jinya-designer-item--html">
+                                <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
+                                <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
+                            </div>
+                        {/if}
                     {/each}
                 </div>
-            </div>
-        {:else if tab === 'segments'}
-            <div class="jinya-designer">
-                <div class="cosmo-toolbar cosmo-toolbar--designer">
-                    <div class="cosmo-toolbar__group">
-                        <button disabled={!selectedSegment} on:click={editSegment}
-                                class="cosmo-button">{$_('pages_and_forms.segment.action.edit_segment')}</button>
-                        <button disabled={!selectedSegment} on:click={deleteSegment}
-                                class="cosmo-button">{$_('pages_and_forms.segment.action.delete_segment')}</button>
+                <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
+                    <div data-type="gallery" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
                     </div>
-                </div>
-                <div class="jinya-designer__content">
-                    <div bind:this={segmentListElement}
-                         class="jinya-designer__result jinya-designer__result--horizontal">
-                        {#each segments as segment (segment.id)}
-                            {#if segment.file}
-                                <div class:jinya-designer-item--selected={selectedSegment === segment}
-                                     class:jinya-designer-item--file-selected={selectedSegment === segment}
-                                     on:click={() => selectSegment(segment)}
-                                     class="jinya-designer-item jinya-designer-item--file">
-                                    <img class="jinya-segment__image" src={`${getHost()}${segment.file.path}`}
-                                         alt={segment.file.name}>
-                                    <div class="jinya-designer-item__details jinya-designer-item__details--file"
-                                         class:jinya-designer-item__details--file-selected={selectedSegment === segment}>
-                                        <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.file')}</span>
-                                        <dl class="jinya-segment__action">
-                                            <dt class="jinya-segment__label">{$_('blog.posts.edit.segment.file.name')}</dt>
-                                            <dd class="jinya-segment__content">{segment.file.name}</dd>
-                                            {#if segment.link}
-                                                <dt class="jinya-segment__label">{$_('pages_and_forms.segment.designer.link')}</dt>
-                                                <dd class="jinya-segment__content">{segment.link}</dd>
-                                            {/if}
-                                        </dl>
-                                    </div>
-                                </div>
-                            {:else if segment.gallery}
-                                <div class:jinya-designer-item--selected={selectedSegment === segment}
-                                     on:click={() => selectSegment(segment)}
-                                     class="jinya-designer-item jinya-designer-item--gallery">
-                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.gallery')}</span>
-                                    <span class="jinya-designer-item__details jinya-designer-item__details--gallery">{segment.gallery.name}</span>
-                                </div>
-                            {:else if segment.html}
-                                <div class:jinya-designer-item--selected={selectedSegment === segment}
-                                     on:click={() => selectSegment(segment)}
-                                     class="jinya-designer-item jinya-designer-item--html">
-                                    <span class="jinya-designer-item__title">{$_('pages_and_forms.segment.designer.html')}</span>
-                                    <div class="jinya-designer-item__details jinya-designer-item__details--html">{@html segment.html}</div>
-                                </div>
-                            {/if}
-                        {/each}
+                    <div data-type="file" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.file')}</span>
                     </div>
-                    <div bind:this={segmentToolboxElement} class="jinya-designer__toolbox">
-                        <div data-type="gallery" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>{$_('pages_and_forms.segment.designer.gallery')}</span>
-                        </div>
-                        <div data-type="file" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>{$_('pages_and_forms.segment.designer.file')}</span>
-                        </div>
-                        <div data-type="html" class="jinya-designer-item__template">
-                            <span class="jinya-designer__drag-handle"></span>
-                            <span>{$_('pages_and_forms.segment.designer.html')}</span>
-                        </div>
+                    <div data-type="html" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('pages_and_forms.segment.designer.html')}</span>
                     </div>
                 </div>
             </div>
-        {/if}
-        <div class="cosmo-button__container">
-            <button class="cosmo-button"
-                    on:click={discard}>{$_(`blog.posts.edit.action.discard_${newPost ? 'new' : 'edit'}`)}</button>
-            <button class="cosmo-button"
-                    on:click={save}>{$_(`blog.posts.edit.action.save_${newPost ? 'new' : 'edit'}`)}</button>
         </div>
+    {/if}
+    <div class="cosmo-button__container">
+        <button class="cosmo-button"
+                on:click={discard}>{$_(`blog.posts.edit.action.discard_${newPost ? 'new' : 'edit'}`)}</button>
+        <button class="cosmo-button"
+                on:click={save}>{$_(`blog.posts.edit.action.save_${newPost ? 'new' : 'edit'}`)}</button>
     </div>
 </div>
 {#if editSegmentOpen}

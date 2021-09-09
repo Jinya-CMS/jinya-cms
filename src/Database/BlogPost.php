@@ -263,7 +263,7 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
      */
     public function getSegments(): Iterator
     {
-        $sql = 'SELECT * FROM blog_post_segment WHERE blog_post_id = :postId';
+        $sql = 'SELECT * FROM blog_post_segment WHERE blog_post_id = :postId ORDER BY position';
         /** @var array<array> */
         $result = self::executeStatement($sql, ['postId' => $this->id]);
 
