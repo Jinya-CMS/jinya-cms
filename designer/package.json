@@ -13,7 +13,7 @@
     "page": "1.11.6",
     "sortablejs": "1.14.0",
     "svelte-i18n": "3.3.10",
-    "tinymce": "5.8.2",
+    "tinymce": "5.9.2",
     "ua-parser-js": "0.7.28"
   },
   "devDependencies": {
@@ -27,6 +27,6 @@
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-postcss": "4.0.1",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.42.3"
+    "svelte": "3.42.4"
   }
 }
