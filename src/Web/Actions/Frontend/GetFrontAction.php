@@ -2,15 +2,19 @@
 
 namespace App\Web\Actions\Frontend;
 
+use App\Database\BlogPost;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\InvalidQueryException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class GetFrontAction extends FrontAction
 {
     /**
-     * @throws \App\Database\Exceptions\UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      */
     protected function protectedAction(): Response
     {
@@ -22,6 +26,11 @@ class GetFrontAction extends FrontAction
         $menuItem = MenuItem::findByRoute($route);
         if (null !== $menuItem) {
             return $this->renderMenuItem($menuItem);
+        }
+
+        $blogPost = BlogPost::findBySlug($route);
+        if (null !== $blogPost) {
+            return $this->render('theme::blog-post', ['post' => $blogPost]);
         }
 
         return $this->render('theme::404', [], self::HTTP_NOT_FOUND);

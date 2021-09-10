@@ -43,7 +43,7 @@ abstract class FrontAction extends Action
                 $this->logger->error($exception->getTraceAsString());
 
                 return $this->response
-                    ->withHeader('Location', $this->request->getUri()->getHost())
+                    ->withHeader('Location', '/')
                     ->withStatus(302);
             }
             if ($exception instanceof HttpException) {
@@ -145,7 +145,7 @@ abstract class FrontAction extends Action
 
         if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
             return $this->response
-                ->withHeader('Location', $this->request->getUri()->getHost())
+                ->withHeader('Location', '/')
                 ->withStatus(302);
         }
 
