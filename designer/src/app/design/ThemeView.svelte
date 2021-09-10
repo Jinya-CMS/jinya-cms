@@ -1,9 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import { get, getHost, put } from '../../http/request';
   import { _ } from 'svelte-i18n';
-  import { jinyaConfirm } from '../../ui/confirm';
+  import { get, getHost, put } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
+  import { jinyaConfirm } from '../../ui/confirm';
 
   let themes = [];
   let selectedTheme;
@@ -21,6 +21,7 @@
   let pages = [];
   let menus = [];
   let forms = [];
+  let categories = [];
 
   let themeFiles = {};
   let themeGalleries = {};
@@ -28,6 +29,7 @@
   let themePages = {};
   let themeMenus = {};
   let themeForms = {};
+  let themeCategories = {};
   let loading = true;
 
   async function activateTheme() {
@@ -107,6 +109,14 @@
 
         themeFiles = files;
       }),
+      get(`/api/theme/${selectedTheme.id}/category`).then(result => {
+        const categories = {};
+        for (const key of Object.keys(result)) {
+          categories[key] = result[key].id;
+        }
+
+        themeCategories = categories;
+      }),
     ]);
 
     defaultVariables = await get(`/api/theme/${selectedTheme.id}/styling`);
@@ -163,6 +173,7 @@
       promises.push(...Object.keys(themeMenus).map(key => put(`/api/theme/${selectedTheme.id}/menu/${key}`, {menu: themeMenus[key]})));
       promises.push(...Object.keys(themeForms).map(key => put(`/api/theme/${selectedTheme.id}/form/${key}`, {form: themeForms[key]})));
       promises.push(...Object.keys(themeGalleries).map(key => put(`/api/theme/${selectedTheme.id}/gallery/${key}`, {gallery: themeGalleries[key]})));
+      promises.push(...Object.keys(themeCategories).map(key => put(`/api/theme/${selectedTheme.id}/category/${key}`, {category: themeCategories[key]})));
       await Promise.all(promises);
       selectTheme(selectedTheme);
       await jinyaAlert($_('design.themes.links.success.title'), $_('design.themes.links.success.message'), $_('alert.dismiss'));
@@ -178,6 +189,7 @@
     get('/api/menu').then(result => menus = result.items ?? []);
     get('/api/media/gallery').then(result => galleries = result.items ?? []);
     get('/api/media/file').then(result => files = result.items ?? []);
+    get('/api/blog/category').then(result => categories = result.items ?? []);
 
     const result = await get('/api/theme');
     themes = result.items;
@@ -344,6 +356,19 @@
                                                     class="cosmo-select">
                                                 {#each menus as menu}
                                                     <option value={menu.id}>{menu.name}</option>
+                                                {/each}
+                                            </select>
+                                        {/each}
+                                    {/if}
+                                    {#if configurationStructure.links.blog_categories}
+                                        <span class="cosmo-input__header">{$_('design.themes.links.categories')}</span>
+                                        {#each Object.keys(configurationStructure.links.blog_categories) as link (`category_${link}`)}
+                                            <label for={`categories_${link}`}
+                                                   class="cosmo-label">{configurationStructure.links.blog_categories[link]}</label>
+                                            <select required bind:value={themeMenus[link]} id={`categories_${link}`}
+                                                    class="cosmo-select">
+                                                {#each categories as category}
+                                                    <option value={category.id}>{category.name}</option>
                                                 {/each}
                                             </select>
                                         {/each}

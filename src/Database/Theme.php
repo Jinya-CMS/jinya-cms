@@ -171,6 +171,27 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     }
 
     /**
+     * Gets all theme categories
+     *
+     * @return array<string, BlogCategory|null>
+     *
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     */
+    public function getCategories(): array
+    {
+        $result = [];
+        $categories = ThemeBlogCategory::findByTheme($this->getIdAsInt());
+        /** @var ThemeBlogCategory $category */
+        foreach ($categories as $category) {
+            $result[$category->name] = $category->getBlogCategory();
+        }
+
+        return $result;
+    }
+
+    /**
      * Gets all theme galleries
      *
      * @return array (Gallery|null)[]
