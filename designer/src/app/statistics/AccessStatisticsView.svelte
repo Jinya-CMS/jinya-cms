@@ -16,7 +16,6 @@
     const chart = {
       type: 'bar',
       height: 400,
-      width: '50%',
       style: {
         fontSize: '14px',
         fontFamily: 'Lato, sans-serif',
@@ -25,7 +24,6 @@
     const plotOptions = {
       bar: {
         borderRadius: 6,
-        columnWidth: '45%',
         distributed: true,
       }
     };
@@ -41,7 +39,7 @@
         const countryStats = await get('/api/statistics/visits/country');
         totalVisits = countryStats.map(m => m.visitCount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
         const countryStatsChart = new ApexCharts(country, {
-          chart: {...chart, width: '99%', type: 'treemap'},
+          chart: {...chart, type: 'treemap'},
           plotOptions: {
             treemap: {
               distributed: true,
@@ -80,7 +78,7 @@
       (async () => {
         const languageStats = await get('/api/statistics/visits/language');
         const languageStatsChart = new ApexCharts(language, {
-          chart: {...chart, width: '32%'},
+          chart: {...chart},
           plotOptions,
           dataLabels,
           legend,
@@ -112,7 +110,7 @@
       (async () => {
         const deviceBrandStats = await get('/api/statistics/visits/brand');
         const deviceBrandStatsChart = new ApexCharts(deviceBrand, {
-          chart: {...chart, width: '32%'},
+          chart: {...chart},
           plotOptions,
           dataLabels,
           legend,
@@ -147,7 +145,6 @@
           chart: {
             type: 'pie',
             height: 400,
-            width: '33%',
           },
           dataLabels: {
             distributed: true,
@@ -256,11 +253,15 @@
 })}
     – {to.toLocaleDateString(getLang(), {year: 'numeric', month: '2-digit', day: '2-digit'})}
     | {totalVisits} {$_('statistics.access.total_visits')}</span>
-<div bind:this={country}></div>
-<div class="jinya-stats__row">
+<div class="jinya-stats__row jinya-stats__row--one">
+    <div bind:this={country}></div>
+</div>
+<div class="jinya-stats__row jinya-stats__row--third">
     <div bind:this={language}></div>
     <div bind:this={deviceBrand}></div>
     <div bind:this={deviceType}></div>
+</div>
+<div class="jinya-stats__row jinya-stats__row--half">
     <div bind:this={browser}></div>
     <div bind:this={operatingSystem}></div>
 </div>
