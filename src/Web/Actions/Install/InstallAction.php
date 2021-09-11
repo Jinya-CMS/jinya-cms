@@ -3,11 +3,9 @@
 namespace App\Web\Actions\Install;
 
 use App\Web\Actions\Action;
-use JetBrains\PhpStorm\Pure;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 
 abstract class InstallAction extends Action
 {

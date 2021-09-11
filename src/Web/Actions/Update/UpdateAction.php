@@ -3,12 +3,10 @@
 namespace App\Web\Actions\Update;
 
 use App\Web\Actions\Action;
-use JetBrains\PhpStorm\Pure;
 use JsonException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 
 abstract class UpdateAction extends Action
 {

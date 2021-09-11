@@ -2,8 +2,6 @@
 
 namespace App\Web\Actions\Version;
 
-use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Update\UpdateAction;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;

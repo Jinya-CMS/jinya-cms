@@ -694,7 +694,7 @@
       <code>$currentArtist-&gt;id</code>
     </InvalidScalarArgument>
   </file>
-  <file src="src/Web/Actions/Logging/Logger.php">
+  <file src="src/Logging/Logger.php">
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
