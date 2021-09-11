@@ -1,8 +1,8 @@
 <script>
   import ApexCharts from 'apexcharts';
   import { onMount } from "svelte";
-  import { get } from "../../http/request";
   import { _ } from 'svelte-i18n';
+  import { get } from "../../http/request";
 
   let entityShare;
   let fileHistory;
@@ -23,12 +23,16 @@
             entityShareData.simplePages,
             entityShareData.segmentPages,
             entityShareData.forms,
+            entityShareData.blogPosts,
+            entityShareData.blogCategories,
           ],
           labels: [
             $_('statistics.database.galleries'),
             $_('statistics.database.simple_pages'),
             $_('statistics.database.segment_pages'),
             $_('statistics.database.forms'),
+            $_('statistics.database.blog_posts'),
+            $_('statistics.database.blog_categories'),
           ],
         });
         await entityShareChart.render();

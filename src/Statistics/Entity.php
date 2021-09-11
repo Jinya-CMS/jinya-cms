@@ -7,12 +7,17 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class Entity
 {
+    /**
+     * @return array{files: int, galleries: int, simplePages: int, segmentPages: int, forms: int, blogPosts: int, blogCategories: int}
+     */
     #[ArrayShape([
         'files' => "int",
         'galleries' => "int",
         'simplePages' => "int",
         'segmentPages' => "int",
-        'forms' => "int"
+        'forms' => "int",
+        'blogPosts' => "int",
+        'blogCategories' => "int",
     ])] public function getEntityShare(): array
     {
         $fileCount = 'SELECT COUNT(*) FROM file';
@@ -20,13 +25,17 @@ class Entity
         $simplePageCount = 'SELECT COUNT(*) FROM page';
         $segmentPageCount = 'SELECT COUNT(*) FROM segment_page';
         $formCount = 'SELECT COUNT(*) FROM form';
+        $blogPostCount = 'SELECT COUNT(*) FROM blog_post';
+        $blogCategoryCount = 'SELECT COUNT(*) FROM blog_category';
 
         return [
-            'files' => LoadableEntity::fetchColumn($fileCount),
-            'galleries' => LoadableEntity::fetchColumn($galleryCount),
-            'simplePages' => LoadableEntity::fetchColumn($simplePageCount),
-            'segmentPages' => LoadableEntity::fetchColumn($segmentPageCount),
-            'forms' => LoadableEntity::fetchColumn($formCount),
+            'files' => (int)LoadableEntity::fetchColumn($fileCount),
+            'galleries' => (int)LoadableEntity::fetchColumn($galleryCount),
+            'simplePages' => (int)LoadableEntity::fetchColumn($simplePageCount),
+            'segmentPages' => (int)LoadableEntity::fetchColumn($segmentPageCount),
+            'forms' => (int)LoadableEntity::fetchColumn($formCount),
+            'blogPosts' => (int)LoadableEntity::fetchColumn($blogPostCount),
+            'blogCategories' => (int)LoadableEntity::fetchColumn($blogCategoryCount),
         ];
     }
 }

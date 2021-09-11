@@ -885,6 +885,8 @@
       "forms": "Forms",
       "simple_pages": "Simple pages",
       "segment_pages": "Segment pages",
+      "blog_posts": "Blog posts",
+      "blog_categories": "Blog categories",
       "history": {
         "file": "File history",
         "created": "Uploaded files",

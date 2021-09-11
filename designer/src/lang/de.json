@@ -885,6 +885,8 @@
       "forms": "Formulare",
       "simple_pages": "Einfache Seiten",
       "segment_pages": "Segmentseiten",
+      "blog_posts": "Blogartikel",
+      "blog_categories": "Blogkategorien",
       "history": {
         "file": "Dateihistorie",
         "created": "Hochgeladene Dateien",
