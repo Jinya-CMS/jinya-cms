@@ -13,7 +13,6 @@ use App\Database\ThemeGallery;
 use App\Database\ThemeMenu;
 use App\Database\ThemePage;
 use App\Database\ThemeSegmentPage;
-use App\OpenApiGeneration\Attributes\OpenApiField;
 use Iterator;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
@@ -21,7 +20,6 @@ use RuntimeException;
 
 abstract class ThemeHelperEntity extends LoadableEntity
 {
-    #[OpenApiField(required: true)]
     public string $name = '';
     public int $themeId = -1;
 

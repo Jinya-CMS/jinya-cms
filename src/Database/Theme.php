@@ -5,27 +5,19 @@ namespace App\Database;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use stdClass;
 
-#[OpenApiModel('A theme controls the frontend of the Jinya instance')]
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 {
 
-    #[OpenApiField(required: true, object: true)]
     public array $configuration;
-    #[OpenApiField(required: true)]
     public string $description;
-    #[OpenApiField(required: true)]
     public string $name;
-    #[OpenApiField(required: true)]
     public string $displayName;
-    #[OpenApiField(required: true, object: true)]
     public array $scssVariables;
 
     /**

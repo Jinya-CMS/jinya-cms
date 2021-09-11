@@ -3,34 +3,21 @@
 namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 
-#[OpenApiModel(description: 'A form item is part of a form, containing information to send')]
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiField(required: false, defaultValue: 'text', arrayType: 'string')]
     public string $type = 'text';
-    #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
     public array $options = [];
-    #[OpenApiField(required: false, defaultValue: [], array: true, arrayType: 'string')]
     public array $spamFilter = [];
-    #[OpenApiField(required: true)]
     public string $label;
-    #[OpenApiField(required: false)]
     public string $helpText = '';
-    #[OpenApiField(required: true, defaultValue: '')]
     public int $formId;
-    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isFromAddress = false;
-    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isSubject = false;
-    #[OpenApiField(required: false, defaultValue: false)]
     public bool $isRequired = false;
-    #[OpenApiField(required: false, defaultValue: '')]
     public ?string $placeholder = '';
 
     /**

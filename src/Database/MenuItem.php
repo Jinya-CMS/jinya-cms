@@ -2,55 +2,23 @@
 
 namespace App\Database;
 
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
-use App\OpenApiGeneration\Attributes\OpenApiRecursiveField;
 use Exception;
 use Iterator;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use LogicException;
 use RuntimeException;
 
-#[OpenApiModel('A menu item contains the navigation information')]
-#[OpenApiRecursiveField('items')]
 class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
 {
-    #[OpenApiHiddenField]
     public ?int $menuId = null;
-    #[OpenApiHiddenField]
     public ?int $parentId = null;
-    #[OpenApiField(required: true)]
     public string $title;
-    #[OpenApiField(required: false, defaultValue: null)]
     public ?string $route = null;
-    #[OpenApiField(required: false)]
     public bool $highlighted = false;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'title' => ['type' => 'string'],
-    ], name: 'form')]
     public ?int $formId = null;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'artistName' => ['type' => 'string'],
-        'email' => ['type' => 'string', 'format' => 'email'],
-    ], name: 'artist')]
     public ?int $artistId = null;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'name' => ['type' => 'string'],
-    ], name: 'gallery')]
     public ?int $galleryId = null;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'name' => ['type' => 'string'],
-    ], name: 'segmentPage')]
     public ?int $segmentPageId = null;
-    #[OpenApiField(required: false, structure: [
-        'id' => ['type' => 'integer'],
-        'title' => ['type' => 'string'],
-    ], name: 'page')]
     public ?int $pageId = null;
     public ?int $categoryId = null;
     public ?bool $blogHomePage = false;

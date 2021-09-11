@@ -3,24 +3,16 @@
 namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use RuntimeException;
 
-#[OpenApiModel('A known devices replaces the two factor code for a browser or device', hasId: false)]
 class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInterface
 {
-    #[OpenApiHiddenField]
     public int $userId;
-    #[OpenApiField(required: true)]
     public string $deviceKey;
-    #[OpenApiField(required: true)]
     public string $userAgent = '';
-    #[OpenApiField(required: true)]
     public string $remoteAddress = '';
 
     /**

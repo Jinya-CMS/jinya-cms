@@ -3,15 +3,11 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-#[OpenApiModel('In galleries users can arrange files for display')]
 class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
 
@@ -21,21 +17,13 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     public const ORIENTATION_HORIZONTAL = 'horizontal';
     public const ORIENTATION_VERTICAL = 'vertical';
 
-    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'created')]
     public int $creatorId;
-    #[OpenApiField(required: true, array: true, structure: OpenApiField::CHANGED_BY_STRUCTURE, name: 'updated')]
     public int $updatedById;
-    #[OpenApiHiddenField]
     public DateTime $createdAt;
-    #[OpenApiHiddenField]
     public DateTime $lastUpdatedAt;
-    #[OpenApiField(required: true)]
     public string $name;
-    #[OpenApiField(required: false, defaultValue: '')]
     public string $description = '';
-    #[OpenApiField(required: true, enumValues: [self::TYPE_MASONRY, self::TYPE_SEQUENCE])]
     public string $type = self::TYPE_SEQUENCE;
-    #[OpenApiField(required: true, enumValues: [self::ORIENTATION_HORIZONTAL, self::ORIENTATION_VERTICAL])]
     public string $orientation = self::ORIENTATION_HORIZONTAL;
 
     /**

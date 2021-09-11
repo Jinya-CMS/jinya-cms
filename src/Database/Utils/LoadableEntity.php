@@ -5,7 +5,6 @@ namespace App\Database\Utils;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\OpenApiGeneration\Attributes\OpenApiHiddenField;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
 use Laminas\Hydrator\HydratorInterface;
@@ -18,9 +17,7 @@ use PDOException;
 abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
-    #[OpenApiHiddenField]
     protected static ?PDO $pdo;
-    #[OpenApiHiddenField]
     public int|string $id = -1;
 
     /**

@@ -4,17 +4,13 @@ namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
-#[OpenApiModel('A theme page represents a page in the current theme configuration')]
 class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
-    #[OpenApiField(object: true, objectRef: SimplePage::class, name: 'page')]
     public int $pageId = -1;
 
     /**

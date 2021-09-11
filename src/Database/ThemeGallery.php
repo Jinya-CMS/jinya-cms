@@ -4,17 +4,13 @@ namespace App\Database;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
-use App\OpenApiGeneration\Attributes\OpenApiField;
-use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 
-#[OpenApiModel('A theme gallery represents a gallery in the current theme configuration')]
 class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterface
 {
 
-    #[OpenApiField(object: true, objectRef: Gallery::class, name: 'gallery')]
     public int $galleryId = -1;
 
     /**
