@@ -1,0 +1,24 @@
+<?php
+/** @var array $configuration */
+/** @var \App\Database\BlogCategory $category */
+$this->layout('theme::layout', ['title' => $category->name]);
+$posts = $category->getBlogPosts(true);
+?>
+<?php $this->start('maincontent') ?>
+<main class="jinya-post-list">
+    <h1 class="jinya-category__title"><?= $this->e($category->name) ?></h1>
+    <?php foreach ($posts as $post): ?>
+        <?php /** @var DateTime $postCreate */
+        $postCreate = $post->createdAt; ?>
+        <a class="jinya-post-list__post-link" href="/<?= $postCreate->format('Y/m/d') ?>/<?= $this->e($post->slug) ?>">
+            <div class="jinya-post-list__post">
+                <span class="jinya-post-list__post-title"><?= $this->e($post->title) ?></span>
+                <?php if ($post->headerImageId !== null): ?>
+                    <img class="jinya-post-list__post-header" src="<?= $post->getHeaderImage()->path ?>"
+                         alt="<?= $this->e($post->title) ?>">
+                <?php endif ?>
+            </div>
+        </a>
+    <?php endforeach ?>
+</main>
+<?php $this->stop() ?>

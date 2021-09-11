@@ -1,10 +1,10 @@
 <script>
-  import { get, httpDelete, post, put } from '../../http/request';
+  import Sortable from 'sortablejs';
   import { onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { jinyaConfirm } from '../../ui/confirm';
+  import { get, httpDelete, post, put } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
-  import Sortable from 'sortablejs';
+  import { jinyaConfirm } from '../../ui/confirm';
 
   let createMenuName = '';
   let createMenuLogo = null;
@@ -22,6 +22,7 @@
   let forms = [];
   let files = [];
   let artists = [];
+  let categories = [];
 
   let allowDecreaseNesting = false;
   let allowIncreaseNesting = false;
@@ -94,6 +95,12 @@
             break;
           case 'form':
             selectedMenuItem.form = forms[0];
+            break;
+          case 'artist':
+            selectedMenuItem.artist = artists[0];
+            break;
+          case 'blog_category':
+            selectedMenuItem.category = categories[0];
             break;
         }
         await editMenuItem();
@@ -274,7 +281,14 @@
         editMenuItemElement = selectedMenuItem.artist.id;
         itemsToChooseFrom = artists;
         break;
+      case 'blog_category':
+        editMenuItemElement = selectedMenuItem.category.id;
+        itemsToChooseFrom = categories;
+        break;
       case 'external_link':
+        editMenuItemElement = null;
+        break;
+      case 'blog_home_page':
         editMenuItemElement = null;
         break;
     }
@@ -302,6 +316,10 @@
       type = 'gallery';
     } else if (item.artist) {
       type = 'artist';
+    } else if (item.category) {
+      type = 'blog_category';
+    } else if (item.blogHomePage) {
+      type = 'blog_home_page';
     } else {
       type = 'external_link';
     }
@@ -342,6 +360,16 @@
       case 'artist':
         data.artist = editMenuItemElement;
         break;
+      case 'blog_home_page':
+        data.blogHomePage = true;
+        break;
+      case 'blog_category':
+        data.category = editMenuItemElement;
+        break;
+    }
+
+    if (!data.blogHomePage) {
+      data.blogHomePage = false;
     }
 
     if (createNewMenuItem) {
@@ -390,9 +418,6 @@
     }
 
     const previous = menuItems[current - 1];
-    // if (previous.nestingIndex > selectedMenuItem?.nestingIndex) {
-    //   return false;
-    // }
 
     if (selectedMenuItem?.items[0]?.position === selectedMenuItem?.position) {
       return false;
@@ -409,6 +434,7 @@
     get('/api/media/gallery').then(result => galleries = result.items ?? []);
     get('/api/media/file').then(result => files = result.items ?? []);
     get('/api/user').then(result => artists = result.items ?? []);
+    get('/api/blog/category').then(result => categories = result.items ?? []);
   });
 </script>
 
@@ -457,11 +483,11 @@
                              style="margin-left: {item.nestingIndex * 16}px; width: calc(100% - {item.nestingIndex * 16}px);">
                             <span class="jinya-designer-item__title">{$_(`design.menus.designer.type_${item.type}`)}</span>
                             <span>
-                            <span>{item.title}</span>
+                                <span>{item.title}</span>
                                 {#if item.route}
-                                <span class="jinya-menu-item__route">{item.route}</span>
-                            {/if}
-                        </span>
+                                    <span class="jinya-menu-item__route">{item.route}</span>
+                                {/if}
+                            </span>
                         </div>
                     {/each}
                 </div>
@@ -482,6 +508,14 @@
                         <span class="jinya-designer__drag-handle"></span>
                         <span>{$_('design.menus.designer.type_form')}</span>
                     </div>
+                    <div data-type="artist" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_artist')}</span>
+                    </div>
+                    <div data-type="blog_category" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_blog_category')}</span>
+                    </div>
                     <div data-type="group" class="jinya-designer-item__template">
                         <span class="jinya-designer__drag-handle"></span>
                         <span>{$_('design.menus.designer.type_group')}</span>
@@ -489,6 +523,10 @@
                     <div data-type="external_link" class="jinya-designer-item__template">
                         <span class="jinya-designer__drag-handle"></span>
                         <span>{$_('design.menus.designer.type_external_link')}</span>
+                    </div>
+                    <div data-type="blog_home_page" class="jinya-designer-item__template">
+                        <span class="jinya-designer__drag-handle"></span>
+                        <span>{$_('design.menus.designer.type_blog_home_page')}</span>
                     </div>
                 </div>
             </div>
@@ -555,7 +593,7 @@
                            class="cosmo-label">{$_('design.menus.designer.edit.item_title')}</label>
                     <input required bind:value={editMenuItemTitle} type="text" id="editMenuItemTitle"
                            class="cosmo-input">
-                    {#if selectedMenuItem.type !== 'group'}
+                    {#if selectedMenuItem.type !== 'group' || selectedMenuItem.type !== 'blog_home_page'}
                         <label for="editMenuItemRoute"
                                class="cosmo-label">{$_('design.menus.designer.edit.route')}</label>
                         <input bind:value={editMenuItemRoute} type="text" id="editMenuItemRoute" class="cosmo-input">

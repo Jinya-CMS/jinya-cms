@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\Artist;
 
-use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;

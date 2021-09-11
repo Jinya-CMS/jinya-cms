@@ -6,7 +6,6 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
-use App\Database\FormItem;
 use App\Database\Gallery;
 use App\Database\GalleryFilePosition;
 use App\OpenApiGeneration\Attributes\OpenApiParameter;
@@ -19,7 +18,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/gallery/{galleryId}/file', JinyaAction::POST)]

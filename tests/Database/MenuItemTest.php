@@ -309,14 +309,14 @@ class MenuItemTest extends TestCase
 
         $menuItem = $this->createMenuItem();
         $menuItem->parentId = $parent->id;
-        $menuItem->position = 2;
+        $menuItem->position = 1;
         $menuItem->create();
 
         $menuItem2 = $this->createMenuItem();
         $menuItem2->parentId = $menuItem->id;
         $menuItem2->create();
 
-        $menuItem->move(1);
+        $menuItem->move(0);
 
         $foundItems = iterator_to_array(MenuItem::findById($parent->id)->getItems());
         $this->assertCount(2, $foundItems);

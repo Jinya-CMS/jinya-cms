@@ -3,6 +3,6 @@
 /** @var \App\Database\MenuItem $item */
 ?>
 <a class="<?= $class ?> <?= $this->isActiveMenuItem($item) ? 'is--current' : '' ?> <?= $item->highlighted ? 'is--current' : '' ?>"
-   href="<?= $item->route ?>">
+   href="<?= str_starts_with($item->route, 'http://') || str_starts_with($item->route, 'https://') ? $item->route : "/$item->route" ?>">
     <?= $item->title ?>
 </a>

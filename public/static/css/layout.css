@@ -23,3 +23,7 @@
 .jinya-media-view__loader {
     grid-row: content;
 }
+
+.jinya-designer__content--key-value-list {
+    align-items: start;
+}

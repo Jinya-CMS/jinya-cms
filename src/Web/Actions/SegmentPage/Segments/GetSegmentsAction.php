@@ -14,7 +14,6 @@ use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/segment-page/{id}/segment', JinyaAction::GET)]

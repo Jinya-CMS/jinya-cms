@@ -14,7 +14,6 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 

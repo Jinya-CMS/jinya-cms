@@ -1,6 +1,27 @@
 import { init } from 'tinymce';
-import { get, getHost, post, put, upload } from '../http/request';
+
+import 'tinymce';
+import 'tinymce/icons/default';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/anchor';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/charmap';
+import 'tinymce/plugins/code';
+import 'tinymce/plugins/fullscreen';
+import 'tinymce/plugins/help';
+import 'tinymce/plugins/hr';
+import 'tinymce/plugins/image';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/searchreplace';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/visualblocks';
+import 'tinymce/plugins/wordcount';
+import 'tinymce/themes/silver';
 import ConflictError from '../http/Error/ConflictError';
+import { get, getHost, post, put, upload } from '../http/request';
 
 /**
  *

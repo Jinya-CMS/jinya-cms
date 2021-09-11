@@ -18,7 +18,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/segment-page/{id}/segment/form', JinyaAction::POST)]

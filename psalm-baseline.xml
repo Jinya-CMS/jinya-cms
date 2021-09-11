@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.8.1@f73f2299dbc59a3e6c4d66cff4605176e728ee69">
-  <file src="app/routes.php">
-    <UndefinedConstant occurrences="2">
-      <code>__ROOT__</code>
-      <code>__ROOT__</code>
-    </UndefinedConstant>
-  </file>
-  <file src="src/Console/RoutesCommand.php">
-    <UndefinedMethod occurrences="1">
-      <code>getRoutes</code>
-    </UndefinedMethod>
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+    <file src="app/routes.php">
+        <UndefinedConstant occurrences="2">
+            <code>__ROOT__</code>
+            <code>__ROOT__</code>
+        </UndefinedConstant>
+    </file>
+    <file src="src/Console/RoutesCommand.php">
+        <UndefinedMethod occurrences="1">
+            <code>getRoutes</code>
+        </UndefinedMethod>
   </file>
   <file src="src/Database/Analyzer/DatabaseAnalyzer.php">
     <PossiblyInvalidIterator occurrences="2">
@@ -18,10 +18,6 @@
     </PossiblyInvalidIterator>
   </file>
   <file src="src/Database/ApiKey.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ApiKey|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -34,11 +30,6 @@
     <ImpureMethodCall occurrences="1">
       <code>getIdAsInt</code>
     </ImpureMethodCall>
-    <LessSpecificReturnStatement occurrences="2"/>
-    <MoreSpecificReturnType occurrences="2">
-      <code>Artist|null</code>
-      <code>Artist|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -51,10 +42,6 @@
     <InvalidScalarArgument occurrences="1">
       <code>$this-&gt;id</code>
     </InvalidScalarArgument>
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>File</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -70,10 +57,6 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/Form.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Form|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -93,10 +76,6 @@
     <ImpureMethodCall occurrences="1">
       <code>getIdAsInt</code>
     </ImpureMethodCall>
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>?FormItem</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -105,10 +84,6 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="src/Database/Gallery.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Gallery</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -125,12 +100,6 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/GalleryFilePosition.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>GalleryFilePosition|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -147,12 +116,6 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Database/KnownDevice.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>?KnownDevice</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -162,48 +125,31 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="src/Database/Menu.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchSingleById('menu', $id, new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Menu</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
     </PossiblyInvalidArgument>
   </file>
   <file src="src/Database/MenuItem.php">
-    <LessSpecificReturnStatement occurrences="4">
-      <code>self::fetchSingleById('menu_item', $id, new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
-      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
-      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
-      <code>self::hydrateSingleResult($result[0], new self(), ['highlighted' =&gt; new BooleanStrategy(1, 0)])</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="4">
-      <code>?MenuItem</code>
-      <code>MenuItem</code>
-      <code>MenuItem|null</code>
-      <code>MenuItem|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="4">
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
+        <code>$result</code>
+        <code>$result</code>
+        <code>$result</code>
+        <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="3">
-      <code>$result[0]</code>
-      <code>$result[0]</code>
-      <code>$result[0]</code>
-    </PossiblyInvalidArrayAccess>
-    <PossiblyNullReference occurrences="5">
-      <code>getIdAsInt</code>
-      <code>getIdAsInt</code>
-      <code>getIdAsInt</code>
-      <code>getIdAsInt</code>
-      <code>getIdAsInt</code>
-    </PossiblyNullReference>
+      <PossiblyInvalidArrayAccess occurrences="3">
+          <code>$result[0]</code>
+          <code>$result[0]</code>
+          <code>$result[0]</code>
+      </PossiblyInvalidArrayAccess>
+      <PossiblyNullReference occurrences="6">
+          <code>getIdAsInt</code>
+          <code>getIdAsInt</code>
+          <code>getIdAsInt</code>
+          <code>getIdAsInt</code>
+          <code>getIdAsInt</code>
+          <code>getIdAsInt</code>
+      </PossiblyNullReference>
   </file>
   <file src="src/Database/Migrations/Migrator.php">
     <PossiblyInvalidArgument occurrences="2">
@@ -215,18 +161,12 @@
     </UndefinedConstant>
   </file>
   <file src="src/Database/Segment.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Segment|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="1">
-      <code>$result[0]</code>
-    </PossiblyInvalidArrayAccess>
+      <PossiblyInvalidArrayAccess occurrences="1">
+          <code>$result[0]</code>
+      </PossiblyInvalidArrayAccess>
     <PossiblyNullArgument occurrences="3">
       <code>$this-&gt;fileId</code>
       <code>$this-&gt;formId</code>
@@ -246,10 +186,6 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/SegmentPage.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>SegmentPage</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$result</code>
       <code>$result</code>
@@ -266,10 +202,6 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Database/SimplePage.php">
-    <LessSpecificReturnStatement occurrences="1"/>
-    <MoreSpecificReturnType occurrences="1">
-      <code>SimplePage</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
@@ -297,12 +229,6 @@
       <code>$this-&gt;id</code>
       <code>$this-&gt;id</code>
     </InvalidScalarArgument>
-    <LessSpecificReturnStatement occurrences="3"/>
-    <MoreSpecificReturnType occurrences="3">
-      <code>Theme</code>
-      <code>Theme|null</code>
-      <code>Theme|null</code>
-    </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="3">
       <code>$result</code>
       <code>$result</code>
@@ -313,87 +239,37 @@
       <code>$result[0]</code>
     </PossiblyInvalidArrayAccess>
   </file>
-  <file src="src/Database/ThemeAsset.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_asset', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>?ThemeAsset</code>
-    </MoreSpecificReturnType>
-  </file>
   <file src="src/Database/ThemeFile.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_file', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemeFile|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeForm.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_form', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemeForm|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeGallery.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_gallery', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemeGallery|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeMenu.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_menu', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemeMenu|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemePage.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_page', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemePage|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/ThemeSegmentPage.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::fetchByThemeAndName($themeId, $name, 'theme_segment_page', new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ThemeSegmentPage|null</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="1">
       <code>format</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Database/UploadingFile.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>self::hydrateSingleResult($result[0], new self())</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>?UploadingFile</code>
-    </MoreSpecificReturnType>
     <PossiblyFalsePropertyAssignmentValue occurrences="1">
       <code>UuidGenerator::generateV4()</code>
     </PossiblyFalsePropertyAssignmentValue>
@@ -613,12 +489,6 @@
       <code>__ROOT__</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Web/Actions/Action.php">
-    <InvalidArgument occurrences="2">
-      <code>$this-&gt;formatList($data, $offset, $count)</code>
-      <code>[]</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/ApiKey/ListAllApiKeysAction.php">
     <InvalidScalarArgument occurrences="1">
       <code>$currentArtist-&gt;id</code>
@@ -633,9 +503,6 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Web/Actions/Artist/CreateArtistAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$artist-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="3">
       <code>$body['artistName']</code>
       <code>$body['email']</code>
@@ -665,11 +532,6 @@
       <code>update</code>
     </PossiblyNullReference>
   </file>
-  <file src="src/Web/Actions/Artist/GetArtistByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$artist-&gt;format()</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/Artist/ProfilePicture/GetProfilePictureAction.php">
     <PossiblyNullArgument occurrences="1">
       <code>$path</code>
@@ -694,16 +556,11 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/Authentication/LoginAction.php">
-    <InvalidArgument occurrences="1"/>
     <PossiblyNullPropertyFetch occurrences="1">
       <code>$knownDevice-&gt;deviceKey</code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Web/Actions/Authentication/TwoFactorAction.php">
-    <InvalidArgument occurrences="2">
-      <code>[]</code>
-      <code>[]</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['password']</code>
       <code>$body['username']</code>
@@ -718,13 +575,7 @@
       <code>$body['username']</code>
     </PossiblyNullArrayAccess>
   </file>
-  <file src="src/Web/Actions/Database/DatabaseAnalyzerAction.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
   <file src="src/Web/Actions/Database/ExecuteQueryAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$this-&gt;request-&gt;getParsedBody()['query']</code>
     </PossiblyInvalidArrayAccess>
@@ -736,17 +587,11 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/Environment/GetEnvironmentAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$data</code>
-    </InvalidArgument>
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/File/CreateFileAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$file-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['name']</code>
     </PossiblyInvalidArrayAccess>
@@ -754,20 +599,12 @@
       <code>$body['name']</code>
     </PossiblyNullArrayAccess>
   </file>
-  <file src="src/Web/Actions/File/GetFileByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$file-&gt;format()</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/File/Upload/UploadChunkAction.php">
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;request-&gt;getBody()-&gt;detach()</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Web/Actions/Form/CreateFormAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$form-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['title']</code>
       <code>$body['toAddress']</code>
@@ -777,15 +614,7 @@
       <code>$body['toAddress']</code>
     </PossiblyNullArrayAccess>
   </file>
-  <file src="src/Web/Actions/Form/GetFormByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$form-&gt;format()</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/Form/Items/CreateFormItemAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$formItem-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['label']</code>
       <code>$body['position']</code>
@@ -807,11 +636,6 @@
       <code>[]</code>
     </TypeDoesNotContainNull>
   </file>
-  <file src="src/Web/Actions/Form/Items/GetFormItemsAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;formatIterator($items)</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/Frontend/FrontAction.php">
     <InvalidScalarArgument occurrences="1">
       <code>$statusCode</code>
@@ -829,9 +653,6 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Web/Actions/Gallery/CreateGalleryAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$gallery-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['name']</code>
     </PossiblyInvalidArrayAccess>
@@ -839,15 +660,7 @@
       <code>$body['name']</code>
     </PossiblyNullArrayAccess>
   </file>
-  <file src="src/Web/Actions/Gallery/GetGalleryByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$gallery-&gt;format()</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/Gallery/Positions/CreatePositionAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$galleryFilePosition-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['file']</code>
       <code>$body['position']</code>
@@ -859,11 +672,6 @@
       <code>$body['file']</code>
       <code>$body['position']</code>
     </PossiblyNullArrayAccess>
-  </file>
-  <file src="src/Web/Actions/Gallery/Positions/GetPositionsAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;formatIterator($gallery-&gt;getFiles())</code>
-    </InvalidArgument>
   </file>
   <file src="src/Web/Actions/Install/InstallAction.php">
     <UndefinedConstant occurrences="1">
@@ -886,53 +694,18 @@
       <code>$currentArtist-&gt;id</code>
     </InvalidScalarArgument>
   </file>
-  <file src="src/Web/Actions/LocateIp/LocatorAction.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
   <file src="src/Web/Actions/Logging/Logger.php">
     <UndefinedConstant occurrences="1">
       <code>__ROOT__</code>
     </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/Menu/CreateMenuAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$menu-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['name']</code>
     </PossiblyInvalidArrayAccess>
     <PossiblyNullArrayAccess occurrences="1">
       <code>$body['name']</code>
     </PossiblyNullArrayAccess>
-  </file>
-  <file src="src/Web/Actions/Menu/GetMenuByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$menu-&gt;format()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Menu/Items/CreateMenuItemByMenuAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$menuItem-&gt;format()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Menu/Items/CreateMenuItemByMenuItemAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$menuItem-&gt;format()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Menu/Items/GetMenuItemsByMenuAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;formatIteratorRecursive($menu-&gt;getItems())</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Menu/Items/MenuItemAction.php">
-    <PossiblyInvalidPropertyAssignmentValue occurrences="5">
-      <code>$artist-&gt;id</code>
-      <code>$form-&gt;id</code>
-      <code>$gallery-&gt;id</code>
-      <code>$page-&gt;id</code>
-      <code>$segmentPage-&gt;id</code>
-    </PossiblyInvalidPropertyAssignmentValue>
   </file>
   <file src="src/Web/Actions/Menu/Items/MoveMenuItemParentToItemAction.php">
     <PossiblyNullPropertyFetch occurrences="2">
@@ -949,20 +722,11 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Web/Actions/OpenApi/GetOpenApiConfigAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
     <UndefinedConstant occurrences="1">
       <code>INSTALLED_VERSION</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Web/Actions/PhpInfo/GetPhpInfoAction.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
   <file src="src/Web/Actions/SegmentPage/CreateSegmentPageAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segmentPage-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['name']</code>
     </PossiblyInvalidArrayAccess>
@@ -970,15 +734,7 @@
       <code>$body['name']</code>
     </PossiblyNullArrayAccess>
   </file>
-  <file src="src/Web/Actions/SegmentPage/GetSegmentPageByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segmentPage-&gt;format()</code>
-    </InvalidArgument>
-  </file>
   <file src="src/Web/Actions/SegmentPage/Segments/CreateFileSegmentAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segment-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['file']</code>
       <code>$body['position']</code>
@@ -992,9 +748,6 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segment-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['form']</code>
       <code>$body['position']</code>
@@ -1008,9 +761,6 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/SegmentPage/Segments/CreateGallerySegmentAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segment-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['gallery']</code>
       <code>$body['position']</code>
@@ -1024,9 +774,6 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$segment-&gt;format()</code>
-    </InvalidArgument>
     <PossiblyInvalidArrayAccess occurrences="2">
       <code>$body['html']</code>
       <code>$body['position']</code>
@@ -1037,153 +784,62 @@
     </PossiblyNullArrayAccess>
   </file>
   <file src="src/Web/Actions/SegmentPage/Segments/GetSegmentsAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;formatIterator($segments)</code>
-    </InvalidArgument>
     <PossiblyNullReference occurrences="1">
       <code>getSegments</code>
     </PossiblyNullReference>
   </file>
-  <file src="src/Web/Actions/SimplePage/CreateSimplePageAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$page-&gt;format()</code>
-    </InvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="2">
-      <code>$body['content']</code>
-      <code>$body['title']</code>
-    </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="2">
-      <code>$body['content']</code>
-      <code>$body['title']</code>
-    </PossiblyNullArrayAccess>
-  </file>
-  <file src="src/Web/Actions/SimplePage/GetSimplePageByIdAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$page-&gt;format()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetEntityStatisticsAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$entityStats-&gt;getEntityShare()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetHistoryStatisticsAction.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetSystemStatisticsAction.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByBrowserAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByBrowsers()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByCountryAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$matomoClient-&gt;getVisitsByCountry()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByDeviceBrandAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByDeviceBrand()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByDeviceTypeAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByDeviceType()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByLanguageAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByLanguage()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByOsAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByOsVersions()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Statistics/GetVisitsByReferrerAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$client-&gt;getVisitsByReferrer()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetConfigurationStructureAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$theme-&gt;getConfigurationStructure()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetDefaultConfigurationValues.php">
-    <InvalidArgument occurrences="1">
-      <code>$config</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetStyleVariablesAction.php">
-    <InvalidArgument occurrences="1">
-      <code>array_merge($vars, $dbVars)</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$theme-&gt;format()</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeFileAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeFormAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeGalleryAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeMenuAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemePageAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/GetThemeSegmentPageAction.php">
-    <InvalidArgument occurrences="1">
-      <code>$result</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
-    <PossiblyInvalidArrayAccess occurrences="1">
-      <code>$body['configuration']</code>
-    </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="1">
-      <code>$body['configuration']</code>
-    </PossiblyNullArrayAccess>
-  </file>
-  <file src="src/Web/Actions/Theme/PutStyleVariablesAction.php">
-    <PossiblyInvalidArrayAccess occurrences="1">
-      <code>$body['variables']</code>
-    </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="1">
-      <code>$body['variables']</code>
-    </PossiblyNullArrayAccess>
-  </file>
-  <file src="src/Web/Actions/Theme/PutThemeFileAction.php">
-    <PossiblyInvalidArrayAccess occurrences="1">
-      <code>$body['file']</code>
-    </PossiblyInvalidArrayAccess>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="2">
-      <code>$file-&gt;id</code>
-      <code>$file-&gt;id</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullArgument occurrences="1">
-      <code>$fileId</code>
+    <file src="src/Web/Actions/SimplePage/CreateSimplePageAction.php">
+        <PossiblyInvalidArrayAccess occurrences="2">
+            <code>$body['content']</code>
+            <code>$body['title']</code>
+        </PossiblyInvalidArrayAccess>
+        <PossiblyNullArrayAccess occurrences="2">
+            <code>$body['content']</code>
+            <code>$body['title']</code>
+        </PossiblyNullArrayAccess>
+    </file>
+    <file src="src/Web/Actions/Theme/GetThemeBlogCategoryAction.php">
+        <PossiblyNullReference occurrences="1">
+            <code>format</code>
+        </PossiblyNullReference>
+    </file>
+    <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
+        <PossiblyInvalidArrayAccess occurrences="1">
+            <code>$body['configuration']</code>
+        </PossiblyInvalidArrayAccess>
+        <PossiblyNullArrayAccess occurrences="1">
+            <code>$body['configuration']</code>
+        </PossiblyNullArrayAccess>
+    </file>
+    <file src="src/Web/Actions/Theme/PutStyleVariablesAction.php">
+        <PossiblyInvalidArrayAccess occurrences="1">
+            <code>$body['variables']</code>
+        </PossiblyInvalidArrayAccess>
+        <PossiblyNullArrayAccess occurrences="1">
+            <code>$body['variables']</code>
+        </PossiblyNullArrayAccess>
+    </file>
+    <file src="src/Web/Actions/Theme/PutThemeBlogCategoryAction.php">
+        <PossiblyInvalidArrayAccess occurrences="1">
+            <code>$body['category']</code>
+        </PossiblyInvalidArrayAccess>
+        <PossiblyNullArgument occurrences="1">
+            <code>$categoryId</code>
+        </PossiblyNullArgument>
+        <PossiblyNullArrayAccess occurrences="1">
+            <code>$body['category']</code>
+        </PossiblyNullArrayAccess>
+    </file>
+    <file src="src/Web/Actions/Theme/PutThemeFileAction.php">
+        <PossiblyInvalidArrayAccess occurrences="1">
+            <code>$body['file']</code>
+        </PossiblyInvalidArrayAccess>
+        <PossiblyInvalidPropertyAssignmentValue occurrences="2">
+            <code>$file-&gt;id</code>
+            <code>$file-&gt;id</code>
+        </PossiblyInvalidPropertyAssignmentValue>
+        <PossiblyNullArgument occurrences="1">
+            <code>$fileId</code>
     </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="1">
       <code>$body['file']</code>
@@ -1270,9 +926,6 @@
     </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/Update/InitUpdateProcess.php">
-    <InvalidArgument occurrences="1">
-      <code>[]</code>
-    </InvalidArgument>
     <InvalidScalarArgument occurrences="1">
       <code>time()</code>
     </InvalidScalarArgument>
@@ -1299,7 +952,6 @@
     </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/Version/GetVersionInfo.php">
-    <InvalidArgument occurrences="1"/>
     <UndefinedConstant occurrences="1">
       <code>INSTALLED_VERSION</code>
     </UndefinedConstant>
@@ -1332,19 +984,6 @@
     <PossiblyNullReference occurrences="1">
       <code>getMenus</code>
     </PossiblyNullReference>
-  </file>
-  <file src="src/Web/Routes/Route.php">
-    <LessSpecificReturnStatement occurrences="3">
-      <code>$this-&gt;authenticatedAttributes?-&gt;newInstance()</code>
-      <code>$this-&gt;requireOneFieldAttributes?-&gt;newInstance()</code>
-      <code>$this-&gt;requiredFieldsAttributes?-&gt;newInstance()</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="4">
-      <code>?Authenticated</code>
-      <code>?RequireOneField</code>
-      <code>?RequiredFields</code>
-      <code>Iterator&lt;JinyaAction&gt;</code>
-    </MoreSpecificReturnType>
   </file>
   <file src="src/Web/Routes/RouteResolver.php">
     <PossiblyNullReference occurrences="1">

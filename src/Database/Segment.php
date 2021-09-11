@@ -217,6 +217,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     {
         $this->internalRearrange('segment', 'page_id', $this->pageId, $this->position);
         $this->internalCreate('segment');
+        $this->resetOrder('segment', 'page_id', $this->pageId);
     }
 
     /**
@@ -226,6 +227,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     {
         $this->internalDelete('segment');
         $this->internalRearrange('segment', 'page_id', $this->pageId, -1);
+        $this->resetOrder('segment', 'page_id', $this->pageId);
     }
 
     /**
@@ -242,6 +244,7 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     public function move(int $newPosition): void
     {
         $this->internalRearrange('segment', 'page_id', $this->pageId, $newPosition);
-        parent::move($newPosition);
+        $this->update();
+        $this->resetOrder('segment', 'page_id', $this->pageId);
     }
 }

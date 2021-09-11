@@ -2,7 +2,6 @@
 
 namespace App\Web\Actions\File;
 
-use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;

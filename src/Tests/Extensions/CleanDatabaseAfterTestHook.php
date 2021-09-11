@@ -13,7 +13,10 @@ class CleanDatabaseAfterTestHook implements AfterTestHook
      */
     public function executeAfterTest(string $test, float $time): void
     {
-        LoadableEntity::executeSqlString('DELETE FROM api_key');
+        LoadableEntity::executeSqlString('DELETE FROM theme_blog_category');
+        LoadableEntity::executeSqlString('DELETE FROM blog_post_segment');
+        LoadableEntity::executeSqlString('DELETE FROM blog_post');
+        LoadableEntity::executeSqlString('DELETE FROM blog_category');
         LoadableEntity::executeSqlString('DELETE FROM configuration');
         LoadableEntity::executeSqlString('DELETE FROM form_item');
         LoadableEntity::executeSqlString('DELETE FROM gallery_file_position');

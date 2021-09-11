@@ -3,7 +3,6 @@
 namespace App\Web\Actions\SimplePage;
 
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\File;
 use App\Database\SimplePage;
 use App\OpenApiGeneration\Attributes\OpenApiRequest;
 use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
@@ -14,8 +13,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
-use Exception;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/page', JinyaAction::POST)]

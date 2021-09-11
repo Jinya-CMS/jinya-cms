@@ -125,7 +125,7 @@ abstract class LoadableEntity
      * @param int $id
      * @param mixed $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return object|null
+     * @return mixed
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
@@ -135,7 +135,7 @@ abstract class LoadableEntity
         int    $id,
         mixed  $prototype,
         array  $additionalStrategies = []
-    ): ?object
+    ): mixed
     {
         $sql = "SELECT * FROM $table WHERE id = :id";
         $result = self::executeStatement($sql, ['id' => $id]);
@@ -202,9 +202,9 @@ abstract class LoadableEntity
      * @param array $result
      * @param mixed $prototype
      * @param StrategyInterface[] $additionalStrategies
-     * @return object|null
+     * @return mixed
      */
-    public static function hydrateSingleResult(array $result, mixed $prototype, array $additionalStrategies = []): ?object
+    public static function hydrateSingleResult(array $result, mixed $prototype, array $additionalStrategies = []): mixed
     {
         $hydrator = self::getHydrator($additionalStrategies);
         foreach ($result as $key => $item) {

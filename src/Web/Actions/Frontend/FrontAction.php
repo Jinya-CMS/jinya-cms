@@ -8,7 +8,6 @@ use App\Web\Actions\Action;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpException;
 use Throwable;
 
@@ -44,7 +43,7 @@ abstract class FrontAction extends Action
                 $this->logger->error($exception->getTraceAsString());
 
                 return $this->response
-                    ->withHeader('Location', $this->request->getUri()->getHost())
+                    ->withHeader('Location', '/')
                     ->withStatus(302);
             }
             if ($exception instanceof HttpException) {
@@ -134,9 +133,19 @@ abstract class FrontAction extends Action
             return $this->render('theme::simple-page', ['page' => $page]);
         }
 
+        if (null !== $menuItem->categoryId) {
+            $category = $menuItem->getBlogCategory();
+
+            return $this->render('theme::blog-category', ['category' => $category]);
+        }
+
+        if ($menuItem->blogHomePage) {
+            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findAll(), 'categories' => Database\BlogCategory::findAll()]);
+        }
+
         if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {
             return $this->response
-                ->withHeader('Location', $this->request->getUri()->getHost())
+                ->withHeader('Location', '/')
                 ->withStatus(302);
         }
 

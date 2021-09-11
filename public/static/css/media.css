@@ -76,13 +76,20 @@
     grid-row: toolbar;
 }
 
-.jinya-media-tile__container--modal {
+.jinya-media-tile__container--modal,
+.jinya-media-tile__container--segment {
     margin-top: 10px;
     max-height: 360px;
     display: flex;
     overflow-y: auto;
     gap: 8px;
     flex-flow: row wrap;
+}
+
+.jinya-media-tile__container--segment {
+    margin-top: 0;
+    max-height: unset;
+    overflow-y: unset;
 }
 
 .jinya-modal--multiple-files {

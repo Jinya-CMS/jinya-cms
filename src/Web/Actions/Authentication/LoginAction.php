@@ -20,7 +20,6 @@ use App\Web\Exceptions\UnknownDeviceException;
 use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 #[JinyaAction('/api/login', JinyaAction::POST)]

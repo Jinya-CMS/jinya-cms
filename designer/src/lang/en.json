@@ -321,6 +321,118 @@
       }
     }
   },
+  "blog": {
+    "menu": {
+      "title": "Blog",
+      "categories": "Categories",
+      "posts": "Posts"
+    },
+    "categories": {
+      "action": {
+        "new": "Create category",
+        "delete": "Delete category",
+        "edit": "Edit category"
+      },
+      "details": {
+        "name": "Name",
+        "description": "Description",
+        "description_none": "No description",
+        "parent": "Parent category",
+        "parent_none": "No parent category"
+      },
+      "create": {
+        "title": "Create category",
+        "name": "Name",
+        "description": "Description",
+        "parent": "Parent category",
+        "parent_none": "No parent category",
+        "cancel": "Discard category",
+        "create": "Create category",
+        "error": {
+          "title": "Error creating category",
+          "conflict": "A category with the chosen name already exists.",
+          "generic": "An unknown error occured."
+        }
+      },
+      "edit": {
+        "title": "Edit category",
+        "name": "Name",
+        "description": "Description",
+        "parent": "Parent category",
+        "parent_none": "No parent category",
+        "cancel": "Discard changes",
+        "edit": "Update category",
+        "error": {
+          "title": "Error saving category",
+          "conflict": "A category with the chosen name already exists.",
+          "generic": "An unknown error occured."
+        }
+      },
+      "delete": {
+        "title": "Delete category",
+        "message": "Do you really want to delete the category {name}?",
+        "keep": "Keep category",
+        "delete": "Delete category"
+      }
+    },
+    "posts": {
+      "overview": {
+        "all": "All Categories",
+        "action": {
+          "new": "New post",
+          "delete": "Delete post",
+          "edit": "Edit post"
+        },
+        "delete": {
+          "title": "Delete post",
+          "message": "Do you really want to delete the post {title}?",
+          "keep": "Keep post",
+          "delete": "Delete post"
+        }
+      },
+      "edit": {
+        "title_new": "New post",
+        "title_edit": "Edit post {title}",
+        "tabs": {
+          "settings": "Settings",
+          "segments": "Segments"
+        },
+        "category": "Category",
+        "no_category": "No Category",
+        "slug": "Slug",
+        "title": "Title",
+        "public": "Public",
+        "header_image": "Post image",
+        "action": {
+          "save_new": "Create post",
+          "discard_new": "Discard post",
+          "save_edit": "Save post",
+          "discard_edit": "Discard changes"
+        },
+        "error": {
+          "title": "Error while saving",
+          "slug_exists": "The chosen slug already exists",
+          "title_exists": "The chosen title already exists",
+          "generic": "An unknown error occurred saving the post"
+        },
+        "success": {
+          "title": "Post was saved",
+          "message": "Your post was saved successfully"
+        },
+        "segment": {
+          "delete_segment": {
+            "title": "Remove segment",
+            "message": "Do you really want to remove the selected segment?",
+            "delete": "Remove segment",
+            "keep": "Keep segment"
+          },
+          "file": {
+            "name": "Name"
+          }
+        }
+      }
+    }
+  },
   "design": {
     "menu": {
       "title": "Design",
@@ -383,6 +495,8 @@
         "type_artist": "Artist profile",
         "type_group": "Group",
         "type_external_link": "External link",
+        "type_blog_home_page": "Blog home page",
+        "type_blog_category": "Blog category",
         "edit": {
           "title": "Edit item",
           "update": "Update item",
@@ -419,7 +533,7 @@
         "decline": "Cancel",
         "success": {
           "title": "Generate assets",
-          "message": "The assets for the theme {displayName} wer generated successfully"
+          "message": "The assets for the theme {displayName} were generated successfully"
         },
         "error": {
           "title": "Error generating assets",
@@ -466,6 +580,7 @@
         "segment_pages": "Segment pages",
         "forms": "Forms",
         "menus": "Menus",
+        "categories": "Categories",
         "save": "Save links",
         "discard": "Discard changes",
         "error": {

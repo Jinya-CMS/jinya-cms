@@ -36,11 +36,6 @@ parameters:
 			path: src/Database/ApiKey.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByApiKey\\(\\) should return App\\\\Database\\\\ApiKey\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByArtist\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/ApiKey.php
@@ -72,16 +67,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Artist\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findByEmail\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findById\\(\\) should return App\\\\Database\\\\Artist\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Artist.php
 
@@ -136,11 +121,6 @@ parameters:
 			path: src/Database/File.php
 
 		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:findById\\(\\) should return App\\\\Database\\\\File\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
 			message: "#^Method App\\\\Database\\\\File\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/File.php
@@ -167,11 +147,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Form\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:findById\\(\\) should return App\\\\Database\\\\Form\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Form.php
 
@@ -211,11 +186,6 @@ parameters:
 			path: src/Database/FormItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\FormItem\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\FormItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/FormItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\FormItem\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/FormItem.php
@@ -237,11 +207,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findById\\(\\) should return App\\\\Database\\\\Gallery\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Gallery.php
 
@@ -281,11 +246,6 @@ parameters:
 			path: src/Database/GalleryFilePosition.php
 
 		-
-			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\GalleryFilePosition\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/GalleryFilePosition.php
-
-		-
 			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/GalleryFilePosition.php
@@ -311,11 +271,6 @@ parameters:
 			path: src/Database/KnownDevice.php
 
 		-
-			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByCode\\(\\) should return App\\\\Database\\\\KnownDevice\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/KnownDevice.php
-
-		-
 			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/KnownDevice.php
@@ -337,11 +292,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\Menu\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Menu.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Menu\\:\\:findById\\(\\) should return App\\\\Database\\\\Menu\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Menu.php
 
@@ -376,27 +326,7 @@ parameters:
 			path: src/Database/MenuItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findById\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByMenuAndPosition\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByMenuItemAndPosition\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByRoute\\(\\) should return App\\\\Database\\\\MenuItem\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/MenuItem.php
 
@@ -461,11 +391,6 @@ parameters:
 			path: src/Database/Segment.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Segment\\:\\:findByPosition\\(\\) should return App\\\\Database\\\\Segment\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Segment\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Segment.php
@@ -477,11 +402,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findById\\(\\) should return App\\\\Database\\\\SegmentPage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/SegmentPage.php
 
@@ -507,11 +427,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findById\\(\\) should return App\\\\Database\\\\SimplePage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/SimplePage.php
 
@@ -551,27 +466,12 @@ parameters:
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findById\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Theme\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findByName\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Theme\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:getActiveTheme\\(\\) should return App\\\\Database\\\\Theme\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/Theme.php
 
@@ -666,17 +566,7 @@ parameters:
 			path: src/Database/ThemeAsset.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeAsset\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeAsset\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeAsset.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeFile\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeFile.php
 
@@ -691,22 +581,12 @@ parameters:
 			path: src/Database/ThemeForm.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeForm\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeForm.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemeForm.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeGallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeGallery\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeGallery.php
 
@@ -721,11 +601,6 @@ parameters:
 			path: src/Database/ThemeMenu.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeMenu\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemeMenu.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemeMenu.php
@@ -736,22 +611,12 @@ parameters:
 			path: src/Database/ThemePage.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemePage\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/ThemePage.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemePage.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeSegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeSegmentPage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeSegmentPage.php
 
@@ -767,11 +632,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findByFile\\(\\) should return App\\\\Database\\\\UploadingFile\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/UploadingFile.php
 
@@ -1492,7 +1352,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$callback of method League\\\\Plates\\\\Engine\\:\\:registerFunction\\(\\) expects League\\\\Plates\\\\callback, Closure given\\.$#"
-			count: 16
+			count: 18
 			path: src/Theming/Theme.php
 
 		-
@@ -1519,11 +1379,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Utils/ClassResolver.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Web/Actions/Action.php
 
 		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:formatIterator\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
@@ -1556,17 +1411,7 @@ parameters:
 			path: src/Web/Actions/Action.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 2
-			path: src/Web/Actions/Action.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of method Psr\\\\Http\\\\Message\\\\StreamInterface\\:\\:write\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Web/Actions/Action.php
-
-		-
-			message: "#^Property App\\\\Web\\\\Actions\\\\Action\\:\\:\\$args type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Web/Actions/Action.php
 
@@ -1599,16 +1444,6 @@ parameters:
 			message: "#^Cannot access offset 'roles' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Artist/CreateArtistAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/CreateArtistAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Artist/GetArtistByIdAction.php
 
 		-
 			message: "#^Parameter \\#2 \\$contentType of method App\\\\Web\\\\Actions\\\\Action\\:\\:respondFile\\(\\) expects string, string\\|false given\\.$#"
@@ -1666,11 +1501,6 @@ parameters:
 			path: src/Web/Actions/Authentication/LoginAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\|string\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Authentication/LoginAction.php
-
-		-
 			message: "#^Cannot access offset 'password' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Authentication/TwoFactorAction.php
@@ -1681,22 +1511,7 @@ parameters:
 			path: src/Web/Actions/Authentication/TwoFactorAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 2
-			path: src/Web/Actions/Authentication/TwoFactorAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Database/DatabaseAnalyzerAction.php
-
-		-
 			message: "#^Cannot access offset 'query' on array\\|object\\.$#"
-			count: 1
-			path: src/Web/Actions/Database/ExecuteQueryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<int, array\\<string, array\\|int\\|string\\>\\> given\\.$#"
 			count: 1
 			path: src/Web/Actions/Database/ExecuteQueryAction.php
 
@@ -1706,24 +1521,9 @@ parameters:
 			path: src/Web/Actions/Environment/GetEnvironmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<int, array\\<string, mixed\\>\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Environment/GetEnvironmentAction.php
-
-		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/File/CreateFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/File/CreateFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/File/GetFileByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
@@ -1744,16 +1544,6 @@ parameters:
 			message: "#^Cannot access offset 'toAddress' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/CreateFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/CreateFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/GetFormByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'helpText' on array\\|object\\.$#"
@@ -1806,19 +1596,9 @@ parameters:
 			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
-
-		-
 			message: "#^Property App\\\\Database\\\\FormItem\\:\\:\\$formId \\(int\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: src/Web/Actions/Form/Items/CreateFormItemAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Form/Items/GetFormItemsAction.php
 
 		-
 			message: "#^Cannot access offset 'helpText' on array\\|object\\.$#"
@@ -1916,16 +1696,6 @@ parameters:
 			path: src/Web/Actions/Gallery/CreateGalleryAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/CreateGalleryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/GetGalleryByIdAction.php
-
-		-
 			message: "#^Cannot access offset 'file' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
@@ -1934,16 +1704,6 @@ parameters:
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/Positions/CreatePositionAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Gallery/Positions/GetPositionsAction.php
 
 		-
 			message: "#^Cannot access offset 'file' on array\\|object\\.$#"
@@ -2001,11 +1761,6 @@ parameters:
 			path: src/Web/Actions/KnownDevice/ListAllKnownDevicesAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/LocateIp/LocatorAction.php
-
-		-
 			message: "#^Cannot access offset 'logo' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/CreateMenuAction.php
@@ -2016,32 +1771,17 @@ parameters:
 			path: src/Web/Actions/Menu/CreateMenuAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/CreateMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/GetMenuByIdAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/CreateMenuItemByMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/CreateMenuItemByMenuItemAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/GetMenuItemsByMenuAction.php
-
-		-
 			message: "#^Cannot access offset 'artist' on array\\|object\\.$#"
+			count: 1
+			path: src/Web/Actions/Menu/Items/MenuItemAction.php
+
+		-
+			message: "#^Cannot access offset 'blogHomePage' on array\\|object\\.$#"
+			count: 1
+			path: src/Web/Actions/Menu/Items/MenuItemAction.php
+
+		-
+			message: "#^Cannot access offset 'category' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 
@@ -2096,31 +1836,6 @@ parameters:
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 
 		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$artistId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$formId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$galleryId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$pageId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Property App\\\\Database\\\\MenuItem\\:\\:\\$segmentPageId \\(int\\|null\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
 			message: "#^Cannot access offset 'logo' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/UpdateMenuAction.php
@@ -2151,29 +1866,9 @@ parameters:
 			path: src/Web/Actions/MyJinya/UpdateProfilePictureAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\|string\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/OpenApi/GetOpenApiConfigAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\<string, array\\|string\\>\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/PhpInfo/GetPhpInfoAction.php
-
-		-
 			message: "#^Cannot access offset 'name' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/CreateSegmentPageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/CreateSegmentPageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/GetSegmentPageByIdAction.php
 
 		-
 			message: "#^Cannot access offset 'action' on array\\|object\\.$#"
@@ -2201,22 +1896,12 @@ parameters:
 			path: src/Web/Actions/SegmentPage/Segments/CreateFileSegmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateFileSegmentAction.php
-
-		-
 			message: "#^Cannot access offset 'form' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
 
 		-
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateFormSegmentAction.php
 
@@ -2231,11 +1916,6 @@ parameters:
 			path: src/Web/Actions/SegmentPage/Segments/CreateGallerySegmentAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateGallerySegmentAction.php
-
-		-
 			message: "#^Cannot access offset 'html' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
@@ -2244,16 +1924,6 @@ parameters:
 			message: "#^Cannot access offset 'position' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/CreateHtmlSegmentAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SegmentPage/Segments/GetSegmentsAction.php
 
 		-
 			message: "#^Cannot access offset 'action' on array\\|object\\.$#"
@@ -2311,16 +1981,6 @@ parameters:
 			path: src/Web/Actions/SimplePage/CreateSimplePageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SimplePage/CreateSimplePageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/SimplePage/GetSimplePageByIdAction.php
-
-		-
 			message: "#^Cannot access offset 'content' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/SimplePage/UpdateSimplePageAction.php
@@ -2331,109 +1991,9 @@ parameters:
 			path: src/Web/Actions/SimplePage/UpdateSimplePageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetEntityStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, array\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetHistoryStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, float\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetSystemStatisticsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByBrowserAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByCountryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByDeviceBrandAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByDeviceTypeAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByLanguageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByOsAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Statistics/GetVisitsByReferrerAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetConfigurationStructureAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetDefaultConfigurationValues.php
-
-		-
 			message: "#^Parameter \\#1 \\$body of static method Nyholm\\\\Psr7\\\\Stream\\:\\:create\\(\\) expects Psr\\\\Http\\\\Message\\\\StreamInterface\\|resource\\|string, resource\\|false given\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/GetPreviewImageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetStyleVariablesAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeFileAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeFormAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeGalleryAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeMenuAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemePageAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\|stdClass given\\.$#"
-			count: 1
-			path: src/Web/Actions/Theme/GetThemeSegmentPageAction.php
 
 		-
 			message: "#^Cannot access offset 'configuration' on array\\|object\\.$#"
@@ -2444,6 +2004,11 @@ parameters:
 			message: "#^Cannot access offset 'variables' on array\\|object\\.$#"
 			count: 1
 			path: src/Web/Actions/Theme/PutStyleVariablesAction.php
+
+		-
+			message: "#^Cannot access offset 'category' on array\\|object\\.$#"
+			count: 1
+			path: src/Web/Actions/Theme/PutThemeBlogCategoryAction.php
 
 		-
 			message: "#^Cannot access offset 'file' on array\\|object\\.$#"
@@ -2506,11 +2071,6 @@ parameters:
 			path: src/Web/Actions/Theme/PutThemeSegmentPageAction.php
 
 		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array given\\.$#"
-			count: 1
-			path: src/Web/Actions/Update/InitUpdateProcess.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function sha1 expects string, int given\\.$#"
 			count: 1
 			path: src/Web/Actions/Update/InitUpdateProcess.php
@@ -2544,11 +2104,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Web/Actions/Update/UpdateAction.php
-
-		-
-			message: "#^Parameter \\#1 \\$payload of method App\\\\Web\\\\Actions\\\\Action\\:\\:respond\\(\\) expects null, array\\<string, int\\|string\\|null\\> given\\.$#"
-			count: 1
-			path: src/Web/Actions/Version/GetVersionInfo.php
 
 		-
 			message: "#^Method App\\\\Web\\\\Attributes\\\\RequireOneField\\:\\:__construct\\(\\) has parameter \\$validFields with no value type specified in iterable type array\\.$#"
@@ -2664,24 +2219,4 @@ parameters:
 			message: "#^Property App\\\\Web\\\\Middleware\\\\CheckRequiredOneOfFieldsMiddleware\\:\\:\\$fields type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Web/Middleware/CheckRequiredOneOfFieldsMiddleware.php
-
-		-
-			message: "#^Generator expects value type App\\\\Web\\\\Attributes\\\\JinyaAction, object given\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getAuthenticatedAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\Authenticated\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getRequireOneFieldAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\RequireOneField\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Routes\\\\Route\\:\\:getRequiredFieldsAttribute\\(\\) should return App\\\\Web\\\\Attributes\\\\RequiredFields\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Web/Routes/Route.php
 

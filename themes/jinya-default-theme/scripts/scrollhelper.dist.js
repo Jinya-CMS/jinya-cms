@@ -6,6 +6,7 @@
 
     function scrollHandler(e) {
       if (!e.deltaX) {
+        e.preventDefault();
         scrollItem.scrollBy({
           behavior: 'auto',
           left: e.deltaY > 0 ? 100 : -100

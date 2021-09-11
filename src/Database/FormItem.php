@@ -7,7 +7,6 @@ use App\OpenApiGeneration\Attributes\OpenApiField;
 use App\OpenApiGeneration\Attributes\OpenApiModel;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
-use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
 #[OpenApiModel(description: 'A form item is part of a form, containing information to send')]
@@ -133,6 +132,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 'options' => new JsonStrategy(),
             ]
         );
+        $this->resetOrder('form_item', 'form_id', $this->formId);
     }
 
     /**
@@ -142,6 +142,7 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     {
         $this->internalDelete('form_item');
         $this->internalRearrange('form_item', 'form_id', $this->formId, -1);
+        $this->resetOrder('form_item', 'form_id', $this->formId);
     }
 
     /**
@@ -164,6 +165,8 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     public function move(int $newPosition): void
     {
         $this->internalRearrange('form_item', 'form_id', $this->formId, $newPosition);
-        parent::move($newPosition);
+        $this->position = $newPosition;
+        $this->update();
+        $this->resetOrder('form_item', 'form_id', $this->formId);
     }
 }

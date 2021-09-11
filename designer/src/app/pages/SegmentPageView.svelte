@@ -1,31 +1,11 @@
 <script>
-  import { get, getHost, httpDelete, post, put } from '../../http/request';
+  import Sortable from 'sortablejs';
   import { onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { jinyaConfirm } from '../../ui/confirm';
+  import { get, getHost, httpDelete, post, put } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
-  import Sortable from 'sortablejs';
+  import { jinyaConfirm } from '../../ui/confirm';
   import { createTiny } from '../../ui/tiny';
-
-  import 'tinymce/icons/default';
-  import 'tinymce/themes/silver';
-  import 'tinymce/plugins/advlist';
-  import 'tinymce/plugins/anchor';
-  import 'tinymce/plugins/autolink';
-  import 'tinymce/plugins/charmap';
-  import 'tinymce/plugins/code';
-  import 'tinymce/plugins/fullscreen';
-  import 'tinymce/plugins/help';
-  import 'tinymce/plugins/hr';
-  import 'tinymce/plugins/image';
-  import 'tinymce/plugins/link';
-  import 'tinymce/plugins/lists';
-  import 'tinymce/plugins/media';
-  import 'tinymce/plugins/paste';
-  import 'tinymce/plugins/searchreplace';
-  import 'tinymce/plugins/table';
-  import 'tinymce/plugins/visualblocks';
-  import 'tinymce/plugins/wordcount';
 
   let createPageName = '';
   let createPageOpen = false;

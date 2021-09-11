@@ -5,7 +5,6 @@ namespace App\Web\Actions\Update;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/update', JinyaAction::PUT)]

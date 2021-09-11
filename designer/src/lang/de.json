@@ -321,6 +321,118 @@
       }
     }
   },
+  "blog": {
+    "menu": {
+      "title": "Blog",
+      "categories": "Kategorien",
+      "posts": "Artikel"
+    },
+    "categories": {
+      "action": {
+        "new": "Kategorie erstellen",
+        "delete": "Kategorie löschen",
+        "edit": "Kategorie bearbeiten"
+      },
+      "details": {
+        "name": "Name",
+        "description": "Beschreibung",
+        "description_none": "Keine Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie"
+      },
+      "create": {
+        "title": "Kategorie erstellen",
+        "name": "Name",
+        "description": "Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie",
+        "cancel": "Kategorie verwerfen",
+        "create": "Kategorie erstellen",
+        "error": {
+          "title": "Fehler beim Erstellen",
+          "conflict": "Eine Kategorie mit dem gewählten Namen existiert bereits.",
+          "generic": "Ein unbekannter Fehler ist aufgetreten."
+        }
+      },
+      "edit": {
+        "title": "Kategorie bearbeiten",
+        "name": "Name",
+        "description": "Beschreibung",
+        "parent": "Übergeordnete Kategorie",
+        "parent_none": "Keine Kategorie",
+        "cancel": "Änderungen verwerfen",
+        "edit": "Kategorie speichern",
+        "error": {
+          "title": "Fehler beim Speichern",
+          "conflict": "Eine Kategorie mit dem gewählten Namen existiert bereits.",
+          "generic": "Ein unbekannter Fehler ist aufgetreten."
+        }
+      },
+      "delete": {
+        "title": "Kategorie löschen",
+        "message": "Soll die Kategorie {name} wirklich gelöscht werden?",
+        "keep": "Kategorie behalten",
+        "delete": "Kategorie löschen"
+      }
+    },
+    "posts": {
+      "overview": {
+        "all": "Alle Kategorien",
+        "action": {
+          "new": "Neuer Artikel",
+          "delete": "Artikel löschen",
+          "edit": "Artikel bearbeiten"
+        },
+        "delete": {
+          "title": "Artikel löschen",
+          "message": "Soll der Artikel {title} wirklich gelöscht werden?",
+          "keep": "Artikel behalten",
+          "delete": "Artikel löschen"
+        }
+      },
+      "edit": {
+        "title_new": "Neuer Artikel",
+        "title_edit": "Artikel {title} bearbeiten",
+        "tabs": {
+          "settings": "Einstellungen",
+          "segments": "Segmente"
+        },
+        "category": "Kategorie",
+        "no_category": "Keine Kategorie",
+        "slug": "Slug",
+        "title": "Titel",
+        "public": "Öffentlich",
+        "header_image": "Artikelbild",
+        "action": {
+          "save_new": "Artikel erstellen",
+          "discard_new": "Artikel verwerfen",
+          "save_edit": "Artikel speichern",
+          "discard_edit": "Änderungen verwerfen"
+        },
+        "error": {
+          "title": "Fehler beim Speichern",
+          "slug_exists": "Der gewählte Slug ist bereits vergeben",
+          "title_exists": "Der gewählte Titel ist bereits vergeben",
+          "generic": "Ein unbekannter Fehler ist aufgetreten"
+        },
+        "success": {
+          "title": "Artikel gespeichert",
+          "message": "Der Artikel wurde erfolgreich gespeichert"
+        },
+        "segment": {
+          "delete_segment": {
+            "title": "Segment entfernen",
+            "message": "Soll das gewählte Segment wirklich entfernt werden?",
+            "delete": "Segment entfernen",
+            "keep": "Segment behalten"
+          },
+          "file": {
+            "name": "Name"
+          }
+        }
+      }
+    }
+  },
   "design": {
     "menu": {
       "title": "Design",
@@ -383,6 +495,8 @@
         "type_artist": "Künstlerprofil",
         "type_group": "Gruppe",
         "type_external_link": "Externer Link",
+        "type_blog_home_page": "Blog Startseite",
+        "type_blog_category": "Blog Kategorie",
         "edit": {
           "title": "Element bearbeiten",
           "update": "Element speichern",
@@ -466,6 +580,7 @@
         "segment_pages": "Segmentseiten",
         "forms": "Formulare",
         "menus": "Menüs",
+        "categories": "Kategorien",
         "save": "Links speichern",
         "discard": "Änderungen verwerfen",
         "error": {

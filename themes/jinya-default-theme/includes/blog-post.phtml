@@ -1,0 +1,36 @@
+<?php
+/** @var \App\Database\BlogPost $post */
+?>
+<div class="jinya-post__post">
+    <?php /** @var \App\Database\BlogPostSegment $segment */ ?>
+    <?php foreach ($post->getSegments() as $segment): ?>
+        <section class="jinya-post__segment <?= $segment->fileId !== null ? 'jinya-post__segment--file' : '' ?>">
+            <?php if ($segment->galleryId): ?>
+                <?php $gallery = $segment->getGallery(); ?>
+                <?= $this->insert('theme::includes/gallery', [
+                    'gallery' => $gallery,
+                    'noCaption' => $gallery->orientation === \App\Database\Gallery::ORIENTATION_HORIZONTAL && $gallery->type === \App\Database\Gallery::TYPE_SEQUENCE,
+                    'extraClass' => 'jinya-gallery--post',
+                ]) ?>
+            <?php elseif ($segment->html): ?>
+                <div class="jinya-post__html-segment">
+                    <?= $segment->html ?>
+                </div>
+            <?php elseif ($segment->fileId): ?>
+                <?php $file = $segment->getFile() ?>
+                <figure class="jinya-post__img-container">
+                    <?php if ($segment->link === null): ?>
+                        <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
+                             alt="<?= $this->e($file->name) ?>">
+                    <?php else: ?>
+                        <a href="<?= $segment->link ?>">
+                            <img class="jinya-post__artwork" src="<?= $this->e($file->path) ?>"
+                                 alt="<?= $this->e($file->name) ?>">
+                        </a>
+                    <?php endif ?>
+                    <figcaption class="jinya-post__img-caption"><?= $file->name ?></figcaption>
+                </figure>
+            <?php endif ?>
+        </section>
+    <?php endforeach ?>
+</div>

@@ -115,6 +115,12 @@ class Theme implements ExtensionInterface
         // $this->hasForm(name)
         $engine->registerFunction('hasForm', fn(string $name) => isset($this->dbTheme->getForms()[$name]));
 
+        // $this->blogCategory(name)
+        $engine->registerFunction('blogCategory', fn(string $name) => $this->dbTheme->getCategories()[$name]);
+
+        // $this->hasBlogCategory(name)
+        $engine->registerFunction('hasBlogCategory', fn(string $name) => isset($this->dbTheme->getCategories()[$name]));
+
         // $this->config(group, field)
         $engine->registerFunction(
             'config',

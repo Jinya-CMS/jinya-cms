@@ -33,6 +33,7 @@
         <extension class="App\Tests\Extensions\DefinesHook"/>
         <extension class="App\Tests\Extensions\CleanDatabaseAfterTestHook"/>
         <extension class="App\Tests\Extensions\CreateArtistHook"/>
+        <extension class="App\Tests\Extensions\DropAllTablesHook"/>
     </extensions>
 
     <php>
