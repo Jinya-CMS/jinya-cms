@@ -875,7 +875,8 @@
       "device_type": "Visits by device type",
       "language": "Visits by language",
       "operating_system": "Visits by operating system",
-      "title": "Access statistics for the last month"
+      "title": "Access statistics for the last month",
+      "total_visits": "visits"
     },
     "database": {
       "entities": "Types",

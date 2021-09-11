@@ -1,8 +1,8 @@
 <script>
   import ApexCharts from 'apexcharts';
   import { onMount } from "svelte";
-  import { get } from "../../http/request";
   import { _ } from 'svelte-i18n';
+  import { get } from "../../http/request";
 
   let country;
   let deviceBrand;
@@ -10,9 +10,9 @@
   let language;
   let operatingSystem;
   let browser;
+  let totalVisits = 0;
 
   onMount(async () => {
-
     const chart = {
       type: 'bar',
       height: 400,
@@ -39,6 +39,7 @@
     await Promise.all([
       (async () => {
         const countryStats = await get('/api/statistics/visits/country');
+        totalVisits = countryStats.map(m => m.visitCount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
         const countryStatsChart = new ApexCharts(country, {
           chart: {...chart, width: '99%', type: 'treemap'},
           plotOptions: {
@@ -238,6 +239,7 @@
   const to = new Date(Date.now());
   const from = new Date(Date.now());
   from.setMonth(to.getMonth() - 1);
+
   function getLang() {
     if (navigator.languages) {
       return navigator.languages[0];
@@ -247,8 +249,13 @@
   }
 </script>
 
-<span class="cosmo-title">{$_('statistics.access.title')} | {from.toLocaleDateString(getLang(), { year: 'numeric', month: '2-digit', day: '2-digit' })}
-    – {to.toLocaleDateString(getLang(), { year: 'numeric', month: '2-digit', day: '2-digit' })}</span>
+<span class="cosmo-title">{$_('statistics.access.title')} | {from.toLocaleDateString(getLang(), {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+})}
+    – {to.toLocaleDateString(getLang(), {year: 'numeric', month: '2-digit', day: '2-digit'})}
+    | {totalVisits} {$_('statistics.access.total_visits')}</span>
 <div bind:this={country}></div>
 <div class="jinya-stats__row">
     <div bind:this={language}></div>

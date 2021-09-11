@@ -875,7 +875,8 @@
       "device_type": "Zugriffe nach Gerätetyp",
       "language": "Zugriffe nach Sprache",
       "operating_system": "Zugriffe nach Betriebssystem",
-      "title": "Zugriffstatistiken des letzten Monats"
+      "title": "Zugriffstatistiken des letzten Monats",
+      "total_visits": "Zugriffe"
     },
     "database": {
       "entities": "Typen",
