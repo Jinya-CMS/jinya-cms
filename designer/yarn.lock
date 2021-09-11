@@ -1801,10 +1801,10 @@ rollup-plugin-copy@3.4.0:
     globby "10.0.1"
     is-plain-object "^3.0.0"
 
-rollup-plugin-monaco-editor@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.1.0.tgz#d676ecd8084b4e6f360a2533b19b0a1c6bd892be"
-  integrity sha512-58+N51L8lhhZt8LhoJCRAoPiRSUcRYxFnEPEubZaj2JeDT9MdEAs7BhJLj/EHFJ/5qYCwsaxRtOClrXjh34sCA==
+rollup-plugin-monaco-editor@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-monaco-editor/-/rollup-plugin-monaco-editor-0.1.2.tgz#1f882fd98147fc5fbb12f142eb5ad71e6f8a04cf"
+  integrity sha512-22Rd5WIXktT1sUPi2TRCRfUw0QRETPxntfCnnobp6atvQHbZSdGYJ/kDqdchrwhgfFIlZkMFOIeXgY65iTV6Ig==
   dependencies:
     es-module-lexer "^0.3.26"
     recast "^0.20.4"
@@ -1998,10 +1998,10 @@ svelte-i18n@3.3.10:
     sade "^1.7.4"
     tiny-glob "^0.2.6"
 
-svelte@3.42.3:
-  version "3.42.3"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.42.3.tgz#a7687a43ff6aa12263e03cf56219cd21eff5372d"
-  integrity sha512-pbdtdNZEx2GBqSM6XEgPoHbwtvWBwFLt/1bRmzsyXZO+i424wFnPe7O5B3GOJDPFSxPRztumAW3mL5LPzecWUg==
+svelte@3.42.4:
+  version "3.42.4"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.42.4.tgz#838ed98fa7b26fc5fffe4df0d7ba345f1c54cf4f"
+  integrity sha512-DqC0AmDdBrrbIA+Kzl3yhBb6qCn4vZOAfxye2pTnIpinLegyagC5sLI8Pe9GPlXu9VpHBXIwpDDedpMfu++epA==
 
 svg.draggable.js@^2.2.2:
   version "2.2.2"
@@ -2101,10 +2101,10 @@ tiny-glob@^0.2.6:
     globalyzer "0.1.0"
     globrex "^0.1.2"
 
-tinymce@5.8.2:
-  version "5.8.2"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.8.2.tgz#54eb8160b697796c3b52282e648d9d12b1a7399a"
-  integrity sha512-qfWThBrSzbj4DoUk+lgGeDoP2GzLDSWrfvVUxf40HZhTzsG15X2nZ4N49IFqwaVgRl5AyFDtuWiEH/lCmiAcRA==
+tinymce@5.9.2:
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.9.2.tgz#c56a1d7800ac23026fbe6e0fcf444c0f157ccafe"
+  integrity sha512-/dHTsbxo0YwLvB5krRqiw/qHEm04/k6l0dvAQ3hO5oNw4e9QalKcUQCdr+g/b/FWcsUMP6scvKmm8MX50/j3Cg==
 
 to-regex-range@^5.0.1:
   version "5.0.1"
