@@ -21,26 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/form/{id}', JinyaAction::PUT)]
 #[Authenticated(role: Authenticated::WRITER)]
-#[OpenApiRequest('This action updates the given form')]
-#[OpenApiRequestBody([
-    'title' => ['type' => 'string'],
-    'toAddress' => ['type' => 'string'],
-    'description' => ['type' => 'string'],
-])]
-#[OpenApiRequestExample('Form with all fields', [
-    'title' => OpenApiResponse::FAKER_WORD,
-    'toAddress' => OpenApiResponse::FAKER_EMAIL,
-    'description' => OpenApiResponse::FAKER_PARAGRAPH,
-])]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiResponse('Successfully updated the form', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Title exists', example: [
-    'success' => false,
-    'error' => [
-        'message' => 'Title exists',
-        'type' => 'ConflictException',
-    ],
-], exampleName: 'Title exists', statusCode: Action::HTTP_CONFLICT, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class UpdateFormAction extends Action
 {
 

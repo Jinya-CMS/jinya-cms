@@ -7,8 +7,6 @@ use App\Database\Exceptions\EmptyResultException;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Storage\ProfilePictureService;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
@@ -19,8 +17,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/me/profilepicture', JinyaAction::PUT)]
 #[Authenticated]
-#[OpenApiRequest('This action uploads a new profile picture')]
-#[OpenApiResponse('Successfully uploaded the profile picture', statusCode: Action::HTTP_NO_CONTENT)]
 class UpdateProfilePictureAction extends Action
 {
     /**

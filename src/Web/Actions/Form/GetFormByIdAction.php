@@ -17,17 +17,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/form/{id}', JinyaAction::GET)]
 #[Authenticated(role: Authenticated::READER)]
-#[OpenApiRequest('This action gets the given form')]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiResponse('Successfully got the form', example: [
-    'id' => 1,
-    'title' => OpenApiResponse::FAKER_WORD,
-    'toAddress' => OpenApiResponse::FAKER_EMAIL,
-    'description' => OpenApiResponse::FAKER_PARAGRAPH,
-    'created' => OpenApiResponse::MODIFICATION_EXAMPLE,
-    'updated' => OpenApiResponse::MODIFICATION_EXAMPLE,
-], exampleName: 'The requested form', statusCode: Action::HTTP_CREATED, ref: Form::class)]
-#[OpenApiResponse('Form not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Form not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class GetFormByIdAction extends Action
 {
     /**

@@ -18,11 +18,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/gallery/{galleryId}/file/{position}', JinyaAction::DELETE)]
 #[Authenticated(role: Authenticated::WRITER)]
-#[OpenApiRequest('This action deletes the given gallery file position')]
-#[OpenApiParameter('galleryId', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('position', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiResponse('Successfully deleted the gallery file position', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Gallery or gallery file position not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Gallery or gallery file position not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class DeletePositionAction extends Action
 {
     /**

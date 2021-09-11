@@ -4,7 +4,7 @@ namespace App\Web\Actions;
 
 use App\Database\Utils\FormattableEntityInterface;
 use App\Storage\StorageBaseService;
-use App\Web\Actions\Logging\Logger;
+use App\Logging\Logger;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Nyholm\Psr7\Stream;

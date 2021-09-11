@@ -21,12 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/theme/{id}/gallery/{name}', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action updates the given theme gallery')]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('name', required: true, type: OpenApiParameter::TYPE_STRING)]
-#[OpenApiRequestBody(['gallery' => ['type' => 'integer']])]
-#[OpenApiResponse('Successfully updated the theme gallery', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Theme or gallery not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Theme or gallery not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class PutThemeGalleryAction extends ThemeAction
 {
     /**

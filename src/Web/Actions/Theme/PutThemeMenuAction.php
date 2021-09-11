@@ -21,12 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/theme/{id}/menu/{name}', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action updates the given theme menu')]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('name', required: true, type: OpenApiParameter::TYPE_STRING)]
-#[OpenApiRequestBody(['menu' => ['type' => 'integer']])]
-#[OpenApiResponse('Successfully updated the theme menu', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Theme or menu not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Theme or menu not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class PutThemeMenuAction extends ThemeAction
 {
     /**

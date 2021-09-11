@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Web\Actions\Logging;
+namespace App\Logging;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\UidProcessor;

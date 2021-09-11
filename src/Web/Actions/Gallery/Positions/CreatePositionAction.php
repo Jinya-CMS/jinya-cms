@@ -23,32 +23,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[JinyaAction('/api/media/gallery/{galleryId}/file', JinyaAction::POST)]
 #[Authenticated(role: Authenticated::WRITER)]
 #[RequiredFields(['file', 'position'])]
-#[OpenApiRequest('This action create a new gallery file position')]
-#[OpenApiRequestBody([
-    'fileId' => ['type' => 'integer'],
-    'position' => ['type' => 'integer'],
-])]
-#[OpenApiParameter('galleryId', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiRequestExample('Gallery file position with required fields', [
-    'fileId' => 0,
-    'position' => 0,
-])]
-#[OpenApiResponse('Successfully created gallery file position', example: [
-    'gallery' => [
-        'id' => 0,
-        'name' => OpenApiResponse::FAKER_WORD,
-        'description' => OpenApiResponse::FAKER_PARAGRAPH,
-    ],
-    'file' => [
-        'path' => OpenApiResponse::FAKER_SHA1,
-        'id' => 0,
-        'name' => OpenApiResponse::FAKER_WORD,
-        'type' => OpenApiResponse::FAKER_MIMETYPE,
-    ],
-    'id' => 0,
-    'position' => 0,
-], exampleName: 'Successfully created gallery file position', statusCode: Action::HTTP_CREATED, ref: GalleryFilePosition::class)]
-#[OpenApiResponse('Gallery or file not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Gallery or file not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class CreatePositionAction extends Action
 {
     /**

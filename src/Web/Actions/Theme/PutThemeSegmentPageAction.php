@@ -21,12 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/theme/{id}/segment-page/{name}', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action updates the given theme segment page')]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('name', required: true, type: OpenApiParameter::TYPE_STRING)]
-#[OpenApiRequestBody(['segmentPage' => ['type' => 'integer']])]
-#[OpenApiResponse('Successfully updated the theme segment page', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Theme or segment page not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Theme or segment page not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class PutThemeSegmentPageAction extends ThemeAction
 {
     /**

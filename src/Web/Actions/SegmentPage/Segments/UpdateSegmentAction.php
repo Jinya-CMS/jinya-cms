@@ -9,11 +9,6 @@ use App\Database\File;
 use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Segment;
-use App\OpenApiGeneration\Attributes\OpenApiParameter;
-use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
-use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
-use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -24,38 +19,6 @@ use Slim\Exception\HttpNotFoundException;
 
 #[JinyaAction('/api/segment-page/{id}/segment/{position}', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
-#[OpenApiRequest('This action updates the given segment')]
-#[OpenApiRequestBody([
-    'target' => ['type' => 'string'],
-    'action' => ['type' => 'string'],
-    'position' => ['type' => 'integer'],
-    'file' => ['type' => 'integer'],
-    'form' => ['type' => 'integer'],
-    'html' => ['type' => 'string'],
-    'gallery' => ['type' => 'integer'],
-])]
-#[OpenApiParameter('id', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('position', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiRequestExample('Update file segment', [
-    'file' => 0,
-    'position' => 0,
-    'action' => 'link',
-    'target' => OpenApiResponse::FAKER_URL,
-])]
-#[OpenApiRequestExample('Update form segment', [
-    'form' => 0,
-    'position' => 0,
-])]
-#[OpenApiRequestExample('Update gallery segment', [
-    'gallery' => 0,
-    'position' => 0,
-])]
-#[OpenApiRequestExample('Update html segment', [
-    'html' => 0,
-    'position' => 0,
-])]
-#[OpenApiResponse('Successfully updated the segment', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Segment page not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Segment page not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class UpdateSegmentAction extends Action
 {
     /**

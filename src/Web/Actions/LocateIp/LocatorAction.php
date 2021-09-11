@@ -2,9 +2,6 @@
 
 namespace App\Web\Actions\LocateIp;
 
-use App\OpenApiGeneration\Attributes\OpenApiParameter;
-use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -15,17 +12,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/ip-location/{ip}', JinyaAction::GET)]
 #[Authenticated]
-#[OpenApiRequest('This action locates the given IP')]
-#[OpenApiParameter('ip', true)]
-#[OpenApiResponse('IP was located', example: [
-    'country' => OpenApiResponse::FAKER_WORD,
-    'region' => OpenApiResponse::FAKER_WORD,
-    'city' => OpenApiResponse::FAKER_WORD,
-], exampleName: 'Located IP', schema: [
-    'country' => ['type' => 'string'],
-    'region' => ['type' => 'string'],
-    'city' => ['type' => 'string'],
-])]
 class LocatorAction extends Action
 {
     /**

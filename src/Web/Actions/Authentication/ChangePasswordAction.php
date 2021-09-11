@@ -6,10 +6,6 @@ use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\OpenApiGeneration\Attributes\OpenApiRequest;
-use App\OpenApiGeneration\Attributes\OpenApiRequestBody;
-use App\OpenApiGeneration\Attributes\OpenApiRequestExample;
-use App\OpenApiGeneration\Attributes\OpenApiResponse;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
@@ -23,23 +19,6 @@ use Slim\Exception\HttpForbiddenException;
 #[JinyaAction('/api/account/password', JinyaAction::POST)]
 #[Authenticated]
 #[RequiredFields(['oldPassword', 'password'])]
-#[OpenApiRequest('This action changes the password')]
-#[OpenApiRequestBody([
-    'oldPassword' => ['type' => 'string', 'format' => 'password'],
-    'password' => ['type' => 'string', 'format' => 'password'],
-])]
-#[OpenApiRequestExample('Change password request', [
-    'oldPassword' => OpenApiResponse::FAKER_PASSWORD,
-    'password' => OpenApiResponse::FAKER_PASSWORD,
-])]
-#[OpenApiResponse('Successfully changed password', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Invalid device code', example: [
-    'success' => false,
-    'error' => [
-        'message' => 'Unknown device',
-        'type' => 'UnknownDeviceException',
-    ],
-], exampleName: 'Invalid device code', statusCode: Action::HTTP_UNAUTHORIZED, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class ChangePasswordAction extends Action
 {
     /**

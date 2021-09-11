@@ -21,19 +21,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/gallery/{galleryId}/file/{position}', JinyaAction::PUT)]
 #[Authenticated(role: Authenticated::WRITER)]
-#[OpenApiRequest('This action updates a gallery file position')]
-#[OpenApiRequestBody([
-    'file' => ['type' => 'integer'],
-    'newPosition' => ['type' => 'integer'],
-])]
-#[OpenApiParameter('galleryId', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiParameter('position', required: true, type: OpenApiParameter::TYPE_INTEGER)]
-#[OpenApiRequestExample('Gallery file position with required fields', [
-    'file' => 0,
-    'newPosition' => 0,
-])]
-#[OpenApiResponse('Successfully updated gallery file position', statusCode: Action::HTTP_NO_CONTENT)]
-#[OpenApiResponse('Position or file not found', example: OpenApiResponse::NOT_FOUND, exampleName: 'Position or file not found', statusCode: Action::HTTP_NOT_FOUND, schema: OpenApiResponse::EXCEPTION_SCHEMA)]
 class UpdatePositionAction extends Action
 {
     /**
