@@ -15,6 +15,7 @@
             <directory name="tests"/>
             <directory name="vendor"/>
             <directory name="var"/>
+            <directory name="themes"/>
         </ignoreFiles>
     </projectFiles>
 </psalm>

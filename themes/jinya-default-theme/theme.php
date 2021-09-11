@@ -45,6 +45,9 @@ return [
         'profile' => [
             'show_email' => false,
         ],
+        'blog' => [
+            'title' => 'Blog'
+        ],
     ],
     'configurationStructure' => [
         'title' => 'Configure Jinya default theme',
@@ -154,6 +157,17 @@ return [
                         'name' => 'show_email',
                         'type' => 'boolean',
                         'label' => 'Show mail address',
+                    ],
+                ],
+            ],
+            [
+                'name' => 'blog',
+                'title' => 'Blog',
+                'fields' => [
+                    [
+                        'name' => 'title',
+                        'type' => 'string',
+                        'label' => 'Blog home page title',
                     ],
                 ],
             ],

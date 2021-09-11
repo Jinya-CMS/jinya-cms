@@ -8,7 +8,6 @@ use App\Utils\AppSettingsInitializer;
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;
 use App\Web\Routes\RouteResolver;
-use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 

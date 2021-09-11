@@ -1,0 +1,19 @@
+<?php
+/** @var array $configuration */
+/** @var \App\Database\BlogPost $post */
+$this->layout('theme::layout', ['title' => $post->title]);
+?>
+<?php $this->start('maincontent') ?>
+    <div>
+        <?php if ($post->headerImageId !== null): ?>
+        <div class="jinya-post__header" style="background-image: url(<?= $post->getHeaderImage()->path ?>);">
+            <?php endif ?>
+            <h1 class="jinya-post__title"><?= $this->e($post->title) ?></h1>
+            <?php if ($post->headerImageId !== null): ?>
+        </div>
+    <?php endif ?>
+    </div>
+    <article class="jinya-post">
+        <?php $this->insert('theme::includes/blog-post', ['post' => $post]) ?>
+    </article>
+<?php $this->stop('maincontent') ?>

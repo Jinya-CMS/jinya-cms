@@ -533,7 +533,7 @@
         "decline": "Cancel",
         "success": {
           "title": "Generate assets",
-          "message": "The assets for the theme {displayName} wer generated successfully"
+          "message": "The assets for the theme {displayName} were generated successfully"
         },
         "error": {
           "title": "Error generating assets",

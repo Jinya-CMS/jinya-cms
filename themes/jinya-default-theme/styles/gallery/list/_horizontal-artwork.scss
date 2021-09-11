@@ -13,8 +13,9 @@
 }
 
 .jinya-horizontal-gallery-artwork__image {
-    height: 60vh;
-    width: auto;
+  height: 60vh;
+  width: auto;
+  max-width: unset;
 }
 
 .jinya-horizontal-gallery-caption__title {

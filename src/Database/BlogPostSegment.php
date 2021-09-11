@@ -155,4 +155,34 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
         $this->update();
         $this->resetOrder('blog_post_segment', 'blog_post_id', $this->blogPostId);
     }
+
+    /**
+     * @return File|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    public function getFile(): ?File
+    {
+        if ($this->fileId === null) {
+            return null;
+        }
+
+        return File::findById($this->fileId);
+    }
+
+    /**
+     * @return Gallery|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     */
+    public function getGallery(): ?Gallery
+    {
+        if ($this->galleryId === null) {
+            return null;
+        }
+
+        return Gallery::findById($this->galleryId);
+    }
 }
