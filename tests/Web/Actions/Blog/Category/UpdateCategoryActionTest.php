@@ -9,7 +9,6 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Actions\Blog\Category\UpdateCategoryAction;
 use App\Web\Attributes\JinyaAction;
-use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
@@ -73,33 +72,6 @@ class UpdateCategoryActionTest extends TestCase
         $this->assertNotNull($savedCategory);
         $this->assertEquals($actionBody['name'], $savedCategory->name);
         $this->assertEquals($category->description, $savedCategory->description);
-    }
-
-    /**
-     * @throws UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws HttpBadRequestException
-     * @throws InvalidQueryException
-     */
-    public function testActionNonUniqueName(): void
-    {
-        $this->expectException(ConflictException::class);
-        $this->expectExceptionMessage('Name exists');
-        $category1 = new BlogCategory();
-        $category1->name = Uuid::uuid();
-        $category1->create();
-
-        $category2 = new BlogCategory();
-        $category2->name = Uuid::uuid();
-        $category2->create();
-
-        $actionBody = [
-            'name' => $category1->name,
-        ];
-
-        $action = new UpdateCategoryAction();
-        $request = (new ServerRequest(JinyaAction::POST, '/api/blog/category/' . $category2->id))->withParsedBody($actionBody);
-        $action($request, new Response(), ['id' => $category2->id]);
     }
 
     /**

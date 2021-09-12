@@ -6,7 +6,6 @@ use App\Database\BlogCategory;
 use App\Web\Actions\Action;
 use App\Web\Actions\Blog\Category\CreateCategoryAction;
 use App\Web\Attributes\JinyaAction;
-use App\Web\Exceptions\ConflictException;
 use Faker\Provider\Uuid;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -58,25 +57,4 @@ class CreateCategoryActionTest extends TestCase
         $this->assertEquals($cat->format(), $json);
     }
 
-    public function testActionDuplicateName(): void
-    {
-        $this->expectException(ConflictException::class);
-        $this->expectExceptionMessage('Name exists');
-        $action = new CreateCategoryAction();
-        $actionBody = [
-            'name' => Uuid::uuid(),
-        ];
-        $request = (new ServerRequest(JinyaAction::POST, '/blog/category'))->withParsedBody($actionBody);
-        $response = $action($request, new Response(), []);
-        $this->assertEquals(Action::HTTP_CREATED, $response->getStatusCode());
-
-        $response->getBody()->rewind();
-        $body = $response->getBody()->getContents();
-        $json = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-
-        $cat = BlogCategory::findById($json['id']);
-        $this->assertEquals($cat->format(), $json);
-
-        $action($request, new Response(), []);
-    }
 }

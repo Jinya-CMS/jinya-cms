@@ -5,7 +5,6 @@ namespace Jinya\Tests\Database;
 use App\Authentication\CurrentUser;
 use App\Database\BlogCategory;
 use App\Database\BlogPost;
-use App\Database\Exceptions\UniqueFailedException;
 use PHPUnit\Framework\TestCase;
 
 class BlogCategoryTest extends TestCase
@@ -155,19 +154,6 @@ class BlogCategoryTest extends TestCase
 
         $foundCat = BlogCategory::findById($cat->id);
         $this->assertEquals($cat, $foundCat);
-    }
-
-    public function testCreateDuplicate(): void
-    {
-        $this->expectException(UniqueFailedException::class);
-        $cat = $this->createBlogCategory(false);
-        $cat->create();
-
-        $foundCat = BlogCategory::findById($cat->id);
-        $this->assertEquals($cat, $foundCat);
-
-        $cat = $this->createBlogCategory(false);
-        $cat->create();
     }
 
     public function testDelete(): void
