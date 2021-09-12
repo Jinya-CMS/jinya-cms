@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.0.1
+
+### Fixed issues
+
+* [TG-104](https://taiga.imanuel.dev/project/jinya-cms/issue/104) Remove unique from categories
+
 ## Release notes - Jinya Gallery CMS - Version 22.0.0
 
 ### User Stories
