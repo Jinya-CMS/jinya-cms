@@ -6,6 +6,7 @@
     "php": ">=8.0",
     "ext-fileinfo": "*",
     "ext-json": "*",
+    "ext-intl": "*",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
