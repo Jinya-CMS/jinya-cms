@@ -37,6 +37,12 @@ class CreateCategoryAction extends Action
         if (isset($this->body['parentId'])) {
             $category->parentId = $this->body['parentId'];
         }
+        if (isset($this->body['webhookEnabled'])) {
+            $category->webhookEnabled = $this->body['webhookEnabled'];
+        }
+        if (isset($this->body['webhookUrl'])) {
+            $category->webhookUrl = $this->body['webhookUrl'];
+        }
 
         try {
             $category->create();

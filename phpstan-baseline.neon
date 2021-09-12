@@ -991,11 +991,6 @@ parameters:
 			path: src/Messaging/FormMessageHandler.php
 
 		-
-			message: "#^Method App\\\\Statistics\\\\Entity\\:\\:getEntityShare\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Statistics/Entity.php
-
-		-
 			message: "#^Method App\\\\Statistics\\\\History\\:\\:getCreatedHistory\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Statistics/History.php

@@ -338,7 +338,8 @@
         "description": "Beschreibung",
         "description_none": "Keine Beschreibung",
         "parent": "Übergeordnete Kategorie",
-        "parent_none": "Keine Kategorie"
+        "parent_none": "Keine Kategorie",
+        "webhook": "Webhook"
       },
       "create": {
         "title": "Kategorie erstellen",
@@ -346,6 +347,8 @@
         "description": "Beschreibung",
         "parent": "Übergeordnete Kategorie",
         "parent_none": "Keine Kategorie",
+        "webhook_url": "Webhook URL",
+        "webhook_enabled": "Webhook aktiv",
         "cancel": "Kategorie verwerfen",
         "create": "Kategorie erstellen",
         "error": {
@@ -360,6 +363,8 @@
         "description": "Beschreibung",
         "parent": "Übergeordnete Kategorie",
         "parent_none": "Keine Kategorie",
+        "webhook_url": "Webhook URL",
+        "webhook_enabled": "Webhook aktiv",
         "cancel": "Änderungen verwerfen",
         "edit": "Kategorie speichern",
         "error": {

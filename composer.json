@@ -25,7 +25,8 @@
     "vlucas/phpdotenv": "v5.3.0",
     "jenssegers/agent": "v2.6.4",
     "fakerphp/faker": "v1.16.0",
-    "melbahja/semver": "1.0.1"
+    "melbahja/semver": "1.0.1",
+    "jinya/fire-and-forget": "0.1.11"
   },
   "suggest": {
     "ext-zend-opcache": "*",

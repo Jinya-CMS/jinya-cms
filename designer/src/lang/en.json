@@ -338,7 +338,8 @@
         "description": "Description",
         "description_none": "No description",
         "parent": "Parent category",
-        "parent_none": "No parent category"
+        "parent_none": "No parent category",
+        "webhook": "Webhook"
       },
       "create": {
         "title": "Create category",
@@ -346,6 +347,8 @@
         "description": "Description",
         "parent": "Parent category",
         "parent_none": "No parent category",
+        "webhook_url": "Webhook URL",
+        "webhook_enabled": "Webhook enabled",
         "cancel": "Discard category",
         "create": "Create category",
         "error": {
@@ -360,6 +363,8 @@
         "description": "Description",
         "parent": "Parent category",
         "parent_none": "No parent category",
+        "webhook_url": "Webhook URL",
+        "webhook_enabled": "Webhook enabled",
         "cancel": "Discard changes",
         "edit": "Update category",
         "error": {

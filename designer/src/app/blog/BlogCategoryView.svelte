@@ -12,16 +12,22 @@
   let createCategoryDescription = '';
   let createCategoryParent = null;
   let createCategoryOpen = false;
+  let createCategoryWebhookEnabled = true;
+  let createCategoryWebhookUrl = '';
 
   let editCategoryName = '';
   let editCategoryDescription = '';
   let editCategoryParent = null;
   let editCategoryOpen = false;
+  let editCategoryWebhookEnabled = true;
+  let editCategoryWebhookUrl = '';
 
   function openEdit() {
     editCategoryName = selectedCategory.name;
     editCategoryDescription = selectedCategory.description;
     editCategoryParent = selectedCategory.parent?.id;
+    editCategoryWebhookUrl = selectedCategory.webhookUrl;
+    editCategoryWebhookEnabled = selectedCategory.webhookEnabled;
     editCategoryOpen = true;
   }
 
@@ -50,6 +56,8 @@
     createCategoryName = '';
     createCategoryDescription = '';
     createCategoryParent = null;
+    createCategoryWebhookEnabled = true;
+    createCategoryWebhookUrl = '';
   }
 
   async function createCategory() {
@@ -58,6 +66,8 @@
         const data = {
           name: createCategoryName,
           description: createCategoryDescription,
+          webhookEnabled: createCategoryWebhookEnabled,
+          webhookUrl: createCategoryWebhookUrl,
         };
         if (createCategoryParent) {
           data.parentId = createCategoryParent;
@@ -70,6 +80,8 @@
         createCategoryName = '';
         createCategoryDescription = '';
         createCategoryParent = null;
+        createCategoryWebhookEnabled = true;
+        createCategoryWebhookUrl = '';
       } catch (e) {
         if (e.status === 409) {
           await jinyaAlert($_('blog.categories.create.error.title'), $_('blog.categories.create.error.conflict'), $_('alert.dismiss'));
@@ -93,6 +105,8 @@
         const data = {
           name: editCategoryName,
           description: editCategoryDescription,
+          webhookEnabled: editCategoryWebhookEnabled,
+          webhookUrl: editCategoryWebhookUrl,
         };
         if (editCategoryParent) {
           data.parentId = editCategoryParent;
@@ -150,6 +164,10 @@
                     <dd class="cosmo-key-value-list__value">{selectedCategory.description ?? $_('blog.categories.details.description_none')}</dd>
                     <dt class="cosmo-key-value-list__key">{$_('blog.categories.details.parent')}</dt>
                     <dd class="cosmo-key-value-list__value">{selectedCategory.parent?.name ?? $_('blog.categories.details.parent_none')}</dd>
+                    {#if selectedCategory.webhookEnabled}
+                        <dt class="cosmo-key-value-list__key">{$_('blog.categories.details.webhook')}</dt>
+                        <dd class="cosmo-key-value-list__value">{selectedCategory.webhookUrl}</dd>
+                    {/if}
                 </dl>
             </div>
         {/if}
@@ -176,6 +194,15 @@
                            class="cosmo-label cosmo-label--textarea">{$_('blog.categories.create.description')}</label>
                     <textarea bind:value={createCategoryDescription} rows="5" id="createCategoryDescription"
                               class="cosmo-textarea"></textarea>
+                    <label for="createCategoryWebhookUrl"
+                           class="cosmo-label">{$_('blog.categories.create.webhook_url')}</label>
+                    <input bind:value={createCategoryWebhookUrl} type="text" id="createCategoryWebhookUrl"
+                           class="cosmo-input">
+                    <div class="cosmo-checkbox__group">
+                        <input class="cosmo-checkbox" type="checkbox" id="createCategoryWebhookEnabled"
+                               bind:checked={createCategoryWebhookEnabled}>
+                        <label for="createCategoryWebhookEnabled">{$_('blog.categories.create.webhook_enabled')}</label>
+                    </div>
                 </div>
             </div>
             <div class="cosmo-modal__button-bar">
@@ -209,6 +236,15 @@
                            class="cosmo-label cosmo-label--textarea">{$_('blog.categories.edit.description')}</label>
                     <textarea bind:value={editCategoryDescription} rows="5" id="editCategoryDescription"
                               class="cosmo-textarea"></textarea>
+                    <label for="editCategoryWebhookUrl"
+                           class="cosmo-label">{$_('blog.categories.edit.webhook_url')}</label>
+                    <input bind:value={editCategoryWebhookUrl} type="text" id="editCategoryWebhookUrl"
+                           class="cosmo-input">
+                    <div class="cosmo-checkbox__group">
+                        <input class="cosmo-checkbox" type="checkbox" id="editCategoryWebhookEnabled"
+                               bind:checked={editCategoryWebhookEnabled}>
+                        <label for="editCategoryWebhookEnabled">{$_('blog.categories.edit.webhook_enabled')}</label>
+                    </div>
                 </div>
             </div>
             <div class="cosmo-modal__button-bar">

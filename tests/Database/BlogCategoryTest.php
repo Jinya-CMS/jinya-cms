@@ -93,11 +93,15 @@ class BlogCategoryTest extends TestCase
             'name' => $catWithParent->name,
             'description' => $catWithParent->description,
             'id' => $catWithParent->id,
+            'webhookEnabled' => false,
+            'webhookUrl' => '',
             'parent' => [
                 'name' => $cat->name,
                 'description' => $cat->description,
                 'id' => $cat->id,
                 'parent' => null,
+                'webhookEnabled' => false,
+                'webhookUrl' => '',
             ],
         ]);
     }
@@ -111,6 +115,8 @@ class BlogCategoryTest extends TestCase
             'description' => $cat->description,
             'id' => $cat->id,
             'parent' => null,
+            'webhookEnabled' => false,
+            'webhookUrl' => '',
         ]);
     }
 

@@ -17,6 +17,8 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
     public string $name;
     public ?string $description = null;
     public ?int $parentId = null;
+    public bool $webhookEnabled = false;
+    public ?string $webhookUrl = '';
 
     /**
      * @inheritDoc
@@ -45,7 +47,9 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      */
     public function create(): void
     {
-        $this->internalCreate('blog_category');
+        $this->internalCreate('blog_category', [
+            'webhookEnabled' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
@@ -61,16 +65,18 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      */
     public function update(): void
     {
-        $this->internalUpdate('blog_category');
+        $this->internalUpdate('blog_category', [
+            'webhookEnabled' => new BooleanStrategy(1, 0),
+        ]);
     }
 
     /**
-     * @return array{id: int, name: string, description: string|null, parent: array|null}
+     * @return array{id: int, name: string, description: string|null, parent: array|null, webhookEnabled: bool, webhookUrl: string|null}
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    #[ArrayShape(['id' => "int|string", 'name' => "string", 'description' => "string", 'parent' => "array"])] public function format(): array
+    #[ArrayShape(['id' => "int", 'name' => "string", 'description' => "null|string", 'parent' => "array", 'webhookEnabled' => "bool", 'webhookUrl' => "null|string"])] public function format(): array
     {
         $parent = $this->getParent()?->format();
 
@@ -79,6 +85,8 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
             'name' => $this->name,
             'description' => $this->description,
             'parent' => $parent,
+            'webhookEnabled' => $this->webhookEnabled,
+            'webhookUrl' => $this->webhookUrl,
         ];
     }
 
