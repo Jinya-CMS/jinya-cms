@@ -136,7 +136,7 @@ abstract class FrontAction extends Action
         if (null !== $menuItem->categoryId) {
             $category = $menuItem->getBlogCategory();
 
-            return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category->getBlogPosts(true, true)]);
+            return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category?->getBlogPosts(true, true)]);
         }
 
         if ($menuItem->blogHomePage) {

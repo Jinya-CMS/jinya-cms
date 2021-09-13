@@ -12,6 +12,7 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
+use HipsterJazzbo\FireAndForget\FireAndForget;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/post/{id}', JinyaAction::PUT)]
@@ -34,6 +35,25 @@ class UpdatePostAction extends Action
         if ($post === null) {
             throw new NoResultException($this->request, 'Post not found');
         }
+
+        if (isset($this->body['categoryId'])) {
+            $post->categoryId = $this->body['categoryId'];
+        }
+        $category = $post->getCategory();
+        if ($post->public === false && ($this->body['public'] ?? false) && $category !== null && $category->webhookEnabled && $category->webhookUrl !== null) {
+            $host = $this->request->getHeader('Host')[0];
+            $body = [
+                'post' => $post->format(),
+                'url' => "https://$host/" . $post->createdAt->format('Y/m/d') . "/$post->slug",
+            ];
+
+            try {
+                $faf = new FireAndForget();
+                $faf->post($category->webhookUrl, [], json_encode($body, JSON_THROW_ON_ERROR));
+            } catch (\Exception) {
+            }
+        }
+
         if (isset($this->body['title'])) {
             $post->title = $this->body['title'];
         }
@@ -45,9 +65,6 @@ class UpdatePostAction extends Action
         }
         if (isset($this->body['headerImageId'])) {
             $post->headerImageId = $this->body['headerImageId'];
-        }
-        if (isset($this->body['categoryId'])) {
-            $post->categoryId = $this->body['categoryId'];
         }
 
         try {
