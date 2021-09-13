@@ -1,5 +1,19 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.1.0
+
+### User Stories
+
+* [TG-105](https://taiga.imanuel.dev/project/jinya-cms/us/105) Add id to category selection
+* [TG-110](https://taiga.imanuel.dev/project/jinya-cms/us/110) Trigger webhook when blog post is changed to public
+
+### Fixed issues
+
+* [TG-106](https://taiga.imanuel.dev/project/jinya-cms/issue/106) Form designer doesn't work
+* [TG-107](https://taiga.imanuel.dev/project/jinya-cms/issue/107) Public field is not respected in blog posts
+* [TG-109](https://taiga.imanuel.dev/project/jinya-cms/issue/109) Emoji not working in pages, segment pages and blog
+  posts
+
 ## Release notes - Jinya Gallery CMS - Version 22.0.1
 
 ### Fixed issues
