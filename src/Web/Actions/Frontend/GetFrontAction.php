@@ -29,7 +29,7 @@ class GetFrontAction extends FrontAction
         }
 
         $blogPost = BlogPost::findBySlug($route);
-        if (null !== $blogPost) {
+        if (null !== $blogPost && $blogPost->public) {
             return $this->render('theme::blog-post', ['post' => $blogPost]);
         }
 

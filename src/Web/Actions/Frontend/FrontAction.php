@@ -136,11 +136,11 @@ abstract class FrontAction extends Action
         if (null !== $menuItem->categoryId) {
             $category = $menuItem->getBlogCategory();
 
-            return $this->render('theme::blog-category', ['category' => $category]);
+            return $this->render('theme::blog-category', ['category' => $category, 'posts' => $category->getBlogPosts(true, true)]);
         }
 
         if ($menuItem->blogHomePage) {
-            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findAll(), 'categories' => Database\BlogCategory::findAll()]);
+            return $this->render('theme::blog-home-page', ['posts' => Database\BlogPost::findPublicPosts(), 'categories' => Database\BlogCategory::findAll()]);
         }
 
         if (Theming\Theme::ERROR_BEHAVIOR_HOMEPAGE === $this->activeTheme->getErrorBehavior()) {

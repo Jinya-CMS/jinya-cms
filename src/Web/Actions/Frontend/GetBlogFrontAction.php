@@ -17,7 +17,7 @@ class GetBlogFrontAction extends FrontAction
     {
         $slug = $this->args['slug'];
         $blogPost = BlogPost::findBySlug($slug);
-        if (null !== $blogPost) {
+        if (null !== $blogPost && $blogPost->public) {
             return $this->render('theme::blog-post', ['post' => $blogPost]);
         }
 

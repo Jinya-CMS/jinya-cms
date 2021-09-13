@@ -120,7 +120,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      */
-    public function getBlogPosts(bool $includeChildCategories = false): Iterator
+    public function getBlogPosts(bool $includeChildCategories = false, bool $onlyPublic = false): Iterator
     {
         if ($includeChildCategories) {
             $sql = <<<'SQL'
@@ -139,6 +139,10 @@ SQL;
         } else {
             $sql = 'SELECT * FROM blog_post WHERE category_id = :categoryId';
         }
+        if ($onlyPublic) {
+            $sql .= ' AND public = true';
+        }
+
         /** @var array<array> */
         $result = self::executeStatement($sql, ['categoryId' => $this->id]);
 

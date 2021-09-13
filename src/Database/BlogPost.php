@@ -101,6 +101,22 @@ class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterfac
      * @inheritDoc
      * @return Iterator<BlogPost>
      */
+    public static function findPublicPosts(): Iterator
+    {
+        $sql = 'SELECT * FROM blog_post WHERE public = true';
+        /** @var array<array> */
+        $result = self::executeStatement($sql);
+
+        return self::hydrateMultipleResults($result, new self(), [
+            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+            'public' => new BooleanStrategy(1, 0),
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     * @return Iterator<BlogPost>
+     */
     public static function findAll(): Iterator
     {
         return self::fetchArray('blog_post', new self(), [

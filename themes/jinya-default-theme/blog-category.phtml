@@ -1,8 +1,8 @@
 <?php
 /** @var array $configuration */
 /** @var \App\Database\BlogCategory $category */
+/** @var Iterator<\App\Database\BlogPost> $posts */
 $this->layout('theme::layout', ['title' => $category->name]);
-$posts = $category->getBlogPosts(true);
 ?>
 <?php $this->start('maincontent') ?>
 <main class="jinya-post-list">
