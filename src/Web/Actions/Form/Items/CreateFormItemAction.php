@@ -45,7 +45,7 @@ class CreateFormItemAction extends Action
         $formItem->helpText = $body['helpText'] ?? '';
         $formItem->type = $body['type'] ?? 'text';
         $formItem->options = $body['options'] ?? [];
-        $formItem->spamFilter = array_filter($body['spamFilter']) ?? [];
+        $formItem->spamFilter = array_filter($body['spamFilter'] ?? []);
         $formItem->isFromAddress = $body['isFromAddress'] ?? false;
         $formItem->isRequired = $body['isRequired'] ?? false;
         $formItem->isSubject = $body['isSubject'] ?? false;

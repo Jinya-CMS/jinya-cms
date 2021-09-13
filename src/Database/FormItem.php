@@ -5,6 +5,7 @@ namespace App\Database;
 use App\Database\Strategies\JsonStrategy;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
+use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
 class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -117,6 +118,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             [
                 'spamFilter' => new JsonStrategy(),
                 'options' => new JsonStrategy(),
+                'isRequired' => new BooleanStrategy(1, 0),
+                'isFromAddress' => new BooleanStrategy(1, 0),
+                'isSubject' => new BooleanStrategy(1, 0),
             ]
         );
         $this->resetOrder('form_item', 'form_id', $this->formId);
@@ -142,6 +146,9 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             [
                 'spamFilter' => new JsonStrategy(),
                 'options' => new JsonStrategy(),
+                'isRequired' => new BooleanStrategy(1, 0),
+                'isFromAddress' => new BooleanStrategy(1, 0),
+                'isSubject' => new BooleanStrategy(1, 0),
             ]
         );
     }
