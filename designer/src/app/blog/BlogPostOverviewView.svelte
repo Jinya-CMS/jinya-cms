@@ -54,7 +54,7 @@
            on:click={() => selectCategory(null)}>{$_('blog.posts.overview.all')}</a>
         {#each categories as category (category.id)}
             <a class:cosmo-list__item--active={category.id === selectedCategory?.id} class="cosmo-list__item"
-               on:click={() => selectCategory(category)}>{category.name}</a>
+               on:click={() => selectCategory(category)}>#{category.id} {category.name}</a>
         {/each}
     </nav>
     <div class="cosmo-list__content jinya-designer">

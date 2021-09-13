@@ -300,7 +300,7 @@
                 <select required bind:value={categoryId} id="category" class="cosmo-select">
                     <option value={null}>{$_('blog.posts.edit.no_category')}</option>
                     {#each categories as cat}
-                        <option value={cat.id}>{cat.name}</option>
+                        <option value={cat.id}>#{cat.id} {cat.name}</option>
                     {/each}
                 </select>
                 <div class="cosmo-checkbox__group">

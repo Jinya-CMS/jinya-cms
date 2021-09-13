@@ -138,7 +138,7 @@
     <nav class="cosmo-list__items">
         {#each categories as category (category.id)}
             <a class:cosmo-list__item--active={category.id === selectedCategory.id} class="cosmo-list__item"
-               on:click={() => selectCategory(category)}>{category.name}</a>
+               on:click={() => selectCategory(category)}>#{category.id} {category.name}</a>
         {/each}
         <button class="cosmo-button cosmo-button--full-width"
                 on:click={() => createCategoryOpen = true}>{$_('blog.categories.action.new')}</button>
@@ -187,7 +187,7 @@
                     <select required bind:value={createCategoryParent} id="createCategoryParent" class="cosmo-select">
                         <option value={null}>{$_('blog.categories.create.parent_none')}</option>
                         {#each categories as category}
-                            <option value={category.id}>{category.name}</option>
+                            <option value={category.id}>#{category.id} {category.name}</option>
                         {/each}
                     </select>
                     <label for="createCategoryDescription"
@@ -229,7 +229,7 @@
                     <select required bind:value={editCategoryParent} id="editCategoryParent" class="cosmo-select">
                         <option value={null}>{$_('blog.categories.edit.parent_none')}</option>
                         {#each categories as category}
-                            <option value={category.id}>{category.name}</option>
+                            <option value={category.id}>#{category.id} {category.name}</option>
                         {/each}
                     </select>
                     <label for="editCategoryDescription"

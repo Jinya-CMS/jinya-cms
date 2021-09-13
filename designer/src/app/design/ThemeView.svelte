@@ -368,7 +368,7 @@
                                             <select required bind:value={themeMenus[link]} id={`categories_${link}`}
                                                     class="cosmo-select">
                                                 {#each categories as category}
-                                                    <option value={category.id}>{category.name}</option>
+                                                    <option value={category.id}>#{category.id} {category.name}</option>
                                                 {/each}
                                             </select>
                                         {/each}

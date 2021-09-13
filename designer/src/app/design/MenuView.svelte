@@ -603,7 +603,7 @@
                                class="cosmo-label">{$_(`design.menus.designer.type_${selectedMenuItem.type}`)}</label>
                         <select required bind:value={editMenuItemElement} id="editMenuElement" class="cosmo-select">
                             {#each itemsToChooseFrom as item}
-                                <option value={item.id}>{item.name ?? item.title ?? item.artistName}</option>
+                                <option value={item.id}>#{item.id} {item.name ?? item.title ?? item.artistName}</option>
                             {/each}
                         </select>
                     {/if}
