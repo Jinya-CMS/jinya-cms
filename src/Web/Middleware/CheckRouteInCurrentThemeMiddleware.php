@@ -47,6 +47,11 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
             }
         }
 
+        $blogPost = Database\BlogPost::findBySlug($path);
+        if ($blogPost !== null) {
+            return $handler->handle($request);
+        }
+
         $activeThemingTheme = new Theming\Theme($activeTheme);
         $response = new Response();
 
