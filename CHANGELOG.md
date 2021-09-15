@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.1.1
+
+### Fixed issues
+
+* [TG-111](https://taiga.imanuel.dev/project/jinya-cms/issue/111) Middleware not adjusted for blog posts
+
 ## Release notes - Jinya Gallery CMS - Version 22.1.0
 
 ### User Stories
