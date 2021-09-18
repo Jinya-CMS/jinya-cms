@@ -17,9 +17,9 @@ trait PostActionHelper
             'url' => "https://$host/" . $post->createdAt->format('Y/m/d') . "/$post->slug",
         ];
 
-        $category = $post->getCategory();
         try {
-            $url = HttpUri::createFromString($category->webhookUrl);
+            $category = $post->getCategory();
+            $url = HttpUri::createFromString($category?->webhookUrl);
             $postBody = json_encode($body, JSON_THROW_ON_ERROR);
 
             $scheme = $url->getScheme() === 'https' ? 'ssl://' : '';
@@ -35,6 +35,8 @@ trait PostActionHelper
             $request .= "\r\n";
             $request .= $postBody;
 
+            $errno = null;
+            $errstr = null;
             $socket = @fsockopen($host, $port, $errno, $errstr, 5);
 
             if (!$socket) {
