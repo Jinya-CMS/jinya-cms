@@ -21,12 +21,12 @@
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.0.4",
     "eslint": "7.32.0",
-    "eslint-plugin-svelte3": "3.2.0",
+    "eslint-plugin-svelte3": "3.2.1",
     "postcss": "8.3.6",
     "rollup": "2.56.3",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-postcss": "4.0.1",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.42.4"
+    "svelte": "3.42.6"
   }
 }
