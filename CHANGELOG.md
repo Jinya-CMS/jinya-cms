@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.1.2
+
+### Fixed issues
+
+* [TG-113](https://taiga.imanuel.dev/project/jinya-cms/issue/113) Webhook not executed
+
 ## Release notes - Jinya Gallery CMS - Version 22.1.1
 
 ### Fixed issues
