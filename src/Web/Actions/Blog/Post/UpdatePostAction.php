@@ -20,6 +20,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 #[RequiredFields(['title', 'slug'])]
 class UpdatePostAction extends Action
 {
+    use PostActionHelper;
 
     /**
      * @return Response
@@ -42,16 +43,7 @@ class UpdatePostAction extends Action
         $category = $post->getCategory();
         if ($post->public === false && ($this->body['public'] ?? false) && $category !== null && $category->webhookEnabled && $category->webhookUrl !== null) {
             $host = $this->request->getHeader('Host')[0];
-            $body = [
-                'post' => $post->format(),
-                'url' => "https://$host/" . $post->createdAt->format('Y/m/d') . "/$post->slug",
-            ];
-
-            try {
-                $faf = new FireAndForget();
-                $faf->post($category->webhookUrl, [], json_encode($body, JSON_THROW_ON_ERROR));
-            } catch (\Exception) {
-            }
+            $this->executeHook($post, $host);
         }
 
         if (isset($this->body['title'])) {
