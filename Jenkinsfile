@@ -20,6 +20,9 @@ spec:
         - sleep
       args:
         - infinity
+      env:
+        - name: ENV PHP_MEMORY_LIMIT
+          value: 1024M
     - name: package
       image: quay.imanuel.dev/dockerhub/library---golang:latest
       command:
