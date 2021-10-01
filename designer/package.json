@@ -12,7 +12,7 @@
     "monaco-editor": "0.28.1",
     "page": "1.11.6",
     "sortablejs": "1.14.0",
-    "svelte-i18n": "3.3.10",
+    "svelte-i18n": "3.3.12",
     "tinymce": "5.9.2",
     "ua-parser-js": "0.7.28"
   },

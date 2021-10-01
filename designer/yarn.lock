@@ -1897,10 +1897,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-i18n@3.3.10:
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.10.tgz#762abec5593fcf553cff73884248a99a0f7c172f"
-  integrity sha512-MWoiZOCgX2P57UqjSp2Sly6csSuySoxbmC/e+vak3valteEa0CqHYzPTA6NNNj8pBCpdaMp9sBRkG1eebk0rFg==
+svelte-i18n@3.3.12:
+  version "3.3.12"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-3.3.12.tgz#225c249c8fec7e6a1a09e4066641fd1f63631c4c"
+  integrity sha512-FLQ1vGDfUjjGFAl8POSAnf9JU8Sey2AMIpV3Ds6h4A5WkGydKo2swQyi5K3n3RtHojvZe+JuVqoGIMHNPZQ2ow==
   dependencies:
     deepmerge "^4.2.2"
     estree-walker "^2.0.1"
