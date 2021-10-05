@@ -21,7 +21,7 @@
     "scssphp/scssphp": "v1.8.1",
     "nyholm/psr7": "1.4.1",
     "nyholm/psr7-server": "1.0.2",
-    "slim/slim": "4.8.1",
+    "slim/slim": "4.9.0",
     "tedivm/jshrink": "v1.4.0",
     "vlucas/phpdotenv": "v5.3.0",
     "jenssegers/agent": "v2.6.4",
