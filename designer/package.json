@@ -9,7 +9,7 @@
   "dependencies": {
     "@jinyacms/cosmo": "0.11.0",
     "apexcharts": "3.28.3",
-    "monaco-editor": "0.28.1",
+    "monaco-editor": "0.29.1",
     "page": "1.11.6",
     "sortablejs": "1.14.0",
     "svelte-i18n": "3.3.12",
