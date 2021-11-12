@@ -2,7 +2,6 @@
 
 namespace Jinya\Tests\Database;
 
-use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Menu;
 use App\Database\MenuItem;
