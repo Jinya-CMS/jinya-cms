@@ -26,8 +26,7 @@ trait PostActionHelper
             $host = $scheme . $url->getHost();
             $port = $url->getPort() ?: $this->getDefaultPort($url->getScheme());
 
-            $path = $url->getPath();
-            $request = "POST $path HTTP/1.1\r\n";
+            $request = 'POST ' . $category->webhookUrl . " HTTP/1.1\r\n";
             $request .= 'Host: ' . $url->getHost() . "\r\n";
             $request .= "Content-Type: application/json\r\n";
             $request .= "Content-Length: " . strlen($postBody) . "\r\n";
