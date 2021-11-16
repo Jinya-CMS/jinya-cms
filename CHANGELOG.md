@@ -1,5 +1,9 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.1.3
+
+Dependency bump
+
 ## Release notes - Jinya Gallery CMS - Version 22.1.2
 
 ### Fixed issues
