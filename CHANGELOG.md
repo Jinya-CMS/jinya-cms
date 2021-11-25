@@ -1,5 +1,11 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 22.1.4
+
+### User Stories
+
+* [TG-114](https://taiga.imanuel.dev/project/jinya-cms/us/114) Send no-cache header for api requests
+
 ## Release notes - Jinya Gallery CMS - Version 22.1.3
 
 Dependency bump
