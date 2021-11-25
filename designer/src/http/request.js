@@ -1,13 +1,13 @@
-import NotFoundError from './Error/NotFoundError';
-import NotAllowedError from './Error/NotAllowedError';
-import UnauthorizedError from './Error/UnauthorizedError';
-import BadRequestError from './Error/BadRequestError';
-import HttpError from './Error/HttpError';
-import ConflictError from './Error/ConflictError';
 import { getDeviceCode, getJinyaApiKey, hasDeviceCode, hasJinyaApiKey } from '../storage/authentication/storage';
+import BadRequestError from './Error/BadRequestError';
+import ConflictError from './Error/ConflictError';
+import HttpError from './Error/HttpError';
+import NotAllowedError from './Error/NotAllowedError';
+import NotFoundError from './Error/NotFoundError';
+import UnauthorizedError from './Error/UnauthorizedError';
 
 export function send(verb, url, data, contentType, additionalHeaders = {}, plain = false) {
-  const headers = { 'Content-Type': contentType, ...additionalHeaders };
+  const headers = {'Content-Type': contentType, 'no-cache': 'nginx', 'Cache-Control': 'no-cache', ...additionalHeaders};
 
   if (hasJinyaApiKey()) {
     headers.JinyaApiKey = getJinyaApiKey();
