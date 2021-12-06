@@ -20,7 +20,7 @@
     "@rollup/plugin-commonjs": "21.0.1",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.0.6",
-    "eslint": "8.2.0",
+    "eslint": "8.4.0",
     "eslint-plugin-svelte3": "3.2.1",
     "postcss": "8.3.11",
     "rollup": "2.60.0",
