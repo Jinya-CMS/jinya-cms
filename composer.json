@@ -23,7 +23,7 @@
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.9.0",
     "tedivm/jshrink": "v1.4.0",
-    "vlucas/phpdotenv": "v5.4.0",
+    "vlucas/phpdotenv": "v5.4.1",
     "jenssegers/agent": "v2.6.4",
     "fakerphp/faker": "v1.16.0",
     "melbahja/semver": "1.0.1",
