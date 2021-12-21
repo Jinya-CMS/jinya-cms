@@ -12,20 +12,20 @@
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
     "laminas/laminas-hydrator": "4.3.1",
-    "guzzlehttp/guzzle": "7.4.0",
+    "guzzlehttp/guzzle": "7.4.1",
     "jinya/plates": "3.4.0",
     "monolog/monolog": "2.3.5",
-    "phpmailer/phpmailer": "v6.5.1",
-    "phpmyadmin/sql-parser": "5.4.2",
+    "phpmailer/phpmailer": "v6.5.3",
+    "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.7.0",
-    "scssphp/scssphp": "v1.8.1",
+    "scssphp/scssphp": "v1.9.0",
     "nyholm/psr7": "1.4.1",
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.9.0",
     "tedivm/jshrink": "v1.4.0",
-    "vlucas/phpdotenv": "v5.4.0",
+    "vlucas/phpdotenv": "v5.4.1",
     "jenssegers/agent": "v2.6.4",
-    "fakerphp/faker": "v1.16.0",
+    "fakerphp/faker": "v1.17.0",
     "melbahja/semver": "1.0.1",
     "league/uri": "6.5.0"
   },
@@ -36,8 +36,8 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.10",
-    "vimeo/psalm": "4.12.0",
-    "phpstan/phpstan": "1.1.2"
+    "vimeo/psalm": "4.15.0",
+    "phpstan/phpstan": "1.2.0"
   },
   "config": {
     "process-timeout": 0,

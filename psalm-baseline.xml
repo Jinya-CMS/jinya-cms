@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
-    <file src="app/routes.php">
-        <UndefinedConstant occurrences="2">
-            <code>__ROOT__</code>
-            <code>__ROOT__</code>
-        </UndefinedConstant>
-    </file>
-    <file src="src/Console/RoutesCommand.php">
-        <UndefinedMethod occurrences="1">
-            <code>getRoutes</code>
-        </UndefinedMethod>
+<files psalm-version="v4.15.0@a1b5e489e6fcebe40cb804793d964e99fc347820">
+  <file src="app/routes.php">
+    <UndefinedConstant occurrences="2">
+      <code>__ROOT__</code>
+      <code>__ROOT__</code>
+    </UndefinedConstant>
+  </file>
+  <file src="src/Console/RoutesCommand.php">
+    <UndefinedMethod occurrences="1">
+      <code>getRoutes</code>
+    </UndefinedMethod>
   </file>
   <file src="src/Database/Analyzer/DatabaseAnalyzer.php">
     <PossiblyInvalidIterator occurrences="2">
@@ -132,24 +132,24 @@
   </file>
   <file src="src/Database/MenuItem.php">
     <PossiblyInvalidArgument occurrences="4">
-        <code>$result</code>
-        <code>$result</code>
-        <code>$result</code>
-        <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
+      <code>$result</code>
     </PossiblyInvalidArgument>
-      <PossiblyInvalidArrayAccess occurrences="3">
-          <code>$result[0]</code>
-          <code>$result[0]</code>
-          <code>$result[0]</code>
-      </PossiblyInvalidArrayAccess>
-      <PossiblyNullReference occurrences="6">
-          <code>getIdAsInt</code>
-          <code>getIdAsInt</code>
-          <code>getIdAsInt</code>
-          <code>getIdAsInt</code>
-          <code>getIdAsInt</code>
-          <code>getIdAsInt</code>
-      </PossiblyNullReference>
+    <PossiblyInvalidArrayAccess occurrences="3">
+      <code>$result[0]</code>
+      <code>$result[0]</code>
+      <code>$result[0]</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullReference occurrences="6">
+      <code>getIdAsInt</code>
+      <code>getIdAsInt</code>
+      <code>getIdAsInt</code>
+      <code>getIdAsInt</code>
+      <code>getIdAsInt</code>
+      <code>getIdAsInt</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Database/Migrations/Migrator.php">
     <PossiblyInvalidArgument occurrences="2">
@@ -164,9 +164,9 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$result</code>
     </PossiblyInvalidArgument>
-      <PossiblyInvalidArrayAccess occurrences="1">
-          <code>$result[0]</code>
-      </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$result[0]</code>
+    </PossiblyInvalidArrayAccess>
     <PossiblyNullArgument occurrences="3">
       <code>$this-&gt;fileId</code>
       <code>$this-&gt;formId</code>
@@ -332,6 +332,11 @@
       <code>addFilter</code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Logging/Logger.php">
+    <UndefinedConstant occurrences="1">
+      <code>__ROOT__</code>
+    </UndefinedConstant>
+  </file>
   <file src="src/Mailing/Factory/MailerFactory.php">
     <PossiblyFalsePropertyAssignmentValue occurrences="4">
       <code>getenv('MAILER_ENCRYPTION')</code>
@@ -391,16 +396,6 @@
       <code>$value</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/OpenApiGeneration/EndpointGenerator.php">
-    <UndefinedConstant occurrences="1">
-      <code>__ROOT__</code>
-    </UndefinedConstant>
-  </file>
-  <file src="src/OpenApiGeneration/ModelGenerator.php">
-    <UndefinedConstant occurrences="1">
-      <code>__ROOT__</code>
-    </UndefinedConstant>
-  </file>
   <file src="src/Statistics/History.php">
     <PossiblyInvalidArgument occurrences="2">
       <code>$history</code>
@@ -454,7 +449,8 @@
     </UndefinedConstant>
   </file>
   <file src="src/Theming/Theme.php">
-    <InvalidScalarArgument occurrences="1">
+    <InvalidScalarArgument occurrences="2">
+      <code>$result</code>
       <code>$this-&gt;dbTheme-&gt;id</code>
     </InvalidScalarArgument>
     <InvalidThrow occurrences="1">
@@ -622,19 +618,10 @@
     <PossiblyInvalidPropertyAssignmentValue occurrences="1">
       <code>$form-&gt;id</code>
     </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullArgument occurrences="1">
-      <code>$body['spamFilter']</code>
-    </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="2">
       <code>$body['label']</code>
       <code>$body['position']</code>
     </PossiblyNullArrayAccess>
-    <RedundantCondition occurrences="1">
-      <code>array_filter($body['spamFilter'])</code>
-    </RedundantCondition>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>[]</code>
-    </TypeDoesNotContainNull>
   </file>
   <file src="src/Web/Actions/Frontend/FrontAction.php">
     <InvalidScalarArgument occurrences="1">
@@ -694,11 +681,6 @@
       <code>$currentArtist-&gt;id</code>
     </InvalidScalarArgument>
   </file>
-  <file src="src/Logging/Logger.php">
-    <UndefinedConstant occurrences="1">
-      <code>__ROOT__</code>
-    </UndefinedConstant>
-  </file>
   <file src="src/Web/Actions/Menu/CreateMenuAction.php">
     <PossiblyInvalidArrayAccess occurrences="1">
       <code>$body['name']</code>
@@ -720,11 +702,6 @@
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;request-&gt;getBody()-&gt;detach()</code>
     </PossiblyNullArgument>
-  </file>
-  <file src="src/Web/Actions/OpenApi/GetOpenApiConfigAction.php">
-    <UndefinedConstant occurrences="1">
-      <code>INSTALLED_VERSION</code>
-    </UndefinedConstant>
   </file>
   <file src="src/Web/Actions/SegmentPage/CreateSegmentPageAction.php">
     <PossiblyInvalidArrayAccess occurrences="1">
@@ -788,58 +765,58 @@
       <code>getSegments</code>
     </PossiblyNullReference>
   </file>
-    <file src="src/Web/Actions/SimplePage/CreateSimplePageAction.php">
-        <PossiblyInvalidArrayAccess occurrences="2">
-            <code>$body['content']</code>
-            <code>$body['title']</code>
-        </PossiblyInvalidArrayAccess>
-        <PossiblyNullArrayAccess occurrences="2">
-            <code>$body['content']</code>
-            <code>$body['title']</code>
-        </PossiblyNullArrayAccess>
-    </file>
-    <file src="src/Web/Actions/Theme/GetThemeBlogCategoryAction.php">
-        <PossiblyNullReference occurrences="1">
-            <code>format</code>
-        </PossiblyNullReference>
-    </file>
-    <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
-        <PossiblyInvalidArrayAccess occurrences="1">
-            <code>$body['configuration']</code>
-        </PossiblyInvalidArrayAccess>
-        <PossiblyNullArrayAccess occurrences="1">
-            <code>$body['configuration']</code>
-        </PossiblyNullArrayAccess>
-    </file>
-    <file src="src/Web/Actions/Theme/PutStyleVariablesAction.php">
-        <PossiblyInvalidArrayAccess occurrences="1">
-            <code>$body['variables']</code>
-        </PossiblyInvalidArrayAccess>
-        <PossiblyNullArrayAccess occurrences="1">
-            <code>$body['variables']</code>
-        </PossiblyNullArrayAccess>
-    </file>
-    <file src="src/Web/Actions/Theme/PutThemeBlogCategoryAction.php">
-        <PossiblyInvalidArrayAccess occurrences="1">
-            <code>$body['category']</code>
-        </PossiblyInvalidArrayAccess>
-        <PossiblyNullArgument occurrences="1">
-            <code>$categoryId</code>
-        </PossiblyNullArgument>
-        <PossiblyNullArrayAccess occurrences="1">
-            <code>$body['category']</code>
-        </PossiblyNullArrayAccess>
-    </file>
-    <file src="src/Web/Actions/Theme/PutThemeFileAction.php">
-        <PossiblyInvalidArrayAccess occurrences="1">
-            <code>$body['file']</code>
-        </PossiblyInvalidArrayAccess>
-        <PossiblyInvalidPropertyAssignmentValue occurrences="2">
-            <code>$file-&gt;id</code>
-            <code>$file-&gt;id</code>
-        </PossiblyInvalidPropertyAssignmentValue>
-        <PossiblyNullArgument occurrences="1">
-            <code>$fileId</code>
+  <file src="src/Web/Actions/SimplePage/CreateSimplePageAction.php">
+    <PossiblyInvalidArrayAccess occurrences="2">
+      <code>$body['content']</code>
+      <code>$body['title']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArrayAccess occurrences="2">
+      <code>$body['content']</code>
+      <code>$body['title']</code>
+    </PossiblyNullArrayAccess>
+  </file>
+  <file src="src/Web/Actions/Theme/GetThemeBlogCategoryAction.php">
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/Web/Actions/Theme/PutConfigurationAction.php">
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$body['configuration']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$body['configuration']</code>
+    </PossiblyNullArrayAccess>
+  </file>
+  <file src="src/Web/Actions/Theme/PutStyleVariablesAction.php">
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$body['variables']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$body['variables']</code>
+    </PossiblyNullArrayAccess>
+  </file>
+  <file src="src/Web/Actions/Theme/PutThemeBlogCategoryAction.php">
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$body['category']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArgument occurrences="1">
+      <code>$categoryId</code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$body['category']</code>
+    </PossiblyNullArrayAccess>
+  </file>
+  <file src="src/Web/Actions/Theme/PutThemeFileAction.php">
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$body['file']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidPropertyAssignmentValue occurrences="2">
+      <code>$file-&gt;id</code>
+      <code>$file-&gt;id</code>
+    </PossiblyInvalidPropertyAssignmentValue>
+    <PossiblyNullArgument occurrences="1">
+      <code>$fileId</code>
     </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="1">
       <code>$body['file']</code>
