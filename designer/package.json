@@ -21,7 +21,7 @@
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.1.1",
     "eslint": "8.5.0",
-    "eslint-plugin-svelte3": "3.2.1",
+    "eslint-plugin-svelte3": "3.3.0",
     "postcss": "8.4.5",
     "rollup": "2.61.1",
     "rollup-plugin-copy": "3.4.0",
