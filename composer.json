@@ -37,7 +37,7 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.10",
     "vimeo/psalm": "4.15.0",
-    "phpstan/phpstan": "1.2.0"
+    "phpstan/phpstan": "1.4.0"
   },
   "config": {
     "process-timeout": 0,
