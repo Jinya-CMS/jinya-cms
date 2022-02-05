@@ -9,7 +9,7 @@ Currently, there are three websites based on the Jinya CMS. These three are list
 * [Imanuel Ulbricht Design](https://imanuel.ulbricht.design)
 
 ## Technologies used
-The Jinya CMS is based on the [Slim Framework 3](https://www.slimframework.com/). The frontend uses [a fork](https://plates.jinya.de/) of the [Plates](https://platesphp.com/) template engine. The backend, in Jinya called designer, is written using [Svelte](https://svelte.dev/).
+The Jinya CMS is based on the [Slim Framework 4](https://www.slimframework.com/). The frontend uses [a fork](https://plates.jinya.de/) of the [Plates](https://platesphp.com/) template engine. The backend, in Jinya called designer, is written using [Svelte](https://svelte.dev/).
 
 ## Design
 The Jinya default theme uses a very simple design, which focuses on your content and not on itself. You can preview the Jinya default theme [here](https://imanuel.ulbricht.design). Here are screenshots of the default theme.
