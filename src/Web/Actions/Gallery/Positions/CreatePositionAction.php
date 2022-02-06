@@ -3,7 +3,6 @@
 namespace App\Web\Actions\Gallery\Positions;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\Gallery;
@@ -13,6 +12,7 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/gallery/{galleryId}/file', JinyaAction::POST)]
@@ -27,6 +27,9 @@ class CreatePositionAction extends Action
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

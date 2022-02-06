@@ -4,7 +4,6 @@ namespace App\Web\Actions\Authentication;
 
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
@@ -12,7 +11,7 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\MissingFieldsException;
 use App\Web\Middleware\AuthenticationMiddleware;
-use JsonException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpForbiddenException;
 
@@ -22,12 +21,12 @@ use Slim\Exception\HttpForbiddenException;
 class ChangePasswordAction extends Action
 {
     /**
+     * @return Response
+     * @throws ForeignKeyFailedException
      * @throws HttpForbiddenException
-     * @throws JsonException
+     * @throws InvalidQueryException
      * @throws MissingFieldsException
      * @throws UniqueFailedException
-     * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

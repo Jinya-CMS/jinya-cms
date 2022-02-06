@@ -3,15 +3,16 @@
 namespace App\Console;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Migrations\Migrator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use JsonException;
 
 #[JinyaCommand("migrate")]
 class MigrationCommand extends AbstractCommand
 {
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function run(): void
     {

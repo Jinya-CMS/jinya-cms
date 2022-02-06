@@ -4,9 +4,10 @@ namespace App\Web\Actions\Frontend;
 
 use App\Database\BlogPost;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class GetFrontAction extends FrontAction
@@ -15,6 +16,8 @@ class GetFrontAction extends FrontAction
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     protected function protectedAction(): Response
     {

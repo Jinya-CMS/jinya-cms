@@ -6,7 +6,6 @@ use JetBrains\PhpStorm\Pure;
 use ReflectionException;
 use ReflectionExtension;
 use stdClass;
-use Throwable;
 
 class PhpInfoService
 {
@@ -20,9 +19,50 @@ class PhpInfoService
         return php_uname();
     }
 
-    private function calculateMb(int $bytes): float|int
+    /**
+     * Gets an array of loaded extensions
+     *
+     * @return PhpExtension[]
+     * @throws ReflectionException
+     */
+    public function getLoadedExtensions(): array
     {
-        return $bytes / 1024 / 1024;
+        $extensions = [];
+        $loadedExtensions = get_loaded_extensions();
+        array_splice($loadedExtensions, array_search('Core', $loadedExtensions), 1);
+        natcasesort($loadedExtensions);
+        array_unshift($loadedExtensions, 'Core');
+
+        foreach ($loadedExtensions as $extensionName) {
+            $extension = new PhpExtension();
+            $reflectionExtension = new ReflectionExtension($extensionName);
+            $iniValues = $reflectionExtension->getINIEntries();
+
+            $extension->extensionName = $reflectionExtension->getName();
+            $extension->version = $reflectionExtension->getVersion();
+            $extension->additionalData = $this->getAdditionalData($extensionName);
+
+            if ($iniValues) {
+                foreach ($iniValues as $iniName => $iniValue) {
+                    $iniConfig = new IniValue();
+                    $iniConfig->configName = $iniName;
+                    if (is_array($iniValue)) {
+                        if (array_key_exists('local_value', $iniValue)) {
+                            $iniConfig->value = $iniValue['local_value'];
+                        } elseif (array_key_exists('global_value', $iniValue)) {
+                            $iniConfig->value = $iniValue['global_value'];
+                        }
+                    } else {
+                        $iniConfig->value = $iniValue;
+                    }
+                    $extension->iniValues[] = $iniConfig;
+                }
+            }
+
+            $extensions[] = $extension;
+        }
+
+        return $extensions;
     }
 
     private function getAdditionalData(string $extension): array|stdClass
@@ -73,50 +113,9 @@ class PhpInfoService
         return new stdClass();
     }
 
-    /**
-     * Gets an array of loaded extensions
-     *
-     * @return PhpExtension[]
-     * @throws ReflectionException
-     */
-    public function getLoadedExtensions(): array
+    private function calculateMb(int $bytes): float|int
     {
-        $extensions = [];
-        $loadedExtensions = get_loaded_extensions();
-        array_splice($loadedExtensions, array_search('Core', $loadedExtensions), 1);
-        natcasesort($loadedExtensions);
-        array_unshift($loadedExtensions, 'Core');
-
-        foreach ($loadedExtensions as $extensionName) {
-            $extension = new PhpExtension();
-            $reflectionExtension = new ReflectionExtension($extensionName);
-            $iniValues = $reflectionExtension->getINIEntries();
-
-            $extension->extensionName = $reflectionExtension->getName();
-            $extension->version = $reflectionExtension->getVersion();
-            $extension->additionalData = $this->getAdditionalData($extensionName);
-
-            if ($iniValues) {
-                foreach ($iniValues as $iniName => $iniValue) {
-                    $iniConfig = new IniValue();
-                    $iniConfig->configName = $iniName;
-                    if (is_array($iniValue)) {
-                        if (array_key_exists('local_value', $iniValue)) {
-                            $iniConfig->value = $iniValue['local_value'];
-                        } elseif (array_key_exists('global_value', $iniValue)) {
-                            $iniConfig->value = $iniValue['global_value'];
-                        }
-                    } else {
-                        $iniConfig->value = $iniValue;
-                    }
-                    $extension->iniValues[] = $iniConfig;
-                }
-            }
-
-            $extensions[] = $extension;
-        }
-
-        return $extensions;
+        return $bytes / 1024 / 1024;
     }
 
     /**

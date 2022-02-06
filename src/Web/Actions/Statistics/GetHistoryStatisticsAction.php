@@ -22,7 +22,6 @@ class GetHistoryStatisticsAction extends Action
         $historyStats = new History();
         $type = str_replace('-', '_', $this->args['type']);
         if (!in_array($type, ['file', 'form', 'gallery', 'page', 'segment_page'])) {
-            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return (new NyholmResponse())
                 ->withStatus(Action::HTTP_MOVED_PERMANENTLY)
                 ->withHeader('Location', '/');

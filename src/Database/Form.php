@@ -8,6 +8,8 @@ use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -23,7 +25,12 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
 
     /**
      * @inheritDoc
+     * @param int $id
      * @return Form|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -45,16 +52,15 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     {
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, to_address, title, description FROM form f WHERE f.title LIKE :titleKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"],
+                [
+                    'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                    'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -62,7 +68,7 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'form',
             new self(),
             [
@@ -77,23 +83,21 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      *
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
         $sql = 'SELECT id, form_id, type, options, spam_filter, label, help_text, position, is_from_address, is_subject, is_required, placeholder FROM form_item WHERE form_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql, ['id' => $this->id]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new FormItem(),
-            [
+        try {
+            return self::getPdo()->fetchIterator($sql, new FormItem(), ['id' => $this->id], [
                 'spamFilter' => new JsonStrategy(),
                 'options' => new JsonStrategy(),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -145,8 +149,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => "int",
@@ -190,8 +195,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCreator(): ?Artist
     {
@@ -204,8 +210,9 @@ class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getUpdatedBy(): ?Artist
     {

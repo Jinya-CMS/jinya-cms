@@ -3,10 +3,11 @@
 namespace App\Theming;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
@@ -51,7 +52,7 @@ class MenuExtension implements ExtensionInterface
      */
     #[Pure] public function isActiveMenuItem(MenuItem $menuItem): bool
     {
-        return $menuItem->route !== null && $menuItem->route === ltrim($_SERVER['REQUEST_URI'], '/');
+        return $menuItem->route === ltrim($_SERVER['REQUEST_URI'], '/');
     }
 
     /**
@@ -61,6 +62,7 @@ class MenuExtension implements ExtensionInterface
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
      */
     public function getActiveMenuItem(): ?MenuItem
     {

@@ -24,8 +24,8 @@ use League\Plates\Template\Template;
         Which is located at, <?= $this->e($location['city']) ?><?php
         if (!empty($location['region_name'])): ?>, <?= $this->e($location['region_name']) ?><?php
         endif ?><?php
-    if (!empty($location['country_name'])): ?> in <?= $this->e($location['country_name']) ?><?php
-    endif ?>.
+        if (!empty($location['country_name'])): ?> in <?= $this->e($location['country_name']) ?><?php
+        endif ?>.
     <?php
     endif ?>
 </p>

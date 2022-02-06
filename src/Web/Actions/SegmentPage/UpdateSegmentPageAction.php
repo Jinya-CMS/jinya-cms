@@ -3,7 +3,6 @@
 namespace App\Web\Actions\SegmentPage;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SegmentPage;
 use App\Web\Actions\Action;
@@ -11,6 +10,7 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -28,6 +28,7 @@ class UpdateSegmentPageAction extends Action
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

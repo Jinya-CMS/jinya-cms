@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
@@ -17,6 +16,8 @@ use InvalidArgumentException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
@@ -40,25 +41,23 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByEmail(string $email): ?Artist
     {
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me, failed_login_attempts, login_blocked_until FROM users WHERE email = :email';
-        $result = self::executeStatement($sql, ['email' => $email]);
 
-        if (count($result) === 0) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['email' => $email],
+                [
+                    'enabled' => new BooleanStrategy(1, 0),
+                    'roles' => new PhpSerializeStrategy(),
+                    'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult(
-            $result[0],
-            new self(),
-            [
-                'enabled' => new BooleanStrategy(1, 0),
-                'roles' => new PhpSerializeStrategy(),
-                'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
     }
 
     /**
@@ -66,6 +65,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @return Artist|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
      */
     public static function findById(int $id): ?object
@@ -87,16 +87,17 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public static function findByKeyword(string $keyword): Iterator
     {
         $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email LIKE :emailKeyword OR artist_name LIKE :nameKeyword';
-        $result = self::executeStatement($sql, ['emailKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
-                'enabled' => new BooleanStrategy(1, 0),
-                'roles' => new PhpSerializeStrategy(),
-            ]
-        );
+        try {
+            return self::getPdo()->fetchIterator($sql,
+                new self(),
+                ['emailKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"],
+                [
+                    'enabled' => new BooleanStrategy(1, 0),
+                    'roles' => new PhpSerializeStrategy(),
+                ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -156,7 +157,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
         $users = self::findAll();
         $admins = 0;
         foreach ($users as $user) {
-            if ($id !== $user->getIdAsInt() && $user->enabled && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
+            if ($user->enabled && $id !== $user->getIdAsInt() && in_array(RoleMiddleware::ROLE_ADMIN, $user->roles, true)) {
                 $admins++;
             }
         }
@@ -169,7 +170,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'users',
             new self(),
             [
@@ -214,6 +215,8 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public function validateDevice(string $knownDeviceCode): bool
     {

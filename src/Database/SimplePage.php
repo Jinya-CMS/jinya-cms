@@ -7,6 +7,8 @@ use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SimplePage extends Utils\LoadableEntity
@@ -21,7 +23,12 @@ class SimplePage extends Utils\LoadableEntity
 
     /**
      * @inheritDoc
-     * @return SimplePage
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -43,16 +50,14 @@ class SimplePage extends Utils\LoadableEntity
     {
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, content, title FROM page WHERE title LIKE :titleKeyword OR content LIKE :contentKeyword';
 
-        $result = self::executeStatement($sql, ['contentKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['contentKeyword' => "%$keyword%", 'titleKeyword' => "%$keyword%"], [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -60,7 +65,7 @@ class SimplePage extends Utils\LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'page',
             new self(),
             [
@@ -121,8 +126,9 @@ class SimplePage extends Utils\LoadableEntity
      *
      * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => "int",
@@ -164,8 +170,9 @@ class SimplePage extends Utils\LoadableEntity
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCreator(): ?Artist
     {
@@ -178,8 +185,9 @@ class SimplePage extends Utils\LoadableEntity
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getUpdatedBy(): ?Artist
     {

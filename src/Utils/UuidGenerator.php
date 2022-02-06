@@ -7,9 +7,9 @@ use Exception;
 class UuidGenerator
 {
     /**
+     * @return false|string
      * @throws Exception
      *
-     * @return false|string
      */
     public static function generateV4(): string|bool
     {

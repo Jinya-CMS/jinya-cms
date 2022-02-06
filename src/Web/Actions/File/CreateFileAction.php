@@ -2,6 +2,7 @@
 
 namespace App\Web\Actions\File;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Web\Actions\Action;
@@ -9,6 +10,8 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/file', JinyaAction::POST)]
@@ -21,9 +24,10 @@ class CreateFileAction extends Action
      * @inheritDoc
      * @return Response
      * @throws ConflictException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

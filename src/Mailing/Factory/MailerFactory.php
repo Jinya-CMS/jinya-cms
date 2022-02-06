@@ -3,7 +3,6 @@
 namespace App\Mailing\Factory;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
 class MailerFactory
 {

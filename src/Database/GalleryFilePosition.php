@@ -5,6 +5,8 @@ namespace App\Database;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -45,26 +47,25 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @param int $position
      * @return GalleryFilePosition|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByPosition(int $id, int $position): ?GalleryFilePosition
     {
         $sql = 'SELECT * FROM gallery_file_position WHERE gallery_id = :id AND position = :position';
-        $result = self::executeStatement(
-            $sql,
-            [
-                'id' => $id,
-                'position' => $position
-            ]
-        );
 
-        if (count($result) === 0) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql,
+                new self(),
+                [
+                    'id' => $id,
+                    'position' => $position
+                ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -91,8 +92,9 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
     /**
      * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'gallery' => "array",
@@ -126,11 +128,13 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @return Gallery|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
@@ -140,11 +144,13 @@ class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\Form
      * @return File|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFile(): ?File
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 

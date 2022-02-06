@@ -6,6 +6,8 @@ use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInterface
@@ -35,16 +37,18 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
      * Gets all known devices for the given artist
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByArtist(int $artistId): Iterator
     {
         $sql = 'SELECT id, user_id, device_key, user_agent, remote_address FROM known_device WHERE user_id = :artistId';
 
-        $result = self::executeStatement($sql, ['artistId' => $artistId]);
-
-        return self::hydrateMultipleResults($result, new self());
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['artistId' => $artistId]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -58,23 +62,21 @@ class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInter
     /**
      * Gets a known device by code
      *
+     * @param string $knownDeviceCode
+     * @return KnownDevice|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findByCode(string $knownDeviceCode): ?KnownDevice
     {
         $sql = 'SELECT id, user_id, device_key, user_agent, remote_address FROM known_device WHERE device_key = :knownDeviceCode';
-        $result = self::executeStatement(
-            $sql,
-            ['knownDeviceCode' => $knownDeviceCode]
-        );
-        if (0 === count($result)) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['knownDeviceCode' => $knownDeviceCode]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**

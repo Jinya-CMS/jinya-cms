@@ -21,9 +21,10 @@ class JinyaAction
      * @param string|null $name
      */
     public function __construct(
-        public string $url,
-        public string $method,
+        public string  $url,
+        public string  $method,
         public ?string $name = null,
-    ) {
+    )
+    {
     }
 }

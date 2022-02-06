@@ -4,13 +4,13 @@ namespace App\Web\Actions\KnownDevice;
 
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Middleware\AuthenticationMiddleware;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -21,7 +21,7 @@ class ListAllKnownDevicesAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

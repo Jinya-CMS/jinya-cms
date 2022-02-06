@@ -2,13 +2,14 @@
 
 namespace App\Database\Strategies;
 
+use JsonException;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 
 class JsonStrategy implements StrategyInterface
 {
     /**
      * {@inheritDoc}
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function extract($value, ?object $object = null)
     {
@@ -17,7 +18,7 @@ class JsonStrategy implements StrategyInterface
 
     /**
      * {@inheritDoc}
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function hydrate($value, ?array $data)
     {

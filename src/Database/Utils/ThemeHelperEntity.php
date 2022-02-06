@@ -3,7 +3,6 @@
 namespace App\Database\Utils;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\ThemeAsset;
 use App\Database\ThemeBlogCategory;
@@ -14,6 +13,8 @@ use App\Database\ThemeMenu;
 use App\Database\ThemePage;
 use App\Database\ThemeSegmentPage;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
 use RuntimeException;
@@ -55,26 +56,24 @@ abstract class ThemeHelperEntity extends LoadableEntity
      * @param string $name
      * @param string $table
      * @param ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory $prototype
-     * @return mixed
+     * @return ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
      */
-    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory $prototype): mixed
+    protected static function fetchByThemeAndName(int $themeId, string $name, string $table, ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory $prototype): ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory|null
     {
         $sql = "SELECT * FROM $table WHERE theme_id = :id AND name = :name";
-        $result = self::executeStatement(
-            $sql,
-            [
+
+        try {
+            return self::getPdo()->fetchObject($sql, $prototype, [
                 'id' => $themeId,
                 'name' => $name,
-            ]
-        );
-        if (0 === count($result)) {
-            return null;
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult($result[0], $prototype);
     }
 
     /**
@@ -91,9 +90,12 @@ abstract class ThemeHelperEntity extends LoadableEntity
     protected static function fetchByTheme(int $themeId, string $table, ThemeAsset|ThemeFile|ThemeForm|ThemeGallery|ThemeMenu|ThemePage|ThemeSegmentPage|ThemeBlogCategory $prototype): Iterator
     {
         $sql = "SELECT * FROM $table WHERE theme_id = :id";
-        $result = self::executeStatement($sql, ['id' => $themeId]);
 
-        return self::hydrateMultipleResults($result, $prototype);
+        try {
+            return self::getPdo()->fetchIterator($sql, $prototype, ['id' => $themeId]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**

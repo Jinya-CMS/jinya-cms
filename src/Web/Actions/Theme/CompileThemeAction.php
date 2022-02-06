@@ -8,8 +8,10 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Exception;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
+use ScssPhp\ScssPhp\Exception\SassException;
 
 #[JinyaAction('/api/theme/{id}/assets', JinyaAction::PUT)]
 #[Authenticated(Authenticated::WRITER)]
@@ -17,8 +19,14 @@ class CompileThemeAction extends ThemeAction
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
+     * @return Response
+     * @throws Database\Exceptions\ForeignKeyFailedException
+     * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
+     * @throws InvalidQueryException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws SassException
+     * @throws Exception
      * @throws Exception
      */
     protected function action(): Response

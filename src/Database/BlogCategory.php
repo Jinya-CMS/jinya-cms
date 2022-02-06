@@ -3,18 +3,19 @@
 namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInterface
 {
 
-    public string $name;
+    public string $name = '';
     public ?string $description = null;
     public ?int $parentId = null;
     public bool $webhookEnabled = false;
@@ -27,10 +28,12 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
     public static function findByKeyword(string $keyword): Iterator
     {
         $sql = 'SELECT * FROM blog_category WHERE name LIKE :nameKeyword OR description LIKE :descKeyword';
-        /** @var array<array> */
-        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults($result, new self());
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -39,7 +42,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('blog_category', new self());
+        return self::fetchAllIterator('blog_category', new self());
     }
 
     /**
@@ -74,6 +77,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      * @return array{id: int, name: string, description: string|null, parent: array|null, webhookEnabled: bool, webhookUrl: string|null}
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
      */
     #[ArrayShape(['id' => "int", 'name' => "string", 'description' => "null|string", 'parent' => "array", 'webhookEnabled' => "bool", 'webhookUrl' => "null|string"])] public function format(): array
@@ -94,6 +98,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
      * @return BlogCategory|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
      */
     public function getParent(): BlogCategory|null
@@ -107,6 +112,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
 
     /**
      * @inheritDoc
+     * @throws NoResultException
      */
     public static function findById(int $id): BlogCategory|null
     {
@@ -115,6 +121,7 @@ class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInte
 
     /**
      * @param bool $includeChildCategories
+     * @param bool $onlyPublic
      * @return Iterator<BlogPost>
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
@@ -143,12 +150,14 @@ SQL;
             $sql .= ' AND public = true';
         }
 
-        /** @var array<array> */
-        $result = self::executeStatement($sql, ['categoryId' => $this->id]);
-
-        return self::hydrateMultipleResults($result, new BlogPost(), [
-            'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            'public' => new BooleanStrategy(1, 0),
-        ]);
+        try {
+            return self::getPdo()->fetchIterator($sql, new BlogPost(), ['categoryId' => $this->id], [
+                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'created_at' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'public' => new BooleanStrategy(1, 0),
+            ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

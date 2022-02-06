@@ -3,8 +3,8 @@
 namespace App\Database\Utils;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 abstract class RearrangableEntity extends LoadableEntity
 {

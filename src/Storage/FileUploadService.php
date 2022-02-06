@@ -4,12 +4,14 @@ namespace App\Storage;
 
 use App\Database\Exceptions\EmptyResultException;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\UploadingFile;
 use App\Database\UploadingFileChunk;
 use App\Utils\UuidGenerator;
+use Exception;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class FileUploadService extends StorageBaseService
@@ -22,7 +24,7 @@ class FileUploadService extends StorageBaseService
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
     {
@@ -49,6 +51,8 @@ class FileUploadService extends StorageBaseService
      * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public function finishUpload(int $fileId): File
     {

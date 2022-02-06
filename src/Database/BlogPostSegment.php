@@ -4,6 +4,8 @@ namespace App\Database;
 
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class BlogPostSegment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -41,20 +43,27 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
         throw new RuntimeException('Not implemented');
     }
 
+    /**
+     * @param int $id
+     * @param int $position
+     * @return BlogPostSegment|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
     public static function findByPosition(int $id, int $position): BlogPostSegment|null
     {
         $sql = 'SELECT * FROM blog_post_segment WHERE blog_post_id = :id AND position = :position';
-        $result = self::executeStatement($sql, [
+
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
                 'id' => $id,
                 'position' => $position,
-            ]
-        );
-
-        if ((is_countable($result) && count($result) === 0) || !is_countable($result)) {
-            return null;
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -62,8 +71,9 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
      * @psalm-suppress MoreSpecificReturnType
      * @return array{position: int, id: int, gallery: array, link: string, html: string, file: array}
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'position' => 'int',
@@ -128,18 +138,11 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
     }
 
     /**
-     * @inheritDoc
-     */
-    public function update(): void
-    {
-        $this->internalUpdate('blog_post_segment');
-    }
-
-    /**
      * @return BlogPost|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getBlogPost(): BlogPost|null
     {
@@ -157,10 +160,19 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
     }
 
     /**
+     * @inheritDoc
+     */
+    public function update(): void
+    {
+        $this->internalUpdate('blog_post_segment');
+    }
+
+    /**
      * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFile(): ?File
     {
@@ -168,14 +180,16 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
     /**
      * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
@@ -183,6 +197,7 @@ class BlogPostSegment extends Utils\RearrangableEntity implements Utils\Formatta
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 }

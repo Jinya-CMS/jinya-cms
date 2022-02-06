@@ -3,9 +3,13 @@
 namespace App\Web\Actions\Artist;
 
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
@@ -14,10 +18,11 @@ use Slim\Exception\HttpNotFoundException;
 class GetArtistByIdAction extends Action
 {
     /**
-     * @throws \App\Database\Exceptions\UniqueFailedException
+     * @throws UniqueFailedException
      * @throws HttpNotFoundException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

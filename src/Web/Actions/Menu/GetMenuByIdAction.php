@@ -3,13 +3,13 @@
 namespace App\Web\Actions\Menu;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Menu;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/menu/{id}', JinyaAction::GET)]
@@ -23,6 +23,7 @@ class GetMenuByIdAction extends Action
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

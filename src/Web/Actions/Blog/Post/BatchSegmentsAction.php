@@ -4,7 +4,6 @@ namespace App\Web\Actions\Blog\Post;
 
 use App\Database\BlogPost;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\TransactionFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
@@ -12,6 +11,7 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/post/{id}/segment', JinyaAction::PUT)]
@@ -26,6 +26,7 @@ class BatchSegmentsAction extends Action
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      * @throws TransactionFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

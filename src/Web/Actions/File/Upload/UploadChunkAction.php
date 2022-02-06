@@ -4,14 +4,13 @@ namespace App\Web\Actions\File\Upload;
 
 use App\Database\Exceptions\EmptyResultException;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\FileUploadService;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/file/{id}/content/{position}', JinyaAction::PUT)]
@@ -32,11 +31,10 @@ class UploadChunkAction extends Action
     /**
      * @inheritDoc
      * @return Response
-     * @throws JsonException
-     * @throws NoResultException
-     * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     protected function action(): Response
     {

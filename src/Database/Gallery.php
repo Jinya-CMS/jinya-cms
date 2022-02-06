@@ -6,6 +6,8 @@ use App\Authentication\CurrentUser;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -28,7 +30,12 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
 
     /**
      * @inheritDoc
-     * @return Gallery
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -50,16 +57,17 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     {
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, name, description, type, orientation FROM gallery WHERE name LIKE :nameKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
-                'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-                'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+        try {
+            return self::getPdo()->fetchIterator($sql,
+                new self(),
+                ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"],
+                [
+                    'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                    'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -67,7 +75,7 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'gallery',
             new self(),
             [
@@ -78,9 +86,11 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     }
 
     /**
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => "int",
@@ -126,8 +136,9 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCreator(): ?Artist
     {
@@ -140,8 +151,9 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getUpdatedBy(): ?Artist
     {
@@ -197,15 +209,17 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
      *
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getFiles(): Iterator
     {
         $sql = 'SELECT id, gallery_id, file_id, position FROM gallery_file_position WHERE gallery_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql, ['id' => $this->id]);
-
-        return self::hydrateMultipleResults($result, new GalleryFilePosition());
+        try {
+            return self::getPdo()->fetchIterator($sql, new GalleryFilePosition(), ['id' => $this->id]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

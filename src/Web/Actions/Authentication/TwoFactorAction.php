@@ -4,12 +4,12 @@ namespace App\Web\Actions\Authentication;
 
 use App\Database\Artist;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Mailing\Types\TwoFactorMail;
 use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 

@@ -7,6 +7,8 @@ use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -20,8 +22,10 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      * @param string $name
      * @return ThemePage|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemePage
     {
@@ -34,7 +38,7 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      * @param int $themeId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
@@ -43,9 +47,11 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
     }
 
     /**
-     * @throws Exceptions\UniqueFailedException
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape(['name' => "string", 'page' => "array"])] public function format(): array
     {
@@ -61,11 +67,13 @@ class ThemePage extends ThemeHelperEntity implements FormattableEntityInterface
      * @return SimplePage|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getPage(): ?SimplePage
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SimplePage::findById($this->pageId);
     }
 

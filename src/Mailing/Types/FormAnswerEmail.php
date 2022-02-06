@@ -18,7 +18,8 @@ class FormAnswerEmail
         string $toAddress,
         string $subject,
         string $answer
-    ): void {
+    ): void
+    {
         $mailer = MailerFactory::getMailer();
         $mailer->setFrom(getenv('MAILER_FROM'), $artistName);
         $mailer->addAddress($toAddress);

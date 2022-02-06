@@ -3,10 +3,12 @@
 namespace App\Database\Utils;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
+use Jinya\PDOx\PDOx;
 use Laminas\Hydrator\HydratorInterface;
 use Laminas\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Laminas\Hydrator\ReflectionHydrator;
@@ -17,7 +19,7 @@ use PDOException;
 abstract class LoadableEntity
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
-    protected static ?PDO $pdo;
+    protected static ?PDOx $pdo;
     public int|string $id = -1;
 
     /**
@@ -68,9 +70,9 @@ abstract class LoadableEntity
     }
 
     /**
-     * @return PDO
+     * @return PDOx
      */
-    public static function getPdo(): PDO
+    public static function getPdo(): PDOx
     {
         if (isset(self::$pdo) && self::$pdo !== null) {
             return self::$pdo;
@@ -82,7 +84,7 @@ abstract class LoadableEntity
         $host = getenv('MYSQL_HOST') ?: '127.0.0.1';
         $port = getenv('MYSQL_PORT') ?: 3306;
         $charset = getenv('MYSQL_CHARSET') ?: 'utf8mb4';
-        $pdo = new PDO(
+        $pdo = new PDOx(
             "mysql:host=$host;port=$port;dbname=$database",
             $user,
             $password,
@@ -116,6 +118,71 @@ abstract class LoadableEntity
     }
 
     /**
+     * Hydrates the result using the given prototype and returns the object that was hydrated
+     *
+     * @param array $result
+     * @param mixed $prototype
+     * @param StrategyInterface[] $additionalStrategies
+     * @return mixed
+     */
+//    public static function hydrateSingleResult(array $result, mixed $prototype, array $additionalStrategies = []): mixed
+//    {
+//        $hydrator = self::getHydrator($additionalStrategies);
+//        foreach ($result as $key => $item) {
+//            if (!is_string($key)) {
+//                unset($result[$key]);
+//            }
+//        }
+//
+//        if ($result === null) {
+//            return null;
+//        }
+//        return $hydrator->hydrate($result, $prototype);
+//    }
+
+    /**
+     * @param array $additionalStrategies
+     * @return HydratorInterface
+     */
+    protected static function getHydrator(array $additionalStrategies): HydratorInterface
+    {
+        $hydrator = new ReflectionHydrator();
+        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
+        foreach ($additionalStrategies as $key => $additionalStrategy) {
+            $hydrator->addStrategy($key, $additionalStrategy);
+        }
+
+        return $hydrator;
+    }
+
+    /**
+     * Hydrates the result using the given prototype as array
+     *
+     * @param array $result
+     * @param mixed $prototype
+     * @param StrategyInterface[] $additionalStrategies
+     * @return Iterator
+     */
+//    public static function hydrateMultipleResults(
+//        array $result,
+//        mixed $prototype,
+//        array $additionalStrategies = []
+//    ): Iterator
+//    {
+//        $hydrator = self::getHydrator($additionalStrategies);
+//
+//        foreach ($result as $item) {
+//            foreach ($item as $key => $field) {
+//                if (!is_string($key)) {
+//                    unset($item[$key]);
+//                }
+//            }
+//            $proto = clone $prototype;
+//            yield $hydrator->hydrate($item, $proto);
+//        }
+//    }
+
+    /**
      * Fetches a single entity by the given id
      *
      * @param string $table
@@ -126,6 +193,8 @@ abstract class LoadableEntity
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     protected static function fetchSingleById(
         string $table,
@@ -135,44 +204,11 @@ abstract class LoadableEntity
     ): mixed
     {
         $sql = "SELECT * FROM $table WHERE id = :id";
-        $result = self::executeStatement($sql, ['id' => $id]);
 
-        if (count($result) === 0) {
-            return null;
-        }
-
-        return self::hydrateSingleResult($result[0], $prototype, $additionalStrategies);
-    }
-
-    /**
-     * Executes the given statement and returns the result
-     *
-     * @param string $statement
-     * @param array $parameters
-     * @return array|int
-     * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
-     * @throws InvalidQueryException
-     */
-    protected static function executeStatement(string $statement, array $parameters = []): array|int
-    {
-        $pdo = self::getPdo();
-        $stmt = $pdo->prepare($statement);
         try {
-            $stmt->execute($parameters);
-            if ($stmt->errorCode() !== '00000') {
-                $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
-                throw self::convertInvalidQueryExceptionToException($ex);
-            }
-
-            if ($stmt->columnCount() > 0) {
-                return $stmt->fetchAll();
-            }
-
-            return $stmt->rowCount();
-        } catch (PDOException $exception) {
-            $ex = new InvalidQueryException(errorInfo: $exception->errorInfo);
-            throw self::convertInvalidQueryExceptionToException($ex);
+            return self::getPdo()->fetchObject($sql, $prototype, ['id' => $id], $additionalStrategies);
+        } catch (InvalidQueryException $e) {
+            throw self::convertInvalidQueryExceptionToException($e);
         }
     }
 
@@ -194,44 +230,6 @@ abstract class LoadableEntity
     }
 
     /**
-     * Hydrates the result using the given prototype and returns the object that was hydrated
-     *
-     * @param array $result
-     * @param mixed $prototype
-     * @param StrategyInterface[] $additionalStrategies
-     * @return mixed
-     */
-    public static function hydrateSingleResult(array $result, mixed $prototype, array $additionalStrategies = []): mixed
-    {
-        $hydrator = self::getHydrator($additionalStrategies);
-        foreach ($result as $key => $item) {
-            if (!is_string($key)) {
-                unset($result[$key]);
-            }
-        }
-
-        if ($result === null) {
-            return null;
-        }
-        return $hydrator->hydrate($result, $prototype);
-    }
-
-    /**
-     * @param array $additionalStrategies
-     * @return HydratorInterface
-     */
-    protected static function getHydrator(array $additionalStrategies): HydratorInterface
-    {
-        $hydrator = new ReflectionHydrator();
-        $hydrator->setNamingStrategy(new UnderscoreNamingStrategy());
-        foreach ($additionalStrategies as $key => $additionalStrategy) {
-            $hydrator->addStrategy($key, $additionalStrategy);
-        }
-
-        return $hydrator;
-    }
-
-    /**
      * Fetches all data in a table and creates a array
      *
      * @param string $table
@@ -239,40 +237,15 @@ abstract class LoadableEntity
      * @param StrategyInterface[] $additionalStrategies
      * @return Iterator
      * @throws ForeignKeyFailedException
-     * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws InvalidQueryException
      */
-    protected static function fetchArray(string $table, mixed $prototype, array $additionalStrategies = []): Iterator
+    protected static function fetchAllIterator(string $table, mixed $prototype, array $additionalStrategies = []): Iterator
     {
-        $result = self::executeStatement("SELECT * FROM $table");
-
-        return self::hydrateMultipleResults($result, $prototype, $additionalStrategies);
-    }
-
-    /**
-     * Hydrates the result using the given prototype as array
-     *
-     * @param array $result
-     * @param mixed $prototype
-     * @param StrategyInterface[] $additionalStrategies
-     * @return Iterator
-     */
-    public static function hydrateMultipleResults(
-        array $result,
-        mixed $prototype,
-        array $additionalStrategies = []
-    ): Iterator
-    {
-        $hydrator = self::getHydrator($additionalStrategies);
-
-        foreach ($result as $item) {
-            foreach ($item as $key => $field) {
-                if (!is_string($key)) {
-                    unset($item[$key]);
-                }
-            }
-            $proto = clone $prototype;
-            yield $hydrator->hydrate($item, $proto);
+        try {
+            return self::getPdo()->fetchIterator("SELECT * FROM $table", $prototype, null, $additionalStrategies);
+        } catch (InvalidQueryException $e) {
+            throw self::convertInvalidQueryExceptionToException($e);
         }
     }
 
@@ -336,6 +309,38 @@ abstract class LoadableEntity
         $this->id = (int)self::getPdo()->lastInsertId();
 
         return $this->id;
+    }
+
+    /**
+     * Executes the given statement and returns the result
+     *
+     * @param string $statement
+     * @param array $parameters
+     * @return array|int
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException|InvalidQueryException
+     */
+    protected static function executeStatement(string $statement, array $parameters = []): array|int
+    {
+        $pdo = self::getPdo();
+        $stmt = $pdo->prepare($statement);
+        try {
+            $stmt->execute($parameters);
+            if ($stmt->errorCode() !== '00000') {
+                $ex = new InvalidQueryException(errorInfo: $stmt->errorInfo());
+                throw self::convertInvalidQueryExceptionToException($ex);
+            }
+
+            if ($stmt->columnCount() > 0) {
+                return $stmt->fetchAll();
+            }
+
+            return $stmt->rowCount();
+        } catch (PDOException $exception) {
+            $ex = new InvalidQueryException(errorInfo: $exception->errorInfo);
+            throw self::convertInvalidQueryExceptionToException($ex);
+        }
     }
 
     /**

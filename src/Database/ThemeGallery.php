@@ -7,6 +7,8 @@ use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -20,8 +22,10 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      * @param string $name
      * @return ThemeGallery|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeGallery
     {
@@ -34,7 +38,7 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      * @param int $themeId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
@@ -43,9 +47,11 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
     }
 
     /**
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape(['name' => "string", 'gallery' => "array"])] public function format(): array
     {
@@ -61,11 +67,13 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
      * @return Gallery|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 

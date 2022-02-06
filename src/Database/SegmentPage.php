@@ -7,6 +7,8 @@ use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
@@ -19,7 +21,12 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
 
     /**
      * @inheritDoc
-     * @return SegmentPage
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -41,16 +48,14 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
     {
         $sql = 'SELECT * FROM segment_page WHERE name LIKE :keyword';
 
-        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['keyword' => "%$keyword%"], [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -58,7 +63,7 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'segment_page',
             new self(),
             [
@@ -119,8 +124,9 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      *
      * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => "int",
@@ -162,8 +168,9 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCreator(): ?Artist
     {
@@ -176,8 +183,9 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getUpdatedBy(): ?Artist
     {
@@ -189,15 +197,17 @@ class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntit
      *
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getSegments(): Iterator
     {
         $sql = 'SELECT id, page_id, form_id, gallery_id, file_id, position, html, action, script, target FROM segment WHERE page_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql, ['id' => $this->id]);
-
-        return self::hydrateMultipleResults($result, new Segment());
+        try {
+            return self::getPdo()->fetchIterator($sql, new Segment(), ['id' => $this->id]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Messaging;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\FormItem;
 use App\Mailing\Factory\MailerFactory;
 use App\Web\Exceptions\MissingFieldsException;
-use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;

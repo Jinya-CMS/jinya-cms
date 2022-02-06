@@ -20,12 +20,13 @@ class Route
      * @param string $class
      */
     public function __construct(
-        public array $actionAttributes,
+        public array                $actionAttributes,
         public ?ReflectionAttribute $requiredFieldsAttributes,
         public ?ReflectionAttribute $authenticatedAttributes,
         public ?ReflectionAttribute $requireOneFieldAttributes,
-        public string $class,
-    ) {
+        public string               $class,
+    )
+    {
     }
 
     public function getAuthenticatedAttribute(): ?Authenticated

@@ -2,7 +2,6 @@
 
 namespace App\Mailing\Types;
 
-use App\Database\ApiKey;
 use App\Database\KnownDevice;
 use App\Mailing\Factory\MailerFactory;
 use GuzzleHttp\Client;

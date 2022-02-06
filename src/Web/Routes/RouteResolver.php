@@ -13,13 +13,14 @@ use App\Web\Middleware\CheckRequiredOneOfFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
 use ReflectionAttribute;
 use ReflectionClass;
+use ReflectionException;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
 class RouteResolver
 {
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function resolveRoutes(App $app): RouteCollectorProxy
     {

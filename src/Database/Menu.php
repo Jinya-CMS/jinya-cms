@@ -4,6 +4,8 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
@@ -12,7 +14,12 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
 
     /**
      * {@inheritDoc}
-     * @return Menu
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -25,10 +32,11 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     public static function findByKeyword(string $keyword): Iterator
     {
         $sql = 'SELECT id, name, logo FROM menu WHERE name LIKE :keyword';
-
-        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults($result, new self());
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['keyword' => "%$keyword%"]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -36,13 +44,15 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray('menu', new self());
+        return self::fetchAllIterator('menu', new self());
     }
 
     /**
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function format(): array
     {
@@ -68,9 +78,11 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
     /**
      * Gets the logo file
      *
+     * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getLogo(): ?File
     {
@@ -78,6 +90,7 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->logo);
     }
 
@@ -110,15 +123,17 @@ class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterf
      * Gets the menu items
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, segment_page_id, category_id, route, blog_home_page FROM menu_item WHERE menu_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql, ['id' => $this->id]);
-
-        return self::hydrateMultipleResults($result, new MenuItem());
+        try {
+            return self::getPdo()->fetchIterator($sql, new MenuItem(), ['id' => $this->id]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

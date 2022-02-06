@@ -5,6 +5,8 @@ namespace App\Web\Actions\Frontend;
 use App\Database;
 use App\Theming;
 use App\Web\Actions\Action;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -20,8 +22,9 @@ abstract class FrontAction extends Action
     /**
      * FrontAction constructor.
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws NoResultException
      */
     public function __construct()
     {
@@ -98,8 +101,14 @@ abstract class FrontAction extends Action
 
     /**
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
+     * @throws NoResultException
+     * @throws NoResultException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     protected function renderMenuItem(Database\MenuItem $menuItem): Response
     {

@@ -7,6 +7,8 @@ use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -20,8 +22,10 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      * @param string $name
      * @return ThemeFile|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeFile
     {
@@ -34,7 +38,7 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      * @param int $themeId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
@@ -43,9 +47,11 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
     }
 
     /**
-     * @throws Exceptions\UniqueFailedException
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape(['name' => "string", 'file' => "array"])] public function format(): array
     {
@@ -61,11 +67,13 @@ class ThemeFile extends ThemeHelperEntity implements FormattableEntityInterface
      * @return File|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFile(): ?File
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 

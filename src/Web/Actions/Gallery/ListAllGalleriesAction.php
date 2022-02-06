@@ -3,12 +3,12 @@
 namespace App\Web\Actions\Gallery;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Gallery;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -18,7 +18,7 @@ class ListAllGalleriesAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

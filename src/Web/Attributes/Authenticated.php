@@ -18,6 +18,7 @@ class Authenticated
      */
     public function __construct(
         public string $role = '',
-    ) {
+    )
+    {
     }
 }

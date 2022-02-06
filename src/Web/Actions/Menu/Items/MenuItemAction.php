@@ -5,7 +5,6 @@ namespace App\Web\Actions\Menu\Items;
 use App\Database\Artist;
 use App\Database\BlogCategory;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Form;
 use App\Database\Gallery;
@@ -15,6 +14,7 @@ use App\Database\SimplePage;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 
 abstract class MenuItemAction extends Action
 {
@@ -25,6 +25,12 @@ abstract class MenuItemAction extends Action
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     public function fillMenuItem(MenuItem $menuItem = null): MenuItem
     {

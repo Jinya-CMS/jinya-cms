@@ -2,6 +2,7 @@
 
 namespace App\Web\Actions\SimplePage;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SimplePage;
 use App\Web\Actions\Action;
@@ -9,6 +10,8 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/page', JinyaAction::POST)]
@@ -22,8 +25,9 @@ class CreateSimplePageAction extends Action
      * @return Response
      * @throws ConflictException
      * @throws UniqueFailedException
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

@@ -4,13 +4,14 @@ namespace App\Web\Actions\Blog\Category;
 
 use App\Database\BlogCategory;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/category', JinyaAction::POST)]
@@ -22,9 +23,10 @@ class CreateCategoryAction extends Action
     /**
      * @return Response
      * @throws ConflictException
-     * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

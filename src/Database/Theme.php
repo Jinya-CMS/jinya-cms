@@ -2,13 +2,14 @@
 
 namespace App\Database;
 
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use stdClass;
 
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
@@ -25,32 +26,33 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      *
      * @return Theme|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function getActiveTheme(): ?Theme
     {
         $sql = 'SELECT t.id AS id, configuration, description, name, display_name, scss_variables FROM theme t JOIN configuration c on t.id = c.current_frontend_theme_id';
 
-        $result = self::executeStatement($sql);
-
-        if (count($result) === 0) {
-            return null;
-        }
-        return self::hydrateSingleResult(
-            $result[0],
-            new self(),
-            [
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
      * @inheritDoc
-     * @return Theme
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -72,16 +74,14 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     {
         $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE display_name LIKE :nameKeyword OR description LIKE :descKeyword';
 
-        $result = self::executeStatement($sql, ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['descKeyword' => "%$keyword%", 'nameKeyword' => "%$keyword%"], [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -89,7 +89,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'theme',
             new self(),
             [
@@ -105,27 +105,24 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @param string $name
      * @return Theme|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByName(string $name): ?Theme
     {
         $sql = 'SELECT id, configuration, description, name, display_name, scss_variables FROM theme WHERE name = :name';
 
-        $result = self::executeStatement($sql, ['name' => $name]);
-
-        if (count($result) === 0) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['name' => $name],
+                [
+                    'scssVariables' => new JsonStrategy(),
+                    'configuration' => new JsonStrategy(),
+                ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-        return self::hydrateSingleResult(
-            $result[0],
-            new self(),
-            [
-                'scssVariables' => new JsonStrategy(),
-                'configuration' => new JsonStrategy(),
-            ]
-        );
     }
 
     /**
@@ -149,6 +146,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFiles(): array
     {
@@ -165,11 +163,12 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
     /**
      * Gets all theme categories
      *
-     * @return array<string, BlogCategory|null>
+     * @return array
      *
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCategories(): array
     {
@@ -191,6 +190,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGalleries(): array
     {
@@ -212,6 +212,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getForms(): array
     {
@@ -233,6 +234,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getMenus(): array
     {
@@ -254,6 +256,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getSegmentPages(): array
     {
@@ -275,6 +278,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getPages(): array
     {

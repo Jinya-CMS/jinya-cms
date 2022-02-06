@@ -4,15 +4,18 @@ namespace App\Tests\Extensions;
 
 use App\Authentication\CurrentUser;
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use PHPUnit\Runner\BeforeTestHook;
 
 class CreateArtistHook implements BeforeTestHook
 {
 
     /**
-     * @throws \App\Database\Exceptions\ForeignKeyFailedException
-     * @throws \App\Database\Exceptions\UniqueFailedException
-     * @throws \App\Database\Exceptions\InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
      */
     public function executeBeforeTest(string $test): void
     {

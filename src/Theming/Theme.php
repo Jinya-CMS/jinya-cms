@@ -4,11 +4,14 @@ namespace App\Theming;
 
 use App\Database;
 use Exception;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use JShrink\Minifier;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
 
 class Theme implements ExtensionInterface
@@ -48,8 +51,9 @@ class Theme implements ExtensionInterface
      * Gets the currently activated theme
      *
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws NoResultException
      */
     public static function getActiveTheme(): Theme
     {
@@ -179,7 +183,7 @@ class Theme implements ExtensionInterface
 
     /**
      * Compiles the style cache of the given theme
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws SassException
      */
     public function compileStyleCache(): void
     {

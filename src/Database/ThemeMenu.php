@@ -7,6 +7,8 @@ use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -20,8 +22,10 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      * @param string $name
      * @return ThemeMenu|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeMenu
     {
@@ -34,7 +38,7 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      * @param int $themeId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
@@ -43,9 +47,11 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
     }
 
     /**
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape(['name' => "string", 'menu' => "array"])] public function format(): array
     {
@@ -61,11 +67,13 @@ class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
      * @return Menu|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getMenu(): ?Menu
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Menu::findById($this->menuId);
     }
 

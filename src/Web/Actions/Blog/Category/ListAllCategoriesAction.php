@@ -4,11 +4,11 @@ namespace App\Web\Actions\Blog\Category;
 
 use App\Database\BlogCategory;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/blog/category', JinyaAction::GET)]

@@ -3,6 +3,8 @@
 namespace App\Theming;
 
 use App\Database;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeSyncer
 {
@@ -10,15 +12,17 @@ class ThemeSyncer
 
     /**
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public function syncThemes(): void
     {
         $allThemes = iterator_to_array(Database\Theme::findAll());
         $themes = array_filter(
             array_diff(scandir(self::THEME_BASE_PATH), ['..', '.']),
-            static fn ($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
+            static fn($item) => is_dir(self::THEME_BASE_PATH . $item) && is_file(
                     self::THEME_BASE_PATH . "$item/theme.php"
                 )
         );
@@ -27,7 +31,7 @@ class ThemeSyncer
             $dir = self::THEME_BASE_PATH . $dir;
             /** @noinspection PhpIncludeInspection */
             $config = require "$dir/theme.php";
-            if (0 === count(array_filter($allThemes, static fn (Database\Theme $theme) => $theme->name === $name))) {
+            if (0 === count(array_filter($allThemes, static fn(Database\Theme $theme) => $theme->name === $name))) {
                 $dbTheme = new Database\Theme();
                 $dbTheme->configuration = [];
                 $dbTheme->scssVariables = [];
@@ -40,7 +44,7 @@ class ThemeSyncer
 
         $nonExistingThemes = array_filter(
             $allThemes,
-            static fn (Database\Theme $theme) => !in_array($theme->name, $themes, true)
+            static fn(Database\Theme $theme) => !in_array($theme->name, $themes, true)
         );
 
         $activeTheme = Database\Theme::getActiveTheme();

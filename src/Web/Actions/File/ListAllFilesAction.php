@@ -3,13 +3,12 @@
 namespace App\Web\Actions\File;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
-use JsonException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/media/file', JinyaAction::GET)]
@@ -18,7 +17,7 @@ class ListAllFilesAction extends Action
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException

@@ -4,6 +4,8 @@ namespace App\Database;
 
 use Exception;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use LogicException;
 use RuntimeException;
@@ -46,54 +48,46 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @param int $position
      * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByMenuAndPosition(int $menuId, int $position): ?MenuItem
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE menu_id = :id AND position = :position';
 
-        $result = self::executeStatement(
-            $sql,
-            [
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
                 'id' => $menuId,
                 'position' => $position,
-            ]
-        );
-
-        if (0 === count($result)) {
-            return null;
+            ], ['highlighted' => new BooleanStrategy(1, 0)]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
      * Finds a menu item by its parent menu item and the position
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByMenuItemAndPosition(int $menuItemId, int $position): ?MenuItem
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id AND position = :position';
 
-        $result =
-            self::executeStatement(
-                $sql,
-                [
-                    'id' => $menuItemId,
-                    'position' => $position,
-                ]
-            );
-
-        if (0 === count($result)) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
+                'id' => $menuItemId,
+                'position' => $position,
+            ], ['highlighted' => new BooleanStrategy(1, 0)]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
     }
 
     /**
@@ -104,38 +98,38 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @return MenuItem|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByRoute(?string $route): ?MenuItem
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE route = :route OR route = :routeWithTrailingSlash';
-        $result =
-            self::executeStatement(
-                $sql,
-                [
-                    'route' => $route,
-                    'routeWithTrailingSlash' => "/$route",
-                ]
-            );
-        if (0 === count($result)) {
-            return null;
-        }
 
-        return self::hydrateSingleResult($result[0], new self(), ['highlighted' => new BooleanStrategy(1, 0)]);
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
+                'route' => $route,
+                'routeWithTrailingSlash' => "/$route",
+            ], ['highlighted' => new BooleanStrategy(1, 0)]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
      * Gets the parent
      *
+     * @return MenuItem|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getParent(): ?MenuItem
     {
         if ($this->parentId !== null) {
+            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return self::findById($this->parentId);
         }
 
@@ -144,7 +138,12 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
 
     /**
      * {@inheritDoc}
-     * @return MenuItem
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -154,13 +153,16 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the menu
      *
+     * @return Menu|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getMenu(): ?Menu
     {
         if ($this->menuId !== null) {
+            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return Menu::findById($this->menuId);
         }
 
@@ -180,7 +182,7 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      */
     private function rearrange(int $position): void
     {
@@ -200,15 +202,6 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * {@inheritDoc}
      */
-    public function delete(): void
-    {
-        $this->internalDelete('menu_item');
-        $this->rearrange(-1);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function update(bool $rearrange = true): void
     {
         if ($rearrange) {
@@ -216,6 +209,15 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
         }
 
         $this->internalUpdate('menu_item', ['highlighted' => new BooleanStrategy(1, 0), 'blogHomePage' => new BooleanStrategy(1, 0)]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(): void
+    {
+        $this->internalDelete('menu_item');
+        $this->rearrange(-1);
     }
 
     /**
@@ -229,9 +231,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Formats the menu items below this recursive
      *
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function formatRecursive(): array
     {
@@ -244,9 +248,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Formats the given menu item
      *
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      * @noinspection NullPointerExceptionInspection
      */
     public function format(): array
@@ -305,9 +311,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated form
      *
+     * @return Form|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getForm(): ?Form
     {
@@ -319,27 +327,13 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     }
 
     /**
-     * Gets the associated category
-     *
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     */
-    public function getBlogCategory(): ?BlogCategory
-    {
-        if (null === $this->categoryId) {
-            return null;
-        }
-
-        return BlogCategory::findById($this->categoryId);
-    }
-
-    /**
      * Gets the associated artist
      *
+     * @return Artist|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getArtist(): ?Artist
     {
@@ -353,9 +347,11 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * Gets the associated page
      *
+     * @return SimplePage|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getPage(): ?SimplePage
     {
@@ -363,15 +359,18 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SimplePage::findById($this->pageId);
     }
 
     /**
      * Gets the associated segment page
      *
+     * @return SegmentPage|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getSegmentPage(): ?SegmentPage
     {
@@ -379,15 +378,18 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SegmentPage::findById($this->segmentPageId);
     }
 
     /**
      * Gets the associated gallery
      *
+     * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
@@ -395,7 +397,26 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
             return null;
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
+    }
+
+    /**
+     * Gets the associated category
+     *
+     * @return BlogCategory|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     */
+    public function getBlogCategory(): ?BlogCategory
+    {
+        if (null === $this->categoryId) {
+            return null;
+        }
+
+        return BlogCategory::findById($this->categoryId);
     }
 
     /**
@@ -404,8 +425,9 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * @param Iterator $iterator
      * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
      */
     private function formatIterator(Iterator $iterator): array
     {
@@ -422,15 +444,17 @@ class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the menu items
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getItems(): Iterator
     {
         $sql = 'SELECT id, menu_id, parent_id, title, highlighted, position, artist_id, page_id, form_id, gallery_id, category_id, segment_page_id, route, blog_home_page FROM menu_item WHERE parent_id = :id ORDER BY position';
 
-        $result = self::executeStatement($sql, ['id' => $this->id]);
-
-        return self::hydrateMultipleResults($result, new self());
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['id' => $this->id]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 }

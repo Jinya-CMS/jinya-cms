@@ -3,12 +3,22 @@
 namespace App\Web\Actions\Blog\Post;
 
 use App\Database\BlogPost;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Logging\Logger;
 use Exception;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use League\Uri\Http as HttpUri;
 
 trait PostActionHelper
 {
+    /**
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws NoResultException
+     */
     protected function executeHook(BlogPost $post, string $host): void
     {
         $logger = Logger::getLogger();

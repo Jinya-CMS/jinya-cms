@@ -5,6 +5,8 @@ namespace App\Database;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeAsset extends ThemeHelperEntity
 {
@@ -15,8 +17,10 @@ class ThemeAsset extends ThemeHelperEntity
      * Finds a page by name and theme
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeAsset
     {
@@ -27,7 +31,7 @@ class ThemeAsset extends ThemeHelperEntity
      * Finds the pages for the given theme
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator

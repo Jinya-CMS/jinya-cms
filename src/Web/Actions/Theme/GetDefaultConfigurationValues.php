@@ -7,6 +7,7 @@ use App\Theming;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/theme/{id}/configuration/default', JinyaAction::GET)]
@@ -17,9 +18,10 @@ class GetDefaultConfigurationValues extends ThemeAction
      * {@inheritDoc}
      * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
      * @throws NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

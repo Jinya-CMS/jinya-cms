@@ -7,6 +7,8 @@ use App\Database\Utils\LoadableEntity;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 class File extends LoadableEntity
@@ -21,7 +23,12 @@ class File extends LoadableEntity
 
     /**
      * @inheritDoc
-     * @return File
+     * @param int $id
+     * @return object|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public static function findById(int $id): ?object
     {
@@ -42,16 +49,15 @@ class File extends LoadableEntity
     public static function findByKeyword(string $keyword): Iterator
     {
         $sql = 'SELECT id, creator_id, updated_by_id, created_at, last_updated_at, path, name, type FROM file WHERE name LIKE :keyword';
-        $result = self::executeStatement($sql, ['keyword' => "%$keyword%"]);
 
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['keyword' => "%$keyword%"], [
                 'createdAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
                 'lastUpdatedAt' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+            ]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -59,7 +65,7 @@ class File extends LoadableEntity
      */
     public static function findAll(): Iterator
     {
-        return self::fetchArray(
+        return self::fetchAllIterator(
             'file',
             new self(),
             [
@@ -74,7 +80,7 @@ class File extends LoadableEntity
      *
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public function getUploadChunks(): Iterator
@@ -127,9 +133,11 @@ class File extends LoadableEntity
     }
 
     /**
-     * @throws Exceptions\UniqueFailedException
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'id' => "int",
@@ -173,8 +181,9 @@ class File extends LoadableEntity
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getCreator(): ?Artist
     {
@@ -187,8 +196,9 @@ class File extends LoadableEntity
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getUpdatedBy(): ?Artist
     {

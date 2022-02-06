@@ -3,17 +3,19 @@
 namespace App\Web\Actions\Theme;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Theming\ThemeSyncer;
 use App\Web\Actions\Action;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 abstract class ThemeAction extends Action
 {
     /**
-     * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws NoResultException
      */
     protected function syncThemes(): void
     {

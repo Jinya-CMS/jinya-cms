@@ -16,14 +16,14 @@ there was a new successful login for your account.
 The login was from the IP address <?= $this->e($remoteAddress) ?>.
 <?php
 if (array_key_exists('city', $location) && !empty($location['city'])): ?>
-Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region_name']) ?> in <?= $this->e(
+    Which is located at, <?= $this->e($location['city']) ?>, <?= $this->e($location['region_name']) ?> in <?= $this->e(
         $location['country_name']
     ) ?>.
 <?php
 endif ?>
 <?php
 if (!empty($browser)): ?>
-The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
+    The browser used was <?= $this->e($browser) ?> on <?= $this->e($platform) ?>
 <?php
 endif ?>
 

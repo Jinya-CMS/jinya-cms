@@ -3,8 +3,8 @@
 namespace App\Web\Actions;
 
 use App\Database\Utils\FormattableEntityInterface;
-use App\Storage\StorageBaseService;
 use App\Logging\Logger;
+use App\Storage\StorageBaseService;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Nyholm\Psr7\Stream;
@@ -78,36 +78,30 @@ abstract class Action
     public const HTTP_LOOP_DETECTED = 508;
     public const HTTP_NOT_EXTENDED = 510;
     public const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected LoggerInterface $logger;
-
-    /**
-     * @var Request
-     */
-    protected Request $request;
-
-    /**
-     * @var Response
-     */
-    protected Response $response;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $args;
-
-    /**
-     * @var array<string, mixed>|null
-     */
-    protected array|null $body;
-
     /**
      * @var array<string, mixed>
      */
     public array $queryParams;
+    /**
+     * @var LoggerInterface
+     */
+    protected LoggerInterface $logger;
+    /**
+     * @var Request
+     */
+    protected Request $request;
+    /**
+     * @var Response
+     */
+    protected Response $response;
+    /**
+     * @var array<string, mixed>
+     */
+    protected array $args;
+    /**
+     * @var array<string, mixed>|null
+     */
+    protected array|null $body;
 
     /**
      */

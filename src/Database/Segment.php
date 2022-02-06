@@ -4,6 +4,8 @@ namespace App\Database;
 
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
@@ -48,26 +50,23 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * @param int $position
      * @return Segment|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByPosition(int $id, int $position): ?Segment
     {
         $sql = 'SELECT id, page_id, form_id, gallery_id, file_id, position, html, action, script, target FROM segment WHERE page_id = :id AND position = :position';
-        $result = self::executeStatement(
-            $sql,
-            [
+
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), [
                 'id' => $id,
                 'position' => $position
-            ]
-        );
-
-        if (count($result) === 0) {
-            return null;
+            ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -75,11 +74,13 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      *
      * @return File|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFile(): ?File
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 
@@ -88,8 +89,9 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      *
      * @return Form|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getForm(): ?Form
     {
@@ -101,11 +103,13 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      *
      * @return Gallery|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getGallery(): ?Gallery
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Gallery::findById($this->galleryId);
     }
 
@@ -115,18 +119,22 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
      * @return SegmentPage|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getSegmentPage(): ?SegmentPage
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return SegmentPage::findById($this->pageId);
     }
 
     /**
-     * @throws Exceptions\UniqueFailedException
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape([
         'position' => "int",
@@ -202,18 +210,18 @@ class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntit
     /**
      * @inheritDoc
      */
-    public function update(): void
-    {
-        $this->internalUpdate('segment');
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function move(int $newPosition): void
     {
         $this->internalRearrange('segment', 'page_id', $this->pageId, $newPosition);
         $this->update();
         $this->resetOrder('segment', 'page_id', $this->pageId);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(): void
+    {
+        $this->internalUpdate('segment');
     }
 }

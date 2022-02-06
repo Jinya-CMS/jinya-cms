@@ -6,6 +6,8 @@ use App\Database;
 use App\Database\MenuItem;
 use App\Theming;
 use App\Web\Actions\Action;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Nyholm\Psr7\Response;
@@ -29,9 +31,13 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
 
     /**
      * {@inheritDoc}
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -93,7 +99,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
     /**
      * @throws Database\Exceptions\UniqueFailedException
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws Database\Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      */
     public function checkMenuItem(MenuItem $menuItem, string $path): bool|int|float
     {

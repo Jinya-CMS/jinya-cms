@@ -5,7 +5,6 @@ namespace App\Web\Actions\Artist;
 use App\Database\Artist;
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
@@ -13,7 +12,7 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\CreatedContentException;
 use App\Web\Exceptions\NoResultException;
-use JsonException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/user/{id}', JinyaAction::DELETE)]
@@ -22,13 +21,14 @@ class DeleteArtistAction extends Action
 {
     /**
      * {@inheritDoc}
+     * @return Response
      * @throws ConflictException
      * @throws CreatedContentException
-     * @throws JsonException
-     * @throws NoResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

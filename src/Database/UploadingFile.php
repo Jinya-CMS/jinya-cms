@@ -6,6 +6,8 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Utils\UuidGenerator;
 use Exception;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
 class UploadingFile extends Utils\LoadableEntity
@@ -13,20 +15,21 @@ class UploadingFile extends Utils\LoadableEntity
     public int $fileId;
 
     /**
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByFile(int $fileId): ?UploadingFile
     {
         $sql = 'SELECT id, file_id FROM uploading_file WHERE file_id = :fileId';
-        $result = self::executeStatement($sql, ['fileId' => $fileId]);
 
-        if (0 === count($result)) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['fileId' => $fileId]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-        /* @noinspection PhpIncompatibleReturnTypeInspection */
-        return self::hydrateSingleResult($result[0], new self());
     }
 
     /**
@@ -57,7 +60,7 @@ class UploadingFile extends Utils\LoadableEntity
     /**
      * Gets all chunks
      *
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
      */
@@ -69,14 +72,15 @@ class UploadingFile extends Utils\LoadableEntity
     /**
      * Gets the corresponding file
      *
-     * @throws Exceptions\InvalidQueryException
+     * @return File|null
      * @throws Exceptions\UniqueFailedException
      * @throws ForeignKeyFailedException
-     *
-     * @return File|null
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getFile(): ?File
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return File::findById($this->fileId);
     }
 

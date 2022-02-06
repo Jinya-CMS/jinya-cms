@@ -26,13 +26,13 @@ class DatabaseAnalyzerAction extends Action
         return $this->respond(
             [
                 'tables' => $tables,
-                    'server' => $server,
-                    'variables' => [
-                        'local' => $localVariables,
-                        'session' => $sessionVariables,
-                        'global' => $globalVariables,
-                    ],
+                'server' => $server,
+                'variables' => [
+                    'local' => $localVariables,
+                    'session' => $sessionVariables,
+                    'global' => $globalVariables,
                 ],
-            );
+            ],
+        );
     }
 }

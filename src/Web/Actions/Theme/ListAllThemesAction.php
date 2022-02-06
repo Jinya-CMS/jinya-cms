@@ -3,11 +3,12 @@
 namespace App\Web\Actions\Theme;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -17,10 +18,11 @@ class ListAllThemesAction extends ThemeAction
 {
     /**
      * {@inheritDoc}
-     * @throws JsonException
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

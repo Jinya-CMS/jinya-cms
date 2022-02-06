@@ -5,13 +5,14 @@ namespace App\Web\Actions\MyJinya;
 use App\Database\Artist;
 use App\Database\Exceptions\EmptyResultException;
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\ProfilePictureService;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Middleware\AuthenticationMiddleware;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -20,11 +21,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 class UpdateProfilePictureAction extends Action
 {
     /**
+     * @return Response
      * @throws EmptyResultException
-     * @throws JsonException
-     * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws UniqueFailedException
+     * @throws NoResultException
      */
     protected function action(): Response
     {

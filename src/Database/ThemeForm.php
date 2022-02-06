@@ -7,6 +7,8 @@ use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
 {
@@ -20,8 +22,10 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      * @param string $name
      * @return ThemeForm|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ?ThemeForm
     {
@@ -34,7 +38,7 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      * @param int $themeId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
      */
     public static function findByTheme(int $themeId): Iterator
@@ -43,9 +47,11 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
     }
 
     /**
+     * @return array
      * @throws Exceptions\ForeignKeyFailedException
      * @throws Exceptions\UniqueFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     #[ArrayShape(['name' => "string", 'form' => "array"])] public function format(): array
     {
@@ -61,8 +67,9 @@ class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
      * @return Form|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getForm(): ?Form
     {

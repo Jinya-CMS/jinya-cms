@@ -3,7 +3,6 @@
 namespace App\Web\Actions\SegmentPage\Segments;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Segment;
 use App\Database\SegmentPage;
@@ -12,6 +11,7 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/segment-page/{id}/segment/html', JinyaAction::POST)]
@@ -26,6 +26,8 @@ class CreateHtmlSegmentAction extends Action
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

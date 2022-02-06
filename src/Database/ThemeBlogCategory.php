@@ -3,10 +3,11 @@
 namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 
 class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\FormattableEntityInterface
 {
@@ -19,6 +20,8 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\Formatt
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByThemeAndName(int $themeId, string $name): ThemeBlogCategory|null
     {
@@ -63,9 +66,10 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\Formatt
 
     /**
      * @return array{blogCategory: array{description: null|string, id: int, name: string, parent: array<array-key, mixed>|null}|null, name: string}
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      */
     #[ArrayShape(['name' => "string", 'blogCategory' => "array"])]
     public function format(): array
@@ -80,6 +84,7 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\Formatt
      * @return BlogCategory|null
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
      */
     public function getBlogCategory(): BlogCategory|null

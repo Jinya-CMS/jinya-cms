@@ -7,6 +7,8 @@ use DateTime;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
@@ -32,23 +34,20 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
      * @param string $apiKey
      * @return ApiKey|null
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByApiKey(string $apiKey): ?ApiKey
     {
         $sql = "SELECT api_key, user_id, valid_since, user_agent, remote_address FROM api_key WHERE api_key = :apiKey";
-        $result = self::executeStatement($sql, ['apiKey' => $apiKey]);
 
-        if (count($result) === 0) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(), ['apiKey' => $apiKey], ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult(
-            $result[0],
-            new self(),
-            ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]
-        );
     }
 
     /**
@@ -73,22 +72,18 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
      * @param int $artistId
      * @return Iterator
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      */
     public static function findByArtist(int $artistId): Iterator
     {
         $sql = 'SELECT * FROM api_key WHERE user_id = :artistId';
 
-        $result = self::executeStatement($sql, ['artistId' => $artistId]);
-
-        return self::hydrateMultipleResults(
-            $result,
-            new self(),
-            [
-                'validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
-            ]
-        );
+        try {
+            return self::getPdo()->fetchIterator($sql, new self(), ['artistId' => $artistId], ['validSince' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT)]);
+        } catch (InvalidQueryException $exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
+        }
     }
 
     /**
@@ -107,8 +102,9 @@ class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
      * @return Artist|null
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
      * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getArtist(): ?Artist
     {

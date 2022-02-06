@@ -5,6 +5,7 @@ namespace App\Web\Actions\Version;
 use App\Web\Actions\Update\UpdateAction;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/version', JinyaAction::GET)]
@@ -13,7 +14,7 @@ class GetVersionInfo extends UpdateAction
 {
     /**
      * {@inheritDoc}
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected function action(): Response
     {

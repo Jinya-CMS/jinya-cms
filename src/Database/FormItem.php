@@ -5,6 +5,8 @@ namespace App\Database;
 use App\Database\Strategies\JsonStrategy;
 use Iterator;
 use JetBrains\PhpStorm\Pure;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use RuntimeException;
 
@@ -49,41 +51,36 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
      * Gets the form item at the given position in the given form
      *
      * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
+     * @throws InvalidQueryException
      * @throws Exceptions\UniqueFailedException
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @throws NoResultException
+     * @throws NoResultException
      */
     public static function findByPosition(int $id, int $position): ?FormItem
     {
         $sql = 'SELECT id, form_id, type, options, spam_filter, label, help_text, position, is_from_address, is_subject, is_required, placeholder FROM form_item WHERE form_id = :id AND position = :position';
 
-        $result = self::executeStatement(
-            $sql,
-            [
-                'id' => $id,
-                'position' => $position,
-            ]
-        );
-        if (0 === count($result)) {
-            return null;
+        try {
+            return self::getPdo()->fetchObject($sql, new self(),
+                [
+                    'id' => $id,
+                    'position' => $position,
+                ],
+                [
+                    'spamFilter' => new JsonStrategy(),
+                    'options' => new JsonStrategy(),
+                ]);
+        } catch (InvalidQueryException$exception) {
+            throw self::convertInvalidQueryExceptionToException($exception);
         }
-
-        return self::hydrateSingleResult(
-            $result[0],
-            new self(),
-            [
-                'spamFilter' => new JsonStrategy(),
-                'options' => new JsonStrategy(),
-            ]
-        );
     }
 
     /**
-     * @throws Exceptions\ForeignKeyFailedException
-     * @throws Exceptions\InvalidQueryException
-     * @throws Exceptions\UniqueFailedException
-     *
      * @return Form|null
+     * @throws Exceptions\ForeignKeyFailedException
+     * @throws Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws NoResultException
      */
     public function getForm(): ?Form
     {
@@ -139,6 +136,17 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
     /**
      * {@inheritDoc}
      */
+    public function move(int $newPosition): void
+    {
+        $this->internalRearrange('form_item', 'form_id', $this->formId, $newPosition);
+        $this->position = $newPosition;
+        $this->update();
+        $this->resetOrder('form_item', 'form_id', $this->formId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function update(): void
     {
         $this->internalUpdate(
@@ -151,16 +159,5 @@ class FormItem extends Utils\RearrangableEntity implements Utils\FormattableEnti
                 'isSubject' => new BooleanStrategy(1, 0),
             ]
         );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function move(int $newPosition): void
-    {
-        $this->internalRearrange('form_item', 'form_id', $this->formId, $newPosition);
-        $this->position = $newPosition;
-        $this->update();
-        $this->resetOrder('form_item', 'form_id', $this->formId);
     }
 }

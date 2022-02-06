@@ -3,11 +3,12 @@
 namespace App\Web\Actions\Frontend;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
-use App\Database\Exceptions\InvalidQueryException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use App\Messaging\FormMessageHandler;
 use App\Web\Exceptions\MissingFieldsException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -19,6 +20,9 @@ class PostFrontAction extends FrontAction
      * @throws InvalidQueryException
      * @throws UniqueFailedException
      * @throws Exception
+     * @throws NoResultException
+     * @throws NoResultException
+     * @throws NoResultException
      */
     protected function protectedAction(): Response
     {
