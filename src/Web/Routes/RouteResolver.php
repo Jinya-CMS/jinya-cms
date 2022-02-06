@@ -11,6 +11,7 @@ use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\CheckRequiredOneOfFieldsMiddleware;
 use App\Web\Middleware\RoleMiddleware;
+use Iterator;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
@@ -19,6 +20,25 @@ use Slim\Routing\RouteCollectorProxy;
 
 class RouteResolver
 {
+
+    /**
+     * @return Iterator<JinyaAction>
+     * @throws ReflectionException
+     */
+    public function getRoutes(): Iterator
+    {
+        $classes = ClassResolver::loadClasses(__ROOT__ . '/src/Web/Actions');
+        foreach ($classes as $class) {
+            $reflectionClass = new ReflectionClass($class);
+            $parentClass = $reflectionClass->getParentClass();
+            if ($parentClass && str_ends_with($parentClass->getName(), 'Action')) {
+                foreach ($reflectionClass->getAttributes(JinyaAction::class) as $item) {
+                    yield $item->newInstance();
+                }
+            }
+        }
+    }
+
     /**
      * @throws ReflectionException
      */

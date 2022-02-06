@@ -14,14 +14,7 @@ class RoutesCommand extends AbstractCommand
     {
         $routeResolver = new RouteResolver();
         try {
-            $routes = $routeResolver->getRoutes();
-            $actions = [];
-            foreach ($routes as $route) {
-                foreach ($route->getActions() as $action) {
-                    /** @var JinyaAction $action */
-                    $actions[] = $action;
-                }
-            }
+            $actions = iterator_to_array($routeResolver->getRoutes());
 
             usort($actions, static fn(JinyaAction $a, JinyaAction $b) => strcmp($a->method, $b->method));
             usort($actions, static fn(JinyaAction $a, JinyaAction $b) => strcmp($a->url, $b->url));
