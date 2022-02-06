@@ -101,7 +101,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Securely sets the two factor code
+     * Securely sets the two-factor code
      *
      * @throws Exception
      */

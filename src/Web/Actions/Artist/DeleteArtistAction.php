@@ -40,9 +40,9 @@ class DeleteArtistAction extends Action
 
         try {
             $artist->delete();
-        } catch (InvalidQueryException $exception) {
+        } catch (InvalidQueryException) {
             throw new CreatedContentException($this->request, 'Cannot delete user, has created content');
-        } catch (DeleteLastAdminException $exception) {
+        } catch (DeleteLastAdminException) {
             throw new ConflictException($this->request, 'Cannot delete last admin');
         }
 

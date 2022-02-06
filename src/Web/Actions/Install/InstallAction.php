@@ -6,6 +6,7 @@ use App\Web\Actions\Action;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 abstract class InstallAction extends Action
 {
@@ -28,6 +29,7 @@ abstract class InstallAction extends Action
      * @param array $data
      * @param int $statusCode
      * @return Response
+     * @throws Throwable
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {

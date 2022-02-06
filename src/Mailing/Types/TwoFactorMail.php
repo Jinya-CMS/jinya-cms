@@ -5,6 +5,7 @@ namespace App\Mailing\Types;
 use App\Mailing\Factory\MailerFactory;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
+use Throwable;
 
 class TwoFactorMail
 {
@@ -21,7 +22,11 @@ class TwoFactorMail
     /**
      * Sends the two factor email
      *
+     * @param string $artistEmail
+     * @param string $artistName
+     * @param string $twoFactorCode
      * @throws Exception
+     * @throws Throwable
      */
     public function sendMail(string $artistEmail, string $artistName, string $twoFactorCode): void
     {

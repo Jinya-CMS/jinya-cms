@@ -9,7 +9,6 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Exception;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use ScssPhp\ScssPhp\Exception\SassException;
 

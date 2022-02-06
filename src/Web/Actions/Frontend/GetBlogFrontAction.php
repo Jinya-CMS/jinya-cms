@@ -9,6 +9,7 @@ use App\Web\Attributes\JinyaAction;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 #[JinyaAction('/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}', JinyaAction::GET)]
 class GetBlogFrontAction extends FrontAction
@@ -17,10 +18,11 @@ class GetBlogFrontAction extends FrontAction
     /**
      * @inheritDoc
      * @return Response
-     * @throws InvalidQueryException
      * @throws ForeignKeyFailedException
-     * @throws UniqueFailedException
+     * @throws InvalidQueryException
      * @throws NoResultException
+     * @throws UniqueFailedException
+     * @throws Throwable
      */
     protected function protectedAction(): Response
     {

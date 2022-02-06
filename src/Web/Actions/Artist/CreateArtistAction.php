@@ -35,7 +35,7 @@ class CreateArtistAction extends Action
         $artist->artistName = $body['artistName'];
         try {
             $artist->create();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Email exists');
         }
 

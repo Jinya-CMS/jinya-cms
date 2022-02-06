@@ -11,18 +11,19 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 class PostFrontAction extends FrontAction
 {
     /**
      * {@inheritDoc}
+     * @return Response
+     * @throws Exception
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
      * @throws UniqueFailedException
-     * @throws Exception
-     * @throws NoResultException
-     * @throws NoResultException
-     * @throws NoResultException
+     * @throws Throwable
      */
     protected function protectedAction(): Response
     {

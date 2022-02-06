@@ -12,6 +12,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ServerRequestInterface;
+use Throwable;
 
 class FormMessageHandler
 {
@@ -35,6 +36,7 @@ class FormMessageHandler
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws MissingFieldsException
+     * @throws Throwable
      * @throws UniqueFailedException
      */
     public function handleFormPost(Form $form, array $body, ServerRequestInterface $request): void
@@ -102,6 +104,9 @@ class FormMessageHandler
         return false;
     }
 
+    /**
+     * @throws Throwable
+     */
     public function renderTemplate(array $data, string $title): string
     {
         $this->engine->addFolder('messaging', __DIR__ . '/Templates');

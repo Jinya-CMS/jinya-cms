@@ -11,7 +11,6 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\ConflictException;
 use App\Web\Exceptions\NoResultException;
-use HipsterJazzbo\FireAndForget\FireAndForget;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 

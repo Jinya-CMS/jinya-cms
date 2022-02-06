@@ -10,6 +10,7 @@ use Jenssegers\Agent\Agent;
 use JsonException;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
+use Throwable;
 
 class NewLoginMail
 {
@@ -30,8 +31,9 @@ class NewLoginMail
      * @param string $artistName
      * @param ApiKey $apiKey
      * @throws Exception
-     * @throws JsonException
      * @throws GuzzleException
+     * @throws JsonException
+     * @throws Throwable
      */
     public function sendMail(string $artistEmail, string $artistName, ApiKey $apiKey): void
     {

@@ -14,6 +14,9 @@ class PostInstallerAction extends InstallAction
 {
     /**
      * {@inheritDoc}
+     * @throws Throwable
+     * @throws Throwable
+     * @throws Throwable
      */
     protected function action(): Response
     {

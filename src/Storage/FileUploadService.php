@@ -101,6 +101,7 @@ class FileUploadService extends StorageBaseService
             }
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $file;
     }
 

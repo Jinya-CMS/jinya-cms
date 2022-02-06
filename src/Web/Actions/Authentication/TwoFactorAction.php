@@ -10,8 +10,10 @@ use App\Web\Actions\Action;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Attributes\RequiredFields;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 #[JinyaAction('/api/2fa', JinyaAction::POST)]
 #[RequiredFields(['username', 'password'])]
@@ -32,11 +34,12 @@ class TwoFactorAction extends Action
     /**
      * @inheritDoc
      * @return Response
+     * @throws Exception
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws UniqueFailedException
-     * @throws Exception
-     * @throws \Exception
+     * @throws NoResultException
+     * @throws Throwable
      */
     protected function action(): Response
     {

@@ -52,7 +52,7 @@ class UpdateArtistAction extends Action
         }
         try {
             $artist->update();
-        } catch (UniqueFailedException $exception) {
+        } catch (UniqueFailedException) {
             throw new ConflictException($this->request, 'Email exists');
         }
 

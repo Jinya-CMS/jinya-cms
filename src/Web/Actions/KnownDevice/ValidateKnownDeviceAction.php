@@ -10,7 +10,6 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\BadCredentialsException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/known_device/{key}', JinyaAction::HEAD)]

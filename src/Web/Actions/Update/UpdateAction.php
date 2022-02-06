@@ -7,6 +7,7 @@ use JsonException;
 use League\Plates\Engine;
 use League\Plates\Extension\URI;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 abstract class UpdateAction extends Action
 {
@@ -29,6 +30,7 @@ abstract class UpdateAction extends Action
      * @param array $data
      * @param int $statusCode
      * @return Response
+     * @throws Throwable
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {

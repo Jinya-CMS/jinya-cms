@@ -13,7 +13,6 @@ use App\Web\Attributes\JinyaAction;
 use App\Web\Middleware\AuthenticationMiddleware;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
-use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 #[JinyaAction('/api/me/profilepicture', JinyaAction::PUT)]

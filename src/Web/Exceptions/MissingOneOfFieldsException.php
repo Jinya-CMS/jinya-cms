@@ -18,7 +18,7 @@ class MissingOneOfFieldsException extends HttpException implements JsonSerializa
         $this->fields = $fields;
     }
 
-    #[ArrayShape(['success' => "false", 'fields' => "array"])] public function jsonSerialize()
+    #[ArrayShape(['success' => "false", 'fields' => "array"])] public function jsonSerialize(): array
     {
         return [
             'success' => false,

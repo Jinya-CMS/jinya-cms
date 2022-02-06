@@ -71,9 +71,10 @@ class Theme implements ExtensionInterface
     /**
      * Registers the theme in the engine
      *
+     * @param Engine $engine
      * @return void
      */
-    public function register(Engine $engine)
+    public function register(Engine $engine): void
     {
         $engine->addFolder('theme', ThemeSyncer::THEME_BASE_PATH . $this->dbTheme->name);
 

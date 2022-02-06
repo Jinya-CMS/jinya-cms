@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "5e5f82e4f8cca4ada821ed37ce20102e",
-    "packages": [
-        {
-            "name": "fakerphp/faker",
-            "version": "v1.19.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "6d33731ccc2c941dc292fa6094f4cebd",
+  "packages": [
+    {
+      "name": "fakerphp/faker",
+      "version": "v1.19.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/FakerPHP/Faker.git",
+        "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/d7f08a622b3346766325488aa32ddc93ccdecc75",
                 "reference": "d7f08a622b3346766325488aa32ddc93ccdecc75",
@@ -684,32 +684,33 @@
             },
             "time": "2022-02-06T03:16:16+00:00"
         },
-        {
-            "name": "jinya/plates",
-            "version": "3.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Jinya-CMS/plates.git",
-                "reference": "f7c59d4595aa719e3c6fc36098855ffa21b9b115"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Jinya-CMS/plates/zipball/f7c59d4595aa719e3c6fc36098855ffa21b9b115",
-                "reference": "f7c59d4595aa719e3c6fc36098855ffa21b9b115",
-                "shasum": ""
-            },
+    {
+      "name": "jinya/plates",
+      "version": "4.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Jinya-CMS/plates.git",
+        "reference": "87637f8be06ead3a1ce469f9ecc6fd96a53a714e"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Jinya-CMS/plates/zipball/87637f8be06ead3a1ce469f9ecc6fd96a53a714e",
+        "reference": "87637f8be06ead3a1ce469f9ecc6fd96a53a714e",
+        "shasum": ""
+      },
             "require": {
-                "php": "^5.3 | ^7.0 | ^8.0"
+              "jetbrains/phpstorm-attributes": "1.0",
+              "php": "^8.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "^1.4",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
+              "mikey179/vfsstream": "^1.6",
+              "phpunit/phpunit": "^9.5.0",
+              "squizlabs/php_codesniffer": "~1.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.5-dev"
+                  "dev-main": "4.1-dev"
                 }
             },
             "autoload": {
@@ -722,26 +723,37 @@
                 "MIT"
             ],
             "authors": [
-                {
-                    "name": "Imanuel Ulbricht",
-                    "email": "imanuel.ulbricht@jinya.de",
-                    "role": "Developer"
-                }
+              {
+                "name": "Imanuel Ulbricht",
+                "email": "imanuel.ulbricht@jinya.de",
+                "role": "Developer"
+              },
+              {
+                "name": "Jonathan Reinink",
+                "email": "jonathan@reinink.ca",
+                "role": "Previous Developer"
+              },
+              {
+                "name": "RJ Garcia",
+                "email": "rj@bighead.net",
+                "role": "Previous Developer"
+              }
             ],
-            "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
-            "homepage": "https://plates.jinya.de",
-            "keywords": [
-                "jinya",
-                "league",
-                "package",
-                "templates",
-                "templating",
-                "views"
-            ],
-            "support": {
-                "source": "https://github.com/Jinya-CMS/plates/tree/3.4.0"
-            },
-            "time": "2020-12-11T20:46:56+00:00"
+      "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
+      "homepage": "https://plates.jinya.dev",
+      "keywords": [
+        "jinya",
+        "league",
+        "package",
+        "templates",
+        "templating",
+        "views"
+      ],
+      "support": {
+        "issues": "https://github.com/Jinya-CMS/plates/issues",
+        "source": "https://github.com/Jinya-CMS/plates/tree/4.0.0"
+      },
+      "time": "2022-02-06T06:26:27+00:00"
         },
         {
             "name": "laminas/laminas-hydrator",

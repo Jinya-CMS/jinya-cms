@@ -230,7 +230,7 @@ abstract class LoadableEntity
     }
 
     /**
-     * Fetches all data in a table and creates a array
+     * Fetches all data in a table and creates an array
      *
      * @param string $table
      * @param mixed $prototype

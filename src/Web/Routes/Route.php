@@ -31,16 +31,19 @@ class Route
 
     public function getAuthenticatedAttribute(): ?Authenticated
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->authenticatedAttributes?->newInstance();
     }
 
     public function getRequiredFieldsAttribute(): ?RequiredFields
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->requiredFieldsAttributes?->newInstance();
     }
 
     public function getRequireOneFieldAttribute(): ?RequireOneField
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->requireOneFieldAttributes?->newInstance();
     }
 

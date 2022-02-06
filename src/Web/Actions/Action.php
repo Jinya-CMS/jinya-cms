@@ -198,7 +198,7 @@ abstract class Action
     }
 
     /**
-     * Generates a HTTP 204 No Content response
+     * Generates an HTTP 204 No Content response
      *
      * @return Response
      */

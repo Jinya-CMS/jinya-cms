@@ -10,6 +10,7 @@ use Jenssegers\Agent\Agent;
 use JsonException;
 use League\Plates\Engine;
 use PHPMailer\PHPMailer\Exception;
+use Throwable;
 
 class NewSavedDeviceMail
 {
@@ -31,8 +32,9 @@ class NewSavedDeviceMail
      * @param KnownDevice $knownDevice
      *
      * @throws Exception
-     * @throws JsonException
      * @throws GuzzleException
+     * @throws JsonException
+     * @throws Throwable
      */
     public function sendMail(string $artistEmail, string $artistName, KnownDevice $knownDevice): void
     {

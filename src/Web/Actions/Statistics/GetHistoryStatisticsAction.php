@@ -6,6 +6,7 @@ use App\Statistics\History;
 use App\Web\Actions\Action;
 use App\Web\Attributes\Authenticated;
 use App\Web\Attributes\JinyaAction;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Nyholm\Psr7\Response as NyholmResponse;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -16,6 +17,8 @@ class GetHistoryStatisticsAction extends Action
 
     /**
      * @inheritDoc
+     * @throws InvalidQueryException
+     * @throws InvalidQueryException
      */
     protected function action(): Response
     {

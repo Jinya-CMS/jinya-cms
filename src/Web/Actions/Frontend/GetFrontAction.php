@@ -9,15 +9,17 @@ use App\Database\MenuItem;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
+use Throwable;
 
 class GetFrontAction extends FrontAction
 {
     /**
-     * @throws UniqueFailedException
+     * @return Response
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
-     * @throws NoResultException
+     * @throws UniqueFailedException
+     * @throws Throwable
      */
     protected function protectedAction(): Response
     {

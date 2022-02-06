@@ -7,7 +7,6 @@ use App\Theming;
 use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
-use JsonException;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 

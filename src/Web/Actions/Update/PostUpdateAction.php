@@ -14,7 +14,9 @@ class PostUpdateAction extends UpdateAction
 {
     /**
      * {@inheritDoc}
+     * @return ResponseInterface
      * @throws JsonException
+     * @throws Throwable
      */
     protected function action(): ResponseInterface
     {

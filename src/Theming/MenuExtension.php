@@ -15,9 +15,10 @@ class MenuExtension implements ExtensionInterface
 {
 
     /**
+     * @param Engine $engine
      * @return void
      */
-    public function register(Engine $engine)
+    public function register(Engine $engine): void
     {
         $engine->registerFunction('getActiveMenuItem', [$this, 'getActiveMenuItem']);
         $engine->registerFunction('isActiveMenuItem', [$this, 'isActiveMenuItem']);

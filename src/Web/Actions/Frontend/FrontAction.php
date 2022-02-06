@@ -35,6 +35,7 @@ abstract class FrontAction extends Action
 
     /**
      * {@inheritDoc}
+     * @throws Throwable
      */
     protected function action(): Response
     {
@@ -80,6 +81,7 @@ abstract class FrontAction extends Action
 
     /**
      * Renders the given template with the given data
+     * @throws Throwable
      */
     protected function render(string $template, array $data, int $statusCode = self::HTTP_OK): Response
     {
@@ -100,15 +102,13 @@ abstract class FrontAction extends Action
     }
 
     /**
+     * @param Database\MenuItem $menuItem
+     * @return Response
      * @throws Database\Exceptions\ForeignKeyFailedException
-     * @throws InvalidQueryException
      * @throws Database\Exceptions\UniqueFailedException
+     * @throws InvalidQueryException
      * @throws NoResultException
-     * @throws NoResultException
-     * @throws NoResultException
-     * @throws NoResultException
-     * @throws NoResultException
-     * @throws NoResultException
+     * @throws Throwable
      */
     protected function renderMenuItem(Database\MenuItem $menuItem): Response
     {

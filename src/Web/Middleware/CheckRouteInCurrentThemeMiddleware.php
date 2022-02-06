@@ -38,6 +38,7 @@ class CheckRouteInCurrentThemeMiddleware implements MiddlewareInterface
      * @throws Database\Exceptions\UniqueFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
+     * @throws Throwable
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

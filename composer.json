@@ -12,7 +12,7 @@
     "ext-zip": "*",
     "jetbrains/phpstorm-attributes": "1.0",
     "guzzlehttp/guzzle": "7.4.1",
-    "jinya/plates": "3.4.0",
+    "jinya/plates": "4.0.0",
     "monolog/monolog": "2.3.5",
     "phpmailer/phpmailer": "v6.5.3",
     "phpmyadmin/sql-parser": "5.5.0",
