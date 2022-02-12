@@ -24,10 +24,10 @@ return [
             'copyright' => null,
         ],
         'fonts' => [
-            'menu' => 'https://fonts.googleapis.com/css?family=Open+Sans',
-            'heading' => 'https://fonts.googleapis.com/css?family=Raleway:300,400',
-            'paragraph' => 'https://fonts.googleapis.com/css?family=Open+Sans',
-            'brand' => 'https://fonts.googleapis.com/css?family=Josefin+Sans',
+            'menu' => 'https://fonts.jinya.de/css2?family=Open+Sans',
+            'heading' => 'https://fonts.jinya.de/css2?family=Raleway:wght@300;400',
+            'paragraph' => 'https://fonts.jinya.de/css2?family=Open+Sans',
+            'brand' => 'https://fonts.jinya.de/css2?family=Josefin+Sans',
         ],
         'input' => [
             'optional' => ' (optional)',
