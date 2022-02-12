@@ -11,6 +11,7 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Exception\CompilerException;
 use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
 
@@ -34,6 +35,16 @@ class Theme implements ExtensionInterface
         $this->scssCompiler = new Compiler();
         $this->scssCompiler->setSourceMap(Compiler::SOURCE_MAP_NONE);
         $this->scssCompiler->setOutputStyle(OutputStyle::COMPRESSED);
+        $this->scssCompiler->registerFunction('jinya-asset', function (array $args) {
+            $assets = $this->dbTheme->getAssets();
+            $assetName = $this->scssCompiler->getStringText($args[0]);
+            if (array_key_exists($assetName, $assets)) {
+                return 'url("' . $assets[$assetName]->publicPath . '")';
+            }
+
+            throw new CompilerException("Asset with name $assetName not found");
+        }, ['assetName']);
+
         $this->parseThemePhp();
     }
 

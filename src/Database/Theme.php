@@ -36,7 +36,7 @@ class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
         $sql = 'SELECT t.id AS id, configuration, description, name, display_name, scss_variables FROM theme t JOIN configuration c on t.id = c.current_frontend_theme_id';
 
         try {
-            return self::getPdo()->fetchObject($sql, new self(), [
+            return self::getPdo()->fetchObject($sql, new self(), null, [
                 'scssVariables' => new JsonStrategy(),
                 'configuration' => new JsonStrategy(),
             ]);
