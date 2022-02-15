@@ -27,7 +27,7 @@
     "fakerphp/faker": "v1.19.0",
     "melbahja/semver": "1.0.1",
     "league/uri": "6.5.0",
-    "jinya/pdox": "0.8.0",
+    "jinya/pdox": "0.8.1",
     "laminas/laminas-hydrator": "4.3.1"
   },
   "suggest": {
@@ -38,7 +38,7 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.13",
     "vimeo/psalm": "4.20.0",
-    "phpstan/phpstan": "1.4.5"
+    "phpstan/phpstan": "1.4.6"
   },
   "config": {
     "process-timeout": 0,
