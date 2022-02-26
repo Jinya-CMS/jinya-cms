@@ -516,7 +516,8 @@
       "action": {
         "activate": "Theme aktivieren",
         "compile_assets": "Themedateien erzeugen und kopieren",
-        "update": "Theme aktualisieren"
+        "update": "Theme aktualisieren",
+        "create": "Theme hochladen"
       },
       "activate": {
         "title": "Theme aktivieren",
@@ -597,6 +598,13 @@
           "title": "Links speichern",
           "message": "Die Links wurden erfolgreich gespeichert"
         }
+      },
+      "create": {
+        "name": "Themename",
+        "file": "ZIP Archiv",
+        "title": "Theme hochladen",
+        "cancel": "Hochladen abbrechen",
+        "save": "Hochladen"
       },
       "update": {
         "file": "ZIP Archiv",

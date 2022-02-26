@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { get, getHost, put, upload } from '../../http/request';
+  import { get, getHost, put, upload, uploadPost } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
   import { jinyaConfirm } from '../../ui/confirm';
 
@@ -31,6 +31,10 @@
   let themeForms = {};
   let themeCategories = {};
   let loading = true;
+
+  let createThemeName = '';
+  let createThemeZip = [];
+  let createThemeOpen = false;
 
   let updateThemeZip = [];
   let updateThemeOpen = false;
@@ -171,6 +175,11 @@
     updateThemeOpen = true;
   }
 
+  function createTheme() {
+    createThemeOpen = true;
+    createThemeName = '';
+  }
+
   async function saveLinks() {
     try {
       const promises = [];
@@ -205,6 +214,23 @@
     }
   }
 
+  function onCreateCloseClick() {
+    createThemeName = '';
+    createThemeOpen = false;
+    createThemeZip = [];
+  }
+
+  async function onCreateFileSave() {
+    if (createThemeZip.length === 1) {
+      await uploadPost(`/api/theme?name=${createThemeName}`, createThemeZip[0]);
+      const result = await get('/api/theme');
+      themes = result.items;
+      await selectTheme(themes.filter(f => f.name === createThemeName)[0]);
+      createThemeOpen = false;
+      createThemeZip = [];
+    }
+  }
+
   onMount(async () => {
     get('/api/segment-page').then(result => segmentPages = result.items ?? []);
     get('/api/page').then(result => pages = result.items ?? []);
@@ -226,6 +252,8 @@
             <a class:cosmo-list__item--active={theme.id === selectedTheme.id} class="cosmo-list__item"
                on:click={() => selectTheme(theme)}>{theme.displayName}</a>
         {/each}
+        <button class="cosmo-button cosmo-button--full-width"
+                on:click={createTheme}>{$_('design.themes.action.create')}</button>
     </nav>
     {#if loading}
         <div class="cosmo-list__content jinya-loader__container">
@@ -430,6 +458,27 @@
         </div>
     {/if}
 </div>
+{#if createThemeOpen}
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+            <h1 class="cosmo-modal__title">{$_('design.themes.create.title')}</h1>
+            <div class="cosmo-modal__content">
+                <div class="cosmo-input__group">
+                    <label for="createThemeName" class="cosmo-label">{$_('design.themes.create.name')}</label>
+                    <input class="cosmo-input" required bind:value={createThemeName} type="text" id="createThemeName">
+                    <label for="createThemeZip" class="cosmo-label">{$_('design.themes.create.file')}</label>
+                    <input accept="application/zip" class="cosmo-input" required bind:files={createThemeZip} type="file"
+                           id="createThemeZip">
+                </div>
+            </div>
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button" on:click={onCreateCloseClick}>{$_('design.themes.create.cancel')}</button>
+                <button class="cosmo-button" on:click={onCreateFileSave}>{$_('design.themes.create.save')}</button>
+            </div>
+        </div>
+    </div>
+{/if}
 {#if updateThemeOpen}
     <div class="cosmo-modal__backdrop"></div>
     <div class="cosmo-modal__container">

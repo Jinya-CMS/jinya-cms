@@ -516,7 +516,8 @@
       "action": {
         "activate": "Activate theme",
         "compile_assets": "Generate assets",
-        "update": "Update theme"
+        "update": "Update theme",
+        "create": "Theme hochladen"
       },
       "activate": {
         "title": "Activate theme",
@@ -602,7 +603,14 @@
         "title": "Update theme",
         "file": "ZIP archive",
         "cancel": "Cancel update",
-        "save": "Start update"
+        "save": "Update"
+      },
+      "create": {
+        "title": "Upload theme",
+        "name": "Theme name",
+        "file": "ZIP archive",
+        "cancel": "Cancel upload",
+        "save": "Upload"
       }
     }
   },
