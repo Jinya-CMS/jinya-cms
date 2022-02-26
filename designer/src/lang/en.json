@@ -515,7 +515,8 @@
     "themes": {
       "action": {
         "activate": "Activate theme",
-        "compile_assets": "Generate assets"
+        "compile_assets": "Generate assets",
+        "update": "Update theme"
       },
       "activate": {
         "title": "Activate theme",
@@ -596,6 +597,12 @@
           "title": "Save links",
           "message": "The links  were successfully saved"
         }
+      },
+      "update": {
+        "title": "Update theme",
+        "file": "ZIP archive",
+        "cancel": "Cancel update",
+        "save": "Start update"
       }
     }
   },

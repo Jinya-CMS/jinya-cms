@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { get, getHost, put } from '../../http/request';
+  import { get, getHost, put, upload } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
   import { jinyaConfirm } from '../../ui/confirm';
 
@@ -31,6 +31,9 @@
   let themeForms = {};
   let themeCategories = {};
   let loading = true;
+
+  let updateThemeZip = [];
+  let updateThemeOpen = false;
 
   async function activateTheme() {
     if (await jinyaConfirm($_('design.themes.activate.title'), $_('design.themes.activate.message', {values: selectedTheme}), $_('design.themes.activate.approve'), $_('design.themes.activate.decline'))) {
@@ -164,6 +167,10 @@
     await selectTheme(selectedTheme);
   }
 
+  function updateTheme() {
+    updateThemeOpen = true;
+  }
+
   async function saveLinks() {
     try {
       const promises = [];
@@ -179,6 +186,22 @@
       await jinyaAlert($_('design.themes.links.success.title'), $_('design.themes.links.success.message'), $_('alert.dismiss'));
     } catch (e) {
       await jinyaAlert($_('design.themes.links.error.title'), $_('design.themes.links.error.message'), $_('alert.dismiss'));
+    }
+  }
+
+  function onUpdateCloseClick() {
+    updateThemeOpen = false;
+    updateThemeZip = [];
+  }
+
+  async function onUpdateFileSave() {
+    if (updateThemeZip.length === 1) {
+      await upload(`/api/theme/${selectedTheme.id}`, updateThemeZip[0]);
+      const result = await get('/api/theme');
+      themes = result.items;
+      await selectTheme(themes.filter(f => f.id === selectedTheme.id)[0]);
+      updateThemeOpen = false;
+      updateThemeZip = [];
     }
   }
 
@@ -219,6 +242,8 @@
                             class="cosmo-button">{$_('design.themes.action.activate')}</button>
                     <button disabled={!selectedTheme} on:click={compileAssets}
                             class="cosmo-button">{$_('design.themes.action.compile_assets')}</button>
+                    <button disabled={!selectedTheme} on:click={updateTheme}
+                            class="cosmo-button">{$_('design.themes.action.update')}</button>
                 </div>
             </div>
             <div class="jinya-designer__content jinya-designer__content--theme">
@@ -405,3 +430,22 @@
         </div>
     {/if}
 </div>
+{#if updateThemeOpen}
+    <div class="cosmo-modal__backdrop"></div>
+    <div class="cosmo-modal__container">
+        <div class="cosmo-modal">
+            <h1 class="cosmo-modal__title">{$_('design.themes.update.title')}</h1>
+            <div class="cosmo-modal__content">
+                <div class="cosmo-input__group">
+                    <label for="updateThemeZip" class="cosmo-label">{$_('design.themes.update.file')}</label>
+                    <input accept="application/zip" class="cosmo-input" required bind:files={updateThemeZip} type="file"
+                           id="updateThemeZip">
+                </div>
+            </div>
+            <div class="cosmo-modal__button-bar">
+                <button class="cosmo-button" on:click={onUpdateCloseClick}>{$_('design.themes.update.cancel')}</button>
+                <button class="cosmo-button" on:click={onUpdateFileSave}>{$_('design.themes.update.save')}</button>
+            </div>
+        </div>
+    </div>
+{/if}
