@@ -242,17 +242,10 @@
             <h1 class="cosmo-modal__title">{$_('media.files.edit.title')}</h1>
             <div class="cosmo-modal__content">
                 <div class="cosmo-input__group">
-                    <label for="uploadFileName" class="cosmo-label">{$_('media.files.edit.name')}</label>
+                    <label for="editFileName" class="cosmo-label">{$_('media.files.edit.name')}</label>
                     <input required bind:value={editFileName} type="text" id="editFileName" class="cosmo-input">
-                    <label for="editFileName"
-                           class="cosmo-label">{$_('media.files.edit.file')}</label>
-                    <div class="cosmo-input cosmo-input--picker">
-                        <label class="cosmo-picker__name" for="editFileFile">{editFileFileName}</label>
-                        <label class="cosmo-picker__button" for="editFileFile"><span
-                                class="mdi mdi-upload mdi-24px"></span></label>
-                        <input style="display: none" required bind:files={editFileFile} type="file"
-                               id="editFileFile">
-                    </div>
+                    <label for="editFileName" class="cosmo-label">{$_('media.files.edit.file')}</label>
+                    <input class="cosmo-input" required bind:files={editFileFile} type="file" id="editFileFile">
                 </div>
             </div>
             <div class="cosmo-modal__button-bar">
