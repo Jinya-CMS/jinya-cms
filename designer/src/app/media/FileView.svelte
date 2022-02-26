@@ -1,10 +1,10 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { get, getHost, httpDelete, post, put, upload } from '../../http/request';
-  import { jinyaConfirm } from '../../ui/confirm';
-  import { jinyaAlert } from '../../ui/alert';
   import { readDataUrl } from '../../files/reader';
+  import { get, getHost, httpDelete, post, put, upload } from '../../http/request';
+  import { jinyaAlert } from '../../ui/alert';
+  import { jinyaConfirm } from '../../ui/confirm';
 
   export let uploadDone = false;
 
@@ -190,13 +190,8 @@
                            class="cosmo-input">
                     <label for="uploadSingleFileFile"
                            class="cosmo-label">{$_('media.files.upload_single_file.file')}</label>
-                    <div class="cosmo-input cosmo-input--picker">
-                        <label class="cosmo-picker__name" for="uploadSingleFileFile">{uploadSingleFileFileName}</label>
-                        <label class="cosmo-picker__button" for="uploadSingleFileFile"><span
-                                class="mdi mdi-upload mdi-24px"></span></label>
-                        <input style="display: none" required bind:files={uploadSingleFileFile} type="file"
-                               id="uploadSingleFileFile">
-                    </div>
+                    <input class="cosmo-input" required bind:files={uploadSingleFileFile} type="file"
+                           id="uploadSingleFileFile">
                 </div>
             </div>
             <div class="cosmo-modal__button-bar">
@@ -217,14 +212,8 @@
                 <div class="cosmo-input__group">
                     <label for="uploadMultipleFilesPicker"
                            class="cosmo-label">{$_('media.files.upload_multiple_files.files')}</label>
-                    <div class="cosmo-input jinya-input--multiple-picker cosmo-input--picker">
-                        <label class="cosmo-picker__name"
-                               for="uploadSingleFileFile">{$_('media.files.upload_multiple_files.n_files_selected', {values: uploadMultipleFilesFiles})}</label>
-                        <label class="cosmo-picker__button" for="uploadMultipleFilesPicker"><span
-                                class="mdi mdi-upload mdi-24px"></span></label>
-                        <input style="display: none" multiple required bind:files={uploadMultipleFilesFiles} type="file"
-                               id="uploadMultipleFilesPicker">
-                    </div>
+                    <input class="cosmo-input" multiple required bind:files={uploadMultipleFilesFiles} type="file"
+                           id="uploadMultipleFilesPicker">
                 </div>
                 <div class="jinya-media-tile__container--modal">
                     {#each uploadMultipleFilesFiles as file}

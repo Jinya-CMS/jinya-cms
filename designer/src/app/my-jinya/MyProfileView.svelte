@@ -1,9 +1,9 @@
 <script>
+  import { createEventDispatcher, onMount, tick } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { get, getHost, post, put, upload } from '../../http/request';
-  import { createEventDispatcher, onMount, tick } from 'svelte';
-  import { createTiny } from '../../ui/tiny';
   import { jinyaAlert } from '../../ui/alert';
+  import { createTiny } from '../../ui/tiny';
 
   const dispatch = createEventDispatcher();
   let changePasswordOpen = false;
@@ -45,7 +45,7 @@
       await upload('/api/me/profilepicture', profilePictureFile[0]);
     }
 
-    await put('/api/me', { email, artistName, aboutMe: aboutMeTiny.getContent() });
+    await put('/api/me', {email, artistName, aboutMe: aboutMeTiny.getContent()});
     artist = await get('/api/me');
     discardProfile();
     dispatch('update-me');
@@ -61,7 +61,7 @@
   async function changePassword() {
     if (oldPassword && newPassword && newPassword === newPasswordRepeat) {
       try {
-        await post('/api/account/password', { oldPassword, password: newPassword });
+        await post('/api/account/password', {oldPassword, password: newPassword});
         cancelPasswordChange();
         dispatch('logout');
       } catch (e) {
@@ -103,13 +103,7 @@
                         <input required bind:value={email} type="email" id="email" class="cosmo-input">
                         <label for="profilePictureFile"
                                class="cosmo-label">{$_('my_jinya.my_profile.profile_picture')}</label>
-                        <div class="cosmo-input cosmo-input--picker">
-                            <label class="cosmo-picker__name" for="profilePictureFile">{profilePictureName}</label>
-                            <label class="cosmo-picker__button" for="profilePictureFile"><span
-                                    class="mdi mdi-upload mdi-24px"></span></label>
-                            <input style="display: none" bind:files={profilePictureFile} type="file"
-                                   id="profilePictureFile">
-                        </div>
+                        <input bind:files={profilePictureFile} type="file" class="cosmo-input" id="profilePictureFile">
                     </div>
                 </div>
                 <div class="jinya-profile__about-me" bind:this={aboutMeElement}></div>
