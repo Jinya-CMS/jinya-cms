@@ -5,6 +5,7 @@ namespace App\Database;
 use App\Database\Exceptions\DeleteLastAdminException;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
+use App\Database\Strategies\NullableBooleanStrategy;
 use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
@@ -32,6 +33,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     public ?string $aboutMe = '';
     public ?int $failedLoginAttempts = 0;
     public ?DateTime $loginBlockedUntil = null;
+    public ?bool $prefersColorScheme = null;
     private string $password = '';
 
     /**
@@ -54,6 +56,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
                     'enabled' => new BooleanStrategy(1, 0),
                     'roles' => new PhpSerializeStrategy(),
                     'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                    'prefersColorScheme' => new NullableBooleanStrategy(),
                 ]);
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -77,6 +80,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             [
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
+                'prefersColorScheme' => new NullableBooleanStrategy(),
             ]
         );
     }
@@ -86,7 +90,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
      */
     public static function findByKeyword(string $keyword): Iterator
     {
-        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me FROM users WHERE email LIKE :emailKeyword OR artist_name LIKE :nameKeyword';
+        $sql = 'SELECT id, email, enabled, two_factor_token, password, roles, artist_name, profile_picture, about_me, prefers_color_scheme FROM users WHERE email LIKE :emailKeyword OR artist_name LIKE :nameKeyword';
         try {
             return self::getPdo()->fetchIterator($sql,
                 new self(),
@@ -94,6 +98,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
                 [
                     'enabled' => new BooleanStrategy(1, 0),
                     'roles' => new PhpSerializeStrategy(),
+                    'prefersColorScheme' => new NullableBooleanStrategy(),
                 ]);
         } catch (InvalidQueryException $exception) {
             throw self::convertInvalidQueryExceptionToException($exception);
@@ -127,6 +132,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             [
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
+                'prefersColorScheme' => new NullableBooleanStrategy(),
             ]
         );
     }
@@ -176,6 +182,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             [
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
+                'prefersColorScheme' => new NullableBooleanStrategy(),
             ]
         );
     }
@@ -196,7 +203,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
     ])]
     public function format(): array
     {
-        return [
+        $result = [
             'artistName' => $this->artistName,
             'email' => $this->email,
             'profilePicture' => $this->profilePicture,
@@ -205,6 +212,16 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
             'id' => $this->getIdAsInt(),
             'aboutMe' => $this->aboutMe,
         ];
+
+        if ($this->prefersColorScheme === true) {
+            $result['colorScheme'] = 'dark';
+        } else if ($this->prefersColorScheme === false) {
+            $result['colorScheme'] = 'light';
+        } else {
+            $result['colorScheme'] = 'auto';
+        }
+
+        return $result;
     }
 
     /**
@@ -291,6 +308,7 @@ class Artist extends LoadableEntity implements FormattableEntityInterface
                 'enabled' => new BooleanStrategy(1, 0),
                 'roles' => new PhpSerializeStrategy(),
                 'loginBlockedUntil' => new DateTimeFormatterStrategy(self::MYSQL_DATE_FORMAT),
+                'prefersColorScheme' => new NullableBooleanStrategy(),
             ]
         );
     }

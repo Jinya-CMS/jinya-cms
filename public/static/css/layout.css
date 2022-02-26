@@ -27,3 +27,9 @@
 .jinya-designer__content--key-value-list {
     align-items: start;
 }
+
+.jinya-progress {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}

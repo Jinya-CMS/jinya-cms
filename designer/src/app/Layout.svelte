@@ -37,11 +37,12 @@
   let allowFrontstage = roles.includes('ROLE_WRITER');
   let matomoEnabled = false;
   let isBackstage = !allowFrontstage;
-  let me;
+  let me = {};
   let filesToUpload = 0;
   let filesUploaded = 0;
   let uploadDone = false;
   let selectedBlogPostId = 'new';
+  let layoutTheme = 'cosmo-page-layout';
 
   async function checkApiKey(ctx, next) {
     try {
@@ -225,6 +226,19 @@
   async function updateMe() {
     me = await get('/api/me');
     profilepicture = `${getHost()}${me.profilePicture}`;
+
+    if (me.colorScheme === 'dark') {
+      layoutTheme = 'cosmo-page-layout cosmo--dark-theme';
+    } else if (me.colorScheme === 'light') {
+      layoutTheme = 'cosmo-page-layout cosmo--light-theme';
+    } else {
+      layoutTheme = 'cosmo-page-layout';
+    }
+  }
+
+  async function setColorScheme(colorScheme) {
+    await put('/api/me/colorscheme', {colorScheme});
+    await updateMe();
   }
 
   onMount(async () => {
@@ -267,7 +281,7 @@
   }
 </script>
 
-<main class="cosmo-page-layout">
+<main class={layoutTheme}>
     <div class="cosmo-top-bar">
         <div class="cosmo-top-bar__menu">
             {#if isBackstage && allowFrontstage}
@@ -402,19 +416,42 @@
             {/if}
         </div>
     </div>
-    {#if 0 < filesToUpload}
-        <div class="cosmo-bottom-bar">
-            <span class="cosmo-progress-bar__top-label">
-                {#if filesUploaded !== filesToUpload}
-                    {$_('bottom_bar.upload_title.uploading')}
-                {:else}
-                    {$_('bottom_bar.upload_title.uploaded')}
-                {/if}
-            </span>
-            <progress class="cosmo-progress-bar" value={filesUploaded} max={filesToUpload}></progress>
-            <span class="cosmo-progress-bar__bottom-label">
-                {$_('bottom_bar.upload_progress', {values: {filesToUpload, filesUploaded}})}
-            </span>
+    <div class="cosmo-bottom-bar cosmo-bottom-bar--three-column">
+        {#if 0 < filesToUpload}
+            <div class="cosmo-bottom-bar__item cosmo-bottom-bar__item--center jinya-progress">
+                <span class="cosmo-progress-bar__top-label">
+                    {#if filesUploaded !== filesToUpload}
+                        {$_('bottom_bar.upload_title.uploading')}
+                    {:else}
+                        {$_('bottom_bar.upload_title.uploaded')}
+                    {/if}
+                </span>
+                <progress class="cosmo-progress-bar" value={filesUploaded} max={filesToUpload}></progress>
+                <span class="cosmo-progress-bar__bottom-label">{$_('bottom_bar.upload_progress', {
+                  values: {
+                    filesToUpload,
+                    filesUploaded
+                  }
+                })}</span>
+            </div>
+        {/if}
+        <div class="cosmo-bottom-bar__item cosmo-bottom-bar__item--right">
+            {#if me?.colorScheme === 'light'}
+                <button on:click={() => setColorScheme('auto')}
+                        class="cosmo-circular-button cosmo-circular-button--large">
+                    <span class="mdi mdi-theme-light-dark"></span>
+                </button>
+            {:else if me?.colorScheme === 'dark'}
+                <button on:click={() => setColorScheme('light')}
+                        class="cosmo-circular-button cosmo-circular-button--large">
+                    <span class="mdi mdi-weather-sunny"></span>
+                </button>
+            {:else}
+                <button on:click={() => setColorScheme('dark')}
+                        class="cosmo-circular-button cosmo-circular-button--large">
+                    <span class="mdi mdi-weather-night"></span>
+                </button>
+            {/if}
         </div>
-    {/if}
+    </div>
 </main>
