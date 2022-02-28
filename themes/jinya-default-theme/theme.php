@@ -2,7 +2,10 @@
 
 return [
     'displayName' => 'Jinya Default Theme',
-    'description' => 'The default theme of the jinya cms is modern and provides a good looking user interface.',
+    'description' => [
+        'en' => 'The default theme of the jinya cms is modern and provides a good looking user interface.',
+        'de' => 'Das Standardtheme vom Jinya CMS. Es bietet eine modern und optisch ansprechende Oberfläche.'
+    ],
     'previewImage' => __DIR__ . '/Preview.png',
     'styles' => [
         'variables' => __DIR__ . '/styles/_variables.scss',
@@ -50,16 +53,21 @@ return [
         ],
     ],
     'configurationStructure' => [
-        'title' => 'Configure Jinya default theme',
         'groups' => [
             [
                 'name' => 'page',
-                'title' => 'Page',
+                'title' => [
+                    'en' => 'Page',
+                    'de' => 'Seite',
+                ],
                 'fields' => [
                     [
                         'name' => 'title',
                         'type' => 'string',
-                        'label' => 'Title',
+                        'label' => [
+                            'en' => 'Title',
+                            'de' => 'Titel',
+                        ],
                     ],
                 ],
             ],
@@ -70,28 +78,43 @@ return [
                     [
                         'name' => 'copyright',
                         'type' => 'string',
-                        'label' => 'Copyright message',
+                        'label' => [
+                            'en' => 'Copyright message',
+                            'de' => 'Copyright Text'
+                        ],
                     ],
                 ],
             ],
             [
                 'name' => 'fonts',
-                'title' => 'Font links',
+                'title' => [
+                    'en' => 'Font links',
+                    'de' => 'Links zu Schriften',
+                ],
                 'fields' => [
                     [
                         'name' => 'menu',
                         'type' => 'string',
-                        'label' => 'Menu entries',
+                        'label' => [
+                            'en' => 'Menu entries',
+                            'de' => 'Menüeinträge',
+                        ],
                     ],
                     [
                         'name' => 'heading',
                         'type' => 'string',
-                        'label' => 'Headings',
+                        'label' => [
+                            'en' => 'Headings',
+                            'de' => 'Überschriften',
+                        ]
                     ],
                     [
                         'name' => 'paragraph',
                         'type' => 'string',
-                        'label' => 'Text',
+                        'label' => [
+                            'en' => 'Paragraphs',
+                            'de' => 'Fließtext',
+                        ],
                     ],
                     [
                         'name' => 'brand',
@@ -107,18 +130,27 @@ return [
                     [
                         'name' => 'optional',
                         'type' => 'string',
-                        'label' => 'Mark optional fields',
+                        'label' => [
+                            'en' => 'Mark for optional fields',
+                            'de' => 'Marker für optionale Felder',
+                        ],
                     ],
                 ],
             ],
             [
                 'name' => 'buttons',
-                'title' => 'Button labels',
+                'title' => [
+                    'en' => 'Button labels',
+                    'de' => 'Buttonbeschriftungen',
+                ],
                 'fields' => [
                     [
                         'name' => 'submit',
                         'type' => 'string',
-                        'label' => 'Submit',
+                        'label' => [
+                            'en' => 'Submit',
+                            'de' => 'Abschicken',
+                        ],
                     ],
                 ],
             ],
@@ -129,34 +161,52 @@ return [
                     [
                         'name' => 'placeholder',
                         'type' => 'string',
-                        'label' => 'Placeholder',
+                        'label' => [
+                            'en' => 'Placeholder',
+                            'de' => 'Platzhalter',
+                        ],
                     ],
                 ],
             ],
             [
                 'name' => 'messages',
-                'title' => 'Messages',
+                'title' => [
+                    'en' => 'Messages',
+                    'de' => 'Nachrichten',
+                ],
                 'fields' => [
                     [
                         'name' => 'mail_sent_message',
                         'type' => 'string',
-                        'label' => 'Mail sent message',
+                        'label' => [
+                            'en' => 'Mail sent message',
+                            'de' => 'Email gesendet',
+                        ],
                     ],
                     [
                         'name' => 'mail_not_sent_message',
                         'type' => 'string',
-                        'label' => 'Mail not sent message',
+                        'label' => [
+                            'en' => 'Mail not sent message',
+                            'de' => 'Email nicht gesendet',
+                        ],
                     ],
                 ],
             ],
             [
                 'name' => 'profile',
-                'title' => 'Profile pages',
+                'title' => [
+                    'en' => 'Profile pages',
+                    'de' => 'Profilseiten',
+                ],
                 'fields' => [
                     [
                         'name' => 'show_email',
                         'type' => 'boolean',
-                        'label' => 'Show mail address',
+                        'label' => [
+                            'en' => 'Show mail address',
+                            'de' => 'Emailadressen anzeigen',
+                        ],
                     ],
                 ],
             ],
@@ -167,24 +217,48 @@ return [
                     [
                         'name' => 'title',
                         'type' => 'string',
-                        'label' => 'Blog home page title',
+                        'label' => [
+                            'en' => 'Blog home page title',
+                            'de' => 'Titel der Blogstartseite',
+                        ],
                     ],
                 ],
             ],
         ],
         'links' => [
             'segment_pages' => [
-                'startpage' => 'Homepage',
+                'startpage' => [
+                    'en' => 'Homepage',
+                    'de' => 'Startseite',
+                ],
             ],
             'menus' => [
-                'primary' => 'Main menu',
-                'footer' => 'Footer menu',
-                'shadow' => 'Invisible links',
+                'primary' => [
+                    'en' => 'Main menu',
+                    'de' => 'Hauptmenü',
+                ],
+                'footer' => [
+                    'en' => 'Footer menu',
+                    'de' => 'Footermenü',
+                ],
+                'shadow' => [
+                    'en' => 'Invisible links',
+                    'de' => 'Nicht sichtbare Links',
+                ],
             ],
             'files' => [
-                'faviconSmall' => 'Small favicon 64x64',
-                'faviconShortcutIcon' => 'Small favicon in ico file format',
-                'faviconLarge' => 'Big favicon 512x512',
+                'faviconSmall' => [
+                    'en' => 'Small favicon 64x64',
+                    'de' => 'Kleines favicon 64x64',
+                ],
+                'faviconShortcutIcon' => [
+                    'en' => 'Favicon in ico file format',
+                    'de' => 'Favicon im ICO Datei format',
+                ],
+                'faviconLarge' => [
+                    'en' => 'Big favicon 512x512',
+                    'de' => 'Großes Favicon 512x512',
+                ],
             ],
         ],
     ],
