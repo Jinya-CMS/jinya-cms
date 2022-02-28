@@ -1,6 +1,7 @@
 <script>
+  import { isObject, keys } from "lodash";
   import { onMount } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _, getLocaleFromNavigator } from 'svelte-i18n';
   import { get, getHost, put, upload, uploadPost } from '../../http/request';
   import { jinyaAlert } from '../../ui/alert';
   import { jinyaConfirm } from '../../ui/confirm';
@@ -244,6 +245,21 @@
     themes = result.items;
     await selectTheme(themes[0]);
   });
+
+  function getValueForCurrentLanguage(data) {
+    const currentLanguage = getLocaleFromNavigator();
+    if (data.hasOwnProperty(currentLanguage)) {
+      return data[currentLanguage];
+    }
+    if (data.hasOwnProperty('en')) {
+      return data['en'];
+    }
+    if (isObject(data) && keys(data).length > 0) {
+      return data[keys(data)[0]];
+    }
+
+    return data;
+  }
 </script>
 
 <div class="cosmo-list">
@@ -303,11 +319,11 @@
                             <div class="cosmo-tab-control__content cosmo-tab-control__content--theme">
                                 <div class="cosmo-input__group">
                                     {#each configurationStructure.groups as group (group.name)}
-                                        <span class="cosmo-input__header">{group.title}</span>
+                                        <span class="cosmo-input__header">{getValueForCurrentLanguage(group.title)}</span>
                                         {#each group.fields as field (field.name)}
                                             {#if field.type === 'string'}
                                                 <label class="cosmo-label"
-                                                       for={`${group.name}_${field.name}`}>{field.label}</label>
+                                                       for={`${group.name}_${field.name}`}>{getValueForCurrentLanguage(field.label)}</label>
                                                 <input id={`${group.name}_${field.name}`} class="cosmo-input"
                                                        type="text"
                                                        placeholder={defaultConfiguration[group.name][field.name]}
@@ -317,7 +333,7 @@
                                                     <input bind:checked={configuration[group.name][field.name]}
                                                            type="checkbox" id={`${group.name}_${field.name}`}
                                                            class="cosmo-checkbox">
-                                                    <label for={`${group.name}_${field.name}`}>{$_(field.label)}</label>
+                                                    <label for={`${group.name}_${field.name}`}>{getValueForCurrentLanguage(field.label)}</label>
                                                 </div>
                                             {/if}
                                         {/each}
@@ -338,7 +354,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.files')}</span>
                                         {#each Object.keys(configurationStructure.links.files) as link (`file_${link}`)}
                                             <label for={`files_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.files[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.files[link])}</label>
                                             <select required bind:value={themeFiles[link]} id={`files_${link}`}
                                                     class="cosmo-select">
                                                 {#each files as file}
@@ -351,7 +367,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.galleries')}</span>
                                         {#each Object.keys(configurationStructure.links.galleries) as link (`gallery_${link}`)}
                                             <label for={`galleries_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.galleries[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.galleries[link])}</label>
                                             <select required bind:value={themeGalleries[link]} id={`galleries_${link}`}
                                                     class="cosmo-select">
                                                 {#each galleries as gallery}
@@ -364,7 +380,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.pages')}</span>
                                         {#each Object.keys(configurationStructure.links.pages) as link (`page_${link}`)}
                                             <label for={`pages_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.pages[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.pages[link])}</label>
                                             <select required bind:value={themePages[link]} id={`pages_${link}`}
                                                     class="cosmo-select">
                                                 {#each pages as page}
@@ -377,7 +393,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.segment_pages')}</span>
                                         {#each Object.keys(configurationStructure.links.segment_pages) as link (`page_${link}`)}
                                             <label for={`segment_pages_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.segment_pages[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.segment_pages[link])}</label>
                                             <select required bind:value={themeSegmentPages[link]}
                                                     id={`segment_pages_${link}`}
                                                     class="cosmo-select">
@@ -391,7 +407,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.forms')}</span>
                                         {#each Object.keys(configurationStructure.links.forms) as link (`form_${link}`)}
                                             <label for={`forms_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.forms[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.forms[link])}</label>
                                             <select required bind:value={themeForms[link]} id={`forms_${link}`}
                                                     class="cosmo-select">
                                                 {#each forms as form}
@@ -404,7 +420,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.menus')}</span>
                                         {#each Object.keys(configurationStructure.links.menus) as link (`menu_${link}`)}
                                             <label for={`menus_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.menus[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.menus[link])}</label>
                                             <select required bind:value={themeMenus[link]} id={`menus_${link}`}
                                                     class="cosmo-select">
                                                 {#each menus as menu}
@@ -417,7 +433,7 @@
                                         <span class="cosmo-input__header">{$_('design.themes.links.categories')}</span>
                                         {#each Object.keys(configurationStructure.links.blog_categories) as link (`category_${link}`)}
                                             <label for={`categories_${link}`}
-                                                   class="cosmo-label">{configurationStructure.links.blog_categories[link]}</label>
+                                                   class="cosmo-label">{getValueForCurrentLanguage(configurationStructure.links.blog_categories[link])}</label>
                                             <select required bind:value={themeMenus[link]} id={`categories_${link}`}
                                                     class="cosmo-select">
                                                 {#each categories as category}

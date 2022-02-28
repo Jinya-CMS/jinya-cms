@@ -14,7 +14,8 @@
     "sortablejs": "1.14.0",
     "svelte-i18n": "3.3.13",
     "tinymce": "5.10.3",
-    "ua-parser-js": "1.0.2"
+    "ua-parser-js": "1.0.2",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "21.0.2",
