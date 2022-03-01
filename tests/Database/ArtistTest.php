@@ -214,6 +214,7 @@ class ArtistTest extends TestCase
             'enabled' => $artist->enabled,
             'id' => $artist->getIdAsInt(),
             'aboutMe' => $artist->aboutMe,
+            'colorScheme' => 'auto',
         ], $artist->format());
     }
 
