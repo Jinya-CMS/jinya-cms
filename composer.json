@@ -14,10 +14,10 @@
     "guzzlehttp/guzzle": "7.4.1",
     "jinya/plates": "4.0.0",
     "monolog/monolog": "2.3.5",
-    "phpmailer/phpmailer": "v6.5.4",
+    "phpmailer/phpmailer": "v6.6.0",
     "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.8.1",
-    "scssphp/scssphp": "v1.10.0",
+    "scssphp/scssphp": "v1.10.1",
     "nyholm/psr7": "1.5.0",
     "nyholm/psr7-server": "1.0.2",
     "slim/slim": "4.9.0",
@@ -37,7 +37,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "9.5.16",
-    "vimeo/psalm": "4.21.0",
+    "vimeo/psalm": "4.22.0",
     "phpstan/phpstan": "1.4.6"
   },
   "config": {

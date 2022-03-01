@@ -1,5 +1,21 @@
 # Changelog
 
+## Release notes - Jinya Gallery CMS - Version 23.0.0
+
+### User Stories
+
+* [TG-68](https://taiga.imanuel.dev/project/jinya-cms/us/68) Multi lingual themes
+* [TG-92](https://taiga.imanuel.dev/project/jinya-cms/us/92) Light/Dark mode switch
+* [TG-112](https://taiga.imanuel.dev/project/jinya-cms/us/112) Allow theme upload
+* [TG-115](https://taiga.imanuel.dev/project/jinya-cms/us/115) Switch to PDOx
+* [TG-120](https://taiga.imanuel.dev/project/jinya-cms/us/120) Function for asset include in SCSS
+* [TG-121](https://taiga.imanuel.dev/project/jinya-cms/us/121) Use Jinya Fonts for font links in default theme
+* [TG-122](https://taiga.imanuel.dev/project/jinya-cms/us/122) Use native file picker
+
+### Fixed issues
+
+* [TG-117](https://taiga.imanuel.dev/project/jinya-cms/issue/117) RouteCommand uses invalid method
+
 ## Release notes - Jinya Gallery CMS - Version 22.1.6
 
 Dependency bump
