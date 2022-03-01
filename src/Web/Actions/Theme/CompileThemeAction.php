@@ -37,9 +37,9 @@ class CompileThemeAction extends ThemeAction
         }
 
         $theme = new Theming\Theme($dbTheme);
+        $theme->compileAssetCache();
         $theme->compileStyleCache();
         $theme->compileScriptCache();
-        $theme->compileAssetCache();
 
         return $this->noContent();
     }
