@@ -1010,6 +1010,11 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
+lodash@4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
@@ -1042,10 +1047,10 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-monaco-editor@0.32.1:
-  version "0.32.1"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.32.1.tgz#75a9bba379a923fd8e9ce99cddcab3a4e7657615"
-  integrity sha512-LUt2wsUvQmEi2tfTOK+tjAPvt7eQ+K5C4rZPr6SeuyzjAuAHrIvlUloTcOiGjZW3fn3a/jFQCONrEJbNOaCqbA==
+monaco-editor@0.33.0:
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.33.0.tgz#842e244f3750a2482f8a29c676b5684e75ff34af"
+  integrity sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==
 
 mri@^1.1.0:
   version "1.2.0"
