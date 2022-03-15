@@ -13,7 +13,7 @@
     "jetbrains/phpstorm-attributes": "1.0",
     "guzzlehttp/guzzle": "7.4.1",
     "jinya/plates": "4.0.0",
-    "monolog/monolog": "2.3.5",
+    "monolog/monolog": "2.4.0",
     "phpmailer/phpmailer": "v6.6.0",
     "phpmyadmin/sql-parser": "5.5.0",
     "league/climate": "3.8.1",
