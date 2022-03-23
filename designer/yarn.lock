@@ -1010,6 +1010,11 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
+lodash@4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
@@ -1765,10 +1770,10 @@ tiny-glob@^0.2.6:
     globalyzer "0.1.0"
     globrex "^0.1.2"
 
-tinymce@5.10.3:
-  version "5.10.3"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.3.tgz#9485cf00159fd70c4948cb5e9dd49bce2a775899"
-  integrity sha512-O59ssHNnujWvSk5Gt8hIGrdNCMKVWVQv9F8siAgLTRgTh0t3NDHrP1UlLtCxArUi9DPWZvlBeUz8D5fJTu7vnA==
+tinymce@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.0.1.tgz#ec832632e398661507cc51b2a7574d17655fb9c8"
+  integrity sha512-+y3Lhm65GFs87gUfKuSWm2JA6ULHCC29trof4umIk2+TT+ql2poSsqsmRCSPN4elEo4EssIgEPFVRyPvrS/pDg==
 
 to-regex-range@^5.0.1:
   version "5.0.1"
