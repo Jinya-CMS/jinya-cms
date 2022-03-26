@@ -21,21 +21,6 @@ parameters:
 			path: src/Database/Analyzer/DatabaseAnalyzer.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByArtist\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ApiKey.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ApiKey\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ApiKey.php
@@ -49,16 +34,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$parameters of method Jinya\\\\PDOx\\\\PDOx\\:\\:fetchObject\\(\\) expects array\\<int, mixed\\>\\|null, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: src/Database/ApiKey.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Artist.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Artist\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Artist.php
 
 		-
 			message: "#^Method App\\\\Database\\\\Artist\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -201,22 +176,7 @@ parameters:
 			path: src/Database/BlogPostSegment.php
 
 		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
 			message: "#^Method App\\\\Database\\\\File\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/File.php
-
-		-
-			message: "#^Method App\\\\Database\\\\File\\:\\:getUploadChunks\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/File.php
 
@@ -231,22 +191,7 @@ parameters:
 			path: src/Database/File.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Form\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Form\\:\\:getItems\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Form.php
 
@@ -259,16 +204,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$parameters of method Jinya\\\\PDOx\\\\PDOx\\:\\:fetchIterator\\(\\) expects array\\<int, mixed\\>\\|null, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: src/Database/Form.php
-
-		-
-			message: "#^Method App\\\\Database\\\\FormItem\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/FormItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\FormItem\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/FormItem.php
 
 		-
 			message: "#^Method App\\\\Database\\\\FormItem\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -291,22 +226,7 @@ parameters:
 			path: src/Database/FormItem.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Gallery\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Gallery\\:\\:getFiles\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Gallery.php
 
@@ -319,16 +239,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$parameters of method Jinya\\\\PDOx\\\\PDOx\\:\\:fetchIterator\\(\\) expects array\\<int, mixed\\>\\|null, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: src/Database/Gallery.php
-
-		-
-			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/GalleryFilePosition.php
-
-		-
-			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/GalleryFilePosition.php
 
 		-
 			message: "#^Method App\\\\Database\\\\GalleryFilePosition\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -351,21 +261,6 @@ parameters:
 			path: src/Database/GalleryFilePosition.php
 
 		-
-			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/KnownDevice.php
-
-		-
-			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByArtist\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/KnownDevice.php
-
-		-
-			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/KnownDevice.php
-
-		-
 			message: "#^Method App\\\\Database\\\\KnownDevice\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/KnownDevice.php
@@ -381,22 +276,7 @@ parameters:
 			path: src/Database/KnownDevice.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Menu\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Menu.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Menu\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Menu.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Menu\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/Menu.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Menu\\:\\:getItems\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Menu.php
 
@@ -416,22 +296,7 @@ parameters:
 			path: src/Database/Menu.php
 
 		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:formatIterator\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/MenuItem.php
 
@@ -447,11 +312,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:getGallery\\(\\) should return App\\\\Database\\\\Gallery\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Database/MenuItem.php
-
-		-
-			message: "#^Method App\\\\Database\\\\MenuItem\\:\\:getItems\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/MenuItem.php
 
@@ -526,16 +386,6 @@ parameters:
 			path: src/Database/Segment.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Segment\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Segment\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Segment.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Segment\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Segment.php
@@ -561,22 +411,7 @@ parameters:
 			path: src/Database/Segment.php
 
 		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
 			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SegmentPage\\:\\:getSegments\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/SegmentPage.php
 
@@ -589,16 +424,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$parameters of method Jinya\\\\PDOx\\\\PDOx\\:\\:fetchIterator\\(\\) expects array\\<int, mixed\\>\\|null, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: src/Database/SegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/SimplePage.php
 
 		-
 			message: "#^Method App\\\\Database\\\\SimplePage\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -629,16 +454,6 @@ parameters:
 			message: "#^Method App\\\\Database\\\\Strategies\\\\PhpSerializeStrategy\\:\\:hydrate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Strategies/PhpSerializeStrategy.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Theme.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Theme\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Theme.php
 
 		-
 			message: "#^Method App\\\\Database\\\\Theme\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -736,11 +551,6 @@ parameters:
 			path: src/Database/Theme.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeAsset\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeAsset.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeAsset\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeAsset\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeAsset.php
@@ -749,11 +559,6 @@ parameters:
 			message: "#^Method App\\\\Database\\\\ThemeBlogCategory\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeBlogCategory\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeBlogCategory.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeFile.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeFile\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeFile\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
@@ -771,11 +576,6 @@ parameters:
 			path: src/Database/ThemeFile.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeForm.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeForm\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeForm.php
@@ -784,11 +584,6 @@ parameters:
 			message: "#^Method App\\\\Database\\\\ThemeForm\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/ThemeForm.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeGallery.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemeGallery\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeGallery\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
@@ -806,11 +601,6 @@ parameters:
 			path: src/Database/ThemeGallery.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeMenu.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeMenu\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeMenu.php
@@ -824,11 +614,6 @@ parameters:
 			message: "#^Method App\\\\Database\\\\ThemeMenu\\:\\:getMenu\\(\\) should return App\\\\Database\\\\Menu\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeMenu.php
-
-		-
-			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemePage.php
 
 		-
 			message: "#^Method App\\\\Database\\\\ThemePage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemePage\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
@@ -846,11 +631,6 @@ parameters:
 			path: src/Database/ThemePage.php
 
 		-
-			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/ThemeSegmentPage.php
-
-		-
 			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:findByThemeAndName\\(\\) should return App\\\\Database\\\\ThemeSegmentPage\\|null but returns App\\\\Database\\\\ThemeAsset\\|App\\\\Database\\\\ThemeBlogCategory\\|App\\\\Database\\\\ThemeFile\\|App\\\\Database\\\\ThemeForm\\|App\\\\Database\\\\ThemeGallery\\|App\\\\Database\\\\ThemeMenu\\|App\\\\Database\\\\ThemePage\\|App\\\\Database\\\\ThemeSegmentPage\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeSegmentPage.php
@@ -864,21 +644,6 @@ parameters:
 			message: "#^Method App\\\\Database\\\\ThemeSegmentPage\\:\\:getSegmentPage\\(\\) should return App\\\\Database\\\\SegmentPage\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Database/ThemeSegmentPage.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFile.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:getChunks\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFile.php
 
 		-
 			message: "#^Method App\\\\Database\\\\UploadingFile\\:\\:getFile\\(\\) should return App\\\\Database\\\\File\\|null but returns object\\|null\\.$#"
@@ -896,29 +661,9 @@ parameters:
 			path: src/Database/UploadingFile.php
 
 		-
-			message: "#^Method App\\\\Database\\\\UploadingFileChunk\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFileChunk.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFileChunk\\:\\:findByFile\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFileChunk.php
-
-		-
-			message: "#^Method App\\\\Database\\\\UploadingFileChunk\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/UploadingFileChunk.php
-
-		-
 			message: "#^Parameter \\#3 \\$parameters of method Jinya\\\\PDOx\\\\PDOx\\:\\:fetchIterator\\(\\) expects array\\<int, mixed\\>\\|null, array\\<string, int\\> given\\.$#"
 			count: 1
 			path: src/Database/UploadingFileChunk.php
-
-		-
-			message: "#^Property App\\\\Database\\\\Utils\\\\CountedResult\\:\\:\\$items type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/CountedResult.php
 
 		-
 			message: "#^Method App\\\\Database\\\\Utils\\\\FormattableEntityInterface\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -956,11 +701,6 @@ parameters:
 			path: src/Database/Utils/LoadableEntity.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:executeSqlString\\(\\) should return array\\|int but returns array\\|false\\.$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:executeStatement\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Database/Utils/LoadableEntity.php
@@ -971,27 +711,7 @@ parameters:
 			path: src/Database/Utils/LoadableEntity.php
 
 		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:executeStatement\\(\\) should return array\\|int but returns array\\|false\\.$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchAllIterator\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
 			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:fetchColumn\\(\\) should return int\\|string but returns int\\|string\\|false\\|null\\.$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/LoadableEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\LoadableEntity\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Utils/LoadableEntity.php
 
@@ -1057,26 +777,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Laminas\\\\Hydrator\\\\HydratorInterface\\:\\:addFilter\\(\\)\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:fetchByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:findAll\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:findByKeyword\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Database/Utils/ThemeHelperEntity.php
-
-		-
-			message: "#^Method App\\\\Database\\\\Utils\\\\ThemeHelperEntity\\:\\:findByTheme\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Database/Utils/ThemeHelperEntity.php
 
@@ -1199,16 +899,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$address of method PHPMailer\\\\PHPMailer\\\\PHPMailer\\:\\:setFrom\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/Messaging/FormMessageHandler.php
-
-		-
-			message: "#^Method App\\\\Statistics\\\\History\\:\\:getCreatedHistory\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Statistics/History.php
-
-		-
-			message: "#^Method App\\\\Statistics\\\\History\\:\\:getUpdatedHistory\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Statistics/History.php
 
 		-
 			message: "#^Method App\\\\Statistics\\\\HistoryEntry\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -1429,11 +1119,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Utils/ClassResolver.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:formatIterator\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Web/Actions/Action.php
 
 		-
 			message: "#^Method App\\\\Web\\\\Actions\\\\Action\\:\\:formatIterator\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -1977,11 +1662,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'title' on array\\|object\\.$#"
-			count: 1
-			path: src/Web/Actions/Menu/Items/MenuItemAction.php
-
-		-
-			message: "#^Method App\\\\Web\\\\Actions\\\\Menu\\\\Items\\\\MenuItemAction\\:\\:formatIteratorRecursive\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
 			count: 1
 			path: src/Web/Actions/Menu/Items/MenuItemAction.php
 
