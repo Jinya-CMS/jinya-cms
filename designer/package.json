@@ -28,6 +28,6 @@
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-svelte": "7.1.0",
-    "svelte": "3.46.4"
+    "svelte": "3.47.0"
   }
 }
