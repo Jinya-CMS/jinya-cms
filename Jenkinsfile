@@ -93,7 +93,7 @@ spec:
             parallel {
                 stage('Phpstan') {
                     steps {
-                        sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public'
+                        sh './vendor/bin/phpstan --no-progress analyze ./src ./app ./cli ./public --memory-limit 1G'
                     }
                 }
                 stage('Psalm') {
