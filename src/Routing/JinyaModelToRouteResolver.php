@@ -41,6 +41,9 @@ class JinyaModelToRouteResolver
         if ($method === 'get' && $jinyaApiAttribute->readEnabled) {
             return self::executeGetRequest($reflectionClass, $jinyaApiAttribute->readRole, $request, $response, $args);
         }
+        if ($method === 'delete' && $jinyaApiAttribute->deleteEnabled) {
+            return self::executeDeleteRequest($reflectionClass, $jinyaApiAttribute->deleteRole, $request, $response, $args);
+        }
 
         throw new HttpMethodNotAllowedException($request);
     }
@@ -136,5 +139,25 @@ class JinyaModelToRouteResolver
         $apiKey->update();
 
         return $apiKey->getArtist();
+    }
+
+    private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args)
+    {
+        self::checkRole(self::getCurrentUser($request), $request, $role);
+        if (array_key_exists('id', $args)) {
+            $id = $args['id'];
+            if ($reflectionClass->hasMethod('findById')) {
+                $method = $reflectionClass->getMethod('findById');
+                $entity = $method->invoke(null, $id);
+                if (method_exists($entity, 'delete')) {
+                    $entity->delete();
+                    return $response->withStatus(204);
+                }
+            }
+        } else {
+            throw new HttpNotFoundException($request);
+        }
+
+        throw new HttpMethodNotAllowedException($request);
     }
 }

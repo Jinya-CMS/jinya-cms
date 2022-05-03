@@ -15,7 +15,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-#[JinyaApi(createRole: Authenticated::WRITER, updateRole: Authenticated::WRITER, deleteRole: Authenticated::WRITER, readRole: Authenticated::READER)]
+#[JinyaApi(createRole: Authenticated::WRITER, readRole: Authenticated::READER, updateRole: Authenticated::WRITER, deleteRole: Authenticated::WRITER)]
 class File extends LoadableEntity implements FormattableEntityInterface
 {
     #[JinyaApiField(ignore: true)]
