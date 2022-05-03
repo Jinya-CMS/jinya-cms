@@ -3,7 +3,11 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
+use App\Web\Attributes\Authenticated;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -11,14 +15,22 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-class File extends LoadableEntity
+#[JinyaApi(createRole: Authenticated::WRITER, updateRole: Authenticated::WRITER, deleteRole: Authenticated::WRITER, readRole: Authenticated::READER)]
+class File extends LoadableEntity implements FormattableEntityInterface
 {
+    #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    #[JinyaApiField(ignore: true)]
     public int $updatedById;
+    #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
+    #[JinyaApiField(ignore: true)]
     public string $path = '';
+    #[JinyaApiField(required: true)]
     public string $name = '';
+    #[JinyaApiField(ignore: true)]
     public string $type = '';
 
     /**
