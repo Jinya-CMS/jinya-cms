@@ -6,20 +6,12 @@ require __ROOT__ . '/vendor/autoload.php';
 use App\Utils\AppSettingsInitializer;
 use App\Web\Handlers\HttpErrorHandler;
 use App\Web\ResponseEmitter\ResponseEmitter;
-use App\Web\Routes\RouteResolver;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 AppSettingsInitializer::loadDotEnv();
 
 $app = AppFactory::create();
-
-// Register middleware
-$middleware = require __ROOT__ . '/app/middleware.php';
-$middleware($app);
-
-$resolver = new RouteResolver();
-$resolver->resolveRoutes($app);
 
 // Register routes
 $routes = require __ROOT__ . '/app/routes.php';

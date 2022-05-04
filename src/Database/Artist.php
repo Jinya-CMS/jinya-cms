@@ -9,6 +9,9 @@ use App\Database\Strategies\NullableBooleanStrategy;
 use App\Database\Strategies\PhpSerializeStrategy;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
+use App\Web\Attributes\Authenticated;
 use App\Web\Middleware\RoleMiddleware;
 use DateInterval;
 use DateTime;
@@ -22,19 +25,29 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[JinyaApi(createRole: Authenticated::ADMIN, readRole: Authenticated::READER, updateRole: Authenticated::ADMIN, deleteRole: Authenticated::ADMIN)]
 class Artist extends LoadableEntity implements FormattableEntityInterface
 {
+    #[JinyaApiField(required: true)]
     public string $email = '';
     public bool $enabled = false;
+    #[JinyaApiField(ignore: true)]
     public ?string $twoFactorToken = '';
+    #[JinyaApiField(required: true)]
     public array $roles = [];
+    #[JinyaApiField(required: true)]
     public string $artistName = '';
+    #[JinyaApiField(ignore: true)]
     public ?string $profilePicture = '';
+    #[JinyaApiField(ignore: true)]
     public ?string $aboutMe = '';
+    #[JinyaApiField(ignore: true)]
     public ?int $failedLoginAttempts = 0;
+    #[JinyaApiField(ignore: true)]
     public ?DateTime $loginBlockedUntil = null;
+    #[JinyaApiField(ignore: true)]
     public ?bool $prefersColorScheme = null;
-    private string $password = '';
+    public string $password = '';
 
     /**
      * Finds the artist with the given email

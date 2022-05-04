@@ -37,7 +37,7 @@
   }
 
   async function loadArtists() {
-    const response = await get('/api/user');
+    const response = await get('/api/artist');
     artists = response.items;
     if (artists.length > 0) {
       selectArtist(artists[0]);
@@ -47,7 +47,7 @@
   async function deleteArtist() {
     const result = await jinyaConfirm($_('artists.delete.title'), $_('artists.delete.message', { values: selectedArtist }), $_('artists.delete.delete'), $_('artists.delete.keep'));
     if (result) {
-      await httpDelete(`/api/user/${selectedArtist.id}`);
+      await httpDelete(`/api/artist/${selectedArtist.id}`);
       await loadArtists();
     }
   }
@@ -56,7 +56,7 @@
     const result = await jinyaConfirm($_('artists.enable.title'), $_('artists.enable.message', { values: selectedArtist }), $_('artists.enable.delete'), $_('artists.enable.keep'));
     if (result) {
       const id = selectedArtist.id;
-      await put(`/api/user/${selectedArtist.id}/activation`);
+      await put(`/api/artist/${selectedArtist.id}/activation`);
       await loadArtists();
       const artist = artists.find(item => item.id === id);
       selectArtist(artist);
@@ -67,7 +67,7 @@
     const result = await jinyaConfirm($_('artists.disable.title'), $_('artists.disable.message', { values: selectedArtist }), $_('artists.disable.delete'), $_('artists.disable.keep'));
     if (result) {
       const id = selectedArtist.id;
-      await httpDelete(`/api/user/${selectedArtist.id}/activation`);
+      await httpDelete(`/api/artist/${selectedArtist.id}/activation`);
       await loadArtists();
       const artist = artists.find(item => item.id === id);
       selectArtist(artist);
@@ -87,7 +87,7 @@
         if (createArtistIsAdmin) {
           roles.push('ROLE_ADMIN');
         }
-        await post('/api/user', {
+        await post('/api/artist', {
           artistName: createArtistName,
           email: createArtistEmail,
           password: createArtistPassword,
@@ -133,7 +133,7 @@
           data.password = editArtistPassword;
         }
 
-        await put(`/api/user/${selectedArtist.id}`, data);
+        await put(`/api/artist/${selectedArtist.id}`, data);
         await loadArtists();
         const artist = artists.find(item => item.email === editArtistEmail);
         await selectArtist(artist);

@@ -122,7 +122,7 @@ abstract class Action
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
-        $this->body = $request->getParsedBody();
+        $this->body = json_decode($request->getBody()->getContents(), false, 512, JSON_THROW_ON_ERROR);
         $this->queryParams = $request->getQueryParams();
 
         return $this->action();

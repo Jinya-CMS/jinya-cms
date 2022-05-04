@@ -147,7 +147,34 @@ class JinyaModelToRouteResolver
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
         $entity = $reflectionClass->newInstance();
-        $entity = self::setEntityValues($request, $reflectionClass, $entity);
+        $requestBody = $request->getBody()->getContents();
+        $body = json_decode($requestBody, true) ?? [];
+        $requiredFieldMissing = false;
+        $missingRequiredFields = [];
+        foreach ($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {
+            $apiFieldAttributes = $reflectionProperty->getAttributes(JinyaApiField::class);
+            foreach ($apiFieldAttributes as $apiFieldAttribute) {
+                $apiFieldArguments = $apiFieldAttribute->getArguments();
+                $ignore = $apiFieldArguments['ignore'] ?? false;
+                if ($ignore) {
+                    continue;
+                }
+
+                $required = $apiFieldArguments['required'] ?? false;
+                $fieldName = $reflectionProperty->getName();
+                if ($required && !array_key_exists($fieldName, $body)) {
+                    $missingRequiredFields[] = $fieldName;
+                    $requiredFieldMissing = true;
+                    continue;
+                }
+
+                $entity->{$fieldName} = $body[$fieldName];
+            }
+        }
+
+        if ($requiredFieldMissing) {
+            throw new MissingFieldsException($request, $missingRequiredFields);
+        }
 
         if (method_exists($entity, 'create')) {
             $entity->create();
@@ -170,7 +197,25 @@ class JinyaModelToRouteResolver
             if ($reflectionClass->hasMethod('findById')) {
                 $method = $reflectionClass->getMethod('findById');
                 $entity = $method->invoke(null, $id);
-                $entity = self::setEntityValues($request, $reflectionClass, $entity);
+                $requestBody = $request->getBody()->getContents();
+                $body = json_decode($requestBody, true) ?? [];
+                foreach ($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {
+                    $apiFieldAttributes = $reflectionProperty->getAttributes(JinyaApiField::class);
+                    foreach ($apiFieldAttributes as $apiFieldAttribute) {
+                        $apiFieldArguments = $apiFieldAttribute->getArguments();
+                        $ignore = $apiFieldArguments['ignore'] ?? false;
+                        if ($ignore) {
+                            continue;
+                        }
+
+                        $fieldName = $reflectionProperty->getName();
+                        if (!array_key_exists($fieldName, $body)) {
+                            continue;
+                        }
+
+                        $entity->{$fieldName} = $body[$fieldName];
+                    }
+                }
 
                 if (method_exists($entity, 'update')) {
                     $entity->update();
@@ -236,34 +281,6 @@ class JinyaModelToRouteResolver
      */
     private static function setEntityValues(Request $request, ReflectionClass $reflectionClass, mixed $entity): mixed
     {
-        $requestBody = $request->getBody()->getContents();
-        $body = json_decode($requestBody, true) ?? [];
-        $requiredFieldMissing = false;
-        $missingRequiredFields = [];
-        foreach ($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {
-            $apiFieldAttributes = $reflectionProperty->getAttributes(JinyaApiField::class);
-            foreach ($apiFieldAttributes as $apiFieldAttribute) {
-                $apiFieldArguments = $apiFieldAttribute->getArguments();
-                $ignore = $apiFieldArguments['ignore'] ?? false;
-                if ($ignore) {
-                    continue;
-                }
-
-                $required = $apiFieldArguments['required'] ?? false;
-                $fieldName = $reflectionProperty->getName();
-                if ($required && !array_key_exists($fieldName, $body)) {
-                    $missingRequiredFields[] = $fieldName;
-                    $requiredFieldMissing = true;
-                    continue;
-                }
-
-                $entity->{$fieldName} = $body[$fieldName];
-            }
-        }
-
-        if ($requiredFieldMissing) {
-            throw new MissingFieldsException($request, $missingRequiredFields);
-        }
 
         return $entity;
     }
