@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 require __DIR__ . '/../defines.php';
 require __ROOT__ . '/vendor/autoload.php';
@@ -43,4 +42,6 @@ $errorMiddleware->setDefaultErrorHandler($errorHandler);
 // Run App & Emit Response
 $response = $app->handle($request);
 $responseEmitter = new ResponseEmitter();
-$responseEmitter->emit($response);
+$end = microtime(true);
+$timeTaken = $end - $_SERVER["REQUEST_TIME_FLOAT"];
+$responseEmitter->emit($response->withAddedHeader('TimeTaken', "${timeTaken}s"));

@@ -2,17 +2,22 @@
 
 namespace App\Routing;
 
+use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
 use App\Database\Artist;
 use App\Database\Utils\FormattableEntityInterface;
+use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use App\Web\Attributes\Authenticated;
+use App\Web\Exceptions\MissingFieldsException;
 use DateInterval;
 use DateTime;
 use Iterator;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use ReflectionClass;
+use ReflectionProperty;
 use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
@@ -33,16 +38,32 @@ class JinyaModelToRouteResolver
         if (count($jinyaApiAttributes) !== 1) {
             throw new HttpNotFoundException($request);
         }
+        if (!$reflectionClass->isSubclassOf(LoadableEntity::class) || !$reflectionClass->implementsInterface(FormattableEntityInterface::class)) {
+            throw new HttpNotFoundException($request);
+        }
 
-        /** @var JinyaApi $jinyaApiAttribute */
-        $jinyaApiAttribute = $jinyaApiAttributes[0]->newInstance();
+        $defaultAttributeValues = [
+            'createEnabled' => true,
+            'createRole' => Authenticated::WRITER,
+            'readEnabled' => true,
+            'readRole' => Authenticated::READER,
+            'updateEnabled' => true,
+            'updateRole' => Authenticated::WRITER,
+            'deleteEnabled' => true,
+            'deleteRole' => Authenticated::WRITER,
+        ];
+        $jinyaApiAttributeArguments = $jinyaApiAttributes[0]->getArguments();
+        $jinyaApiArguments = [...$defaultAttributeValues, ...$jinyaApiAttributeArguments];
         $method = strtolower($request->getMethod());
 
-        if ($method === 'get' && $jinyaApiAttribute->readEnabled) {
-            return self::executeGetRequest($reflectionClass, $jinyaApiAttribute->readRole, $request, $response, $args);
+        if ($method === 'get' && $jinyaApiArguments['readEnabled']) {
+            return self::executeGetRequest($reflectionClass, $jinyaApiArguments['readRole'], $request, $response, $args);
         }
-        if ($method === 'delete' && $jinyaApiAttribute->deleteEnabled) {
-            return self::executeDeleteRequest($reflectionClass, $jinyaApiAttribute->deleteRole, $request, $response, $args);
+        if ($method === 'delete' && $jinyaApiArguments['deleteEnabled']) {
+            return self::executeDeleteRequest($reflectionClass, $jinyaApiArguments['deleteRole'], $request, $response, $args);
+        }
+        if ($method === 'post' && $jinyaApiArguments['createEnabled']) {
+            return self::executePostRequest($reflectionClass, $jinyaApiArguments['createRole'], $request, $response);
         }
 
         throw new HttpMethodNotAllowedException($request);
@@ -99,6 +120,72 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
+    private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
+    {
+        self::checkRole(self::getCurrentUser($request), $request, $role);
+        if (array_key_exists('id', $args)) {
+            $id = $args['id'];
+            if ($reflectionClass->hasMethod('findById')) {
+                $method = $reflectionClass->getMethod('findById');
+                $entity = $method->invoke(null, $id);
+                if (method_exists($entity, 'delete')) {
+                    $entity->delete();
+                    return $response->withStatus(204);
+                }
+            }
+        } else {
+            throw new HttpNotFoundException($request);
+        }
+
+        throw new HttpMethodNotAllowedException($request);
+    }
+
+    private static function executePostRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response): Response
+    {
+        self::checkRole(self::getCurrentUser($request), $request, $role);
+        $entity = $reflectionClass->newInstance();
+        $requestBody = $request->getBody()->getContents();
+        $body = json_decode($requestBody, true) ?? [];
+        $requiredFieldMissing = false;
+        $missingRequiredFields = [];
+        foreach ($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {
+            $apiFieldAttributes = $reflectionProperty->getAttributes(JinyaApiField::class);
+            foreach ($apiFieldAttributes as $apiFieldAttribute) {
+                $apiFieldArguments = $apiFieldAttribute->getArguments();
+                $ignore = $apiFieldArguments['ignore'] ?? false;
+                if ($ignore) {
+                    continue;
+                }
+
+                $required = $apiFieldArguments['required'] ?? false;
+                $fieldName = $reflectionProperty->getName();
+                if ($required && !array_key_exists($fieldName, $body)) {
+                    $missingRequiredFields[] = $fieldName;
+                    $requiredFieldMissing = true;
+                    continue;
+                }
+
+                $entity->{$fieldName} = $body[$fieldName];
+            }
+        }
+
+        if ($requiredFieldMissing) {
+            throw new MissingFieldsException($request, $missingRequiredFields);
+        }
+
+        if (method_exists($entity, 'create')) {
+            $entity->create();
+            if (method_exists($entity, 'format')) {
+                $response->getBody()->write(json_encode($entity->format(), JSON_THROW_ON_ERROR));
+                return $response->withAddedHeader('Content-Type', 'application/json')->withStatus(201);
+            }
+
+            return $response->withStatus(204);
+        }
+
+        throw new HttpMethodNotAllowedException($request);
+    }
+
     private static function checkRole(Artist $artist, Request $request, string $role): bool
     {
         $cascadedRole = match ($role) {
@@ -137,27 +224,8 @@ class JinyaModelToRouteResolver
         }
 
         $apiKey->update();
+        CurrentUser::$currentUser = $artist;
 
         return $apiKey->getArtist();
-    }
-
-    private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args)
-    {
-        self::checkRole(self::getCurrentUser($request), $request, $role);
-        if (array_key_exists('id', $args)) {
-            $id = $args['id'];
-            if ($reflectionClass->hasMethod('findById')) {
-                $method = $reflectionClass->getMethod('findById');
-                $entity = $method->invoke(null, $id);
-                if (method_exists($entity, 'delete')) {
-                    $entity->delete();
-                    return $response->withStatus(204);
-                }
-            }
-        } else {
-            throw new HttpNotFoundException($request);
-        }
-
-        throw new HttpMethodNotAllowedException($request);
     }
 }

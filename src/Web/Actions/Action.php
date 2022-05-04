@@ -122,7 +122,6 @@ abstract class Action
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
-        /** @phpstan-ignore-next-line */
         $this->body = $request->getParsedBody();
         $this->queryParams = $request->getQueryParams();
 
