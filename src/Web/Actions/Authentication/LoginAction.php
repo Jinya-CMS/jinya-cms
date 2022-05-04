@@ -8,8 +8,6 @@ use App\Database\KnownDevice;
 use App\Mailing\Types\NewLoginMail;
 use App\Mailing\Types\NewSavedDeviceMail;
 use App\Web\Actions\Action;
-use App\Web\Attributes\JinyaAction;
-use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\BadCredentialsException;
 use App\Web\Exceptions\UnknownDeviceException;
 use DateTime;
@@ -17,8 +15,6 @@ use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
-#[JinyaAction('/api/login', JinyaAction::POST)]
-#[RequiredFields(['username', 'password'])]
 class LoginAction extends Action
 {
     public NewLoginMail $newLoginMail;

@@ -7,12 +7,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Storage\StorageBaseService;
 use App\Web\Actions\Action;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/user/{id}/profilepicture', JinyaAction::GET)]
 class GetProfilePictureAction extends Action
 {
     /**

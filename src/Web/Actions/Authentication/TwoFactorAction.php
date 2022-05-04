@@ -7,16 +7,12 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Mailing\Types\TwoFactorMail;
 use App\Web\Actions\Action;
-use App\Web\Attributes\JinyaAction;
-use App\Web\Attributes\RequiredFields;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use PHPMailer\PHPMailer\Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
-#[JinyaAction('/api/2fa', JinyaAction::POST)]
-#[RequiredFields(['username', 'password'])]
 class TwoFactorAction extends Action
 {
 
