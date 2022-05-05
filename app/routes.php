@@ -16,6 +16,7 @@ use App\Web\Actions\Blog\Post\BatchSegmentsAction;
 use App\Web\Actions\Blog\Post\CreatePostAction;
 use App\Web\Actions\Blog\Post\ListPostsByCategoryAction;
 use App\Web\Actions\Blog\Post\UpdatePostAction;
+use App\Web\Actions\Database\DatabaseAnalyzerAction;
 use App\Web\Actions\Frontend\GetFrontAction;
 use App\Web\Actions\Frontend\PostFrontAction;
 use App\Web\Actions\Install\GetInstallerAction;
@@ -126,6 +127,15 @@ return function (App $app) {
             ->add(AuthenticationMiddleware::class);
         $proxy->get('/blog/post/{id}/segment', UpdatePostAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
+            ->add(AuthenticationMiddleware::class);
+
+        // Database
+        $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
+            ->add(AuthenticationMiddleware::class);
+        $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
+            ->add(new CheckRequiredFieldsMiddleware(['query']))
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
