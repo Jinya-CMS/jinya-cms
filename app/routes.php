@@ -38,6 +38,7 @@ use App\Web\Actions\Install\PostInstallerAction;
 use App\Web\Actions\KnownDevice\DeleteKnownDeviceAction;
 use App\Web\Actions\KnownDevice\ListAllKnownDevicesAction;
 use App\Web\Actions\KnownDevice\ValidateKnownDeviceAction;
+use App\Web\Actions\LocateIp\LocatorAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -203,6 +204,9 @@ return function (App $app) {
             $proxy->delete('/{key}', DeleteKnownDeviceAction::class)->add(AuthenticationMiddleware::class);
             $proxy->map(['HEAD'], '/{key}', ValidateKnownDeviceAction::class);
         });
+
+        // Locate IP
+        $proxy->get('/ip-location/{ip}', LocatorAction::class)->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
     // Reflection based

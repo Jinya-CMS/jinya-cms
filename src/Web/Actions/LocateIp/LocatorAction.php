@@ -3,15 +3,11 @@
 namespace App\Web\Actions\LocateIp;
 
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/ip-location/{ip}', JinyaAction::GET)]
-#[Authenticated]
 class LocatorAction extends Action
 {
     /**
