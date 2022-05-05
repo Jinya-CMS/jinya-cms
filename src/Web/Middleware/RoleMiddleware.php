@@ -13,6 +13,7 @@ use Slim\Exception\HttpForbiddenException;
 class RoleMiddleware implements MiddlewareInterface
 {
 
+    public const ROLE_READER = 'ROLE_READER';
     public const ROLE_WRITER = 'ROLE_WRITER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
 

@@ -5,6 +5,8 @@ namespace App\Database;
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
@@ -12,13 +14,18 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[JinyaApi]
 class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInterface
 {
-
+    #[JinyaApiField(required: true)]
     public string $name = '';
+    #[JinyaApiField]
     public ?string $description = null;
+    #[JinyaApiField]
     public ?int $parentId = null;
+    #[JinyaApiField]
     public bool $webhookEnabled = false;
+    #[JinyaApiField]
     public ?string $webhookUrl = '';
 
     /**
