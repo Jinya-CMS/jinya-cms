@@ -6,15 +6,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/account/known_device/{key}', JinyaAction::DELETE)]
-#[JinyaAction('/api/known_device/{key}', JinyaAction::DELETE, name: 'delete_known_device_key')]
-#[Authenticated]
 class DeleteKnownDeviceAction extends Action
 {
     /**

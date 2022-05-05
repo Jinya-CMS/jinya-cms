@@ -6,13 +6,11 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\KnownDevice;
 use App\Web\Actions\Action;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\BadCredentialsException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/known_device/{key}', JinyaAction::HEAD)]
 class ValidateKnownDeviceAction extends Action
 {
     /**

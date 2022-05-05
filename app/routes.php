@@ -35,6 +35,9 @@ use App\Web\Actions\Gallery\Positions\GetPositionsAction;
 use App\Web\Actions\Gallery\Positions\UpdatePositionAction;
 use App\Web\Actions\Install\GetInstallerAction;
 use App\Web\Actions\Install\PostInstallerAction;
+use App\Web\Actions\KnownDevice\DeleteKnownDeviceAction;
+use App\Web\Actions\KnownDevice\ListAllKnownDevicesAction;
+use App\Web\Actions\KnownDevice\ValidateKnownDeviceAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -192,6 +195,13 @@ return function (App $app) {
             $proxy->put('/{position}', UpdatePositionAction::class)
                 ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
                 ->add(AuthenticationMiddleware::class);
+        });
+
+        // Known Devices
+        $proxy->group('/api/known_device', function (RouteCollectorProxy $proxy) {
+            $proxy->get('', ListAllKnownDevicesAction::class)->add(AuthenticationMiddleware::class);
+            $proxy->delete('/{key}', DeleteKnownDeviceAction::class)->add(AuthenticationMiddleware::class);
+            $proxy->map(['HEAD'], '/{key}', ValidateKnownDeviceAction::class);
         });
     })->add(new BodyParsingMiddleware());
 
