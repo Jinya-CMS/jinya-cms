@@ -7,14 +7,10 @@ use App\Database\Exceptions\UniqueFailedException;
 use App\Database\File;
 use App\Database\GalleryFilePosition;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/media/gallery/{galleryId}/file/{position}', JinyaAction::PUT)]
-#[Authenticated(role: Authenticated::WRITER)]
 class UpdatePositionAction extends Action
 {
     /**

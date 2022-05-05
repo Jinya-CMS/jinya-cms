@@ -29,6 +29,10 @@ use App\Web\Actions\Form\Items\UpdateFormItemAction;
 use App\Web\Actions\Frontend\GetBlogFrontAction;
 use App\Web\Actions\Frontend\GetFrontAction;
 use App\Web\Actions\Frontend\PostFrontAction;
+use App\Web\Actions\Gallery\Positions\CreatePositionAction;
+use App\Web\Actions\Gallery\Positions\DeletePositionAction;
+use App\Web\Actions\Gallery\Positions\GetPositionsAction;
+use App\Web\Actions\Gallery\Positions\UpdatePositionAction;
 use App\Web\Actions\Install\GetInstallerAction;
 use App\Web\Actions\Install\PostInstallerAction;
 use App\Web\Actions\Update\GetUpdateAction;
@@ -172,6 +176,23 @@ return function (App $app) {
                 ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
                 ->add(AuthenticationMiddleware::class);
         });
+
+        // Gallery Positions
+        $proxy->group('/media/gallery/{galleryId}/file', function (RouteCollectorProxy $proxy) {
+            $proxy->get('', GetPositionsAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->delete('/{position}', DeletePositionAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->post('', CreatePositionAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['file', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->put('/{position}', UpdatePositionAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+        });
     })->add(new BodyParsingMiddleware());
 
     // Reflection based
@@ -188,6 +209,7 @@ return function (App $app) {
     });
 
     $app->get('/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}', GetBlogFrontAction::class);
+    $app->get('/', GetFrontAction::class);
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);
         $frontend->post('', PostFrontAction::class);

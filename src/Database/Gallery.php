@@ -3,6 +3,8 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use DateTime;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -10,6 +12,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[JinyaApi]
 class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
 
@@ -19,13 +22,23 @@ class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInt
     public const ORIENTATION_HORIZONTAL = 'horizontal';
     public const ORIENTATION_VERTICAL = 'vertical';
 
+    #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    #[JinyaApiField(ignore: true)]
     public int $updatedById;
+
+    #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
+
+    #[JinyaApiField(required: true)]
     public string $name;
+    #[JinyaApiField]
     public string $description = '';
+    #[JinyaApiField]
     public string $type = self::TYPE_SEQUENCE;
+    #[JinyaApiField]
     public string $orientation = self::ORIENTATION_HORIZONTAL;
 
     /**

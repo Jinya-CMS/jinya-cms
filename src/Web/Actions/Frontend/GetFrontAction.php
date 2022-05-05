@@ -23,7 +23,7 @@ class GetFrontAction extends FrontAction
      */
     protected function protectedAction(): Response
     {
-        $route = $this->args['route'];
+        $route = $this->args['route'] ?? '';
         if ('' === $route || '/' === $route) {
             return $this->render('theme::home', []);
         }
