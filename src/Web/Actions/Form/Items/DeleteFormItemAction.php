@@ -6,14 +6,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\FormItem;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/form/{id}/item/{position}', JinyaAction::DELETE)]
-#[Authenticated(role: Authenticated::WRITER)]
 class DeleteFormItemAction extends Action
 {
     /**

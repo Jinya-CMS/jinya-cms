@@ -4,12 +4,8 @@ namespace App\Web\Actions\Database;
 
 use App\Database\Analyzer\DatabaseAnalyzer;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/maintenance/database/analyze', JinyaAction::GET)]
-#[Authenticated(role: Authenticated::ADMIN)]
 class DatabaseAnalyzerAction extends Action
 {
     /**

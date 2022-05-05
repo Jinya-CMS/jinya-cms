@@ -17,6 +17,16 @@ use App\Web\Actions\Blog\Post\CreatePostAction;
 use App\Web\Actions\Blog\Post\ListPostsByCategoryAction;
 use App\Web\Actions\Blog\Post\UpdatePostAction;
 use App\Web\Actions\Database\DatabaseAnalyzerAction;
+use App\Web\Actions\Database\ExecuteQueryAction;
+use App\Web\Actions\File\GetFileContentAction;
+use App\Web\Actions\File\Upload\FinishUploadAction;
+use App\Web\Actions\File\Upload\StartUploadAction;
+use App\Web\Actions\File\Upload\UploadChunkAction;
+use App\Web\Actions\Form\Items\CreateFormItemAction;
+use App\Web\Actions\Form\Items\DeleteFormItemAction;
+use App\Web\Actions\Form\Items\GetFormItemsAction;
+use App\Web\Actions\Form\Items\UpdateFormItemAction;
+use App\Web\Actions\Frontend\GetBlogFrontAction;
 use App\Web\Actions\Frontend\GetFrontAction;
 use App\Web\Actions\Frontend\PostFrontAction;
 use App\Web\Actions\Install\GetInstallerAction;
@@ -133,10 +143,35 @@ return function (App $app) {
         $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
-        $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
+        $proxy->get('/maintenance/database/query', ExecuteQueryAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['query']))
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
+
+        // File
+        $proxy->group('/media/file/{id}/content', function (RouteCollectorProxy $proxy) {
+            $proxy->put('/finish', FinishUploadAction::class);
+            $proxy->put('/{position}', UploadChunkAction::class);
+            $proxy->put('', StartUploadAction::class);
+            $proxy->get('', GetFileContentAction::class);
+        })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
+
+        // Form Items
+        $proxy->group('/form/{id}/item', function (RouteCollectorProxy $proxy) {
+            $proxy->get('', GetFormItemsAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->delete('/{position}', DeleteFormItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->post('', CreateFormItemAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['label', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+            $proxy->put('/{position}', UpdateFormItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+                ->add(AuthenticationMiddleware::class);
+        });
     })->add(new BodyParsingMiddleware());
 
     // Reflection based
@@ -152,6 +187,7 @@ return function (App $app) {
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
     });
 
+    $app->get('/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}', GetBlogFrontAction::class);
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {
         $frontend->get('', GetFrontAction::class);
         $frontend->post('', PostFrontAction::class);

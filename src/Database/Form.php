@@ -4,6 +4,8 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Strategies\JsonStrategy;
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use DateTime;
 use Exception;
 use Iterator;
@@ -12,15 +14,23 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
+#[JinyaApi]
 class Form extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
+    #[JinyaApiField(ignore: true)]
     public int $creatorId;
+    #[JinyaApiField(ignore: true)]
     public int $updatedById;
+    #[JinyaApiField(ignore: true)]
     public DateTime $createdAt;
+    #[JinyaApiField(ignore: true)]
     public DateTime $lastUpdatedAt;
 
+    #[JinyaApiField(required: true)]
     public string $title;
+    #[JinyaApiField]
     public string $description = '';
+    #[JinyaApiField(required: true)]
     public string $toAddress;
 
     /**

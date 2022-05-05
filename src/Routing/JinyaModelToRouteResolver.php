@@ -167,8 +167,9 @@ class JinyaModelToRouteResolver
                     $requiredFieldMissing = true;
                     continue;
                 }
-
-                $entity->{$fieldName} = $body[$fieldName];
+                if (array_key_exists($fieldName, $body)) {
+                    $entity->{$fieldName} = $body[$fieldName];
+                }
             }
         }
 
