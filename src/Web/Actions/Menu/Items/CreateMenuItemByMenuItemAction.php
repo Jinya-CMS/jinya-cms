@@ -6,16 +6,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\MenuItem;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
-use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/menu-item/{menuItemId}/item', JinyaAction::POST)]
-#[Authenticated(Authenticated::WRITER)]
-#[RequiredFields(['position', 'title'])]
 class CreateMenuItemByMenuItemAction extends MenuItemAction
 {
     /**

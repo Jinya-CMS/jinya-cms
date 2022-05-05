@@ -39,6 +39,12 @@ use App\Web\Actions\KnownDevice\DeleteKnownDeviceAction;
 use App\Web\Actions\KnownDevice\ListAllKnownDevicesAction;
 use App\Web\Actions\KnownDevice\ValidateKnownDeviceAction;
 use App\Web\Actions\LocateIp\LocatorAction;
+use App\Web\Actions\Menu\Items\CreateMenuItemByMenuAction;
+use App\Web\Actions\Menu\Items\DeleteMenuItemAction;
+use App\Web\Actions\Menu\Items\GetMenuItemsByMenuAction;
+use App\Web\Actions\Menu\Items\MoveMenuItemParentToItemAction;
+use App\Web\Actions\Menu\Items\ResetMenuItemParentAction;
+use App\Web\Actions\Menu\Items\UpdateMenuItemAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -207,6 +213,31 @@ return function (App $app) {
 
         // Locate IP
         $proxy->get('/ip-location/{ip}', LocatorAction::class)->add(AuthenticationMiddleware::class);
+
+        // Menu Items
+        $proxy->group('/menu/{id}/item', function (RouteCollectorProxy $proxy) {
+            $proxy->post('', CreateMenuItemByMenuAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['position', 'title']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->get('', GetMenuItemsByMenuAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER));
+            $proxy->put('/{menuItemId}/move/parent/one/level/up', MoveMenuItemParentToItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+        })->add(AuthenticationMiddleware::class);
+        $proxy->group('/menu-item/{menuItemId}', function (RouteCollectorProxy $proxy) {
+            $proxy->post('/item', CreateMenuItemByMenuAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['position', 'title']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->put('/move/parent/to/item/{newParent}', MoveMenuItemParentToItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->put('', UpdateMenuItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->delete('', DeleteMenuItemAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+        })->add(AuthenticationMiddleware::class);
+        $proxy->put('/menu/{menuItemId}/move/parent/to/menu/{menuId}', ResetMenuItemParentAction::class)
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+            ->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
     // Reflection based

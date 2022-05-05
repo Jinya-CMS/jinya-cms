@@ -2,14 +2,19 @@
 
 namespace App\Database;
 
+use App\Routing\Attributes\JinyaApi;
+use App\Routing\Attributes\JinyaApiField;
 use Exception;
 use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
+#[JinyaApi]
 class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
 {
+    #[JinyaApiField(required: true)]
     public string $name;
+    #[JinyaApiField]
     public ?int $logo = null;
 
     /**
