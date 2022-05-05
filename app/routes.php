@@ -48,6 +48,7 @@ use App\Web\Actions\Menu\Items\UpdateMenuItemAction;
 use App\Web\Actions\MyJinya\GetArtistInfoAction;
 use App\Web\Actions\MyJinya\UpdateAboutMeAction;
 use App\Web\Actions\MyJinya\UpdateColorScheme;
+use App\Web\Actions\PhpInfo\GetPhpInfoAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -248,6 +249,11 @@ return function (App $app) {
         $proxy->put('/me', UpdateAboutMeAction::class)->add(AuthenticationMiddleware::class);
         $proxy->put('/me/colorscheme', UpdateColorScheme::class)
             ->add(new CheckRequiredFieldsMiddleware(['colorScheme']))
+            ->add(AuthenticationMiddleware::class);
+
+        // PHP Info
+        $proxy->get('/phpinfo', GetPhpInfoAction::class)
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
