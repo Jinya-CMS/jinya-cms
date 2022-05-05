@@ -8,16 +8,10 @@ use App\Database\Form;
 use App\Database\Segment;
 use App\Database\SegmentPage;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
-use App\Web\Attributes\RequiredFields;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/segment-page/{id}/segment/form', JinyaAction::POST)]
-#[Authenticated(Authenticated::WRITER)]
-#[RequiredFields(['form', 'position'])]
 class CreateFormSegmentAction extends Action
 {
     /**

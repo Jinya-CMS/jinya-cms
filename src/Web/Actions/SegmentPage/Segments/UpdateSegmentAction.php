@@ -9,15 +9,11 @@ use App\Database\Form;
 use App\Database\Gallery;
 use App\Database\Segment;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
-#[JinyaAction('/api/segment-page/{id}/segment/{position}', JinyaAction::PUT)]
-#[Authenticated(Authenticated::WRITER)]
 class UpdateSegmentAction extends Action
 {
     /**

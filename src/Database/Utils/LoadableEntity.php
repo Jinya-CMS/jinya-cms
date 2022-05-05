@@ -16,7 +16,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 use PDO;
 use PDOException;
 
-abstract class LoadableEntity
+abstract class LoadableEntity implements FormattableEntityInterface
 {
     public const MYSQL_DATE_FORMAT = 'Y-m-d H:i:s';
     protected static ?PDOx $pdo;

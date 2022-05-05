@@ -49,6 +49,23 @@ use App\Web\Actions\MyJinya\GetArtistInfoAction;
 use App\Web\Actions\MyJinya\UpdateAboutMeAction;
 use App\Web\Actions\MyJinya\UpdateColorScheme;
 use App\Web\Actions\PhpInfo\GetPhpInfoAction;
+use App\Web\Actions\SegmentPage\Segments\CreateFileSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateFormSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateGallerySegmentAction;
+use App\Web\Actions\SegmentPage\Segments\CreateHtmlSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\DeleteSegmentAction;
+use App\Web\Actions\SegmentPage\Segments\GetSegmentsAction;
+use App\Web\Actions\SegmentPage\Segments\UpdateSegmentAction;
+use App\Web\Actions\Statistics\GetEntityStatisticsAction;
+use App\Web\Actions\Statistics\GetHistoryStatisticsAction;
+use App\Web\Actions\Statistics\GetSystemStatisticsAction;
+use App\Web\Actions\Statistics\GetVisitsByBrowserAction;
+use App\Web\Actions\Statistics\GetVisitsByCountryAction;
+use App\Web\Actions\Statistics\GetVisitsByDeviceBrandAction;
+use App\Web\Actions\Statistics\GetVisitsByDeviceTypeAction;
+use App\Web\Actions\Statistics\GetVisitsByLanguageAction;
+use App\Web\Actions\Statistics\GetVisitsByOsAction;
+use App\Web\Actions\Statistics\GetVisitsByReferrerAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -255,6 +272,44 @@ return function (App $app) {
         $proxy->get('/phpinfo', GetPhpInfoAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
+
+        // Segment page
+        $proxy->group('/segment-page/{id}/segment', function (RouteCollectorProxy $proxy) {
+            $proxy->post('/file', CreateFileSegmentAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['file', 'action', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->post('/form', CreateFormSegmentAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['form', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->post('/gallery', CreateGallerySegmentAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['gallery', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->post('/html', CreateHtmlSegmentAction::class)
+                ->add(new CheckRequiredFieldsMiddleware(['html', 'position']))
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->delete('/{position}', DeleteSegmentAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->put('/{position}', UpdateSegmentAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
+            $proxy->get('', GetSegmentsAction::class)
+                ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER));
+        })->add(AuthenticationMiddleware::class);
+
+        // Statistics
+        $proxy->group('/statistics', function (RouteCollectorProxy $proxy) {
+            $proxy->get('/entity', GetEntityStatisticsAction::class);
+            $proxy->get('/history/{type}', GetHistoryStatisticsAction::class);
+            $proxy->get('/system', GetSystemStatisticsAction::class);
+            $proxy->group('/visits', function (RouteCollectorProxy $proxy) {
+                $proxy->get('/browser', GetVisitsByBrowserAction::class);
+                $proxy->get('/country', GetVisitsByCountryAction::class);
+                $proxy->get('/brand', GetVisitsByDeviceBrandAction::class);
+                $proxy->get('/type', GetVisitsByDeviceTypeAction::class);
+                $proxy->get('/language', GetVisitsByLanguageAction::class);
+                $proxy->get('/os', GetVisitsByOsAction::class);
+                $proxy->get('/referrer', GetVisitsByReferrerAction::class);
+            });
+        })->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
     // Reflection based
@@ -266,10 +321,16 @@ return function (App $app) {
         $blogArgs['entity'] = 'Blog' . ucfirst($blogArgs['entity']);
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $blogArgs);
     });
+    $app->any('/api/page[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+        $pageArgs = $args;
+        $pageArgs['entity'] = 'SimplePage';
+        return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $pageArgs);
+    });
     $app->any('/api/{entity}[/{id}]', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
         return JinyaModelToRouteResolver::resolveActionWithClassAndId($request, $response, $args);
     });
 
+    // Frontend
     $app->get('/{year:\d\d\d\d}/{month:\d\d}/{day:\d\d}/{slug}', GetBlogFrontAction::class);
     $app->get('/', GetFrontAction::class);
     $app->group('/{route:.*}', function (RouteCollectorProxy $frontend) {

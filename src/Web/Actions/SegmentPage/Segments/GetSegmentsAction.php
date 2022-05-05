@@ -6,14 +6,10 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\SegmentPage;
 use App\Web\Actions\Action;
-use App\Web\Attributes\Authenticated;
-use App\Web\Attributes\JinyaAction;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/segment-page/{id}/segment', JinyaAction::GET)]
-#[Authenticated(Authenticated::READER)]
 class GetSegmentsAction extends Action
 {
     /**

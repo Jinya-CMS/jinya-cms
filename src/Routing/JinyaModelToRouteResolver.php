@@ -26,9 +26,13 @@ class JinyaModelToRouteResolver
 {
     public static function resolveActionWithClassAndId(Request $request, Response $response, array $args): Response
     {
-        $class = $args['entity'];
+        $class = '';
 
-        $entityClass = __JINYA_MODEL_NAMESPACE . ucfirst($class);
+        $classParts = explode('-', $args['entity']);
+        foreach ($classParts as $classPart) {
+            $class .= ucfirst($classPart);
+        }
+        $entityClass = __JINYA_MODEL_NAMESPACE . $class;
         if (!class_exists($entityClass, true)) {
             throw new HttpNotFoundException($request);
         }
