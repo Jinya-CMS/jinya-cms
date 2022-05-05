@@ -45,6 +45,9 @@ use App\Web\Actions\Menu\Items\GetMenuItemsByMenuAction;
 use App\Web\Actions\Menu\Items\MoveMenuItemParentToItemAction;
 use App\Web\Actions\Menu\Items\ResetMenuItemParentAction;
 use App\Web\Actions\Menu\Items\UpdateMenuItemAction;
+use App\Web\Actions\MyJinya\GetArtistInfoAction;
+use App\Web\Actions\MyJinya\UpdateAboutMeAction;
+use App\Web\Actions\MyJinya\UpdateColorScheme;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\PostUpdateAction;
 use App\Web\Middleware\AuthenticationMiddleware;
@@ -237,6 +240,14 @@ return function (App $app) {
         })->add(AuthenticationMiddleware::class);
         $proxy->put('/menu/{menuItemId}/move/parent/to/menu/{menuId}', ResetMenuItemParentAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
+            ->add(AuthenticationMiddleware::class);
+
+        // My Jinya
+        $proxy->get('/me', GetArtistInfoAction::class)->add(AuthenticationMiddleware::class);
+        $proxy->get('/account', GetArtistInfoAction::class)->add(AuthenticationMiddleware::class);
+        $proxy->put('/me', UpdateAboutMeAction::class)->add(AuthenticationMiddleware::class);
+        $proxy->put('/me/colorscheme', UpdateColorScheme::class)
+            ->add(new CheckRequiredFieldsMiddleware(['colorScheme']))
             ->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
