@@ -67,7 +67,9 @@ use App\Web\Actions\Statistics\GetVisitsByLanguageAction;
 use App\Web\Actions\Statistics\GetVisitsByOsAction;
 use App\Web\Actions\Statistics\GetVisitsByReferrerAction;
 use App\Web\Actions\Update\GetUpdateAction;
+use App\Web\Actions\Update\InitUpdateProcess;
 use App\Web\Actions\Update\PostUpdateAction;
+use App\Web\Actions\Version\GetVersionInfo;
 use App\Web\Middleware\AuthenticationMiddleware;
 use App\Web\Middleware\CheckRequiredFieldsMiddleware;
 use App\Web\Middleware\CheckRouteInCurrentThemeMiddleware;
@@ -93,6 +95,7 @@ return function (App $app) {
 
         return $handler->handle($request);
     });
+
     $app->group('/update', function (RouteCollectorProxy $updater) {
         $updater->get('', GetUpdateAction::class);
         $updater->post('', PostUpdateAction::class);
@@ -109,6 +112,7 @@ return function (App $app) {
             ->withStatus(Action::HTTP_MOVED_PERMANENTLY)
             ->withHeader('Location', '/');
     });
+
     $app->group('/api', function (RouteCollectorProxy $proxy) {
         // Matomo
         $proxy->map(['HEAD'], '/matomo', function (ServerRequestInterface $request, ResponseInterface $response) {
@@ -310,6 +314,16 @@ return function (App $app) {
                 $proxy->get('/referrer', GetVisitsByReferrerAction::class);
             });
         })->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))->add(AuthenticationMiddleware::class);
+
+        // Update
+        $proxy->put('/update', InitUpdateProcess::class)
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
+            ->add(AuthenticationMiddleware::class);
+
+        // Version
+        $proxy->get('/version', GetVersionInfo::class)
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
+            ->add(AuthenticationMiddleware::class);
     })->add(new BodyParsingMiddleware());
 
     // Reflection based
