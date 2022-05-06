@@ -40,9 +40,13 @@ class PutLinkItemAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
+        /** @var array $body */
         $body = $this->request->getParsedBody();
         $id = $body[$entityType];
 
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         */
         $reflectionClass = new ReflectionClass('App\Database\Theme' . ucfirst($entityType));
         $themeLink = $reflectionClass->getMethod('findByThemeAndName')->invoke(null, $themeId, $name);
         if (null !== $themeLink) {

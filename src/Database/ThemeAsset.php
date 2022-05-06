@@ -65,6 +65,9 @@ class ThemeAsset extends ThemeHelperEntity
         $this->internalUpdate('theme_asset');
     }
 
+    /**
+     * @return array<string>
+     */
     public function format(): array
     {
         return [];

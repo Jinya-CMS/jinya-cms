@@ -65,7 +65,7 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity
     }
 
     /**
-     * @return array{blogCategory: array{description: null|string, id: int, name: string, parent: array|null}|null, name: string}
+     * @return array{blogCategory: array|null, name: string}
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException

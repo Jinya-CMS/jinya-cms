@@ -21,7 +21,7 @@ class FileUploadService extends StorageBaseService
      *
      * @param int $fileId
      * @param int $position
-     * @param string $data
+     * @param string|resource|null $data
      * @return UploadingFileChunk
      * @throws EmptyResultException
      * @throws ForeignKeyFailedException
@@ -30,8 +30,12 @@ class FileUploadService extends StorageBaseService
      * @throws UniqueFailedException
      * @throws Exception
      */
-    public function saveChunk(int $fileId, int $position, string $data): UploadingFileChunk
+    public function saveChunk(int $fileId, int $position, mixed $data): UploadingFileChunk
     {
+        if (null === $data) {
+            throw new RuntimeException();
+        }
+
         $path = __JINYA_TEMP . UuidGenerator::generateV4();
         file_put_contents($path, $data);
 
@@ -43,7 +47,7 @@ class FileUploadService extends StorageBaseService
         $chunk = new UploadingFileChunk();
         $chunk->chunkPath = $path;
         $chunk->chunkPosition = $position;
-        $chunk->uploadingFileId = $uploadingFile->id;
+        $chunk->uploadingFileId = (string)$uploadingFile->id;
         $chunk->create();
 
         return $chunk;
@@ -52,13 +56,14 @@ class FileUploadService extends StorageBaseService
     /**
      * Finishes the upload for the given file
      *
-     * @throws UniqueFailedException
+     * @param int $fileId
+     * @return null|object
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
-     * @throws NoResultException
+     * @throws UniqueFailedException
      */
-    public function finishUpload(int $fileId): File
+    public function finishUpload(int $fileId): object|null
     {
         $file = File::findById($fileId);
         $chunks = UploadingFileChunk::findByFile($fileId);

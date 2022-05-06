@@ -8,6 +8,7 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
+use RuntimeException;
 
 class ProfilePictureService extends StorageBaseService
 {
@@ -15,21 +16,31 @@ class ProfilePictureService extends StorageBaseService
      * Sets and saves the profile picture of the given artist
      *
      * @param int $artistId
-     * @param string $data
+     * @param string|resource|null $data
      * @throws EmptyResultException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException
      * @throws UniqueFailedException
      */
-    public function saveProfilePicture(int $artistId, string $data): void
+    public function saveProfilePicture(int $artistId, mixed $data): void
     {
+        if (null === $data) {
+            throw new RuntimeException();
+        }
+
         $artist = Artist::findById($artistId);
         if (null === $artist) {
             throw new EmptyResultException('The artist was not found');
         }
 
-        $fileName = hash('sha256', $data);
+        if (is_string($data)) {
+            $fileName = hash('sha256', $data);
+        } elseif (is_resource($data)) {
+            $fileName = $this->getFileHash($data);
+        } else {
+            $fileName = '';
+        }
         file_put_contents(self::SAVE_PATH . $fileName, $data);
         $artist->profilePicture = self::WEB_PATH . $fileName;
         $artist->update();

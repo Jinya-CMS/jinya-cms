@@ -46,6 +46,10 @@ class JinyaModelToRouteResolver
         foreach ($classParts as $classPart) {
             $class .= ucfirst($classPart);
         }
+
+        /**
+         * @psalm-suppress UndefinedConstant
+         */
         $entityClass = __JINYA_MODEL_NAMESPACE . $class;
         if (!class_exists($entityClass, true)) {
             throw new HttpNotFoundException($request);
@@ -71,6 +75,7 @@ class JinyaModelToRouteResolver
             'deleteRole' => Authenticated::WRITER,
         ];
         $jinyaApiAttributeArguments = $jinyaApiAttributes[0]->getArguments();
+        /** @var array<string, mixed> $jinyaApiArguments */
         $jinyaApiArguments = [...$defaultAttributeValues, ...$jinyaApiAttributeArguments];
         $method = strtolower($request->getMethod());
 
@@ -130,6 +135,7 @@ class JinyaModelToRouteResolver
                 if ($result instanceof Iterator) {
                     $result = iterator_to_array($result);
                 }
+                /** @var array $result */
                 $data = array_map(static fn(FormattableEntityInterface $entity) => $entity->format(), $result);
                 $payload = [
                     'offset' => 0,
@@ -281,13 +287,13 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
-    private static function checkRole(Artist $artist, Request $request, string $role): void
+    private static function checkRole(?Artist $artist, Request $request, string $role): void
     {
         $cascadedRole = match ($role) {
             Authenticated::READER => Authenticated::WRITER,
             default => '',
         };
-        if (!(in_array($role, $artist->roles, true) || in_array($cascadedRole, $artist->roles, true))) {
+        if (!(in_array($role, $artist?->roles ?? [], true) || in_array($cascadedRole, $artist?->roles ?? [], true))) {
             throw new HttpForbiddenException($request, 'Not enough permissions');
         }
 
@@ -299,7 +305,7 @@ class JinyaModelToRouteResolver
      * @throws NoResultException
      * @throws InvalidQueryException
      */
-    private static function getCurrentUser(Request $request): Artist
+    private static function getCurrentUser(Request $request): Artist|null
     {
         $apiKeyHeader = $request->getHeaderLine('JinyaApiKey');
         $apiKey = ApiKey::findByApiKey($apiKeyHeader);
@@ -318,7 +324,7 @@ class JinyaModelToRouteResolver
 
         $apiKey->validSince = new DateTime();
         $artist = $apiKey->getArtist();
-        if (!$artist->enabled) {
+        if (!$artist?->enabled) {
             $apiKey->delete();
             throw new HttpForbiddenException($request, 'Api key invalid');
         }
