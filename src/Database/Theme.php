@@ -4,6 +4,7 @@ namespace App\Database;
 
 use App\Database\Strategies\JsonStrategy;
 use App\Database\Utils\FormattableEntityInterface;
+use App\Routing\Attributes\JinyaApi;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -12,6 +13,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use stdClass;
 
+#[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: false)]
 class Theme extends Utils\LoadableEntity implements FormattableEntityInterface
 {
 

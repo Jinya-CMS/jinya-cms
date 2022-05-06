@@ -66,6 +66,18 @@ use App\Web\Actions\Statistics\GetVisitsByDeviceTypeAction;
 use App\Web\Actions\Statistics\GetVisitsByLanguageAction;
 use App\Web\Actions\Statistics\GetVisitsByOsAction;
 use App\Web\Actions\Statistics\GetVisitsByReferrerAction;
+use App\Web\Actions\Theme\ActivateThemeAction;
+use App\Web\Actions\Theme\CompileThemeAction;
+use App\Web\Actions\Theme\CreateThemeAction;
+use App\Web\Actions\Theme\GetConfigurationStructureAction;
+use App\Web\Actions\Theme\GetDefaultConfigurationValues;
+use App\Web\Actions\Theme\GetLinkItemAction;
+use App\Web\Actions\Theme\GetPreviewImageAction;
+use App\Web\Actions\Theme\GetStyleVariablesAction;
+use App\Web\Actions\Theme\PutConfigurationAction;
+use App\Web\Actions\Theme\PutLinkItemAction;
+use App\Web\Actions\Theme\PutStyleVariablesAction;
+use App\Web\Actions\Theme\UpdateThemeFilesAction;
 use App\Web\Actions\Update\GetUpdateAction;
 use App\Web\Actions\Update\InitUpdateProcess;
 use App\Web\Actions\Update\PostUpdateAction;
@@ -154,7 +166,7 @@ return function (App $app) {
             ->add(AuthenticationMiddleware::class);
         $proxy->post('/login', LoginAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
-        $proxy->map(['HEAD'], '/api/login', fn(ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
+        $proxy->map(['HEAD'], '/login', fn(ServerRequestInterface $request, ResponseInterface $response) => $response->withStatus(Action::HTTP_NO_CONTENT))
             ->add(AuthenticationMiddleware::class);
         $proxy->post('/2fa', TwoFactorAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['username', 'password']));
@@ -314,6 +326,27 @@ return function (App $app) {
                 $proxy->get('/referrer', GetVisitsByReferrerAction::class);
             });
         })->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))->add(AuthenticationMiddleware::class);
+
+        // Theme
+        $proxy->get('/theme/{id}/preview', GetPreviewImageAction::class);
+        $proxy->group('/theme', function (RouteCollectorProxy $proxy) {
+            $proxy->post('', CreateThemeAction::class);
+            $proxy->put('/{id}', UpdateThemeFilesAction::class);
+            $proxy->put('/{id}/active', ActivateThemeAction::class);
+            $proxy->put('/{id}/assets', CompileThemeAction::class);
+            $proxy->get('/{id}/styling', GetStyleVariablesAction::class);
+            $proxy->put('/{id}/styling', PutStyleVariablesAction::class);
+
+            $proxy->get('/{id}/{entityType}', GetLinkItemAction::class);
+            $proxy->put('/{id}/{entityType}/{name}', PutLinkItemAction::class);
+
+            $proxy->group('/{id}/configuration', function (RouteCollectorProxy $proxy) {
+                $proxy->get('/structure', GetConfigurationStructureAction::class);
+                $proxy->get('/default', GetDefaultConfigurationValues::class);
+
+                $proxy->put('', PutConfigurationAction::class);
+            });
+        })->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))->add(AuthenticationMiddleware::class);
 
         // Update
         $proxy->put('/update', InitUpdateProcess::class)

@@ -4,13 +4,11 @@ namespace App\Web\Actions\Theme;
 
 use App\Database;
 use App\Theming;
-use App\Web\Attributes\JinyaAction;
 use App\Web\Exceptions\NoResultException;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Nyholm\Psr7\Stream;
 use Psr\Http\Message\ResponseInterface as Response;
 
-#[JinyaAction('/api/theme/{id}/preview', JinyaAction::GET)]
 class GetPreviewImageAction extends ThemeAction
 {
     /**
