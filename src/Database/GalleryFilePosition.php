@@ -9,7 +9,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
-class GalleryFilePosition extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
+class GalleryFilePosition extends Utils\RearrangableEntity
 {
     public int $galleryId;
     public int $fileId;

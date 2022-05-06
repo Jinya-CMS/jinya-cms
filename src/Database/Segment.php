@@ -8,7 +8,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
-class Segment extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
+class Segment extends Utils\RearrangableEntity
 {
     public int $pageId;
     public ?int $formId;

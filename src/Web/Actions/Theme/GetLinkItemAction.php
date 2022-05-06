@@ -2,8 +2,11 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use stdClass;
 
@@ -12,6 +15,10 @@ class GetLinkItemAction extends ThemeAction
 
     /**
      * @inheritDoc
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {

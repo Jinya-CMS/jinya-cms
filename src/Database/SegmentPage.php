@@ -14,7 +14,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 #[JinyaApi]
-class SegmentPage extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
+class SegmentPage extends Utils\LoadableEntity
 {
     #[JinyaApiField(ignore: true)]
     public int $creatorId;

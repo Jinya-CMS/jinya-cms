@@ -11,7 +11,6 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use RuntimeException;
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Exception\CompilerException;
 use ScssPhp\ScssPhp\Exception\SassException;
 use ScssPhp\ScssPhp\OutputStyle;
 
@@ -42,7 +41,7 @@ class Theme implements ExtensionInterface
                 return 'url("' . $assets[$assetName]->publicPath . '")';
             }
 
-            throw new CompilerException("Asset with name $assetName not found");
+            throw new RuntimeException("Asset with name $assetName not found");
         }, ['assetName']);
 
         $this->parseThemePhp();

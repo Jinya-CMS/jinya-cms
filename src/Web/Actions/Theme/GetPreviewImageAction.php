@@ -28,6 +28,7 @@ class GetPreviewImageAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
+        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         if (file_exists($theme->getPreviewImagePath())) {
             return $this->response

@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
@@ -10,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-class ThemeForm extends ThemeHelperEntity implements FormattableEntityInterface
+class ThemeForm extends ThemeHelperEntity
 {
 
     public int $formId = -1;

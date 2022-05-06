@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\FormattableEntityInterface
+class ThemeBlogCategory extends Utils\ThemeHelperEntity
 {
     public int $blogCategoryId = -1;
 
@@ -65,7 +65,7 @@ class ThemeBlogCategory extends Utils\ThemeHelperEntity implements Utils\Formatt
     }
 
     /**
-     * @return array{blogCategory: array{description: null|string, id: int, name: string, parent: array<array-key, mixed>|null}|null, name: string}
+     * @return array{blogCategory: array{description: null|string, id: int, name: string, parent: array|null}|null, name: string}
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
      * @throws NoResultException

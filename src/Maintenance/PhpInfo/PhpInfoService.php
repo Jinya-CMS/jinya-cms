@@ -14,7 +14,7 @@ class PhpInfoService
      *
      * @return string
      */
-    #[Pure] public function getUname(): string
+    public function getUname(): string
     {
         return php_uname();
     }

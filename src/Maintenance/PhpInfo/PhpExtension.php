@@ -4,6 +4,7 @@ namespace App\Maintenance\PhpInfo;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JsonSerializable;
+use ReturnTypeWillChange;
 use stdClass;
 
 class PhpExtension implements JsonSerializable
@@ -19,7 +20,7 @@ class PhpExtension implements JsonSerializable
     /**
      * {@inheritdoc}
      */
-    #[ArrayShape([
+    #[ReturnTypeWillChange] #[ArrayShape([
         'iniValues' => '\App\Maintenance\PhpInfo\IniValue[]',
         'version' => 'string',
         'name' => 'string',

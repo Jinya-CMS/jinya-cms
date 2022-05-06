@@ -19,14 +19,18 @@ class FileUploadService extends StorageBaseService
     /**
      * Saves a new file chunk and returns it
      *
-     * @param string|resource $data
+     * @param int $fileId
+     * @param int $position
+     * @param string $data
+     * @return UploadingFileChunk
      * @throws EmptyResultException
-     * @throws UniqueFailedException
      * @throws ForeignKeyFailedException
      * @throws InvalidQueryException
+     * @throws NoResultException
+     * @throws UniqueFailedException
      * @throws Exception
      */
-    public function saveChunk(int $fileId, int $position, $data): UploadingFileChunk
+    public function saveChunk(int $fileId, int $position, string $data): UploadingFileChunk
     {
         $path = __JINYA_TEMP . UuidGenerator::generateV4();
         file_put_contents($path, $data);

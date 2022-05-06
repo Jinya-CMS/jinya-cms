@@ -8,6 +8,7 @@ use App\Theming\ThemeSyncer;
 use App\Utils\UuidGenerator;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\NoResultException;
+use Exception;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
 use ZipArchive;
@@ -22,6 +23,7 @@ class CreateThemeAction extends Action
      * @throws UniqueFailedException
      * @throws InvalidQueryException
      * @throws \Jinya\PDOx\Exceptions\NoResultException
+     * @throws Exception
      */
     protected function action(): Response
     {

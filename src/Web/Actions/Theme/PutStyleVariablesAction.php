@@ -39,6 +39,7 @@ class PutStyleVariablesAction extends ThemeAction
         $dbTheme->scssVariables = $variables;
         $dbTheme->update();
 
+        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $theme->compileStyleCache();
 

@@ -26,6 +26,7 @@ class GetStyleVariablesAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
+        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $vars = $theme->getStyleVariables();
         $dbVars = $dbTheme->scssVariables;

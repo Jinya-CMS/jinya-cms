@@ -5,6 +5,8 @@ namespace App\Routing;
 use App\Authentication\CurrentUser;
 use App\Database\ApiKey;
 use App\Database\Artist;
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
@@ -14,9 +16,13 @@ use App\Web\Exceptions\MissingFieldsException;
 use DateInterval;
 use DateTime;
 use Iterator;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
+use Jinya\PDOx\Exceptions\NoResultException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionProperty;
 use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpMethodNotAllowedException;
@@ -24,6 +30,14 @@ use Slim\Exception\HttpNotFoundException;
 
 class JinyaModelToRouteResolver
 {
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws JsonException
+     * @throws InvalidQueryException
+     * @throws ReflectionException
+     */
     public static function resolveActionWithClassAndId(Request $request, Response $response, array $args): Response
     {
         $class = '';
@@ -76,6 +90,14 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws NoResultException
+     * @throws JsonException
+     * @throws InvalidQueryException
+     * @throws ReflectionException
+     */
     private static function executeGetRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
@@ -127,6 +149,13 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
+    /**
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws ReflectionException
+     * @throws NoResultException
+     */
     private static function executeDeleteRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
@@ -147,11 +176,20 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
+    /**
+     * @throws InvalidQueryException
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws ReflectionException
+     * @throws NoResultException
+     * @throws JsonException
+     */
     private static function executePostRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response): Response
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
         $entity = $reflectionClass->newInstance();
         $requestBody = $request->getBody()->getContents();
+        /** @noinspection JsonEncodingApiUsageInspection */
         $body = json_decode($requestBody, true) ?? [];
         $requiredFieldMissing = false;
         $missingRequiredFields = [];
@@ -194,6 +232,13 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
+    /**
+     * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws InvalidQueryException
+     * @throws ReflectionException
+     * @throws NoResultException
+     */
     private static function executePutRequest(ReflectionClass $reflectionClass, string $role, Request $request, Response $response, array $args): Response
     {
         self::checkRole(self::getCurrentUser($request), $request, $role);
@@ -203,6 +248,7 @@ class JinyaModelToRouteResolver
                 $method = $reflectionClass->getMethod('findById');
                 $entity = $method->invoke(null, $id);
                 $requestBody = $request->getBody()->getContents();
+                /** @noinspection JsonEncodingApiUsageInspection */
                 $body = json_decode($requestBody, true) ?? [];
                 foreach ($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {
                     $apiFieldAttributes = $reflectionProperty->getAttributes(JinyaApiField::class);
@@ -235,7 +281,7 @@ class JinyaModelToRouteResolver
         throw new HttpMethodNotAllowedException($request);
     }
 
-    private static function checkRole(Artist $artist, Request $request, string $role): bool
+    private static function checkRole(Artist $artist, Request $request, string $role): void
     {
         $cascadedRole = match ($role) {
             Authenticated::READER => Authenticated::WRITER,
@@ -245,9 +291,14 @@ class JinyaModelToRouteResolver
             throw new HttpForbiddenException($request, 'Not enough permissions');
         }
 
-        return true;
     }
 
+    /**
+     * @throws UniqueFailedException
+     * @throws ForeignKeyFailedException
+     * @throws NoResultException
+     * @throws InvalidQueryException
+     */
     private static function getCurrentUser(Request $request): Artist
     {
         $apiKeyHeader = $request->getHeaderLine('JinyaApiKey');
@@ -276,17 +327,5 @@ class JinyaModelToRouteResolver
         CurrentUser::$currentUser = $artist;
 
         return $apiKey->getArtist();
-    }
-
-    /**
-     * @param Request $request
-     * @param ReflectionClass $reflectionClass
-     * @param mixed $entity
-     * @return mixed
-     */
-    private static function setEntityValues(Request $request, ReflectionClass $reflectionClass, mixed $entity): mixed
-    {
-
-        return $entity;
     }
 }

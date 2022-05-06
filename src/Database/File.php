@@ -3,7 +3,6 @@
 namespace App\Database;
 
 use App\Authentication\CurrentUser;
-use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
@@ -16,7 +15,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 #[JinyaApi(createRole: Authenticated::WRITER, readRole: Authenticated::READER, updateRole: Authenticated::WRITER, deleteRole: Authenticated::WRITER)]
-class File extends LoadableEntity implements FormattableEntityInterface
+class File extends LoadableEntity
 {
     #[JinyaApiField(ignore: true)]
     public int $creatorId;

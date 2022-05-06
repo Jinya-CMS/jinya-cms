@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
-use App\Database\Utils\FormattableEntityInterface;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
 use Iterator;
@@ -15,7 +14,7 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 #[JinyaApi]
-class BlogCategory extends Utils\LoadableEntity implements FormattableEntityInterface
+class BlogCategory extends Utils\LoadableEntity
 {
     #[JinyaApiField(required: true)]
     public string $name = '';

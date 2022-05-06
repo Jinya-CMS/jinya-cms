@@ -79,7 +79,7 @@ class FormMessageHandler
             $mailer->setFrom(getenv('MAILER_FROM'));
             $mailer->Subject = $subject;
             $mailer->Body = $this->renderTemplate($formValues, $subject);
-            $mailer->isHTML(true);
+            $mailer->isHTML();
             $mailer->send();
         }
 

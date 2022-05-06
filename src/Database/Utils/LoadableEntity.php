@@ -118,29 +118,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
     }
 
     /**
-     * Hydrates the result using the given prototype and returns the object that was hydrated
-     *
-     * @param array $result
-     * @param mixed $prototype
-     * @param StrategyInterface[] $additionalStrategies
-     * @return mixed
-     */
-//    public static function hydrateSingleResult(array $result, mixed $prototype, array $additionalStrategies = []): mixed
-//    {
-//        $hydrator = self::getHydrator($additionalStrategies);
-//        foreach ($result as $key => $item) {
-//            if (!is_string($key)) {
-//                unset($result[$key]);
-//            }
-//        }
-//
-//        if ($result === null) {
-//            return null;
-//        }
-//        return $hydrator->hydrate($result, $prototype);
-//    }
-
-    /**
      * @param array $additionalStrategies
      * @return HydratorInterface
      */
@@ -154,33 +131,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
 
         return $hydrator;
     }
-
-    /**
-     * Hydrates the result using the given prototype as array
-     *
-     * @param array $result
-     * @param mixed $prototype
-     * @param StrategyInterface[] $additionalStrategies
-     * @return Iterator
-     */
-//    public static function hydrateMultipleResults(
-//        array $result,
-//        mixed $prototype,
-//        array $additionalStrategies = []
-//    ): Iterator
-//    {
-//        $hydrator = self::getHydrator($additionalStrategies);
-//
-//        foreach ($result as $item) {
-//            foreach ($item as $key => $field) {
-//                if (!is_string($key)) {
-//                    unset($item[$key]);
-//                }
-//            }
-//            $proto = clone $prototype;
-//            yield $hydrator->hydrate($item, $proto);
-//        }
-//    }
 
     /**
      * Fetches a single entity by the given id
@@ -252,11 +202,6 @@ abstract class LoadableEntity implements FormattableEntityInterface
     public function getIdAsInt(): int
     {
         return (int)$this->id;
-    }
-
-    public function getIdAsString(): string
-    {
-        return (string)$this->id;
     }
 
     /**

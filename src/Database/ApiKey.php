@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Utils\FormattableEntityInterface;
 use DateTime;
 use Exception;
 use Iterator;
@@ -12,7 +11,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use RuntimeException;
 
-class ApiKey extends Utils\LoadableEntity implements FormattableEntityInterface
+class ApiKey extends Utils\LoadableEntity
 {
     public string $apiKey;
     public int $userId;

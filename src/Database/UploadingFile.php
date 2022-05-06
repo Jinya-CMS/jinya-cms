@@ -111,4 +111,9 @@ class UploadingFile extends Utils\LoadableEntity
     {
         throw new RuntimeException('Not implemented');
     }
+
+    public function format(): array
+    {
+        return [];
+    }
 }

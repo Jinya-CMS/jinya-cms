@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Utils\FormattableEntityInterface;
 use Exception;
 use Iterator;
 use JetBrains\PhpStorm\ArrayShape;
@@ -10,7 +9,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use RuntimeException;
 
-class KnownDevice extends Utils\LoadableEntity implements FormattableEntityInterface
+class KnownDevice extends Utils\LoadableEntity
 {
     public int $userId;
     public string $deviceKey;

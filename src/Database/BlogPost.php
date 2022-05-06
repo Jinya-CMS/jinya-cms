@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Authentication\CurrentUser;
 use App\Database\Exceptions\TransactionFailedException;
-use App\Database\Utils\FormattableEntityInterface;
 use App\Routing\Attributes\JinyaApi;
 use DateTime;
 use Iterator;
@@ -16,7 +15,7 @@ use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 use PDOException;
 
 #[JinyaApi(createEnabled: false, readEnabled: true, updateEnabled: false, deleteEnabled: true)]
-class BlogPost extends Utils\LoadableEntity implements FormattableEntityInterface
+class BlogPost extends Utils\LoadableEntity
 {
     public string $title;
     public string $slug;

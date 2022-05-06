@@ -32,6 +32,7 @@ class CompileThemeAction extends ThemeAction
             throw new NoResultException($this->request, 'Theme not found');
         }
 
+        /** @noinspection PhpParamsInspection */
         $theme = new Theming\Theme($dbTheme);
         $theme->compileAssetCache();
         $theme->compileStyleCache();

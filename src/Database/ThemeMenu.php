@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
@@ -10,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-class ThemeMenu extends ThemeHelperEntity implements FormattableEntityInterface
+class ThemeMenu extends ThemeHelperEntity
 {
 
     public int $menuId = -1;

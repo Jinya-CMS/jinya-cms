@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PropertyInitializationFlawsInspection */
 
 namespace App\Database;
 
@@ -63,5 +63,10 @@ class ThemeAsset extends ThemeHelperEntity
     public function update(): void
     {
         $this->internalUpdate('theme_asset');
+    }
+
+    public function format(): array
+    {
+        return [];
     }
 }

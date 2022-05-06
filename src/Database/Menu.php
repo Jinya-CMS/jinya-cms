@@ -10,7 +10,7 @@ use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
 #[JinyaApi]
-class Menu extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
+class Menu extends Utils\LoadableEntity
 {
     #[JinyaApiField(required: true)]
     public string $name;

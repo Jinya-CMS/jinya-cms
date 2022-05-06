@@ -10,7 +10,7 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use LogicException;
 use RuntimeException;
 
-class MenuItem extends Utils\RearrangableEntity implements Utils\FormattableEntityInterface
+class MenuItem extends Utils\RearrangableEntity
 {
     public ?int $menuId = null;
     public ?int $parentId = null;

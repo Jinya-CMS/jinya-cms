@@ -9,7 +9,6 @@ class UuidGenerator
     /**
      * @return false|string
      * @throws Exception
-     *
      */
     public static function generateV4(): string|bool
     {

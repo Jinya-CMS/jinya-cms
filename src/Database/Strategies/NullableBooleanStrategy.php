@@ -14,7 +14,7 @@ class NullableBooleanStrategy implements StrategyInterface
      * @return ?int Returns the value that should be extracted.
      * @throws InvalidArgumentException
      */
-    public function extract($value, ?object $object = null)
+    public function extract($value, ?object $object = null): ?int
     {
         if ($value === true) {
             return 1;
@@ -30,10 +30,10 @@ class NullableBooleanStrategy implements StrategyInterface
      * Converts the given value so that it can be hydrated by the hydrator.
      *
      * @param bool|int|string $value The original value.
-     * @return bool Returns the value that should be hydrated.
-     * @throws InvalidArgumentException
+     * @param array|null $data
+     * @return bool|null Returns the value that should be hydrated.
      */
-    public function hydrate($value, ?array $data = null)
+    public function hydrate($value, ?array $data = null): ?bool
     {
         if (is_bool($value)) {
             return $value;

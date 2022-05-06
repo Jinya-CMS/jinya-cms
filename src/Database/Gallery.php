@@ -13,7 +13,7 @@ use Jinya\PDOx\Exceptions\NoResultException;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 #[JinyaApi]
-class Gallery extends Utils\LoadableEntity implements Utils\FormattableEntityInterface
+class Gallery extends Utils\LoadableEntity
 {
 
     public const TYPE_SEQUENCE = 'sequence';

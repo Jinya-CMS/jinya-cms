@@ -7,7 +7,6 @@ use App\Database\Exceptions\ForeignKeyFailedException;
 use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Strategies\NullableBooleanStrategy;
 use App\Database\Strategies\PhpSerializeStrategy;
-use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\LoadableEntity;
 use App\Routing\Attributes\JinyaApi;
 use App\Routing\Attributes\JinyaApiField;
@@ -26,7 +25,7 @@ use Laminas\Hydrator\Strategy\BooleanStrategy;
 use Laminas\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 #[JinyaApi(createRole: Authenticated::ADMIN, readRole: Authenticated::READER, updateRole: Authenticated::ADMIN, deleteRole: Authenticated::ADMIN)]
-class Artist extends LoadableEntity implements FormattableEntityInterface
+class Artist extends LoadableEntity
 {
     #[JinyaApiField(required: true)]
     public string $email = '';

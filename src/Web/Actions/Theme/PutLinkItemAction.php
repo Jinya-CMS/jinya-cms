@@ -2,15 +2,25 @@
 
 namespace App\Web\Actions\Theme;
 
+use App\Database\Exceptions\ForeignKeyFailedException;
+use App\Database\Exceptions\UniqueFailedException;
 use App\Database\Theme;
 use App\Web\Exceptions\NoResultException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Psr\Http\Message\ResponseInterface as Response;
+use ReflectionClass;
+use ReflectionException;
 
 class PutLinkItemAction extends ThemeAction
 {
 
     /**
      * @inheritDoc
+     * @throws ReflectionException
+     * @throws ForeignKeyFailedException
+     * @throws UniqueFailedException
+     * @throws InvalidQueryException
+     * @throws \Jinya\PDOx\Exceptions\NoResultException
      */
     protected function action(): Response
     {
@@ -33,7 +43,7 @@ class PutLinkItemAction extends ThemeAction
         $body = $this->request->getParsedBody();
         $id = $body[$entityType];
 
-        $reflectionClass = new \ReflectionClass('App\Database\Theme' . ucfirst($entityType));
+        $reflectionClass = new ReflectionClass('App\Database\Theme' . ucfirst($entityType));
         $themeLink = $reflectionClass->getMethod('findByThemeAndName')->invoke(null, $themeId, $name);
         if (null !== $themeLink) {
             $themeLink->themeId = $themeId;

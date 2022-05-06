@@ -28,6 +28,7 @@ class UpdateMenuItemAction extends MenuItemAction
             throw new NoResultException($this->request, 'Menu item not found');
         }
 
+        /** @noinspection PhpParamsInspection */
         $menuItem = $this->fillMenuItem($menuItem);
         $menuItem->update();
 

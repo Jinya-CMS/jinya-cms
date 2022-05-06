@@ -2,7 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Utils\FormattableEntityInterface;
 use App\Database\Utils\ThemeHelperEntity;
 use Exception;
 use Iterator;
@@ -10,7 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 
-class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterface
+class ThemeGallery extends ThemeHelperEntity
 {
 
     public int $galleryId = -1;
@@ -33,7 +32,7 @@ class ThemeGallery extends ThemeHelperEntity implements FormattableEntityInterfa
     }
 
     /**
-     * Finds the gallerys for the given theme
+     * Finds the galleries for the given theme
      *
      * @param int $themeId
      * @return Iterator
