@@ -47,9 +47,6 @@ class JinyaModelToRouteResolver
             $class .= ucfirst($classPart);
         }
 
-        /**
-         * @psalm-suppress UndefinedConstant
-         */
         $entityClass = __JINYA_MODEL_NAMESPACE . $class;
         if (!class_exists($entityClass, true)) {
             throw new HttpNotFoundException($request);
