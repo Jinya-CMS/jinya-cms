@@ -2,8 +2,8 @@
 
 namespace App\Database\Exceptions;
 
-use Exception;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 
-class ForeignKeyFailedException extends Exception
+class ForeignKeyFailedException extends InvalidQueryException
 {
 }

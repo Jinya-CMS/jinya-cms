@@ -171,12 +171,16 @@ abstract class LoadableEntity implements FormattableEntityInterface
         InvalidQueryException $exception
     ): UniqueFailedException|ForeignKeyFailedException|InvalidQueryException
     {
-        return match ($exception->errorInfo[1]) {
-            1062 => new UniqueFailedException($exception),
-            1452 => new ForeignKeyFailedException($exception),
-            default => $exception,
-        };
+        if (!empty($exception->errorInfo[1])) {
+            return match ($exception->errorInfo[1]) {
+                1062 => new UniqueFailedException($exception->getMessage(), 1062, $exception, $exception->errorInfo),
+                1452 => new ForeignKeyFailedException($exception->getMessage(), 1452, $exception, $exception->errorInfo),
+                1451 => new ForeignKeyFailedException($exception->getMessage(), 1451, $exception, $exception->errorInfo),
+                default => $exception,
+            };
+        }
 
+        return $exception;
     }
 
     /**

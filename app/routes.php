@@ -18,6 +18,7 @@ use App\Web\Actions\Blog\Post\ListPostsByCategoryAction;
 use App\Web\Actions\Blog\Post\UpdatePostAction;
 use App\Web\Actions\Database\DatabaseAnalyzerAction;
 use App\Web\Actions\Database\ExecuteQueryAction;
+use App\Web\Actions\Environment\GetEnvironmentAction;
 use App\Web\Actions\File\GetFileContentAction;
 use App\Web\Actions\File\Upload\FinishUploadAction;
 use App\Web\Actions\File\Upload\StartUploadAction;
@@ -40,6 +41,7 @@ use App\Web\Actions\KnownDevice\ListAllKnownDevicesAction;
 use App\Web\Actions\KnownDevice\ValidateKnownDeviceAction;
 use App\Web\Actions\LocateIp\LocatorAction;
 use App\Web\Actions\Menu\Items\CreateMenuItemByMenuAction;
+use App\Web\Actions\Menu\Items\CreateMenuItemByMenuItemAction;
 use App\Web\Actions\Menu\Items\DeleteMenuItemAction;
 use App\Web\Actions\Menu\Items\GetMenuItemsByMenuAction;
 use App\Web\Actions\Menu\Items\MoveMenuItemParentToItemAction;
@@ -186,7 +188,7 @@ return function (App $app) {
         $proxy->put('/blog/post/{id}', UpdatePostAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER))
             ->add(AuthenticationMiddleware::class);
-        $proxy->get('/blog/post/{id}/segment', UpdatePostAction::class)
+        $proxy->get('/blog/post/{id}/segment', \App\Web\Actions\Blog\Post\GetSegmentsAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_READER))
             ->add(AuthenticationMiddleware::class);
 
@@ -194,8 +196,13 @@ return function (App $app) {
         $proxy->get('/maintenance/database/analyze', DatabaseAnalyzerAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
-        $proxy->get('/maintenance/database/query', ExecuteQueryAction::class)
+        $proxy->post('/maintenance/database/query', ExecuteQueryAction::class)
             ->add(new CheckRequiredFieldsMiddleware(['query']))
+            ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
+            ->add(AuthenticationMiddleware::class);
+
+        // Environment
+        $proxy->get('/environment', GetEnvironmentAction::class)
             ->add(new RoleMiddleware(RoleMiddleware::ROLE_ADMIN))
             ->add(AuthenticationMiddleware::class);
 
@@ -242,7 +249,7 @@ return function (App $app) {
         });
 
         // Known Devices
-        $proxy->group('/api/known_device', function (RouteCollectorProxy $proxy) {
+        $proxy->group('/known_device', function (RouteCollectorProxy $proxy) {
             $proxy->get('', ListAllKnownDevicesAction::class)->add(AuthenticationMiddleware::class);
             $proxy->delete('/{key}', DeleteKnownDeviceAction::class)->add(AuthenticationMiddleware::class);
             $proxy->map(['HEAD'], '/{key}', ValidateKnownDeviceAction::class);
@@ -262,7 +269,7 @@ return function (App $app) {
                 ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
         })->add(AuthenticationMiddleware::class);
         $proxy->group('/menu-item/{menuItemId}', function (RouteCollectorProxy $proxy) {
-            $proxy->post('/item', CreateMenuItemByMenuAction::class)
+            $proxy->post('/item', CreateMenuItemByMenuItemAction::class)
                 ->add(new CheckRequiredFieldsMiddleware(['position', 'title']))
                 ->add(new RoleMiddleware(RoleMiddleware::ROLE_WRITER));
             $proxy->put('/move/parent/to/item/{newParent}', MoveMenuItemParentToItemAction::class)

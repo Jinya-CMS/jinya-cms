@@ -15,7 +15,6 @@ use App\Web\Attributes\Authenticated;
 use App\Web\Exceptions\MissingFieldsException;
 use DateInterval;
 use DateTime;
-use Iterator;
 use Jinya\PDOx\Exceptions\InvalidQueryException;
 use Jinya\PDOx\Exceptions\NoResultException;
 use JsonException;
@@ -129,11 +128,10 @@ class JinyaModelToRouteResolver
             }
 
             if (is_iterable($result)) {
-                if ($result instanceof Iterator) {
-                    $result = iterator_to_array($result);
+                $data = [];
+                foreach ($result as $item) {
+                    $data[] = $item->format();
                 }
-                /** @var array $result */
-                $data = array_map(static fn(FormattableEntityInterface $entity) => $entity->format(), $result);
                 $payload = [
                     'offset' => 0,
                     'itemsCount' => count($data),

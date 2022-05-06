@@ -7,6 +7,7 @@ namespace App\Web\Handlers;
 use App\Web\Actions\Action;
 use App\Web\Exceptions\MissingFieldsException;
 use App\Web\Exceptions\MissingOneOfFieldsException;
+use Jinya\PDOx\Exceptions\InvalidQueryException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpSpecializedException;
@@ -45,6 +46,9 @@ class HttpErrorHandler extends SlimErrorHandler
             $code = $exception->getCode();
             $this->logger->error($exception->getMessage());
             $this->logger->error($exception->getTraceAsString());
+        } elseif ($exception instanceof InvalidQueryException) {
+            $code = 409;
+            $data['error']['message'] = $exception->errorInfo[2] ?? $exception->getMessage();
         }
 
         $response = $this->responseFactory->createResponse();
